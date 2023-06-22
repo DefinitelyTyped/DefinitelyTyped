@@ -5,7 +5,6 @@
         "ban-types": false,
         "max-line-length": false,
         "no-redundant-undefined": false,
-        "no-unnecessary-generics": false,
         "npm-naming": false,
         "unified-signatures": false
     }

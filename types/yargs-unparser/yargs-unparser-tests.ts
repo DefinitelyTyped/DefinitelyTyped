@@ -14,17 +14,17 @@ unparse({ _: [], foo: 'foo', bar: 1, baz: true }, {
 
 const argv: Argv = unparse({ _: ['some/cmd'], foo: 'bar' });
 
-// $ExpectError
+// @ts-expect-error
 unparse({ _: null });
 
-// $ExpectError
+// @ts-expect-error
 unparse({ foo: 'bar' });
 
-// $ExpectError
+// @ts-expect-error
 unparse({ _: [] }, { alias: { foo: 'baz' }});
 
-// $ExpectError
+// @ts-expect-error
 unparse({ _: [] }, { default: null });
 
-// $ExpectError
+// @ts-expect-error
 unparse({ _: [] }, { command: 1 });

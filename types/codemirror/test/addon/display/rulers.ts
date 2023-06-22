@@ -19,17 +19,20 @@ const cm2 = CodeMirror(document.body, {
 });
 
 const cm3 = CodeMirror(document.body, {
-    rulers: true, // $ExpectError
+    // @ts-expect-error
+    rulers: true,
 });
 
 const cm4 = CodeMirror(document.body, {
     rulers: {
-        column: 12, // $ExpectError
+        // @ts-expect-error
+        column: 12,
     },
 });
 
 const cm5 = CodeMirror(document.body, {
-    rulers: [{ // $ExpectError
+    // @ts-expect-error
+    rulers: [{
         color: 'green',
     }],
 });

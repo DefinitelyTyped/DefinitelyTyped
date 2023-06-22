@@ -16,7 +16,7 @@ interface MapLike<Key, Value> {
 }
 
 // index.js
-export type ARIARoleDefintionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
+export type ARIARoleDefinitionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
 
 export const aria: MapLike<ARIAProperty, ARIAPropertyDefinition>;
 export interface DOMDefinition {
@@ -24,9 +24,9 @@ export interface DOMDefinition {
     interactive?: boolean | undefined;
 }
 export const dom: MapLike<string, DOMDefinition>;
-export const elementRoles: MapLike<ARIARoleRelationConcept, Set<ARIARoleDefintionKey>>;
-export const roles: MapLike<ARIARoleDefintionKey, ARIARoleDefinition>;
-export const roleElements: MapLike<ARIARoleDefintionKey, Set<ARIARoleRelationConcept>>;
+export const elementRoles: MapLike<ARIARoleRelationConcept, Set<ARIARoleDefinitionKey>>;
+export const roles: MapLike<ARIARoleDefinitionKey, ARIARoleDefinition>;
+export const roleElements: MapLike<ARIARoleDefinitionKey, Set<ARIARoleRelationConcept>>;
 
 // types
 export type ARIAAbstractRole =

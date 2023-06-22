@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "jsdoc-format": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-reference-import": false,
         "no-single-declare-module": false,

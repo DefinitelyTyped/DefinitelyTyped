@@ -12,6 +12,7 @@ dynamodbLocal.install({ path: '../.dynamodb' });
 dynamodbLocal.install('../.dynamodb');
 
 dynamodbLocal.start({ port: 1234 });
+dynamodbLocal.start({ docker: true });
 // @ts-expect-error
 dynamodbLocal.start();
 

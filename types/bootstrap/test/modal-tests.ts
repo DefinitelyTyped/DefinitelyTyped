@@ -18,32 +18,44 @@ Modal.VERSION;
 Modal.Default;
 
 element.addEventListener(Modal.Events.show, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
+});
+
+// Ensure that using a string literal as the event type works the same as using
+// the `Modal.Events` enum.
+element.addEventListener('show.bs.modal', event => {
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.shown, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hide, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidden, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidePrevented, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').modal();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').modal({ backdrop: 'static' });
 
-$('.alert').modal('show'); // $ExpectType void
-$('.alert').modal('hide'); // $ExpectType void
-$('.alert').modal('toggle'); // $ExpectType void
-$('.alert').modal('handleUpdate'); // $ExpectType void
+$('.alert').modal('show'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('toggle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('handleUpdate'); // $ExpectType JQuery<HTMLElement>

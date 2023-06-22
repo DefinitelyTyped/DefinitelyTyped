@@ -15,7 +15,7 @@ export class VOXLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<object[]>;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Chunk[]>;
     parse(data: ArrayBuffer): object[];
 }
 

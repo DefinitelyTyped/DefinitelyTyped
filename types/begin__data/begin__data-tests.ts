@@ -104,7 +104,7 @@ get({ table, key }, (err, res) => {
     // $ExpectType TestData
     res[0] as TestData;
     // Error: There is no cursor.
-    // $ExpectError
+    // @ts-expect-error
     res.cursor;
 })();
 
@@ -120,13 +120,13 @@ get(
         // $ExpectType DataGetMultipleResult
         res;
         // Error: There is no cursor.
-        // $ExpectError
+        // @ts-expect-error
         res.cursor;
     },
 );
 
 // Error: Get with unnecessary property.
-// $ExpectError
+// @ts-expect-error
 get({ table, key, propUnknown: 'value' });
 
 // Set without key.
@@ -230,9 +230,9 @@ set(
 );
 
 // Error: Set without table.
-// $ExpectError
+// @ts-expect-error
 set({});
-// $ExpectError
+// @ts-expect-error
 set([{}]);
 
 // Destroy.
@@ -269,11 +269,11 @@ destroy(
 );
 
 // Error: Destroy with unnecessary props.
-// $ExpectError
+// @ts-expect-error
 destroy({ table, key, propsUnknown: 'value' });
 
 // Error: Destroy without key.
-// $ExpectError
+// @ts-expect-error
 destroy({ table });
 
 // Count.
@@ -292,9 +292,9 @@ count({ table }, (err, res) => {
 });
 
 // Error: Count with unnecessary props.
-// $ExpectError
+// @ts-expect-error
 count({ table, propsUnknown: 'value' });
-// $ExpectError
+// @ts-expect-error
 count({ table, key });
 
 // Increment.
@@ -319,11 +319,11 @@ incr({ table, key, prop: 'propNumber' }, (err, res) => {
 });
 
 // Error: Increment with list.
-// $ExpectError
+// @ts-expect-error
 incr([{ table, key, prop: 'propNumber' }]);
 
 // Error: Increment without prop.
-// $ExpectError
+// @ts-expect-error
 incr({ table, key });
 
 // Decrement.
@@ -350,11 +350,11 @@ decr({ table, key, prop: 'propNumber' }, (err, res) => {
 });
 
 // Error: Decrement with list.
-// $ExpectError
+// @ts-expect-error
 decr([{ table, key, prop: 'propNumber' }]);
 
 // Error: Decrement without prop.
-// $ExpectError
+// @ts-expect-error
 decr({ table, key });
 
 // Page.
@@ -365,19 +365,19 @@ decr({ table, key });
         buf;
         list.concat(buf);
         // Error: There is no cursor.
-        // $ExpectError
+        // @ts-expect-error
         buf.cursor;
     }
 })();
 
 // Error: Page with callback.
-// $ExpectError
+// @ts-expect-error
 page({ table }, () => 0 as any);
 
 // Error: Page with unnecessary props.
-// $ExpectError
+// @ts-expect-error
 page({ table, key });
 
 // Error: Page with list.
-// $ExpectError
+// @ts-expect-error
 page([{ table, key }]);

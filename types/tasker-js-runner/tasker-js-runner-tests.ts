@@ -14,20 +14,18 @@ taskerJs.router;
 taskerJs.hotReload();
 
 // ExpectError test
-// $ExpectError
+// @ts-expect-error
 let notificationError: TaskerJsModule = {};
-// $ExpectError
+// @ts-expect-error
 notificationError = {
     enter(locals: { [ name: string ]: string }, tasker: tasker) {}
 };
-// $ExpectError
+// @ts-expect-error
 notificationError = {
     exit(locals: { [ name: string ]: string }, tasker: tasker) {}
 };
 notificationError = {
-    // $ExpectError
-    enter('foo') {},
+    enter(foo) {},
 
-    // $ExpectError
-    exit('foo2') {}
+    exit(foo2) {}
 };

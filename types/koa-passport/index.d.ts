@@ -1,4 +1,4 @@
-// Type definitions for koa-passport 4.0
+// Type definitions for koa-passport 6.0
 // Project: https://github.com/rkusa/koa-passport
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
@@ -25,7 +25,7 @@ declare module "koa" {
         login(user: any, options?: any): Promise<void>;
         logIn: ExtendableContext["login"];
 
-        logout(): void;
+        logout(): Promise<void>;
         logOut: ExtendableContext["logout"];
 
         isAuthenticated(): boolean;

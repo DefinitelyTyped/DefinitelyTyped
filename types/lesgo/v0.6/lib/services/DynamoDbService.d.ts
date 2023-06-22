@@ -10,7 +10,7 @@ import {
     RegionName,
     UpdateExpression,
     Key,
-} from 'aws-sdk/clients/dynamodb';
+} from 'aws-sdk2-types/clients/dynamodb';
 
 export interface DynamoDbParams {
     region: RegionName;

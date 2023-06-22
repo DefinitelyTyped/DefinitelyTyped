@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component<{x: string}> { }
+class TestComponent extends React.Component<{ x: string }> {}
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -61,6 +61,7 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+        ReactDOM.createPortal(React.createElement('div'), document.createDocumentFragment());
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
@@ -74,9 +75,9 @@ describe('ReactDOM', () => {
         ReactDOM.flushSync(() => 42, 'not used');
         // $ExpectType number
         ReactDOM.flushSync((a: string) => 42, 'not used');
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
@@ -94,15 +95,113 @@ describe('ReactDOMServer', () => {
 describe('React dom test utils', () => {
     it('Simulate', () => {
         const element = document.createElement('div');
+        const dom = ReactDOM.render(React.createElement('input', { type: 'text' }), element) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+
+        node.value = 'giraffe';
+        ReactTestUtils.Simulate.change(node);
+        ReactTestUtils.Simulate.keyDown(node, { key: 'Enter', keyCode: 13, which: 13 });
+    });
+
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
         const dom = ReactDOM.render(
             React.createElement('input', { type: 'text' }),
             element
         ) as Element;
         const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v18.2.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L620
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'resize',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
 
-        node.value = 'giraffe';
-        ReactTestUtils.Simulate.change(node);
-        ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
     });
 
     it('renderIntoDocument', () => {
@@ -201,54 +300,139 @@ describe('React dom test utils', () => {
             it('accepts a callback that is void', () => {
                 ReactTestUtils.act(() => {});
             });
-            it('rejects a callback that returns null', () => {
-                // $ExpectError
-                ReactTestUtils.act(() => null);
+            it('accepts a callback that returns a value', () => {
+                const result = ReactTestUtils.act(() => "value");
+                result.then(x => {});
             });
-            it('returns a type that is not Promise-like', () => {
+            it('returns void', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                // $ExpectError
-                result.then((x) => {});
+                // @ts-expect-error
+                result.then;
             });
         });
         describe('with async callback', () => {
             it('accepts a callback that is void', async () => {
                 await ReactTestUtils.act(async () => {});
             });
-            it('rejects a callback that returns a value', async () => {
-                // $ExpectError
+            it('a callback that returns null', async () => {
                 await ReactTestUtils.act(async () => null);
+            });
+            it('a callback that returns a value', async () => {
+                await ReactTestUtils.act(async () => 'value');
             });
             it('returns a Promise-like', () => {
                 const result = ReactTestUtils.act(async () => {});
-                result.then((x) => {});
+                result.then(x => {});
             });
         });
     });
 });
 
+async function batchTests() {
+    // $ExpectType string
+    const output1 = ReactDOM.unstable_batchedUpdates(input => {
+        // $ExpectType number
+        input;
+        return 'hi';
+    }, 1);
+}
+
 function createRoot() {
     const root = ReactDOMClient.createRoot(document.documentElement);
 
     root.render(<div>initial render</div>);
+    root.render(false);
 
     // only makes sense for `hydrateRoot`
-    // $ExpectError
+    // @ts-expect-error
     ReactDOMClient.createRoot(document);
 }
 
 function hydrateRoot() {
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
         identifierPrefix: 'react-18-app',
-        onRecoverableError: error => {
+        onRecoverableError: (error, errorInfo) => {
             console.error(error);
+            console.info(errorInfo.componentStack);
         },
     });
     hydrateable.render(<div>render update</div>);
     ReactDOMClient.hydrateRoot(document, {
         // Forgot `initialChildren`
-        // $ExpectError
+        // @ts-expect-error
         identifierPrefix: 'react-18-app',
     });
+
+    ReactDOMClient.hydrateRoot(document.getElementById('root')!, false);
+}
+
+/**
+ * source: https://react.dev/reference/react-dom/server/renderToPipeableStream
+ */
+function pipeableStreamDocumentedExample() {
+    function App() {
+        return null;
+    }
+
+    interface Response extends NodeJS.WritableStream {
+        send(content: string): void;
+        setHeader(key: string, value: unknown): void;
+        statusCode: number;
+    }
+
+    let didError = false;
+    const response: Response = {} as any;
+    const { pipe } = ReactDOMServer.renderToPipeableStream(<App />, {
+        bootstrapScripts: ['/main.js'],
+        onShellReady() {
+            response.statusCode = didError ? 500 : 200;
+            response.setHeader('content-type', 'text/html');
+            pipe(response);
+        },
+        onShellError(error) {
+            response.statusCode = 500;
+            response.setHeader('content-type', 'text/html');
+            response.send('<h1>Something went wrong</h1>');
+        },
+        onAllReady() {},
+        onError(err) {
+            didError = true;
+            console.error(err);
+        },
+    });
+}
+
+/**
+ * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ */
+async function readableStreamDocumentedExample() {
+    const controller = new AbortController();
+    let didError = false;
+    try {
+        const stream = await ReactDOMServer.renderToReadableStream(
+            <html>
+                <body>Success</body>
+            </html>,
+            {
+                signal: controller.signal,
+                onError(error) {
+                    didError = true;
+                    console.error(error);
+                },
+            },
+        );
+
+        await stream.allReady;
+
+        return new Response(stream, {
+            status: didError ? 500 : 200,
+            headers: { 'Content-Type': 'text/html' },
+        });
+    } catch (error) {
+        return new Response('<!doctype html><p>Loading...</p><script src="clientrender.js"></script>', {
+            status: 500,
+            headers: { 'Content-Type': 'text/html' },
+        });
+    }
 }

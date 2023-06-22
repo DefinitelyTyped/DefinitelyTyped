@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "juice": "^7.0.0"
+        "juice": "^8.0.0"
     }
 }

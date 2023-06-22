@@ -299,7 +299,6 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
@@ -500,39 +499,6 @@ onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
-// Example from http://facebook.github.io/react/
-// --------------------------------------------------------------------------
-
-interface TimerState {
-    secondsElapsed: number;
-}
-class Timer extends React.Component<{}, TimerState> {
-    state = {
-        secondsElapsed: 0
-    };
-    private _interval: number;
-    tick() {
-        this.setState((prevState, props) => ({
-            secondsElapsed: prevState.secondsElapsed + 1
-        }));
-    }
-    componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
-    }
-    componentWillUnmount() {
-        clearInterval(this._interval);
-    }
-    render() {
-        return React.DOM.div(
-            null,
-            "Seconds Elapsed: ",
-            this.state.secondsElapsed
-        );
-    }
-}
-ReactDOM.render(React.createElement(Timer), container);
-
-//
 // createFragment addon
 // --------------------------------------------------------------------------
 createFragment({
@@ -583,6 +549,12 @@ const node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
+
+class Timer extends React.Component {
+    render() {
+        return null;
+    }
+}
 
 const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));

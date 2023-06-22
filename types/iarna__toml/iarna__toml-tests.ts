@@ -10,7 +10,8 @@ TOML.parse.stream(); // $ExpectType Transform
 TOML.parse.stream(new Readable()); // $ExpectType Promise<Record<string, any>>
 
 TOML.stringify({}); // $ExpectType string
-TOML.stringify(1); // $ExpectError
+// @ts-expect-error
+TOML.stringify(1);
 
 TOML.stringify.value({}); // $ExpectType string
 TOML.stringify.value(1); // $ExpectType string
@@ -29,7 +30,8 @@ parseStream(new Readable()); // $ExpectType Promise<Record<string, any>>
 
 import stringify = require('@iarna/toml/stringify');
 stringify({}); // $ExpectType string
-stringify(1); // $ExpectError
+// @ts-expect-error
+stringify(1);
 
 stringify.value({}); // $ExpectType string
 stringify.value(1); // $ExpectType string

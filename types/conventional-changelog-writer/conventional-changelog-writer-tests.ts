@@ -14,8 +14,8 @@ conventionalChangelogWriter(context);
 // $ExpectType Transform
 conventionalChangelogWriter(context, options);
 
-// $ExpectError
+// @ts-expect-error
 conventionalChangelogWriter(options);
 
-// $ExpectError
+// @ts-expect-error
 conventionalChangelogWriter(options, context);

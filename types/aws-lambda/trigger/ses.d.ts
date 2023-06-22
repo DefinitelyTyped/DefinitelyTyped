@@ -84,7 +84,13 @@ export interface SESReceipt {
     dkimVerdict: SESReceiptStatus;
     dmarcVerdict: SESReceiptStatus;
     dmarcPolicy?: 'none' | 'quarantine' | 'reject' | undefined;
-    action: SESReceiptS3Action | SESReceiptSnsAction | SESReceiptBounceAction | SESReceiptLambdaAction | SESReceiptStopAction | SESReceiptWorkMailAction;
+    action:
+        | SESReceiptS3Action
+        | SESReceiptSnsAction
+        | SESReceiptBounceAction
+        | SESReceiptLambdaAction
+        | SESReceiptStopAction
+        | SESReceiptWorkMailAction;
 }
 
 export interface SESMessage {

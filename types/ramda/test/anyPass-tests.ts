@@ -42,7 +42,7 @@ import * as R from 'ramda';
     if (isFooOrBar(foobar)) {
         // $ExpectType boolean
         foobar.fuz;
-        // $ExpectError
+        // @ts-expect-error
         foobar.bar;
     }
 };

@@ -1,6 +1,6 @@
 import parse = require("json-to-ast");
 
-// $ExpectError
+// @ts-expect-error
 jsonToAst;
 
 // $ExpectType ValueNode

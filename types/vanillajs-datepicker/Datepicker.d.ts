@@ -33,6 +33,7 @@ export interface DatepickerOptions {
     maxView?: number;
     minDate?: string | Date | number;
     nextArrow?: string;
+    prevArrow?: string;
     orientation?: DatepickerOptionsOrientation;
     pickLevel?: number;
     prevArray?: string;

@@ -9,6 +9,11 @@ const ossOptions: OSS.Options = {
 
 const client = new OSS(ossOptions);
 
+client.copy("newfile.png", "sourcefile.png");
+client.copy("newfile.png", "sourcefile.png", { timeout: 1000 });
+client.copy("newfile.png", "sourcefile.png", "sourceBucket");
+client.copy("newfile.png", "sourcefile.png", "sourceBucket", { timeout: 1000 });
+
 const clusterOptions: OSS.ClusterOptions = {
     clusters: [],
 };

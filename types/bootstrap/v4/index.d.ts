@@ -196,7 +196,7 @@ export interface PopoverOption extends TooltipOption {
      *
      * @default ""
      */
-    content?: string | Element | ((this: Element) => string | Element) | undefined;
+    content?: string | Element | JQuery | ((this: Element) => string | Element | JQuery) | undefined;
 }
 
 export interface ScrollspyOption {
@@ -324,7 +324,7 @@ export interface TooltipOption {
      *
      * @default ""
      */
-    title?: string | Element | ((this: Element) => string | Element) | undefined;
+    title?: string | Element | JQuery | ((this: Element) => string | Element | JQuery) | undefined;
 
     /**
      * How tooltip or popover is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space.

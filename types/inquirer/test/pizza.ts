@@ -1,4 +1,4 @@
-import inquirer = require('inquirer');
+import inquirer, { DistinctQuestion } from 'inquirer';
 
 /**
  * Pizza delivery prompt example
@@ -6,7 +6,7 @@ import inquirer = require('inquirer');
  */
 console.log('Hi, welcome to Node Pizza');
 
-const questions: inquirer.DistinctQuestion[] = [
+const questions: DistinctQuestion[] = [
     {
         type: 'confirm',
         name: 'toBeDelivered',

@@ -2,7 +2,7 @@
 // Project: http://webgl.org/
 // Definitions by: Arthur Langereis <https://github.com/zenmumbler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// Minimum TypeScript Version: 4.4
 
 // render-gl1/declarations - WebGL 1 extension definitions (beyond TS lib)
 // Extracted from Stardazed - https://github.com/stardazed/stardazed
@@ -48,14 +48,6 @@ interface OES_texture_float_linear { readonly __OES_texture_float_linear: void; 
 interface OES_texture_half_float_linear { readonly __OES_texture_half_float_linear: void; }
 
 
-// WebGL 1 Extensions
-interface EXT_color_buffer_half_float {
-    readonly RGBA16F_EXT: number;
-    readonly RGB16F_EXT: number;
-    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: number;
-    readonly UNSIGNED_NORMALIZED_EXT: number;
-}
-
 interface OES_vertex_array_object {
     // TS's lib.dom (as of v3.1.3) does not specify the nulls
     createVertexArrayOES(): WebGLVertexArrayObjectOES | null;
@@ -68,10 +60,6 @@ interface WEBGL_compressed_texture_atc {
     readonly COMPRESSED_RGB_ATC_WEBGL: number;
     readonly COMPRESSED_RGBA_ATC_EXPLICIT_ALPHA_WEBGL: number;
     readonly COMPRESSED_RGBA_ATC_INTERPOLATED_ALPHA_WEBGL: number;
-}
-
-interface WEBGL_compressed_texture_etc1 {
-    readonly COMPRESSED_RGB_ETC1_WEBGL: number;
 }
 
 interface WEBKIT_WEBGL_compressed_texture_pvrtc {

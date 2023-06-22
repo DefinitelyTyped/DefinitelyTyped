@@ -7,4 +7,6 @@ export class VertexTangentsHelper extends LineSegments {
     size: number;
 
     update(): void;
+
+    dispose(): void;
 }

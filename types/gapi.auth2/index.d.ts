@@ -53,6 +53,24 @@ declare namespace gapi.auth2 {
                        onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
 
+  interface Listener {
+    /**
+     * Returns true if the listener is currently listening for changes.
+     * Returns false after remove() is called.
+     */
+    isActive: boolean;
+
+    /**
+     * Stops listening for changes.
+     */
+    remove(): void;
+
+    /**
+     * Triggers the callback function.
+     */
+    trigger(): void;
+  }
+
   interface IsSignedIn {
     /**
      * Returns whether the current user is currently signed in.
@@ -62,7 +80,7 @@ declare namespace gapi.auth2 {
     /**
      * Listen for changes in the current user's sign-in state.
      */
-    listen(listener: (signedIn: boolean) => any): void;
+    listen(listener: (signedIn: boolean) => any): Listener;
   }
 
   interface CurrentUser {
@@ -76,7 +94,7 @@ declare namespace gapi.auth2 {
     /**
      * Listen for changes in currentUser.
      */
-    listen(listener: (user: GoogleUser) => any): void;
+    listen(listener: (user: GoogleUser) => any): Listener;
   }
 
   interface SigninOptions {

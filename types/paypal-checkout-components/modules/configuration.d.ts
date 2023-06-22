@@ -35,6 +35,11 @@ export enum ButtonColorOption {
      * we recommend this button as a third alternative.
      */
     Black = 'black',
+
+    /**
+     * Fourth alternate
+     */
+    White = 'white',
 }
 
 export enum ButtonShapeOption {
@@ -106,9 +111,10 @@ export enum ButtonLabelOption {
 }
 
 export interface ButtonStyle {
-    color: ButtonColorOption;
-    label: ButtonLabelOption;
-    shape: ButtonShapeOption;
-    size: ButtonSizeOption;
-    tagline: boolean;
+    color?: ButtonColorOption;
+    label?: ButtonLabelOption;
+    shape?: ButtonShapeOption;
+    size?: ButtonSizeOption;
+    tagline?: boolean;
+    height?: number;
 }

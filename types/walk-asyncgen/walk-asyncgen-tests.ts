@@ -18,10 +18,10 @@ pathsGenerator(".", {
 });
 
 pathsGenerator(".", {
-    // $ExpectError
+    // @ts-expect-error
     excludeFiles: "",
-    // $ExpectError
+    // @ts-expect-error
     excludeDirs: "",
-    // $ExpectError
+    // @ts-expect-error
     excludeExt: ".mp3"
 });

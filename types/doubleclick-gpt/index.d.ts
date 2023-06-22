@@ -130,7 +130,7 @@ declare namespace googletag {
         getAdUnitPath(): string;
         getAttributeKeys(): string[];
         getCategoryExclusions(): string[];
-        getResponseInformation(): ResponseInformation;
+        getResponseInformation(): ResponseInformation | null;
         getSlotElementId(): string;
         getTargeting(key: string): string[];
         getTargetingKeys(): string[];

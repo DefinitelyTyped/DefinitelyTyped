@@ -35,8 +35,8 @@ declare namespace MarkdownPDF {
         /** A config object that is passed to remarkable, the underlying markdown parser */
         remarkable?: any; // FIXME: remarkable config types
     }
-    type PaperFormat = "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid";
-    type PaperOrientation = "portait" | "landscape";
+    type PaperFormat = 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+    type PaperOrientation = 'portait' | 'landscape';
 
     interface OptionsBuilder {
         /** Create a readable stream and pipe it to markdown pdf. */
@@ -77,7 +77,7 @@ declare namespace MarkdownPDF {
          */
         path(path: string, callback?: () => void): void;
         /** Create a concat-stream and pipe output from markdown-pdf to it. The callback function cb will be invoked when the buffer has been created. */
-        buffer(opts: any, callback?: () => void): void;
+        buffer(opts: any, callback?: (err: any, buffer: ArrayBuffer) => void): void;
         /** Create a concat-stream and pipe output from markdown-pdf to it. The callback function cb will be invoked when the string has been created. */
         string(opts: any, callback?: () => void): void;
     }

@@ -1,36 +1,58 @@
 import 'source-map-support/register';
-import sms = require('source-map-support');
+import * as sms from 'source-map-support';
 
-sms.install();
+// test type exports
+type UrlAndMap = sms.UrlAndMap;
+type Environment = sms.Environment;
+type Options = sms.Options;
+type Position = sms.Position;
+type State = sms.State;
+type CallSite = sms.CallSite;
 
-function retrieveFile(path: string): string {
-    return 'foo';
-}
-
-function retrieveSourceMap(source: string): sms.UrlAndMap | null {
-    return source
-        ? {
-              url: 'http://foo',
-              map: 'foo',
-          }
-        : null;
-}
-
-const options: sms.Options = {
-    emptyCacheBetweenOperations: false,
-    handleUncaughtExceptions: false,
-    retrieveFile,
-    retrieveSourceMap,
-    environment: 'node',
-    hookRequire: false,
-    overrideRetrieveSourceMap: false,
-    overrideRetrieveFile: false,
-};
-
-sms.install(options);
-
+sms.install(); // $ExpectType void
+sms.install({ handleUncaughtExceptions: false }); // $ExpectType void
+sms.install({ hookRequire: false }); // $ExpectType void
+sms.install({ emptyCacheBetweenOperations: true }); // $ExpectType void
+sms.install({ environment: 'auto' }); // $ExpectType void
+sms.install({ environment: 'browser' }); // $ExpectType void
+sms.install({ environment: 'node' }); // $ExpectType void
+// @ts-expect-error
+sms.install({ environment: 'foo' });
+sms.install({ overrideRetrieveFile: true }); // $ExpectType void
+sms.install({ overrideRetrieveSourceMap: true }); // $ExpectType void
+// $ExpectType void
 sms.install({
-    ...options,
+    retrieveFile: path => {
+        path; // $ExpectType string
+        return null;
+    },
+});
+sms.install({ retrieveFile: path => '' }); // $ExpectType void
+// @ts-expect-error
+sms.install({ retrieveFile: path => {} });
+// $ExpectType void
+sms.install({
+    retrieveSourceMap: source => {
+        source; // $ExpectType string
+        return null;
+    },
+});
+sms.install({ retrieveSourceMap: source => ({ map: 'foo' }) }); // $ExpectType void
+// $ExpectType void
+sms.install({
+    retrieveSourceMap: source => {
+        return {
+            map: {
+                mappings: '',
+                names: [''],
+                sources: [''],
+                version: '',
+            },
+        };
+    },
+});
+// $ExpectType void
+sms.install({
     retrieveSourceMap(source) {
         return source
             ? {
@@ -47,21 +69,46 @@ sms.install({
             : null;
     },
 });
+// $ExpectType void
+sms.install({
+    retrieveSourceMap: source => {
+        return {
+            map: 'foo',
+            url: 'foo',
+        };
+    },
+});
+// @ts-expect-error
+sms.install({ retrieveSourceMap: source => 'foo' });
 
-let stackFrame: any; // TODO: this should be a StackFrame, but it seems this would need to be defined elsewhere (in e.g. lib.d.ts)
-stackFrame = sms.wrapCallSite(stackFrame);
-
-let s: string | null;
-s = sms.getErrorSource(new Error('foo'));
-
-let p: sms.Position = {
+declare const stackFrame: sms.CallSite;
+const position: sms.Position = {
     column: 0,
     line: 0,
     source: 'foo',
 };
-p = sms.mapSourcePosition(p);
+sms.wrapCallSite(stackFrame); // $ExpectType CallSite
+sms.wrapCallSite(stackFrame, { nextPosition: null, curPosition: null }); // $ExpectType CallSite
+sms.wrapCallSite(stackFrame, { nextPosition: position, curPosition: null }); // $ExpectType CallSite
+sms.wrapCallSite(stackFrame, { nextPosition: null, curPosition: position }); // $ExpectType CallSite
+sms.getErrorSource(new Error('foo')); // $ExpectType string | null
+// $ExpectType Position
+sms.mapSourcePosition(position);
+sms.resetRetrieveHandlers(); // $ExpectType void
 
-let u: sms.UrlAndMap | null;
-u = retrieveSourceMap('foo');
-
-sms.resetRetrieveHandlers();
+stackFrame.getThis(); // $ExpectType any
+stackFrame.getTypeName(); // $ExpectType string | null
+stackFrame.getFunction(); // $ExpectType ((...args: unknown[]) => any) | undefined
+stackFrame.getFunctionName(); // $ExpectType string | null
+stackFrame.getMethodName(); // $ExpectType string | null
+stackFrame.getFileName(); // $ExpectType string | null
+stackFrame.getLineNumber(); // $ExpectType number | null
+stackFrame.getColumnNumber(); // $ExpectType number | null
+stackFrame.getEvalOrigin(); // $ExpectType string | undefined
+stackFrame.isToplevel(); // $ExpectType boolean
+stackFrame.isEval(); // $ExpectType boolean
+stackFrame.isNative(); // $ExpectType boolean
+stackFrame.isConstructor(); // $ExpectType boolean
+if (stackFrame.getScriptNameOrSourceURL) {
+    stackFrame.getScriptNameOrSourceURL(); // $ExpectType string
+}

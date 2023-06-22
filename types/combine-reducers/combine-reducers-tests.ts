@@ -21,16 +21,16 @@ const reducer = combineReducers({
     counter,
 });
 
-// $ExpectError
+// @ts-expect-error
 combineReducers();
 
 reducer({ toggle: false, counter: 4 }, { type: 'increment_counter' });
 reducer({ toggle: false, counter: 4 }, { type: 'decrement_counter' });
 reducer({ toggle: true, counter: 4 }, { type: 'toggle', payload: false });
 
-// $ExpectError
+// @ts-expect-error
 reducer({ toggle: false, counter: 4, extra: false }, { type: 'decrement_counter' });
-// $ExpectError
+// @ts-expect-error
 reducer({ toggle: false, counter: 4, extra: false });
-// $ExpectError
+// @ts-expect-error
 reducer({ toggle: 3, counter: 4 }, { type: 'decrement_counter' });

@@ -339,6 +339,16 @@ braintree.client.create(
                 currencyCode: 'USD',
                 supportedNetworks: ['visa', 'masterCard'],
                 merchantCapabilities: ['supports3DS'],
+                lineItems: [
+                    {
+                        label: 'First item',
+                        amount: '4.00'
+                    },
+                    {
+                        label: 'Second item',
+                        amount: '6.00'
+                    }
+                ],
                 total: { label: 'Your Label', amount: '10.00' },
             };
 
@@ -572,6 +582,21 @@ braintree.client.create(
                 // Implementation
             });
         });
+
+        braintree.dataCollector.create({ client: clientInstance }, (error, dataCollectorInstance) => {
+            dataCollectorInstance.getDeviceData({ raw: false }, (err, deviceData) => {
+                // Implementation
+                console.log(deviceData);
+            });
+        });
+
+        braintree.dataCollector
+            .create({ client: clientInstance })
+            .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
+            .then(deviceData => {
+                // Implementation
+                console.log(deviceData);
+            });
     },
 );
 

@@ -116,7 +116,7 @@ function sample3() {
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
 
     const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
-      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
+      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen', 'emboss', 'blur2', 'hue'];
 
     for (let i = 0; i < filters.length; i++) {
       const checkBox = <HTMLInputElement> $(filters[i]);
@@ -125,7 +125,8 @@ function sample3() {
     }
   });
 
-  canvas.on('selection:cleared', () => {
+  canvas.on('selection:cleared', (e) => {
+    const selectedObjs = e.selected;
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
   });
 
@@ -211,6 +212,16 @@ function sample3() {
       matrix: [1, 1, 1,
         1, 0.7, -1,
         -1, -1, -1]
+    }));
+  };
+  $('blur2').onclick = function(this: HTMLInputElement) {
+    applyFilter(12, this.checked && new f.Blur({
+        blur: 9
+    }));
+  };
+  $('hue').onclick = function(this: HTMLInputElement) {
+    applyFilter(13, this.checked && new f.HueRotation({
+        rotation: 1
     }));
   };
 }
@@ -737,6 +748,7 @@ function sample8() {
   }
 
   canvas.on('selection:cleared', e => {
+    const selectedObjs = e.selected;
     for (let i = activeObjectButtons.length; i--; ) {
       activeObjectButtons[i];
     }
@@ -1081,4 +1093,23 @@ function sample17() {
     width: 3,
     height: 4,
   });
+}
+
+function sample18() {
+  const canvas = new fabric.Canvas('c');
+  canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  canvas.freeDrawingBrush.width = 2;
+  canvas.freeDrawingBrush.decimate = 2;
+}
+
+function testIntersection() {
+  const a1 = new fabric.Point(50, 400);
+  const a2 = new fabric.Point(250, 40);
+  const b1 = new fabric.Point(50, 94);
+  const b2 = new fabric.Point(250, 70);
+  const intersect = fabric.Intersection.intersectLineLine(a1, a2, b1, b2);
+  // $ExpectType string
+  intersect.status;
+  // $ExpectType Point[]
+  intersect.points;
 }

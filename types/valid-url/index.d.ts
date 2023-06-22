@@ -1,7 +1,6 @@
 // Type definitions for valid-url v1.0.9
 // Project: https://github.com/ogt/valid-url
-// Definitions by: Steve Hipwell <https://github.com/stevehipwell>
-//                 Gabriel Cangussu <https://github.com/gcangussu>
+// Definitions by: Gabriel Cangussu <https://github.com/gcangussu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

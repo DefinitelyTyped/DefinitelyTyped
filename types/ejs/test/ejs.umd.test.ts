@@ -67,7 +67,7 @@ const templateIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
     return { template: 'template data' };
 };
 
-// $ExpectError
+// @ts-expect-error
 const brokenIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
     expectType<string>(originalPath);
     expectType<string>(parsedPath);

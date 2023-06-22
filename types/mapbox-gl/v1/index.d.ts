@@ -7,6 +7,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 Olivier Pascal <https://github.com/pascaloliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -186,6 +187,15 @@ declare namespace mapboxgl {
         | 'bottom-left'
         | 'bottom-right';
 
+    type DragPanOptions = {
+        linearity?: number;
+        easing?: (t: number) => number;
+        deceleration?: number;
+        maxSpeed?: number;
+    };
+
+    type InteractiveOptions = { around?: 'center' };
+
     /**
      * Map
      */
@@ -291,7 +301,10 @@ declare namespace mapboxgl {
             } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined }): this;
+        setStyle(
+            style: mapboxgl.Style | string,
+            options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined },
+        ): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -340,15 +353,15 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -382,7 +395,6 @@ declare namespace mapboxgl {
          * the padding offsets.
          *
          * @name showPadding
-         * @type {boolean}
          * @instance
          * @memberof Map
          */
@@ -570,7 +582,7 @@ declare namespace mapboxgl {
         customAttribution?: string | string[] | undefined;
 
         /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-        dragPan?: boolean | undefined;
+        dragPan?: boolean | DragPanOptions | undefined;
 
         /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
         dragRotate?: boolean | undefined;
@@ -681,7 +693,7 @@ declare namespace mapboxgl {
         renderWorldCopies?: boolean | undefined;
 
         /** If true, enable the "scroll to zoom" interaction */
-        scrollZoom?: boolean | undefined;
+        scrollZoom?: boolean | InteractiveOptions | undefined;
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
@@ -698,10 +710,10 @@ declare namespace mapboxgl {
         transformRequest?: TransformRequestFunction | undefined;
 
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-        touchZoomRotate?: boolean | undefined;
+        touchZoomRotate?: boolean | InteractiveOptions | undefined;
 
         /** If true, the "drag to pitch" interaction is enabled */
-        touchPitch?: boolean | undefined;
+        touchPitch?: boolean | InteractiveOptions | undefined;
 
         /** Initial zoom level */
         zoom?: number | undefined;
@@ -791,7 +803,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -810,7 +822,7 @@ declare namespace mapboxgl {
 
         isActive(): boolean;
 
-        enable(): void;
+        enable(options?: DragPanOptions): void;
 
         disable(): void;
     }
@@ -819,7 +831,10 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined });
+        constructor(
+            map: mapboxgl.Map,
+            options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined },
+        );
 
         isEnabled(): boolean;
 
@@ -891,7 +906,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -903,7 +918,7 @@ declare namespace mapboxgl {
     export class TouchPitchHandler {
         constructor(map: mapboxgl.Map);
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         isActive(): boolean;
 
@@ -933,7 +948,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor(options?: { showCompass?: boolean | undefined; showZoom?: boolean | undefined; visualizePitch?: boolean | undefined });
+        constructor(options?: {
+            showCompass?: boolean | undefined;
+            showZoom?: boolean | undefined;
+            visualizePitch?: boolean | undefined;
+        });
     }
 
     export class PositionOptions {

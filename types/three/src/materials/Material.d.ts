@@ -13,9 +13,6 @@ import {
     StencilOp,
     PixelFormat,
 } from '../constants';
-import { ColorRepresentation } from '../utils';
-import { Color } from '../math/Color';
-import { Texture } from '../textures/Texture';
 
 export interface MaterialParameters {
     alphaTest?: number | undefined;
@@ -35,7 +32,6 @@ export interface MaterialParameters {
     depthFunc?: DepthModes | undefined;
     depthTest?: boolean | undefined;
     depthWrite?: boolean | undefined;
-    fog?: boolean | undefined;
     name?: string | undefined;
     opacity?: number | undefined;
     polygonOffset?: boolean | undefined;
@@ -43,6 +39,7 @@ export interface MaterialParameters {
     polygonOffsetUnits?: number | undefined;
     precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
     premultipliedAlpha?: boolean | undefined;
+    forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -176,12 +173,6 @@ export class Material extends EventDispatcher {
     depthWrite: boolean;
 
     /**
-     * Whether the material is affected by fog. Default is true.
-     * @default fog
-     */
-    fog: boolean;
-
-    /**
      * Unique number of this material instance.
      */
     id: number;
@@ -294,6 +285,11 @@ export class Material extends EventDispatcher {
     premultipliedAlpha: boolean;
 
     /**
+     * @default false
+     */
+    forceSinglePass: boolean;
+
+    /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
      * @default false
      */
@@ -301,8 +297,9 @@ export class Material extends EventDispatcher {
 
     /**
      * Defines which of the face sides will be rendered - front, back or both.
-     * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
-     * @default THREE.FrontSide
+     * Default is {@link THREE.FrontSide}. Other options are {@link THREE.BackSide} and {@link THREE.DoubleSide}.
+     *
+     * @default {@link THREE.FrontSide}
      */
     side: Side;
 

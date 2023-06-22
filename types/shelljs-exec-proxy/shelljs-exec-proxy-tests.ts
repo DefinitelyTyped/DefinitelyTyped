@@ -6,4 +6,5 @@ shell.git.commit('-am', 'Fixed issue #1'); // $ExpectType ExecOutputReturnValue
 shell.git.push('origin', 'master'); // $ExpectType ExecOutputReturnValue
 
 shell.cd('string'); // $ExpectType ShellString
-shell.cd(123); // $ExpectError
+// @ts-expect-error
+shell.cd(123);

@@ -1,4 +1,4 @@
-import { Uniform, Vector2, Material } from '../../../src/Three';
+import { IUniform, Vector2, Material } from '../../../src/Three';
 
 export const DepthLimitedBlurShader: {
     defines: {
@@ -7,14 +7,14 @@ export const DepthLimitedBlurShader: {
         PERSPECTIVE_CAMERA: number;
     };
     uniforms: {
-        tDiffuse: Uniform;
-        size: Uniform;
-        sampleUvOffsets: Uniform;
-        sampleWeights: Uniform;
-        tDepth: Uniform;
-        cameraNear: Uniform;
-        cameraFar: Uniform;
-        depthCutoff: Uniform;
+        tDiffuse: IUniform;
+        size: IUniform;
+        sampleUvOffsets: IUniform;
+        sampleWeights: IUniform;
+        tDepth: IUniform;
+        cameraNear: IUniform;
+        cameraFar: IUniform;
+        depthCutoff: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

@@ -207,7 +207,7 @@ httpRouter.after("/hello", () => {});
 
 // $ExpectType void
 httpRouter.attach(function() {
-    // $ExpectError
+    // @ts-expect-error
     this.data = [1, 2, 3];
 });
 

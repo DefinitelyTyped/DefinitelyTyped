@@ -1,4 +1,4 @@
-// Type definitions for which 2.0
+// Type definitions for which 3.0
 // Project: https://github.com/isaacs/node-which
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 cspotcode <https://github.com/cspotcode>
@@ -6,24 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Finds all instances of a specified executable in the PATH environment variable */
-declare function which(
-    cmd: string,
-    options: which.AsyncOptions & which.OptionsAll,
-    cb: (err: Error | null, paths: ReadonlyArray<string> | undefined) => void,
-): void;
-declare function which(
-    cmd: string,
-    options: which.AsyncOptions & which.OptionsFirst,
-    cb: (err: Error | null, path: string | undefined) => void,
-): void;
-declare function which(
-    cmd: string,
-    options: which.AsyncOptions,
-    cb: (err: Error | null, path: string | ReadonlyArray<string> | undefined) => void,
-): void;
-declare function which(cmd: string, cb: (err: Error | null, path: string | undefined) => void): void;
-declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll): Promise<string[]>;
-declare function which(cmd: string, options?: which.AsyncOptions & which.OptionsFirst): Promise<string>;
+declare function which(cmd: string, options: which.Options & which.AsyncOptions & which.OptionsAll): Promise<string[]>;
+declare function which(cmd: string, options?: which.Options & which.AsyncOptions & which.OptionsFirst): Promise<string>;
 
 declare namespace which {
     /** Finds all instances of a specified executable in the PATH environment variable */

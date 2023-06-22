@@ -25,12 +25,14 @@ const validatorKeyType: Parameter.ParameterRules = {
 const queryValidatorNoMatch: Parameter.ParameterRules<Query> = {
   projectId: 'string',
   keyword: { type: 'string?', default: '' },
-  noMatchKey: 'string', // $ExpectError
+  // @ts-expect-error
+  noMatchKey: 'string',
 };
 const validatorValueError: Parameter.ParameterRules = {
   key1: 'string',
   key2: undefined,
-  key3: null, // $ExpectError
+  // @ts-expect-error
+  key3: null,
 };
 
 // Constructor

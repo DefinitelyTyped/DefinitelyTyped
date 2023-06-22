@@ -1,4 +1,4 @@
-// Type definitions for videojs-mobile-ui 0.5
+// Type definitions for videojs-mobile-ui 0.8
 // Project: https://github.com/mister-ben/videojs-mobile-ui#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,6 +59,11 @@ declare namespace mobileUi {
     }
 
     interface TouchControlsOptions {
+        /**
+         * If true no touch controls are added.
+         * @default false
+         */
+        disabled?: boolean | undefined;
         /**
          * Number of seconds to seek on double-tap
          * @default 10

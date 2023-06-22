@@ -35,7 +35,7 @@ declare namespace Mark {
         each?(element: Element): void;
 
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number
@@ -59,7 +59,7 @@ declare namespace Mark {
         ignoreGroups?: number | undefined;
         each?(element: Element): void;
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number
@@ -78,7 +78,7 @@ declare namespace Mark {
         iframesTimeout?: number | undefined;
         each?(element: Element, range: Range): void;
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number

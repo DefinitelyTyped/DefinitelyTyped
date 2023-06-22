@@ -10,6 +10,7 @@
 //                 dwhitney <https://github.com/dwhitney>
 //                 Ruixuel <https://github.com/ruixuel>
 //                 trajnisz <https://github.com/trajnisz>
+//                 Godfery <https://github.com/hiyangguo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -145,6 +146,30 @@ declare namespace echarts {
          * x, y, x2, y2 are all percent from 0 to 1
          */
         LinearGradient: zrender.LinearGradient;
+
+        /**
+         * Create a new shape class.
+         *
+         * @param {number[][]} opt
+         * @return {zrender.graphic.Path}
+        */
+        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path
+
+        /**
+         * Register a user defined shape.
+         *
+         * @param {string} name
+         * @param {zrender.graphic.Path} ShapeClass
+         */
+        registerShape(name: string, ShapeClass: zrender.graphic.Path): void
+
+        /**
+         * Get the registered shape class.
+         *
+         * @param {string} name
+         * @return {zrender.graphic.Path}
+         */
+        getShapeClass(name: string): zrender.graphic.Path
 
         /**
          * Clip the given points by the given rectangular.

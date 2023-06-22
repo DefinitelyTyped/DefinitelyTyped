@@ -1,6 +1,6 @@
 // Type definitions for BigNum
 // Project: https://github.com/justmoon/node-BigNum
-// Definitions by: Pat Smuk <https://github.com/Patman64>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

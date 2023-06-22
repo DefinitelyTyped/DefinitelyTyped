@@ -39,12 +39,24 @@ class CustomPlugin implements Plugin {
         this.variableResolvers = {
             echo: async (source) => source.slice(5)
         };
+
+        logging.log.info('logging some text');
+        logging.log.info('logging with %i format %s', 2, 'parameters');
+        logging.log.info('logging with lots of different arguments', 123, ["ah"], { thing: true });
+
+        const myProgress = logging.progress.create({
+            message: 'Doing extra work in custom-plugin',
+            name: 'custom-plugin-progress',
+        });
+        myProgress.update('Almost finished');
+        logging.progress.get('custom-plugin-progress').remove();
     }
 }
 
 // Test a plugin with missing 'hooks' property
 // prettier-ignore
-class BadPlugin implements Plugin { // $ExpectError
+// @ts-expect-error
+class BadPlugin implements Plugin {
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
 }
@@ -53,12 +65,13 @@ const manager = new PluginManager(serverless);
 manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
 // prettier-ignore
-manager.addPlugin(BadPlugin); // $ExpectError
+// @ts-expect-error
+manager.addPlugin(BadPlugin);
 
 // Test a plugin with bad arguments for a variable resolver
 class BadVariablePlugin1 implements Plugin {
     hooks: Plugin.Hooks;
-    // $ExpectError
+    // @ts-expect-error
     variableResolvers = {
         badEchoArgs: async (badArg: number) => {},
     };
@@ -67,14 +80,15 @@ class BadVariablePlugin1 implements Plugin {
 // Test a plugin with non-async variable resolver
 class BadVariablePlugin implements Plugin {
     hooks: Plugin.Hooks;
-    // $ExpectError
+    // @ts-expect-error
     variableResolvers = {
         badEchoNotAsync: (source: string) => {},
     };
 }
 
 // Test serverless cli log with no message
-serverless.cli.log(); // $ExpectError
+// @ts-expect-error
+serverless.cli.log();
 
 // Test serverless cli log with no entity
 serverless.cli.log('updating stack...');
@@ -127,7 +141,8 @@ getHttp(
 );
 getHttp(
     {
-        sqs: 'arn', // $ExpectError
+        // @ts-expect-error
+        sqs: 'arn',
     },
     'myFunction',
 );
@@ -152,6 +167,7 @@ const awsServerless: Aws.Serverless = {
         websocketsApiRouteSelectionExpression: 'testwebsocketsApiRouteSelectionExpression',
         profile: 'testprofile',
         memorySize: 1,
+        ephemeralStorageSize: 1,
         reservedConcurrency: 1,
         timeout: 1,
         logRetentionInDays: 1,
@@ -179,9 +195,9 @@ const awsServerless: Aws.Serverless = {
             testenvironmentkey: 'testenvironmentvalue'
         },
         endpointType: 'regional',
-        apiKeys: ['testApiKeys'],
+        apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
         apiGateway: {
-            apiKeys: ['testApiKeys'],
+            apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
@@ -368,7 +384,8 @@ const awsServerless: Aws.Serverless = {
         },
         eventBridge: {
             useCloudFormation: true
-        }
+        },
+        layers: ['arn:aws:lambda:us-east-2:451483290750:layer:NewRelicNodeJS14X:45']
     },
     package: {
         include: ['testinclude'],
@@ -384,6 +401,7 @@ const awsServerless: Aws.Serverless = {
             name: 'testname',
             description: 'testdescription',
             memorySize: 1,
+            ephemeralStorageSize: 1,
             reservedConcurrency: 1,
             provisionedConcurrency: 1,
             runtime: 'testruntime',
@@ -457,7 +475,7 @@ const awsServerless: Aws.Serverless = {
                                     path2: true,
                                 },
                             },
-                            schema: {
+                            schemas: {
                                 'application/json': {
                                     type: 'object',
                                     properties: {
@@ -553,9 +571,55 @@ const awsServerless: Aws.Serverless = {
                     sqs: {
                         arn: 'testarn',
                         batchSize: 1,
-                        maximumRetryAttempts: 1,
+                        maximumBatchingWindow: 10,
                         enabled: true,
-                        functionResponseType: 'ReportBatchItemFailures'
+                        functionResponseType: 'ReportBatchItemFailures',
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     activemq: {
@@ -724,9 +788,34 @@ const awsServerless: Aws.Serverless = {
                             }
                         }
                     }
+                }, {
+                    kafka: {
+                        accessConfigurations: {
+                            saslPlainAuth: 'mySecretManagerARN',
+                        },
+                        bootstrapServers: [
+                            'abc3.xyz.com:9092',
+                            'abc2.xyz.com:9092',
+                        ],
+                        topic: 'MySelfManagedKafkaTopic',
+                        batchSize: 100,
+                        maximumBatchingWindow: 30,
+                        enabled: true,
+                    }
                 }
-            ]
-        }
+            ],
+            url: {
+                cors: {
+                    allowedOrigins: ['https://url1.com', 'https://url2.com'],
+                    allowedHeaders: ['Content-Type', 'Authorization'],
+                    allowedMethods: ['GET'],
+                    allowCredentials: true,
+                    exposedResponseHeaders: ['Special-Response-Header'],
+                    maxAge: 6000,
+                },
+                authorizer: 'aws_iam',
+            },
+        },
     },
     layers: {
         testLayer: {
@@ -892,6 +981,18 @@ const bunchOfConfigs: Aws.Serverless[] = [
             },
         },
         functions: {},
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+        },
+        functions: {
+            basicLambdaFnUrl: {
+                handler: 'main.js',
+                url: true,
+            },
+        },
     },
 ];
 

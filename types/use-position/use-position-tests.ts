@@ -2,4 +2,5 @@ import { usePosition, PositionOptions } from 'use-position';
 
 const watch = false;
 const options: PositionOptions = { enableHighAccuracy: false, timeout: 0, maximumAge: Infinity};
-usePosition(watch, options);
+
+const { latitude, longitude, timestamp, accuracy, speed, heading, error } = usePosition(watch, options);

@@ -173,6 +173,27 @@ export interface HostedFieldsTokenizePayload {
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    /**
+     * Provides details about regulatory environment.
+     * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
+     */
+    authenticationInsight?: {
+      regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+    };
+}
+
+/**
+ * @description The name of a HostedFields attribute.
+ */
+export type HostedFieldAttributeName = 'aria-invalid' | 'aria-required' | 'disabled' | 'placeholder';
+
+/**
+ * @description Fields used in setAttribute() and removeAttribute() for modifying a HostedFields instance's attributes.
+ */
+export interface HostedFieldAttributeOptions {
+    field: HostedFieldsHostedFieldsFieldName;
+    attribute: HostedFieldAttributeName;
+    value?: string | boolean;
 }
 
 export interface HostedFields {
@@ -401,4 +422,62 @@ export interface HostedFields {
      * });
      */
     focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
+
+    /**
+     * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}.
+     * Supported attributes are `aria-invalid`, `aria-required`, `disabled`, and `placeholder`.
+     *
+     * @param options The options for the attribute you wish to set.
+     * @param options.field The field to which you wish to add an attribute. Must be a valid {@link module:braintree-web/hosted-fields~fieldOptions fieldOption}.
+     * @param options.attribute The name of the attribute you wish to add to the field.
+     * @param options.value The value for the attribute.
+     * @param callback Callback executed on completion, containing an error if one occurred. No data is returned if the attribute is set successfully.
+     *
+     * @example <caption>Set the placeholder attribute of a field</caption>
+     * hostedFieldsInstance.setAttribute({
+     *   field: 'number',
+     *   attribute: 'placeholder',
+     *   value: '1111 1111 1111 1111'
+     * }, function (attributeErr) {
+     *   if (attributeErr) {
+     *     console.error(attributeErr);
+     *   }
+     * });
+     *
+     * @example <caption>Set the aria-required attribute of a field</caption>
+     * hostedFieldsInstance.setAttribute({
+     *   field: 'number',
+     *   attribute: 'aria-required',
+     *   value: true
+     * }, function (attributeErr) {
+     *   if (attributeErr) {
+     *     console.error(attributeErr);
+     *   }
+     * });
+     *
+     * @returns Returns a promise if no callback is provided.
+     */
+    setAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+
+    /**
+     * Removes a supported attribute from a {@link module:braintree-web/hosted-fields~field field}.
+     *
+     * @param options The options for the attribute you wish to remove.
+     * @param options.field The field from which you wish to remove an attribute. Must be a valid {@link module:braintree-web/hosted-fields~fieldOptions fieldOption}.
+     * @param options.attribute The name of the attribute you wish to remove from the field.
+     * @param callback Callback executed on completion, containing an error if one occurred. No data is returned if the attribute is removed successfully.
+     *
+     * @example <caption>Remove the placeholder attribute of a field</caption>
+     * hostedFieldsInstance.removeAttribute({
+     *   field: 'number',
+     *   attribute: 'placeholder'
+     * }, function (attributeErr) {
+     *   if (attributeErr) {
+     *     console.error(attributeErr);
+     *   }
+     * });
+     *
+     * @returns Returns a promise if no callback is provided.
+     */
+    removeAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
 }

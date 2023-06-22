@@ -5,7 +5,6 @@ import {
     MeshBasicMaterial,
     MeshPhongMaterial,
     Object3D,
-    PlaneBufferGeometry,
     PlaneGeometry,
     Texture,
     Vector3,
@@ -43,7 +42,7 @@ export class ProgressiveLightMap {
 
     uv_boxes: UVBoxes[];
 
-    blurringPlane: Mesh<PlaneBufferGeometry, MeshBasicMaterial>;
+    blurringPlane: Mesh<PlaneGeometry, MeshBasicMaterial>;
 
     labelMaterial: MeshBasicMaterial;
     labelPlane: PlaneGeometry;

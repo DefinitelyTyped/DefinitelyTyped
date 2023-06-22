@@ -14,11 +14,14 @@ const mediaOptions: MediaOptions = {
             },
         },
         adaptiveStreaming: {
+            adaptiveResolution: true,
             seamlessPlay: true,
             maxWidth: 1000,
             maxHeight: 800,
             bps: {
                 start: 100000,
+                minimum: 0,
+                maximum: 1e10,
             },
         },
     },

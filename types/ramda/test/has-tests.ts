@@ -9,7 +9,6 @@ import * as R from 'ramda';
 
 () => {
     R.has(R.__, { x: 0, y: 0 })('x'); // true;
-    R.has(R.__)({ x: 0, y: 0 }, 'x'); // true;
 };
 
 // R.has() can be used as a type guard
@@ -19,14 +18,13 @@ import * as R from 'ramda';
     () => {
         if (R.has('name', foo)) console.log(foo.name);
         if (R.has('name')(foo)) console.log(foo.name);
-        if (R.has(R.__)(foo, 'name')) console.log(foo.name);
     };
 
     () => {
         const key = 'name';
 
         if (R.has(key as 'name' | 'weight', foo)) {
-            // $ExpectType { name: unknown; } | { weight: unknown; }
+            // $ExpectType ObjectHavingSome<"name" | "weight">
             const bar = foo;
         }
 
@@ -35,17 +33,4 @@ import * as R from 'ramda';
             const bar = foo;
         }
     };
-};
-
-// The key argument needs to be compatible to string
-() => {
-    R.has(4, {}); // $ExpectError
-    R.has(4); // $ExpectError
-    R.has(R.__, {})(4); // $ExpectError
-    R.has(R.__)({}, 4); // $ExpectError
-
-    R.has(null, {}); // $ExpectError
-    R.has(null); // $ExpectError
-    R.has(R.__, {})(null); // $ExpectError
-    R.has(R.__)({}, null); // $ExpectError
 };

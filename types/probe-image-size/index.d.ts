@@ -1,17 +1,26 @@
-// Type definitions for probe-image-size 7.0
+// Type definitions for probe-image-size 7.2
 // Project: https://github.com/nodeca/probe-image-size#readme
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import needle = require("needle");
+import { Transform } from "stream";
+
 /**
  * Get image size without full download. Supported image types: JPG, GIF, PNG, WebP, BMP, TIFF, SVG, PSD.
  */
-declare function probe(source: string, opts: probe.ProbeOptions, callback: probe.ProbeCallback): void;
-declare function probe(source: string, opts?: probe.ProbeOptions): Promise<probe.ProbeResult>;
-declare function probe(source: string | NodeJS.ReadableStream, callback: probe.ProbeCallback): void;
-declare function probe(source: NodeJS.ReadableStream): Promise<probe.ProbeResult>;
+declare function probe(source: string, opts?: needle.NeedleOptions): Promise<probe.ProbeResult>;
+declare function probe(source: NodeJS.ReadableStream, keepOpen?: boolean): Promise<probe.ProbeResult>;
+
+declare class ProbeError extends Error {
+    constructor(
+        message: string,
+        code?: "ECONTENT" | null,
+        statusCode?: number,
+    )
+}
 
 declare namespace probe {
     interface ProbeResult {
@@ -34,19 +43,29 @@ declare namespace probe {
         height: number;
     }
 
-    interface ProbeOptions {
-        retries?: number | undefined;
-        timeout?: number | undefined;
-    }
-
-    interface ProbeError extends Error {
-        code?: "ECONTENT" | undefined;
-        status?: number | undefined;
-    }
-
-    type ProbeCallback = (err: ProbeError | null, result: ProbeResult) => void;
+    const Error: typeof ProbeError;
 
     function sync(data: Buffer): ProbeResult | null;
+
+    // tslint:disable-next-line:no-empty-interface
+    interface ParserStream extends Transform {}
+
+    type Parser = () => ParserStream;
+
+    interface Parsers {
+        avif: Parser;
+        bmp: Parser;
+        gif: Parser;
+        ico: Parser;
+        jpeg: Parser;
+        png: Parser;
+        psd: Parser;
+        svg: Parser;
+        tiff: Parser;
+        webp: Parser;
+    }
+
+    const parsers: Parsers;
 }
 
 export = probe;

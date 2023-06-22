@@ -31,3 +31,9 @@ videojs('example_video_2', {
 videojs('example_video_3', {
     plugins: {},
 });
+
+{
+    // id from configuration #59436
+    const element = document.getElementsByClassName('video-js')[0];
+    const player = videojs(element, { id: 'test' });
+}

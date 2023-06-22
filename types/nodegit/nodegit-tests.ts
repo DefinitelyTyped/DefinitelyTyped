@@ -19,6 +19,10 @@ const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
 const fetchOptions = new Git.FetchOptions();
+const commit = new Git.Commit();
+const annotatedCommit = new Git.AnnotatedCommit();
+const credential = Git.Credential;
+const cred = Git.Cred;
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {
@@ -175,4 +179,51 @@ Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
     refspec.string(); // $ExpectType string
 });
 
+const rebaseOptions: Git.RebaseOptions = {
+    checkoutOptions: {
+        checkoutStrategy: Git.Checkout.STRATEGY.SAFE,
+    },
+    inmemory: 1,
+};
+
+Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, rebaseOptions).then(rebase => {
+    return rebase.next().then(rebaseOperation => {
+        rebaseOperation.id(); // $ExpectType Oid
+        rebaseOperation.type(); // $ExpectType number | null
+        rebaseOperation.exec(); // $ExpectType string | null
+
+        rebase.commit(
+            signature,
+            signature,
+            "encoding",
+            "message"
+        ).then(oid => {
+            oid; // $ExpectType Oid
+
+            rebase.finish(signature); // $ExpectType number
+        });
+    });
+});
+
+Git.Reset.reset(repo, commit, Git.Reset.TYPE.HARD, {}).catch(err => console.log(err));
+
+Git.Cherrypick.cherrypick(repo, commit, {}).catch(err => console.log(err));
+
+Git.Branch.createFromAnnotated(repo, "mybranch", commit, 0).then(ref => {
+    ref; // $ExpectType Reference
+});
+
 repo.cleanup();
+
+const cloneOptions: Git.CloneOptions = {
+    fetchOpts: {
+        callbacks: {
+            credentials: () => Git.Credential.sshKeyFromAgent("git")
+        }
+    }
+};
+
+Git.Clone("repo_url", "local_path", cloneOptions).then(repoClone => {
+    // Use Repo
+    repoClone.cleanup();
+});

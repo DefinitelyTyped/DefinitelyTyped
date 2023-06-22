@@ -136,8 +136,10 @@ function test_modal() {
     });
     $(selector).modal(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).modal('foo'); // $ExpectError
-    $(selector).modal({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).modal('foo');
+    // @ts-expect-error
+    $(selector).modal({ foo: 'bar' });
 }
 
 import modal = require('semantic-ui-modal');

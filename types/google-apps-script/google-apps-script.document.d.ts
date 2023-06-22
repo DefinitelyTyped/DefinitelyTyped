@@ -1,9 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
@@ -210,7 +204,7 @@ declare namespace GoogleAppsScript {
       getBody(): Body;
       getBookmark(id: string): Bookmark;
       getBookmarks(): Bookmark[];
-      getCursor(): Position;
+      getCursor(): Position | null;
       getEditors(): Base.User[];
       getFooter(): FooterSection;
       getFootnotes(): Footnote[];

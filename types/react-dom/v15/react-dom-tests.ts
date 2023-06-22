@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
-import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
@@ -40,16 +39,6 @@ describe('ReactDOMServer', () => {
     });
 });
 
-describe('ReactDOMNodeStream', () => {
-    it('renderToStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
-    });
-
-    it('renderToStaticStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
-    });
-});
-
 describe('React dom test utils', () => {
     it('Simulate', () => {
         const element = document.createElement('div');
@@ -62,6 +51,106 @@ describe('React dom test utils', () => {
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
         ReactTestUtils.Simulate.keyDown(node, { key: "Enter", charCode: 13, keyCode: 13, which: 13 });
+    });
+
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
+        const dom = ReactDOM.render(
+            React.createElement('input', { type: 'text' }),
+            element
+        ) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v15.7.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L616-L702
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
+
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
     });
 
     it('renderIntoDocument', () => {

@@ -1,6 +1,6 @@
 import { match, parse, Expression } from 'css-mediaquery';
 
-// $ExpectError
+// @ts-expect-error
 match('(min-width: 800)');
 // $ExpectType
 match('(min-width: 800)', {});

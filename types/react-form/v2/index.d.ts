@@ -130,7 +130,7 @@ export interface FieldApi {
 
 export interface FieldProps {
     children?: React.ReactNode;
-    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])> | undefined;
+    field?: string | string[] | Array<string | number> | Array<(string | Array<string | number>)> | undefined;
     showErrors?: boolean | undefined;
     errorBefore?: boolean | undefined;
     isForm?: boolean | undefined;

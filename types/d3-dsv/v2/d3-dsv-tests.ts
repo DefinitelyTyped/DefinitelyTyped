@@ -52,11 +52,13 @@ strMaybe = row.property;
 
 declare let row2: d3Dsv.DSVRowString<Headers>;
 strMaybe = row2.Make;
-strMaybe = row2.Property; // $ExpectError
+// @ts-expect-error
+strMaybe = row2.Property;
 
 declare let raw: d3Dsv.DSVRaw<ParsedTestObject>;
 strMaybe = raw.make;
-strMaybe = raw.property; // $ExpectError
+// @ts-expect-error
+strMaybe = raw.property;
 
 declare let rowArray: d3Dsv.DSVRowArray;
 strMaybe = rowArray[0].property;
@@ -65,13 +67,15 @@ num = rowArray.length;
 
 declare let rowArrayHeader: d3Dsv.DSVRowArray<Headers>;
 strMaybe = rowArrayHeader[0].Make;
-strMaybe = rowArrayHeader[0].Property; // $ExpectError
+// @ts-expect-error
+strMaybe = rowArrayHeader[0].Property;
 headers = rowArrayHeader.columns;
 num = rowArrayHeader.length;
 
 declare let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
 strMaybe = parseMappedArray[0].make;
-strMaybe = parseMappedArray[0].property; // $ExpectError
+// @ts-expect-error
+strMaybe = parseMappedArray[0].property;
 parsedTestObject = parseMappedArray[0];
 parsedHeaders = parseMappedArray.columns;
 num = parseMappedArray.length;
@@ -153,7 +157,8 @@ parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
 
 str = d3Dsv.csvFormat(parseRowsMappedArray);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "length"]);
-str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+// @ts-expect-error
+str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]);
 str = d3Dsv.csvFormat(parseRowsMappedArray as readonly ParsedTestObject[], ["year", "length"] as ReadonlyArray<keyof ParsedTestObject>);
 
 // csvFormatBody(...) ========================================================================
@@ -254,7 +259,8 @@ parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
 
 str = d3Dsv.tsvFormat(parseRowsMappedArray);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "length"]);
-str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+// @ts-expect-error
+str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]);
 
 // tsvFormat(...) ============================================================================
 
@@ -359,7 +365,8 @@ parseRowsMappedArray = dsv.parseRows(pipedTestString, (rawRow, index) => {
 
 str = dsv.format(parseRowsMappedArray);
 str = dsv.format(parseRowsMappedArray, ["year", "length"]);
-str = dsv.format(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+// @ts-expect-error
+str = dsv.format(parseRowsMappedArray, ["year", "unknown"]);
 
 // formatBody(...) ========================================================================
 

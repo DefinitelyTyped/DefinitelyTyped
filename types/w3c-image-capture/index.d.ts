@@ -2,7 +2,7 @@
 // Project: https://www.w3.org/TR/image-capture/
 // Definitions by: Cosium <https://github.com/cosium>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
+// TypeScript Version: 4.9
 
 /// <reference types="webrtc" />
 

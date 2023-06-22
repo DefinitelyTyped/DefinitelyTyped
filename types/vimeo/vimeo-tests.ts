@@ -4,12 +4,12 @@ const errorHandler = (e: string) => {};
 const uriHandler = (uri: string) => {};
 const progressHandler = (bytesUploaded: number, bytesTotal: number) => {};
 const completeHandler = (
-    err: string | undefined,
+    err: Error | null,
     result: undefined | object,
     statusCode?: number,
     headers?: object,
 ) => {};
-const completeHandlerShort = (err: string | undefined, result: undefined | object) => {};
+const completeHandlerShort = (err: Error | null, result: undefined | object) => {};
 
 // $ExpectType Vimeo
 const client = new Vimeo('', '', '');
@@ -39,10 +39,10 @@ client.request('', completeHandler);
 client.request('', completeHandlerShort);
 
 // $ExpectType void
-client.request('', (err: string | undefined, result: string | undefined) => {});
+client.request('', (err: Error | null, result: string | undefined) => {});
 
 // $ExpectType void
-client.request('', (err: string | undefined, result: { thing: string } | undefined) => {});
+client.request('', (err: Error | null, result: { thing: string } | undefined) => {});
 
 const requestOptions: RequestOptions = {
     method: 'GET',
@@ -60,7 +60,7 @@ const requestOptionsFull: RequestOptions = {
 };
 
 // $ExpectType void
-client.request(requestOptionsFull, (err: string | undefined, result: string | undefined) => {});
+client.request(requestOptionsFull, (err: Error | null, result: string | undefined) => {});
 
 // $ExpectType Vimeo
 const clientWithoutAccessToken = new Vimeo('', '');

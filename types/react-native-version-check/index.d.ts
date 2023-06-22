@@ -86,6 +86,10 @@ declare namespace VersionCheck {
          * Package name or function that returns promise or value of package name
          */
         packageName?: string | (() => string) | undefined;
+        /**
+         * Country code where the playstore or appstore app is available. i.e: "US"
+         */
+        country?: string | undefined;
     }): Promise<string>;
     /**
      * Returns an object contains with boolean value whether update needed, current version and latest version.

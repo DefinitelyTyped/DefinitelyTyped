@@ -1,3 +1,4 @@
+import { MongoClientOptions } from 'mongodb';
 import Fixtures = require('node-mongodb-fixtures');
 
 const uri = 'mongodb://localhost:27017/mydb';
@@ -10,7 +11,7 @@ const options: Fixtures.Options = {
 
 // $ExpectType Fixtures
 const fixtures0 = new Fixtures();
-// $ExpectError
+// @ts-expect-error
 fixtures0.connect();
 
 // $ExpectType Fixtures
@@ -25,13 +26,11 @@ fixtures2.connect(uri, {});
 
 // $ExpectType Fixtures
 const fixtures3 = new Fixtures(options);
+declare const mongoOptions: MongoClientOptions;
 // $ExpectType Promise<Fixtures>
 fixtures3.connect(
     uri,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    },
+    mongoOptions,
     'db',
 );
 // $ExpectType Promise<Fixtures>

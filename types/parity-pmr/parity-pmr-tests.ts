@@ -9,19 +9,19 @@ const message: PMRMessage = {
 format(message);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 format('');
 
-// $ExpectError
+// @ts-expect-error
 format({});
 
 // Invalid sub type
-// $ExpectError
+// @ts-expect-error
 format({ messageType: 1 });
 
 // $ExpectType PMRMessage
 parse(buffer);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 parse('');

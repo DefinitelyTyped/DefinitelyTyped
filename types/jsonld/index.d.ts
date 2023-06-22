@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { Frame, Url, JsonLdProcessor, RemoteDocument, JsonLdObj, JsonLdArray } from './jsonld-spec';
+import { Frame, Url, JsonLdProcessor as JsonLdProcessorInterface, RemoteDocument, JsonLdObj, JsonLdArray } from './jsonld-spec';
 import {
     JsonLdDocument,
     ContextDefinition,
@@ -61,6 +61,7 @@ export namespace Options {
         explicit?: boolean | undefined;
         requireAll?: boolean | undefined;
         omitDefault?: boolean | undefined;
+        omitGraph?: boolean | undefined;
     }
 
     interface Normalize extends Common {
@@ -142,7 +143,7 @@ export function toRDF(input: JsonLdDocument, callback: Callback<RdfDataSet>): vo
 export function toRDF(input: JsonLdDocument, options: Options.ToRdf, callback: Callback<RdfDataSet>): void;
 export function toRDF(input: JsonLdDocument, options?: Options.ToRdf): Promise<RdfDataSet>;
 
-export let JsonLdProcessor: JsonLdProcessor;
+export let JsonLdProcessor: JsonLdProcessorInterface;
 
 // disable autoexport
 export {};

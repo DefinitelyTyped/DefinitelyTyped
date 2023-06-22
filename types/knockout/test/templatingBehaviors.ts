@@ -575,7 +575,8 @@ describe('Templating', function() {
         // Now set the observable to null and check it's treated like an empty array
         // (because how else should null be interpreted?)
         // DefinitelyTyped note: while KO accepts this, I wouldn't consider it a well-typed usage of the API
-        myArray(null); // $ExpectError
+        // @ts-expect-error
+        myArray(null);
         expect(testNode.childNodes[0].childNodes.length).toEqual(0);
     });
 

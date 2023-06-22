@@ -1,7 +1,8 @@
 import immediate = require('immediate');
 
 immediate(() => {});
-immediate(arg1 => {}); // $ExpectError
+// @ts-expect-error
+immediate(arg1 => {});
 
 immediate(
     (arg1, arg2) => {
@@ -11,7 +12,7 @@ immediate(
     'foo',
     1
 );
-// $ExpectError
+// @ts-expect-error
 immediate((arg1, arg2) => {}, 'foo');
-// $ExpectError
+// @ts-expect-error
 immediate((arg1: string, arg2: number) => {}, 'foo', 'bar');

@@ -60,8 +60,10 @@ declare module '../../../index' {
          *   is taken. An ellipse with equal width and height
          *   is a circle. The origin may be changed with the
          *   ellipseMode() function.
-         *   @param x x-coordinate of the center of ellipse.
-         *   @param y y-coordinate of the center of ellipse.
+         *   @param x x-coordinate of the center of the
+         *   ellipse.
+         *   @param y y-coordinate of the center of the
+         *   ellipse.
          *   @param w width of the ellipse.
          *   @param [h] height of the ellipse.
          *   @chainable
@@ -79,11 +81,13 @@ declare module '../../../index' {
          *   is taken. An ellipse with equal width and height
          *   is a circle. The origin may be changed with the
          *   ellipseMode() function.
-         *   @param x x-coordinate of the center of ellipse.
-         *   @param y y-coordinate of the center of ellipse.
+         *   @param x x-coordinate of the center of the
+         *   ellipse.
+         *   @param y y-coordinate of the center of the
+         *   ellipse.
          *   @param w width of the ellipse.
          *   @param h height of the ellipse.
-         *   @param [detail] optional parameter for WebGL mode
+         *   @param [detail] optional parameter for WEBGL mode
          *   only. This is to specify the number of vertices
          *   that makes up the perimeter of the ellipse.
          *   Default value is 25. Won't draw a stroke for a
@@ -95,15 +99,15 @@ declare module '../../../index' {
          *   Draws a circle to the screen. A circle is a simple
          *   closed shape. It is the set of all points in a
          *   plane that are at a given distance from a given
-         *   point, the centre. This function is a special case
+         *   point, the center. This function is a special case
          *   of the ellipse() function, where the width and
          *   height of the ellipse are the same. Height and
          *   width of the ellipse correspond to the diameter of
          *   the circle. By default, the first two parameters
-         *   set the location of the centre of the circle, the
+         *   set the location of the center of the circle, the
          *   third sets the diameter of the circle.
-         *   @param x x-coordinate of the centre of the circle.
-         *   @param y y-coordinate of the centre of the circle.
+         *   @param x x-coordinate of the center of the circle.
+         *   @param y y-coordinate of the center of the circle.
          *   @param d diameter of the circle.
          *   @chainable
          */
@@ -175,7 +179,7 @@ declare module '../../../index' {
 
         /**
          *   Draws a quad on the canvas. A quad is a
-         *   quadrilateral, a four sided polygon. It is similar
+         *   quadrilateral, a four-sided polygon. It is similar
          *   to a rectangle, but the angles between its edges
          *   are not constrained to ninety degrees. The first
          *   pair of parameters (x1,y1) sets the first vertex
@@ -212,7 +216,7 @@ declare module '../../../index' {
 
         /**
          *   Draws a quad on the canvas. A quad is a
-         *   quadrilateral, a four sided polygon. It is similar
+         *   quadrilateral, a four-sided polygon. It is similar
          *   to a rectangle, but the angles between its edges
          *   are not constrained to ninety degrees. The first
          *   pair of parameters (x1,y1) sets the first vertex
@@ -261,7 +265,7 @@ declare module '../../../index' {
          *   degrees. By default, the first two parameters set
          *   the location of the upper-left corner, the third
          *   sets the width, and the fourth sets the height.
-         *   The way these parameters are interpreted, may be
+         *   The way these parameters are interpreted may be
          *   changed with the rectMode() function. The fifth,
          *   sixth, seventh and eighth parameters, if
          *   specified, determine corner radius for the
@@ -288,7 +292,7 @@ declare module '../../../index' {
          *   degrees. By default, the first two parameters set
          *   the location of the upper-left corner, the third
          *   sets the width, and the fourth sets the height.
-         *   The way these parameters are interpreted, may be
+         *   The way these parameters are interpreted may be
          *   changed with the rectMode() function. The fifth,
          *   sixth, seventh and eighth parameters, if
          *   specified, determine corner radius for the

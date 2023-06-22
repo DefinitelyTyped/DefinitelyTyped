@@ -1,5 +1,4 @@
-import { Scope } from 'eslint';
-import { Node } from 'estree';
+import { Scope, Rule } from 'eslint';
 
 export interface ReferenceTrackerOptions {
     /**
@@ -32,7 +31,7 @@ export const READ: unique symbol;
 
 export interface TrackedReferences<T> {
     info: T;
-    node: Node;
+    node: Rule.Node;
     path: string[];
     type: symbol;
 }

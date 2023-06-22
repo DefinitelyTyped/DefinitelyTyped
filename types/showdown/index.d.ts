@@ -1,4 +1,4 @@
-// Type definitions for Showdown 1.9.0
+// Type definitions for showdown 2.0
 // Project: https://github.com/showdownjs/showdown
 // Definitions by: Hamed Baatour <https://github.com/hamedbaatour>,
 //                 cbowdon <https://github.com/cbowdon>,
@@ -801,6 +801,12 @@ declare namespace Showdown {
         underline?: boolean | undefined;
 
         /**
+         * Replaces three dots with the ellipsis unicode character.
+         * @default true
+         */
+        ellipsis?: boolean | undefined;
+
+        /**
          * Outputs a complete html document, including <html>, <head> and <body> tags' instead of an HTML fragment.
          *
          * @example
@@ -1035,7 +1041,6 @@ declare namespace Showdown {
 
     interface ConverterStatic {
         /**
-         * @constructor
          * @param converterOptions - Configuration object, describes which extensions to apply.
          */
         new(converterOptions?: ConverterOptions): Converter;

@@ -11,24 +11,42 @@ safeCompare('你好，世界', '您好'); // $ExpectType boolean
 safeCompare('สวัสดีชาวโลก', 'สวัสดี'); // $ExpectType boolean
 // => false
 
-safeCompare(undefined, ''); // $ExpectError
-safeCompare(void 0, ''); // $ExpectError
-safeCompare(null, ''); // $ExpectError
-safeCompare(true, ''); // $ExpectError
-safeCompare(false, ''); // $ExpectError
-safeCompare({}, ''); // $ExpectError
-safeCompare([], ''); // $ExpectError
-safeCompare(42, ''); // $ExpectError
-safeCompare(NaN, ''); // $ExpectError
+// @ts-expect-error
+safeCompare(undefined, '');
+// @ts-expect-error
+safeCompare(void 0, '');
+// @ts-expect-error
+safeCompare(null, '');
+// @ts-expect-error
+safeCompare(true, '');
+// @ts-expect-error
+safeCompare(false, '');
+// @ts-expect-error
+safeCompare({}, '');
+// @ts-expect-error
+safeCompare([], '');
+// @ts-expect-error
+safeCompare(42, '');
+// @ts-expect-error
+safeCompare(NaN, '');
 // => error
 
-safeCompare('', undefined); // $ExpectError
-safeCompare('', void 0); // $ExpectError
-safeCompare('', null); // $ExpectError
-safeCompare('', true); // $ExpectError
-safeCompare('', false); // $ExpectError
-safeCompare('', {}); // $ExpectError
-safeCompare('', []); // $ExpectError
-safeCompare('', 42); // $ExpectError
-safeCompare('', NaN); // $ExpectError
+// @ts-expect-error
+safeCompare('', undefined);
+// @ts-expect-error
+safeCompare('', void 0);
+// @ts-expect-error
+safeCompare('', null);
+// @ts-expect-error
+safeCompare('', true);
+// @ts-expect-error
+safeCompare('', false);
+// @ts-expect-error
+safeCompare('', {});
+// @ts-expect-error
+safeCompare('', []);
+// @ts-expect-error
+safeCompare('', 42);
+// @ts-expect-error
+safeCompare('', NaN);
 // => error

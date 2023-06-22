@@ -2,7 +2,7 @@
 // Project: https://github.com/visualfanatic/vite-svg
 // Definitions by: Priyanshu Rav <https://github.com/priyanshurav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.0
 
 import { Plugin } from 'vite';
 import { OptimizeOptions } from 'svgo';

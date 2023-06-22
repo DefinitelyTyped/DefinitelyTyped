@@ -20,4 +20,4 @@ const authOptions: AmazonCognitoIdentity.CognitoAuthOptions = {
 const auth = new AmazonCognitoIdentity.CognitoAuth(authOptions);
 auth.userhandler; // $ExpectType CognitoAuthUserHandler
 auth.getCognitoConstants(); // $ExpectType CognitoConstants
-auth.createCORSRequest('', ''); // $ExpectType XMLHttpRequest | XDomainRequest
+auth.createCORSRequest('', '');  // $ExpectType XMLHttpRequest | XDomainRequest || XDomainRequest | XMLHttpRequest

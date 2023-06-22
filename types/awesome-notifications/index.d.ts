@@ -23,7 +23,7 @@ export interface AwnLabels {
     alert?: string;
     async?: string;
     confirm?: string;
-    confirmOK?: string;
+    confirmOk?: string;
     confirmCancel?: string;
 }
 

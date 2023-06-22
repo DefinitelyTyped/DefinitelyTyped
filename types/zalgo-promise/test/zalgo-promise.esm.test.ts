@@ -634,7 +634,7 @@ describe('reject cases', () => {
         let caughtErr;
 
         try {
-            // $ExpectError
+            // @ts-expect-error
             promise.then(123);
         } catch (err) {
             caughtErr = err;
@@ -650,7 +650,7 @@ describe('reject cases', () => {
         let caughtErr;
 
         try {
-            // $ExpectError
+            // @ts-expect-error
             promise.then(null, 123);
         } catch (err) {
             caughtErr = err;
@@ -666,7 +666,7 @@ describe('reject cases', () => {
         let caughtErr;
 
         try {
-            // $ExpectError
+            // @ts-expect-error
             promise.catch(123);
         } catch (err) {
             caughtErr = err;

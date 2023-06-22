@@ -1,20 +1,13 @@
 // Type definitions for non-npm package @ember/routing 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Frouting
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-export { default as Route } from '@ember/routing/route';
-export { default as Router } from '@ember/routing/router';
-import RouterService from '@ember/routing/router-service';
-import '@ember/routing/-private/router-dsl';
-import '@ember/routing/-private/transition';
 import { Opaque } from 'ember/-private/type-utils';
-interface Registry {
-    'router': RouterService;
-}
 
 // In normal TypeScript, this component is essentially an opaque token
 // that just needs to be importable. Declaring it with a unique interface

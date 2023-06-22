@@ -36,7 +36,7 @@ import h = require('vhtml');
 </blockquote>;
 
 // Incorrect attribute type
-// $ExpectError
+// @ts-expect-error
 <div class={1}></div>;
 
 // data-* attributes
@@ -60,7 +60,7 @@ import h = require('vhtml');
 // dangerouslySetInnerHTML
 // $ExpectType string
 <main dangerouslySetInnerHTML={{ __html: '&trade;' }}></main>;
-// $ExpectError
+// @ts-expect-error
 <main dangerouslySetInnerHTML="foo bar"></main>;
 
 // -------- Functional Pseudo-Components -------- //
@@ -71,11 +71,11 @@ declare function Component(props: { prop1: string; prop2?: number | undefined })
 <Component prop1="foo" prop2={125} />;
 
 // Missing required prop
-// $ExpectError
+// @ts-expect-error
 <Component prop2={125} />;
 
 // Incorrect prop type
-// $ExpectError
+// @ts-expect-error
 <Component prop1="bar" prop2="250" />;
 
 // -------- Component accepts no children -------- //
@@ -86,13 +86,13 @@ declare function NoChild(): h.JSX.Element;
 <NoChild />;
 
 // One child given
-// $ExpectError
+// @ts-expect-error
 <NoChild>Foo bar</NoChild>;
 // One child given (undefined is still a child)
-// $ExpectError
+// @ts-expect-error
 <NoChild>{undefined}</NoChild>;
 // Multiple children given
-// $ExpectError
+// @ts-expect-error
 <NoChild>
     <div>1</div>
     <div>2</div>
@@ -108,13 +108,13 @@ declare function EmptyChild(props: { children: [] }): h.JSX.Element;
 <EmptyChild />;
 
 // One child given
-// $ExpectError
+// @ts-expect-error
 <EmptyChild>Foo bar</EmptyChild>;
 // One child given (undefined is still a child)
-// $ExpectError
+// @ts-expect-error
 <EmptyChild>{undefined}</EmptyChild>;
 // Multiple children given
-// $ExpectError
+// @ts-expect-error
 <EmptyChild>
     <div>1</div>
     <div>2</div>
@@ -128,16 +128,16 @@ declare function OneChild(props: { children: [string] }): h.JSX.Element;
 <OneChild>Foo</OneChild>;
 
 // No child given
-// $ExpectError
+// @ts-expect-error
 <OneChild />;
 // Multiple children given
-// $ExpectError
+// @ts-expect-error
 <OneChild>
     <div>1</div>
     <div>2</div>
 </OneChild>;
 // Incorrect child type
-// $ExpectError
+// @ts-expect-error
 <OneChild>{1}</OneChild>;
 
 // -------- Component accepts exactly zero or one child -------- //
@@ -150,13 +150,13 @@ declare function ZeroOrOneChild(props: { children: [boolean?] }): h.JSX.Element;
 <ZeroOrOneChild>{true}</ZeroOrOneChild>;
 
 // Multiple children given
-// $ExpectError
+// @ts-expect-error
 <ZeroOrOneChild>
     {true}
     {true}
 </ZeroOrOneChild>;
 // Incorrect child type
-// $ExpectError
+// @ts-expect-error
 <ZeroOrOneChild>Foo</ZeroOrOneChild>;
 
 // -------- Component accepts arbitrary number of children -------- //
@@ -174,7 +174,7 @@ declare function AnyNumberOfChildren(props: { children: string[] }): h.JSX.Eleme
 </AnyNumberOfChildren>;
 
 // Incorrect child type
-// $ExpectError
+// @ts-expect-error
 <AnyNumberOfChildren>{1}</AnyNumberOfChildren>;
 
 // -------- Invalid components (incorrect props.children type) --------//
@@ -183,7 +183,7 @@ declare function AnyNumberOfChildren(props: { children: string[] }): h.JSX.Eleme
 // This function should not be allowed as a component
 declare function BadComponentType(props: { children: string }): h.JSX.Element;
 
-// $ExpectError
+// @ts-expect-error
 <BadComponentType />;
-// $ExpectError
+// @ts-expect-error
 <BadComponentType>Foo</BadComponentType>;

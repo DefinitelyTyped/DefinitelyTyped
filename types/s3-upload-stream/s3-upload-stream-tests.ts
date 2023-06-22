@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import S3Stream = require('s3-upload-stream');
-import * as AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk2-types';
 
 const s3Stream = S3Stream(new AWS.S3());
 

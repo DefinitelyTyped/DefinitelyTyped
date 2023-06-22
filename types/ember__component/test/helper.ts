@@ -57,7 +57,7 @@ class NoSignatureForm extends Helper {
 
 class BadPosSigForm extends Helper<DemoSig> {
     compute(
-        // $ExpectError
+        // @ts-expect-error
         [i18nizer, extra]: [i18nizer: (s: string) => string],
         { name, age }: { name: string; age: number },
     ): string {
@@ -68,7 +68,7 @@ class BadPosSigForm extends Helper<DemoSig> {
 class BadNamedSigForm extends Helper<DemoSig> {
     compute(
         [i18nizer]: [i18nizer: (s: string) => string],
-        // $ExpectError
+        // @ts-expect-error
         { name, age, potato }: { name: string; age: number },
     ): string {
         return i18nizer(`${name} is ${age} years old`);
@@ -77,7 +77,7 @@ class BadNamedSigForm extends Helper<DemoSig> {
 
 class BadReturnForm extends Helper<DemoSig> {
     compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
-        // $ExpectError
+        // @ts-expect-error
         return Boolean(i18nizer(`${name} is ${age} years old`));
     }
 }
@@ -107,21 +107,21 @@ const dasherizeHelper = helper(function dasherize([str]: [string], { delim = '-'
 
 const signatureForm = helper<DemoSig>(([i18nizer], { name, age }) => i18nizer(`${name} is ${age} years old`));
 
-// $ExpectError
+// @ts-expect-error
 const badPosArgsSig = helper<DemoSig>(([i18nizer, extra], { name, age }) => i18nizer(`${name} is ${age} years old`));
 
-// $ExpectError
+// @ts-expect-error
 const badNamedArgsSig = helper<DemoSig>(([i18nizer], { name, age, potato }) => i18nizer(`${name} is ${age} years old`));
 
-// $ExpectError
+// @ts-expect-error
 const badReturnSig = helper<DemoSig>(([i18nizer], { name, age }) => Boolean(i18nizer(`${name} is ${age} years old`)));
 
 const greet = helper(([name]: [string]) => `Hello, ${name}`);
 
-// $ExpectError
+// @ts-expect-error
 new greet();
 
-// $ExpectError
+// @ts-expect-error
 class Subgreet extends greet {}
 
 // $ExpectType abstract new <T>() => FunctionBasedHelperInstance<{ Args: { Positional: [T]; Named: EmptyObject; }; Return: [T, T]; }>

@@ -1,4 +1,4 @@
-// Type definitions for swig-email-templates 5.0
+// Type definitions for swig-email-templates 7.0
 // Project: https://github.com/andrewrk/swig-email-templates
 // Definitions by: Adam Babcock <https://github.com/mrhen>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
@@ -25,6 +25,8 @@ declare class EmailTemplates {
     generateSubject(templatePath: string, context: any, cb: (error: any, text: string | null) => void): void;
     rewriteUrls($: JQueryStatic, rewrite: (href: string) => void): void;
     render(templatePath: string, context: any, cb: (error: any, inlinedHTML?: string, text?: string, subject?: string) => void): void;
+    /** @async */
+    render(templatePath: string, context: any): Promise<{ html?: string; text?: string; subject?: string; }>;
 }
 
 export = EmailTemplates;

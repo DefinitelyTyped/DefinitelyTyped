@@ -89,4 +89,23 @@
             }
         });
     }
+
+    /**
+     * Get file.
+     */
+    function getFile() {
+        gapi.client.drive.files.get({
+            fileId: '1',
+            supportsAllDrives: true,
+            fields: 'embedLink, title, mimeType, description',
+        }).then(function(response: any) {
+            appendPre('File:');
+            var file = response.result;
+            if (file) {
+                appendPre(file.title + ' (' + file.id + ')');
+            } else {
+                appendPre('No files found.');
+            }
+        });
+    }
 }

@@ -8,7 +8,6 @@
 export = autobahn;
 
 declare namespace autobahn {
-
     export class Session {
         id: number;
         realm: string;
@@ -21,21 +20,41 @@ declare namespace autobahn {
 
         constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
 
-        join(realm: string, authmethods: string[], authid: string): void;
+        join(realm: string, authmethods: string[], authid: string, authextra?: object): void;
 
         leave(reason: string, message: string): void;
 
-        call<TResult>(procedure: string, args?: any[] | any, kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult, TArgs = any[], TKWArgs = any, TName = string>(
+            procedure: TName,
+            args?: TArgs,
+            kwargs?: TKWArgs,
+            options?: ICallOptions,
+        ): When.Promise<TResult>;
 
-        publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
+        publish<TArgs = any[], TKWArgs = any, TName = string>(
+            topic: TName,
+            args?: TArgs,
+            kwargs?: TKWArgs,
+            options?: IPublishOptions,
+        ): When.Promise<IPublication>;
 
-        subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
+        subscribe<TArgs = any[], TKWArgs = any, TName = string>(
+            topic: TName,
+            handler: SubscribeHandler<TArgs, TKWArgs, TName>,
+            options?: ISubscribeOptions,
+        ): When.Promise<ISubscription<TArgs, TKWArgs, TName>>;
 
-        register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
+        register<TResult = any, TArgs = any[], TKWArgs = any, TName = string>(
+            procedure: TName,
+            endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>,
+            options?: IRegisterOptions,
+        ): When.Promise<IRegistration<TResult, TArgs, TKWArgs, TName>>;
 
-        unsubscribe(subscription: ISubscription): When.Promise<any>;
+        unsubscribe<TArgs, TKWArgs>(subscription: ISubscription<TArgs, TKWArgs>): When.Promise<any>;
 
-        unregister(registration: IRegistration): When.Promise<any>;
+        unregister<TResult, TArgs, TKWArgs, TName>(
+            registration: IRegistration<TResult, TArgs, TKWArgs, TName>,
+        ): When.Promise<any>;
 
         prefix(prefix: string, uri: string): void;
 
@@ -47,7 +66,7 @@ declare namespace autobahn {
 
     interface IInvocation {
         caller?: number | undefined;
-        progress?: ((args : any[], kwargs : any) => void) | undefined;
+        progress?: ((args: any[], kwargs: any) => void) | undefined;
         procedure: string;
     }
 
@@ -57,17 +76,17 @@ declare namespace autobahn {
         procedure: string;
     }
 
-    interface IEvent {
+    interface IEvent<TName = string> {
         publication: number;
         publisher?: number | undefined;
-        topic: string;
+        topic: TName;
     }
 
-    class Event implements IEvent {
-        constructor(publication?: number, publisher?: string, topic?: string);
+    class Event<TName = string> implements IEvent<TName> {
+        constructor(publication?: number, publisher?: string, topic?: TName);
 
         publication: number;
-        topic: string;
+        topic: TName;
     }
 
     interface IResult {
@@ -96,11 +115,15 @@ declare namespace autobahn {
         kwargs: any;
     }
 
-    type SubscribeHandler = (args?: any[] | any, kwargs?: any, details?: IEvent) => void;
+    type SubscribeHandler<TArgs = any[], TKWArgs = any, TName = string> = (
+        args?: TArgs,
+        kwargs?: TKWArgs,
+        details?: IEvent<TName>,
+    ) => void;
 
-    interface ISubscription {
-        topic: string;
-        handler: SubscribeHandler;
+    interface ISubscription<TArgs = any[], TKWArgs = any, TName = string> {
+        topic: TName;
+        handler: SubscribeHandler<TArgs, TKWArgs>;
         options: ISubscribeOptions;
         session: Session;
         id: number;
@@ -108,25 +131,35 @@ declare namespace autobahn {
         unsubscribe(): When.Promise<any>;
     }
 
-    class Subscription implements ISubscription {
-        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
+    class Subscription<TArgs = any[], TKWArgs = any, TName = string> implements ISubscription<TArgs, TKWArgs, TName> {
+        constructor(
+            topic?: TName,
+            handler?: SubscribeHandler<TArgs, TKWArgs>,
+            options?: ISubscribeOptions,
+            session?: Session,
+            id?: number,
+        );
 
-        handler: SubscribeHandler;
+        handler: SubscribeHandler<TArgs, TKWArgs>;
 
         unsubscribe(): When.Promise<any>;
 
-        topic: string;
+        topic: TName;
         options: ISubscribeOptions;
         session: Session;
         id: number;
         active: boolean;
     }
 
-    type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
+    type RegisterEndpoint<TResult = any, TArgs = any[], TKWArgs = any> = (
+        args?: TArgs,
+        kwargs?: TKWArgs,
+        details?: IInvocation,
+    ) => TResult;
 
-    interface IRegistration {
-        procedure: string;
-        endpoint: RegisterEndpoint;
+    interface IRegistration<TResult = any, TArgs = any[], TKWArgs = any, TName = string> {
+        procedure: TName;
+        endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>;
         options: IRegisterOptions;
         session: Session;
         id: number;
@@ -134,14 +167,22 @@ declare namespace autobahn {
         unregister(): When.Promise<any>;
     }
 
-    class Registration implements IRegistration {
-        constructor(procedure?: string, endpoint?: RegisterEndpoint, options?: IRegisterOptions, session?: Session, id?: number);
+    class Registration<TResult = any, TArgs = any[], TKWArgs = any, TName = string>
+        implements IRegistration<TResult, TArgs, TKWArgs, TName>
+    {
+        constructor(
+            procedure?: TName,
+            endpoint?: RegisterEndpoint<TResult, TArgs, TKWArgs>,
+            options?: IRegisterOptions,
+            session?: Session,
+            id?: number,
+        );
 
-        endpoint: RegisterEndpoint;
+        endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>;
 
         unregister(): When.Promise<any>;
 
-        procedure: string;
+        procedure: TName;
         options: IRegisterOptions;
         session: Session;
         id: number;
@@ -219,7 +260,11 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
+    type OnChallengeHandler = (
+        session: Session,
+        method: string,
+        extra: any,
+    ) => string | [string, any] | When.Promise<string | [string, any]>;
     type OnInternalErrorHandler = (error: object | Error, error_message?: string) => void;
     type OnUserErrorHandler = (error: object | Error, error_message?: string) => void;
 
@@ -257,8 +302,8 @@ declare namespace autobahn {
     }
 
     type DefaultTransportType = 'websocket' | 'longpoll' | 'rawsocket';
-    
-    // Workaround to get intellisense on type unions of 'literals' | string. 
+
+    // Workaround to get intellisense on type unions of 'literals' | string.
     // See https://github.com/Microsoft/TypeScript/issues/29729
     type CustomTransportType = string & { zz_IGNORE_ME?: never | undefined };
     type TransportType = DefaultTransportType | CustomTransportType;
@@ -283,7 +328,7 @@ declare namespace autobahn {
         type: TransportType;
         create(): ITransport;
     }
-    
+
     interface ITransportFactoryFactory {
         new (options: any): ITransportFactory;
     }

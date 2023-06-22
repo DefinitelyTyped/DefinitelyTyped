@@ -1,6 +1,6 @@
 import { ColorRepresentation } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export class ClearPass extends Pass {
     constructor(clearColor?: ColorRepresentation, clearAlpha?: number);

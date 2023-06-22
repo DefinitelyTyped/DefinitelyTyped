@@ -10,6 +10,6 @@ declare function outside(
     version: string | SemVer,
     range: string | Range,
     hilo: '>' | '<',
-    optionsOrLoose?: boolean | semver.Options,
+    optionsOrLoose?: boolean | semver.RangeOptions,
 ): boolean;
 export = outside;

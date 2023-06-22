@@ -194,6 +194,11 @@ declare namespace Terminal {
     getPalette(register: number, callback?: Callback<Palette>): void;
     setPalette(palette: string | Palette): void;
 
+    table(tableCells: ReadonlyArray<ReadonlyArray<string>>, options?: TextTableOptions): void;
+
+    spinner(options?: AnimatedTextOptions): Promise<AnimatedText>;
+
+    spinner(animation: AnimationOption): Promise<AnimatedText>;
     wrapColumn(options?: {
       width: null | number;
       x: number;
@@ -542,5 +547,78 @@ declare namespace Terminal {
     stop: () => void;
     resume: () => void;
     reset: () => void;
+  }
+
+  interface TextTableOptions {
+    width?: number;
+    cellContents?: ReadonlyArray<ReadonlyArray<string>>;
+    contentHasMarkup?: boolean | string;
+    textAttr?: object;
+    voidAttr?: object;
+    firstRowTextAttr?: object;
+    firstRowVoidAttr?: object;
+    evenRowTextAttr?: object;
+    evenRowVoidAttr?: object;
+    firstColumnTextAttr?: object;
+    firstColumnVoidAttr?: object;
+    evenColumnTextAttr?: object;
+    evenColumnVoidAttr?: object;
+    firstCellTextAttr?: object;
+    firstCellVoidAttr?: object;
+    evenCellTextAttr?: object;
+    evenCellVoidAttr?: object;
+    checkerEvenCellTextAttr?: object;
+    checkerEvenCellVoidAttr?: object;
+    expandToWidth?: boolean;
+    shrinkToWidth?: boolean;
+    expandToHeight?: boolean;
+    shrinkToHeight?: boolean;
+    lineWrap?: boolean;
+    wordWrap?: boolean;
+    fit?: boolean;
+    hasBorder?: boolean;
+    borderAttr?: object;
+    borderChars?: CustomBorderObject | BuiltinBorder;
+    textBoxKeyBindings?: object;
+  }
+
+  type AnimationOption = BuiltinAnimation | AnimationArray;
+
+  // see https://github.com/cronvel/terminal-kit/blob/master/doc/spChars.md#ref.spChars.animation
+
+  type BuiltinAnimation =
+      | 'asciiSpinner'
+      | 'lineSpinner'
+      | 'dotSpinner'
+      | 'bitDots'
+      | 'impulse'
+      | 'unboxing'
+      | 'unboxing-color';
+
+  type BuiltinBorder = 'plain' | 'empty' | 'ascii' | 'light' | 'lightRounded' | 'heavy' | 'double' | 'dotted';
+
+  type AnimationArray = string[];
+  interface CustomBorderObject {
+      vertical: string;
+      horizontal: string;
+      topLeft: string;
+      topRight: string;
+      bottomLeft: string;
+      bottomRight: string;
+      topTee: string;
+      bottomTee: string;
+      leftTee: string;
+      rightTee: string;
+      cross: string;
+  }
+
+  interface AnimatedTextOptions {
+      animation: AnimationOption;
+      internal?: boolean;
+      attr?: object;
+  }
+
+  interface AnimatedText {
+      animate(speed: number | false): void;
   }
 }

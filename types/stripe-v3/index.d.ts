@@ -17,6 +17,7 @@
 //                 Kohei Matsubara <https://github.com/matsuby>
 //                 Marko Kaznovac <https://github.com/kaznovac>
 //                 Hartley Robertson <https://github.com/hartleyrobertson>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -117,6 +118,13 @@ declare namespace stripe {
             clientSecret: string,
             options?: ConfirmSofortPaymentOptions
         ): Promise<PaymentIntentResponse>;
+        confirmAuBecsDebitPayment(
+            clientSecret: string,
+            options?: ConfirmSofortPaymentOptions
+        ): Promise<PaymentIntentResponse>;
+        verifyIdentity(
+            clientSecret: string,
+        ): Promise<VerificationSessionResult>;
     }
 
     type StripeRedirectResponse = never | {
@@ -853,6 +861,13 @@ declare namespace stripe {
         error?: Error | undefined;
     }
 
+    interface VerificationSessionResult {
+        verificationSession?: {
+            id: string;
+        };
+        error?: Error | undefined;
+    }
+
     // Container for all payment request related types
     namespace paymentRequest {
         interface DisplayItem {
@@ -978,7 +993,7 @@ declare namespace stripe {
             locale?: string | undefined;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank' | 'auBankAccount';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
             getElement(type: elementsType): Element | null;
@@ -1010,6 +1025,7 @@ declare namespace stripe {
             paymentRequest?: paymentRequest.StripePaymentRequest | undefined;
             supportedCountries?: string[] | undefined;
             disabled?: boolean | undefined;
+            disableLink?: boolean | undefined;
         }
 
         interface Style extends StyleOptions {

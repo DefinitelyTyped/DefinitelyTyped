@@ -88,5 +88,5 @@ request<any>('/foo', { responseType: 'blob' });
 request<any>('/foo', { responseType: 'document' });
 request<any>('/foo', { responseType: 'json' });
 request<any>('/foo', { responseType: 'text' });
-// $ExpectError
+// @ts-expect-error
 request<any>('/foo', { responseType: 'other' });

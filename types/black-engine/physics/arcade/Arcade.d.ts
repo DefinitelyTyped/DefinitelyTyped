@@ -13,8 +13,8 @@ export class Arcade extends System {
     private mIterations;
     private mSleepEnabled;
     delta: number;
-    collisionInfo(colliderA: Collider, colliderB: Collider, cb: () => void, ctx: any, ...args: any[]): void;
-    isColliding(bodyA: RigidBody, bodyB?: RigidBody, cb?: () => void, ctx?: any, ...args: any[]): boolean;
+    collisionInfo(colliderA: Collider, colliderB: Collider, cb: (...params: any[]) => void, ctx: any, ...args: any[]): void;
+    isColliding(bodyA: RigidBody, bodyB?: RigidBody, cb?: (...params: any[]) => void, ctx?: any, ...args: any[]): boolean;
     onChildrenAdded(gameObject: any): void;
     onChildrenRemoved(gameObject: any): void;
     onComponentAdded(child: any, component: any): void;

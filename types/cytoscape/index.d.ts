@@ -8,8 +8,8 @@
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Fredrik Sandström <https://github.com/Veckodag>
-//                  Jan Zak <https://github.com/zakjan>
 //                  Johan Svensson <https://github.com/jsve>
+//                  Roger Dubbs <https://github.com/rogerdubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -115,7 +115,7 @@ declare namespace cytoscape {
         /**
          * a space separated list of class names that the element has
          */
-        classes?: string | undefined;
+        classes?: string[] | string | undefined;
         /**
          *  CssStyleDeclaration;
          */
@@ -727,6 +727,12 @@ declare namespace cytoscape {
         removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
         /**
+         * Remove all event handlers.
+         * https://js.cytoscape.org/#cy.removeAllListeners
+         */
+        removeAllListeners(): this;
+
+        /**
          * Trigger one or more events.
          *
          * @param events A space separated list of event names to trigger.
@@ -917,7 +923,7 @@ declare namespace cytoscape {
          * @param options.zoom The zoom level to set.
          * @param options.pan The pan to set (a rendered position).
          */
-        viewport(options: {zoom: number, pan: Position}): this;
+        viewport(options: { zoom: number; pan: Position }): this;
 
         /**
          * Get whether box selection is enabled.
@@ -1179,13 +1185,74 @@ declare namespace cytoscape {
 
     interface CoreStyle {
         /**
-         * Get the current style object.
+         * Assign a new stylesheet to replace the existing one (if provided)
+         * and return the style.
          */
-        style(): ElementStylesheetStyle | ElementStylesheetCSS;
+        style(sheet?: Stylesheet | Stylesheet[] | string): Style;
+    }
+
+    interface Style {
         /**
-         * Assign a new stylesheet to replace the existing one.
+         * Add a rule to the stylesheet.
          */
-        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
+        append(style: string | Stylesheet | Stylesheet[]): this;
+
+        /**
+         * Remove all styles, including default styles.
+         */
+        clear(): this;
+
+        /**
+         * Set the style from JSON data.
+         * @example
+         * style.fromJson([
+         *   {
+         *     selector: 'node',
+         *     style: {
+         *       'background-color': 'red'
+         *     }
+         *   }
+         * ]);
+         */
+        fromJson(json: any): this;
+
+        /**
+         * Set the style from a string.
+         * @example
+         * style.fromString('node { background-color: blue; }');
+         */
+        fromString(style: string): this;
+
+        /**
+         * Resets to the default stylesheet.
+         */
+        resetToDefault(): this;
+
+        /**
+         * Sets the selector context for defining styles.
+         * @example
+         * style.selector('foo').style('color', 'black');
+         */
+        selector(s: string): this;
+
+        /**
+         * Sets a style for the current selected selector.
+         * @example
+         * style.selector('foo').style('color', 'black');
+         */
+        style(key: string, value: string): this;
+
+        /**
+         * Sets a style for the current selected selector.
+         * @example
+         * style.selector('foo').style({color: 'black'});
+         */
+        style(css: Css.Node | Css.Edge): this;
+
+        /**
+         * Makes the changes active.
+         */
+        update(): void;
     }
 
     /**
@@ -1362,7 +1429,8 @@ declare namespace cytoscape {
             NodeCollectionMetadata,
             NodeCollectionPosition,
             NodeCollectionTraversing,
-            NodeCollectionCompound {}
+            NodeCollectionCompound,
+            NodeCollectionLayout {}
 
     type SingularElementArgument = EdgeSingular | NodeSingular;
     type SingularElementReturnValue = EdgeSingular & NodeSingular;
@@ -1386,7 +1454,8 @@ declare namespace cytoscape {
             NodeCollection,
             NodeSingularMetadata,
             NodeSingularPosition,
-            NodeSingularCompound {}
+            NodeSingularCompound,
+            NodeSingularLayout {}
 
     /**
      * http://js.cytoscape.org/#collection/graph-manipulation
@@ -1453,22 +1522,22 @@ declare namespace cytoscape {
     interface CollectionEvents {
         /**
          * http://js.cytoscape.org/#eles.on
+         * @param events A space separated list of event names.
+         * @param selector [optional] A delegate selector to specify child elements for which the handler runs.
+         * @param handler The handler function called when one of the specified events occurs. Takes the event object as a parameter.
          */
-        on(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         on(events: EventNames, selector: string, handler: EventHandler): this;
         on(events: EventNames, handler: EventHandler): this;
-        bind(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         bind(events: EventNames, selector: string, handler: EventHandler): this;
         bind(events: EventNames, handler: EventHandler): this;
-        listen(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         listen(events: EventNames, selector: string, handler: EventHandler): this;
         listen(events: EventNames, handler: EventHandler): this;
-        addListener(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         addListener(events: EventNames, selector: string, handler: EventHandler): this;
         addListener(events: EventNames, handler: EventHandler): this;
+
         /**
          * http://js.cytoscape.org/#eles.promiseOn
-         * alias: pon
+         * @alias pon
          */
         promiseOn(events: EventNames, selector?: string): Promise<EventHandler>;
         pon(events: EventNames, selector?: string): Promise<EventHandler>;
@@ -1492,18 +1561,22 @@ declare namespace cytoscape {
         once(events: EventNames, handler: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.off
-         * alias unbind, unlisten, removeListener
+         * @alias unbind, unlisten, removeListener
          */
         off(events: EventNames, selector?: string, handler?: EventHandler): this;
         unbind(events: EventNames, selector?: string, handler?: EventHandler): this;
         unlisten(events: EventNames, selector?: string, handler?: EventHandler): this;
         removeListener(events: EventNames, selector?: string, handler?: EventHandler): this;
         /**
-         * http://js.cytoscape.org/#eles.trigger
-         * alias: emit
+         * https://js.cytoscape.org/#eles.removeAllListeners
          */
-        trigger(events: EventNames, extra?: string[]): this;
-        emit(events: EventNames, extra?: string[]): this;
+        removeAllListeners(): this;
+        /**
+         * http://js.cytoscape.org/#eles.trigger
+         * @alias emit
+         */
+        trigger(events: EventNames, extra?: unknown[]): this;
+        emit(events: EventNames, extra?: unknown[]): this;
     }
 
     /**
@@ -1515,24 +1588,6 @@ declare namespace cytoscape {
      * parent: The parent field defines the parent (compound) node.
      */
     interface CollectionData {
-        /**
-         * Remove developer-defined data associated with the elements.
-         * http://js.cytoscape.org/#eles.removeData
-         * @param names A space-separated list of fields to delete.
-         */
-        removeData(names?: string): CollectionReturnValue;
-        removeAttr(names?: string): CollectionReturnValue;
-
-        /**
-         * Get an array of the plain JavaScript object
-         * representation of all elements in the collection.
-         */
-        jsons(): string[];
-    }
-    /**
-     * http://js.cytoscape.org/#collection/data
-     */
-    interface SingularData {
         /**
          * Read and write developer-defined data associated with the elements
          * http://js.cytoscape.org/#eles.data
@@ -1571,6 +1626,24 @@ declare namespace cytoscape {
          */
         attr(obj: any): this;
 
+        /**
+         * Remove developer-defined data associated with the elements.
+         * http://js.cytoscape.org/#eles.removeData
+         * @param names A space-separated list of fields to delete.
+         */
+        removeData(names?: string): CollectionReturnValue;
+        removeAttr(names?: string): CollectionReturnValue;
+
+        /**
+         * Get an array of the plain JavaScript object
+         * representation of all elements in the collection.
+         */
+        jsons(): string[];
+    }
+    /**
+     * http://js.cytoscape.org/#collection/data
+     */
+    interface SingularData {
         /**
          * Get or set the scratchpad at a particular namespace,
          * where temporary or non-JSON data can be stored.
@@ -1970,14 +2043,14 @@ declare namespace cytoscape {
          * @param options An object containing options for the function.
          * http://js.cytoscape.org/#eles.boundingBox
          */
-        boundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
-        boundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        boundingBox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        boundingbox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
         /**
          * Get the bounding box of the elements in rendered coordinates.
          * @param options An object containing options for the function.
          */
-        renderedBoundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
-        renderedBoundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        renderedBoundingBox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        renderedBoundingbox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
     }
 
     /**
@@ -2042,13 +2115,17 @@ declare namespace cytoscape {
         // Boolean which changes whether label dimensions are included when calculating node dimensions
         nodeDimensionsIncludeLabels: boolean;
     }
+
+    /**
+     * https://js.cytoscape.org/#node.layoutDimensions
+     */
     interface NodeSingularLayout {
         /**
          * Returns the node width and height.
          * Meant for use in layout positioning to do overlap detection.
          * @param options The layout options object.
          */
-        layoutDimensions(options: LayoutDimensionOptions): { x: number; y: number };
+        layoutDimensions(options: LayoutDimensionOptions): { w: number; h: number };
     }
 
     /**
@@ -2068,7 +2145,7 @@ declare namespace cytoscape {
         selectable(): boolean;
     }
     /**
-     * http://js.cytoscape.org/#collection/layout
+     * https://js.cytoscape.org/#collection/selection
      */
     interface CollectionSelection {
         /**
@@ -2123,11 +2200,13 @@ declare namespace cytoscape {
         toggleClass(classes: ClassNames, toggle?: boolean): this;
         /**
          * Replace the current list of classes on the elements with the specified list.
-         * @param classes A space-separated list of class names that replaces the current class list.
+         * @param classes A space-separated list or array of class names that replaces the current class list.
          * http://js.cytoscape.org/#eles.classes
-         * Note: can be used to clear all classes (no arguments).
+         * Note: can be used to clear all classes (empty string or array).
          */
-        classes(classes?: ClassNames): this;
+        classes(classes: ClassNames): this;
+        classes(classes: ClassNames|undefined): this|string[];
+        classes(): string[];
         /**
          * Add classes to the elements, and then remove the classes after a specified duration.
          * @param classes A space-separated list of class names to flash on the elements.
@@ -2339,18 +2418,14 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/comparison
      */
     interface CollectionComparision {
-        // http://js.cytoscape.org/#collection/comparison
-
         /**
          * Determine whether this collection contains exactly the same elements as another collection.
-         *
          * @param eles The other elements to compare to.
          */
         same(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether this collection contains any of the same elements as another collection.
-         *
          * @param eles The other elements to compare to.
          */
         anySame(eles: CollectionArgument): boolean;
@@ -2359,22 +2434,13 @@ declare namespace cytoscape {
          * Determine whether this collection contains all of the elements of another collection.
          */
         contains(eles: CollectionArgument): boolean;
-        /**
-         * Determine whether this collection contains all of the elements of another collection.
-         */
         has(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
-         *
          * @param eles The other elements to compare to.
          */
         allAreNeighbors(eles: CollectionArgument): boolean;
-        /**
-         * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
-         *
-         * @param eles The other elements to compare to.
-         */
         allAreNeighbours(eles: CollectionArgument): boolean;
 
         /**
@@ -2490,6 +2556,8 @@ declare namespace cytoscape {
          * Get the collection as an array, maintaining the order of the elements.
          */
         toArray(): TOut[];
+
+        [Symbol.iterator](): Iterator<TOut>;
     }
 
     /**
@@ -4167,7 +4235,7 @@ declare namespace cytoscape {
          *
          * https://js.cytoscape.org/#style/loop-edges
          */
-         interface LoopEdges {
+        interface LoopEdges {
             /**
              * Determines the angle that loops extend from the node in cases when the source and
              * target node of an edge is the same. The angle is specified from the 12 o’clock
@@ -4265,7 +4333,7 @@ declare namespace cytoscape {
          *
          * https://js.cytoscape.org/#style/taxi-edges
          */
-         interface TaxiEdges {
+        interface TaxiEdges {
             /**
              * The main direction of the edge, the direction starting out from the source node; may be one of:
              *  * `auto`: Automatically use `vertical` or `horizontal`, based on whether the vertical or horizontal distance is largest.
@@ -4276,7 +4344,9 @@ declare namespace cytoscape {
              *  * `rightward`: Bundle outgoers righwards.
              *  * `leftward`: Bundle outgoers leftwards.
              */
-            'taxi-direction': PropertyValueEdge<'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'>;
+            'taxi-direction': PropertyValueEdge<
+                'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'
+            >;
             /**
              * The distance along the primary axis where the first turn is applied.
              *  * This value may be an absolute distance (e.g. `'20px'`) or it may be a relative distance
@@ -4519,7 +4589,7 @@ declare namespace cytoscape {
              * and no whitespace exists. Using anywhere with text in the Latin alphabet,
              * for example, will split words at arbitrary locations.
              */
-            'text-overflow-wrap': PropertyValue<SingularType, "whitespace" | "anywhere">;
+            'text-overflow-wrap': PropertyValue<SingularType, 'whitespace' | 'anywhere'>;
             /**
              * The justification of multiline (wrapped) labels; may be
              * `left`, `center`, `right`, or `auto` (default). The auto value makes it so that a
@@ -5145,11 +5215,11 @@ declare namespace cytoscape {
     interface RandomLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         name: 'random';
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // fit padding
         padding?: number | undefined;
         // constrain layout bounds
-        boundingBox: undefined | BoundingBox12 | BoundingBoxWH;
+        boundingBox?: undefined | BoundingBox12 | BoundingBoxWH;
     }
 
     /**
@@ -5182,7 +5252,7 @@ declare namespace cytoscape {
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // padding used on fit
         padding?: number | undefined;
         // constrain layout bounds
@@ -5192,7 +5262,7 @@ declare namespace cytoscape {
         avoidOverlap?: boolean | undefined;
 
         // Excludes the label when calculating node bounding boxes for the layout algorithm
-        nodeDimensionsIncludeLabels: boolean;
+        nodeDimensionsIncludeLabels?: boolean;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number | undefined;
 
@@ -5209,13 +5279,13 @@ declare namespace cytoscape {
         avoidOverlapPadding?: number | undefined;
 
         // uses all available space on false, uses minimal space on true
-        condense: boolean;
+        condense?: boolean;
         // force num of rows in the grid
         rows?: number | undefined;
         // force num of columns in the grid
         cols?: number | undefined;
         // returns { row, col } for element
-        position(node: NodeSingular): { row: number; col: number };
+        position?(node: NodeSingular): { row: number; col: number };
     }
 
     /**
@@ -5228,7 +5298,7 @@ declare namespace cytoscape {
         radius?: number | undefined;
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
@@ -5241,25 +5311,25 @@ declare namespace cytoscape {
         name: 'concentric';
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
         clockwise?: boolean | undefined;
 
         // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        equidistant: boolean;
-        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
+        equidistant?: boolean;
+        minNodeSpacing?: number; // min spacing between outside of nodes (used for radius adjustment)
         // height of layout area (overrides container height)
-        height: undefined;
+        height?: number;
         // width of layout area (overrides container width)
-        width: undefined;
+        width?: number;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
-        spacingFactor: undefined;
+        spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric(node: { degree(): number }): number;
+        concentric?(node: { degree(): number }): number;
         // the variation of concentric values in each level
-        levelWidth(node: { maxDegree(): number }): number;
+        levelWidth?(node: { maxDegree(): number }): number;
     }
 
     /**
@@ -5269,13 +5339,19 @@ declare namespace cytoscape {
         name: 'breadthfirst';
 
         // whether the tree is directed downwards (or edges can point in any direction if false)
-        directed: boolean;
+        directed?: boolean;
         // put depths in concentric circles if true, put depths top down if false
-        circle: boolean;
+        circle?: boolean;
         // the roots of the trees
         roots?: string[] | undefined;
-        // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
-        maximalAdjustments: number;
+        // Deprecated: how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+        maximalAdjustments?: number;
+        // whether to shift nodes down their natural BFS depths in order to avoid upwards edges (DAGS only)
+        maximal?: boolean;
+        // whether to create an even grid into which the DAG is placed (circle:false only)
+        grid?: boolean;
+        // a sorting function to order nodes at equal depth. e.g. function(a, b){ return a.data('weight') - b.data('weight') }
+        depthSort?: (a: NodeSingular, b: NodeSingular) => number;
     }
 
     /**
@@ -5286,35 +5362,39 @@ declare namespace cytoscape {
 
         // Number of iterations between consecutive screen positions update
         // (0 -> only updated on the end)
-        refresh: number;
+        refresh?: number;
         // Randomize the initial positions of the nodes (true) or use existing positions (false)
-        randomize: boolean;
+        randomize?: boolean;
         // Extra spacing between components in non-compound graphs
-        componentSpacing: number;
+        componentSpacing?: number;
         // Node repulsion (non overlapping) multiplier
-        nodeRepulsion(node: any): number;
+        nodeRepulsion?(node: any): number;
 
         // Node repulsion (overlapping) multiplier
-        nodeOverlap: number;
+        nodeOverlap?: number;
         // Ideal edge (non nested) length
-        idealEdgeLength(edge: any): number;
+        idealEdgeLength?(edge: any): number;
         // Divisor to compute edge forces
-        edgeElasticity(edge: any): number;
+        edgeElasticity?(edge: any): number;
 
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
-        nestingFactor: number;
+        nestingFactor?: number;
         // Gravity force (constant)
-        gravity: number;
+        gravity?: number;
         // Maximum number of iterations to perform
-        numIter: number;
+        numIter?: number;
         // Initial temperature (maximum node displacement)
-        initialTemp: number;
+        initialTemp?: number;
         // Cooling factor (how the temperature is reduced between consecutive iterations
-        coolingFactor: number;
+        coolingFactor?: number;
         // Lower temperature threshold (below this point the layout will end)
-        minTemp: number;
-        // Pass a reference to weaver to use threads for calculations
-        weaver: boolean;
+        minTemp?: number;
+        // Deprecated: Pass a reference to weaver to use threads for calculations
+        weaver?: boolean;
+
+        // The layout animates only after this many milliseconds for animate:true
+        // (prevents flashing on fast runs)
+        animationThreshold?: number;
     }
 
     /**
@@ -5384,6 +5464,12 @@ declare namespace cytoscape {
         unbind(events: EventNames, handler?: EventHandler): this;
         unlisten(events: EventNames, handler?: EventHandler): this;
         removeListener(events: EventNames, handler?: EventHandler): this;
+
+        /**
+         * Remove all event handlers on the layout.
+         * https://js.cytoscape.org/#layout.removeAllListeners
+         */
+        removeAllListeners(): this;
 
         /**
          * Trigger one or more events on the layout.

@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import * as events from "events";
-import * as stream from "stream";
+import * as events from 'events';
+import * as stream from 'stream';
 
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
@@ -354,8 +354,14 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
+        filterGraph(
+            spec: string | FilterSpecification | Array<string | FilterSpecification>,
+            map?: string[] | string,
+        ): FfmpegCommand;
+        complexFilter(
+            spec: string | FilterSpecification | Array<string | FilterSpecification>,
+            map?: string[] | string,
+        ): FfmpegCommand;
 
         // options/misc
         usingPreset(preset: string | PresetFunction): FfmpegCommand;
@@ -389,14 +395,14 @@ declare namespace Ffmpeg {
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable;
-        pipe(stream?: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable|stream.PassThrough;
+        pipe(stream?: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable | stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnails(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshot(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
-        mergeToFile(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
+        mergeToFile(target: string | stream.Writable, tmpFolder: string): FfmpegCommand;
         concatenate(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         clone(): FfmpegCommand;
@@ -406,7 +412,12 @@ declare namespace Ffmpeg {
     function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
-    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(
+        file: string,
+        index: number,
+        options: string[],
+        callback: (err: any, data: FfprobeData) => void,
+    ): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

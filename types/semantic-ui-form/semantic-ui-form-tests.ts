@@ -200,8 +200,10 @@ function test_form() {
     });
     $(selector).form(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).form('foo'); // $ExpectError
-    $(selector).form({ foo: 1 }); // $ExpectError
+    // @ts-expect-error
+    $(selector).form('foo');
+    // @ts-expect-error
+    $(selector).form({ foo: 1 });
 }
 
 function adding_rules_programmatically() {

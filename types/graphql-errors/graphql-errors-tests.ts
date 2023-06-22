@@ -25,7 +25,7 @@ maskErrors(schema);
 // $ExpectType void
 maskErrors(schema, customHandler);
 
-// $ExpectError
+// @ts-expect-error
 maskErrors('schema');
 
 /**
@@ -35,10 +35,10 @@ maskErrors('schema');
 // $ExpectType void
 setDefaultHandler(customHandler);
 
-// $ExpectError
+// @ts-expect-error
 setDefaultHandler();
 
-// $ExpectError
+// @ts-expect-error
 setDefaultHandler(err => {});
 
 /**

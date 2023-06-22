@@ -11,12 +11,16 @@
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Matteo Nista <https://github.com/Mattewn99>
+//                 Roman Babiak <https://github.com/Almost-Infinity>
+//                 Daniel Freire <https://github.com/dcfreire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
 import * as _isEmail from './lib/isEmail';
 import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
+import * as _isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import * as _isISO4217 from './lib/isISO4217';
 import * as _isURL from './lib/isURL';
 import * as _isTaxID from './lib/isTaxID';
@@ -28,12 +32,23 @@ declare namespace validator {
      *** Validators ***
      ******************/
 
+    interface ContainsOptions {
+        /**
+         * @default false
+         */
+        ignoreCase?: boolean | undefined;
+        /**
+         * @default 1
+         */
+        minOccurrences?: number | undefined;
+    }
+
     /**
      * Check if the string contains the seed.
      *
      * @param seed - Seed
      */
-    function contains(str: string, seed: any): boolean;
+    function contains(str: string, seed: any, options?: ContainsOptions): boolean;
 
     /**
      * Check if the string matches the comparison.
@@ -258,10 +273,17 @@ declare namespace validator {
      */
     function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
+    interface IsCreditCardOptions {
+        /**
+         * @default undefined
+         */
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+    }
+
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string): boolean;
+    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
@@ -571,7 +593,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -579,6 +601,22 @@ declare namespace validator {
      * @param [locale="any"] - IdentityCardLocale
      */
     function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+
+    interface IsIMEIOptions {
+        /**
+         * This value is `false` by default. Set to `true` to allow IMEI with hyphens.
+         */
+        allow_hyphens?: boolean | undefined;
+    }
+
+    /**
+     * Check if the string is a valid IMEI.
+     * Non-hyphenated (`###############`) only is supported by default.
+     * Use the `options` param to enable hyphenated (`##-######-######-#`) support.
+     *
+     * @param [options] - Options
+     */
+    function isIMEI(str: string, options?: IsIMEIOptions): boolean;
 
     /**
      * Check if the string is in a array of allowed values.
@@ -651,10 +689,7 @@ declare namespace validator {
      */
     function isISIN(str: string): boolean;
 
-    /**
-     * Check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
-     */
-    function isISO31661Alpha2(str: string): boolean;
+    const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
@@ -669,6 +704,12 @@ declare namespace validator {
          * @default false
          */
         strict?: boolean | undefined;
+        /**
+         * If `strictSeparator` is true, date strings with date and time separated
+         * by anything other than a T will be invalid
+         *
+         */
+        strictSeparator?: boolean | undefined;
     }
 
     /**
@@ -950,6 +991,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
@@ -985,6 +1027,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
@@ -1001,10 +1044,12 @@ declare namespace validator {
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'
         | 'KE'
+        | 'KR'
         | 'LI'
         | 'LT'
         | 'LU'
@@ -1048,7 +1093,7 @@ declare namespace validator {
      * Check if string is considered a strong password. Allows options to be added
      */
 
-    interface strongPasswordOptions {
+    interface StrongPasswordOptions {
         minLength?: number | undefined;
         minLowercase?: number | undefined;
         minUppercase?: number | undefined;
@@ -1062,11 +1107,36 @@ declare namespace validator {
         pointsForContainingNumber?: number | undefined;
         pointsForContainingSymbol?: number | undefined;
     }
-    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+
+    function isStrongPassword(
+        str: string,
+        options?: StrongPasswordOptions & { returnScore?: false | undefined },
+    ): boolean;
+    function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+
     /**
      * Check if the string contains any surrogate pairs chars.
      */
     function isSurrogatePair(str: string): boolean;
+
+    interface IsTimeOptions {
+        /**
+         * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
+         * @default 'hour24'
+         */
+        hourFormat?: 'hour12' | 'hour24';
+        /**
+         * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
+         *
+         * @default 'default'
+         */
+        mode?: 'default' | 'withSeconds';
+    }
+
+    /**
+     * Check if the string is a valid time.
+     */
+    function isTime(str: string, options?: IsTimeOptions): boolean;
 
     const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;
@@ -1078,9 +1148,9 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
-    type UUIDVersion = 3 | 4 | 5 | '3' | '4' | '5' | 'all';
+    type UUIDVersion = '1' | '2' | '3' | '4' | '5' | 'all' | 1 | 2 | 3 | 4 | 5;
     /**
-     * Check if the string is a UUID (version 3, 4 or 5).
+     * Check if the string is a UUID (version 1, 2, 3, 4 or 5).
      *
      * @param [version="all"] - UUID version
      */

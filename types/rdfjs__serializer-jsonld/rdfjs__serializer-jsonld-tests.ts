@@ -1,4 +1,4 @@
-import Serializer = require('@rdfjs/serializer-jsonld');
+import Serializer from '@rdfjs/serializer-jsonld';
 import { EventEmitter } from 'events';
 import { Sink, Stream } from 'rdf-js';
 

@@ -3,7 +3,7 @@ import 'codemirror/addon/mode/simple';
 
 const value = /([^&!|*><~:=*()\\/\x00]|\\[0-9a-f]{2})+/;
 
-// $ExpectError
+// @ts-expect-error
 CodeMirror.defineSimpleMode('property-start-is-required', {});
 
 CodeMirror.defineSimpleMode('foobar', {

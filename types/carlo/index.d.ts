@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Serializable, Browser, Page } from "puppeteer-core";
+import { Serializable, Browser, Page } from "puppeteer";
 
 export type Channel = string;
 

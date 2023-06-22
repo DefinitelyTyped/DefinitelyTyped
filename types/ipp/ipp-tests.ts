@@ -1,21 +1,21 @@
 import { Printer } from 'ipp';
 
-// $ExpectError
+// @ts-expect-error
 new Printer();
 
 const printer = new Printer('http://printer.url');
 
-// $ExpectError
+// @ts-expect-error
 printer.execute('not-a-valid-operation');
 
-// $ExpectError
+// @ts-expect-error
 printer.execute('Print-Job', {
     'operation-attributes-tag': {
         'requesting-user-name': 123,
     },
 });
 
-// $ExpectError
+// @ts-expect-error
 printer.execute('Print-Job', {
     'not-valid-request-options': {},
 });

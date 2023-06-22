@@ -1,9 +1,9 @@
-import * as antlr4 from 'antlr4';
+import antlr4 from 'antlr4';
 import * as autosuggest from 'antlr4-autosuggest';
 
 class Antlr4JSLexer extends antlr4.Lexer {
     constructor(chars: antlr4.InputStream) {
-        super();
+        super(null);
     }
 }
 

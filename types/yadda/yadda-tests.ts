@@ -139,15 +139,15 @@ const English = Yadda.localisation.English;
         .define("num", /(\d+)/, Yadda.converters.integer);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given("A whole number $num", (number: string) => {
+        .given("A whole number $num", (number: number) => {
             // Number will be an integer rather than a string
         });
 
     Yadda.createInstance(library);
 }
 
-function quantity_converter(amount: string, units: string, cb: (err: Error | null, quantity: { amount: string, units: string }) => void) {
-    cb(null, { amount, units });
+function quantity_converter(amount: string, units: string, cb: (err: Error | null, quantity: { amount: number, units: string }) => void) {
+    cb(null, { amount: parseInt(amount, 10), units });
 }
 
 {
@@ -155,7 +155,7 @@ function quantity_converter(amount: string, units: string, cb: (err: Error | nul
         .define("quantity", /(\d+) (\w+)/, quantity_converter);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given("a delay of $quantity", (quantity: string) => {
+        .given("a delay of $quantity", (quantity: {amount: number, units: string}) => {
             // quantity will be an object with two fields "amount" and "units"
         });
 

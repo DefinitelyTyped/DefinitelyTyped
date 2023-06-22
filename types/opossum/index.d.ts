@@ -30,6 +30,16 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     readonly volumeThreshold: number;
 
     /**
+     * Execute the action for this circuit with a provided this argument
+     */
+    call(context: any, ...args: TI): Promise<TR>;
+
+    /**
+     * Returns the current state of the circuit
+     */
+    toJSON(): { state: CircuitBreaker.State; status: CircuitBreaker.Stats };
+
+    /**
      * Clears the cache of this CircuitBreaker
      */
     clearCache(): void;
@@ -189,7 +199,7 @@ declare namespace CircuitBreaker {
         enabled?: boolean | undefined;
 
         /**
-         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountDuration`)
+         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountTimeout`)
          * This can help in situations where no matter what your `errorThresholdPercentage` is, if the
          * first execution times out or fails, the circuit immediately opens.
          * @default false
@@ -246,6 +256,17 @@ declare namespace CircuitBreaker {
 
     interface Stats extends Bucket {
         latencyMean: number;
+    }
+
+    interface State {
+        name: string;
+        enabled: boolean;
+        closed: boolean;
+        open: boolean;
+        halfOpen: boolean;
+        warmUp: boolean;
+        shutdown: boolean;
+        lastTimerAt: symbol;
     }
 }
 

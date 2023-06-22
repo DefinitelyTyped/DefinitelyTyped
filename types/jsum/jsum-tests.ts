@@ -12,8 +12,12 @@ const testObject = {
     ]
 };
 jsum.digest(testObject, 'sha256', 'base64'); // $ExpectType string
-jsum.digest(testObject, 2, 'base64'); // $ExpectError
-jsum.digest(testObject, 'sha256', 3); // $ExpectError
-jsum.digest(testObject, testObject, 'base64'); // $ExpectError
-jsum.digest(testObject, 'sha256', testObject); // $ExpectError
+// @ts-expect-error
+jsum.digest(testObject, 2, 'base64');
+// @ts-expect-error
+jsum.digest(testObject, 'sha256', 3);
+// @ts-expect-error
+jsum.digest(testObject, testObject, 'base64');
+// @ts-expect-error
+jsum.digest(testObject, 'sha256', testObject);
 jsum.stringify(testObject); // $ExpectType string

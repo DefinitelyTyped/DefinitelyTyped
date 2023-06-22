@@ -84,7 +84,7 @@ export type GeometryObject = Geometry;
  * https://tools.ietf.org/html/rfc7946#section-3.1.2
  */
 export interface Point extends GeoJsonObject {
-    type: "Point";
+    type: 'Point';
     coordinates: Position;
 }
 
@@ -93,7 +93,7 @@ export interface Point extends GeoJsonObject {
  *  https://tools.ietf.org/html/rfc7946#section-3.1.3
  */
 export interface MultiPoint extends GeoJsonObject {
-    type: "MultiPoint";
+    type: 'MultiPoint';
     coordinates: Position[];
 }
 
@@ -102,7 +102,7 @@ export interface MultiPoint extends GeoJsonObject {
  * https://tools.ietf.org/html/rfc7946#section-3.1.4
  */
 export interface LineString extends GeoJsonObject {
-    type: "LineString";
+    type: 'LineString';
     coordinates: Position[];
 }
 
@@ -111,7 +111,7 @@ export interface LineString extends GeoJsonObject {
  * https://tools.ietf.org/html/rfc7946#section-3.1.5
  */
 export interface MultiLineString extends GeoJsonObject {
-    type: "MultiLineString";
+    type: 'MultiLineString';
     coordinates: Position[][];
 }
 
@@ -120,7 +120,7 @@ export interface MultiLineString extends GeoJsonObject {
  * https://tools.ietf.org/html/rfc7946#section-3.1.6
  */
 export interface Polygon extends GeoJsonObject {
-    type: "Polygon";
+    type: 'Polygon';
     coordinates: Position[][];
 }
 
@@ -129,7 +129,7 @@ export interface Polygon extends GeoJsonObject {
  * https://tools.ietf.org/html/rfc7946#section-3.1.7
  */
 export interface MultiPolygon extends GeoJsonObject {
-    type: "MultiPolygon";
+    type: 'MultiPolygon';
     coordinates: Position[][][];
 }
 
@@ -137,19 +137,19 @@ export interface MultiPolygon extends GeoJsonObject {
  * Geometry Collection
  * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection extends GeoJsonObject {
-    type: "GeometryCollection";
-    geometries: Geometry[];
+export interface GeometryCollection<G extends Geometry = Geometry> extends GeoJsonObject {
+    type: 'GeometryCollection';
+    geometries: G[];
 }
 
-export type GeoJsonProperties = { [name: string]: any; } | null;
+export type GeoJsonProperties = { [name: string]: any } | null;
 
 /**
  * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
 export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
-    type: "Feature";
+    type: 'Feature';
     /**
      * The feature's geometry
      */
@@ -170,6 +170,6 @@ export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProper
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
 export interface FeatureCollection<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
-    type: "FeatureCollection";
+    type: 'FeatureCollection';
     features: Array<Feature<G, P>>;
 }

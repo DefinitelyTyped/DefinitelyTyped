@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -8,8 +8,8 @@ declare module "sap/ui/webc/common/WebComponent" {
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @since 1.92.0
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    *
    * Base Class for Web Components. Web Components are agnostic UI elements which can be integrated into the
    * UI5 programming model by using this wrapper control. This wrapper control takes care to propagate the
@@ -23,9 +23,6 @@ declare module "sap/ui/webc/common/WebComponent" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor
-     * sap.ui.core.Control} can be used.
      */
     constructor();
 
@@ -34,6 +31,8 @@ declare module "sap/ui/webc/common/WebComponent" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -52,6 +51,8 @@ declare module "sap/ui/webc/common/WebComponent" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.common.WebComponent.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
   }
@@ -63,8 +64,8 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @since 1.92.0
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponentMetadata extends ElementMetadata {
     /**

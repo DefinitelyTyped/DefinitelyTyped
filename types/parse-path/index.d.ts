@@ -1,9 +1,7 @@
-// Type definitions for parse-path 4.0
+// Type definitions for parse-path 7.0
 // Project: https://github.com/IonicaBizau/parse-path
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ParsedQuery } from 'query-string';
 
 declare namespace parsePath {
     type Protocol = 'http' | 'https' | 'ssh' | 'file' | 'git';
@@ -11,18 +9,31 @@ declare namespace parsePath {
     interface ParsedPath {
         /** The url hash. */
         hash: string;
+        /** The url domain (including subdomain and port). */
+        host: string;
         /** The input url. */
         href: string;
+        /**
+         * @default ''
+         */
+        password: string;
+        /**
+         * Whether the parsing failed or not.
+         */
+        parse_failed: boolean;
         /** The url pathname. */
         pathname: string;
-        /** The domain port. */
-        port: null | number;
+        /**
+         * The domain port.
+         * @default ''
+         */
+        port: string;
         /** The first protocol, `"ssh"` (if the url is a ssh url) or `"file"`. */
         protocol: Protocol;
         /** An array with the url protocols (usually it has one element). */
         protocols: Protocol[];
         /** The url querystring, parsed as object. */
-        query: ParsedQuery;
+        query: Record<string, string>;
         /** The url domain (including subdomains). */
         resource: string;
         /** The url querystring value. */

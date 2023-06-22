@@ -1,4 +1,4 @@
-// Type definitions for newrelic 7.0
+// Type definitions for newrelic 9.14
 // Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -88,14 +88,21 @@ export function addCustomAttributes(atts: { [key: string]: string | number | boo
  *
  * Most recently set value wins.
  */
- export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
 
- /**
-  * Adds all custom attributes in an object to the the currently executing span.
-  *
-  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
-  */
- export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+/**
+ * Adds all custom attributes in an object to the the currently executing span.
+ *
+ * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+ */
+export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+
+/**
+ * Send errors to New Relic that you've already handled yourself.
+ *
+ * NOTE: Errors that are recorded using this method do _not_ obey the `ignore_status_codes` configuration.
+ */
+export function noticeError(error: Error, expected?: boolean): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -104,7 +111,42 @@ export function addCustomAttributes(atts: { [key: string]: string | number | boo
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
+export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }, expected?: boolean): void;
+
+/**
+ * This method lets you define a custom callback to generate error group names, which will be used by
+ * errors inbox to group similar errors together via the error.group.name agent attribute.
+ *
+ * Calling this function multiple times will replace previously defined versions of this callback function.
+ */
+export function setErrorGroupCallback(callback: (metadata: {
+    customAttributes: { [key: string]: string | number | boolean };
+    'request.uri': string;
+    'http.statusCode': string;
+    'http.method': string;
+    error?: Error;
+    'error.expected': boolean;
+}) => string): void;
+
+/**
+ * Sends an application log message to New Relic. The agent already
+ * automatically does this for some instrumented logging libraries,
+ * but in case you are using another logging method that is not
+ * already instrumented by the agent, you can use this function
+ * instead.
+ *
+ * If application log forwarding is disabled in the agent
+ * configuration, this function does nothing.
+ *
+ * An example of using this function is
+ *
+ *    newrelic.recordLogEvent({
+ *       message: 'cannot find file',
+ *       level: 'ERROR',
+ *       error: new SystemError('missing.txt')
+ *    })
+ */
+export function recordLogEvent(logEvent: LogEvent): void;
 
 /**
  * If the URL for a transaction matches the provided pattern, name the
@@ -157,7 +199,7 @@ export function addIgnoringRule(pattern: RegExp | string): void;
  *
  * Do *not* reuse the headers between users, or even between requests.
  */
-export function getBrowserTimingHeader(): string;
+export function getBrowserTimingHeader(options?: { nonce?: string; hasToRemoveScriptWrapper?: boolean }): string;
 
 /**
  * Instrument a particular method to improve visibility into a transaction,
@@ -337,6 +379,13 @@ export const instrumentWebframework: Instrument;
 export const instrumentMessages: Instrument;
 
 /**
+ * This method gives you a way to associate a unique identifier with a transaction event,
+ * transaction trace and errors within transaction. A new property, `enduser.id`, will be
+ * added to the error and reported to errors inbox.
+ */
+export function setUserID(userID: string): void;
+
+/**
  * Gracefully shuts down the agent.
  *
  * If `collectPendingData` is true, the agent will send any pending data to the collector
@@ -344,7 +393,11 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
+    options?: {
+        collectPendingData?: boolean | undefined;
+        timeout?: number | undefined;
+        waitForIdle?: boolean | undefined;
+    },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -368,6 +421,11 @@ export function getTraceMetadata(): TraceMetadata;
  * Returns a function with identical signature to the provided handler function.
  */
 export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
+
+/**
+ * Obfuscates SQL for a given database engine.
+ */
+export function obfuscateSql(sql: string, dialect?: 'mysql' | 'postgres' | 'cassandra' | 'oracle'): string;
 
 export interface Instrument {
     (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
@@ -465,6 +523,28 @@ export interface LinkingMetadata {
      * this will be the hostname specified in the connect request as host.
      */
     hostname: string;
+}
+
+export interface LogEvent {
+    /**
+     * The log message
+     */
+    message: string;
+
+    /**
+     * The log level severity. If this key is missing, it will default to "UNKNOWN"
+     */
+    level?: string | undefined;
+
+    /**
+     * ECMAScript epoch number denoting the time that this log message was produced. If this key is missing, it will default to the output of `Date.now()`
+     */
+    timestamp?: number | undefined;
+
+    /**
+     * Error associated to this log event. Ignored if missing.
+     */
+    error?: Error | undefined;
 }
 
 export interface TraceMetadata {

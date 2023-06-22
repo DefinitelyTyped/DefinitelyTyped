@@ -2,7 +2,7 @@
 // Project: https://github.com/badeball/karma-jsdom-launcher#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.5
 
 import 'karma';
 import jsdom = require('jsdom');

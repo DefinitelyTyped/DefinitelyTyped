@@ -9,3 +9,14 @@ new NaverStrategy({
         // signUp or signIn
     },
 );
+
+new NaverStrategy({
+        clientID: 'client',
+        clientSecret: 'clientSecret',
+        callbackURL: 'callbackUrl',
+        passReqToCallback: true,
+    },
+    (req, accessToken, refreshToken, profile, done) => {
+        // signUp or signIn
+    },
+);

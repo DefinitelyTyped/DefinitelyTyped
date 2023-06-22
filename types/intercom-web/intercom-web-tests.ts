@@ -39,6 +39,10 @@ Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
 Intercom('startTour', 123);
+Intercom('showArticle', 123);
+Intercom('startSurvey', 123);
+Intercom('reattach_activator');
+Intercom('showSpace', 'help');
 Intercom('onHide', () => {
     /* Do stuff */
 });
@@ -135,5 +139,5 @@ intercomSettings = {
     custom_domain: null,
 };
 
-// $ExpectError
+// @ts-expect-error
 Intercom('update', { some: { value: 'invalid properties' } });

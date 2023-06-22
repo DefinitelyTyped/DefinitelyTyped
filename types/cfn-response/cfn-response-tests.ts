@@ -8,5 +8,5 @@ declare const context: Context;
 cfn.send(event, context, cfn.SUCCESS, { sample: 123 }, "abc");
 // $ExpectType void
 cfn.send(event, context, "SUCCESS");
-// $ExpectError
+// @ts-expect-error
 cfn.send(event, context, "", {});

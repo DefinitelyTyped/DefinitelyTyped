@@ -15,8 +15,8 @@ declare class CompositeVisualization {
             name: string;
             processKey: number;
         }>;
-        getExporter: () => any;
-        getRawDataExporter: () => any;
+        getExporter: () => DataExporter;
+        getRawDataExporter: () => DataExporter;
         title: string;
     }>;
     hasData(): boolean;
@@ -32,7 +32,8 @@ declare class CompositeVisualization {
     private validateLayout_;
 }
 declare namespace CompositeVisualization {
-    export { VisualizationDef };
+    export { VisualizationDef, DataExporter };
 }
+type DataExporter = import('../export/DataExporter');
 import VisualizationFilters = require('./VisualizationFilters.js');
 type VisualizationDef = import('./VisualizationDef');

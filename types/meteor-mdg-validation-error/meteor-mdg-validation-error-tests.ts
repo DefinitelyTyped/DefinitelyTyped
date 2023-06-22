@@ -2,7 +2,7 @@
 
 import { ValidationError } from "meteor/mdg:validation-error";
 
-// $ExpectError
+// @ts-expect-error
 new ValidationError([{ name: 'name' }]);
 
 const error = new ValidationError([{

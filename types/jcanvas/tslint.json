@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
-        "no-single-declare-module": false,
-        "trim-file": false
+        "no-single-declare-module": false
     }
 }

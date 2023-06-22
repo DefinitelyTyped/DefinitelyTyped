@@ -31,7 +31,7 @@ declare module '../../index' {
          *
          *   premultipliedAlpha - indicates that the page
          *   compositor will assume the drawing buffer contains
-         *   colors with pre-multiplied alpha default is false
+         *   colors with pre-multiplied alpha default is true
          *
          *   preserveDrawingBuffer - if true the buffers will
          *   not be cleared and and will preserve their values
@@ -74,7 +74,7 @@ declare module '../../index' {
          *
          *   premultipliedAlpha - indicates that the page
          *   compositor will assume the drawing buffer contains
-         *   colors with pre-multiplied alpha default is false
+         *   colors with pre-multiplied alpha default is true
          *
          *   preserveDrawingBuffer - if true the buffers will
          *   not be cleared and and will preserve their values

@@ -14,4 +14,7 @@ declare const module: { exports: any };
 declare const __filename: string;
 declare const __dirname: string;
 
-declare const console: Console;
+// WebWorker" library already declare's console, as `var` not `const`
+
+// declare const console: Console;
+declare var console: Console;

@@ -1,6 +1,7 @@
 // Type definitions for scrollbooster 2.2
 // Project: https://github.com/ilyashubin/scrollbooster
 // Definitions by: Chris <https://github.com/chrisneven>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Position {
@@ -12,7 +13,10 @@ export interface ScrollingState {
     isMoving: boolean;
     isDragging: boolean;
     position: Required<Position>;
-    dragOffset: number;
+    dragOffset: {
+        x: number;
+        y: number;
+    };
     borderCollision: {
         left: boolean;
         right: boolean;

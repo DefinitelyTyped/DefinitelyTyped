@@ -15,6 +15,8 @@ import { EventEmitter } from 'events';
 
 declare global {
     namespace Express {
+        type SessionStore = session.Store & { generate: (req: Request) => void };
+
         // Inject additional properties on express.Request
         interface Request {
             /**
@@ -31,6 +33,13 @@ declare global {
              * Even though this property isn't marked as optional, it won't exist until you use the `express-session` middleware
              */
             sessionID: string;
+
+            /**
+             * The Store in use.
+             * Even though this property isn't marked as optional, it won't exist until you use the `express-session` middleware
+             * The function `generate` is added by express-session
+             */
+            sessionStore: SessionStore;
         }
     }
 }
@@ -237,7 +246,7 @@ declare namespace session {
          * @deprecated The `expires` option should not be set directly; instead only use the `maxAge` option
          * @see maxAge
          */
-        expires?: Date | undefined;
+        expires?: Date | null | undefined;
 
         /**
          * Specifies the boolean value for the `HttpOnly Set-Cookie` attribute. When truthy, the `HttpOnly` attribute is set, otherwise it is not.
@@ -297,11 +306,11 @@ declare namespace session {
 
     class Cookie implements CookieOptions {
         /** Returns the original `maxAge` (time-to-live), in milliseconds, of the session cookie. */
-        originalMaxAge: number;
+        originalMaxAge: number | null;
 
         maxAge?: number | undefined;
         signed?: boolean | undefined;
-        expires?: Date | undefined;
+        expires?: Date | null | undefined;
         httpOnly?: boolean | undefined;
         path?: string | undefined;
         domain?: string | undefined;
@@ -312,7 +321,7 @@ declare namespace session {
     abstract class Store extends EventEmitter {
         regenerate(req: express.Request, callback: (err?: any) => any): void;
         load(sid: string, callback: (err: any, session?: SessionData) => any): void;
-        createSession(req: express.Request, session: SessionData): void;
+        createSession(req: express.Request, session: SessionData): Session & SessionData;
 
         /**
          * Gets the session from the store given a session ID and passes it to `callback`.
@@ -325,15 +334,15 @@ declare namespace session {
         /** Upsert a session in the store given a session ID and `SessionData` */
         abstract set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
 
-        /** Destroys the dession with the given session ID. */
+        /** Destroys the session with the given session ID. */
         abstract destroy(sid: string, callback?: (err?: any) => void): void;
 
         /** Returns all sessions in the store */
         // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38783, https://github.com/expressjs/session/pull/700#issuecomment-540855551
-        all?(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData; } | null) => void): void;
+        all?(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData } | null) => void): void;
 
         /** Returns the amount of sessions in the store. */
-        length?(callback: (err: any, length: number) => void): void;
+        length?(callback: (err: any, length?: number) => void): void;
 
         /** Delete all sessions from the store. */
         clear?(callback?: (err?: any) => void): void;
@@ -351,8 +360,8 @@ declare namespace session {
         set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
         destroy(sid: string, callback?: (err?: any) => void): void;
 
-        all(callback: (err: any, obj?: { [sid: string]: SessionData; } | null) => void): void;
-        length(callback: (err: any, length: number) => void): void;
+        all(callback: (err: any, obj?: { [sid: string]: SessionData } | null) => void): void;
+        length(callback: (err: any, length?: number) => void): void;
         clear(callback?: (err?: any) => void): void;
         touch(sid: string, session: SessionData, callback?: () => void): void;
     }

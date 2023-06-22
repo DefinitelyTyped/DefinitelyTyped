@@ -1,12 +1,12 @@
-// Type definitions for styled-components-react-native 5.1
+// Type definitions for styled-components-react-native 5.2
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // tslint:disable-next-line:no-single-declare-module
-declare module "styled-components/native" {
-    import * as ReactNative from "react-native";
-    import * as React from "react";
+declare module 'styled-components/native' {
+    import * as ReactNative from 'react-native';
+    import * as React from 'react';
 
     export {
         css,
@@ -18,7 +18,7 @@ declare module "styled-components/native" {
         ThemeProvider,
         withTheme,
         useTheme,
-    } from "styled-components";
+    } from 'styled-components';
 
     import {
         AnyStyledComponent,
@@ -32,13 +32,13 @@ declare module "styled-components/native" {
         ThemedStyledInterface,
         ThemeProviderComponent,
         WithThemeFnInterface,
-    } from "styled-components";
+    } from 'styled-components';
 
     type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
     export type ReactNativeThemedStyledFunction<
         C extends React.ComponentType<any>,
-        T extends object
+        T extends object,
     > = ThemedStyledFunction<C, T>;
 
     // Copied over from "ThemedBaseStyledInterface" in index.d.ts in order to remove DOM element typings
@@ -52,7 +52,7 @@ declare module "styled-components/native" {
         <C extends React.ComponentType<any>>(
             // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
             // causes tests to fail in TS 3.1
-            component: C
+            component: C,
         ): ThemedStyledFunction<C, T>;
     }
 
@@ -70,13 +70,10 @@ declare module "styled-components/native" {
         ListView: ReactNativeThemedStyledFunction<typeof ReactNative.ListView, T>;
         Modal: ReactNativeThemedStyledFunction<typeof ReactNative.Modal, T>;
         NavigatorIOS: ReactNativeThemedStyledFunction<typeof ReactNative.NavigatorIOS, T>;
-        Picker: ReactNativeThemedStyledFunction<typeof ReactNative.Picker, T>;
-        PickerIOS: ReactNativeThemedStyledFunction<typeof ReactNative.PickerIOS, T>;
         Pressable: ReactNativeThemedStyledFunction<typeof ReactNative.Pressable, T>;
         ProgressBarAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressBarAndroid, T>;
         ProgressViewIOS: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressViewIOS, T>;
         ScrollView: ReactNativeThemedStyledFunction<typeof ReactNative.ScrollView, T>;
-        SegmentedControlIOS: ReactNativeThemedStyledFunction<typeof ReactNative.SegmentedControlIOS, T>;
         Slider: ReactNativeThemedStyledFunction<typeof ReactNative.Slider, T>;
         SliderIOS: ReactNativeThemedStyledFunction<typeof ReactNative.Slider, T>;
         SnapshotViewIOS: ReactNativeThemedStyledFunction<typeof ReactNative.SnapshotViewIOS, T>;

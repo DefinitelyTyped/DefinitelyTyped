@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "max-line-length": false,
         "no-padding": false,
         "npm-naming": false,

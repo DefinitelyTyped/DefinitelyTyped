@@ -8,14 +8,19 @@ const C: CustType = { n: 1 };
 ////////////////////////////////////////////////////////////////////////////////////////
 // sha.check
 
-sha.check('./file'); // $ExpectError
-sha.check('./file', '1a2b3c4d'); // $ExpectError
-sha.check('./file', { dir: 1 }, () => C); // $ExpectError
+// @ts-expect-error
+sha.check('./file');
+// @ts-expect-error
+sha.check('./file', '1a2b3c4d');
+// @ts-expect-error
+sha.check('./file', { dir: 1 }, () => C);
 sha.check('./file', '1a2b3c4d', () => C); // $ExpectType void | CustType
-sha.check('./file', '1a2b3c4d', {}); // $ExpectError
+// @ts-expect-error
+sha.check('./file', '1a2b3c4d', {});
 sha.check('./file', '1a2b3c4d', {}, () => C); // $ExpectType void | CustType
 sha.check('./file', '1a2b3c4d', { algorithm }, () => C); // $ExpectType void | CustType
-sha.check('./file', '1a2b3c4d', { sha: true }, () => C); // $ExpectError
+// @ts-expect-error
+sha.check('./file', '1a2b3c4d', { sha: true }, () => C);
 // $ExpectType void | CustType
 sha.check('./file', '1a2b3c4d', (er) => {
     if (er) {
@@ -38,22 +43,28 @@ sha.check('./file', '1a2b3c4d', { algorithm }, (er) => {
 ////////////////////////////////////////////////////////////////////////////////////////
 // sha.checkSync
 
-sha.checkSync('./file'); // $ExpectError
-sha.checkSync('./file', { dir: 1 }); // $ExpectError
+// @ts-expect-error
+sha.checkSync('./file');
+// @ts-expect-error
+sha.checkSync('./file', { dir: 1 });
 sha.checkSync('./file', '1a2b3c4d'); // $ExpectType void
 sha.checkSync('./file', '1a2b3c4d', {}); // $ExpectType void
 sha.checkSync('./file', '1a2b3c4d', { algorithm }); // $ExpectType void
-sha.checkSync('./file', '1a2b3c4d', { sha: true }); // $ExpectError
+// @ts-expect-error
+sha.checkSync('./file', '1a2b3c4d', { sha: true });
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // sha.get
 
-sha.get('./file'); // $ExpectError
+// @ts-expect-error
+sha.get('./file');
 sha.get('./file', () => C); // $ExpectType void
-sha.get('./file', {}); // $ExpectError
+// @ts-expect-error
+sha.get('./file', {});
 sha.get('./file', {}, () => C); // $ExpectType void
 sha.get('./file', { algorithm }, () => C); // $ExpectType void
-sha.get('./file', { error: true }, () => C); // $ExpectError
+// @ts-expect-error
+sha.get('./file', { error: true }, () => C);
 // $ExpectType void
 sha.get('./file', (err, actual) => {
     if (err) {
@@ -79,7 +90,8 @@ sha.get('./file', { algorithm }, (err, actual) => {
 sha.getSync('./file'); // $ExpectType string
 sha.getSync('./file', {}); // $ExpectType string
 sha.getSync('./file', { algorithm }); // $ExpectType string
-sha.getSync('./file', { error: true }); // $ExpectError
+// @ts-expect-error
+sha.getSync('./file', { error: true });
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // sha.stream
@@ -91,7 +103,9 @@ fs.createReadStream('./file')
     .pipe(s)
     .pipe(fs.createWriteStream('dest'));
 
-sha.stream({ name: 'hello' }); // $ExpectError
+// @ts-expect-error
+sha.stream({ name: 'hello' });
 sha.stream('1a2b3c4d', {}); // $ExpectType Transform
 sha.stream('1a2b3c4d', { algorithm }); // $ExpectType Transform
-sha.stream('1a2b3c4d', { error: true }); // $ExpectError
+// @ts-expect-error
+sha.stream('1a2b3c4d', { error: true });

@@ -46,7 +46,7 @@ declare module 'SyntheticsTracing' {
          * @param service - An instance of an AWS.Service to wrap.
          * @returns instrumented service that was passed in
          */
-        captureAWSClient(service: AWS.Service): AWS.Service;
+        captureAWSClient<AWSClient>(service: AWSClient): AWSClient;
         /**
          * Configures the AWS SDK to automatically capture segment information
          * for each call made.
@@ -56,7 +56,7 @@ declare module 'SyntheticsTracing' {
          * @returns awssdk that was passed in
          * @see https://github.com/aws/aws-sdk-js
          */
-        captureAWS(awssdk: typeof AWS): typeof AWS;
+        captureAWS<AWS>(awssdk: AWS): AWS;
         /**
          * Wraps the http/https.request() and .get() calls to automatically capture information for the segment.
          * Returns an instance of the HTTP or HTTPS module that is patched.
@@ -185,6 +185,5 @@ declare module 'SyntheticsTracing' {
         resetSegments(): void;
     }
     import * as AWSXRaySDKClient from 'aws-xray-sdk-core';
-    import * as AWS from 'aws-sdk';
     import * as http from 'http';
 }

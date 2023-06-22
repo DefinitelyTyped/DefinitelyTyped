@@ -1,8 +1,9 @@
 // Type definitions for non-npm package @ember/component 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcomponent
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -24,7 +25,7 @@ interface TemplateFactory {
 // information supplied via this generic. While it may appear useless on this
 // class definition and extension, it is used by external tools and should not
 // be removed.
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export default interface Component<S = unknown> extends ViewMixin, ClassNamesSupport, Opaque<S> {}
 export default class Component<S = unknown> extends CoreView {
     // methods
@@ -110,6 +111,17 @@ export default class Component<S = unknown> extends CoreView {
  * @return the same object passed in, now associated with the manager
  */
 export function setComponentManager<T>(managerFactory: (owner: unknown) => ComponentManager<unknown>, object: T): T;
+
+/**
+ * Takes a component class and returns the template associated with the given component class,
+ * if any, or one of its superclasses, if any, or undefined if no template association was found.
+ *
+ * @param object the component object
+ * @return the template factory of the given component
+ */
+export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+
+export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces

@@ -1,7 +1,7 @@
-import inquirer = require('inquirer');
+import inquirer, { DistinctQuestion } from 'inquirer';
 import { Observable, Observer } from 'rxjs';
 
-const observe = Observable.create((obs: Observer<inquirer.DistinctQuestion>) => {
+const observe = Observable.create((obs: Observer<DistinctQuestion>) => {
     obs.next({
         type: 'input',
         name: 'first_name',

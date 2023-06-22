@@ -1,4 +1,4 @@
-// Type definitions for @lerna/project 4.0
+// Type definitions for @lerna/project 5.1
 // Project: https://github.com/lerna/lerna/tree/main/utils/query-graph
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

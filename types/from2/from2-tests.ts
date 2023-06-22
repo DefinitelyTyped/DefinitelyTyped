@@ -16,7 +16,7 @@ function fromString(str: string) {
 
 fromString('hello world').pipe(process.stdout);
 
-let stream: NodeJS.ReadableStream;
+let stream: from.Stream;
 stream = from((size, next) => next(null, 'foo'));
 stream = from((size, next) => next(null, new Buffer(1)));
 stream = from((size, next) => next(null, new Uint8Array(1)));
@@ -24,6 +24,12 @@ stream = from((size, next) => next(null, null));
 stream = from(['foo', new Buffer(1), new Uint8Array(1), null]);
 // following should fail:
 // stream = from((size, next) => next(null, {}));
+
+stream = from((size, next) => next(null, 'foo'));
+stream.destroy();
+stream = from((size, next) => next(null, 'foo'));
+stream.on('error', err => {});
+stream.destroy(new Error('destroyed'));
 
 stream = from({objectMode: false}, (size, next) => next(null, 'foo'));
 stream = from({objectMode: false}, (size, next) => next(null, new Buffer(1)));

@@ -11,7 +11,8 @@ ahoy.configure({
 });
 
 ahoy.configure({
-    cookies: 1, // $ExpectError
+    // @ts-expect-error
+    cookies: 1,
 });
 
 // $ExpectType void

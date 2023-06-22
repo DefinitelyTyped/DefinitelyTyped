@@ -20,12 +20,20 @@ declare namespace mockjs {
         version: number;
     }
 
+    interface MockjsRequestOptions {
+        url: string;
+        type: string;
+        body: any;
+    }
+
+    type templateOrFn = ((options: MockjsRequestOptions) => any) | object;
+
     // Mockjs.mock()
     // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
     interface MockjsMock {
-        (rurl: S | RegExp, rtype: S, template: any): Mockjs;
+        (rurl: S | RegExp, rtype: S, template: templateOrFn): Mockjs;
 
-        (rurl: S | RegExp, template: any): Mockjs;
+        (rurl: S | RegExp, template: templateOrFn): Mockjs;
 
         (template: any): any;
     }

@@ -4,16 +4,18 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
+    NightwatchAssertionsResult,
+    NightwatchEnsureResult,
+    NightwatchNodeAssertionsResult,
     NightwatchTests,
-    describe,
-    it,
-    before,
-    after,
-    xit,
-    xdescribe,
-    test,
     PageObjectModel,
+    ELEMENT_KEY,
+    JSON_WEB_OBJECT,
 } from 'nightwatch';
+
+import { isNightwatchAPI, isType } from './utils';
+
+function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
 
 //
 // ./tests/general.ts
@@ -21,7 +23,7 @@ import {
 
 const testGeneral: NightwatchTests = {
     'Demo test Google 1': () => {
-        browser.url('https://google.com').pause(1000);
+        browser.registerBasicAuth('test-username', 'test-password').navigateTo('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
         browser.expect.element('body').to.be.present.before(1000);
@@ -58,6 +60,64 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
+    'Demo Nightwatch API commands': () => {
+        isType<boolean>(browser.isChrome());
+        isType<boolean>(browser.isAndroid());
+        isType<boolean>(browser.isMobile());
+        isType<boolean>(browser.isAppiumClient());
+
+        const element_id = browser.WEBDRIVER_ELEMENT_ID;
+        console.log(element_id);
+        const browserName = browser.browserName;
+        console.log(browserName);
+        // @ts-expect-errors
+        browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
+        // @ts-expect-errors
+        browser.browserName = 'firefox';
+
+        browser.element('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+
+        browser.elements('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[0][ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+    },
+
+    'Demo Nightwatch API commands with async/await': async () => {
+        const element = await browser.element('css selector', 'something');
+        isType<string>(element[ELEMENT_KEY]);
+
+        const elements = await browser.elements('css selector', 'something');
+        isType<string>(elements[0][ELEMENT_KEY]);
+    },
+
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
@@ -73,44 +133,198 @@ const testGeneral: NightwatchTests = {
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
     },
+
+    'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
+        // setGeolocation
+        browser
+            // Set location of Tokyo, Japan
+            .setGeolocation({
+                latitude: 35.689487,
+                longitude: 139.691706,
+                accuracy: 100,
+            })
+            .captureNetworkRequests(requestParams => {
+                console.log('Request URL:', requestParams.request.url);
+                console.log('Request method:', requestParams.request.method);
+                console.log('Request headers:', requestParams.request.headers);
+            })
+            .navigateTo('https://www.gps-coordinates.net/my-location')
+            .end();
+
+        browser
+            .mockNetworkResponse(
+                'https://www.google.com/',
+                {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'UTF-8',
+                    },
+                    body: 'Hello there!',
+                },
+                res => {
+                    console.log(res);
+                },
+            )
+            .setDeviceDimensions({
+                width: 400,
+                height: 600,
+                deviceScaleFactor: 50,
+                mobile: true,
+            })
+            .navigateTo('https://www.google.com')
+            .end();
+
+        browser
+            .enablePerformanceMetrics()
+            .navigateTo('https://www.google.com')
+            .getPerformanceMetrics(metrics => {
+                console.log(metrics);
+            });
+
+        browser.navigateTo('https://www.google.com').takeHeapSnapshot('./snap.heapsnapshot').end();
+
+        browser
+            .captureBrowserConsoleLogs(event => {
+                console.log(event.type, event.timestamp, event.args[0].value);
+            })
+            .navigateTo(browser.baseUrl)
+            .executeScript(() => {
+                console.error('here');
+            }, []);
+    },
+    'test assert with async/await': async () => {
+        const attributeResult = browser.assert.attributeContains('input[name=q]', 'placeholder', 'Search');
+        isNightwatchAPI(attributeResult);
+        isNightwatchAssertionsResult<string>(await attributeResult);
+
+        const cssPropertyResult = browser.assert.cssProperty('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(cssPropertyResult);
+        isNightwatchAssertionsResult<string | number>(await cssPropertyResult);
+
+        const domPropertyResult = browser.assert.domPropertyContains('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(domPropertyResult);
+        isNightwatchAssertionsResult<any>(await domPropertyResult);
+
+        const elementsCountResult = browser.assert.elementsCount('input', 8);
+        isNightwatchAPI(elementsCountResult);
+        const elementsCountAwaitedResult = await elementsCountResult;
+        isType<JSON_WEB_OBJECT[]>(elementsCountAwaitedResult.value);
+        isType<string>(elementsCountAwaitedResult.WebdriverElementId);
+
+        const elementPresentResult = browser.assert.elementPresent('input');
+        isNightwatchAPI(elementPresentResult);
+        isNightwatchAssertionsResult<Array<{[ELEMENT_KEY]: string}>>(await elementPresentResult);
+
+        const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
+        isNightwatchAPI(hasAttributeResult);
+        isNightwatchAssertionsResult<string[]>(await hasAttributeResult);
+
+        const selectedResult = browser.assert.selected('input[name=q]');
+        isNightwatchAPI(selectedResult);
+        isNightwatchAssertionsResult<boolean>(await selectedResult);
+
+        const textResult = browser.assert.textMatches('input[name=q]', /^Search/);
+        isNightwatchAPI(textResult);
+        isNightwatchAssertionsResult<string>(await textResult);
+
+        const urlResult = browser.assert.urlMatches('https://nightwatch.org');
+        isNightwatchAPI(urlResult);
+        isNightwatchAssertionsResult<string>(await urlResult);
+    },
+    'test node assertions with async/await': async () => {
+        const result = browser.assert.strictEqual('nightwatch', 'nightwatch');
+        isNightwatchAPI(result);
+        isType<NightwatchNodeAssertionsResult | Error>(await result);
+    }
 };
 
-describe('Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
-
-    it('Demo test ecosia.org', () => {
-        browser
-            .waitForElementVisible('body')
-            .assert.titleContains('Ecosia')
-            .assert.titleContains('Ecosia')
-            .assert.visible('input[type=search]')
-            .setValue('input[type=search]', 'nightwatch')
-            .assert.visible('button[type=submit]')
-            .click('button[type=submit]');
-    });
-
-    xit('this test will be skipped', () => {
-        browser.waitForElementVisible('body');
-    });
-
-    after(browser => browser.end());
-});
-
-xdescribe('whole describle block will be skipped', () => {
-    test('ecosia', () => {
-        browser.url('https://ecosia.org').end();
+//
+// ./tests/duckDuckGo.ts
+//
+describe('duckduckgo example', function() {
+    it('Search Nightwatch.js and check results', function(browser) {
+      browser
+        .navigateTo('https://duckduckgo.com')
+        .waitForElementVisible('input[name=q]')
+        .sendKeys('input[name=q]', ['Nightwatch.js'])
+        .click('*[type="submit"]')
+        .assert.visible('.results--main')
+        .assert.textContains('.results--main', 'Nightwatch.js');
     });
 });
 
-describe('Async Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
+//
+// .tests/native/wikipedia.ts
+//
+const wikipediaAppTest: NightwatchTests = {
+    before: (client: NightwatchAPI) => {
+      client.click('xpath', '//XCUIElementTypeButton[@name="Skip"]');
+    },
 
-    it('Demo test ecosia.org', async () => {
-        browser.waitForElementVisible('body');
-    });
+    'Search for BrowserStack': async (client: NightwatchAPI) => {
+      client
+        .useXpath()
+        .click('//XCUIElementTypeSearchField[@name="Search Wikipedia"]')
+        .getOrientation(function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .setOrientation('LANDSCAPE', function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .appium.pressKeyCode(13, 44)
+        .sendKeys('//XCUIElementTypeSearchField[@name="Search Wikipedia"]', 'browserstack')
+        .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
+        .waitUntil(async function() {
+            // wait for webview context to be available
+            const contexts = await client.contexts(function(result) {
+                if (result.status === 0) {
+                    isType<string[]>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
 
-    after(browser => browser.end());
-});
+          return contexts.length > 1;
+        }, 50000)
+        .perform(async function() {
+            // switch to webview context
+            const contexts = await client.contexts();
+            const setContextResult = await client.setContext(contexts[1], function(result) {
+                if (result.status === 0) {
+                    isType<null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            const currContext = await client.currentContext(function(result) {
+                if (result.status === 0) {
+                    isType<string | null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            isType<string[]>(contexts);
+            isType<null>(setContextResult);
+            isType<string | null>(currContext);
+
+            // switch orientation back to portrait
+            const currOrientation = await client.getOrientation();
+            const setOrientationResult = await client.setOrientation('PORTRAIT');
+
+            isType<'LANDSCAPE' | 'PORTRAIT'>(currOrientation);
+            isType<'LANDSCAPE' | 'PORTRAIT'>(setOrientationResult);
+        })
+        .useCss()
+        .assert.textEquals('.pcs-edit-section-title', 'BrowserStack');  // command run in webview context
+
+      client.end();
+    }
+};
 
 //
 // ./pages/google.ts
@@ -167,17 +381,17 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
+const googleCommands = {
+    submit(this: GooglePage) {
+        this.api.pause(1000);
+        return this.waitForElementVisible('@submitButton', 1000)
+            .click('@submitButton')
+            .waitForElementNotPresent('@submitButton');
+    },
+};
+
 const googlePage: PageObjectModel = {
-    commands: [
-        {
-            submit(this: GooglePage) {
-                this.api.pause(1000);
-                return this.waitForElementVisible('@submitButton', 1000)
-                    .click('@submitButton')
-                    .waitForElementNotPresent('@submitButton');
-            },
-        },
-    ],
+    commands: [googleCommands],
     elements: {
         searchBar: {
             selector: 'input[type=text]',
@@ -210,7 +424,7 @@ const iFrame: PageObjectModel = {
 // export = iFrame
 
 interface GooglePage
-    extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+    extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
 interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
@@ -248,14 +462,23 @@ const testPage = {
     },
 
     'Test assertions on page': () => {
-        const google = browser.page.google();
+        const google: GooglePage = browser.page.google();
 
         google
             .navigate()
-            .assert.title('Google')
+            .assert.title('Google') // deprecated
+            .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .assert.strictEqual('Google', 'Google') // node assertion returning NightwatchAPI
+            .assert.not.titleContains('DuckDuckGo')
+            .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
+
+        // @ts-expect-error
+        google.assert.not.not.elementPresent('@searchbar');
+        // @ts-expect-error
+        google.assert.not.strictEqual('nightwatch', 'nightwatch');
 
         browser.end();
     },
@@ -265,9 +488,17 @@ const testPage = {
         iFrame.navigate();
         const frame = await browser.findElement(iFrame.elements.iframe);
         console.log(frame.getId());
-        browser.frame(frame);
+        browser.frame(frame.getId());
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
+        browser.end();
+    },
+
+    'Test passing CSS selector string to frame': () => {
+        const iFrame = browser.page.IFrame();
+        iFrame.navigate().waitForElementPresent('#mce_0_ifr', 10000);
+        browser.frame('#mce_0_ifr');
+        iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
         browser.end();
     },
 
@@ -295,7 +526,35 @@ const testSpecificCommands: NightwatchTests = {
         );
 
         browser.executeAsync(
-            (arg1, arg2, done) => {
+            (arg1: number, arg2: string, done: (result: true) => void) => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [1, '2'],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.end();
+    },
+
+    executeAsyncScript: () => {
+        browser.executeAsyncScript(
+            done => {
+                setTimeout(() => {
+                    done(true);
+                }, 500);
+            },
+            [],
+            result => {
+                browser.assert.equal(result.value, true);
+            },
+        );
+
+        browser.executeAsyncScript(
+            (arg1: number, arg2: number, done: (result: boolean) => void) => {
                 setTimeout(() => {
                     done(true);
                 }, 500);
@@ -402,7 +661,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
                 callback(null);
                 return;
             }
-            this.api.elementIdText(elementResult.value.ELEMENT, textResult => {
+            this.api.elementIdText(elementResult.value[ELEMENT_KEY], textResult => {
                 if (textResult.status) {
                     callback(null);
                     return;
@@ -427,3 +686,65 @@ const testCustomAssertion = {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };
+
+// test global element
+
+describe('demo element() global', () => {
+    const signupEl = element(by.css('#signupSection'));
+    const loginEl = element('#weblogin');
+
+    test('element globals command', async () => {
+        // use elements created with element() to regular nightwatch assertions
+        browser.assert.visible(loginEl);
+
+        // use elements created with element() to expect assertions
+        browser.expect.element(loginEl).to.be.visible;
+
+        // retrieve the WebElement instance
+        const loginWebElement = await loginEl.getWebElement();
+    });
+});
+
+// Ensure test
+
+it('Ensure demo test', () => {
+    browser
+        .url('https://nightwatchjs.org')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+});
+
+it('Ensure async/await demo test', async () => {
+    const result = await browser
+        .url('https://nightwatchjs.org')
+        .ensure.urlContains('nightwatch')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+
+        function isNightwatchEnsureResult(v: NightwatchEnsureResult) {}
+        function isNull(v: null) {}
+
+        isNightwatchEnsureResult(result);
+        isNull(result.value);
+});
+
+// chai expect test
+
+it('Chai demo test', () => {
+    const infoElement = element('.info');
+    expect(infoElement.property('innerHTML')).to.be.a('string').and.to.include('validation code');
+});
+
+// Relative locator test
+
+describe('sample with relative locators', () => {
+    before(browser => browser.navigateTo('https://archive.org/account/login'));
+
+    it('locates password input', () => {
+        const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
+
+        browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
+
+        browser.expect.element(passwordElement).attribute('type').equal('password');
+    });
+});

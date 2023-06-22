@@ -6,8 +6,12 @@ const currencySource = 'EUR';
 const currencyTarget = 'PLN';
 const extension = 'odt';
 const lang = 'pl';
+const timezone = 'Asia/Tokyo';
 const tempPath = '/tmp';
 const templatePath = './templates';
+const factories = 2;
+const startFactory = true;
+const attempts = 2;
 
 const emptyCurrencyRates = {};
 const currencyRates = {
@@ -62,10 +66,14 @@ const options: carbone.Options = {
     tempPath,
     templatePath,
     lang,
+    timezone,
     translations,
     currencySource,
     currencyTarget,
     currencyRates,
+    factories,
+    startFactory,
+    attempts
 };
 
 const emptyRenderOptions: carbone.RenderOptions = {};
@@ -78,6 +86,7 @@ const renderOptions: carbone.RenderOptions = {
     currencyTarget,
     enum: enums,
     lang,
+    timezone,
     translations,
     variableStr: '',
 };
@@ -101,6 +110,7 @@ const renderXMLOptions: carbone.RenderXMLOptions = {
     complement: data,
     formatters,
     lang,
+    timezone,
     translations,
     existingVariables: variables,
     extension,
@@ -123,5 +133,12 @@ carbone.render('./template.odf', data, (err, result: Buffer | string, reportName
 carbone.renderXML('<xml>', data, renderXMLOptions, (err, result: Buffer | string) => {});
 carbone.renderXML('<xml>', data, (err, result: Buffer | string) => {});
 
-carbone.convert(buffer, 'pdf', {}, (err, result: Buffer) => {});
-carbone.convert(buffer, 'pdf', (err, result: Buffer) => {});
+carbone.convert(buffer, {convertTo, extension: 'docx'}, (err, result: Buffer) => {});
+carbone.convert(buffer, {extension: 'docx'}, (err, result: Buffer) => {});
+
+// Encoded filenames are <prefix><22-random-chars><encodedReportName.extension>
+carbone.decodeRenderedFilename("./0000000000000000000000template.odf");
+// This is with prefix length of 2
+carbone.decodeRenderedFilename("./ab0000000000000000000000template.odf", 2);
+
+carbone.getFileExtension("./template.odf", (err, extension) => {});

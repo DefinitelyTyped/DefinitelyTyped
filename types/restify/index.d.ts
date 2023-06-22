@@ -1,7 +1,6 @@
 // Type definitions for restify 8.5
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
-//                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
 //                 Alexandre Moraes <https://github.com/alcmoraes>
@@ -74,6 +73,8 @@ export interface ServerOptions {
     ignoreTrailingSlash?: boolean | undefined;
 
     maxParamLength?: number | undefined;
+
+    strictFormatters?: boolean | undefined;
 }
 
 export interface AddressInterface {
@@ -812,7 +813,7 @@ export interface Response extends http.ServerResponse {
      * @param    code the status code
      * @param    url to redirect to
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(code: number, url: string, next: Next): void;
 
@@ -822,7 +823,7 @@ export interface Response extends http.ServerResponse {
      * `next` is mandatory, to complete the response and trigger audit logger.
      * @param    url to redirect to or options object to configure a redirect or
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(opts: string | RedirectOptions, next: Next): void;
 

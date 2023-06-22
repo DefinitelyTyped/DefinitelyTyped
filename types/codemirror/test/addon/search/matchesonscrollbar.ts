@@ -9,5 +9,5 @@ annotation.clear();
 
 const annotation2 = myCodeMirror.showMatchesOnScrollbar(/foo/);
 
-// $ExpectError
+// @ts-expect-error
 myCodeMirror.showMatchesOnScrollbar();

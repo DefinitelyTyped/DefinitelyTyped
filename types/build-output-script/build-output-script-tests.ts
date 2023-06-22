@@ -7,5 +7,5 @@ buildOutputScript([
     { address: '1LukeQU5jwebXbMLDVydeH4vFSobRV9rkj', value: 100000000 },
     { address: '1BitcoinEaterAddressDontSendf59kuE', value: 100000000 },
 ]);
-// $ExpectError
+// @ts-expect-error
 buildOutputScript([]);

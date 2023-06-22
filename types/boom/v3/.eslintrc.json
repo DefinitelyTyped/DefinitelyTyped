@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "export-just-namespace": "off",
+        "trim-file": "off"
+    }
+}

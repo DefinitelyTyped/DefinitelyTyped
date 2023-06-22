@@ -1,11 +1,9 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
@@ -14,7 +12,6 @@
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

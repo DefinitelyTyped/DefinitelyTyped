@@ -2,12 +2,10 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "no-inferrable-types": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

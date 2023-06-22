@@ -1,9 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 /// <reference path="google-apps-script.spreadsheet.d.ts" />
@@ -1079,12 +1073,14 @@ declare namespace GoogleAppsScript {
       insertVideo(videoUrl: string, left: number, top: number, width: number, height: number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
+      isSkipped(): boolean;
       move(index: Integer): void;
       refreshSlide(): void;
       remove(): void;
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
+      setSkipped(isSkipped: boolean): void;
       unlink(): void;
     }
     /**

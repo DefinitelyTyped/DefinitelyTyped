@@ -73,7 +73,7 @@ AirbnbPropTypes.elementType(FuncComp);
 AirbnbPropTypes.elementType('div');
 // $ExpectType Requireable<ReactElementLike>
 AirbnbPropTypes.elementType('*');
-// $ExpectError
+// @ts-expect-error
 AirbnbPropTypes.elementType(ClassComp, FuncComp, 'div');
 
 // $ExpectType Requireable<null | undefined>

@@ -36,7 +36,7 @@ export interface Config {
     logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
-    onExit?: (() => void) | undefined;
+    onExitPage?: (() => void) | undefined;
     platform?: string | undefined;
     sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
     saveEvents?: boolean | undefined;
@@ -44,7 +44,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
-    sessionId?: string | null;
+    sessionId?: number | null;
     storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;

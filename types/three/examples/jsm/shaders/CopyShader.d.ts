@@ -1,9 +1,9 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const CopyShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        opacity: Uniform;
+        tDiffuse: IUniform;
+        opacity: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

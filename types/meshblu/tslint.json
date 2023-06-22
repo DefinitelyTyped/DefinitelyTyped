@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
@@ -14,7 +12,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "semicolon": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

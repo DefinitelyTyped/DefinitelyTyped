@@ -121,6 +121,7 @@ declare namespace payu {
         empty: boolean;
         error: false | SecureFormErrorMessage[];
         brand?: 'visa' | 'mastercard' | 'maestro' | undefined;
+        length?: number | undefined;
     }
 
     interface TokenizeResultSuccess {

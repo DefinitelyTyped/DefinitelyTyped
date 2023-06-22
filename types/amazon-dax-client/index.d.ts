@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-import * as AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk2-types';
 
 declare class AmazonDaxClient {
     constructor(options: AmazonDaxClientOptions);
@@ -17,6 +17,7 @@ interface AmazonDaxClientOptions {
     endpoints?: ReadonlyArray<string> | undefined;
     accessKeyId?: string | undefined;
     secretAccessKey?: string | undefined;
+    sessionToken?: string | undefined;
     region?: string | undefined;
     maxRetries?: number | undefined;
     maxRedirects?: number | undefined;

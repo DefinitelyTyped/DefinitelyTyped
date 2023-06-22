@@ -34,11 +34,20 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./next');
+import React = require('./canary');
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module '.' {
+    // Need an interface to not cause ReactNode to be a self-referential type.
+    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: PromiseLikeOfReactNode;
+    }
+
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
@@ -103,19 +112,29 @@ declare module '.' {
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    /**
-     * this should be an internal type
-     */
-     interface MutableSource<T> {
-        _source: T;
+    // tslint:disable-next-line ban-types
+    export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
+        functions: (formData: FormData) => void;
     }
 
-    export type MutableSourceSubscribe<T> = (source: T, callback: () => void) => () => void;
+    export interface TransitionStartFunction {
+        /**
+         * Marks all state updates inside the async function as transitions
+         *
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
+         *
+         * @param callback
+         */
+        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+    }
 
-    // TODO: This may not be intentionally part of the experimental release considering useMutableSource is no longer available
-    /**
-     * @param source A source could be anything as long as they can be subscribed to and have a "version".
-     * @param getVersion A function returns a value which will change whenever part of the source changes.
-     */
-    export function unstable_createMutableSource<T>(source: T, getVersion: () => any): MutableSource<T>;
+    function experimental_useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
+    function experimental_useOptimistic<State, Action>(
+        passthrough: State,
+        reducer: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
 }

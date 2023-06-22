@@ -1,6 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-declare-current-package": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

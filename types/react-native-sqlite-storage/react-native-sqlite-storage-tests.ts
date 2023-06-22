@@ -44,7 +44,16 @@ sqlite.openDatabase({ name: 'test.db', location: 'default' }).then(db => {
     );
 });
 
-// $ExpectError
+sqlite.openDatabase({ name: 'test.db', location: 'default' }).then(async db => {
+    await db.attach(db.dbName, 'alias');
+    await db.detach('alias');
+
+    db.readTransaction(async tx => {
+        await tx.executeSql('SELECT 1');
+    }).then(x => x.executeSql('SELECT 1'));
+});
+
+// @ts-expect-error
 const invalidIOSDatabaseParams: sqlite.DatabaseParamsIOS = {
     name: 'db',
 };

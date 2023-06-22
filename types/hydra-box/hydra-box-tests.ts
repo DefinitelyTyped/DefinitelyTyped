@@ -3,9 +3,9 @@ import hydraBox = require('hydra-box');
 import ApiImpl = require('hydra-box/Api');
 import { Api } from 'hydra-box/Api';
 import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
-import { Dataset, DatasetCore, NamedNode, Store, Stream } from 'rdf-js';
+import { Dataset, DatasetCore, NamedNode, Store, Stream } from '@rdfjs/types';
 import { GraphPointer } from 'clownface';
-import DatasetExt = require('rdf-ext/lib/Dataset');
+import DatasetExt from 'rdf-ext/lib/Dataset';
 import { Readable } from 'stream';
 import { Loader } from 'rdf-loaders-registry';
 

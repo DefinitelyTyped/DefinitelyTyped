@@ -1,4 +1,4 @@
-import { RequestQuery, Server } from '@hapi/hapi';
+import { Server } from '@hapi/hapi';
 import * as bell from '@hapi/bell';
 
 async function run() {

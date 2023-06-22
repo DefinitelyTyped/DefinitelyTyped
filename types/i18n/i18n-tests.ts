@@ -1,6 +1,7 @@
 /**
  * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
  * Updated by FindQ for version 0.8 of i18n-node
+ * Updated by Nirsi on version 0.15 for missing parser option.
  *
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
@@ -19,7 +20,7 @@ declare const req: Express.Request & Request;
  */
 i18n.configure({
     locales: ['en', 'de'],
-    directory: __dirname + '/locales'
+    directory: __dirname + '/locales',
 });
 
 i18n.configure({
@@ -125,6 +126,8 @@ i18n.configure({
         tags: ['{{', '}}'],
         disable: false,
     },
+    // Set JSON as buildin object which is acceptable as an parser object.
+    parser: JSON,
 });
 
 /**
@@ -191,6 +194,13 @@ i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr" }, 1); // 1 chat
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr" }, 3); // 3 chat
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 1 }); // 1 chat
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 3 chat
+
+// mustache plurals
+i18n.__n('example', 1, {me: 'marcus'}); // and a catchall rule for marcus
+i18n.__n('example', 2, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 5, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 3, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 6, {me: 'marcus'}); // and a catchall rule for marcus
 
 /**
  * __mf()
@@ -275,6 +285,11 @@ req.getCatalog('de'); // returns just 'de'
 const i18nInstance = new I18n(); // creates new instance of i18n
 
 i18nInstance.configure({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});
+
+const i18nInstanceWithConstructorOptions = new I18n({
     locales: ['en', 'de'],
     directory: __dirname + '/locales'
 });

@@ -44,7 +44,7 @@ confetti({
     origin: {
         y: 0.6
     },
-    shapes: ['square', 'circle', 'square']
+    shapes: ['square', 'circle', 'square', 'star']
 });
 
 const canvas = document.createElement('canvas');
@@ -66,3 +66,5 @@ confetti()!.then(() => {
 confetti()!.then(param => {
     param; // $ExpectType undefined
 });
+
+confetti.create(undefined, undefined);

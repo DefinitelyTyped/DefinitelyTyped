@@ -57,7 +57,7 @@ declare namespace Tagger {
         | "number" | "time" | "hashtag" | "mention" | "emoticon" | "ordinal"
         | "quoted_phrase" | "url" | "symbol" | "currency" | "alien";
 
-    type PosTag = "PRP" | "VBD" | "DT" | "JJ" | "NN" | "IN" | "VBG" | ".";
+    type PosTag = "PRP" | "VBD" | "DT" | "JJ" | "NN" | "NNP" | "NNS" | "IN" | "VBG" | ".";
 
     interface PosTaggedToken {
         value: string;

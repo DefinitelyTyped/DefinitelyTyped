@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -18,7 +17,7 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     displacementScale?: number | undefined;
     displacementBias?: number | undefined;
     alphaMap?: Texture | null | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
@@ -100,6 +99,12 @@ export class MeshMatcapMaterial extends Material {
      * @default false
      */
     flatShading: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshMatcapMaterialParameters): void;
 }

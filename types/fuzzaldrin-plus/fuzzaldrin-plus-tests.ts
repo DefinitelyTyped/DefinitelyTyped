@@ -145,66 +145,66 @@ fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', {
  * ======================================================================
  */
 
-// $ExpectError
+// @ts-expect-error
 fz.score()
-// $ExpectError
+// @ts-expect-error
 fz.match()
-// $ExpectError
+// @ts-expect-error
 fz.wrap()
-// $ExpectError
+// @ts-expect-error
 fz.prepareQuery()
-// $ExpectError
+// @ts-expect-error
 fz.score('Maybe', 'me', true)
-// $ExpectError
+// @ts-expect-error
 fz.score('Maybe', 'me', 'string')
-// $ExpectError
+// @ts-expect-error
 fz.score('Maybe', 'me', 1)
 
 const items = ['Maybe', 'Me']
-// $ExpectError
+// @ts-expect-error
 fz.score(items, 'me')
-// $ExpectError
+// @ts-expect-error
 fz.score('Maybe', 'me', { unknownProperty: true })
-// $ExpectError
+// @ts-expect-error
 fz.match(items, 'me')
-// $ExpectError
+// @ts-expect-error
 fz.wrap(items, 'me')
-// $ExpectError
+// @ts-expect-error
 fz.prepareQuery()
 
-// $ExpectError
+// @ts-expect-error
 const incorrectOptions: fz.IFilterOptions = { allowErrors: 'not a boolean' }
 
-// $ExpectError
+// @ts-expect-error
 fz.filter(candidates, 'install', { allowErrors: 'not a boolean' })
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', {
-    // $ExpectError
+    // @ts-expect-error
     incorrectProperty: true,
     key: 'title'
 })
 
-// $ExpectError
+// @ts-expect-error
 fz.score('Maybe', 'me', undefined, options)
-// $ExpectError
+// @ts-expect-error
 fz.match('Maybe', 'me', undefined, options)
 
-// $ExpectError
+// @ts-expect-error
 fz.filter()
-// $ExpectError
+// @ts-expect-error
 fz.filter('not an array', 'query')
-// $ExpectError
+// @ts-expect-error
 fz.filter(['Maybe', 'Me'], 'me', { allowErrors: 'not a boolean' })
-// $ExpectError
+// @ts-expect-error
 fz.filter(['Maybe', 'Me'], 'me', { key: true })
-// $ExpectError
+// @ts-expect-error
 fz.filter(['Maybe', 'Me'], 'me', { key: 'should not be here' })
-// $ExpectError
+// @ts-expect-error
 fz.filter(['Maybe', 'Me'], 'me', { preparedQuery: {} })
-// $ExpectError
+// @ts-expect-error
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 1 })
-// $ExpectError
+// @ts-expect-error
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 'invalid key' })
-// $ExpectError
+// @ts-expect-error
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 1 })
-// $ExpectError
+// @ts-expect-error
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 'title' })

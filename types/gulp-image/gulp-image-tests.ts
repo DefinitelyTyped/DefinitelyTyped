@@ -1,6 +1,7 @@
 import image = require('gulp-image');
 
-image(false);                   // $ExpectError
+// @ts-expect-error
+image(false);
 
 image();                        // $ExpectType Transform
 image({});

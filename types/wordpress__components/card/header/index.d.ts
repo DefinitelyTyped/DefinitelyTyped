@@ -26,7 +26,7 @@ declare namespace CardHeader {
     } & JSX.IntrinsicElements[T];
 }
 
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function CardHeader<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardHeader.Props<T>): JSX.Element;
 
 export default CardHeader;

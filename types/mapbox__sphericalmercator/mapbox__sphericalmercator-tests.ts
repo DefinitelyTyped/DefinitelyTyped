@@ -1,6 +1,7 @@
 import SphericalMercator = require('@mapbox/sphericalmercator');
 
-const sm = new SphericalMercator({ size: 100 });
+const sm = new SphericalMercator({ size: 100, antimeridian: true });
+const sm2 = new SphericalMercator();
 
 const xy: [number, number] = sm.px([10, 10], 10);
 const ll: [number, number] = sm.ll([20, 20], 10);

@@ -944,6 +944,7 @@ User.findAll( {
 } );
 User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
 User.findAll( { include : [{ model : Task, paranoid: false }] } );
+User.findAll( { include : { model : Task, include: Task, paranoid: false } } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
@@ -1113,6 +1114,7 @@ User.count( { transaction : t } );
 User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
+User.count( { include : User } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
@@ -1205,6 +1207,7 @@ User.update( { username : 'Bill', secretValue : '43' }, { where : { secretValue 
 User.update( { username : s.cast( '1', 'char' ) }, { where : { username : 'John' } } );
 User.update( { username : s.fn( 'upper', s.col( 'username' ) ) }, { where : { username : 'John' } } );
 User.update( { username : 'Bill' }, { where : { secretValue : '42' }, returning : true } );
+User.update( { deletedAt : new Date() }, { where : { username : 'dan', deleted_at: null } } );
 User.update( { secretValue : '43' }, { where : { username : 'Peter' }, limit : 1 } );
 User.update( { name : Math.random().toString() }, { where : { id : '1' } } );
 User.update( { a : { b : 10, c : 'd' } }, { where : { username : 'Jan' }, sideEffects : false } );

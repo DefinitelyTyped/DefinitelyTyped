@@ -46,18 +46,20 @@ export interface CognitoUserPoolTriggerEvent {
         linkParameter?: string | undefined;
         usernameParameter?: string | undefined;
         newDeviceUsed?: boolean | undefined;
-        session?: Array<{
-            challengeName:
-                | 'CUSTOM_CHALLENGE'
-                | 'PASSWORD_VERIFIER'
-                | 'SMS_MFA'
-                | 'DEVICE_SRP_AUTH'
-                | 'DEVICE_PASSWORD_VERIFIER'
-                | 'ADMIN_NO_SRP_AUTH'
-                | 'SRP_A';
-            challengeResult: boolean;
-            challengeMetadata?: string | undefined;
-        }> | undefined;
+        session?:
+            | Array<{
+                  challengeName:
+                      | 'CUSTOM_CHALLENGE'
+                      | 'PASSWORD_VERIFIER'
+                      | 'SMS_MFA'
+                      | 'DEVICE_SRP_AUTH'
+                      | 'DEVICE_PASSWORD_VERIFIER'
+                      | 'ADMIN_NO_SRP_AUTH'
+                      | 'SRP_A';
+                  challengeResult: boolean;
+                  challengeMetadata?: string | undefined;
+              }>
+            | undefined;
         challengeName?: string | undefined;
         privateChallengeParameters?: { [key: string]: string } | undefined;
         challengeAnswer?: string | undefined;
@@ -84,15 +86,20 @@ export interface CognitoUserPoolTriggerEvent {
         messageAction?: 'SUPPRESS' | undefined;
         desiredDeliveryMediums?: Array<'EMAIL' | 'SMS'> | undefined;
         forceAliasCreation?: boolean | undefined;
-        claimsOverrideDetails?: {
-            claimsToAddOrOverride?: { [key: string]: string } | undefined;
-            claimsToSuppress?: string[] | undefined;
-            groupOverrideDetails?: null | {
-                groupsToOverride?: string[] | undefined;
-                iamRolesToOverride?: string[] | undefined;
-                preferredRole?: string | undefined;
-            } | undefined;
-        } | undefined;
+        claimsOverrideDetails?:
+            | {
+                  claimsToAddOrOverride?: { [key: string]: string } | undefined;
+                  claimsToSuppress?: string[] | undefined;
+                  groupOverrideDetails?:
+                      | null
+                      | {
+                            groupsToOverride?: string[] | undefined;
+                            iamRolesToOverride?: string[] | undefined;
+                            preferredRole?: string | undefined;
+                        }
+                      | undefined;
+              }
+            | undefined;
     };
 }
 
@@ -109,6 +116,7 @@ export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>
 export * from './create-auth-challenge';
 export * from './custom-message';
 export * from './custom-email-sender';
+export * from './custom-sms-sender';
 export * from './define-auth-challenge';
 export * from './post-authentication';
 export * from './post-confirmation';

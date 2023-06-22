@@ -31,6 +31,7 @@ export class Scope implements eslint.Scope.Scope {
 
 export class Variable implements eslint.Scope.Variable {
     name: string;
+    scope: Scope;
     identifiers: estree.Identifier[];
     references: Reference[];
     defs: eslint.Scope.Definition[];

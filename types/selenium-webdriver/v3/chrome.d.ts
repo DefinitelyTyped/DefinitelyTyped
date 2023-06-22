@@ -5,7 +5,6 @@ import * as http from './http';
 /**
  * Creates a new WebDriver client for Chrome.
  *
- * @extends {webdriver.WebDriver}
  */
 export class Driver extends webdriver.WebDriver {
     /**
@@ -21,7 +20,11 @@ export class Driver extends webdriver.WebDriver {
      *     to use the currently active flow.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService | http.Executor, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(
+        opt_config?: Options | webdriver.CreateSessionCapabilities,
+        opt_service?: remote.DriverService | http.Executor,
+        opt_flow?: webdriver.promise.ControlFlow,
+    ): Driver;
 }
 
 export interface IOptionsValues {
@@ -47,7 +50,6 @@ export interface IPerfLoggingPrefs {
  */
 export class Options {
     /**
-     * @constructor
      */
     constructor();
 
@@ -237,11 +239,11 @@ export class Options {
     setChromeLogFile(path: string): Options;
 
     /**
-         * Sets the directory to store Chrome minidumps in. This option is only
-         * supported when ChromeDriver is running on Linux.
-         * @param {string} path The directory path.
-         * @return {!Options} A self reference.
-         */
+     * Sets the directory to store Chrome minidumps in. This option is only
+     * supported when ChromeDriver is running on Linux.
+     * @param {string} path The directory path.
+     * @return {!Options} A self reference.
+     */
     setChromeMinidumpPath(path: string): Options;
 
     /**
@@ -309,7 +311,6 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      *     PATH.
      * @throws {Error} If provided executable does not exist, or the chromedriver
      *     cannot be found on the PATH.
-     * @constructor
      */
     constructor(opt_exe?: string);
 

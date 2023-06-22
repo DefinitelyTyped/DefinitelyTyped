@@ -14,11 +14,9 @@ import * as fs from 'fs';
 export {}; // avoids exporting AtLeastOne into the global scope
 
 // Requires at least one of the properties of T to be given, whether it's optional or not
-type AtLeastOne<
-    T,
-    Req = { [K in keyof T]-?: T[K] },
-    Opt = { [K in keyof T]+?: T[K] }
-> = { [K in keyof Req]: Omit<Opt, K> & { [P in K]: Req[P] } }[keyof Req];
+type AtLeastOne<T, Req = { [K in keyof T]-?: T[K] }, Opt = { [K in keyof T]+?: T[K] }> = {
+    [K in keyof Req]: Omit<Opt, K> & { [P in K]: Req[P] };
+}[keyof Req];
 
 declare global {
     namespace ioBroker {
@@ -758,7 +756,7 @@ declare global {
              * Finds an object by its ID or name
              * @param type - common.type of the state
              */
-            findForeignObjectAsync(idOrName: string, type: string): Promise<{ id: string; name: string }>;
+            findForeignObjectAsync(idOrName: string, type: string): Promise<{ id: string; name?: ObjectCommon['name'] }>;
             /**
              * Deletes an object (which might not belong to this adapter) from the object db
              * @param id - The id of the object including namespace
@@ -781,7 +779,7 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-             getObjectView<Design extends string = string, Search extends string = string>(
+            getObjectView<Design extends string = string, Search extends string = string>(
                 design: Design,
                 search: Search,
                 params: GetObjectViewParams | null | undefined,
@@ -1680,17 +1678,17 @@ declare global {
             // Events exposed through EventEmitter interface
             // =============================================
             on(event: 'ready', handler: ReadyHandler): this;
-            on(event: 'unload', handler: UnloadHandler): this;
             on(event: 'stateChange', handler: StateChangeHandler): this;
             on(event: 'objectChange', handler: ObjectChangeHandler): this;
             on(event: 'message', handler: MessageHandler): this;
+            on(event: 'unload', handler: UnloadHandler): this;
             // The error event handler can not be attached later
 
             removeListener(event: 'ready', handler: ReadyHandler): this;
-            removeListener(event: 'unload', handler: UnloadHandler): this;
             removeListener(event: 'stateChange', handler: StateChangeHandler): this;
             removeListener(event: 'objectChange', handler: ObjectChangeHandler): this;
             removeListener(event: 'message', handler: MessageHandler): this;
+            removeListener(event: 'unload', handler: UnloadHandler): this;
 
             removeAllListeners(event?: 'ready' | 'unload' | 'stateChange' | 'objectChange' | 'message'): this;
 
@@ -1717,7 +1715,7 @@ declare global {
         type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
         type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
         type MessageHandler = (obj: Message) => void | Promise<void>;
-        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
+        type UnloadHandler = ((callback: EmptyCallback) => void) | (() => Promise<void>);
         type ErrorHandler = (err: Error) => boolean;
 
         type EmptyCallback = () => void;
@@ -1764,7 +1762,7 @@ declare global {
             /** If an object was found, this contains the ID */
             id?: string,
             /** If an object was found, this contains the common.name */
-            name?: string,
+            name?: ObjectCommon['name'],
         ) => void;
 
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
@@ -1815,7 +1813,9 @@ declare global {
             /** Name of the file or directory */
             file: string;
             /** File system stats */
-            stats: fs.Stats;
+            // https://github.com/ioBroker/adapter-core/issues/455
+            // Sometimes the objects db just returns an empty object
+            stats: fs.Stats | Record<string, never>;
             /** Whether this is a directory or a file */
             isDir: boolean;
             /** Access rights */
@@ -1828,8 +1828,8 @@ declare global {
         type ReadDirCallback = (err?: NodeJS.ErrnoException | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, file?: Buffer | string, mimeType?: string) => void;
-        type ReadFilePromise = Promise<{ file: string | Buffer; mimeType: string }>;
+        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, data?: Buffer | string, mimeType?: string) => void;
+        type ReadFilePromise = Promise<{ data: string | Buffer; mimeType?: string }>;
 
         /** Contains the return values of chownFile */
         interface ChownFileResult {
@@ -1856,8 +1856,6 @@ declare global {
             path: string;
             /** The name of the deleted file or directory */
             file: string;
-            /** Whether the deleted object was a directory or a file */
-            isDir: boolean;
         }
         type RmCallback = (err?: NodeJS.ErrnoException | null, entries?: RmResult[]) => void;
 
@@ -1891,7 +1889,23 @@ declare global {
 
         type GetSessionCallback = (session: Session) => void;
 
-        type Timeout = number & { __ioBrokerBrand: 'Timeout' };
-        type Interval = number & { __ioBrokerBrand: 'Interval' };
+        /**
+         * A timeout identifier that can be used to clear the timeout.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearTimeout`. Provide
+         * this to iobroker's `adatper.clearTimeout` instead.
+         */
+        interface Timeout {
+            __ioBrokerBrand: 'Timeout';
+        }
+        /**
+         * An interval identifier that can be used to clear the interval.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearInterval`. Provide
+         * this to iobroker's `adapter.clearInterval` instead.
+         */
+        interface Interval {
+            __ioBrokerBrand: 'Interval';
+        }
     } // end namespace ioBroker
 } // end declare global

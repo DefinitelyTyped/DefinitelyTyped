@@ -1,6 +1,6 @@
 // Type definitions for react-embed-gist 1.0
 // Project: https://github.com/msaracevic/react-embed-gist#readme
-// Definitions by: James Simon <https://github.com/jsmon>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 

@@ -16,6 +16,8 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface ReadableStream {}
     }
+    // tslint:disable-next-line:no-empty-interface
+    interface ShadowRoot {}
 }
 
 import * as CSS from 'csstype';
@@ -401,7 +403,7 @@ export interface StyleSheetManagerProps {
     disableVendorPrefixes?: boolean | undefined;
     stylisPlugins?: StylisPlugin[] | undefined;
     sheet?: ServerStyleSheet | undefined;
-    target?: HTMLElement | undefined;
+    target?: HTMLElement | ShadowRoot | undefined;
 }
 
 export class StyleSheetManager extends React.Component<StyleSheetManagerProps> {}

@@ -27,7 +27,7 @@ function testCallback() {
         const _result = result;
     });
 
-    // $ExpectError
+    // @ts-expect-error
     srs((error, result) => {
         const _result = result;
     }, {

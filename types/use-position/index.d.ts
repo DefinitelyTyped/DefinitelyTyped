@@ -1,6 +1,6 @@
-// Type definitions for use-position 0.0
+// Type definitions for use-position 1.0
 // Project: https://github.com/trekhleb/use-position
-// Definitions by: Claudio Musumeci <https://github.com/muscla87>
+// Definitions by: Claudio Musumeci <https://github.com/muscla87>, MatyiFKBT <https://github.com/MatyiFKBT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -40,5 +40,7 @@ export function usePosition(watch: boolean, settings?: PositionOptions): {
     longitude: number | undefined,
     timestamp: number | undefined,
     accuracy: number | undefined,
-    errorMessage: string | undefined
+    speed: number | undefined,
+    heading: number | undefined,
+    error: string | undefined
 };

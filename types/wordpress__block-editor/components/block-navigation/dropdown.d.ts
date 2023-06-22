@@ -6,6 +6,9 @@ declare namespace BlockNavigationDropdown {
         isDisabled?: boolean | undefined;
     }
 }
+/**
+ * @deprecated since 9.0.
+ */
 declare const BlockNavigationDropdown: ComponentType<BlockNavigationDropdown.Props>;
 
 export default BlockNavigationDropdown;

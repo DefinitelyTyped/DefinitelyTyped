@@ -1,7 +1,6 @@
-// Type definitions for react-calendar-timeline v0.26.6
+// Type definitions for react-calendar-timeline v0.28.0
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//                 Alex Maclean <https://github.com/acemac>
 //                 Andrii Los <https://github.com/rip21>
 //                 Jon Caruana <https://github.com/joncar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -202,7 +201,7 @@ declare module 'react-calendar-timeline' {
         defaultTimeEnd?: Date | Moment | undefined;
         visibleTimeStart?: Date | Moment | number | undefined;
         visibleTimeEnd?: Date | Moment | number | undefined;
-        selected?: number[] | undefined;
+        selected?: Id[] | undefined;
         sidebarWidth?: number | undefined;
         sidebarContent?: React.ReactNode | undefined;
         rightSidebarWidth?: number | undefined;
@@ -234,7 +233,7 @@ declare module 'react-calendar-timeline' {
         onCanvasClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onCanvasDoubleClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onCanvasContextMenu?(groupId: Id, time: number, e: React.SyntheticEvent): void;
-        onZoom?(timelineContext: TimelineContext): void;
+        onZoom?(timelineContext: TimelineContext, unit: Unit): void;
         moveResizeValidator?(
             action: 'move' | 'resize',
             itemId: Id,
@@ -245,6 +244,7 @@ declare module 'react-calendar-timeline' {
             visibleTimeStart: number,
             visibleTimeEnd: number,
             updateScrollCanvas: (start: number, end: number) => void,
+            unit: Unit
         ): any;
         onBoundsChange?(canvasTimeStart: number, canvasTimeEnd: number): any;
         itemRenderer?: ((props: ReactCalendarItemRendererProps<CustomItem>) => React.ReactNode) | undefined;
@@ -252,9 +252,10 @@ declare module 'react-calendar-timeline' {
         resizeDetector?: ((containerResizeDetector: any) => void) | undefined;
         verticalLineClassNamesForTime?: ((start: number, end: number) => string[] | undefined) | undefined;
         horizontalLineClassNamesForGroup?: ((group: CustomGroup) => string[]) | undefined;
-
+        buffer?: number | undefined;
         // Fields that are in propTypes but not documented
         headerRef?: React.Ref<any> | undefined;
+        className?: string;
     }
 
     export interface TimelineTimeSteps {
@@ -311,7 +312,7 @@ declare module 'react-calendar-timeline' {
     }
     export class SidebarHeader<Data = any> extends React.Component<SidebarHeaderProps<Data>> {}
 
-    export type Unit = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+    export type Unit = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'isoWeek' | 'month' | 'year';
 
     export interface IntervalContext {
         interval: { startTime: number; endTime: number; labelWidth: number; left: number };

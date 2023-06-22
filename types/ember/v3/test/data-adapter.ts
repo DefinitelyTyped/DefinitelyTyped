@@ -4,7 +4,8 @@ const da = Ember.DataAdapter.create();
 
 const filters = da.getFilters();
 filters.includes({ name: 'foo', desc: 'bar' }); // $ExpectType boolean
-filters.includes({}); // $ExpectError
+// @ts-expect-error
+filters.includes({});
 
 filters[0].name; // $ExpectType string
 filters[0].desc; // $ExpectType string
@@ -28,7 +29,8 @@ da.watchModelTypes(
         wrappedTypes[0].type.name; // $ExpectType string
     },
 );
-da.watchModelTypes(() => {}); // $ExpectError
+// @ts-expect-error
+da.watchModelTypes(() => {});
 
 // $ExpectType () => void
 da.watchRecords(
@@ -46,7 +48,8 @@ da.watchRecords(
         count; // $ExpectType number
     },
 );
-da.watchRecords(() => {}); // $ExpectError
+// @ts-expect-error
+da.watchRecords(() => {});
 
 da.acceptsModelName; // $ExpectType boolean
 da.containerDebugAdapter; // $ExpectType ContainerDebugAdapter

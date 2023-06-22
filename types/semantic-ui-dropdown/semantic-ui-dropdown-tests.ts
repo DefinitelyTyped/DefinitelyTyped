@@ -11,6 +11,7 @@ function test_dropdown_static() {
 function test_dropdown() {
     const selector = '.ui.dropdown';
     $(selector).dropdown('setup menu'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('change values'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('refresh'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('toggle'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('show'); // $ExpectType JQuery<HTMLElement>
@@ -22,6 +23,7 @@ function test_dropdown() {
     $(selector).dropdown('restore placeholder text'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('restore default value'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('save defaults'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('change values', [{value: '123', text: 'testing', name: 'test'}]); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('set selected', 123); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('remove selected', false); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('set selected', ['456']); // $ExpectType JQuery<HTMLElement>
@@ -298,8 +300,10 @@ function test_dropdown() {
     });
     $(selector).dropdown(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).dropdown('foo'); // $ExpectError
-    $(selector).dropdown({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).dropdown('foo');
+    // @ts-expect-error
+    $(selector).dropdown({ foo: 'bar' });
 }
 
 import dropdown = require('semantic-ui-dropdown');

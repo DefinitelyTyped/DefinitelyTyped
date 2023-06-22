@@ -69,6 +69,9 @@ const graphDiv = '#test';
             size: unpack(testrows, 'pop'),
             sizemode: 'area',
             sizeref: 200000,
+            pattern: {
+                shape: '/',
+            },
         },
         type: 'scatter',
         transforms: [
@@ -109,6 +112,9 @@ const graphDiv = '#test';
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
         width: [2],
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -116,6 +122,9 @@ const graphDiv = '#test';
         name: 'y density',
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -167,6 +176,7 @@ const graphDiv = '#test';
             parents: ['', 'Eve', 'Eve', 'Seth', 'Seth', 'Eve', 'Eve', 'Awan', 'Eve'],
             values: [65, 14, 12, 10, 2, 6, 6, 4, 4],
             marker: { line: { width: 2 } },
+            offset: -0.25,
         },
     ];
 
@@ -250,16 +260,50 @@ const graphDiv = '#test';
     ];
     const template: Template = {
         data: {
-            bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
-            scatter: {
+            bar: [{ marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' }],
+            scatter: [{
                 mode: 'lines+markers',
                 line: { color: 'red', width: 3 },
                 marker: { color: 'red', size: 8, symbol: 'circle-open' },
-            },
+            }],
         },
         layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
+
+    // Test the modebar with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-modebar
+    const modebar = {
+        color: '#ff0000',
+        bgcolor: 'rgba(0,0,0,0)',
+        activecolor: '#00ff00',
+        orientation: 'h' as 'h' | 'v',
+    };
+
+    // Test the legend with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-legend
+    const legend: Partial<Plotly.Legend> = {
+        bgcolor: '#ffffff',
+        bordercolor: '#444444',
+        borderwidth: 1,
+        font: { size: 15 },
+        groupclick: 'togglegroup',
+        grouptitlefont: { size: 15 },
+        itemclick: 'toggleothers',
+        itemdoubleclick: 'toggle',
+        itemsizing: 'constant',
+        itemwidth: 50,
+        orientation: 'h',
+        title: { font: { size: 15 }, side: 'top', text: 'Legend Title' },
+        tracegroupgap: 15,
+        traceorder: 'reversed+grouped',
+        valign: 'bottom',
+        x: 1,
+        xanchor: 'left',
+        y: 1,
+        yanchor: 'top',
+    };
+
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -278,9 +322,36 @@ const graphDiv = '#test';
                     },
                     click: (gd, ev) => console.log('Download data'),
                 },
+                'pan2d',
+                'zoom2d',
             ],
             ['toImage'],
         ],
+        // mix strings from ModeBarDefaultButtons and custom button added as ModeBarButton interface
+        modeBarButtonsToAdd: [
+            'togglespikelines',
+            'togglehover',
+            'hovercompare',
+            'hoverclosest',
+            'v1hovermode',
+            {
+                name: 'save',
+                title: 'Download plot data',
+                icon: {
+                    width: 857.1,
+                    height: 1000,
+                    path:
+                        'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 ' +
+                        '16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 ' +
+                        '16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+                    ascent: 850,
+                    transform: 'matrix(1 0 0 -1 0 850)',
+                },
+                click: (gd, ev) => console.log('Download data'),
+            }
+        ],
+        setBackground: 'transparent',
+        watermark: false,
     };
     Plotly.newPlot('myDiv', data, layout, config);
 })();
@@ -295,15 +366,15 @@ const graphDiv = '#test';
             theta,
             type: 'scatterpolar',
             name: 'group A',
-        }
+        },
     ];
     const layout: Partial<Plotly.PolarLayout> = {
         angularaxis: {
             rotation: 90,
-            direction: 'clockwise'
+            direction: 'clockwise',
         },
         radialaxis: {
-            range: [0, 100]
+            range: [0, 100],
         },
     };
     Plotly.newPlot('myDiv', data, layout);
@@ -340,60 +411,62 @@ const graphDiv = '#test';
     Plotly.newPlot('myDiv', data, layout);
 })();
 (() => {
-  // Test slider APIs
-  const data: Array<Partial<PlotData>> = [
-      {
-        colorbar: {
-          title: 'Test',
-        },
-        locationmode: 'ISO-3',
-        locations: ['USA', 'NLD'],
-        reversescale: true,
-        type: 'choropleth',
-        z: [1, 2]
-      },
-  ];
-  const layout: Partial<Layout> = {
-    showlegend: true,
-    title: 'World Map',
-    geo: {
-      projection: { type: 'Mercator'},
-      showcoastlines: true,
-      showframe: true,
-    },
-    sliders: [{
-      pad: {t: 30},
-      y: 1.3,
-      x: 0.2,
-      len: 0.8,
-      currentvalue: {
-        visible: true,
-        prefix: 'Date:',
-        xanchor: 'right',
-        font: {size: 20, color: '#666'}
-      },
-      steps: [{
-        method: 'animate',
-        label: '2019-02-04',
-        args: [
-          [
-            '2019-02-04'
-          ],
-          {
-            mode: 'immediate',
-            transition: {
-              duration: 300,
+    // Test slider APIs
+    const data: Array<Partial<PlotData>> = [
+        {
+            colorbar: {
+                title: 'Test',
             },
-            frame: {
-              duration: 300,
-              redraw: false
-            }
-          }
-        ]
-      }]
-    }]
-  };
-  Plotly.newPlot('myDiv', data, layout);
+            locationmode: 'ISO-3',
+            locations: ['USA', 'NLD'],
+            reversescale: true,
+            type: 'choropleth',
+            z: [1, 2],
+        },
+    ];
+    const layout: Partial<Layout> = {
+        showlegend: true,
+        title: 'World Map',
+        geo: {
+            projection: { type: 'Mercator' },
+            showcoastlines: true,
+            showframe: true,
+        },
+        sliders: [
+            {
+                pad: { t: 30 },
+                y: 1.3,
+                x: 0.2,
+                len: 0.8,
+                currentvalue: {
+                    visible: true,
+                    prefix: 'Date:',
+                    xanchor: 'right',
+                    font: { size: 20, color: '#666' },
+                },
+                steps: [
+                    {
+                        method: 'animate',
+                        label: '2019-02-04',
+                        args: [
+                            ['2019-02-04'],
+                            {
+                                mode: 'immediate',
+                                transition: {
+                                    duration: 300,
+                                },
+                                frame: {
+                                    duration: 300,
+                                    redraw: false,
+                                },
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    };
+    Plotly.newPlot('myDiv', data, layout);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -885,4 +958,136 @@ function rand() {
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Scatter texttemplate
+
+(async () => {
+    const scatter = await newPlot(graphDiv, [
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: 'x: %{x}<br>y: %{y}',
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: ['x: %{x}', 'y: %{y}'],
+        },
+    ]);
+})();
+
+(() => {
+    // should create a circular contour plot drawn with lines
+    const Steps = 50;
+    const Span = 1.0;
+
+    const z: number[][] = [];
+    for (let ydx = 0; ydx < Steps; ydx++) {
+        const _z = new Array<number>(Steps);
+        const y = -Span + ydx * 2 * Span / Steps;
+        for (let xdx = 0; xdx < Steps; xdx++) {
+            const x = -Span + xdx * 2 * Span / Steps;
+            _z[xdx] = Math.sqrt(x * x + y * y);
+        }
+        z.push(_z);
+    }
+
+    const data: Array<Partial<Plotly.PlotData>> = [
+        {
+            z,
+            type: 'contour',
+            contours: {
+                coloring: 'lines',
+                labelfont: {
+                    color: 'black',
+                    family: 'monospace'
+                },
+                showlabels: true,
+            },
+            autocontour: true,
+            ncontours: 6,
+        },
+    ];
+    const layout: Partial<Plotly.Layout> = {
+        autosize: true,
+    };
+    Plotly.newPlot('myDiv', data, layout);
+})();
+
+(() => {
+    // Test creation of plotly updatemenu
+    const button1: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const button2: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const layout: Partial<Plotly.Layout> = {
+        updatemenus: [{
+            buttons: [button1, button2],
+            direction: 'down',
+            pad: { r: 10, t: 10 },
+            showactive: true,
+            type: 'dropdown',
+            x: 0.1,
+            xanchor: 'left',
+            y: 1.1,
+            yanchor: 'top'
+        }],
+    };
+
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+
+    newPlot('myDiv', data, layout);
+})();
+
+//////////////////////////////////////////////////////////////////////
+// PlotlyIcons
+(() => {
+    const icon = Plotly.Icons.home;
+    const icon2 = Plotly.Icons.undo;
+});
+
+//////////////////////////////////////////////////////////////////////
+// Mapbox plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermapbox",
+            text: ['A', 'B', 'C'],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 }
+        }
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 }
+    };
+
+    const config: Partial<Config> = {
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
 })();

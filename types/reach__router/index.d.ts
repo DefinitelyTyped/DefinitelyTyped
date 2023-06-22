@@ -111,7 +111,7 @@ export class Match<TParams> extends React.Component<MatchProps<TParams>> {}
 
 export interface NavigateFn {
     (to: string, options?: NavigateOptions<{}>): Promise<void>;
-    (to: number): Promise<void>;
+    (to: number, options?: undefined): Promise<void>;
 }
 
 export interface NavigateOptions<TState> {

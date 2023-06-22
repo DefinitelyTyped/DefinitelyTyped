@@ -281,7 +281,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent. */
     selected?: T[] | undefined;
 
-    /** @deprecated: Allows selecting the hinted result by pressing enter. */
+    /** @deprecated Allows selecting the hinted result by pressing enter. */
     selectHintOnEnter?: boolean | undefined;
 
     /* Specify the size of the input. */

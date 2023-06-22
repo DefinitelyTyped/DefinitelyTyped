@@ -18,8 +18,8 @@ const str = "This is a stylus test";
  * Basic Usage
  */
 stylus.render(str, { filename: 'nesting.css' }, (err, css) => {
-  if (err) throw err;
-  console.log(css);
+    if (err) throw err;
+    console.log(css);
 });
 
 stylus(str)
@@ -27,6 +27,14 @@ stylus(str)
     .render((err, css) => {
         // logic
     });
+
+/**
+ * .render
+ */
+stylus.render(str);
+stylus.render(str, { filename: "test.styl" });
+stylus.render(str, (err, css) => { });
+stylus.render(str, { filename: "test.styl" }, (err, css) => { });
 
 /**
  * .set(setting, value)
@@ -128,6 +136,9 @@ stylus.url({ limit: 100 });
 stylus.url({ limit: false });
 stylus.url({ limit: null });
 stylus.url({ paths: ['./test'], limit: 100 });
-stylus.url({ path: './test' }); // $ExpectError
-stylus.url({ limit: '100' }); // $ExpectError
-stylus.url({ limit: true }); // $ExpectError
+// @ts-expect-error
+stylus.url({ path: './test' });
+// @ts-expect-error
+stylus.url({ limit: '100' });
+// @ts-expect-error
+stylus.url({ limit: true });

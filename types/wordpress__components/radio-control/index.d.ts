@@ -26,7 +26,7 @@ declare namespace RadioControl {
         value: T;
     }
 }
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function RadioControl<T>(props: RadioControl.Props<T>): JSX.Element;
 
 export default RadioControl;

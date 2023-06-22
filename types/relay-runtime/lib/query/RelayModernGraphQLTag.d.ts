@@ -7,7 +7,7 @@ import {
 import { ConcreteRequest } from '../util/RelayConcreteNode';
 
 // The type of a graphql`...` tagged template expression.
-export type GraphQLTaggedNode = ReaderFragment | ConcreteRequest | (() => ReaderFragment | ConcreteRequest);
+export type GraphQLTaggedNode = ReaderFragment | ConcreteRequest | ReaderInlineDataFragment | (() => ReaderFragment | ConcreteRequest | ReaderInlineDataFragment);
 
 /**
  * Runtime function to correspond to the `graphql` tagged template function.

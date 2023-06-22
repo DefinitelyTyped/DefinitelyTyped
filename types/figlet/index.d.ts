@@ -201,6 +201,7 @@ declare namespace figlet {
         | "Octal"
         | "Ogre"
         | "Old Banner"
+        | "Pagga"
         | "Patorjk's Cheese"
         | "Patorjk-HeX"
         | "Pawp"
@@ -354,7 +355,7 @@ declare namespace figlet {
     function text(txt: string, cb: (error: Error | null, result?: string) => void): void;
     function text(txt: string, font: Fonts, cb: (error: Error | null, result?: string) => void): void;
     /**
-     * @desc
+     * @description
      * This `unified-signatures` is disabled because `Fonts` type is too long
      */
     // tslint:disable-next-line: unified-signatures
@@ -362,7 +363,7 @@ declare namespace figlet {
 
     function textSync(txt: string, font?: Fonts): string;
     /**
-     * @desc
+     * @description
      * This `unified-signatures` is disabled because `Fonts` type is too long
      */
     function textSync(txt: string, options: Options): string;
@@ -399,7 +400,7 @@ declare namespace figlet {
     function fontsSync(): Fonts[];
 
     /**
-     * @desc
+     * @description
      * Load a custom font from a file.
      *
      * @param fontName

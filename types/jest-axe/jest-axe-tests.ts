@@ -13,6 +13,7 @@ const newJestWithOptions: JestAxe = configureAxe({
         values: [],
     },
     selectors: false,
+    impactLevels: [],
 });
 
 const newJestWithGlobalOptions: JestAxe = configureAxe({
@@ -27,6 +28,7 @@ const newJestWithGlobalOptions: JestAxe = configureAxe({
         values: [],
     },
     selectors: false,
+    impactLevels: [],
 });
 
 const sameJest: JestAxe = axe;

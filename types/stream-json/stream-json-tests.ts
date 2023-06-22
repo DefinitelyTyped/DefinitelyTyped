@@ -410,8 +410,12 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     const p3: JsonlParser = JsonlParser.parser();
     const p4: JsonlParser.make.Constructor = JsonlParser.make();
     const p5: JsonlParser.parser.Constructor = JsonlParser.parser();
+    const p6: JsonlParser.make.Constructor = JsonlParser.make({checkErrors: true});
+    const p7: JsonlParser.parser.Constructor = JsonlParser.parser();
+    const p8: JsonlParser.make.Constructor = JsonlParser.make({reviver: (key, value) => value, checkErrors: true});
+    const p9: JsonlParser.parser.Constructor = JsonlParser.parser();
 
-    used([p1, p2, p3, p4, p5]);
+    used([p1, p2, p3, p4, p5, p6, p7, p8, p9]);
 }
 
 {

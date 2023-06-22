@@ -6,5 +6,5 @@ toBoolean('yes');
 // $ExpectType boolean
 globalThis.toBoolean('');
 
-// $ExpectError
+// @ts-expect-error
 toBoolean();

@@ -1,2 +1,3 @@
-import validator from '../../';
-export default validator.isISO31661Alpha2;
+import isISO31661Alpha2, { CountryCodes } from '../../lib/isISO31661Alpha2';
+export default isISO31661Alpha2;
+export { CountryCodes };

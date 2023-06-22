@@ -3,11 +3,12 @@
 // Definitions by: William Papsco <https://github.com/wpapsco>
 //                 Corbin Crutchley <https://github.com/crutchcorn>
 //                 Daniel Fischer <https://github.com/d-fischer>
+//                 Samil Deliogullari <https://github.com/samildeli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
-// Last updated: 2020/8/12
+// Last updated: 2023/2/10
 
 import { StrictEventEmitter } from "./strict-event-emitter-types";
 
@@ -54,7 +55,7 @@ export interface Events {
     anonsubmysterygift(channel: string, numbOfSubs: number, methods: SubMethods, userstate: AnonSubMysteryGiftUserstate): void;
     anonsubgift(channel: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: AnonSubGiftUserstate): void;
     automod(channel: string, msgID: 'msg_rejected' | 'msg_rejected_mandatory', message: string): void;
-    ban(channel: string, username: string, reason: string): void;
+    ban(channel: string, username: string, reason: string, userstate: BanUserstate): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     cheer(channel: string, userstate: ChatUserstate, message: string): void;
     clearchat(channel: string): void;
@@ -92,7 +93,7 @@ export interface Events {
     submysterygift(channel: string, username: string, numbOfSubs: number, methods: SubMethods, userstate: SubMysteryGiftUserstate): void;
     subscribers(channel: string, enabled: boolean): void;
     subscription(channel: string, username: string, methods: SubMethods, message: string, userstate: SubUserstate): void;
-    timeout(channel: string, username: string, reason: string, duration: number): void;
+    timeout(channel: string, username: string, reason: string, duration: number, userstate: TimeoutUserstate): void;
     unhost(channel: string, viewers: number): void;
     unmod(channel: string, username: string): void;
     vips(channel: string, vips: string[]): void;
@@ -249,6 +250,16 @@ export interface RitualUserstate extends UserNoticeState {
     "msg-param-ritual-name"?: "new_chatter" | undefined;
 }
 
+export interface BanUserstate {
+    'room-id'?: string | undefined;
+    'target-user-id'?: string | undefined;
+    'tmi-sent-ts'?: string | undefined;
+}
+
+export interface TimeoutUserstate extends BanUserstate {
+    "ban-duration"?: string | undefined;
+}
+
 export type Userstate = ChatUserstate |
     SubUserstate |
     SubGiftUserstate |
@@ -257,7 +268,9 @@ export type Userstate = ChatUserstate |
     SubMysteryGiftUserstate |
     AnonSubGiftUpgradeUserstate |
     RaidUserstate |
-    RitualUserstate;
+    RitualUserstate |
+    BanUserstate |
+    TimeoutUserstate;
 
 export interface EmoteObj {
     [id: string]: [{
@@ -375,7 +388,7 @@ export interface Options {
         port?: number | undefined;
         reconnect?: boolean | undefined;
         maxReconnectAttempts?: number | undefined;
-        maxReconnectInverval?: number | undefined;
+        maxReconnectInterval?: number | undefined;
         reconnectDecay?: number | undefined;
         reconnectInterval?: number | undefined;
         secure?: boolean | undefined;

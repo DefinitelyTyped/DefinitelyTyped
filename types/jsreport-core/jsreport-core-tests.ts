@@ -16,7 +16,12 @@ const request: JsReport.Request = {
     options,
 };
 
-const jsreport = JsReport();
+const jsreport = JsReport({
+    blobStorage: {
+        provider: 'fs',
+        dataDirectory: 'data/storage'
+    }
+});
 jsreport.init().then(() => {
     return jsreport.render(request).then((resp) => {
         // prints pdf with headline Hello world

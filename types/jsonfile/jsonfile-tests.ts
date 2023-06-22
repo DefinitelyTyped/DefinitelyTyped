@@ -35,25 +35,25 @@ jsonfile.readFileSync(file, { encoding: 'utf8', throws: true });
 
 // $ExpectType void
 jsonfile.writeFile(file, obj, err => {
-    // $ExpectType ErrnoException
+    // $ExpectType ErrnoException | null
     err;
 });
 
 // $ExpectType void
 jsonfile.writeFile(file, obj, { spaces: 2 }, err => {
-    // $ExpectType ErrnoException
+    // $ExpectType ErrnoException | null
     err;
 });
 
 // $ExpectType void
 jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, err => {
-    // $ExpectType ErrnoException
+    // $ExpectType ErrnoException | null
     err;
 });
 
 // $ExpectType void
 jsonfile.writeFile(file, obj, { flag: 'a' }, err => {
-    // $ExpectType ErrnoException
+    // $ExpectType ErrnoException | null
     err;
 });
 

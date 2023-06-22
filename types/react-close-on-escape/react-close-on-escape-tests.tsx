@@ -3,10 +3,10 @@ import CloseOnEscape from 'react-close-on-escape';
 
 const onEscapeCallback = () => {};
 
-// $ExpectError
+// @ts-expect-error
 const missingRequired = <CloseOnEscape />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidExample = <CloseOnEscape onEscape={true} />;
 
 const validExample = <CloseOnEscape onEscape={onEscapeCallback} />;

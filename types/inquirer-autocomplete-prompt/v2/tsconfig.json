@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "inquirer": [
+                "inquirer/v8"
+            ],
+            "inquirer/*": [
+                "inquirer/v8/*"
+            ],
+            "inquirer-autocomplete-prompt": [
+                "inquirer-autocomplete-prompt/v2"
+            ],
+            "inquirer-autocomplete-prompt/*": [
+                "inquirer-autocomplete-prompt/v2/*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "inquirer-autocomplete-prompt-tests.ts"
+    ]
+}

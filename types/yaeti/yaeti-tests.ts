@@ -4,15 +4,15 @@ import { Event as YaetiEvent, EventTarget } from 'yaeti';
 YaetiEvent('click');
 
 const target = new EventTarget();
-// $ExpectError
+// @ts-expect-error
 target.addEventListener(200, event => {});
 // $ExpectType void
 target.addEventListener('click', event => {});
 // $ExpectType void
 target.removeEventListener('click', event => {});
-// $ExpectError
+// @ts-expect-error
 target.removeEventListener({}, event => {});
 // $ExpectType boolean
 target.dispatchEvent(new Event('click'));
-// $ExpectError
+// @ts-expect-error
 target.dispatchEvent({});

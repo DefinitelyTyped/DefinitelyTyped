@@ -1,4 +1,4 @@
-// Type definitions for @mapbox/maki 7.1
+// Type definitions for @mapbox/maki 7.2
 // Project: https://github.com/mapbox/maki
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Bullington <https://github.com/mbullington>
@@ -7,15 +7,9 @@
 /**
  * A pixel-aligned point of interest icon set made for cartographers
  */
-declare namespace maki {
-    type IconName = string;
-    type SvgContent = string;
-}
+export type IconName = string;
+export type SvgContent = string;
 
-declare const maki: {
-    /** Object that can be used to organize and display icons in your app or website */
-    layouts: maki.IconName[];
-    svgArray: maki.SvgContent[];
-};
-
-export = maki;
+/** Object that can be used to organize and display icons in your app or website */
+export const layouts: IconName[];
+export const svgArray: SvgContent[];

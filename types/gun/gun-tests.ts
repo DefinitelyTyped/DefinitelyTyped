@@ -55,7 +55,7 @@ app.get('object').put({
 
 app.get('object')
     .get('bool')
-    // $ExpectError
+    // @ts-expect-error
     .put(1);
 
 app.get('object').on(data => {
@@ -73,7 +73,7 @@ app.get('chatRoom').time!({ by: 'A', message: 'Hello' });
 app.get('chatRoom').time!(msg => {
     msg.by;
 }, 20);
-// $ExpectError
+// @ts-expect-error
 app.get('object').time!({ a: 1 });
 
 class X {
@@ -97,18 +97,18 @@ interface BadState {
     c: X;
 }
 const bad = new Gun<BadState>();
-// $ExpectError
+// @ts-expect-error
 bad.get('a').put(1);
 bad.get('b')
     .get('c')
-    // $ExpectError
+    // @ts-expect-error
     .put(() => {});
 bad.get('b')
     .get('d')
-    // $ExpectError
+    // @ts-expect-error
     .put(X);
 
-// $ExpectError
+// @ts-expect-error
 bad.get('b').put({ c: () => {}, d: X, e: { f: () => {} } });
-// $ExpectError
+// @ts-expect-error
 bad.get('c').put(new X());

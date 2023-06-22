@@ -7,7 +7,6 @@
         "npm-naming": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

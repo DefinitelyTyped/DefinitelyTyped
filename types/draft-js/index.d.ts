@@ -377,22 +377,24 @@ declare namespace Draft {
             type DraftDragType = 'internal' | 'external';
 
             /**
-             * The list of default valid block types.
+             * The list of [default valid block types](https://draftjs.org/docs/advanced-topics-custom-block-render-map#draft-default-block-render-map),
+             * according to the [`DefaultDraftBlockRenderMap`](https://github.com/facebook/draft-js/blob/main/src/model/immutable/DefaultDraftBlockRenderMap.js)
              */
             type CoreDraftBlockType =
-                | 'unstyled'
-                | 'paragraph'
                 | 'header-one'
                 | 'header-two'
                 | 'header-three'
                 | 'header-four'
                 | 'header-five'
                 | 'header-six'
+                | 'section'
+                | 'article'
                 | 'unordered-list-item'
                 | 'ordered-list-item'
                 | 'blockquote'
+                | 'atomic'
                 | 'code-block'
-                | 'atomic';
+                | 'unstyled';
 
             type CustomBlockType = string;
 
@@ -422,14 +424,9 @@ declare namespace Draft {
             type DraftInlineStyleType = 'BOLD' | 'CODE' | 'ITALIC' | 'STRIKETHROUGH' | 'UNDERLINE';
 
             /**
-             * Default entity types.
+             * Possible entity types, like 'LINK', 'IMAGE', or custom ones.
              */
-            type ComposedEntityType = 'LINK' | 'TOKEN' | 'PHOTO' | 'IMAGE';
-
-            /**
-             * Possible entity types.
-             */
-            type DraftEntityType = string | ComposedEntityType;
+            type DraftEntityType = string;
 
             /**
              * Possible "mutability" options for an entity. This refers to the behavior
@@ -489,6 +486,30 @@ declare namespace Draft {
             }
 
             /**
+             * DraftDecoratorComponentProps are the core set of props that will be
+             * passed to all DraftDecoratorComponents if a Custom Block Component is not used.
+             * Note that a component may also accept additional props outside of this list.
+             */
+            interface DraftDecoratorComponentProps {
+                blockKey: string;
+                children?: Array<React.ReactNode>;
+                contentState: ContentState;
+                decoratedText: string;
+                dir: 'ltr' | 'rtl' | undefined;
+                end: number;
+                // Many folks mistakenly assume that there will always be an 'entityKey'
+                // passed to a DecoratorComponent.
+                // To find the `entityKey`, Draft calls
+                // `contentBlock.getEntityKeyAt(leafNode)` and in many cases the leafNode does
+                // not have an entityKey. In those cases the entityKey will be null or
+                // undefined. That's why `getEntityKeyAt()` is typed to return `?string`.
+                // See https://github.com/facebook/draft-js/blob/2da3dcb1c4c106d1b2a0f07b3d0275b8d724e777/src/model/immutable/BlockNode.js#L51
+                entityKey: string | undefined;
+                offsetKey: string;
+                start: number;
+            }
+
+            /**
              * A DraftDecorator is a strategy-component pair intended for use when
              * rendering content.
              *
@@ -501,16 +522,19 @@ declare namespace Draft {
              *   - A "component": A React component that will be used to render the
              *     "decorated" section of text.
              *
-             *   - "props": Props to be passed into the React component that will be used.
+             *   - "props": Props to be passed into the React component that will be used
+             *     merged with DraftDecoratorComponentProps
              */
-            interface DraftDecorator {
+            interface DraftDecorator<P = any> {
                 strategy: (
                     block: ContentBlock,
                     callback: (start: number, end: number) => void,
                     contentState: ContentState,
                 ) => void;
-                component: Function;
-                props?: object | undefined;
+                component: React.Component
+                    | typeof React.Component
+                    | ((props: DraftDecoratorComponentProps & P) => React.ReactNode);
+                props?: P | undefined;
             }
 
             /**
@@ -1126,6 +1150,7 @@ import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 import EditorCommand = Draft.Component.Base.EditorCommand;
 
+import DraftDecoratorComponentProps = Draft.Model.Decorators.DraftDecoratorComponentProps;
 import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
@@ -1184,6 +1209,7 @@ export {
     EditorState,
     EditorChangeType,
     EditorCommand,
+    DraftDecoratorComponentProps,
     DraftDecoratorType,
     DraftDecorator,
     CompositeDecorator,

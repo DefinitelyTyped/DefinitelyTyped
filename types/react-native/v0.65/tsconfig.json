@@ -8,6 +8,12 @@
             ],
             "react-native/*": [
                 "react-native/v0.65/*"
+            ],
+            "react": [
+                "react/v17"
+            ],
+            "react/*": [
+                "react/v17/*"
             ]
         },
         "noImplicitAny": true,

@@ -35,7 +35,7 @@ const options: AlertOptions = {
     transition: transitions.SCALE,
 };
 
-// $ExpectError
+// @ts-expect-error
 options.position = 'top';
 
 const App = () => {

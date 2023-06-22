@@ -10,17 +10,17 @@
 declare function parse(source: string): parse.Info;
 
 declare namespace parse {
-    type Info = LicenseInfo | ConjuctionInfo;
+    type Info = LicenseInfo | ConjunctionInfo;
 
     interface LicenseInfo {
         license: string;
         plus?: true | undefined;
     }
 
-    interface ConjuctionInfo {
+    interface ConjunctionInfo {
         conjunction: 'and' | 'or';
-        left: LicenseInfo | ConjuctionInfo;
-        right: LicenseInfo | ConjuctionInfo;
+        left: LicenseInfo | ConjunctionInfo;
+        right: LicenseInfo | ConjunctionInfo;
     }
 
     interface Token {

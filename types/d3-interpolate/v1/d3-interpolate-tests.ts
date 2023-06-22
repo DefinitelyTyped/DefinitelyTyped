@@ -69,7 +69,7 @@ let zoom: [number, number, number];
 
 // test interpolate(a, b) signature ----------------------------------------------------
 
-// $ExpectError
+// @ts-expect-error
 iNum = d3Interpolate.interpolate('1', 5); // fails, https://github.com/Microsoft/TypeScript/issues/4002#issuecomment-124201510
 
 // null and boolean interpolator
@@ -199,7 +199,7 @@ iMix = d3Interpolate.interpolateDiscrete([new Date(2016, 6, 1), 'b: 2']);
 
 arrNum = d3Interpolate.quantize(d3Interpolate.interpolateRound(-1, 2), 4); // inferred template parameter type
 arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateString('-1', '2'), 4); // explicit template parameter typing
-// $ExpectError
+// @ts-expect-error
 arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateRound(-1, 2), 4); // fails, due to explicit typing v argument type mismatch
 
 // test interpolateRgb(a, b) signatures ------------------------------------------------

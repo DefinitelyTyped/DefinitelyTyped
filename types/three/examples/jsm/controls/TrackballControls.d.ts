@@ -20,6 +20,8 @@ export class TrackballControls extends EventDispatcher {
     dynamicDampingFactor: number;
     minDistance: number;
     maxDistance: number;
+    minZoom: number;
+    maxZoom: number;
     keys: string[];
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
 

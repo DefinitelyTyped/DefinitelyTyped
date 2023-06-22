@@ -1,11 +1,11 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const ToonShader1: {
     uniforms: {
-        uDirLightPos: Uniform;
-        uDirLightColor: Uniform;
-        uAmbientLightColor: Uniform;
-        uBaseColor: Uniform;
+        uDirLightPos: IUniform;
+        uDirLightColor: IUniform;
+        uAmbientLightColor: IUniform;
+        uBaseColor: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -13,14 +13,14 @@ export const ToonShader1: {
 
 export const ToonShader2: {
     uniforms: {
-        uDirLightPos: Uniform;
-        uDirLightColor: Uniform;
-        uAmbientLightColor: Uniform;
-        uBaseColor: Uniform;
-        uLineColor1: Uniform;
-        uLineColor2: Uniform;
-        uLineColor3: Uniform;
-        uLineColor4: Uniform;
+        uDirLightPos: IUniform;
+        uDirLightColor: IUniform;
+        uAmbientLightColor: IUniform;
+        uBaseColor: IUniform;
+        uLineColor1: IUniform;
+        uLineColor2: IUniform;
+        uLineColor3: IUniform;
+        uLineColor4: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -28,14 +28,14 @@ export const ToonShader2: {
 
 export const ToonShaderHatching: {
     uniforms: {
-        uDirLightPos: Uniform;
-        uDirLightColor: Uniform;
-        uAmbientLightColor: Uniform;
-        uBaseColor: Uniform;
-        uLineColor1: Uniform;
-        uLineColor2: Uniform;
-        uLineColor3: Uniform;
-        uLineColor4: Uniform;
+        uDirLightPos: IUniform;
+        uDirLightColor: IUniform;
+        uAmbientLightColor: IUniform;
+        uBaseColor: IUniform;
+        uLineColor1: IUniform;
+        uLineColor2: IUniform;
+        uLineColor3: IUniform;
+        uLineColor4: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -43,11 +43,11 @@ export const ToonShaderHatching: {
 
 export const ToonShaderDotted: {
     uniforms: {
-        uDirLightPos: Uniform;
-        uDirLightColor: Uniform;
-        uAmbientLightColor: Uniform;
-        uBaseColor: Uniform;
-        uLineColor1: Uniform;
+        uDirLightPos: IUniform;
+        uDirLightColor: IUniform;
+        uAmbientLightColor: IUniform;
+        uBaseColor: IUniform;
+        uLineColor1: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

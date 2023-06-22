@@ -12,7 +12,7 @@ import {
     ColorRepresentation,
 } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export enum SSAOPassOUTPUT {
     Default,
@@ -46,7 +46,7 @@ export class SSAOPass extends Pass {
     blurMaterial: ShaderMaterial;
     depthRenderMaterial: ShaderMaterial;
     copyMaterial: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     originalClearColor: Color;
 
     static OUTPUT: SSAOPassOUTPUT;

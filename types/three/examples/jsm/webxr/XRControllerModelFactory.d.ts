@@ -7,6 +7,8 @@ export class XRControllerModel extends Object3D {
 
     motionController: any;
 
+    envMap: Texture;
+
     setEnvironmentMap(envMap: Texture): XRControllerModel;
 }
 

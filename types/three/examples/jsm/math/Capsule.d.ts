@@ -9,7 +9,7 @@ export class Capsule {
     set(start: Vector3, end: Vector3, radius: number): this;
     clone(): Capsule;
     copy(capsule: Capsule): this;
-    getCenter(target: number): Vector3;
+    getCenter(target: Vector3): Vector3;
     translate(v: Vector3): this;
     checkAABBAxis(
         p1x: number,

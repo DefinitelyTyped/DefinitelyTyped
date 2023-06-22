@@ -20,7 +20,7 @@ function test3() {
 function test4() {
     const services = xsenv.getServices({
         hana: { tag: 'hdb' },
-        scheduler: { label: 'jobs' }
+        scheduler: { label: 'jobs' },
     });
 
     const hanaCredentials = services.hana;
@@ -48,4 +48,38 @@ function test7() {
 
 function test8() {
     xsenv.loadCertificates();
+}
+
+function test9() {
+    const services = xsenv.readServices();
+    services.aservice.credentials; // prints { host: '...', port: '...', user: '...', passwrod: '...', ... }
+}
+
+function test10() {
+    const services = xsenv.readServices();
+    const svc = services['process.env.SERVICE_NAME'];
+}
+
+function test11() {
+    const svc = xsenv.serviceCredentials({ tag: 'hdb' });
+    // console.log(svc); // prints { host: '...', port: '...', user: '...', password: '...', ... }
+}
+
+function test12() {
+    const services = xsenv.getServices<{ hana: object; scheduler: object }>({
+        hana: { tag: 'hdb' },
+        scheduler: { label: 'jobs' },
+    });
+
+    const hanaCredentials = services.hana;
+    const schedulerCredentials = services.scheduler;
+}
+
+function test13() {
+    xsenv.serviceCredentials('hana');
+    xsenv.serviceCredentials({ tag: 'relational' });
+    xsenv.serviceCredentials({ label: 'hana', plan: 'shared' });
+    xsenv.serviceCredentials((service: any) => {
+        return /shared/.test(service.plan) && /hdi/.test(service.label);
+    });
 }

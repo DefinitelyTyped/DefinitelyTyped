@@ -41,24 +41,18 @@ import * as R from 'ramda';
         c: string;
     }
 
-    R.map<A, A>(R.inc, { a: 1, b: 2 });
-    R.map<A, B>(R.toString, { a: 1, b: 2 });
+    R.map(R.inc, { a: 1, b: 2 });
+    R.map(R.toString, { a: 1, b: 2 });
 
-    R.map<A, A>(R.inc)({ a: 1, b: 2 });
-    R.map<A, B>(R.toString)({ a: 1, b: 2 });
+    R.map(R.inc)({ a: 1, b: 2 });
+    R.map(R.toString)({ a: 1, b: 2 });
 
-    type KeyOfUnion<T> = T extends infer U ? keyof U : never;
+    const obj: A | C = { a: 1, b: 2, c: '3' };
 
-    /**
-     * Typescript implementation of union order is not guaranteed and can
-     * change. Therefor using `||` here, which is a feature of $ExpectType
-     */
-    // $ExpectType Record<"c" | "a" | "b", void> || Record<"a" | "b" | "c", void>
-    R.map<A | C, Record<KeyOfUnion<A | C>, void>>(
+    // $ExpectType Record<"a" | "b" | "c", void>
+    R.map(
         // $ExpectType (value: string | number) => void
-        value => {
-            value;
-        },
-        { a: 1, b: 2 },
+        value => { value; },
+        obj,
     );
 };

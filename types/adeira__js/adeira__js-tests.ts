@@ -11,7 +11,8 @@ import {
 } from '@adeira/js';
 
 invariant(true, 'message');
-invariant('true', 'message'); // $ExpectError
+// @ts-expect-error
+invariant('true', 'message');
 
 const calc = (value: number | undefined, operation: '*' | '+') => {
     invariant(value != null, 'Expected value to be defined');
@@ -22,11 +23,13 @@ const calc = (value: number | undefined, operation: '*' | '+') => {
 };
 
 warning(true, 'message');
-warning('true', 'message'); // $ExpectError
+// @ts-expect-error
+warning('true', 'message');
 
 sprintf('Oh, %s', 'yeah!');
 sprintf('%j', {});
-sprintf(1, {}); // $ExpectError
+// @ts-expect-error
+sprintf(1, {});
 
 isObject({});
 isObject(null);
@@ -47,5 +50,7 @@ nullthrows('1');
 isBrowser();
 
 rangeMap<string>(5, i => i.toString());
-rangeMap<number>(5, i => i.toString()); // $ExpectError
-rangeMap<string>('5', i => i.toString()); // $ExpectError
+// @ts-expect-error
+rangeMap<number>(5, i => i.toString());
+// @ts-expect-error
+rangeMap<string>('5', i => i.toString());

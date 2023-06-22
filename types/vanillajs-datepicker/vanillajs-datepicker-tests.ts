@@ -16,3 +16,5 @@ container.appendChild(start);
 container.appendChild(end);
 
 const dateRangePicker = new DateRangePicker(container);
+
+const datePickerWithCustomPrevArrow = new Datepicker(container, { prevArrow: '<' });

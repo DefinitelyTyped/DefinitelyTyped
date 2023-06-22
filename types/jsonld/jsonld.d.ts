@@ -215,7 +215,7 @@ type Keyword = {
     '@context': OrArray<null | string | ContextDefinition>;
     '@direction': 'ltr' | 'rtl' | null;
     '@graph': OrArray<ValueObject | NodeObject>;
-    '@id': string;
+    '@id': OrArray<string>;
     '@import': string;
     '@included': IncludedBlock;
     '@index': string;

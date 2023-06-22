@@ -271,6 +271,10 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInpu
      * @default true
      */
     countryCallingCodeEditable?: boolean;
+    /**
+     * If set to `false`, will not focus the `<input/>` component when the user selects a country from the list of countries.
+     */
+    focusInputOnCountrySelection?: boolean;
 }
 
 export default class PhoneInput extends React.Component<PhoneInputProps, object> {}

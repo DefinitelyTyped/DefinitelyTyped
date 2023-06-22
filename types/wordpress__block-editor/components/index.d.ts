@@ -15,7 +15,7 @@ export { default as BlockVerticalAlignmentToolbar } from './block-vertical-align
 export { default as ButtonBlockAppender } from './button-block-appender';
 export { default as ColorPalette } from './color-palette';
 export { default as ContrastChecker } from './contrast-checker';
-export { default as InnerBlocks } from './inner-blocks';
+export { default as InnerBlocks, useInnerBlocksProps } from './inner-blocks';
 export { default as InspectorAdvancedControls } from './inspector-advanced-controls';
 export { default as InspectorControls } from './inspector-controls';
 export { default as MediaPlaceholder } from './media-placeholder';

@@ -8,6 +8,10 @@ sr.reveal('.bar');
 // 1.3
 sr = ScrollReveal().reveal('.foo, .bar');
 
+// 1.4
+sr.clean('.foo');
+sr.destroy();
+
 // 2.1
 sr = ScrollReveal({ reset: true });
 sr.reveal('.foo', { duration: 200 });

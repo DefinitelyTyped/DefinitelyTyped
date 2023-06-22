@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const AfterimageShader: {
     uniforms: {
-        damp: Uniform;
-        tOld: Uniform;
-        tNew: Uniform;
+        damp: IUniform;
+        tOld: IUniform;
+        tNew: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

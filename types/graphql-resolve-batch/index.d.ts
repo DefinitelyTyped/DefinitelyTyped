@@ -2,7 +2,7 @@
 // Project: https://github.com/calebmer/graphql-resolve-batch#readme
 // Definitions by: Rutger Hendrickx <https://github.com/nayni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 4.1
 
 import { GraphQLResolveInfo } from 'graphql';
 
@@ -38,7 +38,8 @@ export function createBatchResolver<
 export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
     source: TSource,
     args: TArgs,
-    context: TContext
+    context: TContext,
+    info: GraphQLResolveInfo
 ) => Promise<TReturn>;
 
 /**

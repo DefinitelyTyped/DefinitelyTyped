@@ -1109,7 +1109,7 @@ export interface MediaOptionsAdaptiveStreaming {
      * - true: changeable
      * - false: unchangeable
      */
-    apativeResolution?: boolean | undefined;
+    adaptiveResolution?: boolean | undefined;
     /**
      * Flag whether content supports seamless play. The default value is false.
      * - true: support seamless play
@@ -1128,6 +1128,14 @@ export interface MediaOptionsAdaptiveStreaming {
      * The object that holds information to control network transmit speed.
      */
     bps?: {
+        /**
+         * Minimum speed of network transmission. (bps)
+         */
+        minimum?: number | undefined;
+        /**
+         * Maximum speed of network transmission. (bps)
+         */
+        maximum?: number | undefined;
         /**
          * Starting speed of network transmission. (bps)
          */

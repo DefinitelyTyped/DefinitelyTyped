@@ -2,7 +2,6 @@
 // Project: https://nickpiscitelli.github.io/Glider.js
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 declare namespace Glider {
     // Selectors are either results of querying document DOM or a string
@@ -12,9 +11,9 @@ declare namespace Glider {
 
     type EasingFunction = (x: number, t: number, b: number, c: number, d: number) => number;
 
-    interface GliderEvent<T = undefined> {
-        bubbles: boolean;
+    interface GliderEvent<T = undefined> extends Event {
         detail: T;
+        target: (HTMLElement & { _glider: Glider<HTMLElement> | undefined }) | null;
     }
 
     interface GliderEventMap {
@@ -288,10 +287,22 @@ declare global {
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
     }
 
     interface HTMLDivElement {
         addEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
             type: K,
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,

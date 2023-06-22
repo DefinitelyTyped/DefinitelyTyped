@@ -6,7 +6,7 @@ const fifo = new Fifo<string>();
   // $ExpectType void
   await fifo.push("a");
 
-  // $ExpectError
+  // @ts-expect-error
   fifo.push(true);
 
   // $ExpectType string

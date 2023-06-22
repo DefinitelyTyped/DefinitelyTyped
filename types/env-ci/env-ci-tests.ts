@@ -5,20 +5,32 @@ envCi({ env: { foo: 'bar' } });
 envCi({ cwd: '.' });
 
 if (!res.isCi) {
-    res.name; // $ExpectError
-    res.service; // $ExpectError
+    // @ts-expect-error
+    res.name;
+    // @ts-expect-error
+    res.service;
     res.commit; // $ExpectType string | undefined
-    res.tag; // $ExpectError
-    res.build; // $ExpectError
-    res.buildUrl; // $ExpectError
+    // @ts-expect-error
+    res.tag;
+    // @ts-expect-error
+    res.build;
+    // @ts-expect-error
+    res.buildUrl;
     res.branch; // $ExpectType string | undefined
-    res.job; // $ExpectError
-    res.jobUrl; // $ExpectError
-    res.pr; // $ExpectError
-    res.isPr; // $ExpectError
-    res.prBranch; // $ExpectError
-    res.slug; // $ExpectError
-    res.root; // $ExpectError
+    // @ts-expect-error
+    res.job;
+    // @ts-expect-error
+    res.jobUrl;
+    // @ts-expect-error
+    res.pr;
+    // @ts-expect-error
+    res.isPr;
+    // @ts-expect-error
+    res.prBranch;
+    // @ts-expect-error
+    res.slug;
+    // @ts-expect-error
+    res.root;
 } else {
     if (res.service === 'appveyor') {
         res.name; // $ExpectType "Appveyor"
@@ -40,16 +52,22 @@ if (!res.isCi) {
         res.name; // $ExpectType "Bamboo"
         res.service; // $ExpectType "bamboo"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
         res.job; // $ExpectType string
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
-        res.slug; // $ExpectError
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
+        // @ts-expect-error
+        res.slug;
         res.root; // $ExpectType string
     }
     if (res.service === 'bitbucket') {
@@ -60,11 +78,16 @@ if (!res.isCi) {
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string
     }
@@ -76,13 +99,16 @@ if (!res.isCi) {
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
         res.slug; // $ExpectType string
-        res.root; // $ExpectError
+        // @ts-expect-error
+        res.root;
     }
     if (res.service === 'buddy') {
         res.name; // $ExpectType "Buddy"
@@ -92,13 +118,17 @@ if (!res.isCi) {
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string | undefined
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
-        res.root; // $ExpectError
+        // @ts-expect-error
+        res.root;
     }
     if (res.service === 'buildkite') {
         res.name; // $ExpectType "Buildkite"
@@ -108,8 +138,10 @@ if (!res.isCi) {
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
@@ -125,12 +157,14 @@ if (!res.isCi) {
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string | undefined
         res.job; // $ExpectType string
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
         res.slug; // $ExpectType string
-        res.root; // $ExpectError
+        // @ts-expect-error
+        res.root;
     }
     if (res.service === 'cirrus') {
         res.name; // $ExpectType "Cirrus CI"
@@ -144,7 +178,8 @@ if (!res.isCi) {
         res.jobUrl; // $ExpectType string
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string
     }
@@ -152,28 +187,38 @@ if (!res.isCi) {
         res.name; // $ExpectType "AWS CodeBuild"
         res.service; // $ExpectType "codebuild"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
-        res.slug; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
+        // @ts-expect-error
+        res.slug;
         res.root; // $ExpectType string
     }
     if (res.service === 'codefresh') {
         res.name; // $ExpectType "Codefresh"
         res.service; // $ExpectType "codefresh"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
@@ -184,17 +229,24 @@ if (!res.isCi) {
         res.name; // $ExpectType "Codeship"
         res.service; // $ExpectType "codeship"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
-        res.root; // $ExpectError
+        // @ts-expect-error
+        res.root;
     }
     if (res.service === 'drone') {
         res.name; // $ExpectType "Drone"
@@ -202,15 +254,18 @@ if (!res.isCi) {
         res.commit; // $ExpectType string
         res.tag; // $ExpectType string | undefined
         res.build; // $ExpectType string
-        res.buildUrl; // $ExpectError
+        // @ts-expect-error
+        res.buildUrl;
         res.branch; // $ExpectType string
         res.job; // $ExpectType string
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
         res.slug; // $ExpectType string
-        res.root; // $ExpectError
+        // @ts-expect-error
+        res.root;
     }
     if (res.service === 'gitlab') {
         res.name; // $ExpectType "GitLab CI/CD"
@@ -222,9 +277,12 @@ if (!res.isCi) {
         res.branch; // $ExpectType string
         res.job; // $ExpectType string
         res.jobUrl; // $ExpectType string
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string
     }
@@ -232,31 +290,41 @@ if (!res.isCi) {
         res.name; // $ExpectType "Jenkins"
         res.service; // $ExpectType "jenkins"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
-        res.slug; // $ExpectError
+        // @ts-expect-error
+        res.slug;
         res.root; // $ExpectType string
     }
     if (res.service === 'sail') {
         res.name; // $ExpectType "Sail CI"
         res.service; // $ExpectType "sail"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
-        res.build; // $ExpectError
-        res.buildUrl; // $ExpectError
+        // @ts-expect-error
+        res.tag;
+        // @ts-expect-error
+        res.build;
+        // @ts-expect-error
+        res.buildUrl;
         res.branch; // $ExpectType string | undefined
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string
     }
@@ -264,12 +332,16 @@ if (!res.isCi) {
         res.name; // $ExpectType "Semaphore"
         res.service; // $ExpectType "semaphore"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
-        res.buildUrl; // $ExpectError
+        // @ts-expect-error
+        res.buildUrl;
         res.branch; // $ExpectType string | undefined
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
@@ -285,7 +357,8 @@ if (!res.isCi) {
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
         res.job; // $ExpectType string
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
@@ -296,15 +369,22 @@ if (!res.isCi) {
         res.name; // $ExpectType "TeamCity"
         res.service; // $ExpectType "teamcity"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
-        res.buildUrl; // $ExpectError
+        // @ts-expect-error
+        res.buildUrl;
         res.branch; // $ExpectType string | undefined
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string | undefined
     }
@@ -328,31 +408,42 @@ if (!res.isCi) {
         res.name; // $ExpectType "Visual Studio Team Services"
         res.service; // $ExpectType "vsts"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
-        res.buildUrl; // $ExpectError
+        // @ts-expect-error
+        res.buildUrl;
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
         res.pr; // $ExpectType string | undefined
         res.isPr; // $ExpectType boolean
         res.prBranch; // $ExpectType string | undefined
-        res.slug; // $ExpectError
+        // @ts-expect-error
+        res.slug;
         res.root; // $ExpectType string
     }
     if (res.service === 'wercker') {
         res.name; // $ExpectType "Wercker"
         res.service; // $ExpectType "wercker"
         res.commit; // $ExpectType string
-        res.tag; // $ExpectError
+        // @ts-expect-error
+        res.tag;
         res.build; // $ExpectType string
         res.buildUrl; // $ExpectType string
         res.branch; // $ExpectType string
-        res.job; // $ExpectError
-        res.jobUrl; // $ExpectError
-        res.pr; // $ExpectError
-        res.isPr; // $ExpectError
-        res.prBranch; // $ExpectError
+        // @ts-expect-error
+        res.job;
+        // @ts-expect-error
+        res.jobUrl;
+        // @ts-expect-error
+        res.pr;
+        // @ts-expect-error
+        res.isPr;
+        // @ts-expect-error
+        res.prBranch;
         res.slug; // $ExpectType string
         res.root; // $ExpectType string
     }

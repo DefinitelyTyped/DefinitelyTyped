@@ -58,7 +58,7 @@ declare namespace Tab {
         hidden = 'hidden.bs.tab',
     }
 
-    type jQueryInterface = (config?: 'show' | 'dispose') => void;
+    type jQueryInterface = (config?: 'show' | 'dispose') => JQuery;
 }
 
 export default Tab;

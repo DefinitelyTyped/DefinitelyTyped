@@ -24,7 +24,7 @@ newDoc
     .endPage()
     .endPDF();
 
-// $ExpectError
+// @ts-expect-error
 newDoc.createPage('A5')
     .text('Memento Mori', 100, 100)
     .endPage()

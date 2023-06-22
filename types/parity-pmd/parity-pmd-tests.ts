@@ -14,12 +14,12 @@ parse(buffer);
 format(parsedContent);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 parse('');
 
-// $ExpectError
+// @ts-expect-error
 format({});
 
 // Invalid sub type
-// $ExpectError
+// @ts-expect-error
 format({ messageType: 1 });

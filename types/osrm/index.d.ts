@@ -21,11 +21,15 @@
      * Returns the fastest route between two or more coordinates while visiting the waypoints in order.
      */
     route(options: OSRM.RouteOptions, callback: (err: Error, results: OSRM.RouteResults) => void): void;
+    route(options: OSRM.RouteOptions, pluginConfig: OSRM.PluginConfig & {format: 'json_buffer'}, callback: (err: Error, results: Buffer) => void): void;
+    route(options: OSRM.RouteOptions, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: OSRM.RouteResults) => void): void;
     /**
      * Returns Object containing waypoints. waypoints: array of Ẁaypoint objects sorted by distance to the input coordinate.
      * Each object has an additional distance property, which is the distance in meters to the supplied input coordinate.
      */
     nearest(options: OSRM.NearestOptions, callback: (err: Error, results: OSRM.NearestResults) => void): void;
+    nearest(options: OSRM.NearestOptions, pluginConfig: OSRM.PluginConfig & {format: 'json_buffer'}, callback: (err: Error, results: Buffer) => void): void;
+    nearest(options: OSRM.NearestOptions, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: OSRM.NearestResults) => void): void;
     /**
      * Returns Object containing durations, sources, and destinations. durations: array of arrays that stores the matrix in
      * row-major order. durations[i][j] gives the travel time from the i-th waypoint to the j-th waypoint. Values are given
@@ -34,10 +38,13 @@
      * array of arrays of row,column values, indicating which cells contain estimated values.
      */
     table(options: OSRM.TableOptions, callback: (err: Error, results: OSRM.TableResults) => void): void;
+    table(options: OSRM.TableOptions, pluginConfig: OSRM.PluginConfig & {format: 'json_buffer'}, callback: (err: Error, results: Buffer) => void): void;
+    table(options: OSRM.TableOptions, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: OSRM.TableResults) => void): void;
     /**
      * Returns Buffer contains a Protocol Buffer encoded vector tile.
      */
     tile(XYZ: OSRM.Tile, callback: (err: Error, results: Buffer) => void): void;
+    tile(XYZ: OSRM.Tile, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: Buffer) => void): void;
     /**
      * Returns Object containing tracepoints and matchings. tracepoints Array of Ẁaypoint objects representing all points
      * of the trace in order. If the trace point was ommited by map matching because it is an outlier, the entry will be
@@ -47,6 +54,8 @@
      * is the confidence of the matching. float value between 0 and 1. 1 is very confident that the matching is correct.
      */
     match(options: OSRM.MatchOptions, callback: (err: Error, results: OSRM.MatchResults) => void): void;
+    match(options: OSRM.MatchOptions, pluginConfig: OSRM.PluginConfig & {format: 'json_buffer'}, callback: (err: Error, results: Buffer) => void): void;
+    match(options: OSRM.MatchOptions, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: OSRM.MatchResults) => void): void;
     /**
      * Returns Object containing waypoints and trips. waypoints: an array of Waypoint objects representing all waypoints
      * in input order. Each Waypoint object has the following additional properties, 1) trips_index: index to trips of the
@@ -54,6 +63,8 @@
      * objects that assemble the trace.
      */
     trip(options: OSRM.TripOptions, callback: (err: Error, results: OSRM.TripResults) => void): void;
+    trip(options: OSRM.TripOptions, pluginConfig: OSRM.PluginConfig & {format: 'json_buffer'}, callback: (err: Error, results: Buffer) => void): void;
+    trip(options: OSRM.TripOptions, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: OSRM.TripResults) => void): void;
 }
 
 declare namespace OSRM {
@@ -532,6 +543,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -597,6 +612,10 @@ declare namespace OSRM {
          * ['duration', distance'] (return both the duration matrix and the distance matrix).
          */
         annotations?: Array<('duration' | 'distance')>;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -648,6 +667,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -694,6 +717,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     interface RouteResults {
@@ -721,6 +748,16 @@ declare namespace OSRM {
     interface TripResults {
         waypoints: TripWaypoint[];
         trips: Route[];
+    }
+
+    interface PluginConfig {
+        /**
+         * The format of the result object to various API calls.
+         * Valid options are object (default), which returns a standard Javascript object, as described above, and json_buffer, which will return a NodeJS Buffer object, containing a JSON string.
+         * The latter has the advantage that it can be immediately serialized to disk/sent over the network, and the generation of the string is performed outside the main NodeJS event loop.
+         * This option is ignored by the tile plugin.
+         */
+        format?: 'object' | 'json_buffer';
     }
 }
 export = OSRM;

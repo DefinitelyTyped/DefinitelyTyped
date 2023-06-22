@@ -2,7 +2,7 @@
 // Project: https://github.com/node-red/node-red-node-test-helper#readme
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.7
 
 import { EventEmitter } from 'events';
 import { Node, NodeDef, NodeInitializer, NodeCredentials } from 'node-red';

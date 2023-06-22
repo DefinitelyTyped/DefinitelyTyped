@@ -1,4 +1,4 @@
-// Type definitions for node-email-templates 8.0
+// Type definitions for node-email-templates 10.0
 // Project: https://github.com/forwardemail/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
@@ -61,6 +61,19 @@ declare namespace Email {
          * a file path to a pug template file (defaults to preview-email's template.pug by default)
          */
         template?: string | undefined;
+
+        /**
+         * Whether or not to open the iOS Simulator with the preview url file path.
+         * Defaults to true via process.env.NODE_ENV !== 'test' and will only run if macOS detected and not in a CI environment.
+         */
+        openSimulator?: boolean | undefined;
+
+        /**
+         * A function to build preview url from file path.
+         * Defaults to (path) => 'file://[file path]'.
+         * This is where you can customize the opened path to handle WSL to Windows transformation or build a http url if dir is served.
+         */
+        urlTransform?: ((path: string) => string) | undefined;
     }
 
      interface ViewOptions {
@@ -219,7 +232,7 @@ declare class Email<T = any> {
     juiceResources(html: string, options?: juice.Options): Promise<string>;
 
     /**
-     *
+     * @async
      * @param view The Html pug to render
      * @param locals The template Variables
      */
@@ -229,6 +242,7 @@ declare class Email<T = any> {
      * Render all available template files for a given email
      * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
      *
+     * @async
      * @param view Name of the template
      * @param locals The template variables
      */
@@ -236,6 +250,7 @@ declare class Email<T = any> {
 
     /**
      * Send the Email
+     * @async
      */
     send(options?: Email.EmailOptions<T>): Promise<any>;
 }

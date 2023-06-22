@@ -2,7 +2,7 @@ export class MessageBinding {
     constructor(
         owner: MessageDispatcher,
         name: string,
-        callback: () => void,
+        callback: (...params: any[]) => void,
         isOnce: boolean,
         context?: any,
         type?: BindingType,
@@ -10,7 +10,7 @@ export class MessageBinding {
     );
     owner: MessageDispatcher;
     name: string;
-    callback: () => void;
+    callback: (...params: any[]) => void;
     isOnce: boolean;
     context: any;
     pathPattern: string | null;

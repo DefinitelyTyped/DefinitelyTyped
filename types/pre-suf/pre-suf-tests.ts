@@ -4,11 +4,11 @@ presuf.ensureLeading('a', '/'); // $ExpectType string
 presuf.removeLeading('a', '/'); // $ExpectType string
 presuf.ensureEnding('a', '/'); // $ExpectType string
 presuf.removeEnding('/a/ab/a', '/a'); // $ExpectType string
-// $ExpectError
+// @ts-expect-error
 presuf.ensureLeading();
-// $ExpectError
+// @ts-expect-error
 presuf.removeLeading();
-// $ExpectError
+// @ts-expect-error
 presuf.ensureEnding();
-// $ExpectError
+// @ts-expect-error
 presuf.removeEnding();

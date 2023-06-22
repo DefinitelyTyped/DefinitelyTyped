@@ -1,3 +1,4 @@
+import { service } from '@ember/service';
 import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
@@ -98,8 +99,10 @@ people.update().then(function () {
 people.get('isUpdating'); // true
 
 const MyRoute = Ember.Route.extend({
+    store: Ember.inject.service('store'),
+
     model(params: any): any {
-        return this.store.findRecord('post', params.post_id, {
+        return this.get('store').findRecord('post', params.post_id, {
             include: 'comments,comments.author',
         });
     },
@@ -116,6 +119,8 @@ const SomeComponent = Ember.Object.extend({
 });
 
 const MyRouteAsync = Ember.Route.extend({
+    store: service('store'),
+
     async beforeModel(): Promise<Ember.Array<DS.Model>> {
         const store = Ember.get(this, 'store');
         return await store.findAll('post-comment');
@@ -131,6 +136,8 @@ const MyRouteAsync = Ember.Route.extend({
 });
 
 class MyRouteAsyncES6 extends Ember.Route {
+    @service declare store: DS.Store;
+
     async beforeModel(): Promise<Ember.Array<DS.Model>> {
         return await this.store.findAll('post-comment');
     }
@@ -155,15 +162,22 @@ const tom = store
     });
 
 // GET /users?isAdmin=true
-const admins = store.query('user', { isAdmin: true });
-assertType<DS.AdapterPopulatedRecordArray<User> & DS.PromiseArray<User, Ember.ArrayProxy<User>>>(admins);
+const adminsQuery = store.query('user', { isAdmin: true });
+assertType<DS.PromiseArray<User, DS.AdapterPopulatedRecordArray<User>>>(adminsQuery);
 
-admins.then(function () {
-    console.log(admins.get('length')); // 42
-});
-admins.update().then(function () {
-    admins.get('isUpdating'); // false
-    console.log(admins.get('length')); // 123
+adminsQuery.then(function (admins) {
+    console.log(admins.get("length")); // 42
+
+    // somewhere later in the app code, when new admins have been created
+    // in the meantime
+    //
+    // GET /users?isAdmin=true
+    admins.update().then(function() {
+        admins.get('isUpdating'); // false
+        console.log(admins.get("length")); // 123
+    });
+
+    admins.get('isUpdating'); // true
 });
 
 store.push({

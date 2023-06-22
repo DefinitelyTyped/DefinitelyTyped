@@ -1,4 +1,4 @@
-// Type definitions for intl-tel-input 17.0
+// Type definitions for intl-tel-input 18.1
 // Project: https://github.com/jackocnr/intl-tel-input
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
@@ -17,11 +17,18 @@ export = intlTelInput;
 declare function intlTelInput(node: Element, options?: intlTelInput.Options): intlTelInput.Plugin;
 
 declare namespace intlTelInput {
-    interface Static {
+    // TODO: remove alias at v18
+    type Static = IntlTelInputGlobals;
+    interface IntlTelInputGlobals {
         /**
          * Default options for all instances
          */
-        defaults: Options;
+        readonly defaults: Options;
+
+        /**
+         * Plugin version
+         */
+        readonly version: string;
 
         /**
          * Get all of the plugin's country data - either to re-use elsewhere
@@ -121,6 +128,8 @@ declare namespace intlTelInput {
          * @param type Placeholder number type to be set
          */
         setPlaceholderNumberType(type: placeholderNumberType): void;
+
+        countryList: HTMLUListElement;
     }
 
     interface Options {
@@ -133,12 +142,11 @@ declare namespace intlTelInput {
         allowDropdown?: boolean | undefined;
 
         /**
-         * If there is just a dial code in the input: remove it on blur or submit,
-         * and re-add it on focus. This is to prevent just a dial code getting
-         * submitted with the form. Requires nationalMode to be set to false.
-         * Default = true
+         * auto insert dial code (A) on init, (B) on user selecting a country, (C) on calling setCountry
+         * also listen for blur/submit and auto remove dial code if that's all there is
+         * @default false
          */
-        autoHideDialCode?: boolean | undefined;
+        autoInsertDialCode?: boolean | undefined;
 
         /**
          * Set the input's placeholder to an example number for the selected country, and update it if the country changes.
@@ -366,7 +374,7 @@ declare global {
     }
 
     interface Window {
-        intlTelInputGlobals: intlTelInput.Static;
+        intlTelInputGlobals: intlTelInput.IntlTelInputGlobals;
 
         /**
          * initialise the plugin with optional options.

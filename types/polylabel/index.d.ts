@@ -1,4 +1,4 @@
-// Type definitions for polylabel 1.0
+// Type definitions for polylabel 1.1
 // Project: https://github.com/mapbox/polylabel
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,6 @@
  * @example
  * var p = polylabel(polygon, 1.0);
  */
-declare function polylabel(polygon: number[][][], precision?: number, debug?: boolean): number[];
+declare function polylabel(polygon: number[][][], precision?: number, debug?: boolean): number[] & {distance: number};
 declare namespace polylabel {}
 export default polylabel;

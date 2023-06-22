@@ -4,7 +4,6 @@
         "comment-format": false,
         "member-access": false,
         "no-duplicate-imports": false,
-        "no-self-import": false,
         "prefer-const": false,
         "semicolon": false
     }

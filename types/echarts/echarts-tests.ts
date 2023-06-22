@@ -38,5 +38,5 @@ const seriesGraph: echarts.EChartOption.SeriesGraph = { };
 seriesGraph.autoCurveness;
 seriesGraph.autoCurveness = 10;
 seriesGraph.autoCurveness = [1, 2, 3, 4];
-// $ExpectError
+// @ts-expect-error
 seriesGraph.autoCurveness = 'error';

@@ -33,15 +33,15 @@ o.spec('ospec typings', () => {
         o(obj).equals({ a: 1 });
         o(arr).equals([1, 2]);
 
-        // $ExpectError
+        // @ts-expect-error
         o(bool).equals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(numOrStr).equals(true);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).equals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(obj).equals({});
-        // $ExpectError
+        // @ts-expect-error
         o(arr).equals(['hi']);
     });
 
@@ -54,15 +54,15 @@ o.spec('ospec typings', () => {
         o(obj).notEquals({ a: 1 });
         o(arr).notEquals([1, 2]);
 
-        // $ExpectError
+        // @ts-expect-error
         o(bool).notEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(numOrStr).notEquals(true);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).notEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(obj).notEquals({});
-        // $ExpectError
+        // @ts-expect-error
         o(arr).notEquals(['hi']);
     });
 
@@ -75,15 +75,15 @@ o.spec('ospec typings', () => {
         o(obj).deepEquals({ a: 1 });
         o(arr).deepEquals([1, 2]);
 
-        // $ExpectError
+        // @ts-expect-error
         o(bool).deepEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(numOrStr).deepEquals(true);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).deepEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(obj).deepEquals({});
-        // $ExpectError
+        // @ts-expect-error
         o(arr).deepEquals(['hi']);
     });
 
@@ -96,15 +96,15 @@ o.spec('ospec typings', () => {
         o(obj).notDeepEquals({ a: 1 });
         o(arr).notDeepEquals([1, 2]);
 
-        // $ExpectError
+        // @ts-expect-error
         o(bool).notDeepEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(numOrStr).notDeepEquals(true);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).notDeepEquals(1);
-        // $ExpectError
+        // @ts-expect-error
         o(obj).notDeepEquals({});
-        // $ExpectError
+        // @ts-expect-error
         o(arr).notDeepEquals(['hi']);
     });
 
@@ -115,21 +115,21 @@ o.spec('ospec typings', () => {
         // NOTE: ospec says trows/notThrows accepts "Object constructor"
         o(fn).notThrows(String);
 
-        // $ExpectError
+        // @ts-expect-error
         o(bool).throws('baz');
-        // $ExpectError
+        // @ts-expect-error
         o(bool).notThrows('baz');
 
         // `expected` must only be string or "Object constructor"
-        // $ExpectError
+        // @ts-expect-error
         o(fn).throws(1);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).throws(1);
 
         const nonNewableFn = () => {};
-        // $ExpectError
+        // @ts-expect-error
         o(fn).throws(nonNewableFn);
-        // $ExpectError
+        // @ts-expect-error
         o(fn).notThrows(nonNewableFn);
     });
 
@@ -162,21 +162,21 @@ o.spec('ospec typings', () => {
         done(new Error('err'));
         done(null);
 
-        // $ExpectError
+        // @ts-expect-error
         done('Error message');
-        // $ExpectError
+        // @ts-expect-error
         done(1);
-        // $ExpectError
+        // @ts-expect-error
         done(null, null);
     };
     definerFn = (_, timeout) => {
         timeout(42); // $ExpectType void
 
-        // $ExpectError
+        // @ts-expect-error
         timeout();
-        // $ExpectError
+        // @ts-expect-error
         timeout('42');
-        // $ExpectError
+        // @ts-expect-error
         timeout(1, 2);
     };
 
@@ -201,17 +201,17 @@ o.spec('ospec typings', () => {
     // ======================================================================
 
     o.specTimeout(42); // $ExpectType void
-    // $ExpectError
+    // @ts-expect-error
     o.specTimeout();
-    // $ExpectError
+    // @ts-expect-error
     o.specTimeout('42');
 
     o('async test timeout', _ => {
         o.timeout(42); // $ExpectType void
 
-        // $ExpectError
+        // @ts-expect-error
         o.timeout();
-        // $ExpectError
+        // @ts-expect-error
         o.timeout('42');
     });
 
@@ -223,16 +223,16 @@ o.spec('ospec typings', () => {
     };
 
     o.report = myReporter;
-    // $ExpectError
+    // @ts-expect-error
     o.report = fn;
 
     // ======================================================================
 
     o.run(); // $ExpectType void
     o.run(myReporter);
-    // $ExpectError
+    // @ts-expect-error
     o.run(true);
-    // $ExpectError
+    // @ts-expect-error
     o.run(fn);
 
     // ======================================================================
@@ -241,9 +241,9 @@ o.spec('ospec typings', () => {
     o.only('only this test should run', () => {
         o(true).equals(true);
     });
-    // $ExpectError
+    // @ts-expect-error
     o.only('definer function missing');
-    // $ExpectError
+    // @ts-expect-error
     o.only(() => {}); // Missing name parameter
 
     // ======================================================================
@@ -256,9 +256,9 @@ o.spec('ospec typings', () => {
         });
     });
 
-    // $ExpectError
+    // @ts-expect-error
     o.new(true);
 });
 
-// $ExpectError
+// @ts-expect-error
 o.spec(() => {}); // Missing name parameter

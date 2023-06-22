@@ -88,7 +88,7 @@ export namespace Alarms {
          *
          * @param name Optional. The name of the alarm to get. Defaults to the empty string.
          */
-        get(name?: string): Promise<Alarm>;
+        get(name?: string): Promise<Alarm | undefined>;
 
         /**
          * Gets an array of all the alarms.

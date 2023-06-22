@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
-import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
@@ -61,6 +60,7 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+        ReactDOM.createPortal(React.createElement('div'), document.createDocumentFragment());
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
@@ -74,9 +74,9 @@ describe('ReactDOM', () => {
         ReactDOM.flushSync(() => 42, 'not used');
         // $ExpectType number
         ReactDOM.flushSync((a: string) => 42, 'not used');
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
@@ -89,15 +89,13 @@ describe('ReactDOMServer', () => {
     it('renderToStaticMarkup', () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
     });
-});
 
-describe('ReactDOMNodeStream', () => {
     it('renderToStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
+        const content: any = ReactDOMServer.renderToNodeStream(React.createElement('div'));
     });
 
     it('renderToStaticStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
+        const content: any = ReactDOMServer.renderToStaticNodeStream(React.createElement('div'));
     });
 });
 
@@ -113,6 +111,106 @@ describe('React dom test utils', () => {
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
         ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
+    });
+
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
+        const dom = ReactDOM.render(
+            React.createElement('input', { type: 'text' }),
+            element
+        ) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v17.0.2/packages/react-dom/src/test-utils/ReactTestUtils.js#L616-L702
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
+
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
     });
 
     it('renderIntoDocument', () => {
@@ -212,13 +310,13 @@ describe('React dom test utils', () => {
                 ReactTestUtils.act(() => {});
             });
             it('rejects a callback that returns null', () => {
-                // $ExpectError
+                // @ts-expect-error
                 ReactTestUtils.act(() => null);
             });
             it('returns a type that is not Promise-like', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                // $ExpectError
+                // @ts-expect-error
                 result.then((x) => {});
             });
         });
@@ -227,7 +325,7 @@ describe('React dom test utils', () => {
                 await ReactTestUtils.act(async () => {});
             });
             it('rejects a callback that returns a value', async () => {
-                // $ExpectError
+                // @ts-expect-error
                 await ReactTestUtils.act(async () => null);
             });
             it('returns a Promise-like', () => {

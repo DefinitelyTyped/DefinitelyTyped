@@ -18,6 +18,9 @@
             ],
             "clean-css/*": [
                 "clean-css/v3/*"
+            ],
+            "gulp": [
+                "gulp/v3"
             ]
         },
         "types": [],

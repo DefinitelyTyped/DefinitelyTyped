@@ -40,8 +40,8 @@ const verifyOptions = {
   // $ExpectType undefined
   await argon2.verify(verifyOptions);
 
-  // $ExpectError
+  // @ts-expect-error
   (await argon2.hash({ ...mandatoryOptions, secret: 'test'})).encoded;
-  // $ExpectError
+  // @ts-expect-error
   (await argon2.hash({ ...mandatoryOptions, ad: 'test'})).encoded;
 })();

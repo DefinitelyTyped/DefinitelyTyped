@@ -31,7 +31,7 @@ new Game.Object(
     'Hi',
     5,
     7,
-    // $ExpectError
+    // @ts-expect-error
     { bg: 'artBackground' },
     12345,
     () => 123,
@@ -43,7 +43,7 @@ new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]);
 new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2, 'https://example.com/icons.png']);
 
 // Invalid tier type
-// $ExpectError
+// @ts-expect-error
 Game.SynergyUpgrade('Example synergy', 'Example', 'Cursor', 'Grandma', { hello: 'there' });
 
 Game.GrandmaSynergy('Example grandmas', 'A nice example', 'Example building');
@@ -54,7 +54,7 @@ Game.GrandmaSynergy('Example grandmas', 'A nice example', 'Example building');
 Game.Loader.Load(['Hi']);
 
 // Loads assets "H" and "i", unintended
-// $ExpectError
+// @ts-expect-error
 Game.Loader.Load('Hi');
 
 // Some achievements
@@ -75,21 +75,21 @@ const PantheonMG = Game.Objects.Temple.minigame;
 
 PantheonMG.godTooltip(3);
 
-// $ExpectError
+// @ts-expect-error
 PantheonMG.slotGod(PantheonMG.godsById[2], 3);
 
 const GrimoireMG = Game.Objects['Wizard tower'].minigame;
 
 GrimoireMG.castSpell(GrimoireMG.spellsById[7], { cost: 123 });
 
-// $ExpectError
+// @ts-expect-error
 GrimoireMG.getFailChance('conjure baked goods');
 
 const StocksMG = Game.Objects.Bank.minigame;
 
 StocksMG.buyGood(9, 36);
 
-// $ExpectError
+// @ts-expect-error
 StocksMG.tradeTooltip(StocksMG.goodsById[13], 46);
 
 // Mod api
@@ -116,7 +116,7 @@ Reaching 1 quadrillion cookies in this mode unlocks a special heavenly upgrade.`
 const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10, 0] };
 
 // `TickerEffect` can also be 0
-// $ExpectError
+// @ts-expect-error
 Game.TickerEffect.type;
 
 const coolUpgrade = new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]);
@@ -137,17 +137,17 @@ Game.Objects.Cursor.tieredUpgrades[10] = tiered;
 
 Game.cookiesPsByType.kitten;
 
-// $ExpectError
+// @ts-expect-error
 l('lumps').style;
 
-// $ExpectError
+// @ts-expect-error
 Game.Notify('Hello!');
 
 replaceAll(escapeRegExp('++'), '--', '++--++');
 
 const testMod = Game.mods['test-mod'];
 
-// $ExpectError
+// @ts-expect-error
 if (testMod && testMod.id) testMod.id++;
 
 Math.seedrandom();
@@ -162,7 +162,7 @@ Game.UnlockTiered(Game.Objects.Factory);
 
 const buildingPicture: Game.BuildingArtPicture = { frame: 0, id: 0, pic: 'icons.png', x: 0, y: 0, z: 0 };
 
-// $ExpectError
+// @ts-expect-error
 Game.effs.cps + 1;
 
 Game.eff('cps', 5) + 123;
@@ -192,7 +192,7 @@ if (App) {
     App.modsPopup();
 }
 
-alert(Game.Upgrades['Reinforced index finger'].dname);
+alert(Game.Upgrades['Reinforced index finger'].dname + Game.Upgrades['Reinforced index finger'].ddesc);
 
 Game.ToggleFullscreen();
 
@@ -203,3 +203,43 @@ Game.registerMod('typemod', {
         console.log(this.dir);
     },
 });
+
+writeIcon([0, 0]);
+
+// This doesn't exist anymore, was renamed to WritePrefButton
+// @ts-expect-error
+Game.WriteButton;
+
+Game.Objects.Bank.unshackleUpgrade;
+
+Game.AllBGs[0].order = 12;
+
+Game.jukebox.musicScrub(5);
+
+if (Music) {
+    Music.pause();
+}
+
+Game.Loader.waitForLoad([Game.resPath + 'img/goldCookie.png'], () => {});
+
+if (Game.cookiesSent > Game.cookiesReceived) {
+}
+
+Game.YouCustomizer.currentGenes[0] = 9;
+Game.YouCustomizer.offsetGene('acc2', -1);
+let currentGenes = Game.YouCustomizer.save();
+Game.YouCustomizer.load(currentGenes);
+
+let someChoice: [number, number] = Game.YouCustomizer.genesById['hair'].choices[5];
+let someChoice2: number = Game.YouCustomizer.genesById['hairCol'].choices[5];
+
+// Support modded genes
+let someChoice3: number | [number, number] = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+// @ts-expect-error - but we don't know the type of the gene
+let someChoice4: number = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+// @ts-expect-error
+let someChoice5: [number, number] = Game.YouCustomizer.genesById['moddedGene'].choices[5];
+
+// offsetGene cannot handle numbers except -1, 0, 1
+// @ts-expect-error
+Game.YouCustomizer.offsetGene('acc2', 2);

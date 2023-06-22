@@ -10,6 +10,7 @@ var angular: any;
 var Ply: any;
 
 sortable.sort(order.reverse());
+sortable.sort(order.reverse(), true);
 
 Sortable.create(list, {
     delay: 500,
@@ -30,6 +31,12 @@ Sortable.create(list, {
             item.parentNode!.removeChild(item);
         } else if (Sortable.utils.is(control, '.js-edit')) {
             // ..
+        }
+
+        if (event.target === item) {
+            Sortable.utils.select(item);
+        } else {
+            Sortable.utils.deselect(item);
         }
     },
 });

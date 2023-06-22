@@ -15,7 +15,7 @@ declare namespace BunyanFormatWritable {
     }
 
     interface Options {
-        outputMode?: 'short' | 'long' | 'simple' | 'json' | 'bunyan' | undefined;
+        outputMode?: 'short' | 'long' | 'simple' | 'json' | 'bunyan' | 'inspect' | undefined;
         color?: boolean | undefined;
         colorFromLevel?: ColorFromLevel | undefined;
         levelInString?: boolean | undefined;

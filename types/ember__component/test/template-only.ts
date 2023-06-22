@@ -4,7 +4,8 @@ const to = templateOnly(); // $ExpectType TemplateOnlyComponent<unknown>
 
 to.toString(); // $ExpectType string
 
-new TemplateOnlyComponent(); // $ExpectError
+// @ts-expect-error
+new TemplateOnlyComponent();
 
 interface MySig {
     Element: HTMLAnchorElement;

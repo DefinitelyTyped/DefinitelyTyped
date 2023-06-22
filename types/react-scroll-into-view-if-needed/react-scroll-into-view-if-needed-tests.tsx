@@ -28,7 +28,8 @@ const invalidOptions = {
 () => (
     <ReactScrollIntoViewIfNeeded
         options={{
-            invalidOption: 'foobar' // $ExpectError
+            // @ts-expect-error
+            invalidOption: 'foobar'
         }}
     >
         Children
@@ -37,7 +38,8 @@ const invalidOptions = {
 
 () => (
     <ReactScrollIntoViewIfNeeded
-        active={5} // $ExpectError
+        // @ts-expect-error
+        active={5}
     >
         Children
     </ReactScrollIntoViewIfNeeded>
@@ -45,7 +47,8 @@ const invalidOptions = {
 
 () => (
     <ReactScrollIntoViewIfNeeded
-        elementType="h8" // $ExpectError
+        // @ts-expect-error
+        elementType="h8"
     >
         Children
     </ReactScrollIntoViewIfNeeded>

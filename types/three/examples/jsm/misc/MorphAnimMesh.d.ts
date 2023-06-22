@@ -9,5 +9,5 @@ export class MorphAnimMesh extends Mesh {
     setDirectionBackward(): void;
     playAnimation(label: string, fps: number): void;
     updateAnimation(delta: number): void;
-    copy(source: MorphAnimMesh): this;
+    copy(source: MorphAnimMesh, recursive?: boolean): this;
 }

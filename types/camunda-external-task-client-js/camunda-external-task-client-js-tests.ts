@@ -1,10 +1,23 @@
-import { Client, HandlerArgs, Task, TaskService, TopicSubscription, Variables } from 'camunda-external-task-client-js';
+import {
+    BasicAuthInterceptor,
+    Client,
+    HandlerArgs,
+    Task,
+    TaskService,
+    TopicSubscription,
+    Variables,
+} from 'camunda-external-task-client-js';
 
 new Client({ baseUrl: '' }); // $ExpectType Client
 new Variables(); // $ExpectType Variables
 new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValueMap
 
-const client: Client = new Client({ baseUrl: '' }); // $ExpectType Client
+const authInput = {
+    username: 'username',
+    password: 'password',
+};
+const basicAuthInterceptor = new BasicAuthInterceptor(authInput);
+const client: Client = new Client({ baseUrl: '', interceptors: basicAuthInterceptor }); // $ExpectType Client
 client.on('subscribe', (topic: string, topicSubscription: TopicSubscription) => {});
 client.on('unsubscribe', (topic: string, topicSubscription: TopicSubscription) => {});
 

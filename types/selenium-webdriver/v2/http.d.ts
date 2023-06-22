@@ -42,7 +42,6 @@ export class HttpResponse {
     toString(): string;
 }
 
-
 export function post(path: string): any;
 export function del(path: string): any;
 export function get(path: string): any;
@@ -95,7 +94,6 @@ export function sendRequest(options: Object, onOk: any, onError: any, opt_data?:
  * [json]: https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
  * [w3c]: https://w3c.github.io/webdriver/webdriver-spec.html
  *
- * @implements {cmd.Executor}
  */
 export class Executor {
     /**

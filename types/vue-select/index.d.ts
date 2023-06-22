@@ -2,7 +2,7 @@
 // Project: https://github.com/sagalbot/vue-select#readme
 // Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.4
 
 import { VueConstructor, ComponentOptions } from 'vue';
 import { ExtendedVue } from 'vue/types/vue';

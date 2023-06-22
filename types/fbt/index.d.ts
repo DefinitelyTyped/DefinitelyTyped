@@ -1,4 +1,4 @@
-// Type definitions for fbt 0.16
+// Type definitions for fbt 1.0
 // Project: https://github.com/facebook/fbt
 // Definitions by: Davyd <https://github.com/retyui>
 //                 Alexander Nanberg <https://github.com/alexandernanberg>
@@ -85,13 +85,8 @@ export interface FbtOptions {
     subject?: IntlVariationsGender;
 }
 
-export interface Output {
-    fbt: string[];
-    params: string;
-}
-
-export interface Fbt {
-    (text: string, description: string, options?: FbtOptions): Output['fbt'];
+export interface FbtApi<Output extends {fbt: unknown, params: unknown}> {
+    (text: string | string[], description: string, options?: FbtOptions): Output['fbt'];
 
     param(name: string, value: unknown, options?: ParamOptions): Output['params'];
 
@@ -222,7 +217,19 @@ interface FbtHookRegistrations {
 
 export function init(options: { hooks?: FbtHookRegistrations; translations: TranslationDict }): void;
 
-export const fbt: Fbt;
+interface FbtOutput {
+    fbt: string;
+    params: string;
+}
+
+// https://facebook.github.io/fbt/docs/enforcing_plain_text
+interface FbsOutput {
+    fbt: string;
+    params: string;
+}
+
+export const fbt: FbtApi<FbtOutput>;
+export const fbs: FbtApi<FbsOutput>;
 
 export default fbt;
 
@@ -271,15 +278,23 @@ export interface FbtProps extends FbtOptions {
 declare global {
     namespace JSX {
         type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
+        type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };
 
         interface IntrinsicElements {
             fbt: PropsWithChildren<FbtProps>;
-            'fbt:enum': PropsWithChildren<FbtEnumProps>;
+            'fbt:enum': FbtEnumProps;
             'fbt:name': PropsWithChildren<FbtNameProps>;
             'fbt:param': PropsWithChildren<FbtParamProps>;
             'fbt:plural': PropsWithChildren<FbtPluralProps>;
-            'fbt:pronoun': PropsWithChildren<FbtPronounProps>;
-            'fbt:same-param': PropsWithChildren<FbtSameParamProps>;
+            'fbt:pronoun': FbtPronounProps;
+            'fbt:same-param': FbtSameParamProps;
+            fbs: PropsWithChildren<FbtProps>;
+            'fbs:enum': FbtEnumProps;
+            'fbs:name': PropsWithStringChild<FbtNameProps>;
+            'fbs:param': PropsWithStringChild<FbtParamProps>;
+            'fbs:plural': PropsWithStringChild<FbtPluralProps>;
+            'fbs:pronoun': FbtPronounProps;
+            'fbs:same-param': FbtSameParamProps;
         }
     }
 }

@@ -93,7 +93,7 @@ declare namespace Openpay {
                 create(customerId: string, data: any, callback: Callback<any>): void;
                 list(customerId: string, data: any, callback: Callback<any>): void;
                 get(customerId: string, transactionId: string, callback: Callback<any>): void;
-                capture(customerId: string, transactionId: string, callback: Callback<any>): void;
+                capture(customerId: string, transactionId: string, captureRequest: {}, callback: Callback<any>): void;
                 refund(customerId: string, transactionId: string, data: any, callback: Callback<any>): void;
             }
 

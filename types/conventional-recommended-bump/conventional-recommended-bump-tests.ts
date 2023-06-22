@@ -14,7 +14,7 @@ namespace Module {
     // $ExpectType void
     conventionalRecommendedBump(options, parserOpts, callback);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalRecommendedBump();
 }
 
@@ -52,7 +52,7 @@ namespace Module.Options.WhatBump {
     // $ExpectType Result
     whatBump(commits);
 
-    // $ExpectError
+    // @ts-expect-error
     whatBump();
 }
 

@@ -1,8 +1,20 @@
 import IORedis, { RedisOptions } from 'ioredis-mock';
 
+// see https://www.npmjs.com/package/ioredis-mock for MockRedisInput input
 // see https://github.com/luin/ioredis/tree/master/examples
 
+const emptyOption = new IORedis();
+
 const redis = new IORedis({
+    data: {
+        user_next: '3',
+        emails: {
+            'clark@daily.planet': '1',
+            'bruce@wayne.enterprises': '2',
+        },
+        'user:1': { id: '1', username: 'superman', email: 'clark@daily.planet' },
+        'user:2': { id: '2', username: 'batman', email: 'bruce@wayne.enterprises' },
+    },
     port: 1234,
     host: process.env.redisEndpoint,
     username: process.env.redisUsername,
@@ -69,8 +81,8 @@ const f = async () => {
     // now you can see we have one new message
 
     // use xread to read all messages in channel
-    const messages1 = await redis.xread(['STREAMS', channel, 0]);
-    const messages2 = messages1[0][1];
+    const messages1 = await redis.xread('STREAMS', channel, 0);
+    const messages2 = messages1![0][1];
     console.log(`reading messages from channel ${channel}, found ${messages2.length} messages`);
     for (const msg1 of messages2) {
         const msg2 = msg1[1][0].toString();
@@ -79,3 +91,102 @@ const f = async () => {
     process.exit(0);
 };
 f();
+
+const redisCluster = new IORedis.Cluster([{ host: process.env.redisEndpoint, port: 1234 }], {
+    redisOptions: {
+        data: {
+            user_next: '3',
+            emails: {
+                'clark@daily.planet': '1',
+                'bruce@wayne.enterprises': '2',
+            },
+            'user:1': { id: '1', username: 'superman', email: 'clark@daily.planet' },
+            'user:2': { id: '2', username: 'batman', email: 'bruce@wayne.enterprises' },
+        },
+        username: process.env.redisUsername,
+        password: process.env.redisPW,
+    },
+});
+
+// ioredis cluster supports all Redis commands as well:
+redisCluster.set('foo', 'bar');
+
+// ioredis supports the node.js callback style
+redisCluster.get('foo', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result); // Promise resolves to "bar"
+    }
+});
+
+// ioredis cluster supports additional commands
+redisCluster.refreshSlotsCache(err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+// which either supports node.js callback style
+redisCluster.asking((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+// or promises
+redisCluster.asking().then(console.log);
+
+redisCluster.readwrite((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.readwrite().then(console.log);
+
+redisCluster.readonly((err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.readonly().then(console.log);
+
+// Most cluster sub-commands are abstracted into the cluster function
+redisCluster.cluster('FAILOVER', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('FAILOVER', 'FORCE', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('FAILOVER', 'TAKEOVER', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});
+
+redisCluster.cluster('ADDSLOTSRANGE', '100', 101, '102', (err, result) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(result);
+    }
+});

@@ -8,7 +8,7 @@
         "test/managedAttributes.tsx",
         "test/hooks.tsx",
         "test/experimental.tsx",
-        "test/next.tsx"
+        "test/canary.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -19,6 +19,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "exactOptionalPropertyTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

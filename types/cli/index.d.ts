@@ -18,7 +18,7 @@ interface CLI {
     option_width: number;
     native: any;
     output(message?: any, ...optionalParams: any[]): void;
-    exit(code: number): void;
+    exit(code: number): never;
     no_color: boolean;
     enable(...plugins: string[]): CLI;
     disable(...plugins: string[]): CLI;
@@ -31,7 +31,7 @@ interface CLI {
     error(msg: string): void;
     ok(msg: string): void;
     debug(msg: string): void;
-    fatal(msg: string): void;
+    fatal(msg: string): never;
     setApp(appName: string, version: string): CLI;
     setApp(packageJson: string): CLI;
     parsePackageJson(path?: string): void;

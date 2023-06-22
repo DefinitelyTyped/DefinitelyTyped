@@ -6,7 +6,7 @@ const client = createClient({
     language: 'ja',
 });
 
-// $ExpectError
+// @ts-expect-error
 client.geocode({ address: 'Leaning Tower of Pisa' }).asPromise();
 client
     .geocode({ address: 'Leaning Tower of Pisa' }, (response) => {

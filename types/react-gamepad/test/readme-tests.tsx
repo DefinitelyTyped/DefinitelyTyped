@@ -63,9 +63,8 @@ console.log(<App />);
     onB={() => {}}
     onX={() => {}}
     onY={() => {}}
-    // These are mentioned in the README and default props but are never used.
-    // onStart={() => {}}
-    // onBack={() => {}}
+    onStart={() => {}}
+    onBack={() => {}}
     onLT={() => {}}
     onRT={() => {}}
     onLB={() => {}}

@@ -12,11 +12,13 @@ interface Dict<T> {
 
 // new OrderedSet() creates an empty new instance
 new OrderedSet(); // $ExpectType OrderedSet<unknown>
-new OrderedSet(1234); // $ExpectError
+// @ts-expect-error
+new OrderedSet(1234);
 
 // create() creates an empty new instance
 OrderedSet.create(); // $ExpectType OrderedSet<unknown>
-OrderedSet.create(1234); // $ExpectError
+// @ts-expect-error
+OrderedSet.create(1234);
 
 // clear() removes any existing entries
 OrderedSet.create().clear(); // $ExpectType void
@@ -81,4 +83,5 @@ anythingGoesYo.add(123); // $ExpectType OrderedSet<unknown>
 // sets can be constrained
 const constrained = OrderedSet.create<string>(); // $ExpectType OrderedSet<string>
 constrained.add('strings are fine'); // $ExpectType OrderedSet<string>
-constrained.add({ otherStuff: 'not so much' }); // $ExpectError
+// @ts-expect-error
+constrained.add({ otherStuff: 'not so much' });

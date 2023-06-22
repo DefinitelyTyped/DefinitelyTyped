@@ -14,10 +14,10 @@ export function parseRemoteCandidates(candidates: string): Array<{
     ip: string;
     port: number;
 }>;
-export function parseSimulcastStreamList(streams: string): Array<{
+export function parseSimulcastStreamList(streams: string): Array<Array<{
     scid: number | string;
     paused: boolean;
-}>;
+}>>;
 export interface ParamMap {
     [paramName: string]: number | string;
 }

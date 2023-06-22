@@ -1993,12 +1993,18 @@ declare module 'fs' {
      * @param [flags='r'] See `support of file system `flags``.
      * @param [mode=0o666]
      */
-    export function open(path: PathLike, flags: OpenMode, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, flags: OpenMode | undefined, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    /**
+     * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function open(path: PathLike, flags: OpenMode | undefined, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function open(path: PathLike, flags: OpenMode, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     export namespace open {
         /**
          * Asynchronous open(2) - open and possibly create a file.
@@ -2819,7 +2825,7 @@ declare module 'fs' {
                   bigint?: false | undefined;
               })
             | undefined,
-        listener: (curr: Stats, prev: Stats) => void
+        listener: StatsListener
     ): StatWatcher;
     export function watchFile(
         filename: PathLike,
@@ -2828,13 +2834,14 @@ declare module 'fs' {
                   bigint: true;
               })
             | undefined,
-        listener: (curr: BigIntStats, prev: BigIntStats) => void
+        listener: BigIntStatsListener
     ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * @param listener The callback listener will be called each time the file is accessed.
      */
-    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): StatWatcher;
+    export function watchFile(filename: PathLike, listener: StatsListener): StatWatcher;
     /**
      * Stop watching for changes on `filename`. If `listener` is specified, only that
      * particular listener is removed. Otherwise, _all_ listeners are removed,
@@ -2847,14 +2854,17 @@ declare module 'fs' {
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
-    export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
+    export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
+    export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | 'buffer' | undefined;
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
     export type WatchEventType = 'rename' | 'change';
-    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
+    export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
+    export type StatsListener = (curr: Stats, prev: Stats) => void;
+    export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
@@ -3717,7 +3727,7 @@ declare module 'fs' {
     export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
-    export interface CopyOptions {
+    interface CopyOptionsBase {
         /**
          * Dereference symlinks
          * @default false
@@ -3729,11 +3739,6 @@ declare module 'fs' {
          * @default false
          */
         errorOnExist?: boolean;
-        /**
-         * Function to filter copied files/directories. Return
-         * `true` to copy the item, `false` to ignore it.
-         */
-        filter?(source: string, destination: string): boolean;
         /**
          * Overwrite existing file or directory. _The copy
          * operation will ignore errors if you set this to false and the destination
@@ -3753,6 +3758,20 @@ declare module 'fs' {
          */
         recursive?: boolean;
     }
+    export interface CopyOptions extends CopyOptionsBase {
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
+        filter?(source: string, destination: string): boolean | Promise<boolean>;
+    }
+    export interface CopySyncOptions extends CopyOptionsBase {
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
+        filter?(source: string, destination: string): boolean;
+    }
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -3764,8 +3783,8 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cp(source: string, destination: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
-    export function cp(source: string, destination: string, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -3777,7 +3796,7 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cpSync(source: string, destination: string, opts?: CopyOptions): void;
+    export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 }
 declare module 'node:fs' {
     export * from 'fs';

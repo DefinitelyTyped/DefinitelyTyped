@@ -1,7 +1,7 @@
 export interface SimpleAddress {
-  zip_code: string;
-  street_name: string;
-  street_number: string;
+  zip_code?: string | undefined;
+  street_name?: string | undefined;
+  street_number?: number | undefined;
 }
 
 export interface SimpleAddressId extends SimpleAddress {

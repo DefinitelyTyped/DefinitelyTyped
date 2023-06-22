@@ -38,3 +38,37 @@ while (feat) {
   feat = featureset.next();
 }
 fs.writeFileSync("output.geojson", JSON.stringify(geojson, null, 2));
+
+// Handle valid param
+const projection: mapnik.Projection = new mapnik.Projection('+init=epsg:3857');
+
+// When the param is incorrect
+// @ts-expect-error
+const failed =  new mapnik.Projection();
+
+// Handle valid param for Layer
+const layer: mapnik.Layer = new mapnik.Layer('volcanoLayer');
+layer.srs = 'testsrs';
+layer.styles = ['volcanoStyle'];
+layer.datasource = new mapnik.Datasource({
+  type: 'geojson',
+  inline: JSON.stringify(geojson)
+});
+
+// Srs not set string
+const layerSrsError: mapnik.Layer = new mapnik.Layer('volcanoLayer');
+// @ts-expect-error
+layerSrsError.srs = null;
+
+// Styles not set array
+const layerStyleError: mapnik.Layer = new mapnik.Layer('volcanoLayer');
+// @ts-expect-error
+layerStyleError.styles = 'volcanoStyle';
+
+const layerDatasourceError: mapnik.Layer = new mapnik.Layer('volcanoLayer');
+// @ts-expect-error
+layerDatasourceError.datasource = new mapnik.Datasource();
+
+// When the param is incorrect
+// @ts-expect-error
+const failed =  new mapnik.Layer();

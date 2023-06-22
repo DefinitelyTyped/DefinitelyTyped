@@ -20,7 +20,8 @@ import { Alert, By, ByHash, Condition, Locator, WebDriver, WebElement, WebElemen
  * @return {!Condition<boolean>} A new condition.
  */
 export function ableToSwitchToFrame(
-    frame: number|WebElement|By|((webdriver: WebDriver) => WebElement)|ByHash): Condition<boolean>;
+    frame: number | WebElement | By | ((webdriver: WebDriver) => WebElement) | ByHash,
+): Condition<boolean>;
 
 /**
  * Creates a condition that waits for an alert to be opened. Upon success, the

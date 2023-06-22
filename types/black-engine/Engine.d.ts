@@ -47,9 +47,9 @@ export class Engine extends MessageDispatcher {
     private __bootStage;
     private __onVisibilityChangeFallback;
     __onVisibilityChange(): void;
-    hasSystem(systemTypeName: () => void): boolean;
+    hasSystem(systemTypeName: any): boolean;
     private __addSystem;
-    getSystem(typeName: () => void): System | null;
+    getSystem<T>(typeName: T): T | null;
     private __bootVideo;
     start(): void;
     stop(): void;

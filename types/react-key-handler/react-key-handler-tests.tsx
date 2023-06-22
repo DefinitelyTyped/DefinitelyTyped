@@ -12,10 +12,10 @@ const onKeyHandleCallback = () => {};
 
 const matcher = () => true;
 
-// $ExpectError
+// @ts-expect-error
 const missingRequired = <KeyHandler />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidExample = <KeyHandler onKeyHandle={true} />;
 
 // $ExpectType Element
@@ -36,19 +36,19 @@ KEYPRESS;
 // $ExpectType "keyup"
 KEYUP;
 
-// $ExpectError
+// @ts-expect-error
 keyHandler()();
 
-// $ExpectError
+// @ts-expect-error
 keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
 
 // $ExpectType (...args: any[]) => Element
 keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
 
-// $ExpectError
+// @ts-expect-error
 keyToggleHandler()();
 
-// $ExpectError
+// @ts-expect-error
 keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
 
 // $ExpectType (...args: any[]) => Element

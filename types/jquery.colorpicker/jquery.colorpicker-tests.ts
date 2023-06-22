@@ -105,7 +105,7 @@ $.colorpicker.parts["memory"] = function (inst) {
             container.append($node);
         },
         getMemory = function () {
-            return (<string>(document.cookie.match(/\bcolorpicker-memory=([^;]*)/) || [0, ''])[1]).split(',');
+            return ((document.cookie.match(/\bcolorpicker-memory=([^;]*)/) || [0, ''])[1]).split(',');
         },
         setMemory = function () {
             var colors = [];

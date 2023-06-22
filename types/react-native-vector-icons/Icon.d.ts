@@ -122,6 +122,7 @@ export class Icon extends React.Component<IconProps, any> {
     size?: number,
     color?: ColorValue | number,
   ): ImageSource;
+  static getFontFamily(): string;
   static getRawGlyphMap(): { [name: string]: number };
   static loadFont(
     file?: string

@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-export import AWS = require("aws-sdk");
+export import AWS = require("aws-sdk2-types");
 import * as joi from "joi";
 import stream = require("stream");
 

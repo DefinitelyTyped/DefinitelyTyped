@@ -5,4 +5,4 @@
 
 export = arrDiff;
 
-declare function arrDiff<T>(first: T[], ...args: any[][]): T[];
+declare function arrDiff<T>(first: readonly T[], ...args: Array<readonly any[]>): T[];

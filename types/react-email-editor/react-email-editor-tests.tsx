@@ -1,22 +1,36 @@
 import * as React from 'react';
 import EmailEditor, {
-    Design,
-    FileInfo,
-    FileUploadDoneCallback,
-    HtmlExport,
-    SimpleMergeTag,
-    GroupedMergeTag,
-    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback
+  ConditionalMergeTag,
+  Design,
+  DisplayCondition,
+  DisplayConditionDoneCallback,
+  EmptyDisplayCondition,
+  FileInfo,
+  FileUploadDoneCallback,
+  GroupedMergeTag,
+  GroupedSpecialLink,
+  HtmlExport,
+  SimpleMergeTag,
+  SimpleSpecialLink
 } from 'react-email-editor';
 
 const TOOLS_CONFIG = {
   image: {
     enabled: true,
     position: 1,
-    data: {
-      alt: 'this is a test alt text',
-    },
+    properties: {
+      altText: {
+        value: "Image"
+      }
+    }
   },
+  heading: {
+    properties: {
+      text: {
+        value: 'This is a different heading'
+      }
+    }
+  }
 };
 
 const simpleMergeTag: SimpleMergeTag = { value: '{{simple_merge_tag}}', name: 'Simple Merge Tag' };
@@ -27,7 +41,8 @@ const groupedMergeTag: GroupedMergeTag = {
     {
       name: 'Tag 2',
       mergeTags: [{ name: 'Tag 4', value: '{tag_4}' }]
-    }
+    },
+    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value' },
   ],
 };
 const conditionalMergeTag: ConditionalMergeTag = {
@@ -40,11 +55,43 @@ const conditionalMergeTag: ConditionalMergeTag = {
   mergeTags: [{ name: 'Tag 1', value: '{tag_1}' }]
 };
 
+const simpleSpecialLink: SimpleSpecialLink = {
+  name: 'Simple Special Link',
+  href: '[simpleSpecialLink]',
+  target: '_self',
+};
+const groupedSpecialLink: GroupedSpecialLink = {
+  name: 'Grouped Special Links',
+  specialLinks: [
+    {
+      name: 'Simple Special Link in Group',
+      href: '[groupSpecialLink]',
+      target: '_self',
+    },
+    {
+      name: 'Simple Special Link in Group 1',
+      href: '[groupSpecialLink1]',
+      target: '_blank',
+    },
+  ],
+};
+
 class App extends React.Component {
   private readonly editorRef = React.createRef<EmailEditor>();
 
   private readonly handleLoad = () => {
     if (this.editorRef.current) {
+      this.editorRef.current.loadBlank(
+        {
+          backgroundColor: '#fff',
+          contentWidth: '50%',
+          contentAlign: 'left',
+          fontFamily: {
+            label: 'Helvetica',
+            value: "'Helvetica Neue', Helvetica, Arial, sans-serif"
+          }
+        }
+      );
       this.editorRef.current.loadDesign({ body: { rows: [] } });
       this.editorRef.current.addEventListener('design:updated', () =>
         console.log('design has been updated'),
@@ -59,7 +106,7 @@ class App extends React.Component {
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
-         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
+        (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
@@ -72,9 +119,9 @@ class App extends React.Component {
         }),
       );
       this.editorRef.current.setMergeTags([
-          simpleMergeTag,
-          groupedMergeTag,
-          conditionalMergeTag
+        simpleMergeTag,
+        groupedMergeTag,
+        conditionalMergeTag
       ]);
     }
   }
@@ -87,6 +134,9 @@ class App extends React.Component {
       this.editorRef.current.exportHtml(({ design, html }: HtmlExport) => {
         console.log('exported design', design);
         console.log('exported HTML: ', html);
+      }, {
+        cleanup: true,
+        minify: true
       });
     }
   }
@@ -116,6 +166,7 @@ class App extends React.Component {
               email: 'john.doe@acme.com',
             },
             mergeTags: [simpleMergeTag, groupedMergeTag, conditionalMergeTag],
+            specialLinks: [simpleSpecialLink, groupedSpecialLink],
             designTags: {
               current_user_name: 'John Doe',
             },
@@ -166,6 +217,8 @@ class App extends React.Component {
             },
           }}
           projectId={1}
+          editorId="editor"
+          scriptUrl="https://example.com/embed.js"
           onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>

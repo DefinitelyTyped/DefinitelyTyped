@@ -28,7 +28,7 @@ declare class Security {
     getPermission(
         classKeyOrVfsKey: number,
         permissionFieldName: string,
-        userKey?: number,
+        userKey: number,
         getMode?: string,
         extraFilter?: string | any[]
     ): void;
@@ -39,12 +39,14 @@ declare class Security {
     suggestPermissionApplyMode(parent: number): number | null;
     getMimeTypesWithPermissionControl(): number[];
     private userCanModifyKeyUnsafe_;
-    userCanModifyKey(key: number, classKey: number, opt_userKey?: number): boolean;
-    userCanModifyRecord(ds: any, opt_userKey?: number): boolean;
+    userCanModifyKey(key: number, classKey: number, userKey?: number): boolean;
+    userCanModifyRecord(ds: DataSet, userKey?: number): boolean;
     getUserScopes(userKey: DBKey | number): string[];
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Security {
-    function getInstance(): Security;
+    export { getInstance, DataSet };
 }
 import DBKey = require('../dbkey/DBKey.js');
+type DataSet = import('../dataset/DataSet');
+declare function getInstance(): Security;

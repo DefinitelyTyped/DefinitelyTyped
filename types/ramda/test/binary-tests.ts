@@ -11,7 +11,7 @@ import * as R from 'ramda';
     const takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
-    // $ExpectError
+    // @ts-expect-error
     takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
 };
 
@@ -26,7 +26,7 @@ import * as R from 'ramda';
         return [a, b, c];
     }
 
-    R.binary(takesOneArg); // $ExpectType (head: number, head: undefined) => number[]
-    R.binary(takesTwoArgs); // $ExpectType (head: number, head: number) => number[]
-    R.binary(takesThreeArgs); // $ExpectType (head: number, head: number) => number[]
+    R.binary(takesOneArg); // $ExpectType (arg_0: number, arg_1: undefined) => number[]
+    R.binary(takesTwoArgs); // $ExpectType (arg_0: number, arg_1: number) => number[] ||
+    R.binary(takesThreeArgs); // $ExpectType (arg_0: number, arg_1: number) => number[]
 };

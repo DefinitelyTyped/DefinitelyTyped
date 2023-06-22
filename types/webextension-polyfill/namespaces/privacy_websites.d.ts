@@ -28,12 +28,6 @@ export namespace PrivacyWebsites {
          * Optional.
          */
         behavior?: CookieConfigBehaviorEnum;
-
-        /**
-         * Whether to create all cookies as nonPersistent (i.e., session) cookies.
-         * Optional.
-         */
-        nonPersistentCookies?: boolean;
     }
 
     /**

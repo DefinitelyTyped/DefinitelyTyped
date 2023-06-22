@@ -1,12 +1,17 @@
 # OpenUI5 Definitions - Important Usage Notes
 
 The type definitions for OpenUI5 - please make sure to read the important notes below!<br>
-The central entry point for everything about using TypeScript with UI5 is at [https://sap.github.io/ui5-typescript/](https://sap.github.io/ui5-typescript/).
+The central entry point for everything about using TypeScript with UI5 is at [https://sap.github.io/ui5-typescript](https://sap.github.io/ui5-typescript).
 
 ## Work in Progress
 
 These definition files are <b>work in progress</b> and will be improved further.<br>
 <b>Significant changes may occur in future versions, including potential breaking changes</b>.
+
+
+## Release Notes
+
+For information on changes in the type definitions, in particular ones which require adaptation, please refer to the [Release Notes](https://sap.github.io/ui5-typescript/releasenotes.html).
 
 
 ## Only Use With an Additional Build Step

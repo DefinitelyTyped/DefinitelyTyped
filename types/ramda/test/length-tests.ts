@@ -9,9 +9,9 @@ import * as R from 'ramda';
     // $ExpectType number
     R.length('test'); // => 4
 
-    // $ExpectError
+    // @ts-expect-error
     R.length();
 
-    // $ExpectError
+    // @ts-expect-error
     R.length({});
 };

@@ -1,4 +1,4 @@
-// Type definitions for Marked 4.0
+// Type definitions for Marked 5.0
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -15,6 +15,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options, having async: true
+ * @return Promise of string of compiled HTML
+ */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+
+/**
  * Compiles markdown to HTML synchronously.
  *
  * @param src String of markdown source to be compiled
@@ -24,7 +33,7 @@
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
@@ -32,7 +41,7 @@ export function marked(src: string, options?: marked.MarkedOptions): string;
 export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
@@ -67,21 +76,35 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
-     * Compiles markdown to HTML.
+     * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param options Hash of options
+     * @param options Hash of options having async: true
+     * @return Promise of string of compiled HTML
+     */
+    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    function parse(src: string, options?: MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(
-        src: string,
-        options?: MarkedOptions,
-        callback?: (error: any, parseResult: string) => void,
-    ): string;
+    function parse(src: string, options: MarkedOptions, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -149,7 +172,12 @@ export namespace marked {
             src: string,
             links: Tokens.Link[] | Tokens.Image[],
         ): Tokens.Link | Tokens.Image | Tokens.Text | T;
-        emStrong(this: Tokenizer & TokenizerThis, src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
+        emStrong(
+            this: Tokenizer & TokenizerThis,
+            src: string,
+            maskedSrc: string,
+            prevChar: string,
+        ): Tokens.Em | Tokens.Strong | T;
         codespan(this: Tokenizer & TokenizerThis, src: string): Tokens.Codespan | T;
         br(this: Tokenizer & TokenizerThis, src: string): Tokens.Br | T;
         del(this: Tokenizer & TokenizerThis, src: string): Tokens.Del | T;
@@ -165,7 +193,7 @@ export namespace marked {
         options: MarkedOptions;
         code(this: Renderer | RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
         blockquote(this: Renderer | RendererThis, quote: string): string | T;
-        html(this: Renderer | RendererThis, html: string): string | T;
+        html(this: Renderer | RendererThis, html: string, block: boolean): string | T;
         heading(
             this: Renderer | RendererThis,
             text: string,
@@ -223,7 +251,7 @@ export namespace marked {
         static parse(src: Token[] | TokensList, options?: MarkedOptions): string;
         static parseInline(src: Token[], options?: MarkedOptions): string;
         parse(src: Token[] | TokensList): string;
-        parseInline(src: Token[], renderer: Renderer): string;
+        parseInline(src: Token[], renderer?: Renderer): string;
         next(): Token;
     }
 
@@ -238,8 +266,8 @@ export namespace marked {
         lex(src: string): TokensList;
         blockTokens(src: string, tokens: Token[]): Token[];
         blockTokens(src: string, tokens: TokensList): TokensList;
-        inline(src: string, tokens: Token[]): void;
-        inlineTokens(src: string, tokens: Token[]): Token[];
+        inline(src: string, tokens?: Token[]): Token[];
+        inlineTokens(src: string, tokens?: Token[]): Token[];
         state: {
             inLink: boolean;
             inRawBlock: boolean;
@@ -367,6 +395,7 @@ export namespace marked {
             type: 'html';
             raw: string;
             pre: boolean;
+            block: true;
             text: string;
         }
 
@@ -396,6 +425,7 @@ export namespace marked {
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
+            block: false;
             text: string;
         }
 
@@ -463,7 +493,7 @@ export namespace marked {
     interface TokenizerExtension {
         name: string;
         level: 'block' | 'inline';
-        start?: ((this: TokenizerThis, src: string) => number) | undefined;
+        start?: ((this: TokenizerThis, src: string) => number | void) | undefined;
         tokenizer: (this: TokenizerThis, src: string, tokens: Token[] | TokensList) => Tokens.Generic | void;
         childTokens?: string[] | undefined;
     }
@@ -477,9 +507,18 @@ export namespace marked {
         renderer: (this: RendererThis, token: Tokens.Generic) => string | false;
     }
 
+    type TokenizerAndRendererExtension = TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension);
+
     interface MarkedExtension {
         /**
+         * True will tell marked to await any walkTokens functions before parsing the tokens and returning an HTML string.
+         */
+        async?: boolean;
+
+        /**
          * A prefix URL for any relative link.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-base-url extension instead
          */
         baseUrl?: string | undefined;
 
@@ -492,7 +531,7 @@ export namespace marked {
          * Add tokenizers and renderers to marked
          */
         extensions?:
-            | Array<TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension)>
+            | TokenizerAndRendererExtension[]
             | undefined;
 
         /**
@@ -502,11 +541,15 @@ export namespace marked {
 
         /**
          * Include an id attribute when emitting headings.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-gfm-heading-id extension instead
          */
         headerIds?: boolean | undefined;
 
         /**
          * Set the prefix for header tag ids.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-gfm-heading-id extension instead
          */
         headerPrefix?: string | undefined;
 
@@ -515,20 +558,32 @@ export namespace marked {
          * synchronous (returning a string) or asynchronous (callback invoked
          * with an error if any occurred during highlighting and a string
          * if highlighting was successful)
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-highlight extension instead
          */
-        highlight?(
-            code: string,
-            lang: string,
-            callback?: (error: any, code?: string) => void,
-        ): string | void;
+        highlight?(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void;
+
+        /**
+         * Hooks are methods that hook into some part of marked.
+         * preprocess is called to process markdown before sending it to marked.
+         * postprocess is called to process html after marked has finished parsing.
+         */
+        hooks?: {
+            preprocess?: (markdown: string) => string,
+            postprocess?: (html: string) => string,
+        };
 
         /**
          * Set the prefix for code block classes.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-highlight extension instead
          */
         langPrefix?: string | undefined;
 
         /**
          * Mangle autolinks (<email@domain.com>).
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-mangle extension instead
          */
         mangle?: boolean | undefined;
 
@@ -546,11 +601,15 @@ export namespace marked {
 
         /**
          * Sanitize the output. Ignore any HTML that has been input.
+         *
+         * @deprecated use an HTML sanitizer on the output instead
          */
         sanitize?: boolean | undefined;
 
         /**
          * Optionally sanitize found HTML with a sanitizer function.
+         *
+         * @deprecated use an HTML sanitizer on the output instead
          */
         sanitizer?(html: string): string;
 
@@ -560,12 +619,9 @@ export namespace marked {
         silent?: boolean | undefined;
 
         /**
-         * Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
-         */
-        smartLists?: boolean | undefined;
-
-        /**
          * Use "smart" typograhic punctuation for things like quotes and dashes.
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-smartypants extension instead
          */
         smartypants?: boolean | undefined;
 
@@ -583,6 +639,8 @@ export namespace marked {
         walkTokens?: ((token: Token) => void) | undefined;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
+         *
+         * @deprecated use https://www.npmjs.com/package/marked-xhtml extension instead
          */
         xhtml?: boolean | undefined;
     }

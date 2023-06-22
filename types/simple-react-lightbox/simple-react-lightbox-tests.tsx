@@ -123,7 +123,7 @@ render(
 const { openLightbox, closeLightbox } = useLightbox();
 
 // Close lightbox doesn't have a parameter
-// $ExpectError
+// @ts-expect-error
 closeLightbox(2);
 // Allow a index number
 openLightbox(2);
@@ -132,7 +132,7 @@ openLightbox();
 closeLightbox();
 
 // Don't allow children when user gives element
-// $ExpectError
+// @ts-expect-error
 <SRLWrapper elements={elements} options={options}>
     <div></div>
 </SRLWrapper>;
@@ -141,19 +141,19 @@ closeLightbox();
 <SRLWrapper
     callbacks={{
         onCountSlides: object => {
-            // $ExpectError
+            // @ts-expect-error
             object.totalSlide = 2;
         },
         onLightboxOpened: object => {
-            // $ExpectError
+            // @ts-expect-error
             object.opened = 2;
         },
         onLightboxClosed: object => {
-            // $ExpectError
+            // @ts-expect-error
             object.currentSlide = 2;
         },
         onSlideChange: object => {
-            // $ExpectError
+            // @ts-expect-error
             object.index = 2;
         },
     }}

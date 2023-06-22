@@ -1,4 +1,4 @@
-// Type definitions for @lerna/collect-updates 4.0
+// Type definitions for @lerna/collect-updates 5.1
 // Project: https://github.com/lerna/lerna/tree/main/utils/collect-updates
 // Definitions by: donmahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,6 +1,6 @@
 import asFormData = require('json-form-data');
 
-// $ExpectError
+// @ts-expect-error
 asFormData();
 
 // $ExpectType FormData

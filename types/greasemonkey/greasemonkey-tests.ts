@@ -25,8 +25,10 @@ const gmVersion: string = GM.info.version;
 GM.setValue('a', 'foobar');
 GM.setValue('b', 123);
 GM.setValue('c', true);
+// @ts-expect-error
 GM.setValue('d', null);
-// NG: GM.setValue('x', new Date());
+// @ts-expect-error
+GM.setValue('x', new Date());
 
 // GM.getValue
 
@@ -37,7 +39,8 @@ async function getStringValueWithDefault() {
 
 async function getNumberValueWithDefault() {
     const b: number = await GM.getValue('b', 123);
-    // NG: var x: string  = GM.getValue('x', 123);
+    // @ts-expect-error
+    const x: string  = GM.getValue('x', 123);
     return b;
 }
 
@@ -47,18 +50,23 @@ async function getBooleanWithDefault() {
 }
 
 async function getStringValue() {
-    const e: string = await GM.getValue('e');
+    const e = await GM.getValue('e') as string | undefined;
     return e;
 }
 
 async function getNumberValue() {
-    const f: number = await GM.getValue('f');
+    const f = await GM.getValue('f') as number | undefined;
     return f;
 }
 
-async function getBoolean() {
-    const g: boolean = await GM.getValue('g');
+async function getBooleanValue() {
+    const g = await GM.getValue('g') as boolean | undefined;
     return g;
+}
+
+async function getValue() {
+    const h: string | number | boolean | undefined = await GM.getValue('h');
+    return h;
 }
 
 // GN.deleteValue
@@ -194,6 +202,7 @@ GM.xmlHttpRequest({
     overrideMimeType: 'text/plain',
     password: 'abc123',
     synchronous: false,
+    responseType: 'arraybuffer',
     timeout: 10,
     upload: {
         onabort: (response: GM.Response<MyRequestContext>) => {},

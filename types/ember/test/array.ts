@@ -15,7 +15,8 @@ const people = Ember.A([
 assertType<number>(people.get('length'));
 assertType<Person>(people.get('lastObject'));
 assertType<boolean>(people.isAny('isHappy'));
-assertType<boolean>(people.isAny('isHappy', 'false')); // $ExpectError
+// @ts-expect-error
+assertType<boolean>(people.isAny('isHappy', 'false'));
 assertType<boolean>(people.isAny('isHappy', false));
 assertType<Ember.Enumerable<Person>>(people.filterBy('isHappy'));
 assertType<Ember.Enumerable<Person>>(people.rejectBy('isHappy'));

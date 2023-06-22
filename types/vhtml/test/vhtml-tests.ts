@@ -34,14 +34,14 @@ h(
 );
 
 // Incorrect attribute type
-// $ExpectError
+// @ts-expect-error
 h('div', { class: 1 });
 
 // data-* attributes
 // (for hyperscript, allow unknown fields to have arbitrary types)
 // $ExpectType string
 h('div', { 'data-value': 1, 'data-value-2': 'asdf' });
-// $ExpectError
+// @ts-expect-error
 h('div', { class: 1, 'data-value': 1, 'data-value-2': 'asdf' });
 
 // Unknown tags can have arbitrary attributes
@@ -65,7 +65,7 @@ h('button', { class: 'bar' });
 // dangerouslySetInnerHTML
 // $ExpectType string
 h('main', { dangerouslySetInnerHTML: { __html: '&trade;' } });
-// $ExpectError
+// @ts-expect-error
 h('main', { dangerouslySetInnerHTML: 'foo bar' });
 
 // -------- Functional Pseudo-Components -------- //
@@ -80,9 +80,9 @@ h(Component, { prop1: 'foo', prop2: 125 });
 h('body', null, h(Component, { prop1: 'foo', prop2: 125 }));
 
 // Missing required prop
-// $ExpectError
+// @ts-expect-error
 h(Component, { prop2: 125 });
 
 // Incorrect prop type
-// $ExpectError
+// @ts-expect-error
 h(Component, { prop1: 250 });

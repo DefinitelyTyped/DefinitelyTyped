@@ -404,7 +404,6 @@ declare module 'durandal/binder' {
 declare module 'durandal/activator' {
     /**
      * The default settings used by activators.
-     * @property {ActivatorSettings} defaults
     */
     export var defaults: DurandalActivatorSettings;
 
@@ -620,7 +619,6 @@ declare module 'plugins/dialog' {
 
     /**
     * Models a message box's message, title and options.
-    * @class
     */
     class Box {
         constructor(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object);

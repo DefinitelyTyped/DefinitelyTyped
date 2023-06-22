@@ -10,6 +10,9 @@ export namespace Cred {
     }
 }
 
+/**
+ * @deprecated Replaced with `Credential`
+ */
 export class Cred {
     static defaultNew(): Cred;
     static sshKeyFromAgent(username: string): Cred;

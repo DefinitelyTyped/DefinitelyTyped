@@ -1,7 +1,7 @@
 export = FormDialog;
-declare function FormDialog(process: any): void;
+declare function FormDialog(process: Process): void;
 declare class FormDialog {
-    constructor(process: any);
+    constructor(process: Process);
     private process_;
     private _fields;
     title: string;
@@ -12,4 +12,8 @@ declare class FormDialog {
     private _getProperties;
     private getUserProfileName_;
 }
+declare namespace FormDialog {
+    export { Process };
+}
+type Process = import('../process/Process');
 import FormDialogField = require('./FormDialogField.js');

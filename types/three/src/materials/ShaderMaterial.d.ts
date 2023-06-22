@@ -11,7 +11,7 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     lights?: boolean | undefined;
     clipping?: boolean | undefined;
-
+    fog?: boolean | undefined;
     extensions?:
         | {
               derivatives?: boolean | undefined;
@@ -89,7 +89,7 @@ export class ShaderMaterial extends Material {
     };
 
     /**
-     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv2': [ 0, 0 ] }
+     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv1': [ 0, 0 ] }
      */
     defaultAttributeValues: any;
 

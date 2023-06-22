@@ -12,9 +12,11 @@ const invalidOptions = {
 };
 
 new Client(validOptions);
-new Client(invalidOptions); // $ExpectError
+// @ts-expect-error
+new Client(invalidOptions);
 
-new Server({prefix: 1234}); // $ExpectError
+// @ts-expect-error
+new Server({prefix: 1234});
 const myServer = new Server(validOptions);
 myServer.getCss(); // $ExpectType string
 myServer.getStylesheetsHtml(); // $ExpectType string

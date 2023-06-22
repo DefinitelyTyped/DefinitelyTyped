@@ -50,6 +50,7 @@ import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
 import isISO4217Func from 'validator/lib/isISO4217';
 import isISRCFunc from 'validator/lib/isISRC';
+import isIMEIFunc from 'validator/lib/isIMEI';
 import isInFunc from 'validator/lib/isIn';
 import isIntFunc from 'validator/lib/isInt';
 import isJSONFunc from 'validator/lib/isJSON';
@@ -72,6 +73,7 @@ import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
 import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
+import isTimeFunc from 'validator/lib/isTime';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
 import isTaxIDFunc from 'validator/lib/isTaxID';
@@ -137,8 +139,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isByteLength = validator.isByteLength;
     _isByteLength = isByteLengthFunc;
 
-    let _isCreditCard = validator.isCreditCard;
-    _isCreditCard = isCreditCardFunc;
+    let _isCreditCard = validator.isCreditCard; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
+    _isCreditCard = isCreditCardFunc; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
 
     let _isCurrency = validator.isCurrency;
     _isCurrency = isCurrencyFunc;
@@ -218,8 +220,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isISO8601 = validator.isISO8601;
     _isISO8601 = isISO8601Func;
 
-    let _isISO31661Alpha2 = validator.isISO31661Alpha2;
-    _isISO31661Alpha2 = isISO31661Alpha2Func;
+    validator.isISO31661Alpha2; // $ExpectType (str: string) => boolean
+    isISO31661Alpha2Func; // $ExpectType (str: string) => boolean
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
@@ -229,6 +231,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
+
+    let _isIMEI = validator.isIMEI;
+    _isIMEI = isIMEIFunc;
 
     let _isIn = validator.isIn;
     _isIn = isInFunc;
@@ -295,6 +300,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
+
+    let _isTime = validator.isTime;
+    _isTime = isTimeFunc;
 
     let _isURL = validator.isURL;
     _isURL = isURLFunc;
@@ -399,7 +407,7 @@ import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
 import isISINFuncEs from 'validator/es/lib/isISIN';
 import isISO8601FuncEs from 'validator/es/lib/isISO8601';
-import isISO31661Alpha2FuncEs from 'validator/es/lib/isISO31661Alpha2';
+import isISO31661Alpha2FuncEs, { CountryCodes } from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
 import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
@@ -425,6 +433,7 @@ import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
 import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
+import isTimeFuncEs from 'validator/es/lib/isTime';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
 import isTaxIDFuncEs from 'validator/es/lib/isTaxID';
@@ -462,6 +471,9 @@ const any: any = null;
     let result: boolean;
 
     result = validator.contains('sample', 'sample');
+    result = validator.contains('Sample', 'sample', { ignoreCase: true });
+    result = validator.contains('sampletestsample', 'sample', { minOccurrences: 2 });
+    result = validator.contains('Sampletestsample', 'sample', { ignoreCase: true, minOccurrences: 2 });
 
     result = validator.equals('sample', 'sample');
 
@@ -593,7 +605,9 @@ const any: any = null;
     const isByteLengthOptions: validator.IsByteLengthOptions = {};
     result = validator.isByteLength('sample', isByteLengthOptions);
 
-    result = validator.isCreditCard('sample');
+    const isCreditCardOptions: validator.IsCreditCardOptions = {};
+    result = validator.isCreditCard('sample'); // $ExpectType boolean
+    result = validator.isCreditCard('sample', isCreditCardOptions); // $ExpectType boolean
 
     const isCurrencyOptions: validator.IsCurrencyOptions = {};
     result = validator.isCurrency('sample');
@@ -618,8 +632,14 @@ const any: any = null;
     const isEmailOptions: validator.IsEmailOptions = {
         host_blacklist: ['domain'],
     };
+
+    const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
+        blacklisted_chars: 'sample',
+    };
+
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
+    result = validator.isEmail('sample', isEmailOptionsWithBlacklistedCharacters);
 
     const isEmptyOptions: validator.IsEmptyOptions = {};
     result = validator.isEmpty('sample');
@@ -694,6 +714,10 @@ const any: any = null;
     result = validator.isISRC('sample');
 
     result = validator.isIn('sample', []);
+
+    const isIMEIOptions: validator.IsIMEIOptions = {};
+    result = validator.isIMEI('sample');
+    result = validator.isIMEI('sample', isIMEIOptions);
 
     const isIntOptions: validator.IsIntOptions = {};
     result = validator.isInt('sample');
@@ -794,6 +818,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 
@@ -821,6 +846,7 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'IS');
     result = validator.isPostalCode('sample', 'IT');
     result = validator.isPostalCode('sample', 'JP');
+    result = validator.isPostalCode('sample', 'KR');
     result = validator.isPostalCode('sample', 'KE');
     result = validator.isPostalCode('sample', 'LI');
     result = validator.isPostalCode('sample', 'MX');
@@ -840,9 +866,11 @@ const any: any = null;
 
     result = validator.isSemVer('sample');
 
-    result = validator.isStrongPassword('sample');
-
     result = validator.isSurrogatePair('sample');
+
+    const isTimeOptions: validator.IsTimeOptions = {};
+    result = validator.isTime('sample');
+    result = validator.isTime('sample', isTimeOptions);
 
     const isURLOptions: validator.IsURLOptions = {
         require_host: true,
@@ -920,6 +948,26 @@ const any: any = null;
 }
 
 {
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test');
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', {
+        minLength: 10,
+    });
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', { returnScore: false });
+    // $ExpectType boolean
+    validator.isStrongPassword('abc', {
+        minLength: 10,
+        returnScore: false,
+    });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { returnScore: true });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { minLength: 10, returnScore: true });
+}
+
+{
     let result: string;
 
     result = validator.trim('sample');
@@ -936,4 +984,8 @@ const any: any = null;
 {
     let ver: string;
     ver = validator.version;
+}
+
+{
+    validator.isISO8601('sample', { strict: true, strictSeparator: true });
 }

@@ -3,8 +3,6 @@
 *.cmd
 *.pdb
 *.suo
-*.js
-*.cjs
 *.user
 *.cache
 *.cs
@@ -30,14 +28,6 @@ _infrastructure/tests/build
 # IntelliJ based IDEs
 .idea
 *.iml
-
-*.js.map
-!*.js/
-!scripts/not-needed.cjs
-!scripts/close-old-issues.cjs
-!scripts/ghostbuster.cjs
-!scripts/remove-empty.cjs
-!scripts/update-codeowners.cjs
 
 # npm
 node_modules

@@ -1,7 +1,7 @@
-import { Literal, NamedNode } from 'rdf-js';
+import { Literal, NamedNode } from '@rdfjs/types';
 import { PropType } from './_PropType';
 
-interface LiteralExt extends Literal {
+export interface LiteralExt extends Literal {
   toCanonical(): string;
   toJSON(): {
     value: PropType<Literal, 'value'>;
@@ -15,8 +15,8 @@ interface LiteralExt extends Literal {
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class LiteralExt {
+export class LiteralExt {
     constructor(value: string, language?: string | null, datatype?: NamedNode | null);
 }
 
-export = LiteralExt;
+export default LiteralExt;

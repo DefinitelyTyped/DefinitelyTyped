@@ -38,11 +38,11 @@ export default function bankAccount() {
   const div = document.querySelector('div');
 
   if (div) {
-    // $ExpectError
+    // @ts-expect-error
     window.recurly.bankAccount.token(document.querySelector('div'), handleToken);
   }
 
-  // $ExpectError
+  // @ts-expect-error
   window.recurly.bankAccount.token('selector', handleToken);
 
   const minimalBacsBillingInfo: BacsBillingInfo = {
@@ -65,7 +65,7 @@ export default function bankAccount() {
 
   window.recurly.bankAccount.token(minimalBecsBillingInfo, handleToken);
 
-  // $ExpectError
+  // @ts-expect-error
   const missingNameOnAccountBacsBillingInfo: BacsBillingInfo = {
     type: 'bacs',
     account_number: '1234',
@@ -74,7 +74,7 @@ export default function bankAccount() {
   };
 
   const wrongTypeOnAccountBacsBillingInfo: BacsBillingInfo = {
-    // $ExpectError
+    // @ts-expect-error
     type: 'becs',
     account_number: '1234',
     account_number_confirmation: '1234',

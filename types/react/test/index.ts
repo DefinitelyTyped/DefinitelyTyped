@@ -9,6 +9,7 @@ import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
+import 'trusted-types';
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -70,7 +71,7 @@ declare const container: Element;
     class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
         constructor(props: Props) {
             super(props);
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -79,7 +80,6 @@ declare const container: Element;
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
-        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
         // state = {
         //     secondz: 0,
         //     inputValuez: 'hello'
@@ -89,11 +89,10 @@ declare const container: Element;
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
         render() { return null; }
         componentDidMount() {
-            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
             console.log(this.state.inputValue);
         }
         mutateState() {
-            // $ExpectError
+            // @ts-expect-error
             this.state = {
                 inputValue: 'hello'
             };
@@ -101,18 +100,18 @@ declare const container: Element;
             // Even if state is not set, this is allowed by React
             this.setState({ inputValue: 'hello' });
             this.setState((prevState, props) => {
-                // $ExpectError
+                // @ts-expect-error
                 props = { foo: 'nope' };
-                // $ExpectError
+                // @ts-expect-error
                 props.foo = 'nope';
 
                 return { inputValue: prevState.inputValue + ' foo' };
             });
         }
         mutateProps() {
-            // $ExpectError
+            // @ts-expect-error
             this.props = {};
-            // $ExpectError
+            // @ts-expect-error
             this.props = {
                 key: 42,
                 ref: "myComponent42",
@@ -219,13 +218,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-// allows null as props
-const FunctionComponent4: React.FunctionComponent = props => null;
-
-// undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
-// leaving here to document limitation and inspect error message
-const FunctionComponent5: React.FunctionComponent = () => false; // $ExpectError
-
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -250,7 +242,7 @@ const element: React.CElement<Props, ModernComponent> = React.createElement(Mode
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
+const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent2, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -392,12 +384,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 // need the explicit type declaration for typescript < 3.1
 const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
 const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// $ExpectError
+// @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
@@ -527,6 +519,18 @@ DOM.svg({
     })
 );
 
+declare const window: Window;
+const trustedTypes = window.trustedTypes!;
+const trustedHtml = trustedTypes.emptyHTML;
+
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHtml
+    }
+};
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
+
 //
 // React.Children
 // --------------------------------------------------------------------------
@@ -567,41 +571,8 @@ type mappedChildrenArray5Type = typeof mappedChildrenArray5 extends React.Key[] 
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 // The return type may not be an array
-// $ExpectError
+// @ts-expect-error
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
-
-//
-// Example from http://facebook.github.io/react/
-// --------------------------------------------------------------------------
-
-interface TimerState {
-    secondsElapsed: number;
-}
-class Timer extends React.Component<{}, TimerState> {
-    state = {
-        secondsElapsed: 0
-    };
-    private _interval: number;
-    tick() {
-        this.setState((prevState, props) => ({
-            secondsElapsed: prevState.secondsElapsed + 1
-        }));
-    }
-    componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
-    }
-    componentWillUnmount() {
-        clearInterval(this._interval);
-    }
-    render() {
-        return DOM.div(
-            null,
-            "Seconds Elapsed: ",
-            this.state.secondsElapsed
-        );
-    }
-}
-ReactDOM.render(React.createElement(Timer), container);
 
 //
 // createFragment addon
@@ -747,6 +718,40 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     }
 }
 
+// ReactNode tests
+{
+    // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
+    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (!label) {
+            return;
+        }
+        return label;
+    });
+    // But just an empty return results in `void`.
+    // @ts-expect-error
+    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+        return;
+    });
+    // Mix of no return and some return results in `(undefined | JSX.Element)[]`
+    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (label) {
+            return label;
+        }
+    });
+    // But no return results in `void`.
+    // @ts-expect-error
+    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement('div');
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = { };
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    const promise: React.ReactNode = Promise.resolve('React');
+}
+
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
 React.createElement(Memoized1, { foo: 'string' });
 
@@ -769,7 +774,7 @@ type UnionProps =
     | ({ type: 'single'; value?: number } & React.RefAttributes<HTMLDivElement>)
     | ({ type: 'multiple'; value?: number[] } & React.RefAttributes<HTMLDivElement>);
 
-// $ExpectError
+// @ts-expect-error
 const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     type: 'single',
     value: [2],
@@ -791,18 +796,24 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     // we don't care about the value created by `new Wrapper()`.
     // We only care about the props we can pass to the component.
     let Wrapper: React.JSXElementConstructor<ExactProps>;
-    // $ExpectError
+    // @ts-expect-error
     Wrapper = class Narrower extends React.Component<NarrowerProps> {};
-    // $ExpectError
+    // @ts-expect-error
     Wrapper = (props: NarrowerProps) => null;
     Wrapper = class Exact extends React.Component<ExactProps> {};
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    Wrapper = (props, legacyContext) => {
+        // $ExpectType any
+        legacyContext;
+        return null;
+    };
+    Wrapper = (props, legacyContext: { foo: number }) => null;
 
     React.createElement(Wrapper, { value: 'A' });
     React.createElement(Wrapper, { value: 'B' });
-    // $ExpectError
+    // @ts-expect-error
     React.createElement(Wrapper, { value: 'C' });
 }
 
@@ -814,12 +825,12 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
     const props: Props = {
         value: 'inferred',
-        // $ExpectError
+        // @ts-expect-error
         notImplemented: 5
     };
     const inferredProps: InferredProps = {
         value: 'inferred',
-        // $ExpectError
+        // @ts-expect-error
         notImplemented: 5
     };
 }

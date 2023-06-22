@@ -139,7 +139,7 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType MutableRefObject<number | undefined>
     useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
-    // $ExpectError
+    // @ts-expect-error
     useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
@@ -172,23 +172,23 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     useEffect(() => () => {});
     // indistinguishable
     useEffect(() => () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => null);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => () => null);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => () => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => async () => {});
-    // $ExpectError
+    // @ts-expect-error
     useEffect(async () => () => {});
 
     // allow passing an explicit undefined
     useMemo(() => {}, undefined);
     // but don't allow it to be missing
-    // $ExpectError
+    // @ts-expect-error
     useMemo(() => {});
 
     // useState convenience overload
@@ -203,7 +203,7 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType undefined
     useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
-    // $ExpectError
+    // @ts-expect-error
     useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = useState(false);

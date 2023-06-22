@@ -1,7 +1,5 @@
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance, TemplateArray } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
-import { dispatch } from '@wordpress/data';
 
 export {
     clearSelectedBlock,
@@ -46,8 +44,10 @@ export function autosave(options?: Record<string, boolean>): IterableIterator<vo
 
 /**
  * Signals that an undo history record should be created.
+ *
+ * @deprecated since 12.2.0.
  */
-export function createUndoLevel(): void;
+export function createUndoLevel(): {type: 'DO_NOTHING'};
 
 /**
  * Signals that the user has disabled the publish sidebar.
@@ -80,18 +80,10 @@ export function redo(): void;
 
 /**
  * Action generator for handling refreshing the current post.
- */
-export function refreshPost(): IterableIterator<void>;
-
-/**
- * Signals that the latest autosave of the post has been received, by initialization or autosave.
  *
- * @deprecated since 5.6. Callers should use the `receiveAutosaves( postId, autosave )`
- *                selector from the '@wordpress/core-data' package.
- *
- * @param newAutosave - Autosave post object.
+ * @deprecated since 12.2.0.
  */
-export function resetAutosave(newAutosave: Autosave): IterableIterator<void>;
+export function refreshPost(): {type: 'DO_NOTHING'};
 
 /**
  * Signals that the blocks have been updated.

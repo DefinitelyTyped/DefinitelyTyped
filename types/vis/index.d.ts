@@ -1851,6 +1851,8 @@ export interface NodeOptions {
 
   mass?: number | undefined;
 
+  opacity?: number | undefined;
+
   physics?: boolean | undefined;
 
   scaling?: OptionsScaling | undefined;

@@ -12,7 +12,7 @@ export namespace RebaseOperation {
 }
 
 export class RebaseOperation {
-    type: number;
-    id: Oid;
-    exec: string;
+    type(): number | null;
+    id(): Oid;
+    exec(): string | null;
 }

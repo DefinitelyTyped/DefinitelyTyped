@@ -3,7 +3,7 @@
 declare namespace M {
     class Toast extends ComponentBase<ToastOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Toast;
 
@@ -13,17 +13,18 @@ declare namespace M {
         panning: boolean;
 
         /**
-         * The remaining amount of time in ms that the toast will stay before dismissal.
+         * The remaining amount of time in ms that the toast
+         * will stay before dismissal.
          */
         timeRemaining: number;
 
         /**
-         * remove a specific toast
+         * remove a specific toast.
          */
         dismiss(): void;
 
         /**
-         * dismiss all toasts
+         * dismiss all toasts.
          */
         static dismissAll(): void;
     }
@@ -31,20 +32,23 @@ declare namespace M {
     interface ToastOptions {
         /**
          * The content of the Toast.
+         * @default ""
          */
         text: string;
 
         /**
          * HTML content that will be appended to to text.
          * Only use properly sanitized or otherwise trusted data for unsafeHTML.
+         * @default ""
          */
         unsafeHTML: string;
 
         /**
-         * HTML content that will be appended to text.
-         * Only use properly sanitized or otherwise trusted data for html.
+         * HTML content that will be appended to text.\
+         * Only use properly sanitized or otherwise trusted data for html.\
          * Will be ignored if unsafeHTML is set.
          * @deprecated Will be removed in a later release.
+         * @default ""
          */
         html: string;
 
@@ -77,14 +81,15 @@ declare namespace M {
         completeCallback: () => void;
 
         /**
-         * The percentage of the toast's width it takes for a drag to dismiss a Toast.
+         * The percentage of the toast's width it takes fora drag
+         * to dismiss a Toast.
          * @default 0.8
          */
         activationPercent: number;
     }
 
     /**
-     * Create a toast
+     * Create a toast.
      */
     function toast(options: Partial<ToastOptions>): Toast;
 }

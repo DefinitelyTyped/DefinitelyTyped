@@ -1,7 +1,7 @@
-import inquirer = require('inquirer');
+import inquirer, { DistinctQuestion } from 'inquirer';
 import { from } from 'rxjs';
 
-const questions: inquirer.DistinctQuestion[] = [
+const questions: DistinctQuestion[] = [
     {
         type: 'input',
         name: 'first_name',

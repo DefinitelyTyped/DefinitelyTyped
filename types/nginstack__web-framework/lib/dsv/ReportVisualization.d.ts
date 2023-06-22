@@ -36,8 +36,8 @@ declare class ReportVisualization {
             name: string;
             processKey: number;
         }>;
-        getExporter: () => any;
-        getRawDataExporter: () => any;
+        getExporter: () => DataExporter;
+        getRawDataExporter: () => DataExporter;
         title: string;
     }>;
     private prepareLayoutFilters_;
@@ -61,9 +61,10 @@ declare class ReportVisualization {
     queryData(filterValues: Record<string, any>): void;
 }
 declare namespace ReportVisualization {
-    export { registerExportFormat, Process, SimpleLayoutExporter, DataSet };
+    export { registerExportFormat, Process, SimpleLayoutExporter, DataSet, DataExporter };
 }
 import ReportVisualizationColumns = require('./ReportVisualizationColumns.js');
+type DataExporter = import('../export/DataExporter');
 import ReportVisualizationColumn = require('./ReportVisualizationColumn.js');
 declare function registerExportFormat(name: string, processKey: number): void;
 declare var Process: any;

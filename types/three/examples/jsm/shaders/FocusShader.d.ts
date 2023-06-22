@@ -1,12 +1,12 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const FocusShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        screenWidth: Uniform;
-        screenHeight: Uniform;
-        sampleDistance: Uniform;
-        waveFactor: Uniform;
+        tDiffuse: IUniform;
+        screenWidth: IUniform;
+        screenHeight: IUniform;
+        sampleDistance: IUniform;
+        waveFactor: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

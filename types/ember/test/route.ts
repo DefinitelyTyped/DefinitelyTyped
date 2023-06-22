@@ -1,10 +1,11 @@
 import Route from '@ember/routing/route';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 
 // Ensure that Ember.Transition is private
-Ember.Transition; // $ExpectError
+// @ts-expect-error
+Ember.Transition;
 
 interface Post extends Ember.Object {
     title: string;
@@ -85,10 +86,12 @@ class WithNonReturningBeforeAndModelHooks extends Route {
 
 class WithBadReturningBeforeAndModelHooks extends Route {
     beforeModel(transition: Transition): void | Promise<unknown> {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 
     afterModel(resolvedModel: unknown, transition: Transition): void {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 }

@@ -58,7 +58,7 @@ declare enum FilterComparator {
  */
 export type SortOrder = 'asc' | 'desc';
 
-export type ColumnSortValue<R, C = any> = (cell: C, row: R) => boolean | React.ReactText;
+export type ColumnSortValue<R, C = any> = (cell: C, row: R) => boolean | string | number;
 
 export type ColumnSortFunc<T, E extends keyof T = any> = (
     a: T[E],
@@ -142,7 +142,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     sortFunc?: ColumnSortFunc<T> | undefined;
     sortCaret?: ColumnSortCaret<T, E> | undefined;
     searchable?: boolean | undefined;
-    align?: CellAlignment | undefined;
+    align?: CellAlignment | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => CellAlignment) | undefined;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties) | undefined;
 
     tooltipDataField?: string | undefined;

@@ -339,6 +339,53 @@ declare namespace CanvasJS {
          * subtitle allows you to set content, appearance and position of Chart’s subtitle. subtitle is very much like title except that its font size is lesser than title by default.
          */
         subtitles?: ChartTitleOptions[] | undefined;
+        /**
+         * Chart Toolbar contains various tools and options like Zoom, Pan, Reset, Print, Save as Image, etc.
+         * toolbar Object lets you customize the look & feel of various options available.
+         */
+        toolbar?: ChartToolbar | undefined;
+        /**
+         * zoomType allows you to control the axis for which zooming and panning are enabled. Default is “x”
+         * which enables zooming across xAxis. You can customize this to allow zooming/panning on yAxis or
+         * both xAxis and yAxis by setting zoomType to “y” or “xy”.
+         *
+         * Note:
+         * - This property works only when zoomEnabled is set to true.
+         * - Applies only for Chart types which have Axis.
+         *
+         * Default: "x"
+         */
+        zoomType?: "x" | "y" | "xy";
+        /**
+         * Sets the rangeChanging event handler for Chart which is triggered before viewportMinimum or
+         * viewportMaximum are updated while zooming, panning, or reset. Upon event, a parameter that
+         * contains event related data is sent to the assigned event handler. Parameter includes trigger,
+         * type and axes viewportMinimum and viewportMaximum corresponding to the event.
+         *
+         * Note:
+         * - rangeChanging is triggered only when range is changed manually using mouse/pointer (zoom/pan)
+         * and it does not fire when viewportMinimum and viewportMaximum are set programmatically.
+         * - This event along with viewportMinimum and viewportMaximum can be used to sync multiple chart ranges.
+         *
+         * Default: null
+         * @param e event object
+         */
+        rangeChanging?(e: ChartRangeEvent): void;
+        /**
+         * Sets the rangeChanged event handler for Chart which is triggered after viewportMinimum or
+         * viewportMaximum are updated while zooming, panning, or reset. Upon event, a parameter that
+         * contains event related data is sent to the assigned event handler. Parameter includes trigger,
+         * type and axes viewportMinimum and viewportMaximum corresponding to the event.
+         *
+         * Note:
+         * - rangeChanged is triggered only when range is changed manually using mouse/pointer (zoom/pan)
+         * and it does not fire when viewportMinimum and viewportMaximum are set programmatically.
+         * - This event along with viewportMinimum and viewportMaximum can be used to sync multiple chart ranges.
+         *
+         * Default: null
+         * @param e event object
+         */
+        rangeChanged?(e: ChartRangeEvent): void;
     }
 
     interface ChartTitleOptions {
@@ -1690,6 +1737,85 @@ declare namespace CanvasJS {
          * Example: true, false
          */
         exploded?: boolean | undefined;
+    }
+
+    interface ChartRangeEvent {
+        type: "rangeChanging" | "rangeChanged";
+        trigger: "zoom" | "pan" | "reset";
+        chart: Chart;
+        /**
+         * Retuned only if axisX is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "y"
+         * - `viewportMaximum` will be null for zoomType "y"
+         */
+        axisX?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisY is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "x"
+         * - `viewportMaximum` will be null for zoomType "x"
+         */
+        axisY?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisX2 is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "y"
+         * - `viewportMaximum` will be null for zoomType "y"
+         */
+        axisX2?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisY2 is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "x"
+         * - `viewportMaximum` will be null for zoomType "x"
+         */
+        axisY2?: ChartViewportBounds[];
+    }
+
+    interface ChartViewportBounds {
+        viewportMinimum: number | null;
+        viewportMaximum: number | null;
+    }
+
+    interface ChartToolbar {
+        /**
+         * Sets the background color of toolbar options (zoom/pan, reset, export-menu & export-options).
+         * Values of itemBackgroundColor can be specified in “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: "white"
+         */
+        itemBackgroundColor?: string | undefined;
+        /**
+         * Sets the background color of particular option (zoom/pan, reset, export-menu & export-options)
+         * within toolbar on mouse hover. Values of itemBackgroundColorOnHover can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: "#2196f3"
+         */
+        itemBackgroundColorOnHover?: string | undefined;
+        /**
+         * Sets the background color of particular option (zoom/pan, reset, export-menu & export-options)
+         * within toolbar on mouse hover. Values of itemBackgroundColorOnHover can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “#2196f3”
+         */
+        buttonBorderColor?: string | undefined;
+        /**
+         * Sets the border thickness of buttons (zoom/pan, reset & export-menu) in chart toolbar.
+         * Default: 1
+         */
+        buttonBorderThickness?: number | undefined;
+        /**
+         * Sets the font color of text within chart toolbar. Values of fontColor can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “black”
+         */
+        fontColor?: string | undefined;
+        /**
+         * Sets the font color of text within chart toolbar on mouse hover. Values of fontColorOnHover
+         * can be specified in “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “black”
+         */
+        fontColorOnHover?: string | undefined;
     }
 }
 declare function CanvasJS(): void;

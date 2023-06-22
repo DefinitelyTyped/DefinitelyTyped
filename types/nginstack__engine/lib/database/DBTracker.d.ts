@@ -1,7 +1,11 @@
 export = DBTracker;
-declare function DBTracker(opt_options?: { id?: string; database?: any; poolId?: number }): void;
+declare function DBTracker(opt_options?: {
+    id?: string;
+    database?: Database;
+    poolId?: number;
+}): void;
 declare class DBTracker {
-    constructor(opt_options?: { id?: string; database?: any; poolId?: number });
+    constructor(opt_options?: { id?: string; database?: Database; poolId?: number });
     private database_;
     private id_;
     poolId: number;
@@ -19,6 +23,7 @@ declare class DBTracker {
     undoChanges(): number;
 }
 declare namespace DBTracker {
-    function finishAbandoned(opt_database?: any): number;
-    function isCapable(opt_database?: any): boolean;
+    export { finishAbandoned, Database };
 }
+type Database = import('./Database');
+declare function finishAbandoned(opt_database?: Database): number;

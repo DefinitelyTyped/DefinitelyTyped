@@ -34,19 +34,19 @@ const locations = [
     },
 ];
 
-// $ExpectError
+// @ts-expect-error
 createTrie<Item>();
 
-// $ExpectError
+// @ts-expect-error
 createTrie<Item>(locations);
 
-// $ExpectError
+// @ts-expect-error
 createTrie<Item>(locations, 'invalidKey');
 
-// $ExpectError
+// @ts-expect-error
 createTrie<Item>(locations, 'name', {splitRegex: '12'});
 
-// $ExpectError
+// @ts-expect-error
 createTrie<Item>(locations, 'name', {comparator: 12});
 
 // $ExpectType Trie<Item>
@@ -64,19 +64,19 @@ createTrie<Item>(locations, 'name', {splitRegex: /12/, comparator: () => 1});
 // $ExpectType Trie<Item>
 const trie = createTrie<Item>(locations, 'name');
 
-// $ExpectError
+// @ts-expect-error
 trie.getMatches();
 
-// $ExpectError
+// @ts-expect-error
 trie.getMatches(123);
 
-// $ExpectError
+// @ts-expect-error
 trie.getMatches('richmond', 123);
 
-// $ExpectError
+// @ts-expect-error
 trie.getMatches('richmond', {splitRegex: 12});
 
-// $ExpectError
+// @ts-expect-error
 trie.getMatches('richmond', {limit: '12'});
 
 // $ExpectType Item[]

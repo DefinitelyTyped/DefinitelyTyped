@@ -13,11 +13,14 @@ declare namespace prompt {
     type GetCallback<T> = (err: Error | null, result: T) => void;
     type AddCallback = (err: Error | null) => void;
     type AskFunction = () => boolean;
+    type BeforeFunction = (line: string) => string;
 
     type RevalidatorSchema = Partial<Revalidator.ISchema<any>> & {
         ask?: AskFunction | undefined;
+        before?: BeforeFunction | undefined;
         name?: string | undefined;
         raw?: [string, string] | undefined;
+        hidden?: boolean;
     };
 
     interface Properties {
@@ -71,6 +74,7 @@ declare class prompt extends EventEmitter {
     ): void;
     static history(name?: string | number): prompt.History | null;
     static start(options?: prompt.StartOptions): void;
+    static stop(): void;
 }
 
 export = prompt;

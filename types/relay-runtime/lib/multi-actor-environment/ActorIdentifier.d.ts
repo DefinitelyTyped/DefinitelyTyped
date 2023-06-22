@@ -3,9 +3,7 @@
  */
 export type ActorIdentifier = string;
 
-export function assertInternalActorIndentifier(
-    actorIdentifier: ActorIdentifier,
-): void;
+export function assertInternalActorIndentifier(actorIdentifier: ActorIdentifier): void;
 
 export function getActorIdentifier(actorID: string): ActorIdentifier;
 

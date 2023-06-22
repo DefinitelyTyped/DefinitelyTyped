@@ -17,7 +17,8 @@ const count = app.get("count");
 count;                          // $ExpectType number
 app.get("increment")();         // $ExpectType void
 app.callMethod("increment");    // $ExpectType any
-app.get("blahblahblah");        // $ExpectError
+// @ts-expect-error
+app.get("blahblahblah");
 
 app.destroy();
 
@@ -95,7 +96,7 @@ Moon.config.keycodes({
 });
 
 // 'data' needs to be a function when creating components.
-// $ExpectError
+// @ts-expect-error
 Moon.component('broken1', { el: testHTMLElement, data: { foo: 100, bar: 200 } });
 
 // Misspelled prop
@@ -103,7 +104,7 @@ Moon.component('broken2', {
     props: ['hello'],
     methods: {
         noHallo() {
-            // $ExpectError
+            // @ts-expect-error
             this.get('hallo');
         }
     },

@@ -1,5 +1,4 @@
 {
-    "version": "3.8",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [

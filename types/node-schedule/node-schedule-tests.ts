@@ -166,3 +166,19 @@ function testCancelJob() {
 
     success = nodeSchedule.cancelJob('jobName');
 }
+
+/**
+ * Test for {@link gracefulShutdown} function.
+ */
+function testGracefulShutdown() {
+    const result: Promise<void> = nodeSchedule.gracefulShutdown();
+}
+
+/**
+ * Test for {@link JobCallback} type.
+ */
+function testJobCallback() {
+    const job = new nodeSchedule.Job(() => {});
+    const promise = new nodeSchedule.Job(() => new Promise<void>(res => res()));
+    const promiseAny = new nodeSchedule.Job(() => new Promise<any>(res => res('')));
+}

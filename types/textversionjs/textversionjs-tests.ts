@@ -9,5 +9,5 @@ textVersion("<h1>Hello World</h1><p>Hello World</p>");
     Hello World
 */
 
-// $ExpectError
+// @ts-expect-error
 textVersion(1);

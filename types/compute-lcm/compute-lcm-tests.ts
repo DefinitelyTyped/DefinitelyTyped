@@ -1,9 +1,11 @@
 import lcm = require('compute-lcm');
 
 lcm(2, 3); // $ExpectType number | null
-lcm(3); // $ExpectError
+// @ts-expect-error
+lcm(3);
 lcm([2, 3]); // $ExpectType number | null
-lcm([2, 3], 2); // $ExpectError
+// @ts-expect-error
+lcm([2, 3], 2);
 const data: Array<[string, number]> = [
     ['foo', 2],
     ['bar', 3],

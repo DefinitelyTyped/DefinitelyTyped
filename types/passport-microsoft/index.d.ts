@@ -1,4 +1,4 @@
-// Type definitions for passport-microsoft 0.0
+// Type definitions for passport-microsoft 1.0
 // Project: https://github.com/seanfisher/passport-microsoft#readme
 // Definitions by: Eitan Levi <https://github.com/skrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,17 @@ export {};
 // when calling the constructor. (No need to export this).
 type OptionalOptionParameters = 'authorizationURL' | 'tokenURL' | 'scopeSeparator' | 'customHeaders';
 
-export type MicrosoftStrategyOptions = Omit<oauth2.StrategyOptions, OptionalOptionParameters> & Partial<oauth2.StrategyOptions>;
-export type MicrosoftStrategyOptionsWithRequest = Omit<oauth2.StrategyOptionsWithRequest, OptionalOptionParameters> & Partial<oauth2.StrategyOptionsWithRequest>;
+interface MicrosoftSpecificStrategyOptions {
+    tenant: string;
+}
+
+export type MicrosoftStrategyOptions = Omit<oauth2.StrategyOptions, OptionalOptionParameters> &
+    Partial<oauth2.StrategyOptions> &
+    Partial<MicrosoftSpecificStrategyOptions>;
+
+export type MicrosoftStrategyOptionsWithRequest = Omit<oauth2.StrategyOptionsWithRequest, OptionalOptionParameters> &
+    Partial<oauth2.StrategyOptionsWithRequest> &
+    Partial<MicrosoftSpecificStrategyOptions>;
 
 export class Strategy extends oauth2.Strategy {
     constructor(options: MicrosoftStrategyOptions, verify: oauth2.VerifyFunction);

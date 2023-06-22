@@ -2,9 +2,14 @@
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
+//                 Ron Jones <https://github.com/boatilus>
+//                 Brian Gottfried <https://github.com/briangottfried>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { Pool, Options as PoolOptions } from 'generic-pool';
+import { Readable } from 'stream';
 
 /**
  * ### Related Docs
@@ -147,8 +152,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;
@@ -156,6 +161,12 @@ export interface SnowflakeErrorExternal extends Error {
 
 export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
+}
+
+export interface StreamOptions {
+    start?: number;
+    end?: number;
+    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
 }
 
 /**
@@ -210,6 +221,11 @@ export interface ConnectionOptions {
     role?: string | undefined;
 
     /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
+
+    /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
      *
      * If the parameter clientSessionKeepAlive is set to true, the client’s connection to the server will be kept alive
@@ -238,6 +254,11 @@ export interface ConnectionOptions {
     clientSessionKeepAliveHeartbeatFrequency?: number | undefined;
 
     jsTreatIntegerAsBigInt?: boolean | undefined;
+
+    /**
+     * Specifies the name of the client application connecting to Snowflake.
+     */
+    application?: string;
 
     /**
      * Specifies the authenticator to use for verifying user login credentials. You can set this to one of the following values:
@@ -304,9 +325,74 @@ export interface Column {
     getScale(): number;
 
     /**
-     * Retuns the type associated with this column.
+     * Returns the type associated with this column.
      */
     getType(): string;
+
+    /**
+     * Returns true if this column is type STRING.
+     */
+    isString(): boolean;
+
+    /**
+     * Returns true if this column is type BINARY.
+     */
+    isBinary(): boolean;
+
+    /**
+     * Returns true if this column is type NUMBER.
+     */
+    isNumber(): boolean;
+
+    /**
+     * Returns true if this column is type BOOLEAN.
+     */
+    isBoolean(): boolean;
+
+    /**
+     * Returns true if this column is type DATE.
+     */
+    isDate(): boolean;
+
+    /**
+     * Returns true if this column is type TIME.
+     */
+    isTime(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP.
+     */
+    isTimestamp(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_LTZ.
+     */
+    isTimestampLtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_NTZ.
+     */
+    isTimestampNtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_TZ.
+     */
+    isTimestampTz(): boolean;
+
+    /**
+     * Returns true if this column is type VARIANT.
+     */
+    isVariant(): boolean;
+
+    /**
+     * Returns true if this column is type OBJECT.
+     */
+    isObject(): boolean;
+
+    /**
+     * Returns true if this column is type ARRAY.
+     */
+    isArray(): boolean;
 }
 
 export enum StatementStatus {
@@ -373,7 +459,13 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): NodeJS.ReadableStream;
+    /**
+     * Streams the rows in this statement's result. If start and end values are
+     * specified, only rows in the specified range are streamed.
+     *
+     * @param StreamOptions options
+     */
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
@@ -426,6 +518,11 @@ export type Connection = NodeJS.EventEmitter & {
      */
     isUp(): boolean;
 
+    /**
+     * Returns true if the connection is good to send a query otherwise false
+     */
+    isValidAsync(): Promise<boolean>;
+
     getServiceName(): string;
     getClientSessionKeepAlive(): boolean;
     getClientSessionKeepAliveHeartbeatFrequency(): number;
@@ -454,7 +551,7 @@ export type Connection = NodeJS.EventEmitter & {
      * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connect}
      * method.
      */
-    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): Promise<void>;
 
     /**
      * ### Related Docs
@@ -473,9 +570,9 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
-        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
-    }): void;
+        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+        complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+    }): Statement;
 
     /**
      * Fetches the result of a previously issued statement.
@@ -539,3 +636,8 @@ export function serializeConnection(connection: Connection): string;
  * Configures this instance of the Snowflake core module.
  */
 export function configure(options?: ConfigureOptions): void;
+
+/**
+ * Creates a connection pool for Snowflake connections.
+ */
+export function createPool(options: ConnectionOptions, poolOptions?: PoolOptions): Pool<Connection>;

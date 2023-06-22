@@ -32,5 +32,7 @@ ES2017.IterableToList([1, 2, 3] as ArrayLike<number>, function*() {
 });
 
 // Removed in ES2017:
-ES2017.EnumerableOwnNames; // $ExpectError
-ES2017.IterableToArrayLike; // $ExpectError
+// @ts-expect-error
+ES2017.EnumerableOwnNames;
+// @ts-expect-error
+ES2017.IterableToArrayLike;

@@ -18,9 +18,9 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
             str = event.ServiceToken;
             str = event.StackId;
 
-            // $ExpectError
+            // @ts-expect-error
             anyObj = event.OldResourceProperties;
-            // $ExpectError
+            // @ts-expect-error
             str = event.PhysicalResourceId;
             break;
         case 'Update':
@@ -41,10 +41,10 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
     };
 
     const invalidResponse: CdkCustomResourceResponse = {
-        // $ExpectError
+        // @ts-expect-error
         PhysicalResourceId: num,
-        // $ExpectError
-        Data: str
+        // @ts-expect-error
+        Data: str,
     };
 
     const validEmptyResponse: CdkCustomResourceResponse = {};
@@ -78,13 +78,13 @@ const onIsCompleteHandler: CdkCustomResourceIsCompleteHandler = async (event, co
         Data: {
             stringKey: str,
         },
-        // $ExpectError
+        // @ts-expect-error
         otherProperties: anyObj,
     };
 
     const responseWaiting: CdkCustomResourceIsCompleteResponse = {
         IsComplete: false,
-        // $ExpectError
+        // @ts-expect-error
         Data: {
             stringKey: str,
         },

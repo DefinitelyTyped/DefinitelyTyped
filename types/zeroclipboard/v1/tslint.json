@@ -8,7 +8,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false,
-        "space-within-parens": false,
-        "trim-file": false
+        "space-within-parens": false
     }
 }

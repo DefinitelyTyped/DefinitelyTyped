@@ -545,7 +545,7 @@ declare class JiraApi {
      * @param [startAt=0] - optional starting index number
      * @param [maxResults=1000] - optional ending index number
      */
-    getIssueWorklogs(issueId: string): Promise<JiraApi.JsonResponse>;
+    getIssueWorklogs(issueId: string, startAt?: number, maxResults?: number): Promise<JiraApi.JsonResponse>;
 
     /**
      * List all Issue Types jira knows about
@@ -1122,7 +1122,7 @@ declare namespace JiraApi {
 
     interface SearchUserOptions {
         /** (DEPRECATED) A query string used to search username, name or e-mail address */
-        username: string;
+        username?: string | undefined;
         /**
          * A query string that is matched against user attributes
          * (displayName, and emailAddress) to find relevant users. The string can match the prefix of

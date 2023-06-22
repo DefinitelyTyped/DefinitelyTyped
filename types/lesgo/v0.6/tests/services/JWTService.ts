@@ -1,6 +1,6 @@
 import JWTService from 'lesgo/lib/services/JWTService';
 
-// $ExpectType JWTService<{ bar: any; foo: any; }>
+// $ExpectType JWTService<{ bar: any; foo: any; }> || JWTService<{ foo: any; bar: any; }>
 const jwtService = new JWTService('mytoken', {
     secret: 'shhhhh',
     iss: {
@@ -13,6 +13,6 @@ const jwtService = new JWTService('mytoken', {
     },
 });
 
-jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }>
+jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }> || JWTService<{ foo: any; bar: any; }>
 
 jwtService.jwt();

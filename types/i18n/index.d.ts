@@ -177,6 +177,15 @@ declare namespace i18n {
              */
             disable?: boolean | undefined;
         } | undefined;
+
+        /**
+         * Parser can be any object that responds to .parse & .stringify
+         */
+        parser?: ParserOptions | undefined;
+    }
+    interface ParserOptions {
+        parse: (src: string, options?: any) => any;
+        stringify: (value: any, options?: any) => string;
     }
     interface TranslateOptions {
         phrase: string;
@@ -191,9 +200,15 @@ declare namespace i18n {
     interface Replacements {
         [key: string]: string;
     }
-
-    interface LocaleCatalog {
+    /**
+     * This interface represents a plural translation.
+     * e.g. { one: "you have 1 friend", other: "you have many friends" }
+     */
+    interface Plurals {
         [key: string]: string;
+    }
+    interface LocaleCatalog {
+        [key: string]: string | Plurals;
     }
     interface GlobalCatalog {
         [key: string]: LocaleCatalog;
@@ -260,6 +275,14 @@ declare namespace i18n {
      * @returns The translated phrase
      */
     function __n(singular: string, plural: string, count: number | string): string;
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - The phrase to translate or a flattened key path in locale json file
+     * @param count - The number which allow to select from plural to singular
+     * @param replacements - An object containing replacements
+     * @returns The translated phrase
+     */
+    function __n(phrase: string, count: number | string, replacements: Replacements): string;
 
     //#endregion
 
@@ -379,6 +402,8 @@ declare namespace i18n {
     const version: string;
 
     class I18n {
+        constructor(options?: ConfigurationOptions);
+
         configure(options: ConfigurationOptions): void;
 
         init(request: Express.Request, response: Express.Response, next?: () => void): void;

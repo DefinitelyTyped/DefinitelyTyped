@@ -134,23 +134,63 @@ export interface ThreeDSecureVerifyOptions {
     removeFrame?: (() => void) | undefined;
 }
 
+/**
+ * Verification data provided by on('lookup-complete').
+ * See https://github.com/braintree/braintree-web/blob/5f858c007f1d66ecd42902de3c81f3ea1296ebb2/src/three-d-secure/external/three-d-secure.js#L90-L99
+ */
+export interface ThreeDSecureVerificationData {
+    requiresUserAuthentication: boolean;
+    threeDSecureInfo: {
+        liabilityShiftPossible: boolean;
+        liabilityShifted: boolean;
+    };
+    lookup: {
+        threeDSecureVersion: string;
+    };
+    paymentMethod: ThreeDSecureVerifyPayload;
+}
+
+/**
+ * types of 3DS events to listen to.
+ * See https://braintree.github.io/braintree-web/current/ThreeDSecure.html#event
+ * for an explanation of each event type.
+ *
+ */
+export type ThreeDSecureEvent =
+    | 'lookup-complete'
+    | 'customer-canceled'
+    | 'authentication-iframe-available'
+    | 'authentication-modal-render'
+    | 'authentication-modal-close';
+
+export interface ThreeDSecureCreateOptions {
+    authorization?: string | undefined;
+    /**
+     * The version of 3D Secure to use. Possible options:
+     *
+     * 1 - The legacy 3D Secure v1.0 integration.
+     *
+     * 2 - A 3D Secure v2.0 integration that uses a modal to host the 3D Secure iframe.
+     *
+     * 2-bootstrap3-modal - A 3D Secure v2.0 integration that uses a modal styled with Bootstrap 3 styles
+     * to host the 3D Secure iframe. Requires having the Bootstrap 3 script files and stylesheets on your page.
+     *
+     * 2-inline-iframe - A 3D Secure v2.0 integration that provides the authentication iframe directly to the merchant.
+     *
+     */
+    version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+    client?: Client | undefined;
+}
+
 export interface ThreeDSecure {
     /**
      * braintree.threeDSecure.create({
      *   client: client
      * }, callback);
      */
-    create(options: {
-        authorization?: string | undefined;
-        version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
-        client?: Client | undefined;
-    }): Promise<ThreeDSecure>;
+    create(options: ThreeDSecureCreateOptions): Promise<ThreeDSecure>;
     create(
-        options: {
-            authorization?: string | undefined;
-            version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
-            client?: Client | undefined;
-        },
+        options: ThreeDSecureCreateOptions,
         callback: callback<ThreeDSecure>,
     ): void;
 
@@ -207,7 +247,8 @@ export interface ThreeDSecure {
     verifyCard(options: ThreeDSecureVerifyOptions, callback: callback<ThreeDSecureVerifyPayload>): void;
 
     /**
-     * Cancel the 3DS flow and return the verification payload if available.     * @example
+     * Cancel the 3DS flow and return the verification payload if available.
+     * @example
      * threeDSecure.cancelVerifyCard(function (err, verifyPayload) {
      *   if (err) {
      *     // Handle error
@@ -224,7 +265,7 @@ export interface ThreeDSecure {
 
     /**
      * Gather the data needed for a 3D Secure lookup call.
-     *     * @example
+     * @example
      * <caption>Preparing data for a 3D Secure lookup</caption>
      * threeDSecure.prepareLookup({
      *   nonce: hostedFieldsTokenizationPayload.nonce,
@@ -247,14 +288,21 @@ export interface ThreeDSecure {
     teardown(callback?: callback): void;
 
     /**
-     * It adds definition for on(event, handler) method
+     * Subscribes a handler function to a named event.
      * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#on
      */
-    on(event: string, handler: (data?: any, next?: () => void) => void): void;
+    on(event: ThreeDSecureEvent, handler: (data?: any, next?: () => void) => void): void;
+    /**
+     * Subscribes a function to execute when lookup completes.
+     * The first argument, `data`, is a ThreeDSecureVerificationData object, and the second argument, `next`, is a callback. `next` must be called to continue.
+     * See https://braintree.github.io/braintree-web/current/ThreeDSecure.html#event:lookup-complete,
+     * and https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#hosted-fields.
+     */
+    on(event: 'lookup-complete', handler: (data?: ThreeDSecureVerificationData, next?: () => void) => void): void;
 
     /**
-     * Unsubscribes the handler function to a named event
+     * Unsubscribes the handler function to a named event.
      * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#off
      */
-     off(event: string, handler: (data?: any, next?: () => void) => void): void;
+    off(event: ThreeDSecureEvent, handler: (data?: any, next?: () => void) => void): void;
 }

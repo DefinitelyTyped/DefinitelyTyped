@@ -1,6 +1,6 @@
 // Type definitions for JS2Coffee 2.2
 // Project: https://github.com/js2coffee/js2coffee
-// Definitions by: Munin M. <https://github.com/SNDST00M>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 

@@ -2,4 +2,5 @@
 
 export {}; // dummy export to mark this file as a module
 
-const uri = new URI(); // $ExpectError
+// @ts-expect-error
+const uri = new URI();

@@ -7,20 +7,65 @@ mailchimp.setConfig({
     server: 'test',
 });
 
-const setListMemberBody = {
+const batchListMembersBody: mailchimp.lists.BatchListMembersBody = {
+    sync_tags: true,
+    update_existing: true,
+    members: [
+        {
+            email_address: 'test@email.com',
+            email_type: 'html',
+            status: 'subscribed',
+            vip: true,
+            location: {
+                latitude: 34,
+                longtitude: 45,
+            },
+            tags: ['one', 'two', 'three'],
+            ip_opt: 'test',
+            timestamp_opt: 'timestamp',
+            language: 'lang',
+            merge_fields: { test: 'value', key: 'value' },
+            timestamp_signup: 'timestamp',
+            ip_signup: 'test',
+        },
+    ],
+};
+
+const batchListMembersOpts: mailchimp.lists.BatchListMembersOpts = {
+    skipDuplicateCheck: true,
+    skipMergeValidation: true,
+};
+
+const setListMemberBody: mailchimp.lists.SetListMemberBody = {
     email_address: 'test',
     status_if_new: 'subscribed' as const,
+    status: 'subscribed' as const,
+    merge_fields: undefined,
+    interests: { property1: true },
+    language: 'language',
+    vip: true,
+    location: { latitude: 123, logitude: 123 },
+    marketing_permissions: [
+        {
+            marketing_permission_id: 'string',
+            enabled: true,
+        },
+    ],
+    ip_signup: '192.0.2.1',
+    timestamp_signup: 'YYYY-MM-DD',
+    ip_opt: '192.0.2.1',
+    timestamp_opt: 'YYYY-MM-DD',
 };
 
-const addListMemberBody = {
+const addListMemberBody: mailchimp.lists.AddListMemberBody = {
     email_address: 'test',
 };
 
-const updateListMemberBody = {
+const updateListMemberBody: mailchimp.lists.UpdateListMemberBody = {
     email_address: 'test',
 };
 
-const updateListMemberTagsBody = {
+const updateListMemberTagsBody: mailchimp.lists.MemberTagsBody = {
     tags: [
         {
             name: 'test',
@@ -33,20 +78,57 @@ const updateListMemberTagsBody = {
     ],
 };
 
-// Promise<void>
+const getAllListsBody: mailchimp.lists.ListOptions = {
+    fields: ['strings'],
+    excludeFields: ['strings'],
+    count: 0,
+    offset: 0,
+    beforeDateCreated: 'string',
+    sinceDateCreated: 'string',
+    beforeCampaignLastSent: 'string',
+    sinceCampaignLastSent: 'string',
+    email: 'string',
+    sortField: 'string',
+    sortDir: 'string',
+    hasEcommerceStore: false,
+    includeTotalContacts: false,
+};
+
+const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
+    fields: ['strings'],
+    excludeFields: ['strings'],
+    count: 0,
+    offset: 0,
+    type: 'text',
+    required: true,
+};
+
+// Promise<MembersSuccessResponse | ErrorResponse>
+mailchimp.lists.batchListMembers('test', batchListMembersBody, batchListMembersOpts);
+
+// Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
 
-// Promise<void>
+// Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMember('test', 'test');
 
-// Promise<void>
+// Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.addListMember('test', addListMemberBody);
 
-// Promise<void>
+// Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.updateListMember('test', 'test', updateListMemberBody);
 
-// Promise<void>
+// Promise<{} | ErrorResponse>
 mailchimp.lists.deleteListMemberPermanent('test', 'test');
 
-// Promise<void>
+// Promise<{} | ErrorResponse>
+mailchimp.lists.deleteListMember('test', 'test');
+
+// Promise<{} | ErrorResponse>
 mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);
+
+// Promise<ListsSuccessResponse | ErrorResponse>
+mailchimp.lists.getAllLists(getAllListsBody);
+
+// Promise<MergeFieldSuccessResponse | ErrorResponse>
+mailchimp.lists.getListMergeFields('test', getListMergeFieldsBody);

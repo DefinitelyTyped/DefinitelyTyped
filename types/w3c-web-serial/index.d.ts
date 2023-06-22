@@ -53,6 +53,7 @@ declare class SerialPort extends EventTarget {
     getSignals(): Promise<SerialInputSignals>;
     getInfo(): SerialPortInfo;
     close(): Promise<void>;
+    forget(): Promise<void>;
 
     addEventListener(
         type: 'connect' | 'disconnect',

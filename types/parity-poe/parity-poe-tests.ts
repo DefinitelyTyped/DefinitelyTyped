@@ -13,14 +13,14 @@ const message: POEMessage = {
 formatInbound(message);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 formatInbound('');
 
-// $ExpectError
+// @ts-expect-error
 formatInbound({});
 
 // Invalid sub type
-// $ExpectError
+// @ts-expect-error
 formatInbound({ messageType: 1 });
 
 /**
@@ -31,7 +31,7 @@ formatInbound({ messageType: 1 });
 parseInbound(buffer);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 parseInbound('');
 
 /**
@@ -42,14 +42,14 @@ parseInbound('');
 formatOutbound(message);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 formatOutbound('');
 
-// $ExpectError
+// @ts-expect-error
 formatOutbound({});
 
 // Invalid sub type
-// $ExpectError
+// @ts-expect-error
 formatOutbound({ messageType: 1 });
 
 /**
@@ -60,5 +60,5 @@ formatOutbound({ messageType: 1 });
 parseOutbound(buffer);
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 parseOutbound('');

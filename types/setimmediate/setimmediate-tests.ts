@@ -22,15 +22,26 @@ clearImmediate(i2);
 clearImmediate(i3);
 
 // Errors:
-setImmediate(); // $ExpectError
-setImmediate((foo: unknown) => {}); // $ExpectError
+// @ts-expect-error
+setImmediate();
+// @ts-expect-error
+setImmediate((foo: unknown) => {});
 
-clearImmediate(); // $ExpectError
-clearImmediate(null); // $ExpectError
-clearImmediate(undefined); // $ExpectError
-clearImmediate('string'); // $ExpectError
-clearImmediate(Symbol.iterator); // $ExpectError
-clearImmediate(true); // $ExpectError
-clearImmediate(false); // $ExpectError
-clearImmediate({}); // $ExpectError
-clearImmediate(Function); // $ExpectError
+// @ts-expect-error
+clearImmediate();
+// @ts-expect-error
+clearImmediate(null);
+// @ts-expect-error
+clearImmediate(undefined);
+// @ts-expect-error
+clearImmediate('string');
+// @ts-expect-error
+clearImmediate(Symbol.iterator);
+// @ts-expect-error
+clearImmediate(true);
+// @ts-expect-error
+clearImmediate(false);
+// @ts-expect-error
+clearImmediate({});
+// @ts-expect-error
+clearImmediate(Function);

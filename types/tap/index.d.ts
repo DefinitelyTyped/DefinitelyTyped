@@ -725,7 +725,7 @@ declare global {
              */
             resolveMatch(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                wanted: string | RegExp | { [key: string]: RegExp },
+                wanted: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;
@@ -870,6 +870,20 @@ declare global {
              * but it will not differentiate between a missing property and a property set to undefined.
              */
             has: Assertions.Match;
+
+            /**
+             * Verify that the found object contains the provided property and that it is not undefined. Searches the prototype chain as well as "own" properties.
+             *
+             * @example t.hasProp({ a: 1, b: 2 }, 'a') would succeed, while both t.hasProp({ a: 1, b: 2 }, 'c') and t.hasProp({ a: undefined, b: 2 }, 'a') would fail.
+             */
+            hasProp: Assertions.Match;
+
+            /**
+             * Verifies that the object found contains each of the property names in propertyList, and that they are not undefined. Searches prototype chain as well as "own" properties.
+             *
+             * @example t.hasProps({ a: 1, b: 2 }, ['a', 'b']) would succeed, while both t.hasProp({ a: 1, b: 2 }, ['a', 'c']) and t.hasProp({ a: undefined, b: 2 }, ['a', 'b']) would fail.
+             */
+            hasProps: Assertions.Match;
 
             /**
              * Inverse of match().

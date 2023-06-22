@@ -1,10 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 mahaker <https://github.com/mahaker/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
@@ -74,11 +67,27 @@ declare namespace GoogleAppsScript {
       /** Creates a shortcut to the provided Drive item ID, and returns it. */
       createShortcut(targetId: string): File;
       /**
+       * Creates a shortcut to the provided Drive item ID and resource key, and
+       * returns it. Resource keys are an additional parameter which need to be
+       * passed to access the target file or folder that has been shared using a
+       * link.
+       */
+      createShortcutForTargetIdAndResourceKey(targetId: string, targetResourceKey: string): File;
+      /**
        * Gets the file with the given ID.
        * Throws a scripting exception if the file does not exist or
        * the user does not have permission to access it.
        */
       getFileById(id: string): File;
+      /**
+       * Gets the file with the given ID and resource key. Resource keys are an
+       * additional parameter which need to be passed to access files that have
+       * been shared using a link.
+       *
+       * Throws a scripting exception if the file doesn't exist or the user
+       * doesn't have permission to access it.
+       */
+      getFileByIdAndResourceKey(id: string, resourceKey: string): File;
       /** Gets a collection of all files in the user's Drive. */
       getFiles(): FileIterator;
       /** Gets a collection of all files in the user's Drive that have the given name. */
@@ -90,6 +99,14 @@ declare namespace GoogleAppsScript {
        * does not exist or the user does not have permission to access it.
        */
       getFolderById(id: string): Folder;
+      /**
+       * Gets the folder with the given ID and resource key. Resource keys are
+       * an additional parameter which need to be passed to access folders that
+       * have been shared using a link.
+       * Throws a scripting exception if the folder doesn't exist or the user
+       * doesn't have permission to access it.
+       */
+      getFolderByIdAndResourceKey(id: string, resourceKey: string): Folder;
       /** Gets a collection of all folders in the user's Drive. */
       getFolders(): FolderIterator;
       /** Gets a collection of all folders in the user's Drive that have the given name. */
@@ -178,6 +195,8 @@ declare namespace GoogleAppsScript {
       getSharingPermission(): Permission;
       getSize(): Integer;
       getTargetId(): string | null;
+      getTargetMimeType(): string | null;
+      getTargetResourceKey(): string | null;
       getThumbnail(): Base.Blob;
       getUrl(): string;
       getViewers(): User[];
@@ -257,6 +276,8 @@ declare namespace GoogleAppsScript {
       createFile(name: string, content: string): File;
       createFile(name: string, content: string, mimeType: string): File;
       createFolder(name: string): Folder;
+      createShortcut(targetId: string): File;
+      createShortcutForTargetIdAndResourceKey(targetId: string, targetResourceKey: string): File;
       getAccess(email: string): Permission;
       getAccess(user: Base.User): Permission;
       getDateCreated(): Base.Date;

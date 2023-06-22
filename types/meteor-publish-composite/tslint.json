@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "dt-header": false,
         "interface-name": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
@@ -14,7 +13,6 @@
         "semicolon": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

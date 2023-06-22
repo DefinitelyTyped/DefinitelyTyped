@@ -23,11 +23,13 @@ Ember.assert('2+2 should always be 4', 2 + 2 === 4);
 const o1 = Ember.assign({ a: 1 }, { b: 2 });
 o1.a; // $ExpectType number
 o1.b; // $ExpectType number
-o1.c; // $ExpectError
-// Ember.bind // $ExpectError
+// @ts-expect-error
+o1.c;
+// Ember.bind // @ts-expect-error
 // cacheFor
 Ember.cacheFor({ a: 123 }, 'a'); // $ExpectType number | undefined
-Ember.cacheFor({ a: 123 }, 'x'); // $ExpectError
+// @ts-expect-error
+Ember.cacheFor({ a: 123 }, 'x');
 // compare
 Ember.compare('31', '114'); // $ExpectType number
 // copy
@@ -44,7 +46,7 @@ Ember.deprecate("you shouldn't use this anymore", 3 === 3, {
 });
 // get
 Ember.get({ z: 23 }, 'z'); // $ExpectType number
-Ember.get({ z: 23 }, 'zz'); // $ExpectError
+Ember.get({ z: 23 }, 'zz'); // $ExpectType unknown
 // getEngineParent
 Ember.getEngineParent(new Ember.EngineInstance()); // $ExpectType EngineInstance
 // getOwner
@@ -52,9 +54,11 @@ Ember.getOwner(new Ember.Component());
 // getProperties
 Ember.getProperties({ z: 23 }, 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
-Ember.getProperties({ z: 23 }, 'z', 'a').z; // $ExpectError
+// @ts-expect-error
+Ember.getProperties({ z: 23 }, 'z', 'a').z;
 Ember.getProperties({ z: 23 }, ['z', 'z']).z; // $ExpectType number
-Ember.getProperties({ z: 23 }, ['z', 'a']).z; // $ExpectError
+// @ts-expect-error
+Ember.getProperties({ z: 23 }, ['z', 'a']).z;
 // getWithDefault
 Ember.getWithDefault({ z: 23 }, 'z', 43); // $ExpectType number
 Ember.getWithDefault({ a: undefined as number | undefined, z: 23 }, 'a', 99); // $ExpectType number | undefined
@@ -97,10 +101,12 @@ const o3 = Ember.Object.extend({
 });
 // removeListener
 Ember.addListener(o2, 'create', () => {});
-Ember.addListener({}, 'create', () => {}); // $ExpectError
+// @ts-expect-error
+Ember.addListener({}, 'create', () => {});
 // removeObserver
 Ember.removeObserver(o2, 'create', () => {});
-Ember.removeObserver({}, 'create', () => {}); // $ExpectError
+// @ts-expect-error
+Ember.removeObserver({}, 'create', () => {});
 // runInDebug
 Ember.runInDebug(() => {});
 // sendEvent
@@ -108,7 +114,8 @@ Ember.sendEvent(o2, 'clicked', [1, 2]); // $ExpectType boolean
 // set
 Ember.set(o2.create(), 'name', 'bar'); // $ExpectType string
 Ember.set(o2.create(), 'age', 4); // $ExpectType number
-Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
+// @ts-expect-error
+Ember.set(o2.create(), 'nam', 'bar');
 // setOwner
 Ember.setOwner(o2.create(), {});
 // setProperties
@@ -129,7 +136,8 @@ Ember.VERSION; // $ExpectType string
 // onerror
 
 Ember.onerror = (err: Error) => console.error(err);
-Ember.onerror = (num: number, err: Error) => console.error(err); // $ExpectError
+// @ts-expect-error
+Ember.onerror = (num: number, err: Error) => console.error(err);
 Ember.onerror = undefined;
 
 // Classes
@@ -144,7 +152,8 @@ Ember.ApplicationInstance.create(); // $ExpectType ApplicationInstance
 // TODO: Ember.ApplicationInstance.BootOptions
 // Ember.Array
 const a1: Ember.Array<string> = [];
-const a2: Ember.Array<string> = {}; // $ExpectError
+// @ts-expect-error
+const a2: Ember.Array<string> = {};
 // Ember.ArrayProxy
 new Ember.ArrayProxy<number>([3, 3, 2]); // $ExpectType ArrayProxy<number>
 // Ember.Checkbox
@@ -184,7 +193,8 @@ Ember.Debug.registerWarnHandler(() => {});
 // Ember.DefaultResolver
 const dr = new Ember.DefaultResolver();
 dr.resolve('route:index');
-dr.resolve(); // $ExpectError
+// @ts-expect-error
+dr.resolve();
 // Ember.Engine
 const e1 = new Ember.Engine();
 e1.register('data:foo', {}, { instantiate: false });
@@ -283,14 +293,25 @@ Ember.Test.checkWaiters(); // $ExpectType boolean
  * stay gone
  */
 
-Ember.bind; // $ExpectError
-Ember.deprecate('foo', 'bar'); // $ExpectError
-Ember.K; // $ExpectError
-Ember.Binding; // $ExpectError
-Ember.Transition; // $ExpectError
-Ember.create; // $ExpectError
-Ember.reset; // $ExpectError
-Ember.unsubscribe; // $ExpectError
-Ember.subscribe; // $ExpectError
-Ember.instrument; // $ExpectError
-Ember.Instrumentation; // $ExpectError
+// @ts-expect-error
+Ember.bind;
+// @ts-expect-error
+Ember.deprecate('foo', 'bar');
+// @ts-expect-error
+Ember.K;
+// @ts-expect-error
+Ember.Binding;
+// @ts-expect-error
+Ember.Transition;
+// @ts-expect-error
+Ember.create;
+// @ts-expect-error
+Ember.reset;
+// @ts-expect-error
+Ember.unsubscribe;
+// @ts-expect-error
+Ember.subscribe;
+// @ts-expect-error
+Ember.instrument;
+// @ts-expect-error
+Ember.Instrumentation;

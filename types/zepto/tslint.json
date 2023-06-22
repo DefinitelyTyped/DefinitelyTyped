@@ -13,12 +13,10 @@
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
-        "prefer-declare-function": false,
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "trim-file": false,
         "unified-signatures": false,
         "whitespace": false
     }

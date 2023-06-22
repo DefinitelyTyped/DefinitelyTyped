@@ -266,4 +266,14 @@ css({
     WebkitTouchCallout: 'none'
 });
 
+// size (number)
+css({
+    size: 4
+});
+
+// size (token)
+css({
+    size: 'xl'
+});
+
 const result: CssFunctionReturnType = css({});

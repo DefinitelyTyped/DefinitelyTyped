@@ -1,4 +1,4 @@
-// Type definitions for carbone 1.2
+// Type definitions for carbone 3.2
 // Project: https://carbone.io
 // Definitions by: Artur Nerkowski <https://github.com/apatryda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,10 +49,14 @@ export interface Options {
     tempPath?: string | undefined;
     templatePath?: string | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     currencySource?: string | undefined;
     currencyTarget?: string | undefined;
     currencyRates?: CurrencyRates | undefined;
+    factories?: number | undefined;
+    startFactory?: boolean | undefined;
+    attempts?: number | undefined;
 }
 export function set(options: Options): void;
 export function reset(): void;
@@ -65,6 +69,7 @@ export interface RenderXMLOptions {
     complement?: object | undefined;
     formatters?: Formatters | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     existingVariables?: Variable[] | undefined;
     extension?: string | undefined;
@@ -78,6 +83,7 @@ export interface RenderOptions {
     convertTo?: string | object | undefined;
     variableStr?: string | undefined;
     lang?: string | undefined;
+    timezone?: string | undefined;
     translations?: Translations | undefined;
     enum?: Enums | undefined;
     currencySource?: string | undefined;
@@ -89,5 +95,13 @@ export function render(templatePath: string, data: object, options: RenderOption
 export function render(templatePath: string, data: object, callback: RenderCallback): void;
 
 export type ConvertCallback = (err: NodeJS.ErrnoException | null, result: Buffer) => void;
-export function convert(data: Buffer, convertTo: string, options: object, callback: ConvertCallback): void;
-export function convert(data: Buffer, convertTo: string, callback: ConvertCallback): void;
+export function convert(data: Buffer, options: RenderOptions & { extension: string }, callback: ConvertCallback): void;
+
+export interface DecodedFilenameResult {
+    reportName: string;
+    extension: string;
+}
+export function decodeRenderedFilename(pathOrFilename: string, prefixLength?: number): DecodedFilenameResult;
+
+export type GetFileExtensionCallback = (err: NodeJS.ErrnoException | null, extension: string) => void;
+export function getFileExtension(filePath: string, callback: GetFileExtensionCallback): void;

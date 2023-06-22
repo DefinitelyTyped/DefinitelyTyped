@@ -53,7 +53,6 @@ function testCropperRef() {
     const refIsWorking = (
         <Cropper
             ref={(el: Cropper) => {
-                // $ExpectError el can be null
                 el.getCroppedCanvas();
                 if (el !== null) {
                     // el is a cropperjs element

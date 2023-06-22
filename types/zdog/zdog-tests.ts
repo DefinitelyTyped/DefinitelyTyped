@@ -128,8 +128,10 @@ new Dragger({
 
 const illustration = new Illustration({ element: '.foo' });
 
-new Illustration(); // $ExpectError
-new Illustration({}); // $ExpectError
+// @ts-expect-error
+new Illustration();
+// @ts-expect-error
+new Illustration({});
 new Illustration({ element: canvas });
 new Illustration({ element: svg });
 new Illustration({ element: canvas, zoom: 1 });
@@ -227,12 +229,14 @@ new Ellipse({});
 new Ellipse({ diameter: 1 });
 new Ellipse({ width: 1 });
 new Ellipse({ height: 1 });
-new Ellipse({ quarters: 0 }); // $ExpectError
+// @ts-expect-error
+new Ellipse({ quarters: 0 });
 new Ellipse({ quarters: 1 });
 new Ellipse({ quarters: 2 });
 new Ellipse({ quarters: 3 });
 new Ellipse({ quarters: 4 });
-new Ellipse({ quarters: 5 }); // $ExpectError
+// @ts-expect-error
+new Ellipse({ quarters: 5 });
 
 const polygon = new Polygon();
 

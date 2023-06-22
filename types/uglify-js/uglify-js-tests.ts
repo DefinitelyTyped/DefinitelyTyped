@@ -42,7 +42,9 @@ const output = minify(code, {
         },
         passes: 2,
     },
+    module: true,
     nameCache: {},
+    expression: true,
 });
 if (output.warnings) {
     output.warnings.filter(x => x === 'Dropping unused variable');
@@ -62,11 +64,13 @@ const compressOptions: CompressOptions = {
     keep_fargs: true,
     loops: true,
     merge_vars: true,
+    module: true,
     negate_iife: true,
     side_effects: true,
     templates: false,
     unused: true,
     varify: true,
+    webkit: true,
 };
 minify(code, {
     compress: compressOptions,

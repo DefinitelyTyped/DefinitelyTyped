@@ -14,7 +14,7 @@ import * as R from 'ramda';
         return n % 2 === 0;
     }
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const objB: Record<string, number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
@@ -32,7 +32,7 @@ import * as R from 'ramda';
         return n % 2 === 0;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     R.reject(isEven, ['foo']);
 };
 
@@ -43,20 +43,20 @@ import * as R from 'ramda';
     let numberArray: number[];
     let stringArray: string[];
 
-    // $ExpectError
+    // @ts-expect-error
     numberArray = R.reject(R.is(Number), unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     numberArray = rejectNumbers(unknownArray);
     stringArray = R.reject(R.is(Number), unknownArray);
     stringArray = rejectNumbers(unknownArray);
 
-    const unknownDictionary: R.Dictionary<string | number> = {};
-    let numberDictionary: R.Dictionary<number>;
-    let stringDictionary: R.Dictionary<string>;
+    const unknownDictionary: Record<string, string | number> = {};
+    let numberDictionary: Record<string, number>;
+    let stringDictionary: Record<string, string>;
 
-    // $ExpectError
+    // @ts-expect-error
     numberDictionary = R.reject(R.is(Number), unknownDictionary);
-    // $ExpectError
+    // @ts-expect-error
     numberDictionary = rejectNumbers(unknownDictionary);
     stringDictionary = R.reject(R.is(Number), unknownDictionary);
     stringDictionary = rejectNumbers(unknownDictionary);

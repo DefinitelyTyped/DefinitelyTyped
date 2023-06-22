@@ -22,12 +22,14 @@
         "test/alb-tests.ts",
         "test/api-gateway-tests.ts",
         "test/appsync-resolver-tests.ts",
+        "test/autoscaling-tests.ts",
         "test/cloudformation-tests.ts",
         "test/cdk-custom-resource-tests.ts",
         "test/cloudfront-tests.ts",
         "test/cloudwatch-tests.ts",
         "test/codepipeline-tests.ts",
         "test/codebuild-tests.ts",
+        "test/codecommit-tests.ts",
         "test/connect-contact-flow-tests.ts",
         "test/cognito-tests.ts",
         "test/dynamodb-tests.ts",
@@ -41,7 +43,9 @@
         "test/sns-tests.ts",
         "test/sqs-tests.ts",
         "test/msk-tests.ts",
+        "test/self-managed-kafka-tests.ts",
         "test/secretsmanager-tests.ts",
-        "test/s3-event-notification-tests.ts"
+        "test/s3-event-notification-tests.ts",
+        "test/amplify-resolver-tests.ts"
     ]
 }

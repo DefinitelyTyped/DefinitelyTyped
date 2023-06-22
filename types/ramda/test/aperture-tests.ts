@@ -13,7 +13,7 @@ import * as R from 'ramda';
     const res1: Array<[number, number]> = R.aperture(2, [1, 2, 3, 4, 5]);
     const res2: number[][] = R.aperture(11, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
-    const anyArr: any[] = [1, "2"];
+    const anyArr: any[] = [1, '2'];
     // $ExpectType [] | [any, any][]
     const aperturedAny = R.aperture(2, anyArr);
 

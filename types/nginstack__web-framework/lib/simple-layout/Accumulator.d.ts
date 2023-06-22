@@ -1,8 +1,8 @@
 export = Accumulator;
-declare function Accumulator(simpleLayout: any): void;
+declare function Accumulator(simpleLayout: SimpleLayout): void;
 declare class Accumulator {
-    constructor(simpleLayout: any);
-    simpleLayout: any;
+    constructor(simpleLayout: SimpleLayout);
+    simpleLayout: SimpleLayout;
     groupingValues: any[];
     setGroupingDepth(width: any): void;
     feed(value: any): void;
@@ -10,3 +10,7 @@ declare class Accumulator {
     getValue(groupIndex: any): any;
     toString(): string;
 }
+declare namespace Accumulator {
+    export { SimpleLayout };
+}
+type SimpleLayout = import('./SimpleLayout');

@@ -13,9 +13,12 @@ loadGoogleMapsApi().then((googleMaps) => {
     console.error(error);
 });
 
-loadGoogleMapsApi({ libraries: 'drawing' }); // $ExpectError
-loadGoogleMapsApi({ v: 3 }); // $ExpectError
-loadGoogleMapsApi({ timeout: '1000' }); // $ExpectError
+// @ts-expect-error
+loadGoogleMapsApi({ libraries: 'drawing' });
+// @ts-expect-error
+loadGoogleMapsApi({ v: 3 });
+// @ts-expect-error
+loadGoogleMapsApi({ timeout: '1000' });
 
 loadGoogleMapsApi({
     apiUrl: 'https://localhost/',

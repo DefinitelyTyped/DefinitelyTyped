@@ -42,3 +42,9 @@ dispatch('core/viewport').setIsMatching({ '< small': false });
 
 // $ExpectType boolean
 select('core/viewport').isViewportMatch('< small');
+
+// $ExpectType ViewportStoreDescriptor
+viewport.store;
+
+// $ExpectType "core/viewport"
+viewport.store.name;

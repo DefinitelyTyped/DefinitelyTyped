@@ -2,7 +2,8 @@ import 'cloudinary-uploadwidget-browser';
 
 // $ExpectType void
 cloudinary.setCloudName('my-cloud-name');
-cloudinary.setCloudName(); // $ExpectError
+// @ts-expect-error
+cloudinary.setCloudName();
 
 // $ExpectType CloudinaryUploadWidget
 const widget = cloudinary.createUploadWidget(

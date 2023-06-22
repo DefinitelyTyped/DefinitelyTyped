@@ -16,6 +16,10 @@ const config: webpack.Configuration = {
             analyzerMode: 'server',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
+            analyzerUrl: (options) => {
+                const {listenHost, boundAddress} = options;
+                return `http://${listenHost}:${boundAddress.port}`;
+            },
             reportFilename: 'report.html',
             reportTitle: 'title',
             defaultSizes: 'parsed',
@@ -27,6 +31,12 @@ const config: webpack.Configuration = {
             },
             excludeAssets: ['foo', /foo/, assetName => assetName.indexOf('foo') !== -1],
             logLevel: 'info',
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            statsOptions: {
+                ids: true
+            }
         }),
     ],
 };
@@ -100,3 +110,13 @@ const report: BundleAnalyzerPlugin.JsonReport = [
         ],
     },
 ];
+
+const plugin = new BundleAnalyzerPlugin();
+
+plugin.apply;
+plugin.server;
+plugin.startAnalyzerServer;
+plugin.generateJSONReport;
+plugin.generateStatsFile;
+plugin.generateStaticReport;
+plugin.getBundleDirFromCompiler;

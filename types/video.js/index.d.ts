@@ -10,6 +10,7 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -138,7 +139,7 @@ declare namespace videojs {
      * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
-    function getPlayer(id: string): Player;
+    function getPlayer(id: string | Element): Player | undefined;
 
     /**
      * Get an object with the currently created players, keyed by player ID
@@ -647,7 +648,7 @@ declare namespace videojs {
      *
      * @see [Spec]{@link https://html.spec.whatwg.org/multipage/media.html#audiotracklist}
      */
-     interface AudioTrackList extends TrackList {
+    interface AudioTrackList extends TrackList {
         [index: number]: VideojsAudioTrack;
 
         /**
@@ -1057,12 +1058,16 @@ declare namespace videojs {
               children?: Child[] | undefined;
           };
 
+    interface ClickableComponentOptions extends ComponentOptions {
+        clickHandler?: () => void;
+    }
+
     /**
      * Clickable Component which is clickable or keyboard actionable,
      * but is not a native HTML button.
      */
     interface ClickableComponent extends Component {
-        options_: ComponentOptions;
+        options_: ClickableComponentOptions;
 
         /**
          * Builds the default DOM `className`.
@@ -1195,7 +1200,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): ClickableComponent;
+        new (player: Player, options?: ClickableComponentOptions): ClickableComponent;
     };
 
     /**
@@ -1359,6 +1364,14 @@ declare namespace videojs {
          * @see [Similar to]{@link https://developer.mozilla.org/en-US/docs/Web/API/window/cancelAnimationFrame}
          */
         cancelAnimationFrame(id: number): number;
+
+        /**
+         * Cancels a current named animation frame if it exists.
+         *
+         * @param name
+         *        Cancels a current named animation frame if it exists.
+         */
+        cancelNamedAnimationFrame(name: string): void;
 
         /**
          * Get an array of all child components
@@ -1593,6 +1606,16 @@ declare namespace videojs {
          *
          * @return The child `Component` with the given `name` or undefined.
          */
+        getChild<TComponentName extends keyof ComponentNameMap>(name: TComponentName): ComponentNameMap[TComponentName] | undefined;
+
+        /**
+         * Returns the child `Component` with the given `name`.
+         *
+         * @param name
+         *        The name of the child `Component` to get.
+         *
+         * @return The child `Component` with the given `name` or undefined.
+         */
         getChild(name: string): Component | undefined;
 
         /**
@@ -1608,7 +1631,7 @@ declare namespace videojs {
          * @return The descendant `Component` following the given descendant
          *         `names` or undefined.
          */
-        getDescendant(...names: Array<(string|string[])>): Component|undefined;
+        getDescendant(...names: Array<string | string[]>): Component | undefined;
 
         /**
          * Returns the child `Component` with the given `id`.
@@ -1734,8 +1757,6 @@ declare namespace videojs {
          */
         options(obj: any): any;
 
-        played(): TimeRanges;
-
         /**
          * Return the {@link Player} that the `Component` has attached to.
          *
@@ -1804,6 +1825,20 @@ declare namespace videojs {
          * @see [Similar to]{@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame}
          */
         requestAnimationFrame(fn: Component.GenericCallback): number;
+
+        /**
+         * Request an animation frame, but only one named animation
+         * frame will be queued. Another will never be added until
+         * the previous one finishes.
+         *
+         * @param name
+         *        The name to give this requestAnimationFrame
+         *
+         * @param  fn
+         *         A function that will be bound to this component and executed just
+         *         before the browser's next repaint.
+         */
+        requestNamedAnimationFrame(name: string, fn: Component.GenericCallback): string | undefined;
 
         /**
          * Set the value of an attribute on the `Component`'s element
@@ -1946,11 +1981,6 @@ declare namespace videojs {
          *        The Name of the component to get.
          *
          * @return The `Component` that got registered under the given name.
-         *
-         * @deprecated In `videojs` 6 this will not return `Component`s that were not
-         *             registered using {@link Component.registerComponent}. Currently we
-         *             check the global `videojs` object for a `Component` name and
-         *             return that if it exists.
          */
         getComponent(name: 'Button' | 'button'): typeof Button;
         getComponent(name: 'ClickableComponent' | 'clickablecomponent'): typeof ClickableComponent;
@@ -1985,10 +2015,18 @@ declare namespace videojs {
         registerComponent(name: string, ComponentToRegister: any): any;
     };
 
+    interface ComponentNameMap {
+        liveDisplay: LiveDisplay;
+        playbackRateMenuButton: PlaybackRateMenuButton;
+        progressControl: ProgressControl;
+        remainingTimeDisplay: RemainingTimeDisplay;
+    }
+
     interface ComponentOptions {
-        children?: undefined | Child[];
-        createEl?: boolean;
-        el?: HTMLElement;
+        children?: Child[] | undefined;
+        createEl?: boolean | undefined;
+        el?: HTMLElement | undefined;
+        id?: string | undefined;
     }
 
     namespace Component {
@@ -2474,9 +2512,6 @@ declare namespace videojs {
          *
          * @return - True if the element had the class
          *         - False otherwise.
-         *
-         * @throws {Error}
-         *         Throws an error if `classToCheck` has white space.
          */
         hasClass(element: Element, classToCheck: string): boolean;
 
@@ -3013,6 +3048,10 @@ declare namespace videojs {
         [language: string]: string;
     }
 
+    interface LiveDisplay extends Component {
+        el(): HTMLDivElement;
+    }
+
     /**
      * LiveTracker provides several useful helper functions and events for dealing with live playback, all of which are used and tested internally.
      * Internally this component keeps track of the live current time through a function that runs on a 30ms interval.
@@ -3067,6 +3106,13 @@ declare namespace videojs {
          * See the seekableendchange event and the pastSeekEnd() function for more info.
          */
         behindLiveEdge(): boolean;
+
+        /**
+         * The next seeked event is from the user. Meaning that any seek
+         * > 2s behind live will be considered behind live for real and
+         * liveTolerance will be ignored.
+         */
+        nextSeekedFromUser(): void;
 
         /**
          * live current time is our best approximation of what the live current time is.
@@ -3852,6 +3898,10 @@ declare namespace videojs {
      * @param [label]
      *        A text label for the modal, primarily for accessibility.
      *
+     * @param [pauseOnOpen=true]
+     *        If `true`, playback will will be paused if playing when
+     *        the modal opens, and resumed when it closes.
+     *
      * @param [temporary=true]
      *        If `true`, the modal can only be opened once; it will be
      *        disposed as soon as it's closed.
@@ -3866,6 +3916,7 @@ declare namespace videojs {
         description?: string | undefined;
         fillAlways?: boolean | undefined;
         label?: string | undefined;
+        pauseOnOpen?: boolean | undefined;
         temporary?: boolean | undefined;
         uncloseable?: boolean | undefined;
     }
@@ -3936,12 +3987,12 @@ declare namespace videojs {
         /**
          * Determines the height of the floating video window.
          */
-         height: number;
+        height: number;
 
         /**
          * Determines the width of the floating video window.
          */
-         width: number;
+        width: number;
     }
 
     type Player = VideoJsPlayer;
@@ -3970,6 +4021,10 @@ declare namespace videojs {
          */
         getTagSettings(tag: Element): any;
     };
+
+    interface PlaybackRateMenuButton extends Component {
+        el(): HTMLDivElement;
+    }
 
     namespace Player {
         /**
@@ -4031,9 +4086,6 @@ declare namespace videojs {
      * @fires   Player#pluginsetup
      * @fires   Player#pluginsetup:$name
      * @listens Player#dispose
-     * @throws  {Error}
-     *          If attempting to instantiate the base {@link Plugin} class
-     *          directly instead of via a sub-class.
      */
     interface Plugin extends EventedMixin {
         player: Player;
@@ -4203,6 +4255,20 @@ declare namespace videojs {
         }
     }
 
+    type Preload = 'auto' | 'metadata' | 'none';
+
+    type Autoplay =  boolean | 'muted' | 'play' | 'any';
+
+    interface Breakpoint {
+        tiny: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        huge: number;
+    }
+
     interface ProgressControl extends Component {
         /**
          * Create the `Component`'s DOM element
@@ -4215,6 +4281,8 @@ declare namespace videojs {
          * Disable all controls on the progress control and its children
          */
         disable(): void;
+
+        el(): HTMLDivElement;
 
         /**
          * Enable all controls on the progress control and its children
@@ -4290,6 +4358,10 @@ declare namespace videojs {
 
     interface ProgressControlOptions extends ComponentOptions {
         seekBar?: boolean | undefined;
+    }
+
+    interface RemainingTimeDisplay extends Component {
+        el(): HTMLDivElement;
     }
 
     interface Representation {
@@ -4823,6 +4895,13 @@ declare namespace videojs {
          * @fires Component#dispose
          */
         dispose(): void;
+
+        /**
+         * Returns the HTML Video/Audio Element
+         *
+         * @return the HTML Video/Audio Element
+         */
+        el: () => HTMLVideoElement | HTMLAudioElement;
 
         /**
          * Emulate texttracks
@@ -5429,7 +5508,7 @@ declare namespace videojs {
         activeCues: TextTrackCueList;
 
         /**
-         * @The text track cue list for this TextTrack.
+         * The text track cue list for this TextTrack.
          */
         cues: TextTrackCueList;
 
@@ -6083,6 +6162,12 @@ declare namespace videojs {
         url: string;
         rawRequest: XMLHttpRequest;
     }
+
+    const Vhs: {
+        xhr: {
+            beforeRequest: (options: XhrOptions) => void;
+        };
+    };
 }
 
 /**
@@ -6124,6 +6209,34 @@ export interface VideoJsPlayer extends videojs.Component {
     aspectRatio(): string;
 
     /**
+     * Get the current audioOnlyMode state or set audioOnlyMode to true or false.
+     *
+     * Setting this to `true` will hide all player components except the control bar,
+     * as well as control bar components needed only for video.
+     *
+     * @param [value]
+     *         The value to set audioOnlyMode to.
+     *
+     * @return A Promise is returned when setting the state, and a boolean when getting
+     *         the present state
+     */
+    audioOnlyMode(value: boolean): Promise<void>;
+
+    audioOnlyMode(): boolean;
+
+    /**
+     * Get the current audioPosterMode state or set audioPosterMode to true or false
+     *
+     * @param [value]
+     *         The value to set audioPosterMode to.
+     *
+     * @return A Promise is returned when setting the state, and a boolean when getting
+     *         the present state
+     */
+    audioPosterMode(value: boolean): Promise<void>;
+    audioPosterMode(): boolean;
+
+    /**
      * Get or set the autoplay option. When this is a boolean it will
      * modify the attribute on the tech. When this is a string the attribute on
      * the tech will be removed and `Player` will handle autoplay on loadstarts.
@@ -6138,9 +6251,9 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of autoplay when getting
      */
-    autoplay(value: boolean | string): void;
+    autoplay(value: videojs.Autoplay): void;
 
-    autoplay(): boolean | string;
+    autoplay(): videojs.Autoplay;
 
     /**
      * Get the remote {@link TextTrackList}
@@ -6198,6 +6311,45 @@ export interface VideoJsPlayer extends videojs.Component {
      *         if there is no tech
      */
     addTextTrack(kind?: string, label?: string, language?: string): void;
+
+    /**
+     * Get or set breakpoints on the player.
+     *
+     * Calling this method with an object or `true` will remove any previous
+     * custom breakpoints and start from the defaults again.
+     *
+     * @param  [breakpoints]
+     *         If an object is given, it can be used to provide custom
+     *         breakpoints. If `true` is given, will set default breakpoints.
+     *         If this argument is not given, will simply return the current
+     *         breakpoints.
+     *
+     * @param  [breakpoints.tiny]
+     *         The maximum width for the "vjs-layout-tiny" class.
+     *
+     * @param  [breakpoints.xsmall]
+     *         The maximum width for the "vjs-layout-x-small" class.
+     *
+     * @param  [breakpoints.small]
+     *         The maximum width for the "vjs-layout-small" class.
+     *
+     * @param  [breakpoints.medium]
+     *         The maximum width for the "vjs-layout-medium" class.
+     *
+     * @param  [breakpoints.large]
+     *         The maximum width for the "vjs-layout-large" class.
+     *
+     * @param  [breakpoints.xlarge]
+     *         The maximum width for the "vjs-layout-x-large" class.
+     *
+     * @param  [breakpoints.huge]
+     *         The maximum width for the "vjs-layout-huge" class.
+     *
+     * @return An object mapping breakpoint names to maximum width values.
+     */
+    breakpoints(breakpoints: true | Partial<videojs.Breakpoint>): void;
+
+    breakpoints(): videojs.Breakpoint;
 
     /**
      * Get a TimeRange object with an array of the times of the video
@@ -6281,6 +6433,39 @@ export interface VideoJsPlayer extends videojs.Component {
     createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
 
     /**
+     * Get or set the `Player`'s crossOrigin option. For the HTML5 player, this
+     * sets the `crossOrigin` property on the `<video>` tag to control the CORS
+     * behavior.
+     *
+     * @param [value]
+     *        The value to set the `Player`'s crossOrigin to. If an argument is
+     *        given, must be one of `anonymous` or `use-credentials`.
+     *
+     * @return - The current crossOrigin value of the `Player` when getting.
+     *         - undefined when setting
+     */
+    crossOrigin(value: 'anonymous' | 'use-credentials'): void;
+
+    crossOrigin(): string;
+
+    /**
+     * Get current breakpoint name, if any.
+     *
+     * @return If there is currently a breakpoint set, returns a the key from the
+     *         breakpoints object matching it. Otherwise, returns an empty string.
+     */
+    currentBreakpoint(): string;
+
+    /**
+     * Get the current breakpoint class name.
+     *
+     * @return The matching class name (e.g. `"vjs-layout-tiny"` or
+     *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
+     *         there is no current breakpoint.
+     */
+    currentBreakpointClass(): string;
+
+    /**
      * Returns the current source object.
      *
      * @return The current source object
@@ -6322,6 +6507,13 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return The source MIME type
      */
     currentType(): string;
+
+    /**
+     * Set debug mode to enable/disable logs at info level.
+     *
+     * @param enabled
+     */
+    debug(enabled: boolean): void;
 
     /**
      * Get the current defaultMuted state, or turn defaultMuted on or off. defaultMuted
@@ -6368,7 +6560,7 @@ export interface VideoJsPlayer extends videojs.Component {
      */
     defaultPlaybackRate(rate: number): videojs.Player;
 
-    defaultPlaybackRate(): boolean;
+    defaultPlaybackRate(): number;
 
     /**
      * A getter/setter for the `Player`'s width & height.
@@ -6386,6 +6578,15 @@ export interface VideoJsPlayer extends videojs.Component {
     dimension(dimension: 'width' | 'height', value: number): void;
 
     dimension(dimension: 'width' | 'height'): number;
+
+    /**
+     * Disable Picture-in-Picture mode.
+     *
+     * @param value
+     *        - true will disable Picture-in-Picture mode
+     *        - false will enable Picture-in-Picture mode
+     */
+    disablePictureInPicture(value: boolean): void;
 
     /**
      * An instance of the `Player` class is created when any of the Video.js setup methods
@@ -6599,6 +6800,20 @@ export interface VideoJsPlayer extends videojs.Component {
     isFullscreen(): boolean;
 
     /**
+     * Check if the player is in Picture-in-Picture mode or tell the player that it
+     * is or is not in Picture-in-Picture mode.
+     *
+     * @param  [isPiP]
+     *         Set the players current Picture-in-Picture state
+     *
+     * @return - true if Picture-in-Picture is on and getting
+     *         - false if Picture-in-Picture is off and getting
+     */
+    isInPictureInPicture(isPiP: boolean): void;
+
+    isInPictureInPicture(): boolean;
+
+    /**
      * The player's language code
      * NOTE: The language should be set in the player options if you want the
      * the controls to be built with a specific language. Changing the language
@@ -6709,13 +6924,22 @@ export interface VideoJsPlayer extends videojs.Component {
     playbackRate(): number;
 
     /**
+     * Set or get current playback rates.
+     * Takes an array and updates the playback rates menu with the new items.
+     * Pass in an empty array to hide the menu.
+     */
+    playbackRates(rates: number[]): void;
+
+    playbackRates(): number[];
+
+    /**
      * Get a TimeRange object representing the current ranges of time that the user
      * has played.
      * @check
      * @return A time range object that represents all the increments of time that have
      *         been played.
      */
-    played(): any;
+    played(): TimeRanges;
 
     /**
      * Set or unset the playsinline attribute.
@@ -7026,7 +7250,7 @@ export interface VideoJsPlayer extends videojs.Component {
 
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     aspectRatio?: string | undefined;
-    autoplay?: boolean | string | undefined;
+    autoplay?: videojs.Autoplay | undefined;
     bigPlayButton?: boolean | undefined;
     controlBar?: videojs.ControlBarOptions | false | undefined;
     textTrackSettings?: videojs.TextTrackSettingsOptions | undefined;
@@ -7045,9 +7269,11 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     nativeControlsForTouch?: boolean | undefined;
     notSupportedMessage?: string | undefined;
     playbackRates?: number[] | undefined;
+    playsinline?: boolean | undefined;
+    noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
-    preload?: string | undefined;
+    preload?: videojs.Preload | undefined;
     responsive?: boolean | undefined;
     sourceOrder?: boolean | undefined;
     sources?: videojs.Tech.SourceObject[] | undefined;
@@ -7056,6 +7282,26 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     tracks?: videojs.TextTrackOptions[] | undefined;
     userActions?: videojs.UserActions | undefined;
     width?: number | undefined;
+
+    audioOnlyMode?: boolean | undefined;
+    audioPosterMode?: boolean | undefined;
+    autoSetup?: boolean | undefined;
+    breakpoints?: Partial<videojs.Breakpoint> | undefined;
+    fullscreen?: { options: { navigationUI: 'hide' } } | undefined;
+    id?: string | undefined;
+    liveTracker?: {
+      trackingThreshold?: number | undefined;
+      liveTolerance?: number | undefined;
+    } | undefined;
+    normalizeAutoplay?: boolean | undefined;
+    preferFullWindow?: boolean | undefined;
+    restoreEl?: boolean | Element | undefined;
+    suppressNotSupportedError?: boolean | undefined;
+    techCanOverridePoster?: boolean | undefined;
+    'vtt.js'?: string | undefined;
+    disablePictureInPicture?: boolean | undefined;
+    enableSourceset?: boolean | undefined;
+    retryOnError?: boolean | undefined;
 }
 
 export interface VideoJsPlayerPluginOptions {

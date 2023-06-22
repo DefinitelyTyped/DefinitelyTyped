@@ -1,12 +1,14 @@
 // Type definitions for node-zendesk 2.0
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
+//                 dannyhostetler <https://github.com/dannyhostetler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
 /// <reference types="node"/>
 
-import { PathLike } from "fs";
+import stream = require('node:stream');
+import { PathLike } from 'fs';
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
@@ -25,7 +27,7 @@ export interface Client {
     forums: unknown;
     forumsubscriptions: unknown;
     groupmemberships: unknown;
-    groups: unknown;
+    groups: Groups.Methods;
     helpers: unknown;
     imports: unknown;
     installations: unknown;
@@ -48,7 +50,7 @@ export interface Client {
     ticketaudits: unknown;
     ticketevents: unknown;
     ticketexport: unknown;
-    ticketfields: unknown;
+    ticketfields: Tickets.Fields.Methods;
     ticketforms: unknown;
     ticketimport: unknown;
     ticketmetrics: unknown;
@@ -85,18 +87,20 @@ export namespace Attachments {
         show(attachmentId: number): Promise<ShowResponseModel>;
 
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
         ): Promise<UploadResponseModel>;
     }
@@ -148,7 +152,7 @@ export namespace JobStatuses {
         watch(jobStatusId: ZendeskID, interval: number, maxAttempts: number): Promise<unknown>;
     }
 
-    type Status = "queued" | "working" | "failed" | "completed" | "killed";
+    type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
 
     interface Result extends PersistableModel {
         readonly action: string;
@@ -212,13 +216,23 @@ export namespace Organizations {
         /** Creating Organizations */
         create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         create(organization: CreatePayload): Promise<ResponsePayload>;
-        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(
+            organizations: CreateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Organizations */
-        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(
+            organizationId: ZendeskID,
+            organization: UpdatePayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): ResponsePayload;
         update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
-        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(
+            organizations: UpdateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Deleting Organizations */
@@ -437,7 +451,7 @@ export namespace Requests {
             readonly metadata?: Tickets.Comments.Metadata | undefined;
         }
 
-        type RequestType = "Comment" | "VoiceComment";
+        type RequestType = 'Comment' | 'VoiceComment';
 
         namespace CommentsUsers {
             interface ResponseModel extends PersistableModel {
@@ -674,18 +688,18 @@ export namespace Tickets {
         action: string;
     }
 
-    type Priority = "urgent" | "high" | "normal" | "low";
+    type Priority = 'urgent' | 'high' | 'normal' | 'low';
 
-    type Status = "new" | "open" | "pending" | "hold" | "solved" | "closed";
+    type Status = 'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed';
 
-    type TicketType = "problem" | "incident" | "question" | "task";
+    type TicketType = 'problem' | 'incident' | 'question' | 'task';
 
     interface Via {
         channel: ViaChannel;
         source: ViaSource;
     }
 
-    type ViaChannel = "api" | "web" | "mobile" | "rule" | "system";
+    type ViaChannel = 'api' | 'web' | 'mobile' | 'rule' | 'system';
 
     interface ViaSource {
         to: object;
@@ -794,6 +808,129 @@ export namespace Tickets {
             readonly ticket_metrics: ReadonlyArray<ResponseModel>;
         }
     }
+
+    namespace Fields {
+        interface Methods {
+            list(cb: ZendeskCallback<unknown, unknown>): unknown;
+            list(): Promise<unknown>;
+            show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            show(fieldId: ZendeskID): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: CreateTicketField): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown): Promise<unknown>;
+            delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(fieldId: ZendeskID): Promise<unknown>;
+        }
+
+        /**
+         * Represents 'ticket_fields'
+         */
+        interface TicketField {
+            readonly type: string | undefined;
+            readonly title: string | undefined;
+            id?: number | undefined;
+            active?: true;
+            agent_description?: string | undefined;
+            collapsed_for_agents?: boolean | undefined;
+            created_at?: Date | undefined;
+            description?: string | undefined;
+            editable_in_portal?: boolean | undefined;
+            position?: number | undefined;
+            raw_description?: string | undefined;
+            raw_title?: string | undefined;
+            raw_title_in_portal?: string | undefined;
+            regexp_for_validation?: string | undefined;
+            removable?: boolean | undefined;
+            required?: boolean | undefined;
+            required_in_portal?: boolean | undefined;
+            tag?: string | undefined;
+            title_in_portal?: string | undefined;
+            updated_at?: Date | undefined;
+            visible_in_portal?: boolean | undefined;
+            url?: string | undefined;
+        }
+        interface CreateTicketField extends TicketField {
+            key: string;
+        }
+        interface CustomFieldOptions {
+            [key: string]: unknown;
+        }
+    }
+}
+
+/**
+ * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups|Zendesk Groups}
+ */
+export namespace Groups {
+    interface Methods {
+        /** Listing Groups */
+        list(): Promise<ListPayload>;
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Viewing Groups */
+        assignable(): Promise<ListPayload>;
+        assignable(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        show(groupId: GroupID): Promise<ListPayload>;
+        show(groupId: GroupID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Creating Groups */
+        create(group: CreatePayload): Promise<ResponsePayload>;
+        create(group: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Updating Groups */
+        update(groupID: GroupID, group: UpdatePayload): Promise<ResponsePayload>;
+        update(groupID: GroupID, group: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Deleting Groups */
+        delete(groupID: GroupID): Promise<unknown>;
+        delete(groupID: GroupID, cb: ZendeskCallback<unknown, unknown>): unknown;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups#create-group|Zendesk Groups Create}
+     */
+    interface CreateModel {
+        name: string | null | undefined;
+        default?: boolean;
+        description?: string | null | undefined;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups#update-group|Zendesk Groups Update}
+     */
+    interface UpdateModel {
+        name?: string;
+        description?: string | null | undefined;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups/#json-format|Zendesk Groups JSON Format}
+     */
+    interface ResponseModel extends AuditableModel {
+        readonly default: boolean;
+        readonly deleted: boolean;
+        readonly description: string;
+        readonly name: string | null;
+        readonly url: string | null;
+    }
+
+    interface CreatePayload {
+        readonly group: CreateModel;
+    }
+
+    interface UpdatePayload {
+        readonly group: UpdateModel;
+    }
+
+    interface ResponsePayload {
+        readonly group: ResponseModel;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly groups: ReadonlyArray<ResponseModel>;
+    }
 }
 
 /**
@@ -815,7 +952,7 @@ export namespace Users {
 
         /** Showing Users */
         show(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
-        show(userId: ZendeskID): Promise<ResponsePayload>;
+        show(userId: ZendeskID): Promise<ResponseModel>;
         showMany(userIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
         showMany(userIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
 
@@ -991,7 +1128,7 @@ export namespace Users {
         users: ReadonlyArray<ResponseModel>;
     }
 
-    type Role = "admin" | "agent" | "end-user";
+    type Role = 'admin' | 'agent' | 'end-user';
 
     /**
      * Defines an agent type
@@ -1001,7 +1138,7 @@ export namespace Users {
      */
     type RoleType = 0 | 1 | 2;
 
-    type TicketRestriction = "assigned" | "groups" | "organization" | "requested";
+    type TicketRestriction = 'assigned' | 'groups' | 'organization' | 'requested';
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/user_identities|Zendesk User Identities}
@@ -1083,9 +1220,9 @@ export namespace Users {
             readonly identity: ResponseModel;
         }
 
-        type IdentityType = "agent_forwarding" | "email" | "facebook" | "google" | "phone_number" | "sdk";
+        type IdentityType = 'agent_forwarding' | 'email' | 'facebook' | 'google' | 'phone_number' | 'sdk';
 
-        type DeliverableState = "deliverable" | "undeliverable";
+        type DeliverableState = 'deliverable' | 'undeliverable';
     }
 
     namespace Fields {
@@ -1106,7 +1243,7 @@ export namespace Users {
          * Types of custom fields that can be created
          * @default 'text'
          */
-        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger";
+        type UserFieldType = 'text' | 'textarea' | 'checkbox' | 'date' | 'integer' | 'decimal' | 'regexp' | 'tagger';
 
         /**
          * Represents 'user_field'
@@ -1139,8 +1276,8 @@ export namespace Users {
 }
 
 export interface PaginablePayload {
-    next_page: number | null;
-    previous_page: number | null;
+    next_page: string | null;
+    previous_page: string | null;
     count: number;
 }
 
@@ -1157,3 +1294,5 @@ export interface AuditableModel extends TemporalModel {
 }
 
 export type ZendeskID = number;
+
+export type GroupID = number;

@@ -464,6 +464,8 @@ export function crypto_pwhash_str(password: string | Uint8Array, opsLimit: numbe
 
 export function crypto_pwhash_str_verify(hashed_password: string, password: string | Uint8Array): boolean;
 
+export function crypto_pwhash_str_needs_rehash(hashedPassword: string, opsLimit: number, memLimit: number): boolean;
+
 export function crypto_scalarmult(privateKey: Uint8Array, publicKey: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_scalarmult(privateKey: Uint8Array, publicKey: Uint8Array, outputFormat: StringOutputFormat): string;
 

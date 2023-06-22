@@ -190,3 +190,13 @@ async function example_7c() {
         }
     }, 1_000);
 }
+
+/*~ https://wicg.github.io/serial/#example-8 */
+
+async function example_8() {
+    // Request a serial port.
+    const port = await navigator.serial.requestPort();
+
+    // Then later... revoke permission to the serial port.
+    await port.forget();
+}

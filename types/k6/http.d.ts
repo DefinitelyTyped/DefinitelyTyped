@@ -12,7 +12,7 @@ import { Selection } from './html';
 export function del<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -24,9 +24,9 @@ export function del<RT extends ResponseType | undefined>(
  * @example
  * http.head('https://test.k6.io')
  */
- export function head<RT extends ResponseType | undefined>(
+export function head<RT extends ResponseType | undefined>(
     url: string | HttpURL,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -40,7 +40,7 @@ export function del<RT extends ResponseType | undefined>(
  */
 export function get<RT extends ResponseType | undefined>(
     url: string | HttpURL,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -54,7 +54,7 @@ export function get<RT extends ResponseType | undefined>(
 export function options<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -68,7 +68,7 @@ export function options<RT extends ResponseType | undefined>(
 export function patch<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -86,7 +86,7 @@ export function patch<RT extends ResponseType | undefined>(
 export function post<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -100,7 +100,7 @@ export function post<RT extends ResponseType | undefined>(
 export function put<RT extends ResponseType | undefined>(
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -120,8 +120,28 @@ export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string | HttpURL,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
+
+/**
+ * Make async request.
+ * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+ * @param method - HTTP method.
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ * @example
+ * let formData = {name: 'k6'};
+ * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+ * http.asyncRequest('POST', url, formData, { headers: headers });
+ */
+export function asyncRequest<RT extends ResponseType | undefined>(
+    method: string,
+    url: string | HttpURL,
+    body?: RequestBody | null,
+    params?: RefinedParams<RT> | null,
+): Promise<RefinedResponse<RT>>;
 
 /**
  * Batch multiple HTTP requests together,
@@ -326,7 +346,7 @@ export type BatchRequest = string | HttpURL | ArrayBatchRequest | ObjectBatchReq
 /**
  * Array form batch request specification.
  */
-export type ArrayBatchRequest = [ string, string | HttpURL, (RequestBody | null)?, (Params | null)? ];
+export type ArrayBatchRequest = [string, string | HttpURL, (RequestBody | null)?, (Params | null)?];
 
 /**
  * Object form batch request specification.
@@ -368,9 +388,9 @@ export type RefinedBatchRequest<RT extends ResponseType | undefined> =
  */
 export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
-    string | HttpURL ,
+    string | HttpURL,
     (RequestBody | null)?,
-    (RefinedParams<RT> | null)?
+    (RefinedParams<RT> | null)?,
 ];
 
 /**
@@ -605,7 +625,7 @@ export type ResponseBody = string | bytes | null;
 /**
  * Refined response body.
  * Best possible type given `responseType` from request parameters.
- * @typeParam RT - `Params.responseType` value.
+ * @template RT - `Params.responseType` value.
  * @privateRemarks Default type is a union due to depending on program options.
  */
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
@@ -708,6 +728,23 @@ export class CookieJar {
      * @param options - Optional settings.
      */
     set(url: string, name: string, value: string, options?: CookieOptions | null): void;
+
+    /**
+     * Delete all cookies for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-clear
+     * @param url - URL to delete all cookies for.
+     */
+
+    clear(url: string): void;
+
+    /**
+     * Deletes specific cookie by name for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-delete/
+     * @param url - URL to delete cookie for.
+     * @param name - Cookie name to delete.
+     */
+
+    delete(url: string, name: string): void;
 }
 
 /**
@@ -755,8 +792,8 @@ export interface ExpectedStatusesObject {
 /**
  * Returned value from http.url method.
  */
- interface HttpURL {
-  __brand: "http-url";
+interface HttpURL {
+    __brand: 'http-url';
 }
 
 /**
@@ -775,7 +812,7 @@ declare namespace http {
     function del<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -789,7 +826,7 @@ declare namespace http {
      */
     function head<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -803,7 +840,7 @@ declare namespace http {
      */
     function get<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -817,7 +854,7 @@ declare namespace http {
     function options<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -831,7 +868,7 @@ declare namespace http {
     function patch<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -849,7 +886,7 @@ declare namespace http {
     function post<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -863,7 +900,7 @@ declare namespace http {
     function put<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -883,8 +920,28 @@ declare namespace http {
         method: string,
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
+
+    /**
+     * Make async request.
+     * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+     * @param method - HTTP method.
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @example
+     * let formData = {name: 'k6'};
+     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+     * http.asyncRequest('POST', url, formData, { headers: headers });
+     */
+    function asyncRequest<RT extends ResponseType | undefined>(
+        method: string,
+        url: string | HttpURL,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null,
+    ): Promise<RefinedResponse<RT>>;
 
     /**
      * Creates a URL with set name tag.
@@ -895,7 +952,7 @@ declare namespace http {
      * @example
      * http.get(http.url`http://example.com/posts/${id}`) // tags.name="http://example.com/posts/${}",
      */
-     function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
+    function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
 
     /**
      * Batch multiple HTTP requests together,

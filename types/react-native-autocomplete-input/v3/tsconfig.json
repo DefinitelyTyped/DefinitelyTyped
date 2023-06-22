@@ -15,6 +15,20 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "react-native": [
+                "react-native/v0.70"
+            ],
+            "react-native/*": [
+                "react-native/v0.70/*"
+            ],
+            "react-native-autocomplete-input": [
+                "react-native-autocomplete-input/v3"
+            ],
+            "react-native-autocomplete-input/*": [
+                "react-native-autocomplete-input/v3/*"
+            ]
+        },
         "jsx": "react",
         "types": [],
         "noEmit": true,

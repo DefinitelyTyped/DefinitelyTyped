@@ -1,8 +1,9 @@
 // Type definitions for non-npm package @ember/service 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fservice
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -29,4 +30,10 @@ export function service<K extends keyof Registry>(name: K): ComputedProperty<Reg
 // A type registry for Ember `Service`s. Meant to be declaration-merged so
 // string lookups resolve to the correct type.
 // tslint:disable-next-line no-empty-interface strict-export-declare-modifiers
-interface Registry {}
+interface Registry extends Record<string, Service> {}
+
+declare module '@ember/owner' {
+    interface DIRegistry {
+        service: Registry;
+    }
+}

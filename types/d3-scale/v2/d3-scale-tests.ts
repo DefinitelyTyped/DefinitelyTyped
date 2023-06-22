@@ -370,7 +370,7 @@ logScaleNumString = logScaleNumString.interpolate((a, b) => {
 
 // chainable
 logScaleNumber = logScaleNumber.nice();
-// $ExpectError
+// @ts-expect-error
 logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
 
 // ticks(...) -----------------------------------------------------------------
@@ -559,7 +559,7 @@ localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
-// $ExpectError
+// @ts-expect-error
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
 
 // ticks(...) -----------------------------------------------------------------
@@ -674,18 +674,18 @@ divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
 divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleNumber.domain();
 
-// $ExpectError
+// @ts-expect-error
 divergingScaleNumber.domain([0, 1]);
-// $ExpectError
+// @ts-expect-error
 divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
 
 divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
 divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleString.domain();
 
-// $ExpectError
+// @ts-expect-error
 divergingScaleString.domain([0, 1]);
-// $ExpectError
+// @ts-expect-error
 divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
 
 // clamp(...) -----------------------------------------------------------------

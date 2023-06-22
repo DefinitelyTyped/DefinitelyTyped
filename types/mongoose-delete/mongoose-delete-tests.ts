@@ -20,7 +20,7 @@ PetSchema.plugin(MongooseDelete, {
 PetSchema.plugin(MongooseDelete, {
   overrideMethods: ['count', 'countDocuments', 'find'],
 });
-// or (unrecognized method names will be ignored)
+// @ts-expect-error (unrecognized method names are disallowed)
 PetSchema.plugin(MongooseDelete, { overrideMethods: ['count', 'find', 'errorXyz'] });
 
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedAt: true });
@@ -31,6 +31,7 @@ PetSchema.plugin(MongooseDelete, {
 });
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+// @ts-expect-error (unrecognized indexFields are disallowed)
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
 
 const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');

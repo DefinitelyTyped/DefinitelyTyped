@@ -21,5 +21,7 @@ async () => {
   const state = task.state;                                           // $ExpectType State
 };
 
-new TaskQueue({ size: 1, excessProperty: true });                     // $ExpectError
-queue.postTask<Fetcher>('incorrect-task-name');                       // $ExpectError
+// @ts-expect-error
+new TaskQueue({ size: 1, excessProperty: true });
+// @ts-expect-error
+queue.postTask<Fetcher>('incorrect-task-name');

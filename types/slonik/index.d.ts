@@ -289,7 +289,8 @@ export interface SqlTagConfigurationType {
 export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
 
 export interface SqlTaggedTemplateType {
-    // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
+    // (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
+    // eslint-disable-next-line no-unnecessary-generics
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],

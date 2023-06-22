@@ -6,6 +6,6 @@ import * as R from 'ramda';
     // $ExpectType number
     const callAdd = R.call(add, 1, 2);
 
-    // $ExpectError
+    // @ts-expect-error
     R.call(add, 'a', 2);
 };

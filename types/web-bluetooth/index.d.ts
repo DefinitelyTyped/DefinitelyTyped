@@ -149,10 +149,8 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
     readonly id: string;
     readonly name?: string | undefined;
     readonly gatt?: BluetoothRemoteGATTServer | undefined;
-    readonly uuids?: string[] | undefined;
     forget(): Promise<void>;
     watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
-    unwatchAdvertisements(): void;
     readonly watchingAdvertisements: boolean;
     addEventListener(type: "gattserverdisconnected", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
@@ -169,6 +167,13 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
     addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare namespace BluetoothUUID {
+    function getService(name: string | number): string;
+    function getCharacteristic(name: string | number): string;
+    function getDescriptor(name: string | number): string;
+    function canonicalUUID(alias: string | number): string;
 }
 
 interface Navigator {

@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 import ModelRegistry from 'ember-data/types/registries/model';
-import Store, { normalizeModelName } from '@ember-data/store';
+import Store, { normalizeModelName, Snapshot } from '@ember-data/store';
 import Model, { attr, hasMany, belongsTo } from '@ember-data/model';
 import EmberArray from '@ember/array';
 
@@ -27,5 +27,6 @@ declare module 'ember-data/types/registries/model' {
 
 // -- actual tests
 Store; // $ExpectType<DS.Store>
+Snapshot; // $ExpectType<DS.Snapshot>
 normalizeModelName('post'); // $ExpectType<string>
 normalizeModelName('post-comment'); // $ExpectType<string>

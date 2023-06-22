@@ -98,6 +98,7 @@ declare namespace Mailgun {
             'o:testmode'?: 'yes' | 'no' | 'true' | 'false' | 'True' | 'False' | undefined;
             'o:tag'?: string | string[] | undefined;
             'o:deliverytime'?: string | undefined;
+            'o:deliverytime-optimize-period'?: string | undefined;
             'o:dkim'?: 'yes' | 'no' | boolean | undefined;
             'o:tracking'?: 'yes' | 'no' | boolean | undefined;
             'o:tracking-opens'?: 'yes' | 'no' | boolean | undefined;

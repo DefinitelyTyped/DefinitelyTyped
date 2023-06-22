@@ -11,6 +11,7 @@ prompt = promptSync();
 prompt = promptSync({
     history: history,
     sigint: false,
+    eot: false,
     autocomplete: (input:string) => [input]
 });
 

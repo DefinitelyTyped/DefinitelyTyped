@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "max-line-length": false,
-        "no-consecutive-blank-lines": false,
-        "trim-file": false
+        "no-consecutive-blank-lines": false
     }
 }

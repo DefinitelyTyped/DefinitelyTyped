@@ -59,7 +59,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.endHandlerTimer('test');
     req.absoluteUri('test') === 'test';
 
-    req.timers.pop() === { name: 'test', time: [0, 1234] };
+    req.timers; // $ExpectType HandlerTiming[]
     req.getLogger('test');
 
     const log = req.log;
@@ -279,9 +279,8 @@ server.on('after', restify.auditLogger({
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
     route.spec.name === 'routeName';
-    route.spec.path === '/some/path';
-    route.spec.path === /\/some\/path\/.*/;
-    route.spec.versions === ['v1'];
+    route.spec.path; // $ExpectType string | RegExp
+    route.spec.versions; // $ExpectType string[]
     restify.auditLogger({ log: () => { } })(req, res, route, err);
 });
 

@@ -5,7 +5,6 @@
         "ban-types": false,
         "max-line-length": false,
         "no-duplicate-variable": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "no-void-expression": false,

@@ -16,7 +16,7 @@ $("#alert").on("close.bs.alert", () => {});
 // Button
 // --------------------------------------------------------------------------------------
 
-// $ExpectError
+// @ts-expect-error
 $("#button").button();
 
 // $ExpectType JQuery<HTMLElement>
@@ -222,6 +222,22 @@ $("#popover").popover({
     sanitizeFn: null,
 });
 
+$("#popover").popover({
+    content: document.createElement('p'),
+});
+
+$("#popover").popover({
+    content: () => document.createElement('p'),
+});
+
+$("#popover").popover({
+    content: $('<p>Content</p>'),
+});
+
+$("#popover").popover({
+    content: () => $('<p>Content</p>'),
+});
+
 // --------------------------------------------------------------------------------------
 // Scrollspy
 // --------------------------------------------------------------------------------------
@@ -346,7 +362,7 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     placement(this, tooltip, trigger) {
-        // $ExpectError
+        // @ts-expect-error
         console.log(this.config.content); // only for PopoverOption, not TooltipOption
         return "left";
     },
@@ -380,4 +396,20 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     sanitizeFn: null,
+});
+
+$("#tooltip").tooltip({
+    title: document.createElement('p'),
+});
+
+$("#tooltip").tooltip({
+    title: () => document.createElement('p'),
+});
+
+$("#tooltip").tooltip({
+    title: $('<p>Title</p>'),
+});
+
+$("#tooltip").tooltip({
+    title: () => $('<p>Title</p>'),
 });

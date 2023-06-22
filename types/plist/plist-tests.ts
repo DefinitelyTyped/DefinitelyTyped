@@ -84,5 +84,5 @@ function f(a: ReadonlyArray<string>) {
     plist.build(a);
 }
 
-// $ExpectError
+// @ts-expect-error
 plist.build(() => 0);

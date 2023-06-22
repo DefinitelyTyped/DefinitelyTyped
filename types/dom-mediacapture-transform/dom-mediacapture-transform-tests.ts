@@ -86,7 +86,7 @@ async function topLevel() {
         // $ExpectType "audio"
         generator.kind;
 
-        // $ExpectError
+        // @ts-expect-error
         new MediaStreamTrackGenerator({ kind: "invalid kind" });
     }
 
@@ -96,7 +96,7 @@ async function topLevel() {
 
         const writer3 = generator.writable.getWriter();
         const data = audioData;
-        // $ExpectError
+        // @ts-expect-error
         writer3.write(data);
     }
 
@@ -162,7 +162,7 @@ async function topLevel() {
         const generator = new MediaStreamTrackGenerator({ kind: "audio" });
 
         const writer = generator.writable.getWriter();
-        // $ExpectError
+        // @ts-expect-error
         writer.write(videoFrame);
     }
 

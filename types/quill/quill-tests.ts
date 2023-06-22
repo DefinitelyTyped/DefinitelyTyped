@@ -404,3 +404,11 @@ function test_KeyboardBool() {
     );
     // If typescript thorws an error then the key type is invalid
 }
+
+function test_history() {
+  const quillEditor = new Quill("#editor");
+  quillEditor.history.undo();
+  quillEditor.history.redo();
+  quillEditor.history.cutoff();
+  quillEditor.history.clear();
+}

@@ -10,7 +10,7 @@ import { CSSProperties } from 'react';
     const duration = <Recarousel duration={5} />;
     const axisX = <Recarousel axis="x" />;
     const axisY = <Recarousel axis="y" />;
-    // $ExpectError
+    // @ts-expect-error
     const axisZ = <Recarousel axis="z" />;
     const minMove = <Recarousel minMove={5} />;
 
@@ -40,7 +40,7 @@ import { CSSProperties } from 'react';
     const MyOptionalWidget = (props: Partial<MyWidgetProps>) => <></>;
 
     const optionalCarousel = <Recarousel widgets={[MyOptionalWidget]} />;
-    // $ExpectError
+    // @ts-expect-error
     const carousel = <Recarousel widgets={[MyWidget]} />;
 }
 
@@ -53,7 +53,7 @@ import { CSSProperties } from 'react';
     const MyOptionalWidget = (props: Partial<MyWidgetProps>) => <></>;
 
     const optionalCarousel = <Recarousel widgets={[MyOptionalWidget]} />;
-    // $ExpectError
+    // @ts-expect-error
     const carousel = <Recarousel widgets={[MyWidget]} />;
 }
 
@@ -66,7 +66,7 @@ import { CSSProperties } from 'react';
     const MyOptionalWidget = (props: Partial<MyWidgetProps>) => <></>;
 
     const optionalCarousel = <Recarousel widgets={[MyOptionalWidget]} />;
-    // $ExpectError
+    // @ts-expect-error
     const carousel = <Recarousel widgets={[MyWidget]} />;
 }
 
@@ -79,7 +79,7 @@ import { CSSProperties } from 'react';
     const MyOptionalWidget = (props: Partial<MyWidgetProps>) => <></>;
 
     const optionalCarousel = <Recarousel widgets={[MyOptionalWidget]} />;
-    // $ExpectError
+    // @ts-expect-error
     const carousel = <Recarousel widgets={[MyWidget]} />;
 }
 
@@ -90,6 +90,6 @@ import { CSSProperties } from 'react';
     }
     const MyWidget = (props: MyWidgetProps) => <></>;
 
-    // $ExpectError
+    // @ts-expect-error
     const carousel = <Recarousel widgets={[MyWidget]} />;
 }

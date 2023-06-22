@@ -1,4 +1,4 @@
-import katex, { KatexOptions, ParseError } from 'katex';
+import katex, { KatexOptions } from 'katex';
 import renderMathInElement, { RenderMathInElementOptions } from 'katex/contrib/auto-render';
 import katexReplaceWithTex from 'katex/contrib/katex2tex';
 
@@ -12,7 +12,7 @@ class KatexTest {
             };
             let value: string = katex.renderToString('My Latex String', options);
         } catch (error) {
-            if (error instanceof ParseError) {
+            if (error instanceof katex.ParseError) {
                 //do something with this error
             }
         }

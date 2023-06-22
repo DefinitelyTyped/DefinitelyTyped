@@ -1,12 +1,12 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const WaterRefractionShader: {
     uniforms: {
-        color: Uniform;
-        time: Uniform;
-        tDiffuse: Uniform;
-        tDudv: Uniform;
-        textureMatrix: Uniform;
+        color: IUniform;
+        time: IUniform;
+        tDiffuse: IUniform;
+        tDudv: IUniform;
+        textureMatrix: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

@@ -72,7 +72,7 @@ $selectpicker.selectpicker('toggle');
 $selectpicker.selectpicker('hide');
 $selectpicker.selectpicker('show');
 $selectpicker.selectpicker('destroy');
-// $ExpectError
+// @ts-expect-error
 $selectpicker.selectpicker('destroy', 'aa');
 
 /**

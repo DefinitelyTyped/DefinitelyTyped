@@ -8,6 +8,6 @@ import * as R from 'ramda';
     // $ExpectType Lens<ObjWithPhrase, string>
     R.lensProp<ObjWithPhrase>('phrase');
 
-    // $ExpectError
+    // @ts-expect-error
     R.lensProp<ObjWithPhrase>('phrae');
 };

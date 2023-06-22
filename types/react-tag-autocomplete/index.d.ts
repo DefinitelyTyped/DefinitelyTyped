@@ -1,4 +1,4 @@
-// Type definitions for react-tag-autocomplete 6.1
+// Type definitions for react-tag-autocomplete 6.3
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
 //                 Rahul Sagore <https://github.com/Rahul-Sagore>
@@ -99,7 +99,7 @@ export interface ReactTagsProps {
      * Enables users to show a prompt to add a new tag at the bottom of the suggestions list if allowNew is enabled.
      * Defaults to null.
      */
-    newTagPrefix?: string | undefined;
+    newTagText?: string | undefined;
     /**
      * Message shown if there are no matching suggestions. Default: null.
      */

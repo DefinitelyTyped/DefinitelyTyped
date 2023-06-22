@@ -12,7 +12,7 @@ declare class Button extends BaseComponent {
 }
 
 declare namespace Button {
-    type jQueryInterface = (config?: 'toggle' | 'dispose') => void;
+    type jQueryInterface = (config?: 'toggle' | 'dispose') => JQuery;
 }
 
 export default Button;

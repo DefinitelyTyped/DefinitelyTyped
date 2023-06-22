@@ -17,5 +17,5 @@ ES2016.IterableToArrayLike(iterableArrayLikeNumbers);
 // $ExpectType ArrayLike<number>
 ES2016.IterableToArrayLike(arrayLikeNumbers);
 
-// $ExpectError
+// @ts-expect-error
 ES2016.IterableToArrayLike(recordNumbers);

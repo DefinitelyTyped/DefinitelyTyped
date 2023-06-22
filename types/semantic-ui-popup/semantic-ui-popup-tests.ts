@@ -132,8 +132,10 @@ function test_popup() {
     });
     $(selector).popup(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).popup('foo'); // $ExpectError
-    $(selector).popup({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).popup('foo');
+    // @ts-expect-error
+    $(selector).popup({ foo: 'bar' });
 }
 
 import popup = require('semantic-ui-popup');

@@ -2088,7 +2088,6 @@ declare namespace L {
           * Instantiates a map object given a div element and optionally an
           * object literal with map options described below.
           *
-          * @constructor
           */
         new(id: HTMLElement, options?: Map.MapOptions): Map;
 
@@ -2096,7 +2095,6 @@ declare namespace L {
           * Instantiates a map object given a div element id and optionally an
           * object literal with map options described below.
           *
-          * @constructor
           */
         new(id: string, options?: Map.MapOptions): Map;
     }

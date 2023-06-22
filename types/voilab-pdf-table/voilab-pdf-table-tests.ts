@@ -136,7 +136,7 @@ table
 table.setShowHeaders(true);
 
 // Can't have any headerX options without providing the header property
-// $ExpectError
+// @ts-expect-error
 table.addColumn({
     id: 'price',
     headerFill: true,
@@ -194,31 +194,38 @@ table.setColumns([
 
 table.setColumns([
     {
-        id: 'invalid', // $ExpectError
+        // @ts-expect-error
+        id: 'invalid',
     },
 ]);
 
 table.getColumns(); // $ExpectType VoilabPdfTableColumn<SampleDataType>[]
 table.getColumn('name'); // $ExpectType VoilabPdfTableColumn<SampleDataType>
-table.getColumn('invalid'); // $ExpectError
+// @ts-expect-error
+table.getColumn('invalid');
 
 table.getColumnWidthBetween('name', 'qty'); // $ExpectType number
-table.getColumnWidthBetween('invalid', 'other'); // $ExpectError
+// @ts-expect-error
+table.getColumnWidthBetween('invalid', 'other');
 
 table.getColumnWidthUntil('name'); // $ExpectType number
-table.getColumnWidthUntil('invalid'); // $ExpectError
+// @ts-expect-error
+table.getColumnWidthUntil('invalid');
 
 table.getColumnWidthFrom('name'); // $ExpectType number
-table.getColumnWidthFrom('invalid'); // $ExpectError
+// @ts-expect-error
+table.getColumnWidthFrom('invalid');
 
 table.getWidth(); // $ExpectType number
 
 table.getColumnWidth('name'); // $ExpectType number
-table.getColumnWidth('invalid'); // $ExpectError
+// @ts-expect-error
+table.getColumnWidth('invalid');
 
 table.setColumnWidth('name', 100);
 table.setColumnWidth('name', 100, true);
-table.setColumnWidth('invalid', 100, true); // $ExpectError
+// @ts-expect-error
+table.setColumnWidth('invalid', 100, true);
 
 table.getColumnParam('name', 'header'); // $ExpectType string | undefined
 table.getColumnParam('name', 'height'); // $ExpectType number | undefined
@@ -244,7 +251,8 @@ table.addBody([
         name: 'someName',
         price: 10,
         qty: 1,
-        invalid: 1, // $ExpectError
+        // @ts-expect-error
+        invalid: 1,
     },
 ]);
 

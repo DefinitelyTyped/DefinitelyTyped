@@ -14,6 +14,7 @@ import {
     ListGroupItem,
     Accordion,
     Tooltip,
+    Overlay,
     OverlayTrigger,
     Popover,
     ProgressBar,
@@ -51,7 +52,8 @@ import {
     Media,
     InputGroup,
     ToggleButtonGroup,
-    ToggleButton
+    ToggleButton,
+    Collapse
 } from 'react-bootstrap';
 
 export class ReactBootstrapTest extends Component {
@@ -581,6 +583,10 @@ export class ReactBootstrapTest extends Component {
                       Tooltip bottom
                     </Tooltip>
                   </div>
+                </div>
+
+                <div style={style}>
+                    <Overlay>Overlay</Overlay>
                 </div>
 
                 <div style={style}>
@@ -1506,6 +1512,10 @@ export class ReactBootstrapTest extends Component {
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </ButtonToolbar>
+              </div>
+
+              <div style={style}>
+                <Collapse>Collapse</Collapse>
               </div>
             </div>
         );

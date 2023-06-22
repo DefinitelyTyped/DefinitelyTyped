@@ -1,10 +1,10 @@
 import { Route, Router } from '@hapi/call';
 
-const router = new Router({ isCaseSensitive: false });
+const router = new Router<{ id: string }>({ isCaseSensitive: false });
 
 router.add({ method: 'get', path: '/user/{userId}'}, { id: 'get_user'});
 
-const route: Route<{ userId: string }, {id: string }> = router.route('get', '/');
+const route = router.route('get', '/');
 
 if (!(route instanceof Error)) {
     console.log(route.route.id);

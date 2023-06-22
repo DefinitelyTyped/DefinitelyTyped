@@ -11,6 +11,7 @@ player.mobileUi({
         lockOnRotate: true,
     },
     touchControls: {
+        disabled: false,
         seekSeconds: 10,
         tapTimeout: 300,
         disableOnEnd: false,

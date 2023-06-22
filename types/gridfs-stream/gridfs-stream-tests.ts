@@ -6,7 +6,7 @@ import mongo = require('mongodb');
 import Grid = require('gridfs-stream');
 
 // create or use an existing mongodb-native db instance
-var db = new mongo.Db('gridfs-stream-test', new mongo.Server("127.0.0.1", 27017));
+declare var db: mongo.Db;
 var gfs = Grid(db, mongo);
 
 // streaming to gridfs

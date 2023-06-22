@@ -16,5 +16,5 @@ getIteratorMethod(ES2015, {}); // $ExpectType undefined
 getIteratorMethod<any>(ES2015, unknown);
 getIteratorMethod(ES2015, never); // $ExpectType never
 
-// $ExpectError
+// @ts-expect-error
 getIteratorMethod(ES5, [1]);

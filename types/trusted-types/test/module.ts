@@ -30,7 +30,7 @@ const htmlOnlyPolicy = importedTrustedTypes.createPolicy('htmlOnly', {
 htmlOnlyPolicy.name;
 // $ExpectType TrustedHTML
 const html = htmlOnlyPolicy.createHTML('');
-// $ExpectError
+// @ts-expect-error
 htmlOnlyPolicy.createScript('');
 
 // $ExpectType boolean
@@ -49,13 +49,13 @@ const policyWithArgs = importedTrustedTypes.createPolicy('withArgs', {
 policyWithArgs.createHTML('', 1, true);
 // $ExpectType TrustedScriptURL
 policyWithArgs.createScriptURL('');
-// $ExpectError
+// @ts-expect-error
 policyWithArgs.createHTML('', '', true);
-// $ExpectError
+// @ts-expect-error
 policyWithArgs.createHTML('');
-// $ExpectError
+// @ts-expect-error
 policyWithArgs.createScript('');
-// $ExpectError
+// @ts-expect-error
 policyWithArgs.createScriptURL('', 1, true);
 
 const genericPolicy = importedTrustedTypes.defaultPolicy!;
@@ -94,10 +94,10 @@ castedAsGenericPolicy.createScriptURL('', true, {});
 let trustedHTML: TrustedHTML = null as any;
 const trustedScript: TrustedScript = null as any;
 
-// $ExpectError
+// @ts-expect-error
 trustedHTML = trustedScript;
 
-// $ExpectError
+// @ts-expect-error
 new TrustedHTML();
 
 // $ExpectType typeof TrustedHTML

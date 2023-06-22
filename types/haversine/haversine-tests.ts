@@ -19,9 +19,12 @@ const options: haversine.Options = {
 haversine(start, end, options);  // $ExpectType number
 haversine(start, end, { unit: 'km', threshold: 1 });  // $ExpectType boolean
 
-haversine(start, end, {format: '[lat,lon]'});  // $ExpectError
-haversine(start, end, {format: '[lon,lat]'});  // $ExpectError
-haversine(start, end, {format: '{lat,lng}'});  // $ExpectError
+// @ts-expect-error
+haversine(start, end, {format: '[lat,lon]'});
+// @ts-expect-error
+haversine(start, end, {format: '[lon,lat]'});
+// @ts-expect-error
+haversine(start, end, {format: '{lat,lng}'});
 
 const startShort: haversine.CoordinateLonLat = {
   lon: 48.1548256,
@@ -33,7 +36,8 @@ const endShort: haversine.CoordinateLonLat = {
   lat: 13.1445551
 };
 
-haversine(startShort, endShort);  // $ExpectError
+// @ts-expect-error
+haversine(startShort, endShort);
 
 haversine(startShort, endShort, { format: '{lon,lat}' });  // $ExpectType number
 haversine(startShort, endShort, { format: '{lon,lat}', threshold: 1 });  // $ExpectType boolean
@@ -56,7 +60,8 @@ haversine(startLatLng, endLatLng, optionsLatLng);  // $ExpectType number
 
 // not actually valid, but the type of optionsLatLng.format is widened to string
 haversine(start, end, optionsLatLng);  // $ExpectType number
-haversine(start, end, { format: '{lat,lng}' });  // $ExpectError
+// @ts-expect-error
+haversine(start, end, { format: '{lat,lng}' });
 
 const startLatLon: haversine.LatLonTuple = [11.4017529, 48.1548256];
 
@@ -94,4 +99,5 @@ haversine(startGeoJSON, endGeoJSON, optionsGeoJSON);  // $ExpectType number
 haversine(startGeoJSON, endGeoJSON, { format: 'geojson', unit: 'nmi'});  // $ExpectType number
 haversine(startGeoJSON, endGeoJSON, { format: 'geojson', unit: 'nmi', threshold: 2});  // $ExpectType boolean
 
-haversine(start, end, { format: 'geojson' });  // $ExpectError
+// @ts-expect-error
+haversine(start, end, { format: 'geojson' });

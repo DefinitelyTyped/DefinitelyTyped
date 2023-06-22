@@ -175,7 +175,9 @@ const Box = () => <box style={{ fg: "blue" }} />;
 const BlessedBox = () => <blessed-box style={{ fg: "blue" }} />;
 const FF: React.FC<ReactBlessed.BlessedIntrinsicElements["box"]> = props => <box {...props} />;
 
-const Div = () => <div />; // $ExpectError
+// Undesired. Should error but we can only augment intrinsic elements.
+// Should not typecheck once `@types/react` moves DOM intrinsics to `react-dom`.
+const Div = () => <div />;
 
 /**
  * Test ReactElement attributes
@@ -210,10 +212,12 @@ const boxRef = React.createRef<ReactBlessed.BoxElement>();
 
 <ForwardRef ref={boxFnRef} />;
 <ForwardRef ref={boxRef} />;
-<ForwardRef ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardRef ref="string" />;
 <ForwardRef2 ref={boxFnRef} />;
 <ForwardRef2 ref={boxRef} />;
-<ForwardRef2 ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardRef2 ref="string" />;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef} />;
@@ -222,7 +226,8 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
-<ForwardNewContext ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
     (

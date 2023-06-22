@@ -1,5 +1,5 @@
 import MulterGridfsStorage = require('multer-gridfs-storage');
-import { Db, MongoClient, Server } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 
 // Exported interfaces
 const conf: MulterGridfsStorage.FileConfig = {
@@ -10,8 +10,7 @@ const conf: MulterGridfsStorage.FileConfig = {
 // Connection promise
 const dbPromise = MongoClient.connect('mongodb://yourhost:27017').then((client) => client.db('database'));
 
-const server = new Server('localhost', 27017);
-const db = new Db('database', server);
+declare const db: Db;
 
 const opt1: MulterGridfsStorage.DbStorageOptions = {
     db,

@@ -155,13 +155,13 @@ topology = {
 // Fails
 
 // must fail on "type"
-// $ExpectError
+// @ts-expect-error
 topology = { type: "Topology", objects: { foo: { type: "hello", arcs: [[0]] } }, arcs: [] };
 
 // must fail:  Property 'coordinates' is missing in type '{ type: "Point"; }'.
-// $ExpectError
+// @ts-expect-error
 topology = { type: "Topology", objects: { foo: { type: "Point" } }, arcs: [] };
 
 // must fail: Property 'arcs' is missing in type '{ type: "Polygon"; }'
-// $ExpectError
+// @ts-expect-error
 topology = { type: "Topology", objects: { foo: { type: "GeometryCollection", geometries: [{type: "Polygon"}] } }, arcs: [] };

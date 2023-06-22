@@ -30,27 +30,27 @@ const validCustomTooltip = <RangeSlider tooltipLabel={n => <p>Value is {n}</p>} 
 
 // Invalid examples
 
-// $ExpectError
+// @ts-expect-error
 const invalidVariant = <RangeSlider variant="large" />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidTooltipPlacement = <RangeSlider tooltipPlacement="left" />;
 
 const providingChildren = (
-    // $ExpectError
+    // @ts-expect-error
     <RangeSlider>
         <span>I'm a child</span>
     </RangeSlider>
 );
 
-// $ExpectError
+// @ts-expect-error
 const stringValue = <RangeSlider value="5" />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidTooltipStyle = <RangeSlider tooltipStyle={{ textSize: 'big' }} />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidInputProps = <RangeSlider inputProps={{ someInvalidProp: 'value' }} />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidTooltipProps = <RangeSlider tooltipProps={{ someInvalidProp: 'value' }} />;

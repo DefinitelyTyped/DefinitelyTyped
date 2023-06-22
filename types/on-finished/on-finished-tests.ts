@@ -1,5 +1,5 @@
 import onFinished = require('on-finished');
-import { createServer } from 'http';
+import { createServer, ServerResponse } from 'http';
 
 createServer((req, res) => {
     onFinished(req, (err, req) => {
@@ -9,7 +9,7 @@ createServer((req, res) => {
 
     onFinished(res, (err, res) => {
         err; // $ExpectType Error | null
-        res; // $ExpectType ServerResponse
+        const reponse: ServerResponse = res;
     });
 
     // $ExpectType boolean

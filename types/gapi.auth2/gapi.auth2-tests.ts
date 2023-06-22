@@ -77,6 +77,21 @@ function test_render() {
   });
 }
 
+function test_listen() {
+  const signedInListener = gapi.auth2.getAuthInstance().isSignedIn.listen(isSignedIn => {
+      console.log(isSignedIn);
+  });
+  signedInListener.remove();
+  signedInListener.isActive;
+  signedInListener.trigger();
+  const currentUserListener = gapi.auth2.getAuthInstance().currentUser.listen(currentUser => {
+      console.log(currentUser);
+  });
+  currentUserListener.remove();
+  currentUserListener.isActive;
+  currentUserListener.trigger();
+}
+
 /* Example taken from https://developers.google.com/identity/sign-in/web/ */
 function onSignIn(googleUser: gapi.auth2.GoogleUser) {
   // Useful data for your client-side scripts:

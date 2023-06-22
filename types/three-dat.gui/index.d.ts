@@ -2,9 +2,9 @@
 // Project: https://github.com/SolalDR/three-dat.gui#readme
 // Definitions by: hkleungai <https://github.com/hkleungai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
-import THREE from 'three';
+import THREE = require('three');
 
 declare module 'dat.gui' {
     interface GUI {

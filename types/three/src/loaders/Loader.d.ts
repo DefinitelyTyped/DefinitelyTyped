@@ -12,7 +12,7 @@ export class Loader {
     crossOrigin: string;
 
     /**
-     * @default: false
+     * @default false
      */
     withCredentials: boolean;
 
@@ -34,10 +34,9 @@ export class Loader {
 
     /*
 	load(): void;
+    loadAsync(): Promise<unknown>;
 	parse(): void;
 	*/
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<any>;
 
     setCrossOrigin(crossOrigin: string): this;
     setWithCredentials(value: boolean): this;

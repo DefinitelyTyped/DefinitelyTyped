@@ -1,14 +1,12 @@
 import { Scene, Camera, ShaderMaterial, WebGLRenderTarget, MeshDepthMaterial, Color } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export interface BokehPassParamters {
     focus?: number;
     aspect?: number;
     aperture?: number;
     maxblur?: number;
-    width?: number;
-    height?: number;
 }
 
 export class BokehPass extends Pass {
@@ -20,6 +18,6 @@ export class BokehPass extends Pass {
     materialDepth: MeshDepthMaterial;
     materialBokeh: ShaderMaterial;
     uniforms: object;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     oldClearColor: Color;
 }

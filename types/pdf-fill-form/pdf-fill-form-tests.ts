@@ -39,7 +39,7 @@ async function main() {
     // $ExpectType Buffer
     await writeBuffer(buffer, { field: 123, otherField: true });
 
-    // $ExpectError
+    // @ts-expect-error
     await writeBuffer(buffer, { field: ['123', 'test'] });
 }
 

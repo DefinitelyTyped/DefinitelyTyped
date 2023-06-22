@@ -13,6 +13,17 @@ const client = new ImapFlow({
     logger,
 });
 
+// $ExpectType ImapFlow
+const client1 = new ImapFlow({
+    host: '127.0.0.1',
+    auth: {
+        user: 'test',
+        accessToken: 'test',
+    },
+    port: 993,
+    logger,
+});
+
 // $ExpectType Promise<MailboxLockObject>
 client.getMailboxLock('INBOX');
 

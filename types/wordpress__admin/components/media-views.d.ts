@@ -134,7 +134,6 @@ export interface StateMachine {
     trigger: (event: string, ...args: any[]) => StateMachine;
 }
 
-// eslint-disable-next-line prettier/prettier
 export type Frame = StateMachine &
     View & {
         initialize: () => void;

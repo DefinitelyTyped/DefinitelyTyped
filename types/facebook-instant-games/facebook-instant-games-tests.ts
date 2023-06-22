@@ -194,3 +194,113 @@ FBInstant.tournament.getTournamentsAsync()
 FBInstant.tournament.joinAsync('1122334455')
     .then(() => {
     });
+
+FBInstant.canSwitchNativeGameAsync().then(canSwitchNativeGame => {
+    if (canSwitchNativeGame) {
+        FBInstant.switchNativeGameAsync({}).then(() => {
+        });
+    }
+});
+
+FBInstant.loadBannerAdAsync('my_placement_id').then(() => {
+    // console.log('success');
+});
+
+FBInstant.hideBannerAdAsync().then(() => {
+});
+
+FBInstant.getRewardedInterstitialAsync('my_placement_id').then(adInstance => {
+    adInstance.getPlacementID(); // 'my_placement_id'
+});
+
+FBInstant.graphApi.requestAsync('/me?fields=id,name', 'GET', {}).then(response => {
+});
+
+FBInstant.player.getASIDAsync().then(asid => {
+    // console.log(asid);
+});
+
+// Version 7.1
+
+FBInstant.registerScreenshotProvider(submitAsync => {
+    submitAsync({
+        image: 'myBase64Image',
+        text: 'my awesome screenshot',
+        data: {
+            custom_field: 'my awesome data'
+        }
+    }).then(() => {
+        // resumeGame();
+    }).catch(error => {
+        // log(error);
+    });
+});
+
+FBInstant.shareLinkAsync({
+    image: 'base64Picture',
+    text: 'Come check out what Joe has built!',
+    data: {
+        customData: '...'
+    }
+}).then(() => {
+    // continue with the game.
+});
+
+FBInstant.player.getSignedASIDAsync().then(signedAsid => {
+    if (signedAsid) {
+        const asid: string = signedAsid.getASID();
+        const signature: string = signedAsid.getSignature();
+    }
+});
+
+FBInstant.room.getCurrentMatchAsync().then(async match => {
+    const id: string = match.getID();
+    const contextId: string = match.getContextID();
+    const status: FBInstant.LiveMatchStatusType = await match.getStatusAsync();
+    const participants: FBInstant.LiveMatchPlayer[] = await match.getActiveParticipantsAsync().then(participants => {
+        for (const participant of participants) {
+            const id: string = participant.getID();
+            const name: string | null = participant.getName();
+            const photo: string | null = participant.getPhoto();
+        }
+        return participants;
+    });
+});
+
+FBInstant.room.loadCameraEffectAsync({effectID: '123'}).then(effect => {
+    const id: string = effect.getID();
+    effect.showAsync().then(() => {
+    });
+});
+
+FBInstant.room.clearCameraEffectAsync().then(() => {
+});
+
+FBInstant.squads.createAsync({
+    name: 'squad name',
+    image: 'squad image',
+    squadTerm: 'squad term'
+}).then(squad => {
+    squad.joinAsync({squadTerm: 'squad term'}).then(() => {
+    });
+    squad.addToSquadAsync({squadTerm: 'squad term'}).then(() => {
+    });
+});
+
+FBInstant.squads.getPlayerSquadsAsync().then(squads => {
+    for (const squad of squads) {
+        squad.leaveAsync({squadTerm: 'squad term'}).then(() => {
+        });
+    }
+});
+
+FBInstant.squads.canUseSquadsAsync().then(isEligible => {
+    if (isEligible) {
+        FBInstant.squads.getAsync('squad id').then(squad => {
+            const id: string = squad.getID(); // 'squad id'
+            const name: string = squad.getName();
+            const image: string = squad.getImage();
+            const contextId: string = squad.getContextID();
+        });
+    }
+});

@@ -64,6 +64,10 @@ console.log(natural.PorterStemmerPt.stem('jugaría'));
 console.log(natural.PorterStemmerRu.stem('падший'));
 console.log(natural.PorterStemmerSv.stem('Riksdag'));
 
+// Remove stopwords test
+natural.PorterStemmer.removeStopWords(['me']);
+console.log(natural.PorterStemmer.stem('me'));
+
 // Other stemmers
 console.log(natural.StemmerId.stem('mie'));
 console.log(natural.StemmerJa.stem('言葉'));

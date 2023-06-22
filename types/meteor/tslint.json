@@ -9,9 +9,7 @@
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "new-parens": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-duplicate-variable": false,
         "no-empty-interface": false,
         "no-internal-module": false,
@@ -21,10 +19,8 @@
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
-        "no-self-import": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,
@@ -36,10 +32,10 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
-        "void-return": false
+        "void-return": false,
+        "await-promise": false
     }
 }

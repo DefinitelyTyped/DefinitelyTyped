@@ -15,7 +15,7 @@ const gantt1 = new Gantt('#gantt', tasks);
 const gantt2 = new Gantt(new HTMLElement(), tasks);
 const gantt3 = new Gantt(new SVGElement(), tasks);
 
-gantt1.change_view_mode('Week');
+gantt1.change_view_mode(Gantt.VIEW_MODE.WEEK);
 gantt1.refresh(tasks);
 
 new Gantt('#gantt', tasks, {

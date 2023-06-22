@@ -1,6 +1,7 @@
-// Type definitions for react-native-modals 0.19
+// Type definitions for react-native-modals 0.22
 // Project: https://github.com/jacklam718/react-native-modals/blob/master/README.md
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
+//                 Jean-Baptiste Crestot <https://github.com/jbcrestot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -21,7 +22,7 @@ export interface DragEvent {
         width: number;
         height: number;
     };
-    swipeDirection: string | null;
+    swipeDirection: SwipeDirection | null;
 }
 
 export interface ModalContentProps {
@@ -66,7 +67,7 @@ export interface ModalTitleProps {
 
 export interface ModalProps {
     children?: React.ReactNode;
-    visible: boolean;
+    visible?: boolean | undefined;
     width?: number | undefined;
     height?: number | undefined;
     rounded?: boolean | undefined;
@@ -105,35 +106,39 @@ export interface DraggableViewProps {
     swipeDirection?: SwipeDirection | SwipeDirection[] | undefined;
 }
 
-export class FadeAnimation {
-    constructor(toValue?: number);
-    constructor(params: { toValue?: number | undefined, animationDuration?: number | undefined });
-    toValue(toValue: number): void;
-    createAnimations(): object;
+export class Animation {
+    constructor(params: { animationDuration?: number | undefined; useNativeDriver?: boolean | undefined });
+    in(onFinised?: boolean): void;
+    out(onFinised?: boolean): void;
+    getAnimations(): object;
+}
+export class FadeAnimation extends Animation {}
+
+export class ScaleAnimation extends Animation {}
+
+export class SlideAnimation extends Animation {
+    constructor(params: {
+        animationDuration?: number | undefined;
+        useNativeDriver?: boolean | undefined;
+        slideFrom?: SlideFromTypes | undefined;
+    });
 }
 
-export class ScaleAnimation {
-    constructor(toValue?: number);
-    toValue(toValue: number): void;
-    createAnimations(): object;
+export class ModalContent extends React.Component<ModalContentProps> {}
+export class ModalFooter extends React.Component<ModalFooterProps> {}
+export class ModalButton extends React.Component<ModalButtonProps> {}
+export class ModalTitle extends React.Component<ModalTitleProps> {}
+export class Backdrop extends React.Component<BackdropProps> {}
+export class DraggableView extends React.Component<DraggableViewProps> {}
+export class ModalPortal extends React.Component {
+    get ref(): Modal;
+    get size(): number;
+    get current(): Modal;
+    static show(children: React.ReactNode, props?: ModalProps): Modal;
+    static update(key: any, props?: ModalProps): void;
+    static dismiss(key: any): void;
+    static dismissAll(): void;
 }
-
-export class SlideAnimation {
-    constructor(toValue?: number);
-    constructor(params: { toValue?: number | undefined, slideFrom?: SlideFromTypes | undefined });
-    toValue(toValue: number): void;
-    createAnimations(): object;
-}
-
-export class ModalContent extends React.Component<ModalContentProps> { }
-export class ModalFooter extends React.Component<ModalFooterProps> { }
-export class ModalButton extends React.Component<ModalButtonProps> { }
-export class ModalTitle extends React.Component<ModalTitleProps> { }
-export class Backdrop extends React.Component<BackdropProps> { }
-export class DraggableView extends React.Component<DraggableViewProps> { }
-export default class Modal extends React.Component<ModalProps> {
-    show(): void;
-    dismiss(): void;
-    modalSize: { width: number, height: number };
-    pointerEvents: 'auto' | 'none';
-}
+export class BottomModal extends React.Component<ModalProps> {}
+export class Modal extends React.Component<ModalProps> {}
+export default Modal;

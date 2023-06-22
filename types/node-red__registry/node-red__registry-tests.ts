@@ -21,29 +21,34 @@ function registryTests() {
         RED.settings.myKey;
         // $ExpectType boolean | undefined
         RED.settings.verbose;
-        // $ExpectError
+        // @ts-expect-error
         RED.settings.wrongKey;
 
         // tslint:disable-next-line:space-before-function-paren
         const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function (nodeDef) {
             RED.nodes.createNode(this, nodeDef);
 
+            // $ExpectType FlowInfo | undefined
+            this._flow;
+            // $ExpectType string | undefined
+            this._alias;
+
             // $ExpectType string
             nodeDef.defKey;
-            // $ExpectError
+            // @ts-expect-error
             nodeDef.wrongKey;
 
             // $ExpectType string
             this.credentials.password;
             // $ExpectType string
             this.credentials.username;
-            // $ExpectError
+            // @ts-expect-error
             this.credentials.wrongKey;
 
             this.instanceKey = 'value';
-            // $ExpectError
+            // @ts-expect-error
             this.instanceKey = 123;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
 
             const status: registry.NodeStatus = {
@@ -51,9 +56,9 @@ function registryTests() {
                 fill: 'blue',
                 shape: 'dot',
             };
-            // $ExpectError
+            // @ts-expect-error
             status.fill = 'invalid-fill';
-            // $ExpectError
+            // @ts-expect-error
             status.shape = 'invalid-shape';
             this.status(status);
             this.status({});
@@ -80,71 +85,63 @@ function registryTests() {
 
                 // send a new message with a topic
 
-                send ({
-                    payload: "payload",
-                    topic: "topic"
+                send({
+                    payload: 'payload',
+                    topic: 'topic',
                 });
 
                 this.send({
-                    payload: "payload",
-                    topic: "topic"
+                    payload: 'payload',
+                    topic: 'topic',
                 });
 
                 // send messages to a subset of the outputs
 
-                send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                send([
+                    {
+                        payload: 'payload',
+                        topic: 'topic',
+                    },
+                    null,
+                ]);
 
-                this.send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                this.send([
+                    {
+                        payload: 'payload',
+                        topic: 'topic',
+                    },
+                    null,
+                ]);
 
                 // send multiple messages to a particular output
 
-                send (
+                send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                    ],
+                ]);
 
-                this.send (
+                this.send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                        {
+                            payload: 'payload',
+                            topic: 'topic',
+                        },
+                    ],
+                ]);
 
                 done();
 
@@ -169,7 +166,7 @@ function registryTests() {
             RED.httpNode;
             // $ExpectType Express
             RED.httpAdmin;
-            // $ExpectType Server
+            // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse>
             RED.server;
 
             // $ExpectType string
@@ -179,5 +176,31 @@ function registryTests() {
         };
 
         RED.nodes.registerType('my-node', nodeConstructor);
+
+        RED.plugins.registerPlugin('my-plugin', { type: 'my-plugin-type' });
+
+        // $ExpectType PluginDefinition<PluginDef>
+        RED.plugins.get('my-plugin');
+
+        // $ExpectType PluginDefinition<PluginDef>[]
+        RED.plugins.getByType('my-plugin-type');
+    }
+
+    interface MyPluginDef extends registry.PluginDef {
+        defKey: string;
+    }
+
+    function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
+        const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            type: 'my-plugin',
+            settings: {
+                '*': { value: '', exportable: true },
+                defKey: { value: '', exportable: true },
+            },
+            onadd: () => {
+                RED.comms.publish(`my-route-for-plugin`, true, true);
+            },
+        };
+        RED.plugins.registerPlugin('my-plugin', pluginDefinition);
     }
 }

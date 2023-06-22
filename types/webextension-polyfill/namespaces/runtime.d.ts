@@ -393,6 +393,19 @@ export namespace Runtime {
         onInstalled: Events.Event<(details: OnInstalledDetailsType) => void>;
 
         /**
+         * Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up.
+         * Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed
+         * to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent
+         * and the page won't be unloaded.
+         */
+        onSuspend: Events.Event<() => void>;
+
+        /**
+         * Sent after onSuspend to indicate that the app won't be unloaded after all.
+         */
+        onSuspendCanceled: Events.Event<() => void>;
+
+        /**
          * Fired when an update is available, but isn't installed immediately because the app is currently running.
          * If you do nothing, the update will be installed the next time the background page gets unloaded,
          * if you want it to be installed sooner you can explicitly call $(ref:runtime.reload).
@@ -425,16 +438,30 @@ export namespace Runtime {
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessage: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessageExternal: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * This will be defined during an API method callback if there was an error

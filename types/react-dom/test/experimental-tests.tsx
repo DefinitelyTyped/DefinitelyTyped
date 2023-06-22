@@ -1,10 +1,20 @@
 import ReactDOM = require('react-dom');
+import 'react/experimental';
 import 'react-dom/experimental';
 
-// NOTE: I don't know yet how to use this; this is just the type it expects
-// in reality it will do nothing because the root isn't hydrate: true
-ReactDOM.unstable_scheduleHydration(document);
+const useFormStatus = ReactDOM.experimental_useFormStatus;
 
-function updates() {
-    ReactDOM.unstable_flushControlled(() => {});
+function Status() {
+    const status = useFormStatus();
+    if (!status.pending) {
+        return <div>No pending action</div>;
+    } else {
+        const { action, data, method } = status;
+        const foo = data.get('foo');
+        return (
+            <div>{`Pending action ${
+                typeof action === 'string' ? action : action.name
+            }: foo is ${foo}, method is ${method}`}</div>
+        );
+    }
 }

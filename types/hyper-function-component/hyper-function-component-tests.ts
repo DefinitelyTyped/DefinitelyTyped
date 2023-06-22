@@ -1,11 +1,11 @@
-class Hfc implements HyperFunctionComponent {
-    static propTypes: HfcPropTypes = {
-        attrs: {},
-        events: {},
-        slots: {},
+const HFC: HyperFunctionComponent = (container, props) => {
+    return {
+        changed(props) {},
+        disconnected() {},
     };
-    constructor(props: HfcProps) {}
-    connected(container: HTMLDivElement) {}
-    changed(type: 'attr' | 'event' | 'slot', name: string, oldValue: any, newValue: any) {}
-    disconnected() {}
-}
+};
+
+HFC.tag = "div";
+HFC.hfc = "test-hfc";
+HFC.ver = "1.0.0";
+HFC.names = [[], [], []];

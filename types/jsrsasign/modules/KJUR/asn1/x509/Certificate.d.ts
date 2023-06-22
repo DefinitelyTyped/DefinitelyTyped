@@ -15,7 +15,11 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
         tbsobj: TBSCertificate;
         sighex: string;
     }
-    type X509CertificateParams = X509CertificateParamsSigned | X509CertificateParamsUnsigned | X509CertificateTBSParamsSigned | X509CertificateTBSParamsUnsigned;
+    type X509CertificateParams =
+        | X509CertificateParamsSigned
+        | X509CertificateParamsUnsigned
+        | X509CertificateTBSParamsSigned
+        | X509CertificateTBSParamsUnsigned;
 
     /**
      * X.509 Certificate class to sign and generate hex encoded certificate

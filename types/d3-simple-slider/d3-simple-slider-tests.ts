@@ -26,7 +26,7 @@ const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node(
 
 containerElement = svg;
 containerElement = g;
-// $ExpectError
+// @ts-expect-error
 containerElement = canvas; // fails, incompatible type
 
 // --------------------------------------------------------------------------
@@ -45,7 +45,7 @@ let leftSlider: d3SimpleSlider.Slider<number> = d3SimpleSlider.sliderLeft(scaleL
 leftSlider = leftSlider.domain([0, 10]);
 const domain: [number, number] = leftSlider.domain();
 
-// $ExpectError
+// @ts-expect-error
 topSlider = topSlider.domain([0]); // fails, domain incompatible with slider
 
 // ticks(...) ----------------------------------------------------------------
@@ -104,5 +104,5 @@ svgSelection.call(leftSlider);
 
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 
-// $ExpectError
+// @ts-expect-error
 canvasSelection.call(leftSlider); // fails, incompatible context container element

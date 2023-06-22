@@ -30,6 +30,7 @@ nunjucks.configure('views', {
     autoescape: true,
     watch: true,
 });
+nunjucks.configure({ dev: true });
 rendered = env.renderString(src, ctx);
 
 env.on('load', (name, source, loader) => {});
@@ -40,6 +41,7 @@ let extension: nunjucks.Extension = {
         return 'The parser api is complicated';
     },
 };
+
 env = env.addExtension('SpawnGlitter', extension);
 const hasExtension: boolean = env.hasExtension('SpawnGlitter');
 extension = env.getExtension('SpawnGlitter');

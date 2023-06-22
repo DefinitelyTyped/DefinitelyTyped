@@ -1,9 +1,9 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const ColorifyShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        color: Uniform;
+        tDiffuse: IUniform;
+        color: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

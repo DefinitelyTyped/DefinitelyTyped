@@ -113,7 +113,7 @@ topTypes[0].value; // the count of payments of that type (e.g., 8)
 
 var types = paymentCountByType.all();
 
-// $ExpectError
+// @ts-expect-error
 types.sort();
 
 types[0].key;

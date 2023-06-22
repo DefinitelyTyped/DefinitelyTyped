@@ -12,6 +12,9 @@ type ArrayType =
   | typeof Int32Array
   | typeof Float32Array
   | typeof Float64Array
+  | typeof Uint8Array
+  | typeof Uint16Array
+  | typeof Uint32Array
   | typeof Array;
 
 declare class KDBush<T> {

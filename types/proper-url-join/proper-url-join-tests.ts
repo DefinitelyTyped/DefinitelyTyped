@@ -30,5 +30,5 @@ urlJoin('foo', { query: { biz: 'buz', foo: 'bar' } }); // /foo?biz=buz&foo=bar
 // With both query string as an url part and an object
 urlJoin('foo', 'bar?queryString', { query: { biz: 'buz', foo: 'bar' } });
 
-// $ExpectError
+// @ts-expect-error
 urlJoin('foo', 'bar?queryString', { query: { biz: 'buz', foo: 'bar' } }, 'wrong');

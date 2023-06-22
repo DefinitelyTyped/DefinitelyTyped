@@ -103,6 +103,16 @@ function TestCtorMockOverloads() {
             data: 1
         }
     };
+    let putData: mock.requests.PutData<number, string> = {
+        request: {
+            path: 'path',
+            method: 'PUT',
+            data: 'data'
+        },
+        response: {
+            data: 1
+        }
+    };
     let put: mock.requests.Put<number> = {
         request: {
             path: 'path',
@@ -149,6 +159,9 @@ function TestCtorPluginOverloads() {
     };
     let del: mock.Plugin1<number> = {
         match: (mockRequest: mock.requests.Delete<number>, requestConfig: mock.requests.Delete<number>) => true
+    };
+    let putData: mock.Plugin2<number, string> = {
+        match: (mockRequest: mock.requests.PutData<number, string>, requestConfig: mock.requests.PutData<number, string>) => true
     };
     let put: mock.Plugin1<number> = {
         match: (mockRequest: mock.requests.Put<number>, requestConfig: mock.requests.Put<number>) => true
@@ -264,7 +277,7 @@ function TestGetRequestDefinitions() {
         }
     };
 
-    let getHeaders: mock.requests.Get<number> = {
+    let getRequestHeaders: mock.requests.Get<number> = {
         request: {
             path: 'path',
             method: 'GET',
@@ -277,6 +290,22 @@ function TestGetRequestDefinitions() {
         response: {
             data: 1,
             status: 500
+        }
+    };
+
+    let getResponseHeaders: mock.requests.Get<number> = {
+        request: {
+            path: 'path',
+            method: 'GET',
+            regex: true
+        },
+        response: {
+            data: 1,
+            status: 500,
+            headers: {
+                head1: 'head1',
+                head2: 'head2'
+            }
         }
     };
 
@@ -358,6 +387,20 @@ function TestPutRequestDefinitions() {
         request: {
             path: 'path',
             method: 'PUT',
+            regex: true
+        },
+        response: {
+            status: 500,
+            delay: 20,
+            data: 1
+        }
+    };
+
+    let putData: mock.requests.PutData<number, string> = {
+        request: {
+            path: 'path',
+            method: 'PUT',
+            data: 'data',
             regex: true
         },
         response: {

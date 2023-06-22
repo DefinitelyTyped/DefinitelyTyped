@@ -7,7 +7,7 @@ export default class App extends React.Component {
   render() {
     const button1 = <button>Open portal with pseudo modal</button>;
 
-    // $ExpectError
+    // @ts-expect-error
     <Portal />;
 
     return (

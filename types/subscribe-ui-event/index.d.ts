@@ -28,6 +28,7 @@ export interface SubscribeOptions {
     enableScrollInfo?: boolean | undefined;
     enableTouchInfo?: boolean | undefined;
     eventOptions?: AddEventListenerOptions | undefined;
+    target?: HTMLElement | Window | Document | null;
     throttleRate?: number | undefined;
     useRAF?: boolean | undefined;
 }

@@ -62,7 +62,7 @@ declare module '../../index' {
          *   getFrameRate().
          *
          *   Calling frameRate() with arguments that are not of
-         *   the type numbers or are non positive also returns
+         *   the type Number or are non-positive also returns
          *   current framerate.
          *   @param fps number of frames to be displayed every
          *   second
@@ -90,11 +90,21 @@ declare module '../../index' {
          *   getFrameRate().
          *
          *   Calling frameRate() with arguments that are not of
-         *   the type numbers or are non positive also returns
+         *   the type Number or are non-positive also returns
          *   current framerate.
          *   @return current frameRate
          */
         frameRate(): number;
+
+        /**
+         *   Returns _targetFrameRate variable. The default
+         *   _targetFrameRate is set to 60. This could be
+         *   changed by calling frameRate() and setting it to
+         *   the desired value. When getTargetFrameRate() is
+         *   called, it should return the value that was set.
+         *   @return _targetFrameRate
+         */
+        getTargetFrameRate(): number;
 
         /**
          *   Hides the cursor from view.
@@ -187,7 +197,7 @@ declare module '../../index' {
          *   The system variable frameCount contains the number
          *   of frames that have been displayed since the
          *   program started. Inside setup() the value is 0,
-         *   after the first iteration of draw it is 1, etc.
+         *   after the first iteration of draw() it is 1, etc.
          */
         frameCount: number;
 

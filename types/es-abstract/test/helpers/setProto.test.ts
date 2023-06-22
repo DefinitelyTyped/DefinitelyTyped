@@ -6,5 +6,6 @@ if ($setProto) {
     $setProto(any, null);
     $setProto(any, Object.prototype);
 
-    $setProto(any, 123); // $ExpectError
+    // @ts-expect-error
+    $setProto(any, 123);
 }

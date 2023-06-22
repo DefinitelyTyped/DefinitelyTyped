@@ -1,7 +1,7 @@
 import {
     DataTexture,
     Curve,
-    Uniform,
+    IUniform,
     Material,
     InstancedMesh,
     BufferGeometry,
@@ -10,11 +10,11 @@ import {
 } from '../../../src/Three';
 
 export interface SplineUniform {
-    spineTexture: Uniform;
-    pathOffset: Uniform;
-    pathSegment: Uniform;
-    spineOffset: Uniform;
-    flow: Uniform;
+    spineTexture: IUniform;
+    pathOffset: IUniform;
+    pathSegment: IUniform;
+    spineOffset: IUniform;
+    flow: IUniform;
 }
 export function initSplineTexture(size?: number): DataTexture;
 

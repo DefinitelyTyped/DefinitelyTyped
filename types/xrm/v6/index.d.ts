@@ -178,7 +178,7 @@ declare namespace Xrm
         /**
          * Interface for a matching delegate.
          *
-         * @tparam  T   Generic type parameter.
+         * @typeParam  T   Generic type parameter.
          */
         export interface MatchingDelegate<T>
         {
@@ -196,7 +196,7 @@ declare namespace Xrm
         /**
          * Interface for iterative delegate.
          *
-         * @tparam  T   Generic type parameter.
+         * @typeParam  T   Generic type parameter.
          */
         export interface IterativeDelegate<T>
         {
@@ -212,7 +212,7 @@ declare namespace Xrm
         /**
          * Interface for an item collection.
          *
-         * @tparam  T   Generic type parameter.
+         * @typeParam  T   Generic type parameter.
          */
         export interface ItemCollection<T>
         {
@@ -344,7 +344,7 @@ declare namespace Xrm
             /**
              * Gets the shared variable with the specified key.
              *
-             * @tparam  T   Generic type parameter.
+             * @typeParam  T   Generic type parameter.
              * @param   {string}    key The key.
              *
              * @return  The shared variable.
@@ -356,7 +356,7 @@ declare namespace Xrm
             /**
              * Sets a shared variable.
              *
-             * @tparam  T   Generic type parameter.
+             * @typeParam  T   Generic type parameter.
              * @param   {string}    key The key.
              * @param   {T} value       The value.
              *
@@ -656,8 +656,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Number attribute.
-         *
-         * @sa  Attribute
          */
         export interface NumberAttribute extends Attribute
         {
@@ -701,8 +699,6 @@ declare namespace Xrm
 
         /**
          * Interface for a String attribute.
-         *
-         * @sa  Attribute
          */
         export interface StringAttribute extends Attribute
         {
@@ -736,8 +732,6 @@ declare namespace Xrm
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
-         *
-         * @sa  Attribute
          */
         export interface EnumAttribute extends Attribute
         {
@@ -752,8 +746,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Boolean attribute.
-         *
-         * @sa  EnumAttribute
          */
         export interface BooleanAttribute extends EnumAttribute
         {
@@ -776,8 +768,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Date attribute.
-         *
-         * @sa  Attribute
          */
         export interface DateAttribute extends Attribute
         {
@@ -800,8 +790,6 @@ declare namespace Xrm
 
         /**
          * Interface an OptionSet attribute.
-         *
-         * @sa  EnumAttribute
          */
         export interface OptionSetAttribute extends EnumAttribute
         {
@@ -866,8 +854,6 @@ declare namespace Xrm
 
         /**
          * Interface a Lookup attribute.
-         *
-         * @sa  Attribute
          */
         export interface LookupAttribute extends Attribute
         {
@@ -1062,8 +1048,6 @@ declare namespace Xrm
 
         /**
          * Interface for Xrm.Page.ui controls.
-         *
-         * @sa  UiElement
          */
         export interface Control extends UiElement
         {
@@ -1148,15 +1132,13 @@ declare namespace Xrm
 
         /**
          * Interface for a standard control.
-         *
-         * @sa  Control
          */
         export interface StandardControl extends Control
         {
             /**
              * Gets the control's bound attribute.
              *
-             * @tparam  T   An Attribute type.
+             * @typeParam  T   An Attribute type.
              *
              * @return  The attribute.
              */
@@ -1172,8 +1154,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Date control.
-         *
-         * @sa  StandardControl
          */
         export interface DateControl extends StandardControl
         {
@@ -1194,8 +1174,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Lookup control.
-         *
-         * @sa  StandardControl
          */
         export interface LookupControl extends StandardControl
         {
@@ -1209,8 +1187,6 @@ declare namespace Xrm
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
              * Can only be used within a "pre search" event handler
-             *
-             * @sa addPreSearch
              *
              * @param   {string}    filter              Specifies the filter, as a serialized FetchXML
              *                                          "filter" node.
@@ -1277,8 +1253,6 @@ declare namespace Xrm
 
         /**
          * Interface for an OptionSet control.
-         *
-         * @sa  StandardControl
          */
         export interface OptionSetControl extends StandardControl
         {
@@ -1315,8 +1289,6 @@ declare namespace Xrm
 
         /**
          * Interface for a CRM grid control.
-         *
-         * @sa  Control
          */
         export interface GridControl extends Control
         {
@@ -1330,8 +1302,6 @@ declare namespace Xrm
 
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
-         *
-         * @sa  Control
          *
          * @remarks     An Iframe control provides additional methods, so use {@link IframeControl} where
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
@@ -1368,8 +1338,6 @@ declare namespace Xrm
 
         /**
          * Interface for an Iframe control.
-         *
-         * @sa  FramedControl
          */
         export interface IframeControl extends FramedControl
         {
@@ -1385,8 +1353,6 @@ declare namespace Xrm
 
         /**
          * Interface for a Silverlight control.
-         *
-         * @sa  Control
          */
         export interface SilverlightControl extends Control
         {
@@ -1420,9 +1386,6 @@ declare namespace Xrm
 
         /**
          * Interface for a form tab.
-         *
-         * @sa  UiElement
-         * @sa  UiFocusable
          */
         export interface Tab extends UiElement, UiFocusable
         {
@@ -1476,8 +1439,6 @@ declare namespace Xrm
 
         /**
          * Interface for a form section.
-         *
-         * @sa  UiElement
          */
         export interface Section extends UiElement
         {
@@ -1631,9 +1592,6 @@ declare namespace Xrm
 
         /**
          * Interface for a navigation item.
-         *
-         * @sa  UiElement
-         * @sa  UiFocusable
          */
         export interface NavigationItem extends UiElement, UiFocusable
         {
@@ -1726,7 +1684,7 @@ declare namespace Xrm
         /**
          * Gets an attribute matching attributeName.
          *
-         * @tparam  T   An Attribute type.
+         * @typeParam  T   An Attribute type.
          * @param   {string}    attributeName   Name of the attribute.
          *
          * @return  The attribute.
@@ -1770,7 +1728,7 @@ declare namespace Xrm
         /**
          * Gets a control matching controlName.
          *
-         * @tparam  T   A Control type
+         * @typeParam  T   A Control type
          * @param   {string}    controlName Name of the control.
          *
          * @return  The control.

@@ -12,7 +12,7 @@
  * Copyright (c) 2018 https://propelmypr.com
  */
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = InboxSDK;
 export as namespace InboxSDK;
 
@@ -513,7 +513,7 @@ declare namespace InboxSDK {
       getTitle(): string;
 
       /**
-       * @deprecated. Use AttachmentCardClickEvent.getDownloadURL() instead
+       * @deprecated Use AttachmentCardClickEvent.getDownloadURL() instead
        */
       getDownloadURL(): Promise<string>;
 
@@ -633,13 +633,13 @@ declare namespace InboxSDK {
       registerThreadButton(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
 
       /**
-       * @deprecated. use registerThreadButton
+       * @deprecated use registerThreadButton
        * @param toolbarButtonDescriptor
        */
       registerToolbarButtonForList(toolbarButtonDescriptor: LegacyToolbarButtonDescriptor): () => void;
 
       /**
-       * @deprecated. use registerThreadButton
+       * @deprecated use registerThreadButton
        * @param toolbarButtonDescriptor
        */
       registerToolbarButtonForThreadView(toolbarButtonDescriptor: LegacyToolbarButtonDescriptor): () => void;

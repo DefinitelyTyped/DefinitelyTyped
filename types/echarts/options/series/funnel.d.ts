@@ -93,6 +93,15 @@ declare namespace echarts {
             maxSize?: string | undefined;
 
             /**
+             * Orient of funnel，Can be 'vertical' or 'horizontal'.
+             *
+             * @default
+             * "vertical"
+             * @see https://echarts.apache.org/v4/en/option.html#series-funnel.orient
+             */
+            origin?: string | undefined;
+
+            /**
              * Data sorting, which can be whether `'ascending'`, `'descending'`,
              * `'none'`(in data order) or a function, which is the same as `Array.prototype.sort(function
              * (a, b) { ... })`;
@@ -2247,6 +2256,103 @@ declare namespace echarts {
                     } | undefined;
                 } | undefined;
             } | undefined;
+
+            /**
+             * `zlevel` value of all graphical elements in .
+             *
+             * `zlevel` is used to make layers with Canvas. Graphical elements with different
+             * `zlevel` values will be placed in different Canvases, which is a common optimization technique.
+             * We can put those frequently changed elements (like those with animations) to a separate `zlevel`.
+             * Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.
+             *
+             * Canvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.
+             *
+             * @see https://echarts.apache.org/en/option.html#series-funnel.zlevel
+             */
+            zlevel?: number | undefined;
+
+            /**
+             * `z` value of all graphical elements in , which controls order of drawing graphical components.
+             * Components with smaller `z` values may be overwritten by those with larger `z` values.
+             *
+             * `z` has a lower priority to `zlevel`, and will not create new Canvas.
+             *
+             * @see https://echarts.apache.org/en/option.html#series-funnel.z
+             */
+            z?: number | undefined;
+
+            /**
+             * Distance between funnel chart component and the left side of the container.
+             *
+             * `left` value can be instant pixel value like `20`;
+             * it can also be a percentage value relative to container width like `'20%'`;
+             * and it can also be `'left'`, `'center'`, or `'right'`.
+             *
+             * If the `left` value is set to be `'left'`, `'center'`, or `'right'`,
+             * then the component will be aligned automatically based on position.
+             *
+             * @default
+             * '80'
+             * @see https://echarts.apache.org/en/option.html#series-funnel.left
+             */
+            left?: string | number | undefined;
+
+            /**
+             * Distance between funnel chart component and the top side of the container.
+             *
+             * `top` value can be instant pixel value like `20`;
+             * it can also be a percentage value relative to container width like `'20%'`;
+             * and it can also be `'top'`, `'middle'`, or `'bottom'`.
+             *
+             * If the left value is set to be `'top'`, `'middle'`, or `'bottom'`,
+             * then the component will be aligned automatically based on position.
+             *
+             * @default
+             * '60'
+             * @see https://echarts.apache.org/en/option.html#series-funnel.top
+             */
+            top?: string | number | undefined;
+
+            /**
+             * Distance between funnel chart component and the right side of the container.
+             *
+             * `right` value can be instant pixel value like `20`;
+             * it can also be a percentage value relative to container width like `'20%'`.
+             *
+             * @default
+             * '80'
+             * @see https://echarts.apache.org/en/option.html#series-funnel.right
+             */
+            right?: string | number | undefined;
+
+            /**
+             * Distance between funnel chart component and the bottom side of the container.
+             * `bottom` value can be instant pixel value like `20`;
+             * it can also be a percentage value relative to container width like `'20%'`.
+             *
+             * @default
+             * '60'
+             * @see https://echarts.apache.org/v4/en/option.html#series-funnel.bottom
+             */
+            bottom?: string | number | undefined;
+
+            /**
+             * Width of funnel chart component. Adaptive by default.
+             *
+             * @default
+             * "auto"
+             * @see https://echarts.apache.org/en/option.html#series-funnel.width
+             */
+            width?: string | number | undefined;
+
+            /**
+             * Height of funnel chart component. Adaptive by default.
+             *
+             * @default
+             * "auto"
+             * @see https://echarts.apache.org/en/option.html#series-funnel.height
+             */
+            height?: string | number | undefined;
 
             /**
              * When

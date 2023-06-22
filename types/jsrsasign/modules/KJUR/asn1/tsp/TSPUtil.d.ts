@@ -33,9 +33,7 @@ declare namespace jsrsasign.KJUR.asn1.tsp {
      *  nonce: '9abcf318...',            // nonce (OPTION)
      *  certreq: true}                   // certReq (OPTION)
      */
-    function parseTimeStampReq(
-        reqHex: string,
-    ): {
+    function parseTimeStampReq(reqHex: string): {
         mi: MessageImprint;
         policy?: string | undefined;
         nonce?: string | undefined;

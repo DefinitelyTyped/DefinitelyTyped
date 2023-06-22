@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "dt-header": false,
         "max-line-length": false,
         "no-duplicate-variable": false,
         "no-empty-interface": false,

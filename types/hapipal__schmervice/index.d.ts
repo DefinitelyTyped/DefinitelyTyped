@@ -1,6 +1,7 @@
 // Type definitions for @hapipal/schmervice 2.0
 // Project: https://github.com/hapipal/schmervice#readme
 // Definitions by: Tim Costa <https://github.com/timcosta>
+//                 Danilo Alonso <https://github.com/damusix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -66,18 +67,55 @@ export interface RegisteredServices {
     [key: string]: Service;
 }
 
+/**
+ * Server decorator for getting services scoped to the
+ * current plugin realm using `server.services()`,
+ * or services registered on the server using `server.services(true)`,
+ * or services scoped to plugin namespace using `server.services('namespace')`.
+ *
+ *
+ *
+ * This interface can be overwritten to modify what you want your namespace
+ * to actually return. For example:
+ *
+ * @example
+ *
+ * declare module '@hapipal/schmervice' {
+ *    type AuthServices = {
+ *        Members: Service
+ *        Admin: Service
+ *        Mananger: Service
+ *    }
+ *
+ *    type OathServices = {
+ *        Witness: Service
+ *        Promissory: Service
+ *        CrownCourt: Service
+ *    }
+ *
+ *    interface SchmerviceDecorator {
+ *        (namespace: 'auth'): AuthServices
+ *        (namespace: 'oath'): OathServices
+ *    }
+ * }
+ *
+ */
+ export interface SchmerviceDecorator {
+    (all?: boolean | string): RegisteredServices;
+}
+
 // sets up types for the functions added via hapi decorations
 declare module '@hapi/hapi' {
     interface Server {
         registerService: (config: RegisterServiceConfiguration) => void;
-        services: (all?: boolean) => RegisteredServices;
+        services: SchmerviceDecorator;
     }
 
     interface Request {
-        services: (all?: boolean) => RegisteredServices;
+        services: SchmerviceDecorator;
     }
 
     interface ResponseToolkit {
-        services: (all?: boolean) => RegisteredServices;
+        services: SchmerviceDecorator;
     }
 }

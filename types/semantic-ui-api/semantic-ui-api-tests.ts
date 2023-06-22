@@ -136,8 +136,10 @@ function test_api() {
     });
     $(selector).api(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).api('foo'); // $ExpectError
-    $(selector).api({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).api('foo');
+    // @ts-expect-error
+    $(selector).api({ foo: 'bar' });
 }
 
 function creating_an_api() {

@@ -6,6 +6,8 @@ declare namespace children {
      * concatenation of its values.
      *
      * @param blockNodes - Block nodes to concatenate.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function concat(...blockNodes: ReactChild[]): ReactChild[];
 
@@ -14,6 +16,8 @@ declare namespace children {
      * Ignores any non-element/text nodes included in set.
      *
      * @param domNodes - list of DOM nodes to convert.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function fromDOM(domNodes: ArrayLike<Node>): ReactChild[];
 
@@ -21,6 +25,8 @@ declare namespace children {
      * Given block children, returns an array of block nodes.
      *
      * @param children - Block children object to convert.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function getChildrenArray(children: ReactChild[]): ReactChild[];
 
@@ -29,6 +35,8 @@ declare namespace children {
      * matching the selector result.
      *
      * @param selector - DOM selector.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function matcher(selector: string): (domNode: Node & ParentNode) => ReactChild[];
 
@@ -36,6 +44,8 @@ declare namespace children {
      * Given a block node, returns its HTML string representation.
      *
      * @param children - Block node(s) to convert to string.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function toHTML(children: ReactChild[]): string;
 }

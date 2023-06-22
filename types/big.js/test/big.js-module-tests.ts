@@ -6,7 +6,7 @@
   Minor changes have been made such as adding variable definitions where required.
 */
 
-import { Big, RoundingMode } from "big.js";
+import { Big, RoundingMode } from 'big.js';
 
 function constructorTests() {
     const x: Big = new Big(9); // '9'
@@ -117,7 +117,7 @@ function powTests() {
     Big(3).pow(-2); // '0.11111111111111111111'
 
     new Big(123.456).pow(1000).toString().length; // 5099
-    new Big(2).pow(1e+6); // Time taken (Node.js): 9 minutes 34 secs.
+    new Big(2).pow(1e6); // Time taken (Node.js): 9 minutes 34 secs.
 }
 
 function precTests() {
@@ -318,7 +318,7 @@ function toJSONTests() {
 
     const a = new Big('123').toJSON();
 
-    JSON.parse(str, (k, v)  => k === '' ? v : new Big(v)); // Returns an array of three Big numbers.
+    JSON.parse(str, (k, v) => (k === '' ? v : new Big(v))); // Returns an array of three Big numbers.
 }
 
 // test Big.c
@@ -356,11 +356,7 @@ function testMultipleConstructors() {
 }
 
 function multipleTypesAccepted(n: number | Big | string) {
-    const y = Big(n)
-        .minus(n)
-        .mod(n)
-        .plus(n)
-        .times(n);
+    const y = Big(n).minus(n).mod(n).plus(n).times(n);
     y.cmp(n);
     y.eq(n);
     y.gt(n);

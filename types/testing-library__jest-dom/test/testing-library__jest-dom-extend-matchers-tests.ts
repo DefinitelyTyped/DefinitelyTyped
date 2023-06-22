@@ -1,10 +1,12 @@
-import matchers, { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers';
+import matchers = require('@testing-library/jest-dom/matchers');
 
 const element: HTMLElement = document.body;
 
 expect.extend(matchers);
 
-function customExpect(actual: HTMLElement): TestingLibraryMatchers<any, void> | TestingLibraryMatchers<any, Promise<void>> {
+function customExpect(
+    actual: HTMLElement,
+): matchers.TestingLibraryMatchers<any, void> | matchers.TestingLibraryMatchers<any, Promise<void>> {
     throw new Error('Method not implemented.');
 }
 

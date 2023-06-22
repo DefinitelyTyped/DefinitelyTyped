@@ -3,7 +3,8 @@ import parse = require('parse-git-config');
 parse({ cwd: 'foo' });
 parse({ path: '.git/config' });
 parse({ type: 'global' });
-parse({ type: 'foo' }); // $ExpectError
+// @ts-expect-error
+parse({ type: 'foo' });
 parse({ include: true });
 parse({ expandKeys: true });
 
@@ -49,5 +50,7 @@ parse.resolveConfigPath('foo'); // $ExpectType string | null
 parse.resolveConfigPath({ cwd: 'foo' }); // $ExpectType string | null
 parse.resolveConfigPath({ path: '.git/config' }); // $ExpectType string | null
 parse.resolveConfigPath({ type: 'global' }); // $ExpectType string | null
-parse.resolveConfigPath({ type: 'foo' }); // $ExpectError
-parse.resolveConfigPath({ include: true }); // $ExpectError
+// @ts-expect-error
+parse.resolveConfigPath({ type: 'foo' });
+// @ts-expect-error
+parse.resolveConfigPath({ include: true });

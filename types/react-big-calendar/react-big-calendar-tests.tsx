@@ -7,9 +7,8 @@ import {
     globalizeLocalizer,
     dateFnsLocalizer,
     luxonLocalizer,
-    move,
+    dayjsLocalizer,
     Views,
-    components,
     Navigate,
     View,
     DateRange,
@@ -19,7 +18,6 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture,
-    DayLayoutAlgorithm,
     DayLayoutFunction,
     stringOrDate,
     ViewProps,
@@ -28,6 +26,7 @@ import {
     Week,
     HeaderProps,
     DateHeaderProps,
+    ResourceHeaderProps,
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -36,6 +35,7 @@ declare const globalize: any;
 declare const moment: any;
 declare const dateFnsConfig: any;
 declare const luxonConfig: any;
+declare const dayjs: any;
 
 declare const allViews: View[];
 
@@ -151,14 +151,35 @@ class CalendarResource {
         />
     );
 
-    const localizer = luxonLocalizer(luxonConfig);
+    const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// dayjs Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
+
+    const localizer = dayjsLocalizer(dayjs);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
 // Drag and Drop Example Test
 {
-    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> { }
 
     interface Props {
         localizer: DateLocalizer;
@@ -265,7 +286,7 @@ class CalendarResource {
 }
 
 {
-    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> { }
 
     // Full API Example Test - based on API Documentation
     // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
@@ -278,15 +299,15 @@ class CalendarResource {
                     getNow={() => new Date()}
                     view={'day'}
                     events={getEvents()}
-                    onNavigate={(newDate: Date, view: View, action: NavigateAction) => {}}
-                    onView={(view: View) => {}}
+                    onNavigate={(newDate: Date, view: View, action: NavigateAction) => { }}
+                    onView={(view: View) => { }}
                     onSelectSlot={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
                         const slots = slotInfo.slots;
                     }}
-                    onSelectEvent={event => {}}
-                    onKeyPressEvent={event => {}}
+                    onSelectEvent={event => { }}
+                    onKeyPressEvent={event => { }}
                     onSelecting={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
@@ -314,6 +335,7 @@ class CalendarResource {
                     min={new Date()}
                     max={new Date()}
                     scrollToTime={new Date()}
+                    enableAutoScroll={false}
                     formats={{
                         dateFormat: 'h a',
                         agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
@@ -350,6 +372,7 @@ class CalendarResource {
                         toolbar: Toolbar,
                         eventWrapper: EventWrapper,
                         header: CustomHeader,
+                        resourceHeader: ResourceHeader,
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -506,6 +529,15 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
+function ResourceHeader(props: ResourceHeaderProps<CalendarResource>) {
+    return (
+        <span>
+            <strong>{props.resource.title}</strong>
+            {props.resource.id}
+        </span>
+    );
+}
+
 class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
@@ -651,4 +683,20 @@ class MyDay extends Day {
     const DAYView = () => <Calendar defaultView={Views.DAY} localizer={localizer} />;
 
     const AgendaView = () => <Calendar defaultView={Views.AGENDA} localizer={localizer} />;
+}
+
+// DateLocalizer API
+{
+    const localizer = luxonLocalizer(moment);
+    const date = new Date(2022, 11, 1);
+
+    // $ExpectType StartOfWeek
+    const firstOfWeek = localizer.startOfWeek('en');
+    // $ExpectType Date
+    localizer.startOf(date, 'week', firstOfWeek);
+    // $ExpectType Date
+    localizer.endOf(date, 'week', firstOfWeek);
+
+    // $ExpectType Date[]
+    localizer.range(new Date(2022, 11, 1), new Date(2022, 11, 3));
 }

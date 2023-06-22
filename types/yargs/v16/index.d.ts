@@ -149,7 +149,7 @@ declare namespace yargs {
             description: string,
             builder?: BuilderCallback<T, U>,
             handler?: (args: Arguments<U>) => void,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
         ): Argv<U>;
         command<O extends { [key: string]: Options }>(
@@ -157,7 +157,7 @@ declare namespace yargs {
             description: string,
             builder?: O,
             handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
@@ -166,7 +166,7 @@ declare namespace yargs {
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
             handler?: (args: Arguments<U>) => void,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
         ): Argv<T>;
         command<O extends { [key: string]: Options }>(

@@ -7,7 +7,8 @@ list; // $ExpectType List<string>
 FastList<number>(); // $ExpectType List<number>
 
 list.length; // $ExpectType number
-list.length = 1; // $ExpectError
+// @ts-expect-error
+list.length = 1;
 
 list.push('foo');
 list.pop(); // $ExpectType string | undefined

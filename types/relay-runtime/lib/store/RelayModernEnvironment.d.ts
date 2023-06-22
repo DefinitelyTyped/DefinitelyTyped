@@ -19,8 +19,9 @@ import {
 import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
 import { TaskScheduler } from './RelayModernQueryExecutor';
 import { RelayOperationTracker } from './RelayOperationTracker';
-import { Disposable } from '../util/RelayRuntimeTypes';
+import { Disposable, RenderPolicy } from '../util/RelayRuntimeTypes';
 import { RelayObservable } from '../network/RelayObservable';
+import type { GetDataID } from './RelayResponseNormalizer';
 
 export interface EnvironmentConfig {
     readonly configName?: string | undefined;
@@ -33,9 +34,12 @@ export interface EnvironmentConfig {
     readonly store: Store;
     readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null | undefined;
     readonly operationTracker?: OperationTracker | null | undefined;
+    readonly getDataID?: GetDataID | null | undefined;
+    readonly UNSTABLE_defaultRenderPolicy?: RenderPolicy | null | undefined;
     readonly options?: unknown | undefined;
     readonly isServer?: boolean | undefined;
     readonly requiredFieldLogger?: RequiredFieldLogger | null | undefined;
+    readonly shouldProcessClientComponents?: boolean | null | undefined;
 }
 
 export default class RelayModernEnvironment implements Environment {

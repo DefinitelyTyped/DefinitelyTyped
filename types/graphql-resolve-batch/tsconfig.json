@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "esnext.asynciterable"],
+        "lib": ["es2018"],
         "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,

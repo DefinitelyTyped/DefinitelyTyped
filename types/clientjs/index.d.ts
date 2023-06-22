@@ -1,9 +1,9 @@
-// Type definitions for clientjs 0.1
+// Type definitions for clientjs 0.2
 // Project: https://clientjs.org
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class ClientJS {
+export class ClientJS {
     constructor();
 
     /** @return A string containing this software version number. */
@@ -186,6 +186,3 @@ declare class ClientJS {
     /** @return A string containing canvas image information */
     getCanvasPrint(): string;
 }
-
-export = ClientJS;
-export as namespace ClientJS;

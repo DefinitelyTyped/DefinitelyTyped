@@ -72,6 +72,7 @@ bootbox.prompt({
 });
 bootbox.prompt({
     title: "This is a prompt with a set of checkbox inputs!",
+    message: '<p>Please select an option below:</p>',
     inputType: 'checkbox',
     inputOptions: [
         {

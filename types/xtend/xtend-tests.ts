@@ -72,6 +72,9 @@ function assign(): object {
     );
 }
 
-xtend(1, 2, 3); // $ExpectError
-xtend({}, 1); // $ExpectError
-xtend({}, {}, {}, {}, {}, 1); // $ExpectError
+// @ts-expect-error
+xtend(1, 2, 3);
+// @ts-expect-error
+xtend({}, 1);
+// @ts-expect-error
+xtend({}, {}, {}, {}, {}, 1);

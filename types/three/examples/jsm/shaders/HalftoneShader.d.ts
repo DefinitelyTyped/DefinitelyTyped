@@ -1,20 +1,20 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const HalftoneShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        shape: Uniform;
-        radius: Uniform;
-        rotateR: Uniform;
-        rotateG: Uniform;
-        rotateB: Uniform;
-        scatter: Uniform;
-        width: Uniform;
-        height: Uniform;
-        blending: Uniform;
-        blendingMode: Uniform;
-        greyscale: Uniform;
-        disable: Uniform;
+        tDiffuse: IUniform;
+        shape: IUniform;
+        radius: IUniform;
+        rotateR: IUniform;
+        rotateG: IUniform;
+        rotateB: IUniform;
+        scatter: IUniform;
+        width: IUniform;
+        height: IUniform;
+        blending: IUniform;
+        blendingMode: IUniform;
+        greyscale: IUniform;
+        disable: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

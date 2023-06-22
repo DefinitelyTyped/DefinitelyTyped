@@ -80,7 +80,7 @@ const images: Carousel.Images = [
 </Carousel>;
 
 // Carousel without the images props should be an error
-// $ExpectError
+// @ts-expect-error
 <Carousel />;
 
 // Carousel without images but with children should work normally
@@ -89,7 +89,7 @@ const images: Carousel.Images = [
 </Carousel>;
 
 // Image object without the required src should be an error
-// $ExpectError
+// @ts-expect-error
 <Carousel images={[{ alt: 'alt description' }]} />;
 
 // Should support new params on the onIndexChange callback

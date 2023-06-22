@@ -1,8 +1,0 @@
-src/dataprocessor/xmldataprocessor.d.ts
-src/model/operation/attributeoperation.d.ts
-src/model/operation/detachoperation.d.ts
-src/model/operation/mergeoperation.d.ts
-src/model/operation/nooperation.d.ts
-src/model/operation/renameoperation.d.ts
-src/model/operation/rootattributeoperation.d.ts
-src/model/operation/splitoperation.d.ts

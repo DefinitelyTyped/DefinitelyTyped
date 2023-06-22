@@ -1,7 +1,6 @@
 import { Material, MaterialParameters } from './Material';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
-import { ColorRepresentation } from '../utils';
 
 export interface PointsMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -9,6 +8,7 @@ export interface PointsMaterialParameters extends MaterialParameters {
     alphaMap?: Texture | null | undefined;
     size?: number | undefined;
     sizeAttenuation?: boolean | undefined;
+    fog?: boolean | undefined;
 }
 
 export class PointsMaterial extends Material {
@@ -43,6 +43,12 @@ export class PointsMaterial extends Material {
      * @default true
      */
     sizeAttenuation: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: PointsMaterialParameters): void;
 }

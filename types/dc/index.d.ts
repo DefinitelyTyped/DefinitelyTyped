@@ -1,4 +1,4 @@
-// Type definitions for DCJS
+// Type definitions for dc 4.2
 // Project: https://github.com/dc-js/dc.js
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 //                 matt traynham <https://github.com/mtraynham>
@@ -67,12 +67,6 @@ declare namespace dc {
         trigger(closure: () => void, delay?: number): void;
     }
 
-    export interface Errors {
-        Exception(msg: string): void;
-        InvalidStateException(): void;
-        BadArgumentException(): void;
-    }
-
     export interface Filter {
         isFiltered(value: any): boolean;
     }
@@ -94,6 +88,8 @@ declare namespace dc {
     }
 
     export interface Config {
+        disableTransitions: boolean
+        dateFormat: (date: Date) => string;
         defaultColors(colors?: Array<string>): Array<string> | Config;
     }
 
@@ -120,7 +116,7 @@ declare namespace dc {
         constant(x: any): () => any;
         uniqueId(): number;
         nameToId(name: string): string;
-        appendOrSelect(parent: d3.Selection<any>, selector: string, tag: string): d3.Selection<any>;
+        appendOrSelect(parent: d3.Selection<d3.BaseType, any, d3.BaseType, any>, selector: string, tag: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         safeNumber(n: any): number;
         arraysEqual(a1: Array<any> | null, a2: Array<any> | null): boolean;
     }
@@ -158,12 +154,12 @@ declare namespace dc {
         group: IBiGetSet<any, string, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
         filterAll(): void;
-        select(selector: d3.Selection<any> | string): d3.Selection<any>;
-        selectAll(selector: d3.Selection<any> | string): d3.Selection<any>;
-        anchor(anchor: BaseMixin<any> | d3.Selection<any> | string, chartGroup?: string): d3.Selection<any>;
+        select(selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        selectAll(selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        anchor(anchor: BaseMixin<any> | d3.Selection<d3.BaseType, any, d3.BaseType, any> | string, chartGroup?: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         anchorName(): string;
-        svg: IGetSet<d3.Selection<any>, d3.Selection<any>>;
-        resetSvg(): void;
+        svg: IGetSet<d3.Selection<d3.BaseType, any, d3.BaseType, any>, d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
+        resetSvg(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         filterPrinter: IGetSet<(filters: Array<any>) => string, T>;
         controlsUseVisibility: IGetSet<boolean, T>;
         turnOnControls(): void;
@@ -178,6 +174,7 @@ declare namespace dc {
         addFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         resetFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         filter: IGetSet<any, T>;
+        replaceFilter: IGetSet<any, T>;
         filters(): Array<any>;
         onClick(datum: any): void;
         filterHandler: IGetSet<(dimension: any, filter: any) => any, T>;
@@ -232,12 +229,12 @@ declare namespace dc {
         rangeChart: IGetSet<BaseMixin<any>, T>;
         zoomScale: IGetSet<Array<any>, T>;
         zoomOutRestrict: IGetSet<boolean, T>;
-        g: IGetSet<d3.Selection<any>, T>;
+        g: IGetSet<d3.Selection<d3.BaseType, any, d3.BaseType, any>, T>;
         mouseZoomable: IGetSet<boolean, T>;
-        chartBodyG(): d3.Selection<any>;
+        chartBodyG(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         x: IGetSet<(n: any) => any, T>;
         xUnits: IGetSet<UnitFunction, T>;
-        xAxis: IGetSet<d3.svg.Axis, T>;
+        xAxis: IGetSet<d3.Axis<any>, T>;
         elasticX: IGetSet<boolean, T>;
         xAxisPadding: IGetSet<number, T>;
         xUnitCount(): number;
@@ -246,7 +243,7 @@ declare namespace dc {
         xAxisLabel: IBiGetSet<string, number, T>;
         yAxisLabel: IBiGetSet<string, number, T>;
         y: IGetSet<Scale<number>, T>;
-        yAxis: IGetSet<d3.svg.Axis, T>;
+        yAxis: IGetSet<d3.Axis<any>, T>;
         elasticY: IGetSet<boolean, T>;
         renderHorizontalGridLines: IGetSet<boolean, T>;
         renderVerticalGridLines: IGetSet<boolean, T>;
@@ -267,7 +264,7 @@ declare namespace dc {
         hideStack(name: string): void;
         showStack(name: string): void;
         // title(stackName: string, titleFn: Accessor<any, T>);
-        stackLayout: IGetSet<d3.layout.Stack<any[], any>, T>;
+        stackLayout: IGetSet<d3.Stack<any, any, any>, T>;
     }
 
     export interface CapMixin<T> {
@@ -377,7 +374,7 @@ declare namespace dc {
         shareTitle: IGetSet<boolean, ICompositeChart<T>>;
         rightY: IGetSet<(n: any) => any, ICompositeChart<T>>;
         alignYAxes: IGetSet<boolean, ICompositeChart<T>>;
-        rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
+        rightYAxis: IGetSet<d3.Axis<any>, ICompositeChart<T>>;
     }
 
     export interface CompositeChart extends ICompositeChart<CompositeChart> { }
@@ -397,9 +394,9 @@ declare namespace dc {
 
     export interface GeoChoroplethChart extends ColorMixin<GeoChoroplethChart>, BaseMixin<GeoChoroplethChart> {
         overlayGeoJson(json: any, name: string, keyAccessor: Accessor<any, any>): GeoChoroplethChart;
-        projection: IGetSet<d3.geo.Projection, GeoChoroplethChart>;
+        projection: IGetSet<d3.GeoProjection, GeoChoroplethChart>;
         geoJsons(): Array<GeoChoroplethLayer>;
-        geoPath(): d3.geo.Path;
+        geoPath(): d3.GeoPath;
         removeGeoJson(name: string): GeoChoroplethChart;
     }
 
@@ -410,7 +407,7 @@ declare namespace dc {
     export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
         x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
-        xAxis: IGetSet<d3.svg.Axis, RowChart>;
+        xAxis: IGetSet<d3.Axis<any>, RowChart>;
         fixedBarHeight: IGetSet<boolean | number, RowChart>;
         gap: IGetSet<number, RowChart>;
         elasticX: IGetSet<boolean, RowChart>;
@@ -420,12 +417,12 @@ declare namespace dc {
     }
 
     export interface ScatterPlot extends CoordinateGridMixin<ScatterPlot> {
-        resetSvg(): d3.svg.Symbol<any>;
+        resetSvg(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         resizeCanvas(): void;
         useCanvas: IGetSet<boolean, ScatterPlot>;
-        canvas: IGetSet<d3.Selection<any>, ScatterPlot>;
+        canvas: IGetSet<d3.Selection<d3.BaseType, any, d3.BaseType, any>, ScatterPlot>;
         existenceAccessor: IGetSet<Accessor<any, boolean>, ScatterPlot>;
-        symbol: IGetSet<d3.svg.Symbol<any>, ScatterPlot>;
+        symbol: IGetSet<d3.Symbol<any, any>, ScatterPlot>;
         customSymbol: IGetSet<string | Function, ScatterPlot>;
         symbolSize: IGetSet<number, ScatterPlot>;
         highlightedSize: IGetSet<number, ScatterPlot>;
@@ -519,17 +516,26 @@ declare namespace dc {
         refocusAll(group?: string): void;
         renderAll(group?: string): void;
         redrawAll(group?: string): void;
-        disableTransitions: boolean;
-        transition(selections: d3.Selection<any>, duration?: number | Function, delay?: number | Function, name?: string): d3.Transition<any> | d3.Selection<any>;
-        optionalTransition(enable: boolean, duration?: number | Function, delay?: number | Function, name?: string): (selection: d3.Selection<any>) => Base['transition'] | d3.Selection<any>;
-        afterTransition(transition: d3.Transition<any>,  callback: (transition: d3.Transition<any>) => void): void;
+        transition(
+            selections: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+            duration?: number | Function,
+            delay?: number | Function,
+            name?: string
+        ): d3.Transition<d3.BaseType, any, d3.BaseType, any> | d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        optionalTransition(
+            enable: boolean,
+            duration?: number | Function,
+            delay?: number | Function, name?: string
+        ): (selection: d3.Selection<d3.BaseType, any, d3.BaseType, any>) => Base['transition'] | d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        afterTransition(transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>,  callback: (transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>) => void): void;
 
         units: Units;
         round: Round;
         override(obj: any, functionName: string, newFunction: Function): void;
         instanceOfChart(object: any): boolean;
-        errors: Errors;
-        dateFormat: d3.time.Format;
+        Exception(msg: string): void;
+        InvalidStateException(): void;
+        BadArgumentException(): void;
         printers: Printers;
         pluck(n: string, f?: Accessor<any, any>): Accessor<any, any>;
         utils: Utils;
@@ -540,8 +546,8 @@ declare namespace dc {
         // http://dc-js.github.io/dc.js/docs/html/core.js.html, Line 20
         version: string;
 
-        pieChart(parent: string | Node | d3.Selection<any>, chartGroup?: string): PieChart;
-        sunburstChart(parent: string | Node | d3.Selection<any>, chartGroup?: string): SunburstChart;
+        pieChart(parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>, chartGroup?: string): PieChart;
+        sunburstChart(parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>, chartGroup?: string): SunburstChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.barChart.html
         barChart(parent: string | CompositeChart, chartGroup?: string): BarChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.lineChart.html

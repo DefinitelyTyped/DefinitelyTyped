@@ -59,7 +59,8 @@ import * as R from 'ramda';
     const cars: Car[] = [{ speed: 65 }, {}];
     for (const car of cars) {
         if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
-            drive(car); // $ExpectError
+            // @ts-expect-error
+            drive(car);
             // Generic Curry solved a previously non reported issue
         }
     }

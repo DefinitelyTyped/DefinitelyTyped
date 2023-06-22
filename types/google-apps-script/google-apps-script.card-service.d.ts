@@ -1,11 +1,3 @@
-// Type definitions for Google Apps Script 2021-01-24
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 Safal Pillai <https://github.com/malienist>
-//                 Oleg Valter <https://github.com/Oaphi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.conference-data.d.ts" />
 /// <reference path="google-apps-script.gmail.d.ts" />
@@ -66,6 +58,16 @@ declare namespace GoogleAppsScript {
       setNotification(notification: Notification): ActionResponseBuilder;
       setOpenLink(openLink: OpenLink): ActionResponseBuilder;
       setStateChanged(stateChanged: boolean): ActionResponseBuilder;
+    }
+    /**
+     * Represents an attachment created by an add-on. This can be used within the context of different
+     * Google extensibility products to generate new attachments, such as for Calendar events.
+     */
+    interface Attachment {
+      setIconUrl(iconUrl: string): Attachment;
+      setMimeType(mimeType: string): Attachment;
+      setResourceUrl(resourceUrl: string): Attachment;
+      setTitle(title: string): Attachment;
     }
     /**
      * An authorization action that will send the user to the AuthorizationUrl when clicked.
@@ -266,6 +268,7 @@ declare namespace GoogleAppsScript {
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
       newActionResponseBuilder(): ActionResponseBuilder;
+      newAttachment(): Attachment;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
       /**
@@ -826,6 +829,7 @@ declare namespace GoogleAppsScript {
      * A builder for CalendarEventActionResponse objects.
      */
     interface CalendarEventActionResponseBuilder {
+      addAttachments(attachments: Attachment[]): CalendarEventActionResponseBuilder;
       addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
       build(): CalendarEventActionResponse;
       setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;

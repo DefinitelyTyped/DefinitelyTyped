@@ -1,7 +1,6 @@
 // Type definitions for escape-html 1.0
 // Project: https://github.com/component/escape-html
-// Definitions by: Elisée MAURER <https://github.com/elisee>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

@@ -9,8 +9,8 @@
 
 import { Readable } from 'stream';
 import express = require('express');
-import * as RDF from 'rdf-js';
-import DatasetExt = require('rdf-ext/lib/Dataset');
+import * as RDF from '@rdfjs/types';
+import DatasetExt from 'rdf-ext/lib/Dataset';
 import { GraphPointer } from 'clownface';
 import middleware = require('./middleware');
 import { Api } from './Api';

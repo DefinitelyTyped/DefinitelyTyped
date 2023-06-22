@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-trailing-whitespace": false,
@@ -15,7 +14,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

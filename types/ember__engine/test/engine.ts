@@ -28,6 +28,8 @@ const Engine1 = BaseEngine.create({
     },
 });
 
+Engine1.resolver?.resolve('something');
+
 const Engine2 = BaseEngine.create({
     rootElement: '#engine-two',
     customEvents: {

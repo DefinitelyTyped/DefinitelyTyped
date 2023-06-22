@@ -1,7 +1,7 @@
-// Type definitions for braintree-web-drop-in 1.22
+// Type definitions for braintree-web-drop-in 1.34
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
-//                 Ricard Solé Casas <https://github.com/iamricard>
+//                 Mathias Mikosch <https://github.com/elmikosch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -18,9 +18,14 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 */
 
 import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
-import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
-import { ThreeDSecureVerifyPayload } from 'braintree-web/modules/three-d-secure';
+import { HostedFieldsEvent, HostedFieldsField } from 'braintree-web/modules/hosted-fields';
+import { ThreeDSecureInfo } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
+
+/**
+ * @description The current version of the SDK, i.e. `3.0.2`.
+ */
+export const VERSION: string;
 
 // Options
 
@@ -54,21 +59,28 @@ export interface cardCreateOptions {
         | boolean
         | {
               required?: boolean | undefined;
-          } | undefined;
-    overrides?: {
-        fields?: {
-            number?: HostedFieldsField | undefined;
-            cvv?: HostedFieldsField | undefined;
-            expirationDate?: HostedFieldsField | undefined;
-            postalCode?: HostedFieldsField | undefined;
-        } | undefined;
-        styles?: object | undefined;
-    } | undefined;
+          }
+        | undefined;
+    overrides?:
+        | {
+              fields?:
+                  | {
+                        number?: HostedFieldsField | undefined;
+                        cvv?: HostedFieldsField | undefined;
+                        expirationDate?: HostedFieldsField | undefined;
+                        postalCode?: HostedFieldsField | undefined;
+                    }
+                  | undefined;
+              styles?: object | undefined;
+          }
+        | undefined;
     clearFieldsAfterTokenization?: boolean | undefined;
-    vault?: {
-        allowVaultCardOverride?: boolean | undefined;
-        vaultCard?: boolean | undefined;
-    } | undefined;
+    vault?:
+        | {
+              allowVaultCardOverride?: boolean | undefined;
+              vaultCard?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export interface dataCollectorOptions {
@@ -77,7 +89,7 @@ export interface dataCollectorOptions {
 
 export interface googlePayCreateOptions {
     merchantId: string;
-    googlePayVersion?: string | undefined;
+    googlePayVersion?: number | undefined;
     transactionInfo: google.payments.api.TransactionInfo;
     button?: google.payments.api.ButtonOptions | undefined;
 }
@@ -112,20 +124,29 @@ export interface PaymentOptionSelectedPayload {
     paymentOption: 'card' | 'paypal' | 'paypalCredit';
 }
 
+export type HostedFieldsStateEvents = 'card:binAvailable' | 'card:blur' | 'card:cardTypeChange' | 'card:empty' | 'card:focus' | 'card:inputSubmitRequest' | 'card:notEmpty' | 'card:validityChange';
+
+export type UpdatableConfigurationOption = 'paypal' | 'paypalCredit' | 'applePay' | 'googlePay' | 'threeDSecure';
+
 export interface Dropin {
     clearSelectedPaymentMethod(): void;
     isPaymentMethodRequestable(): boolean;
     on(event: 'noPaymentMethodRequestable', handler: () => void): void;
     on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    on(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    off(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    off(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
     requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
     teardown(callback: (error: object | null | undefined) => void): void;
     teardown(): Promise<void>;
+    updateConfiguration(property: UpdatableConfigurationOption, key: string, value: unknown): void;
 }
 
 export interface PaymentMethodOptions {
@@ -193,7 +214,7 @@ export interface cardPaymentMethodPayload {
     deviceData?: string | undefined;
     liabilityShifted?: boolean | undefined;
     liabilityShiftPossible?: boolean | undefined;
-    threeDSecureInfo?: ThreeDSecureVerifyPayload | undefined;
+    threeDSecureInfo?: ThreeDSecureInfo | undefined;
 }
 
 export interface googlePayPaymentMethodPayload {
@@ -248,18 +269,32 @@ export interface venmoPaymentMethodPayload {
     deviceData?: string | undefined;
 }
 
+export type ActiveView =
+    | 'card'
+    | 'paypal'
+    | 'paypalCredit'
+    | 'venmo'
+    | 'googlePay'
+    | 'applePay'
+    | 'methods'
+    | 'options'
+    | 'delete-confirmation';
+export interface ChangeActiveViewPayload {
+    previousViewId: ActiveView;
+    newViewId: ActiveView;
+}
+
 // Methods
 
 export function create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
 export function create(options: Options): Promise<Dropin>;
 
 // Global
-
 declare global {
-    const braintree: {
-        dropin: {
+    namespace braintree {
+        const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
         };
-    };
+    }
 }

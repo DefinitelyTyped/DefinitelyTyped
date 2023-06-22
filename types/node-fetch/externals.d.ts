@@ -4,6 +4,7 @@
 
 export interface AbortSignal {
     aborted: boolean;
+    reason: any;
 
     addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
         capture?: boolean | undefined,
@@ -17,5 +18,7 @@ export interface AbortSignal {
 
     dispatchEvent: (event: any) => boolean;
 
-    onabort: null | ((this: AbortSignal, event: any) => void);
+    onabort: null | ((this: AbortSignal, event: any) => any);
+
+    throwIfAborted(): void;
 }

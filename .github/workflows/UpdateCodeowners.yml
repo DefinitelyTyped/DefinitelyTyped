@@ -10,20 +10,25 @@ on:
     - cron: "5 8 * * 1"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   update:
+    permissions:
+      contents: write  # for Git to git push
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
             fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
 
-      - run: git config --global user.email "bot@typescriptlang.org"
-      - run: git config --global user.name "TS Bot"
+      - run: git config --global user.email "typescriptbot@microsoft.com"
+      - run: git config --global user.name "TypeScript Bot"
 
       - run: npm install
       - run: npm run update-codeowners

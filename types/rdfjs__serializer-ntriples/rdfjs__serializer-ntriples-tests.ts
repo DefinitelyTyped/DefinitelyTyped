@@ -1,4 +1,4 @@
-import Serializer = require('@rdfjs/serializer-ntriples');
+import Serializer from '@rdfjs/serializer-ntriples';
 import { EventEmitter } from 'events';
 import { Sink, Stream } from 'rdf-js';
 

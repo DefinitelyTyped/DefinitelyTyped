@@ -1,7 +1,6 @@
 // Type definitions for webpack-bundle-analyzer 3.9
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
-//                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Kyle Hensel <https://github.com/k-yle>

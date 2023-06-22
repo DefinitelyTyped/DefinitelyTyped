@@ -2,7 +2,7 @@
 // Project: https://github.com/mapbox/aws-sdk-jest#readme
 // Definitions by: stevensnoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="node"/>
 /// <reference types="jest" />

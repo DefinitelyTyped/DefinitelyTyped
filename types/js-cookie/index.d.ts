@@ -48,9 +48,9 @@ declare namespace Cookies {
         [property: string]: any;
     }
 
-    interface CookiesStatic<T extends object = object> {
+    interface CookiesStatic<T = string> {
         readonly attributes: CookieAttributes;
-        readonly converter: Required<Converter<T>>;
+        readonly converter: Required<Converter<string>>;
         /**
          * Create a cookie
          */
@@ -59,7 +59,7 @@ declare namespace Cookies {
         /**
          * Read cookie
          */
-        get(name: string): string | undefined;
+        get(name: string): string | T | undefined;
 
         /**
          * Read all available cookies
@@ -86,16 +86,16 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter<TConv extends object>(converter: Converter<TConv>): CookiesStatic<TConv>;
+        withConverter<TConv = string>(converter: Converter<TConv>): CookiesStatic<TConv>;
     }
 
-    interface Converter<TConv extends object> {
+    interface Converter<TConv> {
         write?: CookieWriteConverter<TConv> | undefined;
-        read?: CookieReadConverter | undefined;
+        read?: CookieReadConverter<TConv> | undefined;
     }
 
-    type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;
-    type CookieReadConverter = (value: string, name: string) => string;
+    type CookieWriteConverter<T> = (value: string | T, name: string) => string;
+    type CookieReadConverter<T> = (value: string, name: string) => string | T;
 }
 
 declare const Cookies: Cookies.CookiesStatic & {

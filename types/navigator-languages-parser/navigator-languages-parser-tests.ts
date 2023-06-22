@@ -6,4 +6,5 @@ NavigatorLanguagesParser.parseLanguages(['en', 'es']); // $ExpectType string | u
 
 NavigatorLanguagesParser.parseLanguages(['en', 'es'], false); // $ExpectType string | undefined
 
-NavigatorLanguagesParser.parseLanguages(['en', 'es'], true); // $ExpectError
+// @ts-expect-error
+NavigatorLanguagesParser.parseLanguages(['en', 'es'], true);

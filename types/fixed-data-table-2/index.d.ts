@@ -597,6 +597,8 @@ export interface ColumnGroupHeaderProps {
  * Component that defines the attributes of a table column group.
  */
 export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
+    children?: React.ReactNode;
+
     /**
      * The horizontal alignment of the table cell content.
      */

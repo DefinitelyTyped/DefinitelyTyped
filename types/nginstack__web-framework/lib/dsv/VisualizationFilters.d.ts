@@ -23,24 +23,30 @@ declare namespace VisualizationFilters {
         updateFilterFields,
         evaluateFilterExpressions,
         VisualizationFilter,
+        Visualization,
+        Field,
+        Grid,
     };
 }
 type VisualizationFilter = import('./VisualizationFilter');
 declare var DATE_EXPRESSION_PREFIX: string;
 declare function createFilterFields(
     filtersGrid: any,
-    dsv: any,
+    dsv: Visualization,
     opt_options?: {
-        callback?: (arg0: any) => any;
+        callback?: (arg0: Field) => any;
         datesAsExpressions?: boolean;
     }
 ): void;
 declare function getFilterValuesFromGrid(
-    grid: any,
-    dsv: any,
+    grid: Grid,
+    dsv: Visualization,
     opt_options?: {
         preserveExpressions?: boolean;
     }
 ): Record<string, any>;
-declare function updateFilterFields(grid: any, filterValues: Record<string, any>): void;
+declare function updateFilterFields(grid: Grid, filterValues: Record<string, any>): void;
 declare function evaluateFilterExpressions(filterValues: Record<string, any>): any;
+type Visualization = import('./Visualization');
+type Field = import('@nginstack/engine/lib/classdef/Field');
+type Grid = import('@nginstack/web-framework/lib/grid/Grid');

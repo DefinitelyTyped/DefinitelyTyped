@@ -24,6 +24,8 @@ export interface OptionalEventProperties {
     type?: string | undefined;
 }
 
+export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
 export interface SyntheticEventData extends OptionalEventProperties {
     altKey?: boolean | undefined;
     button?: number | undefined;
@@ -39,7 +41,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     deltaY?: number | undefined;
     deltaZ?: number | undefined;
     detail?: number | undefined;
-    getModifierState?(key: string): boolean;
+    getModifierState?(key: ModifierKey): boolean;
     key?: string | undefined;
     keyCode?: number | undefined;
     locale?: string | undefined;
@@ -80,22 +82,25 @@ export interface ShallowRenderer {
  * Simulate an event dispatch on a DOM node with optional `eventData` event data.
  * `Simulate` has a method for every event that React understands.
  */
-export namespace Simulate {
+ export namespace Simulate {
     const abort: EventSimulator;
     const animationEnd: EventSimulator;
     const animationIteration: EventSimulator;
     const animationStart: EventSimulator;
     const blur: EventSimulator;
+    const cancel: EventSimulator;
     const canPlay: EventSimulator;
     const canPlayThrough: EventSimulator;
     const change: EventSimulator;
     const click: EventSimulator;
+    const close: EventSimulator;
     const compositionEnd: EventSimulator;
     const compositionStart: EventSimulator;
     const compositionUpdate: EventSimulator;
     const contextMenu: EventSimulator;
     const copy: EventSimulator;
     const cut: EventSimulator;
+    const auxClick: EventSimulator;
     const doubleClick: EventSimulator;
     const drag: EventSimulator;
     const dragEnd: EventSimulator;
@@ -132,11 +137,25 @@ export namespace Simulate {
     const play: EventSimulator;
     const playing: EventSimulator;
     const progress: EventSimulator;
+    const pointerCancel: EventSimulator;
+    const pointerDown: EventSimulator;
+    const pointerUp: EventSimulator;
+    const pointerMove: EventSimulator;
+    const pointerOut: EventSimulator;
+    const pointerOver: EventSimulator;
+    const pointerEnter: EventSimulator;
+    const pointerLeave: EventSimulator;
+    const gotPointerCapture: EventSimulator;
+    const lostPointerCapture: EventSimulator;
     const rateChange: EventSimulator;
+    const reset: EventSimulator;
+    const resize: EventSimulator;
     const scroll: EventSimulator;
+    const toggle: EventSimulator;
     const seeked: EventSimulator;
     const seeking: EventSimulator;
     const select: EventSimulator;
+    const beforeInput: EventSimulator;
     const stalled: EventSimulator;
     const submit: EventSimulator;
     const suspend: EventSimulator;
@@ -296,8 +315,9 @@ export function createRenderer(): ShallowRenderer;
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // tslint:disable-next-line: void-return
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-export function act(callback: () => Promise<void>): Promise<undefined>;
+// While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
 export function act(callback: () => VoidOrUndefinedOnly): void;
+export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

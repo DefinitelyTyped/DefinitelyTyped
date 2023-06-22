@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -10,7 +9,6 @@
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "npm-naming": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

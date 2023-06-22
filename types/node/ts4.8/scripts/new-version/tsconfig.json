@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "ES2021",
+        "typeRoots": ["../.."],
+        "types": ["node"]
+    },
+    "files": ["new-version.ts"]
+}

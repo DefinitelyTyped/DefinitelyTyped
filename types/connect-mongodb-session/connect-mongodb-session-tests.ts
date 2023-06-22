@@ -7,7 +7,9 @@ const MongoDBStore = connectMongo(session);
 const app = express();
 const store = new MongoDBStore({
     uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
-    collection: 'mySessions'
+    collection: 'mySessions',
+    expiresKey: `_ts`,
+    expiresAfterSeconds: 60 * 60 * 24 * 14,
 }, (error) => {
     // some connection error occur
 });

@@ -1,13 +1,13 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const LuminosityHighPassShader: {
     shaderID: string;
     uniforms: {
-        tDiffuse: Uniform;
-        luminosityThreshold: Uniform;
-        smoothWidth: Uniform;
-        defaultColor: Uniform;
-        defaultOpacity: Uniform;
+        tDiffuse: IUniform;
+        luminosityThreshold: IUniform;
+        smoothWidth: IUniform;
+        defaultColor: IUniform;
+        defaultOpacity: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

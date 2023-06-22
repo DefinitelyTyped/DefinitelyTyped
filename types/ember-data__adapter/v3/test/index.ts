@@ -35,7 +35,8 @@ class Customized extends Adapter {
 
     async someMethod(): Promise<void> {
         this.defaultSerializer = 'a string';
-        this.defaultSerializer = 12; // $ExpectError
+        // @ts-expect-error
+        this.defaultSerializer = 12;
 
         return this.session.login('hi@example.com', 'password');
     }

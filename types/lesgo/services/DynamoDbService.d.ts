@@ -1,4 +1,4 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { DocumentClient } from 'aws-sdk2-types/clients/dynamodb';
 
 export interface DynamoDbParams {
     region: DocumentClient.RegionName;

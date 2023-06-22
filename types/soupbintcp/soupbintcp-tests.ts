@@ -12,66 +12,66 @@ new Client({port: 8000, host: ''});
 new Server({port: 8000, host: ''});
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 new Client({host: ''});
 // Invalid type
 
-// $ExpectError
+// @ts-expect-error
 new Client({host: 8000});
 
-// $ExpectError
+// @ts-expect-error
 new Client({port: ''});
 
-// $ExpectError
+// @ts-expect-error
 new Client({port: 8000});
 
-// $ExpectError
+// @ts-expect-error
 new Client();
 
 // Invalid type
-// $ExpectError
+// @ts-expect-error
 new Server({host: ''});
 // Invalid type
 
-// $ExpectError
+// @ts-expect-error
 new Server({host: 8000});
 
-// $ExpectError
+// @ts-expect-error
 new Server({port: ''});
 
-// $ExpectError
+// @ts-expect-error
 new Server({port: 8000});
 
-// $ExpectError
+// @ts-expect-error
 new Server();
 
-// $ExpectError
+// @ts-expect-error
 client.login({
     password: '',
     requestedSession: '',
     requestedSequenceNumber: 8000
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
     username: '',
     requestedSession: '',
     requestedSequenceNumber: 8000
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
     username: '',
     password: '',
     requestedSequenceNumber: 8000
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
     username: '',
     password: '',
     requestedSession: '',
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login();

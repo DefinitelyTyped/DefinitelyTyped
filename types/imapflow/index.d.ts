@@ -49,7 +49,10 @@ export class ImapFlow extends EventEmitter {
     /**
      * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
      */
-    list(): Promise<ListResponse[]>;
+    list(options?: {
+        statusQuery?: StatusQuery,
+        specialUseHints?: SpecialUseHints,
+    }): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
 
@@ -114,12 +117,12 @@ export class ImapFlow extends EventEmitter {
     status(
         path: string,
         query: {
-            messages: boolean;
-            recent: boolean;
-            uidNext: boolean;
-            uidValidity: boolean;
-            unseen: boolean;
-            highestModseq: boolean;
+            messages?: boolean;
+            recent?: boolean;
+            uidNext?: boolean;
+            uidValidity?: boolean;
+            unseen?: boolean;
+            highestModseq?: boolean;
         },
     ): Promise<StatusObject>;
 
@@ -135,7 +138,8 @@ export interface ImapFlowOptions {
     port: number;
     auth: {
         user: string;
-        pass: string;
+        pass?: string;
+        accessToken?: string;
     };
     secure?: boolean;
     servername?: string;
@@ -165,6 +169,7 @@ export interface CopyResponseObject {
 export interface DownloadObject {
     content: Readable;
     meta: {
+        expectedSize: number;
         contentType: string;
         charset?: string;
         disposition?: string;
@@ -217,7 +222,7 @@ export interface FetchQueryObject {
     internalDate?: boolean;
     size?: boolean;
     source?: boolean | object;
-    threadId?: string;
+    threadId?: boolean;
     labels?: boolean;
     headers?: boolean | string[];
     bodyParts?: string[];
@@ -291,12 +296,12 @@ export interface SearchObject {
 
 export interface StatusObject {
     path: string;
-    message?: number;
+    messages?: number;
     recent?: number;
     uid?: number;
     uidValidity?: bigint;
     unseen?: number;
-    highestModSeq?: bigint;
+    highestModseq?: bigint;
 }
 
 export interface IdInfoObject {
@@ -311,11 +316,12 @@ export interface IdInfoObject {
 export interface ListResponse {
     path: string;
     name: string;
-    delimter: string;
+    delimiter: string;
     flags: Set<string>;
     specialUse: string;
     listed: boolean;
     subscribed: boolean;
+    status?: StatusObject;
 }
 
 export interface ListTreeResponse {
@@ -359,4 +365,20 @@ export interface Logger {
     info: (obj: object) => void;
     warn: (obj: object) => void;
     error: (obj: object) => void;
+}
+
+export interface StatusQuery {
+    messages?: boolean;
+    recent?: boolean;
+    uidNext?: boolean;
+    uidValidity?: boolean;
+    unseen?: boolean;
+    highestModseq?: boolean;
+}
+
+export interface SpecialUseHints {
+    sent: string;
+    trash: string;
+    junk: string;
+    drafts: string;
 }

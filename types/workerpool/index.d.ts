@@ -1,4 +1,4 @@
-// Type definitions for workerpool 6.1
+// Type definitions for workerpool 6.4
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
@@ -9,6 +9,7 @@
 /// <reference types="node" />
 
 import * as cp from 'child_process';
+import * as wt from 'worker_threads';
 
 export interface WorkerPoolStats {
     totalWorkers: number;
@@ -18,13 +19,14 @@ export interface WorkerPoolStats {
     activeTasks: number;
 }
 
-export type Proxy<T extends {[k: string]: (...args: any[]) => any}> = {
+export type Proxy<T extends { [k: string]: (...args: any[]) => any }> = {
     [M in keyof T]: (...args: Parameters<T[M]>) => Promise<ReturnType<T[M]>>;
 };
 
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
+     *
      * @param method When method is a string, a method with this name must exist at the worker
      * and must be registered to make it accessible via the pool.
      * The function will be executed on the worker with given parameters.
@@ -35,7 +37,7 @@ export interface WorkerPool {
     exec<T extends (...args: any[]) => any>(
         method: T | string,
         params: Parameters<T> | null,
-        options?: { on: (payload: any) => void }
+        options?: { on?: (payload: any) => void; transfer?: Transferable[] },
     ): Promise<ReturnType<T>>;
 
     /**
@@ -43,8 +45,8 @@ export interface WorkerPool {
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    // tslint:disable-next-line: no-unnecessary-generics
-    proxy<T extends {[k: string]: (...args: any[]) => any}>(): Promise<Proxy<T>>;
+    // eslint-disable-next-line no-unnecessary-generics
+    proxy<T extends { [k: string]: (...args: any[]) => any }>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */
     stats(): WorkerPoolStats;
@@ -55,6 +57,20 @@ export interface WorkerPool {
      * If timeout is provided, worker will be forced to terminal when the timeout expires and the worker has not finished.
      */
     terminate(force?: boolean, timeout?: number): Promise<any[]>;
+}
+
+/**
+ * The helper class for transferring data from the worker to the main thread.
+ */
+export class Transfer {
+    message: any;
+    transfer: Transferable[];
+
+    /**
+     * @param message The object to deliver to the main thread.
+     * @param transfer An array of transferable Objects to transfer ownership of.
+     */
+    constructor(message: any, transfer: Transferable[]);
 }
 
 export class Promise<T, E = Error> {
@@ -83,12 +99,32 @@ export namespace Promise {
     }
 }
 
-export interface WorkerPoolOptions {
+export interface WorkerCreationOptions {
+    /** For process worker type. An array passed as args to child_process.fork */
+    forkArgs?: string[] | undefined;
+
+    /**
+     * For process worker type. An object passed as options to child_process.fork.
+     */
+    forkOpts?: cp.ForkOptions | undefined;
+
+    /**
+     * For worker worker type. An object passed to worker_threads.options.
+     */
+    workerThreadOpts?: wt.WorkerOptions | undefined;
+}
+
+export interface WorkerHandlerOptions extends WorkerCreationOptions {
+    script?: string | undefined;
+}
+
+export interface WorkerPoolOptions extends WorkerCreationOptions {
     /**
      * The minimum number of workers that must be initialized and kept available.
      * Setting this to 'max' will create maxWorkers default workers.
      */
     minWorkers?: number | 'max' | undefined;
+
     /**
      * The default number of maxWorkers is the number of CPU's minus one.
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
@@ -106,10 +142,26 @@ export interface WorkerPoolOptions {
      */
     workerType?: 'auto' | 'web' | 'process' | 'thread' | undefined;
 
-    /** 2nd argument to pass to childProcess.fork() */
-    forkArgs?: string[] | undefined;
+    /**
+     * The timeout in milliseconds to wait for a worker to cleanup it's resources on termination before stopping it forcefully.
+     *
+     * @default 1000.
+     */
+    workerTerminateTimeout?: number | undefined;
 
-    forkOpts?: cp.ForkOptions | undefined;
+    /**
+     * A callback that is called whenever a worker is being created.
+     * It can be used to allocate resources for each worker for example.
+     * Optionally, this callback can return an object containing one or more of the above properties.
+     * The provided properties will be used to override the Pool properties for the worker being created.
+     */
+    onCreateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions | void) | undefined;
+    /**
+     * A callback that is called whenever a worker is being terminated.
+     * It can be used to release resources that might have been allocated for this specific worker.
+     * The callback is passed as argument an object as described for onCreateWorker, with each property sets with the value for the worker being terminated.
+     */
+    onTerminateWorker?: ((options: WorkerHandlerOptions) => void) | undefined;
 }
 
 /**
@@ -128,11 +180,20 @@ export function pool(pathToScript?: string, options?: WorkerPoolOptions): Worker
  */
 export function pool(options?: WorkerPoolOptions): WorkerPool;
 
+export interface WorkerOptions {
+    /**
+     * A callback that is called whenever a worker is being terminated.
+     * It can be used to release resources that might have been allocated for this specific worker.
+     * The difference with pool's onTerminateWorker is that this callback runs in the worker context, while onTerminateWorker is executed on the main thread.
+     */
+    onTerminate?: (code?: number) => PromiseLike<void> | void;
+}
+
 /**
  * Argument methods is optional can can be an object with functions available in the worker.
  * Registered functions will be available via the worker pool.
  */
-export function worker(methods?: {[k: string]: (...args: any[]) => any}): any;
+export function worker(methods?: { [k: string]: (...args: any[]) => any }, options?: WorkerOptions): any;
 export function workerEmit(payload: any): void;
 export const platform: 'node' | 'browser';
 export const isMainThread: boolean;

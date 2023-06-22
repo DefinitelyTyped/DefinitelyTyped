@@ -3,7 +3,7 @@ import { Options, VerticalRhythm, VerticalRhythmStyles } from 'compass-vertical-
 
 // $ExpectType VerticalRhythm
 compassVerticalRhythm({});
-// $ExpectError
+// @ts-expect-error
 compassVerticalRhythm();
 
 compassVerticalRhythm({ baseFontSize: '16px' });

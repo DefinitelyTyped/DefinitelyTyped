@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Basic Options */
+    "target": "es2020",
+    "module": "commonjs",
+    "lib": ["ES2021", "DOM"],
+    "noEmit": true,
+
+    "types": ["node"],
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* Module Resolution Options */
+    "typeRoots": ["../.."],
+    "esModuleInterop": true,
+
+    "skipLibCheck": false,
+    "forceConsistentCasingInFileNames": true
+  }
+}

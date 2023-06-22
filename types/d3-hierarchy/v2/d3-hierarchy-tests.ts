@@ -875,8 +875,8 @@ const circle = d3Hierarchy.packEnclose(moreCircles);
 num = circle.r;
 num = circle.x;
 num = circle.y;
-// $ExpectError
+// @ts-expect-error
 str = circle.v; // fails, property 'v' does not exist
 
-// $ExpectError
+// @ts-expect-error
 d3Hierarchy.packEnclose(radius);

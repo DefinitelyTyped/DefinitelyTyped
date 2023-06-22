@@ -1,4 +1,4 @@
-// Type definitions for KaTeX 0.14
+// Type definitions for KaTeX 0.16
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 //                 Kevin Nguyen <https://github.com/knguyen0125>
@@ -155,4 +155,9 @@ export default class katex {
      * @param options KaTeX options
      */
     static renderToString(tex: string, options?: KatexOptions): string;
+
+    /**
+     * KaTeX error, usually during parsing.
+     */
+    static ParseError: typeof ParseError;
 }

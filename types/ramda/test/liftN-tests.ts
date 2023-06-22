@@ -31,10 +31,10 @@ import * as R from 'ramda';
     // $ExpectType number
     readerFunctor(10);
 
-    // $ExpectError
+    // @ts-expect-error
     lifted2ArityAdd([10, 20, 30], [40, 50], [60, 70]);
 
-    // $ExpectError
+    // @ts-expect-error
     lifted2ArityAdd(R.inc, R.dec, R.inc);
 };
 

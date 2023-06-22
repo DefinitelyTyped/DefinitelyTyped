@@ -6,7 +6,7 @@ import * as webdriver from './index';
  *
  * @record
  */
-interface ServiceOptions { }
+interface ServiceOptions {}
 
 /**
  * Manages the life and death of a native executable WebDriver server.
@@ -84,7 +84,6 @@ export class DriverService {
  */
 export class FileDetector extends webdriver.FileDetector {
     /**
-     * @constructor
      **/
     constructor();
 

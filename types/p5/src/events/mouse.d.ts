@@ -25,7 +25,7 @@ declare module '../../index' {
          *   default behaviors attached to various mouse
          *   events. To prevent any default behavior for this
          *   event, add "return false" to the end of the
-         *   method.
+         *   function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -42,7 +42,7 @@ declare module '../../index' {
          *   different default behaviors attached to various
          *   mouse events. To prevent any default behavior for
          *   this event, add "return false" to the end of the
-         *   method.
+         *   function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -56,7 +56,7 @@ declare module '../../index' {
          *   may have different default behaviors attached to
          *   various mouse events. To prevent any default
          *   behavior for this event, add "return false" to the
-         *   end of the method.
+         *   end of the function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -75,7 +75,7 @@ declare module '../../index' {
          *   Browsers may have different default behaviors
          *   attached to various mouse events. To prevent any
          *   default behavior for this event, add "return
-         *   false" to the end of the method.
+         *   false" to the end of the function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -103,8 +103,8 @@ declare module '../../index' {
          *   touchpad. The event.delta property returns the
          *   amount the mouse wheel have scrolled. The values
          *   can be positive or negative depending on the
-         *   scroll direction (on OS X with "natural" scrolling
-         *   enabled, the signs are inverted).
+         *   scroll direction (on macOS with "natural"
+         *   scrolling enabled, the signs are inverted).
          *
          *
          *   Browsers may have different default behaviors

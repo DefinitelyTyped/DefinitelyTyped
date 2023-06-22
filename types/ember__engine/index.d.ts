@@ -1,8 +1,9 @@
 // Type definitions for non-npm package @ember/engine 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fengine
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -11,13 +12,14 @@ import EmberObject from '@ember/object';
 import RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
 import Initializer from '@ember/engine/-private/types/initializer';
 import EngineInstance from '@ember/engine/instance';
-import Resolver from 'ember-resolver';
+import { Resolver } from '@ember/owner';
 
 /**
  * The `Engine` class contains core functionality for both applications and
  * engines.
  */
-export default class Engine extends EmberObject.extend(RegistryProxyMixin) {
+
+export default class Engine extends EmberObject {
     /**
      * The goal of initializers should be to register dependencies and injections.
      * This phase runs once. Because these initializers may load code, they are
@@ -43,6 +45,9 @@ export default class Engine extends EmberObject.extend(RegistryProxyMixin) {
      */
     buildInstance(options?: object): EngineInstance;
 }
+
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface Engine extends RegistryProxyMixin {}
 
 /**
  * `getEngineParent` retrieves an engine instance's parent instance.

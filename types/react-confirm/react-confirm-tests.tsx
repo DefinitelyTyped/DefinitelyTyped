@@ -59,3 +59,17 @@ confirm({ confirmation: text })
   .catch((result) => {
     // User chose "No"
   });
+
+// This is the function you need to call to override your confirmation object mount
+//   Promise object it returns to handle "proceed()" or "cancel()" functions.
+const mountedNode = document.createElement("div");
+document.body.appendChild(mountedNode);
+const mountedConfirm = createConfirmation(ConfirmModal, 1000, mountedNode);
+
+mountedConfirm({ confirmation: markup })
+  .then((result) => {
+    // User chose "Yes"
+  })
+  .catch((result) => {
+    // User chose "No"
+  });

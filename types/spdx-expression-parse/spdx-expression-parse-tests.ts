@@ -8,6 +8,16 @@ scan(source); // $ExpectType Token[]
 parseTokens(scan(source)); // $ExpectType Info
 parse(source); // $ExpectType Info
 
+const conjunctionInfo: parse.ConjunctionInfo = {
+    left: { license: 'LGPL-2.1' },
+    conjunction: 'or',
+    right: {
+        left: { license: 'BSD-3-Clause' },
+        conjunction: 'and',
+        right: { license: 'MIT' },
+    },
+};
+
 const infos: Info[] = [
     {
         license: 'MIT',
@@ -28,13 +38,5 @@ const infos: Info[] = [
             },
         },
     },
-    {
-        left: { license: 'LGPL-2.1' },
-        conjunction: 'or',
-        right: {
-            left: { license: 'BSD-3-Clause' },
-            conjunction: 'and',
-            right: { license: 'MIT' },
-        },
-    },
+    conjunctionInfo,
 ];

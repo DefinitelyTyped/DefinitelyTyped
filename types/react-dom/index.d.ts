@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 18.0
+// Type definitions for React (react-dom) 18.2
 // Project: https://reactjs.org
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -25,7 +25,7 @@ import {
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
-export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
+export function createPortal(children: ReactNode, container: Element | DocumentFragment, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;
@@ -34,9 +34,8 @@ export const hydrate: Renderer;
 export function flushSync<R>(fn: () => R): R;
 export function flushSync<A, R>(fn: (a: A) => R, a: A): R;
 
-export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;
+export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
+export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 export function unstable_renderSubtreeIntoContainer<T extends Element>(
     parentComponent: Component<any>,

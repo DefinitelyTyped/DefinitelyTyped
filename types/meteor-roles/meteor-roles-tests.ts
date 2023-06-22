@@ -97,7 +97,6 @@ Meteor.methods({
     /**
      * delete a user from a specific group
      *
-     * @method deleteUser
      * @param {String} targetUserId _id of user to delete
      * @param {String} group Company to update permissions for
      */

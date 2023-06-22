@@ -1,7 +1,6 @@
 // Type definitions for animejs 3.1
 // Project: http://animejs.com
 // Definitions by: Andrew Babin     <https://github.com/A-Babin>
-//                 supaiku0         <https://github.com/supaiku0>
 //                 southrock         <https://github.com/southrock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -152,7 +151,7 @@ declare namespace anime {
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
     function remove(targets: AnimeTarget | ReadonlyArray<AnimeTarget>): void;
-    function get(targets: AnimeTarget, prop: string): string | number;
+    function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
         el: HTMLElement | SVGElement,
         property: string,

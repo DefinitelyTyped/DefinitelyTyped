@@ -60,5 +60,5 @@ const props: RCTooltip.Props = {
 };
 
 // It should be a single-line definition because TS 2.9 and other TS versions throw an error on different lines
-// $ExpectError
+// @ts-expect-error
 const falseProps: RCTooltip.Props = {overlay: undefined};

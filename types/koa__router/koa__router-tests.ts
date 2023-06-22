@@ -54,8 +54,10 @@ router
         // ...
     });
 
-router.get('user', '/users/:id', (ctx) => {
+router.get<{}, {}, string>('user', '/users/:id', (ctx) => {
     ctx.body = "sdsd";
+    // @ts-expect-error Body can be typed
+    ctx.body = {};
 });
 
 const match = router.match('/users/:id', 'GET');
@@ -206,13 +208,13 @@ router6.post<MyState, MyContext>('/foo', async (ctx) => {
 });
 router6.put<MyState>('/bar', async (ctx) => {
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.del('/baz', async (ctx) => {
-    // $ExpectError
+    // @ts-expect-error
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.put<number>('/blah', async (ctx) => {

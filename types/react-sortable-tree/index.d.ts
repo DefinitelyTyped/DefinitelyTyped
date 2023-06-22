@@ -212,9 +212,9 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
     isVirtualized?: boolean | undefined;
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function SortableTreeWithoutDndContext<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
 
 export { SortableTree, SortableTreeWithoutDndContext };

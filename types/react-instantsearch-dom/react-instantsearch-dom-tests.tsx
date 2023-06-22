@@ -16,7 +16,7 @@ import {
   SearchBox,
   SortBy,
 } from 'react-instantsearch/dom';
-import { Hit, connectRefinementList, connectMenu, InstantSearchProps } from 'react-instantsearch-core';
+import { Hit, InstantSearchProps } from 'react-instantsearch-core';
 
 // DOM
 () => {
@@ -336,5 +336,14 @@ const test = () => {
 };
 
 () => {
-    <DynamicWidgets fallbackComponent={RefinementList} className="test" attributesToRender={['']}><RefinementList attribute="brand"/></DynamicWidgets>;
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+    className="test"
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };

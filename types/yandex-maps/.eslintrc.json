@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "export-just-namespace": "off",
+        "no-any-union": "off"
+    }
+}

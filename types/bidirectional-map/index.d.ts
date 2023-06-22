@@ -9,8 +9,8 @@ export default class BiMap<TValue> {
     size: number;
 
     set(key: string, value: TValue): void;
-    get(key: string): TValue;
-    getKey(value: TValue): string;
+    get(key: string): TValue | undefined;
+    getKey(value: TValue): string | undefined;
     clear(): void;
     delete(key: string): void;
     deleteValue(value: TValue): void;

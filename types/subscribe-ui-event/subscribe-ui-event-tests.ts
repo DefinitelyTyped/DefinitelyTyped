@@ -22,3 +22,8 @@ subscription.unsubscribe();
 const {remove} = listen(document, 'onclick', console.log);
 
 remove();
+
+// allow to pass target as event option
+subscribe('resize', callback, {
+    target: document.getElementById('foobar')
+});

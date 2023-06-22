@@ -1,10 +1,10 @@
 /**
  * Tests are built by copying samples from the github repository:
- * https://github.com/brianloveswords/node-jws
+ * https://github.com/auth0/node-jws
  */
 
 import * as jws from 'jws';
-import * as fs from "fs";
+import * as fs from 'fs';
 
 // set up mock objects
 const fakeStream = fs.createReadStream('fakefile');
@@ -29,6 +29,7 @@ const signatureWithHeaderParams = jws.sign({
 
 // jws.decode
 const message = jws.decode('djfakdid');
+const messageWithPayloadForcedToJson = jws.decode('djfakdid', { json: true });
 
 // $ExpectType boolean
 const isValid = jws.isValid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');

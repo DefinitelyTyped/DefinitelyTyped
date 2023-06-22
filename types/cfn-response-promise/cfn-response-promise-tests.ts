@@ -8,5 +8,5 @@ declare const context: Context;
 response.send(event, context, response.SUCCESS, { sample: 123 }, 'abc', true);
 // $ExpectType Promise<void>
 response.send(event, context, 'FAILED');
-// $ExpectError
+// @ts-expect-error
 response.send(event, context, '');

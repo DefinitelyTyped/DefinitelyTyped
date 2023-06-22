@@ -1,8 +1,9 @@
 // Type definitions for non-npm package @ember/application 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fapplication
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -10,10 +11,16 @@ import Engine from '@ember/engine';
 import ApplicationInstance from '@ember/application/instance';
 import EventDispatcher from '@ember/application/-private/event-dispatcher';
 import { EventDispatcherEvents } from '@ember/application/types';
-import { Router } from '@ember/routing';
+import Router from '@ember/routing/router';
 import Registry from '@ember/application/-private/registry';
-import Resolver from 'ember-resolver';
 import { AnyFn } from 'ember/-private/type-utils';
+import Owner, { Resolver } from '@ember/owner';
+import type GlimmerComponent from '@glimmer/component';
+import EmberObject from '@ember/object';
+
+// Shut off default exporting; we don't want anything but the *intended*
+// public API present.
+export {};
 
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
@@ -53,7 +60,11 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
+    register(
+        fullName: string,
+        factory: unknown,
+        options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+    ): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.
@@ -113,18 +124,27 @@ export default class Application extends Engine {
     buildInstance(options?: object): ApplicationInstance;
 }
 
+// Known framework objects, so that `getOwner` can always, accurately, return
+// `Owner` when working with one of these classes, which the framework *does*
+// guarantee will always have an `Owner`. NOTE: this must be kept up to date
+// whenever we add new base classes to the framework. For example, if we
+// introduce a standalone `Service` or `Route` base class which *does not*
+// extend from `EmberObject`, it will need to be added here.
+type FrameworkObject = EmberObject | GlimmerComponent;
+
 /**
  * Framework objects in an Ember application (components, services, routes, etc.)
  * are created via a factory and dependency injection system. Each of these
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
-export function getOwner(object: unknown): unknown;
+export function getOwner(object: FrameworkObject): Owner;
+export function getOwner(object: unknown): Owner | undefined;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily
  * useful in some testing cases.
  */
-export function setOwner(object: unknown, owner: unknown): void;
+export function setOwner(object: unknown, owner: Owner): void;
 
 /**
  * Detects when a specific package of Ember (e.g. 'Ember.Application')

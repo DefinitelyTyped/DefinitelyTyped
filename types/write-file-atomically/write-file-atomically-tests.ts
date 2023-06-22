@@ -1,6 +1,7 @@
 import writeFileAtomically = require('write-file-atomically');
 
-writeFileAtomically(1, '_');    // $ExpectError
+// @ts-expect-error
+writeFileAtomically(1, '_');
 
 import { readFileSync } from 'fs';
 

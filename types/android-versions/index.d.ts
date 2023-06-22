@@ -1,4 +1,4 @@
-// Type definitions for android-versions 1.6
+// Type definitions for android-versions 1.8
 // Project: https://github.com/dvoiss/android-versions#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,7 +51,10 @@ declare namespace android {
         | "O_MR1"
         | "P"
         | "Q"
-        | "R";
+        | "R"
+        | "S"
+        | "S_V2"
+        | "TIRAMISU";
 
     type MapVersionSupport = {
         [K in VersionCode]: AndroidVersion;

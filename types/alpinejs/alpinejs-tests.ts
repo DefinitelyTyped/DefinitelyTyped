@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import Alpine from 'alpinejs';
+import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from 'alpinejs';
 import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
 { // Alpine.reactive
@@ -87,7 +87,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             expression;
             // $ExpectType string[]
             modifiers;
-            // $ExpectType () => void
+            // $ExpectType (cb: () => void) => void
             effect;
             // $ExpectType (expression: string) => (result: unknown) => void
             evaluateLater;
@@ -281,11 +281,28 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         expression;
         // $ExpectType Alpine
         Alpine;
-        // $ExpectType () => void
+        // $ExpectType (cb: () => void) => void
         effect;
-        // $ExpectType () => void
+        // $ExpectType (cb: () => void) => void
         cleanup;
     });
+
+    (el: Node, { value, modifiers, expression }: DirectiveParameters, { Alpine, effect, cleanup }: DirectiveUtilities) => {
+      // $ExpectType Node
+      el;
+      // $ExpectType string
+      value;
+      // $ExpectType string[]
+      modifiers;
+      // $ExpectType string
+      expression;
+      // $ExpectType Alpine
+      Alpine;
+      // $ExpectType (cb: () => void) => void
+      effect;
+      // $ExpectType (cb: () => void) => void
+      cleanup;
+  };
 }
 
 { // Alpine.throttle
@@ -508,4 +525,90 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             },
         },
     }));
+
+    // $ExpectType void
+    Alpine.data('user', () => ({
+        user: { id: 1, name: 'John Doe' },
+
+        init() {
+            // $ExpectType Record<string, any> & XDataContext & AlpineMagics<Record<string, any>>
+            this;
+
+            // $ExpectType Record<string, any>
+            this.$data;
+
+            // $ExpectType HTMLElement
+            this.$el;
+
+            // $ExpectType HTMLElement
+            this.$refs.fooElement;
+
+            // $ExpectType XData
+            this.$store;
+
+            // $ExpectType void
+            this.$dispatch('fooEvent');
+
+            // $ExpectType void
+            this.$dispatch('fooEvent', 'Hello World');
+
+            // $ExpectType string
+            this.$id('fooBar');
+
+            // $ExpectType string
+            this.$id('fooBar', 1);
+
+            // $ExpectType Promise<void>
+            this.$nextTick(() => {
+                // Do something after Alpine finishes updating the DOM.
+            });
+
+            // $ExpectType Promise<void>
+            this.$nextTick();
+
+            // $ExpectType void
+            this.$watch(
+                'user',
+                (
+                    // $ExpectType any
+                    newValue,
+                ) => {},
+            );
+        },
+    }));
+
+    // $ExpectType void
+    Alpine.data(
+        'user',
+        (): AlpineComponent<{
+            user: { id: number; name: string };
+        }> => ({
+            user: { id: 1, name: 'John Doe' },
+
+            init() {
+                // $ExpectType { user: { id: number; name: string; }; }
+                this.$data;
+
+                // $ExpectType void
+                this.$watch(
+                    'user',
+                    (
+                        // $ExpectType { id: number; name: string; }
+                        newValue,
+                        // $ExpectType { id: number; name: string; }
+                        oldValue,
+                    ) => {},
+                );
+
+                // $ExpectType void
+                this.$watch(
+                    'user.id',
+                    (
+                        // $ExpectType any
+                        newValue,
+                    ) => {},
+                );
+            },
+        }),
+    );
 }

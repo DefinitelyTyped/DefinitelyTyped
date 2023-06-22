@@ -49,9 +49,17 @@ export interface EncoderModule extends BaseModule {
     MESH_EDGEBREAKER_ENCODING: number;
 }
 
+export interface DracoDecoderModuleProps {
+    wasmBinary?: ArrayBuffer;
+    onModuleLoaded?: (draco: DecoderModule) => void;
+}
+
+export type DracoDecoderModule = (props: DracoDecoderModuleProps) => Promise<DecoderModule>;
+
 export interface DecoderModule extends BaseModule {
     Decoder: new () => Decoder;
     DecoderBuffer: new () => DecoderBuffer;
+    PointCloud: new () => PointCloud;
 
     // GeometryType.
     TRIANGULAR_MESH: GeometryType;
@@ -74,7 +82,7 @@ export interface Encoder {
         bits: number,
         itemSize: number,
         origin: [number, number, number],
-        range: number
+        range: number,
     ): void;
     SetSpeedOptions(encodeSpeed: number, decodeSpeed: number): void;
     SetEncodingMethod(method: number): void;
@@ -86,6 +94,7 @@ export interface Encoder {
 
 export interface Decoder {
     DecodeBufferToMesh(buffer: DecoderBuffer, mesh: Mesh): Status;
+    DecodeBufferToPointCloud(buffer: DecoderBuffer, pointCloud: PointCloud): Status;
     GetAttributeByUniqueId: (mesh: Mesh, id: number) => Attribute;
     GetFaceFromMesh: (mesh: Mesh, index: number, array: DracoArray) => number;
     GetTrianglesUInt16Array: (mesh: Mesh, byteLength: number, ptr: number) => void;
@@ -95,7 +104,7 @@ export interface Decoder {
         attribute: Attribute,
         type: DataType,
         byteLength: number,
-        ptr: number
+        ptr: number,
     ) => void;
     GetAttributeFloatForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetAttributeInt8ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
@@ -105,8 +114,8 @@ export interface Decoder {
     GetAttributeUInt16ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetAttributeUInt32ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetEncodedGeometryType: (buffer: DecoderBuffer) => GeometryType;
-    GetAttributeId: (mesh: Mesh, attributeType: number) => number;
-    GetAttribute: (mesh: Mesh, id: number) => Attribute;
+    GetAttributeId: (mesh: PointCloud, attributeType: number) => number;
+    GetAttribute: (mesh: PointCloud, id: number) => Attribute;
 }
 
 export interface DecoderBuffer {
@@ -147,56 +156,24 @@ export enum GeometryType {}
 // tslint:disable-next-line:no-empty-interface
 export enum DataType {}
 
-export interface Mesh {
+export interface PointCloud {
+    num_attributes: () => number;
+    num_points: () => number;
+}
+
+export interface Mesh extends PointCloud {
     ptr: number;
     num_faces: () => number;
-    num_points: () => number;
 }
 
 export interface MeshBuilder {
     AddFacesToMesh(mesh: Mesh, numFaces: number, faces: Uint16Array | Uint32Array): void;
-    AddUInt8Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddInt8Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddUInt16Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddInt16Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddUInt32Attribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
-    AddFloatAttribute(
-        mesh: Mesh,
-        attribute: number,
-        count: number,
-        itemSize: number,
-        array: TypedArray
-    ): number;
+    AddUInt8Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddInt8Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddUInt16Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddInt16Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddUInt32Attribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddFloatAttribute(mesh: Mesh, attribute: number, count: number, itemSize: number, array: TypedArray): number;
 }
 
 export {};

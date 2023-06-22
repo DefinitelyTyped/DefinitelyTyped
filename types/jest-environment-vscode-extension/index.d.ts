@@ -13,8 +13,8 @@ type Using = <Files extends { [filename: string]: string }>(
             [path: string]: unknown;
         };
     },
-    closure: (mapFileToUri: {
-        [filename in keyof Files]: vscodeTypes.Uri;
+    closure: (mapFileToDoc: {
+        [filename in keyof Files]: vscodeTypes.TextDocument;
     }) => Promise<void>,
 ) => Promise<void>;
 
@@ -27,18 +27,18 @@ declare global {
 
     const take: {
         codeActions: (
-            uri: vscodeTypes.Uri,
+            doc: vscodeTypes.TextDocument,
             range: vscodeTypes.Range,
         ) => Promise<{
             [codeActionTitle: string]: () => Thenable<void>;
         }>;
         definitions: (
-            uri: vscodeTypes.Uri,
+            doc: vscodeTypes.TextDocument,
             position: vscodeTypes.Position,
         ) => Promise<Array<vscodeTypes.Location | vscodeTypes.LocationLink>>;
-        documentText: (uri: vscodeTypes.Uri) => Promise<string>;
-        documentSymbols: (uri: vscodeTypes.Uri) => Promise<vscodeTypes.SymbolInformation[]>;
-        hovers: (uri: vscodeTypes.Uri, position: vscodeTypes.Position) => Promise<string[]>;
+        documentText: (doc: vscodeTypes.TextDocument) => Promise<string>;
+        documentSymbols: (doc: vscodeTypes.TextDocument) => Promise<vscodeTypes.SymbolInformation[]>;
+        hovers: (doc: vscodeTypes.TextDocument, position: vscodeTypes.Position) => Promise<string[]>;
     };
 
     function dedent(templateString: string): string;

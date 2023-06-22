@@ -4,6 +4,18 @@ import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
 import { Point } from './transform';
 
+enum MyEnum {
+    hello,
+    there,
+}
+
+class Hello extends DS.Model {
+    @DS.attr('enum', { allowedValues: MyEnum }) declare myEnum: MyEnum;
+}
+
+const hello = Hello.create();
+assertType<MyEnum>(hello.get('myEnum'));
+
 const Person = DS.Model.extend({
     firstName: DS.attr(),
     lastName: DS.attr(),
@@ -18,7 +30,8 @@ const Person = DS.Model.extend({
     oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
 
     // Can't have a non-primitive as default
-    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })}) // $ExpectError
+    // @ts-expect-error
+    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })})
 });
 
 const person = Person.create();

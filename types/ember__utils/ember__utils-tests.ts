@@ -38,6 +38,9 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, typeOf } from '@
 
 (function() {
     /** typeOf */
+    let x = "something" as unknown;
+    typeOf(x); // $ExpectType AllTypeNames
+    if (typeOf(x) === 'object') {}
     typeOf(null); // $ExpectType "null"
     typeOf(undefined); // $ExpectType "undefined"
     typeOf('michael'); // $ExpectType "string"
@@ -85,8 +88,10 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, typeOf } from '@
     isEqual(14, 37); // $ExpectType boolean
     isEqual(14, '1'); // $ExpectType boolean
     isEqual(() => 4, () => 37); // $ExpectType boolean
-    isEqual(14); // $ExpectError
-    isEqual(); // $ExpectError
+    // @ts-expect-error
+    isEqual(14);
+    // @ts-expect-error
+    isEqual();
 })();
 
 (function() {
@@ -97,8 +102,10 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, typeOf } from '@
     compare([], class {}); // $ExpectType number
     compare([], undefined); // $ExpectType number
     compare({}, () => 4); // $ExpectType number
-    compare(14); // $ExpectError
-    compare(); // $ExpectError
+    // @ts-expect-error
+    compare(14);
+    // @ts-expect-error
+    compare();
 })();
 
 (function() {

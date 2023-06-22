@@ -10,9 +10,6 @@ interface WinregStatic {
      * Creates a registry object, which provides access to a single registry key.
      * Note: This class is returned by a call to ```require('winreg')```.
      *
-     * @public
-     * @class
-     *
      * @param {@link Options} options - the options
      *
      * @example
@@ -147,37 +144,31 @@ declare namespace Winreg {
     export interface Registry {
         /**
          * The hostname.
-         * @readonly
          */
         host: string;
 
         /**
          * The hive id.
-         * @readonly
          */
         hive: string;
 
         /**
          * The registry key name.
-         * @readonly
          */
         key: string;
 
         /**
          * The full path to the registry key.
-         * @readonly
          */
         path: string;
 
         /**
          * The registry hive architecture ('x86' or 'x64').
-         * @readonly
          */
         arch: string;
 
         /**
          * Creates a new {@link Registry} instance that points to the parent registry key.
-         * @readonly
          */
         parent: Registry;
 
@@ -291,43 +282,36 @@ declare namespace Winreg {
     export interface RegistryItem {
         /**
          * The hostname.
-         * @readonly
          */
         host: string;
 
         /**
          * The hive id.
-         * @readonly
          */
         hive: string;
 
         /**
          * The registry key.
-         * @readonly
          */
         key: string;
 
         /**
          * The value name.
-         * @readonly
          */
         name: string;
 
         /**
          * The value type.
-         * @readonly
          */
         type: string;
 
         /**
          * The value.
-         * @readonly
          */
         value: string;
 
         /**
          * The hive architecture.
-         * @readonly
          */
         arch: string;
     }

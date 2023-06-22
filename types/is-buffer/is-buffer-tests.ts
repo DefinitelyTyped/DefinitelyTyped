@@ -22,5 +22,6 @@ const unknownValue: unknown = {};
 if (isBuffer(unknownValue)) {
   const bufferValue: Buffer = unknownValue;
 } else {
-  const bufferValue: Buffer = unknownValue; // $ExpectError
+  // @ts-expect-error
+  const bufferValue: Buffer = unknownValue;
 }

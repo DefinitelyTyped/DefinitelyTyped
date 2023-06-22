@@ -5,10 +5,10 @@ import * as R from 'ramda';
         count?: number;
     }
 
-    // $ExpectType (a: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
+    // $ExpectType (a: unknown) => { count: number; } | Record<"count", number>
     const incCount = R.ifElse(
         R.has('count'),
-        obj => ({ ...obj, count: (obj as Required<ObjWithCount>).count + 1 }),
+        obj => ({ ...(obj as Required<ObjWithCount>), count: (obj as Required<ObjWithCount>).count + 1 }),
         R.assoc('count', 1),
     );
     incCount({}); // => { count: 1 }

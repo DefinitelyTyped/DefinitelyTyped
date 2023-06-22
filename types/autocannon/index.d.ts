@@ -1,4 +1,4 @@
-// Type definitions for autocannon 7.6
+// Type definitions for autocannon 7.9
 // Project: https://github.com/mcollina/autocannon#readme
 // Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -369,6 +369,12 @@ declare namespace autocannon {
 
         /** The number of 5xx response status codes received. */
         '5XX': number;
+
+        /** The number of requests with a mismatched body. */
+        mismatches: number;
+
+        /** How many times the requests pipeline was reset due to setupRequest returning a falsey value. */
+        resets: number;
     }
 
     interface Histogram {

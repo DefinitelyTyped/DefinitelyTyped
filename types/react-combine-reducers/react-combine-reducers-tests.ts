@@ -62,36 +62,36 @@ const greeniesReducer = (greeniesState: GreeniesState, action: SimpleAction) => 
     }
 };
 
-// $ExpectError
+// @ts-expect-error
 combineReducers('');
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>({});
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>();
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     books: ['The Book Thief'],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [100],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [3, proteinsReducer],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [proteinsReducer, 3],
 });
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>({
     proteins: [
         proteinsReducer,
@@ -111,7 +111,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     greenies: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
             fruit: 'kiwi',
@@ -119,7 +119,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     drink: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
             beverage: 'juice',
@@ -127,7 +127,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     dessert: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
             cake: 'chocolate',
@@ -172,13 +172,13 @@ initialMeal.drink;
 initialMeal.proteins;
 initialMeal.greenies;
 
-// $ExpectError
+// @ts-expect-error
 initialMeal.lamps;
 
-// $ExpectError
+// @ts-expect-error
 fullMealReducer(3, {});
 
-// $ExpectError
+// @ts-expect-error
 fullMealReducer({}, {});
 
 fullMealReducer(
@@ -200,7 +200,7 @@ fullMealReducer(
             drink: 'tea',
         },
     },
-    // $ExpectError
+    // @ts-expect-error
     67,
 );
 

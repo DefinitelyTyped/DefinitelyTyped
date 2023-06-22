@@ -67,11 +67,12 @@ interface DatepickerOptions {
     showOnFocus?: boolean | undefined;
     startDate?: Date | string | undefined;
     startView?: DatepickerViewModes | undefined;
-    templates?: any;
     showWeekDays?: boolean | undefined;
+    templates?: any;
     title?: string | undefined;
     todayBtn?: boolean | "linked" | undefined;
     todayHighlight?: boolean | undefined;
+    toggleActive?: boolean | undefined;
     updateViewDate?: boolean | undefined;
     weekStart?: number | undefined;
     zIndexOffset?: number | undefined;

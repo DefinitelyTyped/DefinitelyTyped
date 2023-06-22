@@ -4190,7 +4190,7 @@ declare namespace _ {
          *
          * @param value The value to provide to interceptor.
          * @param interceptor The function to invoke.
-         * @parem thisArg The this binding of interceptor.
+         * @param thisArg The this binding of interceptor.
          * @return Returns value.
          **/
         tap<T>(
@@ -11127,6 +11127,8 @@ declare namespace _ {
     }
 
     //_.isEmpty
+    type EmptyObject<T> = { [K in keyof T]?: never };
+    type EmptyObjectOf<T> = EmptyObject<T> extends T ? EmptyObject<T> : never;
     interface LoDashStatic {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
@@ -11135,6 +11137,10 @@ declare namespace _ {
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
          */
+        isEmpty<T extends { __trapAny: any }>(value?: T): boolean;
+        isEmpty(value: string): value is '';
+        isEmpty(value: Map<any, any> | Set<any> | List<any> | null | undefined): boolean;
+        isEmpty<T extends object>(value: T | null | undefined): value is EmptyObjectOf<T> | null | undefined;
         isEmpty(value?: any): boolean;
     }
 
@@ -11344,7 +11350,7 @@ declare namespace _ {
          * Checks if value is a native function.
          * @param value The value to check.
          *
-         * @retrun Returns true if value is a native function, else false.
+         * @return Returns true if value is a native function, else false.
          */
         isNative(value: any): value is Function;
     }
@@ -14749,7 +14755,7 @@ declare namespace _ {
          * Splits string by separator.
          *
          * Note: This method is based on String#split.
-         * 
+         *
          * @param separator The separator pattern to split by.
          * @param limit The length to truncate results to.
          * @return Returns the new array with the terms splitted.
@@ -15107,7 +15113,7 @@ declare namespace _ {
          *
          * @param func The value to convert to a callback.
          * @param thisArg The this binding of func.
-         * @result Returns the callback.
+         * @return Returns the callback.
          */
         callback<TResult>(
             func: Function,

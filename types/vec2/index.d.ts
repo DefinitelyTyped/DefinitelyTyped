@@ -14,8 +14,15 @@ declare class Vec2 {
     readonly x: number;
     readonly y: number;
 
-    constructor(xy: number[]);
+    constructor(xy: number[] | {x: number, y: number});
     constructor(x: number, y: number);
+
+    static fromArray(xy: number[]): Vec2;
+
+    // Floating point stability
+    static precision: number;
+
+    static clean(val: number): number;
 
     /**
      * Add an observer `fn` that will be called whenever this vector changes.  Calling this method without a function causes it to notify observers.
@@ -32,12 +39,17 @@ declare class Vec2 {
     /**
      * Sets the `x` and `y` coordinates of this vector.  If `false` is passed for `notify`, none of the observers will be called.
      */
-    set(x: number, y: number, notify: boolean): Vec2;
+    set(x: number, y: number, notify?: boolean): Vec2;
 
     /**
      * Sets the `x` and `y` of this vector to `0`
      */
     zero(): Vec2;
+
+    /**
+     * Returns a new vector with the same component values
+     */
+    clone(): Vec2;
 
     /**
      * Negate the `x` and `y` coords of this vector.  If `returnNew` is truthy, a new vector with the negated coordinates will be returned.
@@ -147,12 +159,12 @@ declare class Vec2 {
     /**
      * _returns_: `double`
      */
-    dot(): number;
+    dot(vec: Vec2): number;
 
     /**
      * _returns_: `double`
      */
-    perpDot(): number;
+    perpDot(vec: Vec2): number;
 
     /**
      * Returns the angle from this vector to the incoming.

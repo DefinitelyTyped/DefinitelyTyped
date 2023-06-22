@@ -1,7 +1,6 @@
 // Type definitions for Ember.js 2.8
 // Project: http://emberjs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao>
-//                 bttf <https://github.com/bttf>
+// Definitions by: bttf <https://github.com/bttf>
 //                 Derek Wickern <https://github.com/dwickern>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Theron Cross <https://github.com/theroncross>

@@ -24,7 +24,7 @@ if (token) {
     token; // $ExpectType undefined
 }
 
-// $ExpectError
+// @ts-expect-error
 getAuthToken();
 
 getRegistryUrl('@foobar');

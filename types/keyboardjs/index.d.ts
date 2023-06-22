@@ -2,7 +2,6 @@
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone>,
 //                 David Asmuth <https://github.com/piranha771>,
-//                 Tanasoaia Teodor <https://github.com/teoxoy>,
 //                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

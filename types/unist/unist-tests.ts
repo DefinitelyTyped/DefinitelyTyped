@@ -45,13 +45,13 @@ const parent: Parent = {
 
 const noExtraKeysInNode: Node = {
     type: 'noExtraKeysInNode',
-    // $ExpectError
+    // @ts-expect-error
     extra: 'extra',
 };
 
 const noChildrenInNode: Node = {
     type: 'noChildrenInNode',
-    // $ExpectError
+    // @ts-expect-error
     children: [],
 };
 
@@ -78,11 +78,11 @@ const nodeData: Node<{ key: string }> = {
 
 const nodeData2: Node<{ key: string }> = {
     type: 'nodeData',
-    // $ExpectError
+    // @ts-expect-error
     data: {},
 };
 
-// $ExpectError
+// @ts-expect-error
 type DataType = NodeData<Node<string>>;
 
 const literalData: Literal<string, { key: string }> = {
@@ -126,7 +126,7 @@ const inferredNode = { type: 'example' };
 const inferredNotNode = { notType: 'whoops' };
 
 exampleNodeUtil(inferredNode);
-// $ExpectError
+// @ts-expect-error
 exampleNodeUtil(inferredNotNode);
 
 function exampleLiteralUtil(node: Literal) {}
@@ -135,7 +135,7 @@ const inferredLiteral = { type: 'example', value: 'value' };
 const inferredNotLiteral = { type: 'example' };
 
 exampleLiteralUtil(inferredLiteral);
-// $ExpectError
+// @ts-expect-error
 exampleLiteralUtil(inferredNotLiteral);
 
 function exampleParentUtil(node: Parent) {}
@@ -144,5 +144,5 @@ const inferredParent = { type: 'example', children: [inferredNode] };
 const inferredNotParent = { type: 'example', children1: [] };
 
 exampleParentUtil(inferredParent);
-// $ExpectError
+// @ts-expect-error
 exampleParentUtil(inferredNotParent);

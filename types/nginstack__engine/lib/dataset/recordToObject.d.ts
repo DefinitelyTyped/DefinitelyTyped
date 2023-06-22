@@ -1,8 +1,12 @@
-declare function _exports(
-    dataSet: any,
+export = recordToObject;
+declare function recordToObject(
+    dataSet: DataSet,
     opt_options?: {
         toLowerCase?: boolean;
         onlyFilled?: boolean;
     }
 ): any;
-export = _exports;
+declare namespace recordToObject {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

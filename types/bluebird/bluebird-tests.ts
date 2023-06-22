@@ -898,7 +898,7 @@ normalMethod('foo', (err, data) => {
 // We want to test the return type of the standard methods, so we disable the no void rule for these lines
 // tslint:disable-next-line:no-void-expression
 const normalMethodValue = normalMethod('foo', emtpyFn);
-// $ExpectError
+// @ts-expect-error
 normalMethodValue.then();
 
 const asyncMethod = promiseModule.movedMethodAsync;
@@ -910,10 +910,10 @@ const ignoredMethod = promiseModule.ignoredMethod;
 // tslint:disable-next-line:no-void-expression
 const ignoredMethodValue = ignoredMethod('foo');
 
-// $ExpectError
+// @ts-expect-error
 ignoredMethodValue.then();
 
-// $ExpectError
+// @ts-expect-error
 const ignoredMethodAsync = promiseModule.ignoredMethodAsync;
 
 anyProm = Bluebird.fromNode(nodeCallbackFunc);

@@ -10,6 +10,14 @@ export function register_default_fonts(): void;
 export function register_default_input_plugins(): void;
 export function register_datasource(path: string): void;
 
+export interface MapOptions {
+    strict: boolean;
+}
+
+export type MapRenderCallback = (error: Error, image: Image) => void;
+export type MapLoadCallback = (err: Error, map: Map) => void;
+export type ImageEncodeCallback = (err: Error, buffer: Buffer) => void;
+
 export class VectorTile {
     constructor(z: number, x: number, y: number);
     addData(
@@ -120,8 +128,14 @@ export class Feature {
     toJSON(): string;
 }
 
+export interface DatasourceOptions {
+    type: string;
+    inline?: string;
+    file?: string;
+}
+
 export class Datasource {
-    constructor(datasource: any)
+    constructor(options: DatasourceOptions)
     featureset(): Featureset;
 }
 
@@ -136,14 +150,13 @@ export class FeaturesetNext {
 
 export class Image {
     constructor(x: number, y: number)
-    encode(type: string, callback?: (err: Error, buffer: Buffer) => void): void;
+    encode(type: string, callback?: ImageEncodeCallback): void;
     getData(): Buffer;
 }
-
 export interface Image {
     // constructor(x: number, y: number)
     new(x: number, y: number): () => void;
-    encode(type: string, callback?: (err: Error, buffer: Buffer) => void): void;
+    encode(type: string, callback?: ImageEncodeCallback): void;
     getData(): Buffer;
     save(fp: string): () => void;
     open(fp: string): () => void;
@@ -151,7 +164,26 @@ export interface Image {
 
 export class Map {
     constructor(x: number, y: number)
-    load(xml: string, callback?: (err: Error, map: Map) => void): void;
+    load(xml: string, callback?: MapLoadCallback): void;
     zoomAll(): void;
-    render(images: Image | VectorTile, callback?: (err: Error, map: Image) => void): void;
+    zoomToBox(extent: number[]): void;
+    render(images: Image | VectorTile, callback?: MapRenderCallback): void;
+    loadSync(stylesheet: string, options: MapOptions): void;
+    fromString(styles: string, options: MapOptions, loadedCallback: MapLoadCallback): void;
+    add_layer(layer: Layer): void;
+
+    srs: string;
+    extent: number[];
+}
+
+export class Layer {
+    constructor(name: string);
+    srs: string;
+    styles: string[];
+    datasource: Datasource;
+}
+
+export class Projection {
+    constructor(epsg: string);
+    forward(coordinate: number[]): number[];
 }

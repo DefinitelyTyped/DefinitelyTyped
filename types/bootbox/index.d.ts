@@ -47,6 +47,7 @@ type BootboxInputType = "text" | "textarea" | "email" | "select" | "checkbox" | 
 /** Bootbox options available for prompt modals */
 interface BootboxPromptOptions extends BootboxBaseOptions<string> {
     title: string;
+    message?: JQuery|any[]|Element|DocumentFragment|Text|string|((index: number, html: string) => string|Element|JQuery);
     value?: string | undefined;
     inputType?: BootboxInputType | undefined;
     callback: (result: string) => any;

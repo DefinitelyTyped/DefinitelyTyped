@@ -12,7 +12,7 @@ declare class ClientDataSet {
     bof: boolean;
     eof: boolean;
     recNo: any;
-    bookmark: string;
+    bookmark: any;
     private indexOfFieldName_;
     private readRecord_;
     setRecNo(newRecNo: any, increment: any): void;

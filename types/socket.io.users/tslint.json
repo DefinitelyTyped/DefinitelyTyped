@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "interface-over-type-literal": false,
         "no-consecutive-blank-lines": false,
         "no-unnecessary-class": false,
@@ -11,7 +10,6 @@
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "prefer-template": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false

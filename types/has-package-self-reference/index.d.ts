@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This is necessary to disallow import of `has-package-self-reference/index` or `has-package-self-reference/index.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line no-declare-current-package
 declare module 'has-package-self-reference' {
     /**
      * Whether the current environment supports self-reference for packages

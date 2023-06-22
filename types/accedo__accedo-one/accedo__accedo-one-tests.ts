@@ -1,41 +1,65 @@
 import accedoOne = require("@accedo/accedo-one");
 
-accedoOne(); // $ExpectError
+// @ts-expect-error
+accedoOne();
 
 accedoOne({
-    appKey: 0, // $ExpectError
+    // @ts-expect-error
+    appKey: 0,
 });
 
 const accedo = accedoOne({
     appKey: 'asf8ggtg0a63189cvbs1278jj354',
 });
 
-accedo.getEntries(''); // $ExpectError
-accedo.getEntries(0); // $ExpectError
+// @ts-expect-error
+accedo.getEntries('');
+// @ts-expect-error
+accedo.getEntries(0);
 
-accedo.getEntryById(); // $ExpectError
-accedo.getEntryByAlias(); // $ExpectError
-accedo.sendLog(); // $ExpectError
-accedo.getMetadataByKey(); // $ExpectError
-accedo.getAllApplicationScopeDataByUser(); // $ExpectError
-accedo.getAllApplicationGroupScopeDataByUser(); // $ExpectError
-accedo.getApplicationScopeDataByUserAndKey(); // $ExpectError
-accedo.getApplicationScopeDataByUserAndKey('userName01'); // $ExpectError
+// @ts-expect-error
+accedo.getEntryById();
+// @ts-expect-error
+accedo.getEntryByAlias();
+// @ts-expect-error
+accedo.sendLog();
+// @ts-expect-error
+accedo.getMetadataByKey();
+// @ts-expect-error
+accedo.getAllApplicationScopeDataByUser();
+// @ts-expect-error
+accedo.getAllApplicationGroupScopeDataByUser();
+// @ts-expect-error
+accedo.getApplicationScopeDataByUserAndKey();
+// @ts-expect-error
+accedo.getApplicationScopeDataByUserAndKey('userName01');
 
-accedo.getApplicationGroupScopeDataByUserAndKey(); // $ExpectError
-accedo.getApplicationGroupScopeDataByUserAndKey('userName01'); // $ExpectError
+// @ts-expect-error
+accedo.getApplicationGroupScopeDataByUserAndKey();
+// @ts-expect-error
+accedo.getApplicationGroupScopeDataByUserAndKey('userName01');
 
-accedo.setApplicationScopeUserData(); // $ExpectError
-accedo.setApplicationScopeUserData('userName01'); // $ExpectError
+// @ts-expect-error
+accedo.setApplicationScopeUserData();
+// @ts-expect-error
+accedo.setApplicationScopeUserData('userName01');
 
-accedo.setApplicationGroupScopeUserData(); // $ExpectError
-accedo.setApplicationGroupScopeUserData('userName01'); // $ExpectError
+// @ts-expect-error
+accedo.setApplicationGroupScopeUserData();
+// @ts-expect-error
+accedo.setApplicationGroupScopeUserData('userName01');
 
-accedo.setApplicationScopeUserDataByKey(); // $ExpectError
-accedo.setApplicationScopeUserDataByKey('userName01'); // $ExpectError
+// @ts-expect-error
+accedo.setApplicationScopeUserDataByKey();
+// @ts-expect-error
+accedo.setApplicationScopeUserDataByKey('userName01');
 
-accedo.setApplicationGroupScopeUserDataByKey(); // $ExpectError
-accedo.setApplicationGroupScopeUserDataByKey('userName01'); // $ExpectError
-accedo.setApplicationGroupScopeUserDataByKey('userName01', 'key02'); // $ExpectError
+// @ts-expect-error
+accedo.setApplicationGroupScopeUserDataByKey();
+// @ts-expect-error
+accedo.setApplicationGroupScopeUserDataByKey('userName01');
+// @ts-expect-error
+accedo.setApplicationGroupScopeUserDataByKey('userName01', 'key02');
 
-accedo.sendLogs(); // $ExpectError
+// @ts-expect-error
+accedo.sendLogs();

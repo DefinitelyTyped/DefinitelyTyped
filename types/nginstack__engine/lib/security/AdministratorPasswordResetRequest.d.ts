@@ -13,10 +13,12 @@ declare class AdministratorPasswordResetRequest {
     utcCreatedAt: Date;
     utcExpiresAt: Date;
     utcFinishedAt: Date;
-    authorize(privateKey: any): string;
+    authorize(privateKey: RSACryptoPKey): string;
     verifyAuthorization(authorizationCode: string): boolean;
     toString(): string;
 }
 declare namespace AdministratorPasswordResetRequest {
-    function fromString(data: string): AdministratorPasswordResetRequest;
+    export { fromString, RSACryptoPKey };
 }
+type RSACryptoPKey = import('../crypto/RSACryptoPKey');
+declare function fromString(data: string): AdministratorPasswordResetRequest;

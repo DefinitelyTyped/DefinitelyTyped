@@ -1,6 +1,6 @@
 // Type definitions for CoffeeScript 2.5
 // Project: https://github.com/jashkenas/coffeescript
-// Definitions by: Munin M. <https://github.com/SNDST00M>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Babel from "@babel/core";
@@ -242,7 +242,7 @@ export interface helpers {
      * Parses a CoffeeScript number string to a primitive JS number.
      *
      * @param string String representation of a number.
-     * @retuns Parsed float or integer corresponding to number.
+     * @returns Parsed float or integer corresponding to number.
      */
     parseNumber(string: string): number;
     /**

@@ -5,7 +5,7 @@ blacklisted('this is some kind of string');
 
 addWords('foo');
 addWords(['bar', 'baz']);
-// $ExpectError
+// @ts-expect-error
 addWords(3);
 
 removeWord('foo');

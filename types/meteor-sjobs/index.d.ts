@@ -2,7 +2,7 @@
 // Project: https://github.com/msavin/SteveJobs
 // Definitions by: Witold H <https://github.com/LinearMilk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="meteor" />
 

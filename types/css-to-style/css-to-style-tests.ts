@@ -1,9 +1,12 @@
 import toStyle from "css-to-style";
 
-toStyle(); // $ExpectError
+// @ts-expect-error
+toStyle();
 
-toStyle({}); // $ExpectError
+// @ts-expect-error
+toStyle({});
 
-toStyle(1); // $ExpectError
+// @ts-expect-error
+toStyle(1);
 
 toStyle(''); // $ExpectType CSSStyleDeclaration

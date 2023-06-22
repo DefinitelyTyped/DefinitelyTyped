@@ -1,7 +1,20 @@
-import { ComponentClass } from "react";
-import { NavLinkProps } from "react-router-dom";
+import { ComponentClass, ReactNode } from 'react';
 
-type LinkContainer = ComponentClass<NavLinkProps>;
+// See https://github.com/react-bootstrap/react-router-bootstrap/blob/master/src/LinkContainer.js
+interface LinkContainerProps {
+    children: ReactNode;
+    onClick?: () => void;
+    replace?: boolean;
+    to: string | object;
+    state?: object;
+    className?: string;
+    activeClassName?: string;
+    style?: string | number;
+    activeStyle?: string | number;
+    isActive?: () => void | boolean;
+}
+
+type LinkContainer = ComponentClass<LinkContainerProps>;
 declare const LinkContainer: LinkContainer;
 
 export default LinkContainer;

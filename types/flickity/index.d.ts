@@ -76,7 +76,11 @@ declare namespace Flickity {
         /**
          * Triggered when the selected slide is changed.
          */
-        "change";
+        "change" |
+        /**
+         * Triggered when Flickity functionality has been removed completely
+         */
+        "destroy";
     interface Options {
         /**
          * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.

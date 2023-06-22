@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "@hapi/boom": "^9.1.1"
+        "@hapi/boom": "^9.1.1",
+        "@hapi/hapi": "^21.1.0",
+        "joi": "^17.7.0"
     }
 }

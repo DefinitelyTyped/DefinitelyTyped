@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "import-spacing": false,
         "interface-name": false,
         "no-reference-import": false,

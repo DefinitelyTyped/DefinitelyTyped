@@ -1,12 +1,14 @@
-// Type definitions for jest-image-snapshot 4.3
+// Type definitions for jest-image-snapshot 6.1
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Ayc0 <https://github.com/Ayc0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
+
 import { PixelmatchOptions } from 'pixelmatch';
 import { Options as SSIMOptions } from 'ssim.js';
 
@@ -36,6 +38,16 @@ export interface MatchImageSnapshotOptions {
      */
     customDiffDir?: string | undefined;
     /**
+     * Store the received images separately from the composed diff images on failure.
+     * This can be useful when updating baseline images from CI.
+     * @default false
+     */
+    storeReceivedOnFailure?: boolean | undefined;
+    /**
+     * A custom absolute path of a directory to keep this received image in.
+     */
+    customReceivedDir?: string | undefined;
+    /**
      * A custom name to give this snapshot. If not provided, one is computed automatically. When a function is provided
      * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
      * argument. The function must return an identifier to use for the snapshot.
@@ -47,12 +59,19 @@ export interface MatchImageSnapshotOptions {
               counter: number;
               defaultIdentifier: string;
           }) => string)
-        | string | undefined;
+        | string
+        | undefined;
     /**
      * Changes diff image layout direction.
      * @default 'horizontal'
      */
     diffDirection?: 'horizontal' | 'vertical' | undefined;
+    /**
+     * Either only include the difference between the baseline and the received image in the diff image, or include
+     * the 3 images (following the direction set by `diffDirection`).
+     * @default false
+     */
+    onlyDiff?: boolean | undefined;
     /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.

@@ -25,31 +25,51 @@ export interface RosterItem {
     subscription: RosterSubscriptionState;
     ask: string;
     groups: string[];
-    resources: {[resourceId: string]: RosterResource};
+    resources: { [resourceId: string]: RosterResource };
 }
 
 export type RosterUpdateCallback =
-(items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
+    (items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
 export type PresenceRequestCallback = (from: string) => any;
 
 interface StropheRosterPlugin {
     supportVersioning(): boolean;
+
     get(userCallback: IqCallback, ver?: string, items?: string[]): IqID;
+
     registerCallback(callback: RosterUpdateCallback): void;
+
     registerRequestCallback(callback: PresenceRequestCallback): void;
+
     findItem(jid: string): RosterItem | false;
+
     removeItem(jid: string): boolean;
+
     subscribe(jid: string, message?: string, nick?: string): void;
+
     unsubscribe(jid: string, message?: string): void;
+
     authorize(jid: string, message?: string): void;
+
     unauthorize(jid: string, message?: string): void;
+
     add(jid: string, name: string, groups: string[], call_back?: IqCallback): IqID;
+
     update(jid: string, name?: string, groups?: string[], call_back?: IqCallback): IqID;
+
     remove(jid: string, call_back?: IqCallback): void;
 }
 
 /*~ Here, declare the same module as the one you imported above */
 declare module 'strophe.js' {
+    namespace Strophe {
+        interface Connection {
+            roster: StropheRosterPlugin;
+        }
+    }
+}
+
+declare global {
     namespace Strophe {
         interface Connection {
             roster: StropheRosterPlugin;

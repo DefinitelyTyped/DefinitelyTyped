@@ -1,8 +1,10 @@
 import { default as videojsnovtt } from 'video.js/dist/alt/video.core.novtt.js';
 import { default as videojscore } from 'video.js/dist/alt/video.core.js';
+import { default as videojsmin } from 'video.js/dist/video.min.js';
 
 test(videojsnovtt);
 test(videojscore);
+test(videojsmin);
 
 function test(videojs: typeof videojsnovtt | typeof videojscore) {
     // support for inline player ready callback with proper `this`
@@ -45,7 +47,7 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
 
         const autoplay: boolean | string = this.autoplay();
         this.autoplay(true);
-        this.autoplay("muted");
+        this.autoplay('muted');
 
         const controls: boolean = this.controls();
         this.controls(true);

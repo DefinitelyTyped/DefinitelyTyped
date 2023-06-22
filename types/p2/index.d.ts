@@ -1190,7 +1190,7 @@ declare namespace p2 {
         addBody(body: Body): void;
         removeBody(body: Body): void;
         /** @returns The body, or false if it was not found. */
-        getBodyByID(id: number): Body | false;
+        getBodyById(id: number): Body | false;
         disableBodyCollision(bodyA: Body, bodyB: Body): void;
         enableBodyCollision(bodyA: Body, bodyB: Body): void;
         clear(): void;

@@ -8,7 +8,6 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,

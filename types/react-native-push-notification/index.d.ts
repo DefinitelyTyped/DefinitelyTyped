@@ -112,7 +112,7 @@ export class PushNotificationScheduledLocalObject {
     id: string;
     date: Date;
     title: string;
-    body: string;
+    message: string;
     soundName: string;
     repeatInterval: number;
     number: number;

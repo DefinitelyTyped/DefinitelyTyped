@@ -17,8 +17,8 @@ saxStream({
     noscript: true
 });
 
-// $ExpectError
+// @ts-expect-error
 saxStream({});
 
-// $ExpectError
+// @ts-expect-error
 saxStream();

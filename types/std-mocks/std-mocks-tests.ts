@@ -11,4 +11,5 @@ stdMocks.restore({stderr: false});
 
 stdMocks.flush();
 stdMocks.flush({stdout: false}).stderr;
-stdMocks.flush({stdout: false}).stdout; // $ExpectError
+// @ts-expect-error
+stdMocks.flush({stdout: false}).stdout;

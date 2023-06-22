@@ -104,8 +104,8 @@ declare namespace Mail {
         cc?: string | Address | Array<string | Address> | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field */
         bcc?: string | Address | Array<string | Address> | undefined;
-        /** An e-mail address that will appear on the Reply-To: field */
-        replyTo?: string | Address | undefined;
+        /** Comma separated list or an array of e-mail addresses that will appear on the Reply-To: field */
+        replyTo?: string | Address | Array<string | Address> | undefined;
         /** The message-id this message is replying */
         inReplyTo?: string | Address | undefined;
         /** Message-id list (an array or space separated string) */
@@ -151,6 +151,8 @@ declare namespace Mail {
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
         priority?: "high"|"normal"|"low" | undefined;
+        /** if set to true then converts data:images in the HTML content of message to embedded attachments */
+        attachDataUrls?: boolean | undefined;
     }
 
     type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;

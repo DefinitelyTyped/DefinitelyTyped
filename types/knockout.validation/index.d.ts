@@ -38,7 +38,6 @@ interface KnockoutValidationConfiguration {
     /**
      * Indicates whether css error classes are added only
      * when properties are modified or at all times
-     * @type {[type]}
      */
     decorateElementOnModified?: boolean | undefined;
     /**

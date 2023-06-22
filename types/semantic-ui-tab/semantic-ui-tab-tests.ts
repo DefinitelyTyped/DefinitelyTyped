@@ -201,8 +201,10 @@ function test_tab() {
     });
     $(selector).tab(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).tab('foo'); // $ExpectError
-    $(selector).tab({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).tab('foo');
+    // @ts-expect-error
+    $(selector).tab({ foo: 'bar' });
 }
 
 import tab = require('semantic-ui-tab');

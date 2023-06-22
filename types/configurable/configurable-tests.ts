@@ -28,23 +28,23 @@ c.disable('first');
 // $ExpectType boolean
 c.disabled('first');
 
-// $ExpectError
+// @ts-expect-error
 c.set(5, 'first as a string');
 
-// $ExpectError
+// @ts-expect-error
 c.set('first');
 
-// $ExpectError
+// @ts-expect-error
 c.get(5);
 
-// $ExpectError
+// @ts-expect-error
 c.enable(5);
 
-// $ExpectError
+// @ts-expect-error
 c.enabled(5);
 
-// $ExpectError
+// @ts-expect-error
 c.disable(5);
 
-// $ExpectError
+// @ts-expect-error
 c.disabled(5);
