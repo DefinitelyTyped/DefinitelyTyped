@@ -20,7 +20,7 @@ export {};
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: null | ReactTestRendererNode[];
+    children: ReactTestRendererNode | ReactTestRendererNode[];
 }
 export type ReactTestRendererNode = ReactTestRendererJSON | string | number | boolean | null | undefined;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
