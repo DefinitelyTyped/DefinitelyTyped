@@ -10,9 +10,12 @@ new shajs.sha256().update('42').digest('hex');
 new shajs.sha384().update('42').digest('hex');
 new shajs.sha512().update('42').digest('hex');
 
-// Algorithm must match list of supported values (case-sensitive, though implementation allows case-insensitive values too)
+// Algorithm must match list of supported values
 // @ts-expect-error
 shajs('unexpected-algorithm').update('something').digest('hex');
+
+// Also support uppercase value (implementation allows case-insensitive values too)
+shajs('SHA256')
 
 // Type of value to be hashed doesn't include a number
 // @ts-expect-error
