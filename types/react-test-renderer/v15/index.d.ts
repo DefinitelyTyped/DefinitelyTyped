@@ -15,7 +15,7 @@ export interface ReactTestInstance {
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: null | Array<string | ReactTestRendererJSON>;
+    children: null | Array<undefined | null | boolean | number | string | ReactTestRendererJSON>;
     $$typeof?: any;
 }
 export interface TestRendererOptions {
