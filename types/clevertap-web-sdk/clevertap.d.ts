@@ -122,6 +122,14 @@ declare class CleverTap {
     removeMultiValueForKey: (key: any, value: string | number) => void;
     removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
+    markReadAllInboxMessage:() => void;
+    markReadInboxMessage:(messageId:any)=>void;
+    deleteInboxMessage:(messageId:any)=>void;
+    getInboxMessageForId:(messageId:any)=>void;
+    getUnreadInboxMessages:() => void;
+    getAllInboxMessages:() => void;
+    getInboxMessageUnreadCount:() => void;
+    getInboxMessageCount:() => number | undefined;
 }
 
 export default CleverTap;
