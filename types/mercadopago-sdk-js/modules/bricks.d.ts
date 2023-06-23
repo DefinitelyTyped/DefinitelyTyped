@@ -5,15 +5,24 @@ declare namespace bricks {
         message: string;
     }
 
-    interface BrickCallbacks {
+    interface Submit<BrickType> {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
-            param2?: AdditionalCardFormData | AdditionalPaymentFormData,
-        ) => Promise<void>;
-        onReady?: () => void;
-        onError?: (error: BrickError) => void;
+            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
+        ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
+    }
+
+    interface BinChange {
         onBinChange?: (bin: string) => void;
     }
+    interface BrickCallbacks {
+        onReady?: () => void;
+        onError?: (error: BrickError) => void;
+    }
+
+    interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
+    interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
+    interface PaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
 
     interface PayerAddress {
         zipCode?: string;
@@ -174,9 +183,15 @@ declare namespace bricks {
         additionalData?: StatusBrickAdditionalData;
     }
 
-    interface BrickSettings {
+    interface BrickSettings<BrickType> {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks?: BrickCallbacks;
+        callbacks: BrickType extends 'wallet'
+            ? WalletBrickCallbacks<BrickType>
+            : BrickType extends 'cardPayment'
+            ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends 'payment'
+            ? PaymentBrickCallbacks<BrickType>
+            : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
@@ -331,6 +346,10 @@ declare namespace bricks {
 
     interface Bricks {
         isInitialized(): boolean;
-        create(brick: BrickTypes, containerId: string, settings: BrickSettings): Promise<BrickController>;
+        create<BrickType extends BrickTypes>(
+            brick: BrickType,
+            containerId: string,
+            settings: BrickSettings<BrickType>,
+        ): Promise<BrickController>;
     }
 }
