@@ -87,18 +87,6 @@ declare namespace bricks {
         GREY = 'grey',
     }
 
-    enum WalletButtonAction {
-        PAY = 'pay',
-        BUY = 'buy',
-    }
-
-    enum WalletButtonValueProp {
-        PRACTICALITY = 'practicality',
-        CONVENIENCE = 'convenience',
-        SECURITY_DETAILS = 'security_details',
-        SECURITY_SAFETY = 'security_safety',
-    }
-
     enum WalletButtonRedirectMode {
         MODAL = 'modal',
         SELF = 'self',
@@ -151,8 +139,15 @@ declare namespace bricks {
     }
 
     interface WalletButtonTextCustomization {
-        action: WalletButtonAction;
-        valueProp: WalletButtonValueProp;
+        action: 'pay' | 'buy';
+        valueProp:
+            | 'practicality'
+            | 'convenience'
+            | 'convenience_all'
+            | 'security_details'
+            | 'security_safety'
+            | 'convenience_credits'
+            | 'smart_option';
     }
 
     interface StatusBrickBackUrls {

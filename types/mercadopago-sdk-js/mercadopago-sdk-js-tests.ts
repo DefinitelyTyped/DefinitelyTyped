@@ -56,6 +56,12 @@ brickBuilder.create('wallet', 'containerWallet', {
     initialization: {
         paymentId: 123456789,
     },
+    customization: {
+        texts: {
+            action: 'pay',
+            valueProp: 'smart_option',
+        },
+    },
     callbacks: {
         onSubmit: (formData: any, additionalData: any) => {
             return new Promise(() => {
