@@ -302,9 +302,7 @@ declare module 'node:test' {
      * @since v18.9.0, v16.19.0
      */
     class TestsStream extends Readable implements NodeJS.ReadableStream {
-        addListener(event: 'test:dequeue', listener: (data: TestDequeue) => void): this;
         addListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        addListener(event: 'test:enqueue', listener: (data: TestEnqueue) => void): this;
         addListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         addListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
@@ -312,9 +310,7 @@ declare module 'node:test' {
         addListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
         addListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        emit(event: 'test:dequeue', data: TestDequeue): boolean;
         emit(event: 'test:diagnostic', data: DiagnosticData): boolean;
-        emit(event: 'test:enqueue', data: TestEnqueue): boolean;
         emit(event: 'test:fail', data: TestFail): boolean;
         emit(event: 'test:pass', data: TestPass): boolean;
         emit(event: 'test:plan', data: TestPlan): boolean;
@@ -322,9 +318,7 @@ declare module 'node:test' {
         emit(event: 'test:stderr', data: TestStderr): boolean;
         emit(event: 'test:stdout', data: TestStdout): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'test:dequeue', listener: (data: TestDequeue) => void): this;
         on(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        on(event: 'test:enqueue', listener: (data: TestEnqueue) => void): this;
         on(event: 'test:fail', listener: (data: TestFail) => void): this;
         on(event: 'test:pass', listener: (data: TestPass) => void): this;
         on(event: 'test:plan', listener: (data: TestPlan) => void): this;
@@ -332,9 +326,7 @@ declare module 'node:test' {
         on(event: 'test:stderr', listener: (data: TestStderr) => void): this;
         on(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'test:dequeue', listener: (data: TestDequeue) => void): this;
         once(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        once(event: 'test:enqueue', listener: (data: TestEnqueue) => void): this;
         once(event: 'test:fail', listener: (data: TestFail) => void): this;
         once(event: 'test:pass', listener: (data: TestPass) => void): this;
         once(event: 'test:plan', listener: (data: TestPlan) => void): this;
@@ -342,9 +334,7 @@ declare module 'node:test' {
         once(event: 'test:stderr', listener: (data: TestStderr) => void): this;
         once(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'test:dequeue', listener: (data: TestDequeue) => void): this;
         prependListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        prependListener(event: 'test:enqueue', listener: (data: TestEnqueue) => void): this;
         prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         prependListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
@@ -352,9 +342,7 @@ declare module 'node:test' {
         prependListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
         prependListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'test:dequeue', listener: (data: TestDequeue) => void): this;
         prependOnceListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        prependOnceListener(event: 'test:enqueue', listener: (data: TestEnqueue) => void): this;
         prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         prependOnceListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
@@ -979,39 +967,11 @@ declare module 'node:test' {
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }
 
-interface TestDequeue {
-    /**
-     * The test name.
-     */
-    name: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
-}
 interface DiagnosticData {
     /**
      * The diagnostic message.
      */
     message: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
-}
-interface TestEnqueue {
-    /**
-     * The test name.
-     */
-    name: string;
     /**
      * The nesting level of the test.
      */
@@ -1164,8 +1124,8 @@ interface TestStdout {
 declare module 'node:test/reporters' {
     import { Transform } from 'node:stream';
 
-    type TestEventName = 'dequeue' | 'diagnostic' | 'enqueue' | 'fail' | 'pass' | 'plan' | 'start' | 'stderr' | 'stdout';
-    type TestEventPayload = TestDequeue | DiagnosticData | TestEnqueue | TestFail | TestPass | TestPlan | TestStart | TestStderr | TestStdout;
+    type TestEventName = 'diagnostic' | 'fail' | 'pass' | 'plan' | 'start' | 'stderr' | 'stdout';
+    type TestEventPayload = DiagnosticData | TestFail | TestPass | TestPlan | TestStart | TestStderr | TestStdout;
     type TestEventGenerator = AsyncGenerator<{ type: `test:${TestEventName}`; data: TestEventPayload }, void>;
 
     /**
