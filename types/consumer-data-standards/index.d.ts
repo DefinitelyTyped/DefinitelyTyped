@@ -1,4 +1,4 @@
-// Type definitions for non-npm package consumer-data-standards-browser 5.0
+// Type definitions for non-npm package consumer-data-standards-browser 6.0
 // Project: https://github.com/ConsumerDataStandardsAustralia
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

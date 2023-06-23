@@ -386,6 +386,7 @@ declare namespace Shippo {
         zip?: string | undefined;
         country?: Country | undefined;
         is_residential?: boolean | undefined;
+        is_complete?: boolean | undefined;
         validate?: boolean | undefined;
         metadata?: string | undefined;
         validation_results?:

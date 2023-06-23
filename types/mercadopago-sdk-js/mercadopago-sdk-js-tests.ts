@@ -32,15 +32,29 @@ brickBuilder.create('cardPayment', 'container', {
     },
 });
 
-brickBuilder.create('wallet', 'container', {
+brickBuilder.create('payment', 'containerPayment', {
     initialization: {
         amount: 100,
     },
-    customization: {
-        texts: {
-            action: 'pay',
-            valueProp: 'smart_option',
+    callbacks: {
+        onSubmit: (formData: any, additionalData: any) => {
+            return new Promise(() => {
+                console.log(formData, additionalData);
+            });
         },
+    },
+});
+
+brickBuilder.create('statusScreen', 'containerStatusScreen', {
+    initialization: {
+        paymentId: 123456789,
+    },
+    callbacks: {},
+});
+
+brickBuilder.create('wallet', 'containerWallet', {
+    initialization: {
+        paymentId: 123456789,
     },
     callbacks: {
         onSubmit: (formData: any, additionalData: any) => {

@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -220,8 +220,6 @@ declare module "sap/ui/ux3/ShellPersonalization" {
 declare module "sap/ui/ux3/ActionBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import ThingAction from "sap/ui/ux3/ThingAction";
 
   import { CSSSize, URI } from "sap/ui/core/library";
@@ -235,6 +233,8 @@ declare module "sap/ui/ux3/ActionBar" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
    *
@@ -247,7 +247,7 @@ declare module "sap/ui/ux3/ActionBar" {
    * When using this control, please be aware that it fulfills rather specific requirements: it has been designed
    * for and is used within composite controls QuickView and ThingInspector.
    */
-  class ActionBar extends Control {
+  export default class ActionBar extends Control {
     /**
      * Constructor for a new ActionBar.
      *
@@ -334,7 +334,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarActionSelectedEventParameters>) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -361,7 +361,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarActionSelectedEventParameters>) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -386,7 +386,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -406,7 +406,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -429,7 +429,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarActionSelectedEventParameters>) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -446,14 +446,14 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ActionBarFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -463,10 +463,10 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ActionBarActionSelectedEventParameters
+      mParameters?: ActionBar$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -476,7 +476,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ActionBarFeedSubmitEventParameters
+      mParameters?: ActionBar$FeedSubmitEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAlwaysShowMoreMenu alwaysShowMoreMenu}.
@@ -610,7 +610,7 @@ declare module "sap/ui/ux3/ActionBar" {
       oBusinessAction: ThingAction
     ): int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM). ActionBar instance is rendered if and only
      * if 'isActive' returns 'true'. This check is called implicitely by the rendere, MUST not be removed.
@@ -816,7 +816,6 @@ declare module "sap/ui/ux3/ActionBar" {
       bUpdateState?: boolean
     ): this;
   }
-  export default ActionBar;
 
   export interface $ActionBarSettings extends $ControlSettings {
     /**
@@ -904,16 +903,16 @@ declare module "sap/ui/ux3/ActionBar" {
      * For ‘Update’, please refer to event ‘feedSubmit’
      */
     actionSelected?: (
-      oEvent: Event<$ActionBarActionSelectedEventParameters>
+      oEvent: Event<ActionBar$ActionSelectedEventParameters>
     ) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: (oEvent: Event<$ActionBarFeedSubmitEventParameters>) => void;
+    feedSubmit?: (oEvent: Event<ActionBar$FeedSubmitEventParameters>) => void;
   }
 
-  export interface $ActionBarActionSelectedEventParameters {
+  export interface ActionBar$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
      */
@@ -931,12 +930,28 @@ declare module "sap/ui/ux3/ActionBar" {
     newState?: string;
   }
 
-  export interface $ActionBarFeedSubmitEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ActionBar$ActionSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ActionBarActionSelectedEventParameters = ActionBar$ActionSelectedEventParameters;
+
+  export type ActionBar$ActionSelectedEvent = Event<ActionBar$ActionSelectedEventParameters>;
+
+  export interface ActionBar$FeedSubmitEventParameters {
     /**
      * Feed text
      */
     text?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ActionBar$FeedSubmitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ActionBarFeedSubmitEventParameters = ActionBar$FeedSubmitEventParameters;
+
+  export type ActionBar$FeedSubmitEvent = Event<ActionBar$FeedSubmitEventParameters>;
 }
 
 declare module "sap/ui/ux3/Collection" {
@@ -961,7 +976,7 @@ declare module "sap/ui/ux3/Collection" {
    *
    * Collection
    */
-  class Collection extends UI5Element {
+  export default class Collection extends UI5Element {
     /**
      * Constructor for a new Collection.
      *
@@ -1181,7 +1196,7 @@ declare module "sap/ui/ux3/Collection" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:propertyChanged propertyChanged} to attached listeners.
      *
@@ -1194,7 +1209,7 @@ declare module "sap/ui/ux3/Collection" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -1357,7 +1372,6 @@ declare module "sap/ui/ux3/Collection" {
       sTitle?: string
     ): this;
   }
-  export default Collection;
 
   export interface $CollectionSettings extends $ElementSettings {
     /**
@@ -1396,9 +1410,25 @@ declare module "sap/ui/ux3/Collection" {
     propertyChanged?: (oEvent: Event) => void;
   }
 
-  export interface $CollectionPropertyChangedEventParameters {}
+  export interface Collection$PropertyChangedEventParameters {}
 
-  export interface $CollectionSelectionChangedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Collection$PropertyChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CollectionPropertyChangedEventParameters = Collection$PropertyChangedEventParameters;
+
+  export type Collection$PropertyChangedEvent = Event<Collection$PropertyChangedEventParameters>;
+
+  export interface Collection$SelectionChangedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Collection$SelectionChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CollectionSelectionChangedEventParameters = Collection$SelectionChangedEventParameters;
+
+  export type Collection$SelectionChangedEvent = Event<Collection$SelectionChangedEventParameters>;
 }
 
 declare module "sap/ui/ux3/CollectionInspector" {
@@ -1423,7 +1453,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
    *
    * CollectionInspector
    */
-  class CollectionInspector extends Control {
+  export default class CollectionInspector extends Control {
     /**
      * Constructor for a new CollectionInspector.
      *
@@ -1718,7 +1748,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:collectionSelected collectionSelected} to attached listeners.
      *
@@ -1731,7 +1761,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:editCollection editCollection} to attached listeners.
      *
@@ -1744,7 +1774,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelectionChanged itemSelectionChanged} to attached listeners.
      *
@@ -1942,7 +1972,6 @@ declare module "sap/ui/ux3/CollectionInspector" {
       bSidebarVisible?: boolean
     ): this;
   }
-  export default CollectionInspector;
 
   export interface $CollectionInspectorSettings extends $ControlSettings {
     /**
@@ -1990,11 +2019,35 @@ declare module "sap/ui/ux3/CollectionInspector" {
     editCollection?: (oEvent: Event) => void;
   }
 
-  export interface $CollectionInspectorCollectionSelectedEventParameters {}
+  export interface CollectionInspector$CollectionSelectedEventParameters {}
 
-  export interface $CollectionInspectorEditCollectionEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CollectionInspector$CollectionSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CollectionInspectorCollectionSelectedEventParameters = CollectionInspector$CollectionSelectedEventParameters;
 
-  export interface $CollectionInspectorItemSelectionChangedEventParameters {}
+  export type CollectionInspector$CollectionSelectedEvent = Event<CollectionInspector$CollectionSelectedEventParameters>;
+
+  export interface CollectionInspector$EditCollectionEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CollectionInspector$EditCollectionEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CollectionInspectorEditCollectionEventParameters = CollectionInspector$EditCollectionEventParameters;
+
+  export type CollectionInspector$EditCollectionEvent = Event<CollectionInspector$EditCollectionEventParameters>;
+
+  export interface CollectionInspector$ItemSelectionChangedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CollectionInspector$ItemSelectionChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CollectionInspectorItemSelectionChangedEventParameters = CollectionInspector$ItemSelectionChangedEventParameters;
+
+  export type CollectionInspector$ItemSelectionChangedEvent = Event<CollectionInspector$ItemSelectionChangedEventParameters>;
 }
 
 declare module "sap/ui/ux3/DataSet" {
@@ -2006,8 +2059,6 @@ declare module "sap/ui/ux3/DataSet" {
 
   import { DataSetView } from "sap/ui/ux3/library";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -2017,12 +2068,14 @@ declare module "sap/ui/ux3/DataSet" {
 
   import { ID } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
    *
    * DataSet
    */
-  class DataSet extends Control {
+  export default class DataSet extends Control {
     /**
      * Constructor for a new DataSet.
      *
@@ -2084,13 +2137,13 @@ declare module "sap/ui/ux3/DataSet" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the FilterArea
      */
     _rerenderFilter(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the Toolbar
      */
@@ -2156,7 +2209,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSearchEventParameters>) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2176,7 +2229,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSearchEventParameters>) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2202,7 +2255,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSelectionChangedEventParameters>) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2223,7 +2276,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSelectionChangedEventParameters>) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2248,7 +2301,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     clearSelection(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a view switch button
      *
@@ -2293,7 +2346,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSearchEventParameters>) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2311,14 +2364,14 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetSelectionChangedEventParameters>) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -2328,10 +2381,10 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DataSetSearchEventParameters
+      mParameters?: DataSet$SearchEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -2341,7 +2394,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DataSetSelectionChangedEventParameters
+      mParameters?: DataSet$SelectionChangedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getFilter filter}.
@@ -2356,7 +2409,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getItems(): DataSetItem[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the LeadSelection index
      *
@@ -2382,7 +2435,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getSelectedIndices(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns id of selected Item from given index
      *
@@ -2523,7 +2576,7 @@ declare module "sap/ui/ux3/DataSet" {
       iIndex: int
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns true if iIndex is selected
      *
@@ -2597,7 +2650,7 @@ declare module "sap/ui/ux3/DataSet" {
       vView: int | string | DataSetView
     ): DataSetView | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Set the LeadSelection index
      */
@@ -2686,7 +2739,6 @@ declare module "sap/ui/ux3/DataSet" {
      */
     unbindItems(): this;
   }
-  export default DataSet;
 
   export interface $DataSetSettings extends $ControlSettings {
     /**
@@ -2741,23 +2793,31 @@ declare module "sap/ui/ux3/DataSet" {
      * selection Changed
      */
     selectionChanged?: (
-      oEvent: Event<$DataSetSelectionChangedEventParameters>
+      oEvent: Event<DataSet$SelectionChangedEventParameters>
     ) => void;
 
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: (oEvent: Event<$DataSetSearchEventParameters>) => void;
+    search?: (oEvent: Event<DataSet$SearchEventParameters>) => void;
   }
 
-  export interface $DataSetSearchEventParameters {
+  export interface DataSet$SearchEventParameters {
     /**
      * The search query
      */
     query?: string;
   }
 
-  export interface $DataSetSelectionChangedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DataSet$SearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DataSetSearchEventParameters = DataSet$SearchEventParameters;
+
+  export type DataSet$SearchEvent = Event<DataSet$SearchEventParameters>;
+
+  export interface DataSet$SelectionChangedEventParameters {
     /**
      * Old lead selected index
      */
@@ -2768,12 +2828,18 @@ declare module "sap/ui/ux3/DataSet" {
      */
     newLeadSelectedIndex?: int;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DataSet$SelectionChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DataSetSelectionChangedEventParameters = DataSet$SelectionChangedEventParameters;
+
+  export type DataSet$SelectionChangedEvent = Event<DataSet$SelectionChangedEventParameters>;
 }
 
 declare module "sap/ui/ux3/DataSetItem" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
-
-  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -2781,12 +2847,14 @@ declare module "sap/ui/ux3/DataSetItem" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38)
    *
    * DataSet Item
    */
-  class DataSetItem extends UI5Element {
+  export default class DataSetItem extends UI5Element {
     /**
      * Constructor for a new DataSetItem.
      *
@@ -2866,7 +2934,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
        */
@@ -2886,7 +2954,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
        */
@@ -2903,14 +2971,14 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DataSetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
@@ -2920,7 +2988,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DataSetItemSelectedEventParameters
+      mParameters?: DataSetItem$SelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCheckable checkable}.
@@ -3027,7 +3095,6 @@ declare module "sap/ui/ux3/DataSetItem" {
       sTitle?: string
     ): this;
   }
-  export default DataSetItem;
 
   export interface $DataSetItemSettings extends $ElementSettings {
     /**
@@ -3053,15 +3120,23 @@ declare module "sap/ui/ux3/DataSetItem" {
     /**
      * Event Fired when Datset item is selected.
      */
-    selected?: (oEvent: Event<$DataSetItemSelectedEventParameters>) => void;
+    selected?: (oEvent: Event<DataSetItem$SelectedEventParameters>) => void;
   }
 
-  export interface $DataSetItemSelectedEventParameters {
+  export interface DataSetItem$SelectedEventParameters {
     /**
      * Id of the selected Datset item
      */
     itemId?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DataSetItem$SelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DataSetItemSelectedEventParameters = DataSetItem$SelectedEventParameters;
+
+  export type DataSetItem$SelectedEvent = Event<DataSetItem$SelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/DataSetSimpleView" {
@@ -3084,7 +3159,9 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
    *
    * DataSetSimpleView provides a simple view example for DataSet usage.
    */
-  class DataSetSimpleView extends Control implements DataSetView {
+  export default class DataSetSimpleView
+    extends Control
+    implements DataSetView {
     __implements__sap_ui_ux3_DataSetView: boolean;
     /**
      * Constructor for a new DataSetSimpleView.
@@ -3153,7 +3230,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     destroyTemplate(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * View finalization: Called when leaving the view
      */
@@ -3283,7 +3360,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getTemplate(): Control;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Eventhandler for the selection of an Item
      */
@@ -3294,7 +3371,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oEvent: Event
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * View Initialization: Called when selecting the view
      */
@@ -3305,7 +3382,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aItems: any[]
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Check if Item `oItem` is selected
      */
@@ -3511,7 +3588,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oTemplate: Control
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * View update: Called when pagination adds items
      */
@@ -3522,7 +3599,6 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aDiff: DataSetItem[]
     ): void;
   }
-  export default DataSetSimpleView;
 
   export interface $DataSetSimpleViewSettings extends $ControlSettings {
     /**
@@ -3610,8 +3686,6 @@ declare module "sap/ui/ux3/Exact" {
 
   import ExactAttribute from "sap/ui/ux3/ExactAttribute";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ExactArea from "sap/ui/ux3/ExactArea";
@@ -3625,6 +3699,8 @@ declare module "sap/ui/ux3/Exact" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38)
    * @experimental (since 1.2) - API is not yet finished and might change completely
@@ -3632,7 +3708,7 @@ declare module "sap/ui/ux3/Exact" {
    * A comprehensive UI design approach with graphical and functional elements for searching data, exploring
    * data, and acting on the data ("Explore and Act (Exact) Pattern").
    */
-  class Exact extends Control {
+  export default class Exact extends Control {
     /**
      * Constructor for a new Exact.
      *
@@ -3723,7 +3799,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExactRefineSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3743,7 +3819,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExactRefineSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3768,7 +3844,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExactSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3788,7 +3864,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExactSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3817,7 +3893,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ExactRefineSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3834,14 +3910,14 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ExactSearchEventParameters>) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:refineSearch refineSearch} to attached listeners.
      *
@@ -3851,10 +3927,10 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExactRefineSearchEventParameters
+      mParameters?: Exact$RefineSearchEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -3864,7 +3940,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExactSearchEventParameters
+      mParameters?: Exact$SearchEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getAttributes attributes}.
@@ -3969,7 +4045,6 @@ declare module "sap/ui/ux3/Exact" {
       oSettingsMenu: Menu
     ): this;
   }
-  export default Exact;
 
   export interface $ExactSettings extends $ControlSettings {
     /**
@@ -3994,15 +4069,15 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * Event is fired when the search button is clicked
      */
-    search?: (oEvent: Event<$ExactSearchEventParameters>) => void;
+    search?: (oEvent: Event<Exact$SearchEventParameters>) => void;
 
     /**
      * Event which is fired when an attribute is selected or unselected.
      */
-    refineSearch?: (oEvent: Event<$ExactRefineSearchEventParameters>) => void;
+    refineSearch?: (oEvent: Event<Exact$RefineSearchEventParameters>) => void;
   }
 
-  export interface $ExactRefineSearchEventParameters {
+  export interface Exact$RefineSearchEventParameters {
     /**
      * The query string which was entered in the search field
      */
@@ -4019,12 +4094,28 @@ declare module "sap/ui/ux3/Exact" {
     allSelectedAttributes?: object;
   }
 
-  export interface $ExactSearchEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Exact$RefineSearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactRefineSearchEventParameters = Exact$RefineSearchEventParameters;
+
+  export type Exact$RefineSearchEvent = Event<Exact$RefineSearchEventParameters>;
+
+  export interface Exact$SearchEventParameters {
     /**
      * The query string which was entered in the search field.
      */
     query?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Exact$SearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactSearchEventParameters = Exact$SearchEventParameters;
+
+  export type Exact$SearchEvent = Event<Exact$SearchEventParameters>;
 }
 
 declare module "sap/ui/ux3/ExactArea" {
@@ -4046,7 +4137,7 @@ declare module "sap/ui/ux3/ExactArea" {
    * Consists of two sections: A tool bar and a content area where arbitrary controls can be added. The ExactArea
    * is intended to be used for the Exact design approach but alternatively also in a stand alone version.
    */
-  class ExactArea extends Control {
+  export default class ExactArea extends Control {
     /**
      * Constructor for a new ExactArea.
      *
@@ -4277,7 +4368,6 @@ declare module "sap/ui/ux3/ExactArea" {
       bToolbarVisible?: boolean
     ): this;
   }
-  export default ExactArea;
 
   export interface $ExactAreaSettings extends $ControlSettings {
     /**
@@ -4304,8 +4394,6 @@ declare module "sap/ui/ux3/ExactArea" {
 declare module "sap/ui/ux3/ExactAttribute" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import { ExactOrder } from "sap/ui/ux3/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -4317,12 +4405,14 @@ declare module "sap/ui/ux3/ExactAttribute" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38)
    *
    * An element for defining attributes and sub-attributes used within the Exact pattern.
    */
-  class ExactAttribute extends UI5Element {
+  export default class ExactAttribute extends UI5Element {
     /**
      * Constructor for a new ExactAttribute.
      *
@@ -4416,9 +4506,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactAttributeSupplyAttributesEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
        */
@@ -4441,9 +4529,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactAttributeSupplyAttributesEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
        */
@@ -4467,16 +4553,14 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactAttributeSupplyAttributesEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:supplyAttributes supplyAttributes} to attached listeners.
      *
@@ -4486,7 +4570,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExactAttributeSupplyAttributesEventParameters
+      mParameters?: ExactAttribute$SupplyAttributesEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAdditionalData additionalData}.
@@ -4696,7 +4780,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       sListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.base.ManagedObject.prototype.setProperty
@@ -4809,7 +4893,6 @@ declare module "sap/ui/ux3/ExactAttribute" {
       iWidth?: int
     ): this;
   }
-  export default ExactAttribute;
 
   export interface $ExactAttributeSettings extends $ElementSettings {
     /**
@@ -4883,16 +4966,24 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * getAttributes() is called.
      */
     supplyAttributes?: (
-      oEvent: Event<$ExactAttributeSupplyAttributesEventParameters>
+      oEvent: Event<ExactAttribute$SupplyAttributesEventParameters>
     ) => void;
   }
 
-  export interface $ExactAttributeSupplyAttributesEventParameters {
+  export interface ExactAttribute$SupplyAttributesEventParameters {
     /**
      * The ExactAttribute
      */
     attribute?: ExactAttribute;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ExactAttribute$SupplyAttributesEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactAttributeSupplyAttributesEventParameters = ExactAttribute$SupplyAttributesEventParameters;
+
+  export type ExactAttribute$SupplyAttributesEvent = Event<ExactAttribute$SupplyAttributesEventParameters>;
 }
 
 declare module "sap/ui/ux3/ExactBrowser" {
@@ -4924,7 +5015,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
    * and thereby trigger the display of further information, depending on the chosen entry/entries (multiple
    * selection supported).
    */
-  class ExactBrowser extends Control {
+  export default class ExactBrowser extends Control {
     /**
      * Constructor for a new ExactBrowser.
      *
@@ -5016,9 +5107,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactBrowserAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -5039,9 +5128,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactBrowserAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -5116,9 +5203,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactBrowserAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5142,7 +5227,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -5152,10 +5237,10 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExactBrowserAttributeSelectedEventParameters
+      mParameters?: ExactBrowser$AttributeSelectedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -5542,7 +5627,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
       iTopListWidth?: int
     ): this;
   }
-  export default ExactBrowser;
 
   export interface $ExactBrowserSettings extends $ControlSettings {
     /**
@@ -5632,7 +5716,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Event is fired when an attribute is selected or unselected.
      */
     attributeSelected?: (
-      oEvent: Event<$ExactBrowserAttributeSelectedEventParameters>
+      oEvent: Event<ExactBrowser$AttributeSelectedEventParameters>
     ) => void;
 
     /**
@@ -5641,7 +5725,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     save?: (oEvent: Event) => void;
   }
 
-  export interface $ExactBrowserAttributeSelectedEventParameters {
+  export interface ExactBrowser$AttributeSelectedEventParameters {
     /**
      * The attribute which was selected or unselected recently
      */
@@ -5653,13 +5737,27 @@ declare module "sap/ui/ux3/ExactBrowser" {
     allAttributes?: object;
   }
 
-  export interface $ExactBrowserSaveEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ExactBrowser$AttributeSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactBrowserAttributeSelectedEventParameters = ExactBrowser$AttributeSelectedEventParameters;
+
+  export type ExactBrowser$AttributeSelectedEvent = Event<ExactBrowser$AttributeSelectedEventParameters>;
+
+  export interface ExactBrowser$SaveEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ExactBrowser$SaveEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactBrowserSaveEventParameters = ExactBrowser$SaveEventParameters;
+
+  export type ExactBrowser$SaveEvent = Event<ExactBrowser$SaveEventParameters>;
 }
 
 declare module "sap/ui/ux3/ExactList" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { ID } from "sap/ui/core/library";
 
@@ -5672,13 +5770,15 @@ declare module "sap/ui/ux3/ExactList" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38)
    *
    * Internal sub-control of the ExactBrowser. The control is not intended to be used stand alone. For this
    * purpose, the ExactBrowser control can be used.
    */
-  class ExactList extends Control {
+  export default class ExactList extends Control {
     /**
      * Constructor for a new ExactList.
      *
@@ -5770,9 +5870,7 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactListAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
        */
@@ -5793,9 +5891,7 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactListAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
        */
@@ -5819,16 +5915,14 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ExactListAttributeSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -5838,7 +5932,7 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExactListAttributeSelectedEventParameters
+      mParameters?: ExactList$AttributeSelectedEventParameters
     ): this;
     /**
      * ID of the element which is the current target of the association {@link #getData data}, or `null`.
@@ -5989,7 +6083,6 @@ declare module "sap/ui/ux3/ExactList" {
       sTopTitle?: string
     ): this;
   }
-  export default ExactList;
 
   export interface $ExactListSettings extends $ControlSettings {
     /**
@@ -6022,11 +6115,11 @@ declare module "sap/ui/ux3/ExactList" {
      * Event which is fired when an attribute is selected/unselected
      */
     attributeSelected?: (
-      oEvent: Event<$ExactListAttributeSelectedEventParameters>
+      oEvent: Event<ExactList$AttributeSelectedEventParameters>
     ) => void;
   }
 
-  export interface $ExactListAttributeSelectedEventParameters {
+  export interface ExactList$AttributeSelectedEventParameters {
     /**
      * The attribute which was selected/unselected recently
      */
@@ -6037,6 +6130,14 @@ declare module "sap/ui/ux3/ExactList" {
      */
     allAttributes?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ExactList$AttributeSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExactListAttributeSelectedEventParameters = ExactList$AttributeSelectedEventParameters;
+
+  export type ExactList$AttributeSelectedEvent = Event<ExactList$AttributeSelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/FacetFilter" {
@@ -6058,7 +6159,7 @@ declare module "sap/ui/ux3/FacetFilter" {
    *
    * FacetFilter Control.
    */
-  class FacetFilter extends Control {
+  export default class FacetFilter extends Control {
     /**
      * Constructor for a new FacetFilter.
      *
@@ -6224,7 +6325,6 @@ declare module "sap/ui/ux3/FacetFilter" {
         | keyof typeof VisibleItemCountMode
     ): this;
   }
-  export default FacetFilter;
 
   export interface $FacetFilterSettings extends $ControlSettings {
     /**
@@ -6252,8 +6352,6 @@ declare module "sap/ui/ux3/FacetFilterList" {
 
   import ListItem from "sap/ui/core/ListItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -6261,12 +6359,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
    *
    * List to be used with the FacetFilter control. The control is not intended to be used stand alone.
    */
-  class FacetFilterList extends Control {
+  export default class FacetFilterList extends Control {
     /**
      * Constructor for a new FacetFilterList.
      *
@@ -6357,7 +6457,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FacetFilterListSelectEventParameters>) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
        */
@@ -6377,7 +6477,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FacetFilterListSelectEventParameters>) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
        */
@@ -6400,14 +6500,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FacetFilterListSelectEventParameters>) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -6417,7 +6517,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FacetFilterListSelectEventParameters
+      mParameters?: FacetFilterList$SelectEventParameters
     ): this;
     /**
      * @since 1.9.0
@@ -6607,7 +6707,6 @@ declare module "sap/ui/ux3/FacetFilterList" {
       sTitle?: string
     ): this;
   }
-  export default FacetFilterList;
 
   export interface $FacetFilterListSettings extends $ControlSettings {
     /**
@@ -6646,10 +6745,10 @@ declare module "sap/ui/ux3/FacetFilterList" {
     /**
      * On Select event.
      */
-    select?: (oEvent: Event<$FacetFilterListSelectEventParameters>) => void;
+    select?: (oEvent: Event<FacetFilterList$SelectEventParameters>) => void;
   }
 
-  export interface $FacetFilterListSelectEventParameters {
+  export interface FacetFilterList$SelectEventParameters {
     /**
      * Id of the FacetFilterList taht fires the event.
      */
@@ -6671,6 +6770,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
      */
     all?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FacetFilterList$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FacetFilterListSelectEventParameters = FacetFilterList$SelectEventParameters;
+
+  export type FacetFilterList$SelectEvent = Event<FacetFilterList$SelectEventParameters>;
 }
 
 declare module "sap/ui/ux3/Feed" {
@@ -6682,8 +6789,6 @@ declare module "sap/ui/ux3/Feed" {
 
   import MenuItem from "sap/ui/commons/MenuItem";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -6692,6 +6797,8 @@ declare module "sap/ui/ux3/Feed" {
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
@@ -6703,7 +6810,7 @@ declare module "sap/ui/ux3/Feed" {
    *
    * A container control representing a full feed page, including feeder and updates.
    */
-  class Feed extends Control {
+  export default class Feed extends Control {
     /**
      * Constructor for a new Feed.
      *
@@ -6816,7 +6923,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkAddedEventParameters>) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6836,7 +6943,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkAddedEventParameters>) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6861,7 +6968,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedFilterChangeEventParameters>) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6881,7 +6988,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedFilterChangeEventParameters>) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6906,7 +7013,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedSearchEventParameters>) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6926,7 +7033,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedSearchEventParameters>) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6951,7 +7058,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToggleLiveEventParameters>) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6971,7 +7078,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToggleLiveEventParameters>) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6997,7 +7104,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToolsItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -7018,7 +7125,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToolsItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -7095,7 +7202,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkAddedEventParameters>) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7112,7 +7219,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedFilterChangeEventParameters>) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7129,7 +7236,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedSearchEventParameters>) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7146,7 +7253,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToggleLiveEventParameters>) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7164,14 +7271,14 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedToolsItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:chunkAdded chunkAdded} to attached listeners.
      *
@@ -7181,10 +7288,10 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkAddedEventParameters
+      mParameters?: Feed$ChunkAddedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filterChange filterChange} to attached listeners.
      *
@@ -7194,10 +7301,10 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedFilterChangeEventParameters
+      mParameters?: Feed$FilterChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -7207,10 +7314,10 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedSearchEventParameters
+      mParameters?: Feed$SearchEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleLive toggleLive} to attached listeners.
      *
@@ -7220,10 +7327,10 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedToggleLiveEventParameters
+      mParameters?: Feed$ToggleLiveEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toolsItemSelected toolsItemSelected} to attached listeners.
      *
@@ -7233,7 +7340,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedToolsItemSelectedEventParameters
+      mParameters?: Feed$ToolsItemSelectedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getChunks chunks}.
@@ -7512,7 +7619,6 @@ declare module "sap/ui/ux3/Feed" {
      */
     unbindToolsMenuItems(): this;
   }
-  export default Feed;
 
   export interface $FeedSettings extends $ControlSettings {
     /**
@@ -7561,60 +7667,92 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Event is fired when the filter is changed
      */
-    filterChange?: (oEvent: Event<$FeedFilterChangeEventParameters>) => void;
+    filterChange?: (oEvent: Event<Feed$FilterChangeEventParameters>) => void;
 
     /**
      * Event is fired when the search function on SearchField is triggered
      */
-    search?: (oEvent: Event<$FeedSearchEventParameters>) => void;
+    search?: (oEvent: Event<Feed$SearchEventParameters>) => void;
 
     /**
      * Event is fired when a new chunk is added
      */
-    chunkAdded?: (oEvent: Event<$FeedChunkAddedEventParameters>) => void;
+    chunkAdded?: (oEvent: Event<Feed$ChunkAddedEventParameters>) => void;
 
     /**
      * Event is fired when an item from the tools MenuButton was selected
      */
     toolsItemSelected?: (
-      oEvent: Event<$FeedToolsItemSelectedEventParameters>
+      oEvent: Event<Feed$ToolsItemSelectedEventParameters>
     ) => void;
 
     /**
      * Event is fired when the live mode has changed
      */
-    toggleLive?: (oEvent: Event<$FeedToggleLiveEventParameters>) => void;
+    toggleLive?: (oEvent: Event<Feed$ToggleLiveEventParameters>) => void;
   }
 
-  export interface $FeedChunkAddedEventParameters {
+  export interface Feed$ChunkAddedEventParameters {
     /**
      * New chunk
      */
     chunk?: FeedChunk;
   }
 
-  export interface $FeedFilterChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feed$ChunkAddedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkAddedEventParameters = Feed$ChunkAddedEventParameters;
+
+  export type Feed$ChunkAddedEvent = Event<Feed$ChunkAddedEventParameters>;
+
+  export interface Feed$FilterChangeEventParameters {
     /**
      * The new/changed value of the filter
      */
     newValue?: string;
   }
 
-  export interface $FeedSearchEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feed$FilterChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedFilterChangeEventParameters = Feed$FilterChangeEventParameters;
+
+  export type Feed$FilterChangeEvent = Event<Feed$FilterChangeEventParameters>;
+
+  export interface Feed$SearchEventParameters {
     /**
      * The search query
      */
     query?: string;
   }
 
-  export interface $FeedToggleLiveEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feed$SearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedSearchEventParameters = Feed$SearchEventParameters;
+
+  export type Feed$SearchEvent = Event<Feed$SearchEventParameters>;
+
+  export interface Feed$ToggleLiveEventParameters {
     /**
      * Current live indicator
      */
     live?: boolean;
   }
 
-  export interface $FeedToolsItemSelectedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feed$ToggleLiveEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedToggleLiveEventParameters = Feed$ToggleLiveEventParameters;
+
+  export type Feed$ToggleLiveEvent = Event<Feed$ToggleLiveEventParameters>;
+
+  export interface Feed$ToolsItemSelectedEventParameters {
     /**
      * The Id of the selected item
      */
@@ -7625,6 +7763,14 @@ declare module "sap/ui/ux3/Feed" {
      */
     item?: MenuItemBase;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feed$ToolsItemSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedToolsItemSelectedEventParameters = Feed$ToolsItemSelectedEventParameters;
+
+  export type Feed$ToolsItemSelectedEvent = Event<Feed$ToolsItemSelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/FeedChunk" {
@@ -7655,7 +7801,7 @@ declare module "sap/ui/ux3/FeedChunk" {
    * a set of properties for text, sender information, time stamp, comments, and functions such as flagging
    * the entry to be favorite, shared, or flagged.
    */
-  class FeedChunk extends Control {
+  export default class FeedChunk extends Control {
     /**
      * Constructor for a new FeedChunk.
      *
@@ -7758,9 +7904,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkActionItemSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7781,9 +7925,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkActionItemSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7808,7 +7950,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkCommentAddedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7828,7 +7970,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkCommentAddedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7944,9 +8086,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkReferenceClickedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7967,9 +8107,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkReferenceClickedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8041,7 +8179,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFavoriteEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8063,7 +8201,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFavoriteEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8088,7 +8226,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFlaggedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8108,7 +8246,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFlaggedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8133,7 +8271,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleSharedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8153,7 +8291,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleSharedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -8211,9 +8349,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkActionItemSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8230,7 +8366,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkCommentAddedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8282,9 +8418,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$FeedChunkReferenceClickedEventParameters>
-      ) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8320,7 +8454,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFavoriteEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8338,7 +8472,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleFlaggedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8355,14 +8489,14 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeedChunkToggleSharedEventParameters>) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionItemSelected actionItemSelected} to attached listeners.
      *
@@ -8372,10 +8506,10 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkActionItemSelectedEventParameters
+      mParameters?: FeedChunk$ActionItemSelectedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:commentAdded commentAdded} to attached listeners.
      *
@@ -8385,10 +8519,10 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkCommentAddedEventParameters
+      mParameters?: FeedChunk$CommentAddedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:deleted deleted} to attached listeners.
      *
@@ -8401,7 +8535,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:inspect inspect} to attached listeners.
      *
@@ -8414,7 +8548,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:referenceClicked referenceClicked} to attached listeners.
      *
@@ -8424,10 +8558,10 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkReferenceClickedEventParameters
+      mParameters?: FeedChunk$ReferenceClickedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:senderClicked senderClicked} to attached listeners.
      *
@@ -8440,7 +8574,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleFavorite toggleFavorite} to attached listeners.
      *
@@ -8450,10 +8584,10 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkToggleFavoriteEventParameters
+      mParameters?: FeedChunk$ToggleFavoriteEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleFlagged toggleFlagged} to attached listeners.
      *
@@ -8463,10 +8597,10 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkToggleFlaggedEventParameters
+      mParameters?: FeedChunk$ToggleFlaggedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleShared toggleShared} to attached listeners.
      *
@@ -8476,7 +8610,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeedChunkToggleSharedEventParameters
+      mParameters?: FeedChunk$ToggleSharedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getActionMenuItems actionMenuItems}.
@@ -9021,7 +9155,6 @@ declare module "sap/ui/ux3/FeedChunk" {
      */
     unbindComments(): this;
   }
-  export default FeedChunk;
 
   export interface $FeedChunkSettings extends $ControlSettings {
     /**
@@ -9136,14 +9269,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
      */
     commentAdded?: (
-      oEvent: Event<$FeedChunkCommentAddedEventParameters>
+      oEvent: Event<FeedChunk$CommentAddedEventParameters>
     ) => void;
 
     /**
      * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
      */
     toggleFlagged?: (
-      oEvent: Event<$FeedChunkToggleFlaggedEventParameters>
+      oEvent: Event<FeedChunk$ToggleFlaggedEventParameters>
     ) => void;
 
     /**
@@ -9155,7 +9288,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Click on a @-reference
      */
     referenceClicked?: (
-      oEvent: Event<$FeedChunkReferenceClickedEventParameters>
+      oEvent: Event<FeedChunk$ReferenceClickedEventParameters>
     ) => void;
 
     /**
@@ -9163,7 +9296,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * chunks.
      */
     toggleFavorite?: (
-      oEvent: Event<$FeedChunkToggleFavoriteEventParameters>
+      oEvent: Event<FeedChunk$ToggleFavoriteEventParameters>
     ) => void;
 
     /**
@@ -9175,18 +9308,18 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
      */
     toggleShared?: (
-      oEvent: Event<$FeedChunkToggleSharedEventParameters>
+      oEvent: Event<FeedChunk$ToggleSharedEventParameters>
     ) => void;
 
     /**
      * Event is fired when an item from the action menu button was selected.
      */
     actionItemSelected?: (
-      oEvent: Event<$FeedChunkActionItemSelectedEventParameters>
+      oEvent: Event<FeedChunk$ActionItemSelectedEventParameters>
     ) => void;
   }
 
-  export interface $FeedChunkActionItemSelectedEventParameters {
+  export interface FeedChunk$ActionItemSelectedEventParameters {
     /**
      * The Id of the selected item
      */
@@ -9198,52 +9331,122 @@ declare module "sap/ui/ux3/FeedChunk" {
     item?: MenuItemBase;
   }
 
-  export interface $FeedChunkCommentAddedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$ActionItemSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkActionItemSelectedEventParameters = FeedChunk$ActionItemSelectedEventParameters;
+
+  export type FeedChunk$ActionItemSelectedEvent = Event<FeedChunk$ActionItemSelectedEventParameters>;
+
+  export interface FeedChunk$CommentAddedEventParameters {
     /**
      * New comment chunk
      */
     comment?: FeedChunk;
   }
 
-  export interface $FeedChunkDeletedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$CommentAddedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkCommentAddedEventParameters = FeedChunk$CommentAddedEventParameters;
 
-  export interface $FeedChunkInspectEventParameters {}
+  export type FeedChunk$CommentAddedEvent = Event<FeedChunk$CommentAddedEventParameters>;
 
-  export interface $FeedChunkReferenceClickedEventParameters {
+  export interface FeedChunk$DeletedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$DeletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkDeletedEventParameters = FeedChunk$DeletedEventParameters;
+
+  export type FeedChunk$DeletedEvent = Event<FeedChunk$DeletedEventParameters>;
+
+  export interface FeedChunk$InspectEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$InspectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkInspectEventParameters = FeedChunk$InspectEventParameters;
+
+  export type FeedChunk$InspectEvent = Event<FeedChunk$InspectEventParameters>;
+
+  export interface FeedChunk$ReferenceClickedEventParameters {
     /**
      * Text of the @-reference
      */
     text?: string;
   }
 
-  export interface $FeedChunkSenderClickedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$ReferenceClickedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkReferenceClickedEventParameters = FeedChunk$ReferenceClickedEventParameters;
 
-  export interface $FeedChunkToggleFavoriteEventParameters {
+  export type FeedChunk$ReferenceClickedEvent = Event<FeedChunk$ReferenceClickedEventParameters>;
+
+  export interface FeedChunk$SenderClickedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$SenderClickedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkSenderClickedEventParameters = FeedChunk$SenderClickedEventParameters;
+
+  export type FeedChunk$SenderClickedEvent = Event<FeedChunk$SenderClickedEventParameters>;
+
+  export interface FeedChunk$ToggleFavoriteEventParameters {
     /**
      * Current favorite state
      */
     favorite?: boolean;
   }
 
-  export interface $FeedChunkToggleFlaggedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$ToggleFavoriteEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkToggleFavoriteEventParameters = FeedChunk$ToggleFavoriteEventParameters;
+
+  export type FeedChunk$ToggleFavoriteEvent = Event<FeedChunk$ToggleFavoriteEventParameters>;
+
+  export interface FeedChunk$ToggleFlaggedEventParameters {
     /**
      * Current flagged state
      */
     flagged?: boolean;
   }
 
-  export interface $FeedChunkToggleSharedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$ToggleFlaggedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkToggleFlaggedEventParameters = FeedChunk$ToggleFlaggedEventParameters;
+
+  export type FeedChunk$ToggleFlaggedEvent = Event<FeedChunk$ToggleFlaggedEventParameters>;
+
+  export interface FeedChunk$ToggleSharedEventParameters {
     /**
      * Current shared state
      */
     shareed?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FeedChunk$ToggleSharedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeedChunkToggleSharedEventParameters = FeedChunk$ToggleSharedEventParameters;
+
+  export type FeedChunk$ToggleSharedEvent = Event<FeedChunk$ToggleSharedEventParameters>;
 }
 
 declare module "sap/ui/ux3/Feeder" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -9252,6 +9455,8 @@ declare module "sap/ui/ux3/Feeder" {
   import { FeederType } from "sap/ui/ux3/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
@@ -9263,7 +9468,7 @@ declare module "sap/ui/ux3/Feeder" {
    * The control can be used stand alone or in a multiple way, and generally would be integrated directly
    * into a UIArea.
    */
-  class Feeder extends Control {
+  export default class Feeder extends Control {
     /**
      * Constructor for a new Feeder.
      *
@@ -9343,7 +9548,7 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeederSubmitEventParameters>) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
        */
@@ -9363,7 +9568,7 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$FeederSubmitEventParameters>) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
        */
@@ -9380,14 +9585,14 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$FeederSubmitEventParameters>) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:submit submit} to attached listeners.
      *
@@ -9397,7 +9602,7 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $FeederSubmitEventParameters
+      mParameters?: Feeder$SubmitEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getPlaceholderText placeholderText}.
@@ -9500,7 +9705,6 @@ declare module "sap/ui/ux3/Feeder" {
       sType?: FeederType | keyof typeof FeederType
     ): this;
   }
-  export default Feeder;
 
   export interface $FeederSettings extends $ControlSettings {
     /**
@@ -9531,15 +9735,23 @@ declare module "sap/ui/ux3/Feeder" {
     /**
      * Event is fired when the entered text is submitted
      */
-    submit?: (oEvent: Event<$FeederSubmitEventParameters>) => void;
+    submit?: (oEvent: Event<Feeder$SubmitEventParameters>) => void;
   }
 
-  export interface $FeederSubmitEventParameters {
+  export interface Feeder$SubmitEventParameters {
     /**
      * The text that is submitted
      */
     text?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Feeder$SubmitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $FeederSubmitEventParameters = Feeder$SubmitEventParameters;
+
+  export type Feeder$SubmitEvent = Event<Feeder$SubmitEventParameters>;
 }
 
 declare module "sap/ui/ux3/NavigationBar" {
@@ -9549,14 +9761,14 @@ declare module "sap/ui/ux3/NavigationBar" {
 
   import NavigationItem from "sap/ui/ux3/NavigationItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
@@ -9568,7 +9780,7 @@ declare module "sap/ui/ux3/NavigationBar" {
    * items are defined for the bar, this is made transparent to the user by showing symbols for scrolling
    * options (forwards and backwards) to see the next or previous items.
    */
-  class NavigationBar extends Control {
+  export default class NavigationBar extends Control {
     /**
      * Constructor for a new NavigationBar.
      *
@@ -9670,7 +9882,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationBarSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
        */
@@ -9690,7 +9902,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationBarSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
        */
@@ -9713,14 +9925,14 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationBarSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -9733,7 +9945,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NavigationBarSelectEventParameters
+      mParameters?: NavigationBar$SelectEventParameters
     ): boolean;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAssociatedItems associatedItems}.
@@ -9902,7 +10114,6 @@ declare module "sap/ui/ux3/NavigationBar" {
       bToplevelVariant?: boolean
     ): this;
   }
-  export default NavigationBar;
 
   export interface $NavigationBarSettings extends $ControlSettings {
     /**
@@ -9942,10 +10153,10 @@ declare module "sap/ui/ux3/NavigationBar" {
     /**
      * Event is fired when an item is selected by the user
      */
-    select?: (oEvent: Event<$NavigationBarSelectEventParameters>) => void;
+    select?: (oEvent: Event<NavigationBar$SelectEventParameters>) => void;
   }
 
-  export interface $NavigationBarSelectEventParameters {
+  export interface NavigationBar$SelectEventParameters {
     /**
      * The ID of the newly selected NavigationItem.
      */
@@ -9956,6 +10167,14 @@ declare module "sap/ui/ux3/NavigationBar" {
      */
     item?: NavigationItem;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'NavigationBar$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $NavigationBarSelectEventParameters = NavigationBar$SelectEventParameters;
+
+  export type NavigationBar$SelectEvent = Event<NavigationBar$SelectEventParameters>;
 }
 
 declare module "sap/ui/ux3/NavigationItem" {
@@ -9976,7 +10195,7 @@ declare module "sap/ui/ux3/NavigationItem" {
    *
    * Is the item to be used within the NavigationBar
    */
-  class NavigationItem extends Item {
+  export default class NavigationItem extends Item {
     /**
      * Constructor for a new NavigationItem.
      *
@@ -10177,7 +10396,6 @@ declare module "sap/ui/ux3/NavigationItem" {
       bVisible?: boolean
     ): this;
   }
-  export default NavigationItem;
 
   export interface $NavigationItemSettings extends $ItemSettings {
     /**
@@ -10215,8 +10433,6 @@ declare module "sap/ui/ux3/NotificationBar" {
 
   import UI5Element from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { NotificationBarStatus } from "sap/ui/ux3/library";
@@ -10225,6 +10441,8 @@ declare module "sap/ui/ux3/NotificationBar" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.7.0
@@ -10236,7 +10454,7 @@ declare module "sap/ui/ux3/NotificationBar" {
    * CSS may sometimes cause issues when nested deeply inside other controls. To have a proper behavior of
    * the NotificationBar use it as high in the control hierarchy as possible.
    */
-  class NotificationBar extends Control {
+  export default class NotificationBar extends Control {
     /**
      * Constructor for a new NotificationBar.
      *
@@ -10328,7 +10546,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarDisplayEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10349,7 +10567,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarDisplayEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10378,7 +10596,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarResizeEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10402,7 +10620,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarResizeEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10431,7 +10649,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarDisplayEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10450,14 +10668,14 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NotificationBarResizeEventParameters>) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:display display} to attached listeners.
      *
@@ -10467,11 +10685,11 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NotificationBarDisplayEventParameters
+      mParameters?: NotificationBar$DisplayEventParameters
     ): this;
     /**
      * @since 1.12.2
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -10481,7 +10699,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NotificationBarResizeEventParameters
+      mParameters?: NotificationBar$ResizeEventParameters
     ): this;
     /**
      * @since 1.24.5
@@ -10639,7 +10857,6 @@ declare module "sap/ui/ux3/NotificationBar" {
         | keyof typeof NotificationBarStatus
     ): this;
   }
-  export default NotificationBar;
 
   export interface $NotificationBarSettings extends $ControlSettings {
     /**
@@ -10680,7 +10897,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
      * to decide what to do.
      */
-    display?: (oEvent: Event<$NotificationBarDisplayEventParameters>) => void;
+    display?: (oEvent: Event<NotificationBar$DisplayEventParameters>) => void;
 
     /**
      * @since 1.12.2
@@ -10689,31 +10906,45 @@ declare module "sap/ui/ux3/NotificationBar" {
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
      * firing this event.
      */
-    resize?: (oEvent: Event<$NotificationBarResizeEventParameters>) => void;
+    resize?: (oEvent: Event<NotificationBar$ResizeEventParameters>) => void;
   }
 
-  export interface $NotificationBarDisplayEventParameters {
+  export interface NotificationBar$DisplayEventParameters {
     /**
      * Indicates if the bar wants to be shown or hidden
      */
     show?: boolean;
   }
 
-  export interface $NotificationBarResizeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'NotificationBar$DisplayEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $NotificationBarDisplayEventParameters = NotificationBar$DisplayEventParameters;
+
+  export type NotificationBar$DisplayEvent = Event<NotificationBar$DisplayEventParameters>;
+
+  export interface NotificationBar$ResizeEventParameters {
     /**
      * The corresponding status to which the bar was resized. The corresponding heights can be taken for the
      * bar's CSS file.
      */
     status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'NotificationBar$ResizeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $NotificationBarResizeEventParameters = NotificationBar$ResizeEventParameters;
+
+  export type NotificationBar$ResizeEvent = Event<NotificationBar$ResizeEventParameters>;
 }
 
 declare module "sap/ui/ux3/Notifier" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Message from "sap/ui/core/Message";
-
-  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -10724,12 +10955,14 @@ declare module "sap/ui/ux3/Notifier" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38)
    *
    * This element can be docked to a notification bar to show notification items
    */
-  class Notifier extends UI5Element {
+  export default class Notifier extends UI5Element {
     /**
      * Constructor for a new Notifier.
      *
@@ -10821,7 +11054,7 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotifierMessageSelectedEventParameters>) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
        */
@@ -10842,7 +11075,7 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NotifierMessageSelectedEventParameters>) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
        */
@@ -10866,14 +11099,14 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NotifierMessageSelectedEventParameters>) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageSelected messageSelected} to attached listeners.
      *
@@ -10883,7 +11116,7 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NotifierMessageSelectedEventParameters
+      mParameters?: Notifier$MessageSelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getIcon icon}.
@@ -10990,7 +11223,6 @@ declare module "sap/ui/ux3/Notifier" {
       sTitle?: string
     ): this;
   }
-  export default Notifier;
 
   export interface $NotifierSettings extends $ElementSettings {
     /**
@@ -11012,11 +11244,11 @@ declare module "sap/ui/ux3/Notifier" {
      * Event is fired when a message of the notifiers was selected.
      */
     messageSelected?: (
-      oEvent: Event<$NotifierMessageSelectedEventParameters>
+      oEvent: Event<Notifier$MessageSelectedEventParameters>
     ) => void;
   }
 
-  export interface $NotifierMessageSelectedEventParameters {
+  export interface Notifier$MessageSelectedEventParameters {
     /**
      * The message that was selected
      */
@@ -11027,6 +11259,14 @@ declare module "sap/ui/ux3/Notifier" {
      */
     notifier?: Notifier;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Notifier$MessageSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $NotifierMessageSelectedEventParameters = Notifier$MessageSelectedEventParameters;
+
+  export type Notifier$MessageSelectedEvent = Event<Notifier$MessageSelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/Overlay" {
@@ -11034,18 +11274,18 @@ declare module "sap/ui/ux3/Overlay" {
 
   import { PopupInterface } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
    *
    * Overlay Control
    */
-  class Overlay extends Control implements PopupInterface {
+  export default class Overlay extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new Overlay.
@@ -11126,7 +11366,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayCloseEventParameters>) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11146,7 +11386,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayCloseEventParameters>) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11171,7 +11411,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayClosedEventParameters>) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11191,7 +11431,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayClosedEventParameters>) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11216,7 +11456,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11236,7 +11476,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11261,7 +11501,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenNewEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11281,7 +11521,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenNewEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11302,7 +11542,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayCloseEventParameters>) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11319,7 +11559,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayClosedEventParameters>) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11336,7 +11576,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11353,14 +11593,14 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$OverlayOpenNewEventParameters>) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -11373,10 +11613,10 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $OverlayCloseEventParameters
+      mParameters?: Overlay$CloseEventParameters
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -11389,10 +11629,10 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $OverlayClosedEventParameters
+      mParameters?: Overlay$ClosedEventParameters
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -11402,10 +11642,10 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $OverlayOpenEventParameters
+      mParameters?: Overlay$OpenEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:openNew openNew} to attached listeners.
      *
@@ -11415,7 +11655,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $OverlayOpenNewEventParameters
+      mParameters?: Overlay$OpenNewEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCloseButtonVisible closeButtonVisible}.
@@ -11485,7 +11725,6 @@ declare module "sap/ui/ux3/Overlay" {
       bOpenButtonVisible?: boolean
     ): this;
   }
-  export default Overlay;
 
   export interface $OverlaySettings extends $ControlSettings {
     /**
@@ -11501,51 +11740,83 @@ declare module "sap/ui/ux3/Overlay" {
     /**
      * Event is fired when the Overlay starts closing.
      */
-    close?: (oEvent: Event<$OverlayCloseEventParameters>) => void;
+    close?: (oEvent: Event<Overlay$CloseEventParameters>) => void;
 
     /**
      * Event is fired when the Overlay is closed.
      */
-    closed?: (oEvent: Event<$OverlayClosedEventParameters>) => void;
+    closed?: (oEvent: Event<Overlay$ClosedEventParameters>) => void;
 
     /**
      * Event is fired when the 'Open' button of the Overlay is clicked.
      */
-    openNew?: (oEvent: Event<$OverlayOpenNewEventParameters>) => void;
+    openNew?: (oEvent: Event<Overlay$OpenNewEventParameters>) => void;
 
     /**
      * Event is fired when the Overlay is opened.
      */
-    open?: (oEvent: Event<$OverlayOpenEventParameters>) => void;
+    open?: (oEvent: Event<Overlay$OpenEventParameters>) => void;
   }
 
-  export interface $OverlayCloseEventParameters {
+  export interface Overlay$CloseEventParameters {
     /**
      * The ID of the Overlay instance.
      */
     id?: string;
   }
 
-  export interface $OverlayClosedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Overlay$CloseEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $OverlayCloseEventParameters = Overlay$CloseEventParameters;
+
+  export type Overlay$CloseEvent = Event<Overlay$CloseEventParameters>;
+
+  export interface Overlay$ClosedEventParameters {
     /**
      * The ID of the Overlay instance.
      */
     id?: string;
   }
 
-  export interface $OverlayOpenEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Overlay$ClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $OverlayClosedEventParameters = Overlay$ClosedEventParameters;
+
+  export type Overlay$ClosedEvent = Event<Overlay$ClosedEventParameters>;
+
+  export interface Overlay$OpenEventParameters {
     /**
      * The ID of the Overlay instance
      */
     id?: string;
   }
 
-  export interface $OverlayOpenNewEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Overlay$OpenEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $OverlayOpenEventParameters = Overlay$OpenEventParameters;
+
+  export type Overlay$OpenEvent = Event<Overlay$OpenEventParameters>;
+
+  export interface Overlay$OpenNewEventParameters {
     /**
      * The ID of the Overlay instance.
      */
     id?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Overlay$OpenNewEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $OverlayOpenNewEventParameters = Overlay$OpenNewEventParameters;
+
+  export type Overlay$OpenNewEvent = Event<Overlay$OpenNewEventParameters>;
 }
 
 declare module "sap/ui/ux3/OverlayContainer" {
@@ -11562,7 +11833,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
    *
    * Is to be embedded into the Overlay control as content container
    */
-  class OverlayContainer extends Overlay {
+  export default class OverlayContainer extends Overlay {
     /**
      * Constructor for a new OverlayContainer.
      *
@@ -11695,7 +11966,6 @@ declare module "sap/ui/ux3/OverlayContainer" {
       vContent: int | string | Control
     ): Control | null;
   }
-  export default OverlayContainer;
 
   export interface $OverlayContainerSettings extends $OverlaySettings {
     /**
@@ -11725,7 +11995,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
    * Dialog implementation based on the Overlay. If used in a Shell it leaves the Tool-Palette, Pane-Bar and
    * Header-Items accessible.
    */
-  class OverlayDialog extends Overlay {
+  export default class OverlayDialog extends Overlay {
     /**
      * Constructor for a new OverlayDialog.
      *
@@ -11894,7 +12164,6 @@ declare module "sap/ui/ux3/OverlayDialog" {
      */
     setWidth(sWidth: CSSSize): void;
   }
-  export default OverlayDialog;
 
   export interface $OverlayDialogSettings extends $OverlaySettings {
     /**
@@ -11926,8 +12195,6 @@ declare module "sap/ui/ux3/QuickView" {
 
   import UI5Element from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState } from "sap/ui/ux3/library";
@@ -11941,13 +12208,15 @@ declare module "sap/ui/ux3/QuickView" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
    *
    * QuickView is a small popup with a short overview of a Thing. QuickView is shown when a user holds the
    * mouse pointer over a related screen element.
    */
-  class QuickView extends CalloutBase {
+  export default class QuickView extends CalloutBase {
     /**
      * Constructor for a new QuickView.
      *
@@ -12050,7 +12319,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewActionSelectedEventParameters>) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12071,7 +12340,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewActionSelectedEventParameters>) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12096,7 +12365,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12116,7 +12385,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12142,7 +12411,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewNavigateEventParameters>) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12163,7 +12432,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewNavigateEventParameters>) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -12199,7 +12468,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewActionSelectedEventParameters>) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12216,7 +12485,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12233,14 +12502,14 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$QuickViewNavigateEventParameters>) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -12250,10 +12519,10 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $QuickViewActionSelectedEventParameters
+      mParameters?: QuickView$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -12263,10 +12532,10 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $QuickViewFeedSubmitEventParameters
+      mParameters?: QuickView$FeedSubmitEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -12279,7 +12548,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $QuickViewNavigateEventParameters
+      mParameters?: QuickView$NavigateEventParameters
     ): boolean;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -12793,7 +13062,6 @@ declare module "sap/ui/ux3/QuickView" {
       sWidth?: CSSSize
     ): this;
   }
-  export default QuickView;
 
   export interface $QuickViewSettings extends $CalloutBaseSettings {
     /**
@@ -12904,22 +13172,22 @@ declare module "sap/ui/ux3/QuickView" {
      * Action is selected in Action Bar
      */
     actionSelected?: (
-      oEvent: Event<$QuickViewActionSelectedEventParameters>
+      oEvent: Event<QuickView$ActionSelectedEventParameters>
     ) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: (oEvent: Event<$QuickViewFeedSubmitEventParameters>) => void;
+    feedSubmit?: (oEvent: Event<QuickView$FeedSubmitEventParameters>) => void;
 
     /**
      * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
      * object to cancel browser navigation.
      */
-    navigate?: (oEvent: Event<$QuickViewNavigateEventParameters>) => void;
+    navigate?: (oEvent: Event<QuickView$NavigateEventParameters>) => void;
   }
 
-  export interface $QuickViewActionSelectedEventParameters {
+  export interface QuickView$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
      */
@@ -12937,19 +13205,43 @@ declare module "sap/ui/ux3/QuickView" {
     newState?: string;
   }
 
-  export interface $QuickViewFeedSubmitEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'QuickView$ActionSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $QuickViewActionSelectedEventParameters = QuickView$ActionSelectedEventParameters;
+
+  export type QuickView$ActionSelectedEvent = Event<QuickView$ActionSelectedEventParameters>;
+
+  export interface QuickView$FeedSubmitEventParameters {
     /**
      * Feed text
      */
     text?: string;
   }
 
-  export interface $QuickViewNavigateEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'QuickView$FeedSubmitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $QuickViewFeedSubmitEventParameters = QuickView$FeedSubmitEventParameters;
+
+  export type QuickView$FeedSubmitEvent = Event<QuickView$FeedSubmitEventParameters>;
+
+  export interface QuickView$NavigateEventParameters {
     /**
      * URI of the Thing Inspector application.
      */
     href?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'QuickView$NavigateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $QuickViewNavigateEventParameters = QuickView$NavigateEventParameters;
+
+  export type QuickView$NavigateEvent = Event<QuickView$NavigateEventParameters>;
 }
 
 declare module "sap/ui/ux3/Shell" {
@@ -12985,7 +13277,7 @@ declare module "sap/ui/ux3/Shell" {
    * to be added to a direct child of the BODY tag of a page and there should be no other parts of the page
    * consuming space outside the Shell.
    */
-  class Shell extends Control {
+  export default class Shell extends Control {
     /**
      * Constructor for a new Shell.
      *
@@ -13223,7 +13515,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneBarItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13245,7 +13537,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneBarItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13273,7 +13565,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneClosedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13296,7 +13588,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneClosedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13370,7 +13662,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellWorksetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13394,7 +13686,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ShellWorksetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13496,7 +13788,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneBarItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13515,7 +13807,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellPaneClosedEventParameters>) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13550,14 +13842,14 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ShellWorksetItemSelectedEventParameters>) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -13570,7 +13862,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:logout logout} to attached listeners.
      *
@@ -13583,7 +13875,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paneBarItemSelected paneBarItemSelected} to attached listeners.
      *
@@ -13593,11 +13885,11 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellPaneBarItemSelectedEventParameters
+      mParameters?: Shell$PaneBarItemSelectedEventParameters
     ): this;
     /**
      * @since 1.12.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paneClosed paneClosed} to attached listeners.
      *
@@ -13607,10 +13899,10 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellPaneClosedEventParameters
+      mParameters?: Shell$PaneClosedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -13623,7 +13915,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:worksetItemSelected worksetItemSelected} to attached listeners.
      *
@@ -13636,7 +13928,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ShellWorksetItemSelectedEventParameters
+      mParameters?: Shell$WorksetItemSelectedEventParameters
     ): boolean;
     /**
      * @since 1.14.0
@@ -14381,7 +14673,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * @since 1.7.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Moves the complete Shell away from the right window border by the given number of pixels (left border
      * in RTL case).
@@ -14564,7 +14856,6 @@ declare module "sap/ui/ux3/Shell" {
       bShowTools?: boolean
     ): this;
   }
-  export default Shell;
 
   export interface $ShellSettings extends $ControlSettings {
     /**
@@ -14740,7 +15031,7 @@ declare module "sap/ui/ux3/Shell" {
      * The Shell will currently always mark the first sub-item as selected.
      */
     worksetItemSelected?: (
-      oEvent: Event<$ShellWorksetItemSelectedEventParameters>
+      oEvent: Event<Shell$WorksetItemSelectedEventParameters>
     ) => void;
 
     /**
@@ -14748,7 +15039,7 @@ declare module "sap/ui/ux3/Shell" {
      * with UI elements.
      */
     paneBarItemSelected?: (
-      oEvent: Event<$ShellPaneBarItemSelectedEventParameters>
+      oEvent: Event<Shell$PaneBarItemSelectedEventParameters>
     ) => void;
 
     /**
@@ -14772,14 +15063,30 @@ declare module "sap/ui/ux3/Shell" {
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
      */
-    paneClosed?: (oEvent: Event<$ShellPaneClosedEventParameters>) => void;
+    paneClosed?: (oEvent: Event<Shell$PaneClosedEventParameters>) => void;
   }
 
-  export interface $ShellFeedSubmitEventParameters {}
+  export interface Shell$FeedSubmitEventParameters {}
 
-  export interface $ShellLogoutEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$FeedSubmitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellFeedSubmitEventParameters = Shell$FeedSubmitEventParameters;
 
-  export interface $ShellPaneBarItemSelectedEventParameters {
+  export type Shell$FeedSubmitEvent = Event<Shell$FeedSubmitEventParameters>;
+
+  export interface Shell$LogoutEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$LogoutEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellLogoutEventParameters = Shell$LogoutEventParameters;
+
+  export type Shell$LogoutEvent = Event<Shell$LogoutEventParameters>;
+
+  export interface Shell$PaneBarItemSelectedEventParameters {
     /**
      * The ID of the selected PaneBarItem.
      */
@@ -14796,16 +15103,40 @@ declare module "sap/ui/ux3/Shell" {
     key?: string;
   }
 
-  export interface $ShellPaneClosedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$PaneBarItemSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellPaneBarItemSelectedEventParameters = Shell$PaneBarItemSelectedEventParameters;
+
+  export type Shell$PaneBarItemSelectedEvent = Event<Shell$PaneBarItemSelectedEventParameters>;
+
+  export interface Shell$PaneClosedEventParameters {
     /**
      * The id of the PaneBarItem to which the closed pane belonged.
      */
     id?: string;
   }
 
-  export interface $ShellSearchEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$PaneClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellPaneClosedEventParameters = Shell$PaneClosedEventParameters;
 
-  export interface $ShellWorksetItemSelectedEventParameters {
+  export type Shell$PaneClosedEvent = Event<Shell$PaneClosedEventParameters>;
+
+  export interface Shell$SearchEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$SearchEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellSearchEventParameters = Shell$SearchEventParameters;
+
+  export type Shell$SearchEvent = Event<Shell$SearchEventParameters>;
+
+  export interface Shell$WorksetItemSelectedEventParameters {
     /**
      * The id of the workset item that has been newly selected by the user. If a top-level item has been clicked
      * which has sub-items, the ID of the currently active sub-item (/leaf) is given.
@@ -14822,23 +15153,31 @@ declare module "sap/ui/ux3/Shell" {
      */
     key?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Shell$WorksetItemSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ShellWorksetItemSelectedEventParameters = Shell$WorksetItemSelectedEventParameters;
+
+  export type Shell$WorksetItemSelectedEvent = Event<Shell$WorksetItemSelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/ThingAction" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
    *
    * Thing Action for Swatch, QuickView, Thinginspector
    */
-  class ThingAction extends UI5Element {
+  export default class ThingAction extends UI5Element {
     /**
      * Constructor for a new ThingAction.
      *
@@ -14918,7 +15257,7 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingActionSelectEventParameters>) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
        */
@@ -14938,7 +15277,7 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingActionSelectEventParameters>) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
        */
@@ -14955,14 +15294,14 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ThingActionSelectEventParameters>) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -14972,7 +15311,7 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ThingActionSelectEventParameters
+      mParameters?: ThingAction$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
@@ -15025,7 +15364,6 @@ declare module "sap/ui/ux3/ThingAction" {
       sText?: string
     ): this;
   }
-  export default ThingAction;
 
   export interface $ThingActionSettings extends $ElementSettings {
     /**
@@ -15041,10 +15379,10 @@ declare module "sap/ui/ux3/ThingAction" {
     /**
      * Event will be fired when the action was triggered.
      */
-    select?: (oEvent: Event<$ThingActionSelectEventParameters>) => void;
+    select?: (oEvent: Event<ThingAction$SelectEventParameters>) => void;
   }
 
-  export interface $ThingActionSelectEventParameters {
+  export interface ThingAction$SelectEventParameters {
     /**
      * Id of selected action
      */
@@ -15055,6 +15393,14 @@ declare module "sap/ui/ux3/ThingAction" {
      */
     action?: ThingAction;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ThingAction$SelectEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ThingActionSelectEventParameters = ThingAction$SelectEventParameters;
+
+  export type ThingAction$SelectEvent = Event<ThingAction$SelectEventParameters>;
 }
 
 declare module "sap/ui/ux3/ThingGroup" {
@@ -15074,7 +15420,7 @@ declare module "sap/ui/ux3/ThingGroup" {
    *
    * Thing Group Area
    */
-  class ThingGroup extends UI5Element {
+  export default class ThingGroup extends UI5Element {
     /**
      * Constructor for a new ThingGroup.
      *
@@ -15328,7 +15674,6 @@ declare module "sap/ui/ux3/ThingGroup" {
       sTitle?: string
     ): this;
   }
-  export default ThingGroup;
 
   export interface $ThingGroupSettings extends $ElementSettings {
     /**
@@ -15366,8 +15711,6 @@ declare module "sap/ui/ux3/ThingInspector" {
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
 
-  import Event from "sap/ui/base/Event";
-
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState, ThingViewerHeaderType } from "sap/ui/ux3/library";
@@ -15381,12 +15724,14 @@ declare module "sap/ui/ux3/ThingInspector" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.38) - There is not an exact replacement.
    *
    * Thing Inspector
    */
-  class ThingInspector extends Overlay {
+  export default class ThingInspector extends Overlay {
     /**
      * Constructor for a new ThingInspector.
      *
@@ -15511,9 +15856,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorActionSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15534,9 +15877,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorActionSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15562,9 +15903,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorFacetSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15585,9 +15924,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorFacetSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15612,7 +15949,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingInspectorFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15632,7 +15969,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingInspectorFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15680,9 +16017,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorActionSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15700,9 +16035,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ThingInspectorFacetSelectedEventParameters>
-      ) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15719,14 +16052,14 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ThingInspectorFeedSubmitEventParameters>) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -15736,10 +16069,10 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ThingInspectorActionSelectedEventParameters
+      mParameters?: ThingInspector$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -15752,10 +16085,10 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ThingInspectorFacetSelectedEventParameters
+      mParameters?: ThingInspector$FacetSelectedEventParameters
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -15765,7 +16098,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ThingInspectorFeedSubmitEventParameters
+      mParameters?: ThingInspector$FeedSubmitEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -16334,7 +16667,6 @@ declare module "sap/ui/ux3/ThingInspector" {
       bUpdateActionEnabled?: boolean
     ): this;
   }
-  export default ThingInspector;
 
   export interface $ThingInspectorSettings extends $OverlaySettings {
     /**
@@ -16455,7 +16787,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Further thing related Action selected
      */
     actionSelected?: (
-      oEvent: Event<$ThingInspectorActionSelectedEventParameters>
+      oEvent: Event<ThingInspector$ActionSelectedEventParameters>
     ) => void;
 
     /**
@@ -16463,18 +16795,18 @@ declare module "sap/ui/ux3/ThingInspector" {
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
     facetSelected?: (
-      oEvent: Event<$ThingInspectorFacetSelectedEventParameters>
+      oEvent: Event<ThingInspector$FacetSelectedEventParameters>
     ) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
     feedSubmit?: (
-      oEvent: Event<$ThingInspectorFeedSubmitEventParameters>
+      oEvent: Event<ThingInspector$FeedSubmitEventParameters>
     ) => void;
   }
 
-  export interface $ThingInspectorActionSelectedEventParameters {
+  export interface ThingInspector$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
      */
@@ -16486,7 +16818,15 @@ declare module "sap/ui/ux3/ThingInspector" {
     action?: ThingAction;
   }
 
-  export interface $ThingInspectorFacetSelectedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ThingInspector$ActionSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ThingInspectorActionSelectedEventParameters = ThingInspector$ActionSelectedEventParameters;
+
+  export type ThingInspector$ActionSelectedEvent = Event<ThingInspector$ActionSelectedEventParameters>;
+
+  export interface ThingInspector$FacetSelectedEventParameters {
     /**
      * Id of selected NavigationItem
      */
@@ -16503,12 +16843,28 @@ declare module "sap/ui/ux3/ThingInspector" {
     key?: string;
   }
 
-  export interface $ThingInspectorFeedSubmitEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ThingInspector$FacetSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ThingInspectorFacetSelectedEventParameters = ThingInspector$FacetSelectedEventParameters;
+
+  export type ThingInspector$FacetSelectedEvent = Event<ThingInspector$FacetSelectedEventParameters>;
+
+  export interface ThingInspector$FeedSubmitEventParameters {
     /**
      * Feed text
      */
     text?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ThingInspector$FeedSubmitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ThingInspectorFeedSubmitEventParameters = ThingInspector$FeedSubmitEventParameters;
+
+  export type ThingInspector$FeedSubmitEvent = Event<ThingInspector$FeedSubmitEventParameters>;
 }
 
 declare module "sap/ui/ux3/ThingViewer" {
@@ -16517,8 +16873,6 @@ declare module "sap/ui/ux3/ThingViewer" {
   import NavigationItem from "sap/ui/ux3/NavigationItem";
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
-
-  import Event from "sap/ui/base/Event";
 
   import ActionBar from "sap/ui/ux3/ActionBar";
 
@@ -16533,6 +16887,8 @@ declare module "sap/ui/ux3/ThingViewer" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.9.1
    * @deprecated (since 1.38) - There is not an exact replacement.
@@ -16541,7 +16897,7 @@ declare module "sap/ui/ux3/ThingViewer" {
    * be added to a Parent container that has a defined width. The ThingViewer fill the whole container. If
    * the parent container has no width defined the control will not work properly.
    */
-  class ThingViewer extends Control {
+  export default class ThingViewer extends Control {
     /**
      * Constructor for a new ThingViewer.
      *
@@ -16655,7 +17011,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingViewerFacetSelectedEventParameters>) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
        */
@@ -16676,7 +17032,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ThingViewerFacetSelectedEventParameters>) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
        */
@@ -16718,14 +17074,14 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ThingViewerFacetSelectedEventParameters>) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -16738,7 +17094,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ThingViewerFacetSelectedEventParameters
+      mParameters?: ThingViewer$FacetSelectedEventParameters
     ): boolean;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -17114,7 +17470,6 @@ declare module "sap/ui/ux3/ThingViewer" {
       sWidth?: CSSSize
     ): this;
   }
-  export default ThingViewer;
 
   export interface $ThingViewerSettings extends $ControlSettings {
     /**
@@ -17199,11 +17554,11 @@ declare module "sap/ui/ux3/ThingViewer" {
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
     facetSelected?: (
-      oEvent: Event<$ThingViewerFacetSelectedEventParameters>
+      oEvent: Event<ThingViewer$FacetSelectedEventParameters>
     ) => void;
   }
 
-  export interface $ThingViewerFacetSelectedEventParameters {
+  export interface ThingViewer$FacetSelectedEventParameters {
     /**
      * Id of selected NavigationItem
      */
@@ -17219,6 +17574,14 @@ declare module "sap/ui/ux3/ThingViewer" {
      */
     key?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ThingViewer$FacetSelectedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ThingViewerFacetSelectedEventParameters = ThingViewer$FacetSelectedEventParameters;
+
+  export type ThingViewer$FacetSelectedEvent = Event<ThingViewer$FacetSelectedEventParameters>;
 }
 
 declare module "sap/ui/ux3/ToolPopup" {
@@ -17245,7 +17608,7 @@ declare module "sap/ui/ux3/ToolPopup" {
    * look like any common dialog box. A ToolPopup can have any content. Depending on the application type
    * and design, the structure of the texts and input fields can be for example form-like.
    */
-  class ToolPopup extends Control implements PopupInterface {
+  export default class ToolPopup extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new ToolPopup.
@@ -17454,7 +17817,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ToolPopupEnterEventParameters>) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -17474,7 +17837,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ToolPopupEnterEventParameters>) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -17690,7 +18053,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ToolPopupEnterEventParameters>) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17750,7 +18113,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -17766,7 +18129,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -17779,7 +18142,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:enter enter} to attached listeners.
      *
@@ -17789,10 +18152,10 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ToolPopupEnterEventParameters
+      mParameters?: ToolPopup$EnterEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:iconChanged iconChanged} to attached listeners.
      *
@@ -17805,7 +18168,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -17819,7 +18182,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): this;
     /**
      * @since 1.19.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -18304,7 +18667,6 @@ declare module "sap/ui/ux3/ToolPopup" {
       sTitle?: string
     ): this;
   }
-  export default ToolPopup;
 
   export interface $ToolPopupSettings extends $ControlSettings {
     /**
@@ -18431,7 +18793,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
      */
-    enter?: (oEvent: Event<$ToolPopupEnterEventParameters>) => void;
+    enter?: (oEvent: Event<ToolPopup$EnterEventParameters>) => void;
 
     /**
      * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
@@ -18453,11 +18815,27 @@ declare module "sap/ui/ux3/ToolPopup" {
     opened?: (oEvent: Event) => void;
   }
 
-  export interface $ToolPopupCloseEventParameters {}
+  export interface ToolPopup$CloseEventParameters {}
 
-  export interface $ToolPopupClosedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$CloseEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupCloseEventParameters = ToolPopup$CloseEventParameters;
 
-  export interface $ToolPopupEnterEventParameters {
+  export type ToolPopup$CloseEvent = Event<ToolPopup$CloseEventParameters>;
+
+  export interface ToolPopup$ClosedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$ClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupClosedEventParameters = ToolPopup$ClosedEventParameters;
+
+  export type ToolPopup$ClosedEvent = Event<ToolPopup$ClosedEventParameters>;
+
+  export interface ToolPopup$EnterEventParameters {
     /**
      * The onsapenter event, received by the pop up
      */
@@ -18469,11 +18847,43 @@ declare module "sap/ui/ux3/ToolPopup" {
     originalSrcControl?: Control;
   }
 
-  export interface $ToolPopupIconChangedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$EnterEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupEnterEventParameters = ToolPopup$EnterEventParameters;
 
-  export interface $ToolPopupOpenEventParameters {}
+  export type ToolPopup$EnterEvent = Event<ToolPopup$EnterEventParameters>;
 
-  export interface $ToolPopupOpenedEventParameters {}
+  export interface ToolPopup$IconChangedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$IconChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupIconChangedEventParameters = ToolPopup$IconChangedEventParameters;
+
+  export type ToolPopup$IconChangedEvent = Event<ToolPopup$IconChangedEventParameters>;
+
+  export interface ToolPopup$OpenEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$OpenEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupOpenEventParameters = ToolPopup$OpenEventParameters;
+
+  export type ToolPopup$OpenEvent = Event<ToolPopup$OpenEventParameters>;
+
+  export interface ToolPopup$OpenedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ToolPopup$OpenedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ToolPopupOpenedEventParameters = ToolPopup$OpenedEventParameters;
+
+  export type ToolPopup$OpenedEvent = Event<ToolPopup$OpenedEventParameters>;
 }
 
 declare namespace sap {
