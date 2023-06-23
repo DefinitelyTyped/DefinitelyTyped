@@ -603,6 +603,141 @@ declare namespace jwplayer {
         text: string;
     }
 
+    type JWPlugin = JwpsrvPlugin | RelatedPlugin | SharingPlugin;
+
+    interface JwpsrvPlugin {
+        addToPlayer(): void;
+        doNotTrackUser(): boolean;
+        getTrackingPixelUrls(): {
+            error?: string;
+            impression: string;
+        };
+        resizeHandler(): void;
+        trackExternalAPIUsage(): void;
+    }
+
+    interface RelatedPlugin {
+        close(): void;
+        open(): void;
+        on<TEvent extends keyof RPEventParams>(event: TEvent, callback: EventCallback<RPEventParams[TEvent]>): RelatedPlugin;
+        once<TEvent extends keyof RPEventParams>(event: TEvent, callback: EventCallback<RPEventParams[TEvent]>): RelatedPlugin;
+        off(event: keyof RPEventParams): RelatedPlugin;
+    }
+
+    interface RPEventParams {
+        close: RPCloseParam;
+        feedAutoAdvance: RPFeedAutoAdvanceParam;
+        feedClick: RPFeedClickParam;
+        feedShown: RPFeedShownParam;
+        nextUp: RPNextUpParam;
+        open: RPOpenParam;
+        play: RPPlayParam;
+        playlist: RPPlaylistParam;
+        videoThumbFirstFrame: RPVideoFirstThumbFrame;
+        warning: RPWarningParam;
+    }
+
+    interface RPCloseParam {
+        method: 'interaction' | 'play';
+        onclick: string;
+        relatedFile: string;
+        visible: boolean;
+    }
+
+    interface RPFeedAutoAdvanceParam {
+        feedData: FeedData;
+        feedShownId: string;
+        itemsShown: PlaylistItem[];
+        mode: string;
+        onclick: string;
+        relatedFile: string;
+        target: PlaylistItem;
+        ui: 'overlay' | 'shelf' | 'shelfWidget';
+    }
+
+    interface RPFeedClickParam {
+        feedData: FeedData;
+        feedShownId: string;
+        index: number;
+        itemsShown: PlaylistItem[];
+        mode: string;
+        onclick: string;
+        page: number;
+        reason: 'interaction' | 'paged';
+        relatedFile: string;
+        target: PlaylistItem;
+        ui: 'overlay' | 'shelf' | 'shelfWidget';
+        viewable: 0 | 1;
+    }
+
+    interface RPFeedShownParam {
+        autoTimer: number;
+        feedData: FeedData;
+        feedShownId: string;
+        itemsShown: PlaylistItem[];
+        mode: string;
+        onclick: string;
+        page: number;
+        reason: 'complete' | 'interaction' | 'inview' | 'paged' | 'resized';
+        relatedFile: string;
+        ui: 'overlay' | 'shelf' | 'shelfWidget';
+        viewable: 0 | 1;
+    }
+
+    interface RPNextUpParam extends PlaylistItem{
+        feedData: FeedData;
+        mode: string;
+        showNextUp: boolean;
+    }
+
+    interface RPOpenParam {
+        autoplay: boolean;
+        feed: string;
+        feedData: FeedData;
+        items: PlaylistItem[];
+        method: 'complete' | 'interaction';
+        onclick: string;
+        relatedFile: string;
+        visible: boolean;
+    }
+
+    interface RPPlayParam {
+        auto: boolean;
+        autoplaytimer: number;
+        feedData: FeedData;
+        item: PlaylistItem;
+        method: 'auto' | 'manual';
+        onclick: string;
+        position: number;
+        relatedFile: string;
+    }
+
+    interface RPPlaylistParam {
+        feedData: FeedData;
+        onclick: string;
+        playlist: PlaylistItem[];
+    }
+
+    interface RPVideoFirstThumbFrame {} // Unable to reproduce
+
+    interface RPWarningParam {} // Unable to reproduce
+
+    interface FeedData {
+        description?: string;
+        feedid: string;
+        feed_instance_id: string;
+        kind: string;
+        links: {
+            first: string;
+            last: string;
+            next: string;
+        }
+        playlist: PlaylistItem[];
+        title: string;
+    }
+
+    interface SharingPlugin {}
+
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         addCues(cues: SliderCue[]): JWPlayer;
@@ -629,7 +764,7 @@ declare namespace jwplayer {
         getPlaylistIndex(): number;
         getPlaylistItem(index?: number): PlaylistItem;
         getPlaylistItemPromise(index: number): Promise<PlaylistItem>;
-        getPlugin(name: string): any;
+        getPlugin(name: string): JWPlugin;
         getPosition(): number;
         getQualityLevels(): QualityLevel[];
         getRenderingMode(): string;
