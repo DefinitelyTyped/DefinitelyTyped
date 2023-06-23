@@ -736,7 +736,45 @@ declare namespace jwplayer {
         title: string;
     }
 
-    interface SharingPlugin {}
+    interface SharingPlugin {
+        close(): void;
+        getHeading(): string;
+        getLink(): string;
+        getShareMethods(): ShareMethod[];
+        open(): void;
+        on<TEvent extends keyof SPEventParams>(event: TEvent, callback: EventCallback<SPEventParams[TEvent]>): SharingPlugin;
+        once<TEvent extends keyof SPEventParams>(event: TEvent, callback: EventCallback<SPEventParams[TEvent]>): SharingPlugin;
+        off(event: keyof SPEventParams): SharingPlugin;
+    }
+
+    interface SPEventParams {
+        close: SPCloseParam;
+    }
+
+    interface SPClickParam {
+        method: string;
+    }
+
+    interface SPCloseParam {
+        method: string;
+        visible: boolean;
+    }
+
+    interface SPOpenParam {
+        method: string;
+        visible: boolean;
+    }
+
+    interface ShareMethod {
+        displayText?: string;
+        jwsource?: string;
+        label: string;
+        options: {
+            copyText: string;
+        }
+        src: string;
+        svg?: string;
+    }
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
