@@ -12,15 +12,15 @@ import { EventEmitter } from 'events';
 /**
  * Creates a new task to execute the given function when the cron expression ticks.
  * @param cronExpression
- * @param func 
- * @param options 
+ * @param func
+ * @param options
  */
 export function schedule(cronExpression: string, func: ((now: Date | "manual" | "init") => void) | string, options?: ScheduleOptions): ScheduledTask;
 
 /**
- * To validate whether the expression is a cron expression or not 
+ * To validate whether the expression is a cron expression or not
  * @param cronExpression
- */ 
+ */
 export function validate(cronExpression: string): boolean;
 
 /**
