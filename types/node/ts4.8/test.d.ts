@@ -1124,9 +1124,15 @@ interface TestStdout {
 declare module 'node:test/reporters' {
     import { Transform } from 'node:stream';
 
-    type TestEventName = 'diagnostic' | 'fail' | 'pass' | 'plan' | 'start' | 'stderr' | 'stdout';
-    type TestEventPayload = DiagnosticData | TestFail | TestPass | TestPlan | TestStart | TestStderr | TestStdout;
-    type TestEventGenerator = AsyncGenerator<{ type: `test:${TestEventName}`; data: TestEventPayload }, void>;
+    type TestEvent =
+        | { type: 'test:diagnostic', data: DiagnosticData }
+        | { type: 'test:fail', data: TestFail }
+        | { type: 'test:pass', data: TestPass }
+        | { type: 'test:plan', data: TestPlan }
+        | { type: 'test:start', data: TestStart }
+        | { type: 'test:stderr', data: TestStderr }
+        | { type: 'test:stdout', data: TestStdout };
+    type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
      * The `dot` reporter outputs the test results in a compact format,
