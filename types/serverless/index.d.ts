@@ -31,6 +31,7 @@ declare namespace Serverless {
 
     interface Config {
         servicePath: string;
+        serviceDir: string;
     }
 
     interface FunctionDefinition {
@@ -100,7 +101,9 @@ declare class Serverless {
     pluginManager: PluginManager;
 
     config: Serverless.Config;
+    configurationFilename: string;
     serverlessDirPath: string;
+    serviceDir: string;
 
     service: Service;
     version: string;
