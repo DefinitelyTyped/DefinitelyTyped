@@ -27,3 +27,31 @@ syntax
         syntax.FunctionNextLine(false),
     )
     .Print(node);
+
+// Test the methods of Parser.
+// The following tests are ported from https://github.com/mvdan/sh/blob/master/_js/testmain.js
+const parser = syntax.NewParser();
+const lines = [
+    "foo\n",
+    "bar; baz\n"
+];
+
+// Test parser.InteractiveStep
+for (const line of lines) {
+    const stmts = parser.InteractiveStep(line); // $ExpectType Stmt[]
+}
+
+const src = {
+    read: (size?: number): string | null => {
+        if (lines.length === 0) {
+            return null;
+        }
+        return lines.shift()!;
+    }
+};
+
+// Test parser.Interactive && parser.Incomplete
+parser.Interactive(src, (stmts: sh.Stmt[]) => {
+    const incomplete = parser.Incomplete(); // $ExpectType boolean
+    return true;
+});
