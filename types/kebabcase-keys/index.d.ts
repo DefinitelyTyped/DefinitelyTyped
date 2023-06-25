@@ -9,7 +9,7 @@
  * @template T - Input type.
  * @template U - Default type.
  */
-type WithDefault<T, U extends T> = T extends undefined | null ? U : T;
+type WithDefault<T, U> = T extends undefined ? U : T;
 
 type CamelToKebab<S extends string> = S extends `${infer T}${infer U}`
     ? `${T extends Capitalize<T> ? '-' : ''}${Lowercase<T>}${CamelToKebab<U>}`
@@ -43,15 +43,21 @@ type KebabCase<S extends string | number | symbol> = S extends number
     ? AnyCaseToKebab<S>
     : S;
 
-type KebabCasedProperties<T, Deep extends boolean = false> = T extends readonly CustomJsonObject[]
+type KebabCasedProperties<
+    T,
+    Deep extends boolean,
+    Exclude extends ReadonlyArray<string | RegExp>,
+> = T extends readonly CustomJsonObject[]
     ? {
-          [Key in keyof T]: KebabCasedProperties<T[Key], Deep>;
+          [Key in keyof T]: KebabCasedProperties<T[Key], Deep, Exclude>;
       }
     : T extends CustomJsonObject
     ? {
-          [Key in keyof T as KebabCase<Key>]: T[Key] extends CustomJsonObject | CustomJsonObject[]
+          [Key in keyof T as Array<Includes<Exclude, Key>> extends Array<true> ? Key : KebabCase<Key>]: T[Key] extends
+              | CustomJsonObject
+              | CustomJsonObject[]
               ? Deep[] extends Array<true>
-                  ? KebabCasedProperties<T[Key], Deep>
+                  ? KebabCasedProperties<T[Key], Deep, Exclude>
                   : T[Key]
               : T[Key];
       }
@@ -79,7 +85,7 @@ interface Options {
 declare function kebabcaseKeys<T extends CustomJsonObject | CustomJsonObject[], OptionsType extends Options>(
     input: T,
     options?: OptionsType,
-): KebabCasedProperties<T, WithDefault<OptionsType['deep'], false>>;
+): KebabCasedProperties<T, WithDefault<OptionsType['deep'], false>, WithDefault<OptionsType['exclude'], []>>;
 
 export = kebabcaseKeys;
 
@@ -121,3 +127,9 @@ type Whitespace =
     | '\u{205F}'
     | '\u{3000}'
     | '\u{FEFF}';
+type IsEqual<A, B> = A[] extends B[] ? (B[] extends A[] ? true : false) : false;
+type Includes<Value extends readonly any[], Item> = Value extends readonly [Value[0], ...infer rest]
+    ? IsEqual<Value[0], Item> extends true
+        ? true
+        : Includes<rest, Item>
+    : false;

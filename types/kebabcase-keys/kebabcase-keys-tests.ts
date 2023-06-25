@@ -27,12 +27,22 @@ kebabcaseKeys({}); // $ExpectType {}
 kebabcaseKeys({ foo_bar: true }); // $ExpectType { "foo-bar": true; }
 kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }); // $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }
 kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }, { deep: true }); // $ExpectType { "foo-bar": true; nested: { "unicorn-rainbow": true; }; }
+// $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }
+kebabcaseKeys(
+    { foo_bar: true, nested: { unicorn_rainbow: true } },
+    { deep: true, exclude: ['unicorn_rainbow'] as const },
+);
 
 kebabcaseKeys([]); // $ExpectType never[]
 kebabcaseKeys([{}]); // $ExpectType {}[]
 kebabcaseKeys([{ foo_bar: true }]); // $ExpectType { "foo-bar": true; }[]
 kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }]); // $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }[]
 kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }], { deep: true }); // $ExpectType { "foo-bar": true; nested: { "unicorn-rainbow": true; }; }[]
+// $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }[]
+kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }], {
+    deep: true,
+    exclude: ['unicorn_rainbow'] as const,
+});
 
 kebabcaseKeys({ 123: 123 }); // $ExpectType { 123: number; }
 kebabcaseKeys({ [symbol]: 'symbol' }); // $ExpectType {}
