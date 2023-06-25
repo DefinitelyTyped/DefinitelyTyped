@@ -195,58 +195,58 @@ declare module 'node:test' {
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): void;
-    function it(name?: string, fn?: TestFn): void;
-    function it(options?: TestOptions, fn?: TestFn): void;
-    function it(fn?: TestFn): void;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function it(name?: string, fn?: TestFn): Promise<void>;
+    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function it(fn?: TestFn): Promise<void>;
     namespace it {
         /**
          * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
          */
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function skip(name?: string, fn?: TestFn): void;
-        function skip(options?: TestOptions, fn?: TestFn): void;
-        function skip(fn?: TestFn): void;
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function skip(name?: string, fn?: TestFn): Promise<void>;
+        function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function skip(fn?: TestFn): Promise<void>;
         /**
          * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
          */
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function todo(name?: string, fn?: TestFn): void;
-        function todo(options?: TestOptions, fn?: TestFn): void;
-        function todo(fn?: TestFn): void;
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function todo(name?: string, fn?: TestFn): Promise<void>;
+        function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function todo(fn?: TestFn): Promise<void>;
         /**
          * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function only(name?: string, fn?: TestFn): void;
-        function only(options?: TestOptions, fn?: TestFn): void;
-        function only(fn?: TestFn): void;
+        function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function only(name?: string, fn?: TestFn): Promise<void>;
+        function only(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function only(fn?: TestFn): Promise<void>;
     }
     /**
      * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
      * @since v20.2.0
      */
-    function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
-    function skip(name?: string, fn?: TestFn): void;
-    function skip(options?: TestOptions, fn?: TestFn): void;
-    function skip(fn?: TestFn): void;
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function skip(name?: string, fn?: TestFn): Promise<void>;
+    function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function skip(fn?: TestFn): Promise<void>;
     /**
      * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
      * @since v20.2.0
      */
-    function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
-    function todo(name?: string, fn?: TestFn): void;
-    function todo(options?: TestOptions, fn?: TestFn): void;
-    function todo(fn?: TestFn): void;
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function todo(name?: string, fn?: TestFn): Promise<void>;
+    function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function todo(fn?: TestFn): Promise<void>;
     /**
      * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
      * @since v20.2.0
      */
-    function only(name?: string, options?: TestOptions, fn?: TestFn): void;
-    function only(name?: string, fn?: TestFn): void;
-    function only(options?: TestOptions, fn?: TestFn): void;
-    function only(fn?: TestFn): void;
+    function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function only(name?: string, fn?: TestFn): Promise<void>;
+    function only(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function only(fn?: TestFn): Promise<void>;
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
