@@ -148,7 +148,7 @@ declare namespace session {
         /**
          * The way of generating external session id is controlled by the options.genid, which defaults to Date.now() + "-" + uid.sync(24).
          */
-        genid: () => string;
+        genid: (ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>) => string;
 
         /**
          * Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false
