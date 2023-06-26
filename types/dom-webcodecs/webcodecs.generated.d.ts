@@ -400,7 +400,7 @@ interface WebCodecsErrorCallback {
     (error: DOMException): void;
 }
 
-type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
+// type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
 // type BitrateMode = "constant" | "variable";
 type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
 // type AlphaOption = "discard" | "keep";
