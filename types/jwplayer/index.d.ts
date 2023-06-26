@@ -55,6 +55,12 @@ declare namespace jwplayer {
         Features: Features;
     }
 
+    interface AbsolutePositionReadyParam {
+        ready: boolean;
+        startDateTime: number;
+        type: 'absolutePositionReady';
+    }
+
     interface AdProgressParam {
         client: 'vast' | 'googima';
         creativetype: string;
@@ -540,6 +546,7 @@ declare namespace jwplayer {
     }
 
     interface EventParams {
+        absolutePositionReady: AbsolutePositionReadyParam;
         adClick: AdProgressParam;
         adCompanions: AdCompanionsParam;
         adComplete: AdProgressParam;
@@ -782,6 +789,7 @@ declare namespace jwplayer {
         addPlugin(name: string, pluginInstance: any): void;
         getAdBlock(): boolean;
         getAudioTracks(): AudioTrack[];
+        getAbsolutePosition(): string | null;
         getBuffer(): number;
         getCaptionsList(): Caption[];
         getContainer(): HTMLElement;
