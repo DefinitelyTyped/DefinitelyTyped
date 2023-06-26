@@ -1,4 +1,4 @@
-// Type definitions for node-polyglot v2.4.0
+// Type definitions for node-polyglot v2.5.0
 // Project: https://github.com/airbnb/polyglot.js
 // Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
 //                 Liam Ross <https://github.com/liamross>
@@ -31,6 +31,7 @@ declare namespace Polyglot {
         warn?: ((message: string) => void) | undefined;
         interpolation?: InterpolationTokenOptions | undefined;
         pluralRules?: PluralRules | undefined;
+        replace?: String['replace'];
     }
 
     function transformPhrase(phrase: string, options?: number | Polyglot.InterpolationOptions, locale?: string): string;
