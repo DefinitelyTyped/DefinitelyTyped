@@ -9,7 +9,7 @@ declare namespace PathKitAPI {
      * It basically takes a nine element 1D Array and turns it into a 3x3 2D
      * Affine Matrix.
      */
-    type SkMatrix = number[];
+    type SkMatrix = ReadonlyArray<number>;
 
     /**
      * `SkRect` translates between a C++ struct and a JS Object with the
@@ -851,7 +851,7 @@ declare namespace PathKitAPI {
      *
      * @param cmds A 2D array of commands, where a command is a verb followed by its arguments.
      */
-    function FromCmds(cmds: number[][]): SkPath | null;
+    function FromCmds(cmds: ReadonlyArray<ReadonlyArray<number>>): SkPath | null;
 
     /**
      * Returns an empty SkPath object.
