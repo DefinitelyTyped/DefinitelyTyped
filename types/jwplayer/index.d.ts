@@ -21,6 +21,7 @@ declare namespace jwplayer {
     }
 
     interface Browser {
+        androidNative: boolean;
         chrome: boolean;
         edge: boolean;
         facebook: boolean;
@@ -33,26 +34,33 @@ declare namespace jwplayer {
 
     interface OS {
         android: boolean;
-        androidNative: boolean; // Android native browser
         iOS: boolean;
-        mobile: boolean;
-        mac: boolean;
         iPad: boolean;
         iPhone: boolean;
-        windows: boolean;
+        mac: boolean;
+        mobile: boolean;
+        tizen: boolean;
+        tizenApp: boolean;
         version: Version;
+        windows: boolean;
     }
 
     interface Features {
+        backgroundLoading: boolean;
         flash: boolean;
         flashVersion: number;
         iframe: boolean;
+        passiveEvents: boolean;
     }
 
     interface Environment {
         Browser: Browser;
         OS: OS;
         Features: Features;
+    }
+
+    interface Provider {
+        name: 'flash_adaptive' | 'flash_video' | 'flash_sound' | 'hlsjs' | 'html5' | 'shaka';
     }
 
     interface AbsolutePositionReadyParam {
@@ -627,8 +635,14 @@ declare namespace jwplayer {
     interface RelatedPlugin {
         close(): void;
         open(): void;
-        on<TEvent extends keyof RPEventParams>(event: TEvent, callback: EventCallback<RPEventParams[TEvent]>): RelatedPlugin;
-        once<TEvent extends keyof RPEventParams>(event: TEvent, callback: EventCallback<RPEventParams[TEvent]>): RelatedPlugin;
+        on<TEvent extends keyof RPEventParams>(
+            event: TEvent,
+            callback: EventCallback<RPEventParams[TEvent]>,
+        ): RelatedPlugin;
+        once<TEvent extends keyof RPEventParams>(
+            event: TEvent,
+            callback: EventCallback<RPEventParams[TEvent]>,
+        ): RelatedPlugin;
         off(event: keyof RPEventParams): RelatedPlugin;
     }
 
@@ -692,7 +706,7 @@ declare namespace jwplayer {
         viewable: 0 | 1;
     }
 
-    interface RPNextUpParam extends PlaylistItem{
+    interface RPNextUpParam extends PlaylistItem {
         feedData: FeedData;
         mode: string;
         showNextUp: boolean;
@@ -739,7 +753,7 @@ declare namespace jwplayer {
             first: string;
             last: string;
             next: string;
-        }
+        };
         playlist: PlaylistItem[];
         title: string;
     }
@@ -750,8 +764,14 @@ declare namespace jwplayer {
         getLink(): string;
         getShareMethods(): ShareMethod[];
         open(): void;
-        on<TEvent extends keyof SPEventParams>(event: TEvent, callback: EventCallback<SPEventParams[TEvent]>): SharingPlugin;
-        once<TEvent extends keyof SPEventParams>(event: TEvent, callback: EventCallback<SPEventParams[TEvent]>): SharingPlugin;
+        on<TEvent extends keyof SPEventParams>(
+            event: TEvent,
+            callback: EventCallback<SPEventParams[TEvent]>,
+        ): SharingPlugin;
+        once<TEvent extends keyof SPEventParams>(
+            event: TEvent,
+            callback: EventCallback<SPEventParams[TEvent]>,
+        ): SharingPlugin;
         off(event: keyof SPEventParams): SharingPlugin;
     }
 
@@ -779,7 +799,7 @@ declare namespace jwplayer {
         label: string;
         options: {
             copyText: string;
-        }
+        };
         src: string;
         svg?: string;
     }
@@ -813,6 +833,7 @@ declare namespace jwplayer {
         getPlaylistItemPromise(index: number): Promise<PlaylistItem>;
         getPlugin(name: string): JWPlugin;
         getPosition(): number;
+        getProvider(): Provider;
         getQualityLevels(): QualityLevel[];
         getRenderingMode(): string;
         getSafeRegion(): Region;
