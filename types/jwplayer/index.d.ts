@@ -559,6 +559,7 @@ declare namespace jwplayer {
         adPlay: AdPlayParam;
         adPause: AdPlayParam;
         adTime: AdTimeParam;
+        all: keyof EventParams;
         autostartNotAllowed: AutostartNotAllowedParam;
         cast: CastParam;
         complete: CompleteParam;
