@@ -126,9 +126,9 @@ declare class CleverTap {
     markReadInboxMessage:(messageId:any)=>void;
     deleteInboxMessage:(messageId:any)=>void;
     getInboxMessageForId:(messageId:any)=>void;
-    getUnreadInboxMessages:() => void;
-    getAllInboxMessages:() => void;
-    getInboxMessageUnreadCount:() => void;
+    getUnreadInboxMessages:() => any;
+    getAllInboxMessages:() => any;
+    getInboxMessageUnreadCount:() => number | undefined;
     getInboxMessageCount:() => number | undefined;
 }
 

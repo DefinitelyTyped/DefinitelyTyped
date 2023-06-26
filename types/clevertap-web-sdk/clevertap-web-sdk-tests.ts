@@ -104,29 +104,26 @@ const pageCount = clevertap.session.getPageCount();
 // WebInbox
 
 // Get Inbox Message Count
-const msgCount = clevertap.getInboxMessageCount()
+clevertap.getInboxMessageCount()
 
 // Get Inbox Unread Message Count
-const unreadMsgCount = clevertap.getInboxMessageUnreadCount()
+clevertap.getInboxMessageUnreadCount()
 
 // Get All Inbox messages
-const allInboxMsg =  clevertap.getAllInboxMessages()
+clevertap.getAllInboxMessages()
 
 // Get only Unread messages
-const unreadMsgs = clevertap.getUnreadInboxMessages()
+clevertap.getUnreadInboxMessages()
 
 // Get message object belonging to the given message id only. Message id should be a String
-let msgId : string = ""
-const getMsgForId = clevertap.getInboxMessageForId(msgId);
+clevertap.getInboxMessageForId("1687446482_1687781900740");
 
 // Delete message from the Inbox. Message id should be a String
-msgId = ""
-const deleteMsg = clevertap.deleteInboxMessage(msgId)
+clevertap.deleteInboxMessage("1687446482_1687781900740")
 
 // Mark Message as Read. Message id should be a String
-msgId = ""
-const readInboxMsg = clevertap.markReadInboxMessage(msgId)
+clevertap.markReadInboxMessage("1687446482_1687781900740")
 
 // Mark all messages as read
-const markReadAll = clevertap.markReadAllInboxMessage()
+clevertap.markReadAllInboxMessage()
 
