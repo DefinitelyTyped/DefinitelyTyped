@@ -21,7 +21,7 @@ player.getFloating();
 // $ExpectType void
 player.setFloating(true);
 
-// $ExpectType any
+// $ExpectType JWPlugin
 player.getPlugin('pluginName');
 
 // $ExpectType void
@@ -33,7 +33,7 @@ player.getAdBlock();
 // $ExpectType void
 player.pauseAd(true);
 
-// $ExpectType JWPlayer
+// $ExpectType void
 player.skipAd();
 
 // $ExpectType JWPlayer
