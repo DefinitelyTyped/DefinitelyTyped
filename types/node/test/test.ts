@@ -1,4 +1,5 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { dot, spec, tap } from 'node:test/reporters';
 
 // run without options
 // $ExpectType TestsStream
@@ -601,3 +602,14 @@ test('mocks a setter', (t) => {
         call.this;
     }
 });
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot('' as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap('' as any);
+// $ExpectType Spec
+new spec();
