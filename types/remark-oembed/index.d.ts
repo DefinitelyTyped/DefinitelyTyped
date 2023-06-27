@@ -3,7 +3,7 @@
 // Definitions by: Karoline <https://github.com/Boothwhack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Plugin} from 'unified';
+import { Plugin } from 'unified';
 
 interface RemarkOEmbedSettings {
     syncWidget?: boolean;
@@ -11,5 +11,5 @@ interface RemarkOEmbedSettings {
     jsx?: boolean;
 }
 
-declare const remarkOEmbed: Plugin<[RemarkOEmbedSettings?]>;
+declare const remarkOEmbed: Plugin<RemarkOEmbedSettings[]>;
 export = remarkOEmbed;
