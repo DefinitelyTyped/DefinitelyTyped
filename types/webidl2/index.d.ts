@@ -10,6 +10,7 @@ export {};
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
 export function write(ast: IDLRootType[], options?: WriteOptions): string;
+export function validate(ast: IDLRootType[]): WebIDLErrorData[];
 
 export type IDLRootType =
     | CallbackType
@@ -132,6 +133,30 @@ export class WebIDLParseError extends Error {
     /** the line at which the error occurred. */
     line: number;
     sourceName: string | undefined;
+
+    /** a short peek at the text at the point where the error happened */
+    input: string;
+    /** the five tokens at the point of error, as understood by the tokeniser */
+    tokens: Token[];
+}
+
+export class WebIDLErrorData extends Error {
+    /** the error message */
+    message: string;
+    bareMessage: string;
+
+    /** the line at which the error occurred. */
+    line: number;
+    sourceName: string | undefined;
+
+    /** the level of error */
+    level: "error" | "warning";
+
+    /** A function to automatically fix the error */
+    autofix?(): void;
+
+    /** The name of the rule that threw the error */
+    ruleName: string;
 
     /** a short peek at the text at the point where the error happened */
     input: string;
