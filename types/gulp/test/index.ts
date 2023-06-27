@@ -114,7 +114,6 @@ gulp.task('default', gulp.series('one', 'two', (done) => {
 }));
 
 gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
-gulp.watch('js/**/*.js', { events: ['change'] }, gulp.parallel('concat', 'uglify'));
 
 const watcher = gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 // watcher.close

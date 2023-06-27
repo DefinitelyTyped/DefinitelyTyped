@@ -5,24 +5,15 @@ declare namespace bricks {
         message: string;
     }
 
-    interface Submit<BrickType> {
+    interface BrickCallbacks {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
-            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
-        ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
-    }
-
-    interface BinChange {
-        onBinChange?: (bin: string) => void;
-    }
-    interface BrickCallbacks {
+            param2?: AdditionalCardFormData | AdditionalPaymentFormData,
+        ) => Promise<void>;
         onReady?: () => void;
         onError?: (error: BrickError) => void;
+        onBinChange?: (bin: string) => void;
     }
-
-    interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
-    interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
-    interface PaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
 
     interface PayerAddress {
         zipCode?: string;
@@ -87,6 +78,18 @@ declare namespace bricks {
         GREY = 'grey',
     }
 
+    enum WalletButtonAction {
+        PAY = 'pay',
+        BUY = 'buy',
+    }
+
+    enum WalletButtonValueProp {
+        PRACTICALITY = 'practicality',
+        CONVENIENCE = 'convenience',
+        SECURITY_DETAILS = 'security_details',
+        SECURITY_SAFETY = 'security_safety',
+    }
+
     enum WalletButtonRedirectMode {
         MODAL = 'modal',
         SELF = 'self',
@@ -139,15 +142,8 @@ declare namespace bricks {
     }
 
     interface WalletButtonTextCustomization {
-        action: 'pay' | 'buy';
-        valueProp:
-            | 'practicality'
-            | 'convenience'
-            | 'convenience_all'
-            | 'security_details'
-            | 'security_safety'
-            | 'convenience_credits'
-            | 'smart_option';
+        action: WalletButtonAction;
+        valueProp: WalletButtonValueProp;
     }
 
     interface StatusBrickBackUrls {
@@ -178,15 +174,9 @@ declare namespace bricks {
         additionalData?: StatusBrickAdditionalData;
     }
 
-    interface BrickSettings<BrickType> {
+    interface BrickSettings {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks: BrickType extends 'wallet'
-            ? WalletBrickCallbacks<BrickType>
-            : BrickType extends 'cardPayment'
-            ? CardPaymentBrickCallbacks<BrickType>
-            : BrickType extends 'payment'
-            ? PaymentBrickCallbacks<BrickType>
-            : BrickCallbacks;
+        callbacks?: BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
@@ -341,10 +331,6 @@ declare namespace bricks {
 
     interface Bricks {
         isInitialized(): boolean;
-        create<BrickType extends BrickTypes>(
-            brick: BrickType,
-            containerId: string,
-            settings: BrickSettings<BrickType>,
-        ): Promise<BrickController>;
+        create(brick: BrickTypes, containerId: string, settings: BrickSettings): Promise<BrickController>;
     }
 }

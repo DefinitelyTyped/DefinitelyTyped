@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.34
+// Type definitions for non-npm package microsoft-graph 2.33
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -263,7 +263,6 @@ export type FederatedIdpMfaBehavior =
     | "enforceMfaByFederatedIdp"
     | "rejectMfaByFederatedIdp"
     | "unknownFutureValue";
-export type LayoutTemplateType = "default" | "verticalSplit" | "unknownFutureValue";
 export type OnPremisesDirectorySynchronizationDeletionPreventionType =
     | "disabled"
     | "enabledForCount"
@@ -3841,7 +3840,7 @@ export interface Person extends Entity {
     givenName?: NullableOption<string>;
     // The instant message voice over IP (VOIP) session initiation protocol (SIP) address for the user. Read-only.
     imAddress?: NullableOption<string>;
-    // True if the user has flagged this person as a favorite.
+    // true if the user has flagged this person as a favorite.
     isFavorite?: NullableOption<boolean>;
     // The person's job title.
     jobTitle?: NullableOption<string>;
@@ -6267,10 +6266,10 @@ export interface ConversationMember extends Entity {
     // The display name of the user.
     displayName?: NullableOption<string>;
     /**
-     * The roles for that user. This property contains additional qualifiers only when relevant - for example, if the member
-     * has owner privileges, the roles property contains owner as one of the values. Similarly, if the member is an in-tenant
-     * guest, the roles property contains guest as one of the values. A basic member should not have any values specified in
-     * the roles property. An Out-of-tenant external member is assigned the owner role.
+     * The roles for that user. This property only contains additional qualifiers when relevant - for example, if the member
+     * has owner privileges, the roles property contains owner as one of the values. Similarly, if the member is a guest, the
+     * roles property contains guest as one of the values. A basic member should not have any values specified in the roles
+     * property.
      */
     roles?: NullableOption<string[]>;
     /**
@@ -6607,7 +6606,7 @@ export interface SecureScoreControlProfile extends Entity {
     remediationImpact?: NullableOption<string>;
     // Service that owns the control (Exchange, Sharepoint, Azure AD).
     service?: NullableOption<string>;
-    // List of threats the control mitigates (accountBreach, dataDeletion, dataExfiltration, dataSpillage,
+    // List of threats the control mitigates (accountBreach,dataDeletion,dataExfiltration,dataSpillage,
     threats?: NullableOption<string[]>;
     tier?: NullableOption<string>;
     title?: NullableOption<string>;
@@ -7041,10 +7040,6 @@ export interface AdministrativeUnit extends DirectoryObject {
     extensions?: NullableOption<Extension[]>;
 }
 export interface AllowedValue extends Entity {
-    /**
-     * Indicates whether the predefined value is active or deactivated. If set to false, this predefined value cannot be
-     * assigned to any additional supported directory objects.
-     */
     isActive?: NullableOption<boolean>;
 }
 export interface AppScope extends Entity {
@@ -7060,15 +7055,7 @@ export interface AppScope extends Entity {
     type?: NullableOption<string>;
 }
 export interface AttributeSet extends Entity {
-    /**
-     * Description of the attribute set. Can be up to 128 characters long and include Unicode characters. Can be changed
-     * later.
-     */
     description?: NullableOption<string>;
-    /**
-     * Maximum number of custom security attributes that can be defined in this attribute set. Default value is null. If not
-     * specified, the administrator can add up to the maximum of 500 active attributes per tenant. Can be changed later.
-     */
     maxAttributesPerSet?: NullableOption<number>;
 }
 export interface CertificateBasedAuthConfiguration extends Entity {
@@ -7185,49 +7172,14 @@ export interface CrossTenantIdentitySyncPolicyPartner {
     userSyncInbound?: NullableOption<CrossTenantUserSyncInbound>;
 }
 export interface CustomSecurityAttributeDefinition extends Entity {
-    // Name of the attribute set. Case insensitive.
     attributeSet?: string;
-    /**
-     * Description of the custom security attribute. Can be up to 128 characters long and include Unicode characters. Can be
-     * changed later.
-     */
     description?: NullableOption<string>;
-    /**
-     * Indicates whether multiple values can be assigned to the custom security attribute. Cannot be changed later. If type is
-     * set to Boolean, isCollection cannot be set to true.
-     */
     isCollection?: boolean;
-    /**
-     * Indicates whether custom security attribute values are indexed for searching on objects that are assigned attribute
-     * values. Cannot be changed later.
-     */
     isSearchable?: NullableOption<boolean>;
-    /**
-     * Name of the custom security attribute. Must be unique within an attribute set. Can be up to 32 characters long and
-     * include Unicode characters. Cannot contain spaces or special characters. Cannot be changed later. Case insensitive.
-     */
     name?: string;
-    /**
-     * Specifies whether the custom security attribute is active or deactivated. Acceptable values are: Available and
-     * Deprecated. Can be changed later.
-     */
     status?: string;
-    /**
-     * Data type for the custom security attribute values. Supported types are: Boolean, Integer, and String. Cannot be
-     * changed later.
-     */
     type?: string;
-    /**
-     * Indicates whether only predefined values can be assigned to the custom security attribute. If set to false, free-form
-     * values are allowed. Can later be changed from true to false, but cannot be changed from false to true. If type is set
-     * to Boolean, usePreDefinedValuesOnly cannot be set to true.
-     */
     usePreDefinedValuesOnly?: NullableOption<boolean>;
-    /**
-     * Values that are predefined for this custom security attribute. This navigation property is not returned by default and
-     * must be specified in an $expand query. For example,
-     * /directory/customSecurityAttributeDefinitions?$expand=allowedValues.
-     */
     allowedValues?: NullableOption<AllowedValue[]>;
 }
 export interface Device extends DirectoryObject {
@@ -7346,9 +7298,7 @@ export interface Device extends DirectoryObject {
 export interface Directory extends Entity {
     // Conceptual container for user and group directory objects.
     administrativeUnits?: NullableOption<AdministrativeUnit[]>;
-    // Group of related custom security attribute definitions.
     attributeSets?: NullableOption<AttributeSet[]>;
-    // Schema of a custom security attributes (key-value pairs).
     customSecurityAttributeDefinitions?: NullableOption<CustomSecurityAttributeDefinition[]>;
     // Recently deleted items. Read-only. Nullable.
     deletedItems?: NullableOption<DirectoryObject[]>;
@@ -7717,24 +7667,6 @@ export interface OrganizationalBrandingProperties extends Entity {
      * providers are used at the same time for high availability of read requests. Read-only.
      */
     cdnList?: NullableOption<string[]>;
-    customAccountResetCredentialsUrl?: NullableOption<string>;
-    customCannotAccessYourAccountText?: NullableOption<string>;
-    customCannotAccessYourAccountUrl?: NullableOption<string>;
-    customCSS?: NullableOption<any>;
-    customCSSRelativeUrl?: NullableOption<string>;
-    customForgotMyPasswordText?: NullableOption<string>;
-    customPrivacyAndCookiesText?: NullableOption<string>;
-    customPrivacyAndCookiesUrl?: NullableOption<string>;
-    customResetItNowText?: NullableOption<string>;
-    customTermsOfUseText?: NullableOption<string>;
-    customTermsOfUseUrl?: NullableOption<string>;
-    favicon?: NullableOption<any>;
-    faviconRelativeUrl?: NullableOption<string>;
-    headerBackgroundColor?: NullableOption<string>;
-    headerLogo?: NullableOption<any>;
-    headerLogoRelativeUrl?: NullableOption<string>;
-    loginPageLayoutConfiguration?: NullableOption<LoginPageLayoutConfiguration>;
-    loginPageTextVisibilitySettings?: NullableOption<LoginPageTextVisibilitySettings>;
     /**
      * Text that appears at the bottom of the sign-in box. You can use this to communicate additional information, such as the
      * phone number to your help desk or a legal statement. This text must be Unicode and not exceed 1024 characters.
@@ -7746,8 +7678,6 @@ export interface OrganizationalBrandingProperties extends Entity {
      * KB in size. We recommend using a transparent image with no padding around the logo.
      */
     squareLogo?: NullableOption<any>;
-    squareLogoDark?: NullableOption<any>;
-    squareLogoDarkRelativeUrl?: NullableOption<string>;
     /**
      * A relative url for the squareLogo property that is combined with a CDN base URL from the cdnList to provide the version
      * served by a CDN. Read-only.
@@ -8615,8 +8545,8 @@ export interface EducationSubmission extends Entity {
      */
     returnedDateTime?: NullableOption<string>;
     /**
-     * Read-only. Possible values are: working, submitted, returned, and reassigned. Note that you must use the Prefer:
-     * include-unknown-enum-members request header to get the following value(s) in this evolvable enum: reassigned.
+     * Read-only. Possible values are: working, submitted, released, returned, and reassigned. Note that you must use the
+     * Prefer: include-unknown-enum-members request header to get the following value(s) in this evolvable enum: reassigned.
      */
     status?: NullableOption<EducationSubmissionStatus>;
     // User who moved the resource into the submitted state.
@@ -17877,8 +17807,7 @@ export interface KeyCredential {
     /**
      * The certificate's raw data in byte array converted to Base64 string. Returned only on $select for a single object, that
      * is, GET applications/{applicationId}?$select=keyCredentials or GET
-     * servicePrincipals/{servicePrincipalId}?$select=keyCredentials; otherwise, it is always null. From a .cer certificate,
-     * you can read the key using the Convert.ToBase64String() method. For more information, see Get the certificate key.
+     * servicePrincipals/{servicePrincipalId}?$select=keyCredentials; otherwise, it is always null.
      */
     key?: NullableOption<string>;
     // The unique identifier (GUID) for the key.
@@ -18759,22 +18688,14 @@ export interface CrossTenantUserSyncInbound {
     isSyncAllowed?: NullableOption<boolean>;
 }
 export interface DefaultUserRolePermissions {
-    /**
-     * Indicates whether the default user role can create applications. This setting corresponds to the Users can register
-     * applications setting in the User settings menu in the Azure portal.
-     */
+    // Indicates whether the default user role can create applications.
     allowedToCreateApps?: boolean;
     /**
-     * Indicates whether the default user role can create security groups. This setting corresponds to the following menus in
-     * the Azure portal: The Users can create security groups in Azure portals, API or PowerShell setting in the Group
-     * settings menu. Users can create security groups setting in the User settings menu.
+     * Indicates whether the default user role can create security groups. This setting corresponds to the The Users can
+     * create security groups in Azure portals, API or PowerShell setting in the group settings menu in the Azure portal.
      */
     allowedToCreateSecurityGroups?: boolean;
-    /**
-     * Indicates whether the default user role can create tenants. This setting corresponds to the Restrict non-admin users
-     * from creating tenants setting in the User settings menu in the Azure portal. When this setting is false, users assigned
-     * the Tenant Creator role can still create tenants.
-     */
+    // Indicates whether the default user role can create tenants.
     allowedToCreateTenants?: NullableOption<boolean>;
     // Indicates whether the registered owners of a device can read their own BitLocker recovery keys with default user role.
     allowedToReadBitlockerKeysForOwnedDevice?: NullableOption<boolean>;
@@ -18838,19 +18759,6 @@ export interface LicenseUnitsDetail {
      * a grace period to renew their subscription before it is cancelled (moved to a suspended state).
      */
     warning?: NullableOption<number>;
-}
-export interface LoginPageLayoutConfiguration {
-    isFooterShown?: NullableOption<boolean>;
-    isHeaderShown?: NullableOption<boolean>;
-    layoutTemplateType?: NullableOption<LayoutTemplateType>;
-}
-export interface LoginPageTextVisibilitySettings {
-    hideAccountResetCredentials?: NullableOption<boolean>;
-    hideCannotAccessYourAccount?: NullableOption<boolean>;
-    hideForgotMyPassword?: NullableOption<boolean>;
-    hidePrivacyAndCookies?: NullableOption<boolean>;
-    hideResetItNow?: NullableOption<boolean>;
-    hideTermsOfUse?: NullableOption<boolean>;
 }
 export interface OnPremisesAccidentalDeletionPrevention {
     /**
@@ -23010,12 +22918,7 @@ export interface BucketAggregationRange {
     to?: string;
 }
 export interface CollapseProperty {
-    /**
-     * Defines the collapse group to trim results. The properties in this collection must be sortable/refinable properties.
-     * Required.
-     */
     fields?: string[];
-    // Defines a maximum limit count for this field. This numeric value must be a positive integer. Required.
     limit?: number;
 }
 export interface ResultTemplate {
@@ -23077,7 +22980,6 @@ export interface SearchHit {
      * hitId format.
      */
     hitId?: NullableOption<string>;
-    // Indicates whether the current result is collapsed when the collapseProperties property is used.
     isCollapsed?: NullableOption<boolean>;
     // The rank or the order of the result.
     rank?: NullableOption<number>;
@@ -25686,7 +25588,7 @@ export namespace CallRecords {
         /**
          * Codec name used to encode audio for transmission on the network. Possible values are: unknown, invalid, cn, pcma, pcmu,
          * amrWide, g722, g7221, g7221c, g729, multiChannelAudio, muchv2, opus, satin, satinFullband, rtAudio8, rtAudio16, silk,
-         * silkNarrow, silkWide, siren, xmsRta, unknownFutureValue.
+         * silkNarrow, silkWide, siren, xmsRTA, unknownFutureValue.
          */
         audioCodec?: NullableOption<AudioCodec>;
         /**
@@ -26169,7 +26071,7 @@ export namespace ExternalConnectors {
         /**
          * The name of the property. Maximum 32 characters. Only alphanumeric characters allowed. For example, each string may not
          * contain control characters, whitespace, or any of the following: :, ;, ,, (, ), [, ], {, }, %, $, +, !, *, =, &amp;, ?,
-         * @, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Required.
+         * \@, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Required.
          */
         name?: string;
         /**
@@ -26278,8 +26180,7 @@ export namespace SecurityNamespace {
         | "microsoftDataLossPrevention"
         | "appGovernancePolicy"
         | "appGovernanceDetection"
-        | "unknownFutureValue"
-        | "microsoftDefenderForCloud";
+        | "unknownFutureValue";
     type DetectionStatus = "detected" | "blocked" | "prevented" | "unknownFutureValue";
     type DeviceHealthStatus =
         | "active"
@@ -26309,8 +26210,7 @@ export namespace SecurityNamespace {
         | "policyViolator"
         | "unknownFutureValue";
     type EvidenceVerdict = "unknown" | "suspicious" | "malicious" | "noThreatsFound" | "unknownFutureValue";
-    type GoogleCloudLocationType = "unknown" | "regional" | "zonal" | "global" | "unknownFutureValue";
-    type IncidentStatus = "active" | "resolved" | "inProgress" | "redirected" | "unknownFutureValue" | "awaitingAction";
+    type IncidentStatus = "active" | "resolved" | "inProgress" | "redirected" | "unknownFutureValue";
     type OnboardingStatus = "insufficientInfo" | "onboarded" | "canBeOnboarded" | "unsupported" | "unknownFutureValue";
     type ServiceSource =
         | "unknown"
@@ -26322,8 +26222,7 @@ export namespace SecurityNamespace {
         | "azureAdIdentityProtection"
         | "microsoftAppGovernance"
         | "dataLossPrevention"
-        | "unknownFutureValue"
-        | "microsoftDefenderForCloud";
+        | "unknownFutureValue";
     type VmCloudProvider = "unknown" | "azure" | "unknownFutureValue";
     type EventPropagationStatus = "none" | "inProcessing" | "failed" | "success" | "unknownFutureValue";
     type EventStatusType = "pending" | "error" | "success" | "notAvaliable" | "unknownFutureValue";
@@ -26352,14 +26251,7 @@ export namespace SecurityNamespace {
         createdDateTime?: NullableOption<string>;
         // String value describing each alert.
         description?: NullableOption<string>;
-        /**
-         * Detection technology or sensor that identified the notable component or activity. Possible values are: unknown,
-         * microsoftDefenderForEndpoint, antivirus, smartScreen, customTi, microsoftDefenderForOffice365, automatedInvestigation,
-         * microsoftThreatExperts, customDetection, microsoftDefenderForIdentity, cloudAppSecurity, microsoft365Defender,
-         * azureAdIdentityProtection, manual, microsoftDataLossPrevention, appGovernancePolicy, appGovernanceDetection,
-         * unknownFutureValue, microsoftDefenderForCloud. Note that you must use the Prefer: include-unknown-enum-members request
-         * header to get the following value(s) in this evolvable enum: microsoftDefenderForCloud.
-         */
+        // Detection technology or sensor that identified the notable component or activity.
         detectionSource?: NullableOption<DetectionSource>;
         // The ID of the detector that triggered the alert.
         detectorId?: NullableOption<string>;
@@ -26391,11 +26283,9 @@ export namespace SecurityNamespace {
         // Time when the alert was resolved.
         resolvedDateTime?: NullableOption<string>;
         /**
-         * The service or product that created this alert. Possible values are: unknown, microsoftDefenderForEndpoint,
-         * microsoftDefenderForIdentity, microsoftDefenderForCloudApps, microsoftDefenderForOffice365, microsoft365Defender,
-         * azureAdIdentityProtection, microsoftAppGovernance, dataLossPrevention, unknownFutureValue, microsoftDefenderForCloud.
-         * Note that you must use the Prefer: include-unknown-enum-members request header to get the following value(s) in this
-         * evolvable enum: microsoftDefenderForCloud.
+         * The service or product that created this alert. Possible values are: microsoftDefenderForEndpoint,
+         * microsoftDefenderForIdentity, microsoftCloudAppSecurity, microsoftDefenderForOffice365, microsoft365Defender,
+         * aadIdentityProtection, appGovernance, dataLossPrevention.
          */
         serviceSource?: ServiceSource;
         /**
@@ -26776,13 +26666,8 @@ export namespace SecurityNamespace {
         createdDateTime?: string;
     }
     interface AlertEvidence {
-        /**
-         * The date and time when the evidence was created and added to the alert. The Timestamp type represents date and time
-         * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
-         * 2014-01-01T00:00:00Z.
-         */
+        // The time the evidence was created and added to the alert.
         createdDateTime?: string;
-        detailedRoles?: NullableOption<string[]>;
         /**
          * Status of the remediation action taken. The possible values are: none, remediated, prevented, blocked, notFound,
          * unknownFutureValue.
@@ -26791,13 +26676,13 @@ export namespace SecurityNamespace {
         // Details about the remediation status.
         remediationStatusDetails?: NullableOption<string>;
         /**
-         * One or more roles that an evidence entity represents in an alert. For example, an IP address that is associated with an
-         * attacker has the evidence role Attacker.
+         * The role/s that an evidence entity represents in an alert, e.g., an IP address that is associated with an attacker will
+         * have the evidence role 'Attacker'.
          */
         roles?: EvidenceRole[];
         /**
-         * Array of custom tags associated with an evidence instance. For example, to denote a group of devices or high value
-         * assets.
+         * Array of custom tags associated with an evidence instance, for example to denote a group of devices, high value assets,
+         * etc.
          */
         tags?: NullableOption<string[]>;
         /**
@@ -26805,16 +26690,6 @@ export namespace SecurityNamespace {
          * noThreatsFound, unknownFutureValue.
          */
         verdict?: EvidenceVerdict;
-    }
-    interface AmazonResourceEvidence extends AlertEvidence {
-        // The unique identifier for the Amazon account.
-        amazonAccountId?: NullableOption<string>;
-        // The Amazon resource identifier (ARN) for the cloud resource.
-        amazonResourceId?: NullableOption<string>;
-        // The name of the resource.
-        resourceName?: NullableOption<string>;
-        // The type of the resource.
-        resourceType?: NullableOption<string>;
     }
     interface AnalyzedMessageEvidence extends AlertEvidence {
         // Direction of the email relative to your network. The possible values are: inbound, outbound or intraorg.
@@ -26865,14 +26740,6 @@ export namespace SecurityNamespace {
         // Sender email address.
         emailAddress?: NullableOption<string>;
     }
-    interface AzureResourceEvidence extends AlertEvidence {
-        // The unique identifier for the Azure resource.
-        resourceId?: NullableOption<string>;
-        // The name of the resource.
-        resourceName?: NullableOption<string>;
-        // The type of the resource.
-        resourceType?: NullableOption<string>;
-    }
     interface CloudApplicationEvidence extends AlertEvidence {
         // Unique identifier of the application.
         appId?: NullableOption<number>;
@@ -26902,7 +26769,6 @@ export namespace SecurityNamespace {
          * noSensorDataImpairedCommunication, unknown, unknownFutureValue.
          */
         healthStatus?: NullableOption<DeviceHealthStatus>;
-        ipInterfaces?: NullableOption<string[]>;
         // Users that were logged on the machine during the time of the alert.
         loggedOnUsers?: NullableOption<LoggedOnUser[]>;
         // A unique identifier assigned to a device by Microsoft Defender for Endpoint.
@@ -26972,20 +26838,6 @@ export namespace SecurityNamespace {
         // A unique identifier assigned to a device by Microsoft Defender for Endpoint.
         mdeDeviceId?: NullableOption<string>;
     }
-    interface GoogleCloudResourceEvidence extends AlertEvidence {
-        // The zone or region where the resource is located.
-        location?: NullableOption<string>;
-        // The type of location. Possible values are: unknown, regional, zonal, global, unknownFutureValue.
-        locationType?: NullableOption<GoogleCloudLocationType>;
-        // The Google project ID as defined by the user.
-        projectId?: NullableOption<string>;
-        // The project number assigned by Google.
-        projectNumber?: NullableOption<number>;
-        // The name of the resource.
-        resourceName?: NullableOption<string>;
-        // The type of the resource.
-        resourceType?: NullableOption<string>;
-    }
     interface HuntingQueryResults {
         // The results of the hunting query.
         results?: NullableOption<HuntingRowResult[]>;
@@ -27016,11 +26868,10 @@ export namespace SecurityNamespace {
         userAccount?: NullableOption<UserAccount>;
     }
     interface UserAccount {
-        // The displayed name of the user account.
+        // The user account's displayed name.
         accountName?: NullableOption<string>;
-        // The user object identifier in Azure Active Directory (Azure AD).
+        // The user object identifier in Azure AD.
         azureAdUserId?: NullableOption<string>;
-        // The user display name in Azure AD.
         displayName?: NullableOption<string>;
         // The name of the Active Directory domain of which the user is a member.
         domainName?: NullableOption<string>;
@@ -27082,7 +26933,6 @@ export namespace SecurityNamespace {
         registryKey?: NullableOption<string>;
     }
     interface RegistryValueEvidence extends AlertEvidence {
-        mdeDeviceId?: NullableOption<string>;
         // Registry hive of the key that the recorded action was applied to.
         registryHive?: NullableOption<string>;
         // Registry key that the recorded action was applied to.

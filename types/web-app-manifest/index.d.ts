@@ -253,7 +253,7 @@ export interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#orientation-member
      */
-    orientation?: "any" | "landscape" | "landscape-primary" | "landscape-secondary" | "natural" | "portrait" | "portrait-primary" | "portrait-secondary" | undefined;
+    orientation?: OrientationLockType | undefined;
 
     /**
      * The manifest's id member is a string that represents the identity for the application.

@@ -3,8 +3,6 @@
 // Definitions by: JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 // eslint-disable-next-line no-const-enum
 declare const enum LangVariant {
     LangBash = 0,
@@ -72,9 +70,6 @@ declare namespace sh {
 
     interface Parser {
         Parse(text: string, path?: string): File;
-        Interactive(r: { read: (size?: number) => string | Buffer | null }, fn: (stmts: Stmt[]) => boolean): void;
-        InteractiveStep(line: string): Stmt[];
-        Incomplete(): boolean;
     }
 
     interface Printer {

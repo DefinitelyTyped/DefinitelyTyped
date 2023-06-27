@@ -265,18 +265,18 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
-### Propietarios de Definiciones
+### Definition owners
 
-DT tiene el concepto de "Propietarios de Definiciones" que son personas que desean mantener la calidad de los tipos de un módulo en particular.
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
-* Agregarte a la lista hará que recibas notificaciones (a través de tu nombre de usuario de GitHub) cada vez que alguien haga una solicitud de extracción o informe sobre el paquete.
-* Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantiene este repositorio.
-* Los mantenedores de DT confían en los propietarios de las definiciones para asegurar un ecosistema estable, así que por favor, no te agregues ligeramente.
+* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
-Para agregarte como Propietario de Definiciones:
+To Add yourself as a Definition Owner:
 
-* Agrega tu nombre al final de la línea, como en `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* O si hay más personas, puede ser en varias líneas
+* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Or if there are more people, it can be multiline
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -284,7 +284,7 @@ Para agregarte como Propietario de Definiciones:
   //                 John <https://github.com/john>
   ```
 
-Una vez a la semana, los Propietarios de Definiciones se sincronizan con el archivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que es nuestra fuente de verdad.
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 ## FAQ
 

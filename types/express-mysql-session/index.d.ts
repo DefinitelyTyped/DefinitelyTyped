@@ -1,4 +1,4 @@
-// Type definitions for express-mysql-session 3.0
+// Type definitions for express-mysql-session 2.1
 // Project: https://github.com/chill117/express-mysql-session#readme
 // Definitions by: Akim95 <https://github.com/Akim95>
 //                 Sebastian Krüger <https://github.com/mathe42>
@@ -6,74 +6,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as expressSession from 'express-session';
-import { Connection, Pool, PoolOptions } from 'mysql2';
 
 export = MySQLStore;
 
 declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreClass;
 
 declare namespace MySQLStore {
-    interface Options
-        extends Pick<PoolOptions, 'waitForConnections' | 'connectionLimit' | 'maxIdle' | 'idleTimeout' | 'queueLimit'> {
-        /**
-         * Host name for database connection
-         */
+    interface Options {
         host?: string | undefined;
-
-        /**
-         * Port number for database connection
-         */
         port?: number | undefined;
-
-        /**
-         * Database user
-         */
         user?: string | undefined;
-
-        /**
-         * Password for the above database user
-         */
         password?: string | undefined;
-
-        /**
-         * Database name
-         */
         database?: string | undefined;
-
-        /**
-         * Whether or not to automatically check for and clear expired sessions
-         */
-        clearExpired?: boolean | undefined;
-
-        /**
-         * How frequently expired sessions will be cleared; milliseconds
-         */
         checkExpirationInterval?: number | undefined;
-
-        /**
-         * The maximum age of a valid session; milliseconds
-         */
         expiration?: number | undefined;
-
-        /**
-         * Whether or not to create the sessions database table, if one does not already exist
-         */
         createDatabaseTable?: boolean | undefined;
-
-        /**
-         * Whether or not to end the database connection when the store is closed.
-         * The default value of this option depends on whether or not a connection was passed to the constructor.
-         * If a connection object is passed to the constructor, the default value for this option is false.
-         */
-        endConnectionOnClose?: boolean | undefined;
-
-        /**
-         * Whether or not to disable touch
-         */
-        disableTouch?: boolean | undefined;
-
-        charset?: string | undefined;
-
+        connectionLimit?: number | undefined;
         schema?: Partial<Schema> | undefined;
     }
     interface Schema {
@@ -90,82 +38,37 @@ declare namespace MySQLStore {
 }
 
 declare class MySQLStoreClass extends expressSession.Store {
-    constructor(options?: MySQLStore.Options, connection?: Connection | Pool);
+    constructor(options: MySQLStore.Options, connection?: any, callback?: (error: any) => void);
 
-    state: 'UNINITIALIZED' | 'INITIALIZING' | 'INITIALIZED' | 'CLOSING' | 'CLOSED';
+    setDefaultOptions(): void;
 
-    defaultOptions: MySQLStore.Options;
-
-    connection: Connection | Pool;
-
-    onReadyPromises: Array<{
-        resolve: () => void;
-        reject: (reason?: any) => void;
-    }>;
-
-    options: MySQLStore.Options;
-
-    private _expirationInterval?: NodeJS.Timer | null;
-
-    onReady(): Promise<void>;
-
-    resolveReadyPromises(): void;
-
-    rejectReadyPromises(error: Error): void;
-
-    prepareOptionsForMySQL2(
-        options: MySQLStore.Options,
-    ): Pick<
-        MySQLStore.Options,
-        | 'host'
-        | 'port'
-        | 'user'
-        | 'password'
-        | 'database'
-        | 'waitForConnections'
-        | 'connectionLimit'
-        | 'maxIdle'
-        | 'idleTimeout'
-        | 'queueLimit'
-    >;
-
-    createPool(options: MySQLStore.Options): Pool;
-
-    setOptions(options?: MySQLStore.Options): void;
+    setOptions(options: MySQLStore.Options): void;
 
     validateOptions(options: MySQLStore.Options): void;
 
-    createDatabaseTable(): Promise<void>;
+    createDatabaseTable(callback?: (error: any) => void): void;
 
-    get(sessionId: string, callback: (error: any, session: any) => void): void;
-    get(sessionId: string): Promise<any>;
+    get(sessionId: string, callback?: (error: any, session: any) => void): void;
 
-    set(sessionId: string, data: any, callback: (error: any) => void): void;
-    set(sessionId: string, data: any): Promise<void>;
+    set(sessionId: string, data: any, callback?: (error: any) => void): void;
 
-    touch(sessionId: string, data: any, callback: (error: any) => void): void;
-    touch(sessionId: string, data: any): Promise<void>;
+    touch(sessionId: string, data: any, callback?: (error: any) => void): void;
 
-    destroy(sessionId: string, callback: (error: any) => void): void;
-    destroy(sessionId: string): Promise<void>;
+    destroy(sessionId: string, callback?: (error: any) => void): void;
 
-    length(callback: (error: any, count: number) => void): void;
-    length(): Promise<number>;
+    length(callback?: (error: any, count: any) => void): void;
 
-    all(callback: (error: any, sessions: Record<string, any>) => void): void;
-    all(): Promise<Record<string, any>>;
+    all(callback?: (error: any, sessions: any) => void): void;
 
-    clear(callback: (error: any) => void): void;
-    clear(): Promise<void>;
+    clear(callback?: (error: any) => void): void;
 
-    clearExpiredSessions(): Promise<void>;
+    clearExpiredSessions(callback?: (error: any) => void): void;
 
-    query(sql: string, params: any): Promise<any>;
+    query(sql: string, params: any, callback?: (error: any, rows: any, fields: any) => void): void;
 
     setExpirationInterval(interval: number): void;
 
     clearExpirationInterval(): void;
 
-    close(callback: () => void): void;
-    close(): Promise<void>;
+    close(callback?: () => void): void;
 }
