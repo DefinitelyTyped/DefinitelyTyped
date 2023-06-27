@@ -25,6 +25,7 @@ module.exports = {
                     'cfg',
                     'chainable',
                     'check',
+                    'checkReturnValue',
                     'classDescription',
                     'condparamprivilege',
                     'constraint',
