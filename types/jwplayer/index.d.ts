@@ -510,28 +510,54 @@ declare namespace jwplayer {
     }
 
     interface PlaylistItem {
-        description: string;
-        mediaid: string;
+        adschedule?: Adschedule;
+        allSources?: Source[];
+        description?: string;
+        duration?: number;
         file: string;
-        image: string;
-        preload: 'metadata' | 'auto' | 'none';
-        title: string;
-        tracks: Track[];
+        image?: string;
+        images?: Image[];
+        link?: string;
+        mediaid?: string;
+        minDvrWindow?: number;
+        preload?: 'metadata' | 'auto' | 'none';
+        recommendations?: string;
         sources: [Source];
-        allSources: Source[];
+        starttime?: number;
+        tags?: string;
+        title: string;
+        tracks?: Track[];
+        withCredentials?: boolean;
+    }
+
+    interface Adschedule {
+        offset: number | string;
+        tag?: string | string[];
+        type?: 'linear' | 'nonlinear';
+        vastxml?: string;
+    }
+
+    interface Image {
+        src: string;
+        width: number;
+        type: string;
     }
 
     interface Source {
+        default: boolean;
         file: string;
         label: string;
+        liveSyncDuration?: number;
+        mimeType?: string;
+        preload?: 'metadata' | 'auto' | 'none';
         type: string;
-        default: boolean;
     }
 
     interface Track {
+        default?: boolean;
         file: string;
-        label?: string;
         kind: 'captions' | 'chapters' | 'thumbnails';
+        label?: string;
     }
 
     interface CastParam {
