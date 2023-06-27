@@ -1,0 +1,18 @@
+{ 
+"extends": "@definitelytyped/dtslint/dt.json",
+"rules": {
+    "strict-export-declare-modifiers": false,
+    "no-declare-current-package": false,
+    "no-redundant-jsdoc": false,
+    "no-redundant-jsdoc-2": false,
+    "void-return": false,
+    "array-type": false,
+    "npm-naming": false,
+    "jsdoc-format": false,
+    "max-line-length": false,
+    "no-unnecessary-class": false,
+    "unified-signatures": false,
+    "member-access": false,
+    "no-var-keyword": false
+}
+}
