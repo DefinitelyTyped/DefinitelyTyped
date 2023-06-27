@@ -1,4 +1,4 @@
-// Type definitions for webidl2 23.13
+// Type definitions for webidl2 24.4
 // Project: https://github.com/w3c/webidl2.js#readme
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
 //                 ExE Boss <https://github.com/ExE-Boss>
