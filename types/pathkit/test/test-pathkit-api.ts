@@ -2,8 +2,7 @@ function TestPathKitAPI(PathKit: typeof PathKitAPI) {
     const canvasElem = document.getElementById('canvas1') as HTMLCanvasElement;
     const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D;
 
-    /*=======================================================================*
-     *=======================================================================*/
+    /*===== Test Pathkit Constantants =====*/
 
     // Test all verb constants are numbers.
     // $ExpectType number[][]
@@ -15,6 +14,8 @@ function TestPathKitAPI(PathKit: typeof PathKitAPI) {
         [PathKit.CUBIC_VERB, 10, 20, 30, 40, 50, 60],
         [PathKit.CLOSE_VERB],
     ];
+
+    /*===== Test Pathkit Functions =====*/
 
     // $ExpectType SkPath | null
     const path1 = PathKit.FromSVGString('M150 0 L75 200 L225 200 Z');
@@ -40,8 +41,7 @@ function TestPathKitAPI(PathKit: typeof PathKitAPI) {
     // $ExpectType SkRect
     PathKit.LTRBRect(0, 0, 100, 100);
 
-    /*=========================================================================
-    =========================================================================*/
+    /*===== Test SkOpBuilder Class  =====*/
 
     // $ExpectType SkOpBuilder
     const opBuilder = new PathKit.SkOpBuilder();
@@ -58,8 +58,7 @@ function TestPathKitAPI(PathKit: typeof PathKitAPI) {
     // $ExpectType void
     opBuilder.delete();
 
-    /*=======================================================================*
-     *=======================================================================*/
+    /*===== Test SkPath Class =====*/
 
     // $ExpectType SkPath
     const path8 = new PathKit.SkPath();
