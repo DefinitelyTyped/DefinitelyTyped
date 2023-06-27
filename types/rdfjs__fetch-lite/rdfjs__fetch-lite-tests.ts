@@ -7,7 +7,7 @@ import FetchFactory from '@rdfjs/fetch-lite/Factory';
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
-    serializers: SinkMap<EventEmitter, Stream>;
+    serializers: SinkMap<Stream, EventEmitter>;
 } = <any> {};
 
 async function fetchString(): Promise<string> {
