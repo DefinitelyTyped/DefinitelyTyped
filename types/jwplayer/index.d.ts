@@ -545,6 +545,7 @@ declare namespace jwplayer {
 
     interface Source {
         default: boolean;
+        drm?: DRM;
         file: string;
         label: string;
         liveSyncDuration?: number;
@@ -558,6 +559,50 @@ declare namespace jwplayer {
         file: string;
         kind: 'captions' | 'chapters' | 'thumbnails';
         label?: string;
+    }
+
+    type DRM = ClearKeyDRM | FairPlayDRM | PlayReadyDRM | WideWineDRM;
+
+    interface ClearKeyDRM {
+        key: string;
+        keyId: string;
+    }
+
+    interface FairPlayDRM {
+        certificateUrl: string;
+        extractContentId?: (initDataUri: string) => string;
+        extractKey?: (ckc: any) => any | Promise<any>;
+        licenseRequestFilter?: (request: any) => any;
+        licenseRequestHeaders?: Header[];
+        licenseRequestMessage?: (message: any) => any;
+        licenseResponseFilter?: (response: any) => any;
+        licenseResponseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+        processSpcUrl: string | ((...args: any[]) => string);
+    }
+
+    interface PlayReadyDRM {
+        audioRobustness?: RobustnessLevel;
+        headers?: Header[];
+        licenseRequestFilter?: (request: any) => any;
+        licenseResponseFilter?: (response: any) => any;
+        url: string;
+        videoRobustness?: RobustnessLevel;
+    }
+
+    interface WideWineDRM extends PlayReadyDRM {
+        serverCertificateUrl?: string;
+    }
+
+    type RobustnessLevel =
+        | 'HW_SECURE_ALL'
+        | 'HW_SECURE_CRYPTO'
+        | 'HW_SECURE_DECODE'
+        | 'SW_SECURE_CRYPTO'
+        | 'SW_SECURE_DECODE';
+
+    interface Header {
+        name: string;
+        value: string;
     }
 
     interface CastParam {
