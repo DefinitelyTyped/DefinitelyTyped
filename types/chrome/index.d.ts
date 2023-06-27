@@ -6969,6 +6969,14 @@ declare namespace chrome.runtime {
     /** Result of the update check. */
     export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
 
+    /** Result of the update check. */
+    export interface RequestUpdateCheckResult {
+      /** The status of the update check. */
+      status: RequestUpdateCheckStatus;
+      /** The version of the available update. */
+      version: string;
+    }
+
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
@@ -7353,6 +7361,12 @@ declare namespace chrome.runtime {
      * @since Chrome 25.
      */
     export function reload(): void;
+    /**
+     * Requests an update check for this app/extension.
+     * @since Chrome 109
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     */
+    export function requestUpdateCheck(): Promise<RequestUpdateCheckResult>;
     /**
      * Requests an update check for this app/extension.
      * @since Chrome 25.
