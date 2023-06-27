@@ -804,6 +804,67 @@ declare namespace jwplayer {
         svg?: string;
     }
 
+    interface LogoConfig {
+        file: string;
+        hide?: boolean;
+        link?: string;
+        margin?: number;
+        position?: 'bottom-left' | 'bottom-right' | 'control-bar' | 'top-left' | 'top-right';
+    }
+
+    interface PlayerConfig {
+        aboutlink?: string;
+        abouttext?: string;
+        allowFullscreen?: boolean;
+        aspectratio?: string;
+        autoPause?: {
+            pauseAds?: boolean;
+            viewability?: boolean;
+        };
+        autostart?: boolean | 'viewable';
+        base?: string;
+        cast?: {
+            appid?: string;
+            interceptCast?: boolean;
+        };
+        controls?: boolean;
+        defaultBandwidthEstimate?: number;
+        displaydescription?: boolean;
+        displayHeading?: boolean;
+        displayPlaybackLabel?: boolean;
+        displaytitle?: boolean;
+        doNotSaveCookies?: boolean;
+        floating?: {
+            dismissable?: boolean;
+            mode?: 'always' | 'never' | 'notVisible';
+            showTitle?: boolean;
+        };
+        generateSEOMetadata?: boolean;
+        height?: number;
+        hlsjsdefault?: boolean;
+        horizontalVolumeSlider?: boolean;
+        liveSyncDuration?: number;
+        liveTimeout?: number;
+        loadAndParseHlsMetadata?: boolean;
+        logo?: LogoConfig;
+        mute?: boolean;
+        nextUpDisplay?: boolean;
+        nextupoffset?: number | string;
+        pipIcon?: boolean;
+        playbackRateControls?: boolean;
+        playbackRates?: number[];
+        playlist?: PlaylistItem[] | string;
+        playlistIndex?: number;
+        preload?: boolean;
+        qualityLabels?: {
+            [bandwidth?: number]: string;
+        };
+        repeat?: boolean;
+        renderCaptionsNatively?: boolean;
+        stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
+        width: number;
+    }
+
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         addCues(cues: SliderCue[]): JWPlayer;
