@@ -1,5 +1,6 @@
 // Type definitions for jkiten-react-date-range 1.4
 // Project: https://github.com/OnionFarm-Corp/jkiten-react-date-range
+// Definitions by: Jkiten <https://github.com/OnionFarm-Corp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
