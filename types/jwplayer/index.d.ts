@@ -661,7 +661,7 @@ declare namespace jwplayer {
 
     interface RPCloseParam {
         method: 'interaction' | 'play';
-        onclick: string;
+        onclick: 'link' | 'play';
         relatedFile: string;
         visible: boolean;
     }
@@ -671,10 +671,10 @@ declare namespace jwplayer {
         feedShownId: string;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: string;
+        onclick: 'link' | 'play';
         relatedFile: string;
         target: PlaylistItem;
-        ui: 'overlay' | 'shelf' | 'shelfWidget';
+        ui: RelatedDisplayMode;
     }
 
     interface RPFeedClickParam {
@@ -683,12 +683,12 @@ declare namespace jwplayer {
         index: number;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: string;
+        onclick: 'link' | 'play';
         page: number;
         reason: 'interaction' | 'paged';
         relatedFile: string;
         target: PlaylistItem;
-        ui: 'overlay' | 'shelf' | 'shelfWidget';
+        ui: RelatedDisplayMode;
         viewable: 0 | 1;
     }
 
@@ -698,11 +698,11 @@ declare namespace jwplayer {
         feedShownId: string;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: string;
+        onclick: 'link' | 'play';
         page: number;
         reason: 'complete' | 'interaction' | 'inview' | 'paged' | 'resized';
         relatedFile: string;
-        ui: 'overlay' | 'shelf' | 'shelfWidget';
+        ui: RelatedDisplayMode;
         viewable: 0 | 1;
     }
 
@@ -718,7 +718,7 @@ declare namespace jwplayer {
         feedData: FeedData;
         items: PlaylistItem[];
         method: 'complete' | 'interaction';
-        onclick: string;
+        onclick: 'link' | 'play';
         relatedFile: string;
         visible: boolean;
     }
@@ -729,14 +729,14 @@ declare namespace jwplayer {
         feedData: FeedData;
         item: PlaylistItem;
         method: 'auto' | 'manual';
-        onclick: string;
+        onclick: 'link' | 'play';
         position: number;
         relatedFile: string;
     }
 
     interface RPPlaylistParam {
         feedData: FeedData;
-        onclick: string;
+        onclick: 'link' | 'play';
         playlist: PlaylistItem[];
     }
 
@@ -811,6 +811,18 @@ declare namespace jwplayer {
         margin?: number;
         position?: 'bottom-left' | 'bottom-right' | 'control-bar' | 'top-left' | 'top-right';
     }
+
+    interface RelatedConfig {
+        autoplaymessage?: string;
+        autoplaytimer?: number;
+        displayMode?: RelatedDisplayMode;
+        file?: string;
+        onclick?: 'link' | 'play';
+        oncomplete?: 'autoplay' | 'hide' | 'none' | 'show';
+        selector?: string;
+    }
+
+    type RelatedDisplayMode = 'none' | 'overlay' | 'shelf' | 'shelfWidget';
 
     interface SharingConfig {
         code?: string;
@@ -892,6 +904,7 @@ declare namespace jwplayer {
         qualityLabels?: {
             [bandwidth: number]: string;
         };
+        related?: RelatedConfig;
         repeat?: boolean;
         renderCaptionsNatively?: boolean;
         sharing?: SharingConfig;
