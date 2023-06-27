@@ -1,9 +1,9 @@
-import jiff, { JSONPatch } from 'jiff';
+import * as jiff from 'jiff';
 
-const a = { foo: 'bar' };
+const a: jiff.JSONValue = { foo: 'bar' };
 const b = { foo: 'baz' };
 
-const patch: JSONPatch = jiff.diff(a, b);
+const patch: jiff.JSONPatch = jiff.diff(a, b);
 
 const c = jiff.patch(patch, a);
 
