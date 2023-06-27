@@ -2,7 +2,7 @@ function TestPathKitAPI(PathKit: typeof PathKitAPI) {
     const canvasElem = document.getElementById('canvas1') as HTMLCanvasElement;
     const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D;
 
-    /*===== Test Pathkit Constantants =====*/
+    /*===== Test Pathkit Constants =====*/
 
     // Test all verb constants are numbers.
     // $ExpectType number[][]
