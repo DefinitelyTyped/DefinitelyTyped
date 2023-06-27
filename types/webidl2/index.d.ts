@@ -9,7 +9,7 @@ export as namespace WebIDL2;
 export {};
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
-export function write(ast: IDLRootType[] options?: WriteOptions): string;
+export function write(ast: IDLRootType[], options?: WriteOptions): string;
 
 export type IDLRootType =
     | CallbackType
