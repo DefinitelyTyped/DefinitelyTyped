@@ -112,7 +112,23 @@ export interface WriteOptions {
     };
 }
 
-export class WebIDLParseError extends Error {
+export class WebIDLError extends Error {
+    /** the error message */
+    message: string;
+    bareMessage: string;
+
+    /** the line at which the error occurred. */
+    context: string;
+    line: number;
+    sourceName: string | undefined;
+
+    /** a short peek at the text at the point where the error happened */
+    input: string;
+    /** the five tokens at the point of error, as understood by the tokeniser */
+    tokens: Token[];
+}
+
+export class WebIDLParseError extends WebIDLError {
     constructor(options: {
         message: string;
         bareMessage: string;
@@ -124,31 +140,9 @@ export class WebIDLParseError extends Error {
     });
 
     name: "WebIDLParseError";
-
-    /** the error message */
-    message: string;
-    bareMessage: string;
-
-    context: string;
-    /** the line at which the error occurred. */
-    line: number;
-    sourceName: string | undefined;
-
-    /** a short peek at the text at the point where the error happened */
-    input: string;
-    /** the five tokens at the point of error, as understood by the tokeniser */
-    tokens: Token[];
 }
 
-export class WebIDLErrorData extends Error {
-    /** the error message */
-    message: string;
-    bareMessage: string;
-
-    /** the line at which the error occurred. */
-    line: number;
-    sourceName: string | undefined;
-
+export class WebIDLErrorData extends WebIDLError {
     /** the level of error */
     level: "error" | "warning";
 
@@ -157,11 +151,6 @@ export class WebIDLErrorData extends Error {
 
     /** The name of the rule that threw the error */
     ruleName: string;
-
-    /** a short peek at the text at the point where the error happened */
-    input: string;
-    /** the five tokens at the point of error, as understood by the tokeniser */
-    tokens: Token[];
 }
 
 export interface Token {
