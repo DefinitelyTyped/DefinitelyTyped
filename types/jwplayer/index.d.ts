@@ -812,6 +812,15 @@ declare namespace jwplayer {
         position?: 'bottom-left' | 'bottom-right' | 'control-bar' | 'top-left' | 'top-right';
     }
 
+    interface SharingConfig {
+        code?: string;
+        heading?: string;
+        link?: string;
+        sites?: SharingSite[];
+    }
+
+    type SharingSite = 'email' | 'facebook' | 'linkedin' | 'pinterest' | 'reddit' | 'tumlbr' | 'twitter';
+
     interface PlayerConfig {
         aboutlink?: string;
         abouttext?: string;
@@ -857,10 +866,11 @@ declare namespace jwplayer {
         playlistIndex?: number;
         preload?: boolean;
         qualityLabels?: {
-            [bandwidth?: number]: string;
+            [bandwidth: number]: string;
         };
         repeat?: boolean;
         renderCaptionsNatively?: boolean;
+        sharing?: SharingConfig;
         stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
         width: number;
     }
