@@ -12331,3 +12331,39 @@ declare namespace chrome.declarativeNetRequest {
      * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
     export var onRuleMatchedDebug: RuleMatchedDebugEvent;
 }
+
+////////////////////
+// SidePanel
+////////////////////
+/**
+ * Availability: @since Chrome 114. Manifest v3.
+ * https://developer.chrome.com/docs/extensions/reference/sidePanel/
+ * Permissions: "sidePanel"
+ */
+declare namespace chrome.sidePanel {
+    export interface GetPanelOptions {
+        tabId?: number;
+    }
+
+    export interface PanelBehavior {
+        openPanelOnActionClick?: boolean;
+    }
+
+    export interface PanelOptions {
+        enabled?: boolean;
+        path?: string;
+        tabId?: number;
+    }
+
+    export interface SidePanel {
+        default_path: string;
+    }
+
+    export function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
+
+    export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
+
+    export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
+
+    export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
+}

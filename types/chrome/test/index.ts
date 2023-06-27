@@ -2022,3 +2022,38 @@ async function testSessionsForPromise() {
     await chrome.sessions.restore();
     await chrome.sessions.restore('myString');
 }
+
+// Test for chrome.sidePanel API
+function testSidePanelAPI() {
+    let getPanelOptions: chrome.sidePanel.GetPanelOptions = {
+        tabId: 123,
+    };
+
+    chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
+        console.log(options.enabled);
+        console.log(options.path);
+        console.log(options.tabId);
+    });
+
+    chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
+        console.log(behavior.openPanelOnActionClick);
+    });
+
+    let setPanelOptions: chrome.sidePanel.PanelOptions = {
+        enabled: true,
+        path: 'path/to/sidePanel.html',
+        tabId: 123,
+    };
+
+    chrome.sidePanel.setOptions(setPanelOptions, () => {
+        console.log('Options set successfully.');
+    });
+
+    let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
+        openPanelOnActionClick: true,
+    };
+
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
+        console.log('Behavior set successfully.');
+    });
+}
