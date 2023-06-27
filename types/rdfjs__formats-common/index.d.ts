@@ -10,10 +10,12 @@ import { EventEmitter } from 'events';
 export const parsers: SinkMap<EventEmitter, Stream>;
 export const serializers: SinkMap<Stream, EventEmitter>;
 
-declare const formats: {
+export interface Formats {
     parsers: typeof parsers;
     serializers: typeof serializers;
-};
+}
+
+declare const formats: Formats;
 
 export default formats;
 
