@@ -14,10 +14,6 @@ type JSONPatch = Array<{
     from?: string;
 }>;
 
-type InvalidPatchOpertaionError = Error & { name: 'InvalidPatchOpertaionError' };
-type TestFailedError = Error & { name: 'TestFailedError' };
-type PatchNotInvertibleError = Error & { name: 'PatchNotInvertibleError' };
-
 type HashFunction = (value: any) => string | number;
 
 interface DiffOptions {
@@ -34,6 +30,9 @@ interface PatchOptions {
 }
 
 declare var jiff: {
+    InvalidPatchOpertaionError: new (message: string) => Error & { name: 'InvalidPatchOpertaionError' };
+    TestFailedError: new (message: string) => Error & { name: 'TestFailedError' };
+    PatchNotInvertibleError: new (message: string) => Error & { name: 'PatchNotInvertibleError' };
     /**
      * Create a deep copy of x which must be a legal JSON object/array/value
      * @param x object/array/value to clone
