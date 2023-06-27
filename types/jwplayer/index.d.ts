@@ -821,6 +821,30 @@ declare namespace jwplayer {
 
     type SharingSite = 'email' | 'facebook' | 'linkedin' | 'pinterest' | 'reddit' | 'tumlbr' | 'twitter';
 
+    interface SkinConfig {
+        controlbar?: {
+            background?: string;
+            icons?: string;
+            iconsActive?: string;
+            text?: string;
+        };
+        menus?: {
+            background?: string;
+            text?: string;
+            textActive?: string;
+        };
+        name?: string;
+        timeslider?: {
+            progress?: string;
+            rail?: string;
+        };
+        tooltips?: {
+            background?: string;
+            text?: string;
+        };
+        url?: string;
+    }
+
     interface PlayerConfig {
         aboutlink?: string;
         abouttext?: string;
@@ -871,6 +895,7 @@ declare namespace jwplayer {
         repeat?: boolean;
         renderCaptionsNatively?: boolean;
         sharing?: SharingConfig;
+        skin?: SkinConfig;
         stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
         width: number;
     }
