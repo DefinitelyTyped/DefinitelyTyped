@@ -1,14 +1,10 @@
 import fetch from '@rdfjs/fetch-lite';
-import { SinkMap } from '@rdfjs/sink-map';
 import { Stream, Dataset, Quad, DatasetCoreFactory, DatasetCore } from '@rdfjs/types';
-import { EventEmitter } from 'events';
+import { Formats } from '@rdfjs/formats-common';
 import Environment from '@rdfjs/environment/Environment';
 import FetchFactory from '@rdfjs/fetch-lite/Factory';
 
-const formats: {
-    parsers: SinkMap<EventEmitter, Stream>;
-    serializers: SinkMap<EventEmitter, Stream>;
-} = <any> {};
+const formats: Formats = <any> {};
 
 async function fetchString(): Promise<string> {
     const response = await fetch('http://example.com', { formats });
