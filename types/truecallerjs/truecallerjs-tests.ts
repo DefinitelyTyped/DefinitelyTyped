@@ -1,27 +1,36 @@
-import truecallerjs from 'truecallerjs';
+import {
+    login,
+    verifyOtp,
+    search,
+    bulkSearch,
+    Format,
+    SearchData,
+    ResponseData,
+  } from 'truecallerjs';
 
-async function runTests() {
-  const phoneNumber = '+1234567890';
-  const loginResponse = await truecallerjs.login(phoneNumber);
-  console.log('Login response:', loginResponse);
+  async function runTests() {
+    const phoneNumber = '+1234567890';
 
-  const jsonData = loginResponse;
-  const otp = '123456';
-  const verificationResult = await truecallerjs.verifyOtp(phoneNumber, jsonData, otp);
-  console.log('Verification result:', verificationResult);
+    const loginResponse = await login(phoneNumber);
+    console.log('Login response:', loginResponse);
 
-  const searchData = {
-    number: phoneNumber,
-    countryCode: 'US',
-    installationId: verificationResult.installationId,
-  };
-  const format = await truecallerjs.search(searchData);
-  console.log('Search result:', format.json());
+    const jsonData = loginResponse;
+    const otp = '123456';
+    const verificationResult = await verifyOtp(phoneNumber, jsonData, otp) as { installationId: string };
+    console.log('Verification result:', verificationResult);
 
-  const bulkSearchResult = await truecallerjs.bulkSearch(phoneNumber, 'US', verificationResult.installationId);
-  console.log('Bulk search result:', bulkSearchResult);
-}
+    const searchData: SearchData = {
+      number: phoneNumber,
+      countryCode: 'US',
+      installationId: verificationResult.installationId,
+    };
+    const format = await search(searchData) as Format;
+    console.log('Search result:', format.json());
 
-runTests().catch((error) => {
-  console.error('Error:', error);
-});
+    const bulkSearchResult = await bulkSearch(phoneNumber, 'US', verificationResult.installationId) as ResponseData;
+    console.log('Bulk search result:', bulkSearchResult);
+  }
+
+  runTests().catch((error) => {
+    console.error('Error:', error);
+  });
