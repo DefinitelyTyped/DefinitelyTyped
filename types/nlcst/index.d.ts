@@ -1,4 +1,4 @@
-// Type definitions for non-npm package nlcst 1.0
+// Type definitions for non-npm package nlcst 2.0
 // Project: https://github.com/syntax-tree/nlcst
 // Definitions by: Titus Wormer <https://github.com/wooorm>
 //                 Christian Murphy <https://github.com/ChristianMurphy>

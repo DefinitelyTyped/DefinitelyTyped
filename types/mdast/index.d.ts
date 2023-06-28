@@ -1,4 +1,4 @@
-// Type definitions for Mdast 3.0
+// Type definitions for Mdast 4.0
 // Project: https://github.com/syntax-tree/mdast, https://github.com/wooorm/mdast
 // Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
 //                 Jun Lu <https://github.com/lujun2>
