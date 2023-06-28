@@ -1,6 +1,6 @@
-import { BuildSystem } from "cmake-js";
+import {BuildSystem} from "cmake-js";
 
-const buildSystem = new BuildSystem();
+const buildSystem = new BuildSystem({ cmakePath: './CMakeLists.txt' });
 
 (async () => {
     await buildSystem.install();
