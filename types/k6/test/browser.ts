@@ -8,6 +8,7 @@ import {
     Response,
     ElementHandle,
     Browser,
+    BrowserContext,
 } from 'k6/experimental/browser';
 
 const url = 'http://example.com';
@@ -126,6 +127,46 @@ browser.on('disconnected');
 
 // $ExpectType string
 browser.version();
+
+//
+// Create a browserContext
+//
+const browserContext = new BrowserContext();
+
+// $ExpectType Browser
+browserContext.browser();
+// @ts-expect-error
+browserContext.addCookies();
+// $ExpectType void
+browserContext.addCookies([ { name: 'foo', value: 'bar', url: 'https://test.k6.io', expires: 60, httpOnly: false, secure: true, sameSite: 'Strict' } ]);
+// $ExpectType void
+browserContext.addCookies([ { name: 'foo', value: 'bar', domain: 'test.k6.io', path: '/browser.php', expires: 60, httpOnly: false, secure: true, sameSite: 'Lax' } ]);
+// $ExpectType void
+browserContext.clearCookies();
+// $ExpectType void
+browserContext.clearPermissions();
+// $ExpectType void
+browserContext.close();
+// @ts-expect-error
+browserContext.grantPermissions();
+// $ExpectType void
+browserContext.grantPermissions(['geolocation', 'notifications']);
+// $ExpectType void
+browserContext.grantPermissions(['geolocation', 'notifications'], { origin: 'https://test.k6.io' });
+// $ExpectType Page
+browserContext.newPage();
+// $ExpectType Page[]
+browserContext.pages();
+// $ExpectType void
+browserContext.setDefaultNavigationTimeout(30000);
+// $ExpectType void
+browserContext.setDefaultTimeout(30000);
+// $ExpectType void
+browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
+// $ExpectType void
+browserContext.setOffline(true);
+// $ExpectType Page | null
+browserContext.waitForEvent('', { predicate: (page: Page | null) => true, timeout: 30000 });
 
 //
 // Create a page
