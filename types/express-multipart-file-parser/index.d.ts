@@ -1,9 +1,10 @@
-// Type definitions for express-multipart-file-parser 0.1.2
+// Type definitions for express-multipart-file-parser 0.1
 // Project: https://github.com/cristovao-trevisan/express-multipart-file-parser#readme
 // Definitions by: Chen Asraf <https://github.com/chenasraf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { RequestHandler } from 'express';
+/// <reference types="node" />
+
 import type { BusboyConfig as BusboyOptions } from 'busboy';
 import type { Options as RawBodyOptions } from 'raw-body';
 
@@ -30,6 +31,8 @@ declare module 'express-serve-static-core' {
         files?: UploadedFile[];
     }
 }
+
+type RequestHandler = (req: any, res: any, next: any) => void;
 
 type FileParserFactory = (options?: FileParserOptions) => RequestHandler;
 
