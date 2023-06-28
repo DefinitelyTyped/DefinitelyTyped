@@ -9,7 +9,7 @@ const c = jiff.patch(patch, a);
 
 jiff.patchInPlace(patch, a);
 
-new jiff.InvalidPatchOpertaionError('Invalid patch operation');
+new jiff.InvalidPatchOperationError('Invalid patch operation');
 new jiff.TestFailedError('Test failed');
 const error = new jiff.PatchNotInvertibleError('Patch not invertible');
 if (error instanceof jiff.PatchNotInvertibleError) {
