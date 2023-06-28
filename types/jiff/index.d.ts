@@ -32,7 +32,7 @@ declare namespace jiff {
 }
 
 declare var jiff: {
-    InvalidPatchOpertaionError: new (message: string) => Error & { name: 'InvalidPatchOpertaionError' };
+    InvalidPatchOperationError: new (message: string) => Error & { name: 'InvalidPatchOperationError' };
     TestFailedError: new (message: string) => Error & { name: 'TestFailedError' };
     PatchNotInvertibleError: new (message: string) => Error & { name: 'PatchNotInvertibleError' };
     /**
