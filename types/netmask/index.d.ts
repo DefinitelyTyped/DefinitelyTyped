@@ -2,6 +2,7 @@
 // Project: https://github.com/rs/node-netmask
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 //                 JanST123 <https://github.com/JanST123>
+//                 Junxiao Shi <https://github.com/yoursunny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -74,5 +75,5 @@ export class Netmask {
      * @param net A network - e.g 216.240.32.0/24
      * @param mask - optional netmask if not provided in `net`
      */
-    constructor(net: string, mask?: string);
+    constructor(net: string, mask?: string | number);
 }
