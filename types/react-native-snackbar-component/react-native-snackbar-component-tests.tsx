@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import SnackbarComponent from "react-native-snackbar-component";
 
 const SnackbarComponentTest = () => (
@@ -40,3 +40,26 @@ const WithAnimatedValues = () => {
             visible={true}
         />);
 };
+
+const WithStyles = () => {
+    return (
+        <SnackbarComponent
+            actionText={"OPEN"}
+            textMessage={'Hello'}
+            position="top"
+            containerStyle={styles.container}
+            messageStyle={styles.message}
+        />
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'red',
+        flexDirection: 'row'
+    },
+    message: {
+        color: 'blue',
+        fontSize: 40
+    }
+});
