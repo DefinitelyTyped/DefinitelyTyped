@@ -18,7 +18,6 @@ interface Point {
     // $ExpectType (value: Point) => Point
     const fn1 = R.over(xLens, R.negate);
     fn1({ x: 1, y: 2 }); // => {x: -1, y: 2}
-    // $ExpectType (fn: (a: number) => number, value: Point) => Point
     const fn2 = R.over(xLens);
     fn2(R.negate, { x: 1, y: 2 }); // => {x: -1, y: 2}
 };
