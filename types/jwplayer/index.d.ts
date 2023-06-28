@@ -1003,6 +1003,336 @@ declare namespace jwplayer {
         svg?: string;
     }
 
+    interface AdvertisingConfig {
+        client: string;
+        outstream?: boolean;
+        adTagParameters?: AdTagParametersConfig;
+        adscheduleid?: string;
+        admessage?: string;
+        allowedOmidVendors?: string[];
+        autoplayadsmuted?: boolean;
+        bids?: BidsConfig;
+        clearAdsOnComplete?: boolean;
+        companiondiv?: CompanionDivConfig;
+        conditionaladoptout?: boolean;
+        creativeTimeout?: number;
+        cuetext?: string;
+        duration?: number;
+        endstate?: string;
+        forceNonLinearFullSlot?: boolean;
+        freewheel: FreeWheelConfig;
+        fwassetid?: string;
+        loadVideoTimeout?: number;
+        locale?: string;
+        maxRedirects?: number;
+        omidSupport?: string;
+        ppid?: string;
+        placement?: string;
+        podmessage?: string;
+        preloadAds?: boolean;
+        repeat?: boolean;
+        requestFilter?: (request: { url: string; xhr: XMLHttpRequest }) => XMLHttpRequest;
+        requestTimeout?: number;
+        rules?: RulesConfig;
+        schedule?: ScheduleConfig[] | string;
+        skipmessage?: string;
+        skipoffset?: number;
+        skiptext?: string;
+        tag?: string | string[];
+        trackingFilter?: (url: string) => boolean;
+        truncateMacros?: boolean;
+        vastLoadTimeout?: number;
+        vastxml?: string;
+        vpaidcontrols?: boolean;
+        vpaidmode?: string;
+        withCredentials?: boolean;
+    }
+
+    interface AdTagParametersConfig {
+        iu?: string;
+        cust_params?: string;
+        sz?: string;
+        tfcd?: 0 | 1;
+        description_url?: string;
+        ppid?: string;
+        ciu_szs?: string;
+        mpt?: string;
+        mpv?: string;
+        ptpl?: number;
+        ptpln?: string;
+        an?: string;
+        ltd?: 0 | 1;
+        rdid?: string;
+        idtype?: 'adid' | 'afai' | 'idfa' | 'lgudid' | 'msai' | 'rida' | 'tifa' | 'tvOS' | 'vaid';
+        is_lat?: 0 | 1;
+        trt?: 0 | 1 | 2;
+        vconp?: 1 | 2;
+        vpa?: 'auto' | 'click';
+        vpmute?: 0 | 1;
+        npa?: 0 | 1;
+        gdpr?: 0 | 1;
+        gdpr_consent?: string;
+        addtl_consent?: string;
+        rdp?: 0 | 1;
+        sid?: 0 | string;
+        wta?: 0 | 1;
+    }
+
+    interface BidsConfig {
+        bidders: Bidder[];
+        bidOnBreaks?: number;
+        ortbParams?: OrtbParams;
+        settings: BidsSettings;
+    }
+
+    interface BidsSettings {
+        consentManagement: ConsentManagement;
+        mediationLayerAdServer: 'dfp' | 'jwp' | 'jwpdfp' | 'jwpspotx';
+        bidTimeout?: number;
+        buckets?: PriceBucket[];
+        floorPriceCents?: number;
+        floorPriceCurrency?: string;
+    }
+
+    interface ConsentManagement {
+        gdpr?: GDPR;
+        usp?: USP;
+    }
+
+    interface GDPR {
+        allowAuctionWithoutConsent?: string;
+        cmpApi?: string;
+        defaultGpdrScope?: boolean;
+        rules?: GDPRRules;
+        timeout?: number;
+    }
+
+    interface GDPRRules {
+        enforcePurpose?: boolean;
+        enforceVendor?: boolean;
+        purpose?: string;
+        vendorExceptions?: string[];
+    }
+
+    interface USP {
+        cmpApi?: string;
+        timeout?: number;
+    }
+
+    interface PriceBucket {
+        increment?: number;
+        max?: number;
+        min?: number;
+    }
+
+    interface OrtbParams {
+        plcmt: 1 | 2 | 3 | 4;
+    }
+
+    // Bidders
+
+    type Bidder =
+        | JWDemand
+        | Azerion
+        | Criteo
+        | Emodo
+        | EMX
+        | Equativ
+        | IMDS
+        | IndexExchange
+        | Kargo
+        | Magnite
+        | MediaNet
+        | OpenX
+        | PubMatic
+        | Sonobi
+        | Sovrn
+        | SpotX
+        | MediaGrid
+        | Unruly
+        | VideoByte
+        | Xandr
+        | YahooSSP;
+
+    interface JWDemand {
+        name: 'jwdemand';
+        placementId: number;
+        publisherId: string;
+        propertyId: string;
+    }
+
+    interface Azerion {
+        name: 'improvedigital';
+        placementId: number;
+    }
+
+    interface Criteo {
+        name: 'criteo';
+        networkId: number;
+        networkdId: number;
+    }
+
+    interface Emodo {
+        name: 'Axonix';
+        supplyId: string;
+    }
+
+    interface EMX {
+        name: 'EMX';
+        id: string;
+        pubid?: string;
+    }
+
+    interface Equativ {
+        name: 'SmartAdServer';
+        formatId: number;
+        networkId: number;
+        pageId: number;
+        siteId: string | number;
+    }
+
+    interface IMDS {
+        name: 'SynacorMedia';
+        id: string;
+        pubid: string;
+    }
+
+    interface IndexExchange {
+        name: 'IndexExchange';
+        id: string;
+        optionalParams?: BiddersOptionalParams;
+    }
+
+    interface Kargo {
+        name: 'kargo';
+        placementId: string;
+    }
+
+    interface Magnite {
+        name: 'Rubicon';
+        pubid: string;
+        siteId: string;
+        zoneId: string;
+    }
+
+    interface MediaNet {
+        name: 'MediaNet';
+        id: string;
+        pubid: string;
+    }
+
+    interface OpenX {
+        name: 'OpenX';
+        delDomain: string;
+        id: string;
+    }
+
+    interface PubMatic {
+        name: 'PubMatic';
+        pubid: string;
+        id: string;
+        optionalParams?: BiddersOptionalParams;
+    }
+
+    interface Sonobi {
+        name: 'Sonobi';
+        id: string;
+    }
+
+    interface Sovrn {
+        name: 'Sovrn';
+        tagid: string;
+    }
+
+    interface SpotX {
+        name: 'SpotX';
+        id: string;
+        optionalParams?: BiddersOptionalParams;
+    }
+
+    interface MediaGrid {
+        name: 'MediaGrid';
+        id: string;
+        pubid?: string;
+    }
+
+    interface Unruly {
+        name: 'Unruly';
+        pubid: string;
+    }
+
+    interface VideoByte {
+        name: 'VideoByte';
+        pubid: string;
+        nid?: string;
+        placementId?: string;
+    }
+
+    interface Xandr {
+        name: 'AppNexus';
+        id: string;
+        invCode?: string;
+        member?: string;
+        publisherId?: string;
+        optionalParams?: BiddersOptionalParams;
+    }
+
+    interface YahooSSP {
+        name: 'YahooSSP';
+        pubid: string;
+        id: string;
+        siteId: string;
+    }
+
+    interface BiddersOptionalParams {
+        custom?: {
+            [key: string]: string;
+        };
+        keywords?: {
+            [key: string]: string;
+        };
+        no_vpaid_ads?: boolean;
+        passFloorPrice?: boolean;
+    }
+
+    interface CompanionDivConfig {
+        height?: number;
+        id: string;
+        width?: number;
+    }
+
+    interface FreeWheelConfig {
+        fwassetid: string;
+        adManagerURL?: string;
+        custom?: {
+            [key: string]: string;
+        };
+        networkid?: number;
+        profileid?: string;
+        sectionid?: string;
+        serverid?: string;
+    }
+
+    interface RulesConfig {
+        deferAds?: Record<string, never>;
+        frequency?: number;
+        startOn?: number;
+        startOnSeek?: 'none' | 'pre';
+        timeBetweenAds?: number;
+    }
+
+    interface ScheduleConfig extends Adschedule {
+        custparams?: {
+            [key: string]: string;
+        };
+        pod: any[];
+    }
+
+    interface AutoPauseConfig {
+        pauseAds?: boolean;
+        viewability?: boolean;
+    }
+
     interface CastConfig {
         appid?: string;
         interceptCast?: boolean;
@@ -1070,19 +1400,14 @@ declare namespace jwplayer {
     interface PlayerConfig {
         aboutlink?: string;
         abouttext?: string;
+        advertising?: AdvertisingConfig;
         allowFullscreen?: boolean;
         aspectratio?: string;
-        autoPause?: {
-            pauseAds?: boolean;
-            viewability?: boolean;
-        };
+        autoPause?: AutoPauseConfig;
         autostart?: boolean | 'viewable';
         base?: string;
         captions: CaptionsConfig;
-        cast?: {
-            appid?: string;
-            interceptCast?: boolean;
-        };
+        cast?: CastConfig;
         controls?: boolean;
         defaultBandwidthEstimate?: number;
         displaydescription?: boolean;
