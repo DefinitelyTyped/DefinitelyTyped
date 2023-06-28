@@ -3,6 +3,8 @@ import Environment from '@rdfjs/environment/Environment';
 import FormatsFactory from '@rdfjs/environment/FormatsFactory';
 import NamespaceFactory from '@rdfjs/environment/NamespaceFactory';
 import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory';
+import DatasetFactory from '@rdfjs/environment/DatasetFactory';
+import DataFactory from '@rdfjs/environment/DataFactory';
 
 const emptyEnv = new Environment([]);
 const clone = emptyEnv.clone();
@@ -18,6 +20,11 @@ declare class BarFactory {
     baz(): number;
     static exports: ['bar'];
 }
+
+const dataEnv = new Environment([
+    DatasetFactory,
+    DataFactory
+]);
 
 let environment = new Environment([
     FooFactory,
