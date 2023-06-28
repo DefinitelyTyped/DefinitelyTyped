@@ -2,7 +2,6 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "@types/minipass": "3.3.5",
         "cmake-js": "7.2.1"
     }
 }
