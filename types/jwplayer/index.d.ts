@@ -545,7 +545,7 @@ declare namespace jwplayer {
 
     interface Source {
         default: boolean;
-        drm?: DRM;
+        drm?: DRMConfig;
         file: string;
         label: string;
         liveSyncDuration?: number;
@@ -561,7 +561,7 @@ declare namespace jwplayer {
         label?: string;
     }
 
-    type DRM = ClearKeyDRM | FairPlayDRM | PlayReadyDRM | WideWineDRM;
+    type DRMConfig = ClearKeyDRM | FairPlayDRM | PlayReadyDRM | WideWineDRM;
 
     interface ClearKeyDRM {
         key: string;
@@ -624,7 +624,14 @@ declare namespace jwplayer {
         type: 'warning';
     }
 
-    interface Intl {
+    interface GaConfig {
+        label?: keyof PlaylistItem;
+        sendEnhancedEvents?: boolean;
+        trackerName?: string;
+        useUniversalAnalytics?: boolean;
+    }
+
+    interface IntlConfig {
         advertising?: IntlAdvertising;
         airplay?: string;
         audioTracks?: string;
@@ -1076,12 +1083,13 @@ declare namespace jwplayer {
             mode?: 'always' | 'never' | 'notVisible';
             showTitle?: boolean;
         };
+        ga?: GaConfig;
         generateSEOMetadata?: boolean;
         height?: number;
         hlsjsdefault?: boolean;
         horizontalVolumeSlider?: boolean;
         intl?: {
-            [lang: string]: Intl;
+            [lang: string]: IntlConfig;
         };
         liveSyncDuration?: number;
         liveTimeout?: number;
