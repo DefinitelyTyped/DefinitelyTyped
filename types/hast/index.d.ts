@@ -5,7 +5,6 @@
 //                 Christian Murphy <https://github.com/ChristianMurphy>
 //                 Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from 'unist';
 
