@@ -14,6 +14,7 @@ export { ElementHandle } from './element_handle';
 export { Frame } from './frame';
 export { Worker } from './worker';
 export { BrowserContext } from './browser_context';
+export { Browser } from './browser';
 
 /**
  * Represents event-specific properties. Refer to the events documentation for
@@ -381,4 +382,167 @@ export interface ElementStateFilter {
      * @default 'visible'
      */
     state?: ElementState;
+}
+
+/**
+ * BrowserPermissions defines all the possible permissions that can be granted
+ * to the browser application.
+ */
+export type BrowserPermissions = 'geolocation' | 'midi' | 'midi-sysex' |
+                                 'notifications' | 'camera' |
+                                 'microphone' | 'background-sync' |
+                                 'ambient-light-sensor' | 'accelerometer' |
+                                 'gyroscope' | 'magnetometer' |
+                                 'accessibility-events' | 'clipboard-read' |
+                                 'clipboard-write' | 'payment-handler';
+
+export interface NewBrowserContextOptions {
+    /**
+     * Setting this to `true` will bypass a page's Content-Security-Policy.
+     * Defaults to `false`.
+     */
+    bypassCSP?: boolean;
+
+    /**
+     * Emulates `'prefers-colors-scheme'` media feature, supported values
+     * are `'light'`, `'dark'`, and `'no-preference'`. Default to
+     * `'light'`.
+     */
+    colorScheme?: 'light' | 'dark' | 'no-preference';
+
+    /**
+     * Sets the resolution ratio in physical pixels to the resolution in
+     * CSS pixels i.e. if set higher than 1, then images will look
+     * sharper on high pixel density screens. Defaults to 1.
+     */
+    deviceScaleFactor?: number;
+
+    /**
+     * Contains additional HTTP headers to be sent with every request,
+     * where the keys are HTTP headers and values are HTTP header
+     * values. Defaults to null.
+     */
+    extraHTTPHeaders?: { [key: string]: string };
+
+    /**
+     * Sets the user's geographical location. Defaults to null.
+     */
+    geolocation?: {
+        /**
+         * latitude should be between -90 and 90.
+         */
+        latitude: number;
+
+        /**
+         * longitude should be between -180 and 180.
+         */
+        longitude: number;
+
+        /**
+         * accuracy should only be a non-negative number. Defaults to 0.
+         */
+        accuracy: number;
+    };
+
+    /**
+     * Whether to simulate a device with touch events. Defaults to
+     * `false`.
+     */
+    hasTouch?: boolean;
+
+    /**
+     * Sets the credentials for HTTP authentication using Basic Auth.
+     */
+    httpCredentials?: {
+        username: string;
+
+        password: string;
+    };
+
+    /**
+     * Whether to ignore HTTPS errors that may be caused by invalid
+     * certificates. Defaults to `false`.
+     */
+    ignoreHTTPSErrors?: boolean;
+
+    /**
+     * Whether to simulate a mobile device. Defaults to `false`.
+     */
+    isMobile?: boolean;
+
+    /**
+     * Whether to activate JavaScript support for the context. Defaults
+     * to `false`.
+     */
+    javaScriptEnabled?: boolean;
+
+    /**
+     * Specifies the user's locale, such as 'en-US', 'tr-TR', etc.
+     * Defaults to what is set on the system.
+     */
+    locale?: string;
+
+    /**
+     * Whether to emulate an offline network. Defaults to `false`.
+     */
+    offline?: boolean;
+
+    /**
+     * Permissions to grant for the context's pages. Defaults to
+     * null.
+     */
+    permissions?: BrowserPermissions[];
+
+    /**
+     * Minimizes the amount of motion by emulating the
+     * 'prefers-reduced-motion' media feature. Defaults to
+     * `'no-preference'`.
+     */
+    reducedMotion?: 'reduce' | 'no-preference';
+
+    /**
+     * Sets a window screen size for all pages in the context. It can
+     * only be used when the viewport is set. Defaults to
+     * `{'width': 1280, 'height': 720}`.
+     */
+    screen?: {
+        /**
+         * Page width in pixels.
+         */
+        width: number;
+
+        /**
+         * Page height in pixels.
+         */
+        height: number;
+    };
+
+    /**
+     * Changes the context's timezone. See ICU's metaZones.txt for a
+     * list of supported timezone IDs. Defaults to what is set on the
+     * system.
+     */
+    timezoneID?: string;
+
+    /**
+     * Specifies the user agent to use in the context. Defaults to what
+     * is set on the by the browser.
+     */
+    userAgent?: string;
+
+    /**
+     * Sets a viewport size for all pages in the context. null disables
+     * the default viewport. Defaults to `{'width': 1280, 'height': 720}`.
+     */
+    viewport?: {
+        /**
+         * Page width in pixels.
+         */
+        width: number;
+
+        /**
+         * Page height in pixels.
+         */
+        height: number;
+    };
 }
