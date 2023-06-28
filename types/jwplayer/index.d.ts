@@ -473,7 +473,7 @@ declare namespace jwplayer {
         name: string;
     }
 
-    interface CaptionOptions {
+    interface CaptionsConfig {
         color?: string;
         fontSize?: number;
         fontFamily?: string;
@@ -1003,6 +1003,17 @@ declare namespace jwplayer {
         svg?: string;
     }
 
+    interface CastConfig {
+        appid?: string;
+        interceptCast?: boolean;
+    }
+
+    interface FloatingConfig {
+        dismissible?: boolean;
+        mode?: 'always' | 'never' | 'notVisible';
+        showTitle?: boolean;
+    }
+
     interface LogoConfig {
         file: string;
         hide?: boolean;
@@ -1067,6 +1078,7 @@ declare namespace jwplayer {
         };
         autostart?: boolean | 'viewable';
         base?: string;
+        captions: CaptionsConfig;
         cast?: {
             appid?: string;
             interceptCast?: boolean;
@@ -1078,11 +1090,7 @@ declare namespace jwplayer {
         displayPlaybackLabel?: boolean;
         displaytitle?: boolean;
         doNotSaveCookies?: boolean;
-        floating?: {
-            dismissable?: boolean;
-            mode?: 'always' | 'never' | 'notVisible';
-            showTitle?: boolean;
-        };
+        floating?: FloatingConfig;
         ga?: GaConfig;
         generateSEOMetadata?: boolean;
         height?: number;
@@ -1113,7 +1121,7 @@ declare namespace jwplayer {
         sharing?: SharingConfig;
         skin?: SkinConfig;
         stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
-        width: number;
+        width?: number;
     }
 
     interface JWPlayer {
@@ -1177,7 +1185,7 @@ declare namespace jwplayer {
         resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
         setAllowFullscreen(allowFullscreen?: boolean): JWPlayer;
-        setCaptions(styles: CaptionOptions): JWPlayer;
+        setCaptions(styles: CaptionsConfig): JWPlayer;
         setControls(state?: boolean): JWPlayer;
         setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
