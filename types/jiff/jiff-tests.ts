@@ -1,9 +1,9 @@
 import * as jiff from 'jiff';
 
-const a = { foo: 'bar' };
-const b = { foo: 'baz' };
+const a: jiff.JSONObject = { foo: 'bar' };
+const b: jiff.JSONObject = { foo: 'baz' };
 
-const patch = jiff.diff(a, b);
+const patch: jiff.JSONPatch = jiff.diff(a, b);
 
 const c = jiff.patch(patch, a);
 
