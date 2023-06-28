@@ -624,6 +624,127 @@ declare namespace jwplayer {
         type: 'warning';
     }
 
+    interface Intl {
+        advertising?: IntlAdvertising;
+        airplay?: string;
+        audioTracks?: string;
+        auto?: string;
+        buffer?: string;
+        captionsStyles?: IntlCaptionsStyles;
+        cast?: string;
+        cc?: string;
+        close?: string;
+        displayHeading?: string;
+        errors?: IntlErrors;
+        exitFullscreen?: string;
+        fullscreen?: string;
+        hd?: string;
+        liveBroadcast?: string;
+        logo?: string;
+        mute?: string;
+        next?: string;
+        nextUp?: string;
+        notLive?: string;
+        off?: string;
+        pause?: string;
+        pipIcon?: string;
+        play?: string;
+        playback?: string;
+        playbackRates?: string;
+        player?: string;
+        playlist?: string;
+        poweredBy?: string;
+        prev?: string;
+        related?: IntlRelated;
+        replay?: string;
+        rewind?: string;
+        settings?: string;
+        sharing?: IntlSharing;
+        shortcuts?: IntlShortcuts;
+        slider?: string;
+        stop?: string;
+        unmute?: string;
+        videoInfo?: string;
+        volume?: string;
+        volumeSlider?: string;
+    }
+
+    interface IntlAdvertising {
+        admessage?: string;
+        cuetext?: string;
+        loadingAd?: string;
+        podmessage?: string;
+        skipmessage?: string;
+        skiptext?: string;
+    }
+
+    interface IntlCaptionsStyles {
+        backgroundColor?: string;
+        backgroundOpacity?: string;
+        black?: string;
+        blue?: string;
+        characterEdge?: string;
+        cyan?: string;
+        depressed?: string;
+        disabled?: string;
+        dropShadow?: string;
+        enabled?: string;
+        fontColor?: string;
+        fontFamily?: string;
+        fontOpacity?: string;
+        fontSize?: string;
+        green?: string;
+        magenta?: string;
+        none?: string;
+        raised?: string;
+        red?: string;
+        reset?: string;
+        subtitleSettings?: string;
+        uniform?: string;
+        white?: string;
+        windowColor?: string;
+        windowOpacity?: string;
+        yellow?: string;
+    }
+
+    interface IntlErrors {
+        badConnection?: string;
+        cantLoadPlayer?: string;
+        cantPlayInBrowser?: string;
+        cantPlayVideo?: string;
+        errorCode?: string;
+        liveStreamDown?: string;
+        protectedContent?: string;
+        technicalError?: string;
+    }
+
+    interface IntlRelated {
+        autoplaymessage?: string;
+        heading?: string;
+    }
+
+    interface IntlSharing {
+        copied?: string;
+        email?: string;
+        embed?: string;
+        heading?: string;
+        link?: string;
+    }
+
+    interface IntlShortcuts {
+        captionsToggle?: string;
+        decreaseVolume?: string;
+        fullscreenToggle?: string;
+        increaseVolume?: string;
+        keyboardShortcuts?: string;
+        playPause?: string;
+        seekBackward?: string;
+        seekForward?: string;
+        seekPercent?: string;
+        spacebar?: string;
+        volumeToggle?: string;
+    }
+
     interface EventParams {
         absolutePositionReady: AbsolutePositionReadyParam;
         adClick: AdProgressParam;
@@ -959,6 +1080,9 @@ declare namespace jwplayer {
         height?: number;
         hlsjsdefault?: boolean;
         horizontalVolumeSlider?: boolean;
+        intl?: {
+            [lang: string]: Intl;
+        };
         liveSyncDuration?: number;
         liveTimeout?: number;
         loadAndParseHlsMetadata?: boolean;
