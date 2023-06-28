@@ -1,5 +1,4 @@
 import {
-    BrowserContext,
     EvaluationArgument,
     PageFunction,
     SelectOptionsObject,
@@ -17,6 +16,7 @@ import { Mouse } from './mouse';
 import { ElementHandle } from './element_handle';
 import { Frame } from './frame';
 import { Worker } from './worker';
+import { BrowserContext } from './browser_context';
 
 /**
  * Page provides methods to interact with a single tab in a running web browser

@@ -13,12 +13,7 @@ export { Keyboard } from './keyboard';
 export { ElementHandle } from './element_handle';
 export { Frame } from './frame';
 export { Worker } from './worker';
-
-/**
- * `BrowserContexts` provide a way to operate multiple independent sessions, with
- * separate pages, cache, and cookies.
- */
-export class BrowserContext {}
+export { BrowserContext } from './browser_context';
 
 /**
  * Represents event-specific properties. Refer to the events documentation for
