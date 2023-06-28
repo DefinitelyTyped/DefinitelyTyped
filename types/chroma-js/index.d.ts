@@ -215,9 +215,12 @@ declare namespace chroma {
          */
         bezier(colors: string[]): { (t: number): Color; scale(): Scale };
 
-        scale(name: string | Color): Scale;
-
-        scale(colors?: Array<string | Color>): Scale;
+        /**
+         * Return a function that maps a numeric value to a color scale.
+         * Either pass a name of a palette (as in https://colorbrewer2.org/, e.g. "RdYlBu") or an array of colors.
+         * If no argument is passed, uses a scale from white to black.
+         */
+        scale(name_or_colors?: string | Array<string | Color>): Scale;
 
         cubehelix(): Cubehelix;
 
