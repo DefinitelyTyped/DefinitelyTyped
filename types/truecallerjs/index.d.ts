@@ -1,21 +1,23 @@
-// Type definitions for truecallerjs 2.1
-// Project: https://github.com/sumithemmadi/truecallerjs#readme
-// Definitions by: Sumith Emmadi <https://github.com/sumithemmadi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/**
+ * Type definitions for truecallerjs 2.1
+ * Project: https://github.com/sumithemmadi/truecallerjs#readme
+ * Definitions by: Sumith Emmadi <https://github.com/sumithemmadi>
+ * Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+ */
 
 declare namespace truecallerjs {
     /**
      * Response object returned by the login function.
      */
     interface LoginResponse {
-      status: number;
-      message: string;
-      domain: string;
-      parsedPhoneNumber: number;
-      parsedCountryCode: string;
-      requestId: string;
-      method: string;
-      tokenTtl: number;
+        status: number;
+        message: string;
+        domain: string;
+        parsedPhoneNumber: number;
+        parsedCountryCode: string;
+        requestId: string;
+        method: string;
+        tokenTtl: number;
     }
 
     /**
@@ -35,86 +37,86 @@ declare namespace truecallerjs {
      * @returns A Promise that resolves to a JSON object containing the installationId.
      */
     function verifyOtp(
-      phoneNumber: string,
-      jsonData: LoginResponse,
-      otp: string
+        phoneNumber: string,
+        jsonData: LoginResponse,
+        otp: string
     ): Promise<object>;
 
     /**
      * Address details.
      */
     interface Address {
-      city: string;
-      countryCode: string;
-      timeZone: string;
-      type: string;
+        city: string;
+        countryCode: string;
+        timeZone: string;
+        type: string;
     }
 
     /**
      * Internet address details.
      */
     interface InternetAddress {
-      id: string;
-      service: string;
-      caption: string;
-      type: string;
+        id: string;
+        service: string;
+        caption: string;
+        type: string;
     }
 
     /**
      * Country details.
      */
     interface CountryDetails {
-      name: string;
-      native: string;
-      phone: number[];
-      continent: string;
-      capital: string;
-      currency: string[];
-      languages: string[];
-      flag: string;
-      flagURL: string;
+        name: string;
+        native: string;
+        phone: number[];
+        continent: string;
+        capital: string;
+        currency: string[];
+        languages: string[];
+        flag: string;
+        flagURL: string;
     }
 
     /**
      * Data object containing information about a phone number.
      */
     interface Data {
-      name?: string;
-      altName?: string;
-      addresses?: Address[];
-      internetAddresses?: InternetAddress[];
+        name?: string;
+        altName?: string;
+        addresses?: Address[];
+        internetAddresses?: InternetAddress[];
     }
 
     /**
      * Search data object used for searching a phone number.
      */
     interface SearchData {
-      number: string;
-      countryCode: string;
-      installationId: string;
+        number: string;
+        countryCode: string;
+        installationId: string;
     }
 
     /**
      * Response data object containing an array of Data objects.
      */
     interface ResponseData {
-      data: Data[];
+        data: Data[];
     }
 
     /**
      * Format class for formatting response data.
      */
     class Format {
-      constructor(data: ResponseData);
-      json(color?: boolean): ResponseData;
-      xml(color?: boolean): string;
-      yaml(color?: boolean): string;
-      text(color?: boolean, space?: boolean): string;
-      getName(): string;
-      getAlternateName(): string;
-      getAddresses(): Address[];
-      getEmailId(): string;
-      getCountryDetails(): CountryDetails;
+        constructor(data: ResponseData);
+        json(color?: boolean): ResponseData;
+        xml(color?: boolean): string;
+        yaml(color?: boolean): string;
+        text(color?: boolean, space?: boolean): string;
+        getName(): string;
+        getAlternateName(): string;
+        getAddresses(): Address[];
+        getEmailId(): string;
+        getCountryDetails(): CountryDetails;
     }
 
     /**
@@ -134,12 +136,10 @@ declare namespace truecallerjs {
      * @returns A Promise that resolves to a ResponseData object containing phone number information in an array.
      */
     function bulkSearch(
-      phoneNumbers: string,
-      countryCode: string,
-      installationId: string
+        phoneNumbers: string,
+        countryCode: string,
+        installationId: string
     ): Promise<ResponseData>;
-  }
+}
 
-  declare module 'truecallerjs' {
-    export = truecallerjs;
-  }
+export = truecallerjs;
