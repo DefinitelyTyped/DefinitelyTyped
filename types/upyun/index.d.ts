@@ -262,22 +262,22 @@ export class Client {
 // sign模块
 
 export namespace sign {
-    export interface GetHeaderSignReturnType {
+    interface GetHeaderSignReturnType {
         Authorization: string;
         'X-Date': string;
     }
 
-    export interface GenSignOptionType {
+    interface GenSignOptionType {
         method: any;
         path: string;
     }
 
-    export interface GetPolicyAndAuthorizationReturnType {
+    interface GetPolicyAndAuthorizationReturnType {
         policy: string;
         authorization: string;
     }
 
-    export interface GetPurgeHeaderSignReturnType {
+    interface GetPurgeHeaderSignReturnType {
         Authorization: string;
         Date: string;
         'User-Agent': string;
@@ -291,7 +291,7 @@ export namespace sign {
      * @param path storage path on upyun server, e.g: /your/dir/example.txt
      * @param contentMd5 md5 of the file that will be uploaded
      */
-    export function getHeaderSign(
+    function getHeaderSign(
         service: Service,
         method: any,
         path: string,
@@ -305,7 +305,7 @@ export namespace sign {
      * @param service service Instance
      * @param options must include key is method, path
      */
-    export function genSign(service: Service, options: GenSignOptionType): string;
+    function genSign(service: Service, options: GenSignOptionType): string;
 
     /**
      * get policy and authorization for form api
@@ -314,7 +314,7 @@ export namespace sign {
      * @param other optional params
      * @link http://docs.upyun.com/api/form_api/#_2
      */
-    export function getPolicyAndAuthorization(
+    function getPolicyAndAuthorization(
         service: Service,
         params: { [key: string]: string },
     ): GetPolicyAndAuthorizationReturnType;
@@ -327,5 +327,5 @@ export namespace sign {
      * @param urls url
      *
      */
-    export function getPurgeHeaderSign(service: Service, urls: string[]): GetPurgeHeaderSignReturnType;
+    function getPurgeHeaderSign(service: Service, urls: string[]): GetPurgeHeaderSignReturnType;
 }
