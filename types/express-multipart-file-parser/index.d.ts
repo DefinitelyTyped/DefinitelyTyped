@@ -38,7 +38,7 @@ declare module 'express-serve-static-core' {
 
 type RequestHandler = (req: any, res: any, next: any) => void;
 
-type FileParserFactory = (options?: FileParserOptions) => RequestHandler;
+type FileParserFactory = (options?: FileParserOptions) => RequestHandler[];
 
 type FileParser = RequestHandler & { fileParser: FileParserFactory };
 

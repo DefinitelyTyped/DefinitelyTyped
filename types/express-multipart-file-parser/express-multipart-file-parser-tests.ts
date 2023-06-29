@@ -4,7 +4,7 @@ const fileParser = fileParserDefault.fileParser;
 // $ExpectType FileParser
 fileParserDefault;
 
-// $ExpectType RequestHandler
+// $ExpectType RequestHandler[]
 fileParser();
 
 fileParserDefault;
