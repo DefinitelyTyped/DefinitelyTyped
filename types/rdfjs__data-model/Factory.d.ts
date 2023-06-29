@@ -1,5 +1,5 @@
 import * as RDF from "@rdfjs/types";
-import { FromTerm } from './lib/fromTerm';
+import { FromTerm } from './lib/fromTerm.js';
 
 interface DataFactory extends Required<RDF.DataFactory<RDF.BaseQuad>> {
     quad<Q extends RDF.BaseQuad = RDF.Quad>(
