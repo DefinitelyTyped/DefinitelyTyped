@@ -1690,12 +1690,12 @@ function onPowerChanged() {
     chrome.system.powerSource.requestStatusUpdate();
 }
 
-async function logDisplayActivityState() {
+async function logDisplayActiveState() {
   const displays: chrome.system.display.DisplayInfo[] = await new Promise(res => {
     chrome.system.display.getInfo(res);
   });
   displays.forEach((display: chrome.system.display.DisplayInfo) => {
-    console.log('activityState: ', display.activityState);
+    console.log('activeState: ', display.activeState);
   });
 }
 
