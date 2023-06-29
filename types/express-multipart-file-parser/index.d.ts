@@ -26,7 +26,15 @@ interface UploadedFile {
 }
 
 interface FileParserOptions {
+    /**
+     * Options passed to the raw-body library
+     * @see https://www.npmjs.com/package/raw-body#user-content-api
+     */
     rawBodyOptions?: RawBodyOptions;
+    /**
+     * Options passed to the busboy library
+     * @see https://github.com/mscdex/busboy/tree/v1.5.0#readme
+     */
     busboyOptions?: BusboyOptions;
 }
 
