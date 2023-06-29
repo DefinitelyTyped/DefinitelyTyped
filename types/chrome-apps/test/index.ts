@@ -1691,10 +1691,10 @@ function onPowerChanged() {
 }
 
 async function logDisplayActivityState() {
-  const displays = await new Promise(res => {
+  const displays: chrome.system.display.DisplayInfo[] = await new Promise(res => {
     chrome.system.display.getInfo(res);
   });
-  displays.forEach((display) => {
+  displays.forEach((display: chrome.system.display.DisplayInfo) => {
     console.log('activityState: ', display.activityState);
   });
 }
