@@ -17,20 +17,20 @@ declare namespace cytoscapeFcose {
     }
 
     interface FcoseAlignmentConstraint {
-        vertical: string[][];
-        horizontal: string[][];
+        vertical?: string[][];
+        horizontal?: string[][];
     }
 
     interface FcoseRelativeVerticalPlacementConstraint {
         top: string;
         bottom: string;
-        gap: number;
+        gap?: number;
     }
 
     interface FcoseRelativeHorizontalPlacementConstraint {
         left: string;
         right: string;
-        gap: number;
+        gap?: number;
     }
 
     type FcoseRelativePlacementConstraint =
