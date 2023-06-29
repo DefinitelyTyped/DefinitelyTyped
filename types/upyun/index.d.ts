@@ -132,7 +132,7 @@ export class Client {
      * @param remotePath 目录路径
      * @param options 选项 请参考文档
      */
-    listDir(remotePath: string, options?: listDirOptions): Promise<false | listDirOptions>;
+    listDir(remotePath: string, options?: listDirOptions): Promise<false | listDirResponse>;
 
     /**
      * 上传单个文件
