@@ -11,12 +11,16 @@ import type { Options as RawBodyOptions } from 'raw-body';
 interface UploadedFile {
     /** Field name specified in the form */
     fieldname: string;
+
     /** Name of the file on the user's computer */
     originalname: string;
+
     /** Encoding type of the file */
     encoding: string;
+
     /** Mime type of the file */
     mimetype: string;
+
     /** Contents of the file */
     buffer: Buffer;
 }
