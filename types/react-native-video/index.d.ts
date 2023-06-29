@@ -182,6 +182,9 @@ export interface VideoProperties extends ViewProps {
     progressUpdateInterval?: number | undefined;
     useTextureView?: boolean | undefined;
     hideShutterView?: boolean | undefined;
+    shutterColor?: string;
+    frameQuality?: number;
+    onFrameChange?: (base64ImageString: string) => void;
     allowsExternalPlayback?: boolean | undefined;
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
