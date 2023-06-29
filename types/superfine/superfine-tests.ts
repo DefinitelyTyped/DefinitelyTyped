@@ -1,6 +1,15 @@
 import * as superfine from 'superfine';
 
 // Strongly typed HTML element root.
+
+superfine.patch(document.createElement('div'),
+    superfine.h(
+        'div',
+        {},
+        superfine.text("example string")
+    )
+);
+
 superfine.patch(
     document.createElement('div'),
     superfine.h(
@@ -59,19 +68,7 @@ superfine.patch(
                                 {
                                 }
                             ),
-                            superfine.h(
-                                'text',
-                                {
-                                },
-                                'example string'
-                            ),
-                            superfine.h(
-                                'text',
-                                {
-                                },
-                                ['example string']
-                            ),
-                            'example string',
+                            superfine.text('example string'),
                             superfine.h(
                                 'rect',
                                 {
@@ -125,15 +122,15 @@ superfine.patch(
                                 'li',
                                 {
                                 },
-                                'example string'
+                                superfine.text('example string')
                             ),
                             superfine.h(
                                 'li',
                                 {
                                 },
-                                ['example string']
+                                [superfine.text('example string')]
                             ),
-                            'example string',
+                            superfine.text('example string'),
                             superfine.h(
                                 'li',
                                 {
@@ -196,15 +193,15 @@ superfine.patch(
                         'text',
                         {
                         },
-                        'example string'
+                        superfine.text('example string')
                     ),
                     superfine.h(
                         'text',
                         {
                         },
-                        ['example string']
+                        [superfine.text('example string')]
                     ),
-                    'example string',
+                    superfine.text('example string'),
                     superfine.h(
                         'rect',
                         {
