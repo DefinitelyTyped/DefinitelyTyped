@@ -1,7 +1,7 @@
 import * as RDF from '@rdfjs/types';
 import rdf from '@rdfjs/dataset';
-import Factory from '@rdfjs/dataset/Factory';
-import DatasetCore from '@rdfjs/dataset/DatasetCore';
+import Factory from '@rdfjs/dataset/Factory.js';
+import DatasetCore from '@rdfjs/dataset/DatasetCore.js';
 import Environment from '@rdfjs/environment/Environment.js';
 
 const exports: ['dataset'] = Factory.exports;
