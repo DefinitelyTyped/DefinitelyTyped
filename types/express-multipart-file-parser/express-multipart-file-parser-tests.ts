@@ -13,4 +13,10 @@ fileParser({ rawBodyOptions: { limit: '10mb' } });
 fileParser({ busboyOptions: { limits: { fields: 2 } } });
 
 // @ts-expect-error
-app.use(fileParser({ otherOptions: { foo: 'bar' } }));
+fileParser({ otherOptions: { foo: 'bar' } });
+
+// @ts-expect-error
+fileParser('string');
+
+// @ts-expect-error
+fileParser(123);
