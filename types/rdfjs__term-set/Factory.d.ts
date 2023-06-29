@@ -1,4 +1,4 @@
-import TermSet from '.';
+import TermSet from './index.js';
 import { Term } from '@rdfjs/types';
 
 export class TermSetFactory {
