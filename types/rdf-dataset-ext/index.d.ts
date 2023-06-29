@@ -2,6 +2,7 @@
 // Project: https://github.com/rdf-ext/rdf-dataset-ext
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.9
 
 import addAll = require('./addAll');
 import deleteMatch = require('./deleteMatch');

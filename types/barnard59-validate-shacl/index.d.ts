@@ -4,5 +4,6 @@
 //                 cristianvasquez <https://github.com/cristianvasquez>
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.9
 
 export * from './validate';

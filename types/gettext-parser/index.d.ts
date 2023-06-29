@@ -2,6 +2,7 @@
 // Project: https://github.com/smhg/gettext-parser
 // Definitions by: Lorent Lempereur <https://github.com/looorent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.9
 
 /// <reference types="node" />
 
