@@ -12,12 +12,11 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "upyun-test.ts"
+        "upyun-tests.ts"
     ]
 }
