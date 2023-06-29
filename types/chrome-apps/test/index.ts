@@ -1690,6 +1690,15 @@ function onPowerChanged() {
     chrome.system.powerSource.requestStatusUpdate();
 }
 
+async function logDisplayActivityState() {
+  const displays = await new Promise(res => {
+    chrome.system.display.getInfo(res);
+  });
+  displays.forEach((display) => {
+    console.log('activityState: ', display.activityState);
+  });
+}
+
 async function getCpuInfo() {
     function logCpuInfo(cpuInfo: chrome.system.cpu.CpuInfo) {
         console.log('numOfProcessors: ', cpuInfo.numOfProcessors);
