@@ -5,14 +5,14 @@ import {
   ApplePaySelectionUpdate,
 } from '@recurly/recurly-js';
 
-function getTaxes({ paymentMethod: { billingContact } }: ApplePayPaymentMethodSelectedEvent): ApplePaySelectionUpdate | void {
+function getTaxes ({ paymentMethod: { billingContact } }: ApplePayPaymentMethodSelectedEvent): ApplePaySelectionUpdate | void {
   if (billingContact?.postalCode === '12345') {
     return { newLineItems: [{ label: 'Tax', amount: '1.00' }] };
   }
 }
 
-export default function applePay() {
-  const applePaySimple = recurly.ApplePay({
+export default function applePay () {
+  window.recurly.ApplePay({
     country: 'US',
     currency: 'USD',
     label: 'My Subscription',
@@ -53,7 +53,7 @@ export default function applePay() {
     },
   };
 
-  const applePay = recurly.ApplePay({
+  const applePay = window.recurly.ApplePay({
     country: 'US',
     currency: 'USD',
     callbacks: {
@@ -64,11 +64,11 @@ export default function applePay() {
 
   applePay.ready(() => {});
   // @ts-expect-error
-  applePay.ready(arg => {});
+  applePay.ready(arg => ({ arg }));
 
   applePay.begin(() => {});
   // @ts-expect-error
-  applePay.begin(arg => {});
+  applePay.begin(arg => ({ arg }));
 
   applePay.on('error', () => {});
   applePay.on('token', () => {});
