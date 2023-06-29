@@ -1458,6 +1458,7 @@ declare namespace jwplayer {
         getAbsolutePosition(): string | null;
         getBuffer(): number;
         getCaptionsList(): Caption[];
+        getConfig(): PlayerConfig;
         getContainer(): HTMLElement;
         getControls(): boolean;
         getCues(): SliderCue[];
@@ -1511,6 +1512,7 @@ declare namespace jwplayer {
         seek(position: number): JWPlayer;
         setAllowFullscreen(allowFullscreen?: boolean): JWPlayer;
         setCaptions(styles: CaptionsConfig): JWPlayer;
+        setConfig(config: PlayerConfig): JWPlayer;
         setControls(state?: boolean): JWPlayer;
         setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
@@ -1523,7 +1525,7 @@ declare namespace jwplayer {
         setPlaylistItemCallback(
             callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
         ): void;
-        setup(options: any): JWPlayer;
+        setup(options: PlayerConfig): JWPlayer;
         setVolume(volume: number): JWPlayer;
         skipAd(): void;
         stop(): JWPlayer;
