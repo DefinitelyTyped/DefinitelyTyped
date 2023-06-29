@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.storage
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.storage</code> API to store, retrieve, and track changes to user data.
  * Permissions: "storage"
@@ -212,5 +215,11 @@ export namespace Storage {
         local: LocalStorageArea;
 
         managed: ManagedStorageArea;
+
+        /**
+         * Items in the <code>session</code> storage area are kept in memory, and only until the either browser or extension is
+         * closed or reloaded.
+         */
+        session: StorageArea;
     }
 }

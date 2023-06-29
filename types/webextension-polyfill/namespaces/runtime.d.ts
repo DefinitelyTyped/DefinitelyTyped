@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.runtime
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
  * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
@@ -277,7 +280,7 @@ export namespace Runtime {
 
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,
-         * and implement surveys. Maximum 255 characters.
+         * and implement surveys. Maximum 1023 characters.
          *
          * @param url Optional. URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
          * Set an empty string to not open a new tab upon uninstallation.

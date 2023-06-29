@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.windows
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.windows</code> API to interact with browser windows. You can use this API to create, modify,
  * and rearrange windows in the browser.

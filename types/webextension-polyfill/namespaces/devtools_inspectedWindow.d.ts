@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.devtools.inspectedWindow
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.devtools.inspectedWindow</code> API to interact with the inspected window: obtain the tab ID for
  * the inspected page, evaluate the code in the context of the inspected window, reload the page,

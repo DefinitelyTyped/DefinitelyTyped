@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.sessions
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.sessions</code> API to query and restore tabs and windows from a browsing session.
  * Permissions: "sessions"

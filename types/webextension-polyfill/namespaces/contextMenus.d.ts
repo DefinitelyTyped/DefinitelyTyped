@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.contextMenus
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the browser.contextMenus API to add items to the browser's context menu. You can choose what types of objects your
  * context menu additions apply to, such as images, hyperlinks, and pages.

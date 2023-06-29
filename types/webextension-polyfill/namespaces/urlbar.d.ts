@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.urlbar
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.urlbar</code> API to experiment with new features in the URLBar.
  * Restricted to Mozilla privileged WebExtensions.

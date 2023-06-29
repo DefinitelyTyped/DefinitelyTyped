@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.theme
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The theme API allows customizing of visual elements of the browser.
  *
