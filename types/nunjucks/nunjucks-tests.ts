@@ -81,3 +81,23 @@ const MyOtherLoader = nunjucks.FileSystemLoader.extend({
 env = new nunjucks.Environment(new MyOtherLoader());
 
 new nunjucks.runtime.SafeString('an unsafe string');
+
+nunjucks.Loader.extend({
+    async: true,
+    getSource(name, callback) {},
+});
+
+// @ts-expect-error
+nunjucks.Loader.extend({
+    getSource(name: any, callback: any) {},
+});
+
+// @ts-expect-error
+nunjucks.Loader.extend({
+    async: false,
+    getSource(name: any, callback: any) {},
+});
+
+function foo(async: boolean) {
+    nunjucks.Loader.extend(new nunjucks.WebLoader(undefined, { async }));
+}
