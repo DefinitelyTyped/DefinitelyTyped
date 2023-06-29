@@ -1,5 +1,5 @@
 import { DatasetCore, Term } from '@rdfjs/types';
-import { ScoreCb } from '.';
+import { ScoreCb } from './index.js';
 
 interface SortArgs<T> {
     dataset: DatasetCore;
