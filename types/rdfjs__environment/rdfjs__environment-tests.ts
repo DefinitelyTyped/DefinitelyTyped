@@ -1,8 +1,10 @@
 import { NamedNode } from '@rdfjs/types';
-import Environment from '@rdfjs/environment/Environment';
-import FormatsFactory from '@rdfjs/environment/FormatsFactory';
-import NamespaceFactory from '@rdfjs/environment/NamespaceFactory';
-import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory';
+import Environment from '@rdfjs/environment/Environment.js';
+import FormatsFactory from '@rdfjs/environment/FormatsFactory.js';
+import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js';
+import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js';
+import DatasetFactory from '@rdfjs/environment/DatasetFactory.js';
+import DataFactory from '@rdfjs/environment/DataFactory.js';
 
 const emptyEnv = new Environment([]);
 const clone = emptyEnv.clone();
@@ -18,6 +20,11 @@ declare class BarFactory {
     baz(): number;
     static exports: ['bar'];
 }
+
+const dataEnv = new Environment([
+    DatasetFactory,
+    DataFactory
+]);
 
 let environment = new Environment([
     FooFactory,
