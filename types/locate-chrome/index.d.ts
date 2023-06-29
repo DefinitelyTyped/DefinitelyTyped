@@ -3,6 +3,6 @@
 // Definitions by: Ben Houston <https://github.com/bhouston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function locateChrome(cb?: (path: string) => void): Promise<string>;
+declare function locateChrome(cb?: (path: string | null) => void): Promise<string | null>;
 
 export = locateChrome;
