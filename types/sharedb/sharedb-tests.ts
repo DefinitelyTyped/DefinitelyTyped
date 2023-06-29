@@ -411,7 +411,17 @@ function startClient(callback) {
         console.log(snapshot.data);
     });
 
+    connection.fetchSnapshot('examples', 'foo', null, (error, snapshot: ShareDBClient.Snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
     connection.fetchSnapshotByTimestamp('examples', 'bar', Date.now(), (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
+    connection.fetchSnapshotByTimestamp('examples', 'bar', null, (error, snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
     });
