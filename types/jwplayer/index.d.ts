@@ -571,7 +571,7 @@ declare namespace jwplayer {
     interface FairPlayDRM {
         certificateUrl: string;
         extractContentId?: (initDataUri: string) => string;
-        extractKey?: (ckc: any) => any | Promise<any>;
+        extractKey?: (ckc: any) => string | Promise<string>;
         licenseRequestFilter?: (request: any) => any;
         licenseRequestHeaders?: Header[];
         licenseRequestMessage?: (message: any) => any;
@@ -939,9 +939,11 @@ declare namespace jwplayer {
         playlist: PlaylistItem[];
     }
 
-    interface RPVideoFirstThumbFrame {} // Unable to reproduce
-
-    interface RPWarningParam {} // Unable to reproduce
+    interface RPWarningParam {
+        code: number;
+        key: string;
+        sourceError: object | null;
+    }
 
     interface FeedData {
         description?: string;
@@ -1138,7 +1140,7 @@ declare namespace jwplayer {
         | Emodo
         | EMX
         | Equativ
-        | IMDS
+        | Imds
         | IndexExchange
         | Kargo
         | Magnite
@@ -1191,7 +1193,7 @@ declare namespace jwplayer {
         siteId: string | number;
     }
 
-    interface IMDS {
+    interface Imds {
         name: 'SynacorMedia';
         id: string;
         pubid: string;
