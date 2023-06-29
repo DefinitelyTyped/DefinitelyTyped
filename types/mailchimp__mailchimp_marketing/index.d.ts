@@ -449,8 +449,6 @@ export namespace lists {
         occurred_at?: string | undefined;
     }
 
-    interface CreateListMemberEventSuccessResponse {}
-
     /**
      * Batch subscribe or unsubscribe
      * https://mailchimp.com/developer/marketing/api/lists/batch-subscribe-or-unsubscribe//
@@ -578,5 +576,5 @@ export namespace lists {
      * @param body.occurred_at The date and time the event occurred in ISO 8601 format.
      * @return A {@link https://www.promisejs.org/|Promise}, with empty response
      */
-    function createListMemberEvent(listId: string, subscriberHash: string, body: CreateListMemberEventBody): Promise<CreateListMemberEventSuccessResponse | ErrorResponse>;
+    function createListMemberEvent(listId: string, subscriberHash: string, body: CreateListMemberEventBody): Promise<{} | ErrorResponse>;
 }
