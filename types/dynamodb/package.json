@@ -1,5 +1,4 @@
 {
-    "name": "@types/dynamodb",
     "private": true,
     "dependencies": {
         "joi": "^17.9.2"
