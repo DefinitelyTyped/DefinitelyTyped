@@ -1,3 +1,3 @@
-import NamespaceFactory from '@rdfjs/namespace/Factory';
+import NamespaceFactory from '@rdfjs/namespace/Factory.js';
 
 export default NamespaceFactory;
