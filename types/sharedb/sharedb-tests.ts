@@ -421,6 +421,11 @@ function startClient(callback) {
         console.log(snapshot.data);
     });
 
+    connection.fetchSnapshotByTimestamp('examples', 'bar', null, (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
     console.log(connection.id + connection.seq);
 
     interface PresenceValue {
