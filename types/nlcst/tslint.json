@@ -2,6 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
+        "no-empty-interface": false,
         "npm-naming": false
     }
 }

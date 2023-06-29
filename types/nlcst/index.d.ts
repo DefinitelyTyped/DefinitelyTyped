@@ -27,7 +27,6 @@ import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Par
  * }
  * ```
  */
-// tslint:disable-next-line
 export interface Data extends UnistData {}
 
 // ## Content maps
@@ -230,7 +229,6 @@ export interface Paragraph extends Parent {
 /**
  * Info associated with nlcst paragraph nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ParagraphData extends Data {}
 
 /**
@@ -253,7 +251,6 @@ export interface Punctuation extends Literal {
 /**
  * Info associated with nlcst punctuation nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface PunctuationData extends Data {}
 
 /**
@@ -277,7 +274,6 @@ export interface Root extends Parent {
 /**
  * Info associated with nlcst root nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface RootData extends Data {}
 
 /**
@@ -306,7 +302,6 @@ export interface Sentence extends Parent {
 /**
  * Info associated with nlcst sentence nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface SentenceData extends Data {}
 
 /**
@@ -329,7 +324,6 @@ export interface Source extends Literal {
 /**
  * Info associated with nlcst source nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface SourceData extends Data {}
 
 /**
@@ -352,7 +346,6 @@ export interface Symbol extends Literal {
 /**
  * Info associated with nlcst symbol nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface SymbolData extends Data {}
 
 /**
@@ -374,7 +367,6 @@ export interface Text extends Literal {
 /**
  * Info associated with nlcst text nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TextData extends Data {}
 
 /**
@@ -396,7 +388,6 @@ export interface WhiteSpace extends Literal {
 /**
  * Info associated with nlcst white space nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface WhiteSpaceData extends Data {}
 
 /**
@@ -424,5 +415,4 @@ export interface Word extends Parent {
 /**
  * Info associated with nlcst word nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface WordData extends Data {}

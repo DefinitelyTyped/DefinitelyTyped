@@ -136,7 +136,6 @@ export interface Resource {
  * }
  * ```
  */
-// tslint:disable-next-line
 export interface Data extends UnistData {}
 
 // ## Content maps
@@ -539,7 +538,6 @@ export interface Blockquote extends Parent {
 /**
  * Info associated with mdast block quote nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface BlockquoteData extends Data {}
 
 /**
@@ -559,7 +557,6 @@ export interface Break extends Node {
 /**
  * Info associated with mdast break nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface BreakData extends Data {}
 
 /**
@@ -589,7 +586,6 @@ export interface Code extends Literal {
 /**
  * Info associated with mdast code (flow) (block) nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface CodeData extends Data {}
 
 /**
@@ -609,7 +605,6 @@ export interface Definition extends Node, Association, Resource {
 /**
  * Info associated with mdast definition nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface DefinitionData extends Data {}
 
 /**
@@ -633,7 +628,6 @@ export interface Delete extends Parent {
 /**
  * Info associated with mdast GFM delete nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface DeleteData extends Data {}
 
 /**
@@ -657,7 +651,6 @@ export interface Emphasis extends Parent {
 /**
  * Info associated with mdast emphasis nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface EmphasisData extends Data {}
 
 /**
@@ -681,7 +674,6 @@ export interface FootnoteDefinition extends Parent, Association {
 /**
  * Info associated with mdast GFM footnote definition nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface FootnoteDefinitionData extends Data {}
 
 /**
@@ -701,7 +693,6 @@ export interface FootnoteReference extends Association, Node {
 /**
  * Info associated with mdast GFM footnote reference nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface FootnoteReferenceData extends Data {}
 
 /**
@@ -731,7 +722,6 @@ export interface Heading extends Parent {
 /**
  * Info associated with mdast heading nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface HeadingData extends Data {}
 
 /**
@@ -751,7 +741,6 @@ export interface Html extends Literal {
 /**
  * Info associated with mdast HTML nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface HtmlData extends Data {}
 
 /**
@@ -779,7 +768,6 @@ export interface Image extends Alternative, Node, Resource {
 /**
  * Info associated with mdast image nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ImageData extends Data {}
 
 /**
@@ -799,7 +787,6 @@ export interface ImageReference extends Alternative, Node, Reference {
 /**
  * Info associated with mdast image reference nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ImageReferenceData extends Data {}
 
 /**
@@ -819,7 +806,6 @@ export interface InlineCode extends Literal {
 /**
  * Info associated with mdast code (text) (inline) nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface InlineCodeData extends Data {}
 
 /**
@@ -843,7 +829,6 @@ export interface Link extends Parent, Resource {
 /**
  * Info associated with mdast link nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface LinkData extends Data {}
 
 /**
@@ -867,7 +852,6 @@ export interface LinkReference extends Parent, Reference {
 /**
  * Info associated with mdast link reference nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface LinkReferenceData extends Data {}
 
 /**
@@ -905,7 +889,6 @@ export interface List extends Parent {
 /**
  * Info associated with mdast list nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ListData extends Data {}
 
 /**
@@ -941,7 +924,6 @@ export interface ListItem extends Parent {
 /**
  * Info associated with mdast list item nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ListItemData extends Data {}
 
 /**
@@ -965,7 +947,6 @@ export interface Paragraph extends Parent {
 /**
  * Info associated with mdast paragraph nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ParagraphData extends Data {}
 
 /**
@@ -987,7 +968,6 @@ export interface Root extends Parent {
 /**
  * Info associated with mdast root nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface RootData extends Data {}
 
 /**
@@ -1011,7 +991,6 @@ export interface Strong extends Parent {
 /**
  * Info associated with mdast strong nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface StrongData extends Data {}
 
 /**
@@ -1039,7 +1018,6 @@ export interface Table extends Parent {
 /**
  * Info associated with mdast GFM table nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TableData extends Data {}
 
 /**
@@ -1063,7 +1041,6 @@ export interface TableRow extends Parent {
 /**
  * Info associated with mdast GFM table row nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TableRowData extends Data {}
 
 /**
@@ -1087,7 +1064,6 @@ export interface TableCell extends Parent {
 /**
  * Info associated with mdast GFM table cell nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TableCellData extends Data {}
 
 /**
@@ -1107,7 +1083,6 @@ export interface Text extends Literal {
 /**
  * Info associated with mdast text nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TextData extends Data {}
 
 /**
@@ -1127,7 +1102,6 @@ export interface ThematicBreak extends Node {
 /**
  * Info associated with mdast thematic break nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ThematicBreakData extends Data {}
 
 /**
@@ -1147,7 +1121,6 @@ export interface Yaml extends Literal {
 /**
  * Info associated with mdast YAML nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface YamlData extends Data {}
 
 /**

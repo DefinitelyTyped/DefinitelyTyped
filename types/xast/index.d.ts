@@ -36,7 +36,6 @@ export interface Attributes {
  * }
  * ```
  */
-// tslint:disable-next-line
 export interface Data extends UnistData {}
 
 // ## Content maps
@@ -185,7 +184,6 @@ export interface Cdata extends Literal {
 /**
  * Info associated with xast instructions by the ecosystem.
  */
-// tslint:disable-next-line
 export interface CdataData extends Data {}
 
 /**
@@ -205,7 +203,6 @@ export interface Comment extends Literal {
 /**
  * Info associated with xast comments by the ecosystem.
  */
-// tslint:disable-next-line
 export interface CommentData extends Data {}
 
 /**
@@ -239,7 +236,6 @@ export interface Doctype extends Node {
 /**
  * Info associated with xast doctypes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface DoctypeData extends Data {}
 
 /**
@@ -265,7 +261,6 @@ export interface Instruction extends Literal {
 /**
  * Info associated with xast instructions by the ecosystem.
  */
-// tslint:disable-next-line
 export interface InstructionData extends Data {}
 
 /**
@@ -297,7 +292,6 @@ export interface Element extends Parent {
 /**
  * Info associated with xast elements by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ElementData extends Data {}
 
 /**
@@ -323,7 +317,6 @@ export interface Root extends Parent {
 /**
  * Info associated with xast root nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface RootData extends Data {}
 
 /**
@@ -343,5 +336,4 @@ export interface Text extends Literal {
 /**
  * Info associated with xast texts by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TextData extends Data {}

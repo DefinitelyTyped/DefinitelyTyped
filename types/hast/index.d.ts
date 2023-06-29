@@ -28,7 +28,6 @@ import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Par
  * }
  * ```
  */
-// tslint:disable-next-line
 export interface Data extends UnistData {}
 
 /**
@@ -187,7 +186,6 @@ export interface Comment extends Literal {
 /**
  * Info associated with hast comments by the ecosystem.
  */
-// tslint:disable-next-line
 export interface CommentData extends Data {}
 
 /**
@@ -207,7 +205,6 @@ export interface Doctype extends UnistNode {
 /**
  * Info associated with hast doctypes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface DoctypeData extends Data {}
 
 /**
@@ -244,7 +241,6 @@ export interface Element extends Parent {
 /**
  * Info associated with hast elements by the ecosystem.
  */
-// tslint:disable-next-line
 export interface ElementData extends Data {}
 
 /**
@@ -272,7 +268,6 @@ export interface Root extends Parent {
 /**
  * Info associated with hast root nodes by the ecosystem.
  */
-// tslint:disable-next-line
 export interface RootData extends Data {}
 
 /**
@@ -292,5 +287,4 @@ export interface Text extends Literal {
 /**
  * Info associated with hast texts by the ecosystem.
  */
-// tslint:disable-next-line
 export interface TextData extends Data {}
