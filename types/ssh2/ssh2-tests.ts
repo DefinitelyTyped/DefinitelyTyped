@@ -277,6 +277,8 @@ socks.createServer( (info: any, accept: any, deny: any) => {
                     return deny();
                 }
 
+                stream.setWindow(30, 120, 0, 0);
+
                 var clientSocket: any;
                 if (clientSocket = accept(true)) {
                     stream.pipe(clientSocket).pipe(stream).on('close', () => {
