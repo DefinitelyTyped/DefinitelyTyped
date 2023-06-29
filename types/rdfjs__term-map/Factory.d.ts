@@ -1,4 +1,4 @@
-import TermMap from '.';
+import TermMap from './index.js';
 import { Term } from '@rdfjs/types';
 
 export interface TermMapFactory {
