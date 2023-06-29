@@ -260,69 +260,72 @@ export class Client {
 }
 
 // sign模块
-export interface GetHeaderSignReturnType {
-    Authorization: string;
-    'X-Date': string;
+
+export namespace sign {
+    export interface GetHeaderSignReturnType {
+        Authorization: string;
+        'X-Date': string;
+    }
+
+    export interface GenSignOptionType {
+        method: any;
+        path: string;
+    }
+
+    export interface GetPolicyAndAuthorizationReturnType {
+        policy: string;
+        authorization: string;
+    }
+
+    export interface GetPurgeHeaderSignReturnType {
+        Authorization: string;
+        Date: string;
+        'User-Agent': string;
+    }
+
+    /**
+     * generate head sign for rest api
+     *
+     * @link http://docs.upyun.com/api/authorization/#_2
+     * @param service service Instance
+     * @param path storage path on upyun server, e.g: /your/dir/example.txt
+     * @param contentMd5 md5 of the file that will be uploaded
+     */
+    export function getHeaderSign(
+        service: Service,
+        method: any,
+        path: string,
+        contentMd5?: string | null,
+    ): GetHeaderSignReturnType;
+
+    /**
+     * generate signature string which can be used in head sign or body sign
+     *
+     * @link http://docs.upyun.com/api/authorization/#_2
+     * @param service service Instance
+     * @param options must include key is method, path
+     */
+    export function genSign(service: Service, options: GenSignOptionType): string;
+
+    /**
+     * get policy and authorization for form api
+     *
+     * @param service service Instance
+     * @param other optional params
+     * @link http://docs.upyun.com/api/form_api/#_2
+     */
+    export function getPolicyAndAuthorization(
+        service: Service,
+        params: { [key: string]: string },
+    ): GetPolicyAndAuthorizationReturnType;
+
+    /**
+     * get Authorization and Date for purge api
+     *
+     * @link http://docs.upyun.com/api/purge/#_1
+     * @param service service Instance
+     * @param urls url
+     *
+     */
+    export function getPurgeHeaderSign(service: Service, urls: string[]): GetPurgeHeaderSignReturnType;
 }
-
-export interface GenSignOptionType {
-    method: any;
-    path: string;
-}
-
-export interface GetPolicyAndAuthorizationReturnType {
-    policy: string;
-    authorization: string;
-}
-
-export interface GetPurgeHeaderSignReturnType {
-    Authorization: string;
-    Date: string;
-    'User-Agent': string;
-}
-
-/**
- * generate head sign for rest api
- *
- * @link http://docs.upyun.com/api/authorization/#_2
- * @param service service Instance
- * @param path storage path on upyun server, e.g: /your/dir/example.txt
- * @param contentMd5 md5 of the file that will be uploaded
- */
-export function getHeaderSign(
-    service: Service,
-    method: any,
-    path: string,
-    contentMd5?: string | null,
-): GetHeaderSignReturnType;
-
-/**
- * generate signature string which can be used in head sign or body sign
- *
- * @link http://docs.upyun.com/api/authorization/#_2
- * @param service service Instance
- * @param options must include key is method, path
- */
-export function genSign(service: Service, options: GenSignOptionType): string;
-
-/**
- * get policy and authorization for form api
- *
- * @param service service Instance
- * @param other optional params
- * @link http://docs.upyun.com/api/form_api/#_2
- */
-export function getPolicyAndAuthorization(
-    service: Service,
-    params: { [key: string]: string },
-): GetPolicyAndAuthorizationReturnType;
-
-/**
- * get Authorization and Date for purge api
- *
- * @link http://docs.upyun.com/api/purge/#_1
- * @param service service Instance
- * @param urls url
- *
- */
-export function getPurgeHeaderSign(service: Service, urls: string[]): GetPurgeHeaderSignReturnType;
