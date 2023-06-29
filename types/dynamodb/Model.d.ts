@@ -25,17 +25,14 @@ export class Item<T> extends EventEmitter {
 export interface Model<T> {
     new(attrs: T): Item<T>;
     log: bunyan;
-    
+
     get(hashKey: string, rangeKey: string, options: GetOptions<T>, callback: Callback<Item<T> | null>): void;
-    get(hashKey: string, rangeKey: string, callback: Callback<Item<T> | null>): void;
-    get(hashKey: string, options: GetOptions<T>, callback: Callback<Item<T> | null>): void;
-    get(hashKey: string, callback: Callback<Item<T> | null>): void;
+    get(hashKey: string, rangeKeyOrOptions: string | GetOptions<T>, callback: Callback<Item<T> | null>): void;
+    get(hashKeyOrAttributes: string | Partial<T>, callback: Callback<Item<T> | null>): void;
     get(attributes: Partial<T>, options: GetOptions<T>, callback: Callback<Item<T> | null>): void;
-    get(attributes: Partial<T>, callback: Callback<Item<T> | null>): void;
     get(hashKey: string, rangeKey?: string, options?: GetOptions<T>): Promise<Item<T> | null>;
-    get(hashKey: string, options?: GetOptions<T>): Promise<Item<T> | null>;
-    get(attributes: Partial<T>, options?: GetOptions<T>): Promise<Item<T> | null>;
-    
+    get(hashKeyOrAttributes: string | Partial<T>, options?: GetOptions<T>): Promise<Item<T> | null>;
+
     update(attributes: Partial<T>, options: UpdateOptions<T>, callback: Callback<Item<T>>): void;
     update(attributes: Partial<T>, callback: Callback<Item<T>>): void;
     update(attributes: Partial<T>, options?: UpdateOptions<T>): Promise<Item<T>>;
@@ -49,14 +46,12 @@ export interface Model<T> {
 
     destroy(hashKey: string, rangeKey: string, options: DestroyOptions<T>, callback: Callback<any>): void;
     destroy(hashKey: string, rangeKey: string, callback: Callback<any>): void;
-    destroy(hashKey: string, options: DestroyOptions<T>, callback: Callback<any>): void;
+    destroy(hashKeyOrAttributes: string | Partial<T>, options: DestroyOptions<T>, callback: Callback<any>): void;
     destroy(hashKey: string, callback: Callback<any>): void;
-    destroy(attributes: Partial<T>, options: DestroyOptions<T>, callback: Callback<any>): void;
     destroy(attributes: Partial<T>, callback: Callback<any>): void;
     destroy(hashKey: string, rangeKey?: string, options?: DestroyOptions<T>): Promise<any>;
-    destroy(hashKey: string, options?: DestroyOptions<T>): Promise<any>;
-    destroy(attributes: Partial<T>, options?: DestroyOptions<T>): Promise<any>;
-    
+    destroy(hashKeyOrAttributes: string | Partial<T>, options?: DestroyOptions<T>): Promise<any>;
+
     getItems(keys: ReadonlyArray<Partial<T> | string>, options: GetOptions<T>, callback: Callback<Array<Item<T>>>): void;
     getItems(keys: ReadonlyArray<Partial<T> | string>, callback: Callback<Array<Item<T>>>): void;
     getItems(keys: ReadonlyArray<Partial<T> | string>, options?: GetOptions<T>): Promise<Array<Item<T>>>;

@@ -342,7 +342,7 @@ Account.destroy({
 }, {
     ConditionExpression: '#v = :x',
     ExpressionAttributeNames: { '#v': 'version' },
-    ExpressionAttributeValues: { ':x': '2' }    
+    ExpressionAttributeValues: { ':x': '2' }
 }, (err, acc) => {});
 
 Account.get('test@example.com', (err, acc) => {
@@ -583,7 +583,7 @@ BlogPost = dynamo.define('Account', {
     schema: {
         email: Joi.string().email(),
         title: Joi.string(),
-        content: Joi.binary() as any, // Joi is missing handling of Buffer in ObjectPropertiesSchema 
+        content: Joi.binary() as any, // https://github.com/hapijs/joi/pull/2961
         PublishedDateTime: Joi.date(),
     },
 

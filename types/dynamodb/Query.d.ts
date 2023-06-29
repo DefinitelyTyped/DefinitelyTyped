@@ -6,10 +6,10 @@ export interface QueryBase<T> {
     limit(num: number): this;
     attributes(attrs: ReadonlyArray<keyof T> | keyof T): this;
     select(value: string): this;
-    where<K extends keyof T>(keyName: keyof T): PredicateFor<T, K, this>;
+    where<K extends keyof T>(keyName: K): PredicateFor<T, K, this>;
     returnConsumedCapacity(value?: string): this;
     loadAll(): this;
-    
+
     filterExpression(expression: string): this;
     addFilterCondition(condition: {
       attributeNames: Record<string, any>;
@@ -37,29 +37,29 @@ export interface Query<T> extends QueryBase<T> {
     ascending(): this;
     descending(): this;
 
-    filter<K extends keyof T>(keyName: keyof T): PredicateFor<T, K, this>;
-    
+    filter<K extends keyof T>(keyName: K): PredicateFor<T, K, this>;
+
     buildKey(): string;
 }
 
-type IsStrictlyAny<T> = (T extends never ? true : false) extends false ? false : true;
+export type IsStrictlyAny<T> = (T extends never ? true : false) extends false ? false : true;
 
-type PredicateFor<T, K extends keyof T, O extends QueryBase<T>>
+export type PredicateFor<T, K extends keyof T, O extends QueryBase<T>>
     = IsStrictlyAny<T[K]> extends true ? AnyPredicate<T, T[K], O>
-    : T[K] extends Array<any> ? ArrayPredicate<T, T[K][number], O>
+    : T[K] extends any[] ? ArrayPredicate<T, T[K][number], O>
     : T[K] extends string ? StringPredicate<T, O>
     : T[K] extends (string | number) ? RangePredicate<T, T[K], O>
     : AnyPredicate<T, T[K], O>;
 
-interface Predicate<T, V, O extends QueryBase<T>> {
+export interface Predicate<T, V, O extends QueryBase<T>> {
     equals: (value: V) => O;
     exists: (exists?: boolean) => O;
     in: (...args: V[]) => O;
     null(): O;
     notNull(): O;
 }
-    
-interface RangePredicate<T, V, O extends QueryBase<T>> extends Predicate<T, V, O> {
+
+export interface RangePredicate<T, V, O extends QueryBase<T>> extends Predicate<T, V, O> {
     eq: (value: V) => O;
     ne: (value: V) => O;
     lte: (value: V) => O;
@@ -69,16 +69,16 @@ interface RangePredicate<T, V, O extends QueryBase<T>> extends Predicate<T, V, O
     between: (...args: any[]) => O;
 }
 
-interface ArrayPredicate<T, V, O extends QueryBase<T>> extends Predicate<T, V, O> {
+export interface ArrayPredicate<T, V, O extends QueryBase<T>> extends Predicate<T, V, O> {
     contains(value: V): O;
     notContains(value: V): O;
 }
 
-interface StringPredicate<T, O extends QueryBase<T>> extends RangePredicate<T, string, O> {
+export interface StringPredicate<T, O extends QueryBase<T>> extends RangePredicate<T, string, O> {
     beginsWith: (...args: any[]) => O;
 }
 
-type AnyPredicate<T, V, O extends QueryBase<T>> =
+export type AnyPredicate<T, V, O extends QueryBase<T>> =
     & StringPredicate<T, O>
     & RangePredicate<T, V, O>
     & ArrayPredicate<T, V, O>;
