@@ -1,6 +1,5 @@
 {
     "private": true,
-    "type": "module",
     "dependencies": {
         "cmake-js": "7.2.1"
     }
