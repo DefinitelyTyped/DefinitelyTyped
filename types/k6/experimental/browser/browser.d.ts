@@ -5,8 +5,8 @@ import { BrowserContext } from './browser_context';
 import { Page } from './page';
 
 /**
- * The `Browser` class is the entry point for all your tests, and it is what
- * interacts with the actual web browser via Chrome DevTools Protocol (CDP).
+ * The `Browser` class is the entry point for all your tests, it interacts
+ * with the actual web browser via Chrome DevTools Protocol (CDP).
  */
 export class Browser {
     /**

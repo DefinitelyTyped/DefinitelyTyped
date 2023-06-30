@@ -5,7 +5,7 @@ import { Browser } from './browser';
 import { Page } from './page';
 
 /**
- * `BrowserContexts` provide a way to operate multiple independent sessions, with
+ * `BrowserContext` provides a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
 export class BrowserContext {
@@ -60,7 +60,7 @@ export class BrowserContext {
     clearPermissions(): void;
 
     /**
-     * Close the BrowserContext and all its `Page`s.
+     * Close the `BrowserContext` and all its `Page`s.
      */
     close(): void;
 
@@ -81,7 +81,7 @@ export class BrowserContext {
     ): void;
 
     /**
-     * Uses the `BrowserContext` to create a new `Page` and returns it.
+     * Creates a new `Page` in the `BrowserContext`.
      */
     newPage(): Page;
 

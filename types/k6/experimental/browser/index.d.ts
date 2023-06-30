@@ -477,8 +477,8 @@ export interface NewBrowserContextOptions {
     javaScriptEnabled?: boolean;
 
     /**
-     * Specifies the user's locale, such as 'en-US', 'tr-TR', etc.
-     * Defaults to what is set on the system.
+     * Specifies the user's locale following ICU locale (e.g. 'en_US').
+     * Defaults to host system locale.
      */
     locale?: string;
 
