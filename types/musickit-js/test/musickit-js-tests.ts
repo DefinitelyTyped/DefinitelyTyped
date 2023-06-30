@@ -1,4 +1,4 @@
-MusicKit.configure({
+await MusicKit.configure({
     app: {
         build: '1.0',
         name: 'PLAYER_NAME',
