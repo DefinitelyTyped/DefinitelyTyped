@@ -266,7 +266,7 @@ function test_doc_storing() {
     }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
 
-    const quadGenerator: Generator<RDF.Quad> = store.readQuads(N3.DataFactory.namedNode('http://ex.org/Mickey'), null, null, null);
+    const quadGenerator: Iterable<RDF.Quad> = store.readQuads(N3.DataFactory.namedNode('http://ex.org/Mickey'), null, null, null);
     for (const q of quadGenerator) {
         console.log(q.subject, q.predicate, q.object, '.');
     }

@@ -248,7 +248,7 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
     removeMatches(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): EventEmitter;
     deleteGraph(graph: Q_RDF['graph'] | string): EventEmitter;
     getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
-    readQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Generator<Quad>;
+    readQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Iterable<OutQuad>;
     match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): RDF.Stream<Q_RDF> & RDF.DatasetCore<OutQuad, InQuad>;
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
