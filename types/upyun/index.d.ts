@@ -261,28 +261,28 @@ export class Client {
 
 // sign模块
 
+export interface GetHeaderSignReturnType {
+    Authorization: string;
+    'X-Date': string;
+}
+
+export interface GenSignOptionType {
+    method: any;
+    path: string;
+}
+
+export interface GetPolicyAndAuthorizationReturnType {
+    policy: string;
+    authorization: string;
+}
+
+export interface GetPurgeHeaderSignReturnType {
+    Authorization: string;
+    Date: string;
+    'User-Agent': string;
+}
+
 export namespace sign {
-    interface GetHeaderSignReturnType {
-        Authorization: string;
-        'X-Date': string;
-    }
-
-    interface GenSignOptionType {
-        method: any;
-        path: string;
-    }
-
-    interface GetPolicyAndAuthorizationReturnType {
-        policy: string;
-        authorization: string;
-    }
-
-    interface GetPurgeHeaderSignReturnType {
-        Authorization: string;
-        Date: string;
-        'User-Agent': string;
-    }
-
     /**
      * generate head sign for rest api
      *
