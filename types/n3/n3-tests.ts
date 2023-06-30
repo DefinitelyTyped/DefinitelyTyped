@@ -1,5 +1,5 @@
 import * as N3 from "n3";
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 import * as fs from "fs";
 import * as stream from "stream";
 
