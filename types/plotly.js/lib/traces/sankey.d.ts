@@ -20,7 +20,6 @@ export interface SankeyHoverLabel {
     bgcolor: SankeyColor | SankeyColors;
     bordercolor: SankeyColor | SankeyColors;
     font: SankeyFont;
-    align: HoverLabel['align'] | Array<HoverLabel['align']>;
     namelength: number | number[];
 }
 
@@ -77,7 +76,7 @@ export interface SankeyLink {
 }
 
 export interface SankeyData {
-    type: string;
+    type: 'sankey';
     name: string;
     orientation: SankeyOrientation;
     visible: boolean | 'legendonly';
@@ -94,7 +93,8 @@ export interface SankeyData {
     link: Partial<SankeyLink>;
     textfont: Partial<SankeyFont>;
     selectpoints: string | number;
-    arrangement: 'snap' | 'perpendicular' | 'freeform' | 'fixed';
+    points: string | number;
+    arrangement: "snap" | "perpendicular" | "freeform" | "fixed";
     hoverlabel: Partial<SankeyHoverLabel>;
     valueformat: string;
     valuesuffix: string;
