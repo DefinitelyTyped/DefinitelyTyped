@@ -1,4 +1,3 @@
-
 const test = async () => {
 
     await MusicKit.configure({
@@ -129,4 +128,3 @@ const test = async () => {
         song: 'trackId',
     });
 };
-
