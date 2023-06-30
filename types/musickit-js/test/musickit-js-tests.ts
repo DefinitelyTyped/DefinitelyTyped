@@ -1,5 +1,4 @@
 const test = async () => {
-
     await MusicKit.configure({
         app: {
             build: '1.0',
