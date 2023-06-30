@@ -201,6 +201,7 @@ export type QRCodeSegment =
     | QRCodeByteSegment
     | QRCodeKanjiSegment
     | {
+          mode?: never;
           data: string | Buffer | Uint8ClampedArray | Uint8Array;
       };
 
