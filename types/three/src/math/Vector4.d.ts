@@ -220,4 +220,9 @@ export class Vector4 implements Vector {
      * Sets this vector's x, y, z and w from Math.random
      */
     random(): this;
+
+    /**
+     * Iterating through a Vector4 instance will yield its components (x, y, z, w) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

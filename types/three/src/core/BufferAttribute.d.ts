@@ -1,4 +1,4 @@
-import { Usage } from '../constants';
+import { Usage, AttributeGPUType } from '../constants';
 import { Matrix3 } from './../math/Matrix3';
 import { Matrix4 } from './../math/Matrix4';
 
@@ -65,6 +65,14 @@ export class BufferAttribute {
      * @defaultValue {@link THREE.StaticDrawUsage | THREE.StaticDrawUsage}.
      */
     usage: Usage;
+
+    /**
+     * Configures the bound GPU type for use in shaders. Either {@link FloatType} or {@link IntType}, default is {@link FloatType}.
+     *
+     * Note: this only has an effect for integer arrays and is not configurable for float arrays. For lower precision
+     * float types, see https://threejs.org/docs/#api/en/core/bufferAttributeTypes/BufferAttributeTypes.
+     */
+    gpuType: AttributeGPUType;
 
     /**
      * This can be used to only update some components of stored vectors (for example, just the component related to color).

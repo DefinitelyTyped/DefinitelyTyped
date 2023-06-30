@@ -17,6 +17,7 @@ export interface MMDAnimationHelperParameter {
     sync?: boolean | undefined;
     afterglow?: number | undefined;
     resetPhysicsOnLoop?: boolean | undefined;
+    pmxAnimation?: boolean | undefined;
 }
 
 export interface MMDAnimationHelperAddParameter {
@@ -55,6 +56,7 @@ export class MMDAnimationHelper {
         sync: boolean;
         afterglow: number;
         resetPhysicsOnLoop: boolean;
+        pmxAnimation: boolean;
     };
     enabled: {
         animation: boolean;

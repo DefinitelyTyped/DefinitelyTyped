@@ -301,4 +301,9 @@ export class Vector3 implements Vector {
     random(): this;
 
     randomDirection(): this;
+
+    /**
+     * Iterating through a Vector3 instance will yield its components (x, y, z) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

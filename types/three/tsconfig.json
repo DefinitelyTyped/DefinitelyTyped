@@ -79,6 +79,8 @@
         "test/integration/three-examples/webxr_ar_lighting.ts",
         "test/integration/three-examples/webxr_vr_handinput_cubes.ts",
         "test/integration/webxr-vr-cube.ts",
+        "test/unit/examples/jsm/exporters/PLYExporter.ts",
+        "test/unit/examples/jsm/exporters/STLExporter.ts",
         "test/unit/examples/jsm/helpers/ViewHelper.ts",
         "test/unit/examples/jsm/libs/lil-gui.ts",
         "test/unit/examples/jsm/libs/tween.ts",

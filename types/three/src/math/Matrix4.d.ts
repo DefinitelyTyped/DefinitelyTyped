@@ -2,6 +2,7 @@ import { Vector3 } from './Vector3';
 import { Euler } from './Euler';
 import { Quaternion } from './Quaternion';
 import { Matrix, Matrix3 } from './Matrix3';
+import { CoordinateSystem } from '../constants';
 
 export type Matrix4Tuple = [
     number,
@@ -41,7 +42,31 @@ export type Matrix4Tuple = [
  * m.multiply( m3 );
  */
 export class Matrix4 implements Matrix {
+    /**
+     * Creates an identity matrix.
+     */
     constructor();
+    /**
+     * Creates a 4x4 matrix with the given arguments in row-major order.
+     */
+    constructor(
+        n11: number,
+        n12: number,
+        n13: number,
+        n14: number,
+        n21: number,
+        n22: number,
+        n23: number,
+        n24: number,
+        n31: number,
+        n32: number,
+        n33: number,
+        n34: number,
+        n41: number,
+        n42: number,
+        n43: number,
+        n44: number,
+    );
 
     /**
      * Array with matrix values.
@@ -147,7 +172,8 @@ export class Matrix4 implements Matrix {
     /**
      * Sets this matrix as translation transform.
      */
-    makeTranslation(x: number, y: number, z: number): Matrix4;
+    makeTranslation(v: Vector3): this;
+    makeTranslation(x: number, y: number, z: number): this;
 
     /**
      * Sets this matrix as rotation transform around x axis by theta radians.
@@ -200,19 +226,30 @@ export class Matrix4 implements Matrix {
     decompose(translation: Vector3, rotation: Quaternion, scale: Vector3): Matrix4;
 
     /**
-     * Creates a frustum matrix.
-     */
-    makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
-
-    /**
      * Creates a perspective projection matrix.
      */
-    makePerspective(fov: number, aspect: number, near: number, far: number): Matrix4;
+    makePerspective(
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        near: number,
+        far: number,
+        coordinateSystem?: CoordinateSystem,
+    ): Matrix4;
 
     /**
      * Creates an orthographic projection matrix.
      */
-    makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4;
+    makeOrthographic(
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        near: number,
+        far: number,
+        coordinateSystem?: CoordinateSystem,
+    ): Matrix4;
     equals(matrix: Matrix4): boolean;
 
     /**
