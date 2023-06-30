@@ -1,4 +1,4 @@
-import { PlotData, DataTitle, Datum, HoverLabel } from '../../index';
+import { Datum, HoverLabel } from '../../index';
 
 export type SankeyColor = string | number;
 export type SankeyColors = Array<SankeyColor | null | undefined>;
@@ -20,6 +20,7 @@ export interface SankeyHoverLabel {
     bgcolor: SankeyColor | SankeyColors;
     bordercolor: SankeyColor | SankeyColors;
     font: SankeyFont;
+    align: HoverLabel['align'] | Array<HoverLabel['align']>;
     namelength: number | number[];
 }
 
@@ -93,8 +94,7 @@ export interface SankeyData {
     link: Partial<SankeyLink>;
     textfont: Partial<SankeyFont>;
     selectpoints: string | number;
-    points: string | number;
-    arrangement: "snap" | "perpendicular" | "freeform" | "fixed";
+    arrangement: 'snap' | 'perpendicular' | 'freeform' | 'fixed';
     hoverlabel: Partial<SankeyHoverLabel>;
     valueformat: string;
     valuesuffix: string;
