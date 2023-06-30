@@ -49,7 +49,7 @@ import * as R from 'ramda';
 
     const obj: A | C = { a: 1, b: 2, c: '3' };
 
-    // $ExpectType Record<"a" | "b" | "c", void>
+    // $ExpectType Record<"b", void>
     R.map(
         // $ExpectType (value: string | number) => void
         value => { value; },

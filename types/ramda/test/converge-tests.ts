@@ -141,7 +141,7 @@ import * as R from 'ramda';
     const withGeneric0 = R.converge(addGeneric, [multiply, subtract] as const);
 
     // unable to infer types correctly because generic `R.or` has overloads with different number of arguments
-    // $ExpectType Curry<(a: number, b: number) => <U>(b: U) => unknown>
+    // $ExpectType Curry<(a: number, b: number) => unknown>
     const withGenericWrongInferred = R.converge(R.or, [add, subtract] as const);
 
     // need to use wrapper `(...args) => convergingFunction(...args)` if converging function

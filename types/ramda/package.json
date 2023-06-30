@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "types-ramda": "^0.29.3"
+        "types-ramda": "^0.29.4"
     }
 }
