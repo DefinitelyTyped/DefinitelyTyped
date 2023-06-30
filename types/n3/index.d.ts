@@ -12,7 +12,7 @@
 /// <reference types="node" />
 
 import * as stream from "stream";
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 import { EventEmitter } from "events";
 
 export interface Prefixes<I = RDF.NamedNode> {
