@@ -1,4 +1,4 @@
-// Type definitions for formidable 2.0
+// Type definitions for formidable 3.4
 // Project: https://github.com/node-formidable/formidable
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Martin Badin <https://github.com/martin-badin>

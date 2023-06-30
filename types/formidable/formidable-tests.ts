@@ -194,6 +194,14 @@ http.createServer(req => {
     form.parse(req); // testing without callback
 });
 
+http.createServer(async req => {
+    const [fields, files] = await form.parse(req); // testing with promise
+    // $ExpectType Fields
+    fields;
+    // $ExpectType Files
+    files;
+});
+
 // $ExpectType IncomingForm
 new IncomingForm();
 
