@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated } from 'react-native';
+import { Animated, TextStyle, ViewStyle } from 'react-native';
 
 export interface SnackbarComponentProps {
     accentColor?: string | undefined;
@@ -19,10 +19,13 @@ export interface SnackbarComponentProps {
     right?: number | Animated.Value | undefined;
     top?: number | Animated.Value | undefined;
     bottom?: number | Animated.Value | undefined;
-    position?: string | undefined;
+    position?: 'bottom' | 'top' | undefined;
     textMessage?: string | JSX.Element | undefined;
     autoHidingTime?: number | undefined;
     visible?: boolean | undefined;
+    containerStyle?: ViewStyle | undefined;
+    messageStyle?: TextStyle | undefined;
+    actionStyle?: TextStyle | undefined;
 }
 
 export default class SnackbarComponent extends React.Component<SnackbarComponentProps> {}

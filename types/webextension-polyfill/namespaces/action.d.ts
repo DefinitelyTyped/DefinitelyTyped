@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.action
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use browser actions to put icons in the main browser toolbar, to the right of the address bar. In addition to its icon,
  * a browser action can also have a tooltip, a badge, and a popup.
@@ -75,6 +78,18 @@ export namespace Action {
         title: string | null;
     }
 
+    /**
+     * The collection of user-specified settings relating to an extension's action.
+     */
+    interface GetUserSettingsCallbackUserSettingsType {
+        /**
+         * Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e.,
+         * whether the extension has been 'pinned' by the user).
+         * Optional.
+         */
+        isOnToolbar?: boolean;
+    }
+
     interface SetIconDetailsType extends Details {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set.
@@ -147,6 +162,11 @@ export namespace Action {
          * @param details
          */
         getTitle(details: Details): Promise<string>;
+
+        /**
+         * Returns the user-specified settings relating to an extension's action.
+         */
+        getUserSettings(): Promise<GetUserSettingsCallbackUserSettingsType>;
 
         /**
          * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data

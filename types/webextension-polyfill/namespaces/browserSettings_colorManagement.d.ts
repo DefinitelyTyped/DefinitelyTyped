@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.browserSettings.colorManagement
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browserSettings.colorManagement</code> API to query and set items related to color management.
  * Permissions: "browserSettings"
