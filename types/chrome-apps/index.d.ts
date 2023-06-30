@@ -9353,8 +9353,8 @@ declare namespace chrome {
         }
 
         enum ActiveState {
-            ACTIVE = "active",
-            INACTIVE = "inactive",
+            ACTIVE = 'active',
+            INACTIVE = 'inactive',
         }
 
         interface Insets {
@@ -9603,7 +9603,7 @@ declare namespace chrome {
             /** True if this display is enabled. */
             isEnabled: boolean;
             /** True if the display is attached. */
-            activeState?: ActiveState
+            activeState: ActiveState
             /** The number of pixels per inch along the x-axis. */
             dpiX: integer;
             /** The number of pixels per inch along the y-axis. */
