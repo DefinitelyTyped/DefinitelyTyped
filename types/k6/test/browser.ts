@@ -120,11 +120,6 @@ browser.newPage({ userAgent: 'foo' });
 // $ExpectType Page
 browser.newPage({ viewport: { width: 1280, height: 720 } });
 
-// @ts-expect-error
-browser.on();
-// $ExpectType boolean
-browser.on('disconnected');
-
 // $ExpectType string
 browser.version();
 

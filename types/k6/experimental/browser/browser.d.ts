@@ -51,15 +51,6 @@ export class Browser {
     ): Page;
 
     /**
-     * Currently only detects the `disconnected` event from the browser
-     * application.
-     * @param event
-     */
-    on(
-        event: 'disconnected',
-    ): boolean;
-
-    /**
      * Returns the browser application's version.
      */
     version(): string;
