@@ -94,7 +94,7 @@ export class CMLog {
     error(cat: string, msg: string): void;
 }
 
-export class Cmake {
+export class CMake {
     constructor(options?: CmakeOptions);
 
     static isAvailable(): boolean;
@@ -134,7 +134,7 @@ export class Cmake {
     compile(): Promise<void>;
 }
 
-export class BuildSystem extends Cmake {
+export class BuildSystem extends CMake {
     constructor(options?: BuildSystemOptions);
 
     install(): Promise<void>;
@@ -154,7 +154,7 @@ export class Dist {
     download(): Promise<void>;
 }
 
-export class Downloader {
+export class downloader {
     downloadToStream(url: string, stream: NodeJS.WritableStream, hash?: string): Promise<void>;
 
     downloadString(url: string): Promise<string>;
