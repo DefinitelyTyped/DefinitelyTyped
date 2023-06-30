@@ -58,6 +58,11 @@ declare namespace KoaRatelimit {
         id?: ((context: Context) => string | false) | undefined;
 
         /**
+         * Specify a prefix for the storage driver to use when creating key names.
+         */
+        namespace?: string | undefined;
+
+        /**
          * Whether or not to disable the usage of rate limit headers. This defaults
          * to **false**.
          */
