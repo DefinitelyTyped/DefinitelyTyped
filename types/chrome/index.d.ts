@@ -7307,7 +7307,7 @@ declare namespace chrome.runtime {
             match_about_blank?: boolean | undefined;
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
-            world: "ISOLATED" | "MAIN" | undefined
+            world?: "ISOLATED" | "MAIN" | undefined
         }[] | undefined;
         content_security_policy?: {
             extension_pages?: string;
