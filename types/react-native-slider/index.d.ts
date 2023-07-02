@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { JSX } from 'react';
-import { ViewStyle, ImageSourcePropType } from 'react-native';
+import { ViewStyle, ImageSourcePropType, Animated } from 'react-native';
 
 export interface ReactNativeSliderProps {
     value?: number;
@@ -29,7 +29,7 @@ export interface ReactNativeSliderProps {
     debugTouchArea?: boolean;
     animateTransitions?: boolean;
     animationType?: 'spring' | 'timing';
-    animationConfig?: Record<string, string>;
+    animationConfig?: Animated.SpringAnimationConfig | Animated.TimingAnimationConfig;
 }
 
 export default function Slider(props: ReactNativeSliderProps): JSX.Element;
