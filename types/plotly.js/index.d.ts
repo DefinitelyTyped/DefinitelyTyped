@@ -312,6 +312,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
         callback: () => void,
     ): void;
     removeAllListeners: (handler: string) => void;
+    data: Data[];
 }
 
 export interface ToImgopts {
