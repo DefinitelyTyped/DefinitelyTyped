@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+import buffer = require('node:buffer');
+import stream = require('stream');
+
 export interface listDirOptions {
     limit?: number;
     order?: 'asc' | 'desc';
