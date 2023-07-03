@@ -2395,7 +2395,7 @@
         },
         "iobroker": {
             "libraryName": "@iobroker/types",
-            "asOfVersion": "5.0.6"
+            "asOfVersion": "5.0.0"
         },
         "ionic": {
             "libraryName": "ionic",
