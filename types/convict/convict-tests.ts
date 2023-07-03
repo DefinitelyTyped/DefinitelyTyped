@@ -235,4 +235,12 @@ if (port2 !== 12345) {
     throw new Error(`Test failed. Expected injected environment variable to be reflected in config.`);
 }
 
+// reset
+
+// $ExpectType void
+conf.reset('ip');
+
+// @ts-expect-error Trying to reset non-existing property
+conf.reset('unknown-key');
+
 // vim:et:sw=2:ts=2

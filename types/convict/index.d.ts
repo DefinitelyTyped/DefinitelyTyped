@@ -151,6 +151,11 @@ declare namespace convict {
         has<K extends Path<T>>(name: K): boolean;
 
         /**
+         * Resets a property to its default value as defined in the schema
+         */
+        reset<K extends Path<T>>(name: K): void;
+
+        /**
          * Sets the value of name to value. name can use dot notation to reference
          * nested values, e.g. "database.port". If objects in the chain don't yet
          * exist, they will be initialized to empty objects
