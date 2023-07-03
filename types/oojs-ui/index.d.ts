@@ -1,4 +1,4 @@
-// Type definitions for OOUI 0.46
+// Type definitions for OOUI 0.47
 // Project: https://www.mediawiki.org/wiki/OOUI
 // Definitions by: diskdance <https://github.com/diskdance>
 //                 Chlod Aidan Alejandro <https://github.com/ChlodAlejandro>
