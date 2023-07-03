@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@bramus/pagination-sequence": "^1.2.0"
+    }
+}
