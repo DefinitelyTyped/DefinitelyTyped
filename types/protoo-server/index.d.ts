@@ -77,7 +77,7 @@ export class Room {
     peers: Peer[];
     closed: boolean;
     constructor();
-    createPeer(peerId: string, transport: WebSocketTransport): Promise<Peer>;
+    createPeer(peerId: string, transport: WebSocketTransport): Peer;
     hasPeer(peerId: string): boolean;
     getPeer(peerId: string): Peer;
     close(): void;
