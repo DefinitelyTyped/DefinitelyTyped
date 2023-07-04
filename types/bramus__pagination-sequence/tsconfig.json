@@ -19,7 +19,5 @@
     "files": [
         "index.d.ts",
         "bramus__pagination-sequence-tests.ts",
-        "bramus__pagination-sequence-tests.ts",
-        "bramus__pagination-sequence.d"
     ]
 }
