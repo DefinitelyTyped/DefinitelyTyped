@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@bramus/*": ["bramus__*"]
+        }
     },
     "files": [
         "index.d.ts",
