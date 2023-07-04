@@ -40,14 +40,12 @@ script.args;
 versions.plugin;
 
 // $ExpectType string
-path.dirname
+path.sep;
 // $ExpectType string
-path.basename
+path.delimiter;
 // $ExpectType string
-path.extname;
+path.extname("test/path");
 // $ExpectType boolean
-path.isAbsolute;
+path.isAbsolute("testpath");
 
 const obj = { hello: "world" };
-var blob = new Blob([obj], { type: "text/css" });
-
