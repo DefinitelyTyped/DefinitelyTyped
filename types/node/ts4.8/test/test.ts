@@ -1,4 +1,4 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach, skip, only, todo } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
 import { dot, spec, tap } from 'node:test/reporters';
 
 // run without options
@@ -54,6 +54,8 @@ test('options with booleans', {
 
 // Test callback mode
 test((t, cb) => {
+    // $ExpectedType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -611,3 +613,14 @@ tap();
 tap('' as any);
 // $ExpectType Spec
 new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
+});

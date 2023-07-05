@@ -613,3 +613,14 @@ tap();
 tap('' as any);
 // $ExpectType Spec
 new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
+});
