@@ -2393,6 +2393,10 @@
             "libraryName": "inversify-restify-utils",
             "asOfVersion": "2.0.0"
         },
+        "iobroker": {
+            "libraryName": "@iobroker/types",
+            "asOfVersion": "5.0.6"
+        },
         "ionic": {
             "libraryName": "ionic",
             "asOfVersion": "3.19.0"
