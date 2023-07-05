@@ -1,5 +1,9 @@
 {
     "packages": {
+        "node-replicate": {
+            "libraryName": "node-replicate",
+            "asOfVersion": "2.0.0"
+        },
         "3d-bin-packing": {
             "libraryName": "3d-bin-packing",
             "asOfVersion": "1.1.3"
