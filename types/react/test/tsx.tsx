@@ -357,6 +357,22 @@ class LegacyContext extends React.Component {
     }
 }
 
+class LegacyContextWithConstructor extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+
+    constructor(props: {}, context: {}) {
+        super(props, context);
+    }
+
+    render() {
+        // $ExpectType unknown
+        this.context;
+        return (this.context as any).foo;
+    }
+}
+
+<LegacyContextWithConstructor />;
+
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
     context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
