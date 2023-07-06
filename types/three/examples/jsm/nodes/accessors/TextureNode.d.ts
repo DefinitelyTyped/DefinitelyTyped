@@ -1,6 +1,6 @@
-import { Texture } from '../../../../src/Three';
-import UniformNode from '../core/UniformNode';
-import { Node } from '../Nodes';
+import { Texture } from '../../../../src/Three.js';
+import UniformNode from '../core/UniformNode.js';
+import { Node } from '../Nodes.js';
 
 export default class TextureNode extends UniformNode {
     isTextureNode: true;

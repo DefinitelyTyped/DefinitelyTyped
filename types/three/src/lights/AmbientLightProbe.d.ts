@@ -1,5 +1,5 @@
-import { ColorRepresentation } from '../math/Color';
-import { LightProbe } from './LightProbe';
+import { ColorRepresentation } from '../math/Color.js';
+import { LightProbe } from './LightProbe.js';
 
 /**
  * Light probes are an alternative way of adding light to a 3D scene

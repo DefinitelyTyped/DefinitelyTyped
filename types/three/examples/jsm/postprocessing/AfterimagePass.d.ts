@@ -1,6 +1,6 @@
-import { WebGLRenderTarget, ShaderMaterial } from '../../../src/Three';
+import { WebGLRenderTarget, ShaderMaterial } from '../../../src/Three.js';
 
-import { Pass, FullScreenQuad } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export class AfterimagePass extends Pass {
     constructor(damp?: number);

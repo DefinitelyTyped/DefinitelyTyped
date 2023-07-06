@@ -1,4 +1,4 @@
-import { BufferGeometry, Curve, Mesh, Vector3 } from '../../../src/Three';
+import { BufferGeometry, Curve, Mesh, Vector3 } from '../../../src/Three.js';
 
 export class RollerCoasterGeometry extends BufferGeometry {
     constructor(curve: Curve<Vector3>, divisions: number);

@@ -1,7 +1,7 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { BufferGeometry } from './../core/BufferGeometry';
-import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry';
+import { Loader } from './Loader.js';
+import { LoadingManager } from './LoadingManager.js';
+import { BufferGeometry } from './../core/BufferGeometry.js';
+import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry.js';
 
 export class BufferGeometryLoader extends Loader {
     constructor(manager?: LoadingManager);

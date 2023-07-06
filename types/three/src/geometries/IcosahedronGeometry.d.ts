@@ -1,4 +1,4 @@
-import { PolyhedronGeometry } from './PolyhedronGeometry';
+import { PolyhedronGeometry } from './PolyhedronGeometry.js';
 
 /**
  * A class for generating an icosahedron geometry.

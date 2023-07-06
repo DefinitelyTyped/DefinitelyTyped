@@ -1,8 +1,8 @@
-import { HemisphereLight } from './../lights/HemisphereLight';
-import { Matrix4 } from './../math/Matrix4';
-import { MeshBasicMaterial } from './../materials/MeshBasicMaterial';
-import { Object3D } from './../core/Object3D';
-import { ColorRepresentation } from '../math/Color';
+import { HemisphereLight } from './../lights/HemisphereLight.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { MeshBasicMaterial } from './../materials/MeshBasicMaterial.js';
+import { Object3D } from './../core/Object3D.js';
+import { ColorRepresentation } from '../math/Color.js';
 
 /**
  * Creates a visual aid consisting of a spherical {@link THREE.Mesh | Mesh} for a {@link THREE.HemisphereLight | HemisphereLight}.

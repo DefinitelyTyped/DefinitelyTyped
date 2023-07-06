@@ -1,5 +1,5 @@
-import Node from '../core/Node';
-import NodeBuilder from '../core/NodeBuilder';
+import Node from '../core/Node.js';
+import NodeBuilder from '../core/NodeBuilder.js';
 
 export interface CodeNodeInclude {
     build(builder: NodeBuilder): void;

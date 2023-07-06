@@ -1,6 +1,6 @@
-import Node from '../core/Node';
-import RangeNode, { RangeModeBound } from '../geometry/RangeNode';
-import { NodeRepresentation, Swizzable } from './ShaderNode';
+import Node from '../core/Node.js';
+import RangeNode, { RangeModeBound } from '../geometry/RangeNode.js';
+import { NodeRepresentation, Swizzable } from './ShaderNode.js';
 import {
     CubeTexture,
     InstancedMesh,
@@ -9,8 +9,8 @@ import {
     Texture,
     TextureEncoding,
     ToneMapping,
-} from '../../../../src/Three';
-import LightingContextNode, { LightingModelNode } from '../lighting/LightingContextNode';
+} from '../../../../src/Three.js';
+import LightingContextNode, { LightingModelNode } from '../lighting/LightingContextNode.js';
 import {
     BlendModeNode,
     CheckerNode,
@@ -37,7 +37,7 @@ import {
     TriplanarTexturesNode,
     SpecularMIPLevelNode,
     ViewportNode,
-} from '../Nodes';
+} from '../Nodes.js';
 
 //
 // Node Material Shader Syntax
@@ -45,21 +45,21 @@ import {
 
 // shader node base
 
-export * from './ShaderNodeBaseElements';
+export * from './ShaderNodeBaseElements.js';
 
 // functions
 
-export { default as BRDF_GGX } from '../functions/BSDF/BRDF_GGX'; // see https://github.com/tc39/proposal-export-default-from
-export { default as BRDF_Lambert } from '../functions/BSDF/BRDF_Lambert';
-export { default as D_GGX } from '../functions/BSDF/D_GGX';
-export { default as DFGApprox } from '../functions/BSDF/DFGApprox';
-export { default as F_Schlick } from '../functions/BSDF/F_Schlick';
-export { default as V_GGX_SmithCorrelated } from '../functions/BSDF/V_GGX_SmithCorrelated';
+export { default as BRDF_GGX } from '../functions/BSDF/BRDF_GGX.js'; // see https://github.com/tc39/proposal-export-default-from
+export { default as BRDF_Lambert } from '../functions/BSDF/BRDF_Lambert.js';
+export { default as D_GGX } from '../functions/BSDF/D_GGX.js';
+export { default as DFGApprox } from '../functions/BSDF/DFGApprox.js';
+export { default as F_Schlick } from '../functions/BSDF/F_Schlick.js';
+export { default as V_GGX_SmithCorrelated } from '../functions/BSDF/V_GGX_SmithCorrelated.js';
 
-export { default as getGeometryRoughness } from '../functions/material/getGeometryRoughness';
-export { default as getRoughness } from '../functions/material/getRoughness';
+export { default as getGeometryRoughness } from '../functions/material/getGeometryRoughness.js';
+export { default as getRoughness } from '../functions/material/getRoughness.js';
 
-export { default as PhysicalLightingModel } from '../functions/PhysicalLightingModel';
+export { default as PhysicalLightingModel } from '../functions/PhysicalLightingModel.js';
 
 // accessors
 

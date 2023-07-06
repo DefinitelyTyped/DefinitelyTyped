@@ -10,9 +10,9 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     ColorRepresentation,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { Pass, FullScreenQuad } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export enum OUTPUT {
     Beauty,

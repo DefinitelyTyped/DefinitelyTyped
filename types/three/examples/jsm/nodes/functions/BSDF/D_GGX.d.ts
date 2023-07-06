@@ -1,5 +1,5 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements';
-import Node from '../../core/Node';
+import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements.js';
+import Node from '../../core/Node.js';
 
 // Microfacet Models for Refraction through Rough Surfaces - equation (33)
 // http://graphicrants.blogspot.com/2013/08/specular-brdf-reference.html
