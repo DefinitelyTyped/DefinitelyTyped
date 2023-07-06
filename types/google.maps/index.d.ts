@@ -178,68 +178,68 @@ declare namespace google.maps {
     /**
      * The center of the Circle.
      */
-    center?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    center?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * Indicates whether this <code>Circle</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: null|boolean;
+    clickable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can drag this circle over the map.
      * @defaultValue <code>false</code>
      */
-    draggable?: null|boolean;
+    draggable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can edit this circle by dragging
      * the control points shown at the center and around the circumference of
      * the circle.
      * @defaultValue <code>false</code>
      */
-    editable?: null|boolean;
+    editable?: boolean|null;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: null|string;
+    fillColor?: string|null;
     /**
      * The fill opacity between 0.0 and 1.0.
      */
-    fillOpacity?: null|number;
+    fillOpacity?: number|null;
     /**
      * Map on which to display the Circle.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * The radius in meters on the Earth&#39;s surface.
      */
-    radius?: null|number;
+    radius?: number|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: null|string;
+    strokeColor?: string|null;
     /**
      * The stroke opacity between 0.0 and 1.0.
      */
-    strokeOpacity?: null|number;
+    strokeOpacity?: number|null;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: null|google.maps.StrokePosition;
+    strokePosition?: google.maps.StrokePosition|null;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: null|number;
+    strokeWeight?: number|null;
     /**
      * Whether this circle is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: null|boolean;
+    visible?: boolean|null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   /**
    * Access by calling `const {CollisionBehavior} = await
@@ -1278,7 +1278,7 @@ declare namespace google.maps {
      * href="https://developers.google.com/maps/faq#languagesupport">list of
      * supported languages</a>.
      */
-    language?: null|string;
+    language?: string|null;
     /**
      * An array containing origin address strings, or <code>LatLng</code>, or
      * <code>Place</code> objects, from which to calculate distance and time.
@@ -1297,7 +1297,7 @@ declare namespace google.maps {
      * (technically for the entity of &quot;The United Kingdom of Great Britain
      * and Northern Ireland&quot;).
      */
-    region?: null|string;
+    region?: string|null;
     /**
      * Settings that apply only to requests where <code>travelMode</code> is
      * TRANSIT. This object will have no effect for other travel modes.
@@ -1494,7 +1494,7 @@ declare namespace google.maps {
     /**
      * The location of this elevation result.
      */
-    location: null|google.maps.LatLng;
+    location: google.maps.LatLng|null;
     /**
      * The distance, in meters, between sample points from which the elevation
      * was interpolated. This property will be missing if the resolution is not
@@ -1746,10 +1746,10 @@ declare namespace google.maps {
      */
     geocode(
         request: google.maps.GeocoderRequest,
-        callback?: null|
-        ((a: null|google.maps.GeocoderResult[],
-          b: google.maps.GeocoderStatus) => void)):
-        Promise<google.maps.GeocoderResponse>;
+        callback?:
+            ((a: google.maps.GeocoderResult[]|null,
+              b: google.maps.GeocoderStatus) => void)|
+        null): Promise<google.maps.GeocoderResponse>;
   }
   /**
    * A single address component within a <code>GeocoderResult</code>. A full
@@ -1864,11 +1864,11 @@ declare namespace google.maps {
      * Address to geocode. One, and only one, of <code>address</code>,
      * <code>location</code> and <code>placeId</code> must be supplied.
      */
-    address?: null|string;
+    address?: string|null;
     /**
      * <code>LatLngBounds</code> within which to search. Optional.
      */
-    bounds?: null|google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral;
+    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
     /**
      * Components are used to restrict results to a specific area. A filter
      * consists of one or more of: <code>route</code>, <code>locality</code>,
@@ -1877,14 +1877,14 @@ declare namespace google.maps {
      * returned. Filter values support the same methods of spelling correction
      * and partial matching as other geocoding requests. Optional.
      */
-    componentRestrictions?: null|google.maps.GeocoderComponentRestrictions;
+    componentRestrictions?: google.maps.GeocoderComponentRestrictions|null;
     /**
      * A language identifier for the language in which results should be
      * returned, when possible. See the <a
      * href="https://developers.google.com/maps/faq#languagesupport">list of
      * supported languages</a>.
      */
-    language?: null|string;
+    language?: string|null;
     /**
      * <code>LatLng</code> (or <code>LatLngLiteral</code>) for which to search.
      * The geocoder performs a reverse geocode. See <a
@@ -1893,7 +1893,7 @@ declare namespace google.maps {
      * <code>address</code>, <code>location</code> and <code>placeId</code> must
      * be supplied.
      */
-    location?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    location?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * The place ID associated with the location. Place IDs uniquely identify a
      * place in the Google Places database and on Google Maps. Learn more about
@@ -1906,14 +1906,14 @@ declare namespace google.maps {
      * <code>address</code>, <code>location</code> and <code>placeId</code> must
      * be supplied.
      */
-    placeId?: null|string;
+    placeId?: string|null;
     /**
      * Country code used to bias the search, specified as a two-character
      * (non-numeric) Unicode region subtag / CLDR identifier. Optional. See <a
      * href="http://developers.google.com/maps/coverage">Google Maps Platform
      * Coverage Details</a> for supported regions.
      */
-    region?: null|string;
+    region?: string|null;
   }
   /**
    * A Geocoder response returned by the {@link google.maps.Geocoder} containing
@@ -2102,29 +2102,29 @@ declare namespace google.maps {
      * location of the marker on the map. By default, the anchor is located
      * along the center point of the bottom of the image.
      */
-    anchor?: null|google.maps.Point;
+    anchor?: google.maps.Point|null;
     /**
      * The origin of the label relative to the top-left corner of the icon
      * image, if a label is supplied by the marker. By default, the origin is
      * located in the center point of the image.
      */
-    labelOrigin?: null|google.maps.Point;
+    labelOrigin?: google.maps.Point|null;
     /**
      * The position of the image within a sprite, if any. By default, the origin
      * is located at the top left corner of the image <code>(0, 0)</code>.
      */
-    origin?: null|google.maps.Point;
+    origin?: google.maps.Point|null;
     /**
      * The size of the entire image after scaling, if any. Use this property to
      * stretch/shrink an image or a sprite.
      */
-    scaledSize?: null|google.maps.Size;
+    scaledSize?: google.maps.Size|null;
     /**
      * The display size of the sprite or image. When using sprites, you must
      * specify the sprite size. If the size is not provided, it will be set when
      * the image loads.
      */
-    size?: null|google.maps.Size;
+    size?: google.maps.Size|null;
     /**
      * The URL of the image or sprite sheet.
      */
@@ -2166,7 +2166,7 @@ declare namespace google.maps {
     /**
      * The icon to render on the line.
      */
-    icon?: null|google.maps.Symbol;
+    icon?: google.maps.Symbol|null;
     /**
      * The distance from the start of the line at which an icon is to be
      * rendered. This distance may be expressed as a percentage of line&#39;s
@@ -2360,20 +2360,20 @@ declare namespace google.maps {
     /**
      * AriaLabel to assign to the InfoWindow.
      */
-    ariaLabel?: null|string;
+    ariaLabel?: string|null;
     /**
      * Content to display in the InfoWindow. This can be an HTML element, a
      * plain-text string, or a string containing HTML. The InfoWindow will be
      * sized according to the content. To set an explicit size for the content,
      * set content to be a HTML element with that size.
      */
-    content?: null|string|Element|Text;
+    content?: string|Element|Text|null;
     /**
      * Disable panning the map to make the InfoWindow fully visible when it
      * opens.
      * @defaultValue <code>false</code>
      */
-    disableAutoPan?: null|boolean;
+    disableAutoPan?: boolean|null;
     /**
      * Maximum width of the InfoWindow, regardless of content&#39;s width. This
      * value is only considered if it is set before a call to
@@ -2381,7 +2381,7 @@ declare namespace google.maps {
      * call <code>close()</code>, <code>setOptions()</code>, and then
      * <code>open()</code>.
      */
-    maxWidth?: null|number;
+    maxWidth?: number|null;
     /**
      * Minimum width of the InfoWindow, regardless of the content&#39;s width.
      * When using this property, it is strongly recommended to set the
@@ -2391,19 +2391,19 @@ declare namespace google.maps {
      * call <code>close()</code>, <code>setOptions()</code>, and then
      * <code>open()</code>.
      */
-    minWidth?: null|number;
+    minWidth?: number|null;
     /**
      * The offset, in pixels, of the tip of the info window from the point on
      * the map at whose geographical coordinates the info window is anchored. If
      * an InfoWindow is opened with an anchor, the <code>pixelOffset</code> will
      * be calculated from the anchor&#39;s <code>anchorPoint</code> property.
      */
-    pixelOffset?: null|google.maps.Size;
+    pixelOffset?: google.maps.Size|null;
     /**
      * The LatLng at which to display this InfoWindow. If the InfoWindow is
      * opened with an anchor, the anchor&#39;s position will be used instead.
      */
-    position?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    position?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * All InfoWindows are displayed on the map in order of their zIndex, with
      * higher values displaying in front of InfoWindows with lower values. By
@@ -2411,7 +2411,7 @@ declare namespace google.maps {
      * InfoWindows of lower latitudes appearing in front of InfoWindows at
      * higher latitudes. InfoWindows are always displayed in front of markers.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   export interface JourneySharingLibrary {
     AutomaticViewportMode:
@@ -2837,7 +2837,7 @@ declare namespace google.maps {
      * Comparison function.
      * @param other Another LatLngAltitude object.
      */
-    equals(other: null|google.maps.LatLngAltitude): boolean;
+    equals(other: google.maps.LatLngAltitude|null): boolean;
     /**
      * Returns the latitude.
      */
@@ -3034,7 +3034,7 @@ declare namespace google.maps {
     /**
      * The discrete locations for which to retrieve elevations.
      */
-    locations?: null|(google.maps.LatLng|google.maps.LatLngLiteral)[];
+    locations?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
   }
   /**
    * An elevation response returned by the {@link google.maps.ElevationService}
@@ -3448,10 +3448,27 @@ declare namespace google.maps {
   }
   /**
    * Object containing a snapshot of what capabilities are currently available
-   * for the Map. See the properties for a list of possible capabilities.
+   * for the Map. Note that this does not necessarily mean that relevant modules
+   * are loaded or initialized, but rather that the current map has permission
+   * to use these APIs. See the properties for a list of possible capabilities.
    */
   export interface MapCapabilities {
+    /**
+     * If true, this map is configured properly to allow for the use of advanced
+     * markers. Note that you must still import the <code>marker</code> library
+     * in order to use advanced markers. See <a
+     * href="https://developers.google.com/maps/documentation/javascript/advanced-markers/start#update_your_map_initialization_code">https://developers.google.com/maps/documentation/javascript/advanced-markers/start#update_your_map_initialization_code</a>
+     * for more information.
+     */
     isAdvancedMarkersAvailable?: boolean;
+    /**
+     * If true, this map is configured properly to allow for the use of
+     * data-driven styling for at least one FeatureLayer. See <a
+     * href="https://developers.google.com/maps/documentation/javascript/dds-boundaries/overview">https://developers.google.com/maps/documentation/javascript/dds-boundaries/overview</a>
+     * and <a
+     * href="https://developers.google.com/maps/documentation/javascript/reference/data-driven-styling#FeatureLayer.isAvailable">https://developers.google.com/maps/documentation/javascript/reference/data-driven-styling#FeatureLayer.isAvailable</a>
+     * for more information.
+     */
     isDataDrivenStylingAvailable?: boolean;
   }
   /**
@@ -3487,14 +3504,14 @@ declare namespace google.maps {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor();
-    center: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    center: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
-    mapId: null|string;
-    zoom: null|number;
+    mapId: string|null;
+    zoom: number|null;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -3506,21 +3523,21 @@ declare namespace google.maps {
     /**
      * The initial Map center.
      */
-    center?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    center?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * The <a
      * href="https://developers.google.com/maps/documentation/get-map-id">Map
      * ID</a> of the map. This parameter cannot be set or changed after a map is
      * instantiated.
      */
-    mapId?: null|string;
+    mapId?: string|null;
     /**
      * The initial Map zoom level. Valid zoom values are numbers from zero up to
      * the supported <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
      * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
-    zoom?: null|number;
+    zoom?: number|null;
   }
   /**
    * This object is returned from various mouse events on the map and overlays,
@@ -3542,7 +3559,7 @@ declare namespace google.maps {
     /**
      * The latitude/longitude that was below the cursor when the event occurred.
      */
-    latLng: null|google.maps.LatLng;
+    latLng: google.maps.LatLng|null;
     /**
      * Prevents this event from propagating further.
      */
@@ -3677,7 +3694,7 @@ declare namespace google.maps {
     /**
      * The initial Map mapTypeId. Defaults to <code>ROADMAP</code>.
      */
-    mapTypeId?: null|string;
+    mapTypeId?: string|null;
     /**
      * The maximum zoom level which will be displayed on the map. If omitted, or
      * set to <code>null</code>, the maximum zoom from the current map type is
@@ -4487,7 +4504,7 @@ declare namespace google.maps {
      * Icon for the foreground. If a string is provided, it is treated as though
      * it were an <code>Icon</code> with the string as <code>url</code>.
      */
-    icon?: string|null|google.maps.Icon|google.maps.Symbol;
+    icon?: string|google.maps.Icon|null|google.maps.Symbol;
     /**
      * Adds a label to the marker. A marker label is a letter or number that
      * appears inside a marker. The label can either be a string, or a
@@ -4498,7 +4515,7 @@ declare namespace google.maps {
      * currently only used for accessibility text for non-optimized markers.
      * @defaultValue <code>null</code>
      */
-    label?: string|null|google.maps.MarkerLabel;
+    label?: string|google.maps.MarkerLabel|null;
     /**
      * Map on which to display Marker. The map is required to display the marker
      * and can be provided with {@link google.maps.Marker.setMap} if not
@@ -4592,7 +4609,7 @@ declare namespace google.maps {
      * with {@link google.maps.MaxZoomService.getMaxZoomAtLatLng} (it is not
      * defined when using Promises).
      */
-    status: null|google.maps.MaxZoomStatus;
+    status: google.maps.MaxZoomStatus|null;
     /**
      * The maximum zoom level found at the given <code>LatLng</code>.
      */
@@ -4647,7 +4664,7 @@ declare namespace google.maps {
      * Position id. This is used to specify the position of this control on the
      * panorama. The default position is <code>RIGHT_BOTTOM</code>.
      */
-    position?: null|google.maps.ControlPosition;
+    position?: google.maps.ControlPosition|null;
   }
   /**
    * You can implement this class if you want to display custom types of overlay
@@ -4775,7 +4792,7 @@ declare namespace google.maps {
     /**
      * The path along which to collect elevation values.
      */
-    path?: null|(google.maps.LatLng|google.maps.LatLngLiteral)[];
+    path?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
     /**
      * Required. The number of equidistant points along the given path for which
      * to retrieve elevation data, including the endpoints. The number of
@@ -5031,28 +5048,28 @@ declare namespace google.maps {
      * Indicates whether this <code>Polygon</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: null|boolean;
+    clickable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can drag this shape over the map.
      * The <code>geodesic</code> property defines the mode of dragging.
      * @defaultValue <code>false</code>
      */
-    draggable?: null|boolean;
+    draggable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can edit this shape by dragging the
      * control points shown at the vertices and on each segment.
      * @defaultValue <code>false</code>
      */
-    editable?: null|boolean;
+    editable?: boolean|null;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: null|string;
+    fillColor?: string|null;
     /**
      * The fill opacity between 0.0 and 1.0
      */
-    fillOpacity?: null|number;
+    fillOpacity?: number|null;
     /**
      * When <code>true</code>, edges of the polygon are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
@@ -5061,11 +5078,11 @@ declare namespace google.maps {
      * as the dimensions are maintained relative to the surface of the earth.
      * @defaultValue <code>false</code>
      */
-    geodesic?: null|boolean;
+    geodesic?: boolean|null;
     /**
      * Map on which to display Polygon.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * The ordered sequence of coordinates that designates a closed loop. Unlike
      * polylines, a polygon may consist of one or more paths. As a result, the
@@ -5078,34 +5095,34 @@ declare namespace google.maps {
      * <code>LatLng</code>s from the <code>MVCArray</code> will automatically
      * update the polygon on the map.
      */
-    paths?: null|google.maps.MVCArray<any>|any[];
+    paths?: google.maps.MVCArray<any>|any[]|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: null|string;
+    strokeColor?: string|null;
     /**
      * The stroke opacity between 0.0 and 1.0
      */
-    strokeOpacity?: null|number;
+    strokeOpacity?: number|null;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: null|google.maps.StrokePosition;
+    strokePosition?: google.maps.StrokePosition|null;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: null|number;
+    strokeWeight?: number|null;
     /**
      * Whether this polygon is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: null|boolean;
+    visible?: boolean|null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   /**
    * A polyline is a linear overlay of connected line segments on the map.
@@ -5179,19 +5196,19 @@ declare namespace google.maps {
      * Indicates whether this <code>Polyline</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: null|boolean;
+    clickable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can drag this shape over the map.
      * The <code>geodesic</code> property defines the mode of dragging.
      * @defaultValue <code>false</code>
      */
-    draggable?: null|boolean;
+    draggable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can edit this shape by dragging the
      * control points shown at the vertices and on each segment.
      * @defaultValue <code>false</code>
      */
-    editable?: null|boolean;
+    editable?: boolean|null;
     /**
      * When <code>true</code>, edges of the polygon are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
@@ -5200,15 +5217,15 @@ declare namespace google.maps {
      * as the dimensions are maintained relative to the surface of the earth.
      * @defaultValue <code>false</code>
      */
-    geodesic?: null|boolean;
+    geodesic?: boolean|null;
     /**
      * The icons to be rendered along the polyline.
      */
-    icons?: null|google.maps.IconSequence[];
+    icons?: google.maps.IconSequence[]|null;
     /**
      * Map on which to display Polyline.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * The ordered sequence of coordinates of the Polyline. This path may be
      * specified using either a simple array of <code>LatLng</code>s, or an
@@ -5217,30 +5234,30 @@ declare namespace google.maps {
      * or removing LatLngs in the <code>MVCArray</code> will automatically
      * update the polyline on the map.
      */
-    path?: null|google.maps.MVCArray<google.maps.LatLng>|
-        (google.maps.LatLng|google.maps.LatLngLiteral)[];
+    path?: google.maps.MVCArray<google.maps.LatLng>|
+        (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: null|string;
+    strokeColor?: string|null;
     /**
      * The stroke opacity between 0.0 and 1.0.
      */
-    strokeOpacity?: null|number;
+    strokeOpacity?: number|null;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: null|number;
+    strokeWeight?: number|null;
     /**
      * Whether this polyline is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: null|boolean;
+    visible?: boolean|null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   export interface Projection {
     /**
@@ -5336,64 +5353,64 @@ declare namespace google.maps {
     /**
      * The bounds.
      */
-    bounds?: null|google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral;
+    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
     /**
      * Indicates whether this <code>Rectangle</code> handles mouse events.
      * @defaultValue <code>true</code>
      */
-    clickable?: null|boolean;
+    clickable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can drag this rectangle over the
      * map.
      * @defaultValue <code>false</code>
      */
-    draggable?: null|boolean;
+    draggable?: boolean|null;
     /**
      * If set to <code>true</code>, the user can edit this rectangle by dragging
      * the control points shown at the corners and on each edge.
      * @defaultValue <code>false</code>
      */
-    editable?: null|boolean;
+    editable?: boolean|null;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: null|string;
+    fillColor?: string|null;
     /**
      * The fill opacity between 0.0 and 1.0
      */
-    fillOpacity?: null|number;
+    fillOpacity?: number|null;
     /**
      * Map on which to display Rectangle.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: null|string;
+    strokeColor?: string|null;
     /**
      * The stroke opacity between 0.0 and 1.0
      */
-    strokeOpacity?: null|number;
+    strokeOpacity?: number|null;
     /**
      * The stroke position.
      * @defaultValue {@link google.maps.StrokePosition.CENTER}
      */
-    strokePosition?: null|google.maps.StrokePosition;
+    strokePosition?: google.maps.StrokePosition|null;
     /**
      * The stroke width in pixels.
      */
-    strokeWeight?: null|number;
+    strokeWeight?: number|null;
     /**
      * Whether this rectangle is visible on the map.
      * @defaultValue <code>true</code>
      */
-    visible?: null|boolean;
+    visible?: boolean|null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   /**
    * Access by calling `const {RenderingType} = await
@@ -5522,7 +5539,7 @@ declare namespace google.maps {
      * Position id. This id is used to specify the position of the control on
      * the map. The default position is <code>TOP_LEFT</code>.
      */
-    position?: null|google.maps.ControlPosition;
+    position?: google.maps.ControlPosition|null;
   }
   /**
    * Options for the rendering of the Street View pegman control on the map.
@@ -5573,16 +5590,16 @@ declare namespace google.maps {
     /**
      * A localized string describing the link.
      */
-    description: null|string;
+    description: string|null;
     /**
      * The heading of the link.
      */
-    heading: null|number;
+    heading: number|null;
     /**
      * A unique identifier for the panorama. This id is stable within a session
      * but unstable across sessions.
      */
-    pano: null|string;
+    pano: string|null;
   }
   /**
    * A representation of a location in the Street View panorama.
@@ -5591,11 +5608,11 @@ declare namespace google.maps {
     /**
      * A localized string describing the location.
      */
-    description?: null|string;
+    description?: string|null;
     /**
      * The latlng of the panorama.
      */
-    latLng?: null|google.maps.LatLng;
+    latLng?: google.maps.LatLng|null;
     /**
      * A unique identifier for the panorama. This is stable within a session but
      * unstable across sessions.
@@ -5604,7 +5621,7 @@ declare namespace google.maps {
     /**
      * Short description of the location.
      */
-    shortDescription?: null|string;
+    shortDescription?: string|null;
   }
   /**
    * A Street View request to be sent with <code>getPanorama</code>.
@@ -5615,24 +5632,24 @@ declare namespace google.maps {
     /**
      * Specifies the location where to search for a Street View panorama.
      */
-    location?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    location?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * Sets a preference for which panorama should be found within the radius:
      * the one nearest to the provided location, or the best one within the
      * radius.
      */
-    preference?: null|google.maps.StreetViewPreference;
+    preference?: google.maps.StreetViewPreference|null;
     /**
      * Sets a radius in meters in which to search for a panorama.
      * @defaultValue <code>50</code>
      */
-    radius?: null|number;
+    radius?: number|null;
     /**
      * Specifies the source of panoramas to search. This allows a restriction to
      * search for just outdoor panoramas for example.
      * @defaultValue {@link google.maps.StreetViewSource.DEFAULT}
      */
-    source?: null|google.maps.StreetViewSource;
+    source?: google.maps.StreetViewSource|null;
   }
   /**
    * A <code>StreetViewPanoRequest</code> is used with the
@@ -5642,7 +5659,7 @@ declare namespace google.maps {
     /**
      * Specifies the pano ID to search for.
      */
-    pano?: null|string;
+    pano?: string|null;
   }
   /**
    * Displays the panorama for a given <code>LatLng</code> or panorama ID. A
@@ -8332,8 +8349,8 @@ declare namespace google.maps.journeySharing {
      */
     deliveryVehicleMarkerCustomization?:
         ((a: google.maps.journeySharing
-              .DeliveryVehicleMarkerCustomizationFunctionParams) => void)|null
-        |google.maps.MarkerOptions;
+              .DeliveryVehicleMarkerCustomizationFunctionParams) =>
+             void)|google.maps.MarkerOptions|null;
     /**
      * Customization applied to a planned stop marker. <br><br>Use this field to
      * specify custom styling (such as marker icon) and interactivity (such as
@@ -8352,8 +8369,8 @@ declare namespace google.maps.journeySharing {
      */
     plannedStopMarkerCustomization?:
         ((a: google.maps.journeySharing
-              .PlannedStopMarkerCustomizationFunctionParams) => void)|null
-        |google.maps.MarkerOptions;
+              .PlannedStopMarkerCustomizationFunctionParams) =>
+             void)|google.maps.MarkerOptions|null;
     /**
      * Minimum time between fetching location updates in milliseconds. If it
      * takes longer than <code>pollingIntervalMillis</code> to fetch a location
@@ -8412,7 +8429,7 @@ declare namespace google.maps.journeySharing {
      */
     taskMarkerCustomization?: (
         (a: google.maps.journeySharing.TaskMarkerCustomizationFunctionParams) =>
-            void)|null|google.maps.MarkerOptions;
+            void)|google.maps.MarkerOptions|null;
     /**
      * Customization applied to a task outcome marker. A task outcome marker is
      * rendered at the actual outcome location of each task assigned to the
@@ -8537,8 +8554,8 @@ declare namespace google.maps.journeySharing {
      */
     deliveryVehicleMarkerCustomization?:
         ((a: google.maps.journeySharing
-              .ShipmentMarkerCustomizationFunctionParams) => void)|null
-        |google.maps.MarkerOptions;
+              .ShipmentMarkerCustomizationFunctionParams) =>
+             void)|google.maps.MarkerOptions|null;
     /**
      * Customization applied to the destination marker. <br><br>Use this field
      * to specify custom styling (such as marker icon) and interactivity (such
@@ -8557,8 +8574,8 @@ declare namespace google.maps.journeySharing {
      */
     destinationMarkerCustomization?:
         ((a: google.maps.journeySharing
-              .ShipmentMarkerCustomizationFunctionParams) => void)|null
-        |google.maps.MarkerOptions;
+              .ShipmentMarkerCustomizationFunctionParams) =>
+             void)|google.maps.MarkerOptions|null;
     /**
      * Minimum time between fetching location updates in milliseconds. If it
      * takes longer than <code>pollingIntervalMillis</code> to fetch a location
@@ -8673,7 +8690,7 @@ declare namespace google.maps.journeySharing {
      */
     destinationMarkerCustomization?: (
         (a: google.maps.journeySharing.TripMarkerCustomizationFunctionParams) =>
-            void)|null|google.maps.MarkerOptions;
+            void)|google.maps.MarkerOptions|null;
     /**
      * Customization applied to the origin marker. <br><br>Use this field to
      * specify custom styling (such as marker icon) and interactivity (such as
@@ -8692,7 +8709,7 @@ declare namespace google.maps.journeySharing {
      */
     originMarkerCustomization?: (
         (a: google.maps.journeySharing.TripMarkerCustomizationFunctionParams) =>
-            void)|null|google.maps.MarkerOptions;
+            void)|google.maps.MarkerOptions|null;
     /**
      * Minimum time between fetching location updates in milliseconds. If it
      * takes longer than <code>pollingIntervalMillis</code> to fetch a location
@@ -8734,7 +8751,7 @@ declare namespace google.maps.journeySharing {
      */
     vehicleMarkerCustomization?: (
         (a: google.maps.journeySharing.TripMarkerCustomizationFunctionParams) =>
-            void)|null|google.maps.MarkerOptions;
+            void)|google.maps.MarkerOptions|null;
     /**
      * Customization applied to a waypoint marker. <br><br>Use this field to
      * specify custom styling (such as marker icon) and interactivity (such as
@@ -8753,8 +8770,8 @@ declare namespace google.maps.journeySharing {
      */
     waypointMarkerCustomization?:
         ((a: google.maps.journeySharing
-              .TripWaypointMarkerCustomizationFunctionParams) => void)|null
-        |google.maps.MarkerOptions;
+              .TripWaypointMarkerCustomizationFunctionParams) =>
+             void)|google.maps.MarkerOptions|null;
   }
   /**
    * The event object passed to the event handler when the {@link
@@ -9867,7 +9884,7 @@ declare namespace google.maps.localContext {
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
-    element?: null|HTMLElement|SVGElement;
+    element?: HTMLElement|SVGElement|null;
     /**
      * Hides the place details.
      */
@@ -9956,7 +9973,7 @@ declare namespace google.maps.localContext {
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
-    element?: null|HTMLElement|SVGElement;
+    element?: HTMLElement|SVGElement|null;
     /**
      * A soft boundary or hint to use when searching for places.
      * @defaultValue <code>null</code>
@@ -10270,11 +10287,11 @@ declare namespace google.maps.marker {
      * See {@link
      * google.maps.marker.AdvancedMarkerElementOptions.collisionBehavior}.
      */
-    collisionBehavior?: null|google.maps.CollisionBehavior;
+    collisionBehavior?: google.maps.CollisionBehavior|null;
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.content}.
      */
-    content?: null|Node;
+    content?: Node|null;
     /**
      * This field is read-only. The DOM Element backing the view.
      */
@@ -10282,16 +10299,16 @@ declare namespace google.maps.marker {
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.gmpDraggable}.
      */
-    gmpDraggable?: null|boolean;
+    gmpDraggable?: boolean|null;
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.map}.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.position}.
      */
-    position?: null|google.maps.LatLng|google.maps.LatLngLiteral|
-        google.maps.LatLngAltitudeLiteral;
+    position?: google.maps.LatLng|google.maps.LatLngLiteral|
+        google.maps.LatLngAltitudeLiteral|null;
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.title}.
      */
@@ -10299,7 +10316,7 @@ declare namespace google.maps.marker {
     /**
      * See {@link google.maps.marker.AdvancedMarkerElementOptions.zIndex}.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   /**
    * Options for constructing an {@link
@@ -10315,7 +10332,7 @@ declare namespace google.maps.marker {
      * vector maps, however, <code>AdvancedMarkerElement</code> to base
      * map&#39;s label collision only works on vector maps.
      */
-    collisionBehavior?: null|google.maps.CollisionBehavior;
+    collisionBehavior?: google.maps.CollisionBehavior|null;
     /**
      * The DOM Element backing the visual of an
      * <code>AdvancedMarkerElement</code>. <p><strong>Note</strong>:
@@ -10326,21 +10343,21 @@ declare namespace google.maps.marker {
      * cause the previous <code>AdvancedMarkerElement</code> to look empty.
      * @defaultValue {@link google.maps.marker.PinElement.element}
      */
-    content?: null|Node;
+    content?: Node|null;
     /**
      * If <code>true</code>, the <code>AdvancedMarkerElement</code> can be
      * dragged. <p><strong>Note</strong>: <code>AdvancedMarkerElement</code>
      * with altitude is not draggable.
      * @defaultValue <code>false</code>
      */
-    gmpDraggable?: null|boolean;
+    gmpDraggable?: boolean|null;
     /**
      * Map on which to display the <code>AdvancedMarkerElement</code>. The map
      * is required to display the <code>AdvancedMarkerElement</code> and can be
      * provided by setting {@link google.maps.marker.AdvancedMarkerElement.map}
      * if not provided at the construction.
      */
-    map?: null|google.maps.Map;
+    map?: google.maps.Map|null;
     /**
      * Sets the <code>AdvancedMarkerElement</code>&#39;s position. An
      * <code>AdvancedMarkerElement</code> may be constructed without a position,
@@ -10352,13 +10369,13 @@ declare namespace google.maps.marker {
      * <code>AdvancedMarkerElement</code> with altitude is only supported on
      * vector maps.
      */
-    position?: null|google.maps.LatLng|google.maps.LatLngLiteral;
+    position?: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with
      * screen readers) will be added to the <code>AdvancedMarkerElement</code>
      * with the provided value.
      */
-    title?: null|string;
+    title?: string|null;
     /**
      * All <code>AdvancedMarkerElement</code>s are displayed on the map in order
      * of their zIndex, with higher values displaying in front of
@@ -10372,7 +10389,7 @@ declare namespace google.maps.marker {
      * google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY} Advanced
      * Markers. A higher <code>zIndex</code> value indicates higher priority.
      */
-    zIndex?: null|number;
+    zIndex?: number|null;
   }
   /**
    * A <code>PinElement</code> represents a DOM element that consists of a shape
@@ -10408,11 +10425,11 @@ declare namespace google.maps.marker {
     /**
      * See {@link google.maps.marker.PinElementOptions.background}.
      */
-    background?: null|string;
+    background?: string|null;
     /**
      * See {@link google.maps.marker.PinElementOptions.borderColor}.
      */
-    borderColor?: null|string;
+    borderColor?: string|null;
     /**
      * This field is read-only. The DOM Element backing the view.
      */
@@ -10420,15 +10437,15 @@ declare namespace google.maps.marker {
     /**
      * See {@link google.maps.marker.PinElementOptions.glyph}.
      */
-    glyph?: null|string|Element|URL;
+    glyph?: string|Element|URL|null;
     /**
      * See {@link google.maps.marker.PinElementOptions.glyphColor}.
      */
-    glyphColor?: null|string;
+    glyphColor?: string|null;
     /**
      * See {@link google.maps.marker.PinElementOptions.scale}.
      */
-    scale?: null|number;
+    scale?: number|null;
   }
   /**
    * Options for creating a {@link google.maps.marker.PinElement}.
@@ -10439,28 +10456,28 @@ declare namespace google.maps.marker {
      * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
      * value</a>.
      */
-    background?: null|string;
+    background?: string|null;
     /**
      * The border color of the pin shape. Supports any CSS <a
      * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
      * value</a>.
      */
-    borderColor?: null|string;
+    borderColor?: string|null;
     /**
      * The DOM element displayed in the pin.
      */
-    glyph?: null|string|Element|URL;
+    glyph?: string|Element|URL|null;
     /**
      * The color of the glyph. Supports any CSS <a
      * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
      * value</a>.
      */
-    glyphColor?: null|string;
+    glyphColor?: string|null;
     /**
      * The scale of the pin.
      * @defaultValue <code>1</code>
      */
-    scale?: null|number;
+    scale?: number|null;
   }
 }
 declare namespace google.maps.places {
@@ -11411,11 +11428,11 @@ declare namespace google.maps.places {
      */
     addListener(eventName: string, handler: Function):
         google.maps.MapsEventListener;
-    componentRestrictions?: null|google.maps.places.ComponentRestrictions;
+    componentRestrictions?: google.maps.places.ComponentRestrictions|null;
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
-    element?: null|HTMLElement|SVGElement;
+    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -11425,9 +11442,9 @@ declare namespace google.maps.places {
         google.maps.Circle|google.maps.CircleLiteral|string|null;
     locationRestriction?: google.maps.LatLngBounds|
         google.maps.LatLngBoundsLiteral|null;
-    requestedLanguage?: null|string;
-    requestedRegion?: null|string;
-    types?: null|string[];
+    requestedLanguage?: string|null;
+    requestedRegion?: string|null;
+    types?: string[]|null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -11440,11 +11457,11 @@ declare namespace google.maps.places {
      * predictions to only those within the parent component. For example, the
      * country.
      */
-    componentRestrictions?: null|google.maps.places.ComponentRestrictions;
+    componentRestrictions?: google.maps.places.ComponentRestrictions|null;
     /**
      * This Field is read-only. The DOM Element backing the view.
      */
-    element?: null|HTMLElement|SVGElement;
+    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -11467,7 +11484,7 @@ declare namespace google.maps.places {
      * the <a href="https://developers.google.com/maps/faq#languagesupport">list
      * of supported languages</a>.
      */
-    requestedLanguage?: null|string;
+    requestedLanguage?: string|null;
     /**
      * A region code which is used for result formatting and for result
      * filtering. It does not restrict the suggestions to this country. The
@@ -11480,14 +11497,14 @@ declare namespace google.maps.places {
      * (technically for the entity of &quot;The United Kingdom of Great Britain
      * and Northern Ireland&quot;).
      */
-    requestedRegion?: null|string;
+    requestedRegion?: string|null;
     /**
      * The types of predictions to be returned. For supported types, see the <a
      * href="https://developers.google.com/maps/documentation/javascript/places-autocomplete#constrain-place-types">
      * developer&#39;s guide</a>. If no types are specified, all types will be
      * returned.
      */
-    types?: null|string[];
+    types?: string[]|null;
   }
   /**
    * A Place details query to be sent to the <code>PlacesService</code>.
