@@ -8,6 +8,7 @@ es/add--document/index.d.ts
 es/advanced--fraud--protection/index.d.ts
 es/advanced--threats/index.d.ts
 es/advocate/index.d.ts
+es/advocate--mask/index.d.ts
 es/agility/index.d.ts
 es/agility-with-hybrid-multicloud/index.d.ts
 es/agriculture/index.d.ts
@@ -214,6 +215,8 @@ es/connectivity/index.d.ts
 es/console/index.d.ts
 es/console--wireless/index.d.ts
 es/construct/index.d.ts
+es/construction-worker/index.d.ts
+es/construction-worker--mask/index.d.ts
 es/consumer--engagement--food--journey/index.d.ts
 es/container/index.d.ts
 es/container--microservices/index.d.ts
@@ -235,6 +238,14 @@ es/coronavirus/index.d.ts
 es/credit--card/index.d.ts
 es/crop/index.d.ts
 es/cupcake/index.d.ts
+es/curve--cubic/index.d.ts
+es/curve--exponential/index.d.ts
+es/curve--inverse/index.d.ts
+es/curve--linear/index.d.ts
+es/curve--logarithmic/index.d.ts
+es/curve--logistic/index.d.ts
+es/curve--power/index.d.ts
+es/curve--quadratic/index.d.ts
 es/custom--workloads/index.d.ts
 es/custom-reports/index.d.ts
 es/customer--service/index.d.ts
@@ -676,6 +687,7 @@ es/public-cloud-to-private-cloud/index.d.ts
 es/puzzle/index.d.ts
 es/q-q-plot/index.d.ts
 es/qr-code/index.d.ts
+es/quantum/index.d.ts
 es/quantum--safe/index.d.ts
 es/quantum-computing/index.d.ts
 es/question/index.d.ts
@@ -912,6 +924,7 @@ es/user--analytics/index.d.ts
 es/user--experience-design/index.d.ts
 es/user--insights/index.d.ts
 es/user--interface/index.d.ts
+es/user--mask/index.d.ts
 es/user--profile/index.d.ts
 es/user--search/index.d.ts
 es/vancouver/index.d.ts
@@ -940,6 +953,10 @@ es/washington-dc/index.d.ts
 es/washington-dc--capitol/index.d.ts
 es/washington-dc--monument/index.d.ts
 es/watson--logo/index.d.ts
+es/watsonx/index.d.ts
+es/watsonx--ai/index.d.ts
+es/watsonx--data/index.d.ts
+es/watsonx--governance/index.d.ts
 es/weather/index.d.ts
 es/web--developer/index.d.ts
 es/webcast/index.d.ts
@@ -976,6 +993,7 @@ lib/add--document/index.d.ts
 lib/advanced--fraud--protection/index.d.ts
 lib/advanced--threats/index.d.ts
 lib/advocate/index.d.ts
+lib/advocate--mask/index.d.ts
 lib/agility/index.d.ts
 lib/agility-with-hybrid-multicloud/index.d.ts
 lib/agriculture/index.d.ts
@@ -1182,6 +1200,8 @@ lib/connectivity/index.d.ts
 lib/console/index.d.ts
 lib/console--wireless/index.d.ts
 lib/construct/index.d.ts
+lib/construction-worker/index.d.ts
+lib/construction-worker--mask/index.d.ts
 lib/consumer--engagement--food--journey/index.d.ts
 lib/container/index.d.ts
 lib/container--microservices/index.d.ts
@@ -1203,6 +1223,14 @@ lib/coronavirus/index.d.ts
 lib/credit--card/index.d.ts
 lib/crop/index.d.ts
 lib/cupcake/index.d.ts
+lib/curve--cubic/index.d.ts
+lib/curve--exponential/index.d.ts
+lib/curve--inverse/index.d.ts
+lib/curve--linear/index.d.ts
+lib/curve--logarithmic/index.d.ts
+lib/curve--logistic/index.d.ts
+lib/curve--power/index.d.ts
+lib/curve--quadratic/index.d.ts
 lib/custom--workloads/index.d.ts
 lib/custom-reports/index.d.ts
 lib/customer--service/index.d.ts
@@ -1644,6 +1672,7 @@ lib/public-cloud-to-private-cloud/index.d.ts
 lib/puzzle/index.d.ts
 lib/q-q-plot/index.d.ts
 lib/qr-code/index.d.ts
+lib/quantum/index.d.ts
 lib/quantum--safe/index.d.ts
 lib/quantum-computing/index.d.ts
 lib/question/index.d.ts
@@ -1880,6 +1909,7 @@ lib/user--analytics/index.d.ts
 lib/user--experience-design/index.d.ts
 lib/user--insights/index.d.ts
 lib/user--interface/index.d.ts
+lib/user--mask/index.d.ts
 lib/user--profile/index.d.ts
 lib/user--search/index.d.ts
 lib/vancouver/index.d.ts
@@ -1908,6 +1938,10 @@ lib/washington-dc/index.d.ts
 lib/washington-dc--capitol/index.d.ts
 lib/washington-dc--monument/index.d.ts
 lib/watson--logo/index.d.ts
+lib/watsonx/index.d.ts
+lib/watsonx--ai/index.d.ts
+lib/watsonx--data/index.d.ts
+lib/watsonx--governance/index.d.ts
 lib/weather/index.d.ts
 lib/web--developer/index.d.ts
 lib/webcast/index.d.ts
