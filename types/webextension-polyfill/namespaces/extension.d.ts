@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.extension
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The <code>browser.extension</code> API has utilities that can be used by any extension page.
  * It includes support for exchanging messages between an extension and its content scripts or between extensions,

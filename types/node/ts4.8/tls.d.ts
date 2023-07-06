@@ -729,6 +729,17 @@ declare module 'tls' {
     type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
     interface SecureContextOptions {
         /**
+         * If set, this will be called when a client opens a connection using the ALPN extension.
+         * One argument will be passed to the callback: an object containing `servername` and `protocols` fields,
+         * respectively containing the server name from the SNI extension (if any) and an array of
+         * ALPN protocol name strings. The callback must return either one of the strings listed in `protocols`,
+         * which will be returned to the client as the selected ALPN protocol, or `undefined`,
+         * to reject the connection with a fatal alert. If a string is returned that does not match one of
+         * the client's ALPN protocols, an error will be thrown.
+         * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
+         */
+        ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
+        /**
          * Optionally override the trusted CA certificates. Default is to trust
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
          * replaced when CAs are explicitly specified using this option.

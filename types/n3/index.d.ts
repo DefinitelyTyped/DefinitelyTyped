@@ -1,4 +1,4 @@
-// Type definitions for N3 1.10
+// Type definitions for N3 1.16
 // Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
@@ -12,7 +12,7 @@
 /// <reference types="node" />
 
 import * as stream from "stream";
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 import { EventEmitter } from "events";
 
 export interface Prefixes<I = RDF.NamedNode> {
@@ -191,9 +191,8 @@ export type PrefixCallback = (prefix: string, prefixNode: RDF.NamedNode) => void
 
 export class Parser<Q extends BaseQuad = Quad> {
     constructor(options?: ParserOptions);
-    parse(input: string): Q[];
-    parse(input: string, callback: null | undefined, prefixCallback: PrefixCallback): Q[];
-    parse(input: string, callback: ParseCallback<Q>, prefixCallback?: PrefixCallback): void;
+    parse(input: string, callback?: null, prefixCallback?: PrefixCallback): Q[];
+    parse(input: string | EventEmitter, callback: ParseCallback<Q>, prefixCallback?: PrefixCallback): void;
 }
 
 export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform implements RDF.Stream<Q>, RDF.Sink<EventEmitter, RDF.Stream<Q>> {
@@ -249,6 +248,7 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
     removeMatches(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): EventEmitter;
     deleteGraph(graph: Q_RDF['graph'] | string): EventEmitter;
     getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
+    readQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Iterable<OutQuad>;
     match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): RDF.Stream<Q_RDF> & RDF.DatasetCore<OutQuad, InQuad>;
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;

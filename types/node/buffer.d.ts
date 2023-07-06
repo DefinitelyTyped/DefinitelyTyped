@@ -530,7 +530,7 @@ declare module 'buffer' {
              * @param [fill=0] A value to pre-fill the new `Buffer` with.
              * @param [encoding='utf8'] If `fill` is a string, this is its encoding.
              */
-            alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+            alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown.
              *
