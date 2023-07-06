@@ -93,6 +93,7 @@ Module.register<TestConfig>('test', {
 
 NodeHelper.create({
     start() {
+        Log.debug('Starting module: ' + this.name);
         return;
     },
     stop() {

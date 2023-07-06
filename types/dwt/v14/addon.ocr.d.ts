@@ -59,7 +59,6 @@ declare enum EnumDWT_OCROutputFormat {
 }
 
 /**
- * @class
  */
 interface OCR {
     /**

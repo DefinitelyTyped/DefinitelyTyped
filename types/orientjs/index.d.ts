@@ -100,7 +100,7 @@ declare namespace orientjs {
              * Create a new migration.
              *
              * @param   config  The name or configuration for the new migration.
-             * @promise {string}                The full path to the created migration.
+             * @return                The full path to the created migration.
              */
             create(param: string): Promise<string>;
             /**
@@ -112,39 +112,39 @@ declare namespace orientjs {
             /**
              * List the migrations that have not yet been applied.
              *
-             * @promise {string[]} An array of migration names
+             * @return An array of migration names
              */
             list(): Promise<string[]>;
             /**
              * List all the available migrations.
              *
-             * @promise {string[]} The names of the available migrations.
+             * @return The names of the available migrations.
              */
             listAvailable(): Promise<string[]>;
             /**
              * Ensure the migration class exists.
              *
-             * @promise {MigrationManager}  The manager instance with intact structure.
+             * @return  The manager instance with intact structure.
              */
             ensureStructure: Promise<MigrationManager>;
             /**
              * Retrieve a list of applied migrations.
              *
-             * @promise {Object[]} The applied migrations.
+             * @return The applied migrations.
              */
             listApplied(): Promise<any[]>;
             /**
              * Perform the migration.
              *
              * @param   limit The maximum number of migrations to apply, if any.
-             * @promise {Mixed} The result of the migration.
+             * @return The result of the migration.
              */
             up(limit?: number): Promise<any>;
             /**
              * Revert the migration.
              *
              * @param   limit The maximum number of migrations to revert, if any.
-             * @promise {Mixed} The result of the migration.
+             * @return The result of the migration.
              */
             down(limit?: number): Promise<any>;
             /**
@@ -158,14 +158,14 @@ declare namespace orientjs {
              * Apply the migration with the given name.
              *
              * @param   name The name of the migation.
-             * @promise {Mixed} The result of the migration.
+             * @return The result of the migration.
              */
             applyMigration(name: string): Promise<any>;
             /**
              * Revert the migration with the given name.
              *
              * @param   name The name of the migation.
-             * @promise {Mixed} The result of the migration.
+             * @return The result of the migration.
              */
             revertMigration(name: string): Promise<any>;
         }
@@ -203,14 +203,14 @@ declare namespace orientjs {
          *
          * @param   key   The key to set, or map of keys to values.
          * @param          value The value to set, if `key` is not an object.
-         * @promise {Object|null}         The new set of custom fields, or null if none are present.
+         * @return         The new set of custom fields, or null if none are present.
          */
         set(key: string, value: any): CustomField;
         /**
          * Unset the custom field with the given name,
          *
          * @param        key The name of the custom field to remove.
-         * @promise {Object|null}     The new set of custom fields, or null if none are present.
+         * @return     The new set of custom fields, or null if none are present.
          */
         unset(key: string): CustomField;
     }
@@ -278,7 +278,7 @@ declare namespace orientjs {
          *
          * @param  config The property name or configuration.
          * @param   reload      Whether to reload the property, default to true.
-         * @promise {Object}              The created property.
+         * @return              The created property.
          */
         create(config?: PropertyCreateConfig | string, reload?: boolean): Promise<OClassProperty>;
         create(config: PropertyCreateConfig[], reload?: boolean): Promise<OClassProperty[]>;
@@ -286,7 +286,7 @@ declare namespace orientjs {
          * Get the property with the given name.
          *
          * @param   name   The property to get.
-         * @promise {Object|null}   The retrieved property.
+         * @return   The retrieved property.
          */
         get(name: string): Promise<OClassProperty>;
         /**
@@ -294,7 +294,7 @@ declare namespace orientjs {
          *
          * @param    property The property settings.
          * @param   reload   Whether to reload the property, default to true.
-         * @promise {Object}           The updated property.
+         * @return           The updated property.
          */
         update(config: PropertyUpdateConfig, reload?: boolean): Promise<OClassProperty>;
         drop(name: string, config?: {
@@ -326,7 +326,7 @@ declare namespace orientjs {
          * Retreive a list of classes from the database.
          *
          * @param  refresh Whether to refresh the list or not.
-         * @promise {Object[]}       An array of class objects.
+         * @return       An array of class objects.
          */
         list(limit: number | boolean | any, offset?: number): Promise<OClass[]>;
         /**
@@ -335,14 +335,14 @@ declare namespace orientjs {
          * @param   attributes The attributes to search with.
          * @param  limit      The maximum number of records to return
          * @param  offset     The offset to start returning records from.
-         * @promise {Object[]}          An array of records in the class.
+         * @return          An array of records in the class.
          */
         find(attributes: any, limit?: number, offset?: number): Promise<ORecord[]>;
         /**
          * Create a record for this class.
          *
          * @param   record The record to create.
-         * @promise {Object}        The created record.
+         * @return        The created record.
          */
         create(record: ORecord): Promise<ORecord>;
         /**
@@ -353,7 +353,7 @@ declare namespace orientjs {
          * @param  cluster The cluster name or id.
          * @param  isAbstract     The flag for the abstract class
          * @param  ifnotexist     The flag for the if not exist class
-         * @promise {Object}                The created class object
+         * @return                The created class object
          */
         create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<OClass>;
         /**
@@ -361,13 +361,13 @@ declare namespace orientjs {
          *
          * @param    class    The class settings.
          * @param   reload   Whether to reload the class, default to true.
-         * @promise {Object}           The updated class.
+         * @return           The updated class.
          */
         update(cls: any, reload: boolean): Promise<OClass>;
         /**
          * Reload the class instance.
          *
-         * @promise {Class} The class instance.
+         * @return The class instance.
          */
         reload(): Promise<OClass[]>;
         /**
@@ -375,7 +375,7 @@ declare namespace orientjs {
          *
          * @param  name The name of the class to delete.
          * @param  config The config.
-         * @promise {Db}         The database instance.
+         * @return         The database instance.
          */
         drop(name: string, config?: {
             ifexist?: boolean | undefined,
@@ -386,7 +386,7 @@ declare namespace orientjs {
          *
          * @param   name The name of the class.
          * @param   refresh Whether to refresh the data, defaults to false.
-         * @promise {Object}          The class object if it exists.
+         * @return          The class object if it exists.
          */
         get(name: string, refresh?: boolean): Promise<OClass>;
         /**
@@ -434,7 +434,7 @@ declare namespace orientjs {
          * Retreive a list of sequences from the database.
          *
          * @param  refresh Whether to refresh the list or not.
-         * @promise {Object[]}       An array of class objects.
+         * @return       An array of class objects.
          */
 
         list(refresh: boolean): Promise<OSequence[]>;
@@ -447,7 +447,7 @@ declare namespace orientjs {
          * @param  start The start number.
          * @param  incerement The increment number.
          * @param  cache     The cache number
-         * @promise {Object}                The created sequence object
+         * @return                The created sequence object
          */
         create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<OSequence>;
         /**
@@ -457,13 +457,13 @@ declare namespace orientjs {
          * @param incerement The increment number.
          * @param cache The cache number
          * @param  start The start number.
-         * @promise {Object} The created sequence object
+         * @return The created sequence object
          */
         update(name: string, start?: number, incerement?: number, cache?: number): Promise<OSequence>;
         /**
          * Reload the sequence instance.
          *
-         * @promise {Sequence} The class instance.
+         * @return The class instance.
          */
         reload(): Promise<OSequence[]>;
         /**
@@ -471,7 +471,7 @@ declare namespace orientjs {
          *
          * @param  name The name of the sequence to delete.
          * @param  config The config.
-         * @promise {Db}         The database instance.
+         * @return         The database instance.
          */
         drop(name: string, config?: {
         }): Promise<ODB>;
@@ -480,7 +480,7 @@ declare namespace orientjs {
          *
          * @param   name The name of the sequence.
          * @param   refresh Whether to refresh the data, defaults to false.
-         * @promise {Object}          The sequence object if it exists.
+         * @return          The sequence object if it exists.
          */
         get(name: string, refresh?: boolean): Promise<OSequence>;
         /**
@@ -510,7 +510,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to insert.
          * @param  options The command options.
-         * @promise {Object}        The inserted record.
+         * @return        The inserted record.
          */
         create(record: ODocument | ORecord | BinaryRecord, options?: any): Promise<ORecord>;
         /**
@@ -518,7 +518,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to insert.
          * @param  options The command options.
-         * @promise {Object}        The inserted record.
+         * @return        The inserted record.
          */
         create(records: ODocument[] | ORecord[] | BinaryRecord[], options?: any): Promise<ORecord[]>;
 
@@ -527,7 +527,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to load.
          * @param  options The query options.
-         * @promise {Object}        The loaded record.
+         * @return        The loaded record.
          */
         get(record: ORecord | ORID, options?: any): Promise<ORecord | Buffer>;
         /**
@@ -535,7 +535,7 @@ declare namespace orientjs {
          *
          * @param  records  The record to load.
          * @param  options The query options.
-         * @promise {Object[]}        The loaded record.
+         * @return        The loaded record.
          */
         get(records: ORecord[] | ORID[], options?: any): Promise<ORecord[] | Buffer[]>;
         /**
@@ -551,7 +551,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to load.
          * @param  options The query options.
-         * @promise {Object}        The record object with loaded meta data.
+         * @return        The record object with loaded meta data.
          */
         meta(record: ORecord | ORID | string, options?: any): Promise<RecordMeta>;
         /**
@@ -559,7 +559,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to load.
          * @param  options The query options.
-         * @promise {Object}        The record object with loaded meta data.
+         * @return        The record object with loaded meta data.
          */
         meta(records: ORecord[] | ORID[], options?: any): Promise<RecordMeta[]>;
 
@@ -568,7 +568,7 @@ declare namespace orientjs {
          *
          * @param  record  The record to update.
          * @param  options The query options.
-         * @promise {Object}        The updated record.
+         * @return        The updated record.
          */
         update(record?: ORecord | ORID, options?: any): Promise<ORecord>;
 
@@ -578,7 +578,7 @@ declare namespace orientjs {
          *
          * @param   record  The record or record id to delete.
          * @param              options The query options.
-         * @promise {Object}                    The deleted record object.
+         * @return                    The deleted record object.
          */
         delete(record: ORecord | ORID, options?: any): Promise<ORecord>;
     }
@@ -768,7 +768,7 @@ declare namespace orientjs {
         /**
          * Open the database.
          *
-         * @promise {Db} The open db instance.
+         * @return The open db instance.
          */
         open(): Promise<ODB>;
 
@@ -778,13 +778,13 @@ declare namespace orientjs {
          *
          * @param  operation The operation to send.
          * @param  data       The data for the operation.
-         * @promise {Mixed}            The result of the operation.
+         * @return            The result of the operation.
          */
         send<R>(operation: number, data: any): Promise<R>;
         /**
          * Reload the configuration for the database.
          *
-         * @promise {Db}  The database with reloaded configuration.
+         * @return  The database with reloaded configuration.
          */
         reload(): Promise<ODB>;
 
@@ -793,7 +793,7 @@ declare namespace orientjs {
          *
          * @param   query   The query or command to execute.
          * @param   options The options for the query / command.
-         * @promise {Mixed}          The results of the query / command.
+         * @return          The results of the query / command.
          */
         exec<R>(query: string, options?: QueryOptions): Promise<R>;
 
@@ -930,7 +930,7 @@ declare namespace orientjs {
          * @param   name     The name of the function
          * @param   fn       Plain Javascript function to stringify
          * @param   options  Not currently used but will be used for 'IDEMPOTENT' arg
-         * @promise {Mixed}           The results of the query / command.
+         * @return           The results of the query / command.
          */
         createFn(name: string, fn: (...args: any[]) => any, options?: any): Promise<any>;
         createFn(fn: (...args: any[]) => any, options?: any): Promise<any>;
@@ -983,7 +983,7 @@ declare namespace orientjs {
          *
          * @param  operation The id of the operation to send.
          * @param  options    The options for the operation.
-         * @promise {Mixed}            The result of the operation.
+         * @return            The result of the operation.
          */
         send(operation: number, options: any): any;
         /**
@@ -1003,14 +1003,14 @@ declare namespace orientjs {
          * Create a database with the given name / config.
          *
          * @param  config The database name or configuration object.
-         * @promise {Db}                  The database instance
+         * @return                  The database instance
          */
         create(name: string | DbConfig): Promise<ODB>;
         /**
          * Destroy a database with the given name / config.
          *
          * @param   config The database name or configuration object.
-         * @promise {Mixed}               The server response.
+         * @return               The server response.
          */
         drop(name: string | DbConfig): Promise<ODB>;
         /**
@@ -1024,7 +1024,7 @@ declare namespace orientjs {
          *
          * @param   name        The database name.
          * @param   storageType The storage type, defaults to `plocal`.
-         * @promise {Boolean}            true if the database exists.
+         * @return            true if the database exists.
          */
         exists(name: string, storageType?: string): Promise<boolean>;
         /**

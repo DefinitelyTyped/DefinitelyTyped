@@ -1,4 +1,4 @@
-// Type definitions for ldapjs 2.2
+// Type definitions for ldapjs 3.0
 // Project: http://ldapjs.org
 // Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -93,9 +93,9 @@ export type SearchReference = any;
 export interface SearchCallbackResponse extends EventEmitter {
     on(event: 'searchEntry', listener: (entry: SearchEntry) => void): this;
     on(event: 'searchReference', listener: (referral: SearchReference) => void): this;
-    on(event: 'page', listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
+    on(event: 'page', listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (res: LDAPResult | null) => void): this;
+    on(event: 'end', listener: (res: SearchResultDone | null) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -232,7 +232,7 @@ export interface Client extends EventEmitter {
      * Note that this method is 'special' in that the callback 'res' param will
      * have two important events on it, namely 'searchEntry' and 'end' that you can hook
      * to.  The former will emit a SearchEntry object for each record that comes
-     * back, and the latter will emit a normal LDAPResult object.
+     * back, and the latter will emit a SearchResultDone object.
      *
      * @param {String} base the DN in the tree to start searching at.
      * @param {SearchOptions} options parameters
@@ -584,14 +584,16 @@ export abstract class LDAPMessage {
     /** A plain object with main properties */
     readonly json: LDAPMessageJsonObject;
 
+    /** plain old js object */
+    readonly pojo: SearchEntryObject;
+
     /** Stringified json property */
     toString(): string;
     parse(ber: Buffer): boolean;
     toBer(): Buffer;
 }
 
-export class LDAPResult extends LDAPMessage {
-    readonly type: 'LDAPResult';
+declare class BaseLDAPResult extends LDAPMessage {
     /** Result status 0 = success */
     status: number;
     matchedDN: string;
@@ -600,34 +602,26 @@ export class LDAPResult extends LDAPMessage {
     connection: any;
 }
 
+export class LDAPResult extends BaseLDAPResult {
+    readonly type: 'LDAPResult';
+}
+
+export class SearchResultDone extends BaseLDAPResult {
+    readonly type: 'SearchResultDone';
+}
+
 export interface SearchEntryObject {
     dn: string;
     controls: Control[];
     [p: string]: string | string[];
 }
 
-export interface SearchEntryRaw {
-    dn: string;
-    controls: Control[];
-    [p: string]: string | Buffer | Buffer[];
-}
-
 export class SearchEntry extends LDAPMessage {
-    readonly type: 'SearchEntry';
+    readonly type: 'SearchResultEntry';
     objectName: string | null;
     attributes: Attribute[];
 
     readonly json: LDAPMessageJsonObject & { objectName: string; attributes: AttributeJson[] };
-
-    /**
-     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property with their value(s)
-     */
-    readonly object: SearchEntryObject;
-
-    /**
-     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property, using raw `Buffer`(s) as attribute values.
-     */
-    readonly raw: SearchEntryRaw;
 }
 
 export function parseDN(dn: string): dn.DN;

@@ -1,4 +1,15 @@
-import { init, AuthKeystoreOptions, PaymentParams, Sandbox, Keystore, LoadOptions, RangeObject, MultiRangeObject, SuperRangeObject, ResultHandle } from 'dcp-client';
+import {
+    AuthKeystoreOptions,
+    init,
+    Keystore,
+    LoadOptions,
+    MultiRangeObject,
+    PaymentParams,
+    RangeObject,
+    ResultHandle,
+    Sandbox,
+    SuperRangeObject,
+} from 'dcp-client';
 
 //#region Models
 export const authKeystoreOptions: AuthKeystoreOptions = {
@@ -17,7 +28,8 @@ export const loadOptions: LoadOptions = {
 
     //#region RangeObject Tests
     const rangeObject = new RangeObject(0, 10);
-    const angeObjectLength = rangeObject.length;
+    // $ExpectType number
+    rangeObject.length;
     rangeObject.toString();
     rangeObject.toObject();
     rangeObject.nthValue(1);
@@ -27,7 +39,8 @@ export const loadOptions: LoadOptions = {
 
     //#region ResultHandle Tests
     const resultHandle = new ResultHandle();
-    const resultHandleLength = resultHandle.length;
+    // $ExpectType number
+    resultHandle.length;
     resultHandle.entries();
     resultHandle.key(1);
     resultHandle.keys();
@@ -61,41 +74,48 @@ export const loadOptions: LoadOptions = {
 
     job.id = 'job-1';
     job.address = 'job-1';
-    job.public.name = `DCP for Physics!`;
-    job.public.description = `Using DCP for electromagnetic force calculations`;
+    job.public.name = 'DCP for Physics!';
+    job.public.description = 'Using DCP for electromagnetic force calculations';
     job.public.link = MY_RESEARCH_URL;
     job.useStrict = true;
 
     await job.exec(1, keystore, initialSliceProfile);
-    await job.localExec(1,  1, keystore, initialSliceProfile);
+    // $ExpectType ResultHandle
+    await job.localExec();
+    await job.localExec(1, 1, keystore, initialSliceProfile);
     await job.cancel('reason');
     await job.resume('reason');
     await job.requires('path');
 
-    job.on('accepted', () => 'job accepted');
-    job.on('complete', () => 'job complete');
-    job.on('readystatechange', () => 'job readystatechange');
-    job.on('console', () => 'job console');
-    job.on('result', () => 'job result');
+    job.addEventListener('accepted', () => 'job accepted');
+    job.addEventListener('complete', () => 'job complete');
+    job.addEventListener('readystatechange', () => 'job readystatechange');
+    job.addEventListener('console', () => 'job console');
+    job.addEventListener('result', (_event) => 'job result');
     //#endregion
 
     //#region Compute API Tests
     await compute.cancel();
     const startTime = 0;
     const endTime = Date.now();
-    const ev = '';
 
-    job.on('result', async (ev: any) => {
-        const status = compute.status(startTime, endTime, keystore);
+    job.addEventListener('result', async () => {
+        // $ExpectType JobHandle
+        compute.status(startTime, endTime, keystore);
     });
 
     const rangeObject1 = new RangeObject(1, 1000, 2);
     const rangeObject2 = new RangeObject(0, 1000, 2);
     const multiRange = new MultiRangeObject(rangeObject1, rangeObject2);
-    const computeJob = compute.for(multiRange, async (sliceIndex: number[], data: any) => {
-        progress();
-        return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
-    }, [100]);
+    // $ExpectType JobHandle
+    compute.for(
+        multiRange,
+        async (sliceIndex: number[], data) => {
+            progress();
+            return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
+        },
+        [100],
+    );
     //#endregion
 
     //#region Wallet API Tests
@@ -121,11 +141,11 @@ export const loadOptions: LoadOptions = {
     worker.on('payment', (payment: PaymentParams) => payment);
 
     worker.on('sandbox', (sandbox: Sandbox) => {
-        sandbox.on('sliceStart', (job: object) => job);
-        sandbox.on('sliceFinish', (result: any) => result);
-        sandbox.on('sliceError', () => 'sliceError event triggered');
-        sandbox.on('sliceEnd', () => 'sliceEnd event triggered');
-        sandbox.on('terminate', () => 'terminate event triggered');
+        sandbox.addEventListener('sliceStart', (job: object) => job);
+        sandbox.addEventListener('sliceFinish', () => { return; });
+        sandbox.addEventListener('sliceError', () => 'sliceError event triggered');
+        sandbox.addEventListener('sliceEnd', () => 'sliceEnd event triggered');
+        sandbox.addEventListener('terminate', () => 'terminate event triggered');
     });
 
     worker.schedMsg.reload();

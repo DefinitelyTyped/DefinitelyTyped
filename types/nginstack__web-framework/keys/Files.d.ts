@@ -14,3 +14,6 @@ export const ROBOT_CSS: number;
 export const WEB_FRAMEWORK_JAZ: number;
 export const WEB_UI_CSS: number;
 export const WEB_UI_JS: number;
+export const WF_ICONS_CSS: number;
+export const WF_ICONS_TXT: number;
+export const WF_ICONS_WOFF: number;

@@ -6,7 +6,6 @@
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-inferrable-types": false,
         "no-padding": false,
         "no-single-declare-module": false,

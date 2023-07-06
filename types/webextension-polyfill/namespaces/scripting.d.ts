@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.scripting
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the scripting API to execute script in different contexts.
  * Permissions: "scripting"

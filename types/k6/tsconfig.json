@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "k6-tests.ts",
+        "test/browser.ts",
         "test/crypto.ts",
         "test/data.ts",
         "test/encoding.ts",
@@ -34,7 +35,9 @@
         "test/redis.ts",
         "test/timers.ts",
         "test/tracing.ts",
+        "test/webcrypto.ts",
         "test/websockets.ts",
+        "test/experimental/grpc.ts",
         "test/ws.ts"
     ]
 }

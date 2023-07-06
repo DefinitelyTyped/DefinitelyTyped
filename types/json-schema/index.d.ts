@@ -659,7 +659,7 @@ export interface JSONSchema7 {
     maxItems?: number | undefined;
     minItems?: number | undefined;
     uniqueItems?: boolean | undefined;
-    contains?: JSONSchema7 | undefined;
+    contains?: JSONSchema7Definition | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.5

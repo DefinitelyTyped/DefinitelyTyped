@@ -1,11 +1,21 @@
-// Type definitions for @mapbox/mapbox-gl-draw 1.3
+// Type definitions for @mapbox/mapbox-gl-draw 1.4
 // Project: https://github.com/mapbox/mapbox-gl-draw
 // Definitions by: Tudor Gergely <https://github.com/tudorgergely>
 //                 Shayan Toqraee <https://github.com/Shayan-To>
+//                 Joel Daros <https://github.com/joel-daros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BBox, Feature, FeatureCollection, GeoJSON, GeoJsonTypes, Geometry, Point, Position } from 'geojson';
-import { IControl, Map, MapMouseEvent as MapboxMapMouseEvent, MapTouchEvent as MapboxMapTouchEvent } from 'mapbox-gl';
+import {
+    CircleLayer,
+    FillLayer,
+    IControl,
+    LineLayer,
+    Map,
+    MapboxEvent,
+    MapMouseEvent as MapboxMapMouseEvent,
+    MapTouchEvent as MapboxMapTouchEvent,
+} from 'mapbox-gl';
 
 export = MapboxDraw;
 export as namespace MapboxDraw;
@@ -270,6 +280,258 @@ declare namespace MapboxDraw {
         direct_select: DrawCustomMode;
     }
 
+    interface Constants {
+        readonly classes: {
+            CONTROL_BASE: 'mapboxgl-ctrl';
+            CONTROL_PREFIX: 'mapboxgl-ctrl-';
+            CONTROL_BUTTON: 'mapbox-gl-draw_ctrl-draw-btn';
+            CONTROL_BUTTON_LINE: 'mapbox-gl-draw_line';
+            CONTROL_BUTTON_POLYGON: 'mapbox-gl-draw_polygon';
+            CONTROL_BUTTON_POINT: 'mapbox-gl-draw_point';
+            CONTROL_BUTTON_TRASH: 'mapbox-gl-draw_trash';
+            CONTROL_BUTTON_COMBINE_FEATURES: 'mapbox-gl-draw_combine';
+            CONTROL_BUTTON_UNCOMBINE_FEATURES: 'mapbox-gl-draw_uncombine';
+            CONTROL_GROUP: 'mapboxgl-ctrl-group';
+            ATTRIBUTION: 'mapboxgl-ctrl-attrib';
+            ACTIVE_BUTTON: 'active';
+            BOX_SELECT: 'mapbox-gl-draw_boxselect';
+        };
+
+        readonly sources: {
+            HOT: 'mapbox-gl-draw-hot';
+            COLD: 'mapbox-gl-draw-cold';
+        };
+
+        readonly cursors: {
+            ADD: 'add';
+            MOVE: 'move';
+            DRAG: 'drag';
+            POINTER: 'pointer';
+            NONE: 'none';
+        };
+
+        readonly types: {
+            POLYGON: 'polygon';
+            LINE: 'line_string';
+            POINT: 'point';
+        };
+
+        readonly geojsonTypes: {
+            FEATURE: 'Feature';
+            POLYGON: 'Polygon';
+            LINE_STRING: 'LineString';
+            POINT: 'Point';
+            FEATURE_COLLECTION: 'FeatureCollection';
+            MULTI_PREFIX: 'Multi';
+            MULTI_POINT: 'MultiPoint';
+            MULTI_LINE_STRING: 'MultiLineString';
+            MULTI_POLYGON: 'MultiPolygon';
+        };
+
+        readonly modes: {
+            DRAW_LINE_STRING: 'draw_line_string';
+            DRAW_POLYGON: 'draw_polygon';
+            DRAW_POINT: 'draw_point';
+            SIMPLE_SELECT: 'simple_select';
+            DIRECT_SELECT: 'direct_select';
+            STATIC: 'static';
+        };
+
+        readonly events: {
+            CREATE: 'draw.create';
+            DELETE: 'draw.delete';
+            UPDATE: 'draw.update';
+            SELECTION_CHANGE: 'draw.selectionchange';
+            MODE_CHANGE: 'draw.modechange';
+            ACTIONABLE: 'draw.actionable';
+            RENDER: 'draw.render';
+            COMBINE_FEATURES: 'draw.combine';
+            UNCOMBINE_FEATURES: 'draw.uncombine';
+        };
+
+        readonly updateActions: {
+            MOVE: 'move';
+            CHANGE_COORDINATES: 'change_coordinates';
+        };
+
+        readonly meta: {
+            FEATURE: 'feature';
+            MIDPOINT: 'midpoint';
+            VERTEX: 'vertex';
+        };
+
+        readonly activeStates: {
+            ACTIVE: 'true';
+            INACTIVE: 'false';
+        };
+
+        readonly interactions: [
+            'scrollZoom',
+            'boxZoom',
+            'dragRotate',
+            'dragPan',
+            'keyboard',
+            'doubleClickZoom',
+            'touchZoomRotate',
+        ];
+
+        readonly LAT_MIN: -90;
+        readonly LAT_RENDERED_MIN: -85;
+        readonly LAT_MAX: 90;
+        readonly LAT_RENDERED_MAX: 85;
+        readonly LNG_MIN: -270;
+        readonly LNG_MAX: 270;
+    }
+
+    interface StringSet {
+        add(x: string | number): StringSet;
+        delete(x: string | number): StringSet;
+        has(x: string | number): boolean;
+        values(): string | number[];
+        clear(): StringSet;
+    }
+
+    interface Lib {
+        CommonSelectors: {
+            isOfMetaType: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isShiftMousedown: (e: MapboxEvent) => boolean;
+            isActiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isInactiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            noTarget: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isVertex: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isShiftDown: (e: MapboxEvent) => boolean;
+            isEscapeKey: (e: KeyboardEvent) => boolean;
+            isEnterKey: (e: KeyboardEvent) => boolean;
+            isTrue: () => boolean;
+        };
+
+        constrainFeatureMovement(geojsonFeatures: DrawFeature[], delta: { lng: number; lat: number }): number;
+
+        createMidPoint(parent: string, startVertex: DrawFeature, endVertex: DrawFeature): GeoJSON;
+
+        createSupplementaryPoints(
+            geojson: DrawFeature,
+            options?: { midpoints?: boolean; selectedPaths?: string[] },
+            basePath?: string,
+        ): GeoJSON[];
+
+        /**
+         * Returns GeoJSON for a Point representing the
+         * vertex of another feature.
+         *
+         * @param parentId
+         * @param coordinates
+         * @param path Dot-separated numbers indicating exactly
+         *   where the point exists within its parent feature's coordinates.
+         * @param selected
+         * @return GeoJSON Point
+         */
+        createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): GeoJSON;
+
+        // TODO: define a proper type for ctx since is not exposed correctly
+        // https://github.com/mapbox/mapbox-gl-draw/issues/1156
+
+        doubleClickZoom: {
+            enable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+            disable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+        };
+
+        featuresAt: {
+            click: (event: MapMouseEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+            touch: (event: MapTouchEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+        };
+
+        getFeatureAtAndSetCursors(event: MapMouseEvent, ctx: DrawCustomModeThis): Feature;
+
+        euclideanDistance(a: { x: number; y: number }, b: { x: number; y: number }): number;
+
+        isClick(
+            start: { point?: { x: number; y: number }; time?: number },
+            end: { point: { x: number; y: number }; time: number },
+            options?: { fineTolerance?: number; grossTolerance?: number; interval?: number },
+        ): boolean;
+
+        isEventAtCoordinates(event: MapMouseEvent, coordinates: Position[]): boolean;
+
+        isTap(
+            start: { point?: { x: number; y: number }; time?: number },
+            end: { point: { x: number; y: number }; time: number },
+            options?: { tolerance?: number; interval?: number },
+        ): boolean;
+
+        /**
+         * Returns a bounding box representing the event's location.
+         *
+         * @param mapEvent - Mapbox GL JS map event, with a point properties.
+         * @param [buffer=0]
+         * @return Bounding box.
+         */
+        mapEventToBoundingBox(mapEvent: MapMouseEvent | MapTouchEvent, buffer?: number): Position[];
+
+        ModeHandler: (
+            mode: any,
+            DrawContext: any,
+        ) => {
+            render: any;
+            stop: () => void;
+            trash: () => void;
+            combineFeatures: () => void;
+            uncombineFeatures: () => void;
+            drag: (event: any) => void;
+            click: (event: any) => void;
+            mousemove: (event: any) => void;
+            mousedown: (event: any) => void;
+            mouseup: (event: any) => void;
+            mouseout: (event: any) => void;
+            keydown: (event: any) => void;
+            keyup: (event: any) => void;
+            touchstart: (event: any) => void;
+            touchmove: (event: any) => void;
+            touchend: (event: any) => void;
+            tap: (event: any) => void;
+        };
+
+        moveFeatures(features: DrawFeature[], delta: { lng: number; lat: number }): void;
+
+        /**
+         * Sort features in the following order Point: 0, LineString: 1, MultiLineString: 1,
+         * Polygon: 2, then sort polygons by area ascending.
+         * @param features
+         */
+        sortFeatures(features: DrawFeature[]): DrawFeature[];
+
+        stringSetsAreEqual(a: Array<Pick<Feature, 'id'>>, b: Array<Pick<Feature, 'id'>>): boolean;
+
+        StringSet(items?: Array<string | number>): StringSet;
+
+        theme: Array<(FillLayer | LineLayer | CircleLayer) & { id: ThemeLayerId }>;
+
+        /**
+         * Derive a dense array (no `undefined`s) from a single value or array.
+         */
+        toDenseArray(x: any): Array<NonNullable<any>>;
+    }
+
+    type ThemeLayerId =
+        | 'gl-draw-polygon-fill-static'
+        | 'gl-draw-polygon-fill-active'
+        | 'gl-draw-polygon-fill-inactive'
+        | 'gl-draw-polygon-stroke-static'
+        | 'gl-draw-polygon-stroke-active'
+        | 'gl-draw-polygon-stroke-inactive'
+        | 'gl-draw-polygon-midpoint'
+        | 'gl-draw-polygon-and-line-vertex-inactive'
+        | 'gl-draw-polygon-and-line-vertex-stroke-inactive'
+        | 'gl-draw-line-static'
+        | 'gl-draw-line-active'
+        | 'gl-draw-line-inactive'
+        | 'gl-draw-point-static'
+        | 'gl-draw-point-active'
+        | 'gl-draw-point-inactive'
+        | 'gl-draw-point-stroke-active'
+        | 'gl-draw-point-point-stroke-inactive';
+
     interface MapboxDrawOptions {
         displayControlsDefault?: boolean | undefined;
         keybindings?: boolean | undefined;
@@ -287,6 +549,8 @@ declare namespace MapboxDraw {
 
 declare class MapboxDraw implements IControl {
     static modes: MapboxDraw.Modes;
+    static constants: MapboxDraw.Constants;
+    static lib: MapboxDraw.Lib;
 
     modes: MapboxDraw.DrawModes;
 

@@ -29,16 +29,17 @@ export type CycloneDXBomV1_2 = CycloneDXBase<ComponentV1_2> & {
 export type CycloneDXBomV1_3 = CycloneDXBase<ComponentV1_3> & {
     specVersion: '1.3';
     metadata?: MetadataBase<ToolV1_3, ComponentV1_3> & {
-        licenses?: License[];
+        licenses?: LicenseOrExpression[];
         properties?: Properties;
     };
+    services?: ServiceV1_3[];
     compositions?: CompositionBase[];
 };
 
 export type CycloneDXBomV1_4 = CycloneDXBase<ComponentV1_4> & {
     specVersion: '1.4';
     metadata?: MetadataBase<ToolV1_3, ComponentV1_4> & {
-        licenses?: License[];
+        licenses?: LicenseOrExpression[];
         properties?: Properties;
     };
     services?: ServiceV1_4[];
@@ -97,7 +98,7 @@ interface ComponentBase {
     'mime-type'?: string;
     'bom-ref'?: string;
     supplier?: Contact;
-    licenses?: License[];
+    licenses?: LicenseOrExpression[];
     author?: string;
     publisher?: string;
     group?: string;
@@ -138,7 +139,7 @@ export type ComponentV1_4 = ComponentBase & {
 };
 
 export interface Evidence {
-    licenses?: License[];
+    licenses?: LicenseOrExpression[];
     copyright: Array<{ text: string }>;
 }
 
@@ -190,16 +191,16 @@ interface ServiceBase {
         flow: 'inbound' | 'outbound' | 'bi-directional' | 'unknown';
         classification: string;
     }>;
-    licenses?: License[];
+    licenses?: LicenseOrExpression[];
     externalReferences?: ExternalReference[];
 }
 
 export type ServiceV1_2 = ServiceBase & {
-    services: ServiceV1_2[];
+    services?: ServiceV1_2[];
 };
 
 export type ServiceV1_3 = ServiceBase & {
-    services: ServiceV1_3[];
+    services?: ServiceV1_3[];
     properties?: Properties;
 };
 
@@ -447,23 +448,27 @@ export interface ContactPerson {
 
 export type Scope = 'required' | 'optional' | 'excluded';
 
-export type License =
+export type License = (
     | {
-          license: (
-              | {
-                    id: LicenseId;
-                    name?: string;
-                }
-              | {
-                    id?: LicenseId;
-                    name: string;
-                }
-          ) & {
-              text?: MimeText;
-              url?: URL;
-          };
+          id: LicenseId;
+          name?: string;
       }
     | {
+          id?: LicenseId;
+          name: string;
+      }
+) & {
+    text?: MimeText;
+    url?: URL;
+};
+
+export type LicenseOrExpression =
+    | {
+          license: License;
+          expression?: string;
+      }
+    | {
+          license?: License;
           expression: string;
       };
 

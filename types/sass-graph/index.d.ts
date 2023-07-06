@@ -19,7 +19,6 @@ declare namespace SassGraph {
   }
 
   /**
-   * @class Graph
    */
   export interface Graph {
     dir: string;

@@ -1,1 +1,1 @@
-export default function getId(prefix: string): string;
+export default function getId(prefix?: string): string;

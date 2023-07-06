@@ -92,6 +92,9 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback).then(() => {});
 
+// $ExpectType Promise<boolean>
+connection.isValidAsync();
+
 //  Key pair connections
 
 snowflake.createConnection({

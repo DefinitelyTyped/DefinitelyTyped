@@ -9,12 +9,10 @@ import express = require('express');
 
 /**
  * @summary Middleware.
- * @class
  */
 declare class ExpressBrute {
     /**
      * @summary Constructor.
-     * @constructor
      * @param {any} store The store.
      */
     constructor(store: any, options?: ExpressBrute.Options);
@@ -52,7 +50,6 @@ declare namespace ExpressBrute {
     export interface MemoryStoreOptions {
         /**
          * @summary Key prefix.
-         * @type {string}
          */
         prefix: string;
     }
@@ -71,19 +68,16 @@ declare namespace ExpressBrute {
     export interface Middleware {
         /**
          * @summary Allows you to override the value of failCallback for this middleware.
-         * @type {FailCallback}
          */
         failCallback?: FailCallback | undefined;
 
         /**
          * @summary Disregard IP address when matching requests if set to true. Defaults to false.
-         * @type {boolean}
          */
         ignoreIP?: boolean | undefined;
 
         /**
          * @summary Key.
-         * @type {Function}
          */
         key?: ((req: express.Request, res: express.Response, next: express.NextFunction) => any) | undefined;
     }
@@ -129,12 +123,10 @@ declare namespace ExpressBrute {
 
     /**
      * @summary In-memory store.
-     * @class
      */
     export class MemoryStore {
         /**
          * @summary Constructor.
-         * @constructor
          * @param {Object} options The options.
          */
         constructor(options?: MemoryStoreOptions);

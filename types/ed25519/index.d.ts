@@ -1,6 +1,6 @@
 // Type definitions for ed25519 0.0
 // Project: https://github.com/dazoe/ed25519
-// Definitions by: Erik Mavrinac <https://github.com/erikma>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Main site: https://ed25519.cr.yp.to/

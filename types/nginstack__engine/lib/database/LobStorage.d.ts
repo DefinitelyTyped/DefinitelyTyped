@@ -4,6 +4,7 @@ declare class LobStorage {
     constructor(classKey: number | DBKey);
     classKey: number;
     private batchChanges_;
+    logChanges: boolean;
     beginBatch(): void;
     endBatch(): DataSet;
     private compress_;
@@ -12,6 +13,7 @@ declare class LobStorage {
     private decode_;
     private tryCompress_;
     private prepareContent_;
+    private getDataSetForUpdate_;
     addLob(
         fileName: string,
         content: string,

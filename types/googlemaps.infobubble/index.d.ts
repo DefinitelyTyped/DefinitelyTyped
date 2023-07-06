@@ -10,7 +10,7 @@
  * @name CSS3 InfoBubble with tabs for Google Maps API V3
  * @version 0.8
  * @author Luke Mahe
- * @fileoverview
+ * @file
  * This library is a CSS Infobubble with tabs. It uses css3 rounded corners and
  * drop shadows and animations. It also allows tabs
  */
@@ -54,8 +54,8 @@ declare namespace google.maps.infobubble {
 
         /**
           * Opens the infobubble
-          * @map The google map object
-          * @marker The marker used for anchoring the infobubble to
+          * @param map The google map object
+          * @param marker The marker used for anchoring the infobubble to
           */
         open(map: google.maps.Map, marker: google.maps.Marker) : void;
 

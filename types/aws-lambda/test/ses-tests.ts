@@ -137,11 +137,11 @@ const sesEventMail: SESMail = {
         bcc: ['"otherrecipient@example.com" <otherrecipient@example.com>'],
         messageId: '<F8098FDD-49A3-442D-9935-F6112B195BDA@example.com>',
         subject: 'This is a test',
-        replyTo: ['"Doe, John" <sender@example.com>']
+        replyTo: ['"Doe, John" <sender@example.com>'],
     },
 };
 
-const receiptCommon: Omit<SESReceipt, 'action'> =  {
+const receiptCommon: Omit<SESReceipt, 'action'> = {
     timestamp: '2019-08-05T21:30:02.028Z',
     processingTimeMillis: 1205,
     recipients: ['recipient@example.com'],
@@ -176,7 +176,7 @@ const sesS3Event: SESEvent = {
                         type: 'S3',
                         bucketName: 'my-bucket',
                         objectKey: 'path/to/key',
-                        topicArn: 'arn:aws:sns:us-east-1:123456789012:topic:my-topic'
+                        topicArn: 'arn:aws:sns:us-east-1:123456789012:topic:my-topic',
                     },
                 },
             },
@@ -195,7 +195,7 @@ const sesSnsEvent: SESEvent = {
                     ...receiptCommon,
                     action: {
                         type: 'SNS',
-                        topicArn: 'arn:aws:sns:us-east-1:123456789012:topic:my-topic'
+                        topicArn: 'arn:aws:sns:us-east-1:123456789012:topic:my-topic',
                     },
                 },
             },
@@ -218,7 +218,7 @@ const sesBounceEvent: SESEvent = {
                         smtpReplyCode: '5.1.1',
                         message: 'message',
                         sender: 'sender',
-                        statusCode: '550'
+                        statusCode: '550',
                     },
                 },
             },

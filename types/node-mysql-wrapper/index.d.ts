@@ -55,16 +55,14 @@ declare class Helper {
      * @name valueCallback
      * @function
      * @param {T} the value of the object's key
-     * @returnTye {U}
      * @return {U}
     */
 
     /**
-     * CallbaforEach
+     * Callback like forEach
      * @name keyCallback
      * @function
      * @param {string} the name of the object's key
-     * @returnTye {U}
      * @return {U}
     */
 

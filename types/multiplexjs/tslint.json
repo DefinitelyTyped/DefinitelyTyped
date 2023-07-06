@@ -9,7 +9,6 @@
         "member-access": false,
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-eval": false,
         "no-namespace": false,
         "no-object-literal-type-assertion": false,

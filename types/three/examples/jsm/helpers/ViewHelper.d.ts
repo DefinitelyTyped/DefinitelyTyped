@@ -1,5 +1,4 @@
-import { Object3D, Vector3, WebGLRenderer } from '../../../src/Three';
-import { Octree } from '../math/Octree';
+import { Camera, Object3D, Vector3, WebGLRenderer } from '../../../src/Three';
 
 export class ViewHelper extends Object3D {
     animating: boolean;
@@ -7,10 +6,10 @@ export class ViewHelper extends Object3D {
 
     readonly isViewHelper: true;
 
-    constructor(camera: Octree, domElement: HTMLElement);
+    constructor(camera: Camera, domElement: HTMLElement);
 
     render(renderer: WebGLRenderer): void;
-    handleClick(event: PointerEvent): boolean;
+    handleClick(event: MouseEvent): boolean;
     update(delta: number): void;
     dispose(): void;
 }

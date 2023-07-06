@@ -340,7 +340,7 @@ declare module 'crypto' {
 
     interface SigningOptions {
         /**
-         * @See crypto.constants.RSA_PKCS1_PADDING
+         * @see crypto.constants.RSA_PKCS1_PADDING
          */
         padding?: number | undefined;
         saltLength?: number | undefined;

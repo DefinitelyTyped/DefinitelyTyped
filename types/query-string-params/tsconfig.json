@@ -19,6 +19,5 @@
     "files": [
         "index.d.ts",
         "query-string-params-tests.ts"
-    ],
-    "baseUrl": "types"
+    ]
 }

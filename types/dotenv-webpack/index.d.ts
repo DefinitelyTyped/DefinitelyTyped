@@ -66,7 +66,7 @@ declare namespace DotenvWebpackPlugin {
 
         /**
          * Override the automatic check whether to stub `process.env`.
-         * @dfault false
+         * @default false
          */
         ignoreStub?: boolean | undefined;
     }

@@ -22,11 +22,14 @@ function assertType<T>(value: T): T {
         const { Network, Page, Runtime } = client;
         await Network.enable();
         await Network.enable({});
+        await Network.enable({}, 'sessionId'); // Should be Network.enable('sessionId')
         // @ts-expect-error
         await Network.setAcceptedEncodings();
         await Network.setAcceptedEncodings({encodings: []});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
+        await client.Runtime.runIfWaitingForDebugger('sessionId');
+        await client.Fetch.enable({patterns: []}, 'sessionId');
         let loadEvent = await Page.loadEventFired();
         loadEvent = await client['Page.loadEventFired']();
         loadEvent.timestamp;

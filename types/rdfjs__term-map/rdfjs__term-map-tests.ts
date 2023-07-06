@@ -1,6 +1,6 @@
 import TermMap from '@rdfjs/term-map';
 import Factory from '@rdfjs/term-map/Factory';
-import { Term, Literal, BlankNode, NamedNode } from 'rdf-js';
+import { Term, Literal, BlankNode, NamedNode } from '@rdfjs/types';
 
 const literal: Literal = <any> {};
 const blank: BlankNode = <any> {};

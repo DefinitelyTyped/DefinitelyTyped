@@ -1,7 +1,3 @@
 {
-    "defaultSeverity": "error",
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "indent": [true, "spaces", 4]
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

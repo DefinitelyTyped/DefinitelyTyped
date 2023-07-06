@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import Alpine, { AlpineComponent } from 'alpinejs';
+import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from 'alpinejs';
 import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
 { // Alpine.reactive
@@ -87,7 +87,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             expression;
             // $ExpectType string[]
             modifiers;
-            // $ExpectType () => void
+            // $ExpectType (cb: () => void) => void
             effect;
             // $ExpectType (expression: string) => (result: unknown) => void
             evaluateLater;
@@ -281,11 +281,28 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         expression;
         // $ExpectType Alpine
         Alpine;
-        // $ExpectType () => void
+        // $ExpectType (cb: () => void) => void
         effect;
-        // $ExpectType () => void
+        // $ExpectType (cb: () => void) => void
         cleanup;
     });
+
+    (el: Node, { value, modifiers, expression }: DirectiveParameters, { Alpine, effect, cleanup }: DirectiveUtilities) => {
+      // $ExpectType Node
+      el;
+      // $ExpectType string
+      value;
+      // $ExpectType string[]
+      modifiers;
+      // $ExpectType string
+      expression;
+      // $ExpectType Alpine
+      Alpine;
+      // $ExpectType (cb: () => void) => void
+      effect;
+      // $ExpectType (cb: () => void) => void
+      cleanup;
+  };
 }
 
 { // Alpine.throttle

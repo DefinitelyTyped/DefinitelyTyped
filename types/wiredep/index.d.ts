@@ -13,7 +13,7 @@ interface PathFiles {
 
 /**
  * @return {PathFiles} paths to your files by extension
- * @example:
+ * @example
  *  {
  *     js: [
  *       'paths/to/your/js/files.js',
@@ -71,14 +71,14 @@ interface WiredepParams {
      */
     includeSelf?: boolean | undefined;
     /**
-     * @example:
+     * @example
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
     exclude?: Array<string | RegExp> | undefined;
 
     /**
      * string or regexp to ignore from the injected filepath
-     * @example:
+     * @example
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
     ignorePath?: string | RegExp | undefined;
@@ -149,7 +149,7 @@ interface FileTypes {
              */
             typeOfBowerFile: string;
             /**
-             * @exemple:
+             * @example
              *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
              */
             anotherTypeOfBowerFile: (filePath: string) => string;
@@ -159,19 +159,19 @@ interface FileTypes {
     // defaults:
     html: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /<script.*src=['"]([^'"]+)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /<link.*href=['"]([^'"]+)/gi
              */
             css: RegExp;
@@ -179,12 +179,12 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '<script src="{{filePath}}"></script>'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  '<link rel="stylesheet" href="{{filePath}}" />'
              */
             css: string;
@@ -193,18 +193,18 @@ interface FileTypes {
 
     jade: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /script\(.*src=['"]([^'"]+)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /link\(.*href=['"]([^'"]+)/gi
              */
             css: RegExp;
@@ -212,12 +212,12 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  'script(src=\'{{filePath}}\')'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  'link(rel=\'stylesheet\', href=\'{{filePath}}\')'
              */
             css: string;
@@ -226,18 +226,18 @@ interface FileTypes {
 
     less: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+less)['"]/gi
              */
             less: RegExp
@@ -245,12 +245,12 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             less: string;
@@ -259,40 +259,40 @@ interface FileTypes {
 
     scss: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+sass)['"]/gi
              */
             sass: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+scss)['"]/gi
              */
             scss: RegExp;
         },
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             sass: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             scss: string;
@@ -301,31 +301,31 @@ interface FileTypes {
 
     styl: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *   /@import\s['"](.+styl)['"]/gi
              */
             styl: RegExp;
         };
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}"'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}"'
              */
             styl: string;
@@ -334,19 +334,19 @@ interface FileTypes {
 
     yaml: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)#\s*bower:*(\S*))(\n|\r|.)*?(#\s*endbower)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /-\s(.+js)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /-\s(.+css)/gi
              */
             css: RegExp;
@@ -354,12 +354,12 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '- {{filePath}}'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  '- {{filePath}}'
              */
             css: string;

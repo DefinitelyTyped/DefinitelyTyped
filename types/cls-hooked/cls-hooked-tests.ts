@@ -17,7 +17,7 @@ function bindLater(callback: (x: number) => number) {
 
 bindLater((x: number) => {
     return x;
-})(123);  // passing argument 'abc' should get compile error
+})(123); // passing argument 'abc' should get compile error
 
 const session2 = cls.getNamespace('my session')!;
 session2.get('user');
@@ -42,3 +42,23 @@ appNamespace.exit(context);
 appNamespace.enter(context);
 appNamespace.get('requestId');
 appNamespace.exit(context);
+
+interface MyContext {
+    foo: string;
+    bar: number;
+}
+
+const typedNameSpace = cls.createNamespace<MyContext>('typed');
+typedNameSpace.set('foo', 'foo');
+typedNameSpace.set('bar', 123);
+
+// @ts-expect-error
+typedNameSpace.set('bar', 'foo');
+
+// @ts-expect-error
+typedNameSpace.set('foo', 123);
+
+const retrievedNameSpace = cls.getNamespace<MyContext>('typed');
+if (retrievedNameSpace) {
+    retrievedNameSpace.get('foo');
+}

@@ -17,25 +17,21 @@ declare namespace i18nextNodeFsBackEnd {
     interface i18nextNodeFsBackEndOptions {
         /**
          * @summary Path where resources get loaded from.
-         * @type {string}
          */
         loadPath: string;
 
         /**
          * @summary Path to post missing resources
-         * @type {string}
          */
         addPath: string;
 
         /**
          * @summary jsonIndent to use when storing json files
-         * @type {number}
          */
         jsonIndent: number;
 
         /**
          * @summary custom parser
-         * @type {function}
          */
         parse?: ((data: any) => any) | undefined;
     }

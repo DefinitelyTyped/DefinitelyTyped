@@ -1,4 +1,4 @@
-// Type definitions for get-intrinsic 1.0
+// Type definitions for get-intrinsic 1.2
 // Project: https://github.com/ljharb/get-intrinsic#readme
 // Definitions by: Jordan Harband <https://github.com/ljharb>
 //                 ExE Boss <https://github.com/ExE-Boss>

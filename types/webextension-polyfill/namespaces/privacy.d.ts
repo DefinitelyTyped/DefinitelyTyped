@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.privacy
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Permissions: "privacy"
  *

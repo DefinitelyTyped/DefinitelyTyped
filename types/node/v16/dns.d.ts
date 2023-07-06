@@ -171,7 +171,7 @@ declare module 'dns' {
         type: 'AAAA';
     }
     export interface CaaRecord {
-        critial: number;
+        critical: number;
         issue?: string | undefined;
         issuewild?: string | undefined;
         iodef?: string | undefined;
@@ -620,6 +620,7 @@ declare module 'dns' {
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
         resolveAny: typeof resolveAny;
+        resolveCaa: typeof resolveCaa;
         resolveCname: typeof resolveCname;
         resolveMx: typeof resolveMx;
         resolveNaptr: typeof resolveNaptr;

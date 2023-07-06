@@ -89,7 +89,7 @@ export class ShaderMaterial extends Material {
     };
 
     /**
-     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv2': [ 0, 0 ] }
+     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv1': [ 0, 0 ] }
      */
     defaultAttributeValues: any;
 

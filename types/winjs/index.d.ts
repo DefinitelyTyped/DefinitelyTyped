@@ -386,7 +386,6 @@ declare namespace WinJS.Binding {
 
         /**
          * Creates a List object.
-         * @constructor
          * @param list The array containing the elements to initalize the list.
          * @param options You can set two Boolean options: binding and proxy. If options.binding is true, the list contains the result of calling as on the element values. If options.proxy is true, the list specified as the first parameter is used as the storage for the List. This option should be used with care, because uncoordinated edits to the data storage may result in errors.
         **/
@@ -1195,7 +1194,6 @@ declare namespace WinJS.Binding {
 
         /**
          * Creates a template that provides a reusable declarative binding element.
-         * @constructor
          * @param element The DOM element to convert to a template.
          * @param options If this parameter is supplied, the template is loaded from the URI and the content of the element parameter is ignored. You can add the following options: href.
         **/
@@ -1470,7 +1468,6 @@ declare namespace WinJS {
 
         /**
          * Creates an Error object with the specified name and message properties.
-         * @constructor
          * @param name The name of this error. The name is meant to be consumed programmatically and should not be localized.
          * @param message The message for this error. The message is meant to be consumed by humans and should be localized.
         **/
@@ -1511,7 +1508,6 @@ declare namespace WinJS {
 
         /**
          * A promise provides a mechanism to schedule work to be done on a value that has not yet been computed. It is a convenient abstraction for managing interactions with asynchronous APIs. For more information about asynchronous programming, see Asynchronous programming. For more information about promises in JavaScript, see Asynchronous programming in JavaScript. For more information about using promises, see the WinJS Promise sample.
-         * @constructor
          * @param init The function that is called during construction of the Promise that contains the implementation of the operation that the Promise will represent. This can be synchronous or asynchronous, depending on the nature of the operation. Note that placing code within this function does not automatically run it asynchronously; that must be done explicitly with other asynchronous APIs such as setImmediate, setTimeout, requestAnimationFrame, and the Windows Runtime asynchronous APIs. The init function is given three arguments: completeDispatch, errorDispatch, progressDispatch. This parameter is optional.
          * @param onCancel The function to call if a consumer of this promise wants to cancel its undone work. Promises are not required to support cancellation.
         **/
@@ -3942,7 +3938,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new AppBar object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new AppBar.
         **/
@@ -4119,7 +4114,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new AppBarCommand object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new AppBarCommand.
         **/
@@ -4251,7 +4245,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new AutoSuggestBox.
-         * @constructor
          * @param element The DOM element hosts the new AutoSuggestBox.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -4386,7 +4379,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new BackButton.
-         * @constructor
          * @param element The DOM element hosts the new BackButton.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -4456,7 +4448,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new CellSpanningLayout.
-         * @constructor
          * @param options An object that contains one or more property/value pairs to apply to the new CellSpanningLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
         constructor(options?: any);
@@ -4627,7 +4618,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new ContentDialog control.
-         * @constructor
          * @param The DOM element that hosts the ContentDialog control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -4742,7 +4732,6 @@ declare namespace WinJS.UI {
 
         /**
          * Initializes a new instance of the DatePicker control.
-         * @constructor
          * @param element The DOM element associated with the DatePicker control.
          * @param options The set of options to be applied initially to the DatePicker control. The options are the following: calendar, current, datePattern, disabled, maxYear, minYear, monthPattern, yearPattern.
         **/
@@ -4895,7 +4884,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new FlipView.
-         * @constructor
          * @param element The DOM element that hosts the control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
         **/
@@ -5062,7 +5050,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Flyout object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new Flyout.
         **/
@@ -5205,7 +5192,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new GridLayout object.
-         * @constructor
          * @param options The set of properties and values to apply to the new GridLayout.
         **/
         constructor(options?: any);
@@ -5343,7 +5329,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Hub control.
-         * @constructor
          * @param element The DOM element that will host the Hub control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the contentanimating event, add a property named "oncontentanimating" to the options object and set its value to the event handler.
         **/
@@ -5517,7 +5502,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new HubSection.
-         * @constructor
          * @param element The DOM element hosts the new HubSection.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -5578,7 +5562,6 @@ declare namespace WinJS.UI {
 
         /**
          * Initializes a new instance of HtmlControl to define a new page control.
-         * @constructor
          * @param element The element that hosts the HtmlControl.
          * @param options The options for configuring the page. The uri option is required in order to specify the source document for the content of the page. Other options are the ones used by the WinJS.Pages.render method.
         **/
@@ -5605,7 +5588,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new ItemContainer.
-         * @constructor
          * @param element The DOM element hosts the new ItemContainer. For the ItemContainer to be accessible, this element must have its role attribute set to "list" or "listbox". If tapBehavior is set to none and selectionDisabled is true, then use the "list" role; otherwise, use the "listbox" role.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -5737,7 +5719,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new ListLayout.
-         * @constructor
          * @param options An object that contains one or more property/value pairs to apply to the new ListLayout. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
         constructor(options?: any);
@@ -5853,7 +5834,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new ListView.
-         * @constructor
          * @param element The DOM element that hosts the ListView control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the selectionchanged event, add a property named "onselectionchanged" to the options object and set its value to the event handler.
         **/
@@ -6244,7 +6224,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Pivot.
-         * @constructor
          * @param element The DOM element hosts the new Pivot.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -6371,7 +6350,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new PivotItem.
-         * @constructor
          * @param element The DOM element hosts the new PivotItem.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -6426,7 +6404,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Menu object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new Menu.
         **/
@@ -6603,7 +6580,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new MenuCommand object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new MenuCommand.
         **/
@@ -6705,7 +6681,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new NavBar.
-         * @constructor
          * @param element The DOM element that will host the new NavBar.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -6872,7 +6847,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new NavBarCommand.
-         * @constructor
          * @param element The DOM element hosts the new NavBarCommand.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -6982,7 +6956,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new NavBarContainer.
-         * @constructor
          * @param element The DOM element hosts the new NavBarContainer.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -7098,7 +7071,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Rating.
-         * @constructor
          * @param element The DOM element hosts the new Rating.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the cancel event, add a property named "oncancel" to the options object and set its value to the event handler.
         **/
@@ -7207,7 +7179,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Repeater control.
-         * @constructor
          * @param elemnt The DOM element that will host the new control. The Repeater will create an element if this value is null.
          * @param options An object that contains one or more property/value pairs to apply to the new Repeater. Each property of the options object corresponds to one of the object's properties or events. Event names must begin with "on".
         **/
@@ -7369,7 +7340,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new SearchBox.
-         * @constructor
          * @param element The DOM element hosts the new SearchBox.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -7505,7 +7475,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new SemanticZoom.
-         * @constructor
          * @param element The DOM element that hosts the SemanticZoom.
          * @param options An object that contains one or more property/value pairs to apply to the new control. This object can contain these properties: initiallyZoomedOut Boolean, zoomFactor 0.2–0.85.
         **/
@@ -7620,7 +7589,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new SettingsFlyout object.
-         * @constructor
          * @param element The DOM element that will host the control.
          * @param options The set of properties and values to apply to the new SettingsFlyout.
         **/
@@ -7813,7 +7781,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new SplitView.
-         * @constructor
          * @param element The DOM element hosts the new SplitView.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -7924,7 +7891,6 @@ declare namespace WinJS.UI {
     class SplitViewPaneToggle {
         /**
          * Creates a new SplitViewPaneToggle.
-         * @constructor
          * @param element The DOM element hosts the new SplitViewPaneToggle.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -7991,7 +7957,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new SplitViewCommand.
-         * @constructor
          * @param element The DOM element hosts the new SplitViewCommand.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events.
         **/
@@ -8080,7 +8045,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new StorageDataSource object.
-         * @constructor
          * @param query The IStorageQueryResultBase that the StorageDataSource obtains its items from. Instead of IStorageQueryResultBase, you can also pass one of these string values: Music, Pictures, Videos, Documents.
          * @param options The set of properties and values to apply to the new StorageDataSource. Properties on this object may include: mode , requestedThumbnailSize , thumbnailOptions , synchronous .
         **/
@@ -8139,7 +8103,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new TabContainer.
-         * @constructor
          * @param element The DOM element that hosts the TabContainer control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties.
         **/
@@ -8185,7 +8148,6 @@ declare namespace WinJS.UI {
 
         /**
          * Initializes a new instance of a TimePicker control.
-         * @constructor
          * @param element The DOM element associated with the TimePicker control.
          * @param options The set of options to be applied initially to the TimePicker control. The options are the following: clock.
         **/
@@ -8300,7 +8262,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new ToggleSwitch.
-         * @constructor
          * @param element The DOM that hosts the control.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the change event, add a property named "onchange" to the options object and set its value to the event handler.
         **/
@@ -8533,7 +8494,6 @@ declare namespace WinJS.UI {
 
         /**
          * Creates a new Tooltip.
-         * @constructor
          * @param element The DOM element associated that hosts the Tooltip.
          * @param options An object that contains one or more property/value pairs to apply to the new control. Each property of the options object corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the opened event, add a property named "onopened" to the options object and set its value to the event handler.
         **/
@@ -8654,7 +8614,6 @@ declare namespace WinJS.UI {
 
         /**
          * Initializes a new instance of the ViewBox control.
-         * @constructor
          * @param element The DOM element that functions as the scaling box. This element fills 100% of the width and height allotted to it.
          * @param options The set of options to be applied initially to the ViewBox control. There are currently no options on this control, and any options included in this parameter are ignored.
         **/
@@ -8731,7 +8690,6 @@ declare namespace WinJS.UI {
 
         /**
          * Initializes the VirtualizedDataSource base class of a custom data source.
-         * @constructor
          * @param listDataAdapter The object that supplies data to the VirtualizedDataSource.
          * @param options An object that can contain properties that specify additional options for the VirtualizedDataSource. It supports these properties: cacheSize.
         **/

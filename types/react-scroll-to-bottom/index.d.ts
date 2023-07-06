@@ -80,22 +80,22 @@ export function useScrollTo(): (scrollTop: number | '100%') => void;
 /**
  * Scroll panel to bottom
  */
-export function useScrollToBottom(): () => void;
+export function useScrollToBottom(): (option?: ScrollOption) => void;
 
 /**
  * Scroll panel to end (depends on `mode`)
  */
-export function useScrollToEnd(): () => void;
+export function useScrollToEnd(): (option?: ScrollOption) => void;
 
 /**
  * Scroll panel to start (depends on `mode`)
  */
-export function useScrollToStart(): () => void;
+export function useScrollToStart(): (option?: ScrollOption) => void;
 
 /**
  * Scroll panel to top
  */
-export function useScrollToTop(): () => void;
+export function useScrollToTop(): (option?: ScrollOption) => void;
 
 /**
  * Observe scroll position change by passing a callback function
@@ -154,19 +154,19 @@ export const FunctionContext: Context<{
     /**
      * Scroll panel to bottom
      */
-    scrollToBottom: () => void;
+    scrollToBottom: (option?: ScrollOption) => void;
     /**
      * Scroll panel to end (depends on mode)
      */
-    scrollToEnd: () => void;
+    scrollToEnd: (option?: ScrollOption) => void;
     /**
      * Scroll panel to start (depends on mode)
      */
-    scrollToStart: () => void;
+    scrollToStart: (option?: ScrollOption) => void;
     /**
      * Scroll panel to top
      */
-    scrollToTop: () => void;
+    scrollToTop: (option?: ScrollOption) => void;
 }>;
 
 /**
@@ -206,3 +206,16 @@ export const StateContext: Context<{
      */
     sticky: boolean;
 }>;
+
+/**
+ * scrollToBottom/scrollToEnd/scrollToStart/scrollToTop accept an option in v3.0.0
+ * reference: https://github.com/compulim/react-scroll-to-bottom#300---2020-06-21
+ */
+export interface ScrollOption {
+    /**
+     * In future versions, the default behavior will be changed from smooth scrolling to discrete scrolling to align with HTML Standard
+     * Note: if not set behavior to smooth, `react-scroll-to-bottom` will warn
+     * reference: https://github.com/compulim/react-scroll-to-bottom/blob/main/packages/component/src/ScrollToBottom/Composer.js#L188
+     */
+    behavior?: 'smooth' | 'auto';
+}

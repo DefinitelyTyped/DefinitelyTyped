@@ -1835,7 +1835,7 @@ export namespace DomUtil {
     /**
      * Get dom's css class
      * @param  name css class
-     * @retrun {String} class字符串
+     * @return class字符串
      *  DomUtil
      */
     function getClass(el: string): string;
@@ -3246,21 +3246,21 @@ export class Extent {
 
     /**
      * Get the minimum point
-     * @params {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getMin(out?: Coordinate): Coordinate;
 
     /**
      * Get the maximum point
-     * @params {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getMax(out?: Coordinate): Coordinate;
 
     /**
      * Get center of the extent.
-     * @params {Coorindate} [out=undefined] - optional point to receive result
+     * @param [out=undefined] - optional point to receive result
      * @return
      */
     getCenter(out?: Coordinate): Coordinate;
@@ -3436,8 +3436,8 @@ export abstract class Position {
 
     /**
      * Set point or coordinate's x, y value
-     * @params  x - x value
-     * @params  y - y value
+     * @param  x - x value
+     * @param  y - y value
      * @return  this
      */
     set(x: number, y: number): Coordinate | Point;
@@ -3958,13 +3958,11 @@ export interface Geometry extends Handlerable, JSONAble, ui.Menuable {
 
     /**
      * Whether the geometry is being edited.
-     * @return
      */
     isEditing(): boolean;
 
     /**
      * Whether the geometry is being dragged.
-     * @reutrn
      */
     isDragging(): boolean;
 

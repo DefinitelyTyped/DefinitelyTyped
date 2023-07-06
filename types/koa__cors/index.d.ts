@@ -1,4 +1,4 @@
-// Type definitions for @koa/cors 3.3
+// Type definitions for @koa/cors 4.0
 // Project: https://github.com/koajs/cors
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 //                 Steven McDowall <https://github.com/sjmcdowall>

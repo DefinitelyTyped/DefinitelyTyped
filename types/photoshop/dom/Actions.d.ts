@@ -1,43 +1,45 @@
-/** @ignore */
-export declare function validateActionSet(actionSet: ActionSet): void;
-/**
- * @ignore
- */
-export declare function PSActionSet(id: number): ActionSet;
-/**
- * @ignore
- */
-export declare function PSAction(id: number): Action;
 /**
  * Photoshop Actions
  *
  * Handles the content in Actions panel.
- * Actions panel will have a hierarchy of action sets that contain a list of actions
+ * Actions panel will have a hierarchy of Action Sets that contain a list of Actions
  */
 export declare class ActionSet {
     /**
-     * The class name of the referenced ActionSet object
+     * The class name of the referenced object: *"ActionSet"*.
+     *
+     * @minVersion 23.0
      */
-    get typename(): string;
+    get typename(): "ActionSet";
     /**
-     * 0-index of this action set in the actions palette
+     * Zero-based index of this Action Set in the Actions palette
+     *
+     * @minVersion 22.1
      */
     get index(): number;
     /**
      * The internal ID of this Action Set
      * Can be used for batchPlay calls, used internally
+     *
+     * @minVersion 22.1
      */
     get id(): number;
     /**
-     * The name of this action set, displayed in the panel
+     * The name of this Action Set, displayed in the panel
+     *
+     * @minVersion 22.1
      */
     get name(): string;
     /**
-     * Renames the action set
+     * Renames the Action Set
+     *
+     * @minVersion 22.1
      */
     set name(name: string);
     /**
-     * List of actions in this action set
+     * List of Actions in this Action Set
+     *
+     * @minVersion 22.1
      */
     get actions(): Action[];
     /**
@@ -45,50 +47,66 @@ export declare class ActionSet {
      */
     constructor(id: any);
     /**
-     * Deletes this action set from the actions panel
+     * Deletes this Action Set from the Actions panel
+     *
+     * @minVersion 22.1
      */
     delete(): void;
     /**
-     * Creates a copy of this action set
+     * Creates a copy of this Action Set
+     *
+     * @minVersion 22.1
      */
     duplicate(): ActionSet;
     /**
-     * Plays all actions in this set one by one
+     * Plays all Actions in this set one by one
      *
      * @async
+     * @minVersion 22.1
      */
     play(): Promise<void>;
 }
 /**
- * Represents an action in the Actions palette.
+ * Represents an Action in the Actions palette.
  * Actions are series of commands that can be recorded by user, and can be replayed at a later time
  */
 export declare class Action {
     /**
-     * The class name of the referenced Action object
-     */
-    get typename(): string;
-    /**
-     * The internal ID of this action
+     * The class name of the referenced object: *"Action"*.
      *
+     * @minVersion 23.0
+     */
+    get typename(): "Action";
+    /**
+     * The internal ID of this Action
      * Can be used for batchPlay calls, used internally
+     *
+     * @minVersion 22.1
      */
     get id(): number;
     /**
-     * 0-index of this action in it's parent action set
+     * Zero-based index of this Action in it's parent Action Set
+     *
+     * @minVersion 22.1
      */
     get index(): number;
     /**
-     * The name of this action, displayed in the panel
+     * The name of this Action, displayed in the panel
      * Cannot be changed
+     *
+     * @minVersion 22.1
      */
     get name(): string;
     /**
-     * Renames the action set
+     * Renames the Action Set
+     *
+     * @minVersion 22.1
      */
     set name(name: string);
     /**
-     * The action set this action belongs to
+     * The Action Set this Action belongs to
+     *
+     * @minVersion 22.1
      */
     get parent(): ActionSet;
     /**
@@ -96,18 +114,22 @@ export declare class Action {
      */
     constructor(id: number);
     /**
-     * Deletes this action from the actions panel
+     * Deletes this Action from the Actions panel
      *
+     * @minVersion 22.1
      */
     delete(): void;
     /**
-     * Plays this action
+     * Plays this Action
      *
      * @async
+     * @minVersion 22.1
      */
     play(): Promise<void>;
     /**
-     * Creates a copy of this action, placing it in the same action set
+     * Creates a copy of this Action, placing it in the same Action Set
+     *
+     * @minVersion 22.1
      */
     duplicate(): Action;
 }

@@ -3,3 +3,5 @@ var jsonnet = new Jsonnet();
 var code = '{a:1}';
 var result = jsonnet.eval(code);
 console.log(result);
+
+jsonnet.evalFile('/path/to/file');

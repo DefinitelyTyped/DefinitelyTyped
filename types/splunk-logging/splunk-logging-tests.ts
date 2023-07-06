@@ -32,6 +32,7 @@ const fullPayload = {
         index: 'splunkIndex',
         source: 'source',
         sourcetype: 'sourcetype',
+        time: Date.now(),
     },
 };
 

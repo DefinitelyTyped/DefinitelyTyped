@@ -1136,7 +1136,7 @@ declare namespace Highland {
          * @id concat
          * @section Streams
          * @name Stream.concat(ys)
-         * @params {Stream | Array} ys - the values to concatenate onto this Stream
+         * @param {Stream | Array} ys - the values to concatenate onto this Stream
          * @api public
          */
         concat(ys: Stream<R>): Stream<R>;

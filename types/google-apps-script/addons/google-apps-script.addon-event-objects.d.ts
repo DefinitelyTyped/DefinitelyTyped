@@ -1,8 +1,3 @@
-// Type definitions for Google Apps Script Event Objects 2021-04-15
-// Project: https://developers.google.com/apps-script/
-// Definitions by: Oleg Valter <https://github.com/Oaphi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAppsScript {
     /**
      * @summary Apps Script Addon Event Objects

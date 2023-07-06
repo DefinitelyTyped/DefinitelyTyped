@@ -63,4 +63,8 @@ export interface IsURLOptions {
      * @default true
      */
     allow_query_components?: boolean | undefined;
+    /**
+     * @default true
+     */
+    validate_length?: boolean | undefined;
 }

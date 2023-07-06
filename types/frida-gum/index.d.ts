@@ -15,6 +15,12 @@ declare function hexdump(target: ArrayBuffer | NativePointerValue, options?: Hex
 
 interface HexdumpOptions {
     /**
+     * Specifies base address of data being dumped. Defaults to the address of
+     * the `target` argument, if it has an address, and 0 otherwise.
+     */
+    address?: NativePointer;
+
+    /**
      * Specifies byte offset of where to start dumping. Defaults to 0.
      */
     offset?: number | undefined;

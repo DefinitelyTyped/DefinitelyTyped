@@ -10,7 +10,7 @@ export interface HydrationOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
 }
 
 export interface RootOptions {
@@ -18,7 +18,12 @@ export interface RootOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+}
+
+export interface ErrorInfo {
+    digest?: string;
+    componentStack?: string;
 }
 
 export interface Root {

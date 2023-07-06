@@ -1,10 +1,11 @@
-// Type definitions for browser-sync 2.26
+// Type definitions for browser-sync 2.27
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>,
 //                 Joe Skeen <https://github.com/joeskeen>
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
 //                 Yuma Hashimoto <https://github.com/yuma84>
+//                 Andreas Bomholtz <https://github.com/seluxit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -109,6 +110,18 @@ declare namespace browserSync {
          * Override http module to allow using 3rd party server modules (such as http2).
          */
         httpModule?: string | undefined;
+        /**
+         * Current working directory
+         */
+        cwd?: string;
+        /**
+         * Register callbacks via a regular option - this can be used to get access the Browsersync
+         * instance in situations where you cannot provide a callback via the normal API (for example,
+         * in a Gruntfile)
+         *
+         * This 'ready' callback can be used to access the Browsersync instance
+         */
+        callbacks?: CallbacksOptions;
         /**
          * Clicks, Scrolls & Form inputs on any device will be mirrored to all others.
          * clicks - Default: true
@@ -270,6 +283,12 @@ declare namespace browserSync {
          */
         host?: string | undefined;
         /**
+         * Specify a host to listen on. Use this if you want to prevent binding to all interfaces.
+         *
+         * Note: When you specify this option, it overrides the 'host' option
+         */
+        listen?: string;
+        /**
          * Support environments where dynamic hostnames are not required (ie: electron).
          */
         localOnly?: boolean | undefined;
@@ -306,6 +325,10 @@ declare namespace browserSync {
          * Note: Requires at least version 1.6.2.
          */
         socket?: SocketOptions | undefined;
+        /**
+         * Configure the script domain
+         */
+        script?: ScriptOptions | undefined;
         /**
          * ¯\_(ツ)_/¯
          */
@@ -396,6 +419,10 @@ declare namespace browserSync {
         handle: MiddlewareHandler;
     }
 
+    interface CallbacksOptions {
+        ready: (err: Error, bs: BrowserSyncInstance) => void;
+    }
+
     interface GhostOptions {
         clicks?: boolean | undefined;
         scroll?: boolean | undefined;
@@ -425,6 +452,10 @@ declare namespace browserSync {
         domain?: string | undefined;
         port?: number | undefined;
         clients?: { heartbeatTimeout?: number | undefined; } | undefined;
+    }
+
+    interface ScriptOptions {
+        domain?: string | undefined;
     }
 
     interface TagNamesOptions {

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.networkStatus
- * Generated from Mozilla sources. Do not manually edit!
  *
  * This API provides the ability to determine the status of and detect changes in the network connection.
  * This API can only be used in privileged extensions.

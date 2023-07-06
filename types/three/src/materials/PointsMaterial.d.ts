@@ -1,7 +1,6 @@
 import { Material, MaterialParameters } from './Material';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
-import { ColorRepresentation } from '../utils';
 
 export interface PointsMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;

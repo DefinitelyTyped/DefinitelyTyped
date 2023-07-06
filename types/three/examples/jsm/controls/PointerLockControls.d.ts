@@ -3,6 +3,7 @@ import { Camera, EventDispatcher, Vector3 } from '../../../src/Three';
 export class PointerLockControls extends EventDispatcher {
     constructor(camera: Camera, domElement?: HTMLElement);
 
+    camera: Camera;
     domElement: HTMLElement;
 
     // API
@@ -11,6 +12,8 @@ export class PointerLockControls extends EventDispatcher {
 
     minPolarAngle: number;
     maxPolarAngle: number;
+
+    pointerSpeed: number;
 
     connect(): void;
     disconnect(): void;

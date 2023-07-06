@@ -1,8 +1,3 @@
-// Type definitions for angularjs extensions to rxjs
-// Project: http://reactivex.io/
-// Definitions by: Mick Delaney <https://github.com/mickdelaney/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 var app = angular.module('testModule');
 
 interface AppScope extends rx.angular.IRxScope {

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.contextualIdentities
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.contextualIdentities</code> API to query and modify contextual identity, also called as containers.
  * Permissions: "contextualIdentities"

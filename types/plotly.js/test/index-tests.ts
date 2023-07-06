@@ -928,6 +928,8 @@ function rand() {
     });
 
     myPlot.removeAllListeners('plotly_restyle');
+
+    myPlot.data; // $ExpectType Data[]
 })();
 //////////////////////////////////////////////////////////////////////
 

@@ -1,12 +1,12 @@
-import { Quad, Quad_Graph, Quad_Object, Quad_Predicate, Quad_Subject } from 'rdf-js';
+import { Quad, Quad_Graph, Quad_Object, Quad_Predicate, Quad_Subject } from '@rdfjs/types';
 import { PropType } from './_PropType';
-import LiteralExt = require('./Literal');
-import BlankNodeExt = require('./BlankNode');
-import NamedNodeExt = require('./NamedNode');
-import VariableExt = require('./Variable');
-import DefaultGraphExt = require('./DefaultGraph');
+import { LiteralExt } from './Literal';
+import { BlankNodeExt } from './BlankNode';
+import { NamedNodeExt } from './NamedNode';
+import { VariableExt } from './Variable';
+import { DefaultGraphExt } from './DefaultGraph';
 
-interface QuadExt extends Quad {
+export interface QuadExt extends Quad {
   termType: 'Quad';
   value: '';
   subject: NamedNodeExt | BlankNodeExt | VariableExt;
@@ -23,8 +23,8 @@ interface QuadExt extends Quad {
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class QuadExt {
+export class QuadExt {
     constructor(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph | null);
 }
 
-export = QuadExt;
+export default QuadExt;

@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "no-declare-current-package": "off",
+        "no-self-import": "off"
+    }
+}

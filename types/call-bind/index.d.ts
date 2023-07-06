@@ -6,7 +6,6 @@
 // TypeScript Version: 3.9
 
 // This is necessary to disallow import of `call-bind/index` or `call-bind/index.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'call-bind' {
     export = callBind;
 

@@ -1,7 +1,7 @@
 // Type definitions for non-npm package @ember/utils 4.0
 // Project: https://api.emberjs.com/ember/3.16/modules/@ember%2Futils
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

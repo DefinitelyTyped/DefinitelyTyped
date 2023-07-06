@@ -8,7 +8,7 @@
 
 /// <reference path="base.d.ts"/>
 
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line no-declare-current-package
 declare module "jsdom" {
     interface DOMWindow {
         FinalizationRegistry: FinalizationRegistryConstructor;

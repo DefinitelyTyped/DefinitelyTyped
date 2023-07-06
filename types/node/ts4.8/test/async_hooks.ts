@@ -70,11 +70,7 @@ import {
 }
 
 {
-    const ctx = new AsyncLocalStorage<string>({
-        onPropagate(type, store) {
-            return store === 'test';
-        }
-    });
+    const ctx = new AsyncLocalStorage<string>();
     ctx.disable();
     const exitResult: number = ctx.exit((a: number) => {
         return 42;
@@ -84,4 +80,17 @@ import {
         return 42;
     }, 1);
     ctx.enterWith('test');
+}
+
+{
+    const fn = AsyncLocalStorage.bind(() => 123);
+    fn(); // $ExpectType number
+}
+
+{
+    const asyncLocalStorage = new AsyncLocalStorage<number>();
+    const runInAsyncScope = asyncLocalStorage.run(123, () => AsyncLocalStorage.snapshot());
+    const result = asyncLocalStorage.run(321, () => {  // $ExpectType number | undefined
+        return runInAsyncScope(() => asyncLocalStorage.getStore());
+    });
 }

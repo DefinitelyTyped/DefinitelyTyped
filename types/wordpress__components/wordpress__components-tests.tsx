@@ -131,8 +131,6 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
-// `div` doesn't support autoFocus:
-// @ts-expect-error
 <C.Card autoFocus />;
 
 <C.CardBody isShady size="extraSmall">

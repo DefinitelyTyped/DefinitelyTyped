@@ -253,7 +253,15 @@ export interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#orientation-member
      */
-    orientation?: OrientationLockType | undefined;
+    orientation?: "any" | "landscape" | "landscape-primary" | "landscape-secondary" | "natural" | "portrait" | "portrait-primary" | "portrait-secondary" | undefined;
+
+    /**
+     * The manifest's id member is a string that represents the identity for the application.
+     * The identity takes the form of a URL, which is same origin as the start URL.
+     *
+     * @see https://w3c.github.io/manifest/#id-member
+     */
+    id?: string | undefined;
 
     /**
      * The `theme_color` member serves as the default theme color for an application context.

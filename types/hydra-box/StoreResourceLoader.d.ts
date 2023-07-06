@@ -1,4 +1,4 @@
-import { Term, Store } from 'rdf-js';
+import { Term, Store } from '@rdfjs/types';
 import { ResourceLoader, Resource } from '.';
 
 // tslint:disable-next-line no-empty-interface

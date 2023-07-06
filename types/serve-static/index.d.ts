@@ -8,6 +8,7 @@
 /// <reference types="node" />
 import * as m from "mime";
 import * as http from "http";
+import { HttpError } from "http-errors";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -101,7 +102,7 @@ declare namespace serveStatic {
     }
 
     interface RequestHandler<R extends http.ServerResponse> {
-        (request: http.IncomingMessage, response: R, next: () => void): any;
+        (request: http.IncomingMessage, response: R, next: (err?: HttpError) => void): any;
     }
 
     interface RequestHandlerConstructor<R extends http.ServerResponse> {

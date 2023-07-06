@@ -53,6 +53,21 @@ declare namespace rosie {
          * @return {object}
          */
         attributes(name: string, attributes: any, options?: any): any;
+
+        /**
+         * Resets any build state, such as sequences, to their original values.
+         *
+         * @return {void}
+         */
+        resetAll(): void;
+
+        /**
+         * Resets any build state, such as sequences, to their original values on a specific factory.
+         *
+         * @param {string} name
+         * @return {void}
+         */
+        reset(name: string): void;
     }
 
     interface IFactory<T = any> {
@@ -240,7 +255,6 @@ declare namespace rosie {
         /**
          * Generates values for all the registered options using the values given.
          *
-         * @private
          * @param {object} options
          * @return {object}
          */
@@ -267,6 +281,13 @@ declare namespace rosie {
          * @return {Factory}
          */
         extend<K extends Partial<T>>(name: string | IFactory<K>): IFactory<T>;
+
+        /**
+         * Resets any build state, such as sequences, to their original values on this factory.
+         *
+         * @return {void}
+         */
+        reset(): void;
     }
 }
 

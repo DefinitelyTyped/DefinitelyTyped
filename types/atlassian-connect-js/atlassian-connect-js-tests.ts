@@ -126,6 +126,11 @@ AP.navigator.go('addonModule', {
 });
 AP.navigator.reload(); // $ExpectType void
 
+AP.scrollPosition.getPosition(position => console.log(position)); // $ExpectType void
+AP.scrollPosition.setVerticalPosition(100, position => console.log(position)); // $ExpectType void
+
+AP.theming.initializeTheming(); // $ExpectType void
+
 AP.user.getUser(user => console.log(user.id, user.key, user.fullName)); // $ExpectType void
 AP.user.getCurrentUser(user => console.log(user.atlassianAccountId)); // $ExpectType void
 AP.user.getTimeZone(timezone => console.log(timezone)); // $ExpectType void

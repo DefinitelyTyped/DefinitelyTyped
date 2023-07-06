@@ -92,8 +92,8 @@ oscServer.on("error", err => {
     // console.error("Error on OSC server", err);
 });
 
-oscServer.on("message", msg => {
-    // console.log(`Message: ${msg}`);
+oscServer.on("message", (msg, rinfo) => {
+    // console.log(`Message: ${msg} , request info`, rinfo);
 });
 
 oscServer.on("/test", msg => {

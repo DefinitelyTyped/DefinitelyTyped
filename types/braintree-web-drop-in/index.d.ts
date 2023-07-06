@@ -1,7 +1,6 @@
 // Type definitions for braintree-web-drop-in 1.34
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
-//                 Ricard Solé Casas <https://github.com/iamricard>
 //                 Mathias Mikosch <https://github.com/elmikosch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
@@ -19,7 +18,7 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 */
 
 import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
-import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
+import { HostedFieldsEvent, HostedFieldsField } from 'braintree-web/modules/hosted-fields';
 import { ThreeDSecureInfo } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
 
@@ -125,6 +124,8 @@ export interface PaymentOptionSelectedPayload {
     paymentOption: 'card' | 'paypal' | 'paypalCredit';
 }
 
+export type HostedFieldsStateEvents = 'card:binAvailable' | 'card:blur' | 'card:cardTypeChange' | 'card:empty' | 'card:focus' | 'card:inputSubmitRequest' | 'card:notEmpty' | 'card:validityChange';
+
 export type UpdatableConfigurationOption = 'paypal' | 'paypalCredit' | 'applePay' | 'googlePay' | 'threeDSecure';
 
 export interface Dropin {
@@ -134,10 +135,12 @@ export interface Dropin {
     on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
     on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    on(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
     off(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    off(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
     requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
@@ -287,12 +290,11 @@ export function create(options: Options, callback: (error: object | null, dropin
 export function create(options: Options): Promise<Dropin>;
 
 // Global
-
 declare global {
-    const braintree: {
-        dropin: {
+    namespace braintree {
+        const dropin: {
             create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
             create(options: Options): Promise<Dropin>;
         };
-    };
+    }
 }

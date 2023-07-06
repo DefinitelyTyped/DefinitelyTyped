@@ -33,7 +33,6 @@ declare namespace JQueryGlide {
         /**
          * Default: 500
          * Animation time in ms
-         * @type {number}
          */
         animationDuration?: number | undefined;
         /**

@@ -1,6 +1,5 @@
 /**
  * Protocol for virtual authenticators
- * @enum {string}
  */
  export enum Protocol {
     CTAP2 = 'ctap2',
@@ -9,7 +8,6 @@
 
 /**
  * AuthenticatorTransport values
- * @enum {string}
  */
 export enum Transport {
     BLE = 'ble',

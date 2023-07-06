@@ -26,8 +26,8 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
     createSubscribeQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
-    fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
-    fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    fetchSnapshot(collection: string, id: string, version: number | null, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number | null, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     getPresence(channel: string): Presence;
     getDocPresence(collection: string, id: string): Presence;
 

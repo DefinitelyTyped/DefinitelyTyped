@@ -17,21 +17,21 @@ var opt = {
     distFolder: 'dist'
 }
 
-gulp.task("revision", gulp.parallel("dist:css", "dist:js", () =>
+gulp.task("revision", () =>
     gulp.src(["dist/**/*.css", "dist/**/*.js"])
         .pipe(rev())
         .pipe(gulp.dest(opt.distFolder))
         .pipe(rev.manifest())
         .pipe(gulp.dest(opt.distFolder))
-));
+);
 
-gulp.task("revreplace", gulp.parallel("revision", () => {
+gulp.task("revreplace", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.srcFolder + "/index.html")
         .pipe(revReplace({ manifest: manifest }))
         .pipe(gulp.dest(opt.distFolder));
-}));
+});
 
 
 function replaceJsIfMap(filename: string): string {
@@ -41,7 +41,7 @@ function replaceJsIfMap(filename: string): string {
     return filename;
 }
 
-gulp.task("revreplace", gulp.parallel("revision", () => {
+gulp.task("revreplace", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.distFolder + '**/*.js')
@@ -51,4 +51,4 @@ gulp.task("revreplace", gulp.parallel("revision", () => {
             modifyReved: replaceJsIfMap
         }))
         .pipe(gulp.dest(opt.distFolder));
-}));
+});

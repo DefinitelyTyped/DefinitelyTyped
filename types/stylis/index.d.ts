@@ -1,4 +1,4 @@
-// Type definitions for stylis 4.0
+// Type definitions for stylis 4.2
 // Project: https://github.com/thysultan/stylis.js
 // Definitions by: Gen Hames <https://github.com/heyheyhello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,6 +41,7 @@ export const KEYFRAMES = '@keyframes';
 export const FONT_FACE = '@font-face';
 export const COUNTER_STYLE = '@counter-style';
 export const FONT_FEATURE_VALUES = '@font-feature-values';
+export const LAYER = '@layer';
 
 // Utility.js
 

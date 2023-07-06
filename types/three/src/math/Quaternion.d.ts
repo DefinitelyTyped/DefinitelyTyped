@@ -139,6 +139,12 @@ export class Quaternion {
     toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     /**
+     * This method defines the serialization result of Quaternion.
+     * @return The numerical elements of this quaternion in an array of format [x, y, z, w].
+     */
+    toJSON(): [number, number, number, number];
+
+    /**
      * Sets x, y, z, w properties of this quaternion from the attribute.
      * @param attribute the source attribute.
      * @param index index in the attribute.

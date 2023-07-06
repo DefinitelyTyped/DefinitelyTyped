@@ -70,8 +70,9 @@ declare class Server<TIncomingMessage = http.IncomingMessage, TServerResponse = 
     /**
      * A function that wraps the object in a webserver, for your convenience
      * @param port - Port to listen on
+     * @param hostname - The hostname to listen on
      */
-    listen(port: number): Server<TIncomingMessage, TServerResponse>;
+    listen(port: number, hostname?: string): Server<TIncomingMessage, TServerResponse>;
 
     /**
      * A function that closes the inner webserver and stops listening on given port

@@ -113,6 +113,36 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 //        }
 // }
 
+// Undesired. Should error but v15 types accept any string as a valid element type.
+const CustomElement: React.ReactType = 'my-undeclared-element';
+// @ts-expect-error
+<my-undeclared-element />;
+
+// custom elements now need to be declared as intrinsic elements
+declare module 'react' {
+    namespace JSX {
+        interface IntrinsicElements {
+            'my-declared-element': {};
+        }
+    }
+}
+
+// Augmentations of the global namespace flow into the scoped JSX namespace
+// This is deprecated and will be removed in next next major of `@types/react`
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'my-declared-element-deprecated': {};
+        }
+    }
+}
+
+const CustomElement2: React.ElementType = 'my-declared-element-deprecated';
+<my-declared-element-deprecated />;
+
+const CustomElement3: React.ElementType = 'my-declared-element';
+<my-declared-element />;
+
 function reactNodeTests() {
     function *createChildren() {
         yield <div key="one">one</div>;

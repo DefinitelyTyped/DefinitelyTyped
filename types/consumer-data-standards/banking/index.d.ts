@@ -721,6 +721,121 @@ export interface BankingAccountDetailV2 extends BankingAccount {
   }[];
   [k: string]: unknown;
 }
+
+/* This structure is used in the BankingAccountDetailV3.features property */
+export interface accV3DetailFeatureObj extends BankingProductFeatureV2 {
+   isActivated?: boolean;
+}
+
+export interface BankingAccountDetailV3 extends BankingAccountV2 {
+  /**
+   * The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
+   */
+  bsb?: string;
+  /**
+   * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
+   */
+  accountNumber?: string;
+  /**
+   * Optional field to indicate if this account is part of a bundle that is providing additional benefit for to the customer
+   */
+  bundleName?: string;
+  /**
+   * The type of structure to present account specific fields.
+   */
+  specificAccountUType?: "creditCard" | "loan" | "termDeposit";
+  termDeposit?: BankingTermDepositAccount[];
+  creditCard?: BankingCreditCardAccount;
+  loan?: BankingLoanAccountV2;
+  /**
+   * current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call
+   */
+  depositRate?: string;
+  /**
+   * The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call
+   */
+  lendingRate?: string;
+  /**
+   * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+   */
+  depositRates?: BankingProductDepositRate[];
+  /**
+   * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+   */
+  lendingRates?: BankingProductLendingRateV2[];
+  /**
+   * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
+   */
+  features?: accV3DetailFeatureObj[];
+  /**
+   * Fees and charges applicable to the account based on the equivalent structure in Product Reference
+   */
+  fees?: BankingProductFee[];
+  /**
+   * The addresses for the account to be used for correspondence
+   */
+  addresses?: CommonPhysicalAddress[];
+
+  [k: string]: unknown;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
+
+export interface BankingAccountV2 {
+  /**
+   * A unique ID of the account adhering to the standards for ID permanence
+   */
+  accountId: string;
+  /**
+   * Value indicating the number of customers that have ownership of the account, according to the data holder's definition of account ownership. Does not indicate that all account owners are eligible consumers
+   */
+  accountOwnership: "UNKNOWN" | "ONE_PARTY" | "TWO_PARTY" | "MANY_PARTY" | "OTHER";
+  /**
+   * Date that the account was created (if known)
+   */
+  creationDate?: string | null;
+  /**
+   * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+   */
+  displayName: string;
+  /**
+   * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+   */
+  isOwned?: boolean | null;
+  /**
+   * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+   */
+  maskedNumber: string;
+  /**
+   * A customer supplied nick name for the account
+   */
+  nickname?: string | null;
+  /**
+   * Open or closed status for the account. If not present then OPEN is assumed
+   */
+  openStatus?: ("CLOSED" | "OPEN") | null;
+  /**
+   * The category to which a product or account belongs. See [here](#product-categories) for more details
+   */
+  productCategory:
+    | "BUSINESS_LOANS"
+    | "CRED_AND_CHRG_CARDS"
+    | "LEASES"
+    | "MARGIN_LOANS"
+    | "OVERDRAFTS"
+    | "PERS_LOANS"
+    | "REGULATED_TRUST_ACCOUNTS"
+    | "RESIDENTIAL_MORTGAGES"
+    | "TERM_DEPOSITS"
+    | "TRADE_FINANCE"
+    | "TRANS_AND_SAVINGS_ACCOUNTS"
+    | "TRAVEL_CARDS";
+  /**
+   * The unique identifier of the account as defined by the data holder (akin to model number for the account)
+   */
+  productName: string;
+  [k: string]: unknown;
+}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface BankingAuthorisedEntity {
@@ -816,7 +931,7 @@ export interface BankingBillerPayee {
    */
   billerName: string;
   /**
-   * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+   * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
    */
   crn?: string | null;
   [k: string]: unknown;
@@ -1140,7 +1255,7 @@ export interface BankingPayeeDetailV2 extends BankingPayeeV2 {
      */
     billerName: string;
     /**
-     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
      */
     crn?: string | null;
     [k: string]: unknown;
@@ -2803,7 +2918,7 @@ export interface BankingScheduledPayment {
          */
         billerName: string;
         /**
-         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
          */
         crn?: string | null;
         [k: string]: unknown;
@@ -3279,7 +3394,7 @@ export interface BankingScheduledPaymentSet {
        */
       billerName: string;
       /**
-       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
        */
       crn?: string | null;
       [k: string]: unknown;
@@ -3432,7 +3547,7 @@ export interface BankingScheduledPaymentTo {
      */
     billerName: string;
     /**
-     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+     * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
      */
     crn?: string | null;
     [k: string]: unknown;
@@ -4888,6 +5003,180 @@ export interface ResponseBankingAccountList {
   };
   [k: string]: unknown;
 }
+
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
+
+export interface ResponseBankingAccountByIdV3 {
+  data: {
+    /**
+     * A unique ID of the account adhering to the standards for ID permanence
+     */
+    accountId: string;
+    /**
+     * Value indicating the number of customers that have ownership of the account, according to the data holder's definition of account ownership. Does not indicate that all account owners are eligible consumers
+     */
+    accountOwnership: "UNKNOWN" | "ONE_PARTY" | "TWO_PARTY" | "MANY_PARTY" | "OTHER";
+    /**
+     * Date that the account was created (if known)
+     */
+    creationDate?: string | null;
+    /**
+     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+     */
+    displayName: string;
+    /**
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+     */
+    isOwned?: boolean | null;
+    /**
+     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+     */
+    maskedNumber: string;
+    /**
+     * A customer supplied nick name for the account
+     */
+    nickname?: string | null;
+    /**
+     * Open or closed status for the account. If not present then OPEN is assumed
+     */
+    openStatus?: ("CLOSED" | "OPEN") | null;
+    /**
+     * The category to which a product or account belongs. See [here](#product-categories) for more details
+     */
+    productCategory:
+      | "BUSINESS_LOANS"
+      | "CRED_AND_CHRG_CARDS"
+      | "LEASES"
+      | "MARGIN_LOANS"
+      | "OVERDRAFTS"
+      | "PERS_LOANS"
+      | "REGULATED_TRUST_ACCOUNTS"
+      | "RESIDENTIAL_MORTGAGES"
+      | "TERM_DEPOSITS"
+      | "TRADE_FINANCE"
+      | "TRANS_AND_SAVINGS_ACCOUNTS"
+      | "TRAVEL_CARDS";
+    /**
+     * The unique identifier of the account as defined by the data holder (akin to model number for the account)
+     */
+    productName: string;
+    [k: string]: unknown;
+  } & {
+    [k: string]: unknown;
+  };
+  links: {
+    /**
+     * Fully qualified link that generated the current response document
+     */
+    self: string;
+    [k: string]: unknown;
+  };
+  meta?: {
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
+
+export interface ResponseBankingAccountListV2 {
+  data: {
+    /**
+     * The list of accounts returned. If the filter results in an empty set then this array may have no records
+     */
+    accounts: {
+      /**
+       * A unique ID of the account adhering to the standards for ID permanence
+       */
+      accountId: string;
+      /**
+       * Value indicating the number of customers that have ownership of the account, according to the data holder's definition of account ownership. Does not indicate that all account owners are eligible consumers
+       */
+      accountOwnership: "UNKNOWN" | "ONE_PARTY" | "TWO_PARTY" | "MANY_PARTY" | "OTHER";
+      /**
+       * Date that the account was created (if known)
+       */
+      creationDate?: string | null;
+      /**
+       * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+       */
+      displayName: string;
+      /**
+       * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+       */
+      isOwned?: boolean | null;
+      /**
+       * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+       */
+      maskedNumber: string;
+      /**
+       * A customer supplied nick name for the account
+       */
+      nickname?: string | null;
+      /**
+       * Open or closed status for the account. If not present then OPEN is assumed
+       */
+      openStatus?: ("CLOSED" | "OPEN") | null;
+      /**
+       * The category to which a product or account belongs. See [here](#product-categories) for more details
+       */
+      productCategory:
+        | "BUSINESS_LOANS"
+        | "CRED_AND_CHRG_CARDS"
+        | "LEASES"
+        | "MARGIN_LOANS"
+        | "OVERDRAFTS"
+        | "PERS_LOANS"
+        | "REGULATED_TRUST_ACCOUNTS"
+        | "RESIDENTIAL_MORTGAGES"
+        | "TERM_DEPOSITS"
+        | "TRADE_FINANCE"
+        | "TRANS_AND_SAVINGS_ACCOUNTS"
+        | "TRAVEL_CARDS";
+      /**
+       * The unique identifier of the account as defined by the data holder (akin to model number for the account)
+       */
+      productName: string;
+      [k: string]: unknown;
+    }[];
+    [k: string]: unknown;
+  };
+  links: {
+    /**
+     * URI to the first page of this set. Mandatory if this response is not the first page
+     */
+    first?: string | null;
+    /**
+     * URI to the last page of this set. Mandatory if this response is not the last page
+     */
+    last?: string | null;
+    /**
+     * URI to the next page of this set. Mandatory if this response is not the last page
+     */
+    next?: string | null;
+    /**
+     * URI to the previous page of this set. Mandatory if this response is not the first page
+     */
+    prev?: string | null;
+    /**
+     * Fully qualified link that generated the current response document
+     */
+    self: string;
+    [k: string]: unknown;
+  };
+  meta: {
+    /**
+     * The total number of pages in the full set. See [pagination](#pagination).
+     */
+    totalPages: number;
+    /**
+     * The total number of records in the full set. See [pagination](#pagination).
+     */
+    totalRecords: number;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingAccountsBalanceById {
@@ -5157,7 +5446,7 @@ export interface ResponseBankingPayeeByIdV2 {
        */
       billerName: string;
       /**
-       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+       * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
        */
       crn?: string | null;
       [k: string]: unknown;
@@ -6329,7 +6618,7 @@ export interface ResponseBankingScheduledPaymentsList {
              */
             billerName: string;
             /**
-             * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+             * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
              */
             crn?: string | null;
             [k: string]: unknown;

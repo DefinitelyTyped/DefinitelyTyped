@@ -50,7 +50,7 @@ import {
     UserDataNode,
     UVNode,
     VarNode,
-    VaryNode,
+    VaryingNode,
 } from '../Nodes';
 import StorageBufferNode from '../accessors/StorageBufferNode';
 import NodeCache from '../core/NodeCache';
@@ -130,7 +130,7 @@ export function fn<P extends FunctionNodeArguments>(
 export const instanceIndex: Swizzable<InstanceIndexNode>;
 export function label(node: NodeRepresentation, name?: string): Swizzable<VarNode>;
 export function temp(node: NodeRepresentation, name?: string): Swizzable<VarNode>;
-export function vary(node: NodeRepresentation, name?: string): Swizzable<VaryNode>;
+export function vary(node: NodeRepresentation, name?: string): Swizzable<VaryingNode>;
 
 // accesors
 

@@ -20,7 +20,6 @@ declare namespace ZC {
 
     /**
      * The version of the ZeroClipboard library being used, e.g. "2.0.0".
-     * @type {string}
      */
     version: string;
     /**
@@ -59,7 +58,6 @@ declare namespace ZC {
     /**
      * Create the Flash bridge SWF object.
      * IMPORTANT: This method should be considered private.
-     * @private
      */
     create(): void;
     /**
@@ -75,7 +73,7 @@ declare namespace ZC {
     /**
      * Focus/"activate" the provided element by moving the Flash SWF object in front of it.
      * @param {Element} element
-     * @deprecated: The preferred method to use is focus but the alias activate is available for backward compatibility's sake.
+     * @deprecated The preferred method to use is focus but the alias activate is available for backward compatibility's sake.
      */
     activate(element: Element): void;
     /**
@@ -85,7 +83,7 @@ declare namespace ZC {
     blur(): void;
     /**
      * Blur/"deactivate" the currently focused/"activated" element, moving the Flash SWF object off the screen.
-     * @deprecated: The preferred method to use is blur but the alias deactivate is available for backward compatibility's sake.
+     * @deprecated The preferred method to use is blur but the alias deactivate is available for backward compatibility's sake.
      */
     deactivate(): void;
     /**
@@ -102,7 +100,6 @@ declare namespace ZC {
      * Indicates if Flash Player is definitely unusable (disabled, outdated, unavailable, or deactivated).
      * IMPORTANT: This method should be considered private.
      * @return {boolean}
-     * @private
      */
     isFlashUnusable(): boolean;
   }
@@ -110,7 +107,6 @@ declare namespace ZC {
   interface ZeroClipboardClient extends ZeroClipboardCommon {
     /**
      * A unique identifier for this ZeroClipboard client instance.
-     * @type {string}
      */
     id: string;
     /**
@@ -411,91 +407,75 @@ declare namespace ZC {
   interface ZeroClipboardConfig {
     /**
      * SWF URL, relative to the page. Default value will be "ZeroClipboard.swf" under the same path as the ZeroClipboard JS file.
-     * @type {string}
      */
     swfPath?: string | undefined;
     /**
      * SWF inbound scripting policy: page domains that the SWF should trust. (single string, or array of strings)
-     * @type {SingleOrList<string>}
      */
     trustedDomains?: string[] | undefined;
     /**
      * Include a "noCache" query parameter on requests for the SWF.
-     * @type {boolean}
      */
     cacheBust?: boolean | undefined;
     /**
      * Enable use of the fancy "Desktop" clipboard, even on Linux where it is known to suck.
-     * @type {boolean}
      */
     forceEnhancedClipboard?: boolean | undefined;
     /**
      * How many milliseconds to wait for the Flash SWF to load and respond before assuming that
      * Flash is deactivated (e.g. click-to-play) in the user's browser. If you don't care about
      * how long it takes to load the SWF, you can set this to `null`.
-     * @type {number}
      */
     flashLoadTimeout?: number | undefined;
     /**
      * Setting this to `false` would allow users to handle calling `ZeroClipboard.focus(...);`
      * themselves instead of relying on our per-element `mouseover` handler.
-     * @type {boolean}
      */
     autoActivate?: boolean | undefined;
     /**
      * Bubble synthetic events in JavaScript after they are received by the Flash object.
-     * @type {boolean}
      */
     bubbleEvents?: boolean | undefined;
     /**
      * Ensure OS-compliant line endings, i.e. "\r\n" on Windows, "\n" elsewhere
-     * @type {boolean}
      */
     fixLineEndings?: boolean | undefined;
     /**
      * Sets the ID of the `div` encapsulating the Flash object.
      * Value is validated against the [HTML4 spec for `ID` tokens][valid_ids].
-     * @type {string}
      */
     containerId?: string | undefined;
     /**
      * Sets the class of the `div` encapsulating the Flash object.
-     * @type {string}
      */
     containerClass?: string | undefined;
     /**
      * Sets the ID and name of the Flash `object` element.
      * Value is validated against the [HTML4 spec for `ID` and `Name` tokens][valid_ids].
-     * @type {string}
      */
     swfObjectId?: string | undefined;
     /**
      * The class used to indicate that a clipped element is being hovered over.
-     * @type {string}
      */
     hoverClass?: string | undefined;
     /**
      * The class used to indicate that a clipped element is active (is being clicked).
-     * @type {string}
      */
     activeClass?: string | undefined;
     /**
      * Forcibly set the hand cursor ("pointer") for all clipped elements.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
-     * @type {boolean}
      */
     forceHandCursor?: boolean | undefined;
     /**
      * Sets the title of the `div` encapsulating the Flash object.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
-     * @type {string}
      */
     title?: string | undefined;
     /**
      * The z-index used by the Flash object.
      * Max value (32-bit): 2147483647.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
-     * @type {number}
      */
     zIndex?: number | undefined;
   }
@@ -503,7 +483,6 @@ declare namespace ZC {
 
 /**
  * [ZeroClipboard description]
- * @type {ZC.ZeroClipboardStatic}
  */
 declare var ZeroClipboard: ZC.ZeroClipboardStatic;
 

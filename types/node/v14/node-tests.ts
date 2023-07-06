@@ -46,11 +46,13 @@ import * as fs from 'fs';
 import * as url from 'url';
 import * as util from 'util';
 import * as http from 'http';
+import * as http2 from 'node:http2';
 import * as https from 'https';
 import * as net from 'net';
 import * as console2 from 'console';
 import * as timers from 'timers';
 import * as inspector from 'inspector';
+import * as stream from 'node:stream';
 import * as trace_events from 'trace_events';
 
 //////////////////////////////////////////////////////
@@ -222,7 +224,7 @@ import * as trace_events from 'trace_events';
         const func: Function | undefined  = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
         const meth: string | null  = frame.getMethodName();
-        const fname: string | null  = frame.getFileName();
+        const fname: string | undefined  = frame.getFileName();
         const lineno: number | null  = frame.getLineNumber();
         const colno: number | null  = frame.getColumnNumber();
         const evalOrigin: string | undefined  = frame.getEvalOrigin();
@@ -440,4 +442,18 @@ import * as trace_events from 'trace_events';
     b = a.readBigInt64LE(123);
     b = a.readBigUInt64LE(123);
     b = a.readBigUInt64BE(123);
+}
+
+////////////////////////////////////////////////////
+/// Node.js http2 tests
+////////////////////////////////////////////////////
+
+{
+    http2.connect('https://foo.com', {
+        createConnection: (authority, option) => {
+            authority; // $ExpectType URL
+            option; // $ExpectType SessionOptions
+            return new stream.Duplex();
+        },
+    });
 }

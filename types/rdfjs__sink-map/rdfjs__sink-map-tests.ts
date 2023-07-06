@@ -1,5 +1,5 @@
-import SinkMap = require('@rdfjs/sink-map');
-import { Stream, Sink } from 'rdf-js';
+import SinkMap from '@rdfjs/sink-map';
+import { Stream, Sink } from '@rdfjs/types';
 
 const parsers: SinkMap<NodeJS.ReadableStream, Stream> = new SinkMap<NodeJS.ReadableStream, Stream>();
 

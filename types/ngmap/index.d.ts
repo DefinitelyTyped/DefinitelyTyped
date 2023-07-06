@@ -42,19 +42,15 @@ declare namespace angular.map {
            /**
              * Icon for the foreground.
              * If a string is provided, it is treated as though it were an Icon with the string as url.
-             * @type {(string|Icon|Symbol)}
              */
             icon?: string|google.maps.Icon|google.maps.Symbol | undefined;
             /**
              * Adds a label to the marker. The label can either be a string, or a MarkerLabel object.
              * Only the first character of the string will be displayed.
-             * @type {string}
              */
             label?: string | undefined;
             /**
              * Map on which to display Marker.
-             * @type {(Map|StreetViewPanorama)}
-             *
              */
             map?: google.maps.Map|google.maps.StreetViewPanorama | undefined;
             /** The marker's opacity between 0.0 and 1.0. */

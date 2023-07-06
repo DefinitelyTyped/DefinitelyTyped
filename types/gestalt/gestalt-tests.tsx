@@ -9,7 +9,6 @@ import {
     Button,
     ButtonGroup,
     Callout,
-    Card,
     Checkbox,
     Collage,
     ColorSchemeProvider,
@@ -24,8 +23,10 @@ import {
     FixedZIndex,
     Flex,
     Heading,
+    HelpButton,
     Icon,
     IconButton,
+    IconButtonFloating,
     Image,
     Label,
     Layer,
@@ -38,9 +39,11 @@ import {
     Module,
     NumberField,
     OnLinkNavigationProvider,
+    OverlayPanel,
     PageHeader,
     Pog,
     Popover,
+    Popovereducational,
     Pulsar,
     RadioButton,
     RadioGroup,
@@ -49,7 +52,6 @@ import {
     SearchField,
     SegmentedControl,
     SelectList,
-    Sheet,
     SideNavigation,
     SlimBanner,
     Spinner,
@@ -69,7 +71,8 @@ import {
     Upsell,
     useFocusVisible,
     useReducedMotion,
-    Video
+    Video,
+    WashAnimated,
 } from 'gestalt';
 import * as React from 'react';
 
@@ -150,7 +153,7 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
     <Button text={'Click me'} />
 </ButtonGroup>;
-<Card />;
+<WashAnimated />;
 <ComboBox
     accessibilityClearButtonLabel="combobox"
     id="combobox"
@@ -221,6 +224,16 @@ const CheckUseReducedMotion = () => {
 </Flex>;
 <Heading />;
 <Heading color="inverse" />;
+<HelpButton
+    accessibilityPopoverLabel=""
+    text=""
+    accessibilityLabel=""
+    link={{
+        externalLinkIcon: { color: 'brandPrimary', size: 100 },
+        href: '',
+        text: '',
+    }}
+/>;
 <Icon accessibilityLabel="icon" />;
 <IconButton
     accessibilityLabel="icon"
@@ -240,22 +253,18 @@ const CheckUseReducedMotion = () => {
 <List label={<Text weight="bold">Regular spacing</Text>} type="unordered" spacing="regular">
     <List.Item text="List item text" />
     <List.Item text="List item text">
-        <List.NestedList>
-            <List.Item text="List item text">
-                <List.NestedList>
-                    <List.Item text="List item text" />
-                    <List.Item text="List item text" />
-                    <List.Item text="List item text" />
-                </List.NestedList>
-            </List.Item>
+        <List.Item text="List item text">
             <List.Item text="List item text" />
             <List.Item text="List item text" />
-        </List.NestedList>
+            <List.Item text="List item text" />
+        </List.Item>
+        <List.Item text="List item text" />
+        <List.Item text="List item text" />
     </List.Item>
     <List.Item text="List item text" />
 </List>;
 <Mask />;
-<Masonry Item={MasonryComponent} items={[{}]} />;
+<Masonry renderItem={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info">
@@ -316,6 +325,7 @@ const CheckUseReducedMotion = () => {
 />;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
+<Popovereducational accessibilityLabel="" anchor={null} onDismiss={() => undefined} />;
 
 <Pulsar />;
 <RadioButton id="id" value="" onChange={() => {}} />;
@@ -368,9 +378,9 @@ const CheckUseReducedMotion = () => {
         ))}
     </SelectList.Group>
 </SelectList>;
-<Sheet
+<OverlayPanel
     accessibilityDismissButtonLabel="Dismiss"
-    accessibilitySheetLabel="Example sheet to demonstrate different sizes"
+    accessibilityLabel="Example sheet to demonstrate different sizes"
     onDismiss={() => {}}
     footer={<Heading>Footer</Heading>}
 >
@@ -379,7 +389,7 @@ const CheckUseReducedMotion = () => {
             Content <button onClick={onDismissStart} />
         </Heading>
     )}
-</Sheet>;
+</OverlayPanel>;
 <SideNavigation accessibilityLabel="Nested items example">
     <SideNavigation.TopItem
         href="#"
@@ -499,7 +509,7 @@ const CheckUseReducedMotion = () => {
             onExpand={() => {}}
             expandedContents={
                 <Box maxWidth={236} padding={2} column={12}>
-                    <Card image={<Avatar name="luna avatar" src="https://i.ibb.co/QY9qR7h/luna.png" />}>
+                    <WashAnimated image={<Avatar name="luna avatar" src="https://i.ibb.co/QY9qR7h/luna.png" />}>
                         <Text align="center" weight="bold">
                             <Link href="https://pinterest.com">
                                 <Box paddingX={3} paddingY={2}>
@@ -508,7 +518,7 @@ const CheckUseReducedMotion = () => {
                             </Link>
                         </Text>
                         <Text>Row expanded</Text>
-                    </Card>
+                    </WashAnimated>
                 </Box>
             }
         >
@@ -602,7 +612,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 
-<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
+<Toast text="hello" dissmissButton={{ onDismiss: () => undefined }} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
@@ -639,7 +649,15 @@ const CheckUseReducedMotion = () => {
 />;
 <Icon accessibilityLabel={'sup'} icon={'add'} dangerouslySetSvgPath={{ __path: 'something' }} />;
 <IconButton accessibilityLabel={'something'} icon={'add-pin'} />;
-
+<IconButtonFloating
+    accessibilityControls="sections-dropdown-example"
+    accessibilityExpanded={true}
+    accessibilityPopupRole="menu"
+    accessibilityLabel="Help & Resources Menu"
+    icon="question-mark"
+    onClick={() => undefined}
+    selected={true}
+/>;
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
 

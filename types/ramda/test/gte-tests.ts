@@ -12,5 +12,4 @@ import * as R from 'ramda';
 
 () => {
     R.gte(R.__, 6)(2); // false
-    R.gte(R.__)(6, 2); // false
 };

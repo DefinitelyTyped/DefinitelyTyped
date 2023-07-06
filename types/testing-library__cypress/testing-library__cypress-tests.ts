@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 import { configure } from '@testing-library/cypress';
 import '@testing-library/cypress/add-commands';
 

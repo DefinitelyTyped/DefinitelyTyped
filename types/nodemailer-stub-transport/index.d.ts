@@ -13,13 +13,11 @@ declare namespace StubTransportStatic {
     export interface Options {
         /**
          * Specifies a custom error.
-         * @type {any}
          */
         error?: any;
 
         /**
          * Value that indicates if the BCC addresses must be included in generated message.
-         * @type {boolean}
          */
         keepBcc?: boolean | undefined;
     }

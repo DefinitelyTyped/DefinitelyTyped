@@ -27,6 +27,7 @@ export interface SendContextMetadata {
     index?: string | undefined;
     source?: string | undefined;
     sourcetype?: string | undefined;
+    time?: number | undefined;  // Milliseconds since epoch, e.g. with Date.now()
 }
 
 export interface SendContext {

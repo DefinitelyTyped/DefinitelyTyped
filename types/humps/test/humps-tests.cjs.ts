@@ -79,3 +79,8 @@ humps.depascalizeKeys<{ AttrOne: string, AttrTwo: string }>(somePascalObject); /
 [...humps.pascalizeKeys(someSnakeArray)];
 [...humps.decamelizeKeys(someCamelArray)];
 [...humps.depascalizeKeys(somePascalArray)];
+
+const snakeObjectWithUnion = { a_o: 'foo', a_tw: [{ a_th: 'bar' }] };
+
+humps.camelizeKeys<{ a_o: string; a_tw: Array<{ a_th: string }> | null }>(snakeObjectWithUnion); // $ExpectType Camelized<{ a_o: string; a_tw: { a_th: string; }[] | null; }>
+humps.pascalizeKeys<{ a_o: string; a_tw: Array<{ a_th: string }> | null }>(snakeObjectWithUnion); // $ExpectType Pascalized<{ a_o: string; a_tw: { a_th: string; }[] | null; }>

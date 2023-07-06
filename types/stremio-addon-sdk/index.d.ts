@@ -428,6 +428,10 @@ export interface Stream {
  */
 export interface Subtitle {
     /**
+     * Unique identifier for each subtitle, if you have more than one subtitle with the same language, the id will differentiate them.
+     */
+    id: string;
+    /**
      * Url to the subtitle file.
      */
     url: string;

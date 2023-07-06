@@ -1085,16 +1085,19 @@ declare module "url-search-params" {
         /**
          * Iterate through the name/value pairs.
          */
+        // Minimum TypeScript Version: 4.6
         entries(): IterableIterator<[string, string]>;
 
         /**
          * Iterate through the names.
          */
+        // Minimum TypeScript Version: 4.6
         keys(): IterableIterator<string>;
 
         /**
          * Iterate through the values.
          */
+        // Minimum TypeScript Version: 4.6
         values(): IterableIterator<string>;
 
         /**
@@ -1355,4 +1358,126 @@ declare module "crypto" {
     const crypto: Crypto;
 
     export { crypto };
+}
+
+/**
+ * HtmlRewriter rewrites HTML documents by parsing and constructing the DOM.
+ * It allows for registering callbacks on CSS selectors that execute when
+ * the parser encounters an element matching the selector, enabling modification
+ * of tag attributes, insertion of new content around the element, or removal of the element.
+ */
+declare module "html-rewriter" {
+    import { ReadableStream, WritableStream } from "streams";
+
+    class HtmlRewritingStream implements GenericHtmlRewritingStream {
+        readonly writable: WritableStream;
+        readonly readable: ReadableStream;
+
+        /**
+         * Constructor for a new HtmlRewritingStream object
+         */
+        constructor();
+
+        /**
+         * Add one or more handlers using onElement(). The handlers call functions on their argument to modify the stream.
+         * @param selector is a string CSS selector that specifies when the handler should run.
+         * @param handler is a function that runs when the selector matches.
+         * When the HtmlRewritingStream calls the handler, it passes an Element object as an argument.
+         */
+        onElement(selector: string, handler: (element: Element) => void): void;
+    }
+
+    interface GenericHtmlRewritingStream {
+        readonly readable: ReadableStream;
+        readonly writable: WritableStream;
+    }
+
+    /**
+     * The Element object is an argument to the handler registered with onElement(),
+     * the handler calls functions on the Element to modify the output stream.
+     */
+    interface Element {
+        /**
+         * Insert new content immediately after the end tag of the matched element.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        after(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Insert content right before the end tag of the element.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        append(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Insert new content immediately before the start tag of the matched element.
+         * @param text is the new text to insert.
+         */
+        before(text: string): void;
+
+        /**
+         * Read the value of a given attribute name on the tag or undefined if it doesn’t exist.
+         * @param text is the case-insensitive name of the attribute.
+         */
+        getAttribute(text: string): string | undefined;
+
+        /**
+         * Insert content right after the start tag of the element.
+         * @param text is the new text to insert.
+         */
+        prepend(text: string): void;
+
+        /**
+         * Removes the attribute if exists.
+         * @param text is the case-insensitive name of the attribute. If an attribute was removed, it is returned.
+         */
+        removeAttribute(text: string): string | undefined;
+
+        /**
+         * Remove the children of the current element and insert content in place of them.
+         * @param text is the text to replace.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        replaceChildren(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Remove the current element and its children, and insert the passed content in its place.
+         * @param text is the text to replace.
+         */
+        replaceWith(text: string): void;
+
+        /**
+         * Set an attribute to a provided value, creating the attribute if it doesn't exist.
+         * @param name is case-insensitive string.
+         * @param value is the attribute value of `name`.
+         * @param quote_opt is an optional third argument that controls how quotes are applied to the attribute value.
+         * It must include a property named quote, whose value is a string containing either a single or double quote.
+         */
+        setAttribute(name: string, value: string, quote_opt?: QuoteOpt): void;
+    }
+
+    /**
+     * If `TrailingOpt` argument is present, the options object must include a property named `insert_implicit_close`
+     * with a boolean value.
+     */
+    interface TrailingOpt {
+        /**
+         * When `insert_implicit_close` is true, elements that are missing a close tag will have one inserted.
+         */
+        readonly insert_implicit_close: boolean;
+    }
+
+    /**
+     * QuoteOpt is an optional third argument that controls how quotes are applied to the attribute value.
+     */
+    interface QuoteOpt {
+        /**
+         * `quote` is a value is a string containing either a single or double quote.
+         */
+        readonly quote: string;
+    }
+
+    export { HtmlRewritingStream };
 }

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.permissions
- * Generated from Mozilla sources. Do not manually edit!
  */
 import { Manifest } from "./manifest";
 import { Events } from "./events";

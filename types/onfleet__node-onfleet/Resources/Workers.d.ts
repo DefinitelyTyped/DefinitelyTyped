@@ -51,11 +51,11 @@ declare namespace Worker {
     }
 
     /**
-     * @prop filter - Optional. A comma-separated list of fields to return, if all are not desired. For example, name, location
-     * @prop phones - Optional. A comma-separated list of workers' phone numbers.
-     * @prop states - Optional. A comma-separated list of worker states, where 0 is off-duty,
+     * filter - Optional. A comma-separated list of fields to return, if all are not desired. For example, name, location
+     * phones - Optional. A comma-separated list of workers' phone numbers.
+     * states - Optional. A comma-separated list of worker states, where 0 is off-duty,
      * 1 is idle (on-duty, no active task) and 2 is active (on-duty, active task).
-     * @prop teams - Optional. A comma-separated list of the team IDs that workers must be part of.
+     * teams - Optional. A comma-separated list of the team IDs that workers must be part of.
      */
     interface GetWorkerQueryProps {
         filter?: string | undefined;
@@ -69,12 +69,12 @@ declare namespace Worker {
     }
 
     /**
-     * @prop name - The worker’s complete name.
-     * @prop phone - A valid phone number as per the worker’s organization’s country.
-     * @prop teams - One or more team IDs of which the worker is a member.
-     * @prop vehicle - Optional. The worker’s vehicle; providing no vehicle details is equivalent to the worker being on foot.
-     * @prop capacity - Optional. The maximum number of units this worker can carry, for route optimization purposes.
-     * @prop displayName - Optional. This value is used in place of the worker's actual name within sms notifications,
+     * name - The worker’s complete name.
+     * phone - A valid phone number as per the worker’s organization’s country.
+     * teams - One or more team IDs of which the worker is a member.
+     * vehicle - Optional. The worker’s vehicle; providing no vehicle details is equivalent to the worker being on foot.
+     * capacity - Optional. The maximum number of units this worker can carry, for route optimization purposes.
+     * displayName - Optional. This value is used in place of the worker's actual name within sms notifications,
      * delivery tracking pages, and across organization boundaries (connections).
      */
     interface CreateWorkerProps {

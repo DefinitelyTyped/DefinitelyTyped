@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -25,108 +25,104 @@
     */
 
 declare class Class_X509Req extends Class__object {
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * @brief 获取证书的主题可分辨名称
-     * 
-     * @readonly
-     * @type String
-     */
-    
-    subject: string
-    
-    /**
-     * class prop 
      *
-     * 
-     * @brief 获取证书的公钥
-     * 
-     * @readonly
-     * @type PKey
      */
-    
-    publicKey: Class_PKey
-    
-    
-    
+
+    subject: string
+
     /**
-     * 
+     * class prop
+     *
+     *
+     * @brief 获取证书的公钥
+     *
+     */
+
+    publicKey: Class_PKey
+
+
+
+    /**
+     *
      * @brief X509Req 构造函数
-     * 
-     * 
+     *
+     *
      */
     constructor();
 
     /**
-     * 
+     *
      * @brief X509Req 构造函数，根据给定的信息创建一个证书请求
-     * 
+     *
      * @param subject 证书的主题可分辨名称
      * @param key 证书的公钥
      * @param hash 证书摘要算法，缺省为 hash.SHA1
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     constructor(subject: string, key: Class_PKey, hash?: number/** = undefined*/);
 
     /**
-     * 
+     *
      * @brief 加载一个 DER 格式的证书请求
      * @param derReq DER 格式的证书请求
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     load(derReq: Class_Buffer): void;
 
     /**
-     * 
+     *
      * @brief 加载一个 PEM 格式的证书请求
      * @param pemReq PEM 格式的证书请求
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     load(pemReq: string): void;
 
     /**
-     * 
+     *
      * @brief 加载一个 PEM/DER 格式的证书请求，可多次调用
      * @param filename 证书请求文件名
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     loadFile(filename: string): void;
 
     /**
-     * 
+     *
      * @brief 返回当前证书请求的 PEM 格式编码
      * @return 当前证书请求的 PEM 格式编码
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     exportPem(): string;
 
     /**
-     * 
+     *
      * @brief 返回当前证书请求的 DER 格式编码
      * @return 当前证书请求的 DER 格式编码
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     exportDer(): Class_Buffer;
 
     /**
-     * 
+     *
      * @brief 签名当前证书请求为正式证书
-     * 
+     *
      * opts 接收的字段如下：
      * ```JavaScript
      * {
@@ -142,8 +138,8 @@ declare class Class_X509Req extends Class__object {
      * @param key 签名机构的私钥
      * @param opts 其他可选参数
      * @return 返回签名后的正式证书
-     * 
-     * 
+     *
+     *
      * @async
      */
     sign(issuer: string, key: Class_PKey, opts?: object/** = v8::Object::New(isolate)*/): Class_X509Cert;

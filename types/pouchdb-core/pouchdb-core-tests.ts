@@ -26,7 +26,27 @@ function testAllDocs() {
 
     db.allDocs({ startkey: "a", endkey: "b" });
     db.allDocs({ startkey: "a", endkey: "b", inclusive_end: true });
-    db.allDocs({ keys: ["a", "b", "c" ]});
+    db.allDocs({ keys: ["a", "b", "c" ]}).then(({ offset, total_rows, rows }) => {
+        isNumber(offset);
+        isNumber(total_rows);
+
+        rows.forEach(row => {
+            if ("error" in row) {
+                isString(row.key);
+            } else {
+                const { id, key, value, doc } = row;
+
+                isString(id);
+                isString(key);
+                isString(value.rev);
+
+                // check document property
+                isNumber(doc!.foo);
+                isString(doc!._id);
+                isString(doc!._rev);
+            }
+        });
+    });
     db.allDocs({ key: "a" });
     db.allDocs({
         attachments: true,

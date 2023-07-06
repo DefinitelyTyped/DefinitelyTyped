@@ -4,7 +4,6 @@ import * as remote from './remote';
 /**
  * Creates a new WebDriver client for Chrome.
  *
- * @extends {webdriver.WebDriver}
  */
 export class Driver extends webdriver.WebDriver {
     /**
@@ -14,7 +13,6 @@ export class Driver extends webdriver.WebDriver {
      *     the {@link getDefaultService default service} by default.
      * @param {webdriver.promise.ControlFlow=} opt_flow The control flow to use, or
      *     {@code null} to use the currently active flow.
-     * @constructor
      */
     constructor(
         opt_config?: Options | webdriver.Capabilities,
@@ -46,7 +44,6 @@ interface IPerfLoggingPrefs {
  */
 export class Options {
     /**
-     * @constructor
      */
     constructor();
 
@@ -297,7 +294,6 @@ export class ServiceBuilder {
      *     PATH.
      * @throws {Error} If provided executable does not exist, or the chromedriver
      *     cannot be found on the PATH.
-     * @constructor
      */
     constructor(opt_exe?: string);
 

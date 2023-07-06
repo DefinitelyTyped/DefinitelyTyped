@@ -43,6 +43,19 @@ import { Writable, Readable, Pipe } from 'node:stream';
     childProcess.execFile("npm", (err) => {
         if (err && err.errno) assert(err.code === 'ENOENT');
     });
+    childProcess.execFile('npm', (err) => {
+        if (err !== null) {
+            if (typeof err.code === 'string') {
+                console.log(err.code.charCodeAt(0));
+            } else if (typeof err.code === 'number') {
+                console.log(err.code.toExponential());
+            } else if (err.code === null) {
+                // @ts-expect-error -- since err.code is null, this assignment has a type error
+                const x: string = err.code;
+                console.log(x);
+            }
+        }
+    });
 }
 
 {

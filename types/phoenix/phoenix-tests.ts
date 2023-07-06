@@ -104,3 +104,6 @@ function test_async_callback() {
 
   channel.on('new_msg', async msg => console.log('Got message', msg));
 }
+
+// $ExpectType string
+const topic = new Socket('/ws', { params: { userToken: '123' } }).channel("test").topic;

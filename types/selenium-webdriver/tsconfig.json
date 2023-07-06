@@ -29,6 +29,7 @@
         "test/select.ts",
         "test/session.ts",
         "test/virtual_authenticator.ts",
-        "test/util.ts"
+        "test/util.ts",
+        "test/error.ts"
     ]
 }

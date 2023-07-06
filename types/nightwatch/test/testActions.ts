@@ -57,7 +57,6 @@ it('actions.dragAndDrop', () => {
         browser.actions().dragAndDrop(await webElement2, {x: 12, y: 234});
 
         const webElement3 = await sampleElement.findElement('something');
-        // @ts-expect-error
         return browser.actions().dragAndDrop(webElement3, {x: 12, y: 234});
     });
 });

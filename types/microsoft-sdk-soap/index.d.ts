@@ -144,7 +144,7 @@ declare global {
 
             /**
              * Sets the AllColumns property.
-             * @params allColumns A boolean value.
+             * @param allColumns A boolean value.
              */
             setAllColumns(allColumns: boolean): void;
 

@@ -26,7 +26,7 @@ declare var BlobEvent: {
     new (type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
-type BitrateMode = 'vbr' | 'cbr';
+type BitrateMode = 'variable' | 'constant';
 
 interface MediaRecorderOptions {
     mimeType?: string | undefined;

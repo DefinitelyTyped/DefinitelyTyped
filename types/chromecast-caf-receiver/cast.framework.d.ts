@@ -948,6 +948,13 @@ export class PlaybackConfig {
      * Maximum number of times to retry a network request for a segment.
      */
     segmentRequestRetryLimit?: number | undefined;
+
+    /**
+     * This object is merged with CAF's default Shaka configurations (with options set in this object taking precedence).
+     * Developers should use caution when applying values to the Shaka configuration as it could result in playback issues.
+     * For allowed options in this object, @see: https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.PlayerConfiguration
+     */
+    shakaConfig?: any;
 }
 /**
  * HTTP(s) Request/Response information.
@@ -1044,6 +1051,17 @@ export class CastReceiverOptions {
     queue?: QueueBase | undefined;
 
     /**
+     * Shaka version in the MAJOR.MINOR.PATCH format, for example "3.2.11" (the current default).
+     * Supported versions are >=3.2.11 <5.0.0. Deprecated but still compatible versions are >=2.5.6 <3.2.11.
+     * NOTE: Shaka Player versions older than the default are not recommended, as many bugs have been fixed in the latest versions.
+     * Newer versions may be specified here to opt-in to additional fixes or features that are not yet available by default.
+     * However, please be aware that future releases of the Web Receiver SDK may change the range of supported versions and
+     * force the use of a version other than what you specify here. This flag should be used only as a temporary measure,
+     * and under guidance from the Cast support team. (https://developers.google.com/cast/support) Use at your own risk.
+     */
+    shakaVersion?: string |undefined;
+
+    /**
      * Indicate the receiver should not load the MPL player.
      */
     skipMplLoad?: boolean | undefined;
@@ -1083,6 +1101,11 @@ export class CastReceiverOptions {
      * Indicate that MPL should be used for DASH content.
      */
     useLegacyDashSupport?: boolean | undefined;
+
+    /**
+     * If true, use Shaka Player for HLS content. Defaults to false.
+     */
+    useShakaForHls?: boolean |undefined;
 
     /**
      * An integer used as an internal version number to represent your receiver version.

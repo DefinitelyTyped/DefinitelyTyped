@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Stackdriver Profiler API v2 0.0
+// Type definitions for non-npm package Cloud Profiler API v2 0.0
 // Project: https://cloud.google.com/profiler/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

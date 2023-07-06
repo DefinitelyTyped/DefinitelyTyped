@@ -2,7 +2,7 @@
 // Project: https://github.com/cgmartin/envhandlebars#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="Node" />
+/// <reference types="node" />
 import H = require('handlebars');
 
 /**

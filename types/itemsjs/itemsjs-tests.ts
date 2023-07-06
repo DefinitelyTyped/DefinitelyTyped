@@ -27,10 +27,15 @@ const items = itemsjs(myitems, {
         },
     },
     aggregations: {
-        anAggregation: {
+        anumber: {
             title: 'A Number',
             hide_zero_doc_count: true,
             conjunction: false,
+            chosen_filters_on_top: false,
+        },
+        // @ts-expect-error `someKey` doesn't exist on the object
+        someKey: {
+            title: 'Some Key',
         },
     },
 });
@@ -67,14 +72,21 @@ items.search({
 
 items.search({
     query: 'abc',
-    filters: { anAggregation: ['abc'] },
+    filters: { anumber: ['abc'] },
 });
 
 // Aggregation 'bar' was never defined
 // @ts-expect-error
 items.aggregation({ name: 'bar' });
 
-items.aggregation({ name: 'anAggregation' });
+items.aggregation({ name: 'anumber' });
+
+// Test searching with aggregations
+const search = items.search();
+const anumberAggregations = search.data.aggregations['anumber'];
+
+// $ExpectType string | number
+anumberAggregations.buckets[0].key;
 
 itemsjs<typeof myitems[number]>([]).reindex(myitems);
 

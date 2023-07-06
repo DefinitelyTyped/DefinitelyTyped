@@ -6,6 +6,7 @@
         ],
         "strict": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -15,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "rr-notifications-tests.ts"
+        "rr-notifications-tests.tsx"
     ]
 }

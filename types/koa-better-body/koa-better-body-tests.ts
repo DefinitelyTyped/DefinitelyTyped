@@ -6,6 +6,14 @@ typeof parser1 === 'function';
 
 const testOptions: body.Options = {
   jsonLimit: '100mb',
+  maxFieldsSize: 100 * 1024,
+  maxFileSize: 100 * 1024,
+  hashAlgorithm: 'sha1',
+  maxFiles: 10,
+  maxFields: 10,
+  maxTotalFileSize: 100 * 1024,
+  minFileSize: 1,
+  multipart: true,
   delimiter: '&',
   extendTypes: {
     custom: ['application/json']

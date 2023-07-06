@@ -82,7 +82,7 @@ declare module 'assert' {
              * ```
              *
              * @since v18.8.0, v16.18.0
-             * @params fn
+             * @param fn
              * @returns An Array with the calls to a tracked function.
              */
             getCalls(fn: Function): CallTrackerCall[];

@@ -88,6 +88,7 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
+        readonly pending: boolean;
         /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}

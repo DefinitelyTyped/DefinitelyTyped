@@ -1,5 +1,4 @@
-import { ColorRepresentation } from '../utils';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { MaterialParameters, Material } from './Material';
 
 export interface ShadowMaterialParameters extends MaterialParameters {

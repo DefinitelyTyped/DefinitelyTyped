@@ -9,6 +9,7 @@ import {
     DEFAULT_ECDH_CURVE,
     DEFAULT_MAX_VERSION,
     DEFAULT_MIN_VERSION,
+    DEFAULT_CIPHERS,
     createServer,
     TLSSocket,
     rootCertificates,
@@ -62,6 +63,7 @@ import * as stream from 'node:stream';
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;
+    const cyphers: string = DEFAULT_CIPHERS;
 
     const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
 

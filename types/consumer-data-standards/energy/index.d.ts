@@ -3208,7 +3208,7 @@ export interface EnergyAccountDetailResponse {
     self: string;
     [k: string]: unknown;
   };
-  meta: {
+  meta?: {
     [k: string]: unknown;
   };
   [k: string]: unknown;
@@ -3217,6 +3217,13 @@ export interface EnergyAccountDetailResponse {
 
 export interface EnergyAccountDetailResponseV2 {
   data: EnergyAccountDetailV2;
+  links: Links;
+  meta: Meta;
+  [k: string]: unknown;
+}
+
+export interface EnergyAccountDetailResponseV3 {
+  data: EnergyAccountDetailV3;
   links: Links;
   meta: Meta;
   [k: string]: unknown;
@@ -4638,6 +4645,116 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
   }[];
   [k: string]: unknown;
 }
+
+export interface EnergyAccountDetailV3 extends EnergyAccountBaseV2 {
+  /**
+   * The array of plans containing service points and associated plan details
+   */
+  plans: {
+    /**
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     */
+    nickname?: string;
+    /**
+     * An array of servicePointIds, representing NMIs, that this account is linked to
+     */
+    servicePointIds: string[];
+    /**
+     * Mandatory if openStatus is OPEN
+     */
+    planOverview?: {
+      /**
+       * The name of the plan if one exists
+       */
+      displayName?: string;
+      /**
+       * The start date of the applicability of this plan
+       */
+      startDate: string;
+      /**
+       * The end date of the applicability of this plan
+       */
+      endDate?: string;
+      [k: string]: unknown;
+    };
+    /**
+     * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
+     */
+    planDetail?: {
+      /**
+       * The fuel types covered by the plan
+       */
+      fuelType: "ELECTRICITY" | "GAS" | "DUAL";
+      /**
+       * Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false
+       */
+      isContingentPlan?: boolean;
+      /**
+       * Charges for metering included in the plan
+       */
+      meteringCharges?: {
+        /**
+         * Display name of the charge
+         */
+        displayName: string;
+        /**
+         * Description of the charge
+         */
+        description?: string;
+        /**
+         * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+         */
+        minimumValue: string;
+        /**
+         * The upper limit of the charge if the charge could occur in a range
+         */
+        maximumValue?: string;
+        /**
+         * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+         */
+        period?: string;
+        [k: string]: unknown;
+      }[];
+      /**
+       * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
+       */
+      gasContract?: EnergyPlanContractV2
+      /**
+       * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
+       */
+      electricityContract?: EnergyPlanContractV2
+      [k: string]: unknown;
+    };
+    /**
+     * An array of additional contacts that are authorised to act on this account
+     */
+    authorisedContacts?: {
+      /**
+       * For people with single names this field need not be present. The single name should be in the lastName field
+       */
+      firstName?: string;
+      /**
+       * For people with single names the single name should be in this field
+       */
+      lastName: string;
+      /**
+       * Field is mandatory but array may be empty
+       */
+      middleNames?: string[];
+      /**
+       * Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+       */
+      prefix?: string;
+      /**
+       * Used for a trailing suffix to the name (e.g. Jr)
+       */
+      suffix?: string;
+      [k: string]: unknown;
+    }[];
+    [k: string]: unknown;
+  }[];
+  [k: string]: unknown;
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyAccountListResponse {
@@ -4813,7 +4930,7 @@ export interface EnergyBalanceResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5445,7 +5562,7 @@ export interface EnergyConcessionsResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5453,7 +5570,7 @@ export interface EnergyConcessionsResponse {
 export interface EnergyDerDetailResponse {
   data: EnergyDerRecord;
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5550,20 +5667,20 @@ export interface EnergyDerRecord {
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
     [k: string]: unknown;
   }[];
-  /**
-   * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
-   */
+/**
+ * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
+ */
   approvedCapacity: number;
-  /**
-   * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
-   */
+ /**
+  * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
+  */
   availablePhasesCount: number;
   /**
    * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false
    */
   hasCentralProtectionControl?: boolean | null;
   /**
-   * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
+   * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
    */
   installedPhasesCount: number;
   /**
@@ -5828,7 +5945,7 @@ export interface EnergyInvoice {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
- * Object contain charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage
  */
 export interface EnergyInvoiceAccountCharges {
   /**
@@ -5952,7 +6069,7 @@ export interface EnergyInvoiceListResponse {
 
 export interface EnergyPaymentSchedule {
   /**
-   * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smooting scenarios)
+   * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)
    */
   amount?: string | null;
   /**
@@ -6056,7 +6173,7 @@ export interface EnergyPaymentScheduleResponse {
     [k: string]: unknown;
   };
   links: Links;
-  meta: Meta;
+  meta?: Meta;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -6238,9 +6355,122 @@ export interface EnergyPlanContract {
   variation?: string | null;
   [k: string]: unknown;
 }
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
-export interface EnergyPlanContractFull extends EnergyPlanContract {
+export interface EnergyPlanContractV2 {
+  /**
+   * Free text field containing additional information of the fees for this contract
+   */
+  additionalFeeInformation?: string | null;
+  /**
+   * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
+   */
+  controlledLoad?: EnergyPlanControlledLoad[];
+  /**
+   * Optional list of discounts available for the contract
+   */
+  discounts?: EnergyPlanDiscounts[];
+  /**
+   * Eligibility restrictions or requirements
+   */
+  eligibility?: EnergyPlanEligibility[];
+  /**
+   * An array of fees applicable to the plan
+   */
+  fees?: EnergyPlanFees[];
+  /**
+   * Optional list of charges applicable to green power
+   */
+  greenPowerCharges?: EnergyPlanGreenPowerCharges[];
+  /**
+   * Optional list of incentives available for the contract
+   */
+  incentives?: EnergyPlanIncentives[];
+  /**
+   * Describes intrinsic green power for the plan.  If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts
+   */
+  intrinsicGreenPower?: {
+    /**
+     * Percentage of green power intrinsically included in the plan
+     */
+    greenPercentage: string;
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Flag indicating whether prices are fixed or variable
+   */
+  isFixed: boolean;
+  /**
+   * Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period
+   */
+  onExpiryDescription?: string | null;
+  /**
+   * Payment options for this contract
+   */
+  paymentOption: ("PAPER_BILL" | "CREDIT_CARD" | "DIRECT_DEBIT" | "BPAY" | "OTHER")[];
+  /**
+   * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
+   */
+  pricingModel:
+    | "SINGLE_RATE"
+    | "SINGLE_RATE_CONT_LOAD"
+    | "TIME_OF_USE"
+    | "TIME_OF_USE_CONT_LOAD"
+    | "FLEXIBLE"
+    | "FLEXIBLE_CONT_LOAD"
+    | "QUOTA";
+  /**
+   * Array of feed in tariffs for solar power
+   */
+  solarFeedInTariff?: EnergyPlanSolarFeedInTariffV2[];
+  /**
+   * Array of tariff periods
+   */
+  tariffPeriod: EnergyPlanTariffPeriod[];
+  /**
+   * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
+   */
+  timeZone?: ("LOCAL" | "AEST") | null;
+  /**
+   * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
+   */
+  variation?: string | null;
+  [k: string]: unknown;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
+
+export interface EnergyPlanContractFull extends EnergyPlanContractV2 {
+  /**
+   * The term for the contract.  If absent assumes no specified term
+   */
+  termType?: "1_YEAR" | "2_YEAR" | "3_YEAR" | "4_YEAR" | "5_YEAR" | "ONGOING" | "OTHER";
+  /**
+   * Description of the benefit period.  Should only be present if termType has the value ONGOING
+   */
+  benefitPeriod?: string;
+  /**
+   * Free text description of the terms for the contract
+   */
+  terms?: string;
+  /**
+   * An array of the meter types that this contract is available for
+   */
+  meterTypes?: string[];
+  /**
+   * Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET
+   */
+  coolingOffDays?: number;
+  /**
+   * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+   */
+  billFrequency: string[];
+  [k: string]: unknown;
+}
+
+/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
+
+export interface EnergyPlanContractFullV2 extends EnergyPlanContractV2 {
   /**
    * The term for the contract.  If absent assumes no specified term
    */
@@ -6432,6 +6662,46 @@ export interface EnergyPlanDetail extends EnergyPlan {
   electricityContract?: EnergyPlanContractFull;
   [k: string]: unknown;
 }
+/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
+
+export interface EnergyPlanDetailV2 extends EnergyPlan {
+  /**
+   * Charges for metering included in the plan
+   */
+  meteringCharges?: {
+    /**
+     * Display name of the charge
+     */
+    displayName: string;
+    /**
+     * Description of the charge
+     */
+    description?: string;
+    /**
+     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+     */
+    minimumValue: string;
+    /**
+     * The upper limit of the charge if the charge could occur in a range
+     */
+    maximumValue?: string;
+    /**
+     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     */
+    period?: string;
+    [k: string]: unknown;
+  };
+  /**
+   * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
+   */
+  gasContract?: EnergyPlanContractFullV2;
+  /**
+   * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
+   */
+  electricityContract?: EnergyPlanContractFullV2;
+  [k: string]: unknown;
+}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
@@ -6694,11 +6964,12 @@ export interface EnergyPlanListResponse {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyPlanResponse {
-  data: EnergyPlanResponse;
+  data: EnergyPlanDetail;
   links: LinksPaginated;
   meta?: MetaPaginated | null;
   [k: string]: unknown;
 }
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
@@ -6743,6 +7014,83 @@ export interface EnergyPlanSolarFeedInTariff  {
      * The tariff amount
      */
     amount: string;
+    /**
+     * Array of time periods for which this tariff is applicable
+     */
+    timeVariations: {
+      /**
+       * The days that the tariff applies to. At least one entry required
+       */
+      days: ("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")[];
+      /**
+       * The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight)
+       */
+      endTime?: string;
+      /**
+       * The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight)
+       */
+      startTime?: string;
+      [k: string]: unknown;
+    }[];
+    /**
+     * The type of the charging time period. If absent applies to all periods
+     */
+    type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+
+/**
+ * Array of feed in tariffs for solar power
+ */
+export interface EnergyPlanSolarFeedInTariffV2  {
+  /**
+   * A description of the tariff
+   */
+  description?: string;
+  /**
+   * The name of the tariff
+   */
+  displayName: string;
+  /**
+   * The type of the payer
+   */
+  payerType: "GOVERNMENT" | "RETAILER";
+  /**
+   * The applicable scheme
+   */
+  scheme: "PREMIUM" | "OTHER";
+  /**
+   * Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff
+   */
+  singleTariff?: {
+    /**
+     * Array of feed in rates
+     */
+    rates: {
+      measureUnit?: "KWH"|"KVA"|"KVAR"|"KVARH"|"KW"|"DAYS"|"METER"|"MONTH";
+      unitPrice: string;
+      volume?: number;
+    }[];
+    [k: string]: unknown;
+  };
+  /**
+   * The type of the payer
+   */
+  tariffUType: "singleTariff" | "timeVaryingTariffs";
+  /**
+   * Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs
+   */
+  timeVaryingTariffs?: {
+    /**
+     * The tariff amount
+     */
+    rates: {
+      measureUnit?: "KWH"|"KVA"|"KVAR"|"KVARH"|"KW"|"DAYS"|"METER"|"MONTH";
+      unitPrice: string;
+      volume?: number;
+    }[];
     /**
      * Array of time periods for which this tariff is applicable
      */
@@ -7312,7 +7660,7 @@ export interface EnergyServicePointDetail {
   nationalMeteringId: string;
   relatedParticipants: {
     /**
-     * The name of the party/orginsation related to this service point
+     * The name of the party/organisation related to this service point
      */
     party: string;
     /**
@@ -7342,7 +7690,7 @@ export interface EnergyServicePointDetail {
    */
   servicePointStatus: "ACTIVE" | "DE_ENERGISED" | "EXTINCT" | "GREENFIELD" | "OFF_MARKET";
   /**
-   * The start date from which this service point first became valid
+   * The latest start date from which the constituent data sets of this service point became valid
    */
   validFromDate: string;
   [k: string]: unknown;
@@ -7419,7 +7767,7 @@ export interface EnergyUsageRead {
     /**
      *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
      */
-    readQualities?: {
+    readQualities?: | {
       /**
        * End interval for read quality flag
        */
@@ -7433,7 +7781,7 @@ export interface EnergyUsageRead {
        */
       startInterval: number;
       [k: string]: unknown;
-    } | null;
+    }[]| null;
     [k: string]: unknown;
   } | null;
   /**
@@ -7471,8 +7819,7 @@ export interface EnergyUsageRead {
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-
-export interface ErrorListResponse {
+export interface ResponseErrorListV2 {
   errors: {
     /**
      * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.

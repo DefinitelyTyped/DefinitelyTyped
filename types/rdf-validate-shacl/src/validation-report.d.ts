@@ -1,4 +1,4 @@
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import { GraphPointer } from 'clownface';
 
 type Factory<OutQuad extends RDF.Quad = RDF.Quad,

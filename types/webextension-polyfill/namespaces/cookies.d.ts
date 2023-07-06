@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.cookies
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.cookies</code> API to query and modify cookies, and to be notified when they change.
  * Permissions: "cookies"

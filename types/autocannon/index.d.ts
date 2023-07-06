@@ -356,19 +356,19 @@ declare namespace autocannon {
         non2xx: number;
 
         /** The number of 1xx response status codes received. */
-        '1XX': number;
+        '1xx': number;
 
         /** The number of 2xx response status codes received. */
-        '2XX': number;
+        '2xx': number;
 
         /** The number of 3xx response status codes received. */
-        '3XX': number;
+        '3xx': number;
 
         /** The number of 4xx response status codes received. */
-        '4XX': number;
+        '4xx': number;
 
         /** The number of 5xx response status codes received. */
-        '5XX': number;
+        '5xx': number;
 
         /** The number of requests with a mismatched body. */
         mismatches: number;

@@ -16,6 +16,7 @@ cy.get('foo').happoScreenshot({
         selector: 'iframe',
         transform: element => element,
     },
+    includeAllElements: true,
 });
 
 // $ExpectType void

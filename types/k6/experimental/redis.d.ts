@@ -36,7 +36,7 @@ export class Client {
      * @param expiration - time to live in seconds. `0` means no expiration.
      * @returns a promise that resolves to "OK" if the operation succeeded.
      */
-    set(key: string, value: any, expiration: number): Promise<string>;
+    set(key: string, value: string | number | boolean, expiration: number): Promise<string>;
 
     /**
      * Gets the value of a key.
@@ -58,7 +58,7 @@ export class Client {
      * @param value - value to set
      * @returns a promise that resolves to the old value of the key.
      */
-    getSet(key: string, value: any): Promise<string>;
+    getSet(key: string, value: string | number | boolean): Promise<string>;
 
     /**
      * Removes the specified keys.
@@ -212,7 +212,7 @@ export class Client {
      * @param values - values to prepend to the list
      * @returns a promise that resolves to the number of elements in the list after the prepend operation.
      */
-    lpsuh(key: string, values: any[]): Promise<number>;
+    lpsuh(key: string, ...values: Array<string | number | boolean>): Promise<number>;
 
     /**
      * Appends values to a list, creating the list if it does not already exist.
@@ -225,7 +225,7 @@ export class Client {
      * @param values - values to append to the list
      * @returns a promise that resolves to the number of elements in the list after the append operation.
      */
-    rpush(key: string, values: any[]): Promise<number>;
+    rpush(key: string, ...values: Array<string | number | boolean>): Promise<number>;
 
     /**
      * Removes and returns the value at the head of the list stored at key.
@@ -329,7 +329,7 @@ export class Client {
      * @param value - value to set the field to
      * @returns a promise that resolves to the the number of fields that were changed.
      */
-    hset(key: string, field: string, value: string): Promise<number>;
+    hset(key: string, field: string, value: string | number | boolean): Promise<number>;
 
     /**
      * Sets the value of a hash field to the specified value, if and only if the field does not yet exist.
@@ -437,7 +437,7 @@ export class Client {
      * @param members - the members to add to the set
      * @returns a promise that resolves to the number of members that were added to the set; excluding those that were already present.
      */
-    sadd(key: string, members: any[]): Promise<number>;
+    sadd(key: string, ...members: Array<string | number | boolean>): Promise<number>;
 
     /**
      * Removes the specified members from the set stored at key.
@@ -451,7 +451,7 @@ export class Client {
      * @param members - the members to remove from the set
      * @returns a promise that resolves to the number of members that were removed from the set.
      */
-    srem(key: string, members: any[]): Promise<number>;
+    srem(key: string, ...members: Array<string | number | boolean>): Promise<number>;
 
     /**
      * Returns whether or not the specified member is a member of the set stored at key.
@@ -462,7 +462,7 @@ export class Client {
      * @param member - the member to check the belonging of
      * @returns a promise that resolves to true if the member is a member of the set, false otherwise.
      */
-    sismember(key: string, member: any): Promise<boolean>;
+    sismember(key: string, member: string | number | boolean): Promise<boolean>;
 
     /**
      * Returns the members of the set stored at key.

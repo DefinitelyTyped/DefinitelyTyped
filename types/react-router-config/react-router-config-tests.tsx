@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteConfig, matchRoutes, MatchedRoute, renderRoutes, RouteConfigComponentProps } from 'react-router-config';
-import { BrowserRouter } from 'react-router-dom';
 
 const Root = ({ route }: RouteConfigComponentProps) => (
     <div>
@@ -63,7 +62,7 @@ const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, '/child/23');
 // ]
 
 // pass this into ReactDOM.render
-<BrowserRouter>{renderRoutes(routes)}</BrowserRouter>;
+<>{renderRoutes(routes)}</>;
 
 interface CustomRouteConfig extends RouteConfig {
     customProperty: string;
@@ -90,4 +89,4 @@ const customRoute = branchWithCustomRoutes[0];
 // $ExpectType string
 const customProperty = customRoute.route.customProperty;
 
-<BrowserRouter>{renderRoutes(routesWithCustomConfig)}</BrowserRouter>;
+<>{renderRoutes(routesWithCustomConfig)}</>;

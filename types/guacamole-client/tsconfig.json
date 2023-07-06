@@ -11,6 +11,5 @@
     "typeRoots": ["../"],
     "types": []
   },
-  "files": ["index.d.ts", "test/guacamole-client.ts"],
-  "types": ["typePatches"]
+  "files": ["index.d.ts", "test/guacamole-client.ts"]
 }

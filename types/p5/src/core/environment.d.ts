@@ -97,6 +97,16 @@ declare module '../../index' {
         frameRate(): number;
 
         /**
+         *   Returns _targetFrameRate variable. The default
+         *   _targetFrameRate is set to 60. This could be
+         *   changed by calling frameRate() and setting it to
+         *   the desired value. When getTargetFrameRate() is
+         *   called, it should return the value that was set.
+         *   @return _targetFrameRate
+         */
+        getTargetFrameRate(): number;
+
+        /**
          *   Hides the cursor from view.
          */
         noCursor(): void;

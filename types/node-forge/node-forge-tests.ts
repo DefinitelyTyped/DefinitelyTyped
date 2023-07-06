@@ -637,6 +637,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         encoding: 'utf8',
         privateKey,
     });
+
+    const md = forge.md.sha256.create();
+    md.update('abc', 'utf8');
+
+    forge.pki.ed25519.sign({
+        md,
+        privateKey,
+    });
 }
 
 {

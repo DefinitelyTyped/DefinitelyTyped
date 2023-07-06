@@ -24,6 +24,7 @@ import SwaggerUI from 'swagger-ui-react';
         deepLinking
         showMutatedRequest={false}
         showExtensions={true}
+        showCommonExtensions={true}
         presets={[]}
         filter={true}
         requestSnippetsEnabled={true}

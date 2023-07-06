@@ -9,6 +9,7 @@ declare class AnchorCollection {
     private cssClass;
     private written_;
     size: number;
+    alwaysShowMenu: boolean;
     private addAnchor_;
     add(anchor: Anchor | Anchor[]): void;
     clear(): void;

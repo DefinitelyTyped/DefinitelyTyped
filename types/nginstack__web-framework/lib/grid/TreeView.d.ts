@@ -40,8 +40,8 @@ declare class TreeChild {
     constructor(treeView: any, parent: any, css: any);
     nId: any;
     css: any;
-    fHtml: string;
-    getHtml(): string;
+    fHtml: any;
+    getHtml(): any;
     getIsLast(): boolean;
     getIsFirst(): boolean;
 }

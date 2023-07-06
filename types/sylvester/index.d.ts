@@ -225,7 +225,7 @@ interface Vector {
     /**
      * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
      *
-     * @param: {Vector|Array<number>} vector The other vector.
+     * @param {Vector|Array<number>} vector The other vector.
      */
     dot(vector: Vector|Array<number>): number;
 
@@ -702,7 +702,7 @@ interface Plane {
     /**
      * Returns the plane's distance from the given object (point, line or plane).
      *
-     * @parm {Vector|Line|Plane} obj The object.
+     * @param {Vector|Line|Plane} obj The object.
      */
     distanceFrom(obj: Vector|Line|Plane): number;
 

@@ -1,4 +1,5 @@
-import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
+import { connect } from 'net';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError, Connection } from 'pg';
 import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
 
@@ -245,7 +246,28 @@ pool.connect().then(client => {
 });
 
 pool.on('error', (err, client) => {
+    // $ExpectType PoolClient
+    client;
     console.error('idle client error', err.message, err.stack);
+});
+pool.on('connect', (client) => {
+        // $ExpectType PoolClient
+        client;
+});
+pool.on('acquire', (client) => {
+    // $ExpectType PoolClient
+    client;
+});
+pool.on('release', (err, client) => {
+    // $ExpectType PoolClient
+    client;
+    if (err) {
+        console.error('connection released to pool: ', err.message);
+    }
+});
+pool.on('remove', (client) => {
+    // $ExpectType PoolClient
+    client;
 });
 
 (async () => {
@@ -305,6 +327,14 @@ c = new Client({
     connectionTimeoutMillis: 1000, // connection timeout optionally specified
 });
 
+// using custom socket factory method
+c = new Client({
+    stream: () => connect({
+        host: 'my.database-server.com',
+        port: 5334,
+    }),
+});
+
 const dynamicPasswordSync = new Client({
     password: () => 'sync-secret',
 });
@@ -314,3 +344,13 @@ const dynamicPasswordAsync = new Client({
     password: async () => 'sync-secret',
 });
 dynamicPasswordAsync.connect();
+
+const bindConfig = {
+    statement: 'Select 1 from foo where bar = $1',
+    binary: 'false',
+    values: ['xyz'],
+    valueMapper: (param: any, index: number) => ([param, index])
+};
+
+const con = new Connection();
+con.bind(bindConfig, true);

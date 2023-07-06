@@ -7,7 +7,7 @@ export = MersenneTwister;
 declare class MersenneTwister {
     /**
      * constructs mt with a number
-     * @params seed
+     * @param seed
      */
     constructor(seed?: number|number[]);
 

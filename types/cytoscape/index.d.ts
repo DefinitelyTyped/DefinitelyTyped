@@ -115,7 +115,7 @@ declare namespace cytoscape {
         /**
          * a space separated list of class names that the element has
          */
-        classes?: string | undefined;
+        classes?: string[] | string | undefined;
         /**
          *  CssStyleDeclaration;
          */
@@ -1185,13 +1185,74 @@ declare namespace cytoscape {
 
     interface CoreStyle {
         /**
-         * Get the current style object.
+         * Assign a new stylesheet to replace the existing one (if provided)
+         * and return the style.
          */
-        style(): ElementStylesheetStyle | ElementStylesheetCSS;
+        style(sheet?: Stylesheet | Stylesheet[] | string): Style;
+    }
+
+    interface Style {
         /**
-         * Assign a new stylesheet to replace the existing one.
+         * Add a rule to the stylesheet.
          */
-        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
+        append(style: string | Stylesheet | Stylesheet[]): this;
+
+        /**
+         * Remove all styles, including default styles.
+         */
+        clear(): this;
+
+        /**
+         * Set the style from JSON data.
+         * @example
+         * style.fromJson([
+         *   {
+         *     selector: 'node',
+         *     style: {
+         *       'background-color': 'red'
+         *     }
+         *   }
+         * ]);
+         */
+        fromJson(json: any): this;
+
+        /**
+         * Set the style from a string.
+         * @example
+         * style.fromString('node { background-color: blue; }');
+         */
+        fromString(style: string): this;
+
+        /**
+         * Resets to the default stylesheet.
+         */
+        resetToDefault(): this;
+
+        /**
+         * Sets the selector context for defining styles.
+         * @example
+         * style.selector('foo').style('color', 'black');
+         */
+        selector(s: string): this;
+
+        /**
+         * Sets a style for the current selected selector.
+         * @example
+         * style.selector('foo').style('color', 'black');
+         */
+        style(key: string, value: string): this;
+
+        /**
+         * Sets a style for the current selected selector.
+         * @example
+         * style.selector('foo').style({color: 'black'});
+         */
+        style(css: Css.Node | Css.Edge): this;
+
+        /**
+         * Makes the changes active.
+         */
+        update(): void;
     }
 
     /**
@@ -2139,11 +2200,13 @@ declare namespace cytoscape {
         toggleClass(classes: ClassNames, toggle?: boolean): this;
         /**
          * Replace the current list of classes on the elements with the specified list.
-         * @param classes A space-separated list of class names that replaces the current class list.
+         * @param classes A space-separated list or array of class names that replaces the current class list.
          * http://js.cytoscape.org/#eles.classes
-         * Note: can be used to clear all classes (no arguments).
+         * Note: can be used to clear all classes (empty string or array).
          */
-        classes(classes?: ClassNames): this;
+        classes(classes: ClassNames): this;
+        classes(classes: ClassNames|undefined): this|string[];
+        classes(): string[];
         /**
          * Add classes to the elements, and then remove the classes after a specified duration.
          * @param classes A space-separated list of class names to flash on the elements.
@@ -2493,6 +2556,8 @@ declare namespace cytoscape {
          * Get the collection as an array, maintaining the order of the elements.
          */
         toArray(): TOut[];
+
+        [Symbol.iterator](): Iterator<TOut>;
     }
 
     /**

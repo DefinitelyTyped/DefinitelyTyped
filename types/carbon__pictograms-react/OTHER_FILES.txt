@@ -36,6 +36,7 @@ es/anonymous--users/index.d.ts
 es/apartment/index.d.ts
 es/api/index.d.ts
 es/app--developer/index.d.ts
+es/app--modernization/index.d.ts
 es/apple/index.d.ts
 es/application/index.d.ts
 es/application--security/index.d.ts
@@ -100,6 +101,8 @@ es/calendar--event/index.d.ts
 es/camera/index.d.ts
 es/canada--maple-leaf/index.d.ts
 es/capitol/index.d.ts
+es/carbon--for-ibm-dotcom/index.d.ts
+es/carbon--for-ibm-product/index.d.ts
 es/care/index.d.ts
 es/cargo--crane/index.d.ts
 es/cargo--ship/index.d.ts
@@ -254,6 +257,7 @@ es/decision-velocity/index.d.ts
 es/deep-learning/index.d.ts
 es/delete/index.d.ts
 es/deliver--insights/index.d.ts
+es/delivered/index.d.ts
 es/delivery--truck/index.d.ts
 es/deploying-containers/index.d.ts
 es/deployment/index.d.ts
@@ -564,6 +568,7 @@ es/movement--of--goods--01/index.d.ts
 es/movement--of--goods--02/index.d.ts
 es/movement--of--goods--03/index.d.ts
 es/movement--of--items/index.d.ts
+es/moving-dolly/index.d.ts
 es/mqa/index.d.ts
 es/mri/index.d.ts
 es/mri--patient/index.d.ts
@@ -999,6 +1004,7 @@ lib/anonymous--users/index.d.ts
 lib/apartment/index.d.ts
 lib/api/index.d.ts
 lib/app--developer/index.d.ts
+lib/app--modernization/index.d.ts
 lib/apple/index.d.ts
 lib/application/index.d.ts
 lib/application--security/index.d.ts
@@ -1063,6 +1069,8 @@ lib/calendar--event/index.d.ts
 lib/camera/index.d.ts
 lib/canada--maple-leaf/index.d.ts
 lib/capitol/index.d.ts
+lib/carbon--for-ibm-dotcom/index.d.ts
+lib/carbon--for-ibm-product/index.d.ts
 lib/care/index.d.ts
 lib/cargo--crane/index.d.ts
 lib/cargo--ship/index.d.ts
@@ -1217,6 +1225,7 @@ lib/decision-velocity/index.d.ts
 lib/deep-learning/index.d.ts
 lib/delete/index.d.ts
 lib/deliver--insights/index.d.ts
+lib/delivered/index.d.ts
 lib/delivery--truck/index.d.ts
 lib/deploying-containers/index.d.ts
 lib/deployment/index.d.ts
@@ -1527,6 +1536,7 @@ lib/movement--of--goods--01/index.d.ts
 lib/movement--of--goods--02/index.d.ts
 lib/movement--of--goods--03/index.d.ts
 lib/movement--of--items/index.d.ts
+lib/moving-dolly/index.d.ts
 lib/mqa/index.d.ts
 lib/mri/index.d.ts
 lib/mri--patient/index.d.ts

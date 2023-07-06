@@ -32,7 +32,7 @@ declare namespace decomment {
         space?: boolean | undefined;
         /**
          * remove empty lines that follow removed full-line comments
-         * @defualt false - do not trim comments
+         * @default false - do not trim comments
          */
         trim?: boolean | undefined;
         /**

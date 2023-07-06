@@ -1,7 +1,6 @@
 // Type definitions for fontkit 2.0
 // Project: https://github.com/foliojs/fontkit#readme
-// Definitions by: Teoxoy <https://github.com/Teoxoy>
-//                 Stepan Mikhailiuk <https://github.com/stepancar>
+// Definitions by: Stepan Mikhailiuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -40,6 +39,8 @@ export interface Font {
     bbox: BBOX;
     /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
     'OS/2': Os2Table;
+    /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
+    hhea: HHEA;
 
     /** the number of glyphs in the font */
     numGlyphs: number;
@@ -87,6 +88,13 @@ export interface Font {
         language?: string,
         direction?: string,
     ): GlyphRun;
+
+    /**
+     * Returns a glyph object for the given glyph id. You can pass the array of
+     * code points this glyph represents for your use later, and it will be
+     * stored in the glyph object.
+     */
+    getGlyph(glyphId: number, codePoints?: number[]): Glyph;
 }
 
 export interface GlyphRun {
@@ -203,6 +211,9 @@ export interface Glyph {
 
     /** Renders the glyph to the given graphics context, at the specified font size. */
     render(ctx: CanvasRenderingContext2D, size: number): void;
+
+    /**  The glyph's name. Commonly the character, or 'space' or UTF**** */
+    name: string;
 }
 
 /**
@@ -260,6 +271,8 @@ export interface BBOX {
     minY: number;
     maxX: number;
     maxY: number;
+    width: number;
+    height: number;
 }
 
 export interface Os2Table {
@@ -310,6 +323,22 @@ export interface Os2Table {
     ySuperscriptXSize: number;
     ySuperscriptYOffset: number;
     ySuperscriptYSize: number;
+}
+
+export interface HHEA {
+    version: number;
+    ascent: number;
+    descent: number;
+    lineGap: number;
+    advanceWidthMax: number;
+    minLeftSideBearing: number;
+    minRightSideBearing: number;
+    xMaxExtent: number;
+    caretSlopeRise: number;
+    caretSlopeRun: number;
+    caretOffset: number;
+    metricDataFormat: number;
+    numberOfMetrics: number;
 }
 
 /**

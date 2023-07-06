@@ -4,7 +4,7 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -21,7 +21,7 @@
 declare module 'ember-test-helpers' {
     import Ember from 'ember';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface ModuleCallbacks {
         integration?: boolean | undefined;
@@ -95,7 +95,7 @@ declare module 'ember-test-helpers' {
 }
 
 declare module 'ember-test-helpers/wait' {
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface WaitOptions {
         waitForTimers?: boolean | undefined;

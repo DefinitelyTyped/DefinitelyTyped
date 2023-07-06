@@ -31,7 +31,6 @@ declare module "connect-timeout" {
         interface TimeoutOptions {
             /**
              * @summary Controls if this module will "respond" in the form of forwarding an error.
-             * @type {boolean}
              */
             respond?: boolean | undefined;
         }

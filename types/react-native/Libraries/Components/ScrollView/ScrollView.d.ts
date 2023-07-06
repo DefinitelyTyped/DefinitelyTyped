@@ -721,7 +721,7 @@ export interface ScrollViewProps
   /**
    * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
    */
-  stickyHeaderHiddenOnScroll?: boolean;
+  stickyHeaderHiddenOnScroll?: boolean | undefined;
 
   /**
    * Style
@@ -820,8 +820,8 @@ export class ScrollView extends ScrollViewBase {
           y?: number | undefined;
           animated?: boolean | undefined;
         },
-    x?: number,
-    animated?: boolean,
+    deprecatedX?: number,
+    deprecatedAnimated?: boolean,
   ): void;
 
   /**
@@ -832,7 +832,7 @@ export class ScrollView extends ScrollViewBase {
    * The options object has an animated prop, that enables the scrolling animation or not.
    * The animated prop defaults to true
    */
-  scrollToEnd(options?: {animated: boolean}): void;
+  scrollToEnd(options?: {animated?: boolean | undefined}): void;
 
   /**
    * Displays the scroll indicators momentarily.

@@ -369,43 +369,43 @@ interface IsStatic {
 
     /**
      * Checks if current browser is ie
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     ie(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is chrome.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     chrome(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is firefox.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     firefox(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is edge.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     edge(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is opera.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     opera(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is safari.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     safari(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is phantom.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     phantom(range?: EnvironmentVersionRange): boolean;
 
@@ -416,19 +416,19 @@ interface IsStatic {
 
     /**
      * Checks if current device is iPhone.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     iphone(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPad.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     ipad(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPod.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     ipod(range?: EnvironmentVersionRange): boolean;
 

@@ -242,7 +242,7 @@ export interface helpers {
      * Parses a CoffeeScript number string to a primitive JS number.
      *
      * @param string String representation of a number.
-     * @retuns Parsed float or integer corresponding to number.
+     * @returns Parsed float or integer corresponding to number.
      */
     parseNumber(string: string): number;
     /**

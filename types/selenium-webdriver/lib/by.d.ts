@@ -180,16 +180,6 @@ export class RelativeBy {
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
  *
- * @typedef {(
- *     {className: string}|
- *     {css: string}|
- *     {id: string}|
- *     {js: string}|
- *     {linkText: string}|
- *     {name: string}|
- *     {partialLinkText: string}|
- *     {tagName: string}|
- *     {xpath: string})}
  */
 export type ByHash =
     | { className: string }

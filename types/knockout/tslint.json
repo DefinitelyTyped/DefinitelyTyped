@@ -11,7 +11,6 @@
         "new-parens": false,
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-empty-interface": false,
         "no-eval": false,
         "no-object-literal-type-assertion": false,

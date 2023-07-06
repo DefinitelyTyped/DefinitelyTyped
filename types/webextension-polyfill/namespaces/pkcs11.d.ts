@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.pkcs11
- * Generated from Mozilla sources. Do not manually edit!
  *
  * PKCS#11 module management API
  * Permissions: "pkcs11"

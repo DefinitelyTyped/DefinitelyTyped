@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { PluginCreator, Postcss, Root } from 'postcss';
-import Processor from 'postcss/lib/processor';
+import Processor = require('postcss/lib/processor');
 
 declare namespace rtlcss {
     interface MapOptions {

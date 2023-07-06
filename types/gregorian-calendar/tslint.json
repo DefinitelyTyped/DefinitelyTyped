@@ -4,9 +4,7 @@
         "ban-types": false,
         "member-access": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
-        "no-self-import": false,
         "prefer-const": false,
         "semicolon": false
     }

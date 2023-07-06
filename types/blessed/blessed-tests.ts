@@ -202,6 +202,33 @@ blessed.box({
   content: "Foo"
 });
 
+blessed.list({
+  parent: screen,
+  left: -1,
+  top: "50%-1",
+  width: "50%+1",
+  height: "50%+3",
+  border: "line",
+  content: "List",
+  style: {
+    selected: {
+      bg: 'red'
+    },
+    item: {
+      bg: 'blue'
+    },
+    bg: "blue",
+    border: {
+      fg: '#000000',
+    },
+    focus: {
+      border: {
+        fg: 'white',
+      },
+    }
+  }
+});
+
 blessed
   .listtable({
     parent: screen,

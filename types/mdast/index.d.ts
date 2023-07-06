@@ -31,7 +31,7 @@ export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
 export interface BlockContentMap {
     paragraph: Paragraph;
     heading: Heading;
-    thematicbreak: ThematicBreak;
+    thematicBreak: ThematicBreak;
     blockquote: Blockquote;
     list: List;
     table: Table;
@@ -92,12 +92,12 @@ export interface StaticPhrasingContentMap {
     strong: Strong;
     delete: Delete;
     html: HTML;
-    inlinecode: InlineCode;
+    inlineCode: InlineCode;
     break: Break;
     image: Image;
-    imagereference: ImageReference;
+    imageReference: ImageReference;
     footnote: Footnote;
-    footnotereference: FootnoteReference;
+    footnoteReference: FootnoteReference;
 }
 
 /**

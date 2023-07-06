@@ -25,7 +25,7 @@ declare class Database {
     executeDDL(statement: string): void;
     createKey(keysQty: number, useHighKeys?: boolean): number;
     incVersion(): number;
-    applyUpdates(dataSets: DataSet | any[], log?: boolean): number;
+    applyUpdates(dataSets: DataSet | any[], logChanges?: boolean): number;
     getReferences(
         key: number,
         tableName: string,

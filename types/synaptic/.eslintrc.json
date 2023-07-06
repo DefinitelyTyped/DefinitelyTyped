@@ -1,6 +1,7 @@
 {
     "rules": {
         "dt-header": "off",
-        "no-any-union": "off"
+        "no-any-union": "off",
+        "no-self-import": "off"
     }
 }

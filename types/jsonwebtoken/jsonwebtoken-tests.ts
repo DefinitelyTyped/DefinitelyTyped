@@ -57,8 +57,38 @@ token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKe
 // sign with invalid asymmetric key type for algorithm
 token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
 
+// sign with algorithm none
+token = jwt.sign(testObject, null, { algorithm: "none" });
+// @ts-expect-error
+token = jwt.sign({ foo: 'bar' }, null, { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
+
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+
+// sign asynchronously with algorithm none
+jwt.sign(testObject, null, { algorithm: "none" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+// @ts-expect-error
+jwt.sign(testObject, null, { algorithm: "RS256" }, (
     err: Error | null,
     token: string | undefined,
 ) => {

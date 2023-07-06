@@ -459,6 +459,35 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         });
 }
 
+async function streamPipelineAsyncPromiseOptions() {
+    const { signal } = new AbortController();
+
+    // Empty options
+    pipelinePromise(process.stdin,
+        process.stdout,
+        {});
+
+    // options with signal property
+    pipelinePromise(process.stdin,
+        process.stdout,
+        { signal });
+
+    // options with end property
+    pipelinePromise(process.stdin,
+        process.stdout,
+        { end: false });
+
+    // options with both properties
+    pipelinePromise(process.stdin,
+        process.stdout,
+        { signal, end: false });
+
+    // options with undefined properties
+    pipelinePromise(process.stdin,
+        process.stdout,
+        { signal: undefined, end: undefined });
+}
+
 async function testConsumers() {
     const r = createReadStream('file.txt');
 
@@ -573,6 +602,28 @@ addAbortSignal(new AbortSignal(), new Readable());
     Writable.fromWeb(web, { write: true });
 }
 
+{
+    const duplex = new Duplex();
+    // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
+    Duplex.toWeb(duplex);
+}
+
+{
+    const readable = new ReadableStream();
+    const writable = new WritableStream();
+
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable });
+
+    // Handles subset of DuplexOptions param
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable }, { objectMode: true });
+
+    // When the param includes unsupported DuplexOptions
+    // @ts-expect-error
+    Duplex.fromWeb({ readable, writable }, { emitClose: true });
+}
+
 async function testReadableStream() {
     const SECOND = 1000;
 
@@ -642,4 +693,22 @@ async function testTransferringStreamWithPostMessage() {
 
     // error TS2532: Cannot use 'stream' as a target of a postMessage call because it is not a Transferable.
     // port2.postMessage(stream, [stream]);
+}
+
+{
+    // checking the type definitions for the events on the Duplex class and subclasses
+    const transform = new Transform();
+    transform.on('pipe', (src) => {
+        // $ExpectType Readable
+        src;
+    }).once('unpipe', (src) => {
+        // $ExpectType Readable
+        src;
+    }).addListener('data', (chunk) => {
+        // $ExpectType any
+        chunk;
+    }).prependOnceListener('error', (err) => {
+        // $ExpectType Error
+        err;
+    });
 }

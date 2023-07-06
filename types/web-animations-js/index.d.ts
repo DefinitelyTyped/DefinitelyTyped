@@ -2,14 +2,15 @@
 // Project: https://github.com/web-animations/web-animations-js, https://github.com/web-animations
 // Definitions by: Kristian Moerch <https://github.com/kritollm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 5.1
 
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 
 interface AnimationPlaybackEvent {
     target: Animation;
-    readonly currentTime: number | null;
-    readonly timelineTime: number |  null;
+    readonly currentTime: CSSNumberish | null;
+    readonly timelineTime: CSSNumberish | null;
     type: string;
     bubbles: boolean;
     cancelable: boolean;
@@ -20,8 +21,8 @@ interface AnimationPlaybackEvent {
 }
 
 interface AnimationPlaybackEventInit extends EventInit {
-    currentTime?: number | null | undefined;
-    timelineTime?: number | null | undefined;
+    currentTime?: CSSNumberish | null;
+    timelineTime?: CSSNumberish | null;
 }
 
 declare var AnimationPlaybackEvent: {
@@ -38,7 +39,7 @@ interface AnimationKeyFrame {
 }
 
 interface AnimationTimeline {
-    readonly currentTime: number | null;
+    readonly currentTime: CSSNumberish | null;
     getAnimations(): Animation[];
     play(effect: KeyframeEffect): Animation;
 }
@@ -70,13 +71,13 @@ interface ComputedTimingProperties {
 type AnimationEventListener = ((this: Animation, evt: AnimationPlaybackEvent) => any) | null;
 
 interface Animation extends EventTarget {
-    currentTime: number | null;
+    currentTime: CSSNumberish | null;
     id: string;
     oncancel: AnimationEventListener;
     onfinish: AnimationEventListener;
     readonly playState: AnimationPlayState;
     playbackRate: number;
-    startTime: number | null;
+    startTime: CSSNumberish | null;
     cancel(): void;
     finish(): void;
     pause(): void;

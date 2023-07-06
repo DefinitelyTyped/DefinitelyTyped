@@ -19,7 +19,7 @@ interface RequestHeaders extends http.IncomingHttpHeaders {
 }
 
 interface Request {
-    headers: RequestHeaders;
+    headers?: RequestHeaders;
     connection?: {
         remoteAddress?: string | undefined;
         socket?: {

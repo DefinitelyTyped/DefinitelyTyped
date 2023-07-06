@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/glob": "~8.1.0",
         "tapable": "^2.2.0",
         "webpack": "^5.0.0"
     }

@@ -5508,7 +5508,7 @@ declare namespace videojs {
         activeCues: TextTrackCueList;
 
         /**
-         * @The text track cue list for this TextTrack.
+         * The text track cue list for this TextTrack.
          */
         cues: TextTrackCueList;
 

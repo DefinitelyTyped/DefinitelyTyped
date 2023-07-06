@@ -2,6 +2,9 @@
 // Project: https://github.com/oddbird/true
 // Definitions by: robertmaier <https://github.com/robertmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
 import type { renderSync } from 'sass';
 export type Options = Parameters<typeof renderSync>[0];
 

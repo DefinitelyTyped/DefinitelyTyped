@@ -6,7 +6,7 @@ const matcher = createMatcher({
     '/number/:num': 199,
 });
 
-const numberOfPage: number = matcher('/').page;
+const numberOfPage: number = matcher('/').value;
 const matchedURL: string = matcher('/').url;
 const params: {} | null = matcher('/number/34').params;
 

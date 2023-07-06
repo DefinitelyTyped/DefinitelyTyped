@@ -40,3 +40,21 @@ for (let i = 0; i < glyphs.length; i++) {
 }
 
 res.join('|');
+
+const dims = [];
+for (const glyph of glyphs) {
+    const bbox = glyph.bbox;
+    let dim = `${glyph.id}`;
+    dim += ` w:${bbox.width} h:${bbox.height}`;
+    dims.push(dim);
+}
+dims.join('|');
+
+// -----------------
+// API: Font['hhea']
+// -----------------
+openV2.then(font => {
+    font['hhea'].version; // $ExpectType number
+    font.getGlyph; // $ExpectType (glyphId: number, codePoints?: number[] | undefined) => Glyph
+    font.getGlyph(0); // $ExpectType Glyph
+});

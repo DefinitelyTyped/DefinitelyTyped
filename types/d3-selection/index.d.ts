@@ -5,6 +5,7 @@
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Ambar Mutha <https://github.com/ambar-arkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 3.0.0
@@ -878,7 +879,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param func A function which is passed this selection as the first argument along with any optional arguments.
      * @param args List of optional arguments to be passed to the callback function.
      */
-    call(func: (selection: Selection<GElement, Datum, PElement, PDatum>, ...args: any[]) => void, ...args: any[]): this;
+    call<Args extends any[]>(func: (selection: Selection<GElement, Datum, PElement, PDatum>, ...args: Args) => void, ...args: Args): this;
 
     /**
      * Return true if this selection contains no (non-null) elements.

@@ -2,6 +2,8 @@ import { Material, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three';
 
 export class Pass {
     constructor();
+
+    isPass: boolean;
     enabled: boolean;
     needsSwap: boolean;
     clear: boolean;

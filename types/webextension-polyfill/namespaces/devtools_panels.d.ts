@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.devtools.panels
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.devtools.panels</code> API to integrate your extension into Developer Tools window UI: create your
  * own panels, access existing panels, and add sidebars.

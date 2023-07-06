@@ -117,7 +117,6 @@ declare namespace union {
      * Pass in an Object containing the union fields to auto-populate the
      * union with the data.
      *
-     * @constructor
      */
     interface UnionType<TDefinition extends UnionTypeDefinitionBase = any> extends ref.Type<UnionObject<UnionObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */

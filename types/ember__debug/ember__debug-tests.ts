@@ -9,7 +9,7 @@ import {
 } from '@ember/debug';
 
 /**
- * @ember/debug tests
+ * `@ember/debug` tests
  */
 // @ts-expect-error
 runInDebug();

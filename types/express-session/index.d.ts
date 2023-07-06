@@ -334,7 +334,7 @@ declare namespace session {
         /** Upsert a session in the store given a session ID and `SessionData` */
         abstract set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
 
-        /** Destroys the dession with the given session ID. */
+        /** Destroys the session with the given session ID. */
         abstract destroy(sid: string, callback?: (err?: any) => void): void;
 
         /** Returns all sessions in the store */

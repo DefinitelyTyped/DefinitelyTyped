@@ -22,6 +22,8 @@ import {
     LogoSvelte,
     Plan,
     BatchJob,
+    WhitePaper,
+    DataCategorical,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -51,3 +53,5 @@ import {
 <LogoSvelte />; // $ExpectType Element
 <Plan />; // $ExpectType Element
 <BatchJob />; // $ExpectType Element
+<WhitePaper />; // $ExpectType Element
+<DataCategorical />; // $ExpectType Element

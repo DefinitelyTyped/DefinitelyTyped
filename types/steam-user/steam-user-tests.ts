@@ -7,6 +7,10 @@ console.log(SteamUser.formatCurrency(123.45, SteamUser.ECurrencyCode.EUR));
 
 const user = new SteamUser();
 
+user.on('debug', message => {
+    console.log(message);
+});
+
 user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Snooze);
@@ -33,6 +37,15 @@ user.logOn({
 });
 user.logOff();
 user.relog();
+
+user.logOn({
+    refreshToken: 'token123',
+    steamID: '76561197960287930',
+});
+
+user.logOn({
+    refreshToken: '123token',
+});
 
 user.requestValidationEmail().catch(err => console.error(err));
 

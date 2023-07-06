@@ -297,7 +297,7 @@ export function rm_operation(name: string): void;
 
 // These functions are undocumented, but are exported by the real package
 // so they're typed here for completeness.
-export function is_logic(logic: any): boolean;
+export function is_logic(logic: any): logic is RulesLogic;
 export function truthy(value: any): boolean;
 export function get_operator(logic: Record<string, any>): string;
 export function get_values(logic: Record<string, any>): any;

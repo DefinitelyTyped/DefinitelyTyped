@@ -4,9 +4,9 @@ declare namespace GorillaEngine.UI {
         backgroundColor: string;
         cornerRadius: number;
         border: {
-            width: number;
-            color: string;
-            focusColor: string;
+            width?: number;
+            color?: string;
+            focusColor?: string;
         };
     }
 }

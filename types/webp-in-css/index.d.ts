@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
-// tslint:disable-next-line  no-declare-current-package keeping it simple
+// eslint-disable-next-line no-declare-current-package
 declare module 'webp-in-css/polyfill' {
     // nothing here, global script
 }
 
-// tslint:disable-next-line  no-declare-current-package keeping it simple
+// eslint-disable-next-line no-declare-current-package
 declare module 'webp-in-css/plugin' {
     import { Declaration, PluginCreator } from 'postcss';
 

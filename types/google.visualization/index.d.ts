@@ -1683,7 +1683,6 @@ declare namespace google {
             selectionColor?: string | undefined;
             /**
              * Chart size
-             * @type {('small'|'medium'|'large')}
              * @default 'medium'
              */
             size?: string | undefined;

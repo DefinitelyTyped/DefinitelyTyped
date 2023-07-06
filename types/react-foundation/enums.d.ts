@@ -153,7 +153,6 @@ export declare const VerticalAlignments: {
 /**
  * Menu alignment enumerable.
  *
- * @type {{RIGHT = string, CENTER = string}}
  */
 export declare type MenuAlignments = 'right' | 'center';
 export declare const MenuAlignments: {

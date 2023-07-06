@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.clipboard
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Offers the ability to write to the clipboard. Reading is not supported because the clipboard can already be read through
  * the standard web platform APIs.

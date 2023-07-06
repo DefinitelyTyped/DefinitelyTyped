@@ -5,7 +5,6 @@ import * as http from './http';
 /**
  * Creates a new WebDriver client for Chrome.
  *
- * @extends {webdriver.WebDriver}
  */
 export class Driver extends webdriver.WebDriver {
     /**
@@ -51,7 +50,6 @@ export interface IPerfLoggingPrefs {
  */
 export class Options {
     /**
-     * @constructor
      */
     constructor();
 
@@ -313,7 +311,6 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      *     PATH.
      * @throws {Error} If provided executable does not exist, or the chromedriver
      *     cannot be found on the PATH.
-     * @constructor
      */
     constructor(opt_exe?: string);
 

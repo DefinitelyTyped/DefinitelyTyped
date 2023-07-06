@@ -32,7 +32,7 @@ interface Pivot {
     /**
      * key to aggregators object specifying the aggregator to use for computations
      */
-    agregatorName?: string;
+    aggregatorName?: string;
 
     /**
      * @link https://github.com/nicolaskruchten/pivottable/wiki/Aggregators
@@ -89,7 +89,7 @@ interface Pivot {
     colOrder?: TQuerySort;
 
     /**
-     * @Link original PivotTable.js documentation)
+     * @see original PivotTable.js documentation
      */
     derivedAttributes?: { [k: string]: (p: string) => string };
 }

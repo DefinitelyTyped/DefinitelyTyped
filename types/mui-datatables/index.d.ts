@@ -8,7 +8,7 @@
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
 //                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.4
 import { ComponentsProps, ComponentsOverrides, ComponentsVariants } from '@mui/material';
 
 import * as React from 'react';
@@ -816,7 +816,6 @@ export type MUIDataTableOptions = Partial<{
      * The object options are the column name and the direction.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js)
-     * @shape { name: string, direction: 'asc' | 'desc' }
      */
     sortOrder: MUISortOptions;
     /**

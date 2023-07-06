@@ -342,7 +342,7 @@ declare class RecordRTC {
     toURL(): string;
 
     /** returns Data-URL */
-    getDataURL(): string;
+    getDataURL(cb: (dataURL: string) => void): void;
 
     /** returns internal recorder */
     getInternalRecorder(): RecordRTC.Recorder;

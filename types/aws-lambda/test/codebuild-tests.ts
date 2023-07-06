@@ -1,6 +1,7 @@
 import {
     CodeBuildCloudWatchStateEvent,
-    CodeBuildCloudWatchStateHandler, CodeBuildStateEventDetail,
+    CodeBuildCloudWatchStateHandler,
+    CodeBuildStateEventDetail,
     SNSEvent,
 } from 'aws-lambda';
 

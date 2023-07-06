@@ -1687,6 +1687,46 @@ function testObject() {
         // $ExpectType false | Error
         obj.validate({ someAttrToValidate: 'hello' });
     }
+
+    function testNullableArrays(
+        objTyped: Parse.Object<{ stringList?: string[] | null }>
+    ) {
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.add('stringList', 'foo');
+
+        // @ts-expect-error
+        objTyped.add('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAll('stringList', ['foo']);
+
+        // @ts-expect-error
+        objTyped.addAll('stringList', [4]);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAllUnique('stringList', ['foo', 'bar']);
+
+        // @ts-expect-error
+        objTyped.addAllUnique('stringList', [4]);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addUnique('stringList', 'foo');
+
+        // @ts-expect-error
+        objTyped.addUnique('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.remove('stringList', 'bar');
+
+        // @ts-expect-error
+        objTyped.remove('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.removeAll('stringList', ['bar']);
+
+        // @ts-expect-error
+        objTyped.removeAll('stringList', [4]);
+    }
 }
 
 function testInstallation() {

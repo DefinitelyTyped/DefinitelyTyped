@@ -32,7 +32,6 @@ declare class Class_Redis extends Class__object {
      * 
      * 
      * 
-     * @type Function
      */
     
     onsuberror: Function

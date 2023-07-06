@@ -17,6 +17,7 @@ import { EventLoopUtilization } from 'node:perf_hooks';
                     argv: ['asd'],
                     workerData: script,
                     transferList: [port1],
+                    name: 'my worker'
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);

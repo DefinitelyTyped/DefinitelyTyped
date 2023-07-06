@@ -17,9 +17,11 @@ export interface MSKRecord {
     headers: MSKRecordHeader[];
 }
 
+// https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html
 export interface MSKEvent {
     eventSource: 'aws:kafka';
     eventSourceArn: string;
+    bootstrapServers: string;
     records: {
         [topic: string]: MSKRecord[];
     };

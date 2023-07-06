@@ -10,11 +10,7 @@ export namespace Clone {
     }
 }
 
-export class Clone {
-    /**
-     * Patch repository cloning to automatically coerce objects.
-     */
-    static clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;
-
-    static initOptions(opts: CloneOptions, version: number): number;
-}
+/**
+ * Patch repository cloning to automatically coerce objects.
+ */
+export function Clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;

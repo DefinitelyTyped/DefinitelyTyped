@@ -121,6 +121,7 @@ const config: mParticle.MPConfiguration = {
         flag: 'foo',
         anotherFlag: 'bar',
     },
+    sideloadedKits: [{}, {}]
 };
 
 instance.endSession();

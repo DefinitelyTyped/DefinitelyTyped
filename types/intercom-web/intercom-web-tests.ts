@@ -42,6 +42,7 @@ Intercom('startTour', 123);
 Intercom('showArticle', 123);
 Intercom('startSurvey', 123);
 Intercom('reattach_activator');
+Intercom('showSpace', 'help');
 Intercom('onHide', () => {
     /* Do stuff */
 });

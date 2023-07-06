@@ -2,6 +2,17 @@
 
 import { CycloneDXBomV1_3 } from "cyclonedx";
 
+export const sbom1_3_services: CycloneDXBomV1_3 = {
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.3",
+    "version": 1,
+    "services": [
+        {
+            name: "some service"
+        }
+    ]
+}
+
 // https://github.com/CycloneDX/bom-examples/blob/master/SBOM/laravel-7.12.0/bom.1.3.json
 export const sbom1_3: CycloneDXBomV1_3 = {
     "bomFormat": "CycloneDX",

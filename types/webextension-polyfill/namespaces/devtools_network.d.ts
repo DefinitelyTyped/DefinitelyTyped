@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.devtools.network
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.devtools.network</code> API to retrieve the information about network requests displayed by the
  * Developer Tools in the Network panel.

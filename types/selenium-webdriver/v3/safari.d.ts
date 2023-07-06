@@ -26,7 +26,6 @@ export function cleanSession(desiredCapabilities: webdriver.Capabilities): any[]
 export function getRandomString(): string;
 
 /**
- * @implements {command.Executor}
  */
 export class CommandExecutor {}
 

@@ -1,8 +1,7 @@
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 import { Combine, NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
 import { Vector2 } from '../Three';
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {

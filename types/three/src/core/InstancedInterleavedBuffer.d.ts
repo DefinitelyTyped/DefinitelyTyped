@@ -1,13 +1,21 @@
 import { InterleavedBuffer } from './InterleavedBuffer';
 
 /**
- * see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InstancedInterleavedBuffer.js|src/core/InstancedInterleavedBuffer.js}
+ * An instanced version of {@link THREE.InterleavedBuffer | InterleavedBuffer}.
+ * @see {@link https://threejs.org/docs/index.html#api/en/core/InstancedInterleavedBuffer | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InstancedInterleavedBuffer.js | Source}
  */
 export class InstancedInterleavedBuffer extends InterleavedBuffer {
+    /**
+     * Create a new instance of {@link InstancedInterleavedBuffer}
+     * @param array
+     * @param itemSize
+     * @param meshPerAttribute
+     */
     constructor(array: ArrayLike<number>, stride: number, meshPerAttribute?: number);
 
     /**
-     * @default 1
+     * @defaultValue `1`
      */
     meshPerAttribute: number;
 }

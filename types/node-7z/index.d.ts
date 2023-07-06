@@ -303,4 +303,4 @@ declare function update(archive: string, files: string | string[], options?: Sev
  */
 declare function listen(stream: ZipStream): ZipStream;
 
-export { add, extract, extractFull, _delete as delete, hash, list, rename, test, update, listen };
+export { add, extract, extractFull, _delete as delete, hash, list, rename, test, update, listen, SevenZipOptions, Node7zOptions, CommandLineSwitches, ZipStream, Progress, Data };

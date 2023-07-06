@@ -4,7 +4,7 @@
 //                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Term } from "rdf-js";
+import { Term } from "@rdfjs/types";
 
 export default class TermSet<T extends Term = Term> extends Set<T> {
 }

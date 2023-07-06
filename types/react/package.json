@@ -3,31 +3,54 @@
   "dependencies": {
     "csstype": "^3.0.2"
   },
+  "types": "index",
   "exports": {
     ".": {
+      "types@<=5.0": {
+        "default": "./ts5.0/index.d.ts"
+      },
       "types": {
         "default": "./index.d.ts"
       }
     },
-    "./next": {
+    "./canary": {
+      "types@<=5.0": {
+        "default": "./ts5.0/canary.d.ts"
+      },
       "types": {
-        "default": "./next.d.ts"
+        "default": "./canary.d.ts"
       }
     },
     "./experimental": {
+      "types@<=5.0": {
+        "default": "./ts5.0/experimental.d.ts"
+      },
       "types": {
         "default": "./experimental.d.ts"
       }
     },
     "./jsx-runtime": {
+      "types@<=5.0": {
+        "default": "./ts5.0/jsx-runtime.d.ts"
+      },
       "types": {
         "default": "./jsx-runtime.d.ts"
       }
     },
     "./jsx-dev-runtime": {
+      "types@<=5.0": {
+        "default": "./ts5.0/jsx-dev-runtime.d.ts"
+      },
       "types": {
         "default": "./jsx-dev-runtime.d.ts"
       }
+    }
+  },
+  "typesVersions": {
+    "<=5.0": {
+      "*": [
+        "ts5.0/*"
+      ]
     }
   }
 }

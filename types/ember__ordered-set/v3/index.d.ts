@@ -2,7 +2,7 @@
 // Project: https://github.com/emberjs/ember-ordered-set
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Mike North <https://github.com/mike-north>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7

@@ -1617,7 +1617,7 @@ declare namespace ShopifyBuy {
         /**
          * Updates line items on an existing checkout.
          */
-        updateLineItems(checkoutId: ID, lineItems: CheckoutLineItemInput[]): Promise<Checkout>;
+        updateLineItems(checkoutId: ID, lineItems: CheckoutLineItemUpdateInput[]): Promise<Checkout>;
 
         /**
          * Updates shipping address on an existing checkout.

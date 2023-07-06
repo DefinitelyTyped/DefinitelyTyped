@@ -9,6 +9,7 @@ export interface PreAuthenticationTriggerEvent extends BaseTriggerEvent<'PreAuth
       userAttributes: StringMap;
       userNotFound?: boolean | undefined;
       validationData?: StringMap | undefined;
+      clientMetadata?: StringMap | undefined;
   };
 }
 

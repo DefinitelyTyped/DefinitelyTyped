@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "dotenv": "^8.2.0"
-    }
-}

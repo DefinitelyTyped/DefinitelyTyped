@@ -1,6 +1,8 @@
 // Type definitions for dcp-client 4.2
 // Project: https://github.com/Distributed-Compute-Labs/dcp-client
 // Definitions by: Bryan Hoang <https://github.com/bryan-hoang>
+//                 Brandon Christie <https://github.com/BChristieDistributive>
+//                 Roman Fairushyn <https://github.com/fairushyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
 export function init(): Promise<DCPClient>;
@@ -64,12 +66,16 @@ export namespace compute {
          * without altering the API. This means DCP could process, for example,
          * jobs where the input set is a very long list of video frames and each slice represents one frame.
          * iterableObject could be an Array, ES6 function* generator, or any other type of iterable object.
-         * @returns a Promise which will be fulfilled with a Job object.
-         * @param rangeObject: object | Ranges
-         * @param work: Function | string | URL | DcpURL
-         * @param arguments
+         * @param rangeObject object | Ranges
+         * @param work Function | string | URL | DcpURL
+         * @param arguments An optional Array-like object which contains arguments which are passed to the work function.
+         * @returns A {@link JobHandle}.
          */
-        for(rangeObject: object | Ranges, work: object | string | URL | DcpURL, arguments?: object): Job;
+        for<T>(
+            rangeObject: object | Ranges,
+            work: object | string | URL | DcpURL | ((input: any, ...data: T[]) => any),
+            arguments?: ReadonlyArray<T>,
+        ): JobHandle;
 
         /**
          * form 2a: for (start, end, step, work, arguments) - start, end, and step are numbers used to create a range object.
@@ -81,7 +87,13 @@ export namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments?: object): Job;
+        for(
+            start: number,
+            end: number,
+            step: number,
+            work: object | string | URL | DcpURL,
+            arguments?: object,
+        ): JobHandle;
 
         /**
          * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -92,7 +104,13 @@ export namespace compute {
          * @param work
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments?: object): Job;
+        for(
+            start: number,
+            end: number,
+            step: number,
+            work: object | string | URL | DcpURL,
+            arguments?: object,
+        ): JobHandle;
 
         /**
          * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -103,7 +121,13 @@ export namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments: object): Job;
+        for(
+            start: number,
+            end: number,
+            step: number,
+            work: object | string | URL | DcpURL,
+            arguments: object,
+        ): JobHandle;
 
         /**
          * Form 1: compute.status(job): returns a status object describing a given job.
@@ -168,7 +192,7 @@ export namespace compute {
 }
 
 export namespace wallet {
-     interface Wallet {
+    interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
          * Gets a keystore from the wallet
@@ -212,20 +236,33 @@ export namespace wallet {
 }
 
 export namespace worker {
-     class Worker {
+    class Worker {
         /**
-         * @start - Emitted when the worker is started.
-         * @stop - Emitted when the worker is stopped.
-         * @fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
-         * @fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
-         * @fetch - Emitted when the worker successfully fetches slices from the scheduler.
-         * @fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
-         * @submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
-         * @submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
-         * @submit - Emitted when the worker successfully submits a result to the scheduler.
-         * @submitError - Emitted when the worker successfully submits a result to the scheduler.
+         * start - Emitted when the worker is started.
+         * stop - Emitted when the worker is stopped.
+         * fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
+         * fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
+         * fetch - Emitted when the worker successfully fetches slices from the scheduler.
+         * fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
+         * submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
+         * submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
+         * submit - Emitted when the worker successfully submits a result to the scheduler.
+         * submitError - Emitted when the worker successfully submits a result to the scheduler.
          */
-        on(event: 'start' | 'stop' | 'fetchStart' | 'fetchEnd' | 'fetch' | 'fetchError' | 'submitStart' | 'submitEnd' | 'submit' | 'submitError', listener: () => void): this;
+        on(
+            event:
+                | 'start'
+                | 'stop'
+                | 'fetchStart'
+                | 'fetchEnd'
+                | 'fetch'
+                | 'fetchError'
+                | 'submitStart'
+                | 'submitEnd'
+                | 'submit'
+                | 'submitError',
+            listener: () => void,
+        ): this;
 
         /**
          * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
@@ -320,23 +357,25 @@ export interface AuthKeystoreOptions {
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#sandbox-api)
  */
-export interface Sandbox {
+export class Sandbox {
     /**
      * Emitted when the sandbox begins working on a slice. The job description object. Use job.public for accessing the job’s title/description.
      */
-    on(event: 'sliceStart', listener: (job: object) => void): this;
+    addEventListener(event: 'sliceStart', listener: (job: object) => void): void;
 
     /**
      * Emitted when the sandbox completes the slice it was working on.
      */
-    on(event: 'sliceFinish', listener: (result: any) => void): this;
+    addEventListener(event: 'sliceFinish', listener: (result: any) => void): void;
 
     /**
-     * @sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
-     * @sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
-     * @terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
+     * sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
+     * sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
+     * terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
      */
-    on(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): this;
+    addEventListener(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): void;
+
+    on: typeof Sandbox.prototype.addEventListener;
 }
 
 /**
@@ -628,7 +667,7 @@ export interface PublicProperties {
 /**
  * [See docs](https://docs.dcp.dev/api/compute/classes/job.html#methods)
  */
-export class Job {
+export class JobHandle {
     /**
      * Job id
      * Note: The job id is a getter for job address.
@@ -652,13 +691,139 @@ export class Job {
     useStrict: boolean;
 
     /**
-     * @accepted - Emitted when the job gets accepted by the DCP Scheduler.
-     * @complete - Emitted when the job finishes.
-     * @readystatechange - Emitted leading up to deployment of the job.
-     * @console - Used to collect the console output of the workers.
-     * @result - Emitted when a slice completes and returns.
+     * Executes the function `listener` when the event `eventName` is triggered.
+     * @param eventName A case-sensitive string representing the event type to listen for.
+     * @param listener A function that is called when the specified event type occurs.
+     * @event accepted: The job gets accepted by the DCP Scheduler.
+     * @event complete: The job finishes.
+     * @event readystatechange: Emitted leading up to deployment of the job.
+     * @event console: Used to collect the console output of the workers.
+     * @event result A slice completes and returns.
      */
-    on(event: "accepted" | "complete" | "readystatechange" | "console" | "result", listener: (ev?: any) => void): this;
+    addEventListener(eventName: 'readystatechange' | 'resultsUpdated' | 'cancel', listener: () => void): void;
+    addEventListener(eventName: 'accepted', listener: (event: { job: JobHandle }) => void): void;
+    addEventListener(
+        eventName: 'result',
+        listener: (event: {
+            /**
+             * The address (id) of the the job.
+             */
+            address: Address;
+            /**
+             * The address of the task (slice) that the result came from.
+             */
+            task: Address;
+            /**
+             * The index of the slice.
+             */
+            sort: number;
+            result: {
+                request: 'main';
+                /**
+                 * The value returned.
+                 */
+                result: any;
+            };
+        }) => void,
+    ): void;
+    addEventListener(eventName: 'complete', listener: (event: ResultHandle) => void): void;
+    addEventListener(
+        eventName: 'status',
+        listener: (event: {
+            /**
+             * The address (id) of the job.
+             */
+            address: Address;
+            /**
+             * Total number of slices.
+             */
+            total: number;
+            /**
+             * Number of slices that have been distributed.
+             */
+            distributed: number;
+            /**
+             * The job's run status before any updates from a status event.
+             */
+            runStatus: string;
+        }) => void,
+    ): void;
+    addEventListener(
+        eventName: 'error',
+        listener: (event: {
+            /**
+             * The address (id) of the job.
+             */
+            address: Address;
+            /**
+             * The index of the slice that threw the error.
+             */
+            sliceIndex: number;
+            /**
+             * The error message.
+             */
+            message: string;
+            /**
+             * The error's stack trace.
+             */
+            stack: string;
+            /**
+             * The error's name.
+             */
+            name: string;
+        }) => void,
+    ): void;
+    addEventListener(
+        eventName: 'console',
+        listener: (event: {
+            /**
+             * The address (id) of the job.
+             */
+            address: Address;
+            /**
+             * The index of the slice that threw the error.
+             */
+            sliceIndex: number;
+            /**
+             * The log level.
+             */
+            level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+            /**
+             * The console message.
+             */
+            message: string;
+        }) => void,
+    ): void;
+    addEventListener(
+        eventName: 'console',
+        listener: (event: {
+            /**
+             * The address (id) of the job.
+             */
+            address: Address;
+            /**
+             * The index of the slice that threw the error.
+             */
+            sliceIndex: number;
+            /**
+             * The log level.
+             */
+            level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+            /**
+             * The console message.
+             */
+            message: string;
+        }) => void,
+    ): void;
+
+    /**
+     * Same as {@link JobHandle.addEventListener}
+     */
+    on: typeof JobHandle.prototype.addEventListener;
+    /**
+     * Same as {@link JobHandle.addEventListener}
+     */
+    addListener: typeof JobHandle.prototype.addEventListener;
 
     /**
      * Deploys the job to the scheduler for work to be done by distributed workers all throughout the DCP network.
@@ -667,17 +832,26 @@ export class Job {
      * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/GPU and I/O.
      * @returns Promise<ResultHandle>
      */
-    exec(slicePaymentOffer?: number | object, paymentAccountKeystore?: Keystore, initialSliceProfile?: object): Promise<ResultHandle>;
+    exec(
+        slicePaymentOffer?: number | object,
+        paymentAccountKeystore?: Keystore,
+        initialSliceProfile?: object,
+    ): Promise<ResultHandle>;
 
     /**
      * Deploys the job for work to be done in locally in the client.
-     * @param cores – The number of local cores to be used to execute the job.
-     * @param slicePaymentOffer – The amount of DCC user is willing to pay per slice. However, localExec jobs don’t take DCC.
-     * @param paymentAccountKeystore – Instance of Wallet API Keystore being used as the payment account for executing a job.
-     * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
-     * @returns Promise<ResultHandle>
+     * @param cores The number of local cores to be used to execute the job.
+     * @param slicePaymentOffer The amount of DCC user is willing to pay per slice. However, localExec jobs don’t take DCC.
+     * @param paymentAccountKeystore Instance of Wallet API Keystore being used as the payment account for executing a job.
+     * @param initialSliceProfile Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
+     * @returns The same result handle returned by `JobHandle.prototype.exec`.
      */
-    localExec(cores: number, slicePaymentOffer: number | object, paymentAccountKeystore: Keystore, initialSliceProfile: object): Promise<ResultHandle>;
+    localExec(
+        cores?: number,
+        slicePaymentOffer?: number | object,
+        paymentAccountKeystore?: Keystore,
+        initialSliceProfile?: object,
+    ): Promise<ResultHandle>;
 
     /**
      * Deploys the job for work to be done in locally in the client.
@@ -722,8 +896,7 @@ export interface DCPClient {
     worker: worker.Worker;
 }
 
-export class Status {
-}
+export class Status {}
 
 export class JobInfo {
     status: string;
@@ -735,11 +908,9 @@ export class JobHistory {
     history: object;
 }
 
-export class WorkValueQuote {
-}
+export class WorkValueQuote {}
 
-export class WorkValue {
-}
+export class WorkValue {}
 
 export class EnoProgressError implements Error {
     name: string;
@@ -766,7 +937,7 @@ export interface LoadOptions {
     /**
      *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
      */
-    paths?: string[] | LoadOptions["dir"];
+    paths?: string[] | LoadOptions['dir'];
 }
 
 export class Supervisor {}
@@ -780,5 +951,3 @@ export interface Address {
 }
 
 export class AuthKeystore extends Keystore {}
-
-export class JobHandle extends Job {}

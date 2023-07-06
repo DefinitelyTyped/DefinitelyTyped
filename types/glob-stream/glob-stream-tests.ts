@@ -1,6 +1,7 @@
 import gs = require('glob-stream');
+import { Readable } from 'streamx';
 
-var read: NodeJS.ReadableStream;
+var read: Readable<gs.Entry>;
 
 // Types
 var strPredicate: gs.UniqueByStringPredicate = 'base';
@@ -23,3 +24,6 @@ read = gs(['xx'], { uniqueBy: (entry: gs.Entry) => entry.path });
 // Glob options
 read = gs(['xx'], { root: 'root' });
 read = gs(['xx'], { debug: true });
+
+// Picomatch options
+read = gs(['xx'], { contains: true });

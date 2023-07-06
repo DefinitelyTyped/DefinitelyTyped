@@ -90,7 +90,7 @@ export interface Config {
     /**
      * Used for Bagpipes library
      *
-     * @se @link{https://github.com/apigee-127/bagpipes|Github Source}
+     * @see @link{https://github.com/apigee-127/bagpipes|Github Source}
      */
     bagpipes?: any;
     /**

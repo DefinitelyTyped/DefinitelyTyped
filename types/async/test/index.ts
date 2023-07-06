@@ -632,6 +632,37 @@ async.mapValues<number, string>(
     (err: Error, results: Dictionary<string>) => { console.log("async.mapValues: done with results", results); }
 );
 
+// $ExpectType Promise<Dictionary<string>>
+async.mapValues(
+    { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string) => Promise<string>
+    async (val, key) => {
+        const newVal = await new Promise<string>((resolve) => {
+            setTimeout(
+                () => {
+                    console.log(`async.mapValues: ${key} = ${val}`);
+                    resolve(val.toString());
+                },
+                500);
+        });
+       return newVal + ' with async/await';
+    },
+);
+
+// $ExpectType Promise<Dictionary<string>>
+async.mapValues<number, string>(
+    { a: 1, b: 2, c: 3 },
+    // $ExpectType (val: number, key: string, next: AsyncResultCallback<string, Error>) => void
+    (val, key, next) => {
+        setTimeout(
+            () => {
+                console.log(`async.mapValues: ${key} = ${val}`);
+                next(null, val.toString());
+            },
+            500);
+    },
+);
+
 async.mapValuesSeries<number, string>(
     { a: 1, b: 2, c: 3 },
     (val: number, key: string, next: AsyncResultCallback<string>) => {

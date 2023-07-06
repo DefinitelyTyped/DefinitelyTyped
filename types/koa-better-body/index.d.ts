@@ -3,6 +3,7 @@
 // Definitions by: David Tanner <https://github.com/DavidTanner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Options as FormidableOptions } from 'formidable';
 import { Next, ParameterizedContext, DefaultState, DefaultContext } from 'koa';
 
 declare function KoaBetterBody(
@@ -10,7 +11,7 @@ declare function KoaBetterBody(
 ): KoaBetterBody.Body;
 
 declare namespace KoaBetterBody {
-  interface Options {
+  interface Options extends FormidableOptions {
     /**
      * {
      * <br />&nbsp;&nbsp;multipart: ['multipart/form-data'],

@@ -11,8 +11,8 @@ import {
 } from '../../../src/Three';
 
 export function deepCloneAttribute(attribute: BufferAttribute): BufferAttribute;
-export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
-export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
+export function mergeGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
+export function mergeAttributes(attributes: BufferAttribute[]): BufferAttribute;
 export function interleaveAttributes(attributes: BufferAttribute[]): InterleavedBufferAttribute;
 export function estimateBytesUsed(geometry: BufferGeometry): number;
 export function mergeVertices(geometry: BufferGeometry, tolerance?: number): BufferGeometry;
@@ -34,3 +34,13 @@ export function deinterleaveGeometry(geometry: BufferGeometry): void;
  * @param creaseAngle The crease angle.
  */
 export function toCreasedNormals(geometry: BufferGeometry, creaseAngle?: number): BufferGeometry;
+
+/**
+ * @deprecated Use mergeGeometries instead.
+ */
+export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
+
+/**
+ * @deprecated Use mergeAttributes instead.
+ */
+export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;

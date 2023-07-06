@@ -1,10 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 Alexander Kuzmenko <https://github.com/eightalex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 /// <reference path="google-apps-script.charts.d.ts" />
@@ -101,6 +94,32 @@ declare namespace GoogleAppsScript {
      * Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
     enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
+    /**
+     * Represents an image to add to a cell. To add an image to a cell, you must create a new image
+     * value for the image using SpreadsheetApp.newCellImage() and CellImageBuilder. Then you can
+     * use Range.setValue(value) or Range.setValues(values) to add the image value to the cell.
+     */
+    interface CellImage {
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getContentUrl(): string;
+      getUrl(): string | null;
+      toBuilder(): CellImageBuilder;
+    }
+    /**
+     * Builder for CellImage. This builder creates the image value needed to add an image to a cell.
+     */
+    interface CellImageBuilder {
+      build(): CellImage;
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getContentUrl(): string;
+      getUrl(): string | null;
+      setAltTextDescription(description: string): CellImageBuilder;
+      setAltTextTitle(title: string): CellImageBuilder;
+      setSourceUrl(url: string): CellImageBuilder;
+      toBuilder(): CellImageBuilder;
+    }
     /**
      * A representation for a color.
      */
@@ -503,6 +522,23 @@ declare namespace GoogleAppsScript {
      * the arrow keys.
      */
     enum Direction { UP, DOWN, PREVIOUS, NEXT }
+    /**
+     * Represents a drawing over a sheet in a spreadsheet.
+     */
+    interface Drawing {
+      getContainerInfo(): ContainerInfo;
+      getHeight(): Integer;
+      getOnAction(): string;
+      getSheet(): Sheet;
+      getWidth(): Integer;
+      getZIndex(): number;
+      remove(): void;
+      setHeight(height: Integer): Drawing;
+      setOnAction(macroName: string): Drawing;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Drawing;
+      setWidth(width: Integer): Drawing;
+      setZIndex(zIndex: number): Drawing;
+    }
     /**
      * Builder for area charts. For more details, see the Gviz
      * documentation.
@@ -1463,6 +1499,8 @@ declare namespace GoogleAppsScript {
       setDataValidation(rule: DataValidation | null): Range;
       setDataValidations(rules: (DataValidation | null)[][]): Range;
       setFontColor(color: string | null): Range;
+      setFontColorObject(color: Color | null): Range;
+      setFontColorObjects(colors: (Color | null)[][]): Range;
       setFontColors(colors: any[][]): Range;
       setFontFamilies(fontFamilies: (string | null)[][]): Range;
       setFontFamily(fontFamily: string | null): Range;
@@ -1672,6 +1710,7 @@ declare namespace GoogleAppsScript {
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
+      getDrawings(): Drawing[];
       getFilter(): Filter | null;
       getFormUrl(): string | null;
       getFrozenColumns(): Integer;
@@ -1989,6 +2028,7 @@ declare namespace GoogleAppsScript {
       getCurrentCell(): Range;
       getSelection(): Selection;
       getUi(): Base.Ui;
+      newCellImage(): CellImageBuilder;
       newColor(): ColorBuilder;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
       newDataSourceSpec(): DataSourceSpecBuilder;

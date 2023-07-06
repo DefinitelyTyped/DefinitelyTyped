@@ -1,5 +1,5 @@
 import Tagify = require('@yaireo/tagify');
-import { BaseTagData, TagData, TagifyConstructorSettings, TagifyRuntimeSettings, TagifySettings } from '@yaireo/tagify';
+import { BaseTagData, TagData, InputEventDataNormal, InputEventDataMix, TagifyRuntimeSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData, { settings }: Tagify): string {
     return `
@@ -83,12 +83,33 @@ const settings: TagifySettings = {
             event.detail.tagify;
         },
         input: event => {
-            // $ExpectType HTMLInputElement | HTMLTextAreaElement
-            event.detail.inputElm;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType string
+            // @ts-expect-error
+            event.detail.textContent;
+            // @ts-expect-error
+            event.detail.inputElm;
+            // @ts-expect-error
+            event.detail.isValid;
+            // @ts-expect-error
             event.detail.value;
+            // $ExpectType HTMLInputElement | HTMLTextAreaElement
+            (event.detail as InputEventDataNormal).inputElm;
+            // $ExpectType string
+            (event.detail as InputEventDataNormal).value;
+            // $ExpectType string
+            (event.detail as InputEventDataMix).textContent;
+            if ("textContent" in event.detail) {
+                // $ExpectType string
+                event.detail.textContent;
+            } else {
+                // $ExpectType HTMLInputElement | HTMLTextAreaElement
+                event.detail.inputElm;
+                // $ExpectType string | boolean
+                event.detail.isValid;
+                // $ExpectType string
+                event.detail.value;
+            }
         },
         invalid: event => {
             // $ExpectType TagData
@@ -372,7 +393,7 @@ interface MyTagData extends BaseTagData {
     name: string;
 }
 
-const typedSettings: TagifyConstructorSettings<MyTagData> = {
+const typedSettings: TagifySettings<MyTagData> = {
     templates: {
         tag: (tagData) => `${tagData.name} ${tagData.title.substring(0)}`,
         dropdownItem: item => `${item.active}`,
@@ -566,12 +587,33 @@ tagify.on('edit:updated', (event) => {
     event.detail.tagify;
 });
 tagify.on('input', (event) => {
-    // $ExpectType HTMLInputElement | HTMLTextAreaElement
-    event.detail.inputElm;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
+    // @ts-expect-error
+    event.detail.textContent;
+    // @ts-expect-error
+    event.detail.inputElm;
+    // @ts-expect-error
+    event.detail.isValid;
+    // @ts-expect-error
     event.detail.value;
+    // $ExpectType HTMLInputElement | HTMLTextAreaElement
+    (event.detail as InputEventDataNormal).inputElm;
+    // $ExpectType string
+    (event.detail as InputEventDataNormal).value;
+    // $ExpectType string
+    (event.detail as InputEventDataMix).textContent;
+    if ("textContent" in event.detail) {
+        // $ExpectType string
+        event.detail.textContent;
+    } else {
+        // $ExpectType HTMLInputElement | HTMLTextAreaElement
+        event.detail.inputElm;
+        // $ExpectType string | boolean
+        event.detail.isValid;
+        // $ExpectType string
+        event.detail.value;
+    }
 });
 tagify.on('click', (event) => {
     // $ExpectType TagData
@@ -741,12 +783,33 @@ tagify.off('edit:updated', (event) => {
     event.detail.tagify;
 });
 tagify.off('input', (event) => {
-    // $ExpectType HTMLInputElement | HTMLTextAreaElement
-    event.detail.inputElm;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
+    // @ts-expect-error
+    event.detail.textContent;
+    // @ts-expect-error
+    event.detail.inputElm;
+    // @ts-expect-error
+    event.detail.isValid;
+    // @ts-expect-error
     event.detail.value;
+    // $ExpectType HTMLInputElement | HTMLTextAreaElement
+    (event.detail as InputEventDataNormal).inputElm;
+    // $ExpectType string
+    (event.detail as InputEventDataNormal).value;
+    // $ExpectType string
+    (event.detail as InputEventDataMix).textContent;
+    if ("textContent" in event.detail) {
+        // $ExpectType string
+        event.detail.textContent;
+    } else {
+        // $ExpectType HTMLInputElement | HTMLTextAreaElement
+        event.detail.inputElm;
+        // $ExpectType string | boolean
+        event.detail.isValid;
+        // $ExpectType string
+        event.detail.value;
+    }
 });
 tagify.off('click', (event) => {
     // $ExpectType TagData
@@ -922,10 +985,10 @@ tagify.getMixedTagsAsString();
 const tagElement = tagify.getTagElmByValue('foo');
 if (tagElement !== undefined) {
     // $ExpectType TagData | undefined
-    tagify.tagData(tagElement);
-    tagify.tagData(tagElement, { value: 'bar' });
-    tagify.tagData(tagElement, { value: 'bar' }, false);
-    tagify.tagData(tagElement, { value: 'bar' }, true);
+    tagify.getSetTagData(tagElement);
+    tagify.getSetTagData(tagElement, { value: 'bar' });
+    tagify.getSetTagData(tagElement, { value: 'bar' }, false);
+    tagify.getSetTagData(tagElement, { value: 'bar' }, true);
     // $ExpectType Tagify<TagData>
     tagify.editTag();
     // $ExpectType Tagify<TagData>
@@ -942,15 +1005,15 @@ tagify.loading(true);
 const typedTagElement = typedTagify.getTagElmByValue('foo');
 if (typedTagElement !== undefined) {
     // $ExpectType MyTagData | undefined
-    typedTagify.tagData(typedTagElement);
+    typedTagify.getSetTagData(typedTagElement);
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true });
+    typedTagify.getSetTagData(typedTagElement, { active: true });
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true }, false);
+    typedTagify.getSetTagData(typedTagElement, { active: true }, false);
     // $ExpectType MyTagData | { active: true; }
-    typedTagify.tagData(typedTagElement, { active: true }, undefined);
+    typedTagify.getSetTagData(typedTagElement, { active: true }, undefined);
     // $ExpectType MyTagData
-    typedTagify.tagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
+    typedTagify.getSetTagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
     // @ts-expect-error
     typedTagify.tagData(typedTagElement, { active: true }, true);
     // @ts-expect-error

@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
+/// <reference types="node" />
+
 import { LoaderOptions } from "./interfaces";
 
 declare function loader(content: string): void;

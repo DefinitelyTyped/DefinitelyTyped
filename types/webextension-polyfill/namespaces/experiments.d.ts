@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.experiments
- * Generated from Mozilla sources. Do not manually edit!
  */
 export namespace Experiments {
     interface ExperimentAPI {

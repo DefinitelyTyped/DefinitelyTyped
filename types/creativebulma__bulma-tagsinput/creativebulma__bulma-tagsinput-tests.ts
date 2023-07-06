@@ -1,4 +1,4 @@
-import BulmaTagsInput, { BulmaTagsInputItem } from '@creativebulma/bulma-tagsinput';
+import BulmaTagsInput = require('@creativebulma/bulma-tagsinput');
 
 let input: BulmaTagsInput;
 input = new BulmaTagsInput('#id');
@@ -68,7 +68,7 @@ input
     .add(input.selected);
 const value: string | string[] = input.value;
 
-let bulmaItem: BulmaTagsInputItem;
+let bulmaItem: BulmaTagsInput.BulmaTagsInputItem;
 input.on('before.add', item => {
     if (typeof item !== 'string') bulmaItem = item;
 });

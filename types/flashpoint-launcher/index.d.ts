@@ -16,8 +16,7 @@
 
 // This gets changed manually during development in the project, rule would require changes when updating DT's definitions since resolution is different.
 // tslint:disable:no-single-declare-module
-// tslint:disable:no-declare-current-package
-
+// eslint-disable-next-line no-declare-current-package
 declare module 'flashpoint-launcher' {
     /** Version of the Flashpoint Launcher */
     const version: string;

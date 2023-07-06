@@ -124,17 +124,17 @@ export default class AmRectangularChart extends AmCoordinateChart {
     zoomOutButtonImage: string;
     /**
      * Size of zoom-out button image
-     * @default: 17
+     * @default 17
      */
     zoomOutButtonImageSize: number;
     /**
      * Padding around the text and image.
-     * @default: 8
+     * @default 8
      */
     zoomOutButtonPadding: number;
     /**
      * Opacity of zoom-out button background when mouse is over it.
-     * @default: 1
+     * @default 1
      */
     zoomOutButtonRollOverAlpha: number;
     /**

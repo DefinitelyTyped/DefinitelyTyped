@@ -9,6 +9,8 @@ import {
     TextureFilter,
     TextureDataType,
     IUniform,
+    MagnificationTextureFilter,
+    MinificationTextureFilter,
 } from '../../../src/Three';
 
 export interface Variable {
@@ -43,8 +45,8 @@ export class GPUComputationRenderer {
         sizeYTexture: number,
         wrapS: Wrapping,
         wrapT: number,
-        minFilter: TextureFilter,
-        magFilter: TextureFilter,
+        minFilter: MinificationTextureFilter,
+        magFilter: MagnificationTextureFilter,
     ): WebGLRenderTarget;
     createTexture(): DataTexture;
     renderTexture(input: Texture, output: Texture): void;

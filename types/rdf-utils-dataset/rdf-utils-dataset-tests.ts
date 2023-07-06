@@ -1,11 +1,8 @@
-import utils = require('rdf-utils-dataset');
-import resourceToGraph = require('rdf-utils-dataset/resourcesToGraph');
+import { resource, resourcesToGraph } from 'rdf-utils-dataset';
 import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import DatasetExt = require('rdf-ext/lib/Dataset');
-import QuadExt = require('rdf-ext/lib/Quad');
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from 'rdf-js';
-
-const { resource } = utils;
+import DatasetExt from 'rdf-ext/lib/Dataset';
+import QuadExt from 'rdf-ext/lib/Quad';
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from '@rdfjs/types';
 
 type Factory<OutQuad extends BaseQuad,
     InQuad extends BaseQuad,
@@ -35,25 +32,25 @@ resource(dataset3, term);
 resource(dataset4, term);
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset1);
+resourcesToGraph(dataset1);
 
 // $ExpectType DatasetCore<BaseQuad, BaseQuad>
-resourceToGraph(dataset1, { factory: factory1 });
+resourcesToGraph(dataset1, { factory: factory1 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset2);
+resourcesToGraph(dataset2);
 
 // $ExpectType DatasetCore<Quad, Quad>
-resourceToGraph(dataset2, { factory: factory2 });
+resourcesToGraph(dataset2, { factory: factory2 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset3);
+resourcesToGraph(dataset3);
 
 // $ExpectType DatasetIndexed<Quad, Quad>
-resourceToGraph(dataset3, { factory: factory3 });
+resourcesToGraph(dataset3, { factory: factory3 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset4);
+resourcesToGraph(dataset4);
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset4, { factory: factory4 });
+resourcesToGraph(dataset4, { factory: factory4 });

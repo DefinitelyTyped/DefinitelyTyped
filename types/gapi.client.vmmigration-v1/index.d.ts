@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Migrate to Virtual Machines API v1 0.0
+// Type definitions for non-npm package VM Migration API v1 0.0
 // Project: https://cloud.google.com/migrate/virtual-machines
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

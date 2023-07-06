@@ -30,7 +30,7 @@ declare class TableViewBuffer {
     private _searchRecordBufferByRecNo;
     getRecordBufferByRecNo(recNo: any): any;
     setFieldRecordBuffer(fieldIndex: any, recNo: any, value: any): void;
-    toString(): string;
+    toString(): any;
 }
 declare namespace TableViewBuffer {
     const BM_INACTIVE: number;

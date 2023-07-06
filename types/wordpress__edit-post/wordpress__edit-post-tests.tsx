@@ -1,6 +1,12 @@
 import { dispatch, select } from '@wordpress/data';
 import * as ep from '@wordpress/edit-post';
 
+// $ExpectType EditPostStoreDescriptor
+ep.store;
+
+// $ExpectType "core/edit-post"
+ep.store.name;
+
 // $ExpectType void
 ep.initializeEditor('abc', 'post', '123');
 

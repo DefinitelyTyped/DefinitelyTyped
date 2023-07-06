@@ -102,7 +102,7 @@ declare class Nedb<G = any> extends EventEmitter {
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-     * * @param {any} query MongoDB-style query
+     * * @param query MongoDB-style query
      */
     find<T extends G>(query: any, callback: (err: Error | null, documents: T[]) => void): void;
 

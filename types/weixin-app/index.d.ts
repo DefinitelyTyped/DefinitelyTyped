@@ -4305,7 +4305,7 @@ declare namespace wx {
         /**
          * 字段可以获取到当前页面的路径。
          */
-        route(): void;
+        route: string;
         /**
          * 更新
          */

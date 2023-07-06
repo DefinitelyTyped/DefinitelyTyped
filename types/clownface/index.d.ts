@@ -62,7 +62,7 @@ declare namespace clownface {
     readonly datasets: D[];
     readonly _context: Array<Context<D, Term>>;
     any(): AnyPointer<AnyContext, D>;
-    list(): Iterable<Iteratee<Term, D>> | null;
+    list(): Iterable<GraphPointer<Term, D>> | null;
     isList(): this is T extends BlankNode | NamedNode ? ListPointer<T, D> : never;
     toArray(): Array<AnyPointer<ExtractContext<T>, D>>;
     filter<S extends T>(cb: FilterCallback<T, D, S>): AnyPointer<S, D>;

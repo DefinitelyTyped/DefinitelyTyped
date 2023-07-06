@@ -2,7 +2,7 @@
 // From https://hapijs.com/api/16.1.1#serverauthapi
 
 import * as Hapi from 'hapi';
-import * as Boom from 'hapi../../boom';
+import * as Boom from 'boom';
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 

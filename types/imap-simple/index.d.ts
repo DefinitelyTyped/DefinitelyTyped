@@ -40,6 +40,9 @@ export interface Message {
 export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
 
+    /** Access underlying `node-imap` instance */
+    imap: Imap; // https://github.com/chadxz/imap-simple/blob/master/lib/imapSimple.js#L22
+
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
     openBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
     openBox(boxName: string): Promise<string>;

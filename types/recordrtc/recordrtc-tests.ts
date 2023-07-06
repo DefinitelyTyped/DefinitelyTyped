@@ -35,8 +35,13 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
     instance.setRecordingDuration(fiveMinutes, () => {});
 
     // $ExpectType void
+    instance.getDataURL(dataURL => {
+        console.log({ dataURL });
+    });
+
+    // $ExpectType void
     instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
-    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, {desiredSampRate : 1000});
+    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, { desiredSampRate: 1000 });
     StereoAudioRecorder.record();
     StereoAudioRecorder.stop((blob: Blob) => {});
     StereoAudioRecorder.pause();

@@ -178,6 +178,11 @@ export function sign(
     secretOrPrivateKey: Secret,
     options?: SignOptions,
 ): string;
+export function sign(
+    payload: string | Buffer | object,
+    secretOrPrivateKey: null,
+    options?: SignOptions & { algorithm: "none" },
+): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -195,6 +200,12 @@ export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options: SignOptions,
+    callback: SignCallback,
+): void;
+export function sign(
+    payload: string | Buffer | object,
+    secretOrPrivateKey: null,
+    options: SignOptions & { algorithm: "none" },
     callback: SignCallback,
 ): void;
 

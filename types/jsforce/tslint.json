@@ -6,7 +6,6 @@
         "ban-types": false,
         "eofline": false,
         "no-empty-interface": false,
-        "redundant-undefined": false,
         "no-unnecessary-class": false,
         "semicolon": false,
         "space-within-parens": false,

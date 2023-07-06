@@ -1,4 +1,4 @@
-// Type definitions for geometric 2.2
+// Type definitions for geometric 2.5
 // Project: https://github.com/HarryStevens/geometric#readme
 // Definitions by: Linda Paiste <https://github.com/lindapaiste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,10 +64,15 @@ export function lineLength(line: Line): number;
 export function lineMidpoint(line: Line): Point;
 
 /**
- * Returns the vertices resulting from rotating a line about an origin by an angle in degrees. If origin is not
- * specified, the origin defaults to [0, 0].
+ * Returns the coordinates resulting from rotating a line about an origin by an angle in degrees.
+ * If origin is not specified, the origin defaults to the midpoint of the line.
  */
 export function lineRotate(line: Line, angle: number, origin?: Point): Line;
+
+/**
+ * Returns the coordinates resulting from translating a line by an angle in degrees and a distance.
+ */
+export function lineTranslate(line: Line, angle: number, distance: number): Line;
 
 // -------------------------------POLYGONS-------------------------------------------//
 
@@ -99,6 +104,15 @@ export function polygonCentroid(polygon: Polygon): Point;
 export function polygonHull(points: Point[]): Polygon;
 
 /**
+ * Returns an interpolator function given a polygon of vertices [a, ..., n].
+ * The returned interpolator function takes a single argument t, where t is a number ranging from 0 to 1;
+ * a value of 0 returns a, while a value of 1 returns n. Intermediate values interpolate from a to n along the polygon's perimeter.
+ */
+export function polygonInterpolate(polygon: Polygon): PolygonInterpolator;
+
+export type PolygonInterpolator = (t: number) => Point;
+
+/**
  * Returns the length of a polygon's perimeter.
  */
 export function polygonLength(polygon: Polygon): number;
@@ -107,8 +121,28 @@ export function polygonLength(polygon: Polygon): number;
  * Returns the arithmetic mean of the vertices of a polygon. Keeps duplicate vertices, resulting in different
  * values for open and closed polygons. Not to be confused with a centroid.
  */
-
 export function polygonMean(polygon: Polygon): Point;
+
+/**
+ * Returns the vertices of a random convex polygon of the specified number of sides, area, and centroid coordinates.
+ * If sides is not specified, defaults to 3. If area is not specified, defaults to 100.
+ * If centroid is not specified, defaults to [0, 0].
+ * The returned polygon's winding order will be counter-clockwise.
+ * Based on an algorithm by Pavel Valtr and an implementation by Maneesh Agrawala.
+ */
+export function polygonRandom(sides?: number, area?: number, centroid?: Point): Polygon;
+
+/**
+ * Reflects a polygon over its vertical midline. Pass an optional reflectFactor between 0 and 1, where 1 indicates
+ * a full reflection, 0 leaves the polygon unchanged, and 0.5 collapses the polygon on its vertical midline.
+ */
+export function polygonReflectX(polygon: Polygon, reflectFactor?: number): Polygon;
+
+/**
+ * Reflects a polygon over its horizontal midline. Pass an optional reflectFactor between 0 and 1, where 1 indicates
+ * a full reflection, 0 leaves the polygon unchanged, and 0.5 collapses the polygon on its horizontal midline.
+ */
+export function polygonReflectY(polygon: Polygon, reflectFactor?: number): Polygon;
 
 /**
  * Returns the vertices of a regular polygon of the specified number of sides, area, and center coordinates. If
@@ -126,8 +160,20 @@ export function polygonRotate(polygon: Polygon, angle: number, origin?: Point): 
 /**
  * Returns the vertices resulting from scaling a polygon by a scaleFactor (where 1 is the polygon's current size)
  * from an origin point. If origin is not specified, the origin defaults to the polygon's centroid.
+ *
+ * The returned polygon's area is equal to the input polygon's area multiplied by the square of the scaleFactor.
+ * To scale the polygon's area by the scaleFactor itself, see geometric.polygonScaleArea.
  */
 export function polygonScale(polygon: Polygon, scaleFactor: number, origin?: Point): Polygon;
+
+/**
+ * Returns the vertices resulting from scaling a polygon by a scaleFactor (where 1 is the polygon's current size)
+ * from an origin point. If origin is not specified, the origin defaults to the polygon's centroid.
+ *
+ * The returned polygon's area is equal to the input polygon's area multiplied by the scaleFactor.
+ * To scale the polygon's area by the square of the scaleFactor, see geometric.polygonScale.
+ */
+export function polygonScaleArea(polygon: Polygon, scaleFactor: number, origin?: Point): Polygon;
 
 /**
  * Returns the vertices resulting from scaling the horizontal coordinates of a
@@ -152,6 +198,16 @@ export function polygonScaleY(polygon: Polygon, scaleFactor: number, origin?: Po
  */
 export function polygonTranslate(polygon: Polygon, angle: number, distance: number): Polygon;
 
+/**
+ * Returns a polygon in the specified winding order. If an order string is passed as either "cw" or "clockwise",
+ * returns a polygon with a clockwise winding order. Otherwise, returns a polygon with a counter-clockwise winding order.
+ * Returns null if the polygon has fewer than three points.
+ *
+ * On computer screens where the top-left corner is at [0, 0], a polygon with a negative signed area has a
+ * counter-clockwise winding order.
+ */
+export function polygonWind(polygon: Polygon, order?: 'cw' | 'ccw' | 'clockwise'): Polygon;
+
 // -------------------------------RELATIONSHIPS-------------------------------------------//
 
 /**
@@ -171,19 +227,23 @@ export function pointInPolygon(point: Point, polygon: Polygon): boolean;
 
 /**
  * Returns a boolean representing whether a point is located on one of the edges of a polygon.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
  */
-export function pointOnPolygon(point: Point, polygon: Polygon): boolean;
+export function pointOnPolygon(point: Point, polygon: Polygon, epsilon?: number): boolean;
 
 /**
  * Returns a boolean representing whether a point is collinear with a line and is also located on the line segment.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
  * See also pointWithLine.
  */
-export function pointOnLine(point: Point, line: Line): boolean;
+export function pointOnLine(point: Point, line: Line, epsilon?: number): boolean;
 
 /**
- * Returns a boolean representing whether a point is collinear with a line. See also pointOnLine.
+ * Returns a boolean representing whether a point is collinear with a line.
+ * An optional epsilon number, such as 1e-6, can be passed to reduce the precision with which the relationship is measured.
+ * See also pointOnLine.
  */
-export function pointWithLine(point: Point, line: Line): boolean;
+export function pointWithLine(point: Point, line: Line, epsilon?: number): boolean;
 
 /**
  * Returns a boolean representing whether a point is to the left of a line.

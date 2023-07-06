@@ -32,6 +32,7 @@ function TestIeOptions() {
     options = options.setHost('hostname');
     options = options.setExtractPath('path');
     options = options.silent(true);
+    options = options.setEdgeChromium(false);
 }
 
 function TestIeServiceBuilder() {

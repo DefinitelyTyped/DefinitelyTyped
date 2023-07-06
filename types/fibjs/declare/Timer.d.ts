@@ -30,8 +30,6 @@ declare class Class_Timer extends Class__object {
      * 
      * @brief 查询当前定时器是否已经终止
      * 
-     * @readonly
-     * @type Boolean
      */
     
     stopped: boolean

@@ -11,5 +11,4 @@ import * as R from 'ramda';
 
 () => {
     R.lt(R.__, 5)(10); // false
-    R.lt(R.__)(5, 10); // false
 };

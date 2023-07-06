@@ -12,6 +12,7 @@ const webAuth = new auth0.WebAuth({
     redirectUri: "http://example.com/redirect",
     scope: "openid offline_access",
     audience: "http://audience.com/aud",
+    cookieDomain: "mine.auth0.com",
     leeway: 50,
     jwksURI: "./well-known/jwks.json",
     overrides: {

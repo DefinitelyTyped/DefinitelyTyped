@@ -3,9 +3,6 @@ import usage = require('gulp-help-doc');
 
 /**
  * Demo task
- *
- * @task {demo}
- * @arg {env} environment
  */
 gulp.task('demo', function() {});
 

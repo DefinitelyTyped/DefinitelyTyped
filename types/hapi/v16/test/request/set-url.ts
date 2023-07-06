@@ -16,14 +16,12 @@ server.ext('onRequest', onRequest);
 
 // Example 2
 
-const Url = require('url');
-const Qs = require('hapi../../qs');
+import * as Url from 'url';
 
 onRequest = function (request, reply) {
 
     const uri = request.raw.req.url;
-    const parsed = Url.parse(uri, false);
-    parsed.query = Qs.parse(parsed.query);
+    const parsed = Url.parse(uri!, false);
     request.setUrl(parsed);
 
     return reply.continue();

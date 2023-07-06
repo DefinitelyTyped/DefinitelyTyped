@@ -27,8 +27,8 @@ useSpeechRecognition({
 
 SpeechRecognition.getRecognition(); // $ExpectType SpeechRecognition | null
 SpeechRecognition.startListening(); // $ExpectType Promise<void>
-SpeechRecognition.startListening({ continuous: true, language: 'en' }); // $ExpectType Promise<void>
-SpeechRecognition.stopListening(); // $ExpectType void
-SpeechRecognition.abortListening(); // $ExpectType void
+SpeechRecognition.startListening({ continuous: true, interimResults: true, language: 'en' }); // $ExpectType Promise<void>
+SpeechRecognition.stopListening(); // $ExpectType Promise<void>
+SpeechRecognition.abortListening(); // $ExpectType Promise<void>
 SpeechRecognition.browserSupportsSpeechRecognition(); // $ExpectType boolean
 SpeechRecognition.applyPolyfill(null); // $ExpectType void

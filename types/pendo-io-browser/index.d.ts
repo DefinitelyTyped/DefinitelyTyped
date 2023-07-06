@@ -6,10 +6,12 @@
 
 declare namespace pendo {
     interface Identity {
-        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
+        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie (if enabled for a domain) */
         visitor?: IdentityMetadata | undefined;
         account?: IdentityMetadata | undefined;
         parentAccount?: IdentityMetadata | undefined;
+        /** ensure that the same anonymous visitor.id is used on all subdomains  */
+        cookieDomain?: IdentityCookieDomain | undefined;
     }
 
     interface Metadata {
@@ -17,6 +19,9 @@ declare namespace pendo {
     }
 
     type IdentityMetadata = { id?: string | undefined; } & Metadata;
+
+    /** cookie domains should start with a dot, e.g. ".example.com" */
+    type IdentityCookieDomain = `.${string}`;
 
     interface InitOptions extends Identity {
         apiKey?: string | undefined;

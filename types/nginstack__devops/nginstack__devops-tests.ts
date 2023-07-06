@@ -18,4 +18,5 @@ script.copyChildrenViewPermissions(-1); // $ExpectType number
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(68, 69); // $ExpectType boolean
+
+testMajorVersions(70, 71); // $ExpectType boolean

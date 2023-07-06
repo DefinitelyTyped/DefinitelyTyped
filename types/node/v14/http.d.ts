@@ -1,6 +1,7 @@
 declare module 'http' {
     import * as stream from 'stream';
     import { URL } from 'url';
+    import { EventEmitter } from 'events';
     import { Socket, Server as NetServer, LookupFunction } from 'net';
 
     // incoming headers will never contain number
@@ -499,7 +500,7 @@ declare module 'http' {
         scheduling?: 'fifo' | 'lifo' | undefined;
     }
 
-    class Agent {
+    class Agent extends EventEmitter {
         maxFreeSockets: number;
         maxSockets: number;
         maxTotalSockets: number;

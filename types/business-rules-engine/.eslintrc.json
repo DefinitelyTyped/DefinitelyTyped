@@ -1,6 +1,7 @@
 {
     "rules": {
         "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "no-unnecessary-generics": "off",
+        "no-self-import": "off"
     }
 }

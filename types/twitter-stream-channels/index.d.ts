@@ -90,7 +90,6 @@ declare module 'twitter-stream-channels' {
   }
 
   /**
-   * @class TwitterStreamChannels
    * @param {object} credentials
    * @param {String} credentials.consumer_key
    * @param {String} credentials.consumer_secret

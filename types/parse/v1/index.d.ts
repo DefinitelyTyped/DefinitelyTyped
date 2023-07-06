@@ -78,7 +78,6 @@ declare namespace Parse {
      * </pre></p>
      *
      * @see Parse.Promise.prototype.then
-     * @class
      */
 
     interface IPromise<T> {
@@ -134,7 +133,6 @@ declare namespace Parse {
      * If the argument is any other JSON object, that object will be interpretted
      *   as a serialized ACL created with toJSON().
      * @see Parse.Object#setACL
-     * @class
      *
      * <p>An ACL, or Access Control List can be added to any
      * <code>Parse.Object</code> to restrict access to only a subset of users
@@ -176,7 +174,6 @@ declare namespace Parse {
     /**
      * A Parse.File is a local representation of a file that is saved to the Parse
      * cloud.
-     * @class
      * @param name {String} The file's name. This will be prefixed by a unique
      *     value once the file has finished saving. The file name must begin with
      *     an alphanumeric character, and consist of alphanumeric characters,
@@ -218,7 +215,6 @@ declare namespace Parse {
      *   new GeoPoint({latitude: 30, longitude: 30})
      *   new GeoPoint()  // defaults to (0, 0)
      *   </pre>
-     * @class
      *
      * <p>Represents a latitude / longitude point that may be associated
      * with a key in a ParseObject or used as a reference point for geo queries.
@@ -251,7 +247,6 @@ declare namespace Parse {
      * — you should use the reference to <code>Parse.history</code>
      * that will be created for you automatically if you make use of
      * Routers with routes.
-     * @class
      *
      * <p>A fork of Backbone.History, provided for your convenience.  If you
      * use this class, you must also include jQuery, or another library
@@ -318,7 +313,6 @@ declare namespace Parse {
      *     object.  The only option currently supported is "collection".
      * @see Parse.Object.extend
      *
-     * @class
      *
      * <p>The fundamental unit of Parse data, which implements the Backbone Model
      * interface.</p>
@@ -435,7 +429,6 @@ declare namespace Parse {
      *
      * @see Parse.Collection.extend
      *
-     * @class
      *
      * <p>Provides a standard collection class for our sets of models, ordered
      * or unordered.  For more information, see the
@@ -493,7 +486,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
      *
      * <p>Parse.Events is a fork of Backbone's Events module, provided for your
      * convenience.</p>
@@ -532,7 +524,6 @@ declare namespace Parse {
      * Creates a new parse Parse.Query for the given Parse.Object subclass.
      * @param objectClass -
      *   An instance of a subclass of Parse.Object, or a Parse className string.
-     * @class
      *
      * <p>Parse.Query defines a query that is used to fetch Parse.Objects. The
      * most common use case is finding all objects that match a query through the
@@ -688,7 +679,7 @@ declare namespace Parse {
      *
      * <p>Roles must have a name (which cannot be changed after creation of the
      * role), and must specify an ACL.</p>
-     * @class
+     *
      * A Parse.Role is a local representation of a role persisted to the Parse
      * cloud.
      */
@@ -719,7 +710,6 @@ declare namespace Parse {
     /**
      * Routers map faux-URLs to actions, and fire events when routes are
      * matched. Creating a new one sets its `routes` hash, if not set statically.
-     * @class
      *
      * <p>A fork of Backbone.Router, provided for your convenience.
      * For more information, see the
@@ -754,7 +744,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
      *
      * <p>A Parse.User object is a local representation of a user persisted to the
      * Parse cloud. This class is a subclass of a Parse.Object, and retains the
@@ -790,7 +779,6 @@ declare namespace Parse {
     /**
      * Creating a Parse.View creates its initial element outside of the DOM,
      * if an existing element is not provided...
-     * @class
      *
      * <p>A fork of Backbone.View, provided for your convenience.  If you use this
      * class, you must also include jQuery, or another library that provides a
@@ -1087,7 +1075,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
      * A Parse.Op is an atomic operation that can be applied to a field in a
      * Parse.Object. For example, calling <code>object.set("foo", "bar")</code>
      * is an example of a Parse.Op.Set. Calling <code>object.unset("foo")</code>

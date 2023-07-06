@@ -355,6 +355,11 @@ export class Vector2 implements Vector {
     angle(): number;
 
     /**
+     * Returns the angle between this vector and vector {@link Vector2 | v} in radians.
+     */
+    angleTo(v: Vector2): number;
+
+    /**
      * Computes distance of this vector to v.
      */
     distanceTo(v: Vector2): number;

@@ -1,7 +1,7 @@
-import { BlankNode, Term } from "rdf-js";
+import { BlankNode, Term } from "@rdfjs/types";
 import { PropType } from './_PropType';
 
-interface BlankNodeExt extends BlankNode {
+export interface BlankNodeExt extends BlankNode {
   toCanonical(): string;
   toJSON(): {
     value: PropType<BlankNode, 'value'>;
@@ -10,8 +10,8 @@ interface BlankNodeExt extends BlankNode {
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class BlankNodeExt {
+export class BlankNodeExt {
     constructor(id: string);
 }
 
-export = BlankNodeExt;
+export default BlankNodeExt;

@@ -47,21 +47,6 @@ export class MeshDistanceMaterial extends Material {
     displacementBias: number;
 
     /**
-     * @default 1000
-     */
-    farDistance: number;
-
-    /**
-     * @default 1
-     */
-    nearDistance: number;
-
-    /**
-     * @default new THREE.Vector3()
-     */
-    referencePosition: Vector3;
-
-    /**
      * @default false
      */
     fog: boolean;

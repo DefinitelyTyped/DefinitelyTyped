@@ -38,11 +38,14 @@ function mixpanel_base() {
 
     mixpanel.register({ device: 'android', version: '4.0.1' });
     mixpanel.register({ device: 'android', version: '4.0.1' }, 5);
+    mixpanel.register({ device: 'android', version: '4.0.1' }, { persistent: false });
 
     mixpanel.register_once({ device: 'android', version: '4.0.1' });
     mixpanel.register_once({ device: 'android', version: '4.0.1' }, 'default', 4);
+    mixpanel.register_once({ device: 'android', version: '4.0.1' }, 'default', { persistent: false });
 
     mixpanel.unregister('device');
+    mixpanel.unregister('device', { persistent: false });
 
     mixpanel.identify();
     mixpanel.identify('234234sdfdsf');

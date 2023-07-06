@@ -90,7 +90,6 @@ declare namespace When {
      * Return a promise that will resolve only once all the supplied promisesOrValues
      * have resolved. The resolution value of the returned promise will be an array
      * containing the resolution values of each of the promisesOrValues.
-     * @memberOf when
      *
      * @param promisesOrValues array of anything, may contain a mix
      *      of {@link Promise}s and values
@@ -166,7 +165,6 @@ declare namespace When {
      * The returned promise will only reject if array itself is a rejected promise. Otherwise,
      * it will always fulfill with an array of descriptors. This is in contrast to when.all,
      * which will reject if any element of array rejects.
-     * @memberOf when
      *
      * @param promisesOrValues array of anything, may contain a mix
      *      of {@link Promise}s and values
@@ -175,7 +173,6 @@ declare namespace When {
 
     /**
      * Generates a potentially infinite stream of promises by repeatedly calling f until predicate becomes true.
-     * @memberOf when
      * @param f function that, given a seed, returns the next value or a promise for it.
      * @param predicate function that receives the current iteration value, and should return truthy when the iterating should stop
      * @param handler function that receives each value as it is produced by f. It may return a promise to delay the next iteration.
@@ -190,7 +187,6 @@ declare namespace When {
     /**
      * Similar to when/iterate, when.unfold generates a potentially infinite stream of promises by repeatedly calling
      * unspool until predicate becomes true. when.unfold allows you to thread additional state information through the iteration.
-     * @memberOf when
      * @param unspool function that, given a seed, returns a [valueToSendToHandler, newSeed] pair.
      * May return an array, array of promises, promise for an array, or promise for an array of promises.
      * @param predicate function that receives the current seed, and should return truthy when the unfold should stop

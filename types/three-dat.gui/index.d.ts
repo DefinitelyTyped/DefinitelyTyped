@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import THREE from 'three';
+import THREE = require('three');
 
 declare module 'dat.gui' {
     interface GUI {

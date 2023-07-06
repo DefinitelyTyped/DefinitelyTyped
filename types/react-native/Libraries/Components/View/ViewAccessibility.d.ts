@@ -66,10 +66,10 @@ export interface AccessibilityProps
    */
   accessibilityValue?: AccessibilityValue | undefined;
 
-  'aria-valuemax'?: AccessibilityValue['max'];
-  'aria-valuemin'?: AccessibilityValue['min'];
-  'aria-valuenow'?: AccessibilityValue['now'];
-  'aria-valuetext'?: AccessibilityValue['text'];
+  'aria-valuemax'?: AccessibilityValue['max'] | undefined;
+  'aria-valuemin'?: AccessibilityValue['min'] | undefined;
+  'aria-valuenow'?: AccessibilityValue['now'] | undefined;
+  'aria-valuetext'?: AccessibilityValue['text'] | undefined;
   /**
    * When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.
    */
@@ -96,7 +96,7 @@ export interface AccessibilityProps
   /**
    * Indicates to accessibility services to treat UI component like a specific role.
    */
-  role?: Role;
+  role?: Role | undefined;
 }
 
 export type AccessibilityActionInfo = Readonly<{
@@ -242,6 +242,12 @@ export interface AccessibilityPropsAndroid {
     | 'no'
     | 'no-hide-descendants'
     | undefined;
+
+  /**
+   * A reference to another element `nativeID` used to build complex forms. The value of `accessibilityLabelledBy` should match the `nativeID` of the related element.
+   * @platform android
+   */
+  accessibilityLabelledBy?: string | string[] | undefined;
 }
 
 export interface AccessibilityPropsIOS {
@@ -259,7 +265,7 @@ export interface AccessibilityPropsIOS {
   accessibilityViewIsModal?: boolean | undefined;
 
   /**
-   * When accessibile is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
+   * When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
    * @platform ios
    */
   onAccessibilityEscape?: (() => void) | undefined;
@@ -281,6 +287,13 @@ export interface AccessibilityPropsIOS {
    * @platform ios
    */
   accessibilityIgnoresInvertColors?: boolean | undefined;
+
+  /**
+   * By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).
+   * https://reactnative.dev/docs/accessibility#accessibilitylanguage-ios
+   * @platform ios
+   */
+  accessibilityLanguage?: string | undefined;
 }
 
 export type Role =

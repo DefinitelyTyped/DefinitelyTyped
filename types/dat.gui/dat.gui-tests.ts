@@ -2,9 +2,6 @@
 // http://workshop.chromeexperiments.com/examples/gui/
 //////////////////////////////////////////////////////////////
 
-
-
-
 // ------------ config
 var FizzyText = function () {
     return {
@@ -12,9 +9,12 @@ var FizzyText = function () {
         speed: 0.8,
         displayOutline: false,
         explode: function () {},
-        noiseStrength: 0.5
+        noiseStrength: 0.5,
+        maxSize: 2,
+        growthSpeed: 1,
+
         // Define render logic ...
-    }
+    };
 };
 
 // ------------ 1. Basic Usage
@@ -27,7 +27,7 @@ var FizzyText = function () {
         gui.add(text, 'displayOutline');
         gui.add(text, 'explode');
     };
-}
+};
 // ------------ 2. Constraining Input
 () => {
     var text = FizzyText();
@@ -36,12 +36,12 @@ var FizzyText = function () {
     gui.add(text, 'growthSpeed', -5, 5); // Min and max
     gui.add(text, 'maxSize').min(0).step(0.25); // Mix and match
 
-// Choose from accepted values
+    // Choose from accepted values
     gui.add(text, 'message', ['pizza', 'chrome', 'hooray']);
 
-// Choose from named values
-    gui.add(text, 'speed', {Stopped: 0, Slow: 0.1, Fast: 5});
-}
+    // Choose from named values
+    gui.add(text, 'speed', { Stopped: 0, Slow: 0.1, Fast: 5 });
+};
 // ------------ 3. Folders
 () => {
     var text = FizzyText();
@@ -57,22 +57,21 @@ var FizzyText = function () {
     f2.add(text, 'message');
 
     f2.open();
-}
+};
 // ------------ 4. Color Controllers
 () => {
     var FizzyText = function () {
         return {
-            color0: "#ffae23", // CSS string
+            color0: '#ffae23', // CSS string
             color1: [0, 128, 255], // RGB array
             color2: [0, 128, 255, 0.3], // RGB with alpha
-            color3: {h: 350, s: 0.9, v: 0.3} // Hue, saturation, value
+            color3: { h: 350, s: 0.9, v: 0.3 }, // Hue, saturation, value
 
-        // Define render logic ...
-        }
+            // Define render logic ...
+        };
     };
 
     window.onload = function () {
-
         var text = FizzyText();
         var gui = new dat.GUI();
 
@@ -80,24 +79,23 @@ var FizzyText = function () {
         gui.addColor(text, 'color1');
         gui.addColor(text, 'color2');
         gui.addColor(text, 'color3');
-
     };
-}
+};
 // ------------ 5. Saving Values
 () => {
     var fizzyText = FizzyText();
     var gui = new dat.GUI();
 
     gui.remember(fizzyText);
-}
+};
 
 // ------------ 6. Presets
 () => {
     var gui = new dat.GUI({
         load: JSON,
-        preset: 'Flow'
+        preset: 'Flow',
     });
-}
+};
 
 // ------------ 7. Events
 () => {
@@ -111,17 +109,17 @@ var FizzyText = function () {
 
     controller.onFinishChange(function (value: any) {
         // Fires when a controller loses focus.
-        alert("The new value is " + value);
+        alert('The new value is ' + value);
     });
-}
+};
 
 // ------------ 8. Custom Placement
 () => {
-    var gui = new dat.GUI({autoPlace: false});
+    var gui = new dat.GUI({ autoPlace: false });
 
     var customContainer = document.getElementById('my-gui-container');
     customContainer.appendChild(gui.domElement);
-}
+};
 // ------------ 9. Updating the Display Automatically
 () => {
     var fizzyText = FizzyText();
@@ -135,7 +133,7 @@ var FizzyText = function () {
     };
 
     update();
-}
+};
 // ------------ 10. Updating the Display Manually
 () => {
     var fizzyText = FizzyText();
@@ -152,14 +150,13 @@ var FizzyText = function () {
         for (var i in gui.__controllers) {
             gui.__controllers[i].updateDisplay();
         }
-
     };
 
     update();
-}
+};
 // ------------ 11. Object Literal Tests
 () => {
-    var obj = {a:1,b:1};
+    var obj = { a: 1, b: 1, maxSize: 5 };
     var gui = new dat.GUI();
     var controller = gui.add(obj, 'maxSize', 0, 10);
 
@@ -169,14 +166,14 @@ var FizzyText = function () {
 
     controller.onFinishChange(function (value: any) {
         // Fires when a controller loses focus.
-        alert("The new value is " + value);
+        alert('The new value is ' + value);
     });
-}
+};
 
 {
     // __folders is a name --> GUI mapping, not a list.
     const gui = new dat.GUI();
     gui.addFolder('folder name');
     const folder = gui.__folders['folder name'];
-    folder.add({value: 0}, 'value');
+    folder.add({ value: 0 }, 'value');
 }

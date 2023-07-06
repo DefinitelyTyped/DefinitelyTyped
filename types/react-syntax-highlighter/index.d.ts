@@ -211,6 +211,8 @@ declare module 'react-syntax-highlighter/dist/esm/styles/hljs' {
     export { default as solarizedDark } from 'react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark';
     export { default as solarizedLight } from 'react-syntax-highlighter/dist/esm/styles/hljs/solarized-light';
     export { default as srcery } from 'react-syntax-highlighter/dist/esm/styles/hljs/srcery';
+    export { default as stackoverflowDark } from 'react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-dark';
+    export { default as stackoverflowLight } from 'react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-light';
     export { default as sunburst } from 'react-syntax-highlighter/dist/esm/styles/hljs/sunburst';
     export { default as tomorrowNightBlue } from 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-blue';
     export { default as tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-bright';
@@ -640,6 +642,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/hljs/solarized-light' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/srcery' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-light' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
@@ -3168,6 +3180,8 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/hljs' {
     export { default as solarizedDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs/solarized-dark';
     export { default as solarizedLight } from 'react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light';
     export { default as srcery } from 'react-syntax-highlighter/dist/cjs/styles/hljs/srcery';
+    export { default as stackoverflowDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-dark';
+    export { default as stackoverflowLight } from 'react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-light';
     export { default as sunburst } from 'react-syntax-highlighter/dist/cjs/styles/hljs/sunburst';
     export { default as tomorrowNightBlue } from 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-blue';
     export { default as tomorrowNightBright } from 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-bright';
@@ -3597,6 +3611,16 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light' {
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/srcery' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-light' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }

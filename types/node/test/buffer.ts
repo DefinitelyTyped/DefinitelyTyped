@@ -2,8 +2,10 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
+    File,
     constants,
     isUtf8,
+    isAscii,
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
@@ -40,6 +42,11 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const bool1: boolean = isUtf8(new Buffer('hello'));
     const bool2: boolean = isUtf8(new ArrayBuffer(0));
     const bool3: boolean = isUtf8(new Uint8Array());
+}
+{
+    const bool1: boolean = isAscii(new Buffer('hello'));
+    const bool2: boolean = isAscii(new ArrayBuffer(0));
+    const bool3: boolean = isAscii(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
@@ -128,6 +135,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.alloc(5, 'a');
     const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
     const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
+    const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
 {
@@ -262,6 +270,13 @@ b.fill('a').fill('b');
     b.writeUInt8(0, 6);
 }
 
+// NodeJS.BufferEncoding works properly
+{
+    const encoding: NodeJS.BufferEncoding = 'ascii';
+    const b = new ImportedBuffer('123', encoding);
+    b.writeUInt8(0, 6);
+}
+
 // Buffer has Uint8Array's buffer field (an ArrayBuffer).
 {
     const buffer = new Buffer('123');
@@ -331,6 +346,20 @@ async () => {
 // Ensure type-side of global Blob exists
 declare const blob3: Blob;
 blob3.stream();
+
+// File
+{
+    const file1 = new File(['asd', Buffer.from('test'), new NodeBlob(['dummy'])], 'filename1.txt');
+    const file2 = new File([file1], 'filename2.txt', {
+        type: 'plain/txt',
+        endings: 'transparent',
+        lastModified: Date.now() - 1000,
+    });
+    file1.name; // $ExpectType string
+    file1.lastModified; // $ExpectType number
+    file2.name; // $ExpectType string
+    file2.lastModified; // $ExpectType number
+}
 
 {
     atob(btoa('test')); // $ExpectType string
@@ -452,4 +481,10 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     buff.compare(buff); // $ExpectType 0 | 1 | -1
+}
+
+{
+    const u16 = new Uint16Array([0xffff]);
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
 }

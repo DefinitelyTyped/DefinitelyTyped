@@ -124,9 +124,10 @@ export function encodeBlock(input: Buffer, output: Buffer, startIdx?: number, en
  *
  * @param input data block to encode with high compression
  * @param output encoded data block
+ * @param compressionLevel compression level (3-12, default 9)
  * @returns >0: compressed size, =0: not compressible
  */
-export function encodeBlockHC(input: Buffer, output: Buffer): number;
+export function encodeBlockHC(input: Buffer, output: Buffer, compressionLevel?: number): number;
 
 /**
  * LZ4 encoder stream options.

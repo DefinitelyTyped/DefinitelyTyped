@@ -1,9 +1,9 @@
 import * as gulp from 'gulp';
 import * as Vinyl from 'vinyl';
 import postcss = require('gulp-postcss');
-import sass = require('sass');
 
 const postCssPlugins: any[] = [];
+declare const sass: {stringify: unknown, parse: unknown};
 
 gulp.task('postCss1', () => {
     return gulp.src('./src/*.css')

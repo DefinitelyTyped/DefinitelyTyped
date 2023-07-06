@@ -1,4 +1,4 @@
-import { ALBHandler, ALBResult } from "aws-lambda";
+import { ALBHandler, ALBResult } from 'aws-lambda';
 
 const handler: ALBHandler = async (event, context, callback) => {
     str = event.httpMethod;

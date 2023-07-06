@@ -18,13 +18,13 @@ const port = browser.runtime.connect();
 port.postMessage();
 port.postMessage({ test: 'ok' });
 
-port.onDisconnect.addListener((p) => {
+port.onDisconnect.addListener(p => {
     if (p.error) {
         console.log(`Disconnected due to an error: ${p.error.message}`);
     }
 });
 
-port.onMessage.addListener((response) => {
+port.onMessage.addListener(response => {
     console.log('Received: ' + response);
 });
 
@@ -41,27 +41,33 @@ browser.bookmarks.removeTree('bookmarkId');
 browser.bookmarks.search({});
 browser.bookmarks.update('bookmarkId', { title: 'Mozilla Developer Network (MDN)' });
 
-browser.proxy.onError.addListener((error) => {
+// Test https://bugzil.la/1707405
+browser.menus.onClicked.addListener(info => {
+    // @ts-expect-error
+    console.log(info.bookmarkId.toString());
+});
+
+browser.proxy.onError.addListener(error => {
     console.error(`Proxy error: ${error.message}`);
 });
 
 browser.proxy.onRequest.addListener(
-    (d) => {
+    d => {
         console.log(d.requestId);
     },
     {
         urls: ['test'],
     },
-    ['requestHeaders']
+    ['requestHeaders'],
 );
 
 browser.webNavigation.onBeforeNavigate.addListener(
-    (d) => {
+    d => {
         console.log(d.url, d.timeStamp);
     },
     {
         url: [{ hostContains: 'something' }, { hostPrefix: 'somethineelse' }],
-    }
+    },
 );
 
 browser.runtime.connect().onDisconnect.addListener(() => {

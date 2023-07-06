@@ -65,9 +65,11 @@ declare module 'firebird' {
         /**
          * Registers connection to listen for firebird event name, called from PL\SQL (in stored procedures or triggers) with post_event 'name'.
          *
-         * @desc
+         * @description
          * You may set callback for event with
-         * @code connection.on('fbevent', function(name, count){ <your code>));.
+         * ```js
+         * connection.on('fbevent', function(name, count){ <your code>));.
+         * ```
          * Where name is event name, and count is number of times event were posted.
          *
          * @param name Firebird Event Name.
@@ -85,7 +87,7 @@ declare module 'firebird' {
          * @summary
          * Synchronously commits current transaction.
          *
-         * @desc
+         * @description
          * Notes:
          * There is only one transaction associated with connection.
          * Transacation is automatically started before any query if connection does not have active transaction (check @see inTransaction property).
@@ -97,7 +99,7 @@ declare module 'firebird' {
         /**
          * Asynchronous commit transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -107,7 +109,7 @@ declare module 'firebird' {
         /**
          * Synchronously rollbacks current transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          */
         rollbackSync(): void;
@@ -115,7 +117,7 @@ declare module 'firebird' {
         /**
          * Asynchronously rollbacks current transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -125,7 +127,7 @@ declare module 'firebird' {
         /**
          * Synchronously starts new default transaction.
          *
-         * @desc
+         * @description
          * The default transaction should be not in started state before call to this method.
          * Read notes in @see commitSync() .
          */
@@ -134,7 +136,7 @@ declare module 'firebird' {
         /**
          * Asynchronously starts new default transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -175,7 +177,7 @@ declare module 'firebird' {
     }
 
     /**
-     * @desc
+     * @description
      * Here is Firebird to Node data type accordance:
      *
      * | Firebird  | Node      |
@@ -207,7 +209,7 @@ declare module 'firebird' {
          * @summary
          * Synchronously fetches result rows.
          *
-         * @desc
+         * @description
          * If you pass "all" as rowCount - it will fetch all result rows.
          * If you pass less rowCount than are actually in result, it will return specified number of rows.
          * You may call fetchSync multiple times until all rows will be fetched.
@@ -238,7 +240,7 @@ declare module 'firebird' {
     /**
      * Represents SQL transaction.
      *
-     * @desc
+     * @description
      * To get instance of this object call @see startNewTransactionSync or @see startNewTransaction methods of @see Connection object.
      * Transaction objects may be reused after commit or rollback.
      */
@@ -261,7 +263,7 @@ declare module 'firebird' {
         /**
          * Synchronously commits this transaction.
          *
-         * @desc
+         * @description
          * Notes:
          * Transacation is automatically started before any query in context of this object
          * if this object does not have active transaction (check inTransaction property).
@@ -272,7 +274,7 @@ declare module 'firebird' {
         /**
          * Asynchronous commit transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -282,7 +284,7 @@ declare module 'firebird' {
          /**
           * Synchronously rollbacks transaction.
           *
-          * @desc
+          * @description
           * Read notes in @see commitSync() .
           */
         rollbackSync(): void;
@@ -290,7 +292,7 @@ declare module 'firebird' {
         /**
          * Asynchronously rollbacks transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -300,7 +302,7 @@ declare module 'firebird' {
         /**
          * Synchronously starts transaction.
          *
-         * @desc
+         * @description
          * The transaction should be not in started state before call to this method.
          * Read notes in @see commitSync() .
          * See @see inTransaction property.
@@ -310,7 +312,7 @@ declare module 'firebird' {
         /**
          * Asynchronously starts new transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -341,7 +343,7 @@ declare module 'firebird' {
         /**
          * Synchronously executes prepared statement with given parameters.
          *
-         * @desc
+         * @description
          * You may fetch rows with methods inherited from @see FBResult.
          * @see Statement is executed in context of default connection transaction.
          *
@@ -357,7 +359,7 @@ declare module 'firebird' {
         /**
          * Asynchronously executes prepared statement with given parameters.
          *
-         * @desc
+         * @description
          * @see FBStatement emits 'result' or 'error' event.
          * You may fetch rows with methods inherited from @see FBResult after 'result' event emitted.
          * Statement is executed in context of default connection transaction.
@@ -436,9 +438,11 @@ declare module 'firebird' {
     /**
      * Represents BLOB stream.
      *
-     * @desc
+     * @description
      * Create BLOB stream using
-     * @code var strm = new fb.Stream(FBblob);.
+     * ```js
+     * var strm = new fb.Stream(FBblob);.
+     * ```
      *
      * You may pipe strm to/from NodeJS Stream objects (fs or socket).
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).

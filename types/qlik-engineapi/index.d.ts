@@ -2450,7 +2450,6 @@ declare namespace EngineAPI {
 
         /**
          * Loads the last logical operation (if any).
-         * @returns"
          */
         back(): Promise<void>;
 

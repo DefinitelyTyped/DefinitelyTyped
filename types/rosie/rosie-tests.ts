@@ -164,6 +164,15 @@ miniMuskFactory.attr('firstName', 'XÆA-12');
 miniMuskFactory.attr('lastName', 'Musk');
 miniMuskFactory.attr('useDiaper', true);
 
+// Reset Toddler, MiniMusk
+// $ExpectType void
+Factory.reset('Toddler')
+miniMuskFactory.reset()
+
+// Reset all
+// $ExpectType void
+Factory.resetAll()
+
 // this should be a $ExpectError
 // const errorPersonFactory = Factory.define<Person>('ErrorPerson').extend(toddlerFactory);
 

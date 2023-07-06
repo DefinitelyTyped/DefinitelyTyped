@@ -1,4 +1,4 @@
-import traverse, { Binding, Hub, NodePath, Visitor, visitors } from '@babel/traverse';
+import traverse, { Binding, Hub, NodePath, TraverseOptions, Visitor, visitors } from '@babel/traverse';
 import * as t from '@babel/types';
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
@@ -22,6 +22,9 @@ const MyVisitor2: Visitor = {
         path.type; // $ExpectType "Identifier"
         path.parentPath; // $ExpectType NodePath<Node>
         console.log('Visiting: ' + path.node.name);
+    },
+    ArrayExpression(path) {
+        path.get('elements'); // $ExpectType NodePath<SpreadElement | Expression | null>[]
     },
     Program(path) {
         path.parentPath; // $ExpectType null
@@ -76,7 +79,7 @@ const v1: Visitor = {
         if (path.isReferencedIdentifier()) {
             // ...
         }
-        if (t.isQualifiedTypeIdentifier(path.node, path.parent)) {
+        if (t.isQualifiedTypeIdentifier(path.node)) {
             // ...
         }
     },
@@ -99,10 +102,14 @@ const v1: Visitor = {
             return a + b;
         }`);
 
+        // $ExpectType [NodePath<ExpressionStatement>]
         path.get('body').unshiftContainer('body', t.expressionStatement(t.stringLiteral('Start of function')));
+        // $ExpectType [NodePath<ExpressionStatement>]
         path.get('body').pushContainer('body', t.expressionStatement(t.stringLiteral('End of function')));
 
+        // $ExpectType [NodePath<ExpressionStatement>]
         path.insertBefore(t.expressionStatement(t.stringLiteral("Because I'm easy come, easy go.")));
+        // $ExpectType [NodePath<ExpressionStatement>]
         path.insertAfter(t.expressionStatement(t.stringLiteral('A little high, little low.')));
         path.remove();
 
@@ -143,9 +150,9 @@ const v1: Visitor = {
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false),
             ]);
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            // $ExpectType NodePath<StringLiteral>
             stringPath;
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            // $ExpectType NodePath<BooleanLiteral>
             booleanPath;
         }
         {
@@ -169,41 +176,21 @@ const v1: Visitor = {
             newPath;
         }
     },
-    Program(path) {
-        path.type; // $ExpectType "Program"
+    SequenceExpression(path) {
+        path.type; // $ExpectType "SequenceExpression"
 
         {
-            const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
+            const [newPath] = path.unshiftContainer('expressions', t.stringLiteral('hello'));
             // $ExpectType NodePath<StringLiteral>
             newPath;
         }
         {
-            const [newPath] = path.pushContainer('body', t.stringLiteral('hello'));
+            const [newPath] = path.pushContainer('expressions', t.stringLiteral('hello'));
             // $ExpectType NodePath<StringLiteral>
             newPath;
         }
         {
-            const [stringPath, booleanPath] = path.unshiftContainer('body', [
-                t.stringLiteral('hello'),
-                t.booleanLiteral(false),
-            ]);
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
-            stringPath;
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
-            booleanPath;
-        }
-        {
-            const [stringPath, booleanPath] = path.pushContainer('body', [
-                t.stringLiteral('hello'),
-                t.booleanLiteral(false),
-            ]);
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
-            stringPath;
-            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
-            booleanPath;
-        }
-        {
-            const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+            const [stringPath, booleanPath] = path.unshiftContainer('expressions', [
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false),
             ]);
@@ -213,10 +200,32 @@ const v1: Visitor = {
             booleanPath;
         }
         {
-            const [stringPath, booleanPath] = path.pushContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+            const [stringPath, booleanPath] = path.pushContainer('expressions', [
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false),
             ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer<
+                t.SequenceExpression,
+                'expressions',
+                [t.StringLiteral, t.BooleanLiteral]
+            >('expressions', [t.stringLiteral('hello'), t.booleanLiteral(false)]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.pushContainer<
+                t.SequenceExpression,
+                'expressions',
+                [t.StringLiteral, t.BooleanLiteral]
+            >('expressions', [t.stringLiteral('hello'), t.booleanLiteral(false)]);
             // $ExpectType NodePath<StringLiteral>
             stringPath;
             // $ExpectType NodePath<BooleanLiteral>
@@ -244,7 +253,7 @@ interface SomeVisitorState {
     someState: string;
 }
 
-const VisitorStateTest: Visitor<SomeVisitorState> = {
+const VisitorStateTest: TraverseOptions<SomeVisitorState> = {
     enter(path, state) {
         let actualType = path.type;
         const expectedType: t.Node['type'] = actualType;
@@ -334,18 +343,23 @@ function testNullishPath(
 ) {
     nullPath.type; // $ExpectType undefined
     undefinedPath.type; // $ExpectType undefined
-    unknownPath.type; // $ExpectType string | undefined
+    unknownPath.type; // $ExpectAssignable t.Node['type'] | undefined
 
     let actualType = optionalPath.type;
     const expectedType: t.Node['type'] | undefined = actualType;
     actualType = expectedType;
 }
 
-const visitorWithDenylist: Visitor = {
+function testEnsureBlock(path: NodePath<t.ArrowFunctionExpression>) {
+    path.ensureBlock();
+    path.node.body; // $ExpectType BlockStatement
+}
+
+const optionsWithDenylist: TraverseOptions = {
     denylist: ['TypeAnnotation'],
 };
 
-const visitorWithInvalidDenylist: Visitor = {
+const optionsWithInvalidDenylist: TraverseOptions = {
     // @ts-expect-error
     denylist: ['SomeRandomType'],
 };
@@ -385,6 +399,17 @@ const newPath = NodePath.get({
 }).setContext();
 
 newPath; // $ExpectType NodePath<Program>
+
+const program: t.Program = {} as any;
+// $ExpectType NodePath<Statement>
+NodePath.get({
+    hub: {} as any,
+    parentPath: null,
+    parent: program,
+    container: program,
+    listKey: 'body',
+    key: 0,
+});
 
 const binding = new Binding({
     identifier: {} as any,

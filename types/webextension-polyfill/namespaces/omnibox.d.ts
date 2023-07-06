@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.omnibox
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The omnibox API allows you to register a keyword with Firefox's address bar.
  * Permissions: "manifest:omnibox"

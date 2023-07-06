@@ -65,6 +65,17 @@ historyApiFallback({
     ]
 });
 
+historyApiFallback({
+    rewrites: [
+        {
+            from: /^\/libs\/(.*)$/,
+            to(context) {
+                return context.request.url;
+            }
+        }
+    ]
+});
+
 const emptyArray = [] as const;
 historyApiFallback({rewrites: emptyArray});
 

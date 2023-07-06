@@ -10,3 +10,9 @@ const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
         gutter: 'CodeMirror-foldgutter',
     },
 });
+
+const myCodeMirror3: CodeMirror.Editor = CodeMirror(document.body, {
+    foldGutter: {
+        rangeFinder: (cm, start) => undefined
+    }
+});

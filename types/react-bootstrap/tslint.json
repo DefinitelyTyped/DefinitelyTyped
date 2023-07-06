@@ -7,7 +7,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-imports": false,
         "no-padding": false,
-        "no-self-import": false,
         "no-unnecessary-qualifier": false,
         "semicolon": false,
         "space-within-parens": false,

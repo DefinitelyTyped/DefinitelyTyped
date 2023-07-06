@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
 // Note, responses are *not* lambda results, they are sent to the event ResponseURL.
 export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
@@ -51,9 +51,11 @@ export interface CloudFormationCustomResourceResponseCommon {
     StackId: string;
     RequestId: string;
     LogicalResourceId: string;
-    Data?: {
-        [Key: string]: any;
-    } | undefined;
+    Data?:
+        | {
+              [Key: string]: any;
+          }
+        | undefined;
     NoEcho?: boolean | undefined;
 }
 
