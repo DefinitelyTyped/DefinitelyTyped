@@ -1,7 +1,8 @@
-import { Matrix4 } from './../math/Matrix4';
-import { Vector3 } from './../math/Vector3';
-import { Object3D } from './../core/Object3D';
-import { Layers } from '../Three';
+import { Matrix4 } from '../math/Matrix4';
+import { Vector3 } from '../math/Vector3';
+import { Object3D } from '../core/Object3D';
+import { Layers } from '../core/Layers';
+import { CoordinateSystem } from '../constants';
 
 /**
  * Abstract base class for cameras
@@ -58,6 +59,8 @@ export abstract class Camera extends Object3D {
      * @defaultValue {@link THREE.Matrix4 | `new THREE.Matrix4()`}
      */
     projectionMatrixInverse: Matrix4;
+
+    coordinateSystem: CoordinateSystem;
 
     /**
      * Returns a {@link THREE.Vector3 | Vector3} representing the world space direction in which the {@link Camera} is looking.

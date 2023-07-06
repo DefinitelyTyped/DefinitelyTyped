@@ -448,4 +448,9 @@ export class Vector2 implements Vector {
      * Sets this vector's x and y from Math.random
      */
     random(): this;
+
+    /**
+     * Iterating through a Vector2 instance will yield its components (x, y) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

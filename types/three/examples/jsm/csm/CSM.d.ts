@@ -24,7 +24,7 @@ export interface CMSParameters {
 }
 
 export class CSM {
-    constructor(data?: CMSParameters);
+    constructor(data: CMSParameters);
     camera: Camera;
     parent: Object3D;
     cascades: number;
