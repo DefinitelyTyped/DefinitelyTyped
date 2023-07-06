@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RedisClient } from 'redis';
+import * as express from 'express';
 
 export const id: number;
 
@@ -68,8 +69,10 @@ export interface Options {
    * if provided, uses the [node-redis](https://github.com/NodeRedis/node_redis) client instead of [memory-cache](https://github.com/ptarjan/node-cache)
    */
   redisClient?: RedisClient | undefined;
+  /** if true, req.path will be used as cache key instead of req.url. Defaults to false */
+  jsonp?: boolean | undefined;
   /** appendKey takes the req/res objects and returns a custom value to extend the cache key */
-  appendKey?: any;
+  appendKey?: ((req: express.Request, res: express.Response) => string) | Array<(keyof express.Request)> | undefined;
   /** list of headers that should never be cached */
   headerBlacklist?: string[] | undefined;
   statusCodes?: {
@@ -84,8 +87,17 @@ export interface Options {
   headers?: {
     [key: string]: string;
   } | undefined;
+  /** Event callbacks */
+  events?: {
+    /** Expire callback triggered by redis client is used. Defaults to empty function */
+    expire: (err: (Error | null), reply: number) => void | undefined,
+  } | undefined;
   /**
    * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues
    */
   trackPerformance?: boolean | undefined;
+  /**
+   * if true, "cache-control: no-cache" header is respected to bypass cache. Defaults to false
+   */
+  respectCacheControl?: boolean | undefined;
 }

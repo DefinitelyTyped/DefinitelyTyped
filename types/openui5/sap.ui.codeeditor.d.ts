@@ -1,17 +1,17 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/codeeditor/library" {}
 
 declare module "sap/ui/codeeditor/CodeEditor" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import { CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.46
@@ -115,7 +115,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -135,7 +135,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -160,7 +160,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -180,7 +180,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -197,7 +197,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -214,14 +214,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -231,19 +231,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The old value of the code editor.
-         */
-        oldValue?: string;
-      }
+      mParameters?: CodeEditor$ChangeEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -253,16 +244,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The underlying change event of the third-party code editor.
-         */
-        editorEvent?: object;
-      }
+      mParameters?: CodeEditor$LiveChangeEventParameters
     ): this;
     /**
      * Sets the focus to the code editor
@@ -675,13 +657,53 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: Event<CodeEditor$LiveChangeEventParameters>) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Event<CodeEditor$ChangeEventParameters>) => void;
   }
+
+  export interface CodeEditor$ChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The old value of the code editor.
+     */
+    oldValue?: string;
+  }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CodeEditor$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CodeEditorChangeEventParameters = CodeEditor$ChangeEventParameters;
+
+  export type CodeEditor$ChangeEvent = Event<CodeEditor$ChangeEventParameters>;
+
+  export interface CodeEditor$LiveChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The underlying change event of the third-party code editor.
+     */
+    editorEvent?: object;
+  }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CodeEditor$LiveChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CodeEditorLiveChangeEventParameters = CodeEditor$LiveChangeEventParameters;
+
+  export type CodeEditor$LiveChangeEvent = Event<CodeEditor$LiveChangeEventParameters>;
 }
 
 declare namespace sap {

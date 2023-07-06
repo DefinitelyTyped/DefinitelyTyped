@@ -243,6 +243,9 @@ declare namespace React {
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactFragment = Iterable<ReactNode>;
 
     /**
@@ -255,7 +258,7 @@ declare namespace React {
         | ReactElement
         | string
         | number
-        | ReactFragment
+        | Iterable<ReactNode>
         | ReactPortal
         | boolean
         | null
@@ -2360,6 +2363,7 @@ declare namespace React {
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchpriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2966,6 +2970,7 @@ declare namespace React {
         ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        search: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
         section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3335,6 +3340,7 @@ declare global {
             ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            search: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
             section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;

@@ -712,6 +712,7 @@ declare module 'url' {
      */
     class URLSearchParams implements Iterable<[string, string]> {
         constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        readonly size: number;
         /**
          * Append a new name-value pair to the query string.
          */

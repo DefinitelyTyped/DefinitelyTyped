@@ -65,7 +65,7 @@ const replayedEvent: EventBridgeEvent<string, { TestValue: string }> = {
     detail: {
         TestValue: 'aTestValue',
     },
-    "replay-name": "test-replay-name"
+    'replay-name': 'test-replay-name',
 };
 
 // Multiple events handler;

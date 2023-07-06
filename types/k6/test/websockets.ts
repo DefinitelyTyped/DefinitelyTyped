@@ -11,21 +11,21 @@ new WebSocket();
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {});
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     headers: { 'User-Agent': 'ITS' },
-    tags: { user: 'zbt' }
+    tags: { user: 'zbt' },
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
-    compression: CompressionAlgorithm.Deflate
+    compression: CompressionAlgorithm.Deflate,
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
-    jar: new CookieJar()
-});
-new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
-    // @ts-expect-error
-    lorem: 'ipsum'
+    jar: new CookieJar(),
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     // @ts-expect-error
-    compression: "lorem"
+    lorem: 'ipsum',
+});
+new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
+    // @ts-expect-error
+    compression: 'lorem',
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     // @ts-expect-error
@@ -84,7 +84,7 @@ ws.ping(5);
 // @ts-expect-error
 ws.onmessage = 'lorem';
 ws.onmessage = () => {};
-ws.onmessage = (event) => {};
+ws.onmessage = event => {};
 
 //
 // WebSocket.onopen
@@ -109,7 +109,7 @@ ws.onclose = () => {};
 // @ts-expect-error
 ws.onerror = 'lorem';
 ws.onerror = () => {};
-ws.onerror = (event) => {};
+ws.onerror = event => {};
 
 //
 // WebSocket.onping

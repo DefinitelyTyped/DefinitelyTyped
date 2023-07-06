@@ -1,4 +1,4 @@
-import { Callback, Handler } from "../handler";
+import { Callback, Handler } from '../handler';
 
 export type LexHandler = Handler<LexEvent, LexResult>;
 export type LexCallback = Callback<LexResult>;
@@ -65,15 +65,19 @@ export interface LexGenericAttachment {
 
 export interface LexDialogActionBase {
     type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
-    message?: {
-        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
-        content: string;
-    } | undefined;
-    responseCard?: {
-        version: number;
-        contentType: 'application/vnd.amazonaws.card.generic';
-        genericAttachments: LexGenericAttachment[];
-    } | undefined;
+    message?:
+        | {
+              contentType: 'PlainText' | 'SSML' | 'CustomPayload';
+              content: string;
+          }
+        | undefined;
+    responseCard?:
+        | {
+              version: number;
+              contentType: 'application/vnd.amazonaws.card.generic';
+              genericAttachments: LexGenericAttachment[];
+          }
+        | undefined;
 }
 
 export interface LexDialogActionClose extends LexDialogActionBase {

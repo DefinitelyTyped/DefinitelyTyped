@@ -518,6 +518,11 @@ export type Connection = NodeJS.EventEmitter & {
      */
     isUp(): boolean;
 
+    /**
+     * Returns true if the connection is good to send a query otherwise false
+     */
+    isValidAsync(): Promise<boolean>;
+
     getServiceName(): string;
     getClientSessionKeepAlive(): boolean;
     getClientSessionKeepAliveHeartbeatFrequency(): number;

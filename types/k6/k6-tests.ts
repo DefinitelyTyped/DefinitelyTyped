@@ -47,11 +47,7 @@ function test5() {
             const res = http.get('https://loadimpact.com/features');
             check(res, {
                 'status code is 200': res => res.status === 200,
-                'h1 message is correct': res =>
-                    res
-                        .html('h1')
-                        .text()
-                        .startsWith('Simple yet realistic load testing'),
+                'h1 message is correct': res => res.html('h1').text().startsWith('Simple yet realistic load testing'),
             });
         });
     });
@@ -163,7 +159,10 @@ function httpTest7() {
         Authorization: 'Token ' + apiToken,
     };
 
-    http.batch([{ method: 'GET', url: url1, params: { headers: requestHeaders } }, { method: 'GET', url: url2 }]);
+    http.batch([
+        { method: 'GET', url: url1, params: { headers: requestHeaders } },
+        { method: 'GET', url: url2 },
+    ]);
 }
 
 function jsonObject(value: JSONValue | undefined): value is JSONObject {

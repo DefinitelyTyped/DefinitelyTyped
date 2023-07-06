@@ -353,7 +353,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 #### 常见错误
 
 * 首先，请遵循[手册](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)的建议。
-* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `npm run prettier -- --write 'path/to/package/**/*.ts'`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
   ```tsx
   // prettier-ignore
   // @ts-expect-error

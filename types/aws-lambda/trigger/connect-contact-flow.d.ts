@@ -50,8 +50,7 @@ export interface ConnectContactFlowResult {
 export type CustomerAudio =
     | null // If Media Streaming has never been started.
     | StartedCustomerAudio // If Media Streaming has been started, but not stopped.
-    | StartedCustomerAudio & StoppedCustomerAudio // If Media Streaming has been started and stopped.
-    ;
+    | (StartedCustomerAudio & StoppedCustomerAudio); // If Media Streaming has been started and stopped.
 
 export interface StartedCustomerAudio {
     StartFragmentNumber: string;

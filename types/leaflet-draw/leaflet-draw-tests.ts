@@ -30,7 +30,10 @@ const drawControl = new L.Control.Draw({
             shapeOptions: {
                 color: '#662d91'
             }
-        }
+        },
+        circlemarker: {
+            repeatMode: true
+        },
     },
     edit: {
         featureGroup: drawnItems

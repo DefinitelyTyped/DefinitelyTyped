@@ -1,9 +1,28 @@
-import { NightwatchExpectResult } from 'nightwatch/expect';
+import { ExpectElement, NightwatchExpectResult } from 'nightwatch/expect';
 
-import { isNightwatchAPI, isNull } from "./utils";
+import { isNightwatchAPI, isNull, isType } from "./utils";
 
 function isNightwatchExpectResult(result: NightwatchExpectResult) {}
 function isPromise(v: PromiseLike<any>) {}
+
+// Chai expect() library
+it('test expect()', async () => {
+    isType<Chai.Assertion>(expect('Nightwatch.js').to.contain('Nightwatch'));
+    isType<Chai.Assertion>(expect(2).to.equal(2));
+    isType<Chai.Assertion>(expect(function() {}).to.not.throw());
+    isType<Chai.Assertion>(expect({a: 2, b: 1}).to.have.property('b'));
+    isType<Chai.Assertion>(expect([1, 2]).to.be.an('array').that.does.not.include(3));
+    isType<Chai.Assertion>(expect([1, 2, 3]).to.be.an('array').that.does.include(3));
+
+    // if element is passed to expect
+    const expectAssert = expect(element('selector')).text.equal('something');
+    // @ts-expect-error
+    isType<Chai.Assertion>(expectAssert);
+    isType<ExpectElement>(expectAssert);
+    isType<ExpectElement>(expect(by.xpath('//tagname')).text.equal('something'));
+    isType<ExpectElement>(expect(await element('selector').getWebElement()).text.equal('something'));
+    isType<ExpectElement>(expect(await browser.findElement('selector')).text.equal('something'));
+  });
 
 // Expect test for language chains
 it('expect.equal(value)/.contain(value)/.match(regex)', () => {

@@ -377,7 +377,7 @@ export interface RejectionMetricsV2 {
     [k: string]: unknown;
   };
   /**
-   * Rejection counts for all uauthenticated end points
+   * Rejection counts for all unauthenticated end points
    */
   unauthenticated: {
     /**
@@ -786,7 +786,7 @@ export interface ResponseMetricsListV3 {
         [k: string]: unknown;
       };
       /**
-       * Rejection counts for all uauthenticated end points
+       * Rejection counts for all unauthenticated end points
        */
       unauthenticated: {
         /**
@@ -824,7 +824,7 @@ export interface ResponseMetricsListV3 {
         [k: string]: unknown;
       };
       /**
-       * Number of calls resulting in a rejection due to server execution over time
+       * Number of calls rejected due to traffic thresholds over time
        */
       rejections: {
         /**

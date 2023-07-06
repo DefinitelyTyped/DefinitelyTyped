@@ -1,4 +1,5 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { dot, spec, tap } from 'node:test/reporters';
 
 // run without options
 // $ExpectType TestsStream
@@ -600,4 +601,26 @@ test('mocks a setter', (t) => {
         // $ExpectType unknown
         call.this;
     }
+});
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot('' as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap('' as any);
+// $ExpectType Spec
+new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
 });

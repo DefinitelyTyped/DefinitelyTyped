@@ -176,11 +176,11 @@ export enum ReadyState {
  * BinaryType describes the possible types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export enum BinaryType  {
+export enum BinaryType {
     /**
      * Binary data is returned in ArrayBuffer form. k6 supports only this type.
      */
-    ArrayBuffer = 'ArrayBuffer'
+    ArrayBuffer = 'ArrayBuffer',
 }
 
 /**
@@ -296,10 +296,10 @@ export interface ErrorEvent {
 /**
  * CompressionAlgorithm describes the possible compression algorithms.
  */
-export enum CompressionAlgorithm  {
+export enum CompressionAlgorithm {
     /**
      * Deflate compression algorithm.
      * k6 supports only this compression algorithm.
      */
-    Deflate = 'deflate'
+    Deflate = 'deflate',
 }

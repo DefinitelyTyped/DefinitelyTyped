@@ -1,5 +1,5 @@
 import factory from "@rdfjs/data-model";
-import Factory from "@rdfjs/data-model/Factory";
+import Factory from "@rdfjs/data-model/Factory.js";
 import * as RDF from "@rdfjs/types";
 import Environment from '@rdfjs/environment/Environment.js';
 

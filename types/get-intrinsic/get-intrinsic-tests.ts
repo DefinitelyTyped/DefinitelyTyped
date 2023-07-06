@@ -219,12 +219,12 @@ declare const boolean: boolean;
     GetIntrinsic('%URIErrorPrototype%'); // $ExpectType URIError
 
     GetIntrinsic('%WeakMap%'); // $ExpectType WeakMapConstructor
-    GetIntrinsic('%WeakMap.prototype%'); // $ExpectType WeakMap<object, any>
-    GetIntrinsic('%WeakMapPrototype%'); // $ExpectType WeakMap<object, any>
+    GetIntrinsic('%WeakMap.prototype%'); // $ExpectType WeakMap<object, any> || WeakMap<WeakKey, any>
+    GetIntrinsic('%WeakMapPrototype%'); // $ExpectType WeakMap<object, any> || WeakMap<WeakKey, any>
 
     GetIntrinsic('%WeakSet%'); // $ExpectType WeakSetConstructor
-    GetIntrinsic('%WeakSet.prototype%'); // $ExpectType WeakSet<object>
-    GetIntrinsic('%WeakSetPrototype%'); // $ExpectType WeakSet<object>
+    GetIntrinsic('%WeakSet.prototype%'); // $ExpectType WeakSet<object> || WeakSet<WeakKey>
+    GetIntrinsic('%WeakSetPrototype%'); // $ExpectType WeakSet<object> || WeakSet<WeakKey>
 
     GetIntrinsic('unknown'); // $ExpectType unknown
 }
@@ -434,12 +434,12 @@ declare const boolean: boolean;
     GetIntrinsic('%URIErrorPrototype%', false); // $ExpectType URIError
 
     GetIntrinsic('%WeakMap%', false); // $ExpectType WeakMapConstructor
-    GetIntrinsic('%WeakMap.prototype%', false); // $ExpectType WeakMap<object, any>
-    GetIntrinsic('%WeakMapPrototype%', false); // $ExpectType WeakMap<object, any>
+    GetIntrinsic('%WeakMap.prototype%', false); // $ExpectType WeakMap<object, any> || WeakMap<WeakKey, any>
+    GetIntrinsic('%WeakMapPrototype%', false); // $ExpectType WeakMap<object, any> || WeakMap<WeakKey, any>
 
     GetIntrinsic('%WeakSet%', false); // $ExpectType WeakSetConstructor
-    GetIntrinsic('%WeakSet.prototype%', false); // $ExpectType WeakSet<object>
-    GetIntrinsic('%WeakSetPrototype%', false); // $ExpectType WeakSet<object>
+    GetIntrinsic('%WeakSet.prototype%', false); // $ExpectType WeakSet<object> || WeakSet<WeakKey>
+    GetIntrinsic('%WeakSetPrototype%', false); // $ExpectType WeakSet<object> || WeakSet<WeakKey>
 
     GetIntrinsic('unknown', false); // $ExpectType unknown
 }
@@ -649,12 +649,12 @@ declare const boolean: boolean;
     GetIntrinsic('%URIErrorPrototype%', true); // $ExpectType URIError | undefined
 
     GetIntrinsic('%WeakMap%', true); // $ExpectType WeakMapConstructor | undefined
-    GetIntrinsic('%WeakMap.prototype%', true); // $ExpectType WeakMap<object, any> | undefined
-    GetIntrinsic('%WeakMapPrototype%', true); // $ExpectType WeakMap<object, any> | undefined
+    GetIntrinsic('%WeakMap.prototype%', true); // $ExpectType WeakMap<object, any> | undefined || WeakMap<WeakKey, any> | undefined
+    GetIntrinsic('%WeakMapPrototype%', true); // $ExpectType WeakMap<object, any> | undefined || WeakMap<WeakKey, any> | undefined
 
     GetIntrinsic('%WeakSet%', true); // $ExpectType WeakSetConstructor | undefined
-    GetIntrinsic('%WeakSet.prototype%', true); // $ExpectType WeakSet<object> | undefined
-    GetIntrinsic('%WeakSetPrototype%', true); // $ExpectType WeakSet<object> | undefined
+    GetIntrinsic('%WeakSet.prototype%', true); // $ExpectType WeakSet<object> | undefined || WeakSet<WeakKey> | undefined
+    GetIntrinsic('%WeakSetPrototype%', true); // $ExpectType WeakSet<object> | undefined || WeakSet<WeakKey> | undefined
 
     GetIntrinsic('unknown', true); // $ExpectType unknown
 }
@@ -864,12 +864,12 @@ declare const boolean: boolean;
     GetIntrinsic('%URIErrorPrototype%', boolean); // $ExpectType URIError | undefined
 
     GetIntrinsic('%WeakMap%', boolean); // $ExpectType WeakMapConstructor | undefined
-    GetIntrinsic('%WeakMap.prototype%', boolean); // $ExpectType WeakMap<object, any> | undefined
-    GetIntrinsic('%WeakMapPrototype%', boolean); // $ExpectType WeakMap<object, any> | undefined
+    GetIntrinsic('%WeakMap.prototype%', boolean); // $ExpectType WeakMap<object, any> | undefined || WeakMap<WeakKey, any> | undefined
+    GetIntrinsic('%WeakMapPrototype%', boolean); // $ExpectType WeakMap<object, any> | undefined || WeakMap<WeakKey, any> | undefined
 
     GetIntrinsic('%WeakSet%', boolean); // $ExpectType WeakSetConstructor | undefined
-    GetIntrinsic('%WeakSet.prototype%', boolean); // $ExpectType WeakSet<object> | undefined
-    GetIntrinsic('%WeakSetPrototype%', boolean); // $ExpectType WeakSet<object> | undefined
+    GetIntrinsic('%WeakSet.prototype%', boolean); // $ExpectType WeakSet<object> | undefined || WeakSet<WeakKey> | undefined
+    GetIntrinsic('%WeakSetPrototype%', boolean); // $ExpectType WeakSet<object> | undefined || WeakSet<WeakKey> | undefined
 
     GetIntrinsic('unknown', boolean); // $ExpectType unknown
 }
