@@ -34,7 +34,7 @@ declare namespace pluralize {
    * @param rule
    * @param replacement
    */
-  function addPluralRule(rule: string | RegExp, replacemant: string): void;
+  function addPluralRule(rule: string | RegExp, replacement: string): void;
 
   /**
    * Add a singularization rule to the collection.
@@ -42,7 +42,7 @@ declare namespace pluralize {
    * @param rule
    * @param replacement
    */
-  function addSingularRule(rule: string | RegExp, replacemant: string): void;
+  function addSingularRule(rule: string | RegExp, replacement: string): void;
 
   /**
    * Add an irregular word definition.
