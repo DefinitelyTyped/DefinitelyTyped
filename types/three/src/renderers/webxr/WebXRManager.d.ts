@@ -26,31 +26,48 @@ export class WebXRManager extends EventDispatcher {
 
     /**
      * @default true
+     * @deprecated
      */
     cameraAutoUpdate: boolean;
 
     getController(index: number): XRTargetRaySpace;
+
     getControllerGrip(index: number): XRGripSpace;
+
     getHand(index: number): XRHandSpace;
+
     setFramebufferScaleFactor(value: number): void;
+
     setReferenceSpaceType(value: XRReferenceSpaceType): void;
+
     getReferenceSpace(): XRReferenceSpace | null;
+
     setReferenceSpace(value: XRReferenceSpace): void;
+
     getBaseLayer(): XRWebGLLayer | XRProjectionLayer;
+
     getBinding(): XRWebGLBinding;
+
     getFrame(): XRFrame;
+
     getSession(): XRSession | null;
+
     setSession(value: XRSession | null): Promise<void>;
-    getCamera(): WebXRArrayCamera;
-    updateCamera(camera: PerspectiveCamera): void;
-    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
-    getFoveation(): number | undefined;
-    setFoveation(value: number): void;
 
     /**
-     * Returns the set of planes detected by WebXR's plane detection API.
+     * @deprecated
      */
-    getPlanes(): Set<XRPlane>;
+    getCamera(): WebXRArrayCamera;
+
+    setUserCamera(camera: PerspectiveCamera): void;
+
+    updateCameraXR(camera: PerspectiveCamera): void;
+
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
+
+    getFoveation(): number | undefined;
+
+    setFoveation(value: number): void;
 
     dispose(): void;
 }

@@ -14,7 +14,7 @@ import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding, ColorSpace } from '../constants';
+import { ToneMapping, ShadowMapType, CullFace, TextureEncoding, ColorSpace, WebGLCoordinateSystem } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { OffscreenCanvas, Texture } from '../textures/Texture';
@@ -199,6 +199,8 @@ export class WebGLRenderer implements Renderer {
      * @default THREE.SRGBColorSpace.
      */
     outputColorSpace: ColorSpace;
+
+    get coordinateSystem(): typeof WebGLCoordinateSystem;
 
     /**
      * @default true

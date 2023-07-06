@@ -1,5 +1,5 @@
 import { Texture } from './Texture';
-import { MagnificationTextureFilter, MinificationTextureFilter, PixelFormat } from '../constants';
+import { MagnificationTextureFilter, MinificationTextureFilter } from '../constants';
 
 /**
  * This class can only be used in combination with {@link THREE.WebGLRenderer.copyFramebufferToTexture | WebGLRenderer.copyFramebufferToTexture()}.
@@ -32,9 +32,8 @@ export class FramebufferTexture extends Texture {
      * Create a new instance of {@link FramebufferTexture}
      * @param width The width of the texture.
      * @param height The height of the texture.
-     * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}.
      */
-    constructor(width: number, height: number, format: PixelFormat);
+    constructor(width: number, height: number);
 
     /**
      * Read-only flag to check if a given object is of type {@link FramebufferTexture}.

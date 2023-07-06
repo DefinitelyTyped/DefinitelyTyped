@@ -6,6 +6,7 @@ import {
     DeepTexturePixelFormat,
     MagnificationTextureFilter,
     MinificationTextureFilter,
+    TextureComparisonFunction,
 } from '../constants';
 
 /**
@@ -95,4 +96,12 @@ export class DepthTexture extends Texture {
      * @defaultValue {@link THREE.UnsignedInt248Type} when {@link format | .format} === {@link THREE.DepthStencilFormat}
      */
     type: TextureDataType;
+
+    /**
+     * This is used to define the comparison function used when comparing texels in the depth texture to the value in
+     * the depth buffer. Default is `null` which means comparison is disabled.
+     *
+     * See {@link THREE.TextureComparisonFunction} for functions.
+     */
+    compareFunction: TextureComparisonFunction | null;
 }

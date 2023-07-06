@@ -38,7 +38,7 @@ export abstract class Light<TShadowSupport extends LightShadow | undefined = Lig
 
     /**
      * The light's intensity, or strength.
-     * In {@link THREE.WebGLRenderer.physicallyCorrectLights | physically correct} mode, the units of intensity depend on the type of light.
+     * When {@link THREE.WebGLRenderer.useLegacyLights | legacy lighting mode} is disabled, the units of intensity depend on the type of light.
      * @remarks Expects a `Float`
      * @defaultValue `1`
      */

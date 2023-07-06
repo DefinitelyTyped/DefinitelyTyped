@@ -8,6 +8,6 @@ export class TeapotGeometry extends BufferGeometry {
         lid?: boolean,
         body?: boolean,
         fitLid?: boolean,
-        blinn?: number,
+        blinn?: boolean,
     );
 }
