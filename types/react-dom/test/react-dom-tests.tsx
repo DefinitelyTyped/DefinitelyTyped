@@ -403,10 +403,12 @@ function pipeableStreamDocumentedExample() {
     });
 
     setTimeout(() => {
+        // $ExpectType void
         abort();
     }, 1000);
 
     setTimeout(() => {
+        // $ExpectType void
         abort("timeout");
     }, 1000);
 }
