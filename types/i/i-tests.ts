@@ -1,4 +1,4 @@
-/// <reference types="./globals" />
+/// <reference types="i/globals" />
 
 import i = require('i');
 
