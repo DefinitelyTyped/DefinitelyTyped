@@ -344,12 +344,19 @@ class FactoryClass2 {
     };
 }
 
+class FactoryClass3 {
+    static key: string;
+}
+
 {
     // @ts-expect-error
     factory.register(SubClass);
 
     // $ExpectType void
     factory.register(FactoryClass2);
+
+    // $ExpectType void
+    factory.register(FactoryClass3);
 
     // $ExpectType void
     factory.register(SubClass, 'SubClass');

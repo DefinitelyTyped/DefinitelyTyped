@@ -1,4 +1,4 @@
-// Type definitions for OOjs 6.0
+// Type definitions for OOjs 7.0
 // Project: https://www.mediawiki.org/wiki/OOjs
 // Definitions by: diskdance <https://github.com/diskdance>
 //                 Chlod Aidan Alejandro <https://github.com/ChlodAlejandro>
