@@ -1,7 +1,7 @@
 import Extent from "../Core/Geographic/Extent";
 import Source, { SourceOptions } from "./Source";
 
-interface EntwinePointTileSourceConfig {
+interface EntwinePointTileSourceOptions extends SourceOptions {
     colorDepth?: 8 | 16 | 'auto';
 }
 
@@ -23,7 +23,7 @@ interface ParsingOptionsBin {
 type ParsingOptions = ParsingOptionsLAS | ParsingOptionsBin;
 
 declare class EntwinePointTileSource extends Source {
-    constructor(config: EntwinePointTileSourceConfig);
+    constructor(config: EntwinePointTileSourceOptions);
 
     readonly isEntwinePointTileSource: boolean;
 

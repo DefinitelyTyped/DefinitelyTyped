@@ -25,7 +25,7 @@ declare class GeometryLayer extends Layer {
     //     parent: any;
     // } | undefined;
     postUpdate(): void;
-    culling(): boolean;
+    culling(node: any, camera: any): boolean;
 
     attach(layer: Layer): void;
     detach(layer: Layer): boolean;

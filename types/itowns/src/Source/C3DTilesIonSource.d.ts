@@ -1,18 +1,18 @@
 import C3DTilesSource, { C3DTilesSourceOptions } from './C3DTilesSource';
 
-export interface C3DTilesIonSourceOptions extends C3DTilesSourceOptions {
+export interface C3DTilesIonSourceOptions
+extends Omit<C3DTilesSourceOptions, 'url'> {
     accessToken: string;
-    assetId: string;
+    assetId: number;
 }
 
 declare class C3DTilesIonSource extends C3DTilesSource {
-    constructor(source: C3DTilesSourceOptions);
+    constructor(source: C3DTilesIonSourceOptions);
 
     readonly isC3DTilesIonSource: boolean;
 
-    accessToken: any;
-    assetId: any;
-    attribution: string;
+    accessToken: string;
+    assetId: number;
 
     // whenReady: Promise<any>;
 }

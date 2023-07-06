@@ -4,6 +4,7 @@ export interface TMSSourceOptions extends SourceOptions {
     url: string;
     tileMatrixSetLimits?: any;
     tileMatrixCallback?: (zoomLevel: number) => string;
+    isInverted?: boolean;
     zoom?: { min: number, max: number };
 }
 

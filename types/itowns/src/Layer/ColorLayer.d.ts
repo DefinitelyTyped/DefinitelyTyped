@@ -15,6 +15,7 @@ export interface ColorLayerOptions extends LayerOptions {
     minFilter?: THREE.MinificationTextureFilter;
     effect_type?: EffectType;
     effect_parameter?: number;
+    noTextureParentOutsideLimit?: boolean;
 }
 
 declare class ColorLayer extends Layer {

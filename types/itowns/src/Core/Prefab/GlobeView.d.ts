@@ -6,10 +6,10 @@ import GlobeControls from "../../Controls/GlobeControls";
 import CameraUtils from "../../Utils/CameraUtils";
 
 export enum GLOBE_VIEW_EVENTS {
-    GLOBE_INITIALIZED = VIEW_EVENTS.INITIALIZED,
-    LAYER_ADDED = VIEW_EVENTS.LAYER_ADDED,
-    LAYER_REMOVED = VIEW_EVENTS.LAYER_REMOVED,
-    COLOR_LAYERS_ORDER_CHANGED = VIEW_EVENTS.COLOR_LAYERS_ORDER_CHANGED,
+    GLOBE_INITIALIZED = 'initialized',
+    LAYER_ADDED = 'layer-added',
+    LAYER_REMOVED = 'layer-removed',
+    COLOR_LAYERS_ORDER_CHANGED = 'layers-order-changed',
 }
 
 // TODO GlobeViewOptions

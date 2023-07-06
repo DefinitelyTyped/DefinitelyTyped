@@ -19,8 +19,8 @@ export interface SourceOptions {
     format?: string;
     fetcher?: any; // TODO (Maybe templating)
     parser?: any; // TODO (Maybe templating)
-    networkOptions?: RequestInit & { crossOrigin: boolean };
-    attribution?: string;
+    networkOptions?: RequestInit & { crossOrigin: string };
+    attribution?: unknown;
     extent?: Extent;
 }
 
@@ -37,7 +37,7 @@ declare abstract class Source implements InformationsData {
     fetcher: any; // TODO (Maybe templating)
     networkOptions: RequestInit;
     crs: string;
-    attribution: string;
+    attribution: any;
     extent: Extent;
     parser: any; // TODO (Maybe templating)
 

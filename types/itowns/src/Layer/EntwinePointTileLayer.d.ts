@@ -7,7 +7,7 @@ declare class EntwinePointTileLayer extends PointCloudLayer {
 
     readonly isEntwinePointTileLayer: boolean;
 
-    // root: EntwinePointTileNode;
+    root: /* EntwinePointTileNode */ any;
     extent: Extent;
 
     get spacing(): number;

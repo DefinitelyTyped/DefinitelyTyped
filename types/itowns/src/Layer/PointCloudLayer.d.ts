@@ -14,7 +14,7 @@ interface PointCloudLayer {
     maxIntensityRange: number;
 }
 
-export type PointCloudLayerOptions = PointCloudLayer & GeometryLayerOptions; // TODO: check output type
+export type PointCloudLayerOptions = Partial<PointCloudLayer> & GeometryLayerOptions; // TODO: check output type
 
 declare class PointCloudLayer extends GeometryLayer {
     constructor(id: string, config?: PointCloudLayerOptions);
@@ -24,7 +24,7 @@ declare class PointCloudLayer extends GeometryLayer {
 
     preUpdate(context: any, changeSources: any): any[];
     update(context: any, layer: any, elt: any): any;
-    displayedCount: number | undefined;
+    displayedCount: number;
     // pickObjectsAt(view: any, mouse: any, radius: any, target?: any[]): any[] | undefined;
     getObjectToUpdateForAttachedLayers(meta: any): {
         element: any;

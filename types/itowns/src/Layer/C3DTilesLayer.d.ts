@@ -11,11 +11,12 @@ import type C3DTileSource from "../Source/C3DTilesSource";
 
 export interface C3DTilesLayerOptions {
     source: C3DTileSource;
+    name?: string;
     sseThreshold?: number;
     cleanupDelay?: number;
     registeredExtensions?: C3DTExtensions;
     pntsMode?: PNTS_MODE;
-    style: Style;
+    style?: Style;
 }
 
 export enum C3DTILES_LAYER_EVENTS {

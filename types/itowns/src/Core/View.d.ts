@@ -91,7 +91,7 @@ export default class View extends THREE.EventDispatcher<THREE.Event> {
     pickObjectsAt(
         mouseOrEvt: THREE.Vector2 | Event,
         radius?: number,
-        ...where: any[]): object[]; // TODO
+        ...where: any[]): any[]; // TODO
 
     getScale(pitch?: number): number;
 

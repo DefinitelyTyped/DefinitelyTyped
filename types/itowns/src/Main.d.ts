@@ -49,14 +49,14 @@ export { default as GeometryLayer } from "./Layer/GeometryLayer";
 export { default as FeatureGeometryLayer } from "./Layer/FeatureGeometryLayer";
 export { default as PointCloudLayer } from "./Layer/PointCloudLayer";
 export { default as PotreeLayer } from "./Layer/PotreeLayer";
-export { default as C3DTilesLayer } from "./Layer/C3DTilesLayer";
-// export { default as TiledGeometryLayer } from "./Layer/TiledGeometryLayer"; // TODO
+export { default as C3DTilesLayer, C3DTILES_LAYER_EVENTS } from './Layer/C3DTilesLayer';
+export { default as TiledGeometryLayer } from "./Layer/TiledGeometryLayer";
 // export { default as OrientedImageLayer } from "./Layer/OrientedImageLayer";
 export { STRATEGY_MIN_NETWORK_TRAFFIC, STRATEGY_GROUP, STRATEGY_PROGRESSIVE, STRATEGY_DICHOTOMY } from "./Layer/LayerUpdateStrategy";
-// export { default as ColorLayersOrdering } from "./Renderer/ColorLayersOrdering";
+export { default as ColorLayersOrdering } from "./Renderer/ColorLayersOrdering";
 // export { default as GlobeLayer } from "./Core/Prefab/Globe/GlobeLayer";
 // export { default as PlanarLayer } from "./Core/Prefab/Planar/PlanarLayer";
-// export { default as LabelLayer } from "./Layer/LabelLayer";
+export { default as LabelLayer } from "./Layer/LabelLayer";
 export { default as EntwinePointTileLayer } from "./Layer/EntwinePointTileLayer";
 export { default as GeoidLayer } from "./Layer/GeoidLayer";
 

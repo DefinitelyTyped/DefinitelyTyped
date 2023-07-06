@@ -13,7 +13,7 @@ declare class PotreeLayer extends PointCloudLayer {
     hierarchyStepSize: number;
     supportsProgressiveDisplay: boolean;
 
-    // root: PotreeNode;
+    root: /* PotreeNode */ any;
     extent: Extent; // TODO: defined in layer?
 }
 

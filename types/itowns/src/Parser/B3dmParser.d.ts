@@ -3,7 +3,7 @@ import { GLTFLoader } from "../ThreeExtended/loaders/GLTFLoader";
 
 // TODO: rework all
 
-export function enableDracoLoader(path: string, config: object): void;
+export function enableDracoLoader(path: string, config?: object): void;
 export const glTFLoader: GLTFLoader;
 // export const legacyGLTFLoader: {
 //     load(url: any, onLoad: any, onProgress: any, onError: any): void;

@@ -5,6 +5,7 @@ import type { Strategy } from "./LayerUpdateStrategy";
 
 export interface LayerOptions {
     source: Source | false;
+    crs?: string;
     cacheLifeTime?: number;
     addLabelLayer?: {
         performance?: boolean;
@@ -16,8 +17,8 @@ export interface LayerOptions {
     };
     updateStrategy?: {
      type: Strategy;
-     options: any;
-    }; // TODO: STRATEGY_MIN_NETWORK_TRAFFIC enum
+     options?: any;
+    };
     // options: any;
     // mergeFeatures: boolean;
 }

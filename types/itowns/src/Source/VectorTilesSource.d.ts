@@ -1,10 +1,10 @@
 import TMSSource, { TMSSourceOptions } from "./TMSSource";
 
-export interface VectorTilesSourceOptions extends TMSSourceOptions {
+export interface VectorTilesSourceOptions extends Omit<TMSSourceOptions, 'url'> {
     filter?: (layer: any) => boolean;
     style: any; // string | any;
     sprite?: string;
-    url: string; // TODO: Optional
+    url?: string;
     accessToken?: string;
 }
 
