@@ -486,6 +486,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
+    allDayMaxRows?: number | undefined;
     min?: Date | undefined;
     max?: Date | undefined;
     scrollToTime?: Date | undefined;

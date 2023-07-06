@@ -315,6 +315,7 @@ class CalendarResource {
                     }}
                     dayLayoutAlgorithm={customLayoutAlgorithm}
                     showAllEvents={false}
+                    allDayMaxRows={1}
                     views={['day']}
                     toolbar={true}
                     popup={true}
