@@ -70,7 +70,7 @@ export interface FlextreeOptions<Datum> {
      * as an argument. This is used only in the creation of a hierarchy,
      * prior to computing the layout, by the `layout.hierarchy` method.
      */
-    children: (data: HierarchyNode<Datum>) => Array<FlextreeNode<Datum>> | undefined;
+    children: (data: Datum) => Datum[] | undefined;
     /**
      * A way to calculate the size of a node.
      * It can be specified as:

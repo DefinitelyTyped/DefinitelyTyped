@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.contentScripts
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Comments found in source JSON schema files:
  * This Source Code Form is subject to the terms of the Mozilla Public

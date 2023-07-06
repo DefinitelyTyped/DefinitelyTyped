@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.webRequest
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.webRequest</code> API to observe and analyze traffic and to intercept, block,
  * or modify requests in-flight.
@@ -258,6 +261,30 @@ export namespace WebRequest {
          * Optional.
          */
         weaknessReasons?: TransportWeaknessReasons[];
+
+        /**
+         * True if the TLS connection used Encrypted Client Hello.
+         * Optional.
+         */
+        usedEch?: boolean;
+
+        /**
+         * True if the TLS connection used Delegated Credentials.
+         * Optional.
+         */
+        usedDelegatedCredentials?: boolean;
+
+        /**
+         * True if the TLS connection made OCSP requests.
+         * Optional.
+         */
+        usedOcsp?: boolean;
+
+        /**
+         * True if the TLS connection used a privacy-preserving DNS transport like DNS-over-HTTPS.
+         * Optional.
+         */
+        usedPrivateDns?: boolean;
     }
 
     /**

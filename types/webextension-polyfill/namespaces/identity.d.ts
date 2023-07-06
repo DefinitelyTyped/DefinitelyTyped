@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.identity
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the chrome.identity API to get OAuth2 access tokens.
  * Permissions: "identity"

@@ -6,8 +6,3 @@ import * as R from 'ramda';
     const reciprocal = R.divide(1);
     reciprocal(4); // => 0.25
 };
-
-() => {
-    R.divide(R.__)(2, 42); // 21
-    R.divide(R.__, 2)(42); // 21
-};
