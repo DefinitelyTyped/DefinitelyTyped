@@ -1,4 +1,4 @@
-import { NamespaceBuilder } from '.';
+import { NamespaceBuilder } from './index.js';
 
 export interface NamespaceFactory {
     // eslint-disable-next-line no-unnecessary-generics
