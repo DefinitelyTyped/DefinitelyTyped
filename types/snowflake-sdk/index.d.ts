@@ -577,7 +577,7 @@ export type Connection = NodeJS.EventEmitter & {
         * ### Related Docs
         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#executing-a-batch-of-sql-statements-multi-statement-support}
         */
-        paramaters?: Record<string, any> & { MULTI_STATEMENT_COUNT: number } ;
+        parameters?: Record<string, any> & { MULTI_STATEMENT_COUNT: number } ;
     }): Statement;
 
     /**
