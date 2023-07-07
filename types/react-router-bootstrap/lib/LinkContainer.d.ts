@@ -1,9 +1,9 @@
-import { ComponentClass, ReactNode } from 'react';
+import { ComponentClass, MouseEventHandler, ReactNode } from 'react';
 
 // See https://github.com/react-bootstrap/react-router-bootstrap/blob/master/src/LinkContainer.js
 interface LinkContainerProps {
     children: ReactNode;
-    onClick?: () => void;
+    onClick?: MouseEventHandler;
     replace?: boolean;
     to: string | object;
     state?: object;

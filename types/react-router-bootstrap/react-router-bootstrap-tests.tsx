@@ -16,6 +16,7 @@ export class ReactRouterBootstrapTest extends Component {
                 <div style={style}>
                     <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
                     <LinkContainer to="/page" className="myclass" activeClassName="active"><Button>Link</Button></LinkContainer>
+                    <LinkContainer to="" onClick={e => e.preventDefault()}><Button>Link</Button></LinkContainer>
                 </div>
             </div>
         );
