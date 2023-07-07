@@ -1,11 +1,11 @@
 import * as RDF from '@rdfjs/types';
-import { FromTerm } from '@rdfjs/data-model/lib/fromTerm';
-import { BlankNodeExt } from "./lib/BlankNode";
-import { LiteralExt } from "./lib/Literal";
-import { NamedNodeExt } from "./lib/NamedNode";
-import { QuadExt } from "./lib/Quad";
-import { DefaultGraphExt } from "./lib/DefaultGraph";
-import { VariableExt } from "./lib/Variable";
+import { FromTerm } from '@rdfjs/data-model/lib/fromTerm.js';
+import { BlankNodeExt } from "./lib/BlankNode.js";
+import { LiteralExt } from "./lib/Literal.js";
+import { NamedNodeExt } from "./lib/NamedNode.js";
+import { QuadExt } from "./lib/Quad.js";
+import { DefaultGraphExt } from "./lib/DefaultGraph.js";
+import { VariableExt } from "./lib/Variable.js";
 
 export interface DataFactoryExt extends RDF.DataFactory<QuadExt, RDF.Quad> {
     init(): void;

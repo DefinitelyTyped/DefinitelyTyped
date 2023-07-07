@@ -1,10 +1,10 @@
 import { Quad, Quad_Graph, Quad_Object, Quad_Predicate, Quad_Subject } from '@rdfjs/types';
-import { PropType } from './_PropType';
-import { LiteralExt } from './Literal';
-import { BlankNodeExt } from './BlankNode';
-import { NamedNodeExt } from './NamedNode';
-import { VariableExt } from './Variable';
-import { DefaultGraphExt } from './DefaultGraph';
+import { PropType } from './_PropType.js';
+import { LiteralExt } from './Literal.js';
+import { BlankNodeExt } from './BlankNode.js';
+import { NamedNodeExt } from './NamedNode.js';
+import { VariableExt } from './Variable.js';
+import { DefaultGraphExt } from './DefaultGraph.js';
 
 export interface QuadExt extends Quad {
   termType: 'Quad';

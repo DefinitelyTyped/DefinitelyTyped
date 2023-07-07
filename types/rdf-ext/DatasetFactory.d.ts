@@ -1,5 +1,5 @@
 import { Quad , NamedNode, DefaultGraph } from '@rdfjs/types';
-import DatasetExt from './lib/Dataset';
+import DatasetExt from './lib/Dataset.js';
 
 export interface DatasetFactory {
     dataset(quads?: Quad[], graph?: NamedNode | DefaultGraph): DatasetExt;

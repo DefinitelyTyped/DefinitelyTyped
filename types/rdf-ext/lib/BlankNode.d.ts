@@ -1,5 +1,5 @@
 import { BlankNode, Term } from "@rdfjs/types";
-import { PropType } from './_PropType';
+import { PropType } from './_PropType.js';
 
 export interface BlankNodeExt extends BlankNode {
   toCanonical(): string;
