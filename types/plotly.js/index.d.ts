@@ -20,6 +20,7 @@
 //                 Pablo Gracia <https://github.com/PabloGracia>
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 //                 John Abdou <https://github.com/jpabdou>
+//                 Aflah <https://github.com/afl-h>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
@@ -1300,20 +1301,15 @@ export interface PlotData {
         | 'percent'
         | 'none';
     textposition:
-        | 'top left'
-        | 'top center'
-        | 'top right'
-        | 'middle left'
-        | 'middle center'
-        | 'middle right'
-        | 'bottom left'
-        | 'bottom center'
-        | 'bottom right'
         | 'inside'
         | 'outside'
         | 'auto'
         | 'none';
     textfont: Partial<Font>;
+    textangle: 'auto' | number;
+    insidetextanchor: 'end' | 'middle' | 'start';
+    constraintext: 'inside' | 'outside' | 'both' | 'none',
+    cliponaxis: boolean;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
     fillpattern: Partial<Pattern>;
