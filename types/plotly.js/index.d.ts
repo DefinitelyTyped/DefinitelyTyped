@@ -1309,7 +1309,6 @@ export interface PlotData {
     textangle: 'auto' | number;
     insidetextanchor: 'end' | 'middle' | 'start';
     constraintext: 'inside' | 'outside' | 'both' | 'none',
-    cliponaxis: boolean;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
     fillpattern: Partial<Pattern>;
