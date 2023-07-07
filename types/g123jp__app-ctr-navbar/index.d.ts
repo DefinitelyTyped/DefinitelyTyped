@@ -1,3 +1,5 @@
+// Type definitions for @g123jp/app-ctr-navbar 0.1.0
+
 export interface G123NavigationSideBarProps {
     supportLanguages: string[];
     initialSelectedLanguage: string;
