@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 2.24.3
+// Type definitions for plotly.js 2.24
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
