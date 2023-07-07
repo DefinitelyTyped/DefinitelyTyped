@@ -1,4 +1,4 @@
-// Type definitions for @g123jp/app-ctr-navbar 0.1.0
+// Type definitions for @g123jp/app-ctr-navbar
 // Project: https://www.npmjs.com/package/@g123jp/app-ctr-navbar
 // Definitions by: Lemon <https://github.com/G123-jp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
