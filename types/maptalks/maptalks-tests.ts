@@ -2534,6 +2534,22 @@ const areaTool = new maptalks.AreaTool({
     language: "",
 }).addTo(map5);
 
+class GreetingMarker extends maptalks.Marker {}
+maptalks.DrawTool.registerMode('GreetingMarker', {
+    action: ['click', 'dblclick'],
+    create: (projection, coords, event) => {
+        console.log(projection, coords, event);
+        return new maptalks.Marker([121.470058, 31.231311]);
+    },
+    update: (projection, path, geometry, event) => {
+        console.log(projection, path, geometry, event);
+    },
+    generate: (geometry, extraData) => {
+        console.log(geometry, extraData);
+        return new GreetingMarker([121.470058, 31.231311]);
+    },
+});
+
 const drawTool = new maptalks.DrawTool({
     mode: "Point",
 })
