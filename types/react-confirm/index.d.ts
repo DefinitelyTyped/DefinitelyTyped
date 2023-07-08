@@ -7,8 +7,13 @@
 
 import * as React from "react";
 
+type Mounter = (tree: React.ReactElement) => React.ReactElement;
+
 export function confirmable<P>(component: React.ComponentType<ReactConfirmProps & P>): React.ComponentType<P>;
 export function createConfirmation(component: React.ComponentType<any>, unmountDelay?: number, mountingNode?: HTMLElement): (props: any) => Promise<string>;
+export function createConfirmationCreater(mounter: Mounter): (confirmableComponent: React.ComponentType<any>) => (props: any) => Promise<string>;
+export function createReactTreeMounter(): Mounter;
+export function createMountPoint(mounter: Mounter): React.ComponentType<any>;
 
 export interface ReactConfirmProps {
     confirmation: string | React.ReactElement;
