@@ -183,7 +183,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
-    const { updatableData } = store.readUpdatableFragment_EXPERIMENTAL(
+    const { updatableData } = store.readUpdatableFragment(
         graphql`
             fragment UserComponent_user on User {
                 name

@@ -139,7 +139,12 @@ export {
     ReaderSelection,
     RequiredFieldAction,
 } from './lib/util/ReaderNode';
-export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
+export {
+    ConcreteRequest,
+    ConcreteUpdatableQuery,
+    GeneratedNode,
+    RequestParameters
+} from './lib/util/RelayConcreteNode';
 export { RelayReplaySubject as ReplaySubject } from './lib/util/RelayReplaySubject';
 export * from './lib/util/RelayRuntimeTypes';
 
