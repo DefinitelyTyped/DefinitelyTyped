@@ -100,7 +100,8 @@ export {
     StoreUpdater,
     LogEvent,
     LogFunction,
-    UpdatableData,
+    UpdatableQueryData,
+    UpdatableFragmentData
 } from './lib/store/RelayStoreTypes';
 export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscription';
 export {
