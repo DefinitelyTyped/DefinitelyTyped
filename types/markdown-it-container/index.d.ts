@@ -8,15 +8,16 @@ import MarkdownIt = require('markdown-it');
 import Renderer = require('markdown-it/lib/renderer');
 import Token = require('markdown-it/lib/token');
 
-declare namespace markdownItContainer {
-    interface ContainerOpts {
-        marker?: string | undefined;
-        validate?(params: string): boolean;
-        render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string;
-    }
-
-    function container_plugin(md: MarkdownIt, name: string, opts: ContainerOpts): void;
+export interface ContainerOpts {
+    marker?: string | undefined;
+    validate?(params: string): boolean;
+    render?: Renderer.RenderRule | undefined;
 }
 
-declare var MarkdownItContainer: typeof markdownItContainer.container_plugin;
+declare function MarkdownItContainer(
+    md: MarkdownIt,
+    name: string,
+    opts: ContainerOpts,
+): void;
+
 export = MarkdownItContainer;
