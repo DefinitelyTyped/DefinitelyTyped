@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 2.24
+// Type definitions for plotly.js 2.12
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -1300,6 +1300,15 @@ export interface PlotData {
         | 'percent'
         | 'none';
     textposition:
+        | 'top left'
+        | 'top center'
+        | 'top right'
+        | 'middle left'
+        | 'middle center'
+        | 'middle right'
+        | 'bottom left'
+        | 'bottom center'
+        | 'bottom right'
         | 'inside'
         | 'outside'
         | 'auto'
