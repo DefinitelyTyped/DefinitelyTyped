@@ -11,7 +11,7 @@ interface LinkContainerProps {
     activeClassName?: string;
     style?: CSSProperties;
     activeStyle?: CSSProperties;
-    isActive?: (match: any, location: any) => boolean | boolean;
+    isActive?: ((match: any, location: any) => boolean) | boolean;
 }
 
 type LinkContainer = ComponentClass<LinkContainerProps>;

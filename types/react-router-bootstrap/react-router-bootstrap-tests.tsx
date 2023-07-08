@@ -14,10 +14,16 @@ export class ReactRouterBootstrapTest extends Component {
             <div style={style}>
 
                 <div style={style}>
-                    <LinkContainer to="/page" onClick={(_ev: MouseEvent) => {}}>
+                    <LinkContainer to="/page" onClick={(_ev: MouseEvent) => {}} style={{color: 'red'}}>
                       <Button>Link</Button>
                     </LinkContainer>
                     <LinkContainer to="/page" className="myclass" activeClassName="active">
+                      <Button>Link</Button>
+                    </LinkContainer>
+                    <LinkContainer to="/page" isActive>
+                      <Button>Link</Button>
+                    </LinkContainer>
+                    <LinkContainer to="/page" isActive={(_match, _location) => true}>
                       <Button>Link</Button>
                     </LinkContainer>
                 </div>
