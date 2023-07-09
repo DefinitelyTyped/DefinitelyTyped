@@ -18,7 +18,7 @@ import {
 } from '../util/NormalizationNode';
 import { ReaderFragment, ReaderLinkedField } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
-import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
+import { CacheConfig, DataID, Disposable, FetchPolicy, OperationType, RenderPolicy, Variables, VariablesOf } from '../util/RelayRuntimeTypes';
 import { InvalidationState } from './RelayModernStore';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
@@ -410,10 +410,14 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     invalidateStore(): void;
-    readUpdatableFragment_EXPERIMENTAL<TKey extends HasUpdatableSpread>(
+    readUpdatableQuery<TQuery extends OperationType>(
+        gqlQuery: GraphQLTaggedNode,
+        variables: VariablesOf<TQuery>,
+    ): UpdatableQueryData<TQuery>;
+    readUpdatableFragment<TKey extends HasUpdatableSpread>(
         fragmentInput: GraphQLTaggedNode,
         fragmentRef: TKey,
-    ): UpdatableData<TKey>;
+    ): UpdatableFragmentData<TKey>;
 }
 
 export type LogEvent =
@@ -1039,17 +1043,23 @@ export interface RelayResolverError {
 export type RelayResolverErrors = RelayResolverError[];
 
 /**
- * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
- * readUpdatableFragment_EXPERIMENTAL.
+ * The return type of calls to store.readUpdatableFragment.
  */
-export interface UpdatableData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
+export interface UpdatableFragmentData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
     readonly updatableData: Required<TKey>[' $data'];
+}
+
+/**
+ * The return type of calls to store.readUpdatableQuery.
+ */
+export interface UpdatableQueryData<TQuery extends OperationType> {
+    readonly updatableData: TQuery['response'];
 }
 
 /**
  * A linked field where an updatable fragment is spread has the type
  * HasUpdatableSpread.
- * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
+ * This type is expected by store.readUpdatableFragment.
  */
 export type HasUpdatableSpread<TData = unknown> = Readonly<{
     ' $data'?: TData | undefined;
