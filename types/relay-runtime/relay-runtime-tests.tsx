@@ -192,6 +192,8 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
         dataRef,
     );
     updatableData.name = 'NewName';
+
+    // TODO: Add test for store.readUpdatableQuery
 }
 
 interface MessageEdge {

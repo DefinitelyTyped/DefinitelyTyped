@@ -1043,17 +1043,17 @@ export interface RelayResolverError {
 export type RelayResolverErrors = RelayResolverError[];
 
 /**
- * The return type of calls to readUpdatableFragment.
+ * The return type of calls to store.readUpdatableFragment.
  */
 export interface UpdatableFragmentData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
     readonly updatableData: Required<TKey>[' $data'];
 }
 
 /**
- * The return type of calls to readUpdatableQuery.
+ * The return type of calls to store.readUpdatableQuery.
  */
 export interface UpdatableQueryData<TQuery extends OperationType> {
-    readonly updatableData: Required<TQuery['response']>;
+    readonly updatableData: TQuery['response'];
 }
 
 /**
