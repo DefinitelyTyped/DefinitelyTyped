@@ -817,7 +817,31 @@ const grouped3: d3Array.InternMap<
     d => d.date,
     d => d.amount,
 );
-const grouped10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<RoleLiteral,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>>>>>>>>>> = d3Array.group(
+const grouped10: d3Array.InternMap<
+    string,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            RoleLiteral,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        string,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<
+                                string,
+                                d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>>
+                            >
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.group(
     objArray,
     d => d.name,
     d => d.date,
@@ -830,7 +854,142 @@ const grouped10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.Inter
     d => d.name,
     d => d.name,
 );
-const grouped45: d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,ObjDefinition[]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> = d3Array.group(
+const grouped45: d3Array.InternMap<
+    RoleLiteral,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            string,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        RoleLiteral,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<
+                                string,
+                                d3Array.InternMap<
+                                    number,
+                                    d3Array.InternMap<
+                                        number,
+                                        d3Array.InternMap<
+                                            RoleLiteral,
+                                            d3Array.InternMap<
+                                                string,
+                                                d3Array.InternMap<
+                                                    string,
+                                                    d3Array.InternMap<
+                                                        number,
+                                                        d3Array.InternMap<
+                                                            number,
+                                                            d3Array.InternMap<
+                                                                RoleLiteral,
+                                                                d3Array.InternMap<
+                                                                    string,
+                                                                    d3Array.InternMap<
+                                                                        string,
+                                                                        d3Array.InternMap<
+                                                                            number,
+                                                                            d3Array.InternMap<
+                                                                                number,
+                                                                                d3Array.InternMap<
+                                                                                    RoleLiteral,
+                                                                                    d3Array.InternMap<
+                                                                                        string,
+                                                                                        d3Array.InternMap<
+                                                                                            string,
+                                                                                            d3Array.InternMap<
+                                                                                                number,
+                                                                                                d3Array.InternMap<
+                                                                                                    number,
+                                                                                                    d3Array.InternMap<
+                                                                                                        RoleLiteral,
+                                                                                                        d3Array.InternMap<
+                                                                                                            string,
+                                                                                                            d3Array.InternMap<
+                                                                                                                string,
+                                                                                                                d3Array.InternMap<
+                                                                                                                    number,
+                                                                                                                    d3Array.InternMap<
+                                                                                                                        number,
+                                                                                                                        d3Array.InternMap<
+                                                                                                                            RoleLiteral,
+                                                                                                                            d3Array.InternMap<
+                                                                                                                                string,
+                                                                                                                                d3Array.InternMap<
+                                                                                                                                    string,
+                                                                                                                                    d3Array.InternMap<
+                                                                                                                                        number,
+                                                                                                                                        d3Array.InternMap<
+                                                                                                                                            number,
+                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                RoleLiteral,
+                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                    string,
+                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                        string,
+                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                            number,
+                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                number,
+                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                    RoleLiteral,
+                                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                                        string,
+                                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                                            string,
+                                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                                number,
+                                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                                    number,
+                                                                                                                                                                                    ObjDefinition[]
+                                                                                                                                                                                >
+                                                                                                                                                                            >
+                                                                                                                                                                        >
+                                                                                                                                                                    >
+                                                                                                                                                                >
+                                                                                                                                                            >
+                                                                                                                                                        >
+                                                                                                                                                    >
+                                                                                                                                                >
+                                                                                                                                            >
+                                                                                                                                        >
+                                                                                                                                    >
+                                                                                                                                >
+                                                                                                                            >
+                                                                                                                        >
+                                                                                                                    >
+                                                                                                                >
+                                                                                                            >
+                                                                                                        >
+                                                                                                    >
+                                                                                                >
+                                                                                            >
+                                                                                        >
+                                                                                    >
+                                                                                >
+                                                                            >
+                                                                        >
+                                                                    >
+                                                                >
+                                                            >
+                                                        >
+                                                    >
+                                                >
+                                            >
+                                        >
+                                    >
+                                >
+                            >
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.group(
     objArray,
     d => d.role,
     d => d.name,
@@ -896,7 +1055,31 @@ const indexed3: d3Array.InternMap<
     d => d.date,
     d => d.amount,
 );
-const indexed10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<RoleLiteral,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>>>>>>>>>> = d3Array.index(
+const indexed10: d3Array.InternMap<
+    string,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            RoleLiteral,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        string,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<
+                                string,
+                                d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>>
+                            >
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.index(
     objArray,
     d => d.name,
     d => d.date,
@@ -909,7 +1092,142 @@ const indexed10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.Inter
     d => d.name,
     d => d.name,
 );
-const indexed45: d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,ObjDefinition>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> = d3Array.index(
+const indexed45: d3Array.InternMap<
+    RoleLiteral,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            string,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        RoleLiteral,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<
+                                string,
+                                d3Array.InternMap<
+                                    number,
+                                    d3Array.InternMap<
+                                        number,
+                                        d3Array.InternMap<
+                                            RoleLiteral,
+                                            d3Array.InternMap<
+                                                string,
+                                                d3Array.InternMap<
+                                                    string,
+                                                    d3Array.InternMap<
+                                                        number,
+                                                        d3Array.InternMap<
+                                                            number,
+                                                            d3Array.InternMap<
+                                                                RoleLiteral,
+                                                                d3Array.InternMap<
+                                                                    string,
+                                                                    d3Array.InternMap<
+                                                                        string,
+                                                                        d3Array.InternMap<
+                                                                            number,
+                                                                            d3Array.InternMap<
+                                                                                number,
+                                                                                d3Array.InternMap<
+                                                                                    RoleLiteral,
+                                                                                    d3Array.InternMap<
+                                                                                        string,
+                                                                                        d3Array.InternMap<
+                                                                                            string,
+                                                                                            d3Array.InternMap<
+                                                                                                number,
+                                                                                                d3Array.InternMap<
+                                                                                                    number,
+                                                                                                    d3Array.InternMap<
+                                                                                                        RoleLiteral,
+                                                                                                        d3Array.InternMap<
+                                                                                                            string,
+                                                                                                            d3Array.InternMap<
+                                                                                                                string,
+                                                                                                                d3Array.InternMap<
+                                                                                                                    number,
+                                                                                                                    d3Array.InternMap<
+                                                                                                                        number,
+                                                                                                                        d3Array.InternMap<
+                                                                                                                            RoleLiteral,
+                                                                                                                            d3Array.InternMap<
+                                                                                                                                string,
+                                                                                                                                d3Array.InternMap<
+                                                                                                                                    string,
+                                                                                                                                    d3Array.InternMap<
+                                                                                                                                        number,
+                                                                                                                                        d3Array.InternMap<
+                                                                                                                                            number,
+                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                RoleLiteral,
+                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                    string,
+                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                        string,
+                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                            number,
+                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                number,
+                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                    RoleLiteral,
+                                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                                        string,
+                                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                                            string,
+                                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                                number,
+                                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                                    number,
+                                                                                                                                                                                    ObjDefinition
+                                                                                                                                                                                >
+                                                                                                                                                                            >
+                                                                                                                                                                        >
+                                                                                                                                                                    >
+                                                                                                                                                                >
+                                                                                                                                                            >
+                                                                                                                                                        >
+                                                                                                                                                    >
+                                                                                                                                                >
+                                                                                                                                            >
+                                                                                                                                        >
+                                                                                                                                    >
+                                                                                                                                >
+                                                                                                                            >
+                                                                                                                        >
+                                                                                                                    >
+                                                                                                                >
+                                                                                                            >
+                                                                                                        >
+                                                                                                    >
+                                                                                                >
+                                                                                            >
+                                                                                        >
+                                                                                    >
+                                                                                >
+                                                                            >
+                                                                        >
+                                                                    >
+                                                                >
+                                                            >
+                                                        >
+                                                    >
+                                                >
+                                            >
+                                        >
+                                    >
+                                >
+                            >
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.index(
     objArray,
     d => d.role,
     d => d.name,
@@ -986,7 +1304,28 @@ const rolledupAlternate: d3Array.InternMap<string, string> = d3Array.rollup(
     d => d.map(u => u.name).join(' '),
     d => d.name,
 );
-const rolledup10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<RoleLiteral,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, number>>>>>>>>>> = d3Array.rollup(
+const rolledup10: d3Array.InternMap<
+    string,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            RoleLiteral,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        string,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, number>>>
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.rollup(
     objArray,
     v => v.length,
     d => d.name,
@@ -1000,7 +1339,142 @@ const rolledup10: d3Array.InternMap<string,d3Array.InternMap<string,d3Array.Inte
     d => d.name,
     d => d.name,
 );
-const rolledup45: d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,d3Array.InternMap<RoleLiteral,d3Array.InternMap<string,d3Array.InternMap<string,d3Array.InternMap<number,d3Array.InternMap<number,number>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> = d3Array.rollup(
+const rolledup45: d3Array.InternMap<
+    RoleLiteral,
+    d3Array.InternMap<
+        string,
+        d3Array.InternMap<
+            string,
+            d3Array.InternMap<
+                number,
+                d3Array.InternMap<
+                    number,
+                    d3Array.InternMap<
+                        RoleLiteral,
+                        d3Array.InternMap<
+                            string,
+                            d3Array.InternMap<
+                                string,
+                                d3Array.InternMap<
+                                    number,
+                                    d3Array.InternMap<
+                                        number,
+                                        d3Array.InternMap<
+                                            RoleLiteral,
+                                            d3Array.InternMap<
+                                                string,
+                                                d3Array.InternMap<
+                                                    string,
+                                                    d3Array.InternMap<
+                                                        number,
+                                                        d3Array.InternMap<
+                                                            number,
+                                                            d3Array.InternMap<
+                                                                RoleLiteral,
+                                                                d3Array.InternMap<
+                                                                    string,
+                                                                    d3Array.InternMap<
+                                                                        string,
+                                                                        d3Array.InternMap<
+                                                                            number,
+                                                                            d3Array.InternMap<
+                                                                                number,
+                                                                                d3Array.InternMap<
+                                                                                    RoleLiteral,
+                                                                                    d3Array.InternMap<
+                                                                                        string,
+                                                                                        d3Array.InternMap<
+                                                                                            string,
+                                                                                            d3Array.InternMap<
+                                                                                                number,
+                                                                                                d3Array.InternMap<
+                                                                                                    number,
+                                                                                                    d3Array.InternMap<
+                                                                                                        RoleLiteral,
+                                                                                                        d3Array.InternMap<
+                                                                                                            string,
+                                                                                                            d3Array.InternMap<
+                                                                                                                string,
+                                                                                                                d3Array.InternMap<
+                                                                                                                    number,
+                                                                                                                    d3Array.InternMap<
+                                                                                                                        number,
+                                                                                                                        d3Array.InternMap<
+                                                                                                                            RoleLiteral,
+                                                                                                                            d3Array.InternMap<
+                                                                                                                                string,
+                                                                                                                                d3Array.InternMap<
+                                                                                                                                    string,
+                                                                                                                                    d3Array.InternMap<
+                                                                                                                                        number,
+                                                                                                                                        d3Array.InternMap<
+                                                                                                                                            number,
+                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                RoleLiteral,
+                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                    string,
+                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                        string,
+                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                            number,
+                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                number,
+                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                    RoleLiteral,
+                                                                                                                                                                    d3Array.InternMap<
+                                                                                                                                                                        string,
+                                                                                                                                                                        d3Array.InternMap<
+                                                                                                                                                                            string,
+                                                                                                                                                                            d3Array.InternMap<
+                                                                                                                                                                                number,
+                                                                                                                                                                                d3Array.InternMap<
+                                                                                                                                                                                    number,
+                                                                                                                                                                                    number
+                                                                                                                                                                                >
+                                                                                                                                                                            >
+                                                                                                                                                                        >
+                                                                                                                                                                    >
+                                                                                                                                                                >
+                                                                                                                                                            >
+                                                                                                                                                        >
+                                                                                                                                                    >
+                                                                                                                                                >
+                                                                                                                                            >
+                                                                                                                                        >
+                                                                                                                                    >
+                                                                                                                                >
+                                                                                                                            >
+                                                                                                                        >
+                                                                                                                    >
+                                                                                                                >
+                                                                                                            >
+                                                                                                        >
+                                                                                                    >
+                                                                                                >
+                                                                                            >
+                                                                                        >
+                                                                                    >
+                                                                                >
+                                                                            >
+                                                                        >
+                                                                    >
+                                                                >
+                                                            >
+                                                        >
+                                                    >
+                                                >
+                                            >
+                                        >
+                                    >
+                                >
+                            >
+                        >
+                    >
+                >
+            >
+        >
+    >
+> = d3Array.rollup(
     objArray,
     v => v.length,
     d => d.role,
@@ -1064,7 +1538,44 @@ const groups3: Array<[string, Array<[string, Array<[string, ObjDefinition[]]>]>]
     d => d.date,
     d => d.amount,
 );
-const groups10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string, Array<[number, Array<[number, ObjDefinition[]]>]>]>]>]>]>]>]>]>]> = d3Array.groups(
+const groups10: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [
+                                                        string,
+                                                        Array<
+                                                            [string, Array<[number, Array<[number, ObjDefinition[]]>]>]
+                                                        >,
+                                                    ]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.groups(
     objArray,
     d => d.role,
     d => d.date,
@@ -1077,7 +1588,107 @@ const groups10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Arr
     (d, index, values) => values.length,
     (d, index, values) => index % 2,
 );
-const groups20: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,ObjDefinition[]]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]> = d3Array.groups(
+const groups20: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [
+                                                        string,
+                                                        Array<
+                                                            [
+                                                                string,
+                                                                Array<
+                                                                    [
+                                                                        number,
+                                                                        Array<
+                                                                            [
+                                                                                number,
+                                                                                Array<
+                                                                                    [
+                                                                                        RoleLiteral,
+                                                                                        Array<
+                                                                                            [
+                                                                                                string,
+                                                                                                Array<
+                                                                                                    [
+                                                                                                        string,
+                                                                                                        Array<
+                                                                                                            [
+                                                                                                                number,
+                                                                                                                Array<
+                                                                                                                    [
+                                                                                                                        number,
+                                                                                                                        Array<
+                                                                                                                            [
+                                                                                                                                RoleLiteral,
+                                                                                                                                Array<
+                                                                                                                                    [
+                                                                                                                                        string,
+                                                                                                                                        Array<
+                                                                                                                                            [
+                                                                                                                                                string,
+                                                                                                                                                Array<
+                                                                                                                                                    [
+                                                                                                                                                        number,
+                                                                                                                                                        Array<
+                                                                                                                                                            [
+                                                                                                                                                                number,
+                                                                                                                                                                ObjDefinition[],
+                                                                                                                                                            ]
+                                                                                                                                                        >,
+                                                                                                                                                    ]
+                                                                                                                                                >,
+                                                                                                                                            ]
+                                                                                                                                        >,
+                                                                                                                                    ]
+                                                                                                                                >,
+                                                                                                                            ]
+                                                                                                                        >,
+                                                                                                                    ]
+                                                                                                                >,
+                                                                                                            ]
+                                                                                                        >,
+                                                                                                    ]
+                                                                                                >,
+                                                                                            ]
+                                                                                        >,
+                                                                                    ]
+                                                                                >,
+                                                                            ]
+                                                                        >,
+                                                                    ]
+                                                                >,
+                                                            ]
+                                                        >,
+                                                    ]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.groups(
     objArray,
     d => d.role,
     d => d.name,
@@ -1115,7 +1726,44 @@ const indexes3: Array<[string, Array<[string, Array<[string, ObjDefinition]>]>]>
     d => d.date,
     d => d.amount,
 );
-const indexes10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string, Array<[number, Array<[number, ObjDefinition]>]>]>]>]>]>]>]>]>]> = d3Array.indexes(
+const indexes10: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [
+                                                        string,
+                                                        Array<
+                                                            [string, Array<[number, Array<[number, ObjDefinition]>]>]
+                                                        >,
+                                                    ]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.indexes(
     objArray,
     d => d.role,
     d => d.date,
@@ -1128,7 +1776,107 @@ const indexes10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Ar
     (d, index, values) => values.length,
     (d, index, values) => index % 2,
 );
-const indexes20: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,ObjDefinition,]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]> = d3Array.indexes(
+const indexes20: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [
+                                                        string,
+                                                        Array<
+                                                            [
+                                                                string,
+                                                                Array<
+                                                                    [
+                                                                        number,
+                                                                        Array<
+                                                                            [
+                                                                                number,
+                                                                                Array<
+                                                                                    [
+                                                                                        RoleLiteral,
+                                                                                        Array<
+                                                                                            [
+                                                                                                string,
+                                                                                                Array<
+                                                                                                    [
+                                                                                                        string,
+                                                                                                        Array<
+                                                                                                            [
+                                                                                                                number,
+                                                                                                                Array<
+                                                                                                                    [
+                                                                                                                        number,
+                                                                                                                        Array<
+                                                                                                                            [
+                                                                                                                                RoleLiteral,
+                                                                                                                                Array<
+                                                                                                                                    [
+                                                                                                                                        string,
+                                                                                                                                        Array<
+                                                                                                                                            [
+                                                                                                                                                string,
+                                                                                                                                                Array<
+                                                                                                                                                    [
+                                                                                                                                                        number,
+                                                                                                                                                        Array<
+                                                                                                                                                            [
+                                                                                                                                                                number,
+                                                                                                                                                                ObjDefinition,
+                                                                                                                                                            ]
+                                                                                                                                                        >,
+                                                                                                                                                    ]
+                                                                                                                                                >,
+                                                                                                                                            ]
+                                                                                                                                        >,
+                                                                                                                                    ]
+                                                                                                                                >,
+                                                                                                                            ]
+                                                                                                                        >,
+                                                                                                                    ]
+                                                                                                                >,
+                                                                                                            ]
+                                                                                                        >,
+                                                                                                    ]
+                                                                                                >,
+                                                                                            ]
+                                                                                        >,
+                                                                                    ]
+                                                                                >,
+                                                                            ]
+                                                                        >,
+                                                                    ]
+                                                                >,
+                                                            ]
+                                                        >,
+                                                    ]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.indexes(
     objArray,
     d => d.role,
     d => d.name,
@@ -1177,7 +1925,39 @@ const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(
     d => d.map(u => u.name).join(' '),
     d => d.name,
 );
-const rolledups10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string, Array<[string, Array<[number, Array<[number, number]>]>]>]>]>]>]>]>]>]> = d3Array.rollups(
+const rolledups10: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [string, Array<[string, Array<[number, Array<[number, number]>]>]>]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.rollups(
     objArray,
     v => v.length,
     d => d.role,
@@ -1191,7 +1971,107 @@ const rolledups10: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,
     (d, index, values) => values.length,
     (d, index, values) => index % 2,
 );
-const rolledups20: Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,Array<[RoleLiteral,Array<[string,Array<[string,Array<[number,Array<[number,number,]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]>]> = d3Array.rollups(
+const rolledups20: Array<
+    [
+        RoleLiteral,
+        Array<
+            [
+                string,
+                Array<
+                    [
+                        string,
+                        Array<
+                            [
+                                number,
+                                Array<
+                                    [
+                                        number,
+                                        Array<
+                                            [
+                                                RoleLiteral,
+                                                Array<
+                                                    [
+                                                        string,
+                                                        Array<
+                                                            [
+                                                                string,
+                                                                Array<
+                                                                    [
+                                                                        number,
+                                                                        Array<
+                                                                            [
+                                                                                number,
+                                                                                Array<
+                                                                                    [
+                                                                                        RoleLiteral,
+                                                                                        Array<
+                                                                                            [
+                                                                                                string,
+                                                                                                Array<
+                                                                                                    [
+                                                                                                        string,
+                                                                                                        Array<
+                                                                                                            [
+                                                                                                                number,
+                                                                                                                Array<
+                                                                                                                    [
+                                                                                                                        number,
+                                                                                                                        Array<
+                                                                                                                            [
+                                                                                                                                RoleLiteral,
+                                                                                                                                Array<
+                                                                                                                                    [
+                                                                                                                                        string,
+                                                                                                                                        Array<
+                                                                                                                                            [
+                                                                                                                                                string,
+                                                                                                                                                Array<
+                                                                                                                                                    [
+                                                                                                                                                        number,
+                                                                                                                                                        Array<
+                                                                                                                                                            [
+                                                                                                                                                                number,
+                                                                                                                                                                number,
+                                                                                                                                                            ]
+                                                                                                                                                        >,
+                                                                                                                                                    ]
+                                                                                                                                                >,
+                                                                                                                                            ]
+                                                                                                                                        >,
+                                                                                                                                    ]
+                                                                                                                                >,
+                                                                                                                            ]
+                                                                                                                        >,
+                                                                                                                    ]
+                                                                                                                >,
+                                                                                                            ]
+                                                                                                        >,
+                                                                                                    ]
+                                                                                                >,
+                                                                                            ]
+                                                                                        >,
+                                                                                    ]
+                                                                                >,
+                                                                            ]
+                                                                        >,
+                                                                    ]
+                                                                >,
+                                                            ]
+                                                        >,
+                                                    ]
+                                                >,
+                                            ]
+                                        >,
+                                    ]
+                                >,
+                            ]
+                        >,
+                    ]
+                >,
+            ]
+        >,
+    ]
+> = d3Array.rollups(
     objArray,
     v => v.length,
     d => d.role,
@@ -1245,7 +2125,56 @@ const flatGroup10: Array<
     (d, index, values) => values.length,
     (d, index, values) => index % 2,
 );
-const flatGroup45: Array<[RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,ObjDefinition[]]> = d3Array.flatGroup(
+const flatGroup45: Array<
+    [
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        ObjDefinition[],
+    ]
+> = d3Array.flatGroup(
     objArray,
     d => d.role,
     d => d.name,
@@ -1319,7 +2248,9 @@ const flatRolledupAlternate: Array<[string, string]> = d3Array.flatRollup(
     d => d.map(u => u.name).join(' '),
     d => d.name,
 );
-const flatRolledup10: Array<[RoleLiteral, string, string, number, number, RoleLiteral, string, string, number, number, number]> = d3Array.flatRollup(
+const flatRolledup10: Array<
+    [RoleLiteral, string, string, number, number, RoleLiteral, string, string, number, number, number]
+> = d3Array.flatRollup(
     objArray,
     v => v.length,
     d => d.role,
@@ -1333,7 +2264,56 @@ const flatRolledup10: Array<[RoleLiteral, string, string, number, number, RoleLi
     (d, index, values) => values.length,
     (d, index, values) => index % 2,
 );
-const flatRolledup45: Array<[RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,RoleLiteral,string,string,number,number,number]> = d3Array.flatRollup(
+const flatRolledup45: Array<
+    [
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        RoleLiteral,
+        string,
+        string,
+        number,
+        number,
+        number,
+    ]
+> = d3Array.flatRollup(
     objArray,
     v => v.length,
     d => d.role,
