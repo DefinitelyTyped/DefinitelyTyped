@@ -1314,6 +1314,9 @@ export interface PlotData {
         | 'auto'
         | 'none';
     textfont: Partial<Font>;
+    textangle: 'auto' | number;
+    insidetextanchor: 'end' | 'middle' | 'start';
+    constraintext: 'inside' | 'outside' | 'both' | 'none';
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
     fillpattern: Partial<Pattern>;
