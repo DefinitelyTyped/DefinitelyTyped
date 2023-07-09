@@ -27,6 +27,52 @@ export interface Numeric {
     valueOf(): number;
 }
 
+/**
+ * Represents a nested/recursive InternMap type
+ *
+ * The first generic "TObject" refers to the type of the data object that is available in the accessor functions.
+ * The second generic "TReduce" refers to the type of the data available at the deepest level (the result data).
+ * The third geneirc "TKeys" refers to the type of all accessor functions from which the key at each level is inferred.
+ */
+export type NestedInternMap<
+    TObject,
+    TReduce,
+    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
+> = TKeys extends [infer TFirst, ...infer TRest]
+    ? InternMap<
+          TFirst extends (value: TObject, index: number, values: TObject[]) => infer K ? K : never,
+          NestedInternMap<
+              TObject,
+              TReduce,
+              TRest extends Array<(value: TObject, index: number, values: TObject[]) => unknown> ? TRest : never
+          >
+      >
+    : TReduce;
+
+/**
+ * Represents a nested/recursive Array type
+ * 
+ * The first generic "TObject" refers to the type of the data object that is available in the accessor functions.
+ * The second generic "TReduce" refers to the type of the data available at the deepest level (the result data).
+ * The third geneirc "TKeys" refers to the type of all accessor functions from which the key at each level is inferred.
+ */
+export type NestedArray<
+    TObject,
+    TReduce,
+    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
+> = TKeys extends [infer TFirst, ...infer TRest]
+    ? Array<
+          [
+              TFirst extends (value: TObject, index: number, values: TObject[]) => infer K ? K : never,
+              NestedArray<
+                  TObject,
+                  TReduce,
+                  TRest extends Array<(value: TObject, index: number, values: TObject[]) => unknown> ? TRest : never
+              >,
+          ]
+      >
+    : TReduce;
+
 // --------------------------------------------------------------------------------------
 // Statistics
 // --------------------------------------------------------------------------------------
@@ -445,312 +491,128 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 // --------------------------------------------------------------------------------------
 
 /**
- * Groups the specified array of values into an InternMap from key to array of value.
+ * Groups the specified iterable of values into an InternMap from key to array of value.
  *
- * @param iterable The array to group.
- * @param key The key function.
+ * @param iterable The iterable to group.
+ * @param keys The key functions.
  */
-export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject[]>;
-/**
- * Groups the specified array of values into an InternMap from key to array of value.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function group<TObject, TKey1, TKey2>(
+export function group<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
     iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): InternMap<TKey1, InternMap<TKey2, TObject[]>>;
-/**
- * Groups the specified array of values into an InternMap from key to array of value.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function group<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject[]>>>;
+    ...keys: TKeys
+): NestedInternMap<TObject, TObject[], TKeys>;
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
  *
- * @param iterable The array to group.
- * @param key The key function.
+ * @param iterable The iterable to group.
+ * @param keys The key functions.
  */
-export function groups<TObject, TKey>(
+export function groups<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
     iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
-): Array<[TKey, TObject[]]>;
-/**
- * Equivalent to group, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function groups<TObject, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
-/**
- * Equivalent to group, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function groups<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
+    ...keys: TKeys
+): NestedArray<TObject, TObject[], TKeys>;
 
 /**
  * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
  *
- * @param iterable The array to group.
- * @param key The key function.
+ * @param iterable The iterable to group.
+ * @param keys The key functions.
  */
-export function flatGroup<TObject, TKey>(
+export function flatGroup<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
     iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
-): Array<[TKey, TObject[]]>;
-/**
- * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function flatGroup<TObject, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, TKey2, TObject[]]>;
-/**
- * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function flatGroup<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, TKey2, TKey3, TObject[]]>;
+    ...keys: TKeys
+): Array<
+    [
+        ...{
+            [F in keyof TKeys]: TKeys[F] extends (value: TObject, index: number, values: TObject[]) => infer R
+                ? R
+                : never;
+        },
+        TObject[],
+    ]
+>;
 
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
- * @param iterable The array to group.
- * @param key The key function.
+ * @param iterable The iterable to group.
+ * @param key The key functions.
  */
-export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject>;
-/**
- * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function index<TObject, TKey1, TKey2>(
+export function index<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
     iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): InternMap<TKey1, InternMap<TKey2, TObject>>;
-/**
- * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function index<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject>>>;
+    ...keys: TKeys
+): NestedInternMap<TObject, TObject, TKeys>;
 
 /**
  * Equivalent to index, but returns nested arrays instead of nested maps.
  *
- * @param iterable The array to group.
- * @param key The key function.
+ * @param iterable The iterable to group.
+ * @param keys The key functions.
  */
-export function indexes<TObject, TKey>(
+export function indexes<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
     iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
-): Array<[TKey, TObject]>;
-/**
- * Equivalent to index, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function indexes<TObject, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, Array<[TKey2, TObject]>]>;
-/**
- * Equivalent to index, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function indexes<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
+    ...keys: TKeys
+): NestedArray<TObject, TObject, TKeys>;
 
 /**
  * Groups and reduces the specified array of values into an InternMap from key to value.
  *
- * @param iterable The array to group.
+ * @param iterable The iterable to group.
  * @param reduce The reduce function.
- * @param key The key function.
+ * @param keys The key functions.
  */
-export function rollup<TObject, TReduce, TKey>(
+export function rollup<
+    TObject,
+    TReduce,
+    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
+>(
     iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
-): InternMap<TKey, TReduce>;
-/**
- * Groups and reduces the specified array of values into an InternMap from key to value.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function rollup<TObject, TReduce, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): InternMap<TKey1, InternMap<TKey2, TReduce>>;
-/**
- * Groups and reduces the specified array of values into an InternMap from key to value.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TReduce>>>;
+    reduce: (values: TObject[]) => TReduce,
+    ...keys: TKeys
+): NestedInternMap<TObject, TReduce, TKeys>;
 
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
  *
- * @param iterable The array to group.
+ * @param iterable The iterable to group.
  * @param reduce The reduce function.
- * @param key The key function.
+ * @param keys The key functions.
  */
-export function rollups<TObject, TReduce, TKey>(
+export function rollups<
+    TObject,
+    TReduce,
+    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
+>(
     iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
-): Array<[TKey, TReduce]>;
-/**
- * Equivalent to rollup, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function rollups<TObject, TReduce, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, Array<[TKey2, TReduce]>]>;
-/**
- * Equivalent to rollup, but returns nested arrays instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
+    reduce: (values: TObject[]) => TReduce,
+    ...keys: TKeys
+): NestedArray<TObject, TReduce, TKeys>;
 
 /**
  * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
  *
- * @param iterable The array to group.
+ * @param iterable The iterable to group.
  * @param reduce The reduce function.
- * @param key The key function.
+ * @param keys The key functions.
  */
-export function flatRollup<TObject, TReduce, TKey>(
+export function flatRollup<
+    TObject,
+    TReduce,
+    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
+>(
     iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
-): Array<[TKey, TReduce]>;
-/**
- * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function flatRollup<TObject, TReduce, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, TKey2, TReduce]>;
-/**
- * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function flatRollup<TObject, TReduce, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, TKey2, TKey3, TReduce]>;
+    reduce: (values: TObject[]) => TReduce,
+    ...keys: TKeys
+): Array<
+    [
+        ...{
+            [F in keyof TKeys]: TKeys[F] extends (value: TObject, index: number, values: TObject[]) => infer R
+                ? R
+                : never;
+        },
+        TReduce,
+    ]
+>;
 
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.
