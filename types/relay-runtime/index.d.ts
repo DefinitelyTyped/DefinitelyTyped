@@ -101,7 +101,7 @@ export {
     LogEvent,
     LogFunction,
     UpdatableQueryData,
-    UpdatableFragmentData
+    UpdatableFragmentData,
 } from './lib/store/RelayStoreTypes';
 export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscription';
 export {
@@ -143,7 +143,7 @@ export {
     ConcreteRequest,
     ConcreteUpdatableQuery,
     GeneratedNode,
-    RequestParameters
+    RequestParameters,
 } from './lib/util/RelayConcreteNode';
 export { RelayReplaySubject as ReplaySubject } from './lib/util/RelayReplaySubject';
 export * from './lib/util/RelayRuntimeTypes';
