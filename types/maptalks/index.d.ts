@@ -1,6 +1,7 @@
 // Type definitions for maptalks 0.49
 // Project: https://github.com/maptalks/maptalks.js
 // Definitions by: Yu Yan <https://github.com/yanyu510>
+//                 aheadweb <https://github.com/aheadweb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const INTERNAL_LAYER_PREFIX: string;
@@ -205,10 +206,10 @@ export interface DrawToolOptions {
 }
 
 export interface DrawToolModeActionOptions {
-    action: object;
-    create: object;
-    update: object;
-    generate: object;
+    action: string[];
+    create: (projection: object, clickCoords: object, event: object) => object;
+    update: (projection: object, path: object, geometry: object, event: object) => void;
+    generate: (geometry: object, extraData: {drawTool: DrawTool}) => object;
 }
 
 export interface DistanceToolOptions extends DrawToolOptions {
