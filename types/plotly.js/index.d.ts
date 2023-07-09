@@ -1322,6 +1322,11 @@ export interface PlotData {
     fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
     parents: string[];
     name: string;
     stackgroup: string;

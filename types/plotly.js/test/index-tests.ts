@@ -261,11 +261,13 @@ const graphDiv = '#test';
     const template: Template = {
         data: {
             bar: [{ marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' }],
-            scatter: [{
-                mode: 'lines+markers',
-                line: { color: 'red', width: 3 },
-                marker: { color: 'red', size: 8, symbol: 'circle-open' },
-            }],
+            scatter: [
+                {
+                    mode: 'lines+markers',
+                    line: { color: 'red', width: 3 },
+                    marker: { color: 'red', size: 8, symbol: 'circle-open' },
+                },
+            ],
         },
         layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
@@ -348,7 +350,7 @@ const graphDiv = '#test';
                     transform: 'matrix(1 0 0 -1 0 850)',
                 },
                 click: (gd, ev) => console.log('Download data'),
-            }
+            },
         ],
         setBackground: 'transparent',
         watermark: false,
@@ -992,9 +994,9 @@ function rand() {
     const z: number[][] = [];
     for (let ydx = 0; ydx < Steps; ydx++) {
         const _z = new Array<number>(Steps);
-        const y = -Span + ydx * 2 * Span / Steps;
+        const y = -Span + (ydx * 2 * Span) / Steps;
         for (let xdx = 0; xdx < Steps; xdx++) {
-            const x = -Span + xdx * 2 * Span / Steps;
+            const x = -Span + (xdx * 2 * Span) / Steps;
             _z[xdx] = Math.sqrt(x * x + y * y);
         }
         z.push(_z);
@@ -1008,7 +1010,7 @@ function rand() {
                 coloring: 'lines',
                 labelfont: {
                     color: 'black',
-                    family: 'monospace'
+                    family: 'monospace',
                 },
                 showlabels: true,
             },
@@ -1027,27 +1029,29 @@ function rand() {
     const button1: Partial<Plotly.UpdateMenuButton> = {
         args: ['visible', [true, false]],
         label: 'Trace 1',
-        method: 'restyle'
+        method: 'restyle',
     };
 
     const button2: Partial<Plotly.UpdateMenuButton> = {
         args: ['visible', [true, false]],
         label: 'Trace 1',
-        method: 'restyle'
+        method: 'restyle',
     };
 
     const layout: Partial<Plotly.Layout> = {
-        updatemenus: [{
-            buttons: [button1, button2],
-            direction: 'down',
-            pad: { r: 10, t: 10 },
-            showactive: true,
-            type: 'dropdown',
-            x: 0.1,
-            xanchor: 'left',
-            y: 1.1,
-            yanchor: 'top'
-        }],
+        updatemenus: [
+            {
+                buttons: [button1, button2],
+                direction: 'down',
+                pad: { r: 10, t: 10 },
+                showactive: true,
+                type: 'dropdown',
+                x: 0.1,
+                xanchor: 'left',
+                y: 1.1,
+                yanchor: 'top',
+            },
+        ],
     };
 
     const data: Array<Partial<PlotData>> = [
@@ -1063,33 +1067,33 @@ function rand() {
 
 //////////////////////////////////////////////////////////////////////
 // PlotlyIcons
-(() => {
+() => {
     const icon = Plotly.Icons.home;
     const icon2 = Plotly.Icons.undo;
-});
+};
 
 //////////////////////////////////////////////////////////////////////
 // Mapbox plot
 (() => {
     const data: Array<Partial<PlotData>> = [
         {
-            type: "scattermapbox",
+            type: 'scattermapbox',
             text: ['A', 'B', 'C'],
             lon: [0, 1, 2],
             lat: [0, 1, 2],
-            marker: { color: "fuchsia", size: 4 }
-        }
+            marker: { color: 'fuchsia', size: 4 },
+        },
     ];
 
     const layout: Partial<Layout> = {
-        dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
-        margin: { r: 0, t: 0, b: 0, l: 0 }
+        dragmode: 'zoom',
+        mapbox: { style: 'open-street-map', center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 
     const config: Partial<Config> = {
-        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox'],
     };
 
-    Plotly.newPlot("myDiv", data, layout);
+    Plotly.newPlot('myDiv', data, layout);
 })();
