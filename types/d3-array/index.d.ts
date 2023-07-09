@@ -51,7 +51,7 @@ export type NestedInternMap<
 
 /**
  * Represents a nested/recursive Array type
- * 
+ *
  * The first generic "TObject" refers to the type of the data object that is available in the accessor functions.
  * The second generic "TReduce" refers to the type of the data available at the deepest level (the result data).
  * The third geneirc "TKeys" refers to the type of all accessor functions from which the key at each level is inferred.
