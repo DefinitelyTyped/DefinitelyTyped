@@ -1,4 +1,4 @@
-import Serializer = require('@rdfjs/serializer-rdfjs');
+import Serializer from '@rdfjs/serializer-rdfjs';
 import { Quad, Stream, DatasetCore } from 'rdf-js';
 import { EventEmitter } from 'events';
 
@@ -11,11 +11,8 @@ const serializer2 = new Serializer({});
 const serializerTypescript = new Serializer({
     module: 'ts'
 });
-const serializerEsm = new Serializer({
-    module: 'esm'
-});
-const serializerAny = new Serializer({
-    module: 'custom'
+const serializerCjs = new Serializer({
+    module: 'commonjs'
 });
 
 const code: string = serializer.transform(quads);
