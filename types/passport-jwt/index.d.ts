@@ -24,7 +24,7 @@ export interface StrategyOptions {
     secretOrKeyProvider?: SecretOrKeyProvider | undefined;
     jwtFromRequest: JwtFromRequestFunction;
     issuer?: string | string[] | undefined;
-    audience?: string | undefined;
+    audience?: string | string[] | undefined;
     algorithms?: string[] | undefined;
     ignoreExpiration?: boolean | undefined;
     passReqToCallback?: boolean | undefined;
