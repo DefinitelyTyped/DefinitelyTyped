@@ -9352,6 +9352,11 @@ declare namespace chrome {
             height: integer;
         }
 
+        enum ActiveState {
+            ACTIVE = 'active',
+            INACTIVE = 'inactive',
+        }
+
         interface Insets {
             /** The x-axis distance from the left bound. */
             left: integer;
@@ -9597,6 +9602,8 @@ declare namespace chrome {
             isInternal: boolean;
             /** True if this display is enabled. */
             isEnabled: boolean;
+            /** True if the display is attached. */
+            activeState: ActiveState
             /** The number of pixels per inch along the x-axis. */
             dpiX: integer;
             /** The number of pixels per inch along the y-axis. */
