@@ -106,7 +106,7 @@ export default abstract class NodeBuilder {
     getVectorFromMatrix(type: NodeTypeOption): NodeTypeOption;
     getDataFromNode(node: Node, shaderStage?: NodeShaderStageOption): NodeData;
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
-    getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
+    getUniformFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeUniform;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
     getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;

@@ -6969,6 +6969,14 @@ declare namespace chrome.runtime {
     /** Result of the update check. */
     export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
 
+    /** Result of the update check. */
+    export interface RequestUpdateCheckResult {
+      /** The status of the update check. */
+      status: RequestUpdateCheckStatus;
+      /** The version of the available update. */
+      version: string;
+    }
+
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
@@ -7016,6 +7024,7 @@ declare namespace chrome.runtime {
         | 'declarativeContent'
         | 'declarativeNetRequest'
         | 'declarativeNetRequestFeedback'
+        | 'declarativeNetRequestWithHostAccess'
         | 'declarativeWebRequest'
         | 'desktopCapture'
         | 'documentScan'
@@ -7054,6 +7063,7 @@ declare namespace chrome.runtime {
         | 'scripting'
         | 'search'
         | 'sessions'
+        | 'sidePanel'
         | 'signedInDevices'
         | 'storage'
         | 'system.cpu'
@@ -7353,6 +7363,12 @@ declare namespace chrome.runtime {
      * @since Chrome 25.
      */
     export function reload(): void;
+    /**
+     * Requests an update check for this app/extension.
+     * @since Chrome 109
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     */
+    export function requestUpdateCheck(): Promise<RequestUpdateCheckResult>;
     /**
      * Requests an update check for this app/extension.
      * @since Chrome 25.
@@ -12330,4 +12346,40 @@ declare namespace chrome.declarativeNetRequest {
     /** Fired when a rule is matched with a request.
      * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
     export var onRuleMatchedDebug: RuleMatchedDebugEvent;
+}
+
+////////////////////
+// SidePanel
+////////////////////
+/**
+ * Availability: @since Chrome 114. Manifest v3.
+ * https://developer.chrome.com/docs/extensions/reference/sidePanel/
+ * Permissions: "sidePanel"
+ */
+declare namespace chrome.sidePanel {
+    export interface GetPanelOptions {
+        tabId?: number;
+    }
+
+    export interface PanelBehavior {
+        openPanelOnActionClick?: boolean;
+    }
+
+    export interface PanelOptions {
+        enabled?: boolean;
+        path?: string;
+        tabId?: number;
+    }
+
+    export interface SidePanel {
+        default_path: string;
+    }
+
+    export function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
+
+    export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
+
+    export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
+
+    export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
 }

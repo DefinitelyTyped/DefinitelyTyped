@@ -99,3 +99,20 @@ const totalVisits = clevertap.user.getTotalVisits();
 const lastVisit = clevertap.user.getLastVisit();
 const timeElapsed = clevertap.session.getTimeElapsed();
 const pageCount = clevertap.session.getPageCount();
+// WebInbox
+// Get Inbox Message Count
+clevertap.getInboxMessageCount();
+// Get Inbox Unread Message Count
+clevertap.getInboxMessageUnreadCount();
+// Get All Inbox messages
+clevertap.getAllInboxMessages();
+// Get only Unread messages
+clevertap.getUnreadInboxMessages();
+// Get message object belonging to the given message id only. Message id should be a String
+clevertap.getInboxMessageForId("1687446482_1687781900740");
+// Delete message from the Inbox. Message id should be a String
+clevertap.deleteInboxMessage("1687446482_1687781900740");
+// Mark Message as Read. Message id should be a String
+clevertap.markReadInboxMessage("1687446482_1687781900740");
+// Mark all messages as read
+clevertap.markReadAllInboxMessage();

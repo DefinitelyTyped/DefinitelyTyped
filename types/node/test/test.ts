@@ -1,4 +1,5 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { dot, spec, tap } from 'node:test/reporters';
 
 // run without options
 // $ExpectType TestsStream
@@ -27,6 +28,16 @@ run().pipe(process.stdout);
 test('foo', t => {
     // $ExpectType TestContext
     t;
+});
+
+test('foo', (t) => {
+    // $ExpectType Promise<void>
+    t.test();
+});
+
+test('foo', async (t) => {
+    // $ExpectType void
+    await t.test();
 });
 
 test('blank options', {});
@@ -121,6 +132,26 @@ test.only('only', () => {});
 describe('foo', () => {
     it('it', () => {});
 });
+
+describe('foo', () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+});
+
+describe('foo', async () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+    // $ExpectType void
+    await d;
+});
+
+{
+    const ret = describe();
+    // $ExpectType Promise<void>
+    ret;
+}
 
 describe('blank options', {});
 it('blank options', {});
@@ -252,11 +283,11 @@ it.only('only shorthand', {
 });
 
 // Test callback mode
-describe(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
+describe(s => {
+    // $ExpectType SuiteContext
+    s;
+    // $ExpectType string
+    s.name;
 });
 
 // Test callback mode
@@ -600,4 +631,26 @@ test('mocks a setter', (t) => {
         // $ExpectType unknown
         call.this;
     }
+});
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot('' as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap('' as any);
+// $ExpectType Spec
+new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
 });

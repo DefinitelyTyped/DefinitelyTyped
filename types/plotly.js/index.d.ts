@@ -19,6 +19,7 @@
 //                 Oleg Shilov <https://github.com/olegshilov>
 //                 Pablo Gracia <https://github.com/PabloGracia>
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
+//                 John Abdou <https://github.com/jpabdou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
@@ -26,9 +27,10 @@ import { ViolinData } from './lib/traces/violin';
 import { OhlcData } from './lib/traces/ohlc';
 import { CandlestickData } from './lib/traces/candlestick';
 import { PieData } from './lib/traces/pie';
+import { SankeyData } from './lib/traces/sankey';
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData, OhlcData, CandlestickData, PieData };
+export { BoxPlotData, ViolinData, OhlcData, CandlestickData, PieData, SankeyData };
 
 export type DefaultIcons =
     | 'undo'
@@ -310,6 +312,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
         callback: () => void,
     ): void;
     removeAllListeners: (handler: string) => void;
+    data: Data[];
 }
 
 export interface ToImgopts {
@@ -1161,7 +1164,8 @@ export type Data =
     | Partial<ViolinData>
     | Partial<OhlcData>
     | Partial<CandlestickData>
-    | Partial<PieData>;
+    | Partial<PieData>
+    | Partial<SankeyData>;
 
 export type Color =
     | string
@@ -1310,11 +1314,19 @@ export interface PlotData {
         | 'auto'
         | 'none';
     textfont: Partial<Font>;
+    textangle: 'auto' | number;
+    insidetextanchor: 'end' | 'middle' | 'start';
+    constraintext: 'inside' | 'outside' | 'both' | 'none';
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
     fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
     parents: string[];
     name: string;
     stackgroup: string;

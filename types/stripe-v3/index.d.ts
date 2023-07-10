@@ -17,6 +17,7 @@
 //                 Kohei Matsubara <https://github.com/matsuby>
 //                 Marko Kaznovac <https://github.com/kaznovac>
 //                 Hartley Robertson <https://github.com/hartleyrobertson>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -1024,6 +1025,7 @@ declare namespace stripe {
             paymentRequest?: paymentRequest.StripePaymentRequest | undefined;
             supportedCountries?: string[] | undefined;
             disabled?: boolean | undefined;
+            disableLink?: boolean | undefined;
         }
 
         interface Style extends StyleOptions {

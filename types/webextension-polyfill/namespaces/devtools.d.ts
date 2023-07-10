@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.devtools
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Permissions: "manifest:devtools_page"
  */

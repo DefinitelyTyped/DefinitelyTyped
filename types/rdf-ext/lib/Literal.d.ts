@@ -1,5 +1,5 @@
 import { Literal, NamedNode } from '@rdfjs/types';
-import { PropType } from './_PropType';
+import { PropType } from './_PropType.js';
 
 export interface LiteralExt extends Literal {
   toCanonical(): string;

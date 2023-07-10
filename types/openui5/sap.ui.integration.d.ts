@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -230,7 +230,7 @@ declare module "sap/ui/integration/ActionDefinition" {
    * Represents an action, which appears in the header of {@link sap.ui.integration.widgets.Card}. Useful
    * in `Component` card and `Extension`.
    */
-  class ActionDefinition extends UI5Element {
+  export default class ActionDefinition extends UI5Element {
     /**
      * Constructor for a new `ActionDefinition`.
      *
@@ -356,7 +356,7 @@ declare module "sap/ui/integration/ActionDefinition" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -548,7 +548,6 @@ declare module "sap/ui/integration/ActionDefinition" {
       bVisible?: boolean
     ): this;
   }
-  export default ActionDefinition;
 
   export interface $ActionDefinitionSettings extends $ElementSettings {
     /**
@@ -599,7 +598,15 @@ declare module "sap/ui/integration/ActionDefinition" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $ActionDefinitionPressEventParameters {}
+  export interface ActionDefinition$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ActionDefinition$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ActionDefinitionPressEventParameters = ActionDefinition$PressEventParameters;
+
+  export type ActionDefinition$PressEvent = Event<ActionDefinition$PressEventParameters>;
 }
 
 declare module "sap/ui/integration/widgets/Card" {
@@ -710,7 +717,7 @@ declare module "sap/ui/integration/widgets/Card" {
    * 	 - When you have to use an application model. For such cases, use: {@link sap.f.Card sap.f.Card}.
    * 	 - When you need complex behavior. For such cases, use: {@link sap.f.Card sap.f.Card}.
    */
-  class Card extends CardBase {
+  export default class Card extends CardBase {
     /**
      * Constructor for a new `Card`.
      *
@@ -816,7 +823,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CardActionEventParameters>) => void,
+      fnFunction: (p1: Card$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -843,7 +850,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CardActionEventParameters>) => void,
+      fnFunction: (p1: Card$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -872,7 +879,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CardConfigurationChangeEventParameters>) => void,
+      fnFunction: (p1: Card$ConfigurationChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -896,7 +903,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$CardConfigurationChangeEventParameters>) => void,
+      fnFunction: (p1: Card$ConfigurationChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -1079,7 +1086,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$CardActionEventParameters>) => void,
+      fnFunction: (p1: Card$ActionEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1099,7 +1106,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$CardConfigurationChangeEventParameters>) => void,
+      fnFunction: (p1: Card$ConfigurationChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1165,7 +1172,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -1178,11 +1185,11 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CardActionEventParameters
+      mParameters?: Card$ActionEventParameters
     ): boolean;
     /**
      * @experimental (since 1.96)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:configurationChange configurationChange} to attached listeners.
      *
@@ -1192,10 +1199,10 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $CardConfigurationChangeEventParameters
+      mParameters?: Card$ConfigurationChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:manifestApplied manifestApplied} to attached listeners.
      *
@@ -1209,7 +1216,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @experimental (since 1.72)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:manifestReady manifestReady} to attached listeners.
      *
@@ -1223,7 +1230,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @experimental (since 1.107)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChanged stateChanged} to attached listeners.
      *
@@ -1307,7 +1314,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getDesign(): CardDesign | keyof typeof CardDesign;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -1882,8 +1889,6 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     validateControls(): boolean;
   }
-  export default Card;
-
   /**
    * @experimental (since 1.79)
    *
@@ -2355,7 +2360,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<$CardActionEventParameters>) => void;
+    action?: (oEvent: Event<Card$ActionEventParameters>) => void;
 
     /**
      * @experimental (since 1.96)
@@ -2364,7 +2369,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * value is changed.
      */
     configurationChange?: (
-      oEvent: Event<$CardConfigurationChangeEventParameters>
+      oEvent: Event<Card$ConfigurationChangeEventParameters>
     ) => void;
 
     /**
@@ -2391,7 +2396,7 @@ declare module "sap/ui/integration/widgets/Card" {
     stateChanged?: (oEvent: Event) => void;
   }
 
-  export interface $CardActionEventParameters {
+  export interface Card$ActionEventParameters {
     /**
      * The action source.
      */
@@ -2413,7 +2418,15 @@ declare module "sap/ui/integration/widgets/Card" {
     type?: CardActionType | keyof typeof CardActionType;
   }
 
-  export interface $CardConfigurationChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ActionEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CardActionEventParameters = Card$ActionEventParameters;
+
+  export type Card$ActionEvent = Event<Card$ActionEventParameters>;
+
+  export interface Card$ConfigurationChangeEventParameters {
     /**
      * Changed configuration settings.
      *
@@ -2429,11 +2442,43 @@ declare module "sap/ui/integration/widgets/Card" {
     changes?: object;
   }
 
-  export interface $CardManifestAppliedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ConfigurationChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CardConfigurationChangeEventParameters = Card$ConfigurationChangeEventParameters;
 
-  export interface $CardManifestReadyEventParameters {}
+  export type Card$ConfigurationChangeEvent = Event<Card$ConfigurationChangeEventParameters>;
 
-  export interface $CardStateChangedEventParameters {}
+  export interface Card$ManifestAppliedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ManifestAppliedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CardManifestAppliedEventParameters = Card$ManifestAppliedEventParameters;
+
+  export type Card$ManifestAppliedEvent = Event<Card$ManifestAppliedEventParameters>;
+
+  export interface Card$ManifestReadyEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ManifestReadyEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CardManifestReadyEventParameters = Card$ManifestReadyEventParameters;
+
+  export type Card$ManifestReadyEvent = Event<Card$ManifestReadyEventParameters>;
+
+  export interface Card$StateChangedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$StateChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CardStateChangedEventParameters = Card$StateChangedEventParameters;
+
+  export type Card$StateChangedEvent = Event<Card$StateChangedEventParameters>;
 }
 
 declare module "sap/ui/integration/Designtime" {
@@ -2453,7 +2498,7 @@ declare module "sap/ui/integration/Designtime" {
    * Brings JavaScript capabilities for an {@link sap.ui.integration.widgets.Card} where custom logic can
    * be implemented.
    */
-  class Designtime extends ManagedObject {
+  export default class Designtime extends ManagedObject {
     /**
      * Constructor for a new `Designtime`.
      *
@@ -2527,7 +2572,6 @@ declare module "sap/ui/integration/Designtime" {
      */
     getCard(): CardFacade;
   }
-  export default Designtime;
 
   export interface $DesigntimeSettings extends $ManagedObjectSettings {}
 }
@@ -2898,7 +2942,7 @@ declare module "sap/ui/integration/editor/Extension" {
    * Brings JavaScript capabilities for an {@link sap.ui.integration.editor.Editor} where custom logic can
    * be implemented.
    */
-  class Extension extends Extension1 {
+  export default class Extension extends Extension1 {
     /**
      * Constructor for a new `Extension`.
      */
@@ -2933,7 +2977,6 @@ declare module "sap/ui/integration/editor/Extension" {
      */
     onEditorReady(): void;
   }
-  export default Extension;
 
   export interface $ExtensionSettings extends $ExtensionSettings1 {}
 }
@@ -2945,13 +2988,13 @@ declare module "sap/ui/integration/Extension" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import { CardMenuAction, CardActionType } from "sap/ui/integration/library";
 
   import { CardFacade } from "sap/ui/integration/widgets/Card";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
 
@@ -2961,7 +3004,7 @@ declare module "sap/ui/integration/Extension" {
    * Brings JavaScript capabilities for an {@link sap.ui.integration.widgets.Card} where custom logic can
    * be implemented.
    */
-  class Extension extends ManagedObject {
+  export default class Extension extends ManagedObject {
     /**
      * Constructor for a new `Extension`.
      *
@@ -3048,7 +3091,7 @@ declare module "sap/ui/integration/Extension" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExtensionActionEventParameters>) => void,
+      fnFunction: (p1: Extension$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
        */
@@ -3075,7 +3118,7 @@ declare module "sap/ui/integration/Extension" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ExtensionActionEventParameters>) => void,
+      fnFunction: (p1: Extension$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
        */
@@ -3095,7 +3138,7 @@ declare module "sap/ui/integration/Extension" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ExtensionActionEventParameters>) => void,
+      fnFunction: (p1: Extension$ActionEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3128,7 +3171,7 @@ declare module "sap/ui/integration/Extension" {
     /**
      * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -3141,7 +3184,7 @@ declare module "sap/ui/integration/Extension" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ExtensionActionEventParameters
+      mParameters?: Extension$ActionEventParameters
     ): boolean;
     /**
      * @deprecated (since 1.85) - This property is replaced by the `actions` aggregation of the card;
@@ -3197,7 +3240,6 @@ declare module "sap/ui/integration/Extension" {
       aFormatters?: Record<string, Function>
     ): this;
   }
-  export default Extension;
 
   export interface $ExtensionSettings extends $ManagedObjectSettings {
     /**
@@ -3226,10 +3268,10 @@ declare module "sap/ui/integration/Extension" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<$ExtensionActionEventParameters>) => void;
+    action?: (oEvent: Event<Extension$ActionEventParameters>) => void;
   }
 
-  export interface $ExtensionActionEventParameters {
+  export interface Extension$ActionEventParameters {
     /**
      * The card the action is fired from.
      */
@@ -3255,12 +3297,18 @@ declare module "sap/ui/integration/Extension" {
      */
     type?: CardActionType | keyof typeof CardActionType;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Extension$ActionEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ExtensionActionEventParameters = Extension$ActionEventParameters;
+
+  export type Extension$ActionEvent = Event<Extension$ActionEventParameters>;
 }
 
 declare module "sap/ui/integration/Host" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
-
-  import Event from "sap/ui/base/Event";
 
   import { CardMenuAction, CardActionType } from "sap/ui/integration/library";
 
@@ -3269,6 +3317,8 @@ declare module "sap/ui/integration/Host" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
 
@@ -3280,7 +3330,7 @@ declare module "sap/ui/integration/Host" {
    *
    * Examples may include, but are not limited to options like: share a card, remove a card.
    */
-  class Host extends UI5Element {
+  export default class Host extends UI5Element {
     /**
      * Constructor for a new `Host`.
      *
@@ -3367,7 +3417,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostActionEventParameters>) => void,
+      fnFunction: (p1: Host$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3394,7 +3444,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostActionEventParameters>) => void,
+      fnFunction: (p1: Host$ActionEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3423,9 +3473,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$HostCardConfigurationChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: Host$CardConfigurationChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3449,9 +3497,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$HostCardConfigurationChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: Host$CardConfigurationChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3480,7 +3526,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostCardStateChangedEventParameters>) => void,
+      fnFunction: (p1: Host$CardStateChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3504,7 +3550,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostCardStateChangedEventParameters>) => void,
+      fnFunction: (p1: Host$CardStateChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3531,7 +3577,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostMessageEventParameters>) => void,
+      fnFunction: (p1: Host$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3553,7 +3599,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HostMessageEventParameters>) => void,
+      fnFunction: (p1: Host$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -3603,7 +3649,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$HostActionEventParameters>) => void,
+      fnFunction: (p1: Host$ActionEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3623,9 +3669,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$HostCardConfigurationChangeEventParameters>
-      ) => void,
+      fnFunction: (p1: Host$CardConfigurationChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3645,7 +3689,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$HostCardStateChangedEventParameters>) => void,
+      fnFunction: (p1: Host$CardStateChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3664,7 +3708,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$HostMessageEventParameters>) => void,
+      fnFunction: (p1: Host$MessageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3673,7 +3717,7 @@ declare module "sap/ui/integration/Host" {
     /**
      * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:action action} to attached listeners.
      *
@@ -3686,11 +3730,11 @@ declare module "sap/ui/integration/Host" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HostActionEventParameters
+      mParameters?: Host$ActionEventParameters
     ): boolean;
     /**
      * @experimental (since 1.96)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cardConfigurationChange cardConfigurationChange} to attached listeners.
      *
@@ -3700,11 +3744,11 @@ declare module "sap/ui/integration/Host" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HostCardConfigurationChangeEventParameters
+      mParameters?: Host$CardConfigurationChangeEventParameters
     ): this;
     /**
      * @experimental (since 1.107)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cardStateChanged cardStateChanged} to attached listeners.
      *
@@ -3714,11 +3758,11 @@ declare module "sap/ui/integration/Host" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HostCardStateChangedEventParameters
+      mParameters?: Host$CardStateChangedEventParameters
     ): this;
     /**
      * @experimental (since 1.91)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -3728,7 +3772,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HostMessageEventParameters
+      mParameters?: Host$MessageEventParameters
     ): this;
     /**
      * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
@@ -3874,7 +3918,6 @@ declare module "sap/ui/integration/Host" {
       fnResolveDestination?: (p1: string, p2: Card) => string | Promise<string>
     ): this;
   }
-  export default Host;
 
   export interface $HostSettings extends $ElementSettings {
     /**
@@ -3908,7 +3951,7 @@ declare module "sap/ui/integration/Host" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<$HostActionEventParameters>) => void;
+    action?: (oEvent: Event<Host$ActionEventParameters>) => void;
 
     /**
      * @experimental (since 1.96)
@@ -3917,7 +3960,7 @@ declare module "sap/ui/integration/Host" {
      * - filter value is changed.
      */
     cardConfigurationChange?: (
-      oEvent: Event<$HostCardConfigurationChangeEventParameters>
+      oEvent: Event<Host$CardConfigurationChangeEventParameters>
     ) => void;
 
     /**
@@ -3927,7 +3970,7 @@ declare module "sap/ui/integration/Host" {
      * the card, a filter is changed or data is refreshed.
      */
     cardStateChanged?: (
-      oEvent: Event<$HostCardStateChangedEventParameters>
+      oEvent: Event<Host$CardStateChangedEventParameters>
     ) => void;
 
     /**
@@ -3935,10 +3978,10 @@ declare module "sap/ui/integration/Host" {
      *
      * Fired when a message from channels like navigator.serviceWorker is received.
      */
-    message?: (oEvent: Event<$HostMessageEventParameters>) => void;
+    message?: (oEvent: Event<Host$MessageEventParameters>) => void;
   }
 
-  export interface $HostActionEventParameters {
+  export interface Host$ActionEventParameters {
     /**
      * The card the action is fired from.
      */
@@ -3965,7 +4008,15 @@ declare module "sap/ui/integration/Host" {
     type?: CardActionType | keyof typeof CardActionType;
   }
 
-  export interface $HostCardConfigurationChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$ActionEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HostActionEventParameters = Host$ActionEventParameters;
+
+  export type Host$ActionEvent = Event<Host$ActionEventParameters>;
+
+  export interface Host$CardConfigurationChangeEventParameters {
     /**
      * The card the changes are fired from.
      */
@@ -3986,16 +4037,40 @@ declare module "sap/ui/integration/Host" {
     changes?: object;
   }
 
-  export interface $HostCardStateChangedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$CardConfigurationChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HostCardConfigurationChangeEventParameters = Host$CardConfigurationChangeEventParameters;
+
+  export type Host$CardConfigurationChangeEvent = Event<Host$CardConfigurationChangeEventParameters>;
+
+  export interface Host$CardStateChangedEventParameters {
     /**
      * The card the changes are fired from.
      */
     card?: Control;
   }
 
-  export interface $HostMessageEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$CardStateChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HostCardStateChangedEventParameters = Host$CardStateChangedEventParameters;
+
+  export type Host$CardStateChangedEvent = Event<Host$CardStateChangedEventParameters>;
+
+  export interface Host$MessageEventParameters {
     data?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$MessageEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HostMessageEventParameters = Host$MessageEventParameters;
+
+  export type Host$MessageEvent = Event<Host$MessageEventParameters>;
 }
 
 declare namespace sap {

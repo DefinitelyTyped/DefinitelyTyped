@@ -199,7 +199,7 @@ export class IFCManager {
     /**
      * Removes the specified subset.
      * @param modelID ID of the IFC model.
-     * @parent The parent where the subset is (can be any `THREE.Object3D`).
+     * @param parent The parent where the subset is (can be any `THREE.Object3D`).
      * @param material Material assigned to the subset, if any.
      */
     removeSubset(modelID: number, parent?: Object3D, material?: Material): void;
@@ -378,7 +378,7 @@ export class IFCModel extends Mesh {
      * @deprecated Use `IfcModel.ifcManager.removeSubset` instead.
      *
      * Removes the specified subset.
-     * @parent The parent where the subset is (can be any `THREE.Object3D`).
+     * @param parent The parent where the subset is (can be any `THREE.Object3D`).
      * @param material Material assigned to the subset, if any.
      */
     removeSubset(parent?: Object3D, material?: Material): void;
@@ -602,13 +602,13 @@ export class IfcAPI {
     /**
      * Opens a model and returns a modelID number
      * @param data Buffer containing IFC data (bytes)
-     * @param settings Settings settings for loading the model
+     * @param settings Settings for loading the model
      */
     OpenModel(data: string | Uint8Array, settings?: LoaderSettings): number;
 
     /**
      * Creates a new model and returns a modelID number
-     * @param settings Settings settings for generating data the model
+     * @param settings Settings for generating data the model
      */
     CreateModel(settings?: LoaderSettings): number;
 

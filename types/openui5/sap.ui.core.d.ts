@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.115.0
+// For Library Version: 1.115.1
 
 declare module "sap/base/assert" {
   /**
@@ -335,7 +335,7 @@ declare module "sap/base/i18n/ResourceBundle" {
    *
    * Exception: Fallback for "zh_HK" is "zh_TW" before "zh".
    */
-  class ResourceBundle {
+  export default class ResourceBundle {
     constructor();
 
     /**
@@ -490,8 +490,6 @@ declare module "sap/base/i18n/ResourceBundle" {
       sKey: string
     ): boolean;
   }
-  export default ResourceBundle;
-
   /**
    * ResourceBundle Configuration
    *
@@ -1832,7 +1830,7 @@ declare module "sap/base/util/Deferred" {
    * object creates a `Promise` instance which functions as a proxy for the future result. This `Promise`
    * object can be accessed via the `promise` property of the `Deferred` object.
    */
-  class Deferred<T extends any = any> {
+  export default class Deferred<T extends any = any> {
     constructor();
     /**
      * Promise instance of the Deferred
@@ -1858,7 +1856,6 @@ declare module "sap/base/util/Deferred" {
       value?: T
     ): void;
   }
-  export default Deferred;
 }
 
 declare module "sap/base/util/each" {
@@ -2108,7 +2105,7 @@ declare module "sap/base/util/Properties" {
    * to store or change a value for a key and {@link #getKeys} can be used to retrieve an array of all keys
    * that are currently stored in the collection.
    */
-  class Properties {
+  export default class Properties {
     constructor();
 
     /**
@@ -2192,7 +2189,6 @@ declare module "sap/base/util/Properties" {
       sValue: string
     ): void;
   }
-  export default Properties;
 }
 
 declare module "sap/base/util/uid" {
@@ -2243,7 +2239,7 @@ declare module "sap/base/util/UriParameters" {
    *     URLSearchParams(input)` once the new API is available in all supported browsers. Callers using `UriParameters.fromURL(input)`
    *     can be migrated to `new URL(input).searchParams` then.
    */
-  class UriParameters {
+  export default class UriParameters {
     /**
      * See:
      * 	https://url.spec.whatwg.org/#interface-urlsearchparams
@@ -2337,7 +2333,6 @@ declare module "sap/base/util/UriParameters" {
      */
     keys(): Iterator<string>;
   }
-  export default UriParameters;
 }
 
 declare module "sap/base/util/values" {
@@ -2365,7 +2360,7 @@ declare module "sap/base/util/Version" {
    *
    * Represents a version consisting of major, minor, patch version, and suffix, for example '1.2.7-SNAPSHOT'.
    */
-  class Version {
+  export default class Version {
     /**
      * Returns a Version instance created from the given parameters.
      *
@@ -2467,7 +2462,6 @@ declare module "sap/base/util/Version" {
      */
     toString(): string;
   }
-  export default Version;
 }
 
 declare module "sap/ui/util/XMLHelper" {
@@ -2700,7 +2694,7 @@ declare module "sap/ui/core/date/UI5Date" {
    * **Note:** Adjusting the time zone in a running application can lead to unexpected data inconsistencies.
    * For more information, see {@link sap.ui.core.Configuration#setTimezone}.
    */
-  class UI5Date extends Date {
+  export default class UI5Date extends Date {
     constructor();
 
     /**
@@ -3266,7 +3260,6 @@ declare module "sap/ui/core/date/UI5Date" {
      */
     valueOf(): int;
   }
-  export default UI5Date;
 }
 
 declare module "sap/ui/core/InvisibleRenderer" {
@@ -3278,13 +3271,13 @@ declare module "sap/ui/core/InvisibleRenderer" {
 
   /**
    * @since 1.66.0
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Provides the default renderer for the controls that have set their `visible` property to `false`.
    */
   interface InvisibleRenderer {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible placeholder DOM element.
      *
@@ -3297,7 +3290,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the placeholder DOM element of the provided control.
      *
@@ -3310,7 +3303,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): HTMLElement | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Renders an invisible placeholder to identify the location of the invisible control within the DOM tree.
      *
@@ -4759,7 +4752,7 @@ declare module "sap/ui/util/Storage" {
    * Besides creating an own storage instance, callers can use the static methods of the `Storage` class to
    * access a default session storage instance. All calls will use the same scope (same prefix).
    */
-  class Storage {
+  export default class Storage {
     constructor(
       /**
        * The type of native storage implementation that this `Storage` instance should use internally. Alternatively,
@@ -4927,8 +4920,6 @@ declare module "sap/ui/util/Storage" {
       sKeyPrefix?: string
     ): boolean;
   }
-  export default Storage;
-
   /**
    * Enumeration of the storage types supported by {@link module:sap/ui/util/Storage}.
    */
@@ -5001,7 +4992,7 @@ declare module "sap/ui/app/Application" {
    *
    * Abstract application class. Extend this class to create a central application class.
    */
-  class Application extends Component {
+  export default class Application extends Component {
     /**
      * Creates an application instance, only one instance is allowed (singleton).
      *
@@ -5064,7 +5055,7 @@ declare module "sap/ui/app/Application" {
      */
     static getMetadata(): ComponentMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates and returns the root component. Override this method in your application implementation, if you
      * want to override the default creation by metadata.
@@ -5179,7 +5170,6 @@ declare module "sap/ui/app/Application" {
       oRootComponent: UIComponent
     ): this;
   }
-  export default Application;
 
   export interface $ApplicationSettings extends $ComponentSettings {
     root?: string | PropertyBindingInfo;
@@ -5203,7 +5193,7 @@ declare module "sap/ui/app/MockServer" {
    *
    * Class to mock a server.
    */
-  class MockServer extends ManagedObject {
+  export default class MockServer extends ManagedObject {
     /**
      * Creates a mocked server. This helps to mock all or some backend calls, e.g. for OData/JSON Models or
      * simple XHR calls, without changing the application code. This class can also be used for qunit tests.
@@ -5238,7 +5228,6 @@ declare module "sap/ui/app/MockServer" {
       oScope?: object
     );
   }
-  export default MockServer;
 
   export interface $MockServerSettings extends $ManagedObjectSettings {}
 }
@@ -5259,7 +5248,7 @@ declare module "sap/ui/base/DataType" {
    * be created by calling the factory method {@link #.createType DataType.createType}, calling the constructor
    * will throw an error.
    */
-  class DataType {
+  export default class DataType {
     constructor();
 
     /**
@@ -5481,7 +5470,6 @@ declare module "sap/ui/base/DataType" {
       fnNormalizer: (p1: any) => any
     ): void;
   }
-  export default DataType;
 }
 
 declare module "sap/ui/base/Event" {
@@ -5498,7 +5486,7 @@ declare module "sap/ui/base/Event" {
    * and therefore an event object in the event handler will be reset by {@link sap.ui.base.ObjectPool} after
    * the event handler is done.
    */
-  class Event<ParamsType extends Record<string, any> = object>
+  export default class Event<ParamsType extends Record<string, any> = object>
     extends BaseObject
     implements Poolable {
     __implements__sap_ui_base_Poolable: boolean;
@@ -5585,7 +5573,7 @@ declare module "sap/ui/base/Event" {
      */
     getSource(): EventProvider;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Init this event with its data.
      *
@@ -5617,7 +5605,7 @@ declare module "sap/ui/base/Event" {
      */
     preventDefault(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Reset event data, needed for pooling.
      * See:
@@ -5625,7 +5613,6 @@ declare module "sap/ui/base/Event" {
      */
     reset(): void;
   }
-  export default Event;
 }
 
 declare module "sap/ui/base/EventProvider" {
@@ -5637,7 +5624,7 @@ declare module "sap/ui/base/EventProvider" {
    * Provides eventing capabilities for objects like attaching or detaching event handlers for events which
    * are notified when events are fired.
    */
-  class EventProvider extends BaseObject {
+  export default class EventProvider extends BaseObject {
     /**
      * Creates an instance of EventProvider.
      */
@@ -5808,7 +5795,7 @@ declare module "sap/ui/base/EventProvider" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires an {@link sap.ui.base.Event event} with the given settings and notifies all attached event handlers.
      *
@@ -5836,7 +5823,7 @@ declare module "sap/ui/base/EventProvider" {
       bEnableEventBubbling?: boolean
     ): this | boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object.
      *
@@ -5848,7 +5835,7 @@ declare module "sap/ui/base/EventProvider" {
      */
     getEventingParent(): EventProvider | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether there are any registered event handlers for the event with the given identifier.
      *
@@ -5870,7 +5857,6 @@ declare module "sap/ui/base/EventProvider" {
      */
     toString(): string;
   }
-  export default EventProvider;
 }
 
 declare module "sap/ui/base/Interface" {
@@ -5882,7 +5868,7 @@ declare module "sap/ui/base/Interface" {
    * **Note:** If a class returns a facade in its constructor, only the defined functions will be visible,
    * no internals of the class can be accessed.
    */
-  class Interface {
+  export default class Interface {
     /**
      * Constructs a facade for the given object, containing only the named methods.
      *
@@ -5907,7 +5893,6 @@ declare module "sap/ui/base/Interface" {
       aMethods: string[]
     );
   }
-  export default Interface;
 }
 
 declare module "sap/ui/base/ManagedObject" {
@@ -6040,7 +6025,7 @@ declare module "sap/ui/base/ManagedObject" {
    * understand that the generic low-level methods ARE NOT SUITABLE FOR GENERIC ACCESS to the state of a managed
    * object, as that would bypass the overriding higher level methods and their side effects.
    */
-  class ManagedObject extends EventProvider {
+  export default class ManagedObject extends EventProvider {
     /**
      * Constructs and initializes a managed object with the given `sId` and settings.
      *
@@ -6367,7 +6352,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds some entity `oObject` to the aggregation identified by `sAggregationName`.
      *
@@ -6399,7 +6384,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds some object with the ID `sId` to the association identified by `sAssociationName` and marks this
      * ManagedObject as changed.
@@ -6471,7 +6456,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectFormatErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6492,7 +6477,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectFormatErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6567,7 +6552,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectParseErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6588,7 +6573,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectParseErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6615,9 +6600,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationErrorEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6639,9 +6622,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationErrorEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6668,9 +6649,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationSuccessEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6692,9 +6671,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationSuccessEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6935,7 +6912,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Destroys (all) the managed object(s) in the aggregation named `sAggregationName` and empties the aggregation.
      * If the aggregation did contain any object, this ManagedObject is marked as changed.
@@ -6967,7 +6944,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectFormatErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7002,7 +6979,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ManagedObjectParseErrorEventParameters>) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7020,9 +6997,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationErrorEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7040,9 +7015,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ManagedObjectValidationSuccessEventParameters>
-      ) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7078,7 +7051,7 @@ declare module "sap/ui/base/ManagedObject" {
       bIncludeBindingTemplates?: boolean
     ): ManagedObject[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -7088,10 +7061,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ManagedObjectFormatErrorEventParameters
+      mParameters?: ManagedObject$FormatErrorEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:modelContextChange modelContextChange} to attached listeners.
      *
@@ -7104,7 +7077,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -7114,10 +7087,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ManagedObjectParseErrorEventParameters
+      mParameters?: ManagedObject$ParseErrorEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -7127,10 +7100,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ManagedObjectValidationErrorEventParameters
+      mParameters?: ManagedObject$ValidationErrorEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -7140,10 +7113,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ManagedObjectValidationSuccessEventParameters
+      mParameters?: ManagedObject$ValidationSuccessEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the aggregated object(s) for the named aggregation of this ManagedObject.
      *
@@ -7176,7 +7149,7 @@ declare module "sap/ui/base/ManagedObject" {
       oDefaultForCreation?: ManagedObject | any[]
     ): ManagedObject | ManagedObject[] | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of the association with the given name.
      *
@@ -7244,7 +7217,7 @@ declare module "sap/ui/base/ManagedObject" {
       sModelName?: string
     ): Context | null | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the binding info for the given property or aggregation.
      *
@@ -7262,7 +7235,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): PropertyBindingInfo | AggregationBindingInfo;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Get the binding path for a specific aggregation/property.
      *
@@ -7275,7 +7248,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): string | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent managed object as new eventing parent to enable control event bubbling or `null` if
      * this object hasn't been added to a parent yet.
@@ -7425,7 +7398,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     getParent(): ManagedObject | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the value for the property with the given `sPropertyName`.
      *
@@ -7450,7 +7423,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     hasModel(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Searches for the provided ManagedObject in the named aggregation and returns its 0-based index if found,
      * or -1 otherwise. Returns -2 if the given named aggregation is of cardinality 0..1 and doesn't reference
@@ -7473,7 +7446,7 @@ declare module "sap/ui/base/ManagedObject" {
       oObject: ManagedObject
     ): int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Inserts managed object `oObject` to the aggregation named `sAggregationName` at position `iIndex`.
      *
@@ -7515,7 +7488,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Marks this object and its aggregated children as 'invalid'.
      *
@@ -7552,7 +7525,7 @@ declare module "sap/ui/base/ManagedObject" {
     isDestroyed(): boolean;
     /**
      * @since 1.93
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks if an object's destruction has been started. During the descruction of an object its ID is still
      * registered, and child objects could be still aggregated. Creating another object with the same ID would
@@ -7562,7 +7535,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isDestroyStarted(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this ManagedObject.
      *
@@ -7570,7 +7543,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isInvalidateSuppressed(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the given property value is initial and has not been explicitly set or bound. Even after
      * setting the default value or setting null/undefined (which also causes the default value to be set),
@@ -7585,7 +7558,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is used internally and should only be overridden by a tree managed object which utilizes
      * the tree binding. In this case and if the aggregation is a tree node the overridden method should then
@@ -7602,7 +7575,7 @@ declare module "sap/ui/base/ManagedObject" {
     ): boolean;
     /**
      * @since 1.28
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called, whenever messages for this object exist.
      */
@@ -7617,7 +7590,7 @@ declare module "sap/ui/base/ManagedObject" {
       aMessages: any[]
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Generic method which can be called, when an aggregation needs to be refreshed. This method does not make
      * any change on the aggregation, but just calls the `getContexts` method of the binding to trigger fetching
@@ -7634,7 +7607,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes an object from the aggregation named `sAggregationName` with cardinality 0..n.
      *
@@ -7670,7 +7643,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes all objects from the 0..n-aggregation named `sAggregationName`.
      *
@@ -7699,7 +7672,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes all the objects in the 0..n-association named `sAssociationName` and returns an array with their
      * IDs. This ManagedObject is marked as changed, if the association contained any objects.
@@ -7721,7 +7694,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): any[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes a `ManagedObject` from the association named `sAssociationName`.
      *
@@ -7756,7 +7729,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): string | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Resets the given property to the default value and also restores the "initial" state (like it has never
      * been set).
@@ -7776,7 +7749,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets a new object in the named 0..1 aggregation of this ManagedObject and marks this ManagedObject as
      * changed.
@@ -7822,7 +7795,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the associated object for the given managed association of cardinality '0..1' and marks this ManagedObject
      * as changed.
@@ -7917,7 +7890,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName?: string
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the given value for the given property after validating and normalizing it, marks this object as
      * changed.
@@ -8022,7 +7995,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressReset: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called whenever an aggregation binding has changed.
      *
@@ -8060,7 +8033,7 @@ declare module "sap/ui/base/ManagedObject" {
       }
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given aggregation name.
      *
@@ -8084,7 +8057,7 @@ declare module "sap/ui/base/ManagedObject" {
       bMultiple: boolean
     ): ManagedObject | any;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given property name.
      *
@@ -8112,8 +8085,6 @@ declare module "sap/ui/base/ManagedObject" {
       oValue: any
     ): any;
   }
-  export default ManagedObject;
-
   /**
    * Configuration for the binding of a managed aggregation of cardinality 0..n.
    *
@@ -8478,7 +8449,7 @@ declare module "sap/ui/base/ManagedObject" {
      * uses a data type.
      */
     validationSuccess?: (
-      oEvent: Event<$ManagedObjectValidationSuccessEventParameters>
+      oEvent: Event<ManagedObject$ValidationSuccessEventParameters>
     ) => void;
 
     /**
@@ -8486,7 +8457,7 @@ declare module "sap/ui/base/ManagedObject" {
      * the value failed with an exception.
      */
     validationError?: (
-      oEvent: Event<$ManagedObjectValidationErrorEventParameters>
+      oEvent: Event<ManagedObject$ValidationErrorEventParameters>
     ) => void;
 
     /**
@@ -8494,7 +8465,7 @@ declare module "sap/ui/base/ManagedObject" {
      * value failed with an exception.
      */
     parseError?: (
-      oEvent: Event<$ManagedObjectParseErrorEventParameters>
+      oEvent: Event<ManagedObject$ParseErrorEventParameters>
     ) => void;
 
     /**
@@ -8502,7 +8473,7 @@ declare module "sap/ui/base/ManagedObject" {
      * the value failed with an exception.
      */
     formatError?: (
-      oEvent: Event<$ManagedObjectFormatErrorEventParameters>
+      oEvent: Event<ManagedObject$FormatErrorEventParameters>
     ) => void;
 
     /**
@@ -8512,7 +8483,7 @@ declare module "sap/ui/base/ManagedObject" {
     modelContextChange?: (oEvent: Event) => void;
   }
 
-  export interface $ManagedObjectFormatErrorEventParameters {
+  export interface ManagedObject$FormatErrorEventParameters {
     /**
      * ManagedObject instance whose property should have received the model update.
      */
@@ -8539,9 +8510,25 @@ declare module "sap/ui/base/ManagedObject" {
     oldValue?: any;
   }
 
-  export interface $ManagedObjectModelContextChangeEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$FormatErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ManagedObjectFormatErrorEventParameters = ManagedObject$FormatErrorEventParameters;
 
-  export interface $ManagedObjectParseErrorEventParameters {
+  export type ManagedObject$FormatErrorEvent = Event<ManagedObject$FormatErrorEventParameters>;
+
+  export interface ManagedObject$ModelContextChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ModelContextChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ManagedObjectModelContextChangeEventParameters = ManagedObject$ModelContextChangeEventParameters;
+
+  export type ManagedObject$ModelContextChangeEvent = Event<ManagedObject$ModelContextChangeEventParameters>;
+
+  export interface ManagedObject$ParseErrorEventParameters {
     /**
      * ManagedObject instance whose property initiated the model update.
      */
@@ -8573,7 +8560,15 @@ declare module "sap/ui/base/ManagedObject" {
     message?: string;
   }
 
-  export interface $ManagedObjectValidationErrorEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ParseErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ManagedObjectParseErrorEventParameters = ManagedObject$ParseErrorEventParameters;
+
+  export type ManagedObject$ParseErrorEvent = Event<ManagedObject$ParseErrorEventParameters>;
+
+  export interface ManagedObject$ValidationErrorEventParameters {
     /**
      * ManagedObject instance whose property initiated the model update.
      */
@@ -8605,7 +8600,15 @@ declare module "sap/ui/base/ManagedObject" {
     message?: string;
   }
 
-  export interface $ManagedObjectValidationSuccessEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ValidationErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ManagedObjectValidationErrorEventParameters = ManagedObject$ValidationErrorEventParameters;
+
+  export type ManagedObject$ValidationErrorEvent = Event<ManagedObject$ValidationErrorEventParameters>;
+
+  export interface ManagedObject$ValidationSuccessEventParameters {
     /**
      * ManagedObject instance whose property initiated the model update.
      */
@@ -8634,6 +8637,14 @@ declare module "sap/ui/base/ManagedObject" {
      */
     oldValue?: any;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ValidationSuccessEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ManagedObjectValidationSuccessEventParameters = ManagedObject$ValidationSuccessEventParameters;
+
+  export type ManagedObject$ValidationSuccessEvent = Event<ManagedObject$ValidationSuccessEventParameters>;
 
   export namespace MetadataOptions {
     /**
@@ -8988,7 +8999,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
    * 	 - the period of validity of info objects is not defined. They should be referenced only for a short
    *     time and not be kept as members of long living objects or closures.
    */
-  class ManagedObjectMetadata extends Metadata {
+  export default class ManagedObjectMetadata extends Metadata {
     /**
      * Creates a new metadata object that describes a subclass of ManagedObject.
      *
@@ -9016,7 +9027,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds information to the given oAggregatedObject about its original API parent (or a subsequent API parent
      * in case of multiple forwarding). MUST be called before an element is forwarded to another internal aggregation
@@ -9041,7 +9052,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Completes the information about the original API parent of the given element. MUST be called after an
      * element is forwarded to another internal aggregation. For every call to ManagedObjectMetadata.addAPIParentInfoBegin(...)
@@ -9175,7 +9186,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllEvents(): Record<string, MetadataOptions1.Event>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) aggregations of the described class, including
      * private aggregations from the ancestor classes.
@@ -9191,7 +9202,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAggregations(): Record<string, MetadataOptions1.Aggregation>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) associations of the described class, including
      * private associations from the ancestor classes.
@@ -9207,7 +9218,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAssociations(): Record<string, MetadataOptions1.Association>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) properties of the described class, including private
      * properties from the ancestor classes.
@@ -9332,7 +9343,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getLibraryName(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private aggregation declared by the described class or
      * by any of its ancestors.
@@ -9353,7 +9364,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): MetadataOptions1.Aggregation | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private association declared by the described class or
      * by any of its ancestors.
@@ -9371,7 +9382,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sName: string
     ): MetadataOptions1.Association | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private property declared by the described class or by
      * any of its ancestors.
@@ -9508,7 +9519,6 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     uid(): string;
   }
-  export default ManagedObjectMetadata;
 }
 
 declare module "sap/ui/base/Metadata" {
@@ -9519,7 +9529,7 @@ declare module "sap/ui/base/Metadata" {
    *
    * Metadata for a class.
    */
-  class Metadata {
+  export default class Metadata {
     /**
      * Creates a new metadata object from the given static infos.
      *
@@ -9646,7 +9656,6 @@ declare module "sap/ui/base/Metadata" {
       sInterface: string
     ): boolean;
   }
-  export default Metadata;
 }
 
 declare module "sap/ui/base/Object" {
@@ -9655,7 +9664,7 @@ declare module "sap/ui/base/Object" {
   /**
    * Base class for all SAPUI5 Objects.
    */
-  class BaseObject {
+  export default class BaseObject {
     /**
      * Constructor for an `sap.ui.base.Object`.
      *
@@ -9828,8 +9837,6 @@ declare module "sap/ui/base/Object" {
       vTypeName: string | string[]
     ): this is T;
   }
-  export default BaseObject;
-
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.base.Object using
    * its static "extend" method. See {@link sap.ui.base.Object.extend} for details on its usage.
@@ -9902,7 +9909,7 @@ declare module "sap/ui/base/ObjectPool" {
    *   }});
    * ```
    */
-  class ObjectPool extends BaseObject {
+  export default class ObjectPool extends BaseObject {
     /**
      * Creates an `ObjectPool` for maintaining instances of the given class `oObjectClass`.
      *
@@ -9967,8 +9974,6 @@ declare module "sap/ui/base/ObjectPool" {
       oObject: Object
     ): void;
   }
-  export default ObjectPool;
-
   /**
    * Contract for objects that can be pooled by an `ObjectPool`.
    *
@@ -9983,7 +9988,7 @@ declare module "sap/ui/base/ObjectPool" {
     __implements__sap_ui_base_Poolable: boolean;
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Called by the `ObjectPool` when this instance will be activated for a caller.
      *
@@ -9999,7 +10004,7 @@ declare module "sap/ui/base/ObjectPool" {
       ...args: any[]
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Called by the object pool when an instance is returned to the pool.
      *
@@ -10054,56 +10059,56 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.110
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains accessibility information for a control.
    */
   export type AccessibilityInfo = {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The WAI-ARIA role which is implemented by the control.
      */
     role?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A translated text that represents the control type. Might correlate with the role.
      */
     type?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Describes the most relevant control state (e.g. the input's value) - it should be a translated text.
      * **Note:** The type and the enabled/editable state shouldn`t be handled here.
      */
     description?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control can get the focus.
      */
     focusable?: boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is enabled. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     enabled?: boolean | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is editable. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     editable?: boolean | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is readonly. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     readonly?: boolean | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A list of elements or controls that are aggregated by the given control (e.g. when the control is a layout).
      * Primitive values in the list will be ignored. **Note:** Children should only be provided when it is helpful
@@ -10595,37 +10600,37 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.111
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains focus information for input controls.
    */
   export type FocusInfo = {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The ID of the focused control.
      */
     id?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The position of the cursor.
      */
     cursorPos?: int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The start position of selection.
      */
     selectionStart?: int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The end position of selection.
      */
     selectionEnd?: int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Prevents scrolling.
      */
@@ -11802,7 +11807,7 @@ declare module "sap/ui/core/CommandExecution" {
   /**
    * @since 1.70
    */
-  class CommandExecution extends UI5Element {
+  export default class CommandExecution extends UI5Element {
     /**
      * Creates and initializes a new CommandExecution.
      *
@@ -11948,7 +11953,7 @@ declare module "sap/ui/core/CommandExecution" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:execute execute} to attached listeners.
      *
@@ -12025,7 +12030,6 @@ declare module "sap/ui/core/CommandExecution" {
      */
     trigger(): void;
   }
-  export default CommandExecution;
 
   export interface $CommandExecutionSettings extends $ElementSettings {
     /**
@@ -12055,7 +12059,15 @@ declare module "sap/ui/core/CommandExecution" {
     execute?: (oEvent: Event) => void;
   }
 
-  export interface $CommandExecutionExecuteEventParameters {}
+  export interface CommandExecution$ExecuteEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CommandExecution$ExecuteEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $CommandExecutionExecuteEventParameters = CommandExecution$ExecuteEventParameters;
+
+  export type CommandExecution$ExecuteEvent = Event<CommandExecution$ExecuteEventParameters>;
 }
 
 declare module "sap/ui/core/Component" {
@@ -12080,7 +12092,7 @@ declare module "sap/ui/core/Component" {
    * the encapsulation of closely related parts of an application, thus enabling developers to structure and
    * maintain their applications more easily.
    */
-  class Component extends ManagedObject {
+  export default class Component extends ManagedObject {
     /**
      * Creates and initializes a new Component with the given `sId` and settings.
      *
@@ -12518,7 +12530,7 @@ declare module "sap/ui/core/Component" {
           }
     ): Component | Promise<Component>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Cleans up the Component instance before destruction.
      *
@@ -12676,7 +12688,7 @@ declare module "sap/ui/core/Component" {
       sLocalServiceAlias: string
     ): Promise</* was: sap.ui.core.service.Service */ any>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initializes the Component instance after creation.
      *
@@ -12688,7 +12700,7 @@ declare module "sap/ui/core/Component" {
     init(): void;
     /**
      * @since 1.88
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is activated
      */
@@ -12707,7 +12719,7 @@ declare module "sap/ui/core/Component" {
     ): void;
     /**
      * @since 1.88
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is deactivated
      */
@@ -12767,8 +12779,6 @@ declare module "sap/ui/core/Component" {
       fn: Function
     ): any;
   }
-  export default Component;
-
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Component using
    * its static "extend" method. See {@link sap.ui.core.Component.extend} for details on its usage.
@@ -12888,6 +12898,7 @@ declare module "sap/ui/core/Component" {
       id: ID
     ): Component | undefined;
   }
+  export const registry: registry;
 
   export interface $ComponentSettings extends $ManagedObjectSettings {}
 }
@@ -12903,8 +12914,6 @@ declare module "sap/ui/core/ComponentContainer" {
     URI,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { $ComponentSettings } from "sap/ui/core/Component";
@@ -12912,6 +12921,8 @@ declare module "sap/ui/core/ComponentContainer" {
   import UIComponent from "sap/ui/core/UIComponent";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Container that embeds a `sap/ui/core/UIComponent` in a control tree.
@@ -12942,7 +12953,9 @@ declare module "sap/ui/core/ComponentContainer" {
    *
    * See also {@link module:sap/ui/core/ComponentSupport}.
    */
-  class ComponentContainer extends Control implements IPlaceholderSupport {
+  export default class ComponentContainer
+    extends Control
+    implements IPlaceholderSupport {
     __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new ComponentContainer.
@@ -13026,9 +13039,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentCreatedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -13051,9 +13062,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentCreatedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -13084,9 +13093,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentFailedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -13112,9 +13119,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentFailedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -13134,9 +13139,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentCreatedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13156,9 +13159,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ComponentContainerComponentFailedEventParameters>
-      ) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13166,7 +13167,7 @@ declare module "sap/ui/core/ComponentContainer" {
     ): this;
     /**
      * @since 1.50
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentCreated componentCreated} to attached listeners.
      *
@@ -13176,11 +13177,11 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ComponentContainerComponentCreatedEventParameters
+      mParameters?: ComponentContainer$ComponentCreatedEventParameters
     ): this;
     /**
      * @since 1.60
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentFailed componentFailed} to attached listeners.
      *
@@ -13193,7 +13194,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ComponentContainerComponentFailedEventParameters
+      mParameters?: ComponentContainer$ComponentFailedEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getAsync async}.
@@ -13560,7 +13561,6 @@ declare module "sap/ui/core/ComponentContainer" {
       sWidth?: CSSSize
     ): this;
   }
-  export default ComponentContainer;
 
   export interface $ComponentContainerSettings extends $ControlSettings {
     /**
@@ -13660,7 +13660,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * Fired when the component instance has been created by the ComponentContainer.
      */
     componentCreated?: (
-      oEvent: Event<$ComponentContainerComponentCreatedEventParameters>
+      oEvent: Event<ComponentContainer$ComponentCreatedEventParameters>
     ) => void;
 
     /**
@@ -13672,23 +13672,39 @@ declare module "sap/ui/core/ComponentContainer" {
      * can be prevented by calling `preventDefault()` on the event object.
      */
     componentFailed?: (
-      oEvent: Event<$ComponentContainerComponentFailedEventParameters>
+      oEvent: Event<ComponentContainer$ComponentFailedEventParameters>
     ) => void;
   }
 
-  export interface $ComponentContainerComponentCreatedEventParameters {
+  export interface ComponentContainer$ComponentCreatedEventParameters {
     /**
      * Reference to the created component instance
      */
     component?: UIComponent;
   }
 
-  export interface $ComponentContainerComponentFailedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ComponentContainer$ComponentCreatedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ComponentContainerComponentCreatedEventParameters = ComponentContainer$ComponentCreatedEventParameters;
+
+  export type ComponentContainer$ComponentCreatedEvent = Event<ComponentContainer$ComponentCreatedEventParameters>;
+
+  export interface ComponentContainer$ComponentFailedEventParameters {
     /**
      * The reason object as returned by the component promise
      */
     reason?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ComponentContainer$ComponentFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ComponentContainerComponentFailedEventParameters = ComponentContainer$ComponentFailedEventParameters;
+
+  export type ComponentContainer$ComponentFailedEvent = Event<ComponentContainer$ComponentFailedEventParameters>;
 }
 
 declare module "sap/ui/core/ComponentMetadata" {
@@ -13701,7 +13717,7 @@ declare module "sap/ui/core/ComponentMetadata" {
   /**
    * @since 1.9.2
    */
-  class ComponentMetadata extends ManagedObjectMetadata {
+  export default class ComponentMetadata extends ManagedObjectMetadata {
     /**
      * Creates a new metadata object for a Component subclass.
      */
@@ -13868,7 +13884,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getManifestObject(): Manifest;
     /**
      * @since 1.27.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the version of the metadata which could be 1 or 2. 1 is for legacy metadata whereas 2 is for
      * the manifest.
@@ -13911,7 +13927,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getVersion(): string;
     /**
      * @since 1.33.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the class of this metadata is a component base class or not.
      *
@@ -13919,7 +13935,6 @@ declare module "sap/ui/core/ComponentMetadata" {
      */
     isBaseClass(): boolean;
   }
-  export default ComponentMetadata;
 }
 
 declare module "sap/ui/core/Configuration" {
@@ -14928,8 +14943,6 @@ declare module "sap/ui/core/Configuration" {
 declare module "sap/ui/core/Control" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import { AccessibilityInfo, BusyIndicatorSize } from "sap/ui/core/library";
 
   import {
@@ -14941,6 +14954,8 @@ declare module "sap/ui/core/Control" {
     default as ManagedObject,
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Base Class for Controls.
@@ -14971,7 +14986,7 @@ declare module "sap/ui/core/Control" {
    * See section "{@link https://ui5.sap.com/#/topic/8dcab0011d274051808f959800cabf9f Developing Controls}"
    * in the documentation for an introduction to control development.
    */
-  class Control extends UI5Element {
+  export default class Control extends UI5Element {
     /**
      * Creates and initializes a new control with the given `sId` and settings.
      *
@@ -15204,9 +15219,7 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ControlValidateFieldGroupEventParameters>
-      ) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
        */
@@ -15233,9 +15246,7 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ControlValidateFieldGroupEventParameters>
-      ) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
        */
@@ -15299,16 +15310,14 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        p1: Event<$ControlValidateFieldGroupEventParameters>
-      ) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validateFieldGroup validateFieldGroup} to attached listeners.
      *
@@ -15318,11 +15327,11 @@ declare module "sap/ui/core/Control" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ControlValidateFieldGroupEventParameters
+      mParameters?: Control$ValidateFieldGroupEventParameters
     ): this;
     /**
      * @since 1.37.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This function (if available on the concrete control) provides the current accessibility state of the
      * control.
@@ -15432,7 +15441,7 @@ declare module "sap/ui/core/Control" {
      */
     getIdForLabel(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a renderer for this control instance.
      *
@@ -15469,7 +15478,7 @@ declare module "sap/ui/core/Control" {
       sStyleClass: string
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Marks this control and its children for a re-rendering, usually because its state has changed and now
      * differs from the rendered DOM.
@@ -15499,7 +15508,7 @@ declare module "sap/ui/core/Control" {
      */
     isBusy(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the control is completed.
      *
@@ -15514,7 +15523,7 @@ declare module "sap/ui/core/Control" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Function is called before the rendering of the control is started.
      *
@@ -15577,7 +15586,7 @@ declare module "sap/ui/core/Control" {
      * async re-rendering.
      *
      * The recommended alternative is to rely on invalidation and standard re-rendering.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Synchronously updates the DOM of this control to reflect the current object state.
      *
@@ -15721,7 +15730,6 @@ declare module "sap/ui/core/Control" {
       aFieldGroupIds: string[]
     ): void;
   }
-  export default Control;
 
   export interface $ControlSettings extends $ElementSettings {
     /**
@@ -15792,16 +15800,24 @@ declare module "sap/ui/core/Control" {
      * or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group} documentation.
      */
     validateFieldGroup?: (
-      oEvent: Event<$ControlValidateFieldGroupEventParameters>
+      oEvent: Event<Control$ValidateFieldGroupEventParameters>
     ) => void;
   }
 
-  export interface $ControlValidateFieldGroupEventParameters {
+  export interface Control$ValidateFieldGroupEventParameters {
     /**
      * field group IDs of the logical field groups to validate
      */
     fieldGroupIds?: string[];
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Control$ValidateFieldGroupEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ControlValidateFieldGroupEventParameters = Control$ValidateFieldGroupEventParameters;
+
+  export type Control$ValidateFieldGroupEvent = Event<Control$ValidateFieldGroupEventParameters>;
 }
 
 declare module "sap/ui/core/ElementMetadata" {
@@ -15833,7 +15849,7 @@ declare module "sap/ui/core/ElementMetadata" {
   /**
    * @since 0.8.6
    */
-  class ElementMetadata extends ManagedObjectMetadata {
+  export default class ElementMetadata extends ManagedObjectMetadata {
     /**
      * Creates a new metadata object for a UIElement subclass.
      */
@@ -15879,7 +15895,6 @@ declare module "sap/ui/core/ElementMetadata" {
      */
     getElementName(): string;
   }
-  export default ElementMetadata;
 }
 
 declare module "sap/ui/core/Core" {
@@ -16543,7 +16558,7 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -16581,7 +16596,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -16619,7 +16634,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -16657,7 +16672,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -17031,7 +17046,7 @@ declare module "sap/ui/core/Core" {
      */
     isMobile(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given DOM element is the root of the static area.
      *
@@ -17442,7 +17457,7 @@ declare module "sap/ui/core/CustomData" {
    * See method {@link sap.ui.core.Element#data Element.prototype.data} and the chapter {@link https://ui5.sap.com/#/topic/91f0c3ee6f4d1014b6dd926db0e91070 Custom Data - Attaching Data Objects to Controls }
    * in the documentation.
    */
-  class CustomData extends UI5Element {
+  export default class CustomData extends UI5Element {
     /**
      * Constructor for a new `CustomData` element.
      */
@@ -17612,7 +17627,6 @@ declare module "sap/ui/core/CustomData" {
       bWriteToDom?: boolean
     ): this;
   }
-  export default CustomData;
 
   export interface $CustomDataSettings extends $ElementSettings {
     /**
@@ -17698,7 +17712,7 @@ declare module "sap/ui/core/DeclarativeSupport" {
    *
    * Static class for enabling declarative UI support.
    */
-  class DeclarativeSupport {
+  export default class DeclarativeSupport {
     constructor();
 
     /**
@@ -17720,13 +17734,14 @@ declare module "sap/ui/core/DeclarativeSupport" {
       isRecursive?: boolean
     ): void;
   }
-  export default DeclarativeSupport;
 }
 
 declare module "sap/ui/core/delegate/ItemNavigation" {
   import EventProvider from "sap/ui/base/EventProvider";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Delegate for the navigation between DOM nodes with the keyboard.
@@ -17771,7 +17786,7 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
    * through the items will not change the selected item, only the focus. (For example a radio group has one
    * selected item.)
    */
-  class ItemNavigation extends EventProvider {
+  export default class ItemNavigation extends EventProvider {
     /**
      * Creates an `ItemNavigation` delegate that can be attached to controls requiring capabilities for keyboard
      * navigation between items.
@@ -17991,17 +18006,56 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
       bTableList?: boolean
     ): this;
   }
-  export default ItemNavigation;
 
-  export interface $ItemNavigationAfterFocusEventParameters {}
+  export interface ItemNavigation$AfterFocusEventParameters {}
 
-  export interface $ItemNavigationBeforeFocusEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$AfterFocusEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ItemNavigationAfterFocusEventParameters = ItemNavigation$AfterFocusEventParameters;
 
-  export interface $ItemNavigationBorderReachedEventParameters {}
+  export type ItemNavigation$AfterFocusEvent = Event<ItemNavigation$AfterFocusEventParameters>;
 
-  export interface $ItemNavigationFocusAgainEventParameters {}
+  export interface ItemNavigation$BeforeFocusEventParameters {}
 
-  export interface $ItemNavigationFocusLeaveEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$BeforeFocusEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ItemNavigationBeforeFocusEventParameters = ItemNavigation$BeforeFocusEventParameters;
+
+  export type ItemNavigation$BeforeFocusEvent = Event<ItemNavigation$BeforeFocusEventParameters>;
+
+  export interface ItemNavigation$BorderReachedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$BorderReachedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ItemNavigationBorderReachedEventParameters = ItemNavigation$BorderReachedEventParameters;
+
+  export type ItemNavigation$BorderReachedEvent = Event<ItemNavigation$BorderReachedEventParameters>;
+
+  export interface ItemNavigation$FocusAgainEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$FocusAgainEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ItemNavigationFocusAgainEventParameters = ItemNavigation$FocusAgainEventParameters;
+
+  export type ItemNavigation$FocusAgainEvent = Event<ItemNavigation$FocusAgainEventParameters>;
+
+  export interface ItemNavigation$FocusLeaveEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$FocusLeaveEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ItemNavigationFocusLeaveEventParameters = ItemNavigation$FocusLeaveEventParameters;
+
+  export type ItemNavigation$FocusLeaveEvent = Event<ItemNavigation$FocusLeaveEventParameters>;
 }
 
 declare module "sap/ui/core/delegate/ScrollEnablement" {
@@ -18012,7 +18066,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Delegate for touch scrolling on mobile devices.
    *
@@ -18022,9 +18076,9 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
    * Controls that implement ScrollEnablement should additionally provide the getScrollDelegate method that
    * returns the current instance of this delegate object
    */
-  class ScrollEnablement extends BaseObject {
+  export default class ScrollEnablement extends BaseObject {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a ScrollEnablement delegate that can be attached to Controls requiring capabilities for scrolling
      * of a certain part of their DOM.
@@ -18074,7 +18128,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.delegate.ScrollEnablement with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -18099,7 +18153,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.delegate.ScrollEnablement.
      *
@@ -18107,7 +18161,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Destroys this Scrolling delegate.
      *
@@ -18115,7 +18169,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     destroy(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Calculates scroll position of a child of a container.
      *
@@ -18129,7 +18183,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): object;
     /**
      * @since 1.9.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for horizontal scrolling.
      *
@@ -18138,7 +18192,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     getHorizontal(): boolean;
     /**
      * @since 1.9.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for vertical scrolling.
      *
@@ -18146,7 +18200,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     getVertical(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Refreshes this Scrolling delegate.
      */
@@ -18191,7 +18245,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnScrollEndCallback: Function
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Scrolls to an element within a container.
      */
@@ -18220,7 +18274,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     /**
      * @since 1.17
      * @deprecated (since 1.42)
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Setter for property `bounce`.
      */
@@ -18232,7 +18286,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.11.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets GrowingList control to scroll container
      */
@@ -18251,7 +18305,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnOverflowChange: Function
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable horizontal scrolling.
      */
@@ -18263,7 +18317,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.16.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets IconTabBar control to scroll container
      */
@@ -18283,7 +18337,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.9.2
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Set overflow control on top of scroll container.
      */
@@ -18294,7 +18348,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       oControl: Control
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable vertical scrolling.
      */
@@ -18305,7 +18359,6 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       bVertical: boolean
     ): void;
   }
-  export default ScrollEnablement;
 }
 
 declare module "sap/ui/core/dnd/DragDropBase" {
@@ -18330,7 +18383,7 @@ declare module "sap/ui/core/dnd/DragDropBase" {
    * 	 - Texts in draggable controls cannot be selected.
    * 	 - The text of input fields in draggable controls can be selected, but not dragged.
    */
-  class DragDropBase extends UI5Element {
+  export default class DragDropBase extends UI5Element {
     /**
      * Constructor for a new DragDropBase.
      *
@@ -18452,7 +18505,6 @@ declare module "sap/ui/core/dnd/DragDropBase" {
       sGroupName?: string
     ): this;
   }
-  export default DragDropBase;
 
   export interface $DragDropBaseSettings extends $ElementSettings {
     /**
@@ -18496,7 +18548,9 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
    * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata }
    * restrictions.
    */
-  class DragDropInfo extends DropInfo implements dnd.IDragInfo, dnd.IDropInfo {
+  export default class DragDropInfo
+    extends DropInfo
+    implements dnd.IDragInfo, dnd.IDropInfo {
     __implements__sap_ui_core_dnd_IDragInfo: boolean;
     __implements__sap_ui_core_dnd_IDropInfo: boolean;
     /**
@@ -18627,7 +18681,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragDropInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -18647,7 +18701,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragDropInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -18683,7 +18737,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DragDropInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18691,7 +18745,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     ): this;
     /**
      * @since 1.56
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -18704,7 +18758,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -18717,7 +18771,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DragDropInfoDragStartEventParameters
+      mParameters?: DragDropInfo$DragStartEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getSourceAggregation sourceAggregation}.
@@ -18762,7 +18816,6 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       oTargetElement: ID | UI5Element
     ): this;
   }
-  export default DragDropInfo;
 
   export interface $DragDropInfoSettings extends $DropInfoSettings {
     /**
@@ -18781,7 +18834,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event<$DragDropInfoDragStartEventParameters>) => void;
+    dragStart?: (oEvent: Event<DragDropInfo$DragStartEventParameters>) => void;
 
     /**
      * @since 1.56
@@ -18791,9 +18844,17 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     dragEnd?: (oEvent: Event) => void;
   }
 
-  export interface $DragDropInfoDragEndEventParameters {}
+  export interface DragDropInfo$DragEndEventParameters {}
 
-  export interface $DragDropInfoDragStartEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragDropInfo$DragEndEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DragDropInfoDragEndEventParameters = DragDropInfo$DragEndEventParameters;
+
+  export type DragDropInfo$DragEndEvent = Event<DragDropInfo$DragEndEventParameters>;
+
+  export interface DragDropInfo$DragStartEventParameters {
     /**
      * The target element that will be dragged
      */
@@ -18809,6 +18870,14 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
      */
     browserEvent?: Event;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragDropInfo$DragStartEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DragDropInfoDragStartEventParameters = DragDropInfo$DragStartEventParameters;
+
+  export type DragDropInfo$DragStartEvent = Event<DragDropInfo$DragStartEventParameters>;
 }
 
 declare module "sap/ui/core/dnd/DragInfo" {
@@ -18819,11 +18888,11 @@ declare module "sap/ui/core/dnd/DragInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   import UI5Element from "sap/ui/core/Element";
 
@@ -18837,7 +18906,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
    * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata }
    * restrictions.
    */
-  class DragInfo extends DragDropBase implements dnd.IDragInfo {
+  export default class DragInfo extends DragDropBase implements dnd.IDragInfo {
     __implements__sap_ui_core_dnd_IDragInfo: boolean;
     /**
      * Constructor for a new DragInfo.
@@ -18920,7 +18989,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragEndEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18942,7 +19011,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragEndEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18967,7 +19036,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18987,7 +19056,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -19006,7 +19075,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragEndEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19023,7 +19092,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DragInfoDragStartEventParameters>) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19031,7 +19100,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     ): this;
     /**
      * @since 1.56
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -19041,10 +19110,10 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DragInfoDragEndEventParameters
+      mParameters?: DragInfo$DragEndEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -19057,7 +19126,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DragInfoDragStartEventParameters
+      mParameters?: DragInfo$DragStartEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getSourceAggregation sourceAggregation}.
@@ -19085,7 +19154,6 @@ declare module "sap/ui/core/dnd/DragInfo" {
       sSourceAggregation?: string
     ): this;
   }
-  export default DragInfo;
 
   export interface $DragInfoSettings extends $DragDropBaseSettings {
     /**
@@ -19097,17 +19165,17 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event<$DragInfoDragStartEventParameters>) => void;
+    dragStart?: (oEvent: Event<DragInfo$DragStartEventParameters>) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when a drag operation is being ended.
      */
-    dragEnd?: (oEvent: Event<$DragInfoDragEndEventParameters>) => void;
+    dragEnd?: (oEvent: Event<DragInfo$DragEndEventParameters>) => void;
   }
 
-  export interface $DragInfoDragEndEventParameters {
+  export interface DragInfo$DragEndEventParameters {
     /**
      * The target element that is being dragged
      */
@@ -19124,7 +19192,15 @@ declare module "sap/ui/core/dnd/DragInfo" {
     browserEvent?: Event;
   }
 
-  export interface $DragInfoDragStartEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragInfo$DragEndEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DragInfoDragEndEventParameters = DragInfo$DragEndEventParameters;
+
+  export type DragInfo$DragEndEvent = Event<DragInfo$DragEndEventParameters>;
+
+  export interface DragInfo$DragStartEventParameters {
     /**
      * The target element that will be dragged
      */
@@ -19140,6 +19216,14 @@ declare module "sap/ui/core/dnd/DragInfo" {
      */
     browserEvent?: Event;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragInfo$DragStartEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DragInfoDragStartEventParameters = DragInfo$DragStartEventParameters;
+
+  export type DragInfo$DragStartEvent = Event<DragInfo$DragStartEventParameters>;
 }
 
 declare module "sap/ui/core/dnd/DragAndDrop" {
@@ -19186,25 +19270,25 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sKey: string
     ): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the dragged control, if available within the same UI5 application frame.
      */
     getDragControl(): UI5Element | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * The valid drop target underneath the dragged control.
      */
     getDropControl(): UI5Element | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop configuration corresponding to the drop control.
      */
     getDropInfo(): DropInfo | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the calculated position of the drop action relative to the valid dropped control.
      */
@@ -19212,7 +19296,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       | dnd.RelativeDropPosition
       | keyof typeof dnd.RelativeDropPosition;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop indicator.
      *
@@ -19220,7 +19304,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
      */
     getIndicator(): HTMLElement | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the visual configuration of the drop indicator.
      *
@@ -19261,13 +19345,13 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sData: string
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Set the valid drop control.
      */
     setDropControl(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Defines the visual configuration of the drop indicator for the current `DropInfo`.
      */
@@ -19297,11 +19381,11 @@ declare module "sap/ui/core/dnd/DropInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   import UI5Element from "sap/ui/core/Element";
 
@@ -19313,7 +19397,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
    * Provides the configuration for drop operations. **Note:** This configuration might be ignored due to
    * control {@link sap.ui.core.Element.extend metadata} restrictions.
    */
-  class DropInfo extends DragDropBase implements dnd.IDropInfo {
+  export default class DropInfo extends DragDropBase implements dnd.IDropInfo {
     __implements__sap_ui_core_dnd_IDropInfo: boolean;
     /**
      * Constructor for a new DropInfo.
@@ -19394,7 +19478,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragEnterEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19414,7 +19498,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragEnterEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19441,7 +19525,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragOverEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19463,7 +19547,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragOverEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19489,7 +19573,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDropEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19510,7 +19594,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDropEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19527,7 +19611,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragEnterEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19546,7 +19630,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDragOverEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19563,14 +19647,14 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$DropInfoDropEventParameters>) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
      *
@@ -19583,11 +19667,11 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DropInfoDragEnterEventParameters
+      mParameters?: DropInfo$DragEnterEventParameters
     ): boolean;
     /**
      * @since 1.56
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragOver dragOver} to attached listeners.
      *
@@ -19597,10 +19681,10 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DropInfoDragOverEventParameters
+      mParameters?: DropInfo$DragOverEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:drop drop} to attached listeners.
      *
@@ -19610,7 +19694,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $DropInfoDropEventParameters
+      mParameters?: DropInfo$DropEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getDropEffect dropEffect}.
@@ -19721,7 +19805,6 @@ declare module "sap/ui/core/dnd/DropInfo" {
       sTargetAggregation?: string
     ): this;
   }
-  export default DropInfo;
 
   export interface $DropInfoSettings extends $DragDropBaseSettings {
     /**
@@ -19758,23 +19841,23 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * This event is fired when a dragged element enters a drop target.
      */
-    dragEnter?: (oEvent: Event<$DropInfoDragEnterEventParameters>) => void;
+    dragEnter?: (oEvent: Event<DropInfo$DragEnterEventParameters>) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when an element is being dragged over a valid drop target.
      */
-    dragOver?: (oEvent: Event<$DropInfoDragOverEventParameters>) => void;
+    dragOver?: (oEvent: Event<DropInfo$DragOverEventParameters>) => void;
 
     /**
      * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
      * info.
      */
-    drop?: (oEvent: Event<$DropInfoDropEventParameters>) => void;
+    drop?: (oEvent: Event<DropInfo$DropEventParameters>) => void;
   }
 
-  export interface $DropInfoDragEnterEventParameters {
+  export interface DropInfo$DragEnterEventParameters {
     /**
      * The target element on which the dragged element will be dropped
      */
@@ -19791,7 +19874,15 @@ declare module "sap/ui/core/dnd/DropInfo" {
     browserEvent?: Event;
   }
 
-  export interface $DropInfoDragOverEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DragEnterEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DropInfoDragEnterEventParameters = DropInfo$DragEnterEventParameters;
+
+  export type DropInfo$DragEnterEvent = Event<DropInfo$DragEnterEventParameters>;
+
+  export interface DropInfo$DragOverEventParameters {
     /**
      * The target element on which the dragged element will be dropped
      */
@@ -19815,7 +19906,15 @@ declare module "sap/ui/core/dnd/DropInfo" {
     browserEvent?: Event;
   }
 
-  export interface $DropInfoDropEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DragOverEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DropInfoDragOverEventParameters = DropInfo$DragOverEventParameters;
+
+  export type DropInfo$DragOverEvent = Event<DropInfo$DragOverEventParameters>;
+
+  export interface DropInfo$DropEventParameters {
     /**
      * The UI5 `dragSession` object that exists only during drag and drop
      */
@@ -19843,6 +19942,14 @@ declare module "sap/ui/core/dnd/DropInfo" {
      */
     browserEvent?: Event;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DropEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $DropInfoDropEventParameters = DropInfo$DropEventParameters;
+
+  export type DropInfo$DropEvent = Event<DropInfo$DropEventParameters>;
 }
 
 declare module "sap/ui/core/Element" {
@@ -19903,7 +20010,7 @@ declare module "sap/ui/core/Element" {
    * and deregister afterwards. Anyhow, any registered listeners must be cleaned up in the `onBeforeRendering`
    * listener and before destruction in the `exit` hook.
    */
-  class UI5Element extends ManagedObject {
+  export default class UI5Element extends ManagedObject {
     /**
      * Constructs and initializes a UI Element with the given `sId` and settings.
      *
@@ -20121,7 +20228,7 @@ declare module "sap/ui/core/Element" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM node that represents this Element wrapped as jQuery object. I.e. the element
      * returned by {@link sap.ui.core.Element#getDomRef} is wrapped and returned.
@@ -20224,7 +20331,7 @@ declare module "sap/ui/core/Element" {
       oThis?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Applies the focus info.
      *
@@ -20413,7 +20520,7 @@ declare module "sap/ui/core/Element" {
      */
     destroyTooltip(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Allows the parent of a control to enhance the ARIA information during rendering.
      *
@@ -20437,7 +20544,7 @@ declare module "sap/ui/core/Element" {
       mAriaProps: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Hook method for cleaning up the element instance before destruction.
      *
@@ -20513,7 +20620,7 @@ declare module "sap/ui/core/Element" {
      */
     getDependents(): UI5Element[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM Element that represents this UI5 Element. By default the DOM Element with
      * the same ID as this Element is returned. Subclasses should override this method if the lookup via id
@@ -20563,7 +20670,7 @@ declare module "sap/ui/core/Element" {
       sModelName?: string
     ): ContextBinding | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus or `null` if there's no such element currently.
      *
@@ -20573,7 +20680,7 @@ declare module "sap/ui/core/Element" {
      */
     getFocusDomRef(): Element | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information.
      *
@@ -20675,7 +20782,7 @@ declare module "sap/ui/core/Element" {
       oDragDropConfig: DragDropBase
     ): int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initializes the element instance after creation.
      *
@@ -20858,7 +20965,7 @@ declare module "sap/ui/core/Element" {
       oDelegate: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This triggers immediate rerendering of its parent and thus of itself and its children.
      *
@@ -20910,8 +21017,6 @@ declare module "sap/ui/core/Element" {
      */
     unbindElement(sModelName: string): ManagedObject;
   }
-  export default UI5Element;
-
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
    * its static "extend" method. See {@link sap.ui.core.Element.extend} for details on its usage.
@@ -21033,6 +21138,7 @@ declare module "sap/ui/core/Element" {
       id: ID
     ): UI5Element | undefined;
   }
+  export const registry: registry;
 
   export interface $ElementSettings extends $ManagedObjectSettings {
     /**
@@ -21122,7 +21228,7 @@ declare module "sap/ui/core/Element" {
 }
 
 declare module "sap/ui/core/EnabledPropagator" {
-  class EnabledPropagator {
+  export default class EnabledPropagator {
     /**
      * Mixin for enhancement of a control prototype with propagation of the `enabled` property.
      *
@@ -21148,7 +21254,6 @@ declare module "sap/ui/core/EnabledPropagator" {
       bLegacy?: boolean
     );
   }
-  export default EnabledPropagator;
 }
 
 declare module "sap/ui/core/EventBus" {
@@ -21170,7 +21275,7 @@ declare module "sap/ui/core/EventBus" {
    * Heavily using the EventBus can easily result in code which is hard to read and maintain because it's
    * difficult to keep an overview of all event publishers and subscribers.
    */
-  class EventBus extends BaseObject {
+  export default class EventBus extends BaseObject {
     /**
      * Creates an instance of EventBus.
      */
@@ -21414,7 +21519,6 @@ declare module "sap/ui/core/EventBus" {
       oListener?: object
     ): this;
   }
-  export default EventBus;
 }
 
 declare module "sap/ui/core/ExtensionPoint" {
@@ -21490,7 +21594,7 @@ declare module "sap/ui/core/format/DateFormat" {
    * 	 - {@link https://ui5.sap.com/#/topic/91f2eba36f4d1014b6dd926db0e91070 Date Format}
    * 	 - {@link http://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
    */
-  class DateFormat {
+  export default class DateFormat {
     constructor();
 
     /**
@@ -21993,8 +22097,6 @@ declare module "sap/ui/core/format/DateFormat" {
       bStrict?: boolean
     ): Date | Date[] | UI5Date | UI5Date[];
   }
-  export default DateFormat;
-
   /**
    * @since 1.99
    *
@@ -22110,7 +22212,7 @@ declare module "sap/ui/core/format/FileSizeFormat" {
    * 	 - binaryFilesize: Whether to use base 2, that means 1 Kibibyte = 1024 Byte, or base 10, that means
    *     1 Kilobyte = 1000 Byte
    */
-  class FileSizeFormat extends BaseObject {
+  export default class FileSizeFormat extends BaseObject {
     constructor();
 
     /**
@@ -22202,7 +22304,6 @@ declare module "sap/ui/core/format/FileSizeFormat" {
       sValue: string
     ): number;
   }
-  export default FileSizeFormat;
 }
 
 declare module "sap/ui/core/format/ListFormat" {
@@ -22212,7 +22313,7 @@ declare module "sap/ui/core/format/ListFormat" {
    * The ListFormat is a static class for formatting and parsing an array of strings in a locale-sensitive
    * manner according to a set of format options.
    */
-  class ListFormat {
+  export default class ListFormat {
     constructor();
 
     /**
@@ -22264,7 +22365,6 @@ declare module "sap/ui/core/format/ListFormat" {
       sValue: string
     ): any[];
   }
-  export default ListFormat;
 }
 
 declare module "sap/ui/core/format/NumberFormat" {
@@ -22278,7 +22378,7 @@ declare module "sap/ui/core/format/NumberFormat" {
    * The NumberFormat is a static class for formatting and parsing numeric values according to a set of format
    * options.
    */
-  class NumberFormat extends BaseObject {
+  export default class NumberFormat extends BaseObject {
     constructor();
     /**
      * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
@@ -23213,8 +23313,6 @@ declare module "sap/ui/core/format/NumberFormat" {
       sValue: string
     ): number | any[] | string | null;
   }
-  export default NumberFormat;
-
   /**
    * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
    * mode in this object indicates how the least significant returned digits of rounded result is to be calculated.
@@ -23297,7 +23395,7 @@ declare module "sap/ui/core/Fragment" {
    * Use-cases for Fragments are e.g.: - Modularization of UIs without fragmenting the controller structure
    * - Re-use of UI parts - 100%-declarative definition of Views
    */
-  class Fragment extends ManagedObject {
+  export default class Fragment extends ManagedObject {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -23466,7 +23564,6 @@ declare module "sap/ui/core/Fragment" {
       sType: string
     ): this;
   }
-  export default Fragment;
 
   export interface $FragmentSettings extends $ManagedObjectSettings {
     type?: string | PropertyBindingInfo;
@@ -23479,13 +23576,13 @@ declare module "sap/ui/core/History" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * History handles the history of certain controls (e.g. sap.ui.commons.SearchField).
    */
-  class History extends BaseObject {
+  export default class History extends BaseObject {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates an instance of the History.
      *
@@ -23504,7 +23601,7 @@ declare module "sap/ui/core/History" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.History with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -23529,7 +23626,7 @@ declare module "sap/ui/core/History" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.History.
      *
@@ -23537,17 +23634,16 @@ declare module "sap/ui/core/History" {
      */
     static getMetadata(): Metadata;
   }
-  export default History;
 }
 
 declare module "sap/ui/core/HTML" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Embeds standard HTML in an SAPUI5 control tree.
@@ -23564,7 +23660,7 @@ declare module "sap/ui/core/HTML" {
    * For further hints about usage restrictions for this control, see also the documentation of the `content`
    * property.
    */
-  class HTML extends Control {
+  export default class HTML extends Control {
     /**
      * Constructor for a new HTML.
      *
@@ -23648,7 +23744,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HTMLAfterRenderingEventParameters>) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
        */
@@ -23672,7 +23768,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HTMLAfterRenderingEventParameters>) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
        */
@@ -23690,14 +23786,14 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$HTMLAfterRenderingEventParameters>) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -23707,7 +23803,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HTMLAfterRenderingEventParameters
+      mParameters?: HTML$AfterRenderingEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContent content}.
@@ -23898,7 +23994,6 @@ declare module "sap/ui/core/HTML" {
       bVisible?: boolean
     ): this;
   }
-  export default HTML;
 
   export interface $HTMLSettings extends $ControlSettings {
     /**
@@ -23959,17 +24054,25 @@ declare module "sap/ui/core/HTML" {
      * event will fire, but there won't be a DOM node for this control.
      */
     afterRendering?: (
-      oEvent: Event<$HTMLAfterRenderingEventParameters>
+      oEvent: Event<HTML$AfterRenderingEventParameters>
     ) => void;
   }
 
-  export interface $HTMLAfterRenderingEventParameters {
+  export interface HTML$AfterRenderingEventParameters {
     /**
      * Whether the current DOM of the control has been preserved (true) or not (e.g. rendered from content property
      * or it is an empty HTML control).
      */
     isPreservedDOM?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HTML$AfterRenderingEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HTMLAfterRenderingEventParameters = HTML$AfterRenderingEventParameters;
+
+  export type HTML$AfterRenderingEvent = Event<HTML$AfterRenderingEventParameters>;
 }
 
 declare module "sap/ui/core/hyphenation/Hyphenation" {
@@ -23978,9 +24081,9 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
     $ManagedObjectSettings,
   } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.60
@@ -24024,7 +24127,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
    * responsible for any grammatical incorrectness or inconsistencies of the hyphenation. Also, the variety
    * of supported languages is outside the scope of our control and may be subject to future changes.
    */
-  class Hyphenation extends ManagedObject {
+  export default class Hyphenation extends ManagedObject {
     constructor();
 
     /**
@@ -24083,7 +24186,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HyphenationErrorEventParameters>) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
        * itself
@@ -24104,7 +24207,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$HyphenationErrorEventParameters>) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
        * itself
@@ -24147,14 +24250,14 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$HyphenationErrorEventParameters>) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -24164,7 +24267,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $HyphenationErrorEventParameters
+      mParameters?: Hyphenation$ErrorEventParameters
     ): this;
     /**
      * What languages were initialized with {@link sap.ui.core.hyphenation.Hyphenation#initialize Hyphenation#initialize}
@@ -24229,21 +24332,28 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       sLang?: string
     ): boolean;
   }
-  export default Hyphenation;
 
   export interface $HyphenationSettings extends $ManagedObjectSettings {
     /**
      * Fired if an error with initialization or hyphenation occurs.
      */
-    error?: (oEvent: Event<$HyphenationErrorEventParameters>) => void;
+    error?: (oEvent: Event<Hyphenation$ErrorEventParameters>) => void;
   }
 
-  export interface $HyphenationErrorEventParameters {
+  export interface Hyphenation$ErrorEventParameters {
     /**
      * The message of the error.
      */
     sErrorMessage?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Hyphenation$ErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HyphenationErrorEventParameters = Hyphenation$ErrorEventParameters;
+
+  export type Hyphenation$ErrorEvent = Event<Hyphenation$ErrorEventParameters>;
 }
 
 declare module "sap/ui/core/Icon" {
@@ -24267,7 +24377,7 @@ declare module "sap/ui/core/Icon" {
    *
    * For further information, see {@link https://ui5.sap.com/#/topic/21ea0ea94614480d9a910b2e93431291 Icon and Icon Pool}.
    */
-  class Icon extends Control implements IFormContent {
+  export default class Icon extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new Icon.
@@ -24405,7 +24515,7 @@ declare module "sap/ui/core/Icon" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -24418,7 +24528,7 @@ declare module "sap/ui/core/Icon" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -24856,7 +24966,6 @@ declare module "sap/ui/core/Icon" {
       sWidth?: CSSSize
     ): this;
   }
-  export default Icon;
 
   export interface $IconSettings extends $ControlSettings {
     /**
@@ -24978,7 +25087,15 @@ declare module "sap/ui/core/Icon" {
     press?: (oEvent: Event) => void;
   }
 
-  export interface $IconPressEventParameters {}
+  export interface Icon$PressEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Icon$PressEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $IconPressEventParameters = Icon$PressEventParameters;
+
+  export type Icon$PressEvent = Event<Icon$PressEventParameters>;
 }
 
 declare module "sap/ui/core/IconPool" {
@@ -25308,7 +25425,7 @@ declare module "sap/ui/core/IntervalTrigger" {
    * Provides a trigger that triggers in a set interval and calls all registered listeners. If the interval
    * is <= 0 the trigger is switched off and won't trigger at all.
    */
-  class IntervalTrigger extends BaseObject {
+  export default class IntervalTrigger extends BaseObject {
     /**
      * Creates an instance of EventBus.
      */
@@ -25420,7 +25537,6 @@ declare module "sap/ui/core/IntervalTrigger" {
       iInterval: int
     ): void;
   }
-  export default IntervalTrigger;
 }
 
 declare module "sap/ui/core/InvisibleMessage" {
@@ -25447,7 +25563,7 @@ declare module "sap/ui/core/InvisibleMessage" {
    * Controller initialization, after Core initialization, etc. Then, you should specify the text that has
    * to be announced by the screen reader and the live region’s mode using the `announce` method.
    */
-  class InvisibleMessage extends ManagedObject {
+  export default class InvisibleMessage extends ManagedObject {
     constructor();
 
     /**
@@ -25499,7 +25615,6 @@ declare module "sap/ui/core/InvisibleMessage" {
       sMode: InvisibleMessageMode | keyof typeof InvisibleMessageMode
     ): void;
   }
-  export default InvisibleMessage;
 
   export interface $InvisibleMessageSettings extends $ManagedObjectSettings {}
 }
@@ -25522,7 +25637,7 @@ declare module "sap/ui/core/InvisibleText" {
    * The inherited properties busy, busyIndicatorDelay and visible and the aggregation tooltip is not supported
    * by this control.
    */
-  class InvisibleText extends Control {
+  export default class InvisibleText extends Control {
     /**
      * Constructor for a new InvisibleText.
      *
@@ -25676,7 +25791,6 @@ declare module "sap/ui/core/InvisibleText" {
      */
     toStatic(): this;
   }
-  export default InvisibleText;
 
   export interface $InvisibleTextSettings extends $ControlSettings {
     /**
@@ -25698,7 +25812,7 @@ declare module "sap/ui/core/Item" {
   /**
    * A control base type.
    */
-  class Item extends UI5Element {
+  export default class Item extends UI5Element {
     /**
      * Constructor for a new Item.
      *
@@ -25864,7 +25978,6 @@ declare module "sap/ui/core/Item" {
       sTextDirection?: TextDirection | keyof typeof TextDirection
     ): this;
   }
-  export default Item;
 
   export interface $ItemSettings extends $ElementSettings {
     /**
@@ -25903,7 +26016,7 @@ declare module "sap/ui/core/LabelEnablement" {
 
   /**
    * @since 1.28.0
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Helper functionality for enhancement of a `Label` with common label functionality.
    * See:
@@ -25911,7 +26024,7 @@ declare module "sap/ui/core/LabelEnablement" {
    */
   interface LabelEnablement {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This function should be called on a label control to enrich its functionality.
      *
@@ -25966,7 +26079,7 @@ declare module "sap/ui/core/LabelEnablement" {
       oElement: UI5Element
     ): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Helper function for the `Label` control to render the HTML 'for' attribute.
      *
@@ -26003,7 +26116,7 @@ declare module "sap/ui/core/LayoutData" {
   /**
    * A layout data base type.
    */
-  class LayoutData extends UI5Element {
+  export default class LayoutData extends UI5Element {
     /**
      * Constructor for a new LayoutData.
      *
@@ -26071,7 +26184,6 @@ declare module "sap/ui/core/LayoutData" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default LayoutData;
 
   export interface $LayoutDataSettings extends $ElementSettings {}
 }
@@ -26088,7 +26200,7 @@ declare module "sap/ui/core/ListItem" {
    *
    * The element foresees the usage of additional texts displayed in a second column.
    */
-  class ListItem extends Item {
+  export default class ListItem extends Item {
     /**
      * Constructor for a new ListItem.
      *
@@ -26196,7 +26308,6 @@ declare module "sap/ui/core/ListItem" {
       sIcon?: string
     ): this;
   }
-  export default ListItem;
 
   export interface $ListItemSettings extends $ItemSettings {
     /**
@@ -26230,7 +26341,7 @@ declare module "sap/ui/core/LocalBusyIndicator" {
    * of this control the corresponding control needs to be enabled via the 'LocalBusyIndicatorSupport' accordingly
    * to the ListBox control (see the init-function of the ListBox).
    */
-  class LocalBusyIndicator extends Control {
+  export default class LocalBusyIndicator extends Control {
     /**
      * Constructor for a new LocalBusyIndicator.
      *
@@ -26350,7 +26461,6 @@ declare module "sap/ui/core/LocalBusyIndicator" {
       sWidth?: CSSSize
     ): this;
   }
-  export default LocalBusyIndicator;
 
   export interface $LocalBusyIndicatorSettings extends $ControlSettings {
     /**
@@ -26376,7 +26486,7 @@ declare module "sap/ui/core/Locale" {
    * Locale represents a locale setting, consisting of a language, script, region, variants, extensions and
    * private use section.
    */
-  class Locale extends BaseObject {
+  export default class Locale extends BaseObject {
     /**
      * Creates an instance of the Locale.
      */
@@ -26518,7 +26628,6 @@ declare module "sap/ui/core/Locale" {
      */
     getVariantSubtags(): string[];
   }
-  export default Locale;
 }
 
 declare module "sap/ui/core/LocaleData" {
@@ -26533,7 +26642,7 @@ declare module "sap/ui/core/LocaleData" {
   /**
    * Provides access to locale-specific data, such as, date formats, number formats, and currencies.
    */
-  class LocaleData extends BaseObject {
+  export default class LocaleData extends BaseObject {
     /**
      * Creates an instance of LocaleData for the given locale.
      */
@@ -27480,7 +27589,6 @@ declare module "sap/ui/core/LocaleData" {
      */
     getWeekendStart(): int;
   }
-  export default LocaleData;
 }
 
 declare module "sap/ui/core/Manifest" {
@@ -27493,7 +27601,7 @@ declare module "sap/ui/core/Manifest" {
    *
    * The Manifest class.
    */
-  class Manifest extends BaseObject {
+  export default class Manifest extends BaseObject {
     /**
      * Creates and initializes a manifest wrapper which provides API access to the content of the manifest.
      */
@@ -27561,7 +27669,7 @@ declare module "sap/ui/core/Manifest" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Function to load the manifest by URL
      *
@@ -27666,7 +27774,6 @@ declare module "sap/ui/core/Manifest" {
       sRelativeTo?: string
     ): string;
   }
-  export default Manifest;
 }
 
 declare module "sap/ui/core/Message" {
@@ -27683,7 +27790,7 @@ declare module "sap/ui/core/Message" {
    *
    * Rendering must be done within the control that uses this kind of element. Its default level is none.
    */
-  class Message extends UI5Element {
+  export default class Message extends UI5Element {
     /**
      * Constructor for a new Message.
      *
@@ -27921,7 +28028,6 @@ declare module "sap/ui/core/Message" {
       sTimestamp?: string
     ): this;
   }
-  export default Message;
 
   export interface $MessageSettings extends $ElementSettings {
     /**
@@ -27970,7 +28076,7 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
    * following target syntax: 'ControlID/PropertyName'. Creating an instance of this class using the "new"
    * keyword always results in the same instance (Singleton).
    */
-  class ControlMessageProcessor extends MessageProcessor {
+  export default class ControlMessageProcessor extends MessageProcessor {
     /**
      * Constructor for a new ControlMessageProcessor
      */
@@ -28006,13 +28112,13 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Check Messages and update controls with messages
      */
     checkMessages(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Set Messages to check
      */
@@ -28023,7 +28129,6 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
       mMessages: Record<string, Message[]>
     ): void;
   }
-  export default ControlMessageProcessor;
 }
 
 declare module "sap/ui/core/message/Message" {
@@ -28037,7 +28142,7 @@ declare module "sap/ui/core/message/Message" {
 
   import Model from "sap/ui/model/Model";
 
-  class Message extends BaseObject {
+  export default class Message extends BaseObject {
     /**
      * Constructor for a new Message.
      */
@@ -28371,7 +28476,6 @@ declare module "sap/ui/core/message/Message" {
       sType: MessageType | keyof typeof MessageType
     ): void;
   }
-  export default Message;
 }
 
 declare module "sap/ui/core/message/MessageManager" {
@@ -28387,7 +28491,7 @@ declare module "sap/ui/core/message/MessageManager" {
 
   import ManagedObject from "sap/ui/base/ManagedObject";
 
-  class MessageManager extends EventProvider {
+  export default class MessageManager extends EventProvider {
     /**
      * Constructor for a new MessageManager.
      *
@@ -28521,7 +28625,6 @@ declare module "sap/ui/core/message/MessageManager" {
       aNewMessages: any[]
     ): void;
   }
-  export default MessageManager;
 }
 
 declare module "sap/ui/core/message/MessageParser" {
@@ -28534,7 +28637,7 @@ declare module "sap/ui/core/message/MessageParser" {
   /**
    * This is an abstract base class for MessageParser objects.
    */
-  class MessageParser extends BaseObject {
+  export default class MessageParser extends BaseObject {
     /**
      * Abstract MessageParser class to be inherited in back-end specific implementations.
      */
@@ -28570,7 +28673,7 @@ declare module "sap/ui/core/message/MessageParser" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the registered processor on which the events for message handling can be fired
      *
@@ -28591,7 +28694,7 @@ declare module "sap/ui/core/message/MessageParser" {
       oRequest: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is used by the model to register itself as MessageProcessor for this parser
      *
@@ -28604,22 +28707,21 @@ declare module "sap/ui/core/message/MessageParser" {
       oProcessor: MessageProcessor
     ): this;
   }
-  export default MessageParser;
 }
 
 declare module "sap/ui/core/message/MessageProcessor" {
   import EventProvider from "sap/ui/base/EventProvider";
 
-  import Event from "sap/ui/base/Event";
-
   import Metadata from "sap/ui/base/Metadata";
 
   import Message from "sap/ui/core/message/Message";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * This is an abstract base class for MessageProcessor objects.
    */
-  class MessageProcessor extends EventProvider {
+  export default class MessageProcessor extends EventProvider {
     /**
      * Constructor for a new MessageProcessor
      */
@@ -28671,9 +28773,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$MessageProcessorMessageChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `MessageProcessor` itself
        */
@@ -28691,9 +28791,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$MessageProcessorMessageChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `MessageProcessor` itself
        */
@@ -28715,9 +28813,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$MessageProcessorMessageChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -28725,7 +28821,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
     ): this;
     /**
      * @deprecated - 1.115 Use {@link sap.ui.core.messages.MessageManager#updateMessages} instead
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageChange messageChange} to attached listeners.
      *
@@ -28735,7 +28831,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters: $MessageProcessorMessageChangeEventParameters
+      mParameters: MessageProcessor$MessageChangeEventParameters
     ): this;
     /**
      * Returns the ID of the MessageProcessor instance
@@ -28753,9 +28849,8 @@ declare module "sap/ui/core/message/MessageProcessor" {
       mMessages: Record<string, Message[]>
     ): void;
   }
-  export default MessageProcessor;
 
-  export interface $MessageProcessorMessageChangeEventParameters {
+  export interface MessageProcessor$MessageChangeEventParameters {
     /**
      * Messages already existing before the `messageChange` event was fired.
      */
@@ -28766,6 +28861,14 @@ declare module "sap/ui/core/message/MessageProcessor" {
      */
     newMessages?: Message;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MessageProcessor$MessageChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $MessageProcessorMessageChangeEventParameters = MessageProcessor$MessageChangeEventParameters;
+
+  export type MessageProcessor$MessageChangeEvent = Event<MessageProcessor$MessageChangeEventParameters>;
 }
 
 declare module "sap/ui/core/mvc/Controller" {
@@ -28790,7 +28893,7 @@ declare module "sap/ui/core/mvc/Controller" {
    * 	 - use {@link sap.ui.core.mvc.Controller.extend Controller.extend} to define the controller class
    * 	 - use {@link sap.ui.core.mvc.Controller.create Controller.create} to create an instance
    */
-  class Controller extends EventProvider {
+  export default class Controller extends EventProvider {
     /**
      * Instantiates a (MVC-style) controller.
      */
@@ -29037,7 +29140,7 @@ declare module "sap/ui/core/mvc/Controller" {
       }
     ): Promise<Control | Control[]>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, after the HTML is placed in the DOM-Tree. It can
      * be used to apply additional changes to the DOM after the Renderer has finished. (Even though this method
@@ -29048,7 +29151,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onAfterRendering(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, before the Renderer is called and the HTML is
      * placed in the DOM-Tree. It can be used to perform clean-up-tasks before re-rendering. (Even though this
@@ -29059,7 +29162,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onBeforeRendering(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon desctuction of the View. The controller should perform its internal destruction
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -29068,7 +29171,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onExit(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon initialization of the View. The controller can perform its internal setup
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -29083,7 +29186,6 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onInit(): void;
   }
-  export default Controller;
 }
 
 declare module "sap/ui/core/mvc/ControllerExtension" {
@@ -29104,7 +29206,7 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
    * For a more detailed description how to develop controller extensions, see section {@link https://ui5.sap.com/#/topic/21515f09c0324218bb705b27407f5d61 Using Controller Extension }
    * in the documentation.
    */
-  class ControllerExtension extends BaseObject {
+  export default class ControllerExtension extends BaseObject {
     constructor();
 
     /**
@@ -29191,7 +29293,6 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
      */
     getView(): View;
   }
-  export default ControllerExtension;
 }
 
 declare module "sap/ui/core/mvc/HTMLView" {
@@ -29212,7 +29313,7 @@ declare module "sap/ui/core/mvc/HTMLView" {
    *
    * A view defined/constructed by declarative HTML.
    */
-  class HTMLView extends View {
+  export default class HTMLView extends View {
     /**
      * Constructor for a new `HTMLView`.
      *
@@ -29327,7 +29428,6 @@ declare module "sap/ui/core/mvc/HTMLView" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default HTMLView;
 
   export interface $HTMLViewSettings extends $ViewSettings {}
 }
@@ -29342,7 +29442,7 @@ declare module "sap/ui/core/mvc/JSONView" {
   /**
    * A View defined using JSON.
    */
-  class JSONView extends View {
+  export default class JSONView extends View {
     /**
      * Constructor for a new mvc/JSONView.
      *
@@ -29458,7 +29558,6 @@ declare module "sap/ui/core/mvc/JSONView" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default JSONView;
 
   export interface $JSONViewSettings extends $ViewSettings {}
 }
@@ -29479,7 +29578,7 @@ declare module "sap/ui/core/mvc/JSView" {
    *
    * A View defined/constructed by JavaScript code.
    */
-  class JSView extends View {
+  export default class JSView extends View {
     /**
      * Constructor for a new `JSView`.
      *
@@ -29592,7 +29691,6 @@ declare module "sap/ui/core/mvc/JSView" {
      */
     createContent(): Control | Control[];
   }
-  export default JSView;
 
   export interface $JSViewSettings extends $ViewSettings {}
 }
@@ -29633,7 +29731,7 @@ declare module "sap/ui/core/mvc/TemplateView" {
    *
    * A view defined in a template.
    */
-  class TemplateView extends View {
+  export default class TemplateView extends View {
     /**
      * Constructor for a new mvc/TemplateView.
      *
@@ -29707,7 +29805,6 @@ declare module "sap/ui/core/mvc/TemplateView" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default TemplateView;
 
   export interface $TemplateViewSettings extends $ViewSettings {}
 }
@@ -29821,7 +29918,7 @@ declare module "sap/ui/core/mvc/View" {
    * of `createContent` will be prefixed with the ID of the view automatically. The default implementation
    * of this method returns `false`.
    */
-  class View extends Control {
+  export default class View extends Control {
     /**
      * Constructor for a new `View`.
      *
@@ -29960,7 +30057,7 @@ declare module "sap/ui/core/mvc/View" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.30
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Register a preprocessor for all views of a specific type.
      *
@@ -30338,7 +30435,7 @@ declare module "sap/ui/core/mvc/View" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterInit afterInit} to attached listeners.
      *
@@ -30351,7 +30448,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -30364,7 +30461,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeExit beforeExit} to attached listeners.
      *
@@ -30377,7 +30474,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -30391,7 +30488,7 @@ declare module "sap/ui/core/mvc/View" {
     ): this;
     /**
      * @since 1.88
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by typed views, returning the flag whether to prefix the IDs of controls automatically
      * or not, if the controls are created inside the {@link sap.ui.core.mvc.View#createContent} function. By
@@ -30461,7 +30558,7 @@ declare module "sap/ui/core/mvc/View" {
       sId: string
     ): string | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object which is also passed to the preprocessors
      * See:
@@ -30510,7 +30607,7 @@ declare module "sap/ui/core/mvc/View" {
      */
     getWidth(): CSSSize;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks if any preprocessors are active for the specified type
      *
@@ -30583,7 +30680,7 @@ declare module "sap/ui/core/mvc/View" {
       vContent: int | string | Control
     ): Control | null;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Executes preprocessors for a type of source
      *
@@ -30671,8 +30768,6 @@ declare module "sap/ui/core/mvc/View" {
       sWidth?: CSSSize
     ): this;
   }
-  export default View;
-
   /**
    * @since 1.30
    *
@@ -30793,13 +30888,45 @@ declare module "sap/ui/core/mvc/View" {
     beforeRendering?: (oEvent: Event) => void;
   }
 
-  export interface $ViewAfterInitEventParameters {}
+  export interface View$AfterInitEventParameters {}
 
-  export interface $ViewAfterRenderingEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$AfterInitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ViewAfterInitEventParameters = View$AfterInitEventParameters;
 
-  export interface $ViewBeforeExitEventParameters {}
+  export type View$AfterInitEvent = Event<View$AfterInitEventParameters>;
 
-  export interface $ViewBeforeRenderingEventParameters {}
+  export interface View$AfterRenderingEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$AfterRenderingEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ViewAfterRenderingEventParameters = View$AfterRenderingEventParameters;
+
+  export type View$AfterRenderingEvent = Event<View$AfterRenderingEventParameters>;
+
+  export interface View$BeforeExitEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$BeforeExitEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ViewBeforeExitEventParameters = View$BeforeExitEventParameters;
+
+  export type View$BeforeExitEvent = Event<View$BeforeExitEventParameters>;
+
+  export interface View$BeforeRenderingEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$BeforeRenderingEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ViewBeforeRenderingEventParameters = View$BeforeRenderingEventParameters;
+
+  export type View$BeforeRenderingEvent = Event<View$BeforeRenderingEventParameters>;
 
   export namespace Preprocessor {
     /**
@@ -30899,7 +31026,7 @@ declare module "sap/ui/core/mvc/XMLView" {
    *  When the content aggregation of this control is bound, no HTML markup is allowed in the binding template
    * of the bound content aggregation. An error will be thrown when the above combination is detected.
    */
-  class XMLView extends View {
+  export default class XMLView extends View {
     /**
      * Constructor for a new `XMLView`.
      *
@@ -31152,8 +31279,6 @@ declare module "sap/ui/core/mvc/XMLView" {
       mSettings?: object
     ): void;
   }
-  export default XMLView;
-
   /**
    * @since 1.34
    *
@@ -31239,7 +31364,7 @@ declare module "sap/ui/core/Popup" {
    * actual attribute value is not checked. To prevent a DOM element from matching, you must remove the attribute
    * itself. Setting the attribute to a falsy value is not enough in this case.
    */
-  class Popup extends ManagedObject {
+  export default class Popup extends ManagedObject {
     /**
      * Creates an instance of `sap.ui.core.Popup` that can be used to open controls as a Popup, visually appearing
      * in front of other controls.
@@ -31320,9 +31445,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$PopupBlockLayerStateChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to a dummy event provider object
        */
@@ -31341,9 +31464,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$PopupBlockLayerStateChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to a dummy event provider object
        */
@@ -31359,9 +31480,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$PopupBlockLayerStateChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -31635,7 +31754,7 @@ declare module "sap/ui/core/Popup" {
      */
     exit(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -31648,7 +31767,7 @@ declare module "sap/ui/core/Popup" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -31983,8 +32102,6 @@ declare module "sap/ui/core/Popup" {
       bShowShadow: boolean
     ): this;
   }
-  export default Popup;
-
   /**
    * Enumeration providing options for docking of some element to another.
    *
@@ -32044,7 +32161,7 @@ declare module "sap/ui/core/Popup" {
     closed?: (oEvent: Event) => void;
   }
 
-  export interface $PopupBlockLayerStateChangeEventParameters {
+  export interface Popup$BlockLayerStateChangeEventParameters {
     /**
      * Indicates whether a blocking layer is currently visible `visible: true` or not `visible: false`
      */
@@ -32058,9 +32175,33 @@ declare module "sap/ui/core/Popup" {
     zIndex?: number;
   }
 
-  export interface $PopupClosedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$BlockLayerStateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $PopupBlockLayerStateChangeEventParameters = Popup$BlockLayerStateChangeEventParameters;
 
-  export interface $PopupOpenedEventParameters {}
+  export type Popup$BlockLayerStateChangeEvent = Event<Popup$BlockLayerStateChangeEventParameters>;
+
+  export interface Popup$ClosedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$ClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $PopupClosedEventParameters = Popup$ClosedEventParameters;
+
+  export type Popup$ClosedEvent = Event<Popup$ClosedEventParameters>;
+
+  export interface Popup$OpenedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$OpenedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $PopupOpenedEventParameters = Popup$OpenedEventParameters;
+
+  export type Popup$OpenedEvent = Event<Popup$OpenedEventParameters>;
 }
 
 declare module "sap/ui/core/Renderer" {
@@ -32209,7 +32350,7 @@ declare module "sap/ui/core/Renderer" {
       oRendererInfo?: object
     ): object;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the TextAlignment for the provided configuration.
      *
@@ -32395,7 +32536,7 @@ declare module "sap/ui/core/RenderManager" {
    * that the parent control's accessibility enhancement is static and does not interfere with the child control's
    * rendering optimization.
    */
-  class RenderManager extends Object {
+  export default class RenderManager extends Object {
     /**
      * Creates an instance of the RenderManager.
      *
@@ -32409,7 +32550,7 @@ declare module "sap/ui/core/RenderManager" {
     constructor();
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible Placeholder DOM element. This method can be used to get direct
      * access to the placeholder DOM element. Also statically available as RenderManager.createInvisiblePlaceholderId()
@@ -33291,7 +33432,6 @@ declare module "sap/ui/core/RenderManager" {
      */
     writeStyles(): this;
   }
-  export default RenderManager;
 }
 
 declare module "sap/ui/core/ResizeHandler" {
@@ -33309,7 +33449,7 @@ declare module "sap/ui/core/ResizeHandler" {
    * of the module export only and do not expect the module export to be a class (do not subclass it, do not
    * create instances, do not call inherited methods).
    */
-  class ResizeHandler extends BaseObject {
+  export default class ResizeHandler extends BaseObject {
     constructor();
 
     /**
@@ -33405,7 +33545,6 @@ declare module "sap/ui/core/ResizeHandler" {
       }) => void
     ): string | null;
   }
-  export default ResizeHandler;
 }
 
 declare module "sap/ui/core/routing/Route" {
@@ -33413,9 +33552,9 @@ declare module "sap/ui/core/routing/Route" {
 
   import Router from "sap/ui/core/routing/Router";
 
-  import Event from "sap/ui/base/Event";
-
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   import View from "sap/ui/core/mvc/View";
 
@@ -33522,7 +33661,7 @@ declare module "sap/ui/core/routing/Route" {
     subroutes?: object;
   };
 
-  class Route extends EventProvider {
+  export default class Route extends EventProvider {
     /**
      * Instantiates a route
      */
@@ -33590,7 +33729,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteBeforeMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33610,7 +33749,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteBeforeMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33635,7 +33774,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
        */
@@ -33655,7 +33794,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
        */
@@ -33681,7 +33820,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RoutePatternMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33702,7 +33841,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RoutePatternMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33728,7 +33867,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteBeforeMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33747,7 +33886,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33767,7 +33906,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$RoutePatternMatchedEventParameters>) => void,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33775,7 +33914,7 @@ declare module "sap/ui/core/routing/Route" {
     ): this;
     /**
      * @since 1.46.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeMatched beforeMatched} to attached listeners.
      *
@@ -33785,7 +33924,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $RouteBeforeMatchedEventParameters
+      oParameters?: Route$BeforeMatchedEventParameters
     ): Router;
     /**
      * Returns the pattern of the route. If there are multiple patterns, the first pattern is returned
@@ -33818,9 +33957,8 @@ declare module "sap/ui/core/routing/Route" {
       sHash: string
     ): boolean;
   }
-  export default Route;
 
-  export interface $RouteBeforeMatchedEventParameters {
+  export interface Route$BeforeMatchedEventParameters {
     /**
      * The name of the route
      */
@@ -33846,7 +33984,15 @@ declare module "sap/ui/core/routing/Route" {
     nestedRoute?: Route;
   }
 
-  export interface $RouteMatchedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$BeforeMatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouteBeforeMatchedEventParameters = Route$BeforeMatchedEventParameters;
+
+  export type Route$BeforeMatchedEvent = Event<Route$BeforeMatchedEventParameters>;
+
+  export interface Route$MatchedEventParameters {
     /**
      * The name of the route
      */
@@ -33894,7 +34040,15 @@ declare module "sap/ui/core/routing/Route" {
     targetControls?: Control[];
   }
 
-  export interface $RoutePatternMatchedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$MatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouteMatchedEventParameters = Route$MatchedEventParameters;
+
+  export type Route$MatchedEvent = Event<Route$MatchedEventParameters>;
+
+  export interface Route$PatternMatchedEventParameters {
     /**
      * The name of the route
      */
@@ -33934,7 +34088,15 @@ declare module "sap/ui/core/routing/Route" {
     targetControls?: Control[];
   }
 
-  export interface $RouteSwitchedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$PatternMatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RoutePatternMatchedEventParameters = Route$PatternMatchedEventParameters;
+
+  export type Route$PatternMatchedEvent = Event<Route$PatternMatchedEventParameters>;
+
+  export interface Route$SwitchedEventParameters {
     /**
      * The name of the route
      */
@@ -33951,6 +34113,14 @@ declare module "sap/ui/core/routing/Route" {
      */
     config?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$SwitchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouteSwitchedEventParameters = Route$SwitchedEventParameters;
+
+  export type Route$SwitchedEvent = Event<Route$SwitchedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/Target" {
@@ -33958,11 +34128,11 @@ declare module "sap/ui/core/routing/Target" {
 
   import Control from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import View from "sap/ui/core/mvc/View";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Configuration object for a routing Target
@@ -34178,7 +34348,7 @@ declare module "sap/ui/core/routing/Target" {
    * The main benefit of Targets is lazy loading: you do not have to create the views until you really need
    * them.
    */
-  class Target extends EventProvider {
+  export default class Target extends EventProvider {
     /**
      * **Don't call this constructor directly**, use {@link sap.ui.core.routing.Targets} instead, it will create
      * instances of a Target.
@@ -34233,7 +34403,7 @@ declare module "sap/ui/core/routing/Target" {
     static getMetadata(): Metadata;
     /**
      * @since 1.46.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This function is called between the target view is loaded and the view is added to the container.
      *
@@ -34276,7 +34446,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetDisplayEventParameters>) => void,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
        */
@@ -34294,14 +34464,14 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetDisplayEventParameters>) => void,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Destroys the target, will be called by {@link sap.m.routing.Targets} don't call this directly.
      *
@@ -34319,7 +34489,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetDisplayEventParameters>) => void,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34345,7 +34515,7 @@ declare module "sap/ui/core/routing/Target" {
       control: Control;
     }>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -34355,7 +34525,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $TargetDisplayEventParameters
+      oParameters?: Target$DisplayEventParameters
     ): this;
     /**
      * Suspends the object which is loaded by the target.
@@ -34368,9 +34538,8 @@ declare module "sap/ui/core/routing/Target" {
      */
     suspend(): Target;
   }
-  export default Target;
 
-  export interface $TargetDisplayEventParameters {
+  export interface Target$DisplayEventParameters {
     /**
      * The view that got displayed.
      */
@@ -34396,6 +34565,14 @@ declare module "sap/ui/core/routing/Target" {
      */
     routeRelevant?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Target$DisplayEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TargetDisplayEventParameters = Target$DisplayEventParameters;
+
+  export type Target$DisplayEvent = Event<Target$DisplayEventParameters>;
 }
 
 declare module "sap/ui/core/routing/HashChanger" {
@@ -34403,12 +34580,14 @@ declare module "sap/ui/core/routing/HashChanger" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * Class for manipulating and receiving changes of the browser hash with the hasher framework.
    *
    * Fires a `hashChanged` event if the browser hash changes.
    */
-  class HashChanger extends HashChangerBase {
+  export default class HashChanger extends HashChangerBase {
     constructor();
 
     /**
@@ -34448,7 +34627,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the hashChanger to a new instance, destroys the old one and copies all its event listeners to the
      * new one
@@ -34460,7 +34639,7 @@ declare module "sap/ui/core/routing/HashChanger" {
       oHashChanger: HashChanger
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Cleans the event registration
      * See:
@@ -34468,7 +34647,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     destroy(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires the hashchanged event, may be extended to modify the hash before fireing the event
      */
@@ -34489,7 +34668,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     getHash(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Defines the events and its parameters which should be used for tracking the hash changes
      *
@@ -34524,29 +34703,27 @@ declare module "sap/ui/core/routing/HashChanger" {
       sHash: string
     ): void;
   }
-  export default HashChanger;
-
   /**
    * @since 1.82.0
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the event info for the events that are forwarded to {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventInfo = {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the event that is fired by the HashChanger and should be forwarded to the RouterHashChanger
      */
     name: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
      */
     paramMapping?: HashChangerEventParameterMapping;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
      * other routing classes, for example {@link sap.ui.core.routing.History}.
@@ -34556,13 +34733,13 @@ declare module "sap/ui/core/routing/HashChanger" {
 
   /**
    * @since 1.82.0
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the parameter mapping for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventParameterMapping = {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `newHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34570,7 +34747,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     newHash?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34578,7 +34755,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     oldHash?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34587,12 +34764,20 @@ declare module "sap/ui/core/routing/HashChanger" {
     fullHash?: string;
   };
 
-  export interface $HashChangerHashSetEventParameters {
+  export interface HashChanger$HashSetEventParameters {
     /**
      * The relevant hash segment
      */
     hash?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChanger$HashSetEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $HashChangerHashSetEventParameters = HashChanger$HashSetEventParameters;
+
+  export type HashChanger$HashSetEvent = Event<HashChanger$HashSetEventParameters>;
 }
 
 declare module "sap/ui/core/routing/HashChangerBase" {
@@ -34602,21 +34787,23 @@ declare module "sap/ui/core/routing/HashChangerBase" {
 
   import { routing } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Base Class for manipulating and receiving changes of hash segment.
    *
    * Fires a `hashChanged` event if the relevant hash changes.
    */
-  class HashChangerBase extends EventProvider {
+  export default class HashChangerBase extends EventProvider {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.HashChangerBase with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -34641,7 +34828,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.HashChangerBase.
      *
@@ -34649,7 +34836,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -34672,7 +34859,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
         | keyof typeof routing.HistoryDirection
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -34684,9 +34871,8 @@ declare module "sap/ui/core/routing/HashChangerBase" {
       sHash: string
     ): void;
   }
-  export default HashChangerBase;
 
-  export interface $HashChangerBaseHashChangedEventParameters {
+  export interface HashChangerBase$HashChangedEventParameters {
     /**
      * The hash segment before it's changed
      */
@@ -34703,12 +34889,30 @@ declare module "sap/ui/core/routing/HashChangerBase" {
     fullHash?: string;
   }
 
-  export interface $HashChangerBaseHashReplacedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChangerBase$HashChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type $HashChangerBaseHashChangedEventParameters = HashChangerBase$HashChangedEventParameters;
+
+  export type HashChangerBase$HashChangedEvent = Event<HashChangerBase$HashChangedEventParameters>;
+
+  export interface HashChangerBase$HashReplacedEventParameters {
     /**
      * The relevant hash segment
      */
     hash?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChangerBase$HashReplacedEventParameters'
+   * in 1.115.1 and any later releases.
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type $HashChangerBaseHashReplacedEventParameters = HashChangerBase$HashReplacedEventParameters;
+
+  export type HashChangerBase$HashReplacedEvent = Event<HashChangerBase$HashReplacedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/History" {
@@ -34716,7 +34920,7 @@ declare module "sap/ui/core/routing/History" {
 
   import { routing } from "sap/ui/core/library";
 
-  class History {
+  export default class History {
     /**
      * Used to determine the {@link sap.ui.core.routing.HistoryDirection} of the current or a future navigation,
      * done with a {@link sap.ui.core.routing.Router} or {@link sap.ui.core.routing.HashChanger}.
@@ -34781,7 +34985,6 @@ declare module "sap/ui/core/routing/History" {
      */
     getPreviousHash(): string | undefined;
   }
-  export default History;
 }
 
 declare module "sap/ui/core/routing/Router" {
@@ -34796,8 +34999,6 @@ declare module "sap/ui/core/routing/Router" {
     default as Target,
   } from "sap/ui/core/routing/Target";
 
-  import Event from "sap/ui/base/Event";
-
   import RouterHashChanger from "sap/ui/core/routing/RouterHashChanger";
 
   import Metadata from "sap/ui/base/Metadata";
@@ -34807,6 +35008,8 @@ declare module "sap/ui/core/routing/Router" {
   import View from "sap/ui/core/mvc/View";
 
   import Views from "sap/ui/core/routing/Views";
+
+  import Event from "sap/ui/base/Event";
 
   import ComponentContainer from "sap/ui/core/ComponentContainer";
 
@@ -34823,7 +35026,7 @@ declare module "sap/ui/core/routing/Router" {
     arguments: Record<string, string>;
   };
 
-  class Router extends EventProvider {
+  export default class Router extends EventProvider {
     /**
      * Instantiates a router
      */
@@ -35104,9 +35307,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterBeforeRouteMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35125,9 +35326,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterBeforeRouteMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35152,7 +35351,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterBypassedEventParameters>) => void,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35172,7 +35371,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterBypassedEventParameters>) => void,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35195,7 +35394,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterRouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35213,7 +35412,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterRouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35240,9 +35439,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterRoutePatternMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35264,9 +35461,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterRoutePatternMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35289,7 +35484,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35307,7 +35502,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -35378,9 +35573,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterBeforeRouteMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35399,7 +35592,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterBypassedEventParameters>) => void,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35416,7 +35609,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterRouteMatchedEventParameters>) => void,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35437,9 +35630,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$RouterRoutePatternMatchedEventParameters>
-      ) => void,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35456,7 +35647,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$RouterTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35482,7 +35673,7 @@ declare module "sap/ui/core/routing/Router" {
       oListener: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRouteMatched beforeRouteMatched} to attached listeners.
      *
@@ -35492,10 +35683,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $RouterBeforeRouteMatchedEventParameters
+      oParameters?: Router$BeforeRouteMatchedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:bypassed bypassed} to attached listeners.
      *
@@ -35507,10 +35698,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $RouterBypassedEventParameters
+      oParameters?: Router$BypassedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routeMatched routeMatched} to attached listeners.
      *
@@ -35520,10 +35711,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $RouterRouteMatchedEventParameters
+      oParameters?: Router$RouteMatchedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routePatternMatched routePatternMatched} to attached listeners.
      *
@@ -35536,11 +35727,11 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $RouterRoutePatternMatchedEventParameters
+      oParameters?: Router$RoutePatternMatchedEventParameters
     ): this;
     /**
      * @deprecated (since 1.28) - use {@link #getViews} instead.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:viewCreated viewCreated} to attached listeners.
      *
@@ -35848,7 +36039,7 @@ declare module "sap/ui/core/routing/Router" {
       bReplace?: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Will trigger routing events + place targets for routes matching the string.
      */
@@ -35900,9 +36091,8 @@ declare module "sap/ui/core/routing/Router" {
      */
     stop(): Router;
   }
-  export default Router;
 
-  export interface $RouterBeforeRouteMatchedEventParameters {
+  export interface Router$BeforeRouteMatchedEventParameters {
     /**
      * The name of the route
      */
@@ -35928,14 +36118,30 @@ declare module "sap/ui/core/routing/Router" {
     nestedRoute?: Route;
   }
 
-  export interface $RouterBypassedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$BeforeRouteMatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouterBeforeRouteMatchedEventParameters = Router$BeforeRouteMatchedEventParameters;
+
+  export type Router$BeforeRouteMatchedEvent = Event<Router$BeforeRouteMatchedEventParameters>;
+
+  export interface Router$BypassedEventParameters {
     /**
      * the current URL hash which did not match any route
      */
     hash?: string;
   }
 
-  export interface $RouterRouteMatchedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$BypassedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouterBypassedEventParameters = Router$BypassedEventParameters;
+
+  export type Router$BypassedEvent = Event<Router$BypassedEventParameters>;
+
+  export interface Router$RouteMatchedEventParameters {
     /**
      * The name of the route
      */
@@ -35983,7 +36189,15 @@ declare module "sap/ui/core/routing/Router" {
     targetControls?: Control[];
   }
 
-  export interface $RouterRoutePatternMatchedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$RouteMatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouterRouteMatchedEventParameters = Router$RouteMatchedEventParameters;
+
+  export type Router$RouteMatchedEvent = Event<Router$RouteMatchedEventParameters>;
+
+  export interface Router$RoutePatternMatchedEventParameters {
     /**
      * The name of the route
      */
@@ -36023,7 +36237,15 @@ declare module "sap/ui/core/routing/Router" {
     targetControls?: Control[];
   }
 
-  export interface $RouterTitleChangedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$RoutePatternMatchedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouterRoutePatternMatchedEventParameters = Router$RoutePatternMatchedEventParameters;
+
+  export type Router$RoutePatternMatchedEvent = Event<Router$RoutePatternMatchedEventParameters>;
+
+  export interface Router$TitleChangedEventParameters {
     /**
      * The current displayed title
      */
@@ -36048,6 +36270,14 @@ declare module "sap/ui/core/routing/Router" {
      */
     propagated?: boolean;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$TitleChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $RouterTitleChangedEventParameters = Router$TitleChangedEventParameters;
+
+  export type Router$TitleChangedEvent = Event<Router$TitleChangedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/RouterHashChanger" {
@@ -36060,20 +36290,20 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
   import Router from "sap/ui/core/routing/Router";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Class for manipulating and receiving changes of the relevant hash segment which belongs to a router.
    * This Class doesn't change the browser hash directly, but informs its parent RouterHashChanger and finally
    * changes the browser hash through the {@link sap.ui.core.routing.HashChanger}
    */
-  class RouterHashChanger extends HashChangerBase {
+  export default class RouterHashChanger extends HashChangerBase {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.RouterHashChanger with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -36098,7 +36328,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.RouterHashChanger.
      *
@@ -36106,7 +36336,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Save the given hash and potentially fires a "hashChanged" event; may be extended to modify the hash before
      * firing the event.
@@ -36127,7 +36357,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bUpdateHashOnly: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Gets the current hash
      *
@@ -36135,7 +36365,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     getHash(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -36167,7 +36397,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bSuppressActiveHashCollect?: boolean
     ): Promise<any> | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Reset the hash if the given router is the active router that is saved in this RouterHashChanger
      *
@@ -36183,7 +36413,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       oRouter: Router
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -36209,7 +36439,6 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bSuppressActiveHashCollect?: boolean
     ): Promise<any> | undefined;
   }
-  export default RouterHashChanger;
 }
 
 declare module "sap/ui/core/routing/Targets" {
@@ -36222,42 +36451,42 @@ declare module "sap/ui/core/routing/Targets" {
     default as Target,
   } from "sap/ui/core/routing/Target";
 
-  import Event from "sap/ui/base/Event";
-
   import View from "sap/ui/core/mvc/View";
 
   import Control from "sap/ui/core/Control";
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.84.0
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Object containing the target info for displaying targets
    */
   export type TargetInfo = {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Defines the name of the target that is going to be displayed
      */
     name: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A prefix that is used for reserving a dedicated section in the browser hash for the router of this target.
      * This needs to be set only for target that has type "Component"
      */
     prefix?: string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the titleChanged event from this target should be propagated to the parent or not
      */
     propagateTitle?: boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the target is relevant to the current matched route or not. If 'true', then the dynamic target
      * is linked to the route's life cycle. When switching to a different route, then the dynamic target will
@@ -36265,7 +36494,7 @@ declare module "sap/ui/core/routing/Targets" {
      */
     routeRelevant?: boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Since 1.90. Whether the router of the "Component" target ignores the browser hash when it's re-initialized.
      * This parameter only has effect when the target is of type "Component" and its router is currently stopped.
@@ -36283,7 +36512,7 @@ declare module "sap/ui/core/routing/Targets" {
    * The main benefit of `Targets` is lazy loading: you do not have to create the views until you really need
    * them. If you are using the mobile library, please use {@link sap.m.routing.Targets} instead of this class.
    */
-  class Targets extends EventProvider {
+  export default class Targets extends EventProvider {
     /**
      * Constructor for a new Targets class.
      */
@@ -36426,7 +36655,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsDisplayEventParameters>) => void,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -36444,7 +36673,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsDisplayEventParameters>) => void,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -36467,7 +36696,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -36485,7 +36714,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -36509,7 +36738,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsDisplayEventParameters>) => void,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -36526,7 +36755,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$TargetsTitleChangedEventParameters>) => void,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -36575,7 +36804,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $TargetsDisplayEventParameters
+      oParameters?: Targets$DisplayEventParameters
     ): this;
     /**
      * Returns a target by its name (if you pass myTarget: { view: "myView" }) in the config myTarget is the
@@ -36603,9 +36832,8 @@ declare module "sap/ui/core/routing/Targets" {
      */
     getViews(): Views;
   }
-  export default Targets;
 
-  export interface $TargetsDisplayEventParameters {
+  export interface Targets$DisplayEventParameters {
     /**
      * The view that got displayed.
      */
@@ -36637,7 +36865,15 @@ declare module "sap/ui/core/routing/Targets" {
     routeRelevant?: object;
   }
 
-  export interface $TargetsTitleChangedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Targets$DisplayEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TargetsDisplayEventParameters = Targets$DisplayEventParameters;
+
+  export type Targets$DisplayEvent = Event<Targets$DisplayEventParameters>;
+
+  export interface Targets$TitleChangedEventParameters {
     /**
      * The current displayed title
      */
@@ -36648,6 +36884,14 @@ declare module "sap/ui/core/routing/Targets" {
      */
     name?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Targets$TitleChangedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TargetsTitleChangedEventParameters = Targets$TitleChangedEventParameters;
+
+  export type Targets$TitleChangedEvent = Event<Targets$TitleChangedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/Views" {
@@ -36659,10 +36903,12 @@ declare module "sap/ui/core/routing/Views" {
 
   import View from "sap/ui/core/mvc/View";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.28.1
    */
-  class Views extends EventProvider {
+  export default class Views extends EventProvider {
     /**
      * Instantiates a view repository that creates and caches views. If it is destroyed, all the Views it created
      * are destroyed. Usually you do not have to create instances of this class, it is used by the {@link sap.ui.core.routing.Router}.
@@ -36713,7 +36959,7 @@ declare module "sap/ui/core/routing/Views" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -36723,7 +36969,7 @@ declare module "sap/ui/core/routing/Views" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ViewsCreatedEventParameters
+      oParameters?: Views$CreatedEventParameters
     ): this;
     /**
      * Returns a cached view, for a given name. If it does not exist yet, it will create the view with the provided
@@ -36768,9 +37014,8 @@ declare module "sap/ui/core/routing/Views" {
       oView: View | null | undefined
     ): this;
   }
-  export default Views;
 
-  export interface $ViewsCreatedEventParameters {
+  export interface Views$CreatedEventParameters {
     /**
      * the instance of the created view.
      */
@@ -36781,18 +37026,26 @@ declare module "sap/ui/core/routing/Views" {
      */
     viewOptions?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Views$CreatedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ViewsCreatedEventParameters = Views$CreatedEventParameters;
+
+  export type Views$CreatedEvent = Event<Views$CreatedEventParameters>;
 }
 
 declare module "sap/ui/core/ScrollBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize, ScrollBarAction } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.56)
@@ -36802,7 +37055,7 @@ declare module "sap/ui/core/ScrollBar" {
    * the respective part only. E.g. a Table control can take care of only rendering the currently visible
    * rows and use this ScrollBar control to make the user think he actually scrolls through a long list.
    */
-  class ScrollBar extends Control {
+  export default class ScrollBar extends Control {
     /**
      * Constructor for a new ScrollBar.
      *
@@ -36882,7 +37135,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ScrollBarScrollEventParameters>) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
        */
@@ -36902,7 +37155,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$ScrollBarScrollEventParameters>) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
        */
@@ -36928,14 +37181,14 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$ScrollBarScrollEventParameters>) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
@@ -36945,7 +37198,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $ScrollBarScrollEventParameters
+      mParameters?: ScrollBar$ScrollEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContentSize contentSize}.
@@ -37084,7 +37337,6 @@ declare module "sap/ui/core/ScrollBar" {
       oOwnerDomRef: string
     ): void;
   }
-  export default ScrollBar;
 
   export interface $ScrollBarSettings extends $ControlSettings {
     /**
@@ -37115,10 +37367,10 @@ declare module "sap/ui/core/ScrollBar" {
     /**
      * Scroll event.
      */
-    scroll?: (oEvent: Event<$ScrollBarScrollEventParameters>) => void;
+    scroll?: (oEvent: Event<ScrollBar$ScrollEventParameters>) => void;
   }
 
-  export interface $ScrollBarScrollEventParameters {
+  export interface ScrollBar$ScrollEventParameters {
     /**
      * Actions are: Click on track, button, drag of thumb, or mouse wheel click.
      */
@@ -37139,6 +37391,14 @@ declare module "sap/ui/core/ScrollBar" {
      */
     oldScrollPos?: int;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ScrollBar$ScrollEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ScrollBarScrollEventParameters = ScrollBar$ScrollEventParameters;
+
+  export type ScrollBar$ScrollEvent = Event<ScrollBar$ScrollEventParameters>;
 }
 
 declare module "sap/ui/core/search/OpenSearchProvider" {
@@ -37156,7 +37416,7 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
   /**
    * A SearchProvider which uses the OpenSearch protocol (either JSON or XML).
    */
-  class OpenSearchProvider extends SearchProvider {
+  export default class OpenSearchProvider extends SearchProvider {
     /**
      * Constructor for a new search/OpenSearchProvider.
      *
@@ -37285,7 +37545,6 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
       fCallback: (p1: string, p2: string[]) => void
     ): void;
   }
-  export default OpenSearchProvider;
 
   export interface $OpenSearchProviderSettings extends $SearchProviderSettings {
     /**
@@ -37313,7 +37572,7 @@ declare module "sap/ui/core/search/SearchProvider" {
    *
    * Do not create instances of this class, but use a concrete subclass instead.
    */
-  class SearchProvider extends UI5Element {
+  export default class SearchProvider extends UI5Element {
     /**
      * Constructor for a new search/SearchProvider.
      *
@@ -37413,7 +37672,6 @@ declare module "sap/ui/core/search/SearchProvider" {
       fnCallback: (p1: string, p2: string[]) => void
     ): void;
   }
-  export default SearchProvider;
 
   export interface $SearchProviderSettings extends $ElementSettings {
     /**
@@ -37432,7 +37690,7 @@ declare module "sap/ui/core/SeparatorItem" {
    * An item that provides a visual separation. It borrows all its methods from the classes sap.ui.core.Item,
    * sap.ui.core.Element, sap.ui.base.EventProvider, and sap.ui.base.Object.
    */
-  class SeparatorItem extends Item {
+  export default class SeparatorItem extends Item {
     /**
      * Constructor for a new SeparatorItem.
      *
@@ -37500,7 +37758,6 @@ declare module "sap/ui/core/SeparatorItem" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default SeparatorItem;
 
   export interface $SeparatorItemSettings extends $ItemSettings {}
 }
@@ -37654,7 +37911,7 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
    *
    * For more information, see {@link https://ui5.sap.com/#/topic/cfabbd4dfc054936997d9d00916e1668 Integrating the Support Assistant in OPA Tests}.
    */
-  class RuleEngineOpaExtension extends BaseObject {
+  export default class RuleEngineOpaExtension extends BaseObject {
     constructor();
 
     /**
@@ -37692,7 +37949,6 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
      */
     getAssertions(): RuleEngineOpaAssertions;
   }
-  export default RuleEngineOpaExtension;
 }
 
 declare module "sap/ui/core/theming/Parameters" {
@@ -37791,7 +38047,7 @@ declare module "sap/ui/core/Title" {
    *
    * Represents a title element that can be used for aggregation with other controls.
    */
-  class Title extends UI5Element {
+  export default class Title extends UI5Element {
     /**
      * Constructor for a new Title.
      *
@@ -37959,7 +38215,6 @@ declare module "sap/ui/core/Title" {
       sText?: string
     ): this;
   }
-  export default Title;
 
   export interface $TitleSettings extends $ElementSettings {
     /**
@@ -38003,7 +38258,7 @@ declare module "sap/ui/core/tmpl/DOMAttribute" {
    *
    * Represents a DOM attribute of a DOM element.
    */
-  class DOMAttribute extends UI5Element {
+  export default class DOMAttribute extends UI5Element {
     /**
      * Constructor for a new tmpl/DOMAttribute.
      *
@@ -38111,7 +38366,6 @@ declare module "sap/ui/core/tmpl/DOMAttribute" {
       sValue?: string
     ): this;
   }
-  export default DOMAttribute;
 
   export interface $DOMAttributeSettings extends $ElementSettings {
     /**
@@ -38144,7 +38398,7 @@ declare module "sap/ui/core/tmpl/DOMElement" {
    *
    * Represents a DOM element. It allows to use databinding for the properties and nested DOM attributes.
    */
-  class DOMElement extends Control {
+  export default class DOMElement extends Control {
     /**
      * Constructor for a new tmpl/DOMElement.
      *
@@ -38427,7 +38681,6 @@ declare module "sap/ui/core/tmpl/DOMElement" {
       sText?: string
     ): this;
   }
-  export default DOMElement;
 
   export interface $DOMElementSettings extends $ControlSettings {
     /**
@@ -38474,7 +38727,7 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
    *
    * The class for Handlebars Templates.
    */
-  class HandlebarsTemplate extends Template {
+  export default class HandlebarsTemplate extends Template {
     /**
      * Creates and initializes a new handlebars template with the given `sId` and settings.
      *
@@ -38549,7 +38802,6 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
      */
     static getMetadata(): ManagedObjectMetadata;
   }
-  export default HandlebarsTemplate;
 
   export interface $HandlebarsTemplateSettings extends $TemplateSettings {}
 }
@@ -38576,7 +38828,7 @@ declare module "sap/ui/core/tmpl/Template" {
    *
    * Base Class for Template.
    */
-  class Template extends ManagedObject {
+  export default class Template extends ManagedObject {
     /**
      * Creates and initializes a new template with the given `sId` and settings.
      *
@@ -38615,7 +38867,7 @@ declare module "sap/ui/core/tmpl/Template" {
       mSettings?: $TemplateSettings
     );
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * parses the given path and extracts the model and path
      */
@@ -38800,7 +39052,6 @@ declare module "sap/ui/core/tmpl/Template" {
       sContent?: string
     ): this;
   }
-  export default Template;
 
   export interface $TemplateSettings extends $ManagedObjectSettings {
     /**
@@ -38831,7 +39082,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
    *
    * This is the base class for all template controls. Template controls are declared based on templates.
    */
-  class TemplateControl extends Control {
+  export default class TemplateControl extends Control {
     /**
      * Constructor for a new tmpl/TemplateControl.
      *
@@ -38987,7 +39238,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for an aggregation to get notified once the property changes to invalidate the
      * control and trigger a re-rendering.
@@ -39001,7 +39252,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for a property to get notified once the property changes to invalidate the control
      * and trigger a re-rendering.
@@ -39015,7 +39266,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39038,7 +39289,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39057,7 +39308,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39076,7 +39327,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39091,7 +39342,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new DOM element
      *
@@ -39148,7 +39399,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -39161,7 +39412,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       mParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -39188,7 +39439,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplate(): ID;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the instance specific renderer for an anonymous template control.
      *
@@ -39196,7 +39447,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplateRenderer(): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * checks whether the control is inline or not
      *
@@ -39233,7 +39484,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oTemplate: ID | Template
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the instance specific renderer for an anonymous template control.
      *
@@ -39246,7 +39497,6 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       fnRenderer: Function
     ): this;
   }
-  export default TemplateControl;
 
   export interface $TemplateControlSettings extends $ControlSettings {
     /**
@@ -39272,9 +39522,25 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
     beforeRendering?: (oEvent: Event) => void;
   }
 
-  export interface $TemplateControlAfterRenderingEventParameters {}
+  export interface TemplateControl$AfterRenderingEventParameters {}
 
-  export interface $TemplateControlBeforeRenderingEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TemplateControl$AfterRenderingEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TemplateControlAfterRenderingEventParameters = TemplateControl$AfterRenderingEventParameters;
+
+  export type TemplateControl$AfterRenderingEvent = Event<TemplateControl$AfterRenderingEventParameters>;
+
+  export interface TemplateControl$BeforeRenderingEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TemplateControl$BeforeRenderingEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TemplateControlBeforeRenderingEventParameters = TemplateControl$BeforeRenderingEventParameters;
+
+  export type TemplateControl$BeforeRenderingEvent = Event<TemplateControl$BeforeRenderingEventParameters>;
 }
 
 declare module "sap/ui/core/TooltipBase" {
@@ -39292,7 +39558,7 @@ declare module "sap/ui/core/TooltipBase" {
    * Abstract class that can be extended in order to implement any extended tooltip. For example, RichTooltip
    * Control is based on it. It provides the opening/closing behavior and the main "text" property.
    */
-  class TooltipBase extends Control {
+  export default class TooltipBase extends Control {
     /**
      * Constructor for a new TooltipBase.
      *
@@ -39423,7 +39689,7 @@ declare module "sap/ui/core/TooltipBase" {
     ): this;
     /**
      * @since 1.11.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -39683,7 +39949,6 @@ declare module "sap/ui/core/TooltipBase" {
       sText?: string
     ): this;
   }
-  export default TooltipBase;
 
   export interface $TooltipBaseSettings extends $ControlSettings {
     /**
@@ -39741,7 +40006,15 @@ declare module "sap/ui/core/TooltipBase" {
     closed?: (oEvent: Event) => void;
   }
 
-  export interface $TooltipBaseClosedEventParameters {}
+  export interface TooltipBase$ClosedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TooltipBase$ClosedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $TooltipBaseClosedEventParameters = TooltipBase$ClosedEventParameters;
+
+  export type TooltipBase$ClosedEvent = Event<TooltipBase$ClosedEventParameters>;
 }
 
 declare module "sap/ui/core/UIArea" {
@@ -39787,7 +40060,7 @@ declare module "sap/ui/core/UIArea" {
    * rendered by the `UIArea`. It can be used for popups or similar controls that are not contained in the
    * normal control tree, but nevertheless should receive model or binding context updates.
    */
-  class UIArea extends ManagedObject {
+  export default class UIArea extends ManagedObject {
     constructor();
     /**
      * @since 1.107
@@ -39881,7 +40154,7 @@ declare module "sap/ui/core/UIArea" {
      */
     destroyDependents(): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Provide getBindingContext, as UIArea can be parent of an element.
      *
@@ -39902,7 +40175,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getDependents(): Control[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the Core's event provider as new eventing parent to enable control event bubbling to the core
      * to ensure compatibility with the core validation events.
@@ -39937,7 +40210,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getRootNode(): Element;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns this UI area. Needed to stop recursive calls from an element to its parent.
      *
@@ -40003,7 +40276,7 @@ declare module "sap/ui/core/UIArea" {
       iIndex: int
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Triggers asynchronous re-rendering of the `UIArea`'s content.
      *
@@ -40012,7 +40285,7 @@ declare module "sap/ui/core/UIArea" {
      */
     invalidate(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM)
      *
@@ -40020,7 +40293,7 @@ declare module "sap/ui/core/UIArea" {
      */
     isActive(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this UIArea.
      *
@@ -40115,8 +40388,6 @@ declare module "sap/ui/core/UIArea" {
      */
     unlock(): void;
   }
-  export default UIArea;
-
   /**
    * @since 1.107
    *
@@ -40224,6 +40495,7 @@ declare module "sap/ui/core/UIArea" {
       id: ID
     ): UIArea | undefined;
   }
+  export const registry: registry;
 
   export interface $UIAreaSettings extends $ManagedObjectSettings {
     /**
@@ -40277,7 +40549,7 @@ declare module "sap/ui/core/UIComponent" {
    * If you are extending a UIComponent make sure you read the {@link #.extend} documentation since the metadata
    * is special.
    */
-  class UIComponent extends Component {
+  export default class UIComponent extends Component {
     /**
      * Creates and initializes a new UIComponent with the given `sId` and settings.
      *
@@ -40425,7 +40697,7 @@ declare module "sap/ui/core/UIComponent" {
     ): string;
     /**
      * @since 1.15.1
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by UIComponents, returning the flag whether to prefix the IDs of controls
      * automatically or not if the controls are created inside the {@link sap.ui.core.UIComponent#createContent }
@@ -40438,7 +40710,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getAutoPrefixId(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object which will be the UIArea of the containing
      * ComponentContainer or null.
@@ -40464,7 +40736,7 @@ declare module "sap/ui/core/UIComponent" {
     ): string | null;
     /**
      * @since 1.44.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of {@link sap.ui.core.UIComponent#createContent}. If you specified a `rootView` in
      * your metadata or in the descriptor file (manifest.json), you will get the instance of the root view.
@@ -40515,7 +40787,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getUIArea(): UIArea;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initializes the component instance after creation.
      *
@@ -40527,7 +40799,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     init(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is completed.
      *
@@ -40537,7 +40809,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     onAfterRendering(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is started.
      *
@@ -40588,8 +40860,6 @@ declare module "sap/ui/core/UIComponent" {
       oContainer: ComponentContainer
     ): this;
   }
-  export default UIComponent;
-
   /**
    * An object containing the routing-relevant configurations, routes, targets, config.
    *
@@ -40706,7 +40976,7 @@ declare module "sap/ui/core/util/Export" {
    * Export provides the possibility to generate a list of data in a specific format / type, e.g. CSV to use
    * it in other programs / applications.
    */
-  class Export extends Control {
+  export default class Export extends Control {
     /**
      * Constructor for a new Export.
      *
@@ -41002,7 +41272,6 @@ declare module "sap/ui/core/util/Export" {
      */
     unbindRows(): this;
   }
-  export default Export;
 
   export interface $ExportSettings extends $ControlSettings {
     /**
@@ -41040,7 +41309,7 @@ declare module "sap/ui/core/util/ExportCell" {
    * Contains content that can be used to export data. Used in {@link sap.ui.core.util.ExportColumn ExportColumn }
    * / {@link sap.ui.core.util.Export Export}.
    */
-  class ExportCell extends UI5Element {
+  export default class ExportCell extends UI5Element {
     /**
      * Constructor for a new ExportCell.
      *
@@ -41125,7 +41394,6 @@ declare module "sap/ui/core/util/ExportCell" {
       sContent: string
     ): this;
   }
-  export default ExportCell;
 
   export interface $ExportCellSettings extends $ElementSettings {
     /**
@@ -41152,7 +41420,7 @@ declare module "sap/ui/core/util/ExportColumn" {
    *
    * Can have a name and a cell template.
    */
-  class ExportColumn extends ManagedObject {
+  export default class ExportColumn extends ManagedObject {
     /**
      * Constructor for a new ExportColumn.
      *
@@ -41260,7 +41528,6 @@ declare module "sap/ui/core/util/ExportColumn" {
       oTemplate: ExportCell
     ): this;
   }
-  export default ExportColumn;
 
   export interface $ExportColumnSettings extends $ManagedObjectSettings {
     /**
@@ -41292,7 +41559,7 @@ declare module "sap/ui/core/util/ExportRow" {
    *
    * Internally used in {@link sap.ui.core.util.Export Export}.
    */
-  class ExportRow extends ManagedObject {
+  export default class ExportRow extends ManagedObject {
     /**
      * Constructor for a new ExportRow.
      *
@@ -41425,7 +41692,6 @@ declare module "sap/ui/core/util/ExportRow" {
       vCell: int | string | ExportCell
     ): ExportCell | null;
   }
-  export default ExportRow;
 
   export interface $ExportRowSettings extends $ManagedObjectSettings {
     /**
@@ -41452,7 +41718,7 @@ declare module "sap/ui/core/util/ExportType" {
    *
    * Base export type. Subclasses can be used for {@link sap.ui.core.util.Export Export}.
    */
-  class ExportType extends ManagedObject {
+  export default class ExportType extends ManagedObject {
     /**
      * Constructor for a new ExportType.
      *
@@ -41514,7 +41780,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Handles the generation process of the file.
      *
@@ -41528,7 +41794,7 @@ declare module "sap/ui/core/util/ExportType" {
       oExport: Export
     ): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a cell "generator" (inspired by ES6 Generators)
      *
@@ -41536,7 +41802,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     cellGenerator(): Generator;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a column "generator" (inspired by ES6 Generators)
      *
@@ -41544,7 +41810,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     columnGenerator(): Generator;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *  Should be implemented by the individual types!
@@ -41571,7 +41837,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getCharset(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of columns.
      *
@@ -41595,7 +41861,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getMimeType(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of rows.
      *
@@ -41603,7 +41869,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getRowCount(): int;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a row "generator" (inspired by ES6 Generators)
      *
@@ -41673,7 +41939,6 @@ declare module "sap/ui/core/util/ExportType" {
       sMimeType: string
     ): this;
   }
-  export default ExportType;
 
   export interface $ExportTypeSettings extends $ManagedObjectSettings {
     /**
@@ -41726,7 +41991,7 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
    * The maximum cell length is limited to 32,760 characters. In case any string exceeds this limit, it will
    * be cut off.
    */
-  class ExportTypeCSV extends ExportType {
+  export default class ExportTypeCSV extends ExportType {
     /**
      * Constructor for a new ExportTypeCSV.
      *
@@ -41788,7 +42053,7 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *
@@ -41821,7 +42086,6 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
       sSeparatorChar: string
     ): this;
   }
-  export default ExportTypeCSV;
 
   export interface $ExportTypeCSVSettings extends $ExportTypeSettings {
     /**
@@ -41887,7 +42151,7 @@ declare module "sap/ui/core/util/MockServer" {
   /**
    * Class to mock http requests made to a remote server supporting the OData V2 REST protocol.
    */
-  class MockServer extends ManagedObject {
+  export default class MockServer extends ManagedObject {
     /**
      * Creates a mocked server. This helps to mock some back-end calls, e.g. for OData V2/JSON Models or simple
      * XHR calls, without changing the application code. This class can also be used for qunit tests.
@@ -42228,8 +42492,6 @@ declare module "sap/ui/core/util/MockServer" {
      */
     stop(): void;
   }
-  export default MockServer;
-
   /**
    * Enum for the method.
    */
@@ -42690,7 +42952,7 @@ declare module "sap/ui/core/VariantLayoutData" {
    * Allows to add multiple LayoutData to one control in case that an easy switch of layouts (e.g. in a Form)
    * is needed.
    */
-  class VariantLayoutData extends LayoutData {
+  export default class VariantLayoutData extends LayoutData {
     /**
      * Constructor for a new VariantLayoutData.
      *
@@ -42823,7 +43085,6 @@ declare module "sap/ui/core/VariantLayoutData" {
       vMultipleLayoutData: int | string | LayoutData
     ): LayoutData | null;
   }
-  export default VariantLayoutData;
 
   export interface $VariantLayoutDataSettings extends $LayoutDataSettings {
     /**
@@ -42865,15 +43126,17 @@ declare module "sap/ui/core/ws/ReadyState" {
 declare module "sap/ui/core/ws/SapPcpWebSocket" {
   import {
     default as WebSocket,
-    $WebSocketMessageEventParameters,
+    WebSocket$MessageEventParameters,
   } from "sap/ui/core/ws/WebSocket";
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * WebSocket class implementing the pcp-protocol.
    */
-  class SapPcpWebSocket extends WebSocket {
+  export default class SapPcpWebSocket extends WebSocket {
     /**
      * Creates a new WebSocket connection and uses the pcp-protocol for communication.
      */
@@ -42925,7 +43188,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -42935,7 +43198,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $SapPcpWebSocketMessageEventParameters
+      oParameters?: SapPcpWebSocket$MessageEventParameters
     ): this;
     /**
      * Sends a message and optional pcp-header-fields using the pcp-protocol.
@@ -42955,8 +43218,6 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
       oPcpFields?: object
     ): this;
   }
-  export default SapPcpWebSocket;
-
   /**
    * Protocol versions.
    *
@@ -42967,19 +43228,25 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
     v10 = "v10.pcp.sap.com",
   }
 
-  export interface $SapPcpWebSocketMessageEventParameters
-    extends $WebSocketMessageEventParameters {
+  export interface SapPcpWebSocket$MessageEventParameters
+    extends WebSocket$MessageEventParameters {
     /**
      * Received pcpFields as a key-value map.
      */
     pcpFields?: string;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SapPcpWebSocket$MessageEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $SapPcpWebSocketMessageEventParameters = SapPcpWebSocket$MessageEventParameters;
+
+  export type SapPcpWebSocket$MessageEvent = Event<SapPcpWebSocket$MessageEventParameters>;
 }
 
 declare module "sap/ui/core/ws/WebSocket" {
   import EventProvider from "sap/ui/base/EventProvider";
-
-  import Event from "sap/ui/base/Event";
 
   import UI5Element from "sap/ui/core/Element";
 
@@ -42987,10 +43254,12 @@ declare module "sap/ui/core/ws/WebSocket" {
 
   import ReadyState from "sap/ui/core/ws/ReadyState";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * Basic WebSocket class.
    */
-  class WebSocket extends EventProvider {
+  export default class WebSocket extends EventProvider {
     /**
      * Creates a new WebSocket connection.
      */
@@ -43051,7 +43320,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketCloseEventParameters>) => void,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -43069,7 +43338,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketCloseEventParameters>) => void,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -43133,7 +43402,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketMessageEventParameters>) => void,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -43151,7 +43420,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketMessageEventParameters>) => void,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -43235,7 +43504,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to call, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketCloseEventParameters>) => void,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -43269,7 +43538,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to call, when the event occurs
        */
-      fnFunction: (evt: Event<$WebSocketMessageEventParameters>) => void,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -43293,7 +43562,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -43303,10 +43572,10 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $WebSocketCloseEventParameters
+      oParameters?: WebSocket$CloseEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -43319,7 +43588,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oParameters?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -43329,10 +43598,10 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $WebSocketMessageEventParameters
+      oParameters?: WebSocket$MessageEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -43378,9 +43647,8 @@ declare module "sap/ui/core/ws/WebSocket" {
       sMessage: string
     ): this;
   }
-  export default WebSocket;
 
-  export interface $WebSocketCloseEventParameters {
+  export interface WebSocket$CloseEventParameters {
     /**
      * Close code provided by the server.
      */
@@ -43397,16 +43665,48 @@ declare module "sap/ui/core/ws/WebSocket" {
     wasClean?: string;
   }
 
-  export interface $WebSocketErrorEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$CloseEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $WebSocketCloseEventParameters = WebSocket$CloseEventParameters;
 
-  export interface $WebSocketMessageEventParameters {
+  export type WebSocket$CloseEvent = Event<WebSocket$CloseEventParameters>;
+
+  export interface WebSocket$ErrorEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$ErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $WebSocketErrorEventParameters = WebSocket$ErrorEventParameters;
+
+  export type WebSocket$ErrorEvent = Event<WebSocket$ErrorEventParameters>;
+
+  export interface WebSocket$MessageEventParameters {
     /**
      * Received data from the server.
      */
     data?: string;
   }
 
-  export interface $WebSocketOpenEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$MessageEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $WebSocketMessageEventParameters = WebSocket$MessageEventParameters;
+
+  export type WebSocket$MessageEvent = Event<WebSocket$MessageEventParameters>;
+
+  export interface WebSocket$OpenEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$OpenEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $WebSocketOpenEventParameters = WebSocket$OpenEventParameters;
+
+  export type WebSocket$OpenEvent = Event<WebSocket$OpenEventParameters>;
 }
 
 declare module "sap/ui/core/XMLComposite" {
@@ -43429,7 +43729,7 @@ declare module "sap/ui/core/XMLComposite" {
    *
    * Base Class for XMLComposite controls.
    */
-  class XMLComposite extends Control {
+  export default class XMLComposite extends Control {
     /**
      * XMLComposite is the base class for composite controls that use a XML fragment representation for their
      * visual parts. From a user perspective such controls appear as any other control, but internally the rendering
@@ -43584,7 +43884,7 @@ declare module "sap/ui/core/XMLComposite" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an element by its ID in the context of the XMLComposite.
      *
@@ -43599,7 +43899,7 @@ declare module "sap/ui/core/XMLComposite" {
       sId: string
     ): UI5Element | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -43700,7 +44000,6 @@ declare module "sap/ui/core/XMLComposite" {
       sWidth?: CSSSize
     ): this;
   }
-  export default XMLComposite;
 
   export interface $XMLCompositeSettings extends $ControlSettings {
     /**
@@ -44097,7 +44396,7 @@ declare module "sap/ui/Device" {
       bSuppressClasses?: boolean
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Removes a previously initialized range set and detaches all registered handlers.
      *
@@ -44520,7 +44819,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 
   /**
    * @experimental - This module is only for experimental use!
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for OData entity sets with aggregate semantics.
    *
@@ -44533,9 +44832,9 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
    * to OData requests. If a binding count mode is set to `Request` or `Both`, a warning is logged to remind
    * the application that the OData requests generated by the AnalyticalBinding include a $inlinecount.
    */
-  class AnalyticalBinding extends TreeBinding {
+  export default class AnalyticalBinding extends TreeBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -44603,7 +44902,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.analytics.AnalyticalBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -44628,7 +44927,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.analytics.AnalyticalBinding.
      *
@@ -45056,7 +45355,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       aSorter: Sorter | any[]
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's structure with new analytical information.
      *
@@ -45098,13 +45397,12 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       bForceChange: boolean
     ): void;
   }
-  export default AnalyticalBinding;
 }
 
 declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
-  class AnalyticalTreeBindingAdapter {
+  export default class AnalyticalTreeBindingAdapter {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -45112,7 +45410,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
     constructor();
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Retrieves the currently set number of expanded levels from the Binding (commonly an AnalyticalBinding).
      *
@@ -45126,7 +45424,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
      */
     hasTotaledMeasures(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the number of expanded levels on the TreeBinding (commonly an AnalyticalBinding). This is NOT the
      * same as AnalyticalTreeBindingAdapter#collapse or AnalyticalTreeBindingAdapter#expand. Setting the number
@@ -45140,7 +45438,6 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
       iLevels: int
     ): void;
   }
-  export default AnalyticalTreeBindingAdapter;
 }
 
 declare module "sap/ui/model/analytics/BatchResponseCollector" {
@@ -45151,7 +45448,7 @@ declare module "sap/ui/model/analytics/BatchResponseCollector" {
    * Also handles clean-up after all responses (either success or error) have been collected. Instantiated
    * in AnalyticalBinding.prototype._executeBatchRequest()
    */
-  class BatchResponseCollector {
+  export default class BatchResponseCollector {
     /**
      * Constructor for a batch response collecting component.
      */
@@ -45224,7 +45521,6 @@ declare module "sap/ui/model/analytics/BatchResponseCollector" {
       oResponse: object
     ): void;
   }
-  export default BatchResponseCollector;
 }
 
 declare module "sap/ui/model/analytics/odata4analytics" {
@@ -45236,7 +45532,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
 
   /**
    * @experimental - This module is only for experimental use!
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The OData4Analytics API is purely experimental, not yet functionally complete and not meant for productive
    * usage. At present, its only purpose is to demonstrate how easy analytical extensions of OData4SAP can
@@ -47069,7 +47365,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
    * Provides model access to a given {@link sap.ui.base.ManagedObject}. Such access allows to bind to properties
    * and aggregations of this object.
    */
-  class ManagedObjectModel extends JSONModel {
+  export default class ManagedObjectModel extends JSONModel {
     /**
      * The ManagedObjectModel class allows you to bind to properties and aggregations of managed objects.
      */
@@ -47114,7 +47410,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -47129,7 +47425,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
       fnFilter: Function
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -47155,7 +47451,6 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
       bMerge?: boolean
     ): void;
   }
-  export default ManagedObjectModel;
 }
 
 declare module "sap/ui/model/Binding" {
@@ -47165,18 +47460,18 @@ declare module "sap/ui/model/Binding" {
 
   import Context from "sap/ui/model/Context";
 
-  import Event from "sap/ui/base/Event";
-
   import Metadata from "sap/ui/base/Metadata";
 
   import DataState from "sap/ui/model/DataState";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * The Binding is the object, which holds the necessary information for a data binding, like the binding
    * path and the binding context, and acts like an interface to the model for the control, so it is the event
    * provider for changes in the data model and provides getters for accessing properties or lists.
    */
-  class Binding extends EventProvider {
+  export default class Binding extends EventProvider {
     /**
      * Constructor for Binding class.
      */
@@ -47229,7 +47524,7 @@ declare module "sap/ui/model/Binding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
@@ -47296,7 +47591,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches the `fnFunction` event handler to the {@link #event:DataStateChange DataStateChange} event of
      * thi `sap.ui.model.Binding`.
@@ -47315,7 +47610,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attach multiple events.
      *
@@ -47328,7 +47623,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      *
@@ -47353,7 +47648,7 @@ declare module "sap/ui/model/Binding" {
      */
     destroy(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
@@ -47362,9 +47657,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (
-        evt: Event<$BindingAggregatedDataStateChangeEventParameters>
-      ) => void,
+      fnFunction: (evt: Binding$AggregatedDataStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -47377,7 +47670,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * Function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$BindingChangeEventParameters>) => void,
+      fnFunction: (evt: Binding$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -47390,7 +47683,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * Function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$BindingDataReceivedEventParameters>) => void,
+      fnFunction: (evt: Binding$DataReceivedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -47411,7 +47704,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:DataStateChange DataStateChange} event of
      * this `sap.ui.model.Binding`.
@@ -47420,14 +47713,14 @@ declare module "sap/ui/model/Binding" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$BindingDataStateChangeEventParameters>) => void,
+      fnFunction: (evt: Binding$DataStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detach multiple events.
      *
@@ -47440,7 +47733,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      */
@@ -47455,7 +47748,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataReceived dataReceived} to attached listeners.
      *
@@ -47465,10 +47758,10 @@ declare module "sap/ui/model/Binding" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters: $BindingDataReceivedEventParameters
+      oParameters: Binding$DataReceivedEventParameters
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataRequested dataRequested} to attached listeners.
      */
@@ -47527,7 +47820,7 @@ declare module "sap/ui/model/Binding" {
      */
     getResolvedPath(): string | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. The default implementation
      * calls checkUpdate(true).
@@ -47620,7 +47913,7 @@ declare module "sap/ui/model/Binding" {
      */
     suspend(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Determines if the binding should be updated by comparing the current model against a specified model.
      *
@@ -47633,16 +47926,23 @@ declare module "sap/ui/model/Binding" {
       oModel: object
     ): boolean;
   }
-  export default Binding;
 
-  export interface $BindingAggregatedDataStateChangeEventParameters {
+  export interface Binding$AggregatedDataStateChangeEventParameters {
     /**
      * The `DataState` object of the binding
      */
     dataState?: DataState;
   }
 
-  export interface $BindingChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$AggregatedDataStateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $BindingAggregatedDataStateChangeEventParameters = Binding$AggregatedDataStateChangeEventParameters;
+
+  export type Binding$AggregatedDataStateChangeEvent = Event<Binding$AggregatedDataStateChangeEventParameters>;
+
+  export interface Binding$ChangeEventParameters {
     /**
      * A string stating the reason for the data change; some change reasons can be found in {@link sap.ui.model.ChangeReason},
      * but there may be additional reasons specified by a specific model implementation
@@ -47650,21 +47950,53 @@ declare module "sap/ui/model/Binding" {
     reason?: string;
   }
 
-  export interface $BindingDataReceivedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $BindingChangeEventParameters = Binding$ChangeEventParameters;
+
+  export type Binding$ChangeEvent = Event<Binding$ChangeEventParameters>;
+
+  export interface Binding$DataReceivedEventParameters {
     /**
      * The data received; is `undefined` in error cases
      */
     data?: string;
   }
 
-  export interface $BindingDataRequestedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataReceivedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $BindingDataReceivedEventParameters = Binding$DataReceivedEventParameters;
 
-  export interface $BindingDataStateChangeEventParameters {
+  export type Binding$DataReceivedEvent = Event<Binding$DataReceivedEventParameters>;
+
+  export interface Binding$DataRequestedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataRequestedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $BindingDataRequestedEventParameters = Binding$DataRequestedEventParameters;
+
+  export type Binding$DataRequestedEvent = Event<Binding$DataRequestedEventParameters>;
+
+  export interface Binding$DataStateChangeEventParameters {
     /**
      * The `DataState` object of the binding
      */
     dataState?: DataState;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataStateChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $BindingDataStateChangeEventParameters = Binding$DataStateChangeEventParameters;
+
+  export type Binding$DataStateChangeEvent = Event<Binding$DataStateChangeEventParameters>;
 }
 
 declare module "sap/ui/model/BindingMode" {
@@ -47753,7 +48085,7 @@ declare module "sap/ui/model/ClientContextBinding" {
   /**
    * The ContextBinding is a specific binding for setting a context for the model.
    */
-  class ClientContextBinding extends ContextBinding {
+  export default class ClientContextBinding extends ContextBinding {
     /**
      * Creates a new ClientContextBinding.
      *
@@ -47810,7 +48142,6 @@ declare module "sap/ui/model/ClientContextBinding" {
      */
     static getMetadata(): Metadata;
   }
-  export default ClientContextBinding;
 }
 
 declare module "sap/ui/model/ClientListBinding" {
@@ -47829,13 +48160,13 @@ declare module "sap/ui/model/ClientListBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for client models.
    */
-  class ClientListBinding extends ListBinding {
+  export default class ClientListBinding extends ListBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientListBinding.
      *
@@ -47871,7 +48202,7 @@ declare module "sap/ui/model/ClientListBinding" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientListBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -47896,7 +48227,7 @@ declare module "sap/ui/model/ClientListBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientListBinding.
      *
@@ -47926,7 +48257,7 @@ declare module "sap/ui/model/ClientListBinding" {
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
@@ -47959,7 +48290,6 @@ declare module "sap/ui/model/ClientListBinding" {
       bKeepCurrent?: boolean
     ): Context[];
   }
-  export default ClientListBinding;
 }
 
 declare module "sap/ui/model/ClientModel" {
@@ -47970,7 +48300,7 @@ declare module "sap/ui/model/ClientModel" {
   /**
    * Model implementation for Client models
    */
-  class ClientModel extends Model {
+  export default class ClientModel extends Model {
     /**
      * Constructor for a new ClientModel.
      */
@@ -48044,7 +48374,6 @@ declare module "sap/ui/model/ClientModel" {
       bForceUpdate: boolean
     ): void;
   }
-  export default ClientModel;
 }
 
 declare module "sap/ui/model/ClientPropertyBinding" {
@@ -48057,13 +48386,13 @@ declare module "sap/ui/model/ClientPropertyBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for client models.
    */
-  class ClientPropertyBinding extends PropertyBinding {
+  export default class ClientPropertyBinding extends PropertyBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientPropertyBinding.
      *
@@ -48091,7 +48420,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientPropertyBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -48116,7 +48445,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientPropertyBinding.
      *
@@ -48124,7 +48453,6 @@ declare module "sap/ui/model/ClientPropertyBinding" {
      */
     static getMetadata(): Metadata;
   }
-  export default ClientPropertyBinding;
 }
 
 declare module "sap/ui/model/ClientTreeBinding" {
@@ -48143,7 +48471,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for client models.
    *
@@ -48154,9 +48482,9 @@ declare module "sap/ui/model/ClientTreeBinding" {
    * in the index positions of other nodes, causing them to lose their state and/or to gain the state of another
    * node.
    */
-  class ClientTreeBinding extends TreeBinding {
+  export default class ClientTreeBinding extends TreeBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientTreeBinding.
      *
@@ -48193,7 +48521,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientTreeBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -48218,7 +48546,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientTreeBinding.
      *
@@ -48258,7 +48586,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     getCount(): number | undefined;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -48279,7 +48607,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       iLength: int
     ): Context[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Return root contexts for the tree
      *
@@ -48319,20 +48647,18 @@ declare module "sap/ui/model/ClientTreeBinding" {
       aSorters: Sorter[]
     ): this;
   }
-  export default ClientTreeBinding;
 }
 
 declare module "sap/ui/model/ClientTreeBindingAdapter" {
-  class ClientTreeBindingAdapter {
+  export default class ClientTreeBindingAdapter {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
      */
     constructor();
   }
-  export default ClientTreeBindingAdapter;
 }
 
 declare module "sap/ui/model/CompositeBinding" {
@@ -48371,7 +48697,7 @@ declare module "sap/ui/model/CompositeBinding" {
    *
    * **Note:** A nesting of composite bindings is currently not supported (albeit being helpful).
    */
-  class CompositeBinding extends PropertyBinding {
+  export default class CompositeBinding extends PropertyBinding {
     /**
      * Constructor for CompositeBinding.
      * See:
@@ -48409,7 +48735,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48427,7 +48753,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `change` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48445,7 +48771,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48463,7 +48789,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48478,7 +48804,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `change` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48493,7 +48819,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48540,7 +48866,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     getValue(): object;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The method should be called when creating a binding. The default implementation
      * calls checkUpdate(true). Prevent checkUpdate to be triggered while initializing nested bindings, it is
@@ -48628,7 +48954,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     suspend(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Determines if the property bindings in the composite binding should be updated by calling updateRequired
      * on all property bindings with the specified model.
@@ -48642,7 +48968,6 @@ declare module "sap/ui/model/CompositeBinding" {
       oModel: object
     ): boolean;
   }
-  export default CompositeBinding;
 }
 
 declare module "sap/ui/model/CompositeDataState" {
@@ -48655,7 +48980,7 @@ declare module "sap/ui/model/CompositeDataState" {
   /**
    * Holds the status data of a composite binding.
    */
-  class CompositeDataState extends DataState {
+  export default class CompositeDataState extends DataState {
     constructor();
 
     /**
@@ -48688,7 +49013,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns or sets whether the data state is changed. As long as changed was not set to false the data state
      * is dirty and the corresponding binding will fire data state change events.
@@ -48740,7 +49065,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     getControlMessages(): Message[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of values for the given property in the inner datastates.
      *
@@ -48794,7 +49119,6 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     isLaundering(): boolean;
   }
-  export default CompositeDataState;
 }
 
 declare module "sap/ui/model/CompositeType" {
@@ -48821,7 +49145,7 @@ declare module "sap/ui/model/CompositeType" {
    *     raw model values; the types of embedded bindings are ignored; defaults to `false`  `bUseRawValues`
    *     and `bUseInternalValues` cannot be both `true`.
    */
-  class CompositeType extends SimpleType {
+  export default class CompositeType extends SimpleType {
     /**
      * Constructor for a new CompositeType.
      */
@@ -48937,7 +49261,7 @@ declare module "sap/ui/model/CompositeType" {
     ): any[] | any;
     /**
      * @since 1.100.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Processes the types of the parts of this composite type. A concrete composite type may override this
      * method if it needs to derive information from the types of the parts.
@@ -48959,7 +49283,6 @@ declare module "sap/ui/model/CompositeType" {
       aValues: any[]
     ): void;
   }
-  export default CompositeType;
 }
 
 declare module "sap/ui/model/Context" {
@@ -48981,7 +49304,7 @@ declare module "sap/ui/model/Context" {
    *
    * For more information on the concept of data binding and binding contexts, see {@link https://ui5.sap.com/#/topic/e2e6f4127fe4450ab3cf1339c42ee832 documentation on binding syntax}.
    */
-  class Context extends BaseObject {
+  export default class Context extends BaseObject {
     /**
      * Constructor for Context class.
      */
@@ -49083,7 +49406,6 @@ declare module "sap/ui/model/Context" {
       sPath: string
     ): any;
   }
-  export default Context;
 }
 
 declare module "sap/ui/model/ContextBinding" {
@@ -49098,7 +49420,7 @@ declare module "sap/ui/model/ContextBinding" {
   /**
    * The ContextBinding is a specific binding for a setting context for the model
    */
-  class ContextBinding extends Binding {
+  export default class ContextBinding extends Binding {
     /**
      * Constructor for ContextBinding
      */
@@ -49152,7 +49474,6 @@ declare module "sap/ui/model/ContextBinding" {
      */
     getBoundContext(): Context | null;
   }
-  export default ContextBinding;
 }
 
 declare module "sap/ui/model/DataState" {
@@ -49202,7 +49523,7 @@ declare module "sap/ui/model/DataState" {
    * `originalValue` The ***original*** value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue external representation }
    * `value` The value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue external representation }
    */
-  class DataState extends BaseObject {
+  export default class DataState extends BaseObject {
     constructor();
 
     /**
@@ -49235,7 +49556,7 @@ declare module "sap/ui/model/DataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the data state is changed, or resets the data state in case the parameter `bNewState`
      * is false; reset data state means that the data state properties are replaced with the changed properties.
@@ -49328,7 +49649,7 @@ declare module "sap/ui/model/DataState" {
      */
     isLaundering(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets an array of control state messages.
      *
@@ -49341,7 +49662,7 @@ declare module "sap/ui/model/DataState" {
       aMessages: Message[]
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the dirty value that was rejected by the type validation.
      *
@@ -49354,7 +49675,7 @@ declare module "sap/ui/model/DataState" {
       vInvalidValue: any
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the laundering state of the data state.
      *
@@ -49378,7 +49699,7 @@ declare module "sap/ui/model/DataState" {
       aMessages?: Message[]
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted original value of the data.
      *
@@ -49391,7 +49712,7 @@ declare module "sap/ui/model/DataState" {
       vOriginalValue: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted value of the data state,
      *
@@ -49404,7 +49725,6 @@ declare module "sap/ui/model/DataState" {
       vValue: any
     ): this;
   }
-  export default DataState;
 }
 
 declare module "sap/ui/model/Filter" {
@@ -49417,7 +49737,7 @@ declare module "sap/ui/model/Filter" {
   /**
    * Filter for the list binding.
    */
-  class Filter extends BaseObject {
+  export default class Filter extends BaseObject {
     /**
      * Constructor for Filter.
      *
@@ -49669,7 +49989,6 @@ declare module "sap/ui/model/Filter" {
      */
     isCaseSensitive(): boolean;
   }
-  export default Filter;
 }
 
 declare module "sap/ui/model/FilterOperator" {
@@ -49822,7 +50141,7 @@ declare module "sap/ui/model/FormatException" {
    * Instances of this exception are thrown when converting a model value to its representation on the UI
    * fails.
    */
-  class FormatException {
+  export default class FormatException {
     /**
      * Creates a new FormatException.
      * See:
@@ -49835,7 +50154,6 @@ declare module "sap/ui/model/FormatException" {
       message: string
     );
   }
-  export default FormatException;
 }
 
 declare module "sap/ui/model/json/JSONListBinding" {
@@ -49850,13 +50168,13 @@ declare module "sap/ui/model/json/JSONListBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for JSON format.
    */
-  class JSONListBinding extends ClientListBinding {
+  export default class JSONListBinding extends ClientListBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -49891,7 +50209,6 @@ declare module "sap/ui/model/json/JSONListBinding" {
       mParameters?: object
     );
   }
-  export default JSONListBinding;
 }
 
 declare module "sap/ui/model/json/JSONModel" {
@@ -49906,7 +50223,7 @@ declare module "sap/ui/model/json/JSONModel" {
    *
    * This model is not prepared to be inherited from.
    */
-  class JSONModel extends ClientModel {
+  export default class JSONModel extends ClientModel {
     /**
      * Constructor for a new JSONModel.
      *
@@ -50081,7 +50398,6 @@ declare module "sap/ui/model/json/JSONModel" {
       bAsyncUpdate?: boolean
     ): boolean;
   }
-  export default JSONModel;
 }
 
 declare module "sap/ui/model/json/JSONPropertyBinding" {
@@ -50092,13 +50408,13 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for JSON format.
    */
-  class JSONPropertyBinding extends ClientPropertyBinding {
+  export default class JSONPropertyBinding extends ClientPropertyBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -50125,7 +50441,6 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
       mParameters?: object
     );
   }
-  export default JSONPropertyBinding;
 }
 
 declare module "sap/ui/model/json/JSONTreeBinding" {
@@ -50136,7 +50451,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for JSON format.
    *
@@ -50144,9 +50459,9 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
    * can optionally define a set of arrays to be used for the tree structure in the parameter `arrayNames`.
    * If this parameter is set, all other objects and arrays will be ignored.
    */
-  class JSONTreeBinding extends ClientTreeBinding {
+  export default class JSONTreeBinding extends ClientTreeBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -50185,7 +50500,6 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
       }
     );
   }
-  export default JSONTreeBinding;
 }
 
 declare module "sap/ui/model/ListBinding" {
@@ -50205,10 +50519,12 @@ declare module "sap/ui/model/ListBinding" {
 
   import Message from "sap/ui/core/message/Message";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * ListBinding is a specific binding for lists in the model, which can be used to populate Tables or ItemLists.
    */
-  class ListBinding extends Binding {
+  export default class ListBinding extends Binding {
     /**
      * Constructor for ListBinding.
      */
@@ -50273,7 +50589,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      *
@@ -50293,7 +50609,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "sort")` when
      * a sorter event is fired.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      *
@@ -50312,7 +50628,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      */
@@ -50328,7 +50644,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      */
@@ -50343,7 +50659,7 @@ declare module "sap/ui/model/ListBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Calculates delta of specified old data array and new data array.
      *
@@ -50366,7 +50682,7 @@ declare module "sap/ui/model/ListBinding" {
       index: int;
     }>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Enable extended change detection. When extended change detection is enabled, the list binding provides
      * detailed information about changes, for example which entries have been removed or inserted. This can
@@ -50435,7 +50751,7 @@ declare module "sap/ui/model/ListBinding" {
      */
     getAllCurrentContexts(): Context[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
@@ -50565,7 +50881,7 @@ declare module "sap/ui/model/ListBinding" {
     isLengthFinal(): boolean;
     /**
      * @since 1.77.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -50610,11 +50926,26 @@ declare module "sap/ui/model/ListBinding" {
       aSorters: Sorter | Sorter[]
     ): this;
   }
-  export default ListBinding;
 
-  export interface $ListBindingFilterEventParameters {}
+  export interface ListBinding$FilterEventParameters {}
 
-  export interface $ListBindingSortEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ListBinding$FilterEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ListBindingFilterEventParameters = ListBinding$FilterEventParameters;
+
+  export type ListBinding$FilterEvent = Event<ListBinding$FilterEventParameters>;
+
+  export interface ListBinding$SortEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ListBinding$SortEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ListBindingSortEventParameters = ListBinding$SortEventParameters;
+
+  export type ListBinding$SortEvent = Event<ListBinding$SortEventParameters>;
 }
 
 declare module "sap/ui/model/message/MessageModel" {
@@ -50631,7 +50962,7 @@ declare module "sap/ui/model/message/MessageModel" {
    *
    * This model is not prepared to be inherited from.
    */
-  class MessageModel extends ClientModel {
+  export default class MessageModel extends ClientModel {
     /**
      * Constructor for a new JSONModel.
      */
@@ -50716,7 +51047,6 @@ declare module "sap/ui/model/message/MessageModel" {
       oContext: Context
     ): void;
   }
-  export default MessageModel;
 }
 
 declare module "sap/ui/model/MetaModel" {
@@ -50727,7 +51057,7 @@ declare module "sap/ui/model/MetaModel" {
   /**
    * Model implementation for meta models
    */
-  class MetaModel extends Model {
+  export default class MetaModel extends Model {
     /**
      * Constructor for a new MetaModel.
      */
@@ -50763,13 +51093,10 @@ declare module "sap/ui/model/MetaModel" {
      */
     static getMetadata(): Metadata;
   }
-  export default MetaModel;
 }
 
 declare module "sap/ui/model/Model" {
   import MessageProcessor from "sap/ui/core/message/MessageProcessor";
-
-  import Event from "sap/ui/base/Event";
 
   import Context from "sap/ui/model/Context";
 
@@ -50793,12 +51120,14 @@ declare module "sap/ui/model/Model" {
 
   import MetaModel from "sap/ui/model/MetaModel";
 
+  import Event from "sap/ui/base/Event";
+
   import ChangeReason from "sap/ui/model/ChangeReason";
 
   /**
    * This is an abstract base class for model objects.
    */
-  class Model extends MessageProcessor {
+  export default class Model extends MessageProcessor {
     /**
      * Constructor for a new Model.
      *
@@ -50853,7 +51182,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelParseErrorEventParameters>) => void,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
        */
@@ -50871,7 +51200,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelParseErrorEventParameters>) => void,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
        */
@@ -50895,7 +51224,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelPropertyChangeEventParameters>) => void,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50914,7 +51243,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelPropertyChangeEventParameters>) => void,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50938,7 +51267,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestCompletedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50957,7 +51286,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestCompletedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50980,7 +51309,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestFailedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50998,7 +51327,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestFailedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -51021,7 +51350,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestSentEventParameters>) => void,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -51039,7 +51368,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestSentEventParameters>) => void,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -51192,7 +51521,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelParseErrorEventParameters>) => void,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -51210,7 +51539,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelPropertyChangeEventParameters>) => void,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -51228,7 +51557,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestCompletedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -51246,7 +51575,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestFailedEventParameters>) => void,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -51263,14 +51592,14 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (evt: Event<$ModelRequestSentEventParameters>) => void,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -51281,10 +51610,10 @@ declare module "sap/ui/model/Model" {
        * Parameters to pass along with the event; May contain the following parameters: `errorCode`, `url`, `reason`,
        * `srcText`, `line`, `linePos`, `filePos`
        */
-      oParameters?: $ModelParseErrorEventParameters
+      oParameters?: Model$ParseErrorEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:propertyChange propertyChange} to attached listeners.
      *
@@ -51294,10 +51623,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ModelPropertyChangeEventParameters
+      oParameters?: Model$PropertyChangeEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestCompleted requestCompleted} to attached listeners.
      *
@@ -51307,10 +51636,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ModelRequestCompletedEventParameters
+      oParameters?: Model$RequestCompletedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestFailed requestFailed} to attached listeners.
      *
@@ -51320,10 +51649,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ModelRequestFailedEventParameters
+      oParameters?: Model$RequestFailedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestSent requestSent} to attached listeners.
      *
@@ -51333,7 +51662,7 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ModelRequestSentEventParameters
+      oParameters?: Model$RequestSentEventParameters
     ): this;
     /**
      * Get the default binding mode for the model.
@@ -51358,7 +51687,7 @@ declare module "sap/ui/model/Model" {
       oContext: Context
     ): Message[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns model messages for which the target matches the given resolved binding path.
      *
@@ -51513,9 +51842,8 @@ declare module "sap/ui/model/Model" {
       iSizeLimit: int
     ): void;
   }
-  export default Model;
 
-  export interface $ModelParseErrorEventParameters {
+  export interface Model$ParseErrorEventParameters {
     errorCode?: int;
 
     url?: string;
@@ -51531,7 +51859,15 @@ declare module "sap/ui/model/Model" {
     filepos?: int;
   }
 
-  export interface $ModelPropertyChangeEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$ParseErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ModelParseErrorEventParameters = Model$ParseErrorEventParameters;
+
+  export type Model$ParseErrorEvent = Event<Model$ParseErrorEventParameters>;
+
+  export interface Model$PropertyChangeEventParameters {
     /**
      * The cause of the property value change
      */
@@ -51553,7 +51889,15 @@ declare module "sap/ui/model/Model" {
     value?: any;
   }
 
-  export interface $ModelRequestCompletedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$PropertyChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ModelPropertyChangeEventParameters = Model$PropertyChangeEventParameters;
+
+  export type Model$PropertyChangeEvent = Event<Model$PropertyChangeEventParameters>;
+
+  export interface Model$RequestCompletedEventParameters {
     /**
      * URL which was sent to the back end
      */
@@ -51591,7 +51935,15 @@ declare module "sap/ui/model/Model" {
     infoObject?: object;
   }
 
-  export interface $ModelRequestFailedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ModelRequestCompletedEventParameters = Model$RequestCompletedEventParameters;
+
+  export type Model$RequestCompletedEvent = Event<Model$RequestCompletedEventParameters>;
+
+  export interface Model$RequestFailedEventParameters {
     /**
      * A text that describes the failure.
      */
@@ -51613,7 +51965,15 @@ declare module "sap/ui/model/Model" {
     responseText?: string;
   }
 
-  export interface $ModelRequestSentEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ModelRequestFailedEventParameters = Model$RequestFailedEventParameters;
+
+  export type Model$RequestFailedEvent = Event<Model$RequestFailedEventParameters>;
+
+  export interface Model$RequestSentEventParameters {
     /**
      * The url which is sent to the back end
      */
@@ -51639,6 +51999,14 @@ declare module "sap/ui/model/Model" {
      */
     infoObject?: object;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ModelRequestSentEventParameters = Model$RequestSentEventParameters;
+
+  export type Model$RequestSentEvent = Event<Model$RequestSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataTreeBindingAdapter" {
@@ -52072,7 +52440,7 @@ declare module "sap/ui/model/odata/Filter" {
    *
    * Filter for the list binding
    */
-  class Filter extends BaseObject {
+  export default class Filter extends BaseObject {
     /**
      * Constructor for Filter
      */
@@ -52127,7 +52495,6 @@ declare module "sap/ui/model/odata/Filter" {
      */
     convert(): Filter1;
   }
-  export default Filter;
 }
 
 declare module "sap/ui/model/odata/MessageScope" {
@@ -52159,12 +52526,14 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.66) - please use {@link sap.ui.model.odata.v2.ODataAnnotations} instead.
    *
    * Implementation to access OData Annotations
    */
-  class ODataAnnotations extends EventProvider {
+  export default class ODataAnnotations extends EventProvider {
     constructor(
       /**
        * The annotation-URL or an array of URLs that should be parsed and merged
@@ -52332,7 +52701,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -52362,7 +52731,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -52436,11 +52805,26 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       }
     ): boolean;
   }
-  export default ODataAnnotations;
 
-  export interface $ODataAnnotationsFailedEventParameters {}
+  export interface ODataAnnotations$FailedEventParameters {}
 
-  export interface $ODataAnnotationsLoadedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataAnnotations$FailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataAnnotationsFailedEventParameters = ODataAnnotations$FailedEventParameters;
+
+  export type ODataAnnotations$FailedEvent = Event<ODataAnnotations$FailedEventParameters>;
+
+  export interface ODataAnnotations$LoadedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataAnnotations$LoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataAnnotationsLoadedEventParameters = ODataAnnotations$LoadedEventParameters;
+
+  export type ODataAnnotations$LoadedEvent = Event<ODataAnnotations$LoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataContextBinding" {
@@ -52457,7 +52841,7 @@ declare module "sap/ui/model/odata/ODataContextBinding" {
    *
    * The ContextBinding is a specific binding for a setting context for the model
    */
-  class ODataContextBinding extends ContextBinding {
+  export default class ODataContextBinding extends ContextBinding {
     /**
      * Constructor for odata.ODataContextBinding
      */
@@ -52501,7 +52885,6 @@ declare module "sap/ui/model/odata/ODataContextBinding" {
      */
     static getMetadata(): Metadata;
   }
-  export default ODataContextBinding;
 }
 
 declare module "sap/ui/model/odata/ODataListBinding" {
@@ -52526,7 +52909,7 @@ declare module "sap/ui/model/odata/ODataListBinding" {
    *
    * List binding implementation for OData format.
    */
-  class ODataListBinding extends ListBinding {
+  export default class ODataListBinding extends ListBinding {
     constructor(
       /**
        * Model that this list binding belongs to
@@ -52625,7 +53008,7 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list
      *
@@ -52700,7 +53083,6 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
   }
-  export default ODataListBinding;
 }
 
 declare module "sap/ui/model/odata/ODataMessageParser" {
@@ -52714,7 +53096,7 @@ declare module "sap/ui/model/odata/ODataMessageParser" {
    * OData implementation of the sap.ui.core.message.MessageParser class. Parses message responses from the
    * back end.
    */
-  class ODataMessageParser extends MessageParser {
+  export default class ODataMessageParser extends MessageParser {
     /**
      * OData implementation of the sap.ui.core.message.MessageParser class. Parses message responses from the
      * back end.
@@ -52808,7 +53190,6 @@ declare module "sap/ui/model/odata/ODataMessageParser" {
       sFieldName: string
     ): this;
   }
-  export default ODataMessageParser;
 }
 
 declare module "sap/ui/model/odata/ODataMetadata" {
@@ -52816,10 +53197,12 @@ declare module "sap/ui/model/odata/ODataMetadata" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * Implementation to access OData metadata
    */
-  class ODataMetadata extends EventProvider {
+  export default class ODataMetadata extends EventProvider {
     /**
      * Constructor for a new ODataMetadata.
      */
@@ -53002,7 +53385,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -53032,7 +53415,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -53090,11 +53473,26 @@ declare module "sap/ui/model/odata/ODataMetadata" {
      */
     refresh(): Promise<any>;
   }
-  export default ODataMetadata;
 
-  export interface $ODataMetadataFailedEventParameters {}
+  export interface ODataMetadata$FailedEventParameters {}
 
-  export interface $ODataMetadataLoadedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataMetadata$FailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataMetadataFailedEventParameters = ODataMetadata$FailedEventParameters;
+
+  export type ODataMetadata$FailedEvent = Event<ODataMetadata$FailedEventParameters>;
+
+  export interface ODataMetadata$LoadedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataMetadata$LoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataMetadataLoadedEventParameters = ODataMetadata$LoadedEventParameters;
+
+  export type ODataMetadata$LoadedEvent = Event<ODataMetadata$LoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataMetaModel" {
@@ -53217,7 +53615,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link #loaded loaded }
    * has been resolved!
    */
-  class ODataMetaModel extends MetaModel {
+  export default class ODataMetaModel extends MetaModel {
     /**
      * DO NOT CALL this private constructor for a new `ODataMetaModel`, but rather use {@link sap.ui.model.odata.v2.ODataModel#getMetaModel getMetaModel }
      * instead!
@@ -53567,8 +53965,6 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       bLegacySyntax: boolean
     ): void;
   }
-  export default ODataMetaModel;
-
   /**
    * The abstraction of an OData property.
    */
@@ -54129,12 +54525,14 @@ declare module "sap/ui/model/odata/ODataModel" {
 
   import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @deprecated (since 1.48) - please use {@link sap.ui.model.odata.v2.ODataModel} instead.
    *
    * Model implementation for OData format
    */
-  class ODataModel extends Model {
+  export default class ODataModel extends Model {
     /**
      * Constructor for a new ODataModel.
      */
@@ -54256,7 +54654,7 @@ declare module "sap/ui/model/odata/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) to the be parsed for OData annotations, which are then merged into the annotations
      * object which can be retrieved by calling the getServiceAnnotations()-method. If a $metadata url is passed
@@ -54276,7 +54674,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds new xml content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the getServiceAnnotations()-method.
@@ -54779,7 +55177,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -54809,7 +55207,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -54827,7 +55225,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -54857,7 +55255,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -55409,15 +55807,46 @@ declare module "sap/ui/model/odata/ODataModel" {
       bForceUpdate?: boolean
     ): void;
   }
-  export default ODataModel;
 
-  export interface $ODataModelAnnotationsFailedEventParameters {}
+  export interface ODataModel$AnnotationsFailedEventParameters {}
 
-  export interface $ODataModelAnnotationsLoadedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelAnnotationsFailedEventParameters = ODataModel$AnnotationsFailedEventParameters;
 
-  export interface $ODataModelMetadataFailedEventParameters {}
+  export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
 
-  export interface $ODataModelMetadataLoadedEventParameters {}
+  export interface ODataModel$AnnotationsLoadedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsLoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelAnnotationsLoadedEventParameters = ODataModel$AnnotationsLoadedEventParameters;
+
+  export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
+
+  export interface ODataModel$MetadataFailedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelMetadataFailedEventParameters = ODataModel$MetadataFailedEventParameters;
+
+  export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
+
+  export interface ODataModel$MetadataLoadedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataLoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelMetadataLoadedEventParameters = ODataModel$MetadataLoadedEventParameters;
+
+  export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataPropertyBinding" {
@@ -55432,7 +55861,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
   /**
    * Property binding implementation for OData format
    */
-  class ODataPropertyBinding extends PropertyBinding {
+  export default class ODataPropertyBinding extends PropertyBinding {
     /**
      * Do **NOT** call this private constructor, but rather use {@link sap.ui.model.odata.v2.ODataModel#bindProperty }
      * instead!
@@ -55477,7 +55906,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the current value of the bound target
      *
@@ -55485,7 +55914,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     getValue(): object;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. If metadata is not yet
      * available, do nothing, method will be called again when metadata is loaded.
@@ -55503,7 +55932,6 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     supportsIgnoreMessages(): boolean;
   }
-  export default ODataPropertyBinding;
 }
 
 declare module "sap/ui/model/odata/ODataUtils" {
@@ -55702,7 +56130,7 @@ declare module "sap/ui/model/odata/type/Boolean" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `boolean`.
    */
-  class Boolean1 extends ODataType {
+  export default class Boolean1 extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Boolean`.
      */
@@ -55802,7 +56230,6 @@ declare module "sap/ui/model/odata/type/Boolean" {
       bValue: boolean
     ): void;
   }
-  export default Boolean1;
 }
 
 declare module "sap/ui/model/odata/type/Byte" {
@@ -55819,7 +56246,7 @@ declare module "sap/ui/model/odata/type/Byte" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class Byte extends Int {
+  export default class Byte extends Int {
     /**
      * Constructor for a primitive type `Edm.Byte`.
      */
@@ -55882,7 +56309,7 @@ declare module "sap/ui/model/odata/type/Byte" {
      */
     getName(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -55890,7 +56317,6 @@ declare module "sap/ui/model/odata/type/Byte" {
      */
     getRange(): object;
   }
-  export default Byte;
 }
 
 declare module "sap/ui/model/odata/type/Currency" {
@@ -55916,7 +56342,7 @@ declare module "sap/ui/model/odata/type/Currency" {
    * resp. {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency and Unit Customizing in OData V2 }
    * for more information. If no currency customizing is available, UI5's default formatting applies.
    */
-  class Currency extends Currency1 {
+  export default class Currency extends Currency1 {
     /**
      * Constructor for a `Currency` composite type.
      */
@@ -56065,7 +56491,6 @@ declare module "sap/ui/model/odata/type/Currency" {
       aValues: any[]
     ): void;
   }
-  export default Currency;
 }
 
 declare module "sap/ui/model/odata/type/Date" {
@@ -56091,7 +56516,7 @@ declare module "sap/ui/model/odata/type/Date" {
    * **Note: For an OData V2 service use {@link sap.ui.model.odata.type.DateTime} with the constraint `displayFormat:
    * "Date"` to display only a date.**
    */
-  class Date1 extends ODataType {
+  export default class Date1 extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Date`.
      * See:
@@ -56210,7 +56635,6 @@ declare module "sap/ui/model/odata/type/Date" {
       sValue: string
     ): void;
   }
-  export default Date1;
 }
 
 declare module "sap/ui/model/odata/type/DateTime" {
@@ -56238,7 +56662,7 @@ declare module "sap/ui/model/odata/type/DateTime" {
    * `displayFormat: "Date"`, the time zone is UTC, and all time related parts (hours, minutes, etc.) are
    * set to zero; otherwise it is a date/time value in local time.
    */
-  class DateTime extends DateTimeBase {
+  export default class DateTime extends DateTimeBase {
     /**
      * Constructor for a primitive type `Edm.DateTime`.
      */
@@ -56317,7 +56741,6 @@ declare module "sap/ui/model/odata/type/DateTime" {
      */
     getName(): string;
   }
-  export default DateTime;
 }
 
 declare module "sap/ui/model/odata/type/DateTimeBase" {
@@ -56338,7 +56761,7 @@ declare module "sap/ui/model/odata/type/DateTimeBase" {
    *
    * This is an abstract base class for the OData primitive types `Edm.DateTime` and `Edm.DateTimeOffset`.
    */
-  class DateTimeBase extends ODataType {
+  export default class DateTimeBase extends ODataType {
     /**
      * Base constructor for the primitive types `Edm.DateTime` and `Edm.DateTimeOffset`.
      */
@@ -56447,7 +56870,6 @@ declare module "sap/ui/model/odata/type/DateTimeBase" {
       oValue: Date
     ): void;
   }
-  export default DateTimeBase;
 }
 
 declare module "sap/ui/model/odata/type/DateTimeOffset" {
@@ -56473,7 +56895,7 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
    * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string` like "1970-12-31T23:59:58Z".
    * See parameter `oConstraints.V4` for more information.
    */
-  class DateTimeOffset extends DateTimeBase {
+  export default class DateTimeOffset extends DateTimeBase {
     /**
      * Constructor for a primitive type `Edm.DateTimeOffset`.
      */
@@ -56625,7 +57047,6 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
       vValue: any
     ): void;
   }
-  export default DateTimeOffset;
 }
 
 declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
@@ -56647,7 +57068,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
    *
    * For more information and some examples how to use this class, see {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
    */
-  class DateTimeWithTimezone extends CompositeType {
+  export default class DateTimeWithTimezone extends CompositeType {
     /**
      * Constructor for a `DateTimeWithTimezone` composite type.
      * See:
@@ -56783,7 +57204,6 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
       aValues: any[]
     ): void;
   }
-  export default DateTimeWithTimezone;
 }
 
 declare module "sap/ui/model/odata/type/Decimal" {
@@ -56806,7 +57226,7 @@ declare module "sap/ui/model/odata/type/Decimal" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`. It never uses exponential format ("1e-5").
    */
-  class Decimal extends ODataType {
+  export default class Decimal extends ODataType {
     /**
      * Constructor for a primitive type `Edm.Decimal`.
      */
@@ -56953,7 +57373,6 @@ declare module "sap/ui/model/odata/type/Decimal" {
       sValue: string
     ): void;
   }
-  export default Decimal;
 }
 
 declare module "sap/ui/model/odata/type/Double" {
@@ -56976,7 +57395,7 @@ declare module "sap/ui/model/odata/type/Double" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class Double extends ODataType {
+  export default class Double extends ODataType {
     /**
      * Constructor for a primitive type `Edm.Double`.
      */
@@ -57094,7 +57513,6 @@ declare module "sap/ui/model/odata/type/Double" {
       fValue: number
     ): void;
   }
-  export default Double;
 }
 
 declare module "sap/ui/model/odata/type/Guid" {
@@ -57117,7 +57535,7 @@ declare module "sap/ui/model/odata/type/Guid" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
    */
-  class Guid extends ODataType {
+  export default class Guid extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Guid`.
      */
@@ -57215,7 +57633,6 @@ declare module "sap/ui/model/odata/type/Guid" {
       sValue: string
     ): void;
   }
-  export default Guid;
 }
 
 declare module "sap/ui/model/odata/type/Int" {
@@ -57235,7 +57652,7 @@ declare module "sap/ui/model/odata/type/Int" {
    * This is an abstract base class for integer-based
    * OData primitive types like `Edm.Int16` or `Edm.Int32`.
    */
-  class Int extends ODataType {
+  export default class Int extends ODataType {
     /**
      * Constructor for a new `Int`.
      */
@@ -57337,7 +57754,6 @@ declare module "sap/ui/model/odata/type/Int" {
       iValue: number
     ): void;
   }
-  export default Int;
 }
 
 declare module "sap/ui/model/odata/type/Int16" {
@@ -57354,7 +57770,7 @@ declare module "sap/ui/model/odata/type/Int16" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class Int16 extends Int {
+  export default class Int16 extends Int {
     /**
      * Constructor for a primitive type `Edm.Int16`.
      */
@@ -57418,7 +57834,7 @@ declare module "sap/ui/model/odata/type/Int16" {
      */
     getName(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -57426,7 +57842,6 @@ declare module "sap/ui/model/odata/type/Int16" {
      */
     getRange(): object;
   }
-  export default Int16;
 }
 
 declare module "sap/ui/model/odata/type/Int32" {
@@ -57443,7 +57858,7 @@ declare module "sap/ui/model/odata/type/Int32" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class Int32 extends Int {
+  export default class Int32 extends Int {
     /**
      * Constructor for a primitive type `Edm.Int32`.
      */
@@ -57507,7 +57922,7 @@ declare module "sap/ui/model/odata/type/Int32" {
      */
     getName(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -57515,7 +57930,6 @@ declare module "sap/ui/model/odata/type/Int32" {
      */
     getRange(): object;
   }
-  export default Int32;
 }
 
 declare module "sap/ui/model/odata/type/Int64" {
@@ -57538,7 +57952,7 @@ declare module "sap/ui/model/odata/type/Int64" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
    */
-  class Int64 extends ODataType {
+  export default class Int64 extends ODataType {
     /**
      * Constructor for a primitive type `Edm.Int64`.
      */
@@ -57660,7 +58074,6 @@ declare module "sap/ui/model/odata/type/Int64" {
       sValue: string
     ): void;
   }
-  export default Int64;
 }
 
 declare module "sap/ui/model/odata/type/ODataType" {
@@ -57688,7 +58101,7 @@ declare module "sap/ui/model/odata/type/ODataType" {
    * a number, or if any type's {@link #validateValue validateValue} gets a `null`, but the constraint `nullable`
    * is `false`).
    */
-  class ODataType extends SimpleType {
+  export default class ODataType extends SimpleType {
     /**
      * Constructor for a new `ODataType`.
      */
@@ -57742,7 +58155,6 @@ declare module "sap/ui/model/odata/type/ODataType" {
      */
     getPlaceholderText(): string | undefined;
   }
-  export default ODataType;
 }
 
 declare module "sap/ui/model/odata/type/Raw" {
@@ -57763,7 +58175,7 @@ declare module "sap/ui/model/odata/type/Raw" {
    * retrieve raw values "as is" (i.e. `formatValue(vValue, "any")`), but not to actually convert to or from
    * any other representation or to validate.
    */
-  class Raw extends ODataType {
+  export default class Raw extends ODataType {
     /**
      * Constructor for a placeholder for all unsupported OData primitive types.
      */
@@ -57853,7 +58265,6 @@ declare module "sap/ui/model/odata/type/Raw" {
      */
     validateValue(): void;
   }
-  export default Raw;
 }
 
 declare module "sap/ui/model/odata/type/SByte" {
@@ -57870,7 +58281,7 @@ declare module "sap/ui/model/odata/type/SByte" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class SByte extends Int {
+  export default class SByte extends Int {
     /**
      * Constructor for a primitive type `Edm.SByte`.
      */
@@ -57933,7 +58344,7 @@ declare module "sap/ui/model/odata/type/SByte" {
      */
     getName(): string;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -57941,7 +58352,6 @@ declare module "sap/ui/model/odata/type/SByte" {
      */
     getRange(): object;
   }
-  export default SByte;
 }
 
 declare module "sap/ui/model/odata/type/Single" {
@@ -57964,7 +58374,7 @@ declare module "sap/ui/model/odata/type/Single" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
    */
-  class Single extends ODataType {
+  export default class Single extends ODataType {
     /**
      * Constructor for a primitive type `Edm.Single`.
      */
@@ -58081,7 +58491,6 @@ declare module "sap/ui/model/odata/type/Single" {
       fValue: number
     ): void;
   }
-  export default Single;
 }
 
 declare module "sap/ui/model/odata/type/Stream" {
@@ -58105,7 +58514,7 @@ declare module "sap/ui/model/odata/type/Stream" {
    * This type only supports reading streams. For this purpose bind the stream property to a control property
    * of type `sap.ui.core.URI`. {#formatValue} will then deliver the correct URL to read the stream.
    */
-  class Stream extends ODataType {
+  export default class Stream extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Stream`.
      */
@@ -58200,7 +58609,6 @@ declare module "sap/ui/model/odata/type/Stream" {
      */
     validateValue(): void;
   }
-  export default Stream;
 }
 
 declare module "sap/ui/model/odata/type/String" {
@@ -58223,7 +58631,7 @@ declare module "sap/ui/model/odata/type/String" {
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
    */
-  class String1 extends ODataType {
+  export default class String1 extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.String`.
      */
@@ -58356,7 +58764,6 @@ declare module "sap/ui/model/odata/type/String" {
       sValue: string
     ): void;
   }
-  export default String1;
 }
 
 declare module "sap/ui/model/odata/type/Time" {
@@ -58382,7 +58789,7 @@ declare module "sap/ui/model/odata/type/Time" {
    * properties:
    * 	`__edmType` with the value "Edm.Time" `ms` with the number of milliseconds since midnight
    */
-  class Time extends ODataType {
+  export default class Time extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Time`.
      */
@@ -58506,7 +58913,6 @@ declare module "sap/ui/model/odata/type/Time" {
       oValue: object
     ): void;
   }
-  export default Time;
 }
 
 declare module "sap/ui/model/odata/type/TimeOfDay" {
@@ -58528,7 +58934,7 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
    * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element `Edm.TimeOfDay`}.
    * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string`.
    */
-  class TimeOfDay extends ODataType {
+  export default class TimeOfDay extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.TimeOfDay`.
      */
@@ -58656,7 +59062,6 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
       sValue: string
     ): void;
   }
-  export default TimeOfDay;
 }
 
 declare module "sap/ui/model/odata/type/Unit" {
@@ -58682,7 +59087,7 @@ declare module "sap/ui/model/odata/type/Unit" {
    * resp. {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency and Unit Customizing in OData V2 }
    * for more information. If no unit customizing is available, UI5's default formatting applies.
    */
-  class Unit extends Unit1 {
+  export default class Unit extends Unit1 {
     /**
      * Constructor for a `Unit` composite type.
      */
@@ -58835,7 +59240,6 @@ declare module "sap/ui/model/odata/type/Unit" {
       aValues: any[]
     ): void;
   }
-  export default Unit;
 }
 
 declare module "sap/ui/model/odata/UpdateMethod" {
@@ -58897,7 +59301,7 @@ declare module "sap/ui/model/odata/v2/Context" {
    * 	 - {@link sap.ui.model.odata.v2.ODataModel#createBindingContext}
    * 	 - {@link sap.ui.model.odata.v2.ODataModel#createEntry}
    */
-  class Context extends Context1 {
+  export default class Context extends Context1 {
     constructor();
 
     /**
@@ -59026,7 +59430,6 @@ declare module "sap/ui/model/odata/v2/Context" {
      */
     isTransient(): boolean | undefined;
   }
-  export default Context;
 }
 
 declare module "sap/ui/model/odata/v2/ODataAnnotations" {
@@ -59041,7 +59444,7 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
    *
    * Annotation loader for OData V2 services
    */
-  class ODataAnnotations extends EventProvider {
+  export default class ODataAnnotations extends EventProvider {
     /**
      * Creates a new instance of the ODataAnnotations annotation loader.
      */
@@ -59565,8 +59968,6 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
       mHeaders: Record<string, string>
     ): void;
   }
-  export default ODataAnnotations;
-
   /**
    * Parameters of the `error` event.
    */
@@ -59652,7 +60053,7 @@ declare module "sap/ui/model/odata/v2/ODataContextBinding" {
   /**
    * Context binding for an OData V2 model.
    */
-  class ODataContextBinding extends ContextBinding {
+  export default class ODataContextBinding extends ContextBinding {
     constructor(
       /**
        * The OData V2 model
@@ -59765,7 +60166,6 @@ declare module "sap/ui/model/odata/v2/ODataContextBinding" {
       sGroupId?: string
     ): void;
   }
-  export default ODataContextBinding;
 }
 
 declare module "sap/ui/model/odata/v2/ODataListBinding" {
@@ -59791,10 +60191,12 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
 
   import Message from "sap/ui/core/message/Message";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * List binding for an OData V2 model.
    */
-  class ODataListBinding extends ListBinding {
+  export default class ODataListBinding extends ListBinding {
     constructor(
       /**
        * The OData V2 model
@@ -60045,7 +60447,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     getAllCurrentContexts(): Context1[];
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list.
      *
@@ -60160,7 +60562,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
     ): void;
     /**
      * @since 1.77.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -60199,17 +60601,24 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
   }
-  export default ODataListBinding;
 
-  export interface $ODataListBindingCreateActivateEventParameters {}
+  export interface ODataListBinding$CreateActivateEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateActivateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingCreateActivateEventParameters = ODataListBinding$CreateActivateEventParameters;
+
+  export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v2/ODataModel" {
   import {
     default as Model,
-    $ModelRequestCompletedEventParameters,
-    $ModelRequestFailedEventParameters,
-    $ModelRequestSentEventParameters,
+    Model$RequestCompletedEventParameters,
+    Model$RequestFailedEventParameters,
+    Model$RequestSentEventParameters,
   } from "sap/ui/model/Model";
 
   import BindingMode from "sap/ui/model/BindingMode";
@@ -60219,8 +60628,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
   import OperationMode from "sap/ui/model/odata/OperationMode";
 
   import UpdateMethod from "sap/ui/model/odata/UpdateMethod";
-
-  import Event from "sap/ui/base/Event";
 
   import Context from "sap/ui/model/Context";
 
@@ -60244,6 +60651,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
 
   import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
 
+  import Event from "sap/ui/base/Event";
+
   import { Source } from "sap/ui/model/odata/v2/ODataAnnotations";
 
   /**
@@ -60256,7 +60665,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
    *
    * This model is not prepared to be inherited from.
    */
-  class ODataModel extends Model {
+  export default class ODataModel extends Model {
     /**
      * Constructor for a new ODataModel.
      */
@@ -60469,7 +60878,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) whose content should be parsed as OData annotations, which are then merged into the
      * annotations object which can be retrieved by calling the {@link #getServiceAnnotations}-method. If a
@@ -60489,7 +60898,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adds new XML content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the {@link #getServiceAnnotations}-method.
@@ -60533,9 +60942,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60550,9 +60957,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60572,9 +60977,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60589,9 +60992,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60612,9 +61013,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestCompletedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60630,9 +61029,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestCompletedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60653,9 +61050,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60671,9 +61066,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60694,9 +61087,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestSentEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60712,9 +61103,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestSentEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60734,9 +61123,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60751,9 +61138,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60773,9 +61158,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -60790,9 +61173,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -61569,9 +61950,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61588,9 +61967,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelAnnotationsLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61608,9 +61985,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestCompletedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61628,9 +62003,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61648,9 +62021,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelBatchRequestSentEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61667,9 +62038,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataFailedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -61686,16 +62055,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (
-        evt: Event<$ODataModelMetadataLoadedEventParameters>
-      ) => void,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -61705,10 +62072,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ODataModelAnnotationsFailedEventParameters
+      oParameters?: ODataModel$AnnotationsFailedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -61718,10 +62085,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ODataModelAnnotationsLoadedEventParameters
+      oParameters?: ODataModel$AnnotationsLoadedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestCompleted batchRequestCompleted} to attached listeners.
      *
@@ -61731,10 +62098,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * parameters to add to the fired event
        */
-      oParameters: $ODataModelBatchRequestCompletedEventParameters
+      oParameters: ODataModel$BatchRequestCompletedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestFailed batchRequestFailed} to attached listeners.
      *
@@ -61744,10 +62111,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters: $ODataModelBatchRequestFailedEventParameters
+      oParameters: ODataModel$BatchRequestFailedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestSent batchRequestSent} to attached listeners.
      *
@@ -61757,10 +62124,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ODataModelBatchRequestSentEventParameters
+      oParameters?: ODataModel$BatchRequestSentEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -61770,10 +62137,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ODataModelMetadataFailedEventParameters
+      oParameters?: ODataModel$MetadataFailedEventParameters
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -61783,7 +62150,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: $ODataModelMetadataLoadedEventParameters
+      oParameters?: ODataModel$MetadataLoadedEventParameters
     ): this;
     /**
      * Force the update on the server of an entity by setting its ETag to '*'.
@@ -62795,8 +63162,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       bForceUpdate?: boolean
     ): void;
   }
-  export default ODataModel;
-
   /**
    * Definition of a change group.
    */
@@ -62815,14 +63180,22 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     single?: boolean;
   };
 
-  export interface $ODataModelAnnotationsFailedEventParameters {
+  export interface ODataModel$AnnotationsFailedEventParameters {
     /**
      * An array of Errors
      */
     result?: Error[];
   }
 
-  export interface $ODataModelAnnotationsLoadedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelAnnotationsFailedEventParameters = ODataModel$AnnotationsFailedEventParameters;
+
+  export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
+
+  export interface ODataModel$AnnotationsLoadedEventParameters {
     /**
      * An array consisting of one or several annotation sources and/or errors containing a source property and
      * error details.
@@ -62830,7 +63203,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     result?: Source[];
   }
 
-  export interface $ODataModelBatchRequestCompletedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsLoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelAnnotationsLoadedEventParameters = ODataModel$AnnotationsLoadedEventParameters;
+
+  export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
+
+  export interface ODataModel$BatchRequestCompletedEventParameters {
     /**
      * The request ID
      */
@@ -62874,7 +63255,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  export interface $ODataModelBatchRequestFailedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelBatchRequestCompletedEventParameters = ODataModel$BatchRequestCompletedEventParameters;
+
+  export type ODataModel$BatchRequestCompletedEvent = Event<ODataModel$BatchRequestCompletedEventParameters>;
+
+  export interface ODataModel$BatchRequestFailedEventParameters {
     /**
      * The request ID
      */
@@ -62918,7 +63307,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     requests?: any[];
   }
 
-  export interface $ODataModelBatchRequestSentEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelBatchRequestFailedEventParameters = ODataModel$BatchRequestFailedEventParameters;
+
+  export type ODataModel$BatchRequestFailedEvent = Event<ODataModel$BatchRequestFailedEventParameters>;
+
+  export interface ODataModel$BatchRequestSentEventParameters {
     /**
      * The URL which is sent to the backend
      */
@@ -62941,7 +63338,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     requests?: any[];
   }
 
-  export interface $ODataModelMetadataFailedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelBatchRequestSentEventParameters = ODataModel$BatchRequestSentEventParameters;
+
+  export type ODataModel$BatchRequestSentEvent = Event<ODataModel$BatchRequestSentEventParameters>;
+
+  export interface ODataModel$MetadataFailedEventParameters {
     /**
      * The parsed metadata
      */
@@ -62973,15 +63378,31 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  export interface $ODataModelMetadataLoadedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelMetadataFailedEventParameters = ODataModel$MetadataFailedEventParameters;
+
+  export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
+
+  export interface ODataModel$MetadataLoadedEventParameters {
     /**
      * The parsed metadata
      */
     metadata?: string;
   }
 
-  export interface $ODataModelRequestCompletedEventParameters
-    extends $ModelRequestCompletedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataLoadedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelMetadataLoadedEventParameters = ODataModel$MetadataLoadedEventParameters;
+
+  export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
+
+  export interface ODataModel$RequestCompletedEventParameters
+    extends Model$RequestCompletedEventParameters {
     /**
      * The request ID
      */
@@ -63004,8 +63425,16 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  export interface $ODataModelRequestFailedEventParameters
-    extends $ModelRequestFailedEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestCompletedEventParameters = ODataModel$RequestCompletedEventParameters;
+
+  export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
+
+  export interface ODataModel$RequestFailedEventParameters
+    extends Model$RequestFailedEventParameters {
     /**
      * The request ID
      */
@@ -63043,8 +63472,16 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  export interface $ODataModelRequestSentEventParameters
-    extends $ModelRequestSentEventParameters {
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestFailedEventParameters = ODataModel$RequestFailedEventParameters;
+
+  export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
+
+  export interface ODataModel$RequestSentEventParameters
+    extends Model$RequestSentEventParameters {
     /**
      * The request ID
      */
@@ -63060,6 +63497,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     headers?: Record<string, string>;
   }
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestSentEventParameters = ODataModel$RequestSentEventParameters;
+
+  export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
@@ -63081,7 +63526,7 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
    * Tree binding implementation for the {@link sap.ui.model.odata.v2.ODataModel}. Use {@link sap.ui.model.odata.v2.ODataModel#bindTree }
    * for creating an instance.
    */
-  class ODataTreeBinding extends TreeBinding {
+  export default class ODataTreeBinding extends TreeBinding {
     constructor();
 
     /**
@@ -63319,7 +63764,6 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
       bReturnSuccess?: boolean
     ): this;
   }
-  export default ODataTreeBinding;
 }
 
 declare module "sap/ui/model/odata/v4/AnnotationHelper" {
@@ -63905,7 +64349,7 @@ declare module "sap/ui/model/odata/v4/Context" {
    *
    * Context instances are immutable except for their indexes.
    */
-  class Context extends Context1 {
+  export default class Context extends Context1 {
     constructor();
 
     /**
@@ -64573,7 +65017,6 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     toString(): string;
   }
-  export default Context;
 }
 
 declare module "sap/ui/model/odata/v4/ODataContextBinding" {
@@ -64588,10 +65031,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
 
   import {
-    $BindingChangeEventParameters,
-    $BindingDataReceivedEventParameters,
-    $BindingDataRequestedEventParameters,
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
   } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -64624,7 +65069,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
    *
    * A deferred operation binding is not allowed to have another deferred operation binding as parent.
    */
-  class ODataContextBinding extends ContextBinding {
+  export default class ODataContextBinding extends ContextBinding {
     constructor();
 
     /**
@@ -64928,7 +65373,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData context binding: Fires a 'change' event in case the binding has a resolved path
      * and its root binding is not suspended.
@@ -65077,20 +65522,59 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      */
     toString(): string;
   }
-  export default ODataContextBinding;
 
-  export interface $ODataContextBindingChangeEventParameters
-    extends $BindingChangeEventParameters {}
+  export interface ODataContextBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {}
 
-  export interface $ODataContextBindingDataReceivedEventParameters
-    extends $BindingDataReceivedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataContextBindingChangeEventParameters = ODataContextBinding$ChangeEventParameters;
 
-  export interface $ODataContextBindingDataRequestedEventParameters
-    extends $BindingDataRequestedEventParameters {}
+  export type ODataContextBinding$ChangeEvent = Event<ODataContextBinding$ChangeEventParameters>;
 
-  export interface $ODataContextBindingPatchCompletedEventParameters {}
+  export interface ODataContextBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {}
 
-  export interface $ODataContextBindingPatchSentEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$DataReceivedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataContextBindingDataReceivedEventParameters = ODataContextBinding$DataReceivedEventParameters;
+
+  export type ODataContextBinding$DataReceivedEvent = Event<ODataContextBinding$DataReceivedEventParameters>;
+
+  export interface ODataContextBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$DataRequestedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataContextBindingDataRequestedEventParameters = ODataContextBinding$DataRequestedEventParameters;
+
+  export type ODataContextBinding$DataRequestedEvent = Event<ODataContextBinding$DataRequestedEventParameters>;
+
+  export interface ODataContextBinding$PatchCompletedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$PatchCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataContextBindingPatchCompletedEventParameters = ODataContextBinding$PatchCompletedEventParameters;
+
+  export type ODataContextBinding$PatchCompletedEvent = Event<ODataContextBinding$PatchCompletedEventParameters>;
+
+  export interface ODataContextBinding$PatchSentEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$PatchSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataContextBindingPatchSentEventParameters = ODataContextBinding$PatchSentEventParameters;
+
+  export type ODataContextBinding$PatchSentEvent = Event<ODataContextBinding$PatchSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataListBinding" {
@@ -65113,10 +65597,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   import Sorter from "sap/ui/model/Sorter";
 
   import {
-    $BindingChangeEventParameters,
-    $BindingDataReceivedEventParameters,
-    $BindingDataRequestedEventParameters,
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
   } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -65126,7 +65612,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
    * 'dataRequested', 'DataStateChange', 'patchCompleted', 'patchSent', and 'refresh'. For other events, an
    * error is thrown.
    */
-  class ODataListBinding extends ListBinding {
+  export default class ODataListBinding extends ListBinding {
     constructor();
 
     /**
@@ -65549,7 +66035,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     getAllCurrentContexts(): Context[];
     /**
      * @since 1.37.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns already created binding contexts for all entities in this list binding for the range determined
      * by the given start index `iStart` and `iLength`. If at least one of the entities in the given range has
@@ -65781,7 +66267,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData list binding: Fires an event in case the binding has a resolved path and its root
      * binding is not suspended. If the model's parameter `autoExpandSelect` is used (see {@link sap.ui.model.odata.v4.ODataModel#constructor}),
@@ -65899,7 +66385,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     requestDownloadUrl(): Promise<string>;
     /**
      * @since 1.86.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Requests an {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -66103,7 +66589,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     toString(): string;
     /**
      * @since 1.53.0
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's system query option `$apply` based on the given data aggregation information. Its
      * value is "groupby((<dimension_1,...,dimension_N,unit_or_text_1,...,unit_or_text_K>), aggregate(<measure>
@@ -66176,28 +66662,99 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       }>
     ): object | undefined;
   }
-  export default ODataListBinding;
 
-  export interface $ODataListBindingChangeEventParameters
-    extends $BindingChangeEventParameters {}
+  export interface ODataListBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {}
 
-  export interface $ODataListBindingCreateActivateEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingChangeEventParameters = ODataListBinding$ChangeEventParameters;
 
-  export interface $ODataListBindingCreateCompletedEventParameters {}
+  export type ODataListBinding$ChangeEvent = Event<ODataListBinding$ChangeEventParameters>;
 
-  export interface $ODataListBindingCreateSentEventParameters {}
+  export interface ODataListBinding$CreateActivateEventParameters {}
 
-  export interface $ODataListBindingDataReceivedEventParameters
-    extends $BindingDataReceivedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateActivateEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingCreateActivateEventParameters = ODataListBinding$CreateActivateEventParameters;
 
-  export interface $ODataListBindingDataRequestedEventParameters
-    extends $BindingDataRequestedEventParameters {}
+  export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 
-  export interface $ODataListBindingPatchCompletedEventParameters {}
+  export interface ODataListBinding$CreateCompletedEventParameters {}
 
-  export interface $ODataListBindingPatchSentEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingCreateCompletedEventParameters = ODataListBinding$CreateCompletedEventParameters;
 
-  export interface $ODataListBindingRefreshEventParameters {}
+  export type ODataListBinding$CreateCompletedEvent = Event<ODataListBinding$CreateCompletedEventParameters>;
+
+  export interface ODataListBinding$CreateSentEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingCreateSentEventParameters = ODataListBinding$CreateSentEventParameters;
+
+  export type ODataListBinding$CreateSentEvent = Event<ODataListBinding$CreateSentEventParameters>;
+
+  export interface ODataListBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$DataReceivedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingDataReceivedEventParameters = ODataListBinding$DataReceivedEventParameters;
+
+  export type ODataListBinding$DataReceivedEvent = Event<ODataListBinding$DataReceivedEventParameters>;
+
+  export interface ODataListBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$DataRequestedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingDataRequestedEventParameters = ODataListBinding$DataRequestedEventParameters;
+
+  export type ODataListBinding$DataRequestedEvent = Event<ODataListBinding$DataRequestedEventParameters>;
+
+  export interface ODataListBinding$PatchCompletedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$PatchCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingPatchCompletedEventParameters = ODataListBinding$PatchCompletedEventParameters;
+
+  export type ODataListBinding$PatchCompletedEvent = Event<ODataListBinding$PatchCompletedEventParameters>;
+
+  export interface ODataListBinding$PatchSentEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$PatchSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingPatchSentEventParameters = ODataListBinding$PatchSentEventParameters;
+
+  export type ODataListBinding$PatchSentEvent = Event<ODataListBinding$PatchSentEventParameters>;
+
+  export interface ODataListBinding$RefreshEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$RefreshEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataListBindingRefreshEventParameters = ODataListBinding$RefreshEventParameters;
+
+  export type ODataListBinding$RefreshEvent = Event<ODataListBinding$RefreshEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataMetaModel" {
@@ -66235,7 +66792,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
    *
    * This model is not prepared to be inherited from.
    */
-  class ODataMetaModel extends MetaModel {
+  export default class ODataMetaModel extends MetaModel {
     constructor();
 
     /**
@@ -66961,17 +67518,16 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      */
     toString(): string;
   }
-  export default ODataMetaModel;
 }
 
 declare module "sap/ui/model/odata/v4/ODataModel" {
   import {
     default as Model,
-    $ModelParseErrorEventParameters,
-    $ModelPropertyChangeEventParameters,
-    $ModelRequestCompletedEventParameters,
-    $ModelRequestFailedEventParameters,
-    $ModelRequestSentEventParameters,
+    Model$ParseErrorEventParameters,
+    Model$PropertyChangeEventParameters,
+    Model$RequestCompletedEventParameters,
+    Model$RequestFailedEventParameters,
+    Model$RequestSentEventParameters,
   } from "sap/ui/model/Model";
 
   import OperationMode from "sap/ui/model/odata/OperationMode";
@@ -66999,6 +67555,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   import ODataMetaModel from "sap/ui/model/odata/v4/ODataMetaModel";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -67028,7 +67586,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    * an application group has the submit mode {@link sap.ui.model.odata.v4.SubmitMode#API}. It is possible
    * to use a different submit mode; for details see `mParameters.groupProperties`.
    */
-  class ODataModel extends Model {
+  export default class ODataModel extends Model {
     /**
      * Constructor for a new ODataModel.
      */
@@ -68050,28 +68608,91 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     toString(): string;
   }
-  export default ODataModel;
 
-  export interface $ODataModelDataReceivedEventParameters {}
+  export interface ODataModel$DataReceivedEventParameters {}
 
-  export interface $ODataModelDataRequestedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$DataReceivedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelDataReceivedEventParameters = ODataModel$DataReceivedEventParameters;
 
-  export interface $ODataModelParseErrorEventParameters
-    extends $ModelParseErrorEventParameters {}
+  export type ODataModel$DataReceivedEvent = Event<ODataModel$DataReceivedEventParameters>;
 
-  export interface $ODataModelPropertyChangeEventParameters
-    extends $ModelPropertyChangeEventParameters {}
+  export interface ODataModel$DataRequestedEventParameters {}
 
-  export interface $ODataModelRequestCompletedEventParameters
-    extends $ModelRequestCompletedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$DataRequestedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelDataRequestedEventParameters = ODataModel$DataRequestedEventParameters;
 
-  export interface $ODataModelRequestFailedEventParameters
-    extends $ModelRequestFailedEventParameters {}
+  export type ODataModel$DataRequestedEvent = Event<ODataModel$DataRequestedEventParameters>;
 
-  export interface $ODataModelRequestSentEventParameters
-    extends $ModelRequestSentEventParameters {}
+  export interface ODataModel$ParseErrorEventParameters
+    extends Model$ParseErrorEventParameters {}
 
-  export interface $ODataModelSessionTimeoutEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$ParseErrorEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelParseErrorEventParameters = ODataModel$ParseErrorEventParameters;
+
+  export type ODataModel$ParseErrorEvent = Event<ODataModel$ParseErrorEventParameters>;
+
+  export interface ODataModel$PropertyChangeEventParameters
+    extends Model$PropertyChangeEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$PropertyChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelPropertyChangeEventParameters = ODataModel$PropertyChangeEventParameters;
+
+  export type ODataModel$PropertyChangeEvent = Event<ODataModel$PropertyChangeEventParameters>;
+
+  export interface ODataModel$RequestCompletedEventParameters
+    extends Model$RequestCompletedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestCompletedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestCompletedEventParameters = ODataModel$RequestCompletedEventParameters;
+
+  export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
+
+  export interface ODataModel$RequestFailedEventParameters
+    extends Model$RequestFailedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestFailedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestFailedEventParameters = ODataModel$RequestFailedEventParameters;
+
+  export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
+
+  export interface ODataModel$RequestSentEventParameters
+    extends Model$RequestSentEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestSentEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelRequestSentEventParameters = ODataModel$RequestSentEventParameters;
+
+  export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
+
+  export interface ODataModel$SessionTimeoutEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$SessionTimeoutEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataModelSessionTimeoutEventParameters = ODataModel$SessionTimeoutEventParameters;
+
+  export type ODataModel$SessionTimeoutEvent = Event<ODataModel$SessionTimeoutEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
@@ -68088,10 +68709,12 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   import Type from "sap/ui/model/Type";
 
   import {
-    $BindingChangeEventParameters,
-    $BindingDataReceivedEventParameters,
-    $BindingDataRequestedEventParameters,
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
   } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -68100,7 +68723,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
    * following events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested' and 'DataStateChange'.
    * For unsupported events, an error is thrown.
    */
-  class ODataPropertyBinding extends PropertyBinding {
+  export default class ODataPropertyBinding extends PropertyBinding {
     constructor();
 
     /**
@@ -68420,16 +69043,39 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      */
     toString(): string;
   }
-  export default ODataPropertyBinding;
 
-  export interface $ODataPropertyBindingChangeEventParameters
-    extends $BindingChangeEventParameters {}
+  export interface ODataPropertyBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {}
 
-  export interface $ODataPropertyBindingDataReceivedEventParameters
-    extends $BindingDataReceivedEventParameters {}
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$ChangeEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataPropertyBindingChangeEventParameters = ODataPropertyBinding$ChangeEventParameters;
 
-  export interface $ODataPropertyBindingDataRequestedEventParameters
-    extends $BindingDataRequestedEventParameters {}
+  export type ODataPropertyBinding$ChangeEvent = Event<ODataPropertyBinding$ChangeEventParameters>;
+
+  export interface ODataPropertyBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$DataReceivedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataPropertyBindingDataReceivedEventParameters = ODataPropertyBinding$DataReceivedEventParameters;
+
+  export type ODataPropertyBinding$DataReceivedEvent = Event<ODataPropertyBinding$DataReceivedEventParameters>;
+
+  export interface ODataPropertyBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  /**
+   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$DataRequestedEventParameters'
+   * in 1.115.1 and any later releases.
+   */
+  export type $ODataPropertyBindingDataRequestedEventParameters = ODataPropertyBinding$DataRequestedEventParameters;
+
+  export type ODataPropertyBinding$DataRequestedEvent = Event<ODataPropertyBinding$DataRequestedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataUtils" {
@@ -68585,7 +69231,7 @@ declare module "sap/ui/model/ParseException" {
   /**
    * Instances of this exception are thrown when converting a string value to its model representation fails.
    */
-  class ParseException {
+  export default class ParseException {
     /**
      * Creates a new ParseException.
      * See:
@@ -68599,7 +69245,6 @@ declare module "sap/ui/model/ParseException" {
       message: string
     );
   }
-  export default ParseException;
 }
 
 declare module "sap/ui/model/PropertyBinding" {
@@ -68618,7 +69263,7 @@ declare module "sap/ui/model/PropertyBinding" {
   /**
    * The PropertyBinding is used to access single data values in the data model.
    */
-  class PropertyBinding extends Binding {
+  export default class PropertyBinding extends Binding {
     /**
      * Constructor for PropertyBinding
      */
@@ -68721,7 +69366,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     resume(): void;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Sets the binding mode.
      */
@@ -68804,7 +69449,6 @@ declare module "sap/ui/model/PropertyBinding" {
       vValue: any
     ): void;
   }
-  export default PropertyBinding;
 }
 
 declare module "sap/ui/model/resource/ResourceModel" {
@@ -68841,7 +69485,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
    * This model supports the binding modes `OneWay` and `OneTime`, but not `TwoWay`. When the recommended
    * asynchronous loading of the bundle is used, binding mode `OneTime` can't be used.
    */
-  class ResourceModel extends Model {
+  export default class ResourceModel extends Model {
     /**
      * Constructor for a new ResourceModel.
      *
@@ -69048,7 +69692,6 @@ declare module "sap/ui/model/resource/ResourceModel" {
      */
     getResourceBundle(): ResourceBundle | Promise<ResourceBundle>;
   }
-  export default ResourceModel;
 }
 
 declare module "sap/ui/model/SelectionModel" {
@@ -69060,7 +69703,7 @@ declare module "sap/ui/model/SelectionModel" {
    * This artefact is used by the table controls for handling selections. It is not associated with the model
    * layer of UI5.
    */
-  class SelectionModel extends EventProvider {
+  export default class SelectionModel extends EventProvider {
     /**
      * Constructs an instance of an sap.ui.model.SelectionModel.
      */
@@ -69202,7 +69845,7 @@ declare module "sap/ui/model/SelectionModel" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -69362,7 +70005,6 @@ declare module "sap/ui/model/SelectionModel" {
       iToIndex: int
     ): this;
   }
-  export default SelectionModel;
 }
 
 declare module "sap/ui/model/SimpleType" {
@@ -69383,7 +70025,7 @@ declare module "sap/ui/model/SimpleType" {
    * {@link #formatValue}, {@link #parseValue} and {@link #validateValue}. If the raw value, which is the
    * value in model representation, isn't already a JavaScript primitive type, subclasses must override {@link #getModelFormat}.
    */
-  class SimpleType extends Type {
+  export default class SimpleType extends Type {
     /**
      * Constructor for a new SimpleType.
      */
@@ -69444,7 +70086,7 @@ declare module "sap/ui/model/SimpleType" {
       sTargetType: string
     ): any | Promise<any>;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns an object with `format` and `parse` methods. `format` converts the internal value which has a
      * JavaScript primitive type or is a built-in object such as Date which can be used by a control to the
@@ -69493,7 +70135,6 @@ declare module "sap/ui/model/SimpleType" {
       vValue: any
     ): void | Promise<undefined>;
   }
-  export default SimpleType;
 }
 
 declare module "sap/ui/model/Sorter" {
@@ -69508,7 +70149,7 @@ declare module "sap/ui/model/Sorter" {
    *
    * Instances of this class define the sort order for a list binding.
    */
-  class Sorter extends BaseObject {
+  export default class Sorter extends BaseObject {
     /**
      * Constructor for Sorter.
      */
@@ -69617,7 +70258,6 @@ declare module "sap/ui/model/Sorter" {
      */
     getGroupFunction(): Function;
   }
-  export default Sorter;
 }
 
 declare module "sap/ui/model/StaticBinding" {
@@ -69630,7 +70270,7 @@ declare module "sap/ui/model/StaticBinding" {
    * behaves like a property binding but always returns the value that is stored in the binding itself. The
    * binding does not have a {@link sap.ui.model.Context}, a {@link sap.ui.model.Model} or a path.
    */
-  class StaticBinding extends PropertyBinding {
+  export default class StaticBinding extends PropertyBinding {
     /**
      * Constructor for StaticBinding
      */
@@ -69671,25 +70311,24 @@ declare module "sap/ui/model/StaticBinding" {
      */
     static getMetadata(): Metadata;
   }
-  export default StaticBinding;
 }
 
 declare module "sap/ui/model/TreeAutoExpandMode" {
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Different modes for setting the auto expand mode on tree or analytical bindings.
    */
   enum TreeAutoExpandMode {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * If supported by a backend provider with analytical capabilities, the requests needed for an automatic
      * node expansion are bundled.
      */
     Bundled = "Bundled",
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Tree nodes will be expanded in sequence, level by level (Single requests are sent).
      */
@@ -69716,7 +70355,7 @@ declare module "sap/ui/model/TreeBinding" {
   /**
    * The TreeBinding is a specific binding for trees in the model, which can be used to populate Trees.
    */
-  class TreeBinding extends Binding {
+  export default class TreeBinding extends Binding {
     /**
      * Constructor for TreeBinding.
      *
@@ -69783,7 +70422,7 @@ declare module "sap/ui/model/TreeBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -69802,7 +70441,7 @@ declare module "sap/ui/model/TreeBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -69910,15 +70549,14 @@ declare module "sap/ui/model/TreeBinding" {
       aSorters: Sorter[]
     ): void;
   }
-  export default TreeBinding;
 }
 
 declare module "sap/ui/model/TreeBindingAdapter" {
   import Context from "sap/ui/model/Context";
 
-  class TreeBindingAdapter {
+  export default class TreeBindingAdapter {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -69991,7 +70629,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -70017,7 +70655,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       }
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Gets an array of contexts for the requested part of the tree.
      *
@@ -70044,7 +70682,6 @@ declare module "sap/ui/model/TreeBindingAdapter" {
      */
     getLength(): number;
   }
-  export default TreeBindingAdapter;
 }
 
 declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
@@ -70052,11 +70689,11 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
 
   /**
    * @deprecated (since 1.96.0) - use {@link sap.ui.model.TreeBindingAdapter} instead
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
-  class TreeBindingCompatibilityAdapter {
+  export default class TreeBindingCompatibilityAdapter {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -70074,7 +70711,6 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
       oControl: object
     );
   }
-  export default TreeBindingCompatibilityAdapter;
 }
 
 declare module "sap/ui/model/TreeBindingUtils" {
@@ -70108,7 +70744,7 @@ declare module "sap/ui/model/Type" {
   /**
    * This is an abstract base class for type objects.
    */
-  class Type extends BaseObject {
+  export default class Type extends BaseObject {
     /**
      * Constructor for a new Type.
      */
@@ -70162,7 +70798,6 @@ declare module "sap/ui/model/Type" {
      */
     toString(): string;
   }
-  export default Type;
 }
 
 declare module "sap/ui/model/type/Boolean" {
@@ -70173,7 +70808,7 @@ declare module "sap/ui/model/type/Boolean" {
   /**
    * This class represents boolean simple types.
    */
-  class Boolean1 extends SimpleType {
+  export default class Boolean1 extends SimpleType {
     /**
      * Constructor for a Boolean type.
      */
@@ -70220,7 +70855,6 @@ declare module "sap/ui/model/type/Boolean" {
      */
     static getMetadata(): Metadata;
   }
-  export default Boolean1;
 }
 
 declare module "sap/ui/model/type/Currency" {
@@ -70238,7 +70872,7 @@ declare module "sap/ui/model/type/Currency" {
    * representation of the corresponding number. If the `source` format option is given, the composite type
    * has only one part of type `string`, holding both amount and currency in the source format.
    */
-  class Currency extends CompositeType {
+  export default class Currency extends CompositeType {
     /**
      * Constructor for a `Currency` type.
      */
@@ -70364,7 +70998,6 @@ declare module "sap/ui/model/type/Currency" {
       aCurrentValues?: any[]
     ): any[] | string;
   }
-  export default Currency;
 }
 
 declare module "sap/ui/model/type/Date" {
@@ -70375,7 +71008,7 @@ declare module "sap/ui/model/type/Date" {
   /**
    * This class represents date simple types.
    */
-  class Date1 extends SimpleType {
+  export default class Date1 extends SimpleType {
     /**
      * Constructor for a Date type.
      */
@@ -70442,7 +71075,7 @@ declare module "sap/ui/model/type/Date" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Returns the output pattern.
      * See:
@@ -70461,7 +71094,6 @@ declare module "sap/ui/model/type/Date" {
      */
     getPlaceholderText(): string | undefined;
   }
-  export default Date1;
 }
 
 declare module "sap/ui/model/type/DateInterval" {
@@ -70480,7 +71112,7 @@ declare module "sap/ui/model/type/DateInterval" {
   /**
    * This class represents the date interval composite type.
    */
-  class DateInterval extends CompositeType {
+  export default class DateInterval extends CompositeType {
     /**
      * Constructor for a date interval type.
      */
@@ -70632,7 +71264,6 @@ declare module "sap/ui/model/type/DateInterval" {
       aValues: Array<Date | UI5Date | int | string | null>
     ): void;
   }
-  export default DateInterval;
 }
 
 declare module "sap/ui/model/type/DateTime" {
@@ -70643,7 +71274,7 @@ declare module "sap/ui/model/type/DateTime" {
   /**
    * This class represents datetime simple types.
    */
-  class DateTime extends Date1 {
+  export default class DateTime extends Date1 {
     /**
      * Constructor for a DateTime type.
      */
@@ -70699,7 +71330,6 @@ declare module "sap/ui/model/type/DateTime" {
      */
     static getMetadata(): Metadata;
   }
-  export default DateTime;
 }
 
 declare module "sap/ui/model/type/DateTimeInterval" {
@@ -70710,7 +71340,7 @@ declare module "sap/ui/model/type/DateTimeInterval" {
   /**
    * This class represents the DateTime interval composite type.
    */
-  class DateTimeInterval extends DateInterval {
+  export default class DateTimeInterval extends DateInterval {
     /**
      * Constructor for a DateTime interval type.
      */
@@ -70776,7 +71406,6 @@ declare module "sap/ui/model/type/DateTimeInterval" {
      */
     static getMetadata(): Metadata;
   }
-  export default DateTimeInterval;
 }
 
 declare module "sap/ui/model/type/FileSize" {
@@ -70787,7 +71416,7 @@ declare module "sap/ui/model/type/FileSize" {
   /**
    * This class represents file size simple types.
    */
-  class FileSize extends SimpleType {
+  export default class FileSize extends SimpleType {
     /**
      * Constructor for a FileSize type.
      */
@@ -70850,7 +71479,6 @@ declare module "sap/ui/model/type/FileSize" {
      */
     static getMetadata(): Metadata;
   }
-  export default FileSize;
 }
 
 declare module "sap/ui/model/type/Float" {
@@ -70861,7 +71489,7 @@ declare module "sap/ui/model/type/Float" {
   /**
    * This class represents float simple types.
    */
-  class Float extends SimpleType {
+  export default class Float extends SimpleType {
     /**
      * Constructor for a Float type.
      */
@@ -70927,7 +71555,6 @@ declare module "sap/ui/model/type/Float" {
      */
     static getMetadata(): Metadata;
   }
-  export default Float;
 }
 
 declare module "sap/ui/model/type/Integer" {
@@ -70938,7 +71565,7 @@ declare module "sap/ui/model/type/Integer" {
   /**
    * This class represents integer simple types.
    */
-  class Integer extends SimpleType {
+  export default class Integer extends SimpleType {
     /**
      * Constructor for an Integer type.
      */
@@ -70999,7 +71626,6 @@ declare module "sap/ui/model/type/Integer" {
      */
     static getMetadata(): Metadata;
   }
-  export default Integer;
 }
 
 declare module "sap/ui/model/type/String" {
@@ -71016,7 +71642,7 @@ declare module "sap/ui/model/type/String" {
   /**
    * This class represents the string simple type.
    */
-  class String1 extends SimpleType {
+  export default class String1 extends SimpleType {
     /**
      * Constructor for a `String` type.
      */
@@ -71141,7 +71767,6 @@ declare module "sap/ui/model/type/String" {
       sValue: string
     ): void;
   }
-  export default String1;
 }
 
 declare module "sap/ui/model/type/Time" {
@@ -71152,7 +71777,7 @@ declare module "sap/ui/model/type/Time" {
   /**
    * This class represents time simple types.
    */
-  class Time extends Date1 {
+  export default class Time extends Date1 {
     /**
      * Constructor for a Time type.
      */
@@ -71209,7 +71834,6 @@ declare module "sap/ui/model/type/Time" {
      */
     static getMetadata(): Metadata;
   }
-  export default Time;
 }
 
 declare module "sap/ui/model/type/TimeInterval" {
@@ -71220,7 +71844,7 @@ declare module "sap/ui/model/type/TimeInterval" {
   /**
    * This class represents the Time interval composite type.
    */
-  class TimeInterval extends DateInterval {
+  export default class TimeInterval extends DateInterval {
     /**
      * Constructor for a Time interval type.
      */
@@ -71286,7 +71910,6 @@ declare module "sap/ui/model/type/TimeInterval" {
      */
     static getMetadata(): Metadata;
   }
-  export default TimeInterval;
 }
 
 declare module "sap/ui/model/type/Unit" {
@@ -71299,7 +71922,7 @@ declare module "sap/ui/model/type/Unit" {
   /**
    * This class represents the Unit composite type.
    */
-  class Unit extends CompositeType {
+  export default class Unit extends CompositeType {
     /**
      * Constructor for a Unit type.
      */
@@ -71434,14 +72057,13 @@ declare module "sap/ui/model/type/Unit" {
       aCurrentValues?: any[]
     ): any[] | string;
   }
-  export default Unit;
 }
 
 declare module "sap/ui/model/ValidateException" {
   /**
    * Instances of this exception are thrown when constraints of a type are violated.
    */
-  class ValidateException {
+  export default class ValidateException {
     /**
      * Creates a new ValidateException.
      * See:
@@ -71460,7 +72082,6 @@ declare module "sap/ui/model/ValidateException" {
       violatedConstraints?: string[]
     );
   }
-  export default ValidateException;
 }
 
 declare module "sap/ui/model/xml/XMLModel" {
@@ -71473,7 +72094,7 @@ declare module "sap/ui/model/xml/XMLModel" {
    *
    * This model is not prepared to be inherited from.
    */
-  class XMLModel extends ClientModel {
+  export default class XMLModel extends ClientModel {
     /**
      * Constructor for a new XMLModel.
      */
@@ -71639,7 +72260,6 @@ declare module "sap/ui/model/xml/XMLModel" {
       sXMLText: string
     ): void;
   }
-  export default XMLModel;
 }
 
 declare module "sap/ui/model/xml/XMLTreeBinding" {
@@ -71650,13 +72270,13 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for XML format
    */
-  class XMLTreeBinding extends ClientTreeBinding {
+  export default class XMLTreeBinding extends ClientTreeBinding {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor(
       oModel: XMLModel,
@@ -71678,7 +72298,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       mParameters?: object
     );
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -71700,7 +72320,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
     );
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -71721,7 +72341,6 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       iLength: int
     ): Context[];
   }
-  export default XMLTreeBinding;
 }
 
 declare module "sap/ui/test/actions/Action" {
@@ -71741,7 +72360,7 @@ declare module "sap/ui/test/actions/Action" {
    * Actions for Opa5 - needs to implement an executeOn function that should simulate a user interaction on
    * a control
    */
-  class Action extends ManagedObject {
+  export default class Action extends ManagedObject {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -71779,7 +72398,7 @@ declare module "sap/ui/test/actions/Action" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter Should be
      * overwritten by subclasses
@@ -71826,7 +72445,6 @@ declare module "sap/ui/test/actions/Action" {
       sIdSuffix: string
     ): this;
   }
-  export default Action;
 
   export interface $ActionSettings extends $ManagedObjectSettings {
     /**
@@ -71861,7 +72479,7 @@ declare module "sap/ui/test/actions/Drag" {
    *
    * The `Drag` action targets the DOM focus reference of the control.
    */
-  class Drag extends Action {
+  export default class Drag extends Action {
     constructor(
       /**
        * Optional object with initial settings for the new instance
@@ -71922,7 +72540,6 @@ declare module "sap/ui/test/actions/Drag" {
       oControl: Control
     ): void;
   }
-  export default Drag;
 
   export interface $DragSettings extends $ActionSettings {}
 }
@@ -71953,7 +72570,7 @@ declare module "sap/ui/test/actions/Drop" {
    * or by defining a control adapter function. You can also set the traget to be the root DOM element of
    * a given aggregation, by specifying the aggregation name in the Drop constructor.
    */
-  class Drop extends Action {
+  export default class Drop extends Action {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -72102,7 +72719,6 @@ declare module "sap/ui/test/actions/Drop" {
       bBefore: boolean
     ): this;
   }
-  export default Drop;
 
   export interface $DropSettings extends $ActionSettings {
     /**
@@ -72149,7 +72765,7 @@ declare module "sap/ui/test/actions/EnterText" {
    * 	 - `sap.m.SearchField`
    * 	 - `sap.m.TextArea`
    */
-  class EnterText extends Action {
+  export default class EnterText extends Action {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -72338,7 +72954,6 @@ declare module "sap/ui/test/actions/EnterText" {
       sText: string
     ): this;
   }
-  export default EnterText;
 
   export interface $EnterTextSettings extends $ActionSettings {
     /**
@@ -72390,7 +73005,7 @@ declare module "sap/ui/test/actions/Press" {
    * There are some basic controls for which OPA5 has defined `Press` control adapters. For more information,
    * see `controlAdapters` at {@link sap.ui.test.actions.Press}.
    */
-  class Press extends Action {
+  export default class Press extends Action {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -72620,7 +73235,6 @@ declare module "sap/ui/test/actions/Press" {
       fYPercentage: float
     ): this;
   }
-  export default Press;
 
   export interface $PressSettings extends $ActionSettings {
     /**
@@ -72679,7 +73293,7 @@ declare module "sap/ui/test/actions/Scroll" {
    * and use a {@link sap.ui.core.delegate.ScrollEnablement} delegate. Supported controls include: sap.uxap.ObjectPageLayout,
    * sap.m.Dialog, sap.m.Page, sap.f.DynamicPage
    */
-  class Scroll extends Action {
+  export default class Scroll extends Action {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -72784,7 +73398,6 @@ declare module "sap/ui/test/actions/Scroll" {
       iY?: int
     ): this;
   }
-  export default Scroll;
 
   export interface $ScrollSettings extends $ActionSettings {
     x?: int | PropertyBindingInfo | `{${string}}`;
@@ -72968,6 +73581,7 @@ declare module "sap/ui/test/gherkin/dataTableUtils" {
       sString: string
     ): string;
   }
+  export const normalization: normalization;
 }
 
 declare module "sap/ui/test/gherkin/opa5TestHarness" {
@@ -73065,7 +73679,7 @@ declare module "sap/ui/test/gherkin/StepDefinitions" {
    *
    * It defines what each step in the Gherkin feature file will actually do when it is executed.
    */
-  class StepDefinitions extends BaseObject {
+  export default class StepDefinitions extends BaseObject {
     /**
      * Meant to be implemented/overridden by a child object. Specifically, the functions "init" and "closeApplication"
      * need to be overridden.
@@ -73133,7 +73747,6 @@ declare module "sap/ui/test/gherkin/StepDefinitions" {
       fnFunc: Function
     ): void;
   }
-  export default StepDefinitions;
 }
 
 declare module "sap/ui/test/matchers/AggregationContainsPropertyEqual" {
@@ -73164,7 +73777,7 @@ declare module "sap/ui/test/matchers/AggregationContainsPropertyEqual" {
    * }
    * ```
    */
-  class AggregationContainsPropertyEqual extends Matcher {
+  export default class AggregationContainsPropertyEqual extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -73288,7 +73901,6 @@ declare module "sap/ui/test/matchers/AggregationContainsPropertyEqual" {
       oPropertyValue: any
     ): this;
   }
-  export default AggregationContainsPropertyEqual;
 
   export interface $AggregationContainsPropertyEqualSettings
     extends $MatcherSettings {
@@ -73330,7 +73942,7 @@ declare module "sap/ui/test/matchers/AggregationEmpty" {
    *     }
    * }
    */
-  class AggregationEmpty extends Matcher {
+  export default class AggregationEmpty extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -73407,7 +74019,6 @@ declare module "sap/ui/test/matchers/AggregationEmpty" {
       sName: string
     ): this;
   }
-  export default AggregationEmpty;
 
   export interface $AggregationEmptySettings extends $MatcherSettings {
     /**
@@ -73443,7 +74054,7 @@ declare module "sap/ui/test/matchers/AggregationFilled" {
    * }
    * ```
    */
-  class AggregationFilled extends Matcher {
+  export default class AggregationFilled extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -73520,7 +74131,6 @@ declare module "sap/ui/test/matchers/AggregationFilled" {
       sName: string
     ): this;
   }
-  export default AggregationFilled;
 
   export interface $AggregationFilledSettings extends $MatcherSettings {
     /**
@@ -73557,7 +74167,7 @@ declare module "sap/ui/test/matchers/AggregationLengthEquals" {
    * }
    * ```
    */
-  class AggregationLengthEquals extends Matcher {
+  export default class AggregationLengthEquals extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -73657,7 +74267,6 @@ declare module "sap/ui/test/matchers/AggregationLengthEquals" {
       sName: string
     ): this;
   }
-  export default AggregationLengthEquals;
 
   export interface $AggregationLengthEqualsSettings extends $MatcherSettings {
     /**
@@ -73686,7 +74295,7 @@ declare module "sap/ui/test/matchers/Ancestor" {
    * ```
    *  The declarative matcher for Ancestor does not support the **bDirect** parameter.
    */
-  class Ancestor {
+  export default class Ancestor {
     constructor(
       /**
        * the ancestor control to check, if undefined, validates every control to true. Can be a control or a control
@@ -73699,7 +74308,6 @@ declare module "sap/ui/test/matchers/Ancestor" {
       bDirect?: boolean
     );
   }
-  export default Ancestor;
 }
 
 declare module "sap/ui/test/OpaBuilder" {
@@ -73801,7 +74409,7 @@ declare module "sap/ui/test/OpaBuilder" {
    *     .execute();
    * ```
    */
-  class OpaBuilder {
+  export default class OpaBuilder {
     /**
      * Constructor for a new OpaBuilder.
      */
@@ -74393,8 +75001,6 @@ declare module "sap/ui/test/OpaBuilder" {
       sViewNamespace: string
     ): this;
   }
-  export default OpaBuilder;
-
   /**
    * A collection of predefined actions. See also {@link sap.ui.test.actions}.
    */
@@ -74469,6 +75075,7 @@ declare module "sap/ui/test/OpaBuilder" {
       sIdSuffix?: string
     ): Press;
   }
+  export const Actions: Actions;
 
   /**
    * A collection of predefined matchers. See also {@link sap.ui.test.matchers}
@@ -74883,6 +75490,7 @@ declare module "sap/ui/test/OpaBuilder" {
       aMatchers?: Matcher | Matcher[]
     ): (p1: UI5Element) => boolean | any;
   }
+  export const Matchers: Matchers;
 }
 
 declare module "sap/ui/test/matchers/BindingPath" {
@@ -74937,7 +75545,7 @@ declare module "sap/ui/test/matchers/BindingPath" {
    * }
    * ```
    */
-  class BindingPath extends Matcher {
+  export default class BindingPath extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -75097,7 +75705,6 @@ declare module "sap/ui/test/matchers/BindingPath" {
       oValue: any
     ): this;
   }
-  export default BindingPath;
 
   export interface $BindingPathSettings extends $MatcherSettings {
     /**
@@ -75143,7 +75750,7 @@ declare module "sap/ui/test/matchers/Descendant" {
    * ```
    *  The declarative matcher for Descendant does not support the **bDirect** parameter.
    */
-  class Descendant {
+  export default class Descendant {
     constructor(
       /**
        * The descendant control to check. If undefined, it validates every control to true. Can be a control or
@@ -75156,7 +75763,6 @@ declare module "sap/ui/test/matchers/Descendant" {
       bDirect?: boolean
     );
   }
-  export default Descendant;
 }
 
 declare module "sap/ui/test/matchers/I18NText" {
@@ -75198,7 +75804,7 @@ declare module "sap/ui/test/matchers/I18NText" {
    * As of version 1.95 if the `useLibraryBundle` flag is set to `true`, the library resource bundle of the
    * control is used to resolve the i18n key.
    */
-  class I18NText extends Matcher {
+  export default class I18NText extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -75371,7 +75977,6 @@ declare module "sap/ui/test/matchers/I18NText" {
       bUseLibraryBundle: boolean
     ): this;
   }
-  export default I18NText;
 
   export interface $I18NTextSettings extends $MatcherSettings {
     /**
@@ -75428,7 +76033,7 @@ declare module "sap/ui/test/matchers/Interactable" {
    *     matchers. Another way is to use the `enabled` and `editable` properties of {@link sap.ui.test.Opa5#waitFor}.
    *     Note that `enabled` is available as of version 1.66, and `editable` is available as of version 1.80.
    */
-  class Interactable extends Matcher {
+  export default class Interactable extends Matcher {
     constructor();
 
     /**
@@ -75461,7 +76066,6 @@ declare module "sap/ui/test/matchers/Interactable" {
      */
     static getMetadata(): ManagedObjectMetadata;
   }
-  export default Interactable;
 
   export interface $InteractableSettings extends $MatcherSettings {}
 }
@@ -75507,7 +76111,7 @@ declare module "sap/ui/test/matchers/LabelFor" {
    * }
    * ```
    */
-  class LabelFor extends Matcher {
+  export default class LabelFor extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -75684,7 +76288,6 @@ declare module "sap/ui/test/matchers/LabelFor" {
       sText: string
     ): this;
   }
-  export default LabelFor;
 
   export interface $LabelForSettings extends $MatcherSettings {
     /**
@@ -75730,7 +76333,7 @@ declare module "sap/ui/test/matchers/Matcher" {
    * Matchers for Opa5 - needs to implement an isMatching function that returns a boolean and will get a control
    * instance as parameter
    */
-  class Matcher extends ManagedObject {
+  export default class Matcher extends ManagedObject {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -75771,7 +76374,7 @@ declare module "sap/ui/test/matchers/Matcher" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter.
      *
@@ -75786,7 +76389,6 @@ declare module "sap/ui/test/matchers/Matcher" {
       oControl: Control
     ): boolean;
   }
-  export default Matcher;
 
   export interface $MatcherSettings extends $ManagedObjectSettings {}
 }
@@ -75819,7 +76421,7 @@ declare module "sap/ui/test/matchers/Properties" {
    * }
    * ```
    */
-  class Properties {
+  export default class Properties {
     constructor(
       /**
        * the object with the properties to be checked. Example:
@@ -75838,7 +76440,6 @@ declare module "sap/ui/test/matchers/Properties" {
       oProperties: object
     );
   }
-  export default Properties;
 }
 
 declare module "sap/ui/test/matchers/PropertyStrictEquals" {
@@ -75868,7 +76469,7 @@ declare module "sap/ui/test/matchers/PropertyStrictEquals" {
    * }
    * ```
    */
-  class PropertyStrictEquals extends Matcher {
+  export default class PropertyStrictEquals extends Matcher {
     /**
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -75968,7 +76569,6 @@ declare module "sap/ui/test/matchers/PropertyStrictEquals" {
       oValue: any
     ): this;
   }
-  export default PropertyStrictEquals;
 
   export interface $PropertyStrictEqualsSettings extends $MatcherSettings {
     /**
@@ -75996,7 +76596,7 @@ declare module "sap/ui/test/matchers/Sibling" {
    * ```
    *  The declarative matcher for Sibling does not support **oOptions** parameters.
    */
-  class Sibling {
+  export default class Sibling {
     constructor(
       /**
        * the sibling control to check. Can be a control or a control ID. If undefined, the result will always
@@ -76026,7 +76626,6 @@ declare module "sap/ui/test/matchers/Sibling" {
       }
     );
   }
-  export default Sibling;
 }
 
 declare module "sap/ui/test/Opa" {
@@ -76035,7 +76634,7 @@ declare module "sap/ui/test/Opa" {
    *
    * One Page Acceptance testing.
    */
-  class Opa {
+  export default class Opa {
     /**
      * This class will help you write acceptance tests in one page or single page applications. You can wait
      * for certain conditions to be met.
@@ -76208,8 +76807,6 @@ declare module "sap/ui/test/Opa" {
       options: WaitForOptions
     ): this;
   }
-  export default Opa;
-
   /**
    * Configuration parameters for Opa.
    */
@@ -76312,7 +76909,7 @@ declare module "sap/ui/test/Opa5" {
    * without relying on global IDs. Makes it easy to wait until your UI is in the state you need for testing,
    * for example waiting for back-end data.
    */
-  class Opa5 extends BaseObject {
+  export default class Opa5 extends BaseObject {
     /**
      * See:
      * 	{@link https://ui5.sap.com/#/topic/2696ab50faad458f9b4027ec2f9b884d Opa5}
@@ -76765,8 +77362,6 @@ declare module "sap/ui/test/Opa5" {
       options: SingleControlSelector | MultiControlSelector
     ): this;
   }
-  export default Opa5;
-
   /**
    * An action simulates user interaction on a control
    */
@@ -77215,7 +77810,7 @@ declare module "sap/ui/test/OpaExtension" {
    *
    * OPA extension interface.
    */
-  class OpaExtension extends BaseObject {
+  export default class OpaExtension extends BaseObject {
     /**
      * OPA extension interface.
      */
@@ -77251,7 +77846,6 @@ declare module "sap/ui/test/OpaExtension" {
      */
     static getMetadata(): Metadata;
   }
-  export default OpaExtension;
 }
 
 declare module "sap/ui/test/OpaPlugin" {
@@ -77268,7 +77862,7 @@ declare module "sap/ui/test/OpaPlugin" {
    *
    * A Plugin to search UI5 controls.
    */
-  class OpaPlugin extends BaseObject {
+  export default class OpaPlugin extends BaseObject {
     constructor();
 
     /**
@@ -77480,7 +78074,6 @@ declare module "sap/ui/test/OpaPlugin" {
       sViewName: string
     ): View | undefined;
   }
-  export default OpaPlugin;
 }
 
 declare module "sap/ui/test/PageObjectFactory" {
@@ -77490,18 +78083,18 @@ declare module "sap/ui/test/PageObjectFactory" {
 
   /**
    * @since 1.26
-   * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Page Object Factory.
    */
-  class PageObjectFactory extends BaseObject {
+  export default class PageObjectFactory extends BaseObject {
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Creates a set of page objects, each consisting of actions and assertions, and adds them to the Opa configuration.
      *
@@ -77523,7 +78116,6 @@ declare module "sap/ui/test/PageObjectFactory" {
       Opa5: Opa5
     ): Record<string, Object>;
   }
-  export default PageObjectFactory;
 }
 
 declare module "sap/ui/test/RecordReplay" {
@@ -77536,7 +78128,7 @@ declare module "sap/ui/test/RecordReplay" {
    *
    * Record-and-replay implementation for OPA5.
    */
-  class RecordReplay extends BaseObject {
+  export default class RecordReplay extends BaseObject {
     constructor();
     /**
      * Interaction types.
@@ -77706,8 +78298,6 @@ declare module "sap/ui/test/RecordReplay" {
       }
     ): Promise<undefined | Error>;
   }
-  export default RecordReplay;
-
   /**
    * Control selector plain object description.
    *
@@ -80446,7 +81036,7 @@ declare namespace sap {
       namespace analytics {
         /**
          * @experimental - This module is only for experimental use!
-         * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+         * Protected:  Do not call from applications (only from related classes in the framework)
          *
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
          */

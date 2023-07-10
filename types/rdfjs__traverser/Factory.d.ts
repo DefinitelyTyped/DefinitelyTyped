@@ -1,5 +1,5 @@
 import { DatasetCore } from '@rdfjs/types';
-import Traverser, { Options, TraversePredicate } from './Traverser';
+import Traverser, { Options, TraversePredicate } from './Traverser.js';
 
 interface DatasetFactory {
     dataset(): DatasetCore;

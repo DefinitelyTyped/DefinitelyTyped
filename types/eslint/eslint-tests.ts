@@ -556,6 +556,8 @@ linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 'latest' } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, 'test.js');
 linter.verify(
@@ -711,6 +713,8 @@ linterWithFlatConfig.verify(SOURCE, [{}], { postprocess: problemList => problemL
 
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }], 'test.js');
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2023 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2024 } }], 'test.js');
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 'latest' } }], 'test.js');
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], 'test.js');
 linterWithFlatConfig.verify(

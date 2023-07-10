@@ -42,6 +42,7 @@ describe("Stripe elements", () => {
             value: {
                 postalCode: '94110',
             },
+            disableLink: true,
         });
         card.mount(document.createElement('div'));
         card.on('ready', () => {
