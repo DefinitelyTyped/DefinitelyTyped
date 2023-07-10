@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 18.3
+// Type definitions for non-npm package frida-gum 18.4
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -865,7 +865,9 @@ type Platform =
     | "windows"
     | "darwin"
     | "linux"
+    | "freebsd"
     | "qnx"
+    | "barebone"
     ;
 
 type CodeSigningPolicy = "optional" | "required";
@@ -1574,6 +1576,7 @@ declare class NativePointer {
     readUtf8String(size?: number): string | null;
     readUtf16String(length?: number): string | null;
     readAnsiString(size?: number): string | null;
+    readVolatile(length: number): ArrayBuffer | null;
 
     writePointer(value: NativePointerValue): NativePointer;
     writeS8(value: number | Int64): NativePointer;
@@ -2928,6 +2931,13 @@ declare namespace Interceptor {
      * Ensure any pending changes have been committed to memory.
      */
     function flush(): void;
+
+    /**
+     * The kind of breakpoints to use for non-inline hooks.
+     *
+     * Only available in the Barebone backend.
+     */
+    let breakpointKind: "soft" | "hard";
 }
 
 declare class InvocationListener {
@@ -3624,6 +3634,49 @@ interface CModuleDefines {
  */
 interface CModuleHeaders {
     readonly [name: string]: string;
+}
+
+/**
+ * Compiles Rust source code to machine code, straight to memory.
+ *
+ * Useful for implementing hot callbacks, e.g. for `Interceptor` and `Stalker`,
+ * but also useful when needing to start new threads in order to call functions
+ * in a tight loop, e.g. for fuzzing purposes.
+ *
+ * Public functions are automatically exported as `NativePointer` properties.
+ * This means you can pass them to `Interceptor` and `Stalker`, or call them
+ * using `NativeFunction`. In such cases you typically want to ensure they
+ * are marked `#[no_mangle]` and `extern "C"`.
+ *
+ * In addition to Rust libraries, the code being mapped in can also communicate
+ * with JavaScript through the symbols exposed to it. These can be plugged in at
+ * creation, e.g. to share memory allocated using `Memory.alloc()`, or
+ * `NativeCallback` values for receiving callbacks from the Rust module.
+ */
+declare class RustModule {
+    /**
+     * Creates a new Rust module from the provided `code`.
+     *
+     * @param code Rust source code to compile.
+     * @param symbols Symbols to expose to the Rust module. Declare them as
+     * `extern "C"`. This may for example be one or more memory blocks allocated
+     * using `Memory.alloc()`, and/or `NativeCallback` values for receiving
+     * callbacks from the Rust module.
+     * @param options Options for customizing the construction.
+     */
+    constructor(code: string, symbols?: CSymbols, options?: RustModuleOptions);
+
+    /**
+     * Eagerly unmaps the module from memory. Useful for short-lived modules
+     * when waiting for a future garbage collection isn't desirable.
+     */
+    dispose(): void;
+
+    readonly [name: string]: any;
+}
+
+interface RustModuleOptions {
+    dependencies?: string[];
 }
 
 declare class Instruction {
@@ -8365,4 +8418,57 @@ type MipsRegister =
     | "29"
     | "30"
     | "31"
+    ;
+
+declare const $gdb: GDBClient;
+
+interface GDBClient {
+    state: GDBState;
+    exception: GDBException | null;
+    continue(): void;
+    stop(): void;
+    restart(): void;
+    addBreakpoint(kind: GDBBreakpointKind, address: bigint, size: number): GDBBreakpoint;
+    execute(command: string): void;
+    query(request: string): string;
+}
+
+type GDBState =
+    | "stopped"
+    | "running"
+    | "stopping"
+    | "closed"
+    ;
+
+interface GDBException {
+    signum: number;
+    breakpoint: GDBBreakpoint | null;
+    thread: GDBThread;
+}
+
+interface GDBThread {
+    id: string;
+    name: string | null;
+    step(): void;
+    stepAndContinue(): void;
+    readRegisters(): { [name: string]: NativePointer };
+    readRegister(name: string): NativePointer;
+    writeRegister(name: string, val: NativePointer): void;
+}
+
+interface GDBBreakpoint {
+    kind: GDBBreakpointKind;
+    address: NativePointer;
+    size: number;
+    enable(): void;
+    disable(): void;
+    remove(): void;
+}
+
+type GDBBreakpointKind =
+    | "soft"
+    | "hard"
+    | "write"
+    | "read"
+    | "access"
     ;

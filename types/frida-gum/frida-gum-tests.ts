@@ -70,6 +70,9 @@ p.blend(ptr(42));
 // @ts-expect-error
 p.blend();
 
+// $ExpectType ArrayBuffer | null
+p.readVolatile(2);
+
 // $ExpectType NativePointer
 Memory.alloc(1);
 // $ExpectType NativePointer
