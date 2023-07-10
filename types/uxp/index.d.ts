@@ -1,6 +1,7 @@
-// Type definitions for uxp 7.1
-// Project: https://git.corp.adobe.com/torq/torq-native/
-// Definitions by: https://github.com/adobe-uxp
+// Type definitions for Unified Extensibility Platform(UXP) APIs 7.1
+// Project: https://adobe.io/photoshop/uxp/2022/uxp-api/
+// Definitions by: Adobe UXP https://github.com/adobe-uxp
+//                 Apoorva Sharma https://github.com/Apoorva2405 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "uxp" {
