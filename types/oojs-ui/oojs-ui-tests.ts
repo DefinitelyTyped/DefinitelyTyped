@@ -3390,6 +3390,10 @@
 
     instance.setItem(new OO.ui.Layout()); // $ExpectType StackLayout
 
+    instance.setContinuous(true); // $ExpectType void
+
+    instance.isContinuous(); // $ExpectType boolean
+
     instance.on('set', item => {
         item; // $ExpectType Layout | null
     });

@@ -99,6 +99,20 @@ declare namespace OO.ui {
              */
             setItem(item: Layout): this;
 
+            /**
+             * Set the layout to continuous mode or not
+             *
+             * @param continuous Continuous mode
+             */
+            setContinuous(continuous: boolean): void;
+
+            /**
+             * Check if the layout is in continuous mode
+             *
+             * @return The layout is in continuous mode
+             */
+            isContinuous(): boolean;
+
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
