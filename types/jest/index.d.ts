@@ -537,7 +537,7 @@ declare namespace jest {
         fail(error?: string | { message: string }): any;
     }
 
-    type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+    type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => PromiseLike<unknown>);
     type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
     type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
