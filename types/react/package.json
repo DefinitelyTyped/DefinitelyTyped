@@ -6,7 +6,7 @@
   "types": "index",
   "exports": {
     ".": {
-      "types@<=5.0": {
+      "types@>=5.0": {
         "default": "./ts5.0/index.d.ts"
       },
       "types": {
@@ -14,7 +14,7 @@
       }
     },
     "./canary": {
-      "types@<=5.0": {
+      "types@>=5.0": {
         "default": "./ts5.0/canary.d.ts"
       },
       "types": {
@@ -22,7 +22,7 @@
       }
     },
     "./experimental": {
-      "types@<=5.0": {
+      "types@>=5.0": {
         "default": "./ts5.0/experimental.d.ts"
       },
       "types": {
@@ -30,7 +30,7 @@
       }
     },
     "./jsx-runtime": {
-      "types@<=5.0": {
+      "types@>=5.0": {
         "default": "./ts5.0/jsx-runtime.d.ts"
       },
       "types": {
@@ -38,7 +38,7 @@
       }
     },
     "./jsx-dev-runtime": {
-      "types@<=5.0": {
+      "types@>=5.0": {
         "default": "./ts5.0/jsx-dev-runtime.d.ts"
       },
       "types": {
@@ -47,7 +47,7 @@
     }
   },
   "typesVersions": {
-    "<=5.0": {
+    ">=5.0": {
       "*": [
         "ts5.0/*"
       ]
