@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-
 export interface G123NavigationSideBarProps {
     supportLanguages: string[];
     initialSelectedLanguage: string;
@@ -17,10 +16,9 @@ export interface G123NavigationSideBarProps {
 
 export function renderComponent(props: G123NavigationSideBarProps): void;
 
-
 declare global {
     namespace G123NavigationSideBar {
-      export interface G123NavigationSideBarProps {
+        interface G123NavigationSideBarProps {
         supportLanguages: string[];
         initialSelectedLanguage: string;
         showLogout?: boolean;
@@ -29,7 +27,6 @@ declare global {
         onLogout?: () => void;
         onSelectLanguage?: (language: string) => void;
       }
-  
-      export function renderComponent(props: G123NavigationSideBarProps): void;
+        function renderComponent(props: G123NavigationSideBarProps): void;
     }
 }

@@ -9,10 +9,9 @@ const props: G123NavigationSideBar.G123NavigationSideBarProps = {
     theme: 'light',
     onLogout: () => console.log('Logged out'),
     onSelectLanguage: (language) => console.log(`Selected language: ${language}`),
-  };
-  
+};
+
   // 调用 renderComponent 函数
-  G123NavigationSideBar.renderComponent(props);
-  
+G123NavigationSideBar.renderComponent(props);
+
   // 访问 context 对象
-  
