@@ -1,4 +1,4 @@
-import { entrypoints, script, pluginManager, versions } from "uxp";
+import { entrypoints, script, pluginManager, versions } from 'uxp';
 
 // localstorage
 localStorage.clear();
@@ -15,11 +15,11 @@ fetch('blob://example.com/', { mode: 'cors' });
 fetch('https://user:password@example.com/');
 
 const xhr = new XMLHttpRequest();
-xhr.open("GET", "/api", true);
+xhr.open('GET', '/api', true);
 
-const ws = new WebSocket("ws://demos.kaazing.com/echo", "xmpp");
-ws.binaryType = "arraybuffer";
-ws.binaryType = "fragments";
+const ws = new WebSocket('ws://demos.kaazing.com/echo', 'xmpp');
+ws.binaryType = 'arraybuffer';
+ws.binaryType = 'fragments';
 // @ts-expect-error
 ws.send({ hello: 'world' });
 ws.send(new Uint8Array([]));
@@ -32,9 +32,9 @@ plugin.enabled;
 plugin.id;
 // $ExpectType string
 plugin.version;
-plugin.invokeCommand("testuxpcommand");
+plugin.invokeCommand('testuxpcommand');
 
-entrypoints.getPanel("testpanel");
+entrypoints.getPanel('testpanel');
 pluginManager.plugins;
 script.args;
 versions.plugin;
@@ -44,8 +44,8 @@ path.sep;
 // $ExpectType string
 path.delimiter;
 // $ExpectType string
-path.extname("test/path");
+path.extname('test/path');
 // $ExpectType boolean
-path.isAbsolute("testpath");
+path.isAbsolute('testpath');
 
-const obj = { hello: "world" };
+const obj = { hello: 'world' };
