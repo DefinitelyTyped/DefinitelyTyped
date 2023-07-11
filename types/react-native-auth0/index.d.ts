@@ -356,20 +356,10 @@ export interface PhoneClaims {
     phone_number: string;
     phone_number_verified: boolean;
 }
-export interface Identity {
-    user_id: string;
-    provider: string;
-    connection: string;
-    isSocial: boolean;
-}
-export interface Auth0UserProfile {
-    identities: Identity[];
-}
 export type User = {
     // for custom claim
     [key: string]: unknown;
 } & OpenIdClaims &
-    Auth0UserProfile &
     Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
 
 export class Auth0ContextInterface {
