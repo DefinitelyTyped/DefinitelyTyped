@@ -9,7 +9,11 @@ function filter(arg: { dataset: DatasetCore; quad: Quad; level: number }): boole
     return true;
 }
 
-const env = new Environment([TraverserFactory]);
+class FooFactory {
+    init() {}
+}
+
+const env = new Environment([TraverserFactory, FooFactory]);
 let traverser = env.traverser(filter);
 
 traverser = new Traverser(filter);

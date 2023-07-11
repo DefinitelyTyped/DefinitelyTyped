@@ -12,15 +12,6 @@ interface Fetch {
     Headers: Headers;
 }
 
-export interface FetchFactory {
+export default class FetchFactory {
     fetch: Fetch;
-    clone(original: FetchFactory): FetchFactory;
 }
-
-interface FetchFactoryCtor {
-    new(): FetchFactory;
-}
-
-declare const factory: FetchFactoryCtor;
-
-export default factory;

@@ -16,11 +16,14 @@ const exports: [
 
 const fromCtor = new Factory(); // $ExpectType DataFactory
 const asFactory: RDF.DataFactory = fromCtor;
-fromCtor.init();
 
-const env = new Environment([Factory]); // $ExpectType Environment<DataFactory>
+class FooFactory {
+    init() {}
+}
 
-const myQuad = factory.quad(
+const env = new Environment([Factory, FooFactory]); // $ExpectType Environment<DataFactory>
+
+const myQuad = env.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),
   factory.namedNode('http://example.org/object'),

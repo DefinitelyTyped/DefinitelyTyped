@@ -24,6 +24,7 @@ import {
 } from '@rdfjs/score';
 import Factory from '@rdfjs/score/Factory';
 import Environment from '@rdfjs/environment/Environment';
+import DataFactory from '@rdfjs/data-model/Factory.js';
 
 const score: ScoreCb = <any> {};
 const clownfacePointer: MultiPointer = <any> {};
@@ -177,11 +178,15 @@ function test_type() {
     type(typeTerm)(ptrs);
 }
 
+class FooFactory {
+    init() {}
+}
+
 function test_Factory() {
     // $ExpectType ScoreFactory
     const constructed = new Factory();
 
-    const fromEnv = new Environment([Factory]);
+    const fromEnv = new Environment([Factory, FooFactory]);
     const {
         combine,
         concat,

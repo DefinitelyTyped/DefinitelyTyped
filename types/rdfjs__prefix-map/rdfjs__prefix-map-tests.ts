@@ -4,7 +4,11 @@ import PrefixMapFactory from '@rdfjs/prefix-map/Factory';
 
 const term: NamedNode = <any> {};
 
-const environment = new Environment([PrefixMapFactory]);
+class FooFactory {
+    init() {}
+}
+
+const environment = new Environment([PrefixMapFactory, FooFactory]);
 const prefixMap = environment.prefixMap([
     ['schema', term]
 ]);

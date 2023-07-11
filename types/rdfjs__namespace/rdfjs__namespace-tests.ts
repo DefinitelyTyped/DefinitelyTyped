@@ -1,6 +1,7 @@
 import namespace, { NamespaceBuilder } from '@rdfjs/namespace';
 import Factory from '@rdfjs/namespace/Factory';
 import { DataFactory, NamedNode } from '@rdfjs/types';
+import Environment from '@rdfjs/environment/Environment.js';
 
 const factory: DataFactory = {} as any;
 
@@ -28,5 +29,11 @@ const bazProp = restrictedBuilder.baz;
 // @ts-expect-error
 const bazArg = restrictedBuilder('baz');
 
+class FooFactory {
+    init() {}
+}
+
+const env = new Environment([Factory, FooFactory])
+
 const exports: ['namespace'] = Factory.exports;
-const builderFromFactory: NamespaceBuilder = new Factory().namespace('http://example.com/');
+const builderFromFactory: NamespaceBuilder = env.namespace('http://example.com/');

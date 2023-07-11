@@ -19,7 +19,6 @@ declare class DataFactory {
         'quad',
         'variable'
     ];
-    init(): void;
 }
 
 export default DataFactory;

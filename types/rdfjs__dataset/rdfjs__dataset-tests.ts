@@ -7,10 +7,14 @@ import Environment from '@rdfjs/environment/Environment.js';
 const exports: ['dataset'] = Factory.exports;
 let dataset: RDF.DatasetCore = rdf.dataset();
 
-const env = new Environment([Factory]); // $ExpectType Environment<Factory>
+class FooFactory {
+    init() {}
+}
+
+const env = new Environment([Factory, FooFactory]); // $ExpectType Environment<Factory>
 
 const quads: RDF.Quad[] = <any> {};
-dataset = rdf.dataset(quads);
+dataset = env.dataset(quads);
 
 dataset = new DatasetCore();
 dataset = new DatasetCore(quads);

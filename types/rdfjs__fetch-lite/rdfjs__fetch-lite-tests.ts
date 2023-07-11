@@ -35,9 +35,14 @@ async function fetchTypedStream(): Promise<Stream<QuadExt>> {
     return response.quadStream();
 }
 
+class FooFactory {
+    init() {}
+}
+
 async function environmentRawFetch(): Promise<Stream> {
     const environmentTest = new Environment([
-        FetchFactory
+        FetchFactory,
+        FooFactory
     ]);
 
     environmentTest.fetch.config('foo', 'bar');
