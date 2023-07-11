@@ -9,6 +9,7 @@
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
+            "nlcst": ["nlcst/v1"],
             "unist": ["unist/v2"]
         },
         "types": [],

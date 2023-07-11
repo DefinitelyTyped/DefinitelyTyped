@@ -9,6 +9,7 @@
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
+            "hast": ["hast/v2"],
             "unist": ["unist/v2"]
         },
         "types": [],

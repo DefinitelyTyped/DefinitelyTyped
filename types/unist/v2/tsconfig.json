@@ -8,6 +8,9 @@
         "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": ["../../"],
+        "paths": {
+            "unist": ["unist/v2"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

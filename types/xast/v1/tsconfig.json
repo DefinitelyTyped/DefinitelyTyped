@@ -9,7 +9,8 @@
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
-            "unist": ["unist/v2"]
+            "unist": ["unist/v2"],
+            "xast": ["xast/v1"]
         },
         "types": [],
         "noEmit": true,
