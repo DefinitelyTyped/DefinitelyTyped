@@ -253,7 +253,7 @@ export interface ClientChannel extends Channel {
      * finishes. If the process finished normally, the process's return value is passed to
      * the `exit` callback.
      */
-    on(event: 'exit', listener: (code: string) => void): this;
+    on(event: 'exit', listener: (code: number) => void): this;
     on(event: 'exit', listener: (code: null, signal: string, dump: string, desc: string) => void): this;
     on(event: string | symbol, listener: Function): this;
 }
