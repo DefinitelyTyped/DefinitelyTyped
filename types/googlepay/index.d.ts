@@ -1,9 +1,8 @@
 // Type definitions for non-npm package Google Pay API 0.7
 // Project: https://developers.google.com/pay/api/web/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
-//                 Radu Raicea <https://github.com/Radu-Raicea>,
+// Definitions by: Florian Luccioni <https://github.com/Fluccioni>
+//                 Radu Raicea <https://github.com/Radu-Raicea>
 //                 Filip Stanis <https://github.com/fstanis>
-//                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Jose L Ugia <https://github.com/JlUgia>
