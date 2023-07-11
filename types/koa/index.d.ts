@@ -333,7 +333,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Vary on `field`.
      */
-    vary(field: string): void;
+    vary(field: string | string[]): void;
 
     /**
      * Perform a 302 redirect to `url`.
@@ -442,7 +442,7 @@ declare interface ContextDelegatedResponse {
 
 declare class Application<
     StateT = Application.DefaultState,
-    ContextT = Application.DefaultContext
+    ContextT = Application.DefaultContext,
 > extends EventEmitter {
     proxy: boolean;
     proxyIpHeader: string;
@@ -468,12 +468,12 @@ declare class Application<
      *
      */
     constructor(options?: {
-        env?: string | undefined,
-        keys?: string[] | undefined,
-        proxy?: boolean | undefined,
-        subdomainOffset?: number | undefined,
-        proxyIpHeader?: string | undefined,
-        maxIpsCount?: number | undefined
+        env?: string | undefined;
+        keys?: string[] | undefined;
+        proxy?: boolean | undefined;
+        subdomainOffset?: number | undefined;
+        proxyIpHeader?: string | undefined;
+        maxIpsCount?: number | undefined;
     });
 
     /**
@@ -509,7 +509,7 @@ declare class Application<
      * Old-style middleware will be converted.
      */
     use<NewStateT = {}, NewContextT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
+        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>,
     ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
@@ -732,10 +732,11 @@ declare namespace Application {
         respond?: boolean | undefined;
     }
 
-    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext
-        & { state: StateT; }
-        & ContextT
-        & { body: ResponseBodyT; response: { body: ResponseBodyT }; };
+    type ParameterizedContext<
+        StateT = DefaultState,
+        ContextT = DefaultContext,
+        ResponseBodyT = unknown,
+    > = ExtendableContext & { state: StateT } & ContextT & { body: ResponseBodyT; response: { body: ResponseBodyT } };
 
     interface Context extends ParameterizedContext {}
 
