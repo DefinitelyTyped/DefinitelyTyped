@@ -841,13 +841,13 @@ declare class ReadableStreamDefaultReader {
 declare class ReadableStream {
     constructor(
         underlyingSource: {
-            start(controller): (...params: any[]) => any;
-            pull(controller): (...params: any[]) => any;
-            cancel(reason): (...params: any[]) => any;
+            start(controller: ReadableStreamDefaultController): (...params: any[]) => any;
+            pull(controller: ReadableStreamDefaultController): (...params: any[]) => any;
+            cancel(reason: string): (...params: any[]) => any;
         },
         strategy: {
             highWaterMark: number;
-            size(chunk): (...params: any[]) => any;
+            size(chunk: number): (...params: any[]) => any;
         },
     );
     /**
@@ -1067,13 +1067,13 @@ declare class WritableStreamDefaultWriter {
 declare class WritableStream {
     constructor(
         underlyingSink: {
-            start(contorller): (...params: any[]) => any;
-            write(chunk, controller): (...params: any[]) => any;
-            close(controller): (...params: any[]) => any;
+            start(controller: WritableStreamDefaultController): (...params: any[]) => any;
+            write(chunk: number, controller: WritableStreamDefaultController): (...params: any[]) => any;
+            close(controller: WritableStreamDefaultController): (...params: any[]) => any;
         },
         strategy: {
             highWaterMark: number;
-            size(chunk): (...params: any[]) => any;
+            size(chunk: number): (...params: any[]) => any;
         },
     );
     /**
