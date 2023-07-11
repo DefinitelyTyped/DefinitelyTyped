@@ -2017,6 +2017,10 @@
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
         },
+        "google-spreadsheet": {
+            "libraryName": "google-spreadsheet",
+            "asOfVersion": "4.0.0"
+        },
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
             "asOfVersion": "3.0.3"
