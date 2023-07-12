@@ -82,7 +82,7 @@ function formatsImport() {
 class InitOnly {
     init() {}
     clone(): InitOnly {
-        return this
+        return this;
     }
 }
 const envOneFactoryInitOnly = new Environment([
