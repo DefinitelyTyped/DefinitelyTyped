@@ -19,6 +19,6 @@ interface Options {
     glue?: string;
 }
 
-declare function generateFromObj(opts: Options): Array<string | number>;
+declare function generateFromObj(opts?: Options): Array<string | number>;
 
 export { generate, generateFromObj };
