@@ -55,7 +55,7 @@ declare function setBlockValue(
     y: number,
     z: number,
     valueIndex: number,
-    value: number | string | [number, number, number],
+    value: number | string | [x: number, y: number, z: number],
 ): void;
 
 /**
@@ -68,7 +68,8 @@ declare function setBlockValue(
 declare function getBlock(x: number, y: number, z: number): number;
 
 /**
- * Connect blocks at position `(x1, y1, z1)` and `(x2, y2, z2)` using terminal indices `index1` and `index2`.
+ * Connect blocks at position `(x1, y1, z1)` and `(x2, y2, z2)`
+ * using terminal indices `index1` and `index2`.
  * @param x1 The x position of the first block
  * @param y1 The y position of the first block
  * @param z1 The z position of the first block
@@ -173,3 +174,80 @@ declare function setLevel(levelIndex: number): void;
  * @returns The version of the editor script engine
  */
 declare function getVersion(): number;
+
+///////////////////////////////////////////////////////////
+// Start of Fancade Beta features, play.fancade.com/beta //
+///////////////////////////////////////////////////////////
+
+/**
+ * Parameters of the event listeners.
+ */
+interface Events extends Record<string | symbol, any[]> {
+    // Callback function called when a block is placed at (x, y, z)
+    "block-placed": [x: number, y: number, z: number];
+    // Callback function called each frame (also in play mode)
+    "update": [];
+    // Callback function called when a key is pressed
+    // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
+    "keydown": [number];
+    // Callback function called when a key is released
+    // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
+    "keyup": [number];
+}
+
+/**
+ * Listen to events. (Beta only)
+ * @param event The name of the event
+ * @param listener The callback function
+ */
+declare function setEventListener<E extends keyof Events>(
+    eventName: E, listener: (...args: Events[E]) => void
+): void;
+
+/**
+ * Select block. (Beta only)
+ * @param x The x position of the block to select
+ * @param y The y position of the block to select
+ * @param z The z position of the block to select
+ */
+declare function selectAt(x: number, y: number, z: number): void;
+
+/**
+ * Get selected block count. (Beta only)
+ * @returns The amount of selected blocks in edit mode
+ */
+declare function getSelectedCount(): number;
+
+/**
+ * Check if the game is paused. (Beta only)
+ */
+declare function isGamePaused(): boolean;
+
+/**
+ * Check if Fancade is in play mode. (Beta only)
+ */
+declare function isGamePlaying(): boolean;
+
+/** Check if a key is down. (Beta only)
+ * Key number list: https://www.glfw.org/docs/3.3/group__keys.html
+ * @param key The key to be checked
+ */
+declare function isKeyDown(key: number): boolean;
+
+/**
+ * Generate test input. (swipes and taps, beta only)
+ * @param fromX The start x position of the swipe
+ * @param fromY The start y position of the swipe
+ * @param toX The end x position of the swipe
+ * @param toY The end y position of the swipe
+ * @param durationFrames The duration of the swipe in frames
+ * @param touchIndex The index of the touch to generate
+ */
+declare function generateSwipe(
+    fromX: number,
+    fromY: number,
+    toX: number,
+    toY: number,
+    durationFrames: number,
+    touchIndex: number
+): void;
