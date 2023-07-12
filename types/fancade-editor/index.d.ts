@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Fancade Editor Script 1.13.4
+// Type definitions for non-npm package Fancade Editor Script 1.13
 // Project: https://www.fancade.com/wiki/fancade-web#editor-scripting
 // Definitions by: Bricked <https://github.com/brckd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -182,17 +182,17 @@ declare function getVersion(): number;
 /**
  * Parameters of the event listeners.
  */
-interface Events extends Record<string | symbol, any[]> {
+interface Events {
     // Callback function called when a block is placed at (x, y, z)
-    "block-placed": [x: number, y: number, z: number];
+    'block-placed': [x: number, y: number, z: number];
     // Callback function called each frame (also in play mode)
-    "update": [];
+    update: [];
     // Callback function called when a key is pressed
     // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
-    "keydown": [number];
+    keydown: [key: number];
     // Callback function called when a key is released
     // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
-    "keyup": [number];
+    keyup: [key: number];
 }
 
 /**
@@ -200,9 +200,7 @@ interface Events extends Record<string | symbol, any[]> {
  * @param event The name of the event
  * @param listener The callback function
  */
-declare function setEventListener<E extends keyof Events>(
-    eventName: E, listener: (...args: Events[E]) => void
-): void;
+declare function setEventListener<E extends keyof Events>(eventName: E, listener: (...args: Events[E]) => void): void;
 
 /**
  * Select block. (Beta only)
@@ -249,5 +247,5 @@ declare function generateSwipe(
     toX: number,
     toY: number,
     durationFrames: number,
-    touchIndex: number
+    touchIndex: number,
 ): void;

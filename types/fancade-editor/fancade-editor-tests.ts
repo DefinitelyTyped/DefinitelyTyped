@@ -57,31 +57,31 @@ let version = getVersion();
 ///////////////////////////////////////////////////////////
 
 // $ExpectType void
-setEventListener("block-placed", (x, y, z) => {});
+setEventListener('block-placed', (x, y, z) => {});
 
 // $ExpectType void
-setEventListener("update", () => {});
+setEventListener('update', () => {});
 
 // $ExpectType void
-setEventListener("keydown", (key) => {});
+setEventListener('keydown', key => {});
 
 // $ExpectType void
-setEventListener("keyup", (key) => {});
+setEventListener('keyup', key => {});
 
 // $ExpectType void
 selectAt(0, 0, 0);
 
 // $ExpectType number
-getSelectedCount()
+getSelectedCount();
 
 // $ExpectType boolean
-isGamePaused()
+isGamePaused();
 
 // $ExpectType boolean
-isGamePlaying()
+isGamePlaying();
 
 // $ExpectType boolean
-isKeyDown(55)
+isKeyDown(55);
 
 // $ExpectType void
 generateSwipe(0, 0, 0, 0, 0, 0);
