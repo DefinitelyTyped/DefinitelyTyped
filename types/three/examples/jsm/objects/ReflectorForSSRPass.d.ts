@@ -7,7 +7,7 @@ import {
     Scene,
     Camera,
     IUniform,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 export interface ReflectorShader {
     defines: {

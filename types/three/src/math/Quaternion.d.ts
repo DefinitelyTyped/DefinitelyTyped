@@ -1,8 +1,8 @@
-import { Euler } from './Euler';
-import { Vector3 } from './Vector3';
-import { Matrix4 } from './Matrix4';
-import { BufferAttribute } from '../core/BufferAttribute';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
+import { Euler } from './Euler.js';
+import { Vector3 } from './Vector3.js';
+import { Matrix4 } from './Matrix4.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
 
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.

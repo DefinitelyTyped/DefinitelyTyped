@@ -1,6 +1,6 @@
-import { ShaderMaterial } from '../../../src/Three';
+import { ShaderMaterial } from '../../../src/Three.js';
 
-import { Pass, FullScreenQuad } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export class ShaderPass extends Pass {
     constructor(shader: object, textureID?: string);

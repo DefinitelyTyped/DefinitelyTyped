@@ -1,28 +1,35 @@
-import { Scene } from './../scenes/Scene';
-import { Camera } from './../cameras/Camera';
-import { WebGLExtensions } from './webgl/WebGLExtensions';
-import { WebGLInfo } from './webgl/WebGLInfo';
-import { WebGLShadowMap } from './webgl/WebGLShadowMap';
-import { WebGLCapabilities } from './webgl/WebGLCapabilities';
-import { WebGLProperties } from './webgl/WebGLProperties';
-import { WebGLRenderLists } from './webgl/WebGLRenderLists';
-import { WebGLState } from './webgl/WebGLState';
-import { Vector2 } from './../math/Vector2';
-import { Vector4 } from './../math/Vector4';
-import { Color, ColorRepresentation } from './../math/Color';
-import { WebGLRenderTarget } from './WebGLRenderTarget';
-import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
-import { Object3D } from './../core/Object3D';
-import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding, ColorSpace, WebGLCoordinateSystem } from '../constants';
-import { WebXRManager } from '../renderers/webxr/WebXRManager';
-import { BufferGeometry } from './../core/BufferGeometry';
-import { OffscreenCanvas, Texture } from '../textures/Texture';
-import { Data3DTexture } from '../textures/Data3DTexture';
-import { Vector3 } from '../math/Vector3';
-import { Box3 } from '../math/Box3';
-import { DataArrayTexture } from '../textures/DataArrayTexture';
-import { WebGLProgram } from './webgl/WebGLProgram';
+import { Scene } from './../scenes/Scene.js';
+import { Camera } from './../cameras/Camera.js';
+import { WebGLExtensions } from './webgl/WebGLExtensions.js';
+import { WebGLInfo } from './webgl/WebGLInfo.js';
+import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
+import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
+import { WebGLProperties } from './webgl/WebGLProperties.js';
+import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
+import { WebGLState } from './webgl/WebGLState.js';
+import { Vector2 } from './../math/Vector2.js';
+import { Vector4 } from './../math/Vector4.js';
+import { Color, ColorRepresentation } from './../math/Color.js';
+import { WebGLRenderTarget } from './WebGLRenderTarget.js';
+import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets.js';
+import { Object3D } from './../core/Object3D.js';
+import { Material } from './../materials/Material.js';
+import {
+    ToneMapping,
+    ShadowMapType,
+    CullFace,
+    TextureEncoding,
+    ColorSpace,
+    WebGLCoordinateSystem,
+} from '../constants.js';
+import { WebXRManager } from '../renderers/webxr/WebXRManager.js';
+import { BufferGeometry } from './../core/BufferGeometry.js';
+import { OffscreenCanvas, Texture } from '../textures/Texture.js';
+import { Data3DTexture } from '../textures/Data3DTexture.js';
+import { Vector3 } from '../math/Vector3.js';
+import { Box3 } from '../math/Box3.js';
+import { DataArrayTexture } from '../textures/DataArrayTexture.js';
+import { WebGLProgram } from './webgl/WebGLProgram.js';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;

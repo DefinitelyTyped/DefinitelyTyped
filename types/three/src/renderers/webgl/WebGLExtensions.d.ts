@@ -1,4 +1,4 @@
-import { WebGLCapabilities } from './WebGLCapabilities';
+import { WebGLCapabilities } from './WebGLCapabilities.js';
 
 export class WebGLExtensions {
     constructor(gl: WebGLRenderingContext);

@@ -1,8 +1,8 @@
-import { WebGLCubeRenderTarget } from './../renderers/WebGLCubeRenderTarget';
-import { Scene } from './../scenes/Scene';
-import { WebGLRenderer } from './../renderers/WebGLRenderer';
-import { Object3D } from './../core/Object3D';
-import { CoordinateSystem } from '../constants';
+import { WebGLCubeRenderTarget } from './../renderers/WebGLCubeRenderTarget.js';
+import { Scene } from './../scenes/Scene.js';
+import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
+import { Object3D } from './../core/Object3D.js';
+import { CoordinateSystem } from '../constants.js';
 
 /**
  * Creates **6** {@link THREE.PerspectiveCamera | cameras} that render to a {@link THREE.WebGLCubeRenderTarget | WebGLCubeRenderTarget}.

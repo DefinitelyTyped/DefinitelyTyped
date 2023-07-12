@@ -1,6 +1,6 @@
-import TempNode from '../core/TempNode';
-import Node from '../core/Node';
-import { ToneMapping } from '../../../../src/Three';
+import TempNode from '../core/TempNode.js';
+import Node from '../core/Node.js';
+import { ToneMapping } from '../../../../src/Three.js';
 
 // exposure only
 export const LinearToneMappingNode: Node;

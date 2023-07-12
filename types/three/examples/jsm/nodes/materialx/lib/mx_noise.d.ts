@@ -1,4 +1,4 @@
-import { Fn, Node, Swizzable } from '../../Nodes';
+import { Fn, Node, Swizzable } from '../../Nodes.js';
 
 export function mx_perlin_noise_float(...params: Fn<[Node]>): Swizzable;
 export function mx_cell_noise_float(...params: Fn<[Node]>): Swizzable;

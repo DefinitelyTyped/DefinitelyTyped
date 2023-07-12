@@ -1,9 +1,9 @@
-import { Vector3 } from '../math/Vector3';
-import { Object3D } from './../core/Object3D';
-import { SpotLightShadow } from './SpotLightShadow';
-import { Light } from './Light';
-import { ColorRepresentation } from '../math/Color';
-import { Texture } from '../textures/Texture';
+import { Vector3 } from '../math/Vector3.js';
+import { Object3D } from './../core/Object3D.js';
+import { SpotLightShadow } from './SpotLightShadow.js';
+import { Light } from './Light.js';
+import { ColorRepresentation } from '../math/Color.js';
+import { Texture } from '../textures/Texture.js';
 
 /**
  * This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.

@@ -1,4 +1,4 @@
-import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion } from '../../../src/Three.js';
 
 export class TransformControls extends Object3D {
     constructor(object: Camera, domElement?: HTMLElement);
