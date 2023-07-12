@@ -13,10 +13,10 @@ export type Environment<T> = {
     clone(): Environment<T>
 } & Omit<{
     [K in keyof UnionToIntersection<T>]: UnionToIntersection<T>[K]
-}, 'init'>;
+}, 'init' | 'clone'>;
 
 interface EnvironmentCtor {
-    new<F extends FactoryConstructor>(factories: F[], options?: { bind: boolean }): Environment<Distribute<F>>;
+    new<const F extends ReadonlyArray<FactoryConstructor<any>>>(factories: F, options?: { bind: boolean }): Environment<Distribute<F[number]>>;
 }
 
 declare const environment: EnvironmentCtor;
