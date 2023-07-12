@@ -1,5 +1,5 @@
-import { Object3D } from './../core/Object3D';
-import { AudioContext } from './AudioContext';
+import { Object3D } from './../core/Object3D.js';
+import { AudioContext } from './AudioContext.js';
 
 /**
  * The {@link AudioListener} represents a virtual {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioListener | listener} of the all positional and non-positional audio effects in the scene.

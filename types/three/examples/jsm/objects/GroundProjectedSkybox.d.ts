@@ -1,4 +1,4 @@
-import { Mesh, IcosahedronGeometry, ShaderMaterial, Texture } from '../../../src/Three';
+import { Mesh, IcosahedronGeometry, ShaderMaterial, Texture } from '../../../src/Three.js';
 
 export class GroundProjectedSkybox extends Mesh<IcosahedronGeometry, ShaderMaterial> {
     constructor(texture: Texture, options?: { height?: number; radius?: number });

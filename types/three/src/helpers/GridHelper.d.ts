@@ -1,7 +1,7 @@
-import { ColorRepresentation } from '../math/Color';
-import { LineSegments } from './../objects/LineSegments';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { LineBasicMaterial } from '../materials/LineBasicMaterial';
+import { ColorRepresentation } from '../math/Color.js';
+import { LineSegments } from './../objects/LineSegments.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
 
 /**
  * The {@link GridHelper} is an object to define grids

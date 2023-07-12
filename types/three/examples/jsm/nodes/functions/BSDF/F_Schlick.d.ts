@@ -1,5 +1,5 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements';
-import Node from '../../core/Node';
+import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements.js';
+import Node from '../../core/Node.js';
 
 declare const F_Schlick: ShaderNode<{ f0: Node; f90: Node; dotVH: Node }>;
 

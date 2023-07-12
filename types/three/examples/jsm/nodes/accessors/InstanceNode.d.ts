@@ -1,5 +1,5 @@
-import { InstancedMesh } from '../../../../src/Three';
-import Node from '../core/Node';
+import { InstancedMesh } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
 
 export default class InstanceNode extends Node {
     instanceMesh: InstancedMesh;

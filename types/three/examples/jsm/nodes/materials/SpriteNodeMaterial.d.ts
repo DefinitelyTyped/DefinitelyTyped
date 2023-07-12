@@ -1,7 +1,7 @@
-import NodeMaterial from './NodeMaterial';
-import { ShaderMaterialParameters } from '../../../../src/Three';
-import { NodeBuilder } from '../Nodes';
-import Node from '../core/Node';
+import NodeMaterial from './NodeMaterial.js';
+import { ShaderMaterialParameters } from '../../../../src/Three.js';
+import { NodeBuilder } from '../Nodes.js';
+import Node from '../core/Node.js';
 
 export default class SpriteNodeMaterial extends NodeMaterial {
     isSpriteNodeMaterial: true;

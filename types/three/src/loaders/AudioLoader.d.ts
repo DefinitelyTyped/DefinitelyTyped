@@ -1,5 +1,5 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
+import { Loader } from './Loader.js';
+import { LoadingManager } from './LoadingManager.js';
 
 export class AudioLoader extends Loader {
     constructor(manager?: LoadingManager);

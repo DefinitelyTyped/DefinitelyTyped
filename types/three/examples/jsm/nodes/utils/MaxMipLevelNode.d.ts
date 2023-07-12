@@ -1,6 +1,6 @@
-import UniformNode from '../core/UniformNode';
-import { Texture } from '../../../../src/Three';
-import { TextureNode } from '../Nodes';
+import UniformNode from '../core/UniformNode.js';
+import { Texture } from '../../../../src/Three.js';
+import { TextureNode } from '../Nodes.js';
 
 export default class MaxMipLevelNode extends UniformNode {
     textureNode: TextureNode;

@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * This can be used as a helper object to view the edges of a {@link THREE.BufferGeometry | geometry}.

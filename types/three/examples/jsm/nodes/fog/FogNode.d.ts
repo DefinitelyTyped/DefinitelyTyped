@@ -1,4 +1,4 @@
-import Node from '../core/Node';
+import Node from '../core/Node.js';
 
 export default class FogNode extends Node {
     isFogNode: true;

@@ -1,5 +1,5 @@
-import { Object3D } from '../../../../src/Three';
-import Node from '../core/Node';
+import { Object3D } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
 
 export type Object3DNodeScope =
     | typeof Object3DNode.VIEW_MATRIX

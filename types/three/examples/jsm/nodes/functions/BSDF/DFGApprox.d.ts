@@ -1,5 +1,5 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeElements';
-import Node from '../../core/Node';
+import { ShaderNode } from '../../shadernode/ShaderNodeElements.js';
+import Node from '../../core/Node.js';
 
 // Analytical approximation of the DFG LUT, one half of the
 // split-sum approximation used in indirect specular lighting.

@@ -1,9 +1,9 @@
-import { Material } from './../materials/Material';
-import { Raycaster } from './../core/Raycaster';
-import { Object3D } from './../core/Object3D';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Intersection } from '../core/Raycaster';
-import { Vector3 } from '../math/Vector3';
+import { Material } from './../materials/Material.js';
+import { Raycaster } from './../core/Raycaster.js';
+import { Object3D } from './../core/Object3D.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Intersection } from '../core/Raycaster.js';
+import { Vector3 } from '../math/Vector3.js';
 
 /**
  * Class representing triangular {@link https://en.wikipedia.org/wiki/Polygon_mesh | polygon mesh} based objects.

@@ -1,11 +1,11 @@
-import { Plane } from './Plane';
-import { Matrix4 } from './Matrix4';
-import { Object3D } from './../core/Object3D';
-import { Sprite } from './../objects/Sprite';
-import { Sphere } from './Sphere';
-import { Box3 } from './Box3';
-import { Vector3 } from './Vector3';
-import { CoordinateSystem } from '../constants';
+import { Plane } from './Plane.js';
+import { Matrix4 } from './Matrix4.js';
+import { Object3D } from './../core/Object3D.js';
+import { Sprite } from './../objects/Sprite.js';
+import { Sphere } from './Sphere.js';
+import { Box3 } from './Box3.js';
+import { Vector3 } from './Vector3.js';
+import { CoordinateSystem } from '../constants.js';
 
 /**
  * Frustums are used to determine what is inside the camera's field of view. They help speed up the rendering process.

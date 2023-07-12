@@ -1,4 +1,4 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const SMAAEdgesShader: {
     defines: {

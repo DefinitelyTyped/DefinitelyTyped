@@ -1,4 +1,4 @@
-import { WebGLRenderer, Vector2 } from '../../../src/Three';
+import { WebGLRenderer, Vector2 } from '../../../src/Three.js';
 
 export class SelectionHelper {
     constructor(renderer: WebGLRenderer, cssClassName: string);

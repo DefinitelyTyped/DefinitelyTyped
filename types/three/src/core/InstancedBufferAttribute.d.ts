@@ -1,8 +1,7 @@
-import { BufferGeometry } from './BufferGeometry';
-import { BufferAttribute } from './BufferAttribute';
+import { BufferAttribute, TypedArray } from './BufferAttribute.js';
 
 /**
- * An instanced version of {@link THREE.InstancedBufferAttributeBufferAttribute | BufferAttribute}.
+ * An instanced version of {@link THREE.BufferAttribute | BufferAttribute}.
  * @see {@link https://threejs.org/docs/index.html#api/en/core/InstancedBufferAttribute | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferAttribute.js | Source}
  */
@@ -14,7 +13,7 @@ export class InstancedBufferAttribute extends BufferAttribute {
      * @param normalized
      * @param meshPerAttribute
      */
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean, meshPerAttribute?: number);
+    constructor(array: TypedArray, itemSize: number, normalized?: boolean, meshPerAttribute?: number);
 
     /**
      * Defines how often a value of this buffer attribute should be repeated.

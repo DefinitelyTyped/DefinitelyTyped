@@ -1,4 +1,4 @@
-import { Camera, EventDispatcher, Object3D, Raycaster } from '../../../src/Three';
+import { Camera, EventDispatcher, Object3D, Raycaster } from '../../../src/Three.js';
 
 export class DragControls extends EventDispatcher {
     constructor(objects: Object3D[], camera: Camera, domElement?: HTMLElement);

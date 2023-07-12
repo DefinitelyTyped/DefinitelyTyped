@@ -1,6 +1,6 @@
-import { Scene, Camera, ColorRepresentation } from '../../../src/Three';
+import { Scene, Camera, ColorRepresentation } from '../../../src/Three.js';
 
-import { SSAARenderPass } from './SSAARenderPass';
+import { SSAARenderPass } from './SSAARenderPass.js';
 
 export class TAARenderPass extends SSAARenderPass {
     constructor(scene: Scene, camera: Camera, clearColor: ColorRepresentation, clearAlpha: number);

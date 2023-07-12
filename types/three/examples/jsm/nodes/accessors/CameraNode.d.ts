@@ -1,4 +1,4 @@
-import Object3DNode, { Object3DNodeScope } from './Object3DNode';
+import Object3DNode, { Object3DNodeScope } from './Object3DNode.js';
 
 export type CameraNodeScope = Object3DNodeScope | typeof CameraNode.PROJECTION_MATRIX;
 

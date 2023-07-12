@@ -1,4 +1,4 @@
-import { LoadingManager, CompressedTextureLoader, CompressedTexture, WebGLRenderer } from '../../../src/Three';
+import { LoadingManager, CompressedTextureLoader, CompressedTexture, WebGLRenderer } from '../../../src/Three.js';
 
 export class KTX2Loader extends CompressedTextureLoader {
     constructor(manager?: LoadingManager);

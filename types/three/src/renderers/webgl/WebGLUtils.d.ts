@@ -1,4 +1,4 @@
-import { CompressedPixelFormat, PixelFormat, TextureEncoding, TextureDataType } from '../../constants';
+import { CompressedPixelFormat, PixelFormat, TextureEncoding, TextureDataType } from '../../constants.js';
 
 export class WebGLUtils {
     constructor(gl: WebGLRenderingContext | WebGL2RenderingContext, extensions: any, capabilities: any);

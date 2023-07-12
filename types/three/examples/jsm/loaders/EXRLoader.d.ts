@@ -1,4 +1,10 @@
-import { DataTextureLoader, LoadingManager, PixelFormat, TextureDataType, TextureEncoding } from '../../../src/Three';
+import {
+    DataTextureLoader,
+    LoadingManager,
+    PixelFormat,
+    TextureDataType,
+    TextureEncoding,
+} from '../../../src/Three.js';
 
 export interface EXR {
     header: object;

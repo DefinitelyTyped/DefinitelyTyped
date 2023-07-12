@@ -1,5 +1,5 @@
-import TempNode from '../core/TempNode';
-import Node from '../core/Node';
+import TempNode from '../core/TempNode.js';
+import Node from '../core/Node.js';
 
 export default class RotateUVNode extends TempNode {
     uvNode: Node;

@@ -1,7 +1,7 @@
-import { BufferAttribute } from './BufferAttribute';
-import { InterleavedBuffer } from './InterleavedBuffer';
-import { Matrix4 } from './../math/Matrix4';
-import { Matrix } from './../math/Matrix3';
+import { BufferAttribute, TypedArray } from './BufferAttribute.js';
+import { InterleavedBuffer } from './InterleavedBuffer.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Matrix } from './../math/Matrix3.js';
 
 /**
  * @see {@link https://threejs.org/docs/index.html#api/en/core/InterleavedBufferAttribute | Official Documentation}
@@ -57,7 +57,7 @@ export class InterleavedBufferAttribute {
      * The value of {@link InterleavedBufferAttribute.data | data}.{@link InterleavedBuffer.array | array}.
      * @remarks _get-only property_.
      */
-    get array(): ArrayLike<number>;
+    get array(): TypedArray;
 
     /**
      * Flag to indicate that the {@link data | .data} ({@link InterleavedBuffer}) attribute has changed and should be re-sent to the GPU.

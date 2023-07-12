@@ -1,5 +1,5 @@
-import { NodeValueOption } from './constants';
-import InputNode from './InputNode';
+import { NodeValueOption } from './constants.js';
+import InputNode from './InputNode.js';
 
 export default class NodeUniform {
     isNodeUniform: true;

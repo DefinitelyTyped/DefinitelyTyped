@@ -1,6 +1,6 @@
-import AnalyticLightNode from './AnalyticLightNode';
-import Node from '../core/Node';
-import { PointLight } from '../../../../src/Three';
+import AnalyticLightNode from './AnalyticLightNode.js';
+import Node from '../core/Node.js';
+import { PointLight } from '../../../../src/Three.js';
 
 export default class PointLightNode extends AnalyticLightNode<PointLight> {
     cutoffDistanceNode: Node;

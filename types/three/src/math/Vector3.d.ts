@@ -1,14 +1,14 @@
-import { Euler } from './Euler';
-import { Matrix3 } from './Matrix3';
-import { Matrix4 } from './Matrix4';
-import { Quaternion } from './Quaternion';
-import { Camera } from '../cameras/Camera';
-import { Spherical } from './Spherical';
-import { Cylindrical } from './Cylindrical';
-import { BufferAttribute } from '../core/BufferAttribute';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
-import { Vector } from './Vector2';
-import { Color } from './Color';
+import { Euler } from './Euler.js';
+import { Matrix3 } from './Matrix3.js';
+import { Matrix4 } from './Matrix4.js';
+import { Quaternion } from './Quaternion.js';
+import { Camera } from '../cameras/Camera.js';
+import { Spherical } from './Spherical.js';
+import { Cylindrical } from './Cylindrical.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { Vector } from './Vector2.js';
+import { Color } from './Color.js';
 
 export type Vector3Tuple = [number, number, number];
 

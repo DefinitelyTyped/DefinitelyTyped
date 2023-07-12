@@ -1,4 +1,4 @@
-import { IUniform, Vector2, Material } from '../../../src/Three';
+import { IUniform, Vector2, Material } from '../../../src/Three.js';
 
 export const DepthLimitedBlurShader: {
     defines: {

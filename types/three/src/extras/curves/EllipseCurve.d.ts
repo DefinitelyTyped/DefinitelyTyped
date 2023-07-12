@@ -1,5 +1,5 @@
-import { Curve } from './../core/Curve';
-import { Vector2 } from '../../math/Vector2';
+import { Curve } from './../core/Curve.js';
+import { Vector2 } from '../../math/Vector2.js';
 
 /**
  * Creates a 2d curve in the shape of an ellipse

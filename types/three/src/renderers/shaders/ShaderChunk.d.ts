@@ -1,5 +1,7 @@
 // Renderers / Shaders /////////////////////////////////////////////////////////////////////
 export const ShaderChunk: {
+    alphahash_fragment: string;
+    alphahash_pars_fragment: string;
     alphamap_fragment: string;
     alphamap_pars_fragment: string;
     alphatest_fragment: string;
@@ -26,8 +28,8 @@ export const ShaderChunk: {
     displacementmap_vertex: string;
     emissivemap_fragment: string;
     emissivemap_pars_fragment: string;
-    encodings_fragment: string;
-    encodings_pars_fragment: string;
+    colorspace_fragment: string;
+    colorspace_pars_fragment: string;
     envmap_fragment: string;
     envmap_common_pars_fragment: string;
     envmap_pars_fragment: string;
@@ -77,7 +79,7 @@ export const ShaderChunk: {
     clearcoat_normal_fragment_maps: string;
     clearcoat_pars_fragment: string;
     iridescence_pars_fragment: string;
-    output_fragment: string;
+    opaque_fragment: string;
     packing: string;
     premultiplied_alpha_fragment: string;
     project_vertex: string;

@@ -1,5 +1,5 @@
-import Node from '../core/Node';
-import TempNode from '../core/TempNode';
+import Node from '../core/Node.js';
+import TempNode from '../core/TempNode.js';
 
 export type MathNodeMethod1 =
     | typeof MathNode.RADIANS

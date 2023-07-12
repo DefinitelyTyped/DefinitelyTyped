@@ -1,4 +1,4 @@
-import { BufferGeometry, Loader, LoadingManager } from '../../../src/Three';
+import { BufferGeometry, Loader, LoadingManager } from '../../../src/Three.js';
 
 export interface PDB {
     geometryAtoms: BufferGeometry;

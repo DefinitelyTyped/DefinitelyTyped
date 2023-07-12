@@ -1,6 +1,6 @@
-import ContextNode from '../core/ContextNode';
-import Node from '../core/Node';
-import { ShaderNode } from '../Nodes';
+import ContextNode from '../core/ContextNode.js';
+import Node from '../core/Node.js';
+import { ShaderNode } from '../Nodes.js';
 
 export interface LightingModelNode {
     indirectDiffuse?: ShaderNode;

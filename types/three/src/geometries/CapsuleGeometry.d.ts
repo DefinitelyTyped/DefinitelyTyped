@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * {@link CapsuleGeometry} is a geometry class for a capsule with given radii and height

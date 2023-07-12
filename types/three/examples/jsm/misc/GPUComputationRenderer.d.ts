@@ -11,7 +11,7 @@ import {
     IUniform,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 export interface Variable {
     name: string;

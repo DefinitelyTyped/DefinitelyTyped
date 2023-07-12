@@ -1,4 +1,4 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Mapping,
     Wrapping,
@@ -7,8 +7,8 @@ import {
     MagnificationTextureFilter,
     MinificationTextureFilter,
     ColorSpace,
-} from '../constants';
-import { TextureImageData } from './types';
+} from '../constants.js';
+import { TextureImageData } from './types.js';
 
 /**
  * Creates a texture directly from raw data, width and height.

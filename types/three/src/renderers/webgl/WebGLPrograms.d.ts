@@ -1,12 +1,12 @@
-import { WebGLRenderer } from './../WebGLRenderer';
-import { WebGLProgram } from './WebGLProgram';
-import { WebGLCapabilities } from './WebGLCapabilities';
-import { WebGLCubeMaps } from './WebGLCubeMaps';
-import { WebGLExtensions } from './WebGLExtensions';
-import { WebGLClipping } from './WebGLClipping';
-import { WebGLBindingStates } from './WebGLBindingStates';
-import { Material } from './../../materials/Material';
-import { Scene } from './../../scenes/Scene';
+import { WebGLRenderer } from './../WebGLRenderer.js';
+import { WebGLProgram } from './WebGLProgram.js';
+import { WebGLCapabilities } from './WebGLCapabilities.js';
+import { WebGLCubeMaps } from './WebGLCubeMaps.js';
+import { WebGLExtensions } from './WebGLExtensions.js';
+import { WebGLClipping } from './WebGLClipping.js';
+import { WebGLBindingStates } from './WebGLBindingStates.js';
+import { Material } from './../../materials/Material.js';
+import { Scene } from './../../scenes/Scene.js';
 
 export class WebGLPrograms {
     constructor(

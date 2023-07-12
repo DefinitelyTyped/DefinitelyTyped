@@ -1,5 +1,5 @@
-import { SwizzleOption } from '../core/constants';
-import Node from '../core/Node';
+import { SwizzleOption } from '../core/constants.js';
+import Node from '../core/Node.js';
 
 /** swizzle node */
 export default class SplitNode extends Node {

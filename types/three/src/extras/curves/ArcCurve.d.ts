@@ -1,4 +1,4 @@
-import { EllipseCurve } from './EllipseCurve';
+import { EllipseCurve } from './EllipseCurve.js';
 
 /**
  * Alias for {@link THREE.EllipseCurve | EllipseCurve}.

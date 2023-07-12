@@ -1,4 +1,4 @@
-import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from '../../../../src/Three';
+import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from '../../../../src/Three.js';
 
 // disable automatic export, we have some private declarations
 export const NodeShaderStage: {

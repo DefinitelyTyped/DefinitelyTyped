@@ -1,5 +1,5 @@
-import { Loader, LoadingManager, Group } from '../../../src/Three';
-import { MTLLoader } from './MTLLoader';
+import { Loader, LoadingManager, Group } from '../../../src/Three.js';
+import { MTLLoader } from './MTLLoader.js';
 
 export class OBJLoader extends Loader {
     constructor(manager?: LoadingManager);

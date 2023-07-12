@@ -1,5 +1,5 @@
-import Node from './Node';
-import NodeCache from './NodeCache';
+import Node from './Node.js';
+import NodeCache from './NodeCache.js';
 
 export default class CacheNode extends Node {
     isCacheNode: true;

@@ -8,10 +8,10 @@ import {
     SkinnedMesh,
     Bone,
     AnimationMixer,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { CCDIKSolver } from './CCDIKSolver';
-import { MMDPhysics } from './MMDPhysics';
+import { CCDIKSolver } from './CCDIKSolver.js';
+import { MMDPhysics } from './MMDPhysics.js';
 
 export interface MMDAnimationHelperParameter {
     sync?: boolean | undefined;

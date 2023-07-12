@@ -1,6 +1,6 @@
-import { NodeTypeOption, NodeValueOption } from './constants';
-import Node from './Node';
-import NodeBuilder from './NodeBuilder';
+import { NodeTypeOption, NodeValueOption } from './constants.js';
+import Node from './Node.js';
+import NodeBuilder from './NodeBuilder.js';
 
 export type Precision = 'low' | 'medium' | 'high';
 

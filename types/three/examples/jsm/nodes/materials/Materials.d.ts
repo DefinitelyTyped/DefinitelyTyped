@@ -1,10 +1,10 @@
-import NodeMaterial from './NodeMaterial';
-import LineBasicNodeMaterial from './LineBasicNodeMaterial';
-import MeshBasicNodeMaterial from './MeshBasicNodeMaterial';
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial';
-import PointsNodeMaterial from './PointsNodeMaterial';
-import SpriteNodeMaterial from './SpriteNodeMaterial';
-import MeshPhysicalNodeMaterial from './MeshPhysicalNodeMaterial';
+import NodeMaterial from './NodeMaterial.js';
+import LineBasicNodeMaterial from './LineBasicNodeMaterial.js';
+import MeshBasicNodeMaterial from './MeshBasicNodeMaterial.js';
+import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
+import PointsNodeMaterial from './PointsNodeMaterial.js';
+import SpriteNodeMaterial from './SpriteNodeMaterial.js';
+import MeshPhysicalNodeMaterial from './MeshPhysicalNodeMaterial.js';
 
 export {
     NodeMaterial,

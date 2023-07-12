@@ -1,5 +1,5 @@
-import Node from '../core/Node';
-import { PositionNode, Swizzable, TextureNode } from '../Nodes';
+import Node from '../core/Node.js';
+import { PositionNode, Swizzable, TextureNode } from '../Nodes.js';
 
 export default class TriplanarTexturesNode extends Node {
     textureXNode: TextureNode;

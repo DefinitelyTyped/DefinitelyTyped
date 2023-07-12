@@ -1,4 +1,4 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Mapping,
     Wrapping,
@@ -7,7 +7,7 @@ import {
     MagnificationTextureFilter,
     MinificationTextureFilter,
     TextureComparisonFunction,
-} from '../constants';
+} from '../constants.js';
 
 /**
  * This class can be used to automatically save the depth information of a rendering into a texture

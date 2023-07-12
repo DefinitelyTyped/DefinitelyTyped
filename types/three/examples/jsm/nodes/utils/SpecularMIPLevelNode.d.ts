@@ -1,4 +1,4 @@
-import { Node, TextureNode } from '../Nodes';
+import { Node, TextureNode } from '../Nodes.js';
 
 export default class SpecularMIPLevelNode extends Node {
     textureNode: TextureNode;

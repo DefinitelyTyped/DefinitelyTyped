@@ -1,7 +1,7 @@
-import { Vector2 } from './../../math/Vector2';
-import { Shape } from './Shape';
-import { Color } from '../../math/Color';
-import { Path } from './Path';
+import { Vector2 } from './../../math/Vector2.js';
+import { Shape } from './Shape.js';
+import { Color } from '../../math/Color.js';
+import { Path } from './Path.js';
 
 /**
  * This class is used to convert a series of shapes to an array of {@link THREE.Path | Path's},

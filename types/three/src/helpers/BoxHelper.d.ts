@@ -1,6 +1,6 @@
-import { ColorRepresentation } from '../math/Color';
-import { Object3D } from './../core/Object3D';
-import { LineSegments } from './../objects/LineSegments';
+import { ColorRepresentation } from '../math/Color.js';
+import { Object3D } from './../core/Object3D.js';
+import { LineSegments } from './../objects/LineSegments.js';
 
 /**
  * Helper object to graphically show the world-axis-aligned bounding box around an object

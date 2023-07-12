@@ -1,4 +1,4 @@
-import { Points, Loader, LoadingManager } from '../../../src/Three';
+import { Points, Loader, LoadingManager } from '../../../src/Three.js';
 
 export class PCDLoader extends Loader {
     constructor(manager?: LoadingManager);

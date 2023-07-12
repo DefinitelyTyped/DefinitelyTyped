@@ -1,5 +1,5 @@
-import { NodeFrame } from '../Nodes';
-import Object3DNode, { Object3DNodeScope } from './Object3DNode';
+import { NodeFrame } from '../Nodes.js';
+import Object3DNode, { Object3DNodeScope } from './Object3DNode.js';
 
 /**
  * Similar to {@link Object3DNode} but the object comes from {@link NodeFrame}

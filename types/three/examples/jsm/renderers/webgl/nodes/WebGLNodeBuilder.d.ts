@@ -1,8 +1,8 @@
-import NodeBuilder from '../../../nodes/core/NodeBuilder';
-import { Renderer, Object3D } from '../../../../../src/Three';
-import Node from '../../../nodes/core/Node';
-import SlotNode from './SlotNode';
-import { NodeShaderStageOption } from '../../../nodes/core/constants';
+import NodeBuilder from '../../../nodes/core/NodeBuilder.js';
+import { Renderer, Object3D } from '../../../../../src/Three.js';
+import Node from '../../../nodes/core/Node.js';
+import SlotNode from './SlotNode.js';
+import { NodeShaderStageOption } from '../../../nodes/core/constants.js';
 
 export class WebGLNodeBuilder extends NodeBuilder {
     constructor(

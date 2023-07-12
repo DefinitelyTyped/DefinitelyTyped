@@ -1,5 +1,5 @@
-import { OperatorNodeOp } from '../math/OperatorNode';
-import Node from './Node';
+import { OperatorNodeOp } from '../math/OperatorNode.js';
+import Node from './Node.js';
 
 export default class VarNode extends Node {
     node: Node;

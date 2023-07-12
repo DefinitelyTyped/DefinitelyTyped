@@ -7,7 +7,7 @@ import {
     BufferGeometry,
     Mesh,
     Vector3,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 export interface SplineUniform {
     spineTexture: IUniform;

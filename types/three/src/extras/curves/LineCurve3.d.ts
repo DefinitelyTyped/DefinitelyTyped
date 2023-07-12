@@ -1,5 +1,5 @@
-import { Vector3 } from './../../math/Vector3';
-import { Curve } from './../core/Curve';
+import { Vector3 } from './../../math/Vector3.js';
+import { Curve } from './../core/Curve.js';
 
 /**
  * A curve representing a **3D** line segment.

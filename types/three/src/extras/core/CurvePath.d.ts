@@ -1,5 +1,5 @@
-import { Curve } from './Curve';
-import { Vector } from './../../math/Vector2';
+import { Curve } from './Curve.js';
+import { Vector } from './../../math/Vector2.js';
 
 /**
  * Curved Path - a curve path is simply a array of connected curves, but retains the api of a curve.

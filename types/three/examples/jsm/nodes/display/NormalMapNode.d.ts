@@ -1,6 +1,6 @@
-import TempNode from '../core/TempNode';
-import { NormalMapTypes } from '../../../../src/Three';
-import Node from '../core/Node';
+import TempNode from '../core/TempNode.js';
+import { NormalMapTypes } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
 
 export default class NormalMapNode extends TempNode {
     node: Node;

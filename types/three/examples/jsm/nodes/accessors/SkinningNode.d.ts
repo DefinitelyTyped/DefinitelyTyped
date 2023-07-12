@@ -1,5 +1,5 @@
-import { SkinnedMesh } from '../../../../src/Three';
-import Node from '../core/Node';
+import { SkinnedMesh } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
 
 export default class SkinningNode extends Node {
     skinIndexNode: Node;

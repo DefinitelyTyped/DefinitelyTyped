@@ -1,4 +1,4 @@
-import { BufferGeometry, Color, Mesh, Vector3 } from '../../../src/Three';
+import { BufferGeometry, Color, Mesh, Vector3 } from '../../../src/Three.js';
 
 export class MeshSurfaceSampler {
     distribution: Float32Array | null;

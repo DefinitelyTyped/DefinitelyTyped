@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry';
+import { BufferGeometry } from './../core/BufferGeometry.js';
 
 /**
  * Creates a torus knot, the particular shape of which is defined by a pair of coprime integers, p and q

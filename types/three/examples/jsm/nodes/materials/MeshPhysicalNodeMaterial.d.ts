@@ -1,7 +1,7 @@
-import { ShaderMaterialParameters } from '../../../../src/Three';
-import { Swizzable, CheckerNode, Node } from '../Nodes';
+import { ShaderMaterialParameters } from '../../../../src/Three.js';
+import { Swizzable, CheckerNode, Node } from '../Nodes.js';
 
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial';
+import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
 
 export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     iridescenceNode: null | Swizzable<CheckerNode>;

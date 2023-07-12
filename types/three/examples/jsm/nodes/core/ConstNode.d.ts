@@ -1,6 +1,6 @@
-import { NodeTypeOption, NodeValueOption } from './constants';
-import InputNode from './InputNode';
-import NodeBuilder from './NodeBuilder';
+import { NodeTypeOption, NodeValueOption } from './constants.js';
+import InputNode from './InputNode.js';
+import NodeBuilder from './NodeBuilder.js';
 
 export default class ConstNode extends InputNode {
     isConstNode: true;

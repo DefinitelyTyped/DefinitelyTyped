@@ -1,8 +1,8 @@
-import { Vector3 } from './../math/Vector3';
-import { Line } from './../objects/Line';
-import { Mesh } from './../objects/Mesh';
-import { Object3D } from './../core/Object3D';
-import { ColorRepresentation } from '../math/Color';
+import { Vector3 } from './../math/Vector3.js';
+import { Line } from './../objects/Line.js';
+import { Mesh } from './../objects/Mesh.js';
+import { Object3D } from './../core/Object3D.js';
+import { ColorRepresentation } from '../math/Color.js';
 
 /**
  * An 3D arrow object for visualizing directions.

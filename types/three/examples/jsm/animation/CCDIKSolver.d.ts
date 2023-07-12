@@ -1,4 +1,4 @@
-import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three';
+import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three.js';
 
 // tslint:disable-next-line:interface-name
 export interface IKS {

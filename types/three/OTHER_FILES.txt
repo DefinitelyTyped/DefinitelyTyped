@@ -34,6 +34,7 @@ examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/HTMLMesh.d.ts
 examples/jsm/interactive/InteractiveGroup.d.ts
+examples/jsm/libs/meshopt_decoder.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
 examples/jsm/lines/Wireframe.d.ts
 examples/jsm/lines/WireframeGeometry2.d.ts
@@ -92,6 +93,7 @@ examples/jsm/objects/Sky.d.ts
 examples/jsm/objects/Water.d.ts
 examples/jsm/objects/Water2.d.ts
 examples/jsm/physics/AmmoPhysics.d.ts
+examples/jsm/physics/RapierPhysics.d.ts
 examples/jsm/postprocessing/AfterimagePass.d.ts
 examples/jsm/postprocessing/BloomPass.d.ts
 examples/jsm/postprocessing/BokehPass.d.ts
@@ -104,6 +106,7 @@ examples/jsm/postprocessing/HalftonePass.d.ts
 examples/jsm/postprocessing/LUTPass.d.ts
 examples/jsm/postprocessing/MaskPass.d.ts
 examples/jsm/postprocessing/OutlinePass.d.ts
+examples/jsm/postprocessing/OutputPass.d.ts
 examples/jsm/postprocessing/RenderPass.d.ts
 examples/jsm/postprocessing/BloomPass.d.ts
 examples/jsm/postprocessing/SAOPass.d.ts
@@ -145,6 +148,7 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
+examples/jsm/shaders/OutputShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
 examples/jsm/shaders/SAOShader.d.ts
 examples/jsm/shaders/SepiaShader.d.ts

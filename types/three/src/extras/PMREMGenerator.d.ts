@@ -1,8 +1,8 @@
-import { WebGLRenderer } from '../renderers/WebGLRenderer';
-import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget';
-import { Texture } from '../textures/Texture';
-import { CubeTexture } from '../textures/CubeTexture';
-import { Scene } from '../scenes/Scene';
+import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
+import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget.js';
+import { Texture } from '../textures/Texture.js';
+import { CubeTexture } from '../textures/CubeTexture.js';
+import { Scene } from '../scenes/Scene.js';
 
 /**
  * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cubeMap environment texture.

@@ -1,4 +1,4 @@
-import { Bone, Euler, Matrix4, Object3D, Quaternion, SkinnedMesh, Vector3 } from '../../../src/Three';
+import { Bone, Euler, Matrix4, Object3D, Quaternion, SkinnedMesh, Vector3 } from '../../../src/Three.js';
 
 export interface MMDPhysicsParameter {
     unitStep?: number | undefined;

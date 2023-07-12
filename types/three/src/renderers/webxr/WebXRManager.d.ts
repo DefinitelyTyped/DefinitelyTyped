@@ -2,11 +2,11 @@
 
 /// <reference types="webxr" />
 
-import { Vector4 } from '../../math/Vector4';
-import { ArrayCamera } from '../../cameras/ArrayCamera';
-import { PerspectiveCamera } from '../../cameras/PerspectiveCamera';
-import { EventDispatcher } from '../../core/EventDispatcher';
-import { XRTargetRaySpace, XRGripSpace, XRHandSpace } from './WebXRController';
+import { Vector4 } from '../../math/Vector4.js';
+import { ArrayCamera } from '../../cameras/ArrayCamera.js';
+import { PerspectiveCamera } from '../../cameras/PerspectiveCamera.js';
+import { EventDispatcher } from '../../core/EventDispatcher.js';
+import { XRTargetRaySpace, XRGripSpace, XRHandSpace } from './WebXRController.js';
 
 export type WebXRCamera = PerspectiveCamera & { viewport: Vector4 };
 export type WebXRArrayCamera = Omit<ArrayCamera, 'cameras'> & { cameras: [WebXRCamera, WebXRCamera] };
@@ -26,7 +26,6 @@ export class WebXRManager extends EventDispatcher {
 
     /**
      * @default true
-     * @deprecated
      */
     cameraAutoUpdate: boolean;
 
@@ -54,14 +53,9 @@ export class WebXRManager extends EventDispatcher {
 
     setSession(value: XRSession | null): Promise<void>;
 
-    /**
-     * @deprecated
-     */
     getCamera(): WebXRArrayCamera;
 
-    setUserCamera(camera: PerspectiveCamera): void;
-
-    updateCameraXR(camera: PerspectiveCamera): void;
+    updateCamera(camera: PerspectiveCamera): void;
 
     setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 

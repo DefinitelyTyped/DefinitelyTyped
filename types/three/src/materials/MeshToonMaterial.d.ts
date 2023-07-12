@@ -1,8 +1,8 @@
-import { Color, ColorRepresentation } from './../math/Color';
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MaterialParameters, Material } from './Material';
-import { NormalMapTypes } from '../constants';
+import { Color, ColorRepresentation } from './../math/Color.js';
+import { Texture } from './../textures/Texture.js';
+import { Vector2 } from './../math/Vector2.js';
+import { MaterialParameters, Material } from './Material.js';
+import { NormalMapTypes } from '../constants.js';
 
 export interface MeshToonMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */

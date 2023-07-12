@@ -1,4 +1,4 @@
-import { UniformsGroup } from '../../core/UniformsGroup';
+import { UniformsGroup } from '../../core/UniformsGroup.js';
 
 export function cloneUniforms(uniforms_src: any): any;
 export function mergeUniforms(uniforms: any): any;

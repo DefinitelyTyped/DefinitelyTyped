@@ -1,4 +1,4 @@
-import { Object3D } from './../core/Object3D';
+import { Object3D } from './../core/Object3D.js';
 
 /**
  * Its purpose is to make working with groups of objects syntactically clearer.

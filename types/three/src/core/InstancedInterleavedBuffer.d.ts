@@ -1,4 +1,5 @@
-import { InterleavedBuffer } from './InterleavedBuffer';
+import { InterleavedBuffer } from './InterleavedBuffer.js';
+import { TypedArray } from './BufferAttribute.js';
 
 /**
  * An instanced version of {@link THREE.InterleavedBuffer | InterleavedBuffer}.
@@ -12,7 +13,7 @@ export class InstancedInterleavedBuffer extends InterleavedBuffer {
      * @param itemSize
      * @param meshPerAttribute
      */
-    constructor(array: ArrayLike<number>, stride: number, meshPerAttribute?: number);
+    constructor(array: TypedArray, stride: number, meshPerAttribute?: number);
 
     /**
      * @defaultValue `1`

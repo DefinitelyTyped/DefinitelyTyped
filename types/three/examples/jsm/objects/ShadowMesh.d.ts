@@ -1,4 +1,4 @@
-import { Mesh, Plane, Vector4, Matrix4, MeshBasicMaterial, BufferGeometry } from '../../../src/Three';
+import { Mesh, Plane, Vector4, Matrix4, MeshBasicMaterial, BufferGeometry } from '../../../src/Three.js';
 
 export class ShadowMesh extends Mesh<BufferGeometry, MeshBasicMaterial> {
     readonly isShadowMesh: true;

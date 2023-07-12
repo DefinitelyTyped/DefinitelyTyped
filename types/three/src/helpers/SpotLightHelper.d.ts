@@ -1,8 +1,8 @@
-import { Light } from './../lights/Light';
-import { Matrix4 } from './../math/Matrix4';
-import { Object3D } from './../core/Object3D';
-import { LineSegments } from '../objects/LineSegments';
-import { ColorRepresentation } from '../math/Color';
+import { Light } from './../lights/Light.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Object3D } from './../core/Object3D.js';
+import { LineSegments } from '../objects/LineSegments.js';
+import { ColorRepresentation } from '../math/Color.js';
 
 /**
  * This displays a cone shaped helper object for a {@link THREE.SpotLight | SpotLight}.

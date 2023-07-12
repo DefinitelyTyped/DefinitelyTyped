@@ -1,7 +1,7 @@
-import { mx_hsvtorgb, mx_rgbtohsv } from './lib/mx_hsv';
-import { Swizzable } from '../shadernode/ShaderNodeElements';
-import { UVNode, MathNode } from '../Nodes';
-import { NodeRepresentation } from '../shadernode/ShaderNode';
+import { mx_hsvtorgb, mx_rgbtohsv } from './lib/mx_hsv.js';
+import { Swizzable } from '../shadernode/ShaderNodeElements.js';
+import { UVNode, MathNode } from '../Nodes.js';
+import { NodeRepresentation } from '../shadernode/ShaderNode.js';
 
 export function mx_aastep(threshold?: NodeRepresentation, value?: NodeRepresentation): Swizzable<MathNode>;
 

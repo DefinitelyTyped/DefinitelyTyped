@@ -1,4 +1,4 @@
-import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from '../../../src/Three';
+import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from '../../../src/Three.js';
 
 export class BasisTextureLoader extends Loader {
     constructor(manager?: LoadingManager);

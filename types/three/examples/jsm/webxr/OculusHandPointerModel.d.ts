@@ -10,9 +10,9 @@ import {
     SphereGeometry,
     Texture,
     Vector3,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { XRHandMeshModel } from './XRHandMeshModel';
+import { XRHandMeshModel } from './XRHandMeshModel.js';
 
 export class OculusHandPointerModel extends Object3D {
     hand: Object3D;

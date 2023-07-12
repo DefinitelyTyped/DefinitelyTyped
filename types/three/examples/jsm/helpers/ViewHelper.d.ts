@@ -1,4 +1,4 @@
-import { Camera, Object3D, Vector3, WebGLRenderer } from '../../../src/Three';
+import { Camera, Object3D, Vector3, WebGLRenderer } from '../../../src/Three.js';
 
 export class ViewHelper extends Object3D {
     animating: boolean;
