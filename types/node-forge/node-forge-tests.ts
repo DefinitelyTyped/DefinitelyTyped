@@ -134,6 +134,32 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
     let derOidBuffer = forge.asn1.oidToDer(oidSrc);
     let oidResult = forge.asn1.derToOid(derOidBuffer);
     if (oidSrc !== oidResult) throw Error('forge.asn1.oidToDer / derToOid fail');
+    // "derToOid" can also be given the bytes as a string
+    let derOidString = derOidBuffer.data;
+    let oidFromString = forge.asn1.derToOid(derOidString);
+    if (oidSrc !== oidFromString) throw Error('forge.asn1.oidToDer / derToOid fail (from string)');
+}
+
+{
+    let intSrc = 42;
+    let derIntBuffer = forge.asn1.integerToDer(intSrc);
+    let intResult = forge.asn1.derToInteger(derIntBuffer);
+    if (intSrc !== intResult) throw Error('forge.asn1.integerToDer / derToInteger fail');
+    // "derToInteger" can also be given the bytes as a string
+    let fromString = forge.asn1.derToInteger(derIntBuffer.data);
+    if (intSrc !== fromString) throw Error('forge.asn1.integerToDer / derToInteger (from string)');
+}
+
+{
+    // dates, both in UtcTime and GeneralizedTime
+    let dateSrc = new Date('1995-12-04T12:30:00Z');
+    let derUtcTimeBuffer = forge.asn1.dateToUtcTime(dateSrc);
+    let fromUtc = forge.asn1.utcTimeToDate(derUtcTimeBuffer);
+    if (dateSrc !== fromUtc) throw Error('forge.asn1.dateToUtcTime / utcTimeToDate fail');
+    // also in GeneralizedTime
+    let derGeneralizedTimeBuffer = forge.asn1.dateToGeneralizedTime(dateSrc);
+    let fromGeneralized = forge.asn1.generalizedTimeToDate(derGeneralizedTimeBuffer);
+    if (dateSrc !== fromGeneralized) throw Error('forge.asn1.dateToGeneralizedTime / generalizedTimeToDate fail');
 }
 
 if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString fail');
