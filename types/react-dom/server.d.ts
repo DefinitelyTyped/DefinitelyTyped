@@ -39,7 +39,7 @@ export interface RenderToPipeableStreamOptions {
 }
 
 export interface PipeableStream {
-    abort: () => void;
+    abort: (reason?: unknown) => void;
     pipe: <Writable extends NodeJS.WritableStream>(destination: Writable) => Writable;
 }
 
