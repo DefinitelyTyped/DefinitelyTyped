@@ -149,7 +149,7 @@ declare function clearLog(): void;
  * Get size of level or open block.
  * @returns The size of level or open block
  */
-declare function getSize(): [number, number, number];
+declare function getSize(): [x: number, y: number, z: number];
 
 /**
  * Get number of levels.
@@ -189,10 +189,10 @@ interface Events {
     update: [];
     // Callback function called when a key is pressed
     // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
-    keydown: [key: number];
+    keydown: [key: number, ...args: []];
     // Callback function called when a key is released
     // The key is a number. See https://www.glfw.org/docs/3.3/group__keys.html for a complete list
-    keyup: [key: number];
+    keyup: [key: number, ...args: []];
 }
 
 /**
@@ -226,7 +226,8 @@ declare function isGamePaused(): boolean;
  */
 declare function isGamePlaying(): boolean;
 
-/** Check if a key is down. (Beta only)
+/**
+ * Check if a key is down. (Beta only)
  * Key number list: https://www.glfw.org/docs/3.3/group__keys.html
  * @param key The key to be checked
  */

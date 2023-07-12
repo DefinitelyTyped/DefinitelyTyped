@@ -37,7 +37,7 @@ log('Found a prefab ' + prefabIndex);
 // $ExpectType void
 clearLog();
 
-// $ExpectType [number, number, number]
+// $ExpectType [x: number, y: number, z: number]
 let size = getSize();
 
 // $ExpectType number
