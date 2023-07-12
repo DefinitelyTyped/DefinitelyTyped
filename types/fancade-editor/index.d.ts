@@ -1,6 +1,6 @@
 // Type definitions for non-npm package Fancade Editor Script 1.12
 // Project: https://www.fancade.com/wiki/fancade-web#editor-scripting
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Bricked <https://github.com/brckd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
