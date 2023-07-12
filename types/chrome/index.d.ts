@@ -6813,6 +6813,9 @@ declare namespace chrome.serial.onReceiveError {
     export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
 }
 
+type DocumentLifecycle = 'prerender' | 'active' | 'cached' | 'pending_deletion';
+type FrameType = 'outermost_frame' | 'fenced_frame' | 'sub_frame';
+
 ////////////////////
 // Runtime
 ////////////////////
@@ -6910,7 +6913,7 @@ declare namespace chrome.runtime {
          * The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
          * @since Chrome 106.
          */
-        documentLifecycle?: string | undefined;
+        documentLifecycle?: DocumentLifecycle | undefined;
         /**
          * A UUID of the document that opened the connection.
          * @since Chrome 106.
@@ -10693,11 +10696,11 @@ declare namespace chrome.webNavigation {
         /** A UUID of the document loaded. */
         documentId: string;
         /** The lifecycle the document is in. */
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        documentLifecycle: DocumentLifecycle;
         /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
         errorOccurred: boolean;
         /** The type of frame the navigation occurred in. */
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameType: FrameType;
         /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
         parentDocumentId?: string | undefined;
         /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
@@ -10736,11 +10739,11 @@ declare namespace chrome.webNavigation {
         /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
         frameId: number;
         /** The type of frame the navigation occurred in. */
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameType: FrameType;
         /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
         documentId?: string | undefined;
         /** The lifecycle the document is in. */
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        documentLifecycle: DocumentLifecycle;
         /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
         parentDocumentId?: string | undefined;
         /**
@@ -11008,8 +11011,8 @@ declare namespace chrome.webRequest {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
         documentId: string;
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        documentLifecycle: DocumentLifecycle;
+        frameType: FrameType;
         frameId: number;
         initiator?: string | undefined;
         parentDocumentId?: string | undefined;
