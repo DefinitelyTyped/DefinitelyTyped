@@ -595,5 +595,5 @@ import * as dns from 'node:dns';
 {
   https.request({ lookup: undefined });
   https.request({ lookup: dns.lookup });
-  https.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
+  https.request({ lookup: (hostname, options, cb) => { cb(null, [{ address: '', family: 1 }]); } });
 }

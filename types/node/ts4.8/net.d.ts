@@ -16,7 +16,7 @@ declare module 'net' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import * as dns from 'node:dns';
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+    type LookupFunction = (hostname: string, options: dns.LookupAllOptions, callback: (err: NodeJS.ErrnoException | null, addresses: dns.LookupAddress[]) => void) => void;
     interface AddressInfo {
         address: string;
         family: string;
