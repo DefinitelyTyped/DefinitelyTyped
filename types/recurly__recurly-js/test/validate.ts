@@ -1,4 +1,4 @@
-export default function validate() {
+export default function validate () {
   const { validate } = window.recurly;
 
   // $ExpectType boolean
