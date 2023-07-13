@@ -1,4 +1,4 @@
-export default function threeDSecure() {
+export default function threeDSecure () {
   const risk = window.recurly.Risk();
   const threeDSecure = risk.ThreeDSecure({
     actionTokenId: 'token'

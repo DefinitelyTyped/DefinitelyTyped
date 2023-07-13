@@ -38,7 +38,7 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    *
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#us-bank-accounts|US Bank Accounts}
    */
-   bankAccount: BankAccount;
+  bankAccount: BankAccount;
 
   /**
    * This identifies your site to Recurly servers.
@@ -69,14 +69,14 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    *
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#google-pay|GooglePay}
    */
-   GooglePay: GooglePay;
+  GooglePay: GooglePay;
 
    /**
     * Pay with Alternative Payment Methods.
     *
     * @see {@link https://developers.recurly.com/reference/recurly-js/index.html}
     */
-   AlternativePaymentMethods: AlternativePaymentMethods;
+  AlternativePaymentMethods: AlternativePaymentMethods;
 
   /**
    * Use Recurly to process PayPal transactions using PayPal Business or Braintree.
