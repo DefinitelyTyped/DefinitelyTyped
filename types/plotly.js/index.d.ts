@@ -20,6 +20,7 @@
 //                 Pablo Gracia <https://github.com/PabloGracia>
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 //                 John Abdou <https://github.com/jpabdou>
+//                 Martin Borst <https://github.com/mrtnbrst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
@@ -232,6 +233,7 @@ export interface Mapbox {
     pitch: number;
     layers: Array<Partial<MapboxLayers>>;
     uirevision: number | string;
+    uid: string;
 }
 
 export interface SliderChangeEvent {
@@ -338,6 +340,7 @@ export interface PolarLayout {
     angularaxis: Partial<LayoutAxis>;
     gridshape: 'circular' | 'linear';
     uirevision: string | number;
+    uid: string;
 }
 
 export interface PlotlyDataLayoutConfig {
@@ -513,6 +516,7 @@ export interface Layout {
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
     uirevision: number | string;
+    uid: string;
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
@@ -532,6 +536,7 @@ export interface Legend extends Label {
     tracegroupgap: number;
     traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
     uirevision: number | string;
+    uid: string;
     valign: 'top' | 'middle' | 'bottom';
     x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
@@ -910,6 +915,7 @@ export interface ModeBar {
     orientation: 'v' | 'h';
     remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     uirevision: number | string;
+    uid: string;
 }
 
 export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
@@ -1398,6 +1404,8 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    uirevision: string | number;
+    uid: string;
 }
 
 /**
