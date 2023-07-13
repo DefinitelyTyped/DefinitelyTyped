@@ -9,6 +9,7 @@
 //                 Mathias Djärv <https://github.com/mdjarv>
 //                 Greg Friedman <https://github.com/gfriedm4>
 //                 Poovamraj T T <https://github.com/poovamraj>
+//                 TAKAGI Kensuke <https://github.com/januswel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -323,24 +324,62 @@ export default class Auth0 {
     users(token: string): Users;
 }
 
+// https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims
+export interface OpenIdClaims {
+    sub: string;
+    // Claims other than "sub" are not included in the user profile on Auth0
+}
+export interface ProfileClaims {
+    name: string;
+    given_name: string;
+    family_name: string;
+    middle_name: string;
+    nickname: string;
+    preferred_username: string;
+    profile: string;
+    picture: string;
+    website: string;
+    gender: string;
+    birthdate: string;
+    zoneinfo: string;
+    locale: string;
+    updated_at: string;
+}
+export interface EmailClaims {
+    email: string;
+    email_verified: boolean;
+}
+export interface AddressClaims {
+    address: string;
+}
+export interface PhoneClaims {
+    phone_number: string;
+    phone_number_verified: boolean;
+}
+export type User = {
+    // for custom claim
+    [key: string]: unknown;
+} & OpenIdClaims &
+    Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
+
 export class Auth0ContextInterface {
-    user: any;
+    user: User | null;
     error: BaseError | null;
     isLoading: boolean;
-    authorize(parameters?: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
-    clearSession(parameters?: ClearSessionParams, options?: ClearSessionOptions): Promise<void>;
-    getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
-    clearCredentials(): Promise<void>;
-    requireLocalAuthentication(
+    authorize: (parameters?: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>;
+    clearSession: (parameters?: ClearSessionParams, options?: ClearSessionOptions) => Promise<void>;
+    getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>;
+    clearCredentials: () => Promise<void>;
+    requireLocalAuthentication: (
         title?: string,
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
         strategy?: LocalAuthenticationStrategy,
-    ): Promise<void>;
+    ) => Promise<void>;
 }
 
-export class Auth0Props {
+export interface Auth0Props {
     domain: string;
     clientId: string;
     children?: any;
