@@ -1,6 +1,7 @@
-// Type definitions for standard-version 7.0
+// Type definitions for standard-version 7.1
 // Project: https://github.com/conventional-changelog/standard-version#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
+//                 David Goitia <https://github.com/davidgoitia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -21,7 +22,7 @@ declare namespace standardVersion {
          *   'composer.json'
          * ]
          */
-        packageFiles?: string[] | undefined;
+        packageFiles?: Array<string | Options.VersionFile> | undefined;
 
         /**
          * @default
@@ -31,7 +32,7 @@ declare namespace standardVersion {
          *   'composer.lock'
          * ]
          */
-        bumpFiles?: string[] | undefined;
+        bumpFiles?: Array<string | Options.VersionFile> | undefined;
 
         /**
          * Specify the release type manually (like npm version <major|minor|patch>).
@@ -164,6 +165,49 @@ declare namespace standardVersion {
     }
 
     namespace Options {
+        interface Updater {
+            /**
+             * This method is used to read the version from the provided file contents.
+             *
+             * @param contents provided file content
+             * @return semantic version string
+             */
+            readVersion(contents: string): string;
+
+            /**
+             * This method is used to write the version to the provided contents.
+             *
+             * @param contents provided file content
+             * @param version new semantic version string to write
+             * @return value that will be written directly (overwrite) to the provided file
+             */
+            writeVersion(contents: string, version: string): string;
+        }
+
+        interface VersionFile {
+            /**
+             * path to the file you want to "bump"
+             *
+             * If no type or updater provided, type will be inferred from file extension
+             */
+            filename: string;
+
+            /**
+             * Built-in file types
+             *
+             * The `plain-text` updater assumes the file contents represents the version.
+             *
+             * The `json` updater assumes the version is available under a `version` key in the provided JSON document.
+             */
+            type?: 'plain-text' | 'json';
+
+            /**
+             * An updater is expected to be a Javascript module with atleast two methods exposed: readVersion and writeVersion
+             * or the path to require it.
+             */
+            updater?: string | Updater;
+        }
+
         interface Scripts {
             /**
              * Executed before anything happens. If the `prerelease` script returns a
