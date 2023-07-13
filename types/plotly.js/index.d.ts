@@ -20,7 +20,6 @@
 //                 Pablo Gracia <https://github.com/PabloGracia>
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 //                 John Abdou <https://github.com/jpabdou>
-//                 Martin Borst <https://github.com/mrtnbrst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
