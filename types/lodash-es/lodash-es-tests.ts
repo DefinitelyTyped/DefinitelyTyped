@@ -194,7 +194,7 @@ import partialRight from "lodash-es/partialRight";
 import partition from "lodash-es/partition";
 import pick from "lodash-es/pick";
 import pickBy from "lodash-es/pickBy";
-import property from "lodash-es/property";
+import property, { PropertyPath } from "lodash-es/property";
 import propertyOf from "lodash-es/propertyOf";
 import pull from "lodash-es/pull";
 import pullAll from "lodash-es/pullAll";
@@ -500,6 +500,7 @@ import {
   pick as pick1,
   pickBy as pickBy1,
   property as property1,
+  PropertyPath as PropertyPath1,
   propertyOf as propertyOf1,
   pull as pull1,
   pullAll as pullAll1,

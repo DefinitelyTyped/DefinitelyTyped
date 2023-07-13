@@ -200,7 +200,7 @@ export { default as partialRight } from './partialRight.js';
 export { default as partition } from './partition.js';
 export { default as pick } from './pick.js';
 export { default as pickBy } from './pickBy.js';
-export { default as property } from './property.js';
+export { default as property, PropertyPath } from './property.js';
 export { default as propertyOf } from './propertyOf.js';
 export { default as pull } from './pull.js';
 export { default as pullAll } from './pullAll.js';
