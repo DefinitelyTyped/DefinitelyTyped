@@ -83,7 +83,7 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
 <ComponentWithChildren3 bar="42"></ComponentWithChildren3>;
 
 // svg sanity check
-<svg viewBox="0 0 1000 1000">
+<svg suppressHydrationWarning viewBox="0 0 1000 1000">
     <g>
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
