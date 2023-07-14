@@ -383,3 +383,7 @@ const markedInstanceOptionReturn: Marked = markedInstance
 console.log(markedInstanceOptionReturn);
 const instanceParsedResult: string = markedInstance.parse('# test');
 console.log(instanceParsedResult);
+
+
+const markedInstanceWithOptions = new Marked({ headerIds:true });
+console.log(markedInstanceWithOptions);
