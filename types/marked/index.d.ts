@@ -61,7 +61,7 @@ export class TextRenderer extends marked.TextRenderer {}
 export class Slugger extends marked.Slugger {}
 
 export class Marked {
-    constructor(options?: marked.MarkedOptions);
+    constructor(...extensions: marked.MarkedExtension[]);
     /**
      * Compiles markdown to HTML.
      *
