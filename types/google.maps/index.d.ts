@@ -3457,16 +3457,16 @@ declare namespace google.maps {
      * If true, this map is configured properly to allow for the use of advanced
      * markers. Note that you must still import the <code>marker</code> library
      * in order to use advanced markers. See <a
-     * href="https://developers.google.com/maps/documentation/javascript/advanced-markers/start#update_your_map_initialization_code">https://developers.google.com/maps/documentation/javascript/advanced-markers/start#update_your_map_initialization_code</a>
+     * href="https://goo.gle/gmp-isAdvancedMarkersAvailable">https://goo.gle/gmp-isAdvancedMarkersAvailable</a>
      * for more information.
      */
     isAdvancedMarkersAvailable?: boolean;
     /**
      * If true, this map is configured properly to allow for the use of
      * data-driven styling for at least one FeatureLayer. See <a
-     * href="https://developers.google.com/maps/documentation/javascript/dds-boundaries/overview">https://developers.google.com/maps/documentation/javascript/dds-boundaries/overview</a>
+     * href="https://goo.gle/gmp-data-driven-styling">https://goo.gle/gmp-data-driven-styling</a>
      * and <a
-     * href="https://developers.google.com/maps/documentation/javascript/reference/data-driven-styling#FeatureLayer.isAvailable">https://developers.google.com/maps/documentation/javascript/reference/data-driven-styling#FeatureLayer.isAvailable</a>
+     * href="https://goo.gle/gmp-FeatureLayerIsAvailable">https://goo.gle/gmp-FeatureLayerIsAvailable</a>
      * for more information.
      */
     isDataDrivenStylingAvailable?: boolean;
