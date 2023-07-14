@@ -876,6 +876,29 @@ export interface ShapeLine {
     dash: Dash;
 }
 
+export interface ShapeLabel {
+  font: Partial<Font>;
+  padding: number;
+  text: string;
+  textangle: 'auto' | number;
+  textposition:
+    | 'top left'
+    | 'top center'
+    | 'top right'
+    | 'middle left'
+    | 'middle center'
+    | 'middle right'
+    | 'bottom left'
+    | 'bottom center'
+    | 'bottom right'
+    | 'start'
+    | 'middle'
+    | 'end';
+  texttemplate: string;
+  xanchor: 'auto' | 'left' | 'center' | 'right';
+  yanchor: 'top' | 'middle' | 'bottom';
+}
+
 export interface Shape {
     visible: boolean;
     layer: 'below' | 'above';
@@ -896,6 +919,7 @@ export interface Shape {
     templateitemname: string;
     opacity: number;
     line: Partial<ShapeLine>;
+    label: Partial<ShapeLabel>;
 }
 
 export interface Margin {
