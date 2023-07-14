@@ -1,4 +1,4 @@
-import { marked } from 'marked';
+import { marked, Marked } from 'marked';
 
 const tokenizer = new marked.Tokenizer();
 
@@ -375,3 +375,11 @@ marked.use({
         },
     }
 });
+
+const markedInstance = new Marked();
+const markedInstanceOptionReturn: Marked = markedInstance
+    .setOptions({ headerIds: false })
+    .setOptions({ headerIds: true });
+console.log(markedInstanceOptionReturn);
+const instanceParsedResult: string = markedInstance.parse('# test');
+console.log(instanceParsedResult);
