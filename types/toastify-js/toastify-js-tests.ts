@@ -19,6 +19,7 @@ Toastify({
     text: 'This is a toast',
     backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
     className: 'info',
+    ariaLive: 'assertive',
 }).showToast();
 
 Toastify({

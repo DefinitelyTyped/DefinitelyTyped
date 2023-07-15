@@ -1,4 +1,4 @@
-// Type definitions for toastify-js 1.11
+// Type definitions for toastify-js 1.12
 // Project: https://github.com/apvarun/toastify-js#readme
 // Definitions by: adblanc <https://github.com/adblanc>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -21,6 +21,11 @@ declare namespace StartToastifyInstance {
         close?: boolean | undefined;
         gravity?: 'top' | 'bottom' | undefined;
         position?: 'left' | 'center' | 'right' | undefined;
+        /**
+         * Announce the toast to screen readers
+         * @default 'polite'
+         */
+        ariaLive?: 'off' | 'polite' | 'assertive' | undefined;
         /**
          * @deprecated use style.background option instead
          */
