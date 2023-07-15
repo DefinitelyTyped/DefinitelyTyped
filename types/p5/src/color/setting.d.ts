@@ -246,6 +246,29 @@ declare module '../../index' {
         clear(r: number, g: number, b: number, a: number): p5;
 
         /**
+         *   Clears the pixels within a buffer. This function
+         *   only clears the canvas. It will not clear objects
+         *   created by createX() methods such as createVideo()
+         *   or createDiv(). Unlike the main graphics context,
+         *   pixels in additional graphics areas created with
+         *   createGraphics() can be entirely or partially
+         *   transparent. This function clears everything to
+         *   make all of the pixels 100% transparent. Note: In
+         *   WebGL mode, this function can be passed normalized
+         *   RGBA color values in order to clear the screen to
+         *   a specific color. In addition to color, it will
+         *   also clear the depth buffer. If you are not using
+         *   the webGL renderer these color values will have no
+         *   effect.
+         *   @param r normalized red val.
+         *   @param g normalized green val.
+         *   @param b normalized blue val.
+         *   @param a normalized alpha val.
+         *   @chainable
+         */
+        clear(): p5;
+
+        /**
          *   colorMode() changes the way p5.js interprets color
          *   data. By default, the parameters for fill(),
          *   stroke(), background(), and color() are defined by
