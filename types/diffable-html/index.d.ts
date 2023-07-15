@@ -3,8 +3,11 @@
 // Definitions by: Zhang Yi Jiang <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function format(html: string, options?: {
-    sortAttributes?: (attrs: string[]) => string[],
-}): string;
+declare function format(
+    html: string,
+    options?: {
+        sortAttributes?: (attrs: string[]) => string[];
+    },
+): string;
 
 export = format;
