@@ -98,6 +98,14 @@ export function hrtimeAdd(a: Readonly<[number, number]>, b: Readonly<[number, nu
 export function hrtimeDiff(a: Readonly<[number, number]>, b: Readonly<[number, number]>): [number, number] | never;
 
 /**
+ * Given two hrtime readings (as from Node's ```process.hrtime()```), where ```timeA``` is later than ```timeB```,
+ * compute the difference and return that as an hrtime.
+ *
+ * It is illegal to invoke this for a pair of times where ```timeB``` is newer than ```timeA```.
+ */
+export function hrtimediff(a: Readonly<[number, number]>, b: Readonly<[number, number]>): [number, number] | never;
+
+/**
  * Convert a hrtime reading from the array format returned by Node's
  * ```process.hrtime()``` into a scalar number of microseconds.
  */

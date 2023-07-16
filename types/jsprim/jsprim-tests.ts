@@ -28,6 +28,8 @@ jsprim.hrtimeAdd([10, 20], [20, 30]); // $ExpectType [number, number]
 
 jsprim.hrtimeDiff([10, 20], [20, 30]); // $ExpectType [number, number]
 
+jsprim.hrtimediff([10, 20], [20, 30]); // $ExpectType [number, number]
+
 jsprim.hrtimeMicrosec([10, 20]); // $ExpectType number
 
 jsprim.hrtimeMillisec([10, 20]); // $ExpectType number
