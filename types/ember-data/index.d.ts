@@ -1,4 +1,4 @@
-// Type definitions for ember-data 4.4
+// Type definitions for ember-data 5.1
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -9,6 +9,7 @@
 //                 Krystan HuffMenne <https://github.com/gitKrystan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
+import 'ember-source/types';
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -19,7 +20,6 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
-import EmberError from '@ember/error';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -121,17 +121,11 @@ export namespace DS {
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync,
-    ): Ember.ComputedProperty<
-        ModelRegistry[K] | null,
-        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
-    >;
+    ): Function;
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async,
-    ): Ember.ComputedProperty<
-        AsyncBelongsTo<ModelRegistry[K] | null>,
-        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
-    >;
+    ): Function;
     type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
     type SyncHasMany<T extends Model> = ManyArray<T>;
     /**
@@ -141,11 +135,11 @@ export namespace DS {
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync,
-    ): Ember.ComputedProperty<SyncHasMany<ModelRegistry[K]>>;
+    ): Function;
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async,
-    ): Ember.ComputedProperty<AsyncHasMany<ModelRegistry[K]>, Ember.Array<ModelRegistry[K]>>;
+    ): Function;
     /**
      * This method normalizes a modelName into the format Ember Data uses
      * internally.
@@ -175,8 +169,8 @@ export namespace DS {
     function attr<K extends keyof TransformRegistry>(
         type: K,
         options?: AttrOptions<TransformType<K>>,
-    ): Ember.ComputedProperty<TransformType<K>>;
-    function attr(options?: AttrOptions<any>): Ember.ComputedProperty<any>;
+    ): Function;
+    function attr(options?: AttrOptions<any>): any;
     function attr(target: any, propertyKey: string): void;
 
     /**
@@ -267,7 +261,7 @@ export namespace DS {
      * subclasses are used to indicate specific error states. The following
      * subclasses are provided:
      */
-    class AdapterError extends EmberError {
+    class AdapterError extends Error {
         static extend(options?: { message?: string }): typeof AdapterError;
     }
     /**
@@ -333,7 +327,7 @@ export namespace DS {
     /**
      * Holds validation errors for a given record, organized by attribute names.
      */
-    interface Errors extends Ember.Enumerable<any>, Evented {}
+    interface Errors extends Ember.ArrayProxy<any>, Evented {}
     class Errors extends Ember.ArrayProxy<any> {
         /**
          * DEPRECATED:
@@ -348,12 +342,12 @@ export namespace DS {
          * An array containing all of the error messages for this
          * record. This is useful for displaying all errors to the user.
          */
-        messages: Ember.ComputedProperty<any[]>;
+        messages: any[];
         /**
          * Total number of errors.
          */
-        length: Ember.ComputedProperty<number>;
-        isEmpty: Ember.ComputedProperty<boolean>;
+        // length: number;
+        isEmpty: boolean;
         /**
          * DEPRECATED:
          * Adds error messages to a given attribute and sends
@@ -394,35 +388,35 @@ export namespace DS {
          * client. A record can also enter the empty state if the adapter is
          * unable to locate the record.
          */
-        isEmpty: Ember.ComputedProperty<boolean>;
+        isEmpty: boolean;
         /**
          * If this property is `true` the record is in the `loading` state. A
          * record enters this state when the store asks the adapter for its
          * data. It remains in this state until the adapter provides the
          * requested data.
          */
-        isLoading: Ember.ComputedProperty<boolean>;
+        isLoading: boolean;
         /**
          * If this property is `true` the record is in the `loaded` state. A
          * record enters this state when its data is populated. Most of a
          * record's lifecycle is spent inside substates of the `loaded`
          * state.
          */
-        isLoaded: Ember.ComputedProperty<boolean>;
+        isLoaded: boolean;
         /**
          * If this property is `true` the record is in the `dirty` state. The
          * record has local changes that have not yet been saved by the
          * adapter. This includes records that have been created (but not yet
          * saved) or deleted.
          */
-        hasDirtyAttributes: Ember.ComputedProperty<boolean>;
+        hasDirtyAttributes: boolean;
         /**
          * If this property is `true` the record is in the `saving` state. A
          * record enters the saving state when `save` is called, but the
          * adapter has not yet acknowledged that the changes have been
          * persisted to the backend.
          */
-        isSaving: Ember.ComputedProperty<boolean>;
+        isSaving: boolean;
         /**
          * If this property is `true` the record is in the `deleted` state
          * and has been marked for deletion. When `isDeleted` is true and
@@ -431,24 +425,24 @@ export namespace DS {
          * in-flight. When both `hasDirtyAttributes` and `isSaving` are false, the
          * change has persisted.
          */
-        isDeleted: Ember.ComputedProperty<boolean>;
+        isDeleted: boolean;
         /**
          * If this property is `true` the record is in the `new` state. A
          * record will be in the `new` state when it has been created on the
          * client and the adapter has not yet report that it was successfully
          * saved.
          */
-        isNew: Ember.ComputedProperty<boolean>;
+        isNew: boolean;
         /**
          * If this property is `true` the record is in the `valid` state.
          */
-        isValid: Ember.ComputedProperty<boolean>;
+        isValid: boolean;
         /**
          * If the record is in the dirty state this property will report what
          * kind of change has caused it to move into the dirty
          * state. Possible values are:
          */
-        dirtyType: Ember.ComputedProperty<string>;
+        dirtyType: string;
         /**
          * If `true` the adapter reported that it was unable to save local
          * changes to the backend for any reason other than a server-side
@@ -597,30 +591,30 @@ export namespace DS {
          * for each relationship with that type, describing the name of the relationship
          * as well as the type.
          */
-        static relationships: Ember.ComputedProperty<Map<string, unknown>>;
+        static relationships: Map<string, unknown>;
         /**
          * A hash containing lists of the model's relationships, grouped
          * by the relationship kind. For example, given a model with this
          * definition:
          */
-        static relationshipNames: Ember.ComputedProperty<{}>;
+        static relationshipNames: {};
         /**
          * An array of types directly related to a model. Each type will be
          * included once, regardless of the number of relationships it has with
          * the model.
          */
-        static relatedTypes: Ember.ComputedProperty<Ember.NativeArray<string>>;
+        static relatedTypes: Ember.NativeArray<string>;
         /**
          * A map whose keys are the relationships of a model and whose values are
          * relationship descriptors.
          */
-        static relationshipsByName: Ember.ComputedProperty<Map<string, unknown>>;
+        static relationshipsByName: Map<string, unknown>;
         /**
          * A map whose keys are the fields of the model and whose values are strings
          * describing the kind of the field. A model's fields are the union of all of its
          * attributes and relationships.
          */
-        static fields: Ember.ComputedProperty<Map<string, unknown>>;
+        static fields: Map<string, unknown>;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship
@@ -642,14 +636,14 @@ export namespace DS {
          * described by DS.attr) and whose values are the meta object for the
          * property.
          */
-        static attributes: Ember.ComputedProperty<Map<string, unknown>>;
+        static attributes: Map<string, unknown>;
         /**
          * A map whose keys are the attributes of the model (properties
          * described by DS.attr) and whose values are type of transformation
          * applied to each attribute. This map does not include any
          * attributes that do not have an transformation type.
          */
-        static transformedAttributes: Ember.ComputedProperty<Map<string, unknown>>;
+        static transformedAttributes: Map<string, unknown>;
         /**
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
@@ -714,7 +708,7 @@ export namespace DS {
         /**
          * The modelClass represented by this record array.
          */
-        type: Ember.ComputedProperty<Model>;
+        type: Model;
         /**
          * Used to get the latest version of all of the records in this array
          * from the adapter.
