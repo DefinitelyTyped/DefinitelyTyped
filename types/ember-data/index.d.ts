@@ -346,7 +346,6 @@ export namespace DS {
         /**
          * Total number of errors.
          */
-        // length: number;
         isEmpty: boolean;
         /**
          * DEPRECATED:
