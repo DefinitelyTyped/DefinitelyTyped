@@ -50,6 +50,11 @@ map.events.add('touchstart', (event) => { console.log(event.originalEvent); });
 map.events.add('wheel', (event) => { console.log(event.originalEvent); });
 map.events.add('keypress', (event) => { console.log(event.originalEvent); });
 
+// $ExpectType Storage
+ymaps.template.filtersStorage.add('date', (data: ymaps.data.Manager) => {
+    return data.get('properties');
+});
+
 const balloonLayout = ymaps.templateLayoutFactory.createClass(
     '<div class="map-marker-balloon"></div>',
     {

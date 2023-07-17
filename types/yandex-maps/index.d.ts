@@ -817,7 +817,7 @@ declare namespace ymaps {
 
             events: IEventManager;
 
-            get(path: string, defaultValue: object): object;
+            get(path: string, defaultValue?: object): object;
 
             getAll(): object;
 
@@ -3871,6 +3871,10 @@ declare namespace ymaps {
         successCallback?(): void;
 
         errorCallback?(): void;
+    }
+
+    namespace template {
+        const filtersStorage: util.Storage;
     }
 
     namespace templateLayoutFactory {
