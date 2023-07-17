@@ -12,7 +12,6 @@
         ],
         "paths": {
             "@ember-data/*": ["ember-data__*"],
-            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,
