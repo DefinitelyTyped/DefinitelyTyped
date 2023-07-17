@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "ember-source": "~5.1.0"
+    }
+}
