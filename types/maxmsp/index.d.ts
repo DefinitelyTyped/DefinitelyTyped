@@ -236,7 +236,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access: string, typelist: string);
+    constructor(filename: string, access?: 'read' | 'write' | 'readwrite', typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
@@ -309,7 +309,7 @@ declare class File {
      * Reads and returns a string containing up to maximum_count characters or up to the first line break as read from the file,
      *  starting at the current file position. The file position is updated accordingly.
      */
-    readline(maximum_count: number): string;
+    readline(maximum_count?: number): string;
 
     /**
      * Writes the characters contained in the string argument as characters to the file, starting at the current file position.
