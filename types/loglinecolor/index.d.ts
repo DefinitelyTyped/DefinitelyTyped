@@ -1,6 +1,7 @@
-// Type definitions for loglinecolor 0.1
+// Type definitions for loglinecolor 0.2
 // Project: https://github.com/vixerys/loglinecolor
 // Definitions by: Muunatic <https://github.com/Muunatic>
+//                 Harunami <https://github.com/HarunamiYaki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class loglinecolor {
@@ -67,4 +68,32 @@ export class loglinecolor {
      * @returns void
      */
     gray(params: string): void;
+    /**
+     * highlight font
+     *
+     * @param params
+     * @returns void
+     */
+    highlight(params: string): void;
+    /**
+     * dark font
+     *
+     * @param params
+     * @returns void
+     */
+    dark(params: string): void;
+    /**
+     * bold font
+     *
+     * @param params
+     * @returns void
+     */
+    bold(params: string): void;
+    /**
+     * underline font
+     *
+     * @param params
+     * @returns void
+     */
+    underline(params: string): void;
 }
