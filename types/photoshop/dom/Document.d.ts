@@ -8,6 +8,7 @@ import { CountItems } from "./collections/CountItems";
 import { HistoryStates } from "./collections/HistoryStates";
 import { PathItems } from "./collections/PathItems";
 import { Channels } from "./collections/Channels";
+import { Selection } from "./Selection";
 import { Layer } from "./Layer";
 import { Channel } from "./Channel";
 import { HistoryState } from "./HistoryState";
@@ -30,15 +31,18 @@ export interface SuspendHistoryContext extends ExecutionContext {
  * You can access instances of documents using one of these methods:
  *
  * ```javascript
+ * const app = require('photoshop').app;
+ * const constants = require('photoshop').constants;
+ *
  * // The currently active document from the Photoshop object
- * const currentDocument = app.activeDocument
+ * const currentDocument = app.activeDocument;
  *
  * // Choose one of the open documents from the Photoshop object
- * const secondDocument = app.documents[1]
+ * const secondDocument = app.documents[1];
  *
  * // You can also create an instance of a document via a UXP File entry
- * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening()
- * const newDocument = await app.open('/project.psd')
+ * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening();
+ * const newDocument = await app.open('/project.psd');
  * ```
  */
 export declare class Document {
@@ -211,6 +215,11 @@ export declare class Document {
      */
     get colorProfileType(): Constants.ColorProfileType;
     set colorProfileType(type: Constants.ColorProfileType);
+    /**
+     * The object containing the document's currently active selection
+     * @minVersion 25.0
+     */
+    readonly selection: Selection;
     /**
      * @ignore
      */
@@ -660,7 +669,7 @@ export declare class Document {
      */
     get channels(): Channels;
     /**
-     * Component channels in the document.
+     * Component channels in the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
      * @minVersion 24.5
      */
     get componentChannels(): Channel[];
@@ -672,7 +681,7 @@ export declare class Document {
      */
     get compositeChannels(): Channel[];
     /**
-     * Currently active channels of the document.
+     * Currently active channels of the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
      * @minVersion 23.0
      */
     get activeChannels(): Channel[];

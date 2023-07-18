@@ -1,4 +1,5 @@
 import { Channel } from "../Channel";
+import { Document } from "../Document";
 /**
  * A collections class allowing for array access into a document's channels,
  * while also providing familiar methods from ExtendScript, like `getByName`
@@ -7,6 +8,10 @@ import { Channel } from "../Channel";
  * // Iterate through all channels in the document
  * app.activeDocument.channels.forEach(h => console.log(h.name));
  * ```
+ *
+ * ***Fixes in Photoshop 24.6***
+ * - *Component channels should work now correctly in non-English localizations*
+ * - *Channel should be now returned correctly in Bitmap and Indexed Color modes*
  * @minVersion 23.0
  */
 export declare class Channels extends Array<Channel> {
@@ -22,7 +27,7 @@ export declare class Channels extends Array<Channel> {
     constructor(docId: number);
     /** @ignore */
     handler(): {
-        get: (obj: any, key: any) => any;
+        get: (obj: Channels, key: string | symbol) => any;
     };
     /**
      * Create a new alpha channel in this document.
@@ -31,6 +36,9 @@ export declare class Channels extends Array<Channel> {
     add(): Channel;
     /**
      * Find the first channel with the matching name.
+     *
+     * ***Fixes in Photoshop 24.6***
+     * - *Non-English locales return correctly for component channels.
      * @minVersion 23.0
      */
     getByName(name: string): Channel;

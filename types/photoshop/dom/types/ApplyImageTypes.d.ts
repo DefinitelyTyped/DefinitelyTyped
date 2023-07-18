@@ -48,7 +48,22 @@ export interface ApplyImageSource {
     invert?: boolean;
 }
 /**
- * Options to use with [[Layer.applyImage]]
+ * An object literal can be constructed with the following properties
+ * and passed to [Layer.applyImage](/ps_reference/classes/layer/#applyimage).
+ * As a type, `ApplyImageOptions` can be used in Typescript development.
+ *
+ * ```javascript
+ * const options = {
+ *     source: {
+ *         document: require('photoshop').app.documents[0],
+ *         layer: require('photoshop').app.documents[0].layers[1],
+ *         channel: require('photoshop').app.documents[0].channels[2],
+ *     },
+ *     blending: require('photoshop').constants.ApplyImageBlendMode.SCREEN,
+ * };
+ * await require('photoshop').app.activeDocument.layers[0].applyImage(options);
+ * ```
+ *
  * @targetfolder objects/options
  * @optionobject
  * @minVersion 24.5
