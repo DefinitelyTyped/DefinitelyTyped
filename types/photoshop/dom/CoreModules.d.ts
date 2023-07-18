@@ -53,6 +53,11 @@ export interface BatchPlayCommandOptions {
      * @minVersion 23.0
      */
     suppressPlayLevelIncrease?: boolean;
+    /**
+     * Do not stop a batchPlay when a descriptor fails and continue with remaining descriptors in batch.
+     * @minVersion 24.5
+     */
+    continueOnError?: boolean;
 }
 export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
 /**

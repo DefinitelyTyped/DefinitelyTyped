@@ -3,6 +3,7 @@ import { Document } from "./Document";
 import { Layer } from "./Layer";
 import { ActionSet, Action } from "./Actions";
 import { ColorSampler } from "./ColorSampler";
+import { Selection } from "./Selection";
 import { Documents } from "./collections/Documents";
 import { TextFonts } from "./collections/TextFonts";
 import { Preferences } from "./preferences/Preferences";
@@ -63,6 +64,11 @@ export declare class Photoshop {
      * Allows for polyfills into the LayerComp class
      */
     LayerComp: typeof LayerComp;
+    /**
+     * @ignore
+     * Allows for polyfills into the Selection class
+     */
+    Selection: typeof Selection;
     /**
      * @ignore
      */
