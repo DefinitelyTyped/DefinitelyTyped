@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web 3.75
+// Type definitions for Braintree-web 3.94
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Jason Buckner <https://github.com/jbuckner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ import {
     ApplePayLineItemType,
     ApplePayPaymentTiming,
     ApplePayRecurringPaymentDateUnit,
-    ApplePayTokenizeValues
+    ApplePayTokenizeValues,
 } from './modules/apple-pay';
 import { Client, CreditCardInfo } from './modules/client';
 import { DataCollector } from './modules/data-collector';
