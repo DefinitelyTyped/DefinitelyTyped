@@ -1,20 +1,18 @@
-// Type definitions for node-replicate 1.1
+// Type definitions for node-replicate 2.0
 // Project: https://github.com/oelin/node-replicate#readme
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface PredictionResponse {
+export interface Prediction<InputsType, OutputType> {
     uuid: string;
     version_id: string;
     created_at: string;
     updated_at: string;
     complete_at: string | null;
-    status: "starting" | "processing" | "canceled" | "succeeded" | "failed";
-    inputs: {
-        prompt: string;
-    };
-    output: string[] | null;
-    output_files: string[];
+    status: 'starting' | 'processing' | 'canceled' | 'succeeded' | 'failed';
+    inputs: InputsType;
+    output: OutputType;
+    output_files?: string[];
     error: string | null;
     run_logs: string | null;
     version: {
@@ -49,32 +47,12 @@ export interface PredictionResponse {
     user: string | null;
 }
 
-export interface PredictInput {
-    prompt: string;
-}
-
-declare class Prediction {
-    constructor(props?: Record<string, string>);
-    hasTerminalStatus(): boolean;
-    load(): Promise<PredictionResponse>;
-}
-
-declare class Model {
-    constructor(path: string, version?: string);
-    predict(
-        inputs: PredictInput,
-        arg1?: {
-            onUpdate: (prediction: PredictionResponse) => void;
-        },
-        arg2?: {
-            pollingInterval: number;
-        },
-    ): Promise<PredictionResponse>;
-    createPrediction(inputs: PredictInput): Promise<Prediction>;
-}
-
-interface Replicate {
-    model: (identifier: string) => Model;
+export interface Replicate {
+    run<InputsType, OutputType>(model: string, inputs: InputsType): Promise<OutputType>;
+    get<InputsType, OutputType>(
+        prediction: Prediction<InputsType, OutputType>,
+    ): Promise<Prediction<InputsType, OutputType>>;
+    create<InputsType, OutputType>(model: string, inputs: InputsType): Promise<Prediction<InputsType, OutputType>>;
 }
 
 export const replicate: Replicate;
