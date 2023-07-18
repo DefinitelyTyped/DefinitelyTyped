@@ -3,15 +3,15 @@
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Prediction<InputsType, OutputType> {
+export interface Prediction {
     uuid: string;
     version_id: string;
     created_at: string;
     updated_at: string;
     complete_at: string | null;
     status: 'starting' | 'processing' | 'canceled' | 'succeeded' | 'failed';
-    inputs: InputsType;
-    output: OutputType;
+    inputs: unknown;
+    output: unknown;
     output_files?: string[];
     error: string | null;
     run_logs: string | null;
@@ -48,11 +48,9 @@ export interface Prediction<InputsType, OutputType> {
 }
 
 export interface Replicate {
-    run<InputsType, OutputType>(model: string, inputs: InputsType): Promise<OutputType>;
-    get<InputsType, OutputType>(
-        prediction: Prediction<InputsType, OutputType>,
-    ): Promise<Prediction<InputsType, OutputType>>;
-    create<InputsType, OutputType>(model: string, inputs: InputsType): Promise<Prediction<InputsType, OutputType>>;
+    run(model: string, inputs: any): Promise<unknown>;
+    get(prediction: Prediction): Promise<Prediction>;
+    create(model: string, inputs: any): Promise<Prediction>;
 }
 
 export const replicate: Replicate;
