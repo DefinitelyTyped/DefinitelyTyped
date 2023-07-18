@@ -10,7 +10,7 @@ export interface Prediction {
     updated_at: string;
     complete_at: string | null;
     status: 'starting' | 'processing' | 'canceled' | 'succeeded' | 'failed';
-    inputs: unknown;
+    inputs: any;
     output: unknown;
     output_files?: string[];
     error: string | null;
