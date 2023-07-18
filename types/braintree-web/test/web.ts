@@ -205,7 +205,10 @@ braintree.client.create(
                                     return;
                                 }
 
-                                console.log('regulationEnvironment', payload.authenticationInsight.regulationEnvironment);
+                                console.log(
+                                    'regulationEnvironment',
+                                    payload.authenticationInsight.regulationEnvironment,
+                                );
 
                                 // Put `payload.nonce` into the `payment-method-nonce` input, and then
                                 // submit the form. Alternatively, you could send the nonce to your server
@@ -322,24 +325,30 @@ braintree.client.create(
                 hostedFieldsInstance.on('binAvailable', onBinAvailable);
                 hostedFieldsInstance.off('binAvailable', onBinAvailable);
 
-                hostedFieldsInstance.setAttribute({
-                    field: 'number',
-                    attribute: 'disabled',
-                    value: true
-                }, (attributeErr) => {
-                    if (attributeErr) {
-                        console.error(attributeErr);
-                    }
-                });
+                hostedFieldsInstance.setAttribute(
+                    {
+                        field: 'number',
+                        attribute: 'disabled',
+                        value: true,
+                    },
+                    attributeErr => {
+                        if (attributeErr) {
+                            console.error(attributeErr);
+                        }
+                    },
+                );
 
-                hostedFieldsInstance.removeAttribute({
-                    field: 'number',
-                    attribute: 'disabled'
-                }, (attributeErr) => {
-                    if (attributeErr) {
-                        console.error(attributeErr);
-                    }
-                });
+                hostedFieldsInstance.removeAttribute(
+                    {
+                        field: 'number',
+                        attribute: 'disabled',
+                    },
+                    attributeErr => {
+                        if (attributeErr) {
+                            console.error(attributeErr);
+                        }
+                    },
+                );
             },
         );
 

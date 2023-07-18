@@ -195,10 +195,7 @@ export interface ThreeDSecure {
      * }, callback);
      */
     create(options: ThreeDSecureCreateOptions): Promise<ThreeDSecure>;
-    create(
-        options: ThreeDSecureCreateOptions,
-        callback: callback<ThreeDSecure>,
-    ): void;
+    create(options: ThreeDSecureCreateOptions, callback: callback<ThreeDSecure>): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
