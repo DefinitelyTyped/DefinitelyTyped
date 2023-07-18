@@ -465,10 +465,13 @@ If types are part of a web standard, they should be contributed to [TypeScript-D
 
 #### What about type definitions with no matching package?
 
-If there's no matching Javascript code at all, for example if you're writing types for a spec, you should publish the types yourself, not on Definitely Typed. 
-`@types` packages are not meant to be imported directly. That is, you shouldn't create a Definitely Typed package that's meant to used like `import type { ... } from "@types/foo"`. Nor should you expect to write `import type { ... } from "foo"` when there's no `foo` installed.
+If there's no source Javascript code at all, for example if you're writing helper types or types for a spec, you should publish the types yourself, not on Definitely Typed.
+Because they're meant to provide types for existing Javascript code, `@types` packages are not meant to be imported directly.
+That is, you shouldn't create a Definitely Typed package that's meant to used like `import type { ... } from "@types/foo"`.
+Nor should you expect to write `import type { ... } from "foo"` when there's no `foo` installed.
 
-This is different from providing types for a browser-only Javascript library. There, the types are either resolved implicitly or using `/// <references types="foo" />`.
+This is different from providing types for a browser-only Javascript library or types for an entire environment like node, bun, et al.
+There, the types are either resolved implicitly or using `/// <references types="foo" />`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 
