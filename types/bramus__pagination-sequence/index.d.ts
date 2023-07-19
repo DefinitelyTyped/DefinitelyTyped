@@ -1,4 +1,4 @@
-// Type definitions for @bramus/pagination-sequence 1.2.1
+// Type definitions for @bramus/pagination-sequence 1.2
 // Project: https://github.com/bramus/js-pagination-sequence#readme
 // Definitions by: Kristján Jökull Sigurðsson <https://github.com/kristjanjokull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
