@@ -4,4 +4,6 @@
 //                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {};
+import { default as Environment } from './Environment.js';
+
+export default Environment;

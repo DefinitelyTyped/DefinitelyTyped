@@ -1,5 +1,5 @@
 import { NamedNode, Stream } from '@rdfjs/types';
-import Environment from '@rdfjs/environment/Environment.js';
+import Environment from '@rdfjs/environment';
 import FormatsFactory from '@rdfjs/environment/FormatsFactory.js';
 import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js';
 import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js';
