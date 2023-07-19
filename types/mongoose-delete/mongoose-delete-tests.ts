@@ -33,6 +33,8 @@ PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, inde
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
 // @ts-expect-error (unrecognized indexFields are disallowed)
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
+PetSchema.plugin(MongooseDelete, { use$neOperator: true });
+PetSchema.plugin(MongooseDelete, { validateBeforeRestore: true });
 
 const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 

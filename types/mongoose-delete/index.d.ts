@@ -1,4 +1,4 @@
-// Type definitions for mongoose-delete 0.5
+// Type definitions for mongoose-delete 1.0.1
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -105,6 +105,8 @@ interface Options {
     deletedBy: boolean;
     indexFields: boolean | 'all' | Array<keyof MongooseDelete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
+    validateBeforeRestore: boolean;
+    use$neOperator: boolean;
 
     /**
      * DeleteBy Schema type, equal to
