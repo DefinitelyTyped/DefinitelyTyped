@@ -1,8 +1,10 @@
 import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
 import Clownface from 'clownface/lib/Clownface.js';
 import clownface, { AnyPointer, MultiPointer, GraphPointer, AnyContext } from 'clownface';
-import { Context } from 'clownface/lib/Context.js';
+import Context from 'clownface/lib/Context.js';
 import filters from 'clownface/filter.js';
+import Environment from '@rdfjs/environment/Environment.js';
+import ClownfaceFactory from 'clownface/Factory.js';
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};
@@ -47,7 +49,7 @@ function multiContext() {
 }
 
 function singleContext() {
-    const cf: AnyPointer<Literal, Dataset> = <any> {};
+    const cf: AnyPointer<Literal, Dataset> = <any>{};
     const term: Literal = cf.term;
     const terms: [Literal] = cf.terms;
     const value: string = cf.value;
@@ -477,4 +479,18 @@ function testFilterModule() {
 
     let literals: MultiPointer<Literal, Dataset> = pointer.filter(taggedLiteral('de'));
     literals = pointer.filter(taggedLiteral(['en-US', 'en']));
+}
+
+function testEnvironmentUsage() {
+    const env = new Environment([
+        ClownfaceFactory
+    ]);
+
+    // $ExpectType AnyPointer<AnyContext, DatasetCore>
+    const noDataset = env.clownface();
+
+    // $ExpectType AnyPointer<NamedNode, DatasetCore>
+    const namedNode = env.clownface({
+        term: node,
+    });
 }

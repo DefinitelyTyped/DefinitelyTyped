@@ -1,11 +1,20 @@
-import clownface from './index.js';
+import {
+    AnyContext,
+    AnyPointer,
+    ClownfaceInit,
+    InitClonePointer,
+    InitLiteralMultiPointer,
+    InitLiteralPointer,
+    InitPointerFromTerms
+} from './index.js';
+import { DatasetCore } from 'rdf-js';
 
-interface ClownfaceFactory {
-    clownface: typeof clownface;
+export interface InitAnyPointer {
+    <D extends DatasetCore>(options?: ClownfaceInit<D>): AnyPointer<AnyContext, D>;
 }
 
-declare class ClownfaceFactory {
+export default class ClownfaceFactory {
+    clownface: InitClonePointer & InitLiteralPointer & InitLiteralMultiPointer & InitPointerFromTerms & InitAnyPointer;
+
     static readonly exports: ['clownface'];
 }
-
-export default ClownfaceFactory;
