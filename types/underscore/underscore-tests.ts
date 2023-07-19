@@ -163,6 +163,8 @@ declare const mixedIterabilityValue: number | number[];
 declare const stringy: StringRecord | string;
 declare const level2UnionList: _.List<_.List<string | number>>;
 declare const tupleList: _.List<[string, number]>;
+declare const unaryTupleList: _.List<[string]>; // eslint-disable-line no-single-element-tuple-type
+declare const homogeneousTupleList: _.List<[string, string, string, string]>;
 declare const maybeFunction: (() => void) | undefined;
 
 // concrete example types
@@ -2437,46 +2439,92 @@ _.uniq([1, 2, 1, 3, 1, 4]); // $ExpectType number[]
 // zip
 
 // merging together lists of values at a set of positions
-_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $ExpectType any[][]
+_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $ExpectType [string, number, boolean][]
 
 {
     // multiple arguments
-    _.zip(stringList, numberList, recordList); // $ExpectType any[][]
-    _(stringList).zip(numberList, recordList); // $ExpectType any[][]
-    extractChainTypes(_.chain(stringList).zip(numberList, recordList)); // $ExpectType ChainType<any[][], any[]>
+    _.zip(stringList, numberList, recordList); // $ExpectType [string, number, StringRecord][]
+    _(stringList).zip(numberList, recordList); // $ExpectType [string, number, StringRecord][]
+    extractChainTypes(_.chain(stringList).zip(numberList, recordList)); // $ExpectType ChainType<[string, number, StringRecord][], [string, number, StringRecord]>
 
     // single arguments
-    _.zip(stringList); // $ExpectType any[][]
-    _(stringList).zip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(stringList).zip()); // $ExpectType ChainType<any[][], any[]>
+    _.zip(stringList); // $ExpectType [string][]
+    _(stringList).zip(); // $ExpectType [string][]
+    extractChainTypes(_.chain(stringList).zip()); // $ExpectType ChainType<[string][], [string]>
+
+    // many homogeneous arguments
+    _.zip(numberList, numberList, numberList, numberList); // $ExpectType number[][]
+    _(numberList).zip(numberList, numberList, numberList); // $ExpectType number[][]
+    extractChainTypes(_.chain(numberList).zip(numberList, numberList, numberList)) // $ExpectType ChainType<number[][], number[]>
+
+    // no arguments
+    _.zip(); // $ExpectType []
 }
 
 // unzip
 
 {
     // tuple lists
-    _.unzip(tupleList); // $ExpectType any[][]
-    _(tupleList).unzip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(tupleList).unzip()); // $ExpectType ChainType<any[][], any[]>
+    _.unzip(tupleList); // $ExpectType [string[], number[]]
+    _(tupleList).unzip(); // $ExpectType [string[], number[]]
+    // This test fails for Typescript 4.6 and below only because it
+    // arbitrarily swaps the string[] | number[] union to number[] | string[]
+    // extractChainTypes(_.chain(tupleList).unzip()); // $ExpectType ChainType<[string[], number[]], string[] | number[]>
 
     // nested lists
-    _.unzip(level2UnionList); // $ExpectType any[][]
-    _(level2UnionList).unzip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<any[][], any[]>
+    _.unzip(level2UnionList); // $ExpectType (string | number)[][]
+    _(level2UnionList).unzip(); // $ExpectType (string | number)[][]
+    extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<(string | number)[][], (string | number)[]>
+
+    // unary tuple list
+    _.unzip(unaryTupleList); // $ExpectType [string[]]
+    _(unaryTupleList).unzip(); // $ExpectType [string[]]
+    extractChainTypes(_.chain(unaryTupleList).unzip()) // $ExpectType ChainType<[string[]], string[]>
+
+    // homogeneous tuple list
+    _.unzip(homogeneousTupleList); // $ExpectType string[][]
+    _(homogeneousTupleList).unzip(); // $ExpectType string[][]
+    extractChainTypes(_.chain(homogeneousTupleList).unzip()) // $ExpectType ChainType<string[][], string[]>
+
+    // no arguments
+    _.unzip(); // $ExpectType []
+
+    // no arrays
+    _(numberList).unzip(); // $ExpectType never[]
+    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<never[], never>
 }
 
 // transpose
 
 {
     // tuple lists
-    _.transpose(tupleList); // $ExpectType any[][]
-    _(tupleList).transpose(); // $ExpectType any[][]
-    extractChainTypes(_.chain(tupleList).transpose()); // $ExpectType ChainType<any[][], any[]>
+    _.transpose(tupleList); // $ExpectType [string[], number[]]
+    _(tupleList).transpose(); // $ExpectType [string[], number[]]
+    // This test fails for Typescript 4.6 and below only because it
+    // arbitrarily swaps the string[] | number[] union to number[] | string[]
+    // extractChainTypes(_.chain(tupleList).transpose()); // $ExpectType ChainType<[string[], number[]], string[] | number[]>
 
     // nested lists
-    _.transpose(level2UnionList); // $ExpectType any[][]
-    _(level2UnionList).transpose(); // $ExpectType any[][]
-    extractChainTypes(_.chain(level2UnionList).transpose()); // $ExpectType ChainType<any[][], any[]>
+    _.transpose(level2UnionList); // $ExpectType (string | number)[][]
+    _(level2UnionList).transpose(); // $ExpectType (string | number)[][]
+    extractChainTypes(_.chain(level2UnionList).transpose()); // $ExpectType ChainType<(string | number)[][], (string | number)[]>
+
+    // unary tuple list
+    _.transpose(unaryTupleList); // $ExpectType [string[]]
+    _(unaryTupleList).transpose(); // $ExpectType [string[]]
+    extractChainTypes(_.chain(unaryTupleList).transpose()) // $ExpectType ChainType<[string[]], string[]>
+
+    // homogeneous tuple list
+    _.transpose(homogeneousTupleList); // $ExpectType string[][]
+    _(homogeneousTupleList).transpose(); // $ExpectType string[][]
+    extractChainTypes(_.chain(homogeneousTupleList).transpose()) // $ExpectType ChainType<string[][], string[]>
+
+    // no arguments
+    _.transpose(); // $ExpectType []
+
+    // no arrays
+    _(numberList).transpose(); // $ExpectType never[]
+    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<never[], never>
 }
 
 // object
@@ -3552,13 +3600,13 @@ _.chain({
     .uniq()
     .value();
 
-// $ExpectType any[][]
+// $ExpectType [("one" | "two")[], number[]]
 _.chain({ one: 1, two: 2 })
     .pairs()
     .unzip()
     .value();
 
-// $ExpectType any[][]
+// $ExpectType [("one" | "two")[], number[]]
 _.chain({ one: 1, two: 2 })
     .pairs()
     .transpose()
