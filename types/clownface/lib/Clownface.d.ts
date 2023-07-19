@@ -6,7 +6,7 @@ import {
     ClownfaceInitWithValue,
     ClownfaceInitWithValues,
     AnyContext,
-} from '..';
+} from '../index.js';
 
 interface ClownfaceImpl<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> extends AnyPointer<T, D> {}
 
@@ -15,4 +15,4 @@ declare class ClownfaceImpl<T extends AnyContext = AnyContext, D extends Dataset
     constructor(options: ClownfaceInit<D> | ClownfaceInitWithTerms<T extends undefined ? Term | Term[] : T, D> | ClownfaceInitWithValue<D> | ClownfaceInitWithValues<D>);
 }
 
-export = ClownfaceImpl;
+export default ClownfaceImpl;
