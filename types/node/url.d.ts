@@ -394,6 +394,20 @@ declare module 'url' {
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
         static revokeObjectURL(objectUrl: string): void;
+        /**
+         * Checks if an `input` relative to the `base` can be parsed to a `URL`.
+         *
+         * ```js
+         * const isValid = URL.canParse('/foo', 'https://example.org/'); // true
+         *
+         * const isNotValid = URL.canParse('/foo'); // false
+         * ```
+         * @since v19.9.0
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         */
+        static canParse(input: string, base?: string): boolean;
         constructor(input: string, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
