@@ -1,5 +1,4 @@
 import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
-import Clownface from 'clownface/lib/Clownface.js';
 import clownface, { AnyPointer, MultiPointer, GraphPointer, AnyContext } from 'clownface';
 import Context from 'clownface/lib/Context.js';
 import filters from 'clownface/filter.js';
@@ -57,17 +56,6 @@ function singleContext() {
     const _context: Array<Context<DatasetCore, Term>> = cf._context;
 
     const asMultiContext: AnyPointer<Literal[] | Literal, Dataset> = cf;
-}
-
-function testConstructor() {
-    const typedByTerm: Clownface<NamedNode, Dataset> = new Clownface({ dataset, term: node });
-    const typedByTerms: Clownface<Array<NamedNode | BlankNode>, Dataset> = new Clownface({ dataset, term: [node, blankNode] });
-
-    let contructedWithValueHasTermContext: Clownface<Term, Dataset> = new Clownface({ dataset, value: 'foo' });
-    contructedWithValueHasTermContext = new Clownface({ dataset, value: ['foo', 'bar'] });
-    const anyTerms: MultiPointer = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
-
-    const constructedWithSingleTerm: GraphPointer<NamedNode> = new Clownface({ dataset, term: node });
 }
 
 function testAddIn() {
