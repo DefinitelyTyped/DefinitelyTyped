@@ -52,4 +52,4 @@ interface TotpOptions {
  * ```
  */
 declare function getToken(key: string, options?: TotpOptions): string;
-export = getToken;
+export default getToken;
