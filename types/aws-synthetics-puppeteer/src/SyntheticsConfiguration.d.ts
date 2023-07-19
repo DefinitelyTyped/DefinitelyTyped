@@ -118,5 +118,13 @@ declare module 'SyntheticsConfiguration' {
         enableRequestMetrics(): void;
         disableAggregatedRequestMetric(): void;
         enableAggregatedRequestMetric(): void;
+        withVisualCompareWithBaseRun(visualCompareWithBaseRun: boolean): SyntheticsConfiguration;
+        getVisualCompareWithBaseRun(): boolean;
+        withVisualVarianceThresholdPercentage(visualVarianceThresholdPercentage: number): SyntheticsConfiguration;
+        getVisualVarianceThresholdPercentage(): number;
+        withVisualVarianceHighlightHexColor(visualVarianceHighlightHexColor: string): SyntheticsConfiguration;
+        getVisualVarianceHighlightHexColor(): string;
+        withFailCanaryRunOnVisualVariance(failCanaryRunOnVisualVariance: boolean): SyntheticsConfiguration;
+        getFailCanaryRunOnVisualVariance(): boolean;
     }
 }
