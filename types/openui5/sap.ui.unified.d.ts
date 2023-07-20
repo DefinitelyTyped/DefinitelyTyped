@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -26,7 +26,7 @@ declare module "sap/ui/unified/library" {
   }
   /**
    * @since 1.81.0
-   * @experimental (since 1.81.0)
+   * Experimental (since 1.81.0)
    *
    * Types of a calendar appointment display mode
    */
@@ -204,7 +204,7 @@ declare module "sap/ui/unified/library" {
   }
   /**
    * @since 1.16.0
-   * @experimental (since 1.16.0) - API is not yet finished and might change completely
+   * Experimental (since 1.16.0) - API is not yet finished and might change completely
    *
    * Predefined animations for the ContentSwitcher
    */
@@ -846,9 +846,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * @returns Value of property `calendarWeekNumbering`
      */
-    getCalendarWeekNumbering():
-      | CalendarWeekNumbering
-      | keyof typeof CalendarWeekNumbering;
+    getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
      * @since 1.38.0
      *
@@ -976,7 +974,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.34.0
      *
@@ -987,7 +985,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -1254,9 +1252,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering
+      sCalendarWeekNumbering?: CalendarWeekNumbering
     ): this;
     /**
      * @since 1.28.9
@@ -1411,7 +1407,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.34.0
@@ -1429,7 +1425,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
     /**
      * Sets the visibility of the Current date button in the calendar.
@@ -1551,10 +1547,7 @@ declare module "sap/ui/unified/Calendar" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.34.0
@@ -1562,10 +1555,7 @@ declare module "sap/ui/unified/Calendar" {
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
      * the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.38.0
@@ -1629,7 +1619,7 @@ declare module "sap/ui/unified/Calendar" {
      * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
      */
     calendarWeekNumbering?:
-      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | CalendarWeekNumbering
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -1731,38 +1721,18 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
      */
-    weekNumberSelect?: (
-      oEvent: Event<Calendar$WeekNumberSelectEventParameters>
-    ) => void;
+    weekNumberSelect?: (oEvent: Calendar$WeekNumberSelectEvent) => void;
   }
 
   export interface Calendar$CancelEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$CancelEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarCancelEventParameters = Calendar$CancelEventParameters;
 
   export type Calendar$CancelEvent = Event<Calendar$CancelEventParameters>;
 
   export interface Calendar$SelectEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarSelectEventParameters = Calendar$SelectEventParameters;
-
   export type Calendar$SelectEvent = Event<Calendar$SelectEventParameters>;
 
   export interface Calendar$StartDateChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$StartDateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarStartDateChangeEventParameters = Calendar$StartDateChangeEventParameters;
 
   export type Calendar$StartDateChangeEvent = Event<Calendar$StartDateChangeEventParameters>;
 
@@ -1777,12 +1747,6 @@ declare module "sap/ui/unified/Calendar" {
      */
     weekDays?: DateRange;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Calendar$WeekNumberSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarWeekNumberSelectEventParameters = Calendar$WeekNumberSelectEventParameters;
 
   export type Calendar$WeekNumberSelectEvent = Event<Calendar$WeekNumberSelectEventParameters>;
 }
@@ -1894,9 +1858,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      *
      * @returns Value of property `calendarWeekNumbering`
      */
-    getCalendarWeekNumbering():
-      | CalendarWeekNumbering
-      | keyof typeof CalendarWeekNumbering;
+    getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
      * Gets current value of property {@link #getDays days}.
      *
@@ -1947,9 +1909,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering
+      sCalendarWeekNumbering?: CalendarWeekNumbering
     ): this;
     /**
      * Setter for property `date`.
@@ -2044,7 +2004,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * property.
      */
     calendarWeekNumbering?:
-      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | CalendarWeekNumbering
       | PropertyBindingInfo
       | `{${string}}`;
   }
@@ -3134,61 +3094,25 @@ declare module "sap/ui/unified/calendar/Header" {
 
   export interface Header$PressButton0EventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton0EventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressButton0EventParameters = Header$PressButton0EventParameters;
-
   export type Header$PressButton0Event = Event<Header$PressButton0EventParameters>;
 
   export interface Header$PressButton1EventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton1EventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressButton1EventParameters = Header$PressButton1EventParameters;
 
   export type Header$PressButton1Event = Event<Header$PressButton1EventParameters>;
 
   export interface Header$PressButton2EventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressButton2EventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressButton2EventParameters = Header$PressButton2EventParameters;
-
   export type Header$PressButton2Event = Event<Header$PressButton2EventParameters>;
 
   export interface Header$PressCurrentDateEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressCurrentDateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressCurrentDateEventParameters = Header$PressCurrentDateEventParameters;
 
   export type Header$PressCurrentDateEvent = Event<Header$PressCurrentDateEventParameters>;
 
   export interface Header$PressNextEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressNextEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressNextEventParameters = Header$PressNextEventParameters;
-
   export type Header$PressNextEvent = Event<Header$PressNextEventParameters>;
 
   export interface Header$PressPreviousEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Header$PressPreviousEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HeaderPressPreviousEventParameters = Header$PressPreviousEventParameters;
 
   export type Header$PressPreviousEvent = Event<Header$PressPreviousEventParameters>;
 }
@@ -3638,9 +3562,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * @returns Value of property `calendarWeekNumbering`
      */
-    getCalendarWeekNumbering():
-      | CalendarWeekNumbering
-      | keyof typeof CalendarWeekNumbering;
+    getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
      * Gets current value of property {@link #getDate date}.
      *
@@ -3709,7 +3631,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.34.0
      *
@@ -3720,7 +3642,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -3967,9 +3889,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering
+      sCalendarWeekNumbering?: CalendarWeekNumbering
     ): this;
     /**
      * Sets a date for the month.
@@ -4068,7 +3988,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.34.0
@@ -4086,7 +4006,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -4208,10 +4128,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.34.0
@@ -4219,10 +4136,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
      * the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.38.0
@@ -4248,7 +4162,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
      */
     calendarWeekNumbering?:
-      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | CalendarWeekNumbering
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -4307,7 +4221,7 @@ declare module "sap/ui/unified/calendar/Month" {
     /**
      * Date focus changed
      */
-    focus?: (oEvent: Event<Month$FocusEventParameters>) => void;
+    focus?: (oEvent: Month$FocusEvent) => void;
 
     /**
      * @since 1.60
@@ -4319,9 +4233,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
      */
-    weekNumberSelect?: (
-      oEvent: Event<Month$WeekNumberSelectEventParameters>
-    ) => void;
+    weekNumberSelect?: (oEvent: Month$WeekNumberSelectEvent) => void;
   }
 
   export interface Month$FocusEventParameters {
@@ -4341,21 +4253,9 @@ declare module "sap/ui/unified/calendar/Month" {
     restoreOldDate?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$FocusEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthFocusEventParameters = Month$FocusEventParameters;
-
   export type Month$FocusEvent = Event<Month$FocusEventParameters>;
 
   export interface Month$SelectEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthSelectEventParameters = Month$SelectEventParameters;
 
   export type Month$SelectEvent = Event<Month$SelectEventParameters>;
 
@@ -4372,12 +4272,6 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     weekDays?: DateRange;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Month$WeekNumberSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthWeekNumberSelectEventParameters = Month$WeekNumberSelectEventParameters;
 
   export type Month$WeekNumberSelectEvent = Event<Month$WeekNumberSelectEventParameters>;
 }
@@ -4726,7 +4620,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.104.0
      *
@@ -4737,7 +4631,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * @since 1.74
      *
@@ -4941,7 +4835,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.104.0
@@ -4959,7 +4853,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
   }
 
@@ -4997,10 +4891,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.104.0
@@ -5008,10 +4899,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * If set, the months are also displayed in this calendar type If not set, the months are only displayed
      * in the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.74
@@ -5047,21 +4935,9 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
 
   export interface MonthPicker$PageChangeEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthPicker$PageChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthPickerPageChangeEventParameters = MonthPicker$PageChangeEventParameters;
-
   export type MonthPicker$PageChangeEvent = Event<MonthPicker$PageChangeEventParameters>;
 
   export interface MonthPicker$SelectEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthPicker$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthPickerSelectEventParameters = MonthPicker$SelectEventParameters;
 
   export type MonthPicker$SelectEvent = Event<MonthPicker$SelectEventParameters>;
 }
@@ -5436,7 +5312,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.109.0
      *
@@ -5447,7 +5323,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5685,7 +5561,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.109.0
@@ -5703,7 +5579,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -5797,10 +5673,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.109.0
@@ -5808,10 +5681,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
      * the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5859,7 +5729,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Month focus changed
      */
-    focus?: (oEvent: Event<MonthsRow$FocusEventParameters>) => void;
+    focus?: (oEvent: MonthsRow$FocusEvent) => void;
   }
 
   export interface MonthsRow$FocusEventParameters {
@@ -5874,21 +5744,9 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     notVisible?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthsRow$FocusEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthsRowFocusEventParameters = MonthsRow$FocusEventParameters;
-
   export type MonthsRow$FocusEvent = Event<MonthsRow$FocusEventParameters>;
 
   export interface MonthsRow$SelectEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MonthsRow$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MonthsRowSelectEventParameters = MonthsRow$SelectEventParameters;
 
   export type MonthsRow$SelectEvent = Event<MonthsRow$SelectEventParameters>;
 }
@@ -6277,7 +6135,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.109.0
      *
@@ -6288,7 +6146,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -6543,7 +6401,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.109.0
@@ -6561,7 +6419,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -6665,10 +6523,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.109.0
@@ -6676,10 +6531,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
      * the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6722,7 +6574,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     /**
      * Time focus changed
      */
-    focus?: (oEvent: Event<TimesRow$FocusEventParameters>) => void;
+    focus?: (oEvent: TimesRow$FocusEvent) => void;
   }
 
   export interface TimesRow$FocusEventParameters {
@@ -6737,21 +6589,9 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     notVisible?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TimesRow$FocusEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TimesRowFocusEventParameters = TimesRow$FocusEventParameters;
-
   export type TimesRow$FocusEvent = Event<TimesRow$FocusEventParameters>;
 
   export interface TimesRow$SelectEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TimesRow$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TimesRowSelectEventParameters = TimesRow$SelectEventParameters;
 
   export type TimesRow$SelectEvent = Event<TimesRow$SelectEventParameters>;
 }
@@ -7078,7 +6918,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * @returns Value of property `primaryCalendarType`
      */
-    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPrimaryCalendarType(): CalendarType;
     /**
      * @since 1.104.0
      *
@@ -7089,7 +6929,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * @returns Value of property `secondaryCalendarType`
      */
-    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    getSecondaryCalendarType(): CalendarType;
     /**
      * @since 1.74
      *
@@ -7255,7 +7095,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+      sPrimaryCalendarType: CalendarType
     ): this;
     /**
      * @since 1.104.0
@@ -7273,7 +7113,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+      sSecondaryCalendarType: CalendarType
     ): this;
     /**
      * @deprecated (since 1.34.0) - replaced by `date` property
@@ -7358,10 +7198,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
      * is used.
      */
-    primaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.104.0
@@ -7369,10 +7206,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
      * the primary calendar type
      */
-    secondaryCalendarType?:
-      | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo
-      | `{${string}}`;
+    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.74
@@ -7400,21 +7234,9 @@ declare module "sap/ui/unified/calendar/YearPicker" {
 
   export interface YearPicker$PageChangeEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'YearPicker$PageChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $YearPickerPageChangeEventParameters = YearPicker$PageChangeEventParameters;
-
   export type YearPicker$PageChangeEvent = Event<YearPicker$PageChangeEventParameters>;
 
   export interface YearPicker$SelectEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'YearPicker$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $YearPickerSelectEventParameters = YearPicker$SelectEventParameters;
 
   export type YearPicker$SelectEvent = Event<YearPicker$SelectEventParameters>;
 }
@@ -7507,7 +7329,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Adds some customContent to the aggregation {@link #getCustomContent customContent}.
@@ -7522,7 +7344,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): this;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Destroys all the customContent in the aggregation {@link #getCustomContent customContent}.
@@ -7543,7 +7365,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     getColor(): CSSColor;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Gets content of aggregation {@link #getCustomContent customContent}.
@@ -7626,7 +7448,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     getTitle(): string;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getCustomContent customContent}.
@@ -7642,7 +7464,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): int;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Inserts a customContent into the aggregation {@link #getCustomContent customContent}.
@@ -7663,7 +7485,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): this;
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Removes all the controls from the aggregation {@link #getCustomContent customContent}.
@@ -7675,7 +7497,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     removeAllCustomContent(): Control[];
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Removes a customContent from the aggregation {@link #getCustomContent customContent}.
@@ -7871,7 +7693,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
 
     /**
      * @since 1.93.0
-     * @experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * Experimental (since 1.93) - providing only limited functionality. Also, the API might be changed in
      * the future.
      *
      * Holds the content of the appointment.
@@ -9490,31 +9312,13 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
 
   export interface CalendarMonthInterval$CancelEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$CancelEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarMonthIntervalCancelEventParameters = CalendarMonthInterval$CancelEventParameters;
-
   export type CalendarMonthInterval$CancelEvent = Event<CalendarMonthInterval$CancelEventParameters>;
 
   export interface CalendarMonthInterval$SelectEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarMonthIntervalSelectEventParameters = CalendarMonthInterval$SelectEventParameters;
-
   export type CalendarMonthInterval$SelectEvent = Event<CalendarMonthInterval$SelectEventParameters>;
 
   export interface CalendarMonthInterval$StartDateChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarMonthInterval$StartDateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarMonthIntervalStartDateChangeEventParameters = CalendarMonthInterval$StartDateChangeEventParameters;
 
   export type CalendarMonthInterval$StartDateChangeEvent = Event<CalendarMonthInterval$StartDateChangeEventParameters>;
 }
@@ -10011,7 +9815,7 @@ declare module "sap/ui/unified/CalendarRow" {
       | keyof typeof CalendarAppointmentHeight;
     /**
      * @since 1.81.0
-     * @experimental (since 1.81.0)
+     * Experimental (since 1.81.0)
      *
      * Gets current value of property {@link #getAppointmentRoundWidth appointmentRoundWidth}.
      *
@@ -10430,7 +10234,7 @@ declare module "sap/ui/unified/CalendarRow" {
     ): this;
     /**
      * @since 1.81.0
-     * @experimental (since 1.81.0)
+     * Experimental (since 1.81.0)
      *
      * Sets a new value for property {@link #getAppointmentRoundWidth appointmentRoundWidth}.
      *
@@ -10953,7 +10757,7 @@ declare module "sap/ui/unified/CalendarRow" {
 
     /**
      * @since 1.81.0
-     * @experimental (since 1.81.0)
+     * Experimental (since 1.81.0)
      *
      * Defines rounding of the width of CalendarAppoinment **Note:** This property is applied, when
      * the calendar interval type is day and the view shows more than 20 days
@@ -11025,7 +10829,7 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Fired if an appointment was selected
      */
-    select?: (oEvent: Event<CalendarRow$SelectEventParameters>) => void;
+    select?: (oEvent: CalendarRow$SelectEvent) => void;
 
     /**
      * `startDate` was changed while navigating in `CalendarRow`
@@ -11036,16 +10840,14 @@ declare module "sap/ui/unified/CalendarRow" {
      * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
      * the next control to be focused
      */
-    leaveRow?: (oEvent: Event<CalendarRow$LeaveRowEventParameters>) => void;
+    leaveRow?: (oEvent: CalendarRow$LeaveRowEvent) => void;
 
     /**
      * @since 1.38.0
      *
      * Fired if an interval was selected
      */
-    intervalSelect?: (
-      oEvent: Event<CalendarRow$IntervalSelectEventParameters>
-    ) => void;
+    intervalSelect?: (oEvent: CalendarRow$IntervalSelectEvent) => void;
   }
 
   export interface CalendarRow$IntervalSelectEventParameters {
@@ -11065,12 +10867,6 @@ declare module "sap/ui/unified/CalendarRow" {
     subInterval?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$IntervalSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarRowIntervalSelectEventParameters = CalendarRow$IntervalSelectEventParameters;
-
   export type CalendarRow$IntervalSelectEvent = Event<CalendarRow$IntervalSelectEventParameters>;
 
   export interface CalendarRow$LeaveRowEventParameters {
@@ -11079,12 +10875,6 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     type?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$LeaveRowEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarRowLeaveRowEventParameters = CalendarRow$LeaveRowEventParameters;
 
   export type CalendarRow$LeaveRowEvent = Event<CalendarRow$LeaveRowEventParameters>;
 
@@ -11111,21 +10901,9 @@ declare module "sap/ui/unified/CalendarRow" {
     domRefId?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarRowSelectEventParameters = CalendarRow$SelectEventParameters;
-
   export type CalendarRow$SelectEvent = Event<CalendarRow$SelectEventParameters>;
 
   export interface CalendarRow$StartDateChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarRow$StartDateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarRowStartDateChangeEventParameters = CalendarRow$StartDateChangeEventParameters;
 
   export type CalendarRow$StartDateChangeEvent = Event<CalendarRow$StartDateChangeEventParameters>;
 }
@@ -12058,31 +11836,13 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
 
   export interface CalendarTimeInterval$CancelEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$CancelEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarTimeIntervalCancelEventParameters = CalendarTimeInterval$CancelEventParameters;
-
   export type CalendarTimeInterval$CancelEvent = Event<CalendarTimeInterval$CancelEventParameters>;
 
   export interface CalendarTimeInterval$SelectEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarTimeIntervalSelectEventParameters = CalendarTimeInterval$SelectEventParameters;
-
   export type CalendarTimeInterval$SelectEvent = Event<CalendarTimeInterval$SelectEventParameters>;
 
   export interface CalendarTimeInterval$StartDateChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalendarTimeInterval$StartDateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalendarTimeIntervalStartDateChangeEventParameters = CalendarTimeInterval$StartDateChangeEventParameters;
 
   export type CalendarTimeInterval$StartDateChangeEvent = Event<CalendarTimeInterval$StartDateChangeEventParameters>;
 }
@@ -12504,7 +12264,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
      */
-    change?: (oEvent: Event<ColorPicker$ChangeEventParameters>) => void;
+    change?: (oEvent: ColorPicker$ChangeEvent) => void;
 
     /**
      * @since 1.48.0
@@ -12513,7 +12273,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
      */
-    liveChange?: (oEvent: Event<ColorPicker$LiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: ColorPicker$LiveChangeEvent) => void;
   }
 
   export interface ColorPicker$ChangeEventParameters {
@@ -12563,12 +12323,6 @@ declare module "sap/ui/unified/ColorPicker" {
     alpha?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPicker$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ColorPickerChangeEventParameters = ColorPicker$ChangeEventParameters;
-
   export type ColorPicker$ChangeEvent = Event<ColorPicker$ChangeEventParameters>;
 
   export interface ColorPicker$LiveChangeEventParameters {
@@ -12617,12 +12371,6 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     alpha?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPicker$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ColorPickerLiveChangeEventParameters = ColorPicker$LiveChangeEventParameters;
 
   export type ColorPicker$LiveChangeEvent = Event<ColorPicker$LiveChangeEventParameters>;
 }
@@ -13054,16 +12802,14 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      *
      * Fired when the submit button of the popover is clicked.
      */
-    change?: (oEvent: Event<ColorPickerPopover$ChangeEventParameters>) => void;
+    change?: (oEvent: ColorPickerPopover$ChangeEvent) => void;
 
     /**
      * @since 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: (
-      oEvent: Event<ColorPickerPopover$LiveChangeEventParameters>
-    ) => void;
+    liveChange?: (oEvent: ColorPickerPopover$LiveChangeEvent) => void;
   }
 
   export interface ColorPickerPopover$ChangeEventParameters {
@@ -13112,12 +12858,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     alpha?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPickerPopover$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ColorPickerPopoverChangeEventParameters = ColorPickerPopover$ChangeEventParameters;
 
   export type ColorPickerPopover$ChangeEvent = Event<ColorPickerPopover$ChangeEventParameters>;
 
@@ -13168,12 +12908,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     alpha?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ColorPickerPopover$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ColorPickerPopoverLiveChangeEventParameters = ColorPickerPopover$LiveChangeEventParameters;
-
   export type ColorPickerPopover$LiveChangeEvent = Event<ColorPickerPopover$LiveChangeEventParameters>;
 }
 
@@ -13190,7 +12924,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
   /**
    * @since 1.16.0
    * @deprecated (since 1.44.0)
-   * @experimental (since 1.16.0) - API is not yet finished and might change completely
+   * Experimental (since 1.16.0) - API is not yet finished and might change completely
    *
    * Switches between two control areas and animates it via CSS transitions
    */
@@ -16662,7 +16396,7 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
      * Chrome browser when the Cancel button of the uploads window is pressed.
      */
-    change?: (oEvent: Event<FileUploader$ChangeEventParameters>) => void;
+    change?: (oEvent: FileUploader$ChangeEvent) => void;
 
     /**
      * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
@@ -16671,29 +16405,23 @@ declare module "sap/ui/unified/FileUploader" {
      * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
      * only the client side of the upload process and does not give any success status from the server.
      */
-    uploadComplete?: (
-      oEvent: Event<FileUploader$UploadCompleteEventParameters>
-    ) => void;
+    uploadComplete?: (oEvent: FileUploader$UploadCompleteEvent) => void;
 
     /**
      * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
      */
-    typeMissmatch?: (
-      oEvent: Event<FileUploader$TypeMissmatchEventParameters>
-    ) => void;
+    typeMissmatch?: (oEvent: FileUploader$TypeMissmatchEvent) => void;
 
     /**
      * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
      * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
      */
-    fileSizeExceed?: (
-      oEvent: Event<FileUploader$FileSizeExceedEventParameters>
-    ) => void;
+    fileSizeExceed?: (oEvent: FileUploader$FileSizeExceedEvent) => void;
 
     /**
      * Event is fired when the size of the file is 0
      */
-    fileEmpty?: (oEvent: Event<FileUploader$FileEmptyEventParameters>) => void;
+    fileEmpty?: (oEvent: FileUploader$FileEmptyEvent) => void;
 
     /**
      * Event is fired when the file is allowed for upload on client side.
@@ -16711,9 +16439,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadProgress?: (
-      oEvent: Event<FileUploader$UploadProgressEventParameters>
-    ) => void;
+    uploadProgress?: (oEvent: FileUploader$UploadProgressEvent) => void;
 
     /**
      * @since 1.24.0
@@ -16723,9 +16449,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadAborted?: (
-      oEvent: Event<FileUploader$UploadAbortedEventParameters>
-    ) => void;
+    uploadAborted?: (oEvent: FileUploader$UploadAbortedEvent) => void;
 
     /**
      * @since 1.24.0
@@ -16734,7 +16458,7 @@ declare module "sap/ui/unified/FileUploader" {
      * property.
      */
     filenameLengthExceed?: (
-      oEvent: Event<FileUploader$FilenameLengthExceedEventParameters>
+      oEvent: FileUploader$FilenameLengthExceedEvent
     ) => void;
 
     /**
@@ -16742,9 +16466,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Event is fired before an upload is started.
      */
-    uploadStart?: (
-      oEvent: Event<FileUploader$UploadStartEventParameters>
-    ) => void;
+    uploadStart?: (oEvent: FileUploader$UploadStartEvent) => void;
 
     /**
      * @since 1.102.0
@@ -16763,21 +16485,9 @@ declare module "sap/ui/unified/FileUploader" {
 
   export interface FileUploader$AfterDialogCloseEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$AfterDialogCloseEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderAfterDialogCloseEventParameters = FileUploader$AfterDialogCloseEventParameters;
-
   export type FileUploader$AfterDialogCloseEvent = Event<FileUploader$AfterDialogCloseEventParameters>;
 
   export interface FileUploader$BeforeDialogOpenEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$BeforeDialogOpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderBeforeDialogOpenEventParameters = FileUploader$BeforeDialogOpenEventParameters;
 
   export type FileUploader$BeforeDialogOpenEvent = Event<FileUploader$BeforeDialogOpenEventParameters>;
 
@@ -16793,21 +16503,9 @@ declare module "sap/ui/unified/FileUploader" {
     files?: object[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderChangeEventParameters = FileUploader$ChangeEventParameters;
-
   export type FileUploader$ChangeEvent = Event<FileUploader$ChangeEventParameters>;
 
   export interface FileUploader$FileAllowedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileAllowedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderFileAllowedEventParameters = FileUploader$FileAllowedEventParameters;
 
   export type FileUploader$FileAllowedEvent = Event<FileUploader$FileAllowedEventParameters>;
 
@@ -16818,12 +16516,6 @@ declare module "sap/ui/unified/FileUploader" {
     fileName?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileEmptyEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderFileEmptyEventParameters = FileUploader$FileEmptyEventParameters;
-
   export type FileUploader$FileEmptyEvent = Event<FileUploader$FileEmptyEventParameters>;
 
   export interface FileUploader$FilenameLengthExceedEventParameters {
@@ -16832,12 +16524,6 @@ declare module "sap/ui/unified/FileUploader" {
      */
     fileName?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FilenameLengthExceedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderFilenameLengthExceedEventParameters = FileUploader$FilenameLengthExceedEventParameters;
 
   export type FileUploader$FilenameLengthExceedEvent = Event<FileUploader$FilenameLengthExceedEventParameters>;
 
@@ -16852,12 +16538,6 @@ declare module "sap/ui/unified/FileUploader" {
      */
     fileSize?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$FileSizeExceedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderFileSizeExceedEventParameters = FileUploader$FileSizeExceedEventParameters;
 
   export type FileUploader$FileSizeExceedEvent = Event<FileUploader$FileSizeExceedEventParameters>;
 
@@ -16878,12 +16558,6 @@ declare module "sap/ui/unified/FileUploader" {
     mimeType?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$TypeMissmatchEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderTypeMissmatchEventParameters = FileUploader$TypeMissmatchEventParameters;
-
   export type FileUploader$TypeMissmatchEvent = Event<FileUploader$TypeMissmatchEventParameters>;
 
   export interface FileUploader$UploadAbortedEventParameters {
@@ -16900,12 +16574,6 @@ declare module "sap/ui/unified/FileUploader" {
      */
     requestHeaders?: object[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadAbortedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderUploadAbortedEventParameters = FileUploader$UploadAbortedEventParameters;
 
   export type FileUploader$UploadAbortedEvent = Event<FileUploader$UploadAbortedEventParameters>;
 
@@ -16969,12 +16637,6 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadCompleteEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderUploadCompleteEventParameters = FileUploader$UploadCompleteEventParameters;
-
   export type FileUploader$UploadCompleteEvent = Event<FileUploader$UploadCompleteEventParameters>;
 
   export interface FileUploader$UploadProgressEventParameters {
@@ -17007,12 +16669,6 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadProgressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderUploadProgressEventParameters = FileUploader$UploadProgressEventParameters;
-
   export type FileUploader$UploadProgressEvent = Event<FileUploader$UploadProgressEventParameters>;
 
   export interface FileUploader$UploadStartEventParameters {
@@ -17029,12 +16685,6 @@ declare module "sap/ui/unified/FileUploader" {
      */
     requestHeaders?: object[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'FileUploader$UploadStartEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $FileUploaderUploadStartEventParameters = FileUploader$UploadStartEventParameters;
 
   export type FileUploader$UploadStartEvent = Event<FileUploader$UploadStartEventParameters>;
 }
@@ -17841,7 +17491,7 @@ declare module "sap/ui/unified/Menu" {
      * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
      * menu item. This event and the event of the menu items are redundant.
      */
-    itemSelect?: (oEvent: Event<Menu$ItemSelectEventParameters>) => void;
+    itemSelect?: (oEvent: Menu$ItemSelectEvent) => void;
   }
 
   export interface Menu$ItemSelectEventParameters {
@@ -17850,12 +17500,6 @@ declare module "sap/ui/unified/Menu" {
      */
     item?: MenuItemBase;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Menu$ItemSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MenuItemSelectEventParameters = Menu$ItemSelectEventParameters;
 
   export type Menu$ItemSelectEvent = Event<Menu$ItemSelectEventParameters>;
 }
@@ -18406,7 +18050,7 @@ declare module "sap/ui/unified/MenuItemBase" {
      * a submenu. In general, applications must not handle event in this case because the user selection opens
      * the sub menu.
      */
-    select?: (oEvent: Event<MenuItemBase$SelectEventParameters>) => void;
+    select?: (oEvent: MenuItemBase$SelectEvent) => void;
   }
 
   export interface MenuItemBase$SelectEventParameters {
@@ -18415,12 +18059,6 @@ declare module "sap/ui/unified/MenuItemBase" {
      */
     item?: MenuItemBase;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MenuItemBase$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MenuItemBaseSelectEventParameters = MenuItemBase$SelectEventParameters;
 
   export type MenuItemBase$SelectEvent = Event<MenuItemBase$SelectEventParameters>;
 }
@@ -19772,12 +19410,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
 
   export interface ShellHeadItem$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellHeadItem$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ShellHeadItemPressEventParameters = ShellHeadItem$PressEventParameters;
-
   export type ShellHeadItem$PressEvent = Event<ShellHeadItem$PressEventParameters>;
 }
 
@@ -20084,12 +19716,6 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
   }
 
   export interface ShellHeadUserItem$PressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellHeadUserItem$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ShellHeadUserItemPressEventParameters = ShellHeadUserItem$PressEventParameters;
 
   export type ShellHeadUserItem$PressEvent = Event<ShellHeadUserItem$PressEventParameters>;
 }
@@ -20796,12 +20422,6 @@ declare module "sap/ui/unified/ShellOverlay" {
 
   export interface ShellOverlay$ClosedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ShellOverlay$ClosedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ShellOverlayClosedEventParameters = ShellOverlay$ClosedEventParameters;
-
   export type ShellOverlay$ClosedEvent = Event<ShellOverlay$ClosedEventParameters>;
 }
 
@@ -20820,7 +20440,7 @@ declare module "sap/ui/unified/SplitContainer" {
   /**
    * @since 1.15.0
    * @deprecated (since 1.44.0)
-   * @experimental (since 1.15.0) - API is not yet finished and might change completely
+   * Experimental (since 1.15.0) - API is not yet finished and might change completely
    *
    * Provides a main content and a secondary content area
    */
