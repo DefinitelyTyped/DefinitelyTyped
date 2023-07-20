@@ -1,13 +1,6 @@
 {
     "rules": {
         "no-any-union": "off",
-        "no-unnecessary-generics": "off",
-        "jsdoc/check-tag-names": [
-            "error",
-            {
-                "definedTags": ["ui5-protected", "experimental"]
-            }
-        ]
-
+        "no-unnecessary-generics": "off"
     }
 }
