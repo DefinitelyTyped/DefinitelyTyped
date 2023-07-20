@@ -1,4 +1,4 @@
-// Type definitions for OpenUI5 1.115
+// Type definitions for OpenUI5 1.116
 // Project: https://github.com/SAP/openui5
 // Definitions by: OpenUI5 Bot <https://github.com/openui5bot>
 //                 Peter Muessig <https://github.com/petermuessig>

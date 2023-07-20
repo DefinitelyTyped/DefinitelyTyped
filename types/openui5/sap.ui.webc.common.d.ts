@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -9,7 +9,7 @@ declare module "sap/ui/webc/common/WebComponent" {
 
   /**
    * @since 1.92.0
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * Experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    *
    * Base Class for Web Components. Web Components are agnostic UI elements which can be integrated into the
    * UI5 programming model by using this wrapper control. This wrapper control takes care to propagate the
@@ -65,7 +65,7 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
 
   /**
    * @since 1.92.0
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * Experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponentMetadata extends ElementMetadata {
     /**

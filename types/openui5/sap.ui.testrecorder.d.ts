@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/testrecorder/library" {}
 

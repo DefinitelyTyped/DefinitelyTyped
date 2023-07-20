@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -21,32 +21,32 @@ declare module "sap/ui/integration/library" {
     TwoColumns = "TwoColumns",
   }
   /**
-   * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+   * Experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
    * may be done before its official public release. Use at your own discretion.
    *
    * Enumeration of possible card action types.
    */
   export enum CardActionType {
     /**
-     * @experimental (since 1.76)
+     * Experimental (since 1.76)
      *
      * Used for custom actions.
      */
     Custom = "Custom",
     /**
-     * @experimental (since 1.87)
+     * Experimental (since 1.87)
      *
      * Date selection. Available only for Calendar cards.
      */
     DateChange = "DateChange",
     /**
-     * @experimental (since 1.100)
+     * Experimental (since 1.100)
      *
      * Used for hiding the appeared details about the card.
      */
     HideCard = "HideCard",
     /**
-     * @experimental (since 1.87)
+     * Experimental (since 1.87)
      *
      * Month selection. Available only for Calendar cards.
      */
@@ -56,7 +56,7 @@ declare module "sap/ui/integration/library" {
      */
     Navigation = "Navigation",
     /**
-     * @experimental (since 1.100)
+     * Experimental (since 1.100)
      *
      * Used for showing more details about the card.
      */
@@ -86,7 +86,7 @@ declare module "sap/ui/integration/library" {
     Header = "Header",
   }
   /**
-   * @experimental (since 1.114)
+   * Experimental (since 1.114)
    *
    * Card blocking message types.
    */
@@ -106,7 +106,7 @@ declare module "sap/ui/integration/library" {
   }
   /**
    * @since 1.65
-   * @experimental (since 1.65)
+   * Experimental (since 1.65)
    *
    * Possible data modes for `{@link sap.ui.integration.widgets.Card}`.
    */
@@ -126,7 +126,7 @@ declare module "sap/ui/integration/library" {
   }
   /**
    * @since 1.109
-   * @experimental (since 1.109)
+   * Experimental (since 1.109)
    *
    * Possible designs for `{@link sap.ui.integration.widgets.Card}`.
    */
@@ -141,7 +141,7 @@ declare module "sap/ui/integration/library" {
     Transparent = "Transparent",
   }
   /**
-   * @experimental (since 1.79)
+   * Experimental (since 1.79)
    *
    * An object type that represents card menu action properties.
    */
@@ -186,7 +186,7 @@ declare module "sap/ui/integration/library" {
 
   /**
    * @since 1.112
-   * @experimental (since 1.112)
+   * Experimental (since 1.112)
    *
    * Preview modes for `{@link sap.ui.integration.widgets.Card}`. Helpful in scenarios when the end user is
    * choosing or configuring a card.
@@ -224,7 +224,7 @@ declare module "sap/ui/integration/ActionDefinition" {
 
   /**
    * @since 1.85
-   * @experimental (since 1.85) - Disclaimer: this class is in a beta state - incompatible API changes may
+   * Experimental (since 1.85) - Disclaimer: this class is in a beta state - incompatible API changes may
    * be done before its official public release. Use at your own discretion.
    *
    * Represents an action, which appears in the header of {@link sap.ui.integration.widgets.Card}. Useful
@@ -600,12 +600,6 @@ declare module "sap/ui/integration/ActionDefinition" {
 
   export interface ActionDefinition$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ActionDefinition$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ActionDefinitionPressEventParameters = ActionDefinition$PressEventParameters;
-
   export type ActionDefinition$PressEvent = Event<ActionDefinition$PressEventParameters>;
 }
 
@@ -643,7 +637,7 @@ declare module "sap/ui/integration/widgets/Card" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @experimental (since 1.114)
+   * Experimental (since 1.114)
    *
    * Settings for blocking message that ocurred in a {@link sap.ui.integration.widgets.Card}
    */
@@ -784,7 +778,7 @@ declare module "sap/ui/integration/widgets/Card" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Adds some actionDefinition to the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -798,7 +792,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oActionDefinition: ActionDefinition
     ): this;
     /**
-     * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.widgets.Card`.
@@ -830,7 +824,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.widgets.Card`.
@@ -857,7 +851,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
      * of this `sap.ui.integration.widgets.Card`.
@@ -886,7 +880,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
      * of this `sap.ui.integration.widgets.Card`.
@@ -963,7 +957,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.72)
+     * Experimental (since 1.72)
      *
      * Attaches event handler `fnFunction` to the {@link #event:manifestReady manifestReady} event of this `sap.ui.integration.widgets.Card`.
      *
@@ -990,7 +984,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.72)
+     * Experimental (since 1.72)
      *
      * Attaches event handler `fnFunction` to the {@link #event:manifestReady manifestReady} event of this `sap.ui.integration.widgets.Card`.
      *
@@ -1012,7 +1006,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Attaches event handler `fnFunction` to the {@link #event:stateChanged stateChanged} event of this `sap.ui.integration.widgets.Card`.
      *
@@ -1040,7 +1034,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Attaches event handler `fnFunction` to the {@link #event:stateChanged stateChanged} event of this `sap.ui.integration.widgets.Card`.
      *
@@ -1064,7 +1058,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Destroys all the actionDefinitions in the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1073,7 +1067,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     destroyActionDefinitions(): this;
     /**
-     * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.widgets.Card`.
@@ -1093,7 +1087,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Detaches event handler `fnFunction` from the {@link #event:configurationChange configurationChange} event
      * of this `sap.ui.integration.widgets.Card`.
@@ -1131,7 +1125,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.72)
+     * Experimental (since 1.72)
      *
      * Detaches event handler `fnFunction` from the {@link #event:manifestReady manifestReady} event of this
      * `sap.ui.integration.widgets.Card`.
@@ -1151,7 +1145,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Detaches event handler `fnFunction` from the {@link #event:stateChanged stateChanged} event of this `sap.ui.integration.widgets.Card`.
      *
@@ -1170,7 +1164,7 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
@@ -1188,7 +1182,7 @@ declare module "sap/ui/integration/widgets/Card" {
       mParameters?: Card$ActionEventParameters
     ): boolean;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:configurationChange configurationChange} to attached listeners.
@@ -1215,7 +1209,7 @@ declare module "sap/ui/integration/widgets/Card" {
       mParameters?: object
     ): this;
     /**
-     * @experimental (since 1.72)
+     * Experimental (since 1.72)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:manifestReady manifestReady} to attached listeners.
@@ -1229,7 +1223,7 @@ declare module "sap/ui/integration/widgets/Card" {
       mParameters?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChanged stateChanged} to attached listeners.
@@ -1244,7 +1238,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets content of aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1255,18 +1249,18 @@ declare module "sap/ui/integration/widgets/Card" {
     getActionDefinitions(): ActionDefinition[];
     /**
      * @since 1.70
-     * @experimental (since 1.70)
+     * Experimental (since 1.70)
      *
      * Gets current value of property {@link #getBaseUrl baseUrl}.
      *
-     * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
-     * of a URL.
+     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
+     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
      *
      * @returns Value of property `baseUrl`
      */
     getBaseUrl(): URI;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Get information about the blocking message in the card.
      *
@@ -1274,7 +1268,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getBlockingMessage(): BlockingMessageSettings | null;
     /**
-     * @experimental (since 1.77)
+     * Experimental (since 1.77)
      *
      * Gets values of manifest parameters combined with the parameters from `parameters` property.
      *
@@ -1289,7 +1283,7 @@ declare module "sap/ui/integration/widgets/Card" {
     getCombinedParameters(): Record<string, any>;
     /**
      * @since 1.65
-     * @experimental (since 1.65)
+     * Experimental (since 1.65)
      *
      * Gets current value of property {@link #getDataMode dataMode}.
      *
@@ -1302,7 +1296,7 @@ declare module "sap/ui/integration/widgets/Card" {
     getDataMode(): CardDataMode | keyof typeof CardDataMode;
     /**
      * @since 1.109
-     * @experimental (since 1.109)
+     * Experimental (since 1.109)
      *
      * Gets current value of property {@link #getDesign design}.
      *
@@ -1326,7 +1320,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getHost(): ID;
     /**
-     * @experimental (since 1.77)
+     * Experimental (since 1.77)
      *
      * Gets the instance of the `host` association.
      *
@@ -1341,7 +1335,7 @@ declare module "sap/ui/integration/widgets/Card" {
     getManifest(): string | Object;
     /**
      * @since 1.76
-     * @experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
+     * Experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
      * is implemented.
      *
      * Gets current value of property {@link #getManifestChanges manifestChanges}.
@@ -1387,7 +1381,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getManifestChanges(): object[];
     /**
-     * @experimental (since 1.77)
+     * Experimental (since 1.77)
      *
      * Returns a value from the Manifest based on the specified path.
      *
@@ -1403,7 +1397,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): any;
     /**
      * @since 1.112
-     * @experimental (since 1.112)
+     * Experimental (since 1.112)
      *
      * Gets current value of property {@link #getPreviewMode previewMode}.
      *
@@ -1431,7 +1425,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getReferenceId(): string;
     /**
-     * @experimental (since 1.83) - The API might change.
+     * Experimental (since 1.83) - The API might change.
      *
      * Gets translated text from the i18n properties files configured for this card.
      *
@@ -1459,7 +1453,7 @@ declare module "sap/ui/integration/widgets/Card" {
       bIgnoreKeyFallback?: boolean
     ): string;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      */
@@ -1476,7 +1470,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): void;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Checks for the provided `sap.ui.integration.ActionDefinition` in the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1492,7 +1486,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): int;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Inserts a actionDefinition into the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1512,14 +1506,14 @@ declare module "sap/ui/integration/widgets/Card" {
       iIndex: int
     ): this;
     /**
-     * @experimental (since 1.65) - The API might change.
+     * Experimental (since 1.65) - The API might change.
      *
      *
      * @returns If the card is ready or not.
      */
     isReady(): boolean;
     /**
-     * @experimental (since 1.73)
+     * Experimental (since 1.73)
      *
      * Loads the module designtime/Card.designtime or the module given in "sap.card": { "designtime": "designtime/Own.designtime"
      * } This file should contain the designtime configuration for the card.
@@ -1532,7 +1526,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     loadDesigntime(): Promise<object>;
     /**
-     * @experimental (since 1.65) - The API might change.
+     * Experimental (since 1.65) - The API might change.
      *
      * Refreshes the card by re-applying the manifest settings and triggering all data requests.
      */
@@ -1545,7 +1539,7 @@ declare module "sap/ui/integration/widgets/Card" {
     refreshData(): void;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Removes a actionDefinition from the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1560,7 +1554,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): ActionDefinition | null;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Removes all the controls from the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1571,7 +1565,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     removeAllActionDefinitions(): ActionDefinition[];
     /**
-     * @experimental (since 1.79)
+     * Experimental (since 1.79)
      *
      * Performs an HTTP request using the given configuration.
      *
@@ -1626,12 +1620,12 @@ declare module "sap/ui/integration/widgets/Card" {
     ): Promise<string>;
     /**
      * @since 1.70
-     * @experimental (since 1.70)
+     * Experimental (since 1.70)
      *
      * Sets a new value for property {@link #getBaseUrl baseUrl}.
      *
-     * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
-     * of a URL.
+     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
+     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1645,7 +1639,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.65
-     * @experimental (since 1.65) - API might change.
+     * Experimental (since 1.65) - API might change.
      *
      * Sets a new value for the `dataMode` property.
      *
@@ -1659,7 +1653,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.109
-     * @experimental (since 1.109)
+     * Experimental (since 1.109)
      *
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -1708,7 +1702,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.76
-     * @experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
+     * Experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
      * is implemented.
      *
      * Sets a new value for property {@link #getManifestChanges manifestChanges}.
@@ -1762,7 +1756,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.112
-     * @experimental (since 1.112)
+     * Experimental (since 1.112)
      *
      * Sets a new value for property {@link #getPreviewMode previewMode}.
      *
@@ -1804,7 +1798,7 @@ declare module "sap/ui/integration/widgets/Card" {
       sReferenceId?: string
     ): this;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
      * after the `cardReady` lifecycle hook in Component cards and Extensions.
@@ -1827,7 +1821,7 @@ declare module "sap/ui/integration/widgets/Card" {
       eCardArea?: CardArea | keyof typeof CardArea
     ): void;
     /**
-     * @experimental (since 1.81)
+     * Experimental (since 1.81)
      *
      * Displays a message strip above the content with the given text. There can be only 1 message displayed.
      * If there is a previous message, it is removed. Can be used only after the `manifestApplied` event is
@@ -1844,7 +1838,7 @@ declare module "sap/ui/integration/widgets/Card" {
       sType: MessageType | keyof typeof MessageType
     ): void;
     /**
-     * @experimental (since 1.84)
+     * Experimental (since 1.84)
      *
      * Triggers an action inside the card.
      *
@@ -1890,7 +1884,7 @@ declare module "sap/ui/integration/widgets/Card" {
     validateControls(): boolean;
   }
   /**
-   * @experimental (since 1.79)
+   * Experimental (since 1.79)
    *
    * Facade of the {@link sap.ui.integration.widgets.Card} control.
    */
@@ -1899,7 +1893,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Adds some actionDefinition to the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -1914,18 +1908,18 @@ declare module "sap/ui/integration/widgets/Card" {
     ): this;
     /**
      * @since 1.70
-     * @experimental (since 1.70)
+     * Experimental (since 1.70)
      *
      * Gets current value of property {@link #getBaseUrl baseUrl}.
      *
-     * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
-     * of a URL.
+     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
+     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
      *
      * @returns Value of property `baseUrl`
      */
     getBaseUrl(): URI;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Get information about the blocking message in the card.
      *
@@ -1933,7 +1927,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getBlockingMessage(): BlockingMessageSettings | null;
     /**
-     * @experimental (since 1.77)
+     * Experimental (since 1.77)
      *
      * Gets values of manifest parameters combined with the parameters from `parameters` property.
      *
@@ -1947,7 +1941,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getCombinedParameters(): Record<string, any>;
     /**
-     * @experimental (since 1.77)
+     * Experimental (since 1.77)
      *
      * Returns a value from the Manifest based on the specified path.
      *
@@ -1962,7 +1956,7 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): any;
     /**
-     * @experimental (since 1.65) - This property might be changed in future.
+     * Experimental (since 1.65) - This property might be changed in future.
      *
      * Gets current value of property {@link #getParameters parameters}.
      *
@@ -1973,7 +1967,7 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getParameters(): object;
     /**
-     * @experimental (since 1.83) - The API might change.
+     * Experimental (since 1.83) - The API might change.
      *
      * Gets translated text from the i18n properties files configured for this card.
      *
@@ -2001,7 +1995,7 @@ declare module "sap/ui/integration/widgets/Card" {
       bIgnoreKeyFallback?: boolean
     ): string;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      */
@@ -2018,7 +2012,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): void;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Checks for the provided `sap.ui.integration.ActionDefinition` in the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -2034,7 +2028,7 @@ declare module "sap/ui/integration/widgets/Card" {
     ): int;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Inserts a actionDefinition into the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -2054,7 +2048,7 @@ declare module "sap/ui/integration/widgets/Card" {
       iIndex: int
     ): this;
     /**
-     * @experimental (since 1.65) - The API might change.
+     * Experimental (since 1.65) - The API might change.
      *
      * Refreshes the card by re-applying the manifest settings and triggering all data requests.
      */
@@ -2067,7 +2061,7 @@ declare module "sap/ui/integration/widgets/Card" {
     refreshData(): void;
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Removes a actionDefinition from the aggregation {@link #getActionDefinitions actionDefinitions}.
@@ -2081,7 +2075,7 @@ declare module "sap/ui/integration/widgets/Card" {
       vActionDefinition: int | string | ActionDefinition
     ): ActionDefinition | null;
     /**
-     * @experimental (since 1.79)
+     * Experimental (since 1.79)
      *
      * Performs an HTTP request using the given configuration.
      *
@@ -2135,7 +2129,7 @@ declare module "sap/ui/integration/widgets/Card" {
       sKey: string
     ): Promise<string>;
     /**
-     * @experimental (since 1.114)
+     * Experimental (since 1.114)
      *
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
      * after the `cardReady` lifecycle hook in Component cards and Extensions.
@@ -2158,7 +2152,7 @@ declare module "sap/ui/integration/widgets/Card" {
       eCardArea?: CardArea | keyof typeof CardArea
     ): void;
     /**
-     * @experimental (since 1.81)
+     * Experimental (since 1.81)
      *
      * Displays a message strip above the content with the given text. There can be only 1 message displayed.
      * If there is a previous message, it is removed. Can be used only after the `manifestApplied` event is
@@ -2175,7 +2169,7 @@ declare module "sap/ui/integration/widgets/Card" {
       sType: MessageType | keyof typeof MessageType
     ): void;
     /**
-     * @experimental (since 1.84)
+     * Experimental (since 1.84)
      *
      * Triggers an action inside the card.
      *
@@ -2234,7 +2228,7 @@ declare module "sap/ui/integration/widgets/Card" {
     manifest?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @experimental (since 1.65) - This property might be changed in future.
+     * Experimental (since 1.65) - This property might be changed in future.
      *
      * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
      * containing parameters in format `{parameterKey: parameterValue}`.
@@ -2243,7 +2237,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.65
-     * @experimental (since 1.65)
+     * Experimental (since 1.65)
      *
      * Defines the state of the `Card`. When set to `Inactive`, the `Card` doesn't make requests.
      */
@@ -2254,16 +2248,16 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.70
-     * @experimental (since 1.70)
+     * Experimental (since 1.70)
      *
-     * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
-     * of a URL.
+     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
+     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
      */
     baseUrl?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @since 1.76
-     * @experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
+     * Experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
      * is implemented.
      *
      * Defines a list of configuration settings, which will be merged into the original manifest.
@@ -2306,7 +2300,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.109
-     * @experimental (since 1.109)
+     * Experimental (since 1.109)
      *
      * Defines the design of the `Card`.
      */
@@ -2317,7 +2311,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.112
-     * @experimental (since 1.112)
+     * Experimental (since 1.112)
      *
      * Preview mode of the `Card`. Helpful in scenarios when the end user is choosing or configuring a card.
      *
@@ -2333,7 +2327,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * @since 1.85
-     * @experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
+     * Experimental (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Actions definitions from which actions in the header menu of the card are created. **Note**: This aggregation
@@ -2351,7 +2345,7 @@ declare module "sap/ui/integration/widgets/Card" {
     host?: Control | string;
 
     /**
-     * @experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.64) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered on the card.
@@ -2360,20 +2354,18 @@ declare module "sap/ui/integration/widgets/Card" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<Card$ActionEventParameters>) => void;
+    action?: (oEvent: Card$ActionEvent) => void;
 
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Fired when some configuration settings are changed as a result of user interaction. For example - filter
      * value is changed.
      */
-    configurationChange?: (
-      oEvent: Event<Card$ConfigurationChangeEventParameters>
-    ) => void;
+    configurationChange?: (oEvent: Card$ConfigurationChangeEvent) => void;
 
     /**
-     * @experimental (since 1.72)
+     * Experimental (since 1.72)
      *
      * Fired when the manifest is loaded.
      */
@@ -2388,7 +2380,7 @@ declare module "sap/ui/integration/widgets/Card" {
     manifestApplied?: (oEvent: Event) => void;
 
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Fired when the state of the card is changed. For example - the card is ready, new page is selected, a
      * filter is changed or data is refreshed.
@@ -2418,12 +2410,6 @@ declare module "sap/ui/integration/widgets/Card" {
     type?: CardActionType | keyof typeof CardActionType;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ActionEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CardActionEventParameters = Card$ActionEventParameters;
-
   export type Card$ActionEvent = Event<Card$ActionEventParameters>;
 
   export interface Card$ConfigurationChangeEventParameters {
@@ -2442,41 +2428,17 @@ declare module "sap/ui/integration/widgets/Card" {
     changes?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ConfigurationChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CardConfigurationChangeEventParameters = Card$ConfigurationChangeEventParameters;
-
   export type Card$ConfigurationChangeEvent = Event<Card$ConfigurationChangeEventParameters>;
 
   export interface Card$ManifestAppliedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ManifestAppliedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CardManifestAppliedEventParameters = Card$ManifestAppliedEventParameters;
 
   export type Card$ManifestAppliedEvent = Event<Card$ManifestAppliedEventParameters>;
 
   export interface Card$ManifestReadyEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$ManifestReadyEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CardManifestReadyEventParameters = Card$ManifestReadyEventParameters;
-
   export type Card$ManifestReadyEvent = Event<Card$ManifestReadyEventParameters>;
 
   export interface Card$StateChangedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Card$StateChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CardStateChangedEventParameters = Card$StateChangedEventParameters;
 
   export type Card$StateChangedEvent = Event<Card$StateChangedEventParameters>;
 }
@@ -2493,7 +2455,7 @@ declare module "sap/ui/integration/Designtime" {
 
   /**
    * @since 1.75
-   * @experimental (since 1.75)
+   * Experimental (since 1.75)
    *
    * Brings JavaScript capabilities for an {@link sap.ui.integration.widgets.Card} where custom logic can
    * be implemented.
@@ -2579,7 +2541,7 @@ declare module "sap/ui/integration/Designtime" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsBoolean" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value is a boolean or binding string.
    */
@@ -2603,7 +2565,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsBoolean" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsDate" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value can be parsed to a valid date.
    */
@@ -2627,7 +2589,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsDate" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsInteger" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value is an integer or binding string.
    */
@@ -2651,7 +2613,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsInteger" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsNumber" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value is a number or binding string.
    */
@@ -2675,7 +2637,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsNumber" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsSelectedKey" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value is one of the given keys.
    */
@@ -2708,7 +2670,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsSelectedKey
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsStringList" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if none of the provided values is an invalid binding.
    */
@@ -2732,7 +2694,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsStringList"
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueKey" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided key is unique in a list of given keys.
    */
@@ -2769,7 +2731,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueKey" 
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueList" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided list contains no duplicates.
    */
@@ -2793,7 +2755,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueList"
 declare module "sap/ui/integration/designtime/baseEditor/validator/IsValidBinding" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value is a valid binding.
    */
@@ -2826,7 +2788,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsValidBindin
 declare module "sap/ui/integration/designtime/baseEditor/validator/MaxLength" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value doesn't exceed the maximum length.
    */
@@ -2850,7 +2812,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/MaxLength" {
 declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" {
   /**
    * @since 1.81
-   * @experimental - 1.81
+   * Experimental - 1.81
    *
    * Validates if the provided value doesn't contain a binding.
    */
@@ -2873,7 +2835,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" 
 
 declare module "sap/ui/integration/editor/Editor" {
   /**
-   * @experimental (since 1.94)
+   * Experimental (since 1.94)
    *
    * Facade of the {@link sap.ui.integration.editor.Editor} control.
    */
@@ -2881,7 +2843,7 @@ declare module "sap/ui/integration/editor/Editor" {
     __implements__sap_ui_integration_editor_EditorFacade: boolean;
 
     /**
-     * @experimental (since 1.94)
+     * Experimental (since 1.94)
      *
      * Performs an HTTP request using the given configuration.
      *
@@ -2994,9 +2956,9 @@ declare module "sap/ui/integration/Extension" {
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.75
@@ -3066,7 +3028,7 @@ declare module "sap/ui/integration/Extension" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
@@ -3098,7 +3060,7 @@ declare module "sap/ui/integration/Extension" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
@@ -3125,7 +3087,7 @@ declare module "sap/ui/integration/Extension" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Extension`.
@@ -3145,7 +3107,7 @@ declare module "sap/ui/integration/Extension" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.113) - The API might change.
+     * Experimental (since 1.113) - The API might change.
      *
      * Starts the process of fetching a resource from the network, returning a promise that is fulfilled once
      * the response is available. Use this method to override the default behavior when fetching network resources.
@@ -3169,7 +3131,7 @@ declare module "sap/ui/integration/Extension" {
       mRequestSettings: object
     ): Promise<Response>;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
@@ -3188,7 +3150,7 @@ declare module "sap/ui/integration/Extension" {
     ): boolean;
     /**
      * @deprecated (since 1.85) - This property is replaced by the `actions` aggregation of the card;
-     * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
+     * Experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getActions actions}.
@@ -3213,7 +3175,7 @@ declare module "sap/ui/integration/Extension" {
      */
     getFormatters(): Record<string, () => void> | undefined;
     /**
-     * @experimental (since 1.108)
+     * Experimental (since 1.108)
      *
      * Override this method to lazy load dependencies for the extension.
      *
@@ -3244,7 +3206,7 @@ declare module "sap/ui/integration/Extension" {
   export interface $ExtensionSettings extends $ManagedObjectSettings {
     /**
      * @deprecated (since 1.85) - This property is replaced by the `actions` aggregation of the card;
-     * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
+     * Experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * The actions configuration.
@@ -3252,14 +3214,14 @@ declare module "sap/ui/integration/Extension" {
     actions?: CardMenuAction[] | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @experimental (since 1.79)
+     * Experimental (since 1.79)
      *
      * The formatters that can be used in the manifest.
      */
     formatters?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered in the card.
@@ -3268,7 +3230,7 @@ declare module "sap/ui/integration/Extension" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<Extension$ActionEventParameters>) => void;
+    action?: (oEvent: Extension$ActionEvent) => void;
   }
 
   export interface Extension$ActionEventParameters {
@@ -3298,12 +3260,6 @@ declare module "sap/ui/integration/Extension" {
     type?: CardActionType | keyof typeof CardActionType;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Extension$ActionEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ExtensionActionEventParameters = Extension$ActionEventParameters;
-
   export type Extension$ActionEvent = Event<Extension$ActionEventParameters>;
 }
 
@@ -3318,13 +3274,13 @@ declare module "sap/ui/integration/Host" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.75
-   * @experimental (since 1.75)
+   * Experimental (since 1.75)
    *
    * Provides application-level functions and services to an integration card.
    *
@@ -3392,7 +3348,7 @@ declare module "sap/ui/integration/Host" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -3424,7 +3380,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -3451,7 +3407,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange }
      * event of this `sap.ui.integration.Host`.
@@ -3480,7 +3436,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange }
      * event of this `sap.ui.integration.Host`.
@@ -3504,7 +3460,60 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.116)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardInitialized cardInitialized} event of this
+     * `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when the card is initially ready for the first time. Will not be fired for consecutive refreshes
+     * or data changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachCardInitialized(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Host$CardInitializedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Experimental (since 1.116)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardInitialized cardInitialized} event of this
+     * `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when the card is initially ready for the first time. Will not be fired for consecutive refreshes
+     * or data changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachCardInitialized(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Host$CardInitializedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Experimental (since 1.107)
      *
      * Attaches event handler `fnFunction` to the {@link #event:cardStateChanged cardStateChanged} event of
      * this `sap.ui.integration.Host`.
@@ -3533,7 +3542,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Attaches event handler `fnFunction` to the {@link #event:cardStateChanged cardStateChanged} event of
      * this `sap.ui.integration.Host`.
@@ -3557,7 +3566,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.91)
+     * Experimental (since 1.91)
      *
      * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
      *
@@ -3584,7 +3593,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.91)
+     * Experimental (since 1.91)
      *
      * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
      *
@@ -3606,7 +3615,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.97)
+     * Experimental (since 1.97)
      *
      * This function is called when a CSRF token has expired.
      */
@@ -3619,7 +3628,7 @@ declare module "sap/ui/integration/Host" {
       }
     ): void;
     /**
-     * @experimental (since 1.97)
+     * Experimental (since 1.97)
      *
      * This function is called when a CSRF token is fetched.
      */
@@ -3636,7 +3645,7 @@ declare module "sap/ui/integration/Host" {
       pCSRFTokenValuePromise: Promise<string>
     ): void;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -3656,7 +3665,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Detaches event handler `fnFunction` from the {@link #event:cardConfigurationChange cardConfigurationChange }
      * event of this `sap.ui.integration.Host`.
@@ -3676,7 +3685,27 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.116)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:cardInitialized cardInitialized} event of
+     * this `sap.ui.integration.Host`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachCardInitialized(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Host$CardInitializedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Experimental (since 1.107)
      *
      * Detaches event handler `fnFunction` from the {@link #event:cardStateChanged cardStateChanged} event of
      * this `sap.ui.integration.Host`.
@@ -3696,7 +3725,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.91)
+     * Experimental (since 1.91)
      *
      * Detaches event handler `fnFunction` from the {@link #event:message message} event of this `sap.ui.integration.Host`.
      *
@@ -3715,7 +3744,7 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
@@ -3733,7 +3762,7 @@ declare module "sap/ui/integration/Host" {
       mParameters?: Host$ActionEventParameters
     ): boolean;
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cardConfigurationChange cardConfigurationChange} to attached listeners.
@@ -3747,7 +3776,21 @@ declare module "sap/ui/integration/Host" {
       mParameters?: Host$CardConfigurationChangeEventParameters
     ): this;
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.116)
+     * Protected:  Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:cardInitialized cardInitialized} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireCardInitialized(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: Host$CardInitializedEventParameters
+    ): this;
+    /**
+     * Experimental (since 1.107)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cardStateChanged cardStateChanged} to attached listeners.
@@ -3761,7 +3804,7 @@ declare module "sap/ui/integration/Host" {
       mParameters?: Host$CardStateChangedEventParameters
     ): this;
     /**
-     * @experimental (since 1.91)
+     * Experimental (since 1.91)
      * Protected:  Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
@@ -3775,7 +3818,7 @@ declare module "sap/ui/integration/Host" {
       mParameters?: Host$MessageEventParameters
     ): this;
     /**
-     * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
+     * Experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getActions actions}.
@@ -3824,7 +3867,7 @@ declare module "sap/ui/integration/Host" {
       sPath: string
     ): Promise<null>;
     /**
-     * @experimental (since 1.97)
+     * Experimental (since 1.97)
      *
      * Resolves the CSRF token and returns a Promise with its value.
      *
@@ -3881,7 +3924,7 @@ declare module "sap/ui/integration/Host" {
       | ((p1: string, p2: Card) => string | Promise<string>)
       | undefined;
     /**
-     * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
+     * Experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getActions actions}.
@@ -3921,7 +3964,7 @@ declare module "sap/ui/integration/Host" {
 
   export interface $HostSettings extends $ElementSettings {
     /**
-     * @experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
+     * Experimental (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * The actions configuration.
@@ -3942,7 +3985,7 @@ declare module "sap/ui/integration/Host" {
     resolveDestination?: Function | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
+     * Experimental (since 1.75) - Disclaimer: this event is in a beta state - incompatible API changes may
      * be done before its official public release. Use at your own discretion.
      *
      * Fired when an action is triggered.
@@ -3951,34 +3994,40 @@ declare module "sap/ui/integration/Host" {
      * In consecutive order those places are: `Extension`, `Card`, `Host`. Each of them can prevent the next
      * one to handle the action by calling `oEvent.preventDefault()`.
      */
-    action?: (oEvent: Event<Host$ActionEventParameters>) => void;
+    action?: (oEvent: Host$ActionEvent) => void;
 
     /**
-     * @experimental (since 1.96)
+     * Experimental (since 1.96)
      *
      * Fired when some card configuration settings are changed as a result of user interaction. For example
      * - filter value is changed.
      */
     cardConfigurationChange?: (
-      oEvent: Event<Host$CardConfigurationChangeEventParameters>
+      oEvent: Host$CardConfigurationChangeEvent
     ) => void;
 
     /**
-     * @experimental (since 1.107)
+     * Experimental (since 1.107)
      *
      * Fired when the state of a card is changed. For example - the card is ready, new page is selected inside
      * the card, a filter is changed or data is refreshed.
      */
-    cardStateChanged?: (
-      oEvent: Event<Host$CardStateChangedEventParameters>
-    ) => void;
+    cardStateChanged?: (oEvent: Host$CardStateChangedEvent) => void;
 
     /**
-     * @experimental (since 1.91)
+     * Experimental (since 1.116)
+     *
+     * Fired when the card is initially ready for the first time. Will not be fired for consecutive refreshes
+     * or data changes.
+     */
+    cardInitialized?: (oEvent: Host$CardInitializedEvent) => void;
+
+    /**
+     * Experimental (since 1.91)
      *
      * Fired when a message from channels like navigator.serviceWorker is received.
      */
-    message?: (oEvent: Event<Host$MessageEventParameters>) => void;
+    message?: (oEvent: Host$MessageEvent) => void;
   }
 
   export interface Host$ActionEventParameters {
@@ -4008,12 +4057,6 @@ declare module "sap/ui/integration/Host" {
     type?: CardActionType | keyof typeof CardActionType;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$ActionEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HostActionEventParameters = Host$ActionEventParameters;
-
   export type Host$ActionEvent = Event<Host$ActionEventParameters>;
 
   export interface Host$CardConfigurationChangeEventParameters {
@@ -4037,13 +4080,16 @@ declare module "sap/ui/integration/Host" {
     changes?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$CardConfigurationChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HostCardConfigurationChangeEventParameters = Host$CardConfigurationChangeEventParameters;
-
   export type Host$CardConfigurationChangeEvent = Event<Host$CardConfigurationChangeEventParameters>;
+
+  export interface Host$CardInitializedEventParameters {
+    /**
+     * The card.
+     */
+    card?: Control;
+  }
+
+  export type Host$CardInitializedEvent = Event<Host$CardInitializedEventParameters>;
 
   export interface Host$CardStateChangedEventParameters {
     /**
@@ -4052,23 +4098,11 @@ declare module "sap/ui/integration/Host" {
     card?: Control;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$CardStateChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HostCardStateChangedEventParameters = Host$CardStateChangedEventParameters;
-
   export type Host$CardStateChangedEvent = Event<Host$CardStateChangedEventParameters>;
 
   export interface Host$MessageEventParameters {
     data?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Host$MessageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HostMessageEventParameters = Host$MessageEventParameters;
 
   export type Host$MessageEvent = Event<Host$MessageEventParameters>;
 }
@@ -4087,7 +4121,7 @@ declare namespace sap {
             namespace iconEditor {
               /**
                * @since 1.81
-               * @experimental - 1.81
+               * Experimental - 1.81
                *
                * Validates if the provided value belongs to the icon pool.
                */

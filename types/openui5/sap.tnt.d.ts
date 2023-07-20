@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/tnt/library" {
   /**
@@ -423,9 +423,9 @@ declare module "sap/tnt/NavigationList" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.34
@@ -841,9 +841,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (
-      oEvent: Event<NavigationList$ItemSelectEventParameters>
-    ) => void;
+    itemSelect?: (oEvent: NavigationList$ItemSelectEvent) => void;
   }
 
   export interface NavigationList$ItemSelectEventParameters {
@@ -1083,6 +1081,20 @@ declare module "sap/tnt/NavigationListItem" {
      */
     getItems(): NavigationListItem[];
     /**
+     * @since 1.116
+     * Experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Gets current value of property {@link #getSelectable selectable}.
+     *
+     * Specifies if the item can be selected.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `selectable`
+     */
+    getSelectable(): boolean;
+    /**
      * Gets current value of property {@link #getTarget target}.
      *
      * Specifies the browsing context where the linked content will open.
@@ -1222,6 +1234,27 @@ declare module "sap/tnt/NavigationListItem" {
       sIcon?: URI
     ): this;
     /**
+     * @since 1.116
+     * Experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Sets a new value for property {@link #getSelectable selectable}.
+     *
+     * Specifies if the item can be selected.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSelectable(
+      /**
+       * New value for property `selectable`
+       */
+      bSelectable?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getTarget target}.
      *
      * Specifies the browsing context where the linked content will open.
@@ -1285,6 +1318,15 @@ declare module "sap/tnt/NavigationListItem" {
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @since 1.116
+     * Experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Specifies if the item can be selected.
+     */
+    selectable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `select` event should be registered.
      */
@@ -1311,7 +1353,7 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Fired when this item is selected.
      */
-    select?: (oEvent: Event<NavigationListItem$SelectEventParameters>) => void;
+    select?: (oEvent: NavigationListItem$SelectEvent) => void;
   }
 
   export interface NavigationListItem$SelectEventParameters {
@@ -1340,9 +1382,9 @@ declare module "sap/tnt/SideNavigation" {
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
-  import Event from "sap/ui/base/Event";
-
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.34
@@ -1360,8 +1402,6 @@ declare module "sap/tnt/SideNavigation" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/side-navigation/ Side Navigation}
      */
     constructor(
       /**
@@ -1375,8 +1415,6 @@ declare module "sap/tnt/SideNavigation" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/side-navigation/ Side Navigation}
      */
     constructor(
       /**
@@ -1716,9 +1754,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (
-      oEvent: Event<SideNavigation$ItemSelectEventParameters>
-    ) => void;
+    itemSelect?: (oEvent: SideNavigation$ItemSelectEvent) => void;
   }
 
   export interface SideNavigation$ItemSelectEventParameters {
@@ -1727,12 +1763,6 @@ declare module "sap/tnt/SideNavigation" {
      */
     item?: Item;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SideNavigation$ItemSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SideNavigationItemSelectEventParameters = SideNavigation$ItemSelectEventParameters;
 
   export type SideNavigation$ItemSelectEvent = Event<SideNavigation$ItemSelectEventParameters>;
 }
@@ -1798,8 +1828,6 @@ declare module "sap/tnt/ToolHeader" {
      *
      * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
      * can be used.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
     constructor(
       /**
@@ -1816,8 +1844,6 @@ declare module "sap/tnt/ToolHeader" {
      *
      * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
      * can be used.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
     constructor(
       /**

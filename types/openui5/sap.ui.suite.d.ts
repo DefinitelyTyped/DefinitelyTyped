@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -40,7 +40,7 @@ declare module "sap/ui/suite/TaskCircle" {
   /**
    * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
    * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * Experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a circle which radius and color depends on the given parameters
    */
@@ -403,12 +403,6 @@ declare module "sap/ui/suite/TaskCircle" {
 
   export interface TaskCircle$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TaskCircle$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TaskCirclePressEventParameters = TaskCircle$PressEventParameters;
-
   export type TaskCircle$PressEvent = Event<TaskCircle$PressEventParameters>;
 }
 
@@ -426,7 +420,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   /**
    * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
    * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * Experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a vertical progress bar in dependency of the given percentage. Only values between
    * 0 and 100 are valid.
@@ -680,12 +674,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   }
 
   export interface VerticalProgressIndicator$PressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VerticalProgressIndicator$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VerticalProgressIndicatorPressEventParameters = VerticalProgressIndicator$PressEventParameters;
 
   export type VerticalProgressIndicator$PressEvent = Event<VerticalProgressIndicator$PressEventParameters>;
 }
