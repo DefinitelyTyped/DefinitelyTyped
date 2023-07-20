@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal } from 'rdf-js';
+import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal, DatasetCoreFactory } from 'rdf-js';
 import Context from './lib/Context.js';
 
 export type AnyContext = Term | Term[] | undefined;
@@ -146,20 +146,24 @@ export interface ListPointer<T extends Term = Term, D extends DatasetCore = Data
 export type MultiPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> = AnyPointer<T | T[], D>;
 export type GraphPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> = AnyPointer<T, D>;
 
+export type ClownfaceInitWithTerms<T extends Term | Term[], D extends DatasetCore> = ClownfaceInit<D> & { term: T };
+export type ClownfaceInitWithValue<D extends DatasetCore> = ClownfaceInit<D> & { value: string };
+export type ClownfaceInitWithValues<D extends DatasetCore> = ClownfaceInit<D> & { value: string[] };
+
 export interface InitClonePointer {
     <D extends DatasetCore, T extends AnyContext>(other: AnyPointer<T, D>): AnyPointer<T, D>;
 }
 
 export interface InitLiteralPointer {
-    <D extends DatasetCore>(options: ClownfaceInit<D> & { value: string }): AnyPointer<Literal, D>;
+    <D extends DatasetCore>(options: ClownfaceInitWithValue<D>): AnyPointer<Literal, D>;
 }
 
 export interface InitLiteralMultiPointer {
-    <D extends DatasetCore>(options: ClownfaceInit<D> & { value: string[] }): AnyPointer<Literal[], D>;
+    <D extends DatasetCore>(options: ClownfaceInitWithValues<D>): AnyPointer<Literal[], D>;
 }
 
 export interface InitPointerFromTerms {
-    <D extends DatasetCore, T extends Term | Term[]>(options: ClownfaceInit<D> & { term: T }): AnyPointer<T, D>;
+    <D extends DatasetCore, T extends Term | Term[]>(options: ClownfaceInitWithTerms<T, D>): AnyPointer<T, D>;
 }
 
 interface InitAnyPointer {

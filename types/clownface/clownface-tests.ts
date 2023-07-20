@@ -4,6 +4,7 @@ import Context from 'clownface/lib/Context.js';
 import filters from 'clownface/filter.js';
 import Environment from '@rdfjs/environment/Environment.js';
 import ClownfaceFactory from 'clownface/Factory.js';
+import DatasetFactory from '@rdfjs/dataset/Factory.js';
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};
@@ -48,7 +49,7 @@ function multiContext() {
 }
 
 function singleContext() {
-    const cf: AnyPointer<Literal, Dataset> = <any>{};
+    const cf: AnyPointer<Literal, Dataset> = <any> {};
     const term: Literal = cf.term;
     const terms: [Literal] = cf.terms;
     const value: string = cf.value;
@@ -471,13 +472,14 @@ function testFilterModule() {
 
 function testEnvironmentUsage() {
     const env = new Environment([
-        ClownfaceFactory
+        ClownfaceFactory,
+        DatasetFactory,
     ]);
 
     // $ExpectType AnyPointer<AnyContext, DatasetCore<Quad, Quad>>
     const noDataset = env.clownface();
 
-    // $ExpectType AnyPointer<NamedNode, DatasetCore<Quad, Quad>>
+    // $ExpectType AnyPointer<NamedNode<string>, DatasetCore<Quad, Quad>>
     const namedNode = env.clownface({
         term: node,
     });
