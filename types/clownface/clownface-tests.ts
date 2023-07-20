@@ -474,10 +474,10 @@ function testEnvironmentUsage() {
         ClownfaceFactory
     ]);
 
-    // $ExpectType AnyPointer<AnyContext, DatasetCore>
+    // $ExpectType AnyPointer<AnyContext, DatasetCore<Quad, Quad>>
     const noDataset = env.clownface();
 
-    // $ExpectType AnyPointer<NamedNode, DatasetCore>
+    // $ExpectType AnyPointer<NamedNode, DatasetCore<Quad, Quad>>
     const namedNode = env.clownface({
         term: node,
     });
