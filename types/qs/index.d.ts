@@ -54,7 +54,7 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean | undefined;
     }
 
-    interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
+    interface ParsedQs { [key: string]: undefined | number | string | string[] | ParsedQs | ParsedQs[]  }
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions & { decoder?: never | undefined }): ParsedQs;
