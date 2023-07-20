@@ -41,7 +41,7 @@ export class Settings {
      * The default output calendar to create DateTimes with. Does not affect existing instances.
      */
     static defaultOutputCalendar: string;
-    
+
     /**
      * The cutoff year after which a string encoding a year as two digits is interpreted to occur in the current century.
      */
