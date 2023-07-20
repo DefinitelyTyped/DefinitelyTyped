@@ -41,5 +41,5 @@ declare global {
     // tslint:disable-next-line:no-empty-interface
     interface WeakSet<T> { }
     // tslint:disable-next-line:no-empty-interface
-    interface WeakMap<K extends object, V> { }
+    interface WeakMap<K extends WeakKey, V> { }
 }
