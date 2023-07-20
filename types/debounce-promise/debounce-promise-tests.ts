@@ -23,7 +23,12 @@ bar().then(ar => ar.concat());
 
 // Converts the return value from the producer function to a promise
 const two = debounce((a: string, b: number, c: { d: boolean }) => [4], 10, {
-    leading: true,
-    accumulate: true
+    leading: true
 });
 two("1", 2, { d: false }).then(ar => ar.pop(), () => 2);
+
+const accumulated = (args: Array<[number, string]>): number => args[0][0];
+const debouncedAccumulate = debounce(accumulated, 10, { accumulate: true });
+
+// The debounced function will use the nested parameters as its signature
+debouncedAccumulate(1, 'a');

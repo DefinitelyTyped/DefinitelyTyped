@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer'
-import * as AWS from 'aws-sdk'
+import * as AWS from 'aws-sdk2-types'
 
 // create reusable transporter object using SMTP transport
 var transporter: nodemailer.Transporter = nodemailer.createTransport({

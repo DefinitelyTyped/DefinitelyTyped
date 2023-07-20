@@ -4,7 +4,7 @@
 //                 Joao Peixoto <https://github.com/Hartimer>
 //                 Michael J. Currie <https://github.com/Basaingeal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// Minimum TypeScript Version: 5.1
 
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
@@ -306,7 +306,7 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: 'silent' | 'optional' | 'required' | undefined;
+    mediation?: 'silent' | 'optional' | 'required' | 'conditional' | undefined;
 
     /**
      * This property specifies options for requesting a public-key signature.

@@ -84,7 +84,6 @@ export class DriverService {
  */
 export class FileDetector extends webdriver.FileDetector {
     /**
-     * @constructor
      **/
     constructor();
 

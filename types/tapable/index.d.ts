@@ -3,6 +3,6 @@
 // Definitions by: e-cloud <https://github.com/e-cloud>
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/* tslint:disable-next-line:no-self-import */
+/* eslint-disable-next-line no-self-import */
 import tapable = require('tapable');
 export = tapable;

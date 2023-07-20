@@ -424,7 +424,7 @@ export class Diva {
           * Works for a single pixel co-ordinate or a dimension (e.g., translates a box
           * that is 111.111 pixels wide on the current image to one that is 1000 pixels wide
           * on the current zoom level).
-          * @params position - A point on the current zoom level.
+          * @param position - A point on the current zoom level.
           * @returns The same point on the max zoom level.
           */
          translateToMaxZoomLevel(position: number): number;

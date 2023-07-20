@@ -21,7 +21,7 @@ log.verbose();
  */
 log.http(Symbol('hi!'));
 /**
- * This should be a failure case but they accept any combination of arguments
+ * They accept any combination of arguments, so I can't really test the failure case
  */
 log.silly('fail');
 

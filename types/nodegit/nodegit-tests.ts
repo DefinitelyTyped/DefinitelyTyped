@@ -21,6 +21,8 @@ const tree = new Git.Tree();
 const fetchOptions = new Git.FetchOptions();
 const commit = new Git.Commit();
 const annotatedCommit = new Git.AnnotatedCommit();
+const credential = Git.Credential;
+const cred = Git.Cred;
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {
@@ -212,3 +214,16 @@ Git.Branch.createFromAnnotated(repo, "mybranch", commit, 0).then(ref => {
 });
 
 repo.cleanup();
+
+const cloneOptions: Git.CloneOptions = {
+    fetchOpts: {
+        callbacks: {
+            credentials: () => Git.Credential.sshKeyFromAgent("git")
+        }
+    }
+};
+
+Git.Clone("repo_url", "local_path", cloneOptions).then(repoClone => {
+    // Use Repo
+    repoClone.cleanup();
+});

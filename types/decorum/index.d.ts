@@ -241,7 +241,6 @@ declare namespace decorum {
 
     /**
      * Mechanism for overriding validation errors to provide for custom or localized error messages.
-     * @type {{IMessageHandlerMap}}
      */
     export let MessageHandlers: IMessageHandlerMap;
 

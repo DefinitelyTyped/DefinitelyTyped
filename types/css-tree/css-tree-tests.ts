@@ -35,26 +35,29 @@ csstree.walk(ast, {
     reverse: false,
 });
 
-csstree.find(ast, (node, item, list) => {
+const findResult = csstree.find(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findResult; // $ExpectType CssNode | null
 
-csstree.findLast(ast, (node, item, list) => {
+const findLastResult = csstree.findLast(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findLastResult; // $ExpectType CssNode | null
 
-csstree.findAll(ast, (node, item, list) => {
+const findAllResult = csstree.findAll(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findAllResult; // $ExpectType CssNode[]
 
 csstree.generate(ast); // $ExpectType string
 
@@ -82,13 +85,9 @@ csstree.generate(ast, {
     }),
 });
 
-const property = csstree.property('*-vendor-property');
-// @ts-expect-error
-property.name = 'test';
+const property = csstree.property('*-vendor-property'); // $ExpectType Property
 
-const keyword = csstree.keyword('-vendor-keyword');
-// @ts-expect-error
-keyword.name = 'test';
+const keyword = csstree.keyword('-vendor-keyword'); // $ExpectType Keyword
 
 csstree.clone(ast); // $ExpectType CssNode
 
@@ -432,7 +431,7 @@ switch (ast.type) {
         break;
 
     case 'Url':
-        ast.value; // $ExpectType Raw | StringNode
+        ast.value; // $ExpectType string
         break;
 
     case 'Value':
@@ -611,7 +610,7 @@ switch (toPlain.type) {
         break;
 
     case 'Url':
-        toPlain.value; // $ExpectType Raw | StringNode
+        toPlain.value; // $ExpectType string
         break;
 
     case 'Value':
@@ -708,3 +707,20 @@ csstree.string.encode('foo'); // $ExpectType string
 csstree.string.encode('foo', true); // $ExpectType string
 csstree.url.decode('foo'); // $ExpectType string
 csstree.url.encode('foo'); // $ExpectType string
+
+csstree.fork({}); // $ExpectType { lexer: Lexer; }
+const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: '<length>' } });
+lexer; // $ExpectType Lexer
+lexer.matchAtruleDescriptor('foo', 'bar', ast); // $ExpectType LexerMatchResult
+lexer.matchAtruleDescriptor('foo', 'bar', 'baz'); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchDeclaration(ast); // $ExpectType LexerMatchResult
+lexer.matchProperty('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchProperty('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchType('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchType('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.match('foo', ast); // $ExpectType LexerMatchResult
+lexer.match('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.match(syntax, ast); // $ExpectType LexerMatchResult
+lexer.match(syntax, 'bar'); // $ExpectType LexerMatchResult

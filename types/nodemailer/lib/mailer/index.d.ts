@@ -151,6 +151,8 @@ declare namespace Mail {
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
         priority?: "high"|"normal"|"low" | undefined;
+        /** if set to true then converts data:images in the HTML content of message to embedded attachments */
+        attachDataUrls?: boolean | undefined;
     }
 
     type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;

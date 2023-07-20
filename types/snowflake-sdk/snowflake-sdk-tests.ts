@@ -16,8 +16,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     if (err) {
         err.code; // $ExpectType ErrorCode | undefined
         err.sqlState; // $ExpectType string | undefined
-        err.data; // $ExpectType object | undefined
-        err.response; // $ExpectType object | undefined
+        err.data; // $ExpectType Record<string, any> | undefined
+        err.response; // $ExpectType Record<string, any> | undefined
         err.responseBody; // $ExpectType string | undefined
         err.cause; // $ExpectType Error | undefined
         err.isFatal; // $ExpectType boolean | undefined
@@ -28,6 +28,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         binds: [1, ''],
         complete(err, stmt, rows) {
             err; // $ExpectType SnowflakeError | undefined
+            err?.data?.line; // $ExpectType any
+            err?.data?.pos; // $ExpectType any
             stmt.cancel((err, stmt) => {
                 //
             });
@@ -89,6 +91,9 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 };
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback).then(() => {});
+
+// $ExpectType Promise<boolean>
+connection.isValidAsync();
 
 //  Key pair connections
 

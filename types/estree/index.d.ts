@@ -496,7 +496,10 @@ export type AssignmentOperator =
     | '>>>='
     | '|='
     | '^='
-    | '&=';
+    | '&='
+    | '||='
+    | '&&='
+    | '??=';
 
 export type UpdateOperator = '++' | '--';
 

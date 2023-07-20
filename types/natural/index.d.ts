@@ -128,6 +128,7 @@ declare function DiceCoefficient(str1: string, str2: string): number;
 
 interface Stemmer {
     stem(token: string): string;
+    removeStopWords(moreStopWords: string[]): void;
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }

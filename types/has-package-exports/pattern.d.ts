@@ -1,5 +1,5 @@
 // This is necessary to disallow import of `has-package-exports/pattern.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line no-declare-current-package
 declare module 'has-package-exports/pattern' {
     /**
      * Whether the current environment supports pattern `exports` in `package.json`.

@@ -1,5 +1,9 @@
 Frida.version; // $ExpectType string
 
+const opts: HexdumpOptions = { address: ptr('0x1000') };
+// $ExpectType NativePointer | undefined
+opts.address;
+
 // @ts-expect-error
 SourceMap;
 
@@ -65,6 +69,9 @@ p.blend(1337);
 p.blend(ptr(42));
 // @ts-expect-error
 p.blend();
+
+// $ExpectType ArrayBuffer | null
+p.readVolatile(2);
 
 // $ExpectType NativePointer
 Memory.alloc(1);

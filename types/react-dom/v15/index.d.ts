@@ -49,9 +49,8 @@ export function unmountComponentAtNode(container: Element): boolean;
 
 export const version: string;
 
-export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;
+export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
+export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 export function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
     parentComponent: Component<any>,

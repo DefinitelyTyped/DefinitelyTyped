@@ -1265,6 +1265,33 @@ declare namespace AP {
     }
 
     /**
+     * Enables apps to get and set the scroll position.
+     */
+    namespace scrollPosition {
+        /**
+         * Gets the scroll position relative to the browser viewport
+         * @param callback callback to pass the scroll position
+         */
+        function getPosition(
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+
+        /**
+         * Sets the vertical scroll position relative to the iframe
+         * @param y vertical offset position
+         * @param callback callback to pass the scroll position
+         */
+        function setVerticalPosition(
+            y: number,
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+    }
+
+    namespace theming {
+        function initializeTheming(): void;
+    }
+
+    /**
      * A JavaScript module which provides functions to interact with the user currently in session.
      */
     namespace user {

@@ -195,9 +195,9 @@ const awsServerless: Aws.Serverless = {
             testenvironmentkey: 'testenvironmentvalue'
         },
         endpointType: 'regional',
-        apiKeys: ['testApiKeys'],
+        apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
         apiGateway: {
-            apiKeys: ['testApiKeys'],
+            apiKeys: [{ name: "testApiKeyName", value: "testApiKeyValue", description: "testApiKeyDescription", customerId: "testApiKeyCustomerId", enabled: true }, 'testApiKeys'],
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
@@ -787,6 +787,20 @@ const awsServerless: Aws.Serverless = {
                                 OriginProtocolPolicy: 'testOriginProtocolPolicy',
                             }
                         }
+                    }
+                }, {
+                    kafka: {
+                        accessConfigurations: {
+                            saslPlainAuth: 'mySecretManagerARN',
+                        },
+                        bootstrapServers: [
+                            'abc3.xyz.com:9092',
+                            'abc2.xyz.com:9092',
+                        ],
+                        topic: 'MySelfManagedKafkaTopic',
+                        batchSize: 100,
+                        maximumBatchingWindow: 30,
+                        enabled: true,
                     }
                 }
             ],

@@ -10,6 +10,7 @@ intro.setOption('showProgress', true);
 intro.setOptions({
     hidePrev: true,
     hideNext: false,
+    nextToDone: true,
     scrollPadding: 30,
     hintAnimation: false,
     steps: [

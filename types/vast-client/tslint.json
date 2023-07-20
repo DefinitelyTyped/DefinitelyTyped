@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-any-union": false,
         "no-object-literal-type-assertion": false
     }
 }

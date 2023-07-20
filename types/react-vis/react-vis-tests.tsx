@@ -229,12 +229,14 @@ export const HighlightDragExample: React.FC = () => {
                     if (!selection) {
                         return '#1E96BE';
                     }
-                    const inX = d.x >= selection.start && d.x <= selection.end;
-                    const inX0 = d.x0 >= selection.start && d.x0 <= selection.end;
-                    const inStart = selection.start >= d.x0 && selection.start <= d.x;
-                    const inEnd = selection.end >= d.x0 && selection.end <= d.x;
-
-                    return inStart || inEnd || inX || inX0 ? '#12939A' : '#1E96BE';
+                    if (typeof d.x === 'number' && typeof d.x0 === 'number') {
+                        const inX = d.x >= selection.start && d.x <= selection.end;
+                        const inX0 = d.x0 >= selection.start && d.x0 <= selection.end;
+                        const inStart = selection.start >= d.x0 && selection.start <= d.x;
+                        const inEnd = selection.end >= d.x0 && selection.end <= d.x;
+                        return inStart || inEnd || inX || inX0 ? '#12939A' : '#1E96BE';
+                    }
+                    return '#1E96BE';
                 }}
             />
             <Highlight color="#829AE3" drag enableY={false} onDrag={updateDragState} onDragEnd={updateDragState} />

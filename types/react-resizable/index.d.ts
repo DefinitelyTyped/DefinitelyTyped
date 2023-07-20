@@ -39,8 +39,8 @@ export type ResizableProps = {
     handle?: React.ReactNode | ((resizeHandle: ResizeHandle, ref: React.RefObject<any>) => React.ReactNode) | undefined;
     handleSize?: [number, number] | undefined;
     lockAspectRatio?: boolean | undefined;
-    minConstraints?: [number, number] | undefined;
-    maxConstraints?: [number, number] | undefined;
+    minConstraints?: [width: number, height: number] | undefined;
+    maxConstraints?: [width: number, height: number] | undefined;
     onResizeStop?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
     onResizeStart?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
     onResize?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;

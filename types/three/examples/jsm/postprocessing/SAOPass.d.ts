@@ -10,9 +10,9 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     ColorRepresentation,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export enum OUTPUT {
     Beauty,
@@ -57,7 +57,7 @@ export class SAOPass extends Pass {
     hBlurMaterial: ShaderMaterial;
     materialCopy: ShaderMaterial;
     depthCopy: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     params: SAOPassParams;
 
     static OUTPUT: typeof OUTPUT;

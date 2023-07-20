@@ -7,7 +7,7 @@
  */
 
 import * as d3Sankey from 'd3-sankey';
-import { select, Selection } from 'd3-selection';
+import { select } from 'd3-selection';
 import { Link } from 'd3-shape';
 
 // ---------------------------------------------------------------------------
@@ -426,6 +426,7 @@ numMaybe = sNode.x0;
 numMaybe = sNode.x1;
 numMaybe = sNode.y0;
 numMaybe = sNode.y1;
+numMaybe = sNode.fixedValue;
 numMaybe = sNode.value;
 numMaybe = sNode.index;
 numMaybe = sNode.depth;

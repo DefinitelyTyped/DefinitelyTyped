@@ -1,4 +1,4 @@
-import SQS = require('aws-sdk/clients/sqs');
+import SQS = require('aws-sdk2-types/clients/sqs');
 
 // { ClientConfiguration, BucketName, ObjectKey, GetObjectOutput }
 

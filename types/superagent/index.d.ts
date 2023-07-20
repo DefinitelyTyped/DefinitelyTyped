@@ -91,6 +91,7 @@ declare namespace request {
     interface ResponseError extends Error {
         status?: number | undefined;
         response?: Response | undefined;
+        timeout?: boolean | undefined;
     }
 
     interface HTTPError extends Error {
@@ -145,6 +146,7 @@ declare namespace request {
         ca(cert: string | string[] | Buffer | Buffer[]): this;
         cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
+        connect(override: string | { [hostname: string]: false | string | { host: string, port: number} }): this;
         disableTLSCerts(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
@@ -175,7 +177,7 @@ declare namespace request {
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
-        withCredentials(): this;
+        withCredentials(on?: boolean): this;
         write(data: string | Buffer, encoding?: string): boolean;
         maxResponseSize(size: number): this;
     }

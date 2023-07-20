@@ -1,4 +1,4 @@
-// Type definitions for rsmq-worker 0.3.5
+// Type definitions for rsmq-worker 0.4.2
 // Project: http://smrchy.github.io/rsmq/rsmq-worker/
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,7 @@ declare namespace RSMQWorker {
         send(message: string, cb: CallbackT<string>): Client;
         del(id: string, cb?: CallbackT<void>): Client;
         changeInterval(interval: number | number[]): Client;
+        quit(): void;
     }
 
     export interface Options {

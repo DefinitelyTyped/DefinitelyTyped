@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-import { DynamoDB } from "aws-sdk";
 import { EventEmitter } from "events";
 
 export interface Lock extends EventEmitter {
@@ -14,7 +13,11 @@ export interface Lock extends EventEmitter {
 }
 
 interface GenericConfig {
-    dynamodb: DynamoDB.DocumentClient;
+    dynamodb: {
+        delete: (...args: any[]) => any;
+        get: (...args: any[]) => any;
+        put: (...args: any[]) => any;
+    };
     lockTable: string;
     partitionKey: string;
     sortKey?: string | undefined;

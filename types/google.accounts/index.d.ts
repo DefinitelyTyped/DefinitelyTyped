@@ -38,6 +38,12 @@ declare namespace google.accounts {
          */
         function revoke(accessToken: string, done: () => void): void;
 
+        interface ClientConfigError extends Error {
+            message: string;
+            stack?: string;
+            type: 'unknown' | 'popup_closed' | 'popup_failed_to_open';
+        }
+
         interface OverridableTokenClientConfig {
             /**
              * Optional. A space-delimited, case-sensitive list of prompts to
@@ -85,7 +91,7 @@ declare namespace google.accounts {
 
         /**
          * A TokenResponse JavaScript object will be passed to your callback
-         * method in the popup UX.
+         * method (as defined in TokenClientConfig) in the popup UX.
          */
         interface TokenResponse {
             /**
@@ -117,7 +123,7 @@ declare namespace google.accounts {
             /**
              * A space-delimited list of scopes that are approved by the user.
              */
-            scopes: string;
+            scope: string;
 
             /**
              * The string value that your application uses to maintain state
@@ -145,6 +151,47 @@ declare namespace google.accounts {
             error_uri: string;
         }
 
+        /**
+         * A CodeResponse JavaScript object will be passed to your callback
+         * method (as defined in CodeClientConfig) in the popup UX.
+         */
+        interface CodeResponse {
+            /**
+             * The authorization code of a successful token response.
+             */
+            code: string;
+
+            /**
+             * A space-delimited list of scopes that are approved by the user.
+             */
+            scope: string;
+
+            /**
+             * The string value that your application uses to maintain state
+             * between your authorization request and the response.
+             */
+            state: string;
+
+            /**
+             * A single ASCII error code.
+             */
+            error: string;
+
+            /**
+             * Human-readable ASCII text providing additional information,
+             * used to assist the client developer in understanding
+             * the error that occurred.
+             */
+            error_description: string;
+
+            /**
+             * A URI identifying a human-readable web page with information
+             * about the error, used to provide the client developer with
+             * additional information about the error.
+             */
+            error_uri: string;
+        }
+
         interface TokenClientConfig {
             /**
              * Required.
@@ -160,12 +207,12 @@ declare namespace google.accounts {
             callback: (tokenResponse: TokenResponse) => void;
 
             /**
-             * Optional.
+             * Required.
              * A space-delimited list of scopes that identify the resources that
              * your application could access on the user's behalf. These values
              * inform the consent screen that Google displays to the user.
              */
-            scope?: string;
+            scope: string;
 
             /**
              * Optional, defaults to 'select_account'.
@@ -214,6 +261,13 @@ declare namespace google.accounts {
              * server's response.
              */
             state?: string;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
 
         interface CodeClientConfig {
@@ -246,7 +300,7 @@ declare namespace google.accounts {
              * returned code response. The property will be ignored by the
              * redirect UX.
              */
-            callback?: (response: unknown) => void;
+            callback?: (response: CodeResponse) => void;
 
             /**
              * Optional. Recommended for redirect UX. Specifies any string value
@@ -290,6 +344,13 @@ declare namespace google.accounts {
              * to select an account.
              */
             select_account?: boolean;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
     }
 
@@ -577,6 +638,12 @@ declare namespace google.accounts {
              * is used.
              */
             locale?: string;
+
+            /**
+             * You can define a JavaScript function to be called when the
+             * Sign in with Google button is clicked.
+             */
+            click_listener?: () => void;
         }
     }
 }

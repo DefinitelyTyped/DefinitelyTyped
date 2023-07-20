@@ -114,6 +114,7 @@ const graphDiv = '#test';
         width: [2],
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -123,6 +124,7 @@ const graphDiv = '#test';
         type: 'histogram',
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -259,11 +261,13 @@ const graphDiv = '#test';
     const template: Template = {
         data: {
             bar: [{ marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' }],
-            scatter: [{
-                mode: 'lines+markers',
-                line: { color: 'red', width: 3 },
-                marker: { color: 'red', size: 8, symbol: 'circle-open' },
-            }],
+            scatter: [
+                {
+                    mode: 'lines+markers',
+                    line: { color: 'red', width: 3 },
+                    marker: { color: 'red', size: 8, symbol: 'circle-open' },
+                },
+            ],
         },
         layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
@@ -346,7 +350,7 @@ const graphDiv = '#test';
                     transform: 'matrix(1 0 0 -1 0 850)',
                 },
                 click: (gd, ev) => console.log('Download data'),
-            }
+            },
         ],
         setBackground: 'transparent',
         watermark: false,
@@ -926,6 +930,8 @@ function rand() {
     });
 
     myPlot.removeAllListeners('plotly_restyle');
+
+    myPlot.data; // $ExpectType Data[]
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -978,4 +984,116 @@ function rand() {
             texttemplate: ['x: %{x}', 'y: %{y}'],
         },
     ]);
+})();
+
+(() => {
+    // should create a circular contour plot drawn with lines
+    const Steps = 50;
+    const Span = 1.0;
+
+    const z: number[][] = [];
+    for (let ydx = 0; ydx < Steps; ydx++) {
+        const _z = new Array<number>(Steps);
+        const y = -Span + (ydx * 2 * Span) / Steps;
+        for (let xdx = 0; xdx < Steps; xdx++) {
+            const x = -Span + (xdx * 2 * Span) / Steps;
+            _z[xdx] = Math.sqrt(x * x + y * y);
+        }
+        z.push(_z);
+    }
+
+    const data: Array<Partial<Plotly.PlotData>> = [
+        {
+            z,
+            type: 'contour',
+            contours: {
+                coloring: 'lines',
+                labelfont: {
+                    color: 'black',
+                    family: 'monospace',
+                },
+                showlabels: true,
+            },
+            autocontour: true,
+            ncontours: 6,
+        },
+    ];
+    const layout: Partial<Plotly.Layout> = {
+        autosize: true,
+    };
+    Plotly.newPlot('myDiv', data, layout);
+})();
+
+(() => {
+    // Test creation of plotly updatemenu
+    const button1: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle',
+    };
+
+    const button2: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle',
+    };
+
+    const layout: Partial<Plotly.Layout> = {
+        updatemenus: [
+            {
+                buttons: [button1, button2],
+                direction: 'down',
+                pad: { r: 10, t: 10 },
+                showactive: true,
+                type: 'dropdown',
+                x: 0.1,
+                xanchor: 'left',
+                y: 1.1,
+                yanchor: 'top',
+            },
+        ],
+    };
+
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+
+    newPlot('myDiv', data, layout);
+})();
+
+//////////////////////////////////////////////////////////////////////
+// PlotlyIcons
+() => {
+    const icon = Plotly.Icons.home;
+    const icon2 = Plotly.Icons.undo;
+};
+
+//////////////////////////////////////////////////////////////////////
+// Mapbox plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: 'scattermapbox',
+            text: ['A', 'B', 'C'],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: 'fuchsia', size: 4 },
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: 'zoom',
+        mapbox: { style: 'open-street-map', center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 },
+    };
+
+    const config: Partial<Config> = {
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox'],
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
 })();

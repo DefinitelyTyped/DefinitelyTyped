@@ -826,6 +826,9 @@ export interface SavingsTrade {
     paymentInfo?: SavingsPaymentInfo | undefined;
 
     tradeItems?: SavingsTradeItem[] | undefined;
+
+    /** Indicates whether the user needs to be reauthorized in partner's system. Non-persistent value. */
+    reauthorizationUrl?: string;
 }
 
 export interface SavingsPaymentInfo {

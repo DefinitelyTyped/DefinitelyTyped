@@ -12,8 +12,14 @@ declare class ControlChannel {
     setDataChannelSequence(seq: number): void;
     getDataChannelSequence(): number;
     lockSessionByNavigator(): string;
+    lockScreen(): void;
+    requestScreenLock(): void;
+    isScreenLockPending(): boolean;
     unlockSessionByNavigator(userName: string, password: string, newPassword?: string): string;
-    getSessionLocked(): boolean;
+    isScreenLocked(): boolean;
+    getScreenLockedAt(): number;
+    getScreenUnlockedAt(): number;
+    getScreenLockRequestedAt(): number;
     getLastMessage(): any;
     updateMessage(message: any): void;
     setCtrlMessage(message: any): void;
@@ -42,6 +48,6 @@ declare namespace ControlChannel {
             stackTrace?: string | string[];
             ticket?: string;
         }
-    ): string;
+    ): any;
     function getInstance(): ControlChannel;
 }

@@ -46,6 +46,10 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      */
     value?: number | undefined;
     /**
+     * Node's fixedValue (user-defined)
+     */
+    fixedValue?: number | undefined;
+    /**
      * Node’s zero-based index within the array of nodes calculated by Sankey layout generator.
      */
     index?: number | undefined;

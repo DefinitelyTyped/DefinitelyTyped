@@ -75,8 +75,8 @@ declare namespace daterangepicker {
         maxDate: moment.Moment;
         maxSpan: moment.DurationInputArg1 | boolean;
         showDropdowns: boolean;
-        minYear: number;
-        maxYear: number;
+        minYear: string | number;
+        maxYear: string | number;
         showWeekNumbers: boolean;
         showISOWeekNumbers: boolean;
         timePicker: boolean;

@@ -42,6 +42,11 @@ export interface IframeApiType {
     Player: {new(elementId: string, options: Options): YouTubePlayer};
 }
 
+export interface PlayerSize {
+    width: number;
+    height: number;
+}
+
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
  */
@@ -134,6 +139,7 @@ export interface YouTubePlayer {
     setPlaybackQuality(suggestedQuality: string): Promise<void>;
     setPlaybackRate(suggestedRate: number): Promise<void>;
     setShuffle(shufflePlaylist: boolean): Promise<void>;
+    getSize(): Promise<PlayerSize>;
     setSize(width: number, height: number): Promise<object>;
     setVolume(volume: number): Promise<void>;
     stopVideo(): Promise<void>;

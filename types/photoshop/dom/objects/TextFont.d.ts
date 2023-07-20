@@ -5,31 +5,42 @@ import { Photoshop } from "../Photoshop";
  * ```javascript
  * const arialMTFont = require('photoshop').app.fonts.getByName("ArialMT");
  * ```
+ * @minVersion 23.0
  */
 export declare class TextFont {
+    private _family;
+    private _name;
+    private _parent;
+    private _postScriptName;
+    private _style;
     /**
      * The font family.
+     * @minVersion 23.0
      */
-    readonly family: string;
+    get family(): string;
     /**
      * The name of the font.
+     * @minVersion 23.0
      */
-    readonly name: string;
+    get name(): string;
     /**
      * The containing application.
+     * @minVersion 23.0
      */
-    readonly parent: Photoshop;
+    get parent(): Photoshop;
     /**
      * The PostScript name of the font.
+     * @minVersion 23.0
      */
-    readonly postScriptName: string;
+    get postScriptName(): string;
     /**
      * The font style.
+     * @minVersion 23.0
      */
-    readonly style: string;
+    get style(): string;
     /**
-     * The class name of the referenced object
-     * @default "TextFont"
+     * The class name of the referenced object: *"TextFont"*.
+     * @minVersion 23.0
      */
-    readonly typename: string;
+    get typename(): "TextFont";
 }

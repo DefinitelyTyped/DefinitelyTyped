@@ -133,8 +133,10 @@ declare class Connection {
         iVfsOrParentKey?: DataSet | number,
         iClass?: DataSet
     ): ModelDef;
-    sendMail(mail: Mail): void;
-    scheduledSendMail(mail: Mail, maxSize?: number): void;
+    sendEmail(email: Email): void;
+    private sendMail;
+    scheduledSendEmail(email: Email, maxSize?: number): void;
+    private scheduledSendMail;
     newTask(task: Task, userName: string | null, password: string | null): void;
     skipSatSunHoliday(dt: Date, uf: number | null, localidade: number | null): Date;
     getUserGroups(userKey: number): number[];
@@ -142,12 +144,12 @@ declare class Connection {
     getTimezoneOffset(): number;
 }
 declare namespace Connection {
-    export { fromConfig, Database, ModelDef, Mail, Task };
+    export { fromConfig, Database, ModelDef, Email, Task };
 }
 type Database = import('../database/Database');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
 type ModelDef = import('../classdef/ModelDef');
-type Mail = import('../mail/Mail');
+type Email = import('../email/Email');
 type Task = import('../scheduler/Task');
 declare function fromConfig(key: DBKey | number): Connection;

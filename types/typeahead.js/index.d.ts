@@ -10,7 +10,6 @@ interface JQuery {
     /**
      * For a given input[type="text"], enables typeahead functionality.
      *
-     * @constructor
      * @param options Options hash that's used for configuration
      * @param datasets Array of datasets
      */
@@ -19,7 +18,6 @@ interface JQuery {
     /**
       * For a given input[type="text"], enables typeahead functionality.
       *
-      * @constructor
       * @param options Options hash that's used for configuration
       * @param dataset At least one dataset is required
       * @param datasets Rest of the datasets.
@@ -30,7 +28,6 @@ interface JQuery {
      * Returns the current value of the typeahead.
      * The value is the text the user has entered into the input element.
      *
-     * @constructor
      * @param methodName Method 'val'
      */
     typeahead(methodName: 'val'): string;
@@ -38,7 +35,6 @@ interface JQuery {
     /**
      * Accommodates the val overload.
      *
-     * @constructor
      * @param methodName Method 'val'
      */
     typeahead(methodName: string): string;
@@ -46,7 +42,6 @@ interface JQuery {
     /**
      * Sets the value of the typeahead. This should be used in place of jQuery#val.
      *
-     * @constructor
      * @param methodName Method 'val'
      * @param val The value to be set
      */
@@ -55,7 +50,6 @@ interface JQuery {
     /**
      * Accommodates the set val overload.
      *
-     * @constructor
      * @param methodName Method 'val'
      * @param val The value to be set
      */
@@ -64,7 +58,6 @@ interface JQuery {
     /**
      * Opens the suggestion menu.
      *
-     * @constructor
      * @param methodName Method 'open'
      */
     typeahead(methodName: 'open'): JQuery;
@@ -72,7 +65,6 @@ interface JQuery {
     /**
      * Closes the suggestion menu.
      *
-     * @constructor
      * @param methodName Method 'close'
      */
     typeahead(methodName: 'close'): JQuery;
@@ -80,7 +72,6 @@ interface JQuery {
     /**
      * Removes typeahead functionality and reverts the input element back to its original state.
      *
-     * @constructor
      * @param methodName Method 'destroy'
      */
     typeahead(methodName: 'destroy'): JQuery;
@@ -1123,7 +1114,6 @@ declare class Bloodhound<T> {
     /**
      * The constructor function.
      *
-     * @constructor
      * @param options Options hash.
      */
     constructor(options: Bloodhound.BloodhoundOptions<T>);

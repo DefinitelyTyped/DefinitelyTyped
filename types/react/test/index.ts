@@ -9,6 +9,7 @@ import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
+import 'trusted-types';
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -217,14 +218,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-// allows null as props
-const FunctionComponent4: React.FunctionComponent = props => null;
-
-// undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
-// leaving here to document limitation and inspect error message
-// @ts-expect-error
-const FunctionComponent5: React.FunctionComponent = () => false;
-
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -249,7 +242,7 @@ const element: React.CElement<Props, ModernComponent> = React.createElement(Mode
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
+const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent2, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -526,6 +519,18 @@ DOM.svg({
     })
 );
 
+declare const window: Window;
+const trustedTypes = window.trustedTypes!;
+const trustedHtml = trustedTypes.emptyHTML;
+
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHtml
+    }
+};
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
+
 //
 // React.Children
 // --------------------------------------------------------------------------
@@ -568,39 +573,6 @@ const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => 
 // The return type may not be an array
 // @ts-expect-error
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
-
-//
-// Example from http://facebook.github.io/react/
-// --------------------------------------------------------------------------
-
-interface TimerState {
-    secondsElapsed: number;
-}
-class Timer extends React.Component<{}, TimerState> {
-    state = {
-        secondsElapsed: 0
-    };
-    private _interval: number;
-    tick() {
-        this.setState((prevState, props) => ({
-            secondsElapsed: prevState.secondsElapsed + 1
-        }));
-    }
-    componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
-    }
-    componentWillUnmount() {
-        clearInterval(this._interval);
-    }
-    render() {
-        return DOM.div(
-            null,
-            "Seconds Elapsed: ",
-            this.state.secondsElapsed
-        );
-    }
-}
-ReactDOM.render(React.createElement(Timer), container);
 
 //
 // createFragment addon
@@ -769,6 +741,15 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     // But no return results in `void`.
     // @ts-expect-error
     const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement('div');
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = { };
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    const promise: React.ReactNode = Promise.resolve('React');
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
@@ -823,6 +804,12 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    Wrapper = (props, legacyContext) => {
+        // $ExpectType any
+        legacyContext;
+        return null;
+    };
+    Wrapper = (props, legacyContext: { foo: number }) => null;
 
     React.createElement(Wrapper, { value: 'A' });
     React.createElement(Wrapper, { value: 'B' });

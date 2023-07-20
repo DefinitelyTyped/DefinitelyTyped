@@ -1,4 +1,4 @@
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import { GraphPointer } from 'clownface';
 
 type Factory<OutQuad extends RDF.Quad = RDF.Quad,
@@ -28,15 +28,21 @@ declare namespace ValidationReport {
         readonly sourceShape: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly detail: Array<ValidationResult<F>>;
     }
+
+    interface ValidationReport<F extends Factory = Factory> {
+        term: BlankNodeOf<F> | NamedNodeOf<F>;
+        dataset: DatasetOf<F>;
+        pointer: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
+        conforms: boolean;
+        results: Array<ValidationResult<F>>;
+    }
 }
 
+interface ValidationReport<F extends Factory = Factory> extends ValidationReport.ValidationReport<F> {}
+
+// tslint:disable-next-line:no-unnecessary-class
 declare class ValidationReport<F extends Factory = Factory> {
-    constructor(resultQuads: RDF.Quad[], options: ValidationReport.Options<F>);
-    term: BlankNodeOf<F> | NamedNodeOf<F>;
-    dataset: DatasetOf<F>;
-    pointer: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
-    conforms: boolean;
-    results: Array<ValidationReport.ValidationResult<F>>;
+    constructor(resultQuads: GraphPointer<RDF.BlankNode | RDF.NamedNode>, options: ValidationReport.Options<F>);
 }
 
 export = ValidationReport;

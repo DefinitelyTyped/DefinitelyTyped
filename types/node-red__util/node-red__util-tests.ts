@@ -78,6 +78,15 @@ function utilTests(someNode: Node) {
     // $ExpectType (string | number)[]
     util.normalisePropertyExpression('a["b"].c');
 
+    // $ExpectType (string | number)[]
+    util.normalisePropertyExpression('a[msg.foo]', msg);
+
+    // $ExpectType string
+    util.normalisePropertyExpression('a[msg.foo]', msg, true);
+
+    // $ExpectType (string | number)[]
+    util.normalisePropertyExpression('a[msg.foo]', msg, false);
+
     // $ExpectType any
     util.getMessageProperty({}, 'key');
 

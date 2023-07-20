@@ -1,3 +1,5 @@
+import { IfInvalid } from './_util';
+
 export interface ZoneOffsetOptions {
     /**
      * What style of offset to return.
@@ -19,7 +21,7 @@ export abstract class Zone {
     /**
      * The type of zone
      */
-    get type(): string;
+    get type(): string | IfInvalid<'invalid'>;
 
     /**
      * The name of this zone.
@@ -29,7 +31,7 @@ export abstract class Zone {
     /**
      * Returns whether the offset is known to be fixed for the whole year.
      */
-    get isUniversal(): boolean;
+    get isUniversal(): boolean | IfInvalid<false>;
 
     /**
      * Returns the offset's common name (such as EST) at the specified timestamp
@@ -39,7 +41,7 @@ export abstract class Zone {
      * @param options.format - What style of offset to return.
      * @param options.locale - What locale to return the offset name in.
      */
-    offsetName(ts: number, options: ZoneOffsetOptions): string;
+    offsetName(ts: number, options: ZoneOffsetOptions): string | IfInvalid<null>;
 
     /**
      * Returns the offset's value as a string
@@ -48,26 +50,26 @@ export abstract class Zone {
      * @param format - What style of offset to return.
      *                 Accepts 'narrow', 'short', or 'techie'. Returning '+6', '+06:00', or '+0600' respectively
      */
-    formatOffset(ts: number, format: ZoneOffsetFormat): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string | IfInvalid<''>;
 
     /**
      * Return the offset in minutes for this zone at the specified timestamp.
      *
      * @param ts - Epoch milliseconds for which to compute the offset
      */
-    offset(ts: number): number;
+    offset(ts: number): number | IfInvalid<typeof NaN>;
 
     /**
      * Return whether this Zone is equal to another zone
      *
      * @param other - the zone to compare
      */
-    equals(other: Zone): boolean;
+    equals(other: Zone): boolean | IfInvalid<false>;
 
     /**
      * Return whether this Zone is valid.
      */
-    get isValid(): boolean;
+    get isValid(): boolean | IfInvalid<false>;
 }
 
 /**
@@ -115,6 +117,8 @@ export class IANAZone extends Zone {
     static isValidZone(zone: string): boolean;
 
     constructor(name: string);
+
+    get isValid(): true;
 }
 
 /**
@@ -146,12 +150,19 @@ export class FixedOffsetZone extends Zone {
      * FixedOffsetZone.parseSpecifier("UTC-6:00")
      */
     static parseSpecifier(s: string): FixedOffsetZone;
+
+    get isValid(): true;
 }
 
 /**
  * A zone that failed to parse. You should never need to instantiate this.
  */
-export class InvalidZone extends Zone {}
+export class InvalidZone extends Zone {
+    get type(): 'invalid';
+    get isUniversal(): false;
+    get offsetFormat(): '';
+    get isValid(): false;
+}
 
 /**
  * Represents the system zone for this JavaScript environment.
@@ -161,4 +172,6 @@ export class SystemZone extends Zone {
      * Get a singleton instance of the system zone
      */
     static get instance(): SystemZone;
+
+    get isValid(): true;
 }

@@ -9,6 +9,7 @@
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 JounQin <https://github.com/JounQin>
 //                 Chuah Chee Shian <https://github.com/shian15810>
+//                 Marc Gibbons <https://github.com/marcgibbons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
@@ -383,6 +384,7 @@ export interface Printer<T = any> {
               options: ParserOptions<T>,
           ) => Doc | null)
         | undefined;
+    preprocess?: ((ast: AST, options: ParserOptions<T>) => AST) | undefined;
     insertPragma?: ((text: string) => string) | undefined;
     /**
      * @returns `null` if you want to remove this node
@@ -545,7 +547,7 @@ export interface SupportOptionRange {
     step: number;
 }
 
-export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+export type SupportOptionType = 'int' | 'string' | 'boolean' | 'choice' | 'path';
 
 export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
 
@@ -589,6 +591,16 @@ export interface IntArraySupportOption extends BaseSupportOption<'int'> {
     array: true;
 }
 
+export interface StringSupportOption extends BaseSupportOption<'string'> {
+    default?: string | undefined;
+    array?: false | undefined;
+}
+
+export interface StringArraySupportOption extends BaseSupportOption<'string'> {
+    default?: Array<{ value: string[] }> | undefined;
+    array: true;
+}
+
 export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     default?: boolean | undefined;
     array?: false | undefined;
@@ -624,6 +636,8 @@ export interface PathArraySupportOption extends BaseSupportOption<'path'> {
 export type SupportOption =
     | IntSupportOption
     | IntArraySupportOption
+    | StringSupportOption
+    | StringArraySupportOption
     | BooleanSupportOption
     | BooleanArraySupportOption
     | ChoiceSupportOption

@@ -1,7 +1,6 @@
 // Type definitions for react-table 7.7
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
-//                 Michael Stramel <https://github.com/stramel>
 //                 Rohit Garg <https://github.com/gargroh>
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +10,7 @@
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 

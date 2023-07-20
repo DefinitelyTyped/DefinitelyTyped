@@ -20,10 +20,7 @@ if (typeof content !== 'string' && 'stack' in content && content.stack) {
 }
 
 // @ts-expect-error
-const invalidContent: Content = {
-    ul: [],
-    ol: []
-};
+const invalidContent: Content = { ul: [], ol: [] };
 
 const staticBackground: TDocumentDefinitions = {
     content: 'Content',

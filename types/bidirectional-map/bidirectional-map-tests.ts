@@ -6,10 +6,12 @@ const bidirectionalMap = new BiMap({
 bidirectionalMap.size; // $ExpectType number
 bidirectionalMap.set("two", 2);
 bidirectionalMap.set("three", 3);
-bidirectionalMap.get("one"); // $ExpectType number
+bidirectionalMap.get("one"); // $ExpectType number | undefined
+bidirectionalMap.get("not-a-number"); // $ExpectType number | undefined
 // @ts-expect-error
 bidirectionalMap.get(true);
-bidirectionalMap.getKey(1); // $ExpectType string
+bidirectionalMap.getKey(1); // $ExpectType string | undefined
+bidirectionalMap.getKey(2); // $ExpectType string | undefined
 // @ts-expect-error
 bidirectionalMap.getKey("one");
 bidirectionalMap.delete("two");

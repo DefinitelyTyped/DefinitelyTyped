@@ -3,8 +3,13 @@ import { OnfleetMetadata, MatchMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
 
 declare class Task {
-    autoAssign(tasks: Task.OnfleetTask[]): Promise<any>; // TODO need to confirm response
-    batchCreate(tasks: Task.CreateTaskProps[]): Promise<Task.OnfleetTask[]>;
+    autoAssign(tasks: Task.AutomaticallyAssignTaskProps): Promise<Task.AutomaticallyAssignTaskResult>;
+
+    batchCreate(tasks: Task.CreateMultipleTasksProps): Promise<Task.CreateMultipleTasksResult>;
+
+    batchCreateAsync(tasks: Task.CreateMultipleTasksProps): Promise<Task.CreateAsyncMultipleTaskResult>;
+
+    getBatch(jobId: string): Promise<Task.getBatchResult>;
 
     clone(id: string): Promise<Task.OnfleetTask>;
 
@@ -12,7 +17,7 @@ declare class Task {
 
     deleteOne(id: string): Promise<number>;
 
-    forceComplete(id: string, details: { completionDetails: { success: boolean, notes?: string } }): Promise<void>;
+    forceComplete(id: string, details: { completionDetails: { success: boolean; notes?: string } }): Promise<void>;
 
     get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.GetTaskResult>;
     get(queryParams?: Task.TaskQueryParam): Promise<Task.GetManyTaskResult>;
@@ -29,7 +34,7 @@ declare namespace Task {
         Unassigned,
         Assigned,
         Active,
-        Completed
+        Completed,
     }
 
     interface CompletionEvent {
@@ -49,6 +54,9 @@ declare namespace Task {
         unavailableAttachments?: any[];
         notes?: string;
         success?: boolean;
+        photoUploadId?: string | null;
+        photoUploadIds?: string[];
+        signatureUploadId?: string | null;
     }
 
     interface OnfleetTask {
@@ -90,12 +98,25 @@ declare namespace Task {
         worker: string | null;
         barcodes?:
             | {
-            /** The requested barcodes */
-            required: Barcode[];
-            /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
-            captured: CapturedBarcode[];
-        }
+                  /** The requested barcodes */
+                  required: Barcode[];
+                  /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
+                  captured: CapturedBarcode[];
+              }
             | undefined;
+    }
+
+    interface CreateMultipleTasksProps {
+        tasks: CreateTaskProps[];
+    }
+
+    interface CreateMultipleTasksResult {
+        tasks: OnfleetTask[];
+    }
+
+    interface CreateAsyncMultipleTaskResult {
+        status: string;
+        jobId: string;
     }
 
     interface CreateTaskProps {
@@ -118,15 +139,34 @@ declare namespace Task {
         recipientSkipSMSNotifications?: boolean | undefined;
         requirements?: TaskCompletionRequirements | undefined;
         barcodes?: Barcode[] | undefined;
+        serviceTime?: number | undefined;
     }
 
-    interface TaskAutoAssign {
+    interface AutomaticallyAssignTaskProps {
+        tasks: string[];
+        options?: TasksAutoAssign | undefined;
+    }
+
+    interface AutomaticallyAssignTaskResult {
+        assignedTasksCount: number;
+        assignedTasks: {
+            [taskId: string]: string;
+        };
+    }
+
+    interface TaskAutoAssignOptions {
         mode: string;
         considerDependencies?: boolean | undefined;
-        excludeWorkerIds?: string[] | undefined;
+        excludedWorkerIds?: string[] | undefined;
         maxAssignedTaskCount?: number | undefined;
         team?: string | undefined;
+        teams?: string[] | undefined;
+        restrictAutoAssignmentToTeam?: boolean | undefined;
     }
+
+    type TasksAutoAssign = Omit<TaskAutoAssignOptions, 'team'>;
+
+    type TaskAutoAssign = Omit<TaskAutoAssignOptions, 'teams' | 'restrictAutoAssignmentToTeam'>;
 
     interface Barcode {
         /** Whether the worker must capture this data prior to task completion, defaults to false */
@@ -174,15 +214,15 @@ declare namespace Task {
         includeMetadata: boolean;
         overrides?:
             | {
-            completeAfter?: number | undefined;
-            completeBefore?: number | undefined;
-            destination?: string | CreateDestinationProps | undefined;
-            metadata?: OnfleetMetadata[] | undefined;
-            notes?: string | undefined;
-            pickupTask?: boolean | undefined;
-            recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
-            serviceTime?: number | undefined;
-        }
+                  completeAfter?: number | undefined;
+                  completeBefore?: number | undefined;
+                  destination?: string | CreateDestinationProps | undefined;
+                  metadata?: OnfleetMetadata[] | undefined;
+                  notes?: string | undefined;
+                  pickupTask?: boolean | undefined;
+                  recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
+                  serviceTime?: number | undefined;
+              }
             | undefined;
     }
 
@@ -214,9 +254,27 @@ declare namespace Task {
         organization: string;
     }
 
+    interface getBatchResult {
+        status: string;
+        submitted: string;
+        tasksReceived: number;
+        tasksCreated: number;
+        errors: BatchResultErrors[];
+        failedTasks: OnfleetTask[];
+        succeededWithWarnings: OnfleetTask[];
+    }
+
     interface TeamTaskContainer {
         type: 'TEAM';
         team: string;
+    }
+
+    interface BatchResultErrors {
+        statusCode: number;
+        errorCode: number;
+        message: string;
+        cause: string;
+        taskData: OnfleetTask;
     }
 
     type TaskContainer = WorkerTaskContainer | OrganizationTaskContainer | TeamTaskContainer;

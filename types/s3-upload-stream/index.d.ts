@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import * as stream from 'stream';
-import * as AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk2-types';
 
 declare namespace s3Stream {
     interface S3StreamUploader {

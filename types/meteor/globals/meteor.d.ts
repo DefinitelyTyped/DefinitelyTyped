@@ -54,6 +54,8 @@ declare namespace Meteor {
 
     function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
 
+    function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<User | null>;
+
     function userId(): string | null;
     var users: Mongo.Collection<User>;
     /** User **/
@@ -241,7 +243,7 @@ declare namespace Meteor {
      * @param func A function that takes a callback as its final parameter
      * @param context Optional `this` object against which the original function will be invoked
      */
-    function wrapAsync(func: Function, context?: Object): any;
+    function wrapAsync<T extends Function>(func: T, context?: ThisParameterType<T>): Function;
 
     function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
 
@@ -273,7 +275,6 @@ declare namespace Meteor {
         requestPermissions?: ReadonlyArray<string> | undefined;
         requestOfflineToken?: Boolean | undefined;
         forceApprovalPrompt?: Boolean | undefined;
-        loginUrlParameters?: Object | undefined;
         redirectUrl?: string | undefined;
         loginHint?: string | undefined;
         loginStyle?: string | undefined;
@@ -295,7 +296,16 @@ declare namespace Meteor {
     ): void;
 
     function loginWithGoogle(
-        options?: Meteor.LoginWithExternalServiceOptions,
+        options?: Meteor.LoginWithExternalServiceOptions & {
+            /** Google login accepts additional login parameters based on
+             * https://developers.google.com/identity/openid-connect/openid-connect#authenticationuriparameters.
+             * However, there's only one parameter that must be set
+             * directly; all others can be set using Meteor's standard OAuth
+             * login parameters */
+            loginUrlParameters?: {
+                include_granted_scopes: boolean;
+            },
+        },
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
@@ -327,7 +337,7 @@ declare namespace Meteor {
     ): void;
 
     function loginWithPassword(
-        user: Object | string,
+        user: { username: string } | { email: string } | { id: string } | string,
         password: string,
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
@@ -401,7 +411,7 @@ declare namespace Meteor {
         close: () => void;
         onClose: (callback: () => void) => void;
         clientAddress: string;
-        httpHeaders: Object;
+        httpHeaders: Record<string, string>;
     }
 
     function onConnection(callback: (connection: Connection) => void): void;
@@ -429,7 +439,7 @@ declare interface Subscription {
      * @param id The new document's ID.
      * @param fields The fields in the new document.  If `_id` is present it is ignored.
      */
-    added(collection: string, id: string, fields: Object): void;
+    added(collection: string, id: string, fields: Record<string, unknown>): void;
     /**
      * Call inside the publish function. Informs the subscriber that a document in the record set has been modified.
      * @param collection The name of the collection that contains the changed document.
@@ -437,7 +447,7 @@ declare interface Subscription {
      * @param fields The fields in the document that have changed, together with their new values.  If a field is not present in `fields` it was left unchanged; if it is present in `fields` and
      * has a value of `undefined` it was removed from the document.  If `_id` is present it is ignored.
      */
-    changed(collection: string, id: string, fields: Object): void;
+    changed(collection: string, id: string, fields: Record<string, unknown>): void;
     /** Access inside the publish function. The incoming connection for this subscription. */
     connection: Meteor.Connection;
     /**

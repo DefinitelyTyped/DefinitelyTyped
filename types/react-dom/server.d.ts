@@ -22,6 +22,7 @@ declare global {
 }
 
 import { ReactElement, ReactNode } from 'react';
+import { ErrorInfo } from './client';
 
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
@@ -34,12 +35,12 @@ export interface RenderToPipeableStreamOptions {
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
-    onError?: (error: unknown) => void;
+    onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
 }
 
 export interface PipeableStream {
-    abort(): void;
-    pipe<Writable extends NodeJS.WritableStream>(destination: Writable): Writable;
+    abort: (reason?: unknown) => void;
+    pipe: <Writable extends NodeJS.WritableStream>(destination: Writable) => Writable;
 }
 
 /**
@@ -97,7 +98,7 @@ export interface RenderToReadableStreamOptions {
     bootstrapModules?: string[];
     progressiveChunkSize?: number;
     signal?: AbortSignal;
-    onError?: (error: unknown) => void;
+    onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
 }
 
 export interface ReactDOMServerReadableStream extends ReadableStream {

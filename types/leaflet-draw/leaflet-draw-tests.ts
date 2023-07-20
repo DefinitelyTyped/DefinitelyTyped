@@ -30,7 +30,10 @@ const drawControl = new L.Control.Draw({
             shapeOptions: {
                 color: '#662d91'
             }
-        }
+        },
+        circlemarker: {
+            repeatMode: true
+        },
     },
     edit: {
         featureGroup: drawnItems
@@ -117,8 +120,15 @@ function testExampleControlOptions() {
         },
         edit: {
             featureGroup: editableLayers, // REQUIRED!!
-            remove: false
-        }
+            remove: false,
+            edit: {
+                selectedPathOptions: { color: 'red' },
+                poly: {
+                    allowIntersection: false,
+                    drawError: { color: 'green', timeout: 2000 },
+                },
+            },
+        },
     });
 }
 
@@ -131,7 +141,7 @@ function testMarkerOptionsIcon() {
     });
     const markerDivIcon = new L.Draw.Marker(map, {
         icon: new L.DivIcon({
-            className: "marker-icon",
+            className: 'marker-icon',
             iconSize: new L.Point(32, 32),
         }),
     });
@@ -148,3 +158,16 @@ L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Ssshhh, secrets!';
 
 // $ExpectType string
 type drawHandlerCircleRadius = L.Localization.Draw['handlers']['circle']['radius'];
+
+function testEditHandlers() {
+    const deleteHandler = new L.EditToolbar.Delete(map, { featureGroup: drawnItems });
+    const editHandler = new L.EditToolbar.Edit(map, { featureGroup: drawnItems, poly: { allowIntersection: false } });
+
+    deleteHandler.enable();
+    deleteHandler.disable();
+    deleteHandler.enabled();
+
+    editHandler.enable();
+    editHandler.disable();
+    editHandler.enable();
+}

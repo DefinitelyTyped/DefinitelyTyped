@@ -146,6 +146,12 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         }
     });
     await myDropin.teardown();
+
+    myDropin.updateConfiguration('paypal', 'amount', '10.00');
+    myDropin.updateConfiguration('paypalCredit', 'amount', '10.00');
+    myDropin.updateConfiguration('applePay', 'paymentRequest', { total: { amount: '10.00' } });
+    myDropin.updateConfiguration('googlePay', 'transactionInfo', { totalPrice: '10.00' });
+    myDropin.updateConfiguration('threeDSecure', 'amount', '10.00');
 })();
 
 function customFunction(options: dropin.Options) {

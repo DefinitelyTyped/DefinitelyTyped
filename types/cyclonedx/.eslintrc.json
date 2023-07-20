@@ -1,0 +1,3 @@
+{
+    "ignorePatterns": [ "cyclonedx-tests.json" ]
+}

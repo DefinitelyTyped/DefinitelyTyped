@@ -14,7 +14,7 @@ const et: ExchangeTrade = {};
 
 const sft: SellFiatTrade = {};
 
-const svt: SavingsTrade = { exchange: '' };
+const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '' };
 
 const p2pQuote: P2pQuote = {
     provider: '',

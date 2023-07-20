@@ -87,7 +87,7 @@ uuidv4(null, h); // $ExpectType CustomBuffer
 const nil5: string = uuidv5('hello', NIL_UUID);
 
 const stringified: string = uuidStringify(bufferv4);
-const parsed: ArrayLike<number> = uuidParse(stringified);
+const parsed: Uint8Array = uuidParse(stringified);
 
 let valid: boolean = uuidValidate(stringv1);
 valid = uuidValidate(stringv4);

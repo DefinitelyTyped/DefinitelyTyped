@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.bookmarks
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.bookmarks</code> API to create, organize, and otherwise manipulate bookmarks.
  * Also see $(topic:override)[Override Pages], which you can use to create a custom Bookmark Manager page.

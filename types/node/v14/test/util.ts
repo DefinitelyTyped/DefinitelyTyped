@@ -257,7 +257,7 @@ function testUtilTypes(
         object; // $ExpectType Map<any, any>
 
         if (util.types.isMap(readonlyMapOrRecord)) {
-            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any>
+            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any> || ReadonlyMap<any, any> | Map<any, any>
         }
     }
     if (util.types.isNativeError(object)) {
@@ -289,7 +289,7 @@ function testUtilTypes(
         object; // $ExpectType Set<any>
 
         if (util.types.isSet(readonlySetOrArray)) {
-            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any>
+            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any> || ReadonlySet<any> | Set<any>
         }
     }
     if (util.types.isSharedArrayBuffer(object)) {

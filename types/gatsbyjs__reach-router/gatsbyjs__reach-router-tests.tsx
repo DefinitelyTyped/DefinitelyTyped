@@ -71,7 +71,6 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </Location>
@@ -79,7 +78,6 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </LocationProvider>
@@ -98,13 +96,4 @@ const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
 render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById('app-root'));
 render(<Link ref={refObject} to="./foo"></Link>, document.getElementById('app-root'));
 
-// Link can be used as a generic.
-// TODO: When TS >= 3.1 is supported, use more modern syntax:
-//     <Link<number> state={5} to="./foo"></Link>
-React.createElement(Link as Link<number>, {
-    state: 5 /* Cast is a test-only fix for TS 3.1. Remove when TS >= 3.2 is supported. */ as number | undefined,
-    to: './foo',
-    ref: refObject /* Cast is a test-only fix for TS 3.1. Remove when TS >= 3.2 is supported. */ as
-        | React.Ref<HTMLAnchorElement>
-        | undefined,
-});
+const elem: JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;

@@ -12,7 +12,6 @@
         "no-padding": false,
         "no-single-declare-module": false,
         "no-unnecessary-callback-wrapper": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-line": false,
         "only-arrow-functions": false,

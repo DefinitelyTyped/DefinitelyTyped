@@ -104,5 +104,5 @@ import * as R from 'ramda';
 
     gtf('arg2' as const); // $ExpectType "some-error" | { x: "arg"; y: "arg2"; }
 
-    R.tryCatch(R.and, R.always(undefined))(true); // $ExpectType (<U>(b: U) => boolean | U) | undefined
+    R.tryCatch(R.and, R.always(undefined))(true); // $ExpectType (<B>(b: B) => boolean | B) | undefined
 };

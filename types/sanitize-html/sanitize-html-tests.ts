@@ -74,4 +74,5 @@ sanitize(unsafe, {
     allowedTags: false,
     allowedAttributes: false,
     nestingLimit: 6,
+    parseStyleAttributes: false,
 });

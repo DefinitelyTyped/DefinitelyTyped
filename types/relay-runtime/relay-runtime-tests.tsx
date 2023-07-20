@@ -23,6 +23,10 @@ import {
     createOperationDescriptor,
     FragmentRefs,
     readInlineData,
+    requestSubscription,
+    fetchQuery,
+    ConnectionInterface,
+    ReaderInlineDataFragment,
 } from 'relay-runtime';
 
 import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
@@ -50,7 +54,7 @@ const storeWithOptions = new Store(source, {
 // ~~~~~~~~~~~~~~~~~~~~~
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-function fetchQuery(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+function fetchFunction(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
     return fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
@@ -63,7 +67,7 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
 }
 
 // Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+const network = Network.create(fetchFunction);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -94,7 +98,7 @@ const environment = new Environment({
             handle(field, record, argValues) {
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'user' &&
                     argValues.hasOwnProperty('id')
                 ) {
@@ -103,7 +107,7 @@ const environment = new Environment({
                 }
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'story' &&
                     argValues.hasOwnProperty('story_id')
                 ) {
@@ -162,11 +166,20 @@ function handlerProvider(handle: any) {
 interface UserFragment_updatable$data {
     name: string | null;
     readonly id: string;
-    readonly " $fragmentType": "UserFragment_updatable";
+    readonly ' $fragmentType': 'UserFragment_updatable';
 }
 interface UserFragment_updatable$key {
-    readonly " $data"?: UserFragment_updatable$data;
-    readonly $updatableFragmentSpreads: FragmentRefs<"UserFragment_updatable">;
+    readonly ' $data'?: UserFragment_updatable$data;
+    readonly $updatableFragmentSpreads: FragmentRefs<'UserFragment_updatable'>;
+}
+
+// Updatable query.
+interface UserQuery$data {
+    userName: string;
+}
+interface UserQuery {
+    response: UserQuery$data;
+    variables: {};
 }
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
@@ -179,15 +192,27 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
-    const { updatableData } = store.readUpdatableFragment_EXPERIMENTAL(
+    const { updatableData: updatableFragment } = store.readUpdatableFragment(
         graphql`
             fragment UserComponent_user on User {
                 name
             }
         `,
-        dataRef
+        dataRef,
     );
-    updatableData.name = "NewName";
+    updatableFragment.name = 'NewName';
+
+    const { updatableData: updatableQuery } = store.readUpdatableQuery<UserQuery>(
+        graphql`
+            query UserQuery {
+                user {
+                    name
+                }
+            }
+        `,
+        {},
+    );
+    updatableQuery.userName = 'NewName';
 }
 
 interface MessageEdge {
@@ -472,8 +497,12 @@ function readData(dataRef: Module_data$key) {
     );
 }
 
-function readNullableData(dataRef: Module_data$key | null) {
-    // $ExpectType Module_data | null
+interface Module_InlineDataFragment {
+    readonly kind: 'InlineDataFragment';
+    readonly name: string;
+}
+function readNullableData(dataRef: Module_data$key) {
+    // $ExpectType Module_data
     readInlineData(
         graphql`
             fragment Module_data on Data @inline {
@@ -482,6 +511,15 @@ function readNullableData(dataRef: Module_data$key | null) {
         `,
         dataRef,
     );
+}
+
+const readerInlineDataFragment: ReaderInlineDataFragment = {
+    kind: 'InlineDataFragment',
+    name: 'myFragment_data',
+};
+function readInlineDataFragment(dataRef: Module_data$key) {
+    // $ExpectType Module_data
+    readInlineData(readerInlineDataFragment, dataRef);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -656,3 +694,58 @@ function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_u
 
     return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// fetchQuery
+// ~~~~~~~~~~~~~~~~~~~~~
+
+fetchQuery(
+    environment,
+    node,
+    { variable: true },
+    {
+        networkCacheConfig: { force: true, poll: 1234 },
+        fetchPolicy: 'network-only',
+    },
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// requestSubscription
+// ~~~~~~~~~~~~~~~~~~~~~
+
+requestSubscription(environment, {
+    cacheConfig: { force: true, poll: 1234 },
+    subscription: node,
+    variables: { variable: true },
+    onCompleted: () => {
+        return;
+    },
+    onError: _error => {
+        return;
+    },
+    onNext: _response => {
+        return;
+    },
+    updater: (_store, _data) => {
+        return;
+    },
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ConnectionInterface
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const { CURSOR, EDGES, END_CURSOR, HAS_NEXT_PAGE, HAS_PREV_PAGE, NODE, PAGE_INFO, PAGE_INFO_TYPE, START_CURSOR } =
+    ConnectionInterface.get();
+
+ConnectionInterface.inject({
+    CURSOR: 'cursor',
+    EDGES: 'edges',
+    END_CURSOR: 'endCursor',
+    HAS_NEXT_PAGE: 'hasNextPage',
+    HAS_PREV_PAGE: 'hasPrevPage',
+    NODE: 'node',
+    PAGE_INFO: 'pageInfo',
+    PAGE_INFO_TYPE: 'PageInfo',
+    START_CURSOR: 'startCursor',
+});

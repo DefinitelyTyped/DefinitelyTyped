@@ -1,5 +1,5 @@
 import { dispatch, select } from '@wordpress/data';
-import type { Notice, Action } from '@wordpress/notices';
+import { Notice, Action, store } from '@wordpress/notices';
 
 //
 // store
@@ -47,3 +47,9 @@ select('core/notices').getNotices('foo');
 
 // $ExpectType Notice
 const { type, id, actions } = select('core/notices').getNotices('foo')[0];
+
+// $ExpectType NoticesStoreDescriptor
+store;
+
+// $ExpectType "core/notices"
+store.name;

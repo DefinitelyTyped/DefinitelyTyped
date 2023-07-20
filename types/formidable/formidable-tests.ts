@@ -75,7 +75,7 @@ Formidable.DEFAULT_OPTIONS;
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
 
-options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
+options.fileWriteStreamHandler; // $ExpectType ((file?: VolatileFile | undefined) => Writable) | undefined
 
 // $ExpectType EnabledPlugins
 enabledPlugins;
@@ -83,7 +83,7 @@ enabledPlugins;
 // $ExpectType EnabledPlugins
 plugins;
 
-// $ExpectType PersistentFile
+// $ExpectType VolatileFile
 new VolatileFile(file);
 
 // $ExpectType PersistentFile
@@ -192,6 +192,14 @@ http.createServer(req => {
 
 http.createServer(req => {
     form.parse(req); // testing without callback
+});
+
+http.createServer(async req => {
+    const [fields, files] = await form.parse(req); // testing with promise
+    // $ExpectType Fields
+    fields;
+    // $ExpectType Files
+    files;
 });
 
 // $ExpectType IncomingForm

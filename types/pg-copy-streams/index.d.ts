@@ -7,15 +7,19 @@
 /// <reference types="node" />
 
 import { Submittable, Connection } from "pg";
-import { Transform, TransformOptions } from "stream";
+import { Readable, ReadableOptions, Writable, WritableOptions } from "stream";
 
-export function from(txt: string, options?: TransformOptions): CopyStreamQuery;
-export function to(txt: string, options?: TransformOptions): CopyToStreamQuery;
+export function from(txt: string, options?: WritableOptions): CopyStreamQuery;
+export function to(txt: string, options?: ReadableOptions): CopyToStreamQuery;
 
-export class CopyStreamQuery extends Transform implements Submittable {
+export class CopyStreamQuery extends Writable implements Submittable {
+    text: string;
+    rowCount: number;
     submit(connection: Connection): void;
 }
 
-export class CopyToStreamQuery extends Transform implements Submittable {
+export class CopyToStreamQuery extends Readable implements Submittable {
+    text: string;
+    rowCount: number;
     submit(connection: Connection): void;
 }

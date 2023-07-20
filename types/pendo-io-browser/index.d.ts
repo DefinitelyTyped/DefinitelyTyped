@@ -6,22 +6,28 @@
 
 declare namespace pendo {
     interface Identity {
-        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
+        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie (if enabled for a domain) */
         visitor?: IdentityMetadata | undefined;
         account?: IdentityMetadata | undefined;
         parentAccount?: IdentityMetadata | undefined;
+        /** ensure that the same anonymous visitor.id is used on all subdomains  */
+        cookieDomain?: IdentityCookieDomain | undefined;
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean | string[];
+        [key: string]: string | number | boolean | string[] | null;
     }
 
     type IdentityMetadata = { id?: string | undefined; } & Metadata;
+
+    /** cookie domains should start with a dot, e.g. ".example.com" */
+    type IdentityCookieDomain = `.${string}`;
 
     interface InitOptions extends Identity {
         apiKey?: string | undefined;
         excludeAllText?: boolean | undefined;
         excludeTitle?: boolean | undefined;
+        disableCookies?: boolean;
         disablePersistence?: boolean | undefined;
         guides?: {
             delay?: boolean | undefined;
@@ -32,6 +38,7 @@ declare namespace pendo {
             } | undefined
         } | undefined;
         events?: EventCallbacks | undefined;
+        sanitizeUrl?: (url: string) => string;
     }
 
     interface EventCallbacks {
@@ -62,6 +69,7 @@ declare namespace pendo {
         removeLauncher(): void;
 
         // Troubleshooting
+        setGuidesDisabled(state: boolean): void;
         loadGuides(): void;
         startGuides(): void;
         stopGuides(): void;

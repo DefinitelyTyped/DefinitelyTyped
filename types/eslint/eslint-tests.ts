@@ -1,4 +1,4 @@
-import { Comment, WhileStatement } from 'estree';
+import { Comment, PrivateIdentifier, PropertyDefinition, StaticBlock, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, RuleTester, Scope } from 'eslint';
 import { ESLintRules } from 'eslint/rules';
 
@@ -308,6 +308,31 @@ reference.isReadWrite();
 
 //#region Rule
 
+let mixedRule: Rule.OldStyleRule | Rule.RuleModule;
+
+mixedRule = {
+    create(context) {
+        return {};
+    },
+};
+
+mixedRule = (context) => ({});
+
+let oldStyleRule: Rule.OldStyleRule;
+
+oldStyleRule = (context) => ({});
+
+// @ts-expect-error
+oldStyleRule.schema = [];
+// @ts-expect-error
+oldStyleRule.schema = {};
+
+// @ts-expect-error
+oldStyleRule.meta = {};
+
+// @ts-expect-error
+oldStyleRule.create = (context) => ({});
+
 let rule: Rule.RuleModule;
 
 rule = {
@@ -386,11 +411,19 @@ rule = {
 
         context.getDeclaredVariables(AST);
 
+        context.filename;
+
         context.getFilename();
+
+        context.physicalFilename;
 
         context.getPhysicalFilename();
 
+        context.cwd;
+
         context.getCwd();
+
+        context.sourceCode;
 
         context.getSourceCode();
 
@@ -477,9 +510,26 @@ rule = {
                 // @ts-expect-error
                 node.parent;
             },
-            'Program:exit'() {},
+            'Program:exit'(node) {
+                node.body;
+            },
+            'IfStatement:exit'(node) {
+                node.parent;
+            },
             'MemberExpression[object.name="req"]': (node: Rule.Node) => {
                 node.parent;
+            },
+            PrivateIdentifier(node) {
+                const expected: PrivateIdentifier & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            PropertyDefinition(node) {
+                const expected: PropertyDefinition & Rule.NodeParentExtension = node;
+                expected.parent;
+            },
+            StaticBlock(node) {
+                const expected: StaticBlock & Rule.NodeParentExtension = node;
+                expected.parent;
             },
         };
     },
@@ -506,6 +556,8 @@ linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 'latest' } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, 'test.js');
 linter.verify(
@@ -642,6 +694,59 @@ const _processor: Linter.Processor = {
     },
 };
 
+//#region Linter with flat config
+
+const linterWithFlatConfig = new Linter({ configType: 'flat' });
+
+linterWithFlatConfig.version;
+
+linterWithFlatConfig.verify(SOURCE, [{}]);
+linterWithFlatConfig.verify(new SourceCode(SOURCE, AST), [{}]);
+
+linterWithFlatConfig.verify(SOURCE, [{}], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{}], {});
+linterWithFlatConfig.verify(SOURCE, [{}], { filename: 'test.js' });
+linterWithFlatConfig.verify(SOURCE, [{}], { allowInlineConfig: false });
+linterWithFlatConfig.verify(SOURCE, [{}], { reportUnusedDisableDirectives: true });
+linterWithFlatConfig.verify(SOURCE, [{}], { preprocess: input => input.split(' ') });
+linterWithFlatConfig.verify(SOURCE, [{}], { postprocess: problemList => problemList[0] });
+
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2023 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2024 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 'latest' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{ languageOptions: { ecmaVersion: 6 } }],
+    'test.js',
+);
+
+linterWithFlatConfig.verify(SOURCE, [{ rules: {} }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: 2 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { quotes: [2, 'double'] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-unused-vars': [2, { vars: 'all' }] } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 1 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 0 } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'error' } }], 'test.js');
+linterWithFlatConfig.verify(
+    SOURCE,
+    [{
+        rules: { 'no-console': 'error' },
+    }, {
+        files: ['*-test.js', '*.spec.js'],
+        rules: {
+            'no-unused-expressions': 'off',
+        },
+    }],
+    'test.js',
+);
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'warn' } }], 'test.js');
+linterWithFlatConfig.verify(SOURCE, [{ rules: { 'no-console': 'off' } }], 'test.js');
+
+//#endregion
+
 //#endregion
 
 //#region ESLint
@@ -697,6 +802,8 @@ eslint = new ESLint({
     }
 });
 eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+// @ts-expect-error
+eslint = new ESLint({ reportUnusedDisableDirectives: 2 });
 eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
 eslint = new ESLint({ rulePaths: ["foo"] });
 
@@ -875,6 +982,88 @@ ruleTester.run('my-rule', rule, {
 
 ruleTester.run('simple-valid-test', rule, {
     valid: ['foo', 'bar', { code: 'foo', options: [{ allowFoo: true }] }],
+});
+
+//#endregion
+
+//#region FlatConfig
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parse: () => AST
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        parser: {
+            parseForESLint: () => ({ ast: AST })
+        }
+    }
+});
+
+(): Linter.FlatConfig => ({
+    languageOptions: {
+        // @ts-expect-error
+        parser: "foo-parser"
+    }
+});
+
+(): Linter.FlatConfig => ({ files: ["abc"] });
+(): Linter.FlatConfig => ({ files: [(path) => false] });
+(): Linter.FlatConfig => ({ files: [["abc"]]});
+(): Linter.FlatConfig => ({ files: [[(path) => false]] });
+(): Linter.FlatConfig => ({ files: [["abc", (path) => false]] });
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Second level of nesting is not allowed
+(): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]] });
+
+(): Linter.FlatConfig => ({ ignores: ["abc"] });
+(): Linter.FlatConfig => ({ ignores: [(path) => false] });
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] });
+
+// @ts-expect-error // No nesting
+(): Linter.FlatConfig => ({ ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ files: "abc" });
+
+// @ts-expect-error // Must be an array
+(): Linter.FlatConfig => ({ ignores: "abc" });
+
+// The following _should_ be an error, but we can't enforce on consumers
+// as it requires exactOptionalPropertyTypes: true
+// (): Linter.FlatConfig => ({ files: undefined });
+// (): Linter.FlatConfig => ({ ignores: undefined });
+
+(): ESLint.Plugin => ({
+    configs: {
+        'old-style': {
+            parser: "foo-parser"
+        },
+
+        // @ts-expect-error
+        'old-style-array': [{ parser: "foo-parser" }],
+
+        'new-style': {
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        },
+
+        'new-style-array': [{
+            languageOptions: {
+                parser: {
+                    parseForESLint: () => ({ ast: AST })
+                }
+            }
+        }]
+    }
 });
 
 //#endregion

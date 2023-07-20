@@ -45,9 +45,11 @@ import './test/zlib';
 
 import * as url from 'node:url';
 import * as http from 'node:http';
+import * as http2 from 'node:http2';
 import * as https from 'node:https';
 import * as net from 'node:net';
 import * as inspector from 'node:inspector';
+import * as stream from 'node:stream';
 import * as trace_events from 'node:trace_events';
 
 //////////////////////////////////////////////////////
@@ -161,7 +163,7 @@ import * as trace_events from 'node:trace_events';
         const func: Function | undefined  = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
         const meth: string | null  = frame.getMethodName();
-        const fname: string | null  = frame.getFileName();
+        const fname: string | undefined  = frame.getFileName();
         const lineno: number | null  = frame.getLineNumber();
         const colno: number | null  = frame.getColumnNumber();
         const evalOrigin: string | undefined  = frame.getEvalOrigin();
@@ -247,4 +249,18 @@ import * as trace_events from 'node:trace_events';
     const s2: string = s.trimRight();
     const s3: string = s.trimStart();
     const s4: string = s.trimEnd();
+}
+
+////////////////////////////////////////////////////
+/// Node.js http2 tests
+////////////////////////////////////////////////////
+
+{
+    http2.connect('https://foo.com', {
+        createConnection: (authority, option) => {
+            authority; // $ExpectType URL
+            option; // $ExpectType SessionOptions
+            return new stream.Duplex();
+        },
+    });
 }

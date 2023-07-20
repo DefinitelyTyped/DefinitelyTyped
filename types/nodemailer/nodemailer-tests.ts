@@ -66,6 +66,7 @@ function nodemailer_test() {
             subject: 'Hello ✔', // Subject line
             text: 'Hello world?', // plain text body
             html: '<b>Hello world?</b>', // html body
+            attachDataUrls: false,
         };
 
         // send mail with defined transport object
@@ -1317,6 +1318,32 @@ function dkim_specific_header_key_test() {
 
 function smtp_connection_test() {
     const connection = new SMTPConnection();
+    connection.connect(err => {
+        if (err) throw err;
+        connection.login({ user: 'user', pass: 'pass' }, err => {
+            if (err) throw err;
+            connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
+                if (err) {
+                    const code: string = err.code || '???';
+                    const response: string = err.response || '???';
+                    const responseCode: number = err.responseCode || 0;
+                    const command: string = err.command || '???';
+                    throw err;
+                }
+                connection.reset(() => {
+                    if (err) throw err;
+                    connection.quit();
+                    connection.close();
+                });
+            });
+        });
+    });
+}
+
+// LMTP Connection
+
+function lmtp_connection_test() {
+    const connection = new SMTPConnection({ lmtp: true });
     connection.connect(err => {
         if (err) throw err;
         connection.login({ user: 'user', pass: 'pass' }, err => {

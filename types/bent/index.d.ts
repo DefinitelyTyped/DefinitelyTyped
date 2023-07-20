@@ -19,7 +19,7 @@ interface Headers {
 // Type first
 declare function bent(type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
 declare function bent(type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function bent<T extends bent.Json = any>(type: 'json', ...args: bent.Options[]): bent.RequestFunction<T>;
 
 // Method or url first
@@ -33,11 +33,11 @@ declare function bent<T extends bent.Json = any>(
     baseUrl: string,
     type: 'json',
     ...args: bent.Options[]
-): // tslint:disable-next-line no-unnecessary-generics
+): // eslint-disable-next-line no-unnecessary-generics
 bent.RequestFunction<T>;
 declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function bent<T extends bent.ValidResponse>(...args: bent.Options[]): bent.RequestFunction<T>;
 
 // If we get some sort of custom nominal types, or regex literals, we might be able to simplify to something similar to

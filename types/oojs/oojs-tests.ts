@@ -344,12 +344,19 @@ class FactoryClass2 {
     };
 }
 
+class FactoryClass3 {
+    static key: string;
+}
+
 {
     // @ts-expect-error
     factory.register(SubClass);
 
     // $ExpectType void
     factory.register(FactoryClass2);
+
+    // $ExpectType void
+    factory.register(FactoryClass3);
 
     // $ExpectType void
     factory.register(SubClass, 'SubClass');
@@ -393,6 +400,297 @@ let registry = new OO.Registry();
 
 // $ExpectType unknown
 registry.lookup('foo');
+
+{
+    let funcObj = {
+        registerLegal(name: string, data: unknown) {},
+        registerIllegal(foo: number) {},
+        unregisterLegal(name: string, data: unknown) {},
+        unregisterIllegal(foo: []) {},
+    };
+
+    // $ExpectType Registry
+    registry.on('register', function (name, data) {
+        this; // $ExpectType null
+        name; // $ExpectType string
+        data; // $ExpectType unknown
+    });
+
+    registry.on(
+        'register',
+        function (arg1, arg2, arg3, arg4, arg5, name, data) {
+            this; // $ExpectType null
+            arg1; // $ExpectType number
+            arg2; // $ExpectType number
+            arg3; // $ExpectType number
+            arg4; // $ExpectType number
+            arg5; // $ExpectType number
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        [1, 2, 3, 4, 5],
+    );
+
+    registry.on('register', 'registerLegal', [], funcObj);
+
+    // @ts-expect-error
+    registry.on('register', 'registerIllegal', [], funcObj);
+
+    registry.on(
+        'unregister',
+        function (name, data) {
+            this; // $ExpectType number
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        [],
+        1,
+    );
+
+    registry.on('unregister', 'unregisterLegal', [], funcObj);
+
+    // @ts-expect-error
+    registry.on('unregister', 'unregisterIllegal', [], funcObj);
+
+    registry.on('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
+}
+
+{
+    // $ExpectType Registry
+    registry.once('register', function (name, data) {
+        this; // $ExpectType null
+        name; // $ExpectType string
+        data; // $ExpectType unknown
+    });
+
+    registry.once('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
+}
+
+{
+    let funcObj = {
+        registerLegal(name: string, data: unknown) {},
+        registerIllegal(foo: number) {},
+        unregisterLegal(name: string, data: unknown) {},
+        unregisterIllegal(foo: []) {},
+    };
+
+    // $ExpectType Registry
+    registry.off('register', function (name, data) {
+        this; // $ExpectType null
+        name; // $ExpectType string
+        data; // $ExpectType unknown
+    });
+
+    registry.off('register', 'registerLegal', funcObj);
+
+    // @ts-expect-error
+    registry.off('register', 'registerIllegal', funcObj);
+
+    registry.off(
+        'unregister',
+        function (name, data) {
+            this; // $ExpectType number
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        1,
+    );
+
+    registry.off('unregister', 'unregisterLegal', funcObj);
+
+    // @ts-expect-error
+    registry.off('unregister', 'unregisterIllegal', funcObj);
+
+    registry.off('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
+}
+
+{
+    // $ExpectType boolean
+    registry.emit('register', 'foo', 1);
+
+    // @ts-expect-error
+    registry.emit('register');
+
+    // $ExpectType boolean
+    registry.emit('unregister', 'foo', 1);
+
+    // @ts-expect-error
+    registry.emit('unregister');
+
+    // $ExpectType boolean
+    registry.emit('non-exist', 1, 2, 3, 4);
+}
+
+{
+    // $ExpectType boolean
+    registry.emitThrow('register', 'foo', 1);
+
+    // @ts-expect-error
+    registry.emitThrow('register');
+
+    // $ExpectType boolean
+    registry.emitThrow('unregister', 'foo', 1);
+
+    // @ts-expect-error
+    registry.emitThrow('unregister');
+
+    // $ExpectType boolean
+    registry.emitThrow('non-exist', 1, 2, 3, 4);
+}
+
+{
+    let funcObj = {
+        registerLegal(name: string, data: unknown) {},
+        registerIllegal(foo: number) {},
+        unregisterLegal(name: string, data: unknown) {},
+        unregisterIllegal(foo: []) {},
+        prependedUnregisterLegal(
+            arg1: number,
+            arg2: number,
+            arg3: number,
+            arg4: number,
+            arg5: number,
+            name: string,
+            data: unknown,
+        ) {},
+    };
+
+    // $ExpectType Registry
+    registry.connect(funcObj, {
+        register: 'registerLegal',
+        unregister: 'unregisterLegal',
+    });
+
+    registry.connect(null, {
+        register(name, data) {
+            this; // $ExpectType null
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        unregister(name, data) {
+            this; // $ExpectType null
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        nonExist(arg) {
+            this; // $ExpectType null
+            arg; // $ExpectType any
+        },
+    });
+
+    registry.connect(null, {
+        register: [
+            function (arg1, arg2, arg3, arg4, arg5, name, data) {
+                this; // $ExpectType null
+                arg2; // $ExpectType number
+                arg3; // $ExpectType number
+                arg4; // $ExpectType number
+                arg5; // $ExpectType number
+                name; // $ExpectType string
+                data; // $ExpectType unknown
+            },
+            1,
+            2,
+            3,
+            4,
+            5,
+        ],
+    });
+
+    registry.connect(funcObj, {
+        unregister: ['prependedUnregisterLegal', 1, 2, 3, 4, 5],
+    });
+
+    registry.connect(funcObj, {
+        // @ts-expect-error
+        register: 'registerIllegal',
+
+        // @ts-expect-error
+        unregister: ['registerIllegal', 'illegal!'],
+    });
+}
+
+{
+    let funcObj = {
+        registerLegal(name: string, data: unknown) {},
+        registerIllegal(foo: number) {},
+        unregisterLegal(name: string, data: unknown) {},
+        unregisterIllegal(foo: []) {},
+        prependedUnregisterLegal(
+            arg1: number,
+            arg2: number,
+            arg3: number,
+            arg4: number,
+            arg5: number,
+            name: string,
+            data: unknown,
+        ) {},
+    };
+
+    // $ExpectType Registry
+    registry.disconnect(funcObj, {
+        register: 'registerLegal',
+        unregister: 'unregisterLegal',
+    });
+
+    registry.disconnect(null, {
+        register(name, data) {
+            this; // $ExpectType null
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        unregister(name, data) {
+            this; // $ExpectType null
+            name; // $ExpectType string
+            data; // $ExpectType unknown
+        },
+        nonExist(arg) {
+            this; // $ExpectType null
+            arg; // $ExpectType any
+        },
+    });
+
+    registry.disconnect(null, {
+        register: [
+            function (arg1, arg2, arg3, arg4, arg5, name, data) {
+                this; // $ExpectType null
+                arg1; // $ExpectType number
+                arg2; // $ExpectType number
+                arg3; // $ExpectType number
+                arg4; // $ExpectType number
+                arg5; // $ExpectType number
+                name; // $ExpectType string
+                data; // $ExpectType unknown
+            },
+            1,
+            2,
+            3,
+            4,
+            5,
+        ],
+    });
+
+    registry.disconnect(funcObj, {
+        unregister: ['prependedUnregisterLegal', 1, 2, 3, 4, 5],
+    });
+
+    registry.disconnect(funcObj, {
+        // @ts-expect-error
+        register: 'registerIllegal',
+
+        // @ts-expect-error
+        unregister: ['registerIllegal', 'illegal!'],
+    });
+}
 
 // #endregion
 

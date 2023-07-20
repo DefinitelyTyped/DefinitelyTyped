@@ -27,7 +27,7 @@ import * as R from 'ramda';
     R.assoc('c', R.__, obj)(4); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<ABC, "c">
     R.assoc('c', R.__, obj)('test'); // => {a: 1, b: 2, c: "test"}
-    // $ExpectType Record<"d", string> & Omit<ABC, "d">
+    // $ExpectType ABC & Record<"d", string>
     R.assoc('d', R.__, obj)('test'); // => {a: 1, b: 2, c: 3, d: "test"}
     // $ExpectType { a: number; b: number; c: number; }
     R.assoc('c', R.__, { a: 1, b: 2, c: 3 })(4); // => {a: 1, b: 2, c: 4}
@@ -48,7 +48,7 @@ import * as R from 'ramda';
     R.assoc(R.__, 4, obj)('c'); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<ABC, "c">
     R.assoc(R.__, 'test', obj)('c'); // => {a: 1, b: 2, c: "test"}
-    // $ExpectType Record<"d", string> & Omit<ABC, "d">
+    // $ExpectType ABC & Record<"d", string>
     R.assoc(R.__, 'test', obj)('d'); // => {a: 1, b: 2, c: 3, d: "test"}
     // $ExpectType { a: number; b: number; c: number; }
     R.assoc(R.__, 4, { a: 1, b: 2, c: 3 })('c'); // => {a: 1, b: 2, c: 4}

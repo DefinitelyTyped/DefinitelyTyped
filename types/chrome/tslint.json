@@ -12,7 +12,6 @@
         "no-outside-dependencies": false,
         "no-padding": false,
         "no-unnecessary-class": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "no-void-expression": false,

@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { AuthMode, Server, Request, Plugin, AuthCredentials } from '@hapi/hapi';
+import { Request, Plugin, AuthCredentials } from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
   interface ServerAuth {

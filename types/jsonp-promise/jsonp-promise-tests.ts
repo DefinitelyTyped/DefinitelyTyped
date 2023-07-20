@@ -3,13 +3,13 @@ import jsonp = require('jsonp-promise');
 /**
  * Dummy function to test returned promise
  */
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 const wait = async <T>(_promise: Promise<T>) => {};
 
 /**
  * Dummy function to test the type of generic parameter `R` for return
  */
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 const acceptObject = <T extends {} = {}>(arg: T) => {};
 
 /**

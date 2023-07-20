@@ -31,7 +31,8 @@ import * as dns from 'node:dns';
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
-        keepAliveInitialDelay: 1000
+        keepAliveInitialDelay: 1000,
+        keepAliveTimeout: 100
     }, reqListener);
 
     // test public props
@@ -622,7 +623,7 @@ import * as dns from 'node:dns';
 {
   http.request({ lookup: undefined });
   http.request({ lookup: dns.lookup });
-  http.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
+  http.request({ lookup: (hostname, options, cb) => { cb(null, [{ address: '', family: 1 }]); } });
 }
 
 {

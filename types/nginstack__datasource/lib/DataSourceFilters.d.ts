@@ -8,20 +8,7 @@ declare class DataSourceFilters {
     private newDynFilter_;
     private unshare_;
     getLength(): number;
-    importFields(
-        classKey: number,
-        prefix: string,
-        opt_options?:
-            | Record<any, any>
-            | {
-                  includeFieldNames: string;
-                  excludeFieldNames: string;
-                  children: boolean;
-                  onlyVisible: boolean;
-                  onlyIncludedFieldNames: boolean;
-                  classDef: ModelDef;
-              }
-    ): void;
+    importFields(classKey: number, prefix: string, opt_options?: any): void;
     importVisibleFields(
         classKey: number,
         fieldNamesPrefix?: string,
@@ -36,7 +23,7 @@ declare class DataSourceFilters {
     getFilters(filtersSelection: string): DataSourceFilters;
     getIQueryFilters(filtersSelection: string, conditionalOperator: string, iquery?: IQuery): any[];
     getDerivedFiltersNames(filterName: string, selfDerived: boolean): any[];
-    toString(): string;
+    toString(): any;
     private add;
     hasFilter(name: string): boolean;
     map(

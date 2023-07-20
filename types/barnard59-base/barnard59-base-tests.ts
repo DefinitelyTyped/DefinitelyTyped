@@ -15,6 +15,7 @@ import {
     toString,
 } from 'barnard59-base';
 import { object as concatObject } from 'barnard59-base/concat';
+import { Callback } from 'barnard59-base/map';
 import forEach from 'barnard59-base/forEach';
 import * as toReadable from 'barnard59-base/toReadable';
 import { Readable, Duplex, Writable, Transform } from 'readable-stream';
@@ -97,11 +98,14 @@ function testMap() {
     interface Foo {
         bar: number;
     }
-    const mapped: stream.Transform = map<Foo, number>(function mapFunc(chunk, _) {
+
+    const syncMap: Callback<Foo, number> = function mapFunc(chunk, _) {
         const baz: number = this.variables.get('baz');
 
         return chunk.bar * baz;
-    });
+    };
+
+    const mapped: stream.Transform = map<Foo, number>(syncMap);
 
     const lazyMapped: stream.Transform = map<Foo, number>(async function mapFunc(chunk, _) {
         const baz: number = this.variables.get('baz');

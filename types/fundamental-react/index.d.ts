@@ -1,8 +1,7 @@
-// Type definitions for fundamental-react 0.13
+// Type definitions for fundamental-react 0.14
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
-//                 Sam Kvale <https://github.com/skvale>
 //                 Auryn Engel <https://github.com/auryn31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
@@ -35,13 +34,10 @@ export { default as Image } from "./lib/Image/Image";
 export { default as InfoLabel } from "./lib/InfoLabel/InfoLabel";
 export { default as InlineHelp } from "./lib/InlineHelp/InlineHelp";
 export { default as InputGroup } from "./lib/InputGroup/InputGroup";
-export { default as LayoutGrid } from "./lib/LayoutGrid/LayoutGrid";
 export { default as LayoutPanel } from "./lib/LayoutPanel/LayoutPanel";
 export { default as Link } from "./lib/Link/Link";
 export { default as List } from "./lib/List/List";
-export {
-    default as LocalizationEditor
-} from "./lib/LocalizationEditor/LocalizationEditor";
+export { default as LocalizationEditor } from "./lib/LocalizationEditor/LocalizationEditor";
 export { default as Menu } from "./lib/Menu/Menu";
 export { default as MessageStrip } from "./lib/MessageStrip/MessageStrip";
 export { default as MultiInput } from "./lib/MultiInput/MultiInput";
@@ -62,4 +58,8 @@ export { default as Time } from "./lib/Time/Time";
 export { default as TimePicker } from "./lib/TimePicker/TimePicker";
 export { default as Title } from "./lib/Title/Title";
 export { default as Token } from "./lib/Token/Token";
-export { default as TreeView } from "./lib/TreeView/TreeView";
+export { default as Container } from "./lib/Container/Container";
+export { default as Row } from "./lib/Row/Row";
+export { default as Column } from "./lib/Column/Column";
+export { default as Tree } from "./lib/Tree/Tree";
+export { default as Wizard } from "./lib/Wizard/Wizard";

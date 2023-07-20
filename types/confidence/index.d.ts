@@ -14,7 +14,6 @@
 export declare class Store {
 
     /**
-    * @constructor
     * @param {any} document - the configuration document for this document store
     */
     constructor(document?: any);

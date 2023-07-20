@@ -14,7 +14,7 @@ import * as R from 'ramda';
         return n % 2 === 0;
     }
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const objB: Record<string, number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
@@ -50,9 +50,9 @@ import * as R from 'ramda';
     stringArray = R.reject(R.is(Number), unknownArray);
     stringArray = rejectNumbers(unknownArray);
 
-    const unknownDictionary: R.Dictionary<string | number> = {};
-    let numberDictionary: R.Dictionary<number>;
-    let stringDictionary: R.Dictionary<string>;
+    const unknownDictionary: Record<string, string | number> = {};
+    let numberDictionary: Record<string, number>;
+    let stringDictionary: Record<string, string>;
 
     // @ts-expect-error
     numberDictionary = R.reject(R.is(Number), unknownDictionary);

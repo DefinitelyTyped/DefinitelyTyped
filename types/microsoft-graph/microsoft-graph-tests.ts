@@ -213,3 +213,250 @@ const album: MicrosoftGraph.Album = {
 const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
 
 const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const bookingStaffRole: MicrosoftGraph.BookingStaffRole = "unknownFutureValue";
+
+const bookingAppointmentStatus: MicrosoftGraph.BookingAppointment = {
+    id: "test",
+};
+
+const authenticationMethodsPolicyMigrationState: MicrosoftGraph.AuthenticationMethodsPolicyMigrationState = "unknownFutureValue";
+
+const conditionalAccessGuestOrExternalUserTypes: MicrosoftGraph.ConditionalAccessGuestOrExternalUserTypes = "unknownFutureValue";
+
+const appManagementConfiguration: MicrosoftGraph.AppManagementConfiguration = {};
+
+const authenticationMethodModes: MicrosoftGraph.AuthenticationMethodModes = "unknownFutureValue";
+
+const authenticationStrengthRequirements: MicrosoftGraph.AuthenticationStrengthRequirements = "unknownFutureValue";
+
+const baseAuthenticationMethod: MicrosoftGraph.BaseAuthenticationMethod = "x509Certificate";
+
+const authenticationCombinationConfiguration: MicrosoftGraph.AuthenticationCombinationConfiguration = {};
+
+const authenticationMethodModeDetail: MicrosoftGraph.AuthenticationMethodModeDetail = {};
+
+const authenticationStrengthPolicy: MicrosoftGraph.AuthenticationStrengthPolicy = {};
+
+const authenticationStrengthRoot: MicrosoftGraph.AuthenticationStrengthRoot = {};
+
+const conditionalAccessRoot: MicrosoftGraph.ConditionalAccessRoot = {};
+
+const authenticationContextClassReference: MicrosoftGraph.AuthenticationContextClassReference = {};
+
+const namedLocation: MicrosoftGraph.NamedLocation = {};
+
+const conditionalAccessPolicy: MicrosoftGraph.ConditionalAccessPolicy = {};
+
+const conditionalAccessTemplate: MicrosoftGraph.ConditionalAccessTemplate = {};
+
+const customSecurityAttributeDefinition: MicrosoftGraph.CustomSecurityAttributeDefinition = {};
+
+const updateAllowedCombinationsResult: MicrosoftGraph.UpdateAllowedCombinationsResult = {};
+
+const chatMessageHistoryItem: MicrosoftGraph.ChatMessageHistoryItem = {};
+
+const chatMessageReaction: MicrosoftGraph.ChatMessageReaction = {};
+
+const crossTenantIdentitySyncPolicyPartner: MicrosoftGraph.CrossTenantIdentitySyncPolicyPartner = {};
+
+const sharepointSettings: MicrosoftGraph.SharepointSettings = {};
+
+const crossTenantUserSyncInbound: MicrosoftGraph.CrossTenantUserSyncInbound = {};
+
+const conditionalAccessExternalTenants: MicrosoftGraph.ConditionalAccessExternalTenants = {};
+
+const ruleOperation: MicrosoftGraph.ExternalConnectors.RuleOperation = "unknownFutureValue";
+
+const displayTemplate: MicrosoftGraph.ExternalConnectors.DisplayTemplate = {};
+
+const propertyRule: MicrosoftGraph.ExternalConnectors.PropertyRule = {};
+
+const itemIdResolver: MicrosoftGraph.ExternalConnectors.ItemIdResolver = {};
+
+const urlMatchInfo: MicrosoftGraph.ExternalConnectors.UrlMatchInfo = {};
+
+const searchSettings: MicrosoftGraph.ExternalConnectors.SearchSettings = {};
+
+const meetingAttendanceReport: MicrosoftGraph.MeetingAttendanceReport = {};
+
+const audioConferencing: MicrosoftGraph.AudioConferencing = {};
+
+const broadcastMeetingSettings: MicrosoftGraph.BroadcastMeetingSettings = {};
+
+const chatInfo: MicrosoftGraph.ChatInfo = {};
+
+const joinMeetingIdSettings: MicrosoftGraph.JoinMeetingIdSettings = {};
+
+const meetingParticipants: MicrosoftGraph.MeetingParticipants = {};
+
+const externalActivity: MicrosoftGraph.ExternalConnectors.ExternalActivity = {};
+
+const identity: MicrosoftGraph.ExternalConnectors.Identity = {};
+
+const externalActivityResult: MicrosoftGraph.ExternalConnectors.ExternalActivityResult = {};
+
+const attributeDefinitionMetadata: MicrosoftGraph.AttributeDefinitionMetadata = "ReferencedProperty";
+
+const attributeFlowBehavior: MicrosoftGraph.AttributeFlowBehavior = "FlowWhenChanged";
+
+const attributeFlowType: MicrosoftGraph.AttributeFlowType = "AttributeAddOnly";
+
+const attributeMappingSourceType: MicrosoftGraph.AttributeMappingSourceType = "Function";
+
+const attributeType: MicrosoftGraph.AttributeType = "DateTime";
+
+const directoryDefinitionDiscoverabilities: MicrosoftGraph.DirectoryDefinitionDiscoverabilities = "UnknownFutureValue";
+
+const entryExportStatus: MicrosoftGraph.EntryExportStatus = "Error";
+
+const entrySyncOperation: MicrosoftGraph.EntrySyncOperation = "Update";
+
+const escrowBehavior: MicrosoftGraph.EscrowBehavior = "IgnoreLookupReferenceResolutionFailure";
+
+const mutability: MicrosoftGraph.Mutability = "WriteOnly";
+
+const objectDefinitionMetadata: MicrosoftGraph.ObjectDefinitionMetadata = "BaseObjectName";
+
+const objectFlowTypes: MicrosoftGraph.ObjectFlowTypes = "Delete";
+
+const objectMappingMetadata: MicrosoftGraph.ObjectMappingMetadata = "Unsynchronized";
+
+const quarantineReason: MicrosoftGraph.QuarantineReason = "IngestionInterrupted";
+
+const scopeOperatorMultiValuedComparisonType: MicrosoftGraph.ScopeOperatorMultiValuedComparisonType = "Any";
+
+const scopeOperatorType: MicrosoftGraph.ScopeOperatorType = "Unary";
+
+const synchronizationDisposition: MicrosoftGraph.SynchronizationDisposition = "Escrow";
+
+const synchronizationJobRestartScope: MicrosoftGraph.SynchronizationJobRestartScope = "ForceDeletes";
+
+const synchronizationMetadata: MicrosoftGraph.SynchronizationMetadata = "ConfigurationFields";
+
+const synchronizationScheduleState: MicrosoftGraph.SynchronizationScheduleState = "Paused";
+
+const synchronizationSecret: MicrosoftGraph.SynchronizationSecret = "ConnectionString";
+
+const synchronizationStatusCode: MicrosoftGraph.SynchronizationStatusCode = "Quarantine";
+
+const synchronizationTaskExecutionResult: MicrosoftGraph.SynchronizationTaskExecutionResult = "EntryLevelErrors";
+
+const accessReviewHistoryDecisionFilter: MicrosoftGraph.AccessReviewHistoryDecisionFilter = "approve";
+
+const attributeMappingFunctionSchema: MicrosoftGraph.AttributeMappingFunctionSchema = {};
+
+const directoryDefinition: MicrosoftGraph.DirectoryDefinition = {};
+
+const filterOperatorSchema: MicrosoftGraph.FilterOperatorSchema = {};
+
+const synchronizationJob: MicrosoftGraph.SynchronizationJob = {};
+
+const synchronizationTemplate: MicrosoftGraph.SynchronizationTemplate = {};
+
+const synchronizationSchema: MicrosoftGraph.SynchronizationSchema = {};
+
+const attributeDefinition: MicrosoftGraph.AttributeDefinition = {};
+
+const stringKeyStringValuePair: MicrosoftGraph.StringKeyStringValuePair = {};
+
+const attributeDefinitionMetadataEntry: MicrosoftGraph.AttributeDefinitionMetadataEntry = {};
+
+const referencedObject: MicrosoftGraph.ReferencedObject = {};
+
+const attributeMapping: MicrosoftGraph.AttributeMapping = {};
+
+const attributeMappingSource: MicrosoftGraph.AttributeMappingSource = {};
+
+const attributeMappingParameterSchema: MicrosoftGraph.AttributeMappingParameterSchema = {};
+
+const stringKeyAttributeMappingSourceValuePair: MicrosoftGraph.StringKeyAttributeMappingSourceValuePair = {};
+
+const containerFilter: MicrosoftGraph.ContainerFilter = {};
+
+const expressionInputObject: MicrosoftGraph.ExpressionInputObject = {};
+
+const objectDefinition: MicrosoftGraph.ObjectDefinition = {};
+
+const stringKeyObjectValuePair: MicrosoftGraph.StringKeyObjectValuePair = {};
+
+const filter: MicrosoftGraph.Filter = {};
+
+const filterGroup: MicrosoftGraph.FilterGroup = {};
+
+const filterClause: MicrosoftGraph.FilterClause = {};
+
+const filterOperand: MicrosoftGraph.FilterOperand = {};
+
+const groupFilter: MicrosoftGraph.GroupFilter = {};
+
+const objectDefinitionMetadataEntry: MicrosoftGraph.ObjectDefinitionMetadataEntry = {};
+
+const objectMapping: MicrosoftGraph.ObjectMapping = {};
+
+const objectMappingMetadataEntry: MicrosoftGraph.ObjectMappingMetadataEntry = {};
+
+const parseExpressionResponse: MicrosoftGraph.ParseExpressionResponse = {};
+
+const publicErrorResponse: MicrosoftGraph.PublicErrorResponse = {};
+
+const stringKeyLongValuePair: MicrosoftGraph.StringKeyLongValuePair = {};
+
+const synchronizationError: MicrosoftGraph.SynchronizationError = {};
+
+const synchronizationJobApplicationParameters: MicrosoftGraph.SynchronizationJobApplicationParameters = {};
+
+const synchronizationJobSubject: MicrosoftGraph.SynchronizationJobSubject = {};
+
+const synchronizationJobRestartCriteria: MicrosoftGraph.SynchronizationJobRestartCriteria = {};
+
+const synchronizationLinkedObjects: MicrosoftGraph.SynchronizationLinkedObjects = {};
+
+const synchronizationMetadataEntry: MicrosoftGraph.SynchronizationMetadataEntry = {};
+
+const synchronizationProgress: MicrosoftGraph.SynchronizationProgress = {};
+
+const synchronizationQuarantine: MicrosoftGraph.SynchronizationQuarantine = {};
+
+const synchronizationRule: MicrosoftGraph.SynchronizationRule = {};
+
+const synchronizationSchedule: MicrosoftGraph.SynchronizationSchedule = {};
+
+const synchronizationSecretKeyStringValuePair: MicrosoftGraph.SynchronizationSecretKeyStringValuePair = {};
+
+const synchronizationStatus: MicrosoftGraph.SynchronizationStatus = {};
+
+const synchronizationTaskExecution: MicrosoftGraph.SynchronizationTaskExecution = {};
+
+const onlineMeetingRestricted: MicrosoftGraph.OnlineMeetingRestricted = {};
+
+const loginPageLayoutConfiguration: MicrosoftGraph.LoginPageLayoutConfiguration = {};
+
+const loginPageTextVisibilitySettings: MicrosoftGraph.LoginPageTextVisibilitySettings = {};
+
+const azureResourceEvidence: MicrosoftGraph.SecurityNamespace.AzureResourceEvidence = {};
+
+const layoutTemplateType: MicrosoftGraph.LayoutTemplateType = "verticalSplit";
+
+const googleCloudResourceEvidence: MicrosoftGraph.SecurityNamespace.GoogleCloudResourceEvidence = {};
+
+const organizationalBrandingProperties: MicrosoftGraph.OrganizationalBrandingProperties = {
+    customAccountResetCredentialsUrl: "",
+    customCannotAccessYourAccountText: "",
+    customCannotAccessYourAccountUrl: "",
+    customCSS: "",
+    customCSSRelativeUrl: "",
+    customForgotMyPasswordText: "",
+    customPrivacyAndCookiesText: "",
+    customPrivacyAndCookiesUrl: "",
+    customResetItNowText: "",
+    customTermsOfUseText: "",
+    customTermsOfUseUrl: "",
+    favicon: "",
+    faviconRelativeUrl: "",
+    headerBackgroundColor: "",
+    headerLogo: "",
+    headerLogoRelativeUrl: "",
+    loginPageLayoutConfiguration: {},
+    loginPageTextVisibilitySettings: {}
+};

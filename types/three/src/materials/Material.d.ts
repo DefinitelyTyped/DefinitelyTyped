@@ -1,7 +1,7 @@
-import { Plane } from './../math/Plane';
-import { EventDispatcher } from './../core/EventDispatcher';
-import { WebGLRenderer } from './../renderers/WebGLRenderer';
-import { Shader } from './../renderers/shaders/ShaderLib';
+import { Plane } from './../math/Plane.js';
+import { EventDispatcher } from './../core/EventDispatcher.js';
+import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
+import { Shader } from './../renderers/shaders/ShaderLib.js';
 import {
     BlendingDstFactor,
     BlendingEquation,
@@ -12,9 +12,10 @@ import {
     StencilFunc,
     StencilOp,
     PixelFormat,
-} from '../constants';
+} from '../constants.js';
 
 export interface MaterialParameters {
+    alphaHash?: boolean | undefined;
     alphaTest?: number | undefined;
     alphaToCoverage?: boolean | undefined;
     blendDst?: BlendingDstFactor | undefined;
@@ -39,6 +40,7 @@ export interface MaterialParameters {
     polygonOffsetUnits?: number | undefined;
     precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
     premultipliedAlpha?: boolean | undefined;
+    forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -63,6 +65,8 @@ export interface MaterialParameters {
  */
 export class Material extends EventDispatcher {
     constructor();
+
+    alphaHash: boolean;
 
     /**
      * Sets the alpha value to be used when running an alpha test. Default is 0.
@@ -284,6 +288,11 @@ export class Material extends EventDispatcher {
     premultipliedAlpha: boolean;
 
     /**
+     * @default false
+     */
+    forceSinglePass: boolean;
+
+    /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
      * @default false
      */
@@ -291,8 +300,9 @@ export class Material extends EventDispatcher {
 
     /**
      * Defines which of the face sides will be rendered - front, back or both.
-     * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
-     * @default THREE.FrontSide
+     * Default is {@link THREE.FrontSide}. Other options are {@link THREE.BackSide} and {@link THREE.DoubleSide}.
+     *
+     * @default {@link THREE.FrontSide}
      */
     side: Side;
 

@@ -25,8 +25,6 @@ declare namespace Roles {
      *     Roles.userIsInRole(user, 'support-staff') // => true
      *     Roles.userIsInRole(user, 'admin') // => false
      *
-     * @property GLOBAL_GROUP
-     * @type String
      * @static
      * @final
      */
@@ -43,8 +41,6 @@ declare namespace Roles {
      *
      *     `Roles.subscription.ready()` // => `true` if user roles have been loaded
      *
-     * @property subscription
-     * @type Object
      * @for Roles
      */
     var subscription : Subscription;
@@ -281,8 +277,6 @@ declare module "meteor/alanning:roles" {
          *     Roles.userIsInRole(user, 'support-staff') // => true
          *     Roles.userIsInRole(user, 'admin') // => false
          *
-         * @property GLOBAL_GROUP
-         * @type String
          * @static
          * @final
          */
@@ -299,8 +293,6 @@ declare module "meteor/alanning:roles" {
          *
          *     `Roles.subscription.ready()` // => `true` if user roles have been loaded
          *
-         * @property subscription
-         * @type Object
          * @for Roles
          */
         var subscription : Subscription;

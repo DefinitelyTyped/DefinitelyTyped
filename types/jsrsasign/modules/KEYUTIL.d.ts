@@ -441,31 +441,52 @@ declare namespace jsrsasign {
         parsePublicPKCS8Hex(pkcs8PubHex: string): PublicPKCS8HexResult;
 
         /**
-         * @param alg 'RSA' or 'EC'
-         * @param keylenOrCurve key length for RSA or curve name for EC
+         * @param alg 'RSA'
+         * @param keylen key length
          * @return associative array of keypair which has prvKeyObj and pubKeyObj parameters
          * @description
          * This method generates a key pair of public key algorithm.
          * The result will be an associative array which has following
          * parameters:
          *
-         * - prvKeyObj - RSAKey or ECDSA object of private key
-         * - pubKeyObj - RSAKey or ECDSA object of public key
+         * - prvKeyObj - RSAKey object of private key
+         * - pubKeyObj - RSAKey object of public key
          *
-         * NOTE1: As for RSA algoirthm, public exponent has fixed
-         * value '0x10001'.
-         * NOTE2: As for EC algorithm, supported names of curve are
-         * secp256r1, secp256k1 and secp384r1.
-         * NOTE3: DSA is not supported yet.
+         * NOTE1: public exponent has fixed value '0x10001'.
+         * NOTE2: DSA algorithm is not supported yet.
          * @example
          * var rsaKeypair = KEYUTIL.generateKeypair("RSA", 1024);
          * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
          *
          */
         static generateKeypair(
-            alg: 'RSA' | 'EC',
-            keylenOrCurve: number | string,
-        ): { prvKeyObj: RSAKey | KJUR.crypto.ECDSA; pubKeyObj: RSAKey | KJUR.crypto.ECDSA };
+            alg: 'RSA',
+            keylen: number,
+        ): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
+
+        /**
+         * @param alg 'EC'
+         * @param curve curve name
+         * @return associative array of keypair which has prvKeyObj and pubKeyObj parameters
+         * @description
+         * This method generates a key pair of public key algorithm.
+         * The result will be an associative array which has following
+         * parameters:
+         *
+         * - prvKeyObj - ECDSA object of private key
+         * - pubKeyObj - ECDSA object of public key
+         *
+         * NOTE1: supported names of curve are secp256r1, secp256k1 and
+         * secp384r1.
+         * NOTE2: DSA algorithm is not supported yet.
+         * @example
+         * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
+         *
+         */
+        static generateKeypair(
+            alg: 'EC',
+            curve: 'secp256r1' | 'secp256k1' | 'secp384r1',
+        ): { prvKeyObj: KJUR.crypto.ECDSA; pubKeyObj: KJUR.crypto.ECDSA };
 
         /**
          * decrypt PEM formatted protected PKCS#5 private key with passcode

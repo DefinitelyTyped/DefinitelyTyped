@@ -1,4 +1,4 @@
-import { LoadingManager } from './LoadingManager';
+import { LoadingManager } from './LoadingManager.js';
 
 /**
  * Base class for implementing loaders.
@@ -12,7 +12,7 @@ export class Loader {
     crossOrigin: string;
 
     /**
-     * @default: false
+     * @default false
      */
     withCredentials: boolean;
 
@@ -34,14 +34,15 @@ export class Loader {
 
     /*
 	load(): void;
+    loadAsync(): Promise<unknown>;
 	parse(): void;
 	*/
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<any>;
 
     setCrossOrigin(crossOrigin: string): this;
     setWithCredentials(value: boolean): this;
     setPath(path: string): this;
     setResourcePath(resourcePath: string): this;
     setRequestHeader(requestHeader: { [header: string]: string }): this;
+
+    static DEFAULT_MATERIAL_NAME: string;
 }

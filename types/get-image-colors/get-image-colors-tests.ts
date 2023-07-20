@@ -17,6 +17,9 @@ const options: Options = {
     });
 
     // $ExpectType Color[]
+    await getColors(buffer, options);
+
+    // $ExpectType Color[]
     await getColors(buffer, 'image/gif');
 
     // $ExpectType Color[]

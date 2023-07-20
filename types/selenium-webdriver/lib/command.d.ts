@@ -155,14 +155,12 @@ export const Name: ICommandName;
 /**
  * Describes a command to be executed by the WebDriverJS framework.
  * @param {!CommandName} name The name of this command.
- * @constructor
  */
 export class Command {
     // region Constructors
 
     /**
      * @param {!CommandName} name The name of this command.
-     * @constructor
      */
     constructor(name: string);
 

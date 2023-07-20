@@ -195,7 +195,7 @@ export class LatLngBounds {
     intersects(otherBounds: LatLngBoundsExpression): boolean;
     overlaps(otherBounds: LatLngBoundsExpression): boolean;
     toBBoxString(): string;
-    equals(otherBounds: LatLngBoundsExpression): boolean;
+    equals(otherBounds: LatLngBoundsExpression, maxMargin?: number): boolean;
     isValid(): boolean;
 }
 
@@ -1226,15 +1226,16 @@ export class Layer extends Evented {
     beforeAdd?(map: Map): this;
 
     protected _map: Map;
+
+    options: LayerOptions;
 }
 
-export interface GridLayerOptions {
+export interface GridLayerOptions extends LayerOptions {
     tileSize?: number | Point | undefined;
     opacity?: number | undefined;
     updateWhenIdle?: boolean | undefined;
     updateWhenZooming?: boolean | undefined;
     updateInterval?: number | undefined;
-    attribution?: string | undefined;
     zIndex?: number | undefined;
     bounds?: LatLngBoundsExpression | undefined;
     minZoom?: number | undefined;
@@ -1377,7 +1378,6 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number | undefined;
     alt?: string | undefined;
     interactive?: boolean | undefined;
-    attribution?: string | undefined;
     crossOrigin?: CrossOrigin | boolean | undefined;
     errorOverlayUrl?: string | undefined;
     zIndex?: number | undefined;
@@ -1752,7 +1752,7 @@ export function featureGroup(layers?: Layer[], options?: LayerOptions): FeatureG
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
+export interface GeoJSONOptions<P = any, G extends geojson.GeometryObject = geojson.GeometryObject> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
@@ -1792,7 +1792,7 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
      * function (feature, layer) {}
      * ```
      */
-    onEachFeature?(feature: geojson.Feature<geojson.GeometryObject, P>, layer: Layer): void;
+    onEachFeature?(feature: geojson.Feature<G, P>, layer: Layer): void;
 
     /**
      * A Function that will be used to decide whether to show a feature or not.
@@ -1805,7 +1805,7 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
      * }
      * ```
      */
-    filter?(geoJsonFeature: geojson.Feature<geojson.GeometryObject, P>): boolean;
+    filter?(geoJsonFeature: geojson.Feature<G, P>): boolean;
 
     /**
      * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -1821,17 +1821,17 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
  * Represents a GeoJSON object or an array of GeoJSON objects.
  * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
  */
-export class GeoJSON<P = any> extends FeatureGroup<P> {
+export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.GeometryObject> extends FeatureGroup<P> {
     /**
      * Convert layer into GeoJSON feature
      */
-    static getFeature<P = any>(layer: Layer, newGeometry: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
+    static getFeature<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(layer: Layer, newGeometry: geojson.Feature<G, P> | G): geojson.Feature<G, P>;
 
     /**
      * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
      * and/or coordsToLatLng functions if provided as options.
      */
-    static geometryToLayer<P = any>(featureData: geojson.Feature<geojson.GeometryObject, P>, options?: GeoJSONOptions<P>): Layer;
+    static geometryToLayer<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(featureData: geojson.Feature<G, P>, options?: GeoJSONOptions<P, G>): Layer;
 
     /**
      * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
@@ -1865,9 +1865,9 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
     /**
      * Normalize GeoJSON geometries/features into GeoJSON features.
      */
-    static asFeature<P = any>(geojson: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
+    static asFeature<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson: geojson.Feature<G, P> | G): geojson.Feature<G, P>;
 
-    constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P>)
+    constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P, G>)
     /**
      * Adds a GeoJSON object to the layer.
      */
@@ -1885,7 +1885,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      */
     setStyle(style: PathOptions | StyleFunction<P>): this;
 
-    options: GeoJSONOptions<P>;
+    options: GeoJSONOptions<P, G>;
 }
 
 /**
@@ -1895,8 +1895,8 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
  * map (you can alternatively add it later with addData method) and
  * an options object.
  */
-export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
-export function geoJson<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
+export function geoJSON<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P, G>): GeoJSON<P, G>;
+export function geoJson<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P, G>): GeoJSON<P, G>;
 
 export type Zoom = boolean | 'center';
 

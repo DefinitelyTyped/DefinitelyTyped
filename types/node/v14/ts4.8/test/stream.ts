@@ -205,3 +205,21 @@ function stream_readable_pipe_test() {
     z.close();
     rs.close();
 }
+
+{
+    // checking the type definitions for the events on the Duplex class and subclasses
+    const transform = new Transform();
+    transform.on('pipe', (src) => {
+        // $ExpectType Readable
+        src;
+    }).once('unpipe', (src) => {
+        // $ExpectType Readable
+        src;
+    }).addListener('data', (chunk) => {
+        // $ExpectType any
+        chunk;
+    }).prependOnceListener('error', (err) => {
+        // $ExpectType Error
+        err;
+    });
+}

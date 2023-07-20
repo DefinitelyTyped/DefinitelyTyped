@@ -209,6 +209,13 @@ declare namespace gapi.client {
     }
 
     /**
+     * Loads the client library interface to a particular API with discovery document URL or JSON object.
+     * @param urlOrObject The Discovery Document URL or parsed Discovery Document JSON object
+     * @return promise The promise that get's resolved after the request is finished.
+     */
+    export function load(urlOrObject: string | object): Promise<void>;
+
+    /**
      * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
      * @param name The name of the API to load.
      * @param version The version of the API to load.

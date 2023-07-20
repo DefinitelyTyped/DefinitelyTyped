@@ -1,6 +1,6 @@
-import { AnyJson, NodeTypeOption, NodeUpdateTypeOption } from './constants';
-import NodeBuilder from './NodeBuilder';
-import NodeFrame from './NodeFrame';
+import { AnyJson, NodeTypeOption, NodeUpdateTypeOption } from './constants.js';
+import NodeBuilder from './NodeBuilder.js';
+import NodeFrame from './NodeFrame.js';
 
 export default abstract class Node {
     uuid: string;
@@ -12,11 +12,11 @@ export default abstract class Node {
 
     constructor(nodeType?: NodeTypeOption | null);
 
+    isGlobal(builder: NodeBuilder): boolean;
     getChildren(): Node[];
     getHash(builder: NodeBuilder): string;
     getUpdateType(builder: NodeBuilder): NodeUpdateTypeOption;
     getNodeType(builder: NodeBuilder, output?: string | null): NodeTypeOption | null;
-    getConstructHash(builder: NodeBuilder): string;
     getReference(builder: NodeBuilder): Node;
     construct(builder: NodeBuilder): Node | null;
     analyze(builder: NodeBuilder): void;

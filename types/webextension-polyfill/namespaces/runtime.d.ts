@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.runtime
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
  * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
@@ -277,7 +280,7 @@ export namespace Runtime {
 
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,
-         * and implement surveys. Maximum 255 characters.
+         * and implement surveys. Maximum 1023 characters.
          *
          * @param url Optional. URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
          * Set an empty string to not open a new tab upon uninstallation.
@@ -438,16 +441,30 @@ export namespace Runtime {
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessage: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessageExternal: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * This will be defined during an API method callback if there was an error

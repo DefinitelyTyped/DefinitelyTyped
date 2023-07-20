@@ -1,10 +1,12 @@
-// Type definitions for webextension-polyfill 0.9
+// Type definitions for webextension-polyfill 0.10
 // Project: https://github.com/mozilla/webextension-polyfill
 // Definitions by: Santo Pfingsten <https://github.com/Lusito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Generated using https://github.com/Lusito/webextension-polyfill-ts
 
-// Generated from Mozilla sources. Do not manually edit!
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
 
 import { ActivityLog as ImportedActivityLog } from "./namespaces/activityLog";
 import { Alarms as ImportedAlarms } from "./namespaces/alarms";
@@ -19,7 +21,7 @@ import { Commands as ImportedCommands } from "./namespaces/commands";
 import { ContentScripts as ImportedContentScripts } from "./namespaces/contentScripts";
 import { ContextualIdentities as ImportedContextualIdentities } from "./namespaces/contextualIdentities";
 import { Cookies as ImportedCookies } from "./namespaces/cookies";
-import { DeclarativeContent as ImportedDeclarativeContent } from "./namespaces/declarativeContent";
+import { DeclarativeNetRequest as ImportedDeclarativeNetRequest } from "./namespaces/declarativeNetRequest";
 import { Devtools as ImportedDevtools } from "./namespaces/devtools";
 import { Dns as ImportedDns } from "./namespaces/dns";
 import { Downloads as ImportedDownloads } from "./namespaces/downloads";
@@ -76,7 +78,7 @@ declare namespace Browser {
     const contentScripts: ContentScripts.Static;
     const contextualIdentities: ContextualIdentities.Static;
     const cookies: Cookies.Static;
-    const declarativeContent: DeclarativeContent.Static;
+    const declarativeNetRequest: DeclarativeNetRequest.Static;
     const devtools: Devtools.Static;
     const dns: Dns.Static;
     const downloads: Downloads.Static;
@@ -133,7 +135,7 @@ declare namespace Browser {
         contentScripts: ContentScripts.Static;
         contextualIdentities: ContextualIdentities.Static;
         cookies: Cookies.Static;
-        declarativeContent: DeclarativeContent.Static;
+        declarativeNetRequest: DeclarativeNetRequest.Static;
         devtools: Devtools.Static;
         dns: Dns.Static;
         downloads: Downloads.Static;
@@ -191,7 +193,7 @@ declare namespace Browser {
     export import ContentScripts = ImportedContentScripts;
     export import ContextualIdentities = ImportedContextualIdentities;
     export import Cookies = ImportedCookies;
-    export import DeclarativeContent = ImportedDeclarativeContent;
+    export import DeclarativeNetRequest = ImportedDeclarativeNetRequest;
     export import Devtools = ImportedDevtools;
     export import Dns = ImportedDns;
     export import Downloads = ImportedDownloads;

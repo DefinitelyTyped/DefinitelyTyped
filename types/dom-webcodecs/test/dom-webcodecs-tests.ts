@@ -362,9 +362,9 @@ VideoDecoder.isConfigSupported();
 VideoDecoder.isConfigSupported({ description: new Uint8Array(0) });
 
 VideoDecoder.isConfigSupported(videoDecoderConfig).then((result: VideoDecoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType VideoDecoderConfig
+    // $ExpectType VideoDecoderConfig | undefined
     result.config;
 });
 
@@ -377,7 +377,7 @@ function videoOutput(output: VideoFrame): void {
     output.displayWidth;
     // $ExpectType number
     output.displayHeight;
-    // $ExpectType number | null
+    // $ExpectType number
     output.timestamp;
     // $ExpectType void
     output.close();
@@ -481,9 +481,9 @@ VideoEncoder.isConfigSupported({
 });
 
 VideoEncoder.isConfigSupported(videoEncoderConfig).then((result: VideoEncoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType VideoEncoderConfig
+    // $ExpectType VideoEncoderConfig | undefined
     result.config;
 });
 
@@ -502,8 +502,8 @@ VideoEncoder.isConfigSupported(futureVideoEncoderConfig);
 
 const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1000000 });
 
-function encodedVideoOutput(output: EncodedVideoChunk, metadata: EncodedVideoChunkMetadata): void {
-    if (metadata.decoderConfig !== undefined) {
+function encodedVideoOutput(output: EncodedVideoChunk, metadata?: EncodedVideoChunkMetadata): void {
+    if (metadata?.decoderConfig !== undefined) {
         videoDecoder.configure(metadata.decoderConfig);
     }
     videoDecoder.decode(output);
@@ -563,7 +563,7 @@ videoFrame.close();
 //////////////////////////////////////////////////
 // video-frame.any.js
 
-// $ExpectType number | null
+// $ExpectType number
 videoFrame.timestamp;
 // $ExpectType number | null
 videoFrame.duration;

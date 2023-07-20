@@ -1,5 +1,5 @@
-import { Loader, LoadingManager, Texture } from '../../../../src/Three';
-import { Node, AnyJson } from '../Nodes';
+import { Loader, LoadingManager, Texture } from '../../../../src/Three.js';
+import { Node, AnyJson } from '../Nodes.js';
 
 export interface NodeLoaderResult {
     [hash: string]: Node;
@@ -14,6 +14,7 @@ export default class NodeLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<NodeLoaderResult>;
 
     parseNodes(json: AnyJson): NodeLoaderResult;
     parse(json: AnyJson): Node;

@@ -3,11 +3,9 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-declare-current-package": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "strict-export-declare-modifiers": false
     }
 }

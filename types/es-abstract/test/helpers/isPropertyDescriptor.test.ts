@@ -5,7 +5,7 @@ declare const unknown: unknown;
 declare const optPropDesc: ES5.PropertyDescriptor<string> | null;
 
 if (isPropertyDescriptor(ES5, unknown)) {
-    unknown; // $ExpectType PropertyDescriptor<unknown>
+    unknown; // $ExpectType PropertyDescriptor<unknown> || PropertyDescriptor
 }
 
 if (isPropertyDescriptor(ES5, optPropDesc)) {

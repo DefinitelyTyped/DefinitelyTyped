@@ -1,13 +1,14 @@
 import { Risk } from './3d-secure';
 import { Adyen } from './adyen';
 import { BankRedirect } from './bank-redirect';
-import { ApplePay } from './apple-pay';
+import { AlternativePaymentMethods } from './alternative-payment-methods';
+import { ApplePay } from './apple-pay/index';
 import { BankAccount } from './bank-account';
 import { Configure } from './configure';
 import { Elements } from './elements';
 import { Emitter } from './emitter';
 import { GiftCard } from './gift-card';
-import { GooglePay } from './google-pay';
+import { GooglePay } from './google-pay/index';
 import { PayPal } from './paypal';
 import { Pricing } from './pricing';
 import { Token } from './token';
@@ -37,7 +38,7 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    *
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#us-bank-accounts|US Bank Accounts}
    */
-   bankAccount: BankAccount;
+  bankAccount: BankAccount;
 
   /**
    * This identifies your site to Recurly servers.
@@ -48,6 +49,11 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#configure|Configure}
    */
   configure: Configure;
+
+  /**
+   * Triggered once Recurly has fully been initialized after configuring.the instance.
+   */
+  ready: (cb?: VoidFunction) => void;
 
   /**
    * Elements allow sensitive customer payment information to be securely accepted via iframes.
@@ -63,7 +69,14 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    *
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#google-pay|GooglePay}
    */
-   GooglePay: GooglePay;
+  GooglePay: GooglePay;
+
+   /**
+    * Pay with Alternative Payment Methods.
+    *
+    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html}
+    */
+  AlternativePaymentMethods: AlternativePaymentMethods;
 
   /**
    * Use Recurly to process PayPal transactions using PayPal Business or Braintree.

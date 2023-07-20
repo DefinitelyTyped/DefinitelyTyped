@@ -4,7 +4,6 @@
         "comment-format": false,
         "interface-name": false,
         "member-access": false,
-        "no-any-union": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "prefer-const": false

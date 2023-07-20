@@ -44,7 +44,7 @@ export interface VerovioOptions {
     inputFrom?: string;
 
     /**
-     * (int) Scale of the output in percent
+     * (int) Scale of the output in percent (100 is normal size)
      *
      * default: 100
      *
@@ -351,6 +351,13 @@ export interface VerovioOptions {
     removeIds?: boolean;
 
     /**
+     * Scale the content within the page instead of scaling the page itself
+     *
+     * default: false
+     */
+    scaleToPageSize?: boolean;
+
+    /**
      * Display the total runtime on command-line
      *
      * default: false
@@ -363,6 +370,13 @@ export interface VerovioOptions {
      * default: false
      */
     shrinkToFit?: boolean;
+
+    /**
+     * Specify if the smufl text font is embedded, linked, or ignored
+     *
+     * default: "embedded"
+     */
+    smuflTextFont?: 'embedded' | 'linked' | 'none';
 
     /**
      * Align staccato and staccatissimo articulations with center of the note
@@ -591,9 +605,27 @@ export interface VerovioOptions {
     dynamDist?: number;
 
     /**
+     * Don't use SMuFL's predefined dynamics glyph combinations
+     *
+     * default: false
+     */
+    dynamSingleGlyphs?: boolean;
+
+    /**
      * Json describing defaults for engraving SMuFL elements
      */
     engravingDefaults?: EngravingDefaults;
+
+    /**
+     * (double) Minimum space required for extender line to be drawn
+     *
+     * default: 1.5
+     *
+     * max: 10
+     *
+     * min: 1.5
+     */
+    extenderLineMinSpace?: number;
 
     /**
      * (double) The scale of fingering font compared to default font size
@@ -754,6 +786,13 @@ export interface VerovioOptions {
      * min: 0.1
      */
     ledgerLineThickness?: number;
+
+    /**
+     * The lyric elision width
+     *
+     * default: "regular"
+     */
+    lyricElision?: 'unicode' | 'narrow' | 'regular' | 'wide';
 
     /**
      * (double) The lyric hyphen and dash length

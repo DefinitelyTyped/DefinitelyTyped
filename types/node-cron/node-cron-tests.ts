@@ -76,3 +76,11 @@ cron.schedule(
         log('will execute immediately and every minute after');
     },
 ).now();
+
+cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute immediately and every minute after');
+    },
+    { runOnInit: true },
+);

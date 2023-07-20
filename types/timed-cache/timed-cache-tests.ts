@@ -12,3 +12,9 @@ interface Foo {
 const cache2 = new Cache<Foo>();
 cache2.put('key', {thing: 'foo'}); // $ExpectType void
 cache2.get('key'); // $Expect Type Foo
+
+const cache3 = new Cache<Foo>();
+const objKey = { what: "ever"};
+cache3.put(objKey, {thing: 'foo'}); // $ExpectType void
+cache3.get(objKey); // $Expect Type Foo
+cache3.remove(objKey); // $Expect Type void

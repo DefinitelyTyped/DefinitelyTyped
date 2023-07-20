@@ -1,6 +1,6 @@
 // Type definitions for node-srp
 // Project: https://github.com/mozilla/node-srp
-// Definitions by: Pat Smuk <https://github.com/Patman64>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="bignum" />

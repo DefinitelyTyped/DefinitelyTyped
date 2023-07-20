@@ -11,7 +11,6 @@ var schema = {
 /**
  * Create and initialize the database. Depending on platform, this will
  * create IndexedDB or WebSql or even localStorage storage mechanism.
- * @type {ydn.db.Storage}
  */
 var db = new ydn.db.Storage('todo_2', schema);
 

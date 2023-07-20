@@ -211,7 +211,7 @@ interface Rpio {
      *   rpio.PIN_PRESERVE: leave pin in its currently configured state.
      * 
      * @param pin - pin number to close
-     * @reset PIN_RESET | PIN_PRESERVE, default = PIN_RESET
+     * @param reset PIN_RESET | PIN_PRESERVE, default = PIN_RESET
      */
     close(pin: number, reset?: number): void;
 

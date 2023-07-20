@@ -14,19 +14,7 @@ declare class DataSourceColumns {
     private unshare_;
     getLength(): number;
     private importAndMixin_;
-    importFields(
-        classKey: number,
-        prefix: string,
-        opt_options?:
-            | Record<any, any>
-            | {
-                  includeFieldNames: string;
-                  excludeFieldNames: string;
-                  children: boolean;
-                  onlyVisible: boolean;
-                  onlyIncludedFieldNames: boolean;
-              }
-    ): void;
+    importFields(classKey: number, prefix: string, opt_options?: any): void;
     importVisibleFields(
         classKey: number,
         fieldNamesPrefix?: string,

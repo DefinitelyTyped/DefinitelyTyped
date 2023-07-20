@@ -7,6 +7,8 @@ import {
     compileFunction,
     measureMemory,
     MemoryMeasurement,
+    SourceTextModule,
+    SyntheticModule,
 } from 'node:vm';
 import { inspect } from 'node:util';
 
@@ -73,7 +75,7 @@ import { inspect } from 'node:util';
 {
     const usage = measureMemory({
         mode: 'detailed',
-        context: createContext(),
+        execution: 'eager',
     }).then((data: MemoryMeasurement) => { });
 }
 
@@ -110,3 +112,37 @@ import { inspect } from 'node:util';
     });
     console.log(isContext(context));
 }
+
+(async () => {
+    const contextifiedObject = createContext({
+        secret: 42,
+        print: console.log,
+    });
+
+    const bar = new SourceTextModule(`
+        import s from 'foo';
+        s;
+        print(s);
+    `, { context: contextifiedObject });
+
+    await bar.link(async function linker(specifier, referencingModule) {
+        if (specifier === 'foo') {
+            return new SourceTextModule(`
+                // The "secret" variable refers to the global variable we added to
+                // "contextifiedObject" when creating the context.
+                export default secret;
+            `, { context: referencingModule.context });
+        }
+        throw new Error(`Unable to resolve dependency: ${specifier}`);
+    });
+
+    await bar.evaluate();
+});
+
+(async () => {
+    const source = '{ "a": 1 }';
+    const module = new SyntheticModule(['default'], function() {
+        const obj = JSON.parse(source);
+        this.setExport('default', obj);
+    });
+});

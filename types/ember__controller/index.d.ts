@@ -1,7 +1,7 @@
 // Type definitions for non-npm package @ember/controller 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcontroller
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ interface ControllerMixin extends ActionHandler {
      */
     transitionToRoute(...args: any[]): void;
     model: unknown;
-    queryParams: Array<string | Record<string, QueryParamConfig | string | undefined>>;
+    queryParams: Readonly<Array<string | Record<string, QueryParamConfig | string | undefined>>>;
     target: object;
 }
 

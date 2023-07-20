@@ -1,4 +1,4 @@
-// Type definitions for verovio 3.11
+// Type definitions for verovio 3.13
 // Project: http://www.verovio.org
 // Definitions by: Benjamin Bloomfield <https://github.com/bbloomf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

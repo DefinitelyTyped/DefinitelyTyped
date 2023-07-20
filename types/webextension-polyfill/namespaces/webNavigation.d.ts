@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.webNavigation
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
  * in-flight.
@@ -169,6 +172,16 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
+
+        /**
          * The time when the navigation was committed, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -281,6 +294,16 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
+
+        /**
          * The time when the navigation was committed, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -316,6 +339,16 @@ export namespace WebNavigation {
          * Frame IDs are unique within a tab.
          */
         frameId: number;
+
+        /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
 
         /**
          * The time when the navigation was committed, in milliseconds since the epoch.
@@ -450,14 +483,14 @@ export namespace WebNavigation {
          *
          * @param details Information about the frame to retrieve information about.
          */
-        getFrame(details: GetFrameDetailsType): Promise<GetFrameCallbackDetailsType>;
+        getFrame(details: GetFrameDetailsType): Promise<GetFrameCallbackDetailsType | null>;
 
         /**
          * Retrieves information about all frames of a given tab.
          *
          * @param details Information about the tab to retrieve all frames from.
          */
-        getAllFrames(details: GetAllFramesDetailsType): Promise<GetAllFramesCallbackDetailsItemType[]>;
+        getAllFrames(details: GetAllFramesDetailsType): Promise<GetAllFramesCallbackDetailsItemType[] | null>;
 
         /**
          * Fired when a navigation is about to occur.

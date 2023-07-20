@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "url-pattern": "^1.0.3"
+        "url-pattern": "^1.0.3",
+        "@types/micro": "^7.3.7"
     }
 }

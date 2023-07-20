@@ -48,9 +48,9 @@ declare namespace Dockerode {
         export(callback: Callback<NodeJS.ReadableStream>): void;
         export(options?: {}): Promise<NodeJS.ReadableStream>;
 
-        start(options: {}, callback: Callback<any>): void;
+        start(options: ContainerStartOptions, callback: Callback<any>): void;
         start(callback: Callback<any>): void;
-        start(options?: {}): Promise<any>;
+        start(options?: ContainerStartOptions): Promise<any>;
 
         pause(options: {}, callback: Callback<any>): void;
         pause(callback: Callback<any>): void;
@@ -67,9 +67,9 @@ declare namespace Dockerode {
         commit(callback: Callback<any>): void;
         commit(options?: {}): Promise<any>;
 
-        stop(options: {}, callback: Callback<any>): void;
+        stop(options: ContainerStopOptions, callback: Callback<any>): void;
         stop(callback: Callback<any>): void;
-        stop(options?: {}): Promise<any>;
+        stop(options?: ContainerStopOptions): Promise<any>;
 
         restart(options: {}, callback: Callback<any>): void;
         restart(callback: Callback<any>): void;
@@ -124,8 +124,8 @@ declare namespace Dockerode {
         stats(options?: { stream?: false; 'one-shot'?: boolean }): Promise<ContainerStats>;
         stats(options?: { stream: true }): Promise<NodeJS.ReadableStream>;
 
-        attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
-        attach(options: {}): Promise<NodeJS.ReadWriteStream>;
+        attach(options: ContainerAttachOptions, callback: Callback<NodeJS.ReadWriteStream>): void;
+        attach(options: ContainerAttachOptions): Promise<NodeJS.ReadWriteStream>;
     }
 
     class Image {
@@ -836,7 +836,7 @@ declare namespace Dockerode {
         OomKillDisable?: boolean | undefined;
         Init?: boolean | undefined;
         PidsLimit?: number | undefined;
-        Ulimits?: any;
+        Ulimits?: Ulimit[] | undefined;
         CpuCount?: number | undefined;
         CpuPercent?: number | undefined;
         CpuRealtimePeriod?: number | undefined;
@@ -942,6 +942,7 @@ declare namespace Dockerode {
         platform?: string | undefined;
         target?: string | undefined;
         outputs?: string | undefined;
+        nocache?: boolean | undefined;
     }
 
     interface ImageDistributionOptions {
@@ -1128,6 +1129,7 @@ declare namespace Dockerode {
 
     interface ContainerCreateOptions {
         name?: string | undefined;
+        platform?: string | undefined;
         Hostname?: string | undefined;
         Domainname?: string | undefined;
         User?: string | undefined;
@@ -1145,7 +1147,7 @@ declare namespace Dockerode {
         Volumes?: { [volume: string]: {} } | undefined;
         WorkingDir?: string | undefined;
         NetworkDisabled?: boolean | undefined;
-        MacAddress?: boolean | undefined;
+        MacAddress?: string | undefined;
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
@@ -1157,6 +1159,10 @@ declare namespace Dockerode {
               }
             | undefined;
         abortSignal?: AbortSignal;
+    }
+
+    interface ContainerStartOptions {
+        detachKeys?: string;
     }
 
     interface ContainerRemoveOptions {
@@ -1175,6 +1181,7 @@ declare namespace Dockerode {
         host?: string | undefined;
         port?: number | string | undefined;
         username?: string | undefined;
+        headers?: { [name: string]: string };
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
@@ -1319,6 +1326,19 @@ declare namespace Dockerode {
         Options?: string[] | undefined;
     }
 
+    interface ConfigReference {
+        File?:
+            | {
+            Name?: string | undefined;
+            UID?: string | undefined;
+            GID?: string | undefined;
+            Mode: number | undefined;
+        }
+            | undefined;
+        ConfigID?: string | undefined;
+        ConfigName?: string | undefined;
+    }
+
     interface SecretReference {
         File?:
             | {
@@ -1359,6 +1379,7 @@ declare namespace Dockerode {
         HealthCheck?: HealthConfig | undefined;
         Hosts?: string[] | undefined;
         DNSConfig?: DNSConfig | undefined;
+        Configs?: ConfigReference[] | undefined;
         Secrets?: SecretReference[] | undefined;
         Isolation?: string | undefined;
         Sysctls?: { [key: string]: string } | undefined;
@@ -1805,6 +1826,24 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    interface ContainerAttachOptions {
+        detachKeys?: string | undefined;
+        hijack?: boolean | undefined;
+        logs?: boolean | undefined;
+        stream?: boolean | undefined;
+        stdin?: boolean | undefined;
+        stdout?: boolean | undefined;
+        stderr?: boolean | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface ContainerStopOptions {
+        signal?: string;
+        /** Number of seconds to wait before killing the container */
+        t?: number;
+        abortSignal?: AbortSignal;
+    }
+
     interface ImageBuildContext {
         context: string;
         src: string[];
@@ -2016,15 +2055,15 @@ declare class Dockerode {
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions: {},
-        startOptions: {},
+        createOptions: Dockerode.ContainerCreateOptions,
+        startOptions: Dockerode.ContainerStartOptions,
         callback: Callback<any>,
     ): events.EventEmitter;
     run(
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        startOptions: {},
+        createOptions: Dockerode.ContainerCreateOptions,
         callback: Callback<any>,
     ): events.EventEmitter;
     run(
@@ -2037,15 +2076,8 @@ declare class Dockerode {
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions: {},
-        callback: Callback<any>,
-    ): events.EventEmitter;
-    run(
-        image: string,
-        cmd: string[],
-        outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions?: {},
-        startOptions?: {},
+        createOptions?: Dockerode.ContainerCreateOptions,
+        startOptions?: Dockerode.ContainerStartOptions,
     ): Promise<any>;
 
     swarmInit(options: {}, callback: Callback<any>): void;

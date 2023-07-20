@@ -8,6 +8,8 @@ export default class ProductFeedUpload extends AbstractCrudObject {
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductFeedUpload>;
-    getErrors(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getErrors(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getErrors(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getErrors(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUpload>;
 }

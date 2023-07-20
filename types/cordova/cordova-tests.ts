@@ -30,6 +30,5 @@ declare var app: Application;
 document.addEventListener('deviceready', () => { app.start(); });
 document.addEventListener('pause', ()=> { app.pause(); });
 
-
-
-
+window.navigator.splashscreen.show();
+window.navigator.splashscreen.hide();

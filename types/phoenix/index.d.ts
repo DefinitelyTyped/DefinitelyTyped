@@ -1,4 +1,4 @@
-// Type definitions for phoenix 1.5
+// Type definitions for phoenix 1.6
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 //                 John Goff <https://github.com/John-Goff>
@@ -23,15 +23,16 @@ export class Channel {
   constructor(topic: string, params?: object | (() => object), socket?: Socket);
 
   state: ChannelState;
+  topic: string;
 
   join(timeout?: number): Push;
   leave(timeout?: number): Push;
 
-  onClose(callback: (payload: any, ref: any, joinRef: any) => void): void;
-  onError(callback: (reason?: any) => void): void;
+  onClose(callback: (payload: any, ref: any, joinRef: any) => void | Promise<void>): void;
+  onError(callback: (reason?: any) => void | Promise<void>): void;
   onMessage(event: string, payload: any, ref: any): any;
 
-  on(event: string, callback: (response?: any) => void): number;
+  on(event: string, callback: (response?: any) => void | Promise<void>): number;
   off(event: string, ref?: number): void;
 
   push(event: string, payload: object, timeout?: number): Push;
@@ -47,8 +48,8 @@ export interface SocketConnectOption {
   timeout: number;
   heartbeatIntervalMs: number;
   longpollerTimeout: number;
-  encode: (payload: object, callback: (encoded: any) => void) => void;
-  decode: (payload: string, callback: (decoded: any) => void) => void;
+  encode: (payload: object, callback: (encoded: any) => void | Promise<void>) => void;
+  decode: (payload: string, callback: (decoded: any) => void | Promise<void>) => void;
   logger: (kind: string, message: string, data: any) => void;
   reconnectAfterMs: (tries: number) => number;
   rejoinAfterMs: (tries: number) => number;
@@ -64,9 +65,10 @@ export class Socket {
   endPointURL(): string;
 
   connect(params?: any): void;
-  disconnect(callback?: () => void, code?: number, reason?: string): void;
+  disconnect(callback?: () => void | Promise<void>, code?: number, reason?: string): void;
   connectionState(): ConnectionState;
   isConnected(): boolean;
+  replaceTransport(transport: new (endpoint: string) => object): void;
 
   remove(channel: Channel): void;
   channel(topic: string, chanParams?: object): Channel;
@@ -75,10 +77,10 @@ export class Socket {
   log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
-  onOpen(callback: (cb: any) => void): MessageRef;
-  onClose(callback: (cb: any) => void): MessageRef;
-  onError(callback: (cb: any) => void): MessageRef;
-  onMessage(callback: (cb: any) => void): MessageRef;
+  onOpen(callback: () => void | Promise<void>): MessageRef;
+  onClose(callback: (event: CloseEvent) => void | Promise<void>): MessageRef;
+  onError(callback: (error: Event | string | number, transport: new (endpoint: string) => object, establishedConnections: number) => void | Promise<void>): MessageRef;
+  onMessage(callback: (message: object) => void | Promise<void>): MessageRef;
 
   makeRef(): MessageRef;
   off(refs: MessageRef[]): void;
@@ -110,7 +112,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void,
+    callback?: (response?: any) => void | Promise<void>,
   ): void;
 
   static xdomainRequest(
@@ -120,7 +122,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void,
+    callback?: (response?: any) => void | Promise<void>,
   ): void;
 
   static xhrRequest(
@@ -131,7 +133,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void,
+    callback?: (response?: any) => void | Promise<void>,
   ): void;
 
   static parseJSON(resp: string): JSON;
@@ -144,7 +146,7 @@ export class Presence {
 
   onJoin(callback: PresenceOnJoinCallback): void;
   onLeave(callback: PresenceOnLeaveCallback): void;
-  onSync(callback: () => void): void;
+  onSync(callback: () => void | Promise<void>): void;
   list<T = any>(chooser?: (key: string, presence: any) => T): T[];
   inPendingSyncState(): boolean;
 
@@ -174,7 +176,7 @@ export interface PresenceOpts {
 }
 
 export class Timer {
-  constructor(callback: () => void, timerCalc: (tries: number) => number);
+  constructor(callback: () => void | Promise<void>, timerCalc: (tries: number) => number);
 
   reset(): void;
   scheduleTimeout(): void;

@@ -1,11 +1,11 @@
 /**
- * The `os` module provides operating system-related utility methods and
+ * The `node:os` module provides operating system-related utility methods and
  * properties. It can be accessed using:
  *
  * ```js
- * const os = require('os');
+ * const os = require('node:os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/os.js)
  */
 declare module 'os' {
     interface CpuInfo {
@@ -75,6 +75,7 @@ declare module 'os' {
     function totalmem(): number;
     /**
      * Returns an array of objects containing information about each logical CPU core.
+     * The array will be empty if no CPU information is available, such as if the`/proc` file system is unavailable.
      *
      * The properties included on each object include:
      *
@@ -88,8 +89,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 30340,
      *       idle: 1070356870,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -99,8 +100,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 26980,
      *       idle: 1071569080,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -110,8 +111,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 21750,
      *       idle: 1070919370,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -121,17 +122,28 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 19430,
      *       idle: 1070905480,
-     *       irq: 20
-     *     }
+     *       irq: 20,
+     *     },
      *   },
      * ]
      * ```
      *
      * `nice` values are POSIX-only. On Windows, the `nice` values of all processors
      * are always 0.
+     *
+     * `os.cpus().length` should not be used to calculate the amount of parallelism
+     * available to an application. Use {@link availableParallelism} for this purpose.
      * @since v0.3.3
      */
     function cpus(): CpuInfo[];
+    /**
+     * Returns an estimate of the default amount of parallelism a program should use.
+     * Always returns a value greater than zero.
+     *
+     * This function is a small wrapper about libuv's [`uv_available_parallelism()`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_available_parallelism).
+     * @since v19.4.0, v18.14.0
+     */
+    function availableParallelism(): number;
     /**
      * Returns the operating system name as returned by [`uname(3)`](https://linux.die.net/man/3/uname). For example, it
      * returns `'Linux'` on Linux, `'Darwin'` on macOS, and `'Windows_NT'` on Windows.
@@ -415,12 +427,11 @@ declare module 'os' {
      */
     function platform(): NodeJS.Platform;
     /**
-     * Returns the machine type as a string, such as arm, aarch64, mips, mips64, ppc64, ppc64le, s390, s390x, i386, i686, x86_64.
+     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`,`mips`, `mips64`, `ppc64`, `ppc64le`, `s390`, `s390x`, `i386`, `i686`, `x86_64`.
      *
-     * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname).
-     * On Windows, `RtlGetVersion()` is used, and if it is not available, `GetVersionExW()` will be used.
-     * See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
-     * @since v18.9.0
+     * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
+     * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * @since v18.9.0, v16.18.0
      */
     function machine(): string;
     /**

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.topSites
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the chrome.topSites API to access the top sites that are displayed on the new tab page.
  * Permissions: "topSites"

@@ -152,8 +152,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;
@@ -517,6 +517,11 @@ export type Connection = NodeJS.EventEmitter & {
      * Returns true if the connection is active otherwise false
      */
     isUp(): boolean;
+
+    /**
+     * Returns true if the connection is good to send a query otherwise false
+     */
+    isValidAsync(): Promise<boolean>;
 
     getServiceName(): string;
     getClientSessionKeepAlive(): boolean;

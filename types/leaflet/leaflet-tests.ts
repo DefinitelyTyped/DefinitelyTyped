@@ -1,4 +1,5 @@
 import * as L from 'leaflet';
+import * as geojson_types from 'geojson';
 
 const version = L.version;
 
@@ -31,6 +32,9 @@ latLngBounds = L.latLngBounds([latLng, latLng, latLng]);
 latLngBounds = new L.LatLngBounds(latLng, latLng);
 latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
+
+latLngBounds.equals(latLngBounds); // $ExpectType boolean
+latLngBounds.equals(latLngBounds, 3); // $ExpectType boolean
 
 const pointTuple: L.PointTuple = [0, 0];
 
@@ -162,6 +166,14 @@ const htmlElement = document.getElementById('foo');
 
 layer.addInteractiveTarget(htmlElement);
 layer.removeInteractiveTarget(htmlElement);
+// $ExpectType LayerOptions
+layer.options;
+
+let layerOptions: L.LayerOptions;
+layerOptions = {
+    attribution: 'anon',
+    pane: 'overlay',
+};
 
 const popupOptions: L.PopupOptions = {};
 
@@ -290,6 +302,26 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let attributionControl: L.Control.Attribution;
 attributionControl = map.attributionControl;
+
+let gridLayerOptions: L.GridLayerOptions;
+gridLayerOptions = {
+    attribution: 'anon',
+    pane: 'overlay',
+    tileSize: 256,
+    opacity: 1,
+    updateWhenIdle: true,
+    updateWhenZooming: true,
+    updateInterval: 200,
+    zIndex: 1,
+    bounds: undefined,
+    minZoom: 1,
+    maxZoom: 12,
+    maxNativeZoom: 3,
+    minNativeZoom: 10,
+    noWrap: false,
+    className: 'none',
+    keepBuffer: 2,
+};
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
@@ -882,3 +914,34 @@ export class ExtendedTileLayer extends L.TileLayer {
         }
     }
 }
+
+const polygonGeoJson = L.geoJSON<any, geojson_types.Polygon>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Polygon
+        polygonFeature.geometry;
+    }
+});
+
+const pointGeoJson = L.geoJSON<any, geojson_types.Point>(null, {
+    onEachFeature(polygonFeature, layer) {
+        // $ExpectType Point
+        polygonFeature.geometry;
+    }
+});
+
+// $ExpectType Polygon
+L.GeoJSON.getFeature(new L.Layer(), {} as geojson_types.Polygon).geometry;
+
+// $ExpectType Point
+L.GeoJSON.asFeature({} as geojson_types.Point).geometry;
+
+L.GeoJSON.geometryToLayer(
+    {} as geojson_types.Feature<geojson_types.MultiPolygon>,
+    {
+        filter(multiPolygon) {
+            // $ExpectType MultiPolygon
+            multiPolygon.geometry;
+            return true;
+        }
+    }
+);

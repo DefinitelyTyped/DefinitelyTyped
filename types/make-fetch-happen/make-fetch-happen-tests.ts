@@ -67,6 +67,13 @@ fetcher('https://url', { integrity });
 // $ExpectType Promise<Response>
 fetcher('http://url', { retry: { retries: 1, maxTimeout: 1 } });
 
+// $ExpectType Promise<Response>
+fetcher('http://url', {
+    onRetry(cause) {
+        console.log('Retrying', cause);
+    },
+});
+
 // Test both the DOM URL and the Node.js `url` module.
 // $ExpectType Promise<Response>
 fetcher('http://url', { proxy: new URL('http://secure-proxy') });

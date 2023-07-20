@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
 export type SNSHandler = Handler<SNSEvent, void>;
 
@@ -16,14 +16,14 @@ export interface SNSMessage {
     SignatureVersion: string;
     Timestamp: string;
     Signature: string;
-    SigningCertUrl: string;
+    SigningCertURL: string;
     MessageId: string;
     Message: string;
     MessageAttributes: SNSMessageAttributes;
     Type: string;
-    UnsubscribeUrl: string;
+    UnsubscribeURL: string;
     TopicArn: string;
-    Subject: string;
+    Subject?: string;
     Token?: string;
 }
 

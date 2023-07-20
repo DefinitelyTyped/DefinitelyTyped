@@ -13,17 +13,17 @@ export default class ServerEvent {
     _data_processing_options_state: number;
     _data_processing_options_country: number;
     constructor(
-        event_name: string,
-        event_time: number,
-        event_source_url: string,
-        user_data: UserData,
-        custom_data: CustomData,
-        event_id: string,
-        opt_out: boolean,
-        action_source: string,
-        data_processing_options: string[],
-        data_processing_options_country: number,
-        data_processing_options_state: number,
+        event_name?: string,
+        event_time?: number,
+        event_source_url?: string,
+        user_data?: UserData,
+        custom_data?: CustomData,
+        event_id?: string,
+        opt_out?: boolean,
+        action_source?: string,
+        data_processing_options?: string[],
+        data_processing_options_country?: number,
+        data_processing_options_state?: number,
     );
     get event_name(): string;
     set event_name(event_name: string);

@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,

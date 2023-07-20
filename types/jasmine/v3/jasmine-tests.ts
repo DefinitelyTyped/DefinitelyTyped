@@ -622,12 +622,19 @@ describe("A spy, when configured to fake a promised return value", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
     };
 
     it("verifies return value type", () => {
         spyOn(foo, "getAsyncBar").and.resolveTo(745);
         // @ts-expect-error
         spyOn(foo, "getAsyncBar").and.resolveTo("42");
+
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo(745);
+        // @ts-expect-error
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo("42");
     });
 
     it("tracks that the spy was called", async () => {
@@ -647,6 +654,9 @@ describe("A spy, when configured to fake a promised rejection", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
         getBar: () => {
             return bar;
         },
@@ -654,6 +664,7 @@ describe("A spy, when configured to fake a promised rejection", () => {
 
     it("verifies rejection value type", () => {
         spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+        spyOn(foo, "getMaybeAsyncBar").and.rejectWith("Error message");
         // @ts-expect-error
         spyOn(foo, "getBar").and.rejectWith("42");
     });
@@ -2055,6 +2066,30 @@ describe("better typed spys", () => {
 
             // $ExpectType (val: string) => Spy<() => string>
             spyObj.method.and.returnValue;
+        });
+
+        // All objects (even object literals) have Object prototype methods like toString().
+        // If a class overrides those methods, createSpyObj shouldn't throw any type errors.
+        class TestOverride {
+            method(): number {
+                return 0;
+            }
+            toString(): string {
+                return '';
+            }
+            toLocaleString(): string {
+                return '';
+            }
+            // Also make sure we don't throw type errors when using a more specific return type.
+            valueOf(): boolean {
+                return true;
+            }
+        }
+        it("works for classes that override Object prototype methods", () => {
+            jasmine.createSpyObj<TestOverride>("TestOverride", {method: 1});
+        });
+        it("allows spying on Object prototype methods", () => {
+            jasmine.createSpyObj<TestOverride>("TestOverride", {toString: '', toLocaleString: '', valueOf: false});
         });
     });
 });

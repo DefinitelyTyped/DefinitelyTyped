@@ -1,6 +1,6 @@
-import Node from '../core/Node';
-import RangeNode, { RangeModeBound } from '../geometry/RangeNode';
-import { NodeRepresentation, Swizzable } from './ShaderNode';
+import Node from '../core/Node.js';
+import RangeNode, { RangeModeBound } from '../geometry/RangeNode.js';
+import { NodeRepresentation, Swizzable } from './ShaderNode.js';
 import {
     CubeTexture,
     InstancedMesh,
@@ -9,8 +9,8 @@ import {
     Texture,
     TextureEncoding,
     ToneMapping,
-} from '../../../../src/Three';
-import LightingContextNode, { LightingModelNode } from '../lighting/LightingContextNode';
+} from '../../../../src/Three.js';
+import LightingContextNode, { LightingModelNode } from '../lighting/LightingContextNode.js';
 import {
     BlendModeNode,
     CheckerNode,
@@ -20,10 +20,10 @@ import {
     EquirectUVNode,
     FogNode,
     FogRangeNode,
+    FogExp2Node,
     InstanceNode,
     LightsNode,
     MatcapUVNode,
-    MaxMipLevelNode,
     NormalMapNode,
     OscNode,
     PosterizeNode,
@@ -35,7 +35,9 @@ import {
     TimerNode,
     ToneMappingNode,
     TriplanarTexturesNode,
-} from '../Nodes';
+    SpecularMIPLevelNode,
+    ViewportNode,
+} from '../Nodes.js';
 
 //
 // Node Material Shader Syntax
@@ -43,23 +45,21 @@ import {
 
 // shader node base
 
-export * from './ShaderNodeBaseElements';
+export * from './ShaderNodeBaseElements.js';
 
 // functions
 
-export { default as BRDF_GGX } from '../functions/BSDF/BRDF_GGX'; // see https://github.com/tc39/proposal-export-default-from
-export { default as BRDF_Lambert } from '../functions/BSDF/BRDF_Lambert';
-export { default as D_GGX } from '../functions/BSDF/D_GGX';
-export { default as DFGApprox } from '../functions/BSDF/DFGApprox';
-export { default as F_Schlick } from '../functions/BSDF/F_Schlick';
-export { default as V_GGX_SmithCorrelated } from '../functions/BSDF/V_GGX_SmithCorrelated';
+export { default as BRDF_GGX } from '../functions/BSDF/BRDF_GGX.js'; // see https://github.com/tc39/proposal-export-default-from
+export { default as BRDF_Lambert } from '../functions/BSDF/BRDF_Lambert.js';
+export { default as D_GGX } from '../functions/BSDF/D_GGX.js';
+export { default as DFGApprox } from '../functions/BSDF/DFGApprox.js';
+export { default as F_Schlick } from '../functions/BSDF/F_Schlick.js';
+export { default as V_GGX_SmithCorrelated } from '../functions/BSDF/V_GGX_SmithCorrelated.js';
 
-export { default as getDistanceAttenuation } from '../functions/light/getDistanceAttenuation';
+export { default as getGeometryRoughness } from '../functions/material/getGeometryRoughness.js';
+export { default as getRoughness } from '../functions/material/getRoughness.js';
 
-export { default as getGeometryRoughness } from '../functions/material/getGeometryRoughness';
-export { default as getRoughness } from '../functions/material/getRoughness';
-
-export { default as PhysicalLightingModel } from '../functions/PhysicalLightingModel';
+export { default as PhysicalLightingModel } from '../functions/PhysicalLightingModel.js';
 
 // accessors
 
@@ -99,6 +99,13 @@ export function toneMapping(
 
 export function posterize(sourceNode: NodeRepresentation, stepsNode: NodeRepresentation): Swizzable<PosterizeNode>;
 
+export const viewportCoordinate: Swizzable<ViewportNode>;
+export const viewportResolution: Swizzable<ViewportNode>;
+export const viewportTopLeft: Swizzable<ViewportNode>;
+export const viewportBottomLeft: Swizzable<ViewportNode>;
+export const viewportTopRight: Swizzable<ViewportNode>;
+export const viewportBottomRight: Swizzable<ViewportNode>;
+
 // lighting
 
 export function lights(lights: Light[]): Swizzable<LightsNode>;
@@ -109,7 +116,7 @@ export function lightingContext(node: Node, lightingModelNode?: LightingModelNod
 export const matcapUV: Swizzable<MatcapUVNode>;
 export const equirectUV: Swizzable<EquirectUVNode>;
 
-export function maxMipLevel(texture: Texture): Swizzable<MaxMipLevelNode>;
+export function specularMIPLevel(): Swizzable<SpecularMIPLevelNode>;
 
 export function oscSine(timeNode?: NodeRepresentation): Swizzable<OscNode>;
 export function oscSquare(timeNode?: NodeRepresentation): Swizzable<OscNode>;
@@ -156,3 +163,4 @@ export function checker(uvNode?: NodeRepresentation): Swizzable<CheckerNode>;
 
 export function fog(colorNode: NodeRepresentation, factorNode: NodeRepresentation): Swizzable<FogNode>;
 export function rangeFog(colorNode: Node, nearNode: Node, farNode: Node): Swizzable<FogRangeNode>;
+export function exp2Fog(colorNode: Node, densityNode: Node): Swizzable<FogExp2Node>;

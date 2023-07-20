@@ -9,7 +9,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,

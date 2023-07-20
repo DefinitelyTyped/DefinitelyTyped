@@ -133,7 +133,7 @@ declare namespace m {
         cycle(amount: number): State;
         deconstruct(): State;
         define(value: string): State;
-        delay(milliseconds: number): State;
+        delay(centiseconds: number): State;
         density(width: number, height: number): State;
         despeckle(): State;
         displace(horizontal: number, vertical: number): State;

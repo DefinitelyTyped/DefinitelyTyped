@@ -50,6 +50,7 @@ import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
 import isISO4217Func from 'validator/lib/isISO4217';
 import isISRCFunc from 'validator/lib/isISRC';
+import isIMEIFunc from 'validator/lib/isIMEI';
 import isInFunc from 'validator/lib/isIn';
 import isIntFunc from 'validator/lib/isInt';
 import isJSONFunc from 'validator/lib/isJSON';
@@ -72,6 +73,7 @@ import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
 import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
+import isTimeFunc from 'validator/lib/isTime';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
 import isTaxIDFunc from 'validator/lib/isTaxID';
@@ -137,8 +139,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isByteLength = validator.isByteLength;
     _isByteLength = isByteLengthFunc;
 
-    let _isCreditCard = validator.isCreditCard;
-    _isCreditCard = isCreditCardFunc;
+    let _isCreditCard = validator.isCreditCard; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
+    _isCreditCard = isCreditCardFunc; // $ExpectType (str: string, options?: IsCreditCardOptions | undefined) => boolean
 
     let _isCurrency = validator.isCurrency;
     _isCurrency = isCurrencyFunc;
@@ -230,6 +232,9 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
 
+    let _isIMEI = validator.isIMEI;
+    _isIMEI = isIMEIFunc;
+
     let _isIn = validator.isIn;
     _isIn = isInFunc;
 
@@ -295,6 +300,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
+
+    let _isTime = validator.isTime;
+    _isTime = isTimeFunc;
 
     let _isURL = validator.isURL;
     _isURL = isURLFunc;
@@ -425,6 +433,7 @@ import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
 import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
+import isTimeFuncEs from 'validator/es/lib/isTime';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
 import isTaxIDFuncEs from 'validator/es/lib/isTaxID';
@@ -596,7 +605,9 @@ const any: any = null;
     const isByteLengthOptions: validator.IsByteLengthOptions = {};
     result = validator.isByteLength('sample', isByteLengthOptions);
 
-    result = validator.isCreditCard('sample');
+    const isCreditCardOptions: validator.IsCreditCardOptions = {};
+    result = validator.isCreditCard('sample'); // $ExpectType boolean
+    result = validator.isCreditCard('sample', isCreditCardOptions); // $ExpectType boolean
 
     const isCurrencyOptions: validator.IsCurrencyOptions = {};
     result = validator.isCurrency('sample');
@@ -703,6 +714,10 @@ const any: any = null;
     result = validator.isISRC('sample');
 
     result = validator.isIn('sample', []);
+
+    const isIMEIOptions: validator.IsIMEIOptions = {};
+    result = validator.isIMEI('sample');
+    result = validator.isIMEI('sample', isIMEIOptions);
 
     const isIntOptions: validator.IsIntOptions = {};
     result = validator.isInt('sample');
@@ -831,6 +846,7 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'IS');
     result = validator.isPostalCode('sample', 'IT');
     result = validator.isPostalCode('sample', 'JP');
+    result = validator.isPostalCode('sample', 'KR');
     result = validator.isPostalCode('sample', 'KE');
     result = validator.isPostalCode('sample', 'LI');
     result = validator.isPostalCode('sample', 'MX');
@@ -851,6 +867,10 @@ const any: any = null;
     result = validator.isSemVer('sample');
 
     result = validator.isSurrogatePair('sample');
+
+    const isTimeOptions: validator.IsTimeOptions = {};
+    result = validator.isTime('sample');
+    result = validator.isTime('sample', isTimeOptions);
 
     const isURLOptions: validator.IsURLOptions = {
         require_host: true,

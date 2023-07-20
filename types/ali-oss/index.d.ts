@@ -420,6 +420,10 @@ declare namespace OSS {
         res: NormalSuccessResponse;
     }
 
+    interface DeleteResult {
+        res: NormalSuccessResponse;
+    }
+
     interface DeleteMultiOptions {
         /** quite mode or verbose mode, default is false */
         quiet?: boolean | undefined;
@@ -671,7 +675,7 @@ declare namespace OSS {
         /**
          * @since 6.12.0
          */
-        listV2(query: ListV2ObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -687,7 +691,7 @@ declare namespace OSS {
 
         getStream(name?: string, options?: GetStreamOptions): Promise<GetStreamResult>;
 
-        delete(name: string, options?: RequestOptions): Promise<NormalSuccessResponse>;
+        delete(name: string, options?: RequestOptions): Promise<DeleteResult>;
 
         copy(name: string, sourceName: string, options?: CopyObjectOptions): Promise<CopyAndPutMetaResult>;
 
@@ -991,6 +995,11 @@ declare class OSS {
     list(query: OSS.ListObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
 
     /**
+     * List Objects in the bucket.(V2)
+     */
+    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+
+    /**
      * Add an object to the bucket.
      */
     put(name: string, file: any, options?: OSS.PutObjectOptions): Promise<OSS.PutObjectResult>;
@@ -1037,7 +1046,7 @@ declare class OSS {
     /**
      * Delete an object from the bucket.
      */
-    delete(name: string, options?: OSS.RequestOptions): Promise<OSS.NormalSuccessResponse>;
+    delete(name: string, options?: OSS.RequestOptions): Promise<OSS.DeleteResult>;
 
     /**
      * Copy an object from sourceName to name.

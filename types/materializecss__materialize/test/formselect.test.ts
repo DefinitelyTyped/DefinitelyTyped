@@ -36,6 +36,8 @@ formSelect.input;
 formSelect.isMultiple;
 // $ExpectType Element
 formSelect.wrapper;
+// $ExpectType HTMLLabelElement
+formSelect.labelEl;
 
 $(".whatever").formSelect();
 $(".whatever").formSelect({ classes: "whatever" });

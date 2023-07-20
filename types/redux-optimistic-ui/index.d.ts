@@ -51,13 +51,11 @@ declare module "redux-optimistic-ui" {
                 /**
                  * Type, BEGIN, COMMIT or REVERT
                  *
-                 * @type {string}
                  */
                 type: string;
                 /**
                  * Transaction id. Id should be unique for each optimistic action
                  *
-                 * @type {number}
                  */
                 id: number;
             }

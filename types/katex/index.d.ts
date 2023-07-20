@@ -1,4 +1,4 @@
-// Type definitions for KaTeX 0.14
+// Type definitions for KaTeX 0.16
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 //                 Kevin Nguyen <https://github.com/knguyen0125>
@@ -140,19 +140,26 @@ export class ParseError implements Error {
     position: number;
 }
 
-export default class katex {
+declare const katex: {
     /**
      * Renders a TeX expression into the specified DOM element
      * @param tex A TeX expression
      * @param element The DOM element to render into
      * @param options KaTeX options
      */
-    static render(tex: string, element: HTMLElement, options?: KatexOptions): void;
+    render: (tex: string, element: HTMLElement, options?: KatexOptions) => void,
 
     /**
      * Renders a TeX expression into an HTML string
      * @param tex A TeX expression
      * @param options KaTeX options
      */
-    static renderToString(tex: string, options?: KatexOptions): string;
+    renderToString: (tex: string, options?: KatexOptions) => string,
+
+    /**
+     * KaTeX error, usually during parsing.
+     */
+    ParseError: typeof ParseError,
 }
+
+export default katex;

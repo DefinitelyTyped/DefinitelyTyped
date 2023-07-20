@@ -1,4 +1,4 @@
-import { Term, DatasetCore, NamedNode } from 'rdf-js';
+import { Term, DatasetCore, NamedNode } from '@rdfjs/types';
 import { LoaderRegistry } from 'rdf-loaders-registry';
 
 declare namespace Api {

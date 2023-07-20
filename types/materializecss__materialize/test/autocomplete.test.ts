@@ -49,6 +49,8 @@ autocomplete.options;
 autocomplete.el;
 // $ExpectType boolean
 autocomplete.isOpen;
+// $ExpectType Dropdown
+autocomplete.dropdown;
 
 $(".whatever").autocomplete({
     data: {

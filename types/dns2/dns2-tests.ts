@@ -4,6 +4,11 @@
 import DNS = require('dns2');
 
 const dns = new DNS();
+const dnsCustom = new DNS({
+  port: 53,
+  retries: 10,
+  recursive: false,
+});
 
 (async () => {
     const result = await dns.resolveA('google.com');
@@ -11,6 +16,9 @@ const dns = new DNS();
 
     const result2 = await dns.resolveCNAME('google.com');
     console.log(result2.answers.filter(answer => answer.domain));
+
+    const result3 = await dnsCustom.resolve('google.com', 'TXT', DNS.Packet.CLASS.ANY);
+    console.log(result3.answers.filter(answer => answer.data));
 })();
 
 const { Packet } = DNS;
@@ -34,6 +42,13 @@ const server = DNS.createServer({
             class: Packet.CLASS.IN,
             ttl: 300,
             domain: 'another-name.example.com',
+        });
+        response.answers.push({
+          name,
+          type: Packet.TYPE.TXT,
+          class: Packet.CLASS.IN,
+          ttl: 60,
+          data: 'dnslink=/ipfs/123abc'
         });
         send(response);
     },

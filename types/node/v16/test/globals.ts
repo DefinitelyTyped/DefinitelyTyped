@@ -34,3 +34,8 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const readonlyArray: ReadonlyArray<string> = ['b'];
     readonlyArray.at(-1);
 }
+
+{
+    const x = new AbortController().signal;
+    x.reason; // $ExpectType any
+}

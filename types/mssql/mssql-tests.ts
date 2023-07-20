@@ -1,5 +1,6 @@
 import * as sql from 'mssql';
 import * as msnodesqlv8 from 'mssql/msnodesqlv8';
+import { Readable } from 'stream';
 
 interface Entity {
     value: number;
@@ -458,4 +459,14 @@ function test_connection_options() {
     }).then(() => {
         // noop
     });
+}
+
+function test_request_to_readable_stream() {
+    const request = new sql.Request();
+
+    // toReadableStream returns a Readable stream.
+    const stream: Readable = request.toReadableStream();
+
+    // You can optionally specify ReadableOptions.
+    request.toReadableStream({ highWaterMark: 10 });
 }

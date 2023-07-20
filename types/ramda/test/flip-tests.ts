@@ -35,7 +35,7 @@ import * as R from 'ramda';
 };
 
 () => {
-    const resetToDefault = R.flip(R.merge)({ x: 0 });
+    const resetToDefault = R.flip(R.mergeRight)({ x: 0 });
     resetToDefault({ x: 5, y: 2 }); // => {x: 0, y: 2}
 };
 

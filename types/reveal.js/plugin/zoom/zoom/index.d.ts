@@ -1,6 +1,4 @@
-
 import Reveal = require('../../../.');
-
 
 /**
  * Reveal plugin zoom

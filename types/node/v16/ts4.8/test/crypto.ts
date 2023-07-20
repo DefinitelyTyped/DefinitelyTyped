@@ -845,6 +845,10 @@ import { promisify } from 'node:util';
         key: 'asd',
         format: 'der',
     });
+    crypto.createPrivateKey({
+        key: 'asd',
+        format: 'jwk',
+    });
 }
 
 {
@@ -1214,6 +1218,7 @@ import { promisify } from 'node:util';
     cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkHost('test.com', { subject: 'default' }); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
@@ -1302,6 +1307,19 @@ import { promisify } from 'node:util';
     };
     crypto.createPublicKey({ key: jwk, format: 'jwk' });
     crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig')
+    );
+    crypto.verify(
+        'ES256',
+        Buffer.from('asd'),
+        { key: jwk, format: 'jwk' },
+        Buffer.from('sig'),
+        (error: Error | null, result: boolean): void => {}
+    );
 }
 
 {

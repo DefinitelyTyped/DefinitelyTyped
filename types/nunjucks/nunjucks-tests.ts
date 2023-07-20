@@ -30,6 +30,7 @@ nunjucks.configure('views', {
     autoescape: true,
     watch: true,
 });
+nunjucks.configure({ dev: true });
 rendered = env.renderString(src, ctx);
 
 env.on('load', (name, source, loader) => {});
@@ -40,6 +41,7 @@ let extension: nunjucks.Extension = {
         return 'The parser api is complicated';
     },
 };
+
 env = env.addExtension('SpawnGlitter', extension);
 const hasExtension: boolean = env.hasExtension('SpawnGlitter');
 extension = env.getExtension('SpawnGlitter');
@@ -79,3 +81,23 @@ const MyOtherLoader = nunjucks.FileSystemLoader.extend({
 env = new nunjucks.Environment(new MyOtherLoader());
 
 new nunjucks.runtime.SafeString('an unsafe string');
+
+nunjucks.Loader.extend({
+    async: true,
+    getSource(name, callback) {},
+});
+
+// @ts-expect-error
+nunjucks.Loader.extend({
+    getSource(name: any, callback: any) {},
+});
+
+// @ts-expect-error
+nunjucks.Loader.extend({
+    async: false,
+    getSource(name: any, callback: any) {},
+});
+
+function foo(async: boolean) {
+    nunjucks.Loader.extend(new nunjucks.WebLoader(undefined, { async }));
+}

@@ -116,7 +116,7 @@ function sample3() {
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
 
     const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
-      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
+      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen', 'emboss', 'blur2', 'hue'];
 
     for (let i = 0; i < filters.length; i++) {
       const checkBox = <HTMLInputElement> $(filters[i]);
@@ -212,6 +212,16 @@ function sample3() {
       matrix: [1, 1, 1,
         1, 0.7, -1,
         -1, -1, -1]
+    }));
+  };
+  $('blur2').onclick = function(this: HTMLInputElement) {
+    applyFilter(12, this.checked && new f.Blur({
+        blur: 9
+    }));
+  };
+  $('hue').onclick = function(this: HTMLInputElement) {
+    applyFilter(13, this.checked && new f.HueRotation({
+        rotation: 1
     }));
   };
 }

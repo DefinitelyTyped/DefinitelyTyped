@@ -286,7 +286,12 @@ function testIn() {
 
 function testList() {
     const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> | null = cf.list();
+    // $ExpectType Iterable<GraphPointer<Term, Dataset<Quad, Quad>>> | null
+    const listNodes = cf.list();
+
+    if (listNodes) {
+        const roundTrip = cf.node(listNodes);
+    }
 }
 
 function testIsList() {

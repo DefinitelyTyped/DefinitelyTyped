@@ -23,3 +23,4 @@ app.showPopup(
 app.onEvent('popupClosed', e => {
     console.log(e.button_id);
 });
+app.switchInlineQuery('query', ["users"]);

@@ -1260,7 +1260,7 @@ declare module 'crypto' {
     type DSAEncoding = 'der' | 'ieee-p1363';
     interface SigningOptions {
         /**
-         * @See crypto.constants.RSA_PKCS1_PADDING
+         * @see crypto.constants.RSA_PKCS1_PADDING
          */
         padding?: number | undefined;
         saltLength?: number | undefined;
@@ -1274,6 +1274,7 @@ declare module 'crypto' {
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
@@ -1428,8 +1429,8 @@ declare module 'crypto' {
          * be passed instead of a public key.
          * @since v0.1.92
          */
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput, signature: string, signature_format?: BinaryToTextEncoding): boolean;
     }
     /**
      * Creates a `DiffieHellman` key exchange object using the supplied `prime` and an
@@ -2325,7 +2326,7 @@ declare module 'crypto' {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
     type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
-    type KeyFormat = 'pem' | 'der';
+    type KeyFormat = 'pem' | 'der' | 'jwk';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
         cipher?: string | undefined;
@@ -2936,11 +2937,16 @@ declare module 'crypto' {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v12.0.0
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
     function verify(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+        signature: NodeJS.ArrayBufferView
+    ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
         signature: NodeJS.ArrayBufferView,
         callback: (error: Error | null, result: boolean) => void
     ): void;
@@ -3099,23 +3105,23 @@ declare module 'crypto' {
         /**
          * @default 'always'
          */
-        subject: 'always' | 'never';
+        subject?: 'always' | 'default' |  'never';
         /**
          * @default true
          */
-        wildcards: boolean;
+        wildcards?: boolean;
         /**
          * @default true
          */
-        partialWildcards: boolean;
+        partialWildcards?: boolean;
         /**
          * @default false
          */
-        multiLabelWildcards: boolean;
+        multiLabelWildcards?: boolean;
         /**
          * @default false
          */
-        singleLabelSubdomains: boolean;
+        singleLabelSubdomains?: boolean;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to

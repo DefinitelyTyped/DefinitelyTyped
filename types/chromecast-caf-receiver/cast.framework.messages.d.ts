@@ -132,7 +132,7 @@ export enum HdrType {
 
 /**
  * Format of an HLS audio segment.
- * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HlsSegmentFormat}
+ * [Documentation]{@link https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.HlsSegmentFormat}
  */
 export enum HlsSegmentFormat {
     AAC = 'aac',
@@ -142,6 +142,7 @@ export enum HlsSegmentFormat {
     MP3 = 'mp3',
     TS = 'ts',
     TS_AAC = 'ts_aac',
+    TS_HE_AAC = 'ts_he_aac',
 }
 
 /**

@@ -1,10 +1,10 @@
-// Type definitions for @carbon/pictograms-react 11.31
+// Type definitions for @carbon/pictograms-react 11.45
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 961 pictograms in total */
+/** 983 pictograms in total */
 
 export interface CarbonPictogramProps
   extends Omit<
@@ -36,6 +36,7 @@ export const AddDocument: CarbonPictogramType;
 export const AdvancedFraudProtection: CarbonPictogramType;
 export const AdvancedThreats: CarbonPictogramType;
 export const Advocate: CarbonPictogramType;
+export const AdvocateMask: CarbonPictogramType;
 export const Agility: CarbonPictogramType;
 export const AgilityWithHybridMulticloud: CarbonPictogramType;
 export const Agriculture: CarbonPictogramType;
@@ -64,6 +65,7 @@ export const AnonymousUsers: CarbonPictogramType;
 export const Apartment: CarbonPictogramType;
 export const Api: CarbonPictogramType;
 export const AppDeveloper: CarbonPictogramType;
+export const AppModernization: CarbonPictogramType;
 export const Apple: CarbonPictogramType;
 export const Application: CarbonPictogramType;
 export const ApplicationSecurity: CarbonPictogramType;
@@ -128,6 +130,8 @@ export const CalendarEvent: CarbonPictogramType;
 export const Camera: CarbonPictogramType;
 export const CanadaMapleLeaf: CarbonPictogramType;
 export const Capitol: CarbonPictogramType;
+export const CarbonForIbmDotcom: CarbonPictogramType;
+export const CarbonForIbmProduct: CarbonPictogramType;
 export const Care: CarbonPictogramType;
 export const CargoCrane: CarbonPictogramType;
 export const CargoShip: CarbonPictogramType;
@@ -239,6 +243,8 @@ export const Connectivity: CarbonPictogramType;
 export const Console: CarbonPictogramType;
 export const ConsoleWireless: CarbonPictogramType;
 export const Construct: CarbonPictogramType;
+export const ConstructionWorker: CarbonPictogramType;
+export const ConstructionWorkerMask: CarbonPictogramType;
 export const ConsumerEngagementFoodJourney: CarbonPictogramType;
 export const Container: CarbonPictogramType;
 export const ContainerMicroservices: CarbonPictogramType;
@@ -260,6 +266,14 @@ export const Coronavirus: CarbonPictogramType;
 export const CreditCard: CarbonPictogramType;
 export const Crop: CarbonPictogramType;
 export const Cupcake: CarbonPictogramType;
+export const CurveCubic: CarbonPictogramType;
+export const CurveExponential: CarbonPictogramType;
+export const CurveInverse: CarbonPictogramType;
+export const CurveLinear: CarbonPictogramType;
+export const CurveLogarithmic: CarbonPictogramType;
+export const CurveLogistic: CarbonPictogramType;
+export const CurvePower: CarbonPictogramType;
+export const CurveQuadratic: CarbonPictogramType;
 export const CustomWorkloads: CarbonPictogramType;
 export const CustomReports: CarbonPictogramType;
 export const CustomerService: CarbonPictogramType;
@@ -282,6 +296,7 @@ export const DecisionVelocity: CarbonPictogramType;
 export const DeepLearning: CarbonPictogramType;
 export const Delete: CarbonPictogramType;
 export const DeliverInsights: CarbonPictogramType;
+export const Delivered: CarbonPictogramType;
 export const DeliveryTruck: CarbonPictogramType;
 export const DeployingContainers: CarbonPictogramType;
 export const Deployment: CarbonPictogramType;
@@ -608,6 +623,7 @@ export const MovementOfGoods_01: CarbonPictogramType;
 export const MovementOfGoods_02: CarbonPictogramType;
 export const MovementOfGoods_03: CarbonPictogramType;
 export const MovementOfItems: CarbonPictogramType;
+export const MovingDolly: CarbonPictogramType;
 export const Mqa: CarbonPictogramType;
 export const Mri: CarbonPictogramType;
 export const MriPatient: CarbonPictogramType;
@@ -715,6 +731,7 @@ export const PublicCloudToPrivateCloud: CarbonPictogramType;
 export const Puzzle: CarbonPictogramType;
 export const QQPlot: CarbonPictogramType;
 export const QrCode: CarbonPictogramType;
+export const Quantum: CarbonPictogramType;
 export const QuantumSafe: CarbonPictogramType;
 export const QuantumComputing: CarbonPictogramType;
 export const Question: CarbonPictogramType;
@@ -951,6 +968,7 @@ export const UserAnalytics: CarbonPictogramType;
 export const UserExperienceDesign: CarbonPictogramType;
 export const UserInsights: CarbonPictogramType;
 export const UserInterface: CarbonPictogramType;
+export const UserMask: CarbonPictogramType;
 export const UserProfile: CarbonPictogramType;
 export const UserSearch: CarbonPictogramType;
 export const Vancouver: CarbonPictogramType;
@@ -979,6 +997,10 @@ export const WashingtonDc: CarbonPictogramType;
 export const WashingtonDcCapitol: CarbonPictogramType;
 export const WashingtonDcMonument: CarbonPictogramType;
 export const WatsonLogo: CarbonPictogramType;
+export const Watsonx: CarbonPictogramType;
+export const WatsonxAi: CarbonPictogramType;
+export const WatsonxData: CarbonPictogramType;
+export const WatsonxGovernance: CarbonPictogramType;
 export const Weather: CarbonPictogramType;
 export const WebDeveloper: CarbonPictogramType;
 export const Webcast: CarbonPictogramType;

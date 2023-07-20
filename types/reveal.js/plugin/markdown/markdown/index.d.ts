@@ -1,4 +1,3 @@
-
 import Reveal = require('../../../.');
 
 /**

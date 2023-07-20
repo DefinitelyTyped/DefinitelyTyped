@@ -726,7 +726,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     // $ExpectType AbcObject[]
     _.intersectionWith(...[list, list], (a, b) => {
         a; // $ExpectType AbcObject
-        b; // $ExpectType never
+        b; // $ExpectType never || AbcObject
         return true;
     });
 
@@ -3895,9 +3895,9 @@ fp.now(); // $ExpectType number
             = anything;
 
         if (_.isArrayLike(value)) {
-            const result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
+            const result: string | string[] | { length: number } | [number, boolean] = value;
         } else {
-            const result: number | { length: string } | { a: string; } | null | undefined = value;
+            const result: number | { [index: number]: boolean, length: number } | { length: string } | { a: string; } | null | undefined = value;
         }
 
         if (fp.isArrayLike(value)) {
@@ -3985,9 +3985,9 @@ fp.now(); // $ExpectType number
             = anything;
 
         if (_.isArrayLikeObject(value)) {
-            const result: string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
+            const result: string[] | { length: number } | [number, boolean] = value;
         } else {
-            const result: string | number | { length: string; } | { a: string; } | null | undefined = value;
+            const result: string | number | { length: string; } | { [index: number]: boolean, length: number } | { a: string; } | null | undefined = value;
         }
 
         if (fp.isArrayLikeObject(value)) {

@@ -195,6 +195,16 @@ export class ValidComponent extends Vue {
             return !this.$v.password.minLength
         } else return false
     }
+
+    verifyNoTypeRecursion() {
+        const parent = this.$v.$parent;
+        const root = this.$v.$root;
+        const children = this.$v.$children;
+
+        parent // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>> | null
+        root // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>
+        children // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>[]
+    }
 }
 
 @Component({

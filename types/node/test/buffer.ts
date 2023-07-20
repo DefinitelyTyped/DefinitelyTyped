@@ -2,7 +2,10 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
+    File,
     constants,
+    isUtf8,
+    isAscii,
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
@@ -32,6 +35,18 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const value2: number = constants.MAX_STRING_LENGTH;
     const value3: number = kMaxLength;
     const value4: number = kStringMaxLength;
+}
+
+// Module methods
+{
+    const bool1: boolean = isUtf8(new Buffer('hello'));
+    const bool2: boolean = isUtf8(new ArrayBuffer(0));
+    const bool3: boolean = isUtf8(new Uint8Array());
+}
+{
+    const bool1: boolean = isAscii(new Buffer('hello'));
+    const bool2: boolean = isAscii(new ArrayBuffer(0));
+    const bool3: boolean = isAscii(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
@@ -75,7 +90,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     buf = Buffer.from(arr.buffer, 0, 1);
 
     // @ts-expect-error
-    Buffer.from("this is a test", 1, 1);
+    Buffer.from('this is a test', 1, 1);
     // Ideally passing a normal Buffer would be a type error too, but it's not
     //  since Buffer is assignable to ArrayBuffer currently
 }
@@ -84,21 +99,33 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 {
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     /* tslint:disable-next-line no-construct */
-    Buffer.from(new String("DEADBEEF"), "hex");
+    Buffer.from(new String('DEADBEEF'), 'hex');
     // @ts-expect-error
     Buffer.from(buf2, 'hex');
 }
 
 // Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
 {
-    const pseudoBuf = { valueOf() { return Buffer.from([1, 2, 3]); } };
+    const pseudoBuf = {
+        valueOf() {
+            return Buffer.from([1, 2, 3]);
+        },
+    };
     let buf: Buffer = Buffer.from(pseudoBuf);
-    const pseudoString = { valueOf() { return "Hello"; }};
+    const pseudoString = {
+        valueOf() {
+            return 'Hello';
+        },
+    };
     buf = Buffer.from(pseudoString);
-    buf = Buffer.from(pseudoString, "utf-8");
+    buf = Buffer.from(pseudoString, 'utf-8');
     // @ts-expect-error
     Buffer.from(pseudoString, 1, 2);
-    const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
+    const pseudoArrayBuf = {
+        valueOf() {
+            return new Uint16Array(2);
+        },
+    };
     buf = Buffer.from(pseudoArrayBuf, 1, 1);
 }
 
@@ -108,6 +135,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.alloc(5, 'a');
     const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
     const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
+    const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
 {
@@ -121,20 +149,20 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method byteLenght
 {
     let len: number;
-    len = Buffer.byteLength("foo");
-    len = Buffer.byteLength("foo", "utf8");
+    len = Buffer.byteLength('foo');
+    len = Buffer.byteLength('foo', 'utf8');
 
-    const b = Buffer.from("bar");
+    const b = Buffer.from('bar');
     len = Buffer.byteLength(b);
-    len = Buffer.byteLength(b, "utf16le");
+    len = Buffer.byteLength(b, 'utf16le');
 
     const ab = new ArrayBuffer(15);
     len = Buffer.byteLength(ab);
-    len = Buffer.byteLength(ab, "ascii");
+    len = Buffer.byteLength(ab, 'ascii');
 
     const dv = new DataView(ab);
     len = Buffer.byteLength(dv);
-    len = Buffer.byteLength(dv, "utf16le");
+    len = Buffer.byteLength(dv, 'utf16le');
 }
 
 // Class Method poolSize
@@ -170,9 +198,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.indexOf("23");
-    index = buffer.indexOf("23", 1);
-    index = buffer.indexOf("23", 1, "utf8");
+    index = buffer.indexOf('23');
+    index = buffer.indexOf('23', 1);
+    index = buffer.indexOf('23', 1, 'utf8');
     index = buffer.indexOf(23);
     index = buffer.indexOf(buffer);
 }
@@ -180,9 +208,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.lastIndexOf("23");
-    index = buffer.lastIndexOf("23", 1);
-    index = buffer.lastIndexOf("23", 1, "utf8");
+    index = buffer.lastIndexOf('23');
+    index = buffer.lastIndexOf('23', 1);
+    index = buffer.lastIndexOf('23', 1, 'utf8');
     index = buffer.lastIndexOf(23);
     index = buffer.lastIndexOf(buffer);
 }
@@ -201,15 +229,15 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let includes: boolean;
-    includes = buffer.includes("23");
-    includes = buffer.includes("23", 1);
-    includes = buffer.includes("23", 1, "utf8");
+    includes = buffer.includes('23');
+    includes = buffer.includes('23', 1);
+    includes = buffer.includes('23', 1, 'utf8');
     includes = buffer.includes(23);
     includes = buffer.includes(23, 1);
-    includes = buffer.includes(23, 1, "utf8");
+    includes = buffer.includes(23, 1, 'utf8');
     includes = buffer.includes(buffer);
     includes = buffer.includes(buffer, 1);
-    includes = buffer.includes(buffer, 1, "utf8");
+    includes = buffer.includes(buffer, 1, 'utf8');
 }
 
 {
@@ -239,6 +267,13 @@ b.fill('a').fill('b');
     const b = new ImportedBuffer('123');
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
+    b.writeUInt8(0, 6);
+}
+
+// NodeJS.BufferEncoding works properly
+{
+    const encoding: NodeJS.BufferEncoding = 'ascii';
+    const b = new ImportedBuffer('123', encoding);
     b.writeUInt8(0, 6);
 }
 
@@ -312,6 +347,20 @@ async () => {
 declare const blob3: Blob;
 blob3.stream();
 
+// File
+{
+    const file1 = new File(['asd', Buffer.from('test'), new NodeBlob(['dummy'])], 'filename1.txt');
+    const file2 = new File([file1], 'filename2.txt', {
+        type: 'plain/txt',
+        endings: 'transparent',
+        lastModified: Date.now() - 1000,
+    });
+    file1.name; // $ExpectType string
+    file1.lastModified; // $ExpectType number
+    file2.name; // $ExpectType string
+    file2.lastModified; // $ExpectType number
+}
+
 {
     atob(btoa('test')); // $ExpectType string
 }
@@ -343,15 +392,15 @@ const c: NodeJS.TypedArray = new Buffer(123);
 }
 
 {
-  const obj = {
-    valueOf() {
-      return 'hello';
-    }
-  };
-  Buffer.from(obj);
+    const obj = {
+        valueOf() {
+            return 'hello';
+        },
+    };
+    Buffer.from(obj);
 }
 
-const buff = Buffer.from("Hello World!");
+const buff = Buffer.from('Hello World!');
 
 // reads
 
@@ -432,4 +481,10 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     buff.compare(buff); // $ExpectType 0 | 1 | -1
+}
+
+{
+    const u16 = new Uint16Array([0xffff]);
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
 }

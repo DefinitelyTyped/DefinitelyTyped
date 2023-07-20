@@ -117,14 +117,14 @@ export interface URLConfig extends Config {
  * @param filePath path to file
  * @param callback callback
  */
-export function fromFileWithPath(filePath: string, callback: (error: Error, text: string) => void): void;
+export function fromFileWithPath(filePath: string, callback: (error: Error | null, text: string) => void): void;
 /**
  * Get text from file by path
  * @param filePath path to file
  * @param config configuration object
  * @param callback callback
  */
-export function fromFileWithPath(filePath: string, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromFileWithPath(filePath: string, config: Config, callback: (error: Error | null, text: string) => void): void;
 
 /**
  * Get text from file by path
@@ -132,7 +132,7 @@ export function fromFileWithPath(filePath: string, config: Config, callback: (er
  * @param filePath path to file
  * @param callback callback
  */
-export function fromFileWithMimeAndPath(mimeType: string, filePath: string, callback: (error: Error, text: string) => void): void;
+export function fromFileWithMimeAndPath(mimeType: string, filePath: string, callback: (error: Error | null, text: string) => void): void;
 /**
  * Get text from file by path
  * @param mimeType mime type of file
@@ -140,7 +140,7 @@ export function fromFileWithMimeAndPath(mimeType: string, filePath: string, call
  * @param config configuration object
  * @param callback callback
  */
-export function fromFileWithMimeAndPath(mimeType: string, filePath: string, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromFileWithMimeAndPath(mimeType: string, filePath: string, config: Config, callback: (error: Error | null, text: string) => void): void;
 
 /**
  * Get text from file buffer
@@ -148,7 +148,7 @@ export function fromFileWithMimeAndPath(mimeType: string, filePath: string, conf
  * @param buffer path to file
  * @param callback callback
  */
-export function fromBufferWithMime(mimeType: string, buffer: Buffer, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithMime(mimeType: string, buffer: Buffer, callback: (error: Error | null, text: string) => void): void;
 /**
  * Get text from file buffer
  * @param mimeType mime type of file
@@ -156,7 +156,7 @@ export function fromBufferWithMime(mimeType: string, buffer: Buffer, callback: (
  * @param config configuration object
  * @param callback callback
  */
-export function fromBufferWithMime(mimeType: string, buffer: Buffer, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithMime(mimeType: string, buffer: Buffer, config: Config, callback: (error: Error | null, text: string) => void): void;
 
 /**
  * Get text from file buffer
@@ -164,7 +164,7 @@ export function fromBufferWithMime(mimeType: string, buffer: Buffer, config: Con
  * @param buffer buffer with file content
  * @param callback callback
  */
-export function fromBufferWithName(name: string, buffer: Buffer, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithName(name: string, buffer: Buffer, callback: (error: Error | null, text: string) => void): void;
 /**
  * Get text from file buffer
  * @param name file name or path
@@ -172,18 +172,18 @@ export function fromBufferWithName(name: string, buffer: Buffer, callback: (erro
  * @param config configuration object
  * @param callback callback
  */
-export function fromBufferWithName(name: string, buffer: Buffer, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithName(name: string, buffer: Buffer, config: Config, callback: (error: Error | null, text: string) => void): void;
 
 /**
  * Get text from url
  * @param url url as string or object
  * @param callback callback
  */
-export function fromUrl(url: string | URL, callback: (error: Error, text: string) => void): void;
+export function fromUrl(url: string | URL, callback: (error: Error | null, text: string) => void): void;
 /**
  * Get text from url
  * @param url url as string or object
  * @param config configuration object
  * @param callback callback
  */
-export function fromUrl(url: string | URL, config: URLConfig, callback: (error: Error, text: string) => void): void;
+export function fromUrl(url: string | URL, config: URLConfig, callback: (error: Error | null, text: string) => void): void;

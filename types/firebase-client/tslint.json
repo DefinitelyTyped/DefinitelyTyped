@@ -4,7 +4,6 @@
         "comment-format": false,
         "no-consecutive-blank-lines": false,
         "no-misused-new": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-line": false,
         "only-arrow-functions": false,

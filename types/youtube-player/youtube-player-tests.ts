@@ -1,6 +1,6 @@
 import youTubePlayerFactory from 'youtube-player';
 import PlayerStates from 'youtube-player/dist/constants/PlayerStates';
-import { YouTubePlayer } from 'youtube-player/dist/types';
+import { PlayerSize, YouTubePlayer } from 'youtube-player/dist/types';
 
 youTubePlayerFactory('foo');
 const player: YouTubePlayer = youTubePlayerFactory(
@@ -53,6 +53,7 @@ player.loadVideoById('doesNotExist');
 player.playVideo();
 player.pauseVideo();
 player.setSize(320, 200);
+const playerSize: Promise<PlayerSize> = player.getSize();
 (async () => {
     if (await player.isMuted()) {
         player.unMute();

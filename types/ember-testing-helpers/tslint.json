@@ -3,7 +3,6 @@
     "rules": {
         "space-before-function-paren": false,
         "ban-types": false,
-        "no-unnecessary-generics": false,
         "npm-naming": false,
         "unified-signatures": false
     }

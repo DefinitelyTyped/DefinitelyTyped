@@ -8,7 +8,7 @@
         'v1', new CSSUnparsedValue([]));
     const vVariable: string = v1.variable;
     v1.variable = 'v3';
-    const vFalback: CSSUnparsedValue | undefined = v1.fallback;
+    const vFalback: CSSUnparsedValue | null = v1.fallback;
 };
 
 () => {
@@ -176,7 +176,9 @@
     const p: CSSPerspective = new CSSPerspective(CSS.px(20));
     const is2d: boolean = p.is2D;
     const matix: DOMMatrix = p.toMatrix();
-    const length: CSSNumericValue = p.length;
+    if (typeof p.length !== "string" && !("value" in p.length)) {
+        const length: CSSNumericValue = p.length;
+    }
 };
 
 () => {
@@ -193,9 +195,9 @@
     const vArray: CSSStyleValue[] = m.getAll('padding');
     const has: boolean = m.has('padding');
     const size: number = m.size;
-    for (const v of Array.from(m)) {
-        const x: CSSStyleValue = v;
-    }
+    m.forEach(v => {
+        const x: CSSStyleValue[] = v;
+    });
 };
 
 () => {
@@ -209,9 +211,9 @@
     const vArray: CSSStyleValue[] = m.getAll('padding');
     const has: boolean = m.has('padding');
     const size: number = m.size;
-    for (const v of Array.from(m)) {
-        const x: CSSStyleValue = v;
-    }
+    m.forEach(v => {
+        const x: CSSStyleValue[] = v;
+    });
 };
 
 declare const x: CSSRule;

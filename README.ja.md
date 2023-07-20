@@ -2,7 +2,7 @@
 
 > 高品質な TypeScript の型定義用レポジトリ
 
-*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
+*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)・[イタリア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)でも閲覧できます！*
 
 *[管理者用マニュアル](./docs/admin.md) はこちら*
 
@@ -269,7 +269,7 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 #### よくあるミス
 
 * はじめに、[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
-* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
+* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write 'path/to/package/**/*.ts'` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -500,8 +500,8 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 あるライブラリの新しいバージョンに、 Definitely Typed 内の他のパッケージが対応していない場合は、古いバージョンへのパス変換<small>（path mapping）</small>を追加する必要があります。
 古いバージョンに対応していないパッケージにさらに依存しているパッケージに対しても、再帰的に行う必要があります。
 
-たとえば、 `react-router` は `history@2` に依存しているため、 [react-router の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) には `"history": [ "history/v2" ]` というパス変換が追加されています。
-さらに、 `react-router` に依存している `react-router-bootstrap` でも、 `react-router` が最新版に更新されるまでの間、 `tsconfig.json` の中で同様のパス変換（`"history": [ "history/v2" ]`）を行う必要があります。
+たとえば、 `browser-sync` は `micromatch@2` に依存しているため、 [browser-sync の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) には `"micromatch": [ "micromatch/v2" ]` というパス変換が追加されています。
+さらに、 `browser-sync` に依存している `browser-sync-webpack-plugin` でも、 `browser-sync` が最新版に更新されるまでの間、 `tsconfig.json` の中で同様のパス変換（`"micromatch": [ "micromatch/v2" ]`）を行う必要があります。
 
 `/// <reference types=".." />` についてはパス変換でうまく動作しないため、依存モジュールは `import` を使う必要があります。
 

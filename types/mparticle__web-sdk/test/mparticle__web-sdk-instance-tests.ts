@@ -121,6 +121,7 @@ const config: mParticle.MPConfiguration = {
         flag: 'foo',
         anotherFlag: 'bar',
     },
+    sideloadedKits: [{}, {}]
 };
 
 instance.endSession();
@@ -130,6 +131,8 @@ instance.getAppName();
 instance.getAppVersion();
 
 instance.getDeviceId();
+
+instance.getEnvironment();
 
 instance.getVersion();
 
@@ -391,10 +394,10 @@ instance.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
-instance.eCommerce.logProductAction(300, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
+instance.eCommerce.logProductAction(0, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
 
 instance.eCommerce.logProductAction(
-    300,
+    0,
     [product1, product2],
     eCommerceCustomAttributes,
     eCommerceCustomFlags,

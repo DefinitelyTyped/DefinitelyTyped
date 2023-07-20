@@ -38,7 +38,7 @@ import {
 
 const handler = (index: number, element: Element) => {};
 const tester = (index: number, element: Element) => true;
-const mapper = (index: number, element: Element) => null;
+const mapper = (index: number, selection: Selection) => null;
 
 let selection: Selection;
 let derived: Selection;

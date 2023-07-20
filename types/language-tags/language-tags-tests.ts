@@ -43,7 +43,7 @@ tag.deprecated(); // $ExpectType string | null
 tag.added(); // $ExpectType string
 tag.descriptions(); // $ExpectType string[]
 
-subtag!.type(); // $ExpectType "language" | "extlang" | "script" | "region" | "variant"
+subtag!.type(); // $ExpectType "language" | "extlang" | "script" | "region" | "variant" || "variant" | "language" | "extlang" | "script" | "region"
 subtag!.descriptions(); // $ExpectType string[]
 subtag!.preferred(); // $ExpectType Subtag | null
 subtag!.script(); // $ExpectType Subtag | null

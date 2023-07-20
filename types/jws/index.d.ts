@@ -1,5 +1,5 @@
 // Type definitions for jws 3.2
-// Project: https://github.com/brianloveswords/node-jws
+// Project: https://github.com/auth0/node-jws
 // Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>, Denis Olsem <https://github.com/dolsem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -28,7 +28,7 @@ export function verify(signature: string, algorithm: Algorithm, secretOrKey: str
  * (Synchronous) Returns the decoded header, decoded payload,
  * and signature parts of the JWS Signature.
  */
-export function decode(signature: string): Signature;
+export function decode(signature: string, options?: DecodeOptions): Signature;
 
 /**
  * (Synchronous) Validates that the signature seems to be a legitimate JWS signature.
@@ -138,6 +138,14 @@ export interface SignOptions {
     privateKey?: any;
 
     encoding?: string|Buffer|stream.Readable | undefined;
+}
+
+export interface DecodeOptions {
+    /**
+     * Whether to force {@link JSON.parse} on the payload
+     * even if the header doesn't contain "typ":"JWT".
+     */
+    json: boolean;
 }
 
 export interface VerifyOptions {

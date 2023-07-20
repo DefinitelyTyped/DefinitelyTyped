@@ -817,7 +817,7 @@ declare namespace ymaps {
 
             events: IEventManager;
 
-            get(path: string, defaultValue: object): object;
+            get(path: string, defaultValue?: object): object;
 
             getAll(): object;
 
@@ -3765,6 +3765,53 @@ declare namespace ymaps {
         geoObjects: GeoObjectCollection;
     }
 
+    namespace geolocation {
+        /**
+         * Tries to determine the user's location. Returns the promise object, which will either be confirmed by the object with the field geoObjects or rejected with an error message.
+         * The geoObjects field is an instance of GeoObjectCollection. The object that indicates the user's current location will be added to the collection.
+         * @param options Options.
+         */
+        function get(options?: IGeolocationOptions): Promise<IGeolocationResult>;
+
+        interface IGeolocationOptions {
+            /**
+             * If true, geocode the user position automatically; if false, return as it is.
+             * If automatic geocoding is used, the object marking the user's current position has the same structure as the result of executing geocode.
+             */
+            autoReverseGeocode?: boolean;
+
+            /**
+             * If true, the map center and zoom level are adjusted automatically to show the current location of the user; if false, nothing happens.
+             */
+            mapStateAutoApply?: boolean;
+
+            /**
+             * Geolocation provider. Accepted values:
+             *  'yandex' - geolocation according to the Yandex data, based on the user IP-address;
+             *  'browser' - built-in browser geolocation;
+             *  'auto' - try to locate the user by all means available and then choose the best value.
+             */
+            provider?: 'yandex' | 'browser' | 'auto';
+
+            /**
+             * The response time, in milliseconds.
+             */
+            timeout?: number;
+
+            /**
+             * Whether to account for map margins map.margin.Manager when automatically centering and zooming the map.
+             */
+            useMapMargin?: boolean;
+        }
+
+        interface IGeolocationResult {
+            /**
+             * Geolocation results.
+             */
+            geoObjects: GeoObjectCollection;
+        }
+    }
+
     /**
      * Processes requests for search suggestions.
      * Returns a promise object that is either rejected with an error,
@@ -3824,6 +3871,10 @@ declare namespace ymaps {
         successCallback?(): void;
 
         errorCallback?(): void;
+    }
+
+    namespace template {
+        const filtersStorage: util.Storage;
     }
 
     namespace templateLayoutFactory {

@@ -8,7 +8,7 @@ const mediaRecorderOptions: MediaRecorderOptions = {
     mimeType: 'video/webm',
     audioBitsPerSecond: 1000000,
     videoBitsPerSecond: 4000000,
-    audioBitrateMode: 'vbr'
+    audioBitrateMode: 'variable'
 };
 
 const blobEvent = new BlobEvent('dataavailable', {
@@ -40,7 +40,7 @@ recorder.pause();
 recorder.requestData();
 const state: 'inactive' | 'recording' | 'paused' = recorder.state;
 const isRecording = state === 'recording';
-const isAudioVariableBitrate = recorder.audioBitrateMode === 'vbr';
+const isAudioVariableBitrate = recorder.audioBitrateMode === 'variable';
 
 recorder.addEventListener('start', onEvent);
 recorder.removeEventListener('start', onEvent);

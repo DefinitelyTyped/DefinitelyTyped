@@ -2,17 +2,10 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "class-name": true,
-        "indent": [
-            true,
-            "spaces"
-        ],
+        "indent": [true, "spaces"],
         "no-const-enum": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
-        "quotemark": [
-            true,
-            "double"
-        ],
+        "quotemark": [true, "double"],
         "unified-signatures": false
     }
 }

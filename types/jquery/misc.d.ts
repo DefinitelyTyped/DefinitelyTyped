@@ -718,8 +718,10 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types no-unnecessary-generics
+        /* eslint-disable no-unnecessary-generics */
+        // tslint:disable-next-line:ban-types
         <T extends Function>(flags?: string): Callbacks<T>;
+        /* eslint-enable no-unnecessary-generics */
     }
 
     // tslint:disable-next-line:ban-types

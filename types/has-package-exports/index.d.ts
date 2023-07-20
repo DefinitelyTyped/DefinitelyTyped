@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This is necessary to disallow import of `has-package-exports/index` or `has-package-exports/index.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line no-declare-current-package
 declare module 'has-package-exports' {
     /**
      * Whether the current environment supports the `exports` field in `package.json`.

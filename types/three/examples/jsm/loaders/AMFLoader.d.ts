@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, Group } from '../../../src/Three';
+import { Loader, LoadingManager, Group } from '../../../src/Three.js';
 
 export class AMFLoader extends Loader {
     constructor(manager?: LoadingManager);

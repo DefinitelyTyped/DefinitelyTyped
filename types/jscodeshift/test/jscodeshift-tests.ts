@@ -1,5 +1,6 @@
 import { ASTNode, FileInfo, API, Transform, Parser, JSCodeshift, Collection, ImportDeclaration } from 'jscodeshift';
 import * as testUtils from 'jscodeshift/src/testUtils';
+import { run } from 'jscodeshift/src/Runner';
 
 // Can define transform with `function`.
 function replaceWithFooTransform(fileInfo: FileInfo, api: API) {
@@ -210,3 +211,9 @@ testUtils.runSnapshotTest(
 
 // Can run a snapshot test with transform passed as function
 testUtils.runSnapshotTest(reverseIdentifiersTransform, {}, { source: "var firstWord = 'Hello ';" });
+
+run('transform.js', ['foo.js', 'bar'], {
+    dry: true,
+    print: true,
+    verbose: 1,
+});

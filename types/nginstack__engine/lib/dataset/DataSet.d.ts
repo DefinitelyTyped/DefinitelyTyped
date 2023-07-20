@@ -100,7 +100,7 @@ declare class DataSet {
         options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
     setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
-    applyUpdates(opt_waitDBCacheSync?: boolean, opt_logChanges?: boolean): number;
+    applyUpdates(waitDBCacheSync?: boolean, logChanges?: boolean): number;
     cancelUpdates(opt_key?: number): void;
     copyStructure(sourceDataSet: DataSet, fieldNames?: string): void;
     rollBack(): void;

@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/components 19.10
+// Type definitions for @wordpress/components 23.0
 // Project: https://github.com/WordPress/gutenberg/tree/trunk/packages/components
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>

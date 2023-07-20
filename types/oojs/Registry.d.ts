@@ -1,4 +1,9 @@
 declare namespace OO {
+    interface RegistryEventMap {
+        register: [name: string, data: unknown];
+        unregister: [name: string, data: unknown];
+    }
+
     /**
      * A map interface for associating arbitrary data with a symbolic name. Used in
      * place of a plain object to provide additional {@link OO.Registry.register registration}
@@ -34,6 +39,57 @@ declare namespace OO {
          * @return Data associated with symbolic name
          */
         lookup(name: string): unknown | undefined;
+
+        // #region EventEmitter overloads
+        on<K extends keyof RegistryEventMap, A extends ArgTuple = [], C = null>(
+            event: K,
+            method: EventHandler<C, (this: C, ...args: [...A, ...RegistryEventMap[K]]) => void>,
+            args?: A,
+            context?: C,
+        ): this;
+        on<K extends string, C = null>(
+            event: K extends keyof RegistryEventMap ? never : K,
+            method: EventHandler<C>,
+            args?: any[],
+            context?: C,
+        ): this;
+
+        once<K extends keyof RegistryEventMap>(
+            event: K,
+            listener: (this: null, ...args: RegistryEventMap[K]) => void,
+        ): this;
+        once<K extends string>(
+            event: K extends keyof RegistryEventMap ? never : K,
+            listener: (this: null, ...args: any[]) => void,
+        ): this;
+
+        off<K extends keyof RegistryEventMap, C = null>(
+            event: K,
+            method?: EventHandler<C, (this: C, ...args: RegistryEventMap[K]) => void>,
+            context?: C,
+        ): this;
+        off<K extends string, C = null>(
+            event: K extends keyof RegistryEventMap ? never : K,
+            method?: EventHandler<C>,
+            context?: C,
+        ): this;
+
+        emit<K extends keyof RegistryEventMap>(event: K, ...args: RegistryEventMap[K]): boolean;
+        emit<K extends string>(event: K extends keyof RegistryEventMap ? never : K, ...args: any[]): boolean;
+
+        emitThrow<K extends keyof RegistryEventMap>(event: K, ...args: RegistryEventMap[K]): boolean;
+        emitThrow<K extends string>(event: K extends keyof RegistryEventMap ? never : K, ...args: any[]): boolean;
+
+        connect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
+            context: C,
+            methods: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line no-unnecessary-generics
+        ): this;
+
+        disconnect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
+            context: C,
+            methods?: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line no-unnecessary-generics
+        ): this;
+        // #endregion
     }
 
     interface RegistryConstructor {

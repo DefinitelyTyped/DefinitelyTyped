@@ -1,7 +1,6 @@
-// Type definitions for auth0 2.35
+// Type definitions for auth0 3.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
@@ -23,6 +22,7 @@ export interface ManagementClientOptions {
     scope?: string | undefined;
     tokenProvider?: TokenProvider | undefined;
     retry?: RetryOptions | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface TokenProvider {
@@ -215,6 +215,10 @@ export interface PermissionPage extends Page {
 export type Grant = 'authorization_code' | 'client_credentials' | 'implicit' | 'password' | 'refresh_token';
 
 export interface Client {
+    /**
+     * The name of the tenant the client belongs to.
+     */
+    tenant?: string | undefined;
     /**
      * The name of the client.
      */
@@ -464,6 +468,7 @@ export type Strategy =
     | 'oauth2'
     | 'office365'
     | 'oidc'
+    | 'okta'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
@@ -538,6 +543,23 @@ export interface CreateConnection extends UpdateConnection {
      * The identity provider identifier for the connection.
      */
     strategy: Strategy;
+}
+
+export interface GetConnectionsOptions extends PagingOptions {
+    /** List of fields to include or exclude */
+    fields?: string | string[] | undefined;
+
+    /** true if the fields specified are to be included in the result, false otherwise. Default true */
+    include_fields?: boolean | undefined;
+
+    /** true if a query summary must be included in the result, false otherwise. Default false */
+    include_totals?: boolean | undefined;
+
+    /** Provide strategies to only retrieve connections with such strategies */
+    strategy?: Strategy | undefined;
+
+    /** Provide the name of the connection to retrieve */
+    name?: string | undefined;
 }
 
 export interface User<A = AppMetadata, U = UserMetadata> {
@@ -617,6 +639,7 @@ export interface AuthenticationClientOptions {
     clientId?: string | undefined;
     clientSecret?: string | undefined;
     domain: string;
+    telemetry?: boolean | undefined;
 }
 
 interface Environment {
@@ -1045,6 +1068,11 @@ export interface ImpersonateSettingOptions {
     clientId?: string | undefined;
 }
 
+export interface AuthenticationMethodByIdOptions {
+    id: string;
+    authentication_method_id: string;
+}
+
 export type ClientAppType =
     | 'native'
     | 'spa'
@@ -1197,10 +1225,12 @@ export interface Organization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors?: {
-                  primary: string;
-                  page_background: string;
-              } | undefined;
+              colors?:
+                  | {
+                        primary: string;
+                        page_background: string;
+                    }
+                  | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1216,13 +1246,16 @@ export interface CreateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors?: {
-                  primary: string;
-                  page_background: string;
-              } | undefined;
+              colors?:
+                  | {
+                        primary: string;
+                        page_background: string;
+                    }
+                  | undefined;
           }
         | undefined;
     metadata?: any;
+    enabled_connections?: AddOrganizationEnabledConnection[] | undefined;
 }
 
 export interface UpdateOrganization {
@@ -1533,6 +1566,74 @@ export interface UsersLogsQuery {
     include_totals?: boolean;
 }
 
+interface LogStreamBase {
+    id: string;
+    name: string;
+    status: "active" | "paused" | "suspended";
+}
+
+interface DatadogLogStream extends LogStreamBase {
+    type: "datadog";
+    sink: {
+        datadogRegion: string;
+        datadogApiKey: string;
+    };
+}
+
+interface EventBridgeLogStream extends LogStreamBase {
+    type: "eventbridge";
+    sink: {
+        awsAccountId: string;
+        awsRegion: string;
+        awsPartnerEventSource: string;
+    };
+}
+
+interface EventGridLogStream extends LogStreamBase {
+    type: "eventgrid";
+    sink: {
+        azureSubscriptionId: string;
+        azureResourceGroup: string;
+        azureRegion: string;
+        azurePartnerTopic: string;
+    };
+}
+
+interface HttpLogStream extends LogStreamBase {
+    type: "http";
+    sink: {
+        httpContentFormat: "JSONLINES" | "JSONARRAY";
+        httpContentType: string;
+        httpEndpoint: string;
+        httpAuthorization: string;
+    };
+}
+
+interface SplunkLogStream extends LogStreamBase {
+    type: "splunk";
+    sink: {
+        splunkDomain: string;
+        splunkToken: string;
+        splunkPort: string;
+        splunkSecure: boolean;
+    };
+}
+
+interface SumoLogStream extends LogStreamBase {
+    type: "sumo";
+    sink: {
+        sumoSourceAddress: string;
+    };
+}
+
+export type LogStream =
+    | DatadogLogStream
+    | EventBridgeLogStream
+    | EventGridLogStream
+    | HttpLogStream
+    | SplunkLogStream
+    | SumoLogStream;
+
 export interface GetDeviceCredentialsParams {
     user_id: string;
     page?: number;
@@ -1562,6 +1663,29 @@ export interface SendEnrollmentTicketData {
 export interface SendEnrollmentTicketResponse {
     ticket_id: string;
     ticket_url: string;
+}
+
+export interface AuthenticationMethod {
+    id: string;
+    type: string;
+    confirmed?: boolean;
+    name?: string;
+    link_id?: string;
+    phone_number?: string;
+    email?: string;
+    key_id?: string;
+    public_key?: string;
+    created_at: string;
+    enrolled_at?: string;
+    last_auth_at?: string;
+    preferred_authentication_method?: string;
+    authentication_methods?: { id: string; type: string }[];
+}
+
+export interface GuardianFactor {
+    name: string;
+    enabled: boolean;
+    trial_expired: boolean;
 }
 
 export class OrganizationsManager {
@@ -1723,7 +1847,7 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getClientInfo(): ClientInfo;
 
     // Connections
-    getConnections(params: PagingOptions): Promise<Connection[]>;
+    getConnections(params?: GetConnectionsOptions): Promise<Connection[]>;
     getConnections(): Promise<Connection[]>;
     getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
@@ -2031,6 +2155,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getLogs(cb?: (err: Error, data: Array<LogEvent>) => void): void;
     getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
 
+    // Log streams
+    getLogStreams(): Promise<LogStream[]>;
+    getLogStreams(cb: (err: Error, data: LogStream[]) => void): void;
+
     // Resource Server
     createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
     createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
@@ -2094,6 +2222,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     deleteGrant(params: ObjectWithId & { user_id: string }): Promise<void>;
     deleteGrant(params: ObjectWithId & { user_id: string }, cb?: (err: Error) => void): void;
+
+    // Guardian Factors
+    getGuardianFactors(): Promise<GuardianFactor[]>;
+    getGuardianFactors(cb?: (err: Error, guardianFactor: GuardianFactor[]) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
@@ -2188,4 +2320,25 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
 
     getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
     getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
+
+    getAuthenticationMethods(data: ObjectWithId): Promise<AuthenticationMethod[]>;
+    getAuthenticationMethods(
+        data: ObjectWithId,
+        cb: (err: Error, authenticationMethods: AuthenticationMethod[]) => void,
+    ): void;
+
+    getAuthenticationMethodById(data: AuthenticationMethodByIdOptions): Promise<AuthenticationMethod>;
+    getAuthenticationMethodById(
+        data: AuthenticationMethodByIdOptions,
+        cb: (err: Error, authenticationMethod: AuthenticationMethod) => void,
+    ): void;
+
+    deleteAuthenticationMethods(data: ObjectWithId): Promise<void>;
+    deleteAuthenticationMethods(data: ObjectWithId, cb: (err: Error) => void): void;
+
+    deleteAuthenticationMethodById(data: AuthenticationMethodByIdOptions): Promise<void>;
+    deleteAuthenticationMethodById(data: AuthenticationMethodByIdOptions, cb: (err: Error) => void): void;
+
+    regenerateRecoveryCode(data: ObjectWithId): Promise<{ recovery_code: string }>;
+    regenerateRecoveryCode(data: ObjectWithId, cb: (err: Error, res: { recovery_code: string }) => void): void;
 }

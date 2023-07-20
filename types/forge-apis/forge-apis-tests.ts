@@ -184,6 +184,14 @@ objectsApi.uploadObject('', '', 0, '', {}, authClientTwoLegged, authToken);
 objectsApi.uploadSignedResource('', 0, '', {});
 // $ExpectType Promise<ApiResponse>
 objectsApi.uploadSignedResourcesChunk('', 0, '', '', {});
+objectsApi.uploadResources('', [{ objectKey: '', data: '' }], {}, authClientTwoLegged, authToken);
+objectsApi.downloadResources('', [], {}, authClientTwoLegged, authToken);
+objectsApi.getS3UploadURL('', '', {}, authClientTwoLegged, authToken);
+objectsApi.getS3UploadURLs('', { requests: [{ objectKey: '' }] }, {}, authClientTwoLegged, authToken);
+objectsApi.completeS3Upload('', '', {}, {}, authClientTwoLegged, authToken);
+objectsApi.completeS3Uploads('', { requests: [{ objectKey: '' }] }, authClientTwoLegged, authToken);
+objectsApi.getS3DownloadURL('', '', {}, authClientTwoLegged, authToken);
+objectsApi.getS3DownloadURLs('', { requests: [{ objectKey: '' }] }, {}, authClientTwoLegged, authToken);
 
 // $ExpectType ProjectsApi
 const projectsApi = new ProjectsApi();
@@ -199,23 +207,23 @@ projectsApi.getProjectTopFolders('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 projectsApi.postStorage('', {
     jsonapi: {
-       version: '1.0'
+        version: '1.0'
     },
     data: {
-       type: 'objects',
-       attributes: {
-          name: '{{Filename}}'
-       },
-       relationships: {
-          target: {
-             data: {
-                type: 'folders',
-                id: '{{FolderId}}'
-             }
-          }
-       }
+        type: 'objects',
+        attributes: {
+            name: '{{Filename}}'
+        },
+        relationships: {
+            target: {
+                data: {
+                    type: 'folders',
+                    id: '{{FolderId}}'
+                }
+            }
+        }
     }
- }, authClientTwoLegged, authToken);
+}, authClientTwoLegged, authToken);
 
 // $ExpectType UserProfileApi
 const userProfileApi = new UserProfileApi();

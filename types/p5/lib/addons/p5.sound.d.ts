@@ -2680,11 +2680,36 @@ declare module '../../index' {
          */
         getAudioContext(): object;
 
-        // TODO: Fix userStartAudio() errors in lib/addons/p5.sound.js, line 198:
-        //
-        //    param "element(s)" is not a valid JS symbol name
-        //
-        // userStartAudio(element(s)?: Element|any[], callback?: (...args: any[]) => any): Promise<any>
+        /**
+         *   It is not only a good practice to give users
+         *   control over starting audio. This policy is
+         *   enforced by many web browsers, including iOS and
+         *   Google Chrome, which create the Web Audio API's
+         *   Audio Context in a suspended state. In these
+         *   browser-specific policies, sound will not play
+         *   until a user interaction event (i.e.
+         *   mousePressed()) explicitly resumes the
+         *   AudioContext, or starts an audio node. This can be
+         *   accomplished by calling start() on a
+         *   p5.Oscillator,  play() on a p5.SoundFile, or
+         *   simply userStartAudio().
+         *
+         *   userStartAudio() starts the AudioContext on a user
+         *   gesture. The default behavior will enable audio on
+         *   any mouseUp or touchEnd event. It can also be
+         *   placed in a specific interaction function, such as
+         *   mousePressed() as in the example below. This
+         *   method utilizes StartAudioContext , a library by
+         *   Yotam Mann (MIT Licence, 2016).
+         *   @param [elements] This argument can be an Element,
+         *   Selector String, NodeList, p5.Element, jQuery
+         *   Element, or an Array of any of those.
+         *   @param [callback] Callback to invoke when the
+         *   AudioContext has started
+         *   @return Returns a Promise that resolves when the
+         *   AudioContext state is 'running'
+         */
+        userStartAudio(elements?: Element | any[], callback?: (...args: any[]) => any): Promise<any>;
 
         /**
          *   Returns a number representing the output volume

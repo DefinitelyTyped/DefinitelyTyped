@@ -175,7 +175,7 @@ function fixupModuleStructure(node: DocRoot): void {
     }
 
     // un-nest dgram module
-    unnestSubmodule('dgram', [['`dgram`_module_functions']]);
+    unnestSubmodule('dgram', [['`node:dgram`_module_functions']]);
 
     // FS is split into 2 modules, callback based, and promise based.
     unnestSubmodule('fs', [['callback_api'], ['synchronous_api'], ['common_objects']]);
@@ -187,7 +187,7 @@ function fixupModuleStructure(node: DocRoot): void {
     renameModule('webassembly_system_interface_(wasi)', 'wasi');
     unnestModule(['fs', 'promises_api'], 'fs/promises');
 
-    unnestSubmodule('trace_events', [['the_`trace_events`_module']]);
+    unnestSubmodule('trace_events', [['the_`node:trace_events`_module']]);
 
     unnestSubmodule('http2', [['core_api'], ['compatibility_api']]);
 
@@ -208,13 +208,13 @@ function fixupModuleStructure(node: DocRoot): void {
     });
 
     // un-nest crypto methods
-    unnestSubmodule('crypto', [['`crypto`_module_methods_and_properties']]);
+    unnestSubmodule('crypto', [['`node:crypto`_module_methods_and_properties']]);
 
     // un-nest process methods
     unnestSubmodule('child_process', [['asynchronous_process_creation'], ['synchronous_process_creation']]);
 
     // yup, another rename..
-    renameModule('modules:_`module`_api', 'module');
+    renameModule('modules:_`node:module`_api', 'module');
     unnestSubmodule('module', [['the_`module`_object'], ['source_map_v3_support']]);
 
     // un-nest methods into main
@@ -232,7 +232,7 @@ function fixupModuleStructure(node: DocRoot): void {
     asyncHooks.classes = []; // remove existing classes as they are weird redirects.
     mergeModules('async_hooks', 'asynchronous_context_tracking');
 
-    unnestSubmodule('buffer', [['`buffer`_module_apis']]);
+    unnestSubmodule('buffer', [['`node:buffer`_module_apis']]);
 
     // create fake BufferConstructor for statics
     const bufferModule = getModule(node, 'buffer');

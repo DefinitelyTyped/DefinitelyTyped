@@ -3,9 +3,7 @@
     "rules": {
         "array-type": false,
         "comment-format": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-mergeable-namespace": false,
         "no-misused-new": false,
         "no-unnecessary-qualifier": false,

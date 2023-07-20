@@ -1,5 +1,7 @@
 {
-  "rules": {
-      "no-const-enum": "off"
-  }
+    "rules": {
+        "no-const-enum": "off",
+        "no-any-union": "off",
+        "no-unnecessary-generics": "off"
+    }
 }

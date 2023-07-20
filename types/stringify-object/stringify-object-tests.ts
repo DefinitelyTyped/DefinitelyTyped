@@ -1,4 +1,6 @@
-import stringifyObject, { Options } from 'stringify-object';
+import stringifyObject from 'stringify-object';
+// tslint:disable-next-line:no-duplicate-imports testing imports
+import type { Options } from 'stringify-object';
 
 const options: Options = {
     indent: '  ',

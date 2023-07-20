@@ -350,7 +350,7 @@ declare namespace OpenSeadragon {
         timeout?: number | undefined;
         useCanvas?: boolean | undefined;
         minPixelRatio?: number | undefined;
-        mouseNavEnabled?: number | undefined;
+        mouseNavEnabled?: boolean | undefined;
         showNavigationControl?: boolean | undefined;
         navigationControlAnchor?: ControlAnchor | undefined;
         showZoomControl?: boolean | undefined;
@@ -1102,6 +1102,7 @@ declare namespace OpenSeadragon {
         opacity?: number | undefined;
         preload?: boolean | undefined;
         degrees?: number | undefined;
+        flipped?: boolean | undefined;
         compositeOperation?: string | undefined;
         crossOriginPolicy?: string | undefined;
         ajaxWithCredentials?: boolean | undefined;

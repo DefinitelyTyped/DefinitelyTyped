@@ -1,5 +1,5 @@
 import express = require('express');
-import { Store } from 'rdf-js';
+import { Store } from '@rdfjs/types';
 import '@rdfjs/express-handler';
 import 'set-link';
 import 'absolute-url';

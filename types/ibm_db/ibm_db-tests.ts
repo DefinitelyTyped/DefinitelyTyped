@@ -35,6 +35,27 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
     });
 });
 
+/** ibmdb.Pool */
+async function testPool() {
+  const pool = new ibmdb.Pool();
+  const conn = await pool.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<dbport>;PROTOCOL=TCPIP");
+  conn.query('select 1 from sysibm.sysdummy1', (err, data) => {
+      if (err) return false;
+      // $ExpectType false
+    conn.close((connErr) => {
+      if (connErr) {
+        // $ExpectType Error
+        connErr;
+      } else {
+        // $ExpectType undefined
+        connErr;
+      }
+    });
+  });
+  await pool.close();
+}
+testPool();
+
 /** imdb.ODBCStatement */
 const service = new ibmdb.ODBCStatement();
 service.executeSync();

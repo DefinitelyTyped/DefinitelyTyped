@@ -34,10 +34,13 @@ lock.isBusy('key'); // $ExpectType boolean
 new AsyncLock({ timeout: 5000 });
 new AsyncLock({ maxPending: 5000 });
 new AsyncLock({ maxOccupationTime: 5000 });
+new AsyncLock({ maxExecutionTime: 5000 });
 new AsyncLock({ domainReentrant: true });
 new AsyncLock({ skipQueue: true });
 new AsyncLock({ Promise: null });
+new AsyncLock({ timeout: undefined });
 
-AsyncLock.DEFAULT_TIMEOUT; // $ExpectType number
-AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType number
-AsyncLock.DEFAULT_MAX_PENDING; // $ExpectType number
+AsyncLock.DEFAULT_TIMEOUT; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_EXECUTION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_PENDING; // $ExpectType 1000

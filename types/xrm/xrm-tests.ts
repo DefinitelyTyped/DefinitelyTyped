@@ -427,7 +427,7 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
 // Demonstrate App
 Xrm.App.addGlobalNotification({
     type: 2,
-    level: 2, // error
+    level: XrmEnum.AppNotificationLevel.Error,
     message: "Test error notification",
     showCloseButton: true,
     action: {
@@ -577,10 +577,13 @@ function onLoadCheckStageChange(eventContext: Xrm.Events.EventContext) {
 }
 
 function onStageChange(context: Xrm.Events.StageChangeEventContext) {
+    // $ExpectType FormContext
     const formContext = context.getFormContext();
+    // $ExpectType Stage
     const currentStage = context.getEventArgs().getStage();
 
     // Get the name of the current stage
+    // $ExpectType string
     const currentStageName = currentStage.getName();
 
     // Prevent defaults
@@ -600,3 +603,8 @@ Xrm.Navigation.navigateTo({
         console.log(error.message);
     },
 );
+
+const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
+
+// $ExpectType MultiSelectOptionSetAttribute
+multiSelectOptionSetControl.getAttribute();

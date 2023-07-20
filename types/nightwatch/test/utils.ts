@@ -6,6 +6,8 @@ export function isNightwatchAPI(v: NightwatchAPI) {}
 
 export function isType<T>(v: T): T { return v; }
 
+export type UnknownToTrue<T> = unknown extends T ? true : false;
+
 export function isNightwatchCallbackResult<T>(result: NightwatchCallbackResult<T>): T | void {
   if (result.status === 0) {
       return result.value;

@@ -95,6 +95,7 @@ declare class ViewDefField {
     thumbnail: CellThumbnail;
     hasLookupDisplayEvent(): boolean;
     hasLinks: boolean;
+    hasVisibleThumbnail(): boolean;
     canHaveGlobalActions(): boolean;
     getGlobalActionClassKey(opt_key?: number): number;
     getGlobalActionRegisterKey(opt_key?: number): number | null;

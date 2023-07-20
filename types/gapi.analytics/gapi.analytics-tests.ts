@@ -1,5 +1,3 @@
-// Type definitions for Google Analytics API
-
 function test_namespace() {
     var analytics : boolean = gapi.client.analytics instanceof Object;
 

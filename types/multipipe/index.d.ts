@@ -19,126 +19,145 @@ import stream = require("stream");
 declare function multipipe(callback?: (err?: Error) => any): stream.PassThrough;
 declare function multipipe(options?: stream.DuplexOptions, callback?: (err?: Error) => any): stream.PassThrough;
 
-declare function multipipe(stream: stream.Duplex | ReadonlyArray<stream.Stream>, callback?: (err?: Error) => any): stream.Duplex;
-declare function multipipe(stream: stream.Duplex | ReadonlyArray<stream.Stream>, options?: stream.DuplexOptions, callback?: (err?: Error) => any): stream.Duplex;
+declare function multipipe(stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>, callback?: (err?: Error) => any): NodeJS.ReadWriteStream;
+declare function multipipe(stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>, options?: stream.DuplexOptions, callback?: (err?: Error) => any): NodeJS.ReadWriteStream;
 
-declare function multipipe(source: stream.Readable, destination: stream.Writable, callback?: (err?: Error) => any): stream.Duplex;
-declare function multipipe(source: stream.Readable, destination: stream.Writable, options?: stream.DuplexOptions, callback?: (err?: Error) => any): stream.Duplex;
+declare function multipipe(source: NodeJS.ReadableStream, destination: NodeJS.WritableStream, callback?: (err?: Error) => any): NodeJS.ReadWriteStream;
+declare function multipipe(source: NodeJS.ReadableStream, destination: NodeJS.WritableStream, options?: stream.DuplexOptions, callback?: (err?: Error) => any): NodeJS.ReadWriteStream;
 
-declare function multipipe(source: stream.Readable, transform: stream.Duplex, destination: stream.Writable, callback?: (err?: Error) => any): stream.Duplex;
-declare function multipipe(source: stream.Readable, transform: stream.Duplex, destination: stream.Writable, options: stream.DuplexOptions, callback?: (err?: Error) => any): stream.Duplex;
-
-declare function multipipe(source: stream.Readable, t1: stream.Duplex, t2: stream.Duplex, destination: stream.Writable, callback?: (err?: Error) => any): stream.Duplex;
-declare function multipipe(source: stream.Readable, t1: stream.Duplex, t2: stream.Duplex, destination: stream.Writable, options: stream.DuplexOptions, callback?: (err?: Error) => any): stream.Duplex;
-
+declare function multipipe(source: NodeJS.ReadableStream, transform: NodeJS.ReadWriteStream, destination: NodeJS.WritableStream, callback?: (err?: Error) => any): NodeJS.ReadWriteStream;
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    destination: stream.Writable,
-    callback?: (err?: Error) => any
-): stream.Duplex;
-declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    transform: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     options: stream.DuplexOptions,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     options: stream.DuplexOptions,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     options: stream.DuplexOptions,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    t6: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    t6: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     options: stream.DuplexOptions,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    t6: stream.Duplex,
-    t7: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
 declare function multipipe(
-    source: stream.Readable,
-    t1: stream.Duplex,
-    t2: stream.Duplex,
-    t3: stream.Duplex,
-    t4: stream.Duplex,
-    t5: stream.Duplex,
-    t6: stream.Duplex,
-    t7: stream.Duplex,
-    destination: stream.Writable,
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
     options: stream.DuplexOptions,
     callback?: (err?: Error) => any
-): stream.Duplex;
+): NodeJS.ReadWriteStream;
+
+declare function multipipe(
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    t6: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
+    callback?: (err?: Error) => any
+): NodeJS.ReadWriteStream;
+declare function multipipe(
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    t6: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
+    options: stream.DuplexOptions,
+    callback?: (err?: Error) => any
+): NodeJS.ReadWriteStream;
+
+declare function multipipe(
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    t6: NodeJS.ReadWriteStream,
+    t7: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
+    callback?: (err?: Error) => any
+): NodeJS.ReadWriteStream;
+declare function multipipe(
+    source: NodeJS.ReadableStream,
+    t1: NodeJS.ReadWriteStream,
+    t2: NodeJS.ReadWriteStream,
+    t3: NodeJS.ReadWriteStream,
+    t4: NodeJS.ReadWriteStream,
+    t5: NodeJS.ReadWriteStream,
+    t6: NodeJS.ReadWriteStream,
+    t7: NodeJS.ReadWriteStream,
+    destination: NodeJS.WritableStream,
+    options: stream.DuplexOptions,
+    callback?: (err?: Error) => any
+): NodeJS.ReadWriteStream;
 
 export = multipipe;

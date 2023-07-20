@@ -12,21 +12,7 @@ declare namespace OO {
          * @param context Context object for function or method call
          * @throws {Error} Listener argument is not a function or a valid method name
          */
-        on<C = null>(event: string, method: (this: C, ...args: any[]) => void, args?: any[], context?: C): this;
-
-        /**
-         * Add a listener to events of a specific event.
-         *
-         * The listener can be a function or the string name of a method; if the latter, then the
-         * name lookup happens at the time the listener is called.
-         *
-         * @param event Type of event to listen to
-         * @param method Function or method name to call when event occurs
-         * @param args Arguments to pass to listener, will be prepended to emitted arguments
-         * @param context Context object for function or method call
-         * @throws {Error} Listener argument is not a function or a valid method name
-         */
-        on<C extends object>(event: string, method: ExtractFunctionKeys<C>, args: any[], context: C): this;
+        on<C = null>(event: string, method: EventHandler<C>, args?: any[], context?: C): this;
 
         /**
          * Add a one-time listener to a specific event.
@@ -41,11 +27,11 @@ declare namespace OO {
          *
          * @param event Type of event to remove listener from
          * @param method Listener to remove. Must be in the same form as was passed
-         * to "on". Omit to remove all listeners.
+         * to "{@link on}". Omit to remove all listeners.
          * @param context Context object function or method call
          * @throws {Error} Listener argument is not a function or a valid method name
          */
-        off(event: string, method?: string | ((...args: any[]) => void), context?: any): this;
+        off<C = null>(event: string, method?: EventHandler<C>, context?: C): this;
 
         /**
          * Emit an event.
@@ -93,15 +79,7 @@ declare namespace OO {
          *  arrays containing method name or function followed by a list of arguments to be passed to
          *  callback before emitted arguments.
          */
-        connect<C>(
-            context: C,
-            methods: Record<
-                string,
-                | ((this: C, ...args: any[]) => void)
-                | (C extends object ? ExtractFunctionKeys<C> : never)
-                | [((this: C, ...args: any[]) => void) | (C extends object ? ExtractFunctionKeys<C> : never), ...any[]]
-            >,
-        ): this;
+        connect<C>(context: C, methods: Record<string, EventHandler<C> | [EventHandler<C>, ...any[]]>): this;
 
         /**
          * Disconnect event handlers from an object.
@@ -116,13 +94,7 @@ declare namespace OO {
          *  parameters vary), disconnecting one variation of (event name, event listener, parameters)
          *  will disconnect other variations as well.
          */
-        disconnect(
-            context: any,
-            methods?: Record<
-                string,
-                string | ((...args: any[]) => void) | [((...args: any[]) => void) | string, ...any[]]
-            >,
-        ): this;
+        disconnect<C>(context: C, methods?: Record<string, EventHandler<C> | [EventHandler<C>, ...any[]]>): this;
     }
 
     interface EventEmitterConstructor {

@@ -3,9 +3,7 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,

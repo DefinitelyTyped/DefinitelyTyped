@@ -7,12 +7,12 @@ import {
     MeshBasicMaterial,
     Object3D,
     Raycaster,
-    SphereBufferGeometry,
+    SphereGeometry,
     Texture,
     Vector3,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { XRHandMeshModel } from './XRHandMeshModel';
+import { XRHandMeshModel } from './XRHandMeshModel.js';
 
 export class OculusHandPointerModel extends Object3D {
     hand: Object3D;
@@ -30,7 +30,7 @@ export class OculusHandPointerModel extends Object3D {
     pinched: boolean;
     attached: boolean;
 
-    cursorObject: Mesh<SphereBufferGeometry, MeshBasicMaterial> | null;
+    cursorObject: Mesh<SphereGeometry, MeshBasicMaterial> | null;
 
     raycaster: Raycaster;
 

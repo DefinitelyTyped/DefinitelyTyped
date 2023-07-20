@@ -1,1 +1,1 @@
-lib/package.json
+index.d.mts

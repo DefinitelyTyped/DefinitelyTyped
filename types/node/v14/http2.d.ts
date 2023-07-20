@@ -441,7 +441,6 @@ declare module 'http2' {
         settings?: Settings | undefined;
 
         selectPadding?(frameLen: number, maxFrameLen: number): number;
-        createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
     }
 
     export interface ClientSessionOptions extends SessionOptions {

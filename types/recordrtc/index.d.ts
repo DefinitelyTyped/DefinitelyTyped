@@ -342,7 +342,7 @@ declare class RecordRTC {
     toURL(): string;
 
     /** returns Data-URL */
-    getDataURL(): string;
+    getDataURL(cb: (dataURL: string) => void): void;
 
     /** returns internal recorder */
     getInternalRecorder(): RecordRTC.Recorder;
@@ -351,7 +351,7 @@ declare class RecordRTC {
     initRecorder(): void;
 
     /** fired if recorder's state changes */
-    onStateChanged(cb: (state: RecordRTC.State) => void): void;
+    onStateChanged: (state: RecordRTC.State) => void;
 
     /** write recorded blob into indexed-db storage */
     writeToDisk(options: RecordRTC.Disk): void;

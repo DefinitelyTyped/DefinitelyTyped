@@ -4,6 +4,7 @@ export interface ReactScrollLinkProps {
     to: string;
     containerId?: string | undefined;
     activeClass?: string | undefined;
+    activeStyle?: React.CSSProperties | undefined;
     spy?: boolean | undefined;
     hashSpy?: boolean | undefined;
     horizontal?: boolean | undefined;
@@ -18,6 +19,7 @@ export interface ReactScrollLinkProps {
     onSetInactive?(to: string, element: HTMLElement): void;
     ignoreCancelEvents?: boolean | undefined;
     saveHashHistory?: boolean | undefined;
+    spyThrottle?: number | undefined;
 }
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;

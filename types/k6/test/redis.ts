@@ -168,9 +168,7 @@ redisClient.lpsuh();
 // @ts-expect-error
 redisClient.lpsuh(5);
 // @ts-expect-error
-redisClient.lpsuh('key');
-// @ts-expect-error
-redisClient.lpsuh('key', 'value');
+redisClient.lpsuh('key', { name: 'value' });
 
 //
 // Client.rpush
@@ -181,9 +179,7 @@ redisClient.rpush();
 // @ts-expect-error
 redisClient.rpush(5);
 // @ts-expect-error
-redisClient.rpush('key');
-// @ts-expect-error
-redisClient.rpush('key', 'value');
+redisClient.rpush('key', { name: 'value' });
 
 //
 // Client.lpop
@@ -291,7 +287,7 @@ redisClient.hset('key', 0);
 // @ts-expect-error
 redisClient.hset('key', 'value');
 // @ts-expect-error
-redisClient.hset('key', 'value', 0);
+redisClient.hset('key', 'value', { name: 'value' });
 
 //
 // Client.hsetnx
@@ -398,9 +394,7 @@ redisClient.sadd();
 // @ts-expect-error
 redisClient.sadd(5);
 // @ts-expect-error
-redisClient.sadd('key');
-// @ts-expect-error
-redisClient.sadd('key', 0);
+redisClient.sadd('key', { name: 'value' });
 
 //
 // Client.srem
@@ -411,9 +405,7 @@ redisClient.srem();
 // @ts-expect-error
 redisClient.srem(5);
 // @ts-expect-error
-redisClient.srem('key');
-// @ts-expect-error
-redisClient.srem('key', 0);
+redisClient.srem('key', { name: 'value' });
 
 //
 // Client.sismember

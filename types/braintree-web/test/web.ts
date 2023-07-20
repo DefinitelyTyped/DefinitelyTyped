@@ -321,6 +321,25 @@ braintree.client.create(
 
                 hostedFieldsInstance.on('binAvailable', onBinAvailable);
                 hostedFieldsInstance.off('binAvailable', onBinAvailable);
+
+                hostedFieldsInstance.setAttribute({
+                    field: 'number',
+                    attribute: 'disabled',
+                    value: true
+                }, (attributeErr) => {
+                    if (attributeErr) {
+                        console.error(attributeErr);
+                    }
+                });
+
+                hostedFieldsInstance.removeAttribute({
+                    field: 'number',
+                    attribute: 'disabled'
+                }, (attributeErr) => {
+                    if (attributeErr) {
+                        console.error(attributeErr);
+                    }
+                });
             },
         );
 

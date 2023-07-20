@@ -1,6 +1,6 @@
-import { WebGLRenderTarget, ShaderMaterial } from '../../../src/Three';
+import { WebGLRenderTarget, ShaderMaterial } from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export class BloomPass extends Pass {
     constructor(strength?: number, kernelSize?: number, sigma?: number);
@@ -10,5 +10,5 @@ export class BloomPass extends Pass {
     materialCopy: ShaderMaterial;
     convolutionUniforms: object;
     materialConvolution: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
 }

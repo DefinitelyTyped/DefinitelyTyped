@@ -39,7 +39,7 @@ declare class GridField {
     private visibleAtView;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: (value: string | number | boolean | Date) => any;
+    validateInput: (value: any) => any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;

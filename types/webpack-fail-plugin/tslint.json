@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "jsdoc-format": false,
-        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "semicolon": false
     }

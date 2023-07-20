@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.menus
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu
  * additions apply to, such as images, hyperlinks, and pages.
@@ -133,8 +136,9 @@ export namespace Menus {
 
         /**
          * The id of the bookmark where the context menu was clicked, if it was on a bookmark.
+         * Optional.
          */
-        bookmarkId: string;
+        bookmarkId?: string;
 
         /**
          * An array of keyboard modifiers that were held while the menu item was clicked.

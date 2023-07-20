@@ -1,10 +1,10 @@
-import { Extrafield } from './extrafield';
+import { Extrafields } from './extrafields';
 import { Address } from './address';
 
 export interface CheckoutCapture {
     line_items?: any;
     discount_code?: string;
-    extra_fields?: Extrafield[];
+    extra_fields?: Extrafields;
     customer: {
         id?: string;
         firstname?: string;

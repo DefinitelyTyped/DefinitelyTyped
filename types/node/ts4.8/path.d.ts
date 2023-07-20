@@ -7,13 +7,13 @@ declare module 'path/win32' {
     export = path;
 }
 /**
- * The `path` module provides utilities for working with file and directory paths.
- * It can be accessed using:
+ * The `node:path` module provides utilities for working with file and directory
+ * paths. It can be accessed using:
  *
  * ```js
- * const path = require('path');
+ * const path = require('node:path');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/path.js)
  */
 declare module 'path' {
     namespace path {

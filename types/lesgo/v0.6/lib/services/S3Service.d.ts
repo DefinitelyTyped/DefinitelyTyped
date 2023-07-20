@@ -1,4 +1,4 @@
-import S3 = require('aws-sdk/clients/s3');
+import S3 = require('aws-sdk2-types/clients/s3');
 
 // { ClientConfiguration, BucketName, ObjectKey, GetObjectOutput }
 

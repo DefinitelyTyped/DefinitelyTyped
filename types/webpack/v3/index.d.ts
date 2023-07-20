@@ -448,7 +448,7 @@ declare namespace webpack {
     interface OldLoaderRule extends BaseSingleLoaderRule {
         /**
          * Loader options
-         * @deprecated:
+         * @deprecated
          */
         query?: { [name: string]: any } | undefined;
     }

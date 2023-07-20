@@ -14,6 +14,11 @@ declare module 'leaflet' {
         wptIconUrls?: {
             [key: string]: string;
         };
+        startIcon?: Icon | undefined;
+        endIcon?: Icon | undefined;
+        wptIcons?: {
+            [key: string]: Icon;
+        };
     }
 
     interface GPXOptions {

@@ -1,5 +1,5 @@
 /**
- * The `dns` module enables name resolution. For example, use it to look up IP
+ * The `node:dns` module enables name resolution. For example, use it to look up IP
  * addresses of host names.
  *
  * Although named for the [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System), it does not always use the
@@ -9,7 +9,7 @@
  * system do, use {@link lookup}.
  *
  * ```js
- * const dns = require('dns');
+ * const dns = require('node:dns');
  *
  * dns.lookup('example.org', (err, address, family) => {
  *   console.log('address: %j family: IPv%s', address, family);
@@ -17,13 +17,13 @@
  * // address: "93.184.216.34" family: IPv4
  * ```
  *
- * All other functions in the `dns` module connect to an actual DNS server to
+ * All other functions in the `node:dns` module connect to an actual DNS server to
  * perform name resolution. They will always use the network to perform DNS
  * queries. These functions do not use the same set of configuration files used by {@link lookup} (e.g. `/etc/hosts`). Use these functions to always perform
  * DNS queries, bypassing other name-resolution facilities.
  *
  * ```js
- * const dns = require('dns');
+ * const dns = require('node:dns');
  *
  * dns.resolve4('archive.org', (err, addresses) => {
  *   if (err) throw err;
@@ -42,7 +42,7 @@
  * ```
  *
  * See the `Implementation considerations section` for more information.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/dns.js)
  */
 declare module 'dns' {
     import * as dnsPromises from 'node:dns/promises';
@@ -76,8 +76,8 @@ declare module 'dns' {
     /**
      * Resolves a host name (e.g. `'nodejs.org'`) into the first found A (IPv4) or
      * AAAA (IPv6) record. All `option` properties are optional. If `options` is an
-     * integer, then it must be `4` or `6` – if `options` is not provided, then IPv4
-     * and IPv6 addresses are both returned if found.
+     * integer, then it must be `4` or `6` – if `options` is `0` or not provided, then
+     * IPv4 and IPv6 addresses are both returned if found.
      *
      * With the `all` option set to `true`, the arguments for `callback` change to`(err, addresses)`, with `addresses` being an array of objects with the
      * properties `address` and `family`.
@@ -89,14 +89,14 @@ declare module 'dns' {
      *
      * `dns.lookup()` does not necessarily have anything to do with the DNS protocol.
      * The implementation uses an operating system facility that can associate names
-     * with addresses, and vice versa. This implementation can have subtle but
+     * with addresses and vice versa. This implementation can have subtle but
      * important consequences on the behavior of any Node.js program. Please take some
      * time to consult the `Implementation considerations section` before using`dns.lookup()`.
      *
      * Example usage:
      *
      * ```js
-     * const dns = require('dns');
+     * const dns = require('node:dns');
      * const options = {
      *   family: 6,
      *   hints: dns.ADDRCONFIG | dns.V4MAPPED,
@@ -135,7 +135,7 @@ declare module 'dns' {
      * On an error, `err` is an `Error` object, where `err.code` is the error code.
      *
      * ```js
-     * const dns = require('dns');
+     * const dns = require('node:dns');
      * dns.lookupService('127.0.0.1', 22, (err, hostname, service) => {
      *   console.log(hostname, service);
      *   // Prints: localhost ssh
@@ -174,7 +174,7 @@ declare module 'dns' {
         type: 'AAAA';
     }
     export interface CaaRecord {
-        critial: number;
+        critical: number;
         issue?: string | undefined;
         issuewild?: string | undefined;
         iodef?: string | undefined;
@@ -291,7 +291,7 @@ declare module 'dns' {
         function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
     /**
-     * Uses the DNS protocol to resolve a IPv6 addresses (`AAAA` records) for the`hostname`. The `addresses` argument passed to the `callback` function
+     * Uses the DNS protocol to resolve IPv6 addresses (`AAAA` records) for the`hostname`. The `addresses` argument passed to the `callback` function
      * will contain an array of IPv6 addresses.
      * @since v0.1.16
      * @param hostname Host name to resolve.
@@ -333,7 +333,7 @@ declare module 'dns' {
         function __promisify__(hostname: string): Promise<MxRecord[]>;
     }
     /**
-     * Uses the DNS protocol to resolve regular expression based records (`NAPTR`records) for the `hostname`. The `addresses` argument passed to the `callback`function will contain an array of
+     * Uses the DNS protocol to resolve regular expression-based records (`NAPTR`records) for the `hostname`. The `addresses` argument passed to the `callback`function will contain an array of
      * objects with the following properties:
      *
      * * `flags`
@@ -485,6 +485,14 @@ declare module 'dns' {
      */
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void): void;
     /**
+     * Get the default value for `verbatim` in {@link lookup} and `dnsPromises.lookup()`. The value could be:
+     *
+     * * `ipv4first`: for `verbatim` defaulting to `false`.
+     * * `verbatim`: for `verbatim` defaulting to `true`.
+     * @since v20.1.0
+     */
+    export function getDefaultResultOrder(): 'ipv4first' | 'verbatim';
+    /**
      * Sets the IP address and port of servers to be used when performing DNS
      * resolution. The `servers` argument is an array of [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6) formatted
      * addresses. If the port is the IANA default DNS port (53) it can be omitted.
@@ -535,7 +543,7 @@ declare module 'dns' {
      * * `ipv4first`: sets default `verbatim` `false`.
      * * `verbatim`: sets default `verbatim` `true`.
      *
-     * The default is `ipv4first` and {@link setDefaultResultOrder} have higher
+     * The default is `verbatim` and {@link setDefaultResultOrder} have higher
      * priority than `--dns-result-order`. When using `worker threads`,{@link setDefaultResultOrder} from the main thread won't affect the default
      * dns orders in workers.
      * @since v16.4.0, v14.18.0
@@ -582,7 +590,7 @@ declare module 'dns' {
      * other resolvers:
      *
      * ```js
-     * const { Resolver } = require('dns');
+     * const { Resolver } = require('node:dns');
      * const resolver = new Resolver();
      * resolver.setServers(['4.4.4.4']);
      *
@@ -592,7 +600,7 @@ declare module 'dns' {
      * });
      * ```
      *
-     * The following methods from the `dns` module are available:
+     * The following methods from the `node:dns` module are available:
      *
      * * `resolver.getServers()`
      * * `resolver.resolve()`
@@ -625,6 +633,7 @@ declare module 'dns' {
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
         resolveAny: typeof resolveAny;
+        resolveCaa: typeof resolveCaa;
         resolveCname: typeof resolveCname;
         resolveMx: typeof resolveMx;
         resolveNaptr: typeof resolveNaptr;
@@ -639,7 +648,7 @@ declare module 'dns' {
          * This allows programs to specify outbound interfaces when used on multi-homed
          * systems.
          *
-         * If a v4 or v6 address is not specified, it is set to the default, and the
+         * If a v4 or v6 address is not specified, it is set to the default and the
          * operating system will choose a local address automatically.
          *
          * The resolver will use the v4 local address when making requests to IPv4 DNS

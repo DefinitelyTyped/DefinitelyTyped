@@ -160,40 +160,34 @@ export class Composer<T extends Model> {
    * @param {Array} rows Rows from sql result
    * @param {Boolean} grouped Are these models grouped, if so, different procedure
    * @return {Nodal.ModelArray}
-   * @private
    */
   private __parseModelsFromRows__(rows, grouped?);
   /**
    * Collapses linked list of queries into an array (for .reduce, .map etc)
    * @return {Array}
-   * @private
    */
   private __collapse__();
   /**
    * Removes last limit command from a collapsed array of composer commands
    * @param {Array} [composerArray] Array of composer commands
    * @return {Array}
-   * @private
    */
   private __removeLastLimitCommand__(composerArray);
   /**
    * Gets last limit command from a collapsed array of composer commands
    * @param {Array} [composerArray] Array of composer commands
    * @return {Array}
-   * @private
    */
   private __getLastLimitCommand__(composerArray);
   /**
    * Determines whether this composer query represents a grouped query or not
    * @return {Boolean}
-   * @private
    */
   private __isGrouped__();
   /**
    * Reduces an array of composer queries to a single query information object
    * @param {Array} [composerArray]
    * @return {Object} Looks like {commands: [], joins: []}
-   * @private
    */
   private __reduceToQueryInformation__(composerArray);
   /**
@@ -201,13 +195,11 @@ export class Composer<T extends Model> {
    * @param {Array} [commandArray]
    * @param {Array} [includeColumns=*] Which columns to include, includes all by default
    * @return {Object} Looks like {sql: [], params: []}
-   * @private
    */
   private __reduceCommandsToQuery__(commandArray, includeColumns?);
   /**
    * Retrieve all joined column data for a given join
    * @param {string} joinName The name of the join relationship
-   * @private
    */
   private __joinedColumns__(joinName);
   /**
@@ -215,14 +207,12 @@ export class Composer<T extends Model> {
    * @param {Array} [includeColumns=*] Which columns to include, includes all by default
    * @param {boolean} [disableJoins=false] Disable joins if you just want a subset of data
    * @return {Object} Has "params" and "sql" properties.
-   * @private
    */
   private __generateQuery__(includeColumns?, disableJoins?);
   /**
    * Generate a SQL count query
    * @param {boolean} [useLimit=false] Generates COUNT using limit command as well
    * @return {Object} Has "params" and "sql" properties.
-   * @private
    */
   private __generateCountQuery__(useLimit?);
   /**
@@ -231,7 +221,6 @@ export class Composer<T extends Model> {
    * @param {Object} queryInfo Must be format {commands: [], joins: []}
    * @param {Array} [includeColumns=*] Which columns to include, includes all by default
    * @return {Object} Has "params" and "sql" properties.
-   * @private
    */
   private __addJoinsToQuery__(query, queryInfo, includeColumns?);
   /**
@@ -239,7 +228,6 @@ export class Composer<T extends Model> {
    * @param {Object} comparisons Comparisons object. {age__lte: 27}, for example.
    * @param {Nodal.Model} Model the model to use as the basis for comparison. Default to current model.
    * @return {Array}
-   * @private
    */
   private __parseComparisons__(comparisons, model?);
   private __filterHidden__(modelConstructor, comparisonsArray);
@@ -636,13 +624,11 @@ export class Model {
   /**
    * Runs all verifications before saving
    * @param {function} callback Method to execute upon completion. Returns true if OK, false if failed
-   * @private
    */
   __verify__(callback: Function): any;
   /**
    * Saves model to database
    * @param {function} callback Method to execute upon completion, returns error if failed (including validations didn't pass)
-   * @private
    */
   private __save__(callback);
   /**
@@ -820,13 +806,11 @@ export class Model {
   static isHidden(field: string): any;
   /**
    * Prepare model for use
-   * @private
    */
   private __initialize__();
   __load__(data: any, fromStorage?: boolean, fromSeed?: boolean): this;
   /**
    * Validates provided fieldList (or all fields if not provided)
-   * @private
    * @param {optional Array} fieldList fields to validate
    */
   private __validate__(field?);
@@ -839,7 +823,6 @@ export class Model {
   /**
    * Destroys model reference in database
    * @param {function} callback Method to execute upon completion, returns error if failed
-   * @private
    */
   private __destroy__(callback);
 }
@@ -863,7 +846,6 @@ export interface IModelData {
 }
 /**
  * Factory for creating models
- * @class
  */
 export class ModelFactory {
   private Model;

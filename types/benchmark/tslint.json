@@ -6,7 +6,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,

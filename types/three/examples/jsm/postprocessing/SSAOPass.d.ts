@@ -10,9 +10,9 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     ColorRepresentation,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export enum SSAOPassOUTPUT {
     Default,
@@ -46,7 +46,7 @@ export class SSAOPass extends Pass {
     blurMaterial: ShaderMaterial;
     depthRenderMaterial: ShaderMaterial;
     copyMaterial: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     originalClearColor: Color;
 
     static OUTPUT: SSAOPassOUTPUT;

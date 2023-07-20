@@ -16,9 +16,9 @@ import {
     NormalizationSelectableNode,
     NormalizationSplitOperation,
 } from '../util/NormalizationNode';
-import { ReaderFragment } from '../util/ReaderNode';
+import { ReaderFragment, ReaderLinkedField } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
-import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
+import { CacheConfig, DataID, Disposable, FetchPolicy, OperationType, RenderPolicy, Variables, VariablesOf } from '../util/RelayRuntimeTypes';
 import { InvalidationState } from './RelayModernStore';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
@@ -179,7 +179,7 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
@@ -390,7 +390,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
@@ -410,16 +410,14 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     invalidateStore(): void;
-    readUpdatableFragment_EXPERIMENTAL<TKey extends HasUpdatableSpread>(
+    readUpdatableQuery<TQuery extends OperationType>(
+        gqlQuery: GraphQLTaggedNode,
+        variables: VariablesOf<TQuery>,
+    ): UpdatableQueryData<TQuery>;
+    readUpdatableFragment<TKey extends HasUpdatableSpread>(
         fragmentInput: GraphQLTaggedNode,
         fragmentRef: TKey,
-    ): UpdatableData<TKey>;
-}
-
-interface OperationDescriptor {
-    readonly fragment: SingularReaderSelector;
-    readonly request: RequestDescriptor;
-    readonly root: NormalizationSelector;
+    ): UpdatableFragmentData<TKey>;
 }
 
 export type LogEvent =
@@ -732,6 +730,7 @@ export interface FragmentPointer {
     __fragmentOwner: RequestDescriptor;
 }
 
+// tslint:disable:no-redundant-jsdoc-2
 /**
  * The partial shape of an object with a '...Fragment @module(name: "...")'
  * selection
@@ -741,6 +740,7 @@ export interface ModuleImportPointer {
     readonly __module_component: unknown;
     readonly $fragmentSpreads: unknown;
 }
+// tslint:enable:no-redundant-jsdoc-2
 
 /**
  * A callback for resolving a Selector from a source.
@@ -893,7 +893,7 @@ export type MissingFieldHandler =
           kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record | null | undefined,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => unknown;
@@ -901,8 +901,8 @@ export type MissingFieldHandler =
     | {
           kind: 'linked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => DataID | null | undefined;
@@ -910,8 +910,8 @@ export type MissingFieldHandler =
     | {
           kind: 'pluralLinked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => Array<DataID | null | undefined> | null | undefined;
@@ -1043,17 +1043,23 @@ export interface RelayResolverError {
 export type RelayResolverErrors = RelayResolverError[];
 
 /**
- * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
- * readUpdatableFragment_EXPERIMENTAL.
+ * The return type of calls to store.readUpdatableFragment.
  */
-export interface UpdatableData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
+export interface UpdatableFragmentData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
     readonly updatableData: Required<TKey>[' $data'];
+}
+
+/**
+ * The return type of calls to store.readUpdatableQuery.
+ */
+export interface UpdatableQueryData<TQuery extends OperationType> {
+    readonly updatableData: TQuery['response'];
 }
 
 /**
  * A linked field where an updatable fragment is spread has the type
  * HasUpdatableSpread.
- * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
+ * This type is expected by store.readUpdatableFragment.
  */
 export type HasUpdatableSpread<TData = unknown> = Readonly<{
     ' $data'?: TData | undefined;

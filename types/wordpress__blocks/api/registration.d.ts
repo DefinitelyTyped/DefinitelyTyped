@@ -28,7 +28,7 @@ export function getBlockSupport<T>(
 /**
  * Returns a registered block type.
  */
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 export function getBlockType<T extends Record<string, any> = Record<string, any>>(name: string | undefined): Block<T> | undefined;
 
 /**

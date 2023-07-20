@@ -254,6 +254,13 @@ jsonLogic.uses_data({ logic: ['test', 'test'] });
 // $ExpectType boolean
 jsonLogic.rule_like('test', 'test');
 
+const test: unknown = { logic: ['test', 'test'] };
+
+if (jsonLogic.is_logic(test)) {
+    // $ExpectType RulesLogic<never>
+    test;
+}
+
 // Test the extensibility of the RulesLogic type
 
 type StartsWithAndEndsWith =

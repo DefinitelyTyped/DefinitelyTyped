@@ -35,6 +35,11 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     call(context: any, ...args: TI): Promise<TR>;
 
     /**
+     * Returns the current state of the circuit
+     */
+    toJSON(): { state: CircuitBreaker.State; status: CircuitBreaker.Stats };
+
+    /**
      * Clears the cache of this CircuitBreaker
      */
     clearCache(): void;
@@ -251,6 +256,17 @@ declare namespace CircuitBreaker {
 
     interface Stats extends Bucket {
         latencyMean: number;
+    }
+
+    interface State {
+        name: string;
+        enabled: boolean;
+        closed: boolean;
+        open: boolean;
+        halfOpen: boolean;
+        warmUp: boolean;
+        shutdown: boolean;
+        lastTimerAt: symbol;
     }
 }
 

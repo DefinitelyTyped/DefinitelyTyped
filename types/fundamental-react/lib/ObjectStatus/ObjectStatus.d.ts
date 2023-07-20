@@ -8,6 +8,8 @@ export type ObjectStatusProps = {
     link?: string | undefined;
     size?: 'l' | undefined;
     status?: ObjectStatusTypes | undefined;
+    /** aria-label is required for a11y, when object status has only icon */
+    ariaLabel?: string;
 } & React.HTMLAttributes<HTMLAnchorElement | HTMLSpanElement>;
 
 declare const ObjectStatus: React.FunctionComponent<ObjectStatusProps>;

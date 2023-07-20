@@ -1134,7 +1134,7 @@ export class BootstrapTable extends Component<BootstrapTableProps> {
     handleDropRow(rowKeys: Array<number | string>): void;
     /**
      * Call this function to do column filtering on table.
-     * @example:
+     * @example
      *  // Filtering passing an array of values
      *  this.refs.table.handleFilterData({
      *      name: { type: 'ArrayFilter', value: ['Item name 3', 'Item name 4'] },
@@ -1246,8 +1246,8 @@ export interface TableHeaderColumnProps {
     /**
      * Return the value you want to be filtered on that column.
      * It's useful if your column data is an object.
-     * @example: (cell, row) => cell.fieldOne;
-     * @see: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/manipulation/search-format-table.js
+     * @example (cell, row) => cell.fieldOne;
+     * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/manipulation/search-format-table.js
      */
     filterValue?(cell: any, row: any): any;
     /**
@@ -2313,7 +2313,7 @@ export interface CustomEditorProps<TRow extends object, K extends keyof TRow> ex
 
 /**
  * Object to provide a custom editor component to use for a table column.
- * @see: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/cell-edit/custom-cell-edit-table.js
+ * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/cell-edit/custom-cell-edit-table.js
  */
 export interface CustomEditor<TRow extends object, K extends keyof TRow> {
     /**

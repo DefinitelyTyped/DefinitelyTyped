@@ -1,7 +1,7 @@
-import AnalyticLightNode from './AnalyticLightNode';
-import Object3DNode from '../accessors/Object3DNode';
-import { HemisphereLight } from '../../../../src/Three';
-import Node from '../core/Node';
+import AnalyticLightNode from './AnalyticLightNode.js';
+import Object3DNode from '../accessors/Object3DNode.js';
+import { HemisphereLight } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
 
 export default class HemisphereLightNode extends AnalyticLightNode<HemisphereLight> {
     lightPositionNode: Object3DNode;

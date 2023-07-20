@@ -1,39 +1,53 @@
 /**
- * Defines a rectangle. This is a WIP
+ * Defines a rectangle. This is a WIP.
  *
  * @targetfolder objects
  * @optionobject
  */
 export declare class Bounds {
+    private _left;
+    private _right;
+    private _top;
+    private _bottom;
     /**
-     * Coordinates of the left edge
+     * Coordinate of the left edge.
+     * @minVersion 22.5
      */
-    left: number;
+    get left(): number;
+    set left(coordinate: number);
     /**
-     * Coordinates of the right edge
+     * Coordinate of the right edge.
+     * @minVersion 22.5
      */
-    right: number;
+    get right(): number;
+    set right(coordinate: number);
     /**
-     * Coordinates of the top edge
+     * Coordinate of the top edge.
+     * @minVersion 22.5
      */
-    top: number;
+    get top(): number;
+    set top(coordinate: number);
     /**
-     * Coordinates of the bottom edge
+     * Coordinate of the bottom edge.
+     * @minVersion 22.5
      */
-    bottom: number;
+    get bottom(): number;
+    set bottom(coordinate: number);
     /**
-     * Calculated width
+     * Calculated width.
+     * @minVersion 22.5
      */
     get width(): number;
     /**
-     * Calculated height
+     * Calculated height.
+     * @minVersion 22.5
      */
     get height(): number;
     /**
-     * The class name of the referenced object
-     * @default "Bounds"
+     * The class name of the referenced object: *"Bounds"*.
+     * @minVersion 22.5
      */
-    readonly typename: string;
+    get typename(): "Bounds";
     /** @ignore */
     constructor();
 }

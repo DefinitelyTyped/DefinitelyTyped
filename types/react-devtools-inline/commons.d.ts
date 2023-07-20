@@ -1264,6 +1264,7 @@ export interface FiberNode {
     pendingProps: Record<string, unknown> | null;
     _debugSource: Source | null;
     key: string | null;
+    deletions: FiberNode[] | null;
 }
 export interface DevToolsHook {
     listeners: Record<string, ListenerHandler[]>;

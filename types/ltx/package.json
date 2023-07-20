@@ -1,4 +1,11 @@
 {
     "private": true,
-    "type": "module"
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.mts",
+                "default": "./index.d.ts"
+            }
+        }
+    }
 }

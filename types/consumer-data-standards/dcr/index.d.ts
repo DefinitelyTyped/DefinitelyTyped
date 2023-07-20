@@ -52,7 +52,7 @@ export type ClientRegistration = {
    */
   grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
   /**
-   * JWE `alg` algorithm with which an id_token is to be encrypted
+   * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
    */
   id_token_encrypted_response_alg: string;
   /**
@@ -176,6 +176,18 @@ export interface RegistrationProperties {
    */
   application_type?: "web" | null;
   /**
+   * The JWE `alg` algorithm required for encrypting authorization responses. If unspecified, the default is that no encryption is performed.<br><br>Required if “authorization_encrypted_response_enc” is included.
+   */
+  authorization_encrypted_response_alg?: ("RSA-OAEP" | "RSA-OAEP-256") | null;
+  /**
+   * The JWE `enc` algorithm required for encrypting authorization responses. If “authorization_encrypted_response_alg” is specified, the default for this value is “A128CBC-HS256”.
+   */
+  authorization_encrypted_response_enc?: ("A256GCM" | "A128CBC-HS256") | null;
+  /**
+   * The JWS `alg` algorithm required for signing authorization responses. If this is specified, the response will be signed using JWS and the configured algorithm. The algorithm “none” is not allowed.<br><br>Required if response_type of “code” is registered by the client.
+   */
+  authorization_signed_response_alg?: ("PS256" | "ES256") | null;
+  /**
    * Human-readable string name of the software product description to be presented to the end user during authorization
    */
   client_description: string;
@@ -200,7 +212,7 @@ export interface RegistrationProperties {
    */
   grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
   /**
-   * JWE `alg` algorithm with which an id_token is to be encrypted
+   * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
    */
   id_token_encrypted_response_alg: string;
   /**
@@ -210,7 +222,7 @@ export interface RegistrationProperties {
   /**
    * Algorithm with which an id_token is to be signed
    */
-  id_token_signed_response_alg?: ("PS256" | "ES256") | null;
+  id_token_signed_response_alg: "PS256" | "ES256";
   /**
    * URL string referencing the client JSON Web Key (JWK) Set **[[RFC7517]](#nref-RFC7517)** document, which contains the client public keys
    */
@@ -252,9 +264,9 @@ export interface RegistrationProperties {
    */
   request_object_signing_alg: "PS256" | "ES256";
   /**
-   * Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint.
+   * Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint.<br><br>Response type value `code` is required for Authorization Code Flow. Response type value `code id_token` is required for OIDC Hybrid Flow.
    */
-  response_types: "code id_token"[];
+  response_types: ("code" | "code id_token")[];
   /**
    * URI string that references the location of the Software Product consent revocation endpoint
    */
@@ -274,7 +286,7 @@ export interface RegistrationProperties {
   /**
    * String containing a role of the software in the CDR Regime. Initially the only value used with be `data-recipient-software-product`
    */
-  software_roles?: string | null;
+  software_roles?: "data-recipient-software-product" | null;
   /**
    * The Software Statement Assertion, as defined in CDR standards
    */

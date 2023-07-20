@@ -107,3 +107,6 @@ chart.getChartState().svg.data();
 
 // $ExpectType Selection<SVGSVGElement, string, null, undefined>
 chart.getChartState().svg.on('wheel.zoom', null);
+
+// $ExpectType ZoomBehavior<Element, Person>
+chart.zoomBehavior();

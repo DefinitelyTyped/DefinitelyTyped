@@ -400,8 +400,7 @@ declare namespace Tags {
      * {@link BaseTagData},specify the allowed properties and use that as the
      * type parameter.
      */
-    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
-    }
+    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {}
 
     /**
      * React wrapper component that renders a tagify editor in mixed-mode. This
@@ -410,7 +409,7 @@ declare namespace Tags {
      * @returns The rendered React tagify element.
      */
     // Type parameter is used more than once within the TagifyMixedTagsReactProps interface
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
 }
 
@@ -423,7 +422,7 @@ declare namespace Tags {
  * @returns The rendered React tagify element.
  */
 // Type parameter is used more than once within the TagifyTagsReactProps interface
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function Tags<T extends BaseTagData = TagData>(props: Tags.TagifyTagsReactProps<T>): ReactElement;
 
 export = Tags;

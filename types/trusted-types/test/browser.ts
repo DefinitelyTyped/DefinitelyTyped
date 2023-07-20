@@ -104,11 +104,11 @@ trustedHTML = trustedScript;
 // @ts-expect-error
 new TrustedHTML();
 
-// $ExpectType typeof TrustedHTML
+// @ts-expect-error
 TrustedHTML;
-// $ExpectType typeof TrustedScript
+// @ts-expect-error
 TrustedScript;
-// $ExpectType typeof TrustedScriptURL
+// @ts-expect-error
 TrustedScriptURL;
 
 // $ExpectType typeof TrustedHTML

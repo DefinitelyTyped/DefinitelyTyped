@@ -13,7 +13,7 @@ app.use(async (ctx): Promise<void> => {
     ctx.isUnauthenticated();
     // $ExpectType Promise<void>
     ctx.login({});
-    // $ExpectType void
+    // $ExpectType Promise<void>
     ctx.logout();
     ctx.state.user;
 });

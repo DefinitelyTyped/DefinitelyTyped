@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "ts-toolbelt": "^6.15.1"
+        "types-ramda": "^0.29.4"
     }
 }

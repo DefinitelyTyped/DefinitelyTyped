@@ -1,4 +1,4 @@
-import { BufferGeometry, Material, Mesh, Color } from '../../../src/Three';
+import { BufferGeometry, Material, Mesh, Color } from '../../../src/Three.js';
 
 export class MarchingCubes extends Mesh {
     constructor(
@@ -66,6 +66,7 @@ export class MarchingCubes extends Mesh {
     blur(intensity: number): void;
 
     reset(): void;
+    update(): void;
     render(renderCallback: any): void;
     generateGeometry(): BufferGeometry;
     generateBufferGeometry(): BufferGeometry;

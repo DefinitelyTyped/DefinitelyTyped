@@ -13,6 +13,9 @@ export interface InfoUnitOptions extends InfoOptions {
 export type UnitOptions = InfoUnitOptions;
 
 export interface InfoCalendarOptions extends InfoUnitOptions {
+    /**
+     * @default gregory
+     */
     outputCalendar?: CalendarSystem | undefined;
 }
 
@@ -65,11 +68,11 @@ export namespace Info {
      * Return an array of standalone month names.
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
      *
-     * @param length - the length of the month representation, such as "numeric", "2-digit", "narrow", "short", "long". Defaults to 'long'.
+     * @param length - the length of the month representation. Defaults to 'long'.
      * @param opts - options
      * @param opts.locale - the locale code
-     * @param opts.numberingSystem - the numbering system. Defaults to null.
-     * @param opts.locObj - an existing locale object to use. Defaults to null.
+     * @param opts.numberingSystem - the numbering system.
+     * @param opts.locObj - an existing locale object to use.
      * @param opts.outputCalendar - the calendar. Defaults to 'gregory'.
      *
      * @example
@@ -89,28 +92,28 @@ export namespace Info {
 
     /**
      * Return an array of format month names.
-     * Format months differ from standalone months in that they're meant to appear next to the day of the month. In some languages, that
-     * changes the string.
+     * Format months differ from standalone months in that they are meant to appear next to the day of the month.
+     * In some languages, that changes the string.
      * See {@link Info#months}
      *
-     * @param length - the length of the month representation, such as "numeric", "2-digit", "narrow", "short", "long". Defaults to 'long'.
+     * @param length - the length of the month representation. Defaults to 'long'.
      * @param opts - options
      * @param opts.locale - the locale code
-     * @param opts.numberingSystem - the numbering system. Defaults to null.
-     * @param opts.locObj - an existing locale object to use. Defaults to null.
+     * @param opts.numberingSystem - the numbering system.
+     * @param opts.locObj - an existing locale object to use.
      * @param opts.outputCalendar - the calendar. Defaults to 'gregory'.
      */
-    function monthsFormat(length?: UnitLength, options?: InfoCalendarOptions): string[];
+    function monthsFormat(length?: UnitLength, opts?: InfoCalendarOptions): string[];
 
     /**
      * Return an array of standalone week names.
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
      *
-     * @param length - the length of the weekday representation, such as "narrow", "short", "long". Defaults to 'long'.
+     * @param length - the length of the weekday representation. Defaults to 'long'.
      * @param opts - options
      * @param opts.locale - the locale code
-     * @param opts.numberingSystem - the numbering system. Defaults to null.
-     * @param opts.locObj - an existing locale object to use. Defaults to null.
+     * @param opts.numberingSystem - the numbering system.
+     * @param opts.locObj - an existing locale object to use.
      *
      * @example
      * Info.weekdays()[0] //=> 'Monday'
@@ -121,21 +124,21 @@ export namespace Info {
      * @example
      * Info.weekdays('short', { locale: 'ar' })[0] //=> 'الاثنين'
      */
-    function weekdays(length?: StringUnitLength, options?: InfoUnitOptions): string[];
+    function weekdays(length?: StringUnitLength, opts?: InfoUnitOptions): string[];
 
     /**
      * Return an array of format week names.
-     * Format weekdays differ from standalone weekdays in that they're meant to appear next to more date information. In some languages, that
-     * changes the string.
+     * Format weekdays differ from standalone weekdays in that they are meant to appear next to more date information.
+     * In some languages, that changes the string.
      * See {@link Info#weekdays}
      *
-     * @param length - the length of the month representation, such as "narrow", "short", "long". Defaults to 'long'.
+     * @param length - the length of the month representation. Defaults to 'long'.
      * @param opts - options
-     * @param opts.locale - the locale code. Defaults to null.
-     * @param opts.numberingSystem - the numbering system. Defaults to null.
-     * @param opts.locObj - an existing locale object to use. Defaults to null.
+     * @param opts.locale - the locale code.
+     * @param opts.numberingSystem - the numbering system.
+     * @param opts.locObj - an existing locale object to use.
      */
-    function weekdaysFormat(length?: StringUnitLength, options?: InfoUnitOptions): string[];
+    function weekdaysFormat(length?: StringUnitLength, opts?: InfoUnitOptions): string[];
 
     /**
      * Return an array of meridiems.
@@ -148,12 +151,12 @@ export namespace Info {
      * @example
      * Info.meridiems({ locale: 'my' }) //=> [ 'နံနက်', 'ညနေ' ]
      */
-    function meridiems(options?: InfoOptions): string[];
+    function meridiems(opts?: InfoOptions): string[];
 
     /**
      * Return an array of eras, such as ['BC', 'AD']. The locale can be specified, but the calendar system is always Gregorian.
      *
-     * @param length - the length of the era representation, such as "short" or "long". Defaults to 'short'.
+     * @param length - the length of the era representation. Defaults to 'short'.
      * @param opts - options
      * @param opts.locale - the locale code
      *
@@ -164,13 +167,13 @@ export namespace Info {
      * @example
      * Info.eras('long', { locale: 'fr' }) //=> [ 'avant Jésus-Christ', 'après Jésus-Christ' ]
      */
-    function eras(length?: StringUnitLength, options?: InfoOptions): string[];
+    function eras(length?: StringUnitLength, opts?: InfoOptions): string[];
 
     /**
      * Return the set of available features in this environment.
-     * Some features of Luxon are not available in all environments. For example, on older browsers, timezone support is not available. Use this function to figure out if that's the case.
-     * Keys:
-     * * `relative`: whether this environment supports relative time formatting
+     * Some features of Luxon are not available in all environments.
+     * For example, on older browsers, timezone support is not available.
+     * Use this function to figure out if that is the case.
      *
      * @example
      * Info.features() //=> { intl: true, intlTokens: false, zones: true, relative: false }

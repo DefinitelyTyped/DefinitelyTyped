@@ -12,7 +12,7 @@ import {
 import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 
 // Global
-const threeCamera = new AFRAME.THREE.Camera();
+const threeCamera = new AFRAME.THREE.OrthographicCamera();
 
 // Entity
 const entity = document.createElement('a-entity');

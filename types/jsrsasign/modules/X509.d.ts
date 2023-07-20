@@ -160,6 +160,7 @@ declare namespace jsrsasign {
         critical?: boolean;
     }
     interface ExtAuthorityKeyIdentifier {
+        extname: 'authorityKeyIdentifier';
         kid: Hex;
         issuer?: Hex;
         sn?: Hex;

@@ -22,25 +22,25 @@ ref.address(buffer);
 // $ExpectType string
 ref.hexAddress(buffer);
 
-// $ExpectType Value<any>
+// $ExpectType Pointer<any>
 ref.alloc(typeLike, 0);
-// $ExpectType Value<number>
+// $ExpectType Pointer<number>
 ref.alloc("int");
-// $ExpectType Value<number>
+// $ExpectType Pointer<number>
 ref.alloc("int", 4);
 
-// $ExpectType Value<string>
+// $ExpectType Pointer<string>
 ref.allocCString(string);
-// $ExpectType Value<string>
+// $ExpectType Pointer<string>
 ref.allocCString(string, undefined);
-// $ExpectType Value<string>
+// $ExpectType Pointer<string>
 ref.allocCString(string, encoding);
 
-// $ExpectType Value<string | null>
+// $ExpectType Pointer<string | null>
 ref.allocCString(null);
-// $ExpectType Value<string | null>
+// $ExpectType Pointer<string | null>
 ref.allocCString(null, undefined);
-// $ExpectType Value<string | null>
+// $ExpectType Pointer<string | null>
 ref.allocCString(null, encoding);
 
 // $ExpectType Type<any>

@@ -618,9 +618,6 @@ async function test_cloud_functions() {
         // result
     });
 
-    const CUSTOM_ERROR_INVALID_CONDITION = 1001;
-    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002;
-
     interface BeforeSaveObject {
         immutable: boolean;
     }
@@ -632,14 +629,11 @@ async function test_cloud_functions() {
             const original = request.original;
             if (original == null) {
                 // When the object is not new, request.original must be defined
-                throw new Parse.Error(
-                    CUSTOM_ERROR_INVALID_CONDITION,
-                    'Original must me defined for an existing object',
-                );
+                throw new Error('Original must me defined for an existing object');
             }
 
             if (original.get('immutable') !== request.object.get('immutable')) {
-                throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed');
+                throw new Error('This field cannot be changed');
             }
         }
         if (!request.context) {
@@ -1692,6 +1686,46 @@ function testObject() {
 
         // $ExpectType false | Error
         obj.validate({ someAttrToValidate: 'hello' });
+    }
+
+    function testNullableArrays(
+        objTyped: Parse.Object<{ stringList?: string[] | null }>
+    ) {
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.add('stringList', 'foo');
+
+        // @ts-expect-error
+        objTyped.add('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAll('stringList', ['foo']);
+
+        // @ts-expect-error
+        objTyped.addAll('stringList', [4]);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addAllUnique('stringList', ['foo', 'bar']);
+
+        // @ts-expect-error
+        objTyped.addAllUnique('stringList', [4]);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.addUnique('stringList', 'foo');
+
+        // @ts-expect-error
+        objTyped.addUnique('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.remove('stringList', 'bar');
+
+        // @ts-expect-error
+        objTyped.remove('stringList', 4);
+
+        // $ExpectType false | Object<{ stringList?: string[] | null | undefined; }>
+        objTyped.removeAll('stringList', ['bar']);
+
+        // @ts-expect-error
+        objTyped.removeAll('stringList', [4]);
     }
 }
 
