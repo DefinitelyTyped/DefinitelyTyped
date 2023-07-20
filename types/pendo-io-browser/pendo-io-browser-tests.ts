@@ -32,7 +32,8 @@ pendo.initialize({
     parentAccount: {
         id: 'PUT_PARENT_ACCOUNT_ID_HERE',
         name: "CorpSchmorp"
-    }
+    },
+    disableCookies: true
 });
 
 pendo.initialize({

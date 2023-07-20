@@ -27,6 +27,7 @@ declare namespace pendo {
         apiKey?: string | undefined;
         excludeAllText?: boolean | undefined;
         excludeTitle?: boolean | undefined;
+        disableCookies?: boolean;
         disablePersistence?: boolean | undefined;
         guides?: {
             delay?: boolean | undefined;
