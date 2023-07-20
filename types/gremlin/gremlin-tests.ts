@@ -105,6 +105,7 @@ function processTests() {
     const graphTraversalSource = new GraphTraversalSource(null, traversalStrategies, bytecode);
     const transaction = new Transaction(graphTraversalSource);
     const translator = new Translator(graphTraversalSource);
+    const translatorWithString = new Translator('g');
     const anonymousTraversalSource = new AnonymousTraversalSource();
 
     bytecode.addSource('test');
@@ -174,7 +175,9 @@ function processTests() {
 
     translator.getTraversalSource();
     translator.of(graphTraversalSource);
+    translator.of('g');
     translator.translate(bytecode);
+    translator.translate(graphTraversal);
     translator.convert({});
 
     transaction.begin();
