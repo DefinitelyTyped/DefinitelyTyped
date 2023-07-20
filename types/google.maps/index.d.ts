@@ -8559,7 +8559,7 @@ declare namespace google.maps.journeySharing {
     /**
      * A filter query to apply when fetching vehicles. This filter is passed
      * directly to Fleet Engine. <br><br>See <a
-     * href="https://developers.google.com/maps/documentation/transportation-logistics/on-demand-rides-deliveries-solution/reference/fleet-engine/rpc/maps.fleetengine.v1#listvehiclesrequest">ListVehiclesRequest.filter</a>
+     * href="https://goo.gle/ListVehiclesRequest-filter">ListVehiclesRequest.filter</a>
      * for supported formats.<br><br>Note that valid filters for attributes must
      * have the &quot;attributes&quot; prefix. For example, <code>attributes.x =
      * &quot;y&quot;</code> or <code>attributes.&quot;x y&quot; =
