@@ -1,6 +1,5 @@
 import useStore, { Store, InitializerFunction, Options } from 'use-global-hook';
 import Immer from 'immer';
-import React = require('react');
 
 interface stateType {
     value: string;

@@ -3,16 +3,10 @@
 // Definitions by: James Hong <https://github.com/ojameso>
 //                 Jeremy Powers <https://github.com/wutname1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.5
 
 import Immer from 'immer';
 
-// Use an interface so that different versions of React can be used
-interface ReactInterface {
-    useEffect: (...args: any[]) => any;
-    useState: (...args: any[]) => any;
-    useMemo: (...args: any[]) => any;
-}
 // to ignore strict-export-declare-modifiers error
 export {};
 
