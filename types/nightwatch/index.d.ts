@@ -288,6 +288,8 @@ export interface TimeoutOptions {
 }
 
 export interface NightwatchOptions {
+
+    tag_filter?: string | string[];
     /**
      * Location(s) where custom commands will be loaded from.
      */
