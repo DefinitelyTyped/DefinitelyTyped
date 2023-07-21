@@ -1,6 +1,7 @@
 // Type definitions for asn1 0.2
 // Project: https://github.com/joyent/node-asn1
 // Definitions by: Jim Geurts <https://github.com/jgeurts>
+//                 Graham <https://github.com/shortstuffsushi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 /// <reference types="node" />
