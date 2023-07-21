@@ -38,7 +38,6 @@ type UseGlobal<S, A> = (() => [S, A]) &
 // The option property also has an initializer function type for backward compatibility with 0.1.2
 // see https://github.com/andregardi/use-global-hook/pull/51/files#diff-5330e30faa98f2945d75901849861a10R4
 export default function useStore<S, A>(
-    React: ReactInterface,
     inititalState: S,
     actions: object,
     options?: Options<S, A> | InitializerFunction<S, A>,
