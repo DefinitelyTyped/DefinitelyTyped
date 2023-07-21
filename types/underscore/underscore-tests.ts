@@ -2467,9 +2467,11 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     // tuple lists
     _.unzip(tupleList); // $ExpectType [string[], number[]]
     _(tupleList).unzip(); // $ExpectType [string[], number[]]
-    // This test fails for Typescript 4.6 and below only because it
-    // arbitrarily swaps the string[] | number[] union to number[] | string[]
-    // extractChainTypes(_.chain(tupleList).unzip()); // $ExpectType ChainType<[string[], number[]], string[] | number[]>
+    // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
+    // so we create a type alias to normalise the union.
+    type StringOrNumberList = string[] | number[];
+    const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).unzip()
+    extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
     // nested lists
     _.unzip(level2UnionList); // $ExpectType (string | number)[][]
@@ -2500,9 +2502,11 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     // tuple lists
     _.transpose(tupleList); // $ExpectType [string[], number[]]
     _(tupleList).transpose(); // $ExpectType [string[], number[]]
-    // This test fails for Typescript 4.6 and below only because it
-    // arbitrarily swaps the string[] | number[] union to number[] | string[]
-    // extractChainTypes(_.chain(tupleList).transpose()); // $ExpectType ChainType<[string[], number[]], string[] | number[]>
+    // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
+    // so we create a type alias to normalise the union.
+    type StringOrNumberList = string[] | number[];
+    const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).transpose()
+    extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
     // nested lists
     _.transpose(level2UnionList); // $ExpectType (string | number)[][]
