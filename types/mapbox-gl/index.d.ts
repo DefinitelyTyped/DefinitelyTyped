@@ -1866,6 +1866,10 @@ declare namespace mapboxgl {
         getPitchAlignment(): Alignment;
 
         setPitchAlignment(alignment: Alignment): this;
+
+        getOccludedOpacity(): number;
+
+        setOccludedOpacity(opacity: number): this;
     }
 
     type Alignment = 'map' | 'viewport' | 'auto';
@@ -1918,6 +1922,11 @@ declare namespace mapboxgl {
          * The default scale (1) corresponds to a height of `41px` and a width of `27px`.
          */
         scale?: number | undefined;
+
+        /**
+         * The opacity of a marker that's occluded by 3D terrain. Number between 0 and 1.
+         */
+        occludedOpacity?: number | undefined;
     }
 
     type EventedListener = (object?: Object) => any;
