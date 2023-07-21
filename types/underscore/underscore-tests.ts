@@ -2459,6 +2459,17 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
 
     // no arguments
     _.zip(); // $ExpectType []
+
+    // Ensure that checking for undefined doesn't break compilation
+    // This is valid if the zipped lists have different lengths
+    for (const [left, right] of _.zip(numberList, stringList)) {
+        if (left === undefined) {
+            const left_check: undefined = left;
+        }
+        if (right === undefined) {
+            const right_check: undefined = right;
+        }
+    }
 }
 
 // unzip
