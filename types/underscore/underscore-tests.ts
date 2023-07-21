@@ -2492,8 +2492,8 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     _.unzip(); // $ExpectType []
 
     // no arrays
-    _(numberList).unzip(); // $ExpectType never[]
-    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<never[], never>
+    _(numberList).unzip(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<[], never>
 }
 
 // transpose
@@ -2527,8 +2527,8 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     _.transpose(); // $ExpectType []
 
     // no arrays
-    _(numberList).transpose(); // $ExpectType never[]
-    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<never[], never>
+    _(numberList).transpose(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<[], never>
 }
 
 // object

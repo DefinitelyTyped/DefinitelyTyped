@@ -4649,7 +4649,7 @@ declare module _ {
             ? [A[]] // eslint-disable-line no-single-element-tuple-type
             : T extends List<infer A>
             ? A[][]
-            : never[];
+            : [];
         transpose(): T extends [infer A, infer B, infer C]
             ? [A[], B[], C[]]
             : T extends [infer A, infer B]
@@ -4658,7 +4658,7 @@ declare module _ {
             ? [A[]] // eslint-disable-line no-single-element-tuple-type
             : T extends List<infer A>
             ? A[][]
-            : never[];
+            : [];
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -5910,7 +5910,7 @@ declare module _ {
             ? _Chain<A[], [A[]]> // eslint-disable-line no-single-element-tuple-type
             : T extends List<infer A>
             ? _Chain<A[]>
-            : _Chain<never>;
+            : _Chain<never, []>;
         transpose(): T extends [infer A, infer B, infer C]
             ? _Chain<A[] | B[] | C[], [A[], B[], C[]]>
             : T extends [infer A, infer B]
@@ -5919,7 +5919,7 @@ declare module _ {
             ? _Chain<A[], [A[]]> // eslint-disable-line no-single-element-tuple-type
             : T extends List<infer A>
             ? _Chain<A[]>
-            : _Chain<never>;
+            : _Chain<never, []>;
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
