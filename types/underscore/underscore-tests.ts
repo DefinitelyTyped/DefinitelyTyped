@@ -40,6 +40,8 @@ type ExplicitDictionaryLiteral = {
     c: StringRecord;
 };
 
+type StringOrNumberList = string[] | number[];
+
 declare const shallowProperty: 'a';
 declare const deepProperty: ['a', 'length'];
 declare const matcher: Partial<StringRecord>;
@@ -2480,7 +2482,6 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     _(tupleList).unzip(); // $ExpectType [string[], number[]]
     // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
     // so we create a type alias to normalise the union.
-    type StringOrNumberList = string[] | number[];
     const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).unzip()
     extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
@@ -2515,7 +2516,6 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     _(tupleList).transpose(); // $ExpectType [string[], number[]]
     // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
     // so we create a type alias to normalise the union.
-    type StringOrNumberList = string[] | number[];
     const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).transpose()
     extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
