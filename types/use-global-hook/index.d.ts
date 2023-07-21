@@ -1,6 +1,7 @@
-// Type definitions for use-global-hook 0.1
+// Type definitions for use-global-hook 0.3
 // Project: https://github.com/andregardi/use-global-hook#readme
 // Definitions by: James Hong <https://github.com/ojameso>
+//                 Jeremy Powers <https://github.com/wutname1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
