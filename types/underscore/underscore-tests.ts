@@ -2462,6 +2462,10 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     // no arguments
     _.zip(); // $ExpectType []
 
+    // invalid object arguments
+    _({a: 1}).zip(); // $ExpectType []
+    extractChainTypes(_.chain({a: 1}).zip()); // $ExpectType ChainType<[], never>
+
     // Ensure that checking for undefined doesn't break compilation
     // This is valid if the zipped lists have different lengths
     for (const [left, right] of _.zip(numberList, stringList)) {
@@ -2503,6 +2507,14 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     // no arguments
     _.unzip(); // $ExpectType []
 
+    // invalid object arguments
+    _({a: 1}).unzip(); // $ExpectType []
+    extractChainTypes(_.chain({a: 1}).unzip()); // $ExpectType ChainType<[], never>
+
+    // invalid shallow list arguments
+    _(numberList).unzip(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<[], never>
+
     // no arrays
     _(numberList).unzip(); // $ExpectType []
     extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<[], never>
@@ -2536,6 +2548,14 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
 
     // no arguments
     _.transpose(); // $ExpectType []
+
+    // invalid object arguments
+    _({a: 1}).transpose(); // $ExpectType []
+    extractChainTypes(_.chain({a: 1}).transpose()); // $ExpectType ChainType<[], never>
+
+    // invalid shallow list arguments
+    _(numberList).transpose(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<[], never>
 
     // no arrays
     _(numberList).transpose(); // $ExpectType []

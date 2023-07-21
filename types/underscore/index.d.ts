@@ -4628,7 +4628,7 @@ declare module _ {
          * matching list indexes.
          * @returns The zipped version of the wrapped list and `lists`.
          **/
-        zip(): [T][]; // eslint-disable-line no-single-element-tuple-type
+        zip(): V extends List<infer A> ? [A][] : []; // eslint-disable-line no-single-element-tuple-type
         zip<A, B>(...lists: [List<A>, List<B>]): [T, A, B][];
         zip<A>(list: List<A>): [T, A][];
         zip(...lists: List<T>[]): T[][];
@@ -5888,7 +5888,7 @@ declare module _ {
          * @returns A chain wrapper around the zipped version of the wrapped
          * list and `lists`.
          **/
-        zip(): _Chain<[T]>; // eslint-disable-line no-single-element-tuple-type
+        zip(): V extends List<infer A> ? _Chain<[A]> : _Chain<never, []>; // eslint-disable-line no-single-element-tuple-type
         zip<A, B>(...arrays: [List<A>, List<B>]): _Chain<[T, A, B]>;
         zip<A>(array: List<A>): _Chain<[T, A]>;
         zip(...arrays: List<T>[]): _Chain<T[]>;
