@@ -1,7 +1,7 @@
-import Castjs from 'castjs';
+import { Castjs } from 'castjs';
 
 // Default instance
-let cjs = new Castjs();
+const cjs = new Castjs();
 
 // Custom receiver or joinpolicy
 const cjsComplex = new Castjs({
@@ -30,7 +30,7 @@ if (cjs.available) {
             label : 'Spanish',
             src   : 'https://castjs.io/media/spanish.vtt'
         }],
-    })
+    });
 }
 
 // Castjs Events
@@ -50,22 +50,22 @@ cjs.on('event',        (e) => {});  // Catch all events except 'error'
 cjs.on('error',        (e) => {});  // Catch any errors
 
 // Castjs properties
-let verison        = cjs.version;        // Castjs Version
-let receiver       = cjs.receiver;       // Receiver ID
-let available      = cjs.available       // Casting is available
-let connected      = cjs.connected      // Connected with cast device
-let device         = cjs.device          // Cast device name
-let src            = cjs.src             // Media source
-let title          = cjs.title           // Media title
-let descipription  = cjs.description     // Media description
-let poster         = cjs.poster          // Media poster image
-let subtitled      = cjs.subtitles       // Media subtitles
-let volumeLevel    = cjs.volumeLevel     // Volume level
-let muted          = cjs.muted           // If muted
-let paused         = cjs.paused          // If paused
-let time           = cjs.time            // Time in seconds
-let timePRetty     = cjs.timePretty      // Time formatted in time hh:mm:ss
-let duration       = cjs.duration        // Duration in seconds
-let durationPretty = cjs.durationPretty  // Duration formatted in hh:mm:ss
-let progress       = cjs.progress        // Progress in percentage 0 - 100
-let state          = cjs.state           // State of cast device
+const verison        = cjs.version;        // Castjs Version
+const receiver       = cjs.receiver;       // Receiver ID
+const available      = cjs.available;      // Casting is available
+const connected      = cjs.connected;      // Connected with cast device
+const device         = cjs.device;         // Cast device name
+const src            = cjs.src;            // Media source
+const title          = cjs.title;          // Media title
+const descipription  = cjs.description;    // Media description
+const poster         = cjs.poster;         // Media poster image
+const subtitled      = cjs.subtitles;      // Media subtitles
+const volumeLevel    = cjs.volumeLevel;    // Volume level
+const muted          = cjs.muted;          // If muted
+const paused         = cjs.paused;         // If paused
+const time           = cjs.time;           // Time in seconds
+const timePRetty     = cjs.timePretty;     // Time formatted in time hh:mm:ss
+const duration       = cjs.duration;       // Duration in seconds
+const durationPretty = cjs.durationPretty; // Duration formatted in hh:mm:ss
+const progress       = cjs.progress;       // Progress in percentage 0 - 100
+const state          = cjs.state;          // State of cast device
