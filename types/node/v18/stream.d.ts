@@ -1097,6 +1097,20 @@ declare module 'stream' {
          * @param stream a stream to attach a signal to
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+        /**
+         * Returns the default highWaterMark used by streams.
+         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * @since v18.17.0
+         * @param objectMode
+         */
+        function getDefaultHighWaterMark(objectMode: boolean): number;
+        /**
+         * Sets the default highWaterMark used by streams.
+         * @since v18.17.0
+         * @param objectMode
+         * @param value highWaterMark value
+         */
+        function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
         interface FinishedOptions extends Abortable {
             error?: boolean | undefined;
             readable?: boolean | undefined;

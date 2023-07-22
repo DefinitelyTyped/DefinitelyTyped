@@ -1881,6 +1881,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | undefined
@@ -1898,6 +1899,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer',
         callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
@@ -1912,6 +1914,7 @@ declare module 'fs' {
         options:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | undefined
@@ -1932,6 +1935,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
     ): void;
@@ -1947,6 +1951,7 @@ declare module 'fs' {
                 | {
                       encoding: BufferEncoding | null;
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
                 | BufferEncoding
                 | null
@@ -1963,6 +1968,7 @@ declare module 'fs' {
                 | {
                       encoding: 'buffer';
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
         ): Promise<Buffer[]>;
         /**
@@ -1975,6 +1981,7 @@ declare module 'fs' {
             options?:
                 | (ObjectEncodingOptions & {
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   })
                 | BufferEncoding
                 | null
@@ -1988,6 +1995,7 @@ declare module 'fs' {
             path: PathLike,
             options: ObjectEncodingOptions & {
                 withFileTypes: true;
+                recursive?: boolean | undefined;
             }
         ): Promise<Dirent[]>;
     }
@@ -2010,6 +2018,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | null
@@ -2025,6 +2034,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Buffer[];
@@ -2038,6 +2048,7 @@ declare module 'fs' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -2051,6 +2062,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Dirent[];
     /**
@@ -3914,6 +3926,10 @@ declare module 'fs' {
          * @default true
          */
         force?: boolean;
+        /**
+         * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
+         */
+        mode?: number;
         /**
          * When `true` timestamps from `src` will
          * be preserved.
