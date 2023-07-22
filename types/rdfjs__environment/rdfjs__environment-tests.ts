@@ -78,3 +78,16 @@ function formatsImport() {
 
     env.formats.import(formatsCommon);
 }
+
+class InitOnly {
+    init() {}
+    clone(): InitOnly {
+        return this;
+    }
+}
+const envOneFactoryInitOnly = new Environment([
+    FormatsFactory,
+    InitOnly,
+]);
+
+envOneFactoryInitOnly.formats.import(envOneFactoryInitOnly.formats);
