@@ -288,7 +288,6 @@ export interface TimeoutOptions {
 }
 
 export interface NightwatchOptions {
-    tag_filter?: string | string[];
     /**
      * Location(s) where custom commands will be loaded from.
      */
@@ -594,6 +593,12 @@ export interface NightwatchOptions {
      * Skip tests by tag name; can be a list of comma-separated values (no space).
      */
     skiptags?: string;
+
+	/**
+	 * Tag(s) used/to be used during test execution.
+	 * Can be a single tag or an array of tags.
+	 */
+	tag_filter?: string | string[];
 
     /**
      * Use xpath as the default locator strategy.
