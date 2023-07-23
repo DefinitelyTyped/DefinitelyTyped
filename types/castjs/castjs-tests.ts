@@ -1,4 +1,4 @@
-import { Castjs } from 'castjs';
+import { Castjs } from "castjs";
 
 // Default instance
 const cjs = new Castjs();

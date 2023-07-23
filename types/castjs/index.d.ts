@@ -3,299 +3,305 @@
 // Definitions by: Adam Stephenson <https://github.com/adstep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    receiver: string;
-    joinpolicy: string;
-}
+export = castjs;
+export as namespace castjs;
 
-export interface MediaMetadata {
-    /**
-     * A URL to an image to use as the poster.
-     */
-    poster?: string;
+declare namespace castjs
+{
+    interface Options {
+        receiver: string;
+        joinpolicy: string;
+    }
 
-    /**
-     * A title for the media.
-     */
-    title?: string;
+    interface MediaMetadata {
+        /**
+         * A URL to an image to use as the poster.
+         */
+        poster?: string;
 
-    /**
-     * A description of the media.
-     */
-    description?: string;
+        /**
+         * A title for the media.
+         */
+        title?: string;
 
-    /**
-     * An array of subtitles for the media.
-     */
-    subtitles?: ReadonlyArray<Subtitle>;
-}
+        /**
+         * A description of the media.
+         */
+        description?: string;
 
-export interface Subtitle {
-    /**
-     * A flag indicating whether the subtitle is active.
-     */
-    active?: boolean;
+        /**
+         * An array of subtitles for the media.
+         */
+        subtitles?: ReadonlyArray<Subtitle>;
+    }
 
-    /**
-     * Label for the subtitle. E.g. The language (English, Spanish).
-     */
-    label: string;
+    interface Subtitle {
+        /**
+         * A flag indicating whether the subtitle is active.
+         */
+        active?: boolean;
 
-    /**
-     * A url to the subtitles.
-     */
-    src: string;
-}
+        /**
+         * Label for the subtitle. E.g. The language (English, Spanish).
+         */
+        label: string;
 
-export class Castjs {
-    /**
-     * Gets the castjs Version
-     */
-    readonly version: string;
+        /**
+         * A url to the subtitles.
+         */
+        src: string;
+    }
 
-    /**
-     * Gets the receiver ID
-     */
-    readonly receiver: string;
+    class Castjs {
+        /**
+         * Gets the castjs Version
+         */
+        readonly version: string;
 
-    /**
-     * A flag that indicates whether casting is available.
-     */
-    readonly available: boolean;
+        /**
+         * Gets the receiver ID
+         */
+        readonly receiver: string;
 
-    /**
-     * A flag that indicates whether a cast device is connected.
-     */
-    readonly connected: boolean;
+        /**
+         * A flag that indicates whether casting is available.
+         */
+        readonly available: boolean;
 
-    /**
-     * Gets the cast device name.
-     */
-    readonly device: string;
+        /**
+         * A flag that indicates whether a cast device is connected.
+         */
+        readonly connected: boolean;
 
-    /**
-     * Gets the casting media source.
-     */
-    readonly src: string;
+        /**
+         * Gets the cast device name.
+         */
+        readonly device: string;
 
-    /**
-     * Gets the casting media title.
-     */
-    readonly title: string;
+        /**
+         * Gets the casting media source.
+         */
+        readonly src: string;
 
-    /**
-     * Gets the casting media desciption.
-     */
-    readonly description: string;
+        /**
+         * Gets the casting media title.
+         */
+        readonly title: string;
 
-    /**
-     * Gets the casting media poster image.
-     */
-    readonly poster: string;
+        /**
+         * Gets the casting media desciption.
+         */
+        readonly description: string;
 
-    /**
-     * Gets the casting media subtitles.
-     */
-    readonly subtitles: Subtitle[];
+        /**
+         * Gets the casting media poster image.
+         */
+        readonly poster: string;
 
-    /**
-     * Gets the volume level for the casting media.
-     */
-    readonly volumeLevel: number;
+        /**
+         * Gets the casting media subtitles.
+         */
+        readonly subtitles: Subtitle[];
 
-    /**
-     * A flag that indicates whether the casting media is muted.
-     */
-    readonly muted: boolean;
+        /**
+         * Gets the volume level for the casting media.
+         */
+        readonly volumeLevel: number;
 
-    /**
-     * A flag that indicates whether the casting media is paused.
-     */
-    readonly paused: boolean;
+        /**
+         * A flag that indicates whether the casting media is muted.
+         */
+        readonly muted: boolean;
 
-    /**
-     * Gets the current time, in seconds, of the casting media.
-     */
-    readonly time: number;
+        /**
+         * A flag that indicates whether the casting media is paused.
+         */
+        readonly paused: boolean;
 
-    /**
-     * Gets a formatted time string (hh:mm:ss) representing the current time.
-     */
-    readonly timePretty: string;
+        /**
+         * Gets the current time, in seconds, of the casting media.
+         */
+        readonly time: number;
 
-    /**
-     * Gets the duration, in seconds, of the casting media.
-     */
-    readonly duration: number;
+        /**
+         * Gets a formatted time string (hh:mm:ss) representing the current time.
+         */
+        readonly timePretty: string;
 
-    /**
-     * Get a formatted time string (hh:mm:ss) representing the duration.
-     */
-    readonly durationPretty: number;
+        /**
+         * Gets the duration, in seconds, of the casting media.
+         */
+        readonly duration: number;
 
-    /**
-     * Get the progress of the casting media as a percentage between 0 and 100.
-     */
-    readonly progress: number;
+        /**
+         * Get a formatted time string (hh:mm:ss) representing the duration.
+         */
+        readonly durationPretty: number;
 
-    /**
-     * gets the state of the casting device.
-     */
-    readonly state: string;
+        /**
+         * Get the progress of the casting media as a percentage between 0 and 100.
+         */
+        readonly progress: number;
 
-    constructor(options?: Options);
+        /**
+         * gets the state of the casting device.
+         */
+        readonly state: string;
 
-    /**
-     * Emitted when casting is available.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'available', callback: () => void): void;
+        constructor(options?: Options);
 
-    /**
-     * Emitted when connected with the device.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'connect', callback: () => void): void;
+        /**
+         * Emitted when casting is available.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'available', callback: () => void): void;
 
-    /**
-     * Emitted when disconnceted from the device.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'disconnect', callback: () => void): void;
+        /**
+         * Emitted when connected with the device.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'connect', callback: () => void): void;
 
-    /**
-     * Emitted when the device goes through a state change.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'statechange', callback: () => void): void;
+        /**
+         * Emitted when disconnceted from the device.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'disconnect', callback: () => void): void;
 
-    /**
-     * Emitted when current time changed.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'timeupdate', callback: () => void): void;
+        /**
+         * Emitted when the device goes through a state change.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'statechange', callback: () => void): void;
 
-    /**
-     * Emitted when volume changed.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'volumechange', callback: () => void): void;
+        /**
+         * Emitted when current time changed.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'timeupdate', callback: () => void): void;
 
-    /**
-     * Emitted when state changed to muted.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'mute', callback: () => void): void;
+        /**
+         * Emitted when volume changed.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'volumechange', callback: () => void): void;
 
-    /**
-     * Emitted when state changed to unmuted.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'unmute', callback: () => void): void;
+        /**
+         * Emitted when state changed to muted.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'mute', callback: () => void): void;
 
-    /**
-     * Emitted when media is playing.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'playing', callback: () => void): void;
+        /**
+         * Emitted when state changed to unmuted.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'unmute', callback: () => void): void;
 
-    /**
-     * Emitted when media is paused.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'pause', callback: () => void): void;
+        /**
+         * Emitted when media is playing.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'playing', callback: () => void): void;
 
-    /**
-     * Emitted when media ended.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'end', callback: () => void): void;
+        /**
+         * Emitted when media is paused.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'pause', callback: () => void): void;
 
-    /**
-     * Emitted when media is buffering / seeking.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'buffering', callback: () => void): void;
+        /**
+         * Emitted when media ended.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'end', callback: () => void): void;
 
-    /**
-     * Emitted on any event except 'error'.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'event', callback: (e: any) => void): void;
+        /**
+         * Emitted when media is buffering / seeking.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'buffering', callback: () => void): void;
 
-    /**
-     * Emitted when any error occurs.
-     * @param event The event name.
-     * @param callback The callback to raise.
-     */
-    on(event: 'error', callback: (e: any) => void): void;
+        /**
+         * Emitted on any event except 'error'.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'event', callback: (e: any) => void): void;
 
-    /**
-     * Creates a cast session with the requestd media.
-     * @param source The media source.
-     * @param metatada The media metadata.
-     */
-    cast(source: string, metatadata?: MediaMetadata): Castjs;
+        /**
+         * Emitted when any error occurs.
+         * @param event The event name.
+         * @param callback The callback to raise.
+         */
+        on(event: 'error', callback: (e: any) => void): void;
 
-    /**
-     * Sets the volume.
-     * @param value A volume value between 0 and 1.
-     */
-    volume(value: number): Castjs;
+        /**
+         * Creates a cast session with the requestd media.
+         * @param source The media source.
+         * @param metatada The media metadata.
+         */
+        cast(source: string, metatadata?: MediaMetadata): Castjs;
 
-    /**
-     * Plays the media.
-     */
-    play(): Castjs;
+        /**
+         * Sets the volume.
+         * @param value A volume value between 0 and 1.
+         */
+        volume(value: number): Castjs;
 
-    /**
-     * Pauses the media.
-     */
-    pause(): Castjs;
+        /**
+         * Plays the media.
+         */
+        play(): Castjs;
 
-    /**
-     * Mutes the media.
-     */
-    mute(): Castjs;
+        /**
+         * Pauses the media.
+         */
+        pause(): Castjs;
 
-    /**
-     * Unmutes the media.
-     */
-    unmute(): Castjs;
+        /**
+         * Mutes the media.
+         */
+        mute(): Castjs;
 
-    /**
-     * Changes the active subtitle index.
-     */
-    subtitle(index: number): Castjs;
+        /**
+         * Unmutes the media.
+         */
+        unmute(): Castjs;
 
-    /**
-     * Seeks to the specified number of seconds within the media.
-     */
-    seek(seconds: number): Castjs;
+        /**
+         * Changes the active subtitle index.
+         */
+        subtitle(index: number): Castjs;
 
-    /**
-     * Seeks to the speicifed value within the media. If isPercentage is set, and true, then the value is
-     * treated as a percentage between 0 and 100. Else, the value is treated as seconds.
-     * @param value The value to seek to.
-     * @param isPercentage A flag indicating whether the value is to be treated as a perecntage, or as seconds.
-     */
-    seek(value: number, isPercentage?: boolean): Castjs;
+        /**
+         * Seeks to the specified number of seconds within the media.
+         */
+        seek(seconds: number): Castjs;
 
-    /**
-     * Disconnects the cast session.
-     */
-    disconnect(): Castjs;
+        /**
+         * Seeks to the speicifed value within the media. If isPercentage is set, and true, then the value is
+         * treated as a percentage between 0 and 100. Else, the value is treated as seconds.
+         * @param value The value to seek to.
+         * @param isPercentage A flag indicating whether the value is to be treated as a perecntage, or as seconds.
+         */
+        seek(value: number, isPercentage?: boolean): Castjs;
+
+        /**
+         * Disconnects the cast session.
+         */
+        disconnect(): Castjs;
+    }
 }
