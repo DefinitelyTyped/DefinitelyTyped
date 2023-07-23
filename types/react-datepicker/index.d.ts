@@ -157,6 +157,7 @@ export interface ReactDatePickerProps<
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
+    renderMonthContent?(monthIndex: number, shortMonthText: number, fullMonthText: number): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
     scrollableYearDropdown?: boolean | undefined;
