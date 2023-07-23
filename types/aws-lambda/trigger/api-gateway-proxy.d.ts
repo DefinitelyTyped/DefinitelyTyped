@@ -266,7 +266,7 @@ export interface APIGatewayEventRequestContextIAMAuthorizer {
         accessKey: string;
         accountId: string;
         callerId: string;
-        cognitoIdentity: null;
+        cognitoIdentity: CognitoIdentity;
         principalOrgId: string;
         userArn: string;
         userId: string;
