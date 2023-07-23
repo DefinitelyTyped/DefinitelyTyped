@@ -28,7 +28,6 @@ shallowRenderer.getRenderOutput();
             return {};
         }
     });
-
     const json = renderer.toJSON();
 
     if (!json || typeof json !== "object" || Array.isArray(json) || json.children !== children) {

@@ -102,14 +102,12 @@ void (async () => {
             return {};
         }
     });
-
     const json = renderer.toJSON();
+    const tree = renderer.toTree();
 
     if (!json || typeof json !== "object" || Array.isArray(json) || json.children !== children) {
         throw(new Error(`Type of children ${children} doesn't match!`));
     }
-
-    const tree = renderer.toTree();
 
     if (!tree || typeof tree !== "object" || Array.isArray(tree) || tree.children !== children) {
         throw(new Error(`Type of children ${children} doesn't match!`));
