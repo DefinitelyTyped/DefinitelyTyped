@@ -6,8 +6,7 @@
 export = castjs;
 export as namespace castjs;
 
-declare namespace castjs
-{
+declare namespace castjs {
     interface Options {
         receiver: string;
         joinpolicy: string;
