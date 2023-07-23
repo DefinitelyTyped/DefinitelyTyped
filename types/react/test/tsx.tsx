@@ -82,6 +82,20 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
 // @ts-expect-error
 <ComponentWithChildren3 bar="42"></ComponentWithChildren3>;
 
+const ComponentWithRequiredChildren: React.FunctionComponent<React.PropsWithRequiredChildren> = ({children}) => {
+    return <div>{children}</div>;
+};
+// @ts-expect-error
+<ComponentWithRequiredChildren></ComponentWithRequiredChildren>;
+<ComponentWithRequiredChildren>Hello World</ComponentWithRequiredChildren>;
+
+const ComponentWithOptionalChildren: React.FunctionComponent<React.PropsWithOptionalChildren> = ({children}) => {
+    if (!children) return null;
+    return <div>{children}</div>;
+};
+<ComponentWithOptionalChildren></ComponentWithOptionalChildren>;
+<ComponentWithOptionalChildren>Hello World</ComponentWithOptionalChildren>;
+
 // svg sanity check
 <svg suppressHydrationWarning viewBox="0 0 1000 1000">
     <g>

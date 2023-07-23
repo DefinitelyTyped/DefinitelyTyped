@@ -834,6 +834,10 @@ declare namespace React {
 
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
+    type PropsWithRequiredChildren<P = unknown> = P & { children: ReactNode };
+
+    type PropsWithOptionalChildren<P = unknown> = PropsWithChildren<P>;
+
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
