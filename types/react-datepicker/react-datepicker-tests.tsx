@@ -61,7 +61,7 @@ const topLogger: Modifier<'topLogger'> = {
     filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={day => day[0]}
+    formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
