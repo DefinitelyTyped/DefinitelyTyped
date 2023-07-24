@@ -503,6 +503,47 @@ declare namespace matchers {
          * [testing-library/jest-dom#tohaveaccessibledescription](https://github.com/testing-library/jest-dom#tohaveaccessibledescription)
          */
         toHaveAccessibleDescription(text?: string | RegExp | E): R;
+
+        /**
+         * @description
+         * This allows you to assert that an element has the expected
+         * [accessible error message](https://w3c.github.io/aria/#aria-errormessage).
+         *
+         * You can pass the exact string of the expected accessible error message.
+         * Alternatively, you can perform a partial match by passing a regular expression
+         * or by using either
+         * [expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)
+         * or [expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+         *
+         * @example
+         * <input aria-label="Has Error" aria-invalid="true" aria-errormessage="error-message" />
+         * <div id="error-message" role="alert">This field is invalid</div>
+         *
+         * <input aria-label="No Error Attributes" />
+         * <input aria-label="Not Invalid" aria-invalid="false" aria-errormessage="error-message" />
+         *
+         * // Inputs with Valid Error Messages
+         * expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage()
+         * expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage('This field is invalid')
+         * expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage(/invalid/i)
+         * expect(
+         *   getByRole('textbox', {name: 'Has Error'}),
+         * ).not.toHaveAccessibleErrorMessage('This field is absolutely correct!')
+         *
+         * // Inputs without Valid Error Messages
+         * expect(
+         *   getByRole('textbox', {name: 'No Error Attributes'}),
+         * ).not.toHaveAccessibleErrorMessage()
+         *
+         * expect(
+         *   getByRole('textbox', {name: 'Not Invalid'}),
+         * ).not.toHaveAccessibleErrorMessage()
+         *
+         * @see
+         * [testing-library/jest-dom#tohaveaccessibleerrormessage](https://github.com/testing-library/jest-dom#tohaveaccessibleerrormessage)
+         */
+        toHaveAccessibleErrorMessage(text?: string | RegExp | E): R;
+
         /**
          * @description
          * This allows to assert that an element has the expected [accessible name](https://w3c.github.io/accname/).
@@ -573,8 +614,10 @@ declare namespace matchers {
          */
         toBePartiallyChecked(): R;
         /**
-         * @description
+         * @deprecated
+         * since v5.17.0
          *
+         * @description
          * Check whether the given element has an [ARIA error message](https://www.w3.org/TR/wai-aria/#aria-errormessage) or not.
          *
          * Use the `aria-errormessage` attribute to reference another element that contains

@@ -56,6 +56,12 @@ customExpect(element).toHaveAccessibleDescription('some description');
 customExpect(element).toHaveAccessibleDescription(/some description/);
 customExpect(element).toHaveAccessibleDescription(expect.stringContaining('partial'));
 customExpect(element).toHaveAccessibleDescription();
+
+customExpect(element).toHaveAccessibleErrorMessage();
+customExpect(element).toHaveAccessibleErrorMessage('Invalid time: the time must be between 9:00 AM and 5:00 PM');
+customExpect(element).toHaveAccessibleErrorMessage(/invalid time/i);
+customExpect(element).toHaveAccessibleErrorMessage(expect.stringContaining('Invalid time'));
+
 customExpect(element).toHaveAccessibleName('a label');
 customExpect(element).toHaveAccessibleName(/a label/);
 customExpect(element).toHaveAccessibleName(expect.stringContaining('partial label'));
@@ -105,6 +111,11 @@ customExpect(element).not.toHaveDescription('some description');
 customExpect(element).not.toHaveDescription();
 customExpect(element).not.toHaveAccessibleDescription('some description');
 customExpect(element).not.toHaveAccessibleDescription();
+
+customExpect(element).not.toHaveAccessibleErrorMessage();
+customExpect(element).not.toHaveAccessibleErrorMessage('There is no date');
+customExpect(element).not.toHaveAccessibleErrorMessage(/everything is valid/i);
+
 customExpect(element).not.toHaveAccessibleName('a label');
 customExpect(element).not.toHaveAccessibleName();
 customExpect(element).not.toBePartiallyChecked();
