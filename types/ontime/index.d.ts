@@ -80,4 +80,4 @@ export interface OntimeReport {
 
 export type OntimeJob = (ot: OntimeReport) => void;
 
-export function ontime(sched: OntimeSchedule, job: OntimeJob): void;
+export default function ontime(sched: OntimeSchedule, job: OntimeJob): void;
