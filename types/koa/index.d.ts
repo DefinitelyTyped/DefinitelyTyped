@@ -551,7 +551,7 @@ declare namespace Application {
         /**
          * Custom properties.
          */
-        [key: keyof any]: any;
+        [key: PropertyKey]: any;
     }
 
     type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<

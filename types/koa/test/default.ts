@@ -40,7 +40,9 @@ app.use((ctx: Koa.Context, next) => {
         const ms = end - start;
         ctx.logger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
         ctx.user = {}; // undeclared property
-        ctx.assert(true, 404, 'Yep!');
+        ctx[Symbol('locale')] = 'en-US'; // symbol property key
+        ctx[200] = {}; // number property key
+        ctx.assert(ctx[200], 404, 'Yep!');
     });
 });
 
