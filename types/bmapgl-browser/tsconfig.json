@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "bmapgl-tests.ts"
+        "bmapgl-browser-tests.ts"
     ]
 }
