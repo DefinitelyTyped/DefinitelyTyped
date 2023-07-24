@@ -15,11 +15,11 @@ progressBar.on('ready', () => {
 });
 
 progressBar.on('progress', () => {
-    progressBar.detail = 'progress called 1st time without values'
+    progressBar.detail = 'progress called 1st time without values';
 });
 
-progressBar.on('progress', (value: number) => {
-    progressBar.detail += ` and 2nd time with value ${value}"`
+progressBar.on('progress', (value: any) => {
+    progressBar.detail += ` and 2nd time with value ${value}`;
 });
 
 progressBar.value = 10;
