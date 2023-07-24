@@ -1,6 +1,12 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
+    "parser": "@typescript-eslint/parser",
     "rules": {
-        "interface-over-type-literal": false
+        "interface-over-type-literal": false,
+        "space-before-function-paren": [
+          "error",
+          "always"
+        ],
+        "no-redundant-jsdoc": false
     }
 }

@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/base/assert" {
   /**
@@ -2658,9 +2658,7 @@ declare module "sap/ui/core/date/CalendarUtils" {
        * {@link sap.ui.core.Configuration#getCalendarWeekNumbering}. If this value is `Default` the returned calendar
        * week configuration is derived from the given `oLocale`.
        */
-      sCalendarWeekNumbering?:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering,
+      sCalendarWeekNumbering?: CalendarWeekNumbering,
       /**
        * The locale to use; if not provided, this falls back to the format locale from the Configuration; see
        * {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale}. Is only used when `sCalendarWeekNumbering`
@@ -4557,7 +4555,8 @@ declare module "sap/ui/util/Mobile" {
      * The "options" parameter configures what exactly should be done.
      *
      * It can have the following properties:
-     * 	 - viewport: whether to set the viewport in a way that disables zooming (default: true)
+     * 	 - viewport: whether to set the viewport in a way that disables zooming (default: true). This does not
+     *     work in case there is already a meta tag with name 'viewport'.
      * 	 - statusBar: the iOS status bar color, "default", "black" or "black-translucent" (default: "default")
      *
      * 	 - hideBrowser: whether the browser UI should be hidden as far as possible to make the app feel more
@@ -4567,7 +4566,8 @@ declare module "sap/ui/util/Mobile" {
      * 	 - preventPhoneNumberDetection: whether Safari Mobile should be prevented from transforming any numbers
      *     that look like phone numbers into clickable links; this should be left as "true", otherwise it might
      *     break controls because Safari actually changes the DOM. This only affects all page content which is created
-     *     after init() is called.
+     *     after init() is called and only in case there is not already a meta tag with name 'format-detection'.
+     *
      * 	 - rootId: the ID of the root element that should be made fullscreen; only used when hideBrowser is
      *     set (default: the document.body)
      * 	 - useFullScreenHeight: a boolean that defines whether the height of the html root element should be
@@ -4987,7 +4987,7 @@ declare module "sap/ui/app/Application" {
 
   /**
    * @deprecated (since 1.15.1) - The Component class is enhanced to take care about the Application code.
-   * @experimental (since 1.11.1) - The Application class is still under construction, so some implementation
+   * Experimental (since 1.11.1) - The Application class is still under construction, so some implementation
    * details can be changed in future.
    *
    * Abstract application class. Extend this class to create a central application class.
@@ -5188,7 +5188,7 @@ declare module "sap/ui/app/MockServer" {
 
   /**
    * @deprecated (since 1.15.1) - The mock server code has been moved to sap.ui.core.util - see {@link sap.ui.core.util.MockServer}
-   * @experimental (since 1.13.0) - The mock server is still under construction, so some implementation details
+   * Experimental (since 1.13.0) - The mock server is still under construction, so some implementation details
    * can be changed in future.
    *
    * Class to mock a server.
@@ -7500,8 +7500,8 @@ declare module "sap/ui/base/ManagedObject" {
      * Changing the state via the standard mutators, therefore, does not require an explicit call to `invalidate`.
      * The same applies to changes made via data binding, as it internally uses the standard mutators.
      *
-     * By default, a `ManagedObject` propagates any invalidation to its parent. Controls or UIAreas handle invalidation
-     * on their own by triggering a re-rendering.
+     * By default, a `ManagedObject` propagates any invalidation to its parent, unless the invalidation is suppressed
+     * on the parent. Controls or UIAreas handle invalidation on their own by triggering a re-rendering.
      */
     invalidate(): void;
     /**
@@ -8448,33 +8448,25 @@ declare module "sap/ui/base/ManagedObject" {
      * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
      * uses a data type.
      */
-    validationSuccess?: (
-      oEvent: Event<ManagedObject$ValidationSuccessEventParameters>
-    ) => void;
+    validationSuccess?: (oEvent: ManagedObject$ValidationSuccessEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but validating
      * the value failed with an exception.
      */
-    validationError?: (
-      oEvent: Event<ManagedObject$ValidationErrorEventParameters>
-    ) => void;
+    validationError?: (oEvent: ManagedObject$ValidationErrorEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but parsing the
      * value failed with an exception.
      */
-    parseError?: (
-      oEvent: Event<ManagedObject$ParseErrorEventParameters>
-    ) => void;
+    parseError?: (oEvent: ManagedObject$ParseErrorEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated from the model, but formatting
      * the value failed with an exception.
      */
-    formatError?: (
-      oEvent: Event<ManagedObject$FormatErrorEventParameters>
-    ) => void;
+    formatError?: (oEvent: ManagedObject$FormatErrorEvent) => void;
 
     /**
      * Fired when models or contexts are changed on this object (either by calling setModel/setBindingContext
@@ -8510,21 +8502,9 @@ declare module "sap/ui/base/ManagedObject" {
     oldValue?: any;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$FormatErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ManagedObjectFormatErrorEventParameters = ManagedObject$FormatErrorEventParameters;
-
   export type ManagedObject$FormatErrorEvent = Event<ManagedObject$FormatErrorEventParameters>;
 
   export interface ManagedObject$ModelContextChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ModelContextChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ManagedObjectModelContextChangeEventParameters = ManagedObject$ModelContextChangeEventParameters;
 
   export type ManagedObject$ModelContextChangeEvent = Event<ManagedObject$ModelContextChangeEventParameters>;
 
@@ -8560,12 +8540,6 @@ declare module "sap/ui/base/ManagedObject" {
     message?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ParseErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ManagedObjectParseErrorEventParameters = ManagedObject$ParseErrorEventParameters;
-
   export type ManagedObject$ParseErrorEvent = Event<ManagedObject$ParseErrorEventParameters>;
 
   export interface ManagedObject$ValidationErrorEventParameters {
@@ -8600,12 +8574,6 @@ declare module "sap/ui/base/ManagedObject" {
     message?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ValidationErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ManagedObjectValidationErrorEventParameters = ManagedObject$ValidationErrorEventParameters;
-
   export type ManagedObject$ValidationErrorEvent = Event<ManagedObject$ValidationErrorEventParameters>;
 
   export interface ManagedObject$ValidationSuccessEventParameters {
@@ -8637,12 +8605,6 @@ declare module "sap/ui/base/ManagedObject" {
      */
     oldValue?: any;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ManagedObject$ValidationSuccessEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ManagedObjectValidationSuccessEventParameters = ManagedObject$ValidationSuccessEventParameters;
 
   export type ManagedObject$ValidationSuccessEvent = Event<ManagedObject$ValidationSuccessEventParameters>;
 
@@ -10664,7 +10626,7 @@ declare module "sap/ui/core/library" {
   }
   /**
    * @since 1.104
-   * @experimental (since 1.104)
+   * Experimental (since 1.104)
    *
    * Implementing this interface allows a control to be accessible via access keys.
    */
@@ -10673,7 +10635,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.104
-     * @experimental (since 1.104)
+     * Experimental (since 1.104)
      *
      * Returns a refence to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
      * method is used.
@@ -10681,14 +10643,14 @@ declare module "sap/ui/core/library" {
     getAccessKeysFocusTarget?(): void;
     /**
      * @since 1.104
-     * @experimental (since 1.104)
+     * Experimental (since 1.104)
      *
      * If implemented called when access keys feature is enabled and highlighting is over
      */
     onAccKeysHighlightEnd?(): void;
     /**
      * @since 1.104
-     * @experimental (since 1.104)
+     * Experimental (since 1.104)
      *
      * If implemented called when access keys feature is enabled and highlighting is ongoing
      */
@@ -10723,7 +10685,7 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.98
-   * @experimental (since 1.98)
+   * Experimental (since 1.98)
    *
    * Marker interface for controls that can serve as a menu for a table column header.
    *
@@ -10734,7 +10696,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.98.0
-     * @experimental (since 1.98)
+     * Experimental (since 1.98)
      *
      * Returns the sap.ui.core.aria.HasPopup<\code> type of the menu.
      *
@@ -10743,7 +10705,7 @@ declare module "sap/ui/core/library" {
     getAriaHasPopupType(): aria.HasPopup | keyof typeof aria.HasPopup;
     /**
      * @since 1.98
-     * @experimental (since 1.98)
+     * Experimental (since 1.98)
      *
      * Opens the menu using the column header.
      */
@@ -10944,7 +10906,7 @@ declare module "sap/ui/core/library" {
   }
   /**
    * @since 1.78
-   * @experimental (since 1.73)
+   * Experimental (since 1.73)
    *
    * Enumeration for different mode behaviors of the `InvisibleMessage`.
    */
@@ -10977,7 +10939,7 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.86.0
-   * @experimental (since 1.86)
+   * Experimental (since 1.86)
    *
    * Marker interface for controls that can be used as content of `sap.ui.layout.form.SemanticFormElement`.
    *
@@ -10992,7 +10954,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.86.0
-     * @experimental (since 1.86)
+     * Experimental (since 1.86)
      *
      * Returns the formatted value of a control used in a `SemanticFormElement`.
      *
@@ -11009,7 +10971,7 @@ declare module "sap/ui/core/library" {
     getFormFormattedValue?(): string | Promise<string>;
     /**
      * @since 1.86.0
-     * @experimental (since 1.86)
+     * Experimental (since 1.86)
      *
      * Returns the name of the value-holding property of a control used in a `SemanticFormElement`.
      *
@@ -12060,12 +12022,6 @@ declare module "sap/ui/core/CommandExecution" {
   }
 
   export interface CommandExecution$ExecuteEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CommandExecution$ExecuteEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CommandExecutionExecuteEventParameters = CommandExecution$ExecuteEventParameters;
 
   export type CommandExecution$ExecuteEvent = Event<CommandExecution$ExecuteEventParameters>;
 }
@@ -13660,7 +13616,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * Fired when the component instance has been created by the ComponentContainer.
      */
     componentCreated?: (
-      oEvent: Event<ComponentContainer$ComponentCreatedEventParameters>
+      oEvent: ComponentContainer$ComponentCreatedEvent
     ) => void;
 
     /**
@@ -13671,9 +13627,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * By default, the `ComponentContainer` also logs the error that occurred. Since 1.83, this default behavior
      * can be prevented by calling `preventDefault()` on the event object.
      */
-    componentFailed?: (
-      oEvent: Event<ComponentContainer$ComponentFailedEventParameters>
-    ) => void;
+    componentFailed?: (oEvent: ComponentContainer$ComponentFailedEvent) => void;
   }
 
   export interface ComponentContainer$ComponentCreatedEventParameters {
@@ -13683,12 +13637,6 @@ declare module "sap/ui/core/ComponentContainer" {
     component?: UIComponent;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ComponentContainer$ComponentCreatedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ComponentContainerComponentCreatedEventParameters = ComponentContainer$ComponentCreatedEventParameters;
-
   export type ComponentContainer$ComponentCreatedEvent = Event<ComponentContainer$ComponentCreatedEventParameters>;
 
   export interface ComponentContainer$ComponentFailedEventParameters {
@@ -13697,12 +13645,6 @@ declare module "sap/ui/core/ComponentContainer" {
      */
     reason?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ComponentContainer$ComponentFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ComponentContainerComponentFailedEventParameters = ComponentContainer$ComponentFailedEventParameters;
 
   export type ComponentContainer$ComponentFailedEvent = Event<ComponentContainer$ComponentFailedEventParameters>;
 }
@@ -13989,6 +13931,28 @@ declare module "sap/ui/core/Configuration" {
     AnimationMode: typeof AnimationMode;
 
     /**
+     * @since 1.38.6
+     *
+     * Applies multiple changes to the configuration at once.
+     *
+     * If the changed settings contain localization related settings like `language` or calendarType,
+     * then only a single `localizationChanged` event will be fired. As the framework has to inform all existing
+     * components, elements, models etc. about localization changes, using `applySettings` can significantly
+     * reduce the overhead for multiple changes, esp. when they occur after the UI has been created already.
+     *
+     * The `mSettings` can contain any property `xyz` for which a setter method `setXYZ` exists
+     * in the API of this class. Similarly, values for the {@link sap.ui.core.Configuration.FormatSettings format settings }
+     * API can be provided in a nested object with name `formatSettings`.
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    applySettings(
+      /**
+       * Configuration options to apply
+       */
+      mSettings: object
+    ): this;
+    /**
      * Creates a new subclass of class sap.ui.core.Configuration with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -14012,37 +13976,9 @@ declare module "sap/ui/core/Configuration" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Returns a metadata object for class sap.ui.core.Configuration.
+     * Returns whether the accessibility mode is enabled or not.
      *
-     * @returns Metadata object describing this class
-     */
-    getMetadata(): Metadata;
-    /**
-     * @since 1.38.6
-     *
-     * Applies multiple changes to the configuration at once.
-     *
-     * If the changed settings contain localization related settings like `language` or calendarType,
-     * then only a single `localizationChanged` event will be fired. As the framework has to inform all existing
-     * components, elements, models etc. about localization changes, using `applySettings` can significantly
-     * reduce the overhead for multiple changes, esp. when they occur after the UI has been created already.
-     *
-     * The `mSettings` can contain any property `xyz` for which a setter method `setXYZ` exists
-     * in the API of this class. Similarly, values for the {@link sap.ui.core.Configuration.FormatSettings format settings }
-     * API can be provided in a nested object with name `formatSettings`.
-     *
-     * @returns Returns `this` to allow method chaining
-     */
-    applySettings(
-      /**
-       * Configuration options to apply
-       */
-      mSettings: object
-    ): this;
-    /**
-     * Returns whether the accessibility mode is used or not.
-     *
-     * @returns whether the accessibility mode is used or not
+     * @returns whether the accessibility mode is enabled or not
      */
     getAccessibility(): boolean;
     /**
@@ -14100,6 +14036,8 @@ declare module "sap/ui/core/Configuration" {
      * @since 1.27.0
      *
      * Returns whether the framework automatically adds the ARIA role 'application' to the HTML body or not.
+     *
+     * @returns Wether the ARIA role 'application' should be added to the HTML body or not
      */
     getAutoAriaBodyRole(): boolean;
     /**
@@ -14110,9 +14048,7 @@ declare module "sap/ui/core/Configuration" {
      *
      * @returns The calendar week numbering algorithm
      */
-    getCalendarWeekNumbering():
-      | CalendarWeekNumbering
-      | keyof typeof CalendarWeekNumbering;
+    getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
      * Returns the used compatibility version for the given feature.
      *
@@ -14187,7 +14123,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns a string that identifies the current language.
      *
-     * The value returned by this method in most cases corresponds to the exact value that has been configured
+     * The value returned by config method in most cases corresponds to the exact value that has been configured
      * by the user or application or that has been determined from the user agent settings. It has not been
      * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt BCP47},
      * allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters into
@@ -14220,7 +14156,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns a BCP47-compliant language tag for the current language.
      *
-     * The return value of this method is especially useful for an HTTP `Accept-Language` header.
+     * The return value of config method is especially useful for an HTTP `Accept-Language` header.
      *
      * Retrieves the modern locale, e.g. sr-Latn (Serbian (Cyrillic)), he (Hebrew), yi (Yiddish)
      *
@@ -14243,6 +14179,12 @@ declare module "sap/ui/core/Configuration" {
      * @returns true if a Component should load the manifest first
      */
     getManifestFirst(): boolean;
+    /**
+     * Returns a metadata object for class sap.ui.core.Configuration.
+     *
+     * @returns Metadata object describing this class
+     */
+    getMetadata(): Metadata;
     /**
      * Returns whether there should be an exception on any duplicate element IDs.
      *
@@ -14368,7 +14310,7 @@ declare module "sap/ui/core/Configuration" {
        * the new calendar type. Set it with null to clear the calendar type and the calendar type is calculated
        * based on the format settings and current locale.
        */
-      sCalendarType: (CalendarType | keyof typeof CalendarType) | null
+      sCalendarType: CalendarType | null
     ): this;
     /**
      * @since 1.113.0
@@ -14382,9 +14324,7 @@ declare module "sap/ui/core/Configuration" {
       /**
        * The calendar week numbering algorithm
        */
-      sCalendarWeekNumbering:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering
+      sCalendarWeekNumbering: CalendarWeekNumbering
     ): this;
     /**
      * Sets a new format locale to be used from now on for retrieving locale specific formatters. Modifying
@@ -14423,7 +14363,7 @@ declare module "sap/ui/core/Configuration" {
      * Restrictions:
      *
      * The framework **does not** guarantee that already created, language dependent objects will be updated
-     * by this call. It therefore remains best practice for applications to switch the language early, e.g.
+     * by config call. It therefore remains best practice for applications to switch the language early, e.g.
      * before any language dependent objects are created. Applications that need to support more dynamic changes
      * of the language should listen to the `localizationChanged` event and adapt all language dependent objects
      * that they use (e.g. by rebuilding their UI).
@@ -14446,17 +14386,15 @@ declare module "sap/ui/core/Configuration" {
      * 	 - the `dir` attribute of the page will be changed to reflect the new mode.
      * 	 - all UIAreas will be invalidated (which results in a rendering of the whole UI5 UI)
      *
-     * This method does not accept SAP language codes for `sLanguage`. Instead, a second parameter `sSAPLogonLanguage`
+     * config method does not accept SAP language codes for `sLanguage`. Instead, a second parameter `sSAPLogonLanguage`
      * can be provided with an SAP language code corresponding to the given language. A given value will be
      * returned by the {@link #getSAPLogonLanguage} method. It is up to the caller to provide a consistent pair
      * of BCP47 language and SAP language code. The SAP language code is only checked to be of length 2 and
      * must consist of letters or digits only.
      *
-     * **Note**: When using this method please take note of and respect the above mentioned restrictions.
+     * **Note**: When using config method please take note of and respect the above mentioned restrictions.
      * See:
      * 	http://scn.sap.com/docs/DOC-14377
-     *
-     * @returns `this` to allow method chaining
      */
     setLanguage(
       /**
@@ -14470,7 +14408,7 @@ declare module "sap/ui/core/Configuration" {
        * `sLanguage` as SAP Logon language.
        */
       sSAPLogonLanguage?: string
-    ): this;
+    ): void;
     /**
      * Sets the character orientation mode to be used from now on.
      *
@@ -14505,15 +14443,26 @@ declare module "sap/ui/core/Configuration" {
       aSecurityTokenHandlers: Array<(p1: URI) => Promise<any>>
     ): void;
     /**
+     * Allows setting the theme name
+     *
+     * @returns `this` to allow method chaining
+     */
+    setTheme(
+      /**
+       * the theme name
+       */
+      sTheme: string
+    ): this;
+    /**
      * @since 1.99.0
      *
-     * Sets the timezone such that all date and time based calculations use this timezone.
+     * Sets the timezone such that all date and time based calculations use config timezone.
      *
-     * **Important:** It is strongly recommended to only use this API at the earliest point of time while initializing
-     * a UI5 app. A later adjustment of the time zone should be avoided. It can lead to unexpected data inconsistencies
-     * in a running application, because date objects could still be related to a previously configured time
-     * zone. Instead, the app should be completely restarted with the new time zone. For more information, see
-     * {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
+     * **Important:** It is strongly recommended to only use config API at the earliest point of time while
+     * initializing a UI5 app. A later adjustment of the time zone should be avoided. It can lead to unexpected
+     * data inconsistencies in a running application, because date objects could still be related to a previously
+     * configured time zone. Instead, the app should be completely restarted with the new time zone. For more
+     * information, see {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
      *
      * When the timezone has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged localizationChanged }
      * event.
@@ -14601,7 +14550,7 @@ declare module "sap/ui/core/Configuration" {
      * Adds custom currencies to the existing entries. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
      * } `
      * See:
-     * 	sap.ui.core.Configuration.FormatSettings#setCustomCurrencies
+     * 	#setCustomCurrencies
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -14609,18 +14558,25 @@ declare module "sap/ui/core/Configuration" {
       /**
        * adds to the currency map
        */
-      mCurrencies: Record<string, object>
+      mCurrencies: object
     ): this;
     /**
      * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
      *
      * @returns the mapping between custom currencies and its digits
      */
-    getCustomCurrencies(): Record<string, object>;
+    getCustomCurrencies(): object;
     /**
      * Returns the currently set date pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting date pattern
      */
-    getDatePattern(): void;
+    getDatePattern(
+      /**
+       * The date style (short, medium, long or full)
+       */
+      sStyle: string
+    ): string;
     /**
      * Returns the locale to be used for formatting.
      *
@@ -14636,9 +14592,10 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns the currently set customizing data for Islamic calendar support
      *
-     * @returns Returns an array contains the customizing data. For details, please see {@link #setLegacyDateCalendarCustomizing}
+     * @returns Returns an array contains the customizing data. Each element in the array has properties: dateFormat,
+     * islamicMonthStart, gregDate. For details, please see {@link #setLegacyDateCalendarCustomizing}
      */
-    getLegacyDateCalendarCustomizing(): LegacyDateCalendarCustomizing[];
+    getLegacyDateCalendarCustomizing(): object[];
     /**
      * Returns the currently set legacy ABAP date format (its id) or undefined if none has been set.
      *
@@ -14688,8 +14645,15 @@ declare module "sap/ui/core/Configuration" {
     ): string;
     /**
      * Returns the currently set time pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting time pattern
      */
-    getTimePattern(): void;
+    getTimePattern(
+      /**
+       * The time style (short, medium, long or full)
+       */
+      sStyle: string
+    ): string;
     /**
      * @since 1.75.0
      *
@@ -14721,7 +14685,7 @@ declare module "sap/ui/core/Configuration" {
       /**
        * currency map which is set
        */
-      mCurrencies: Record<string, object>
+      mCurrencies: object
     ): this;
     /**
      * Defines the preferred format pattern for the given date format style.
@@ -14748,7 +14712,8 @@ declare module "sap/ui/core/Configuration" {
       sPattern: string
     ): this;
     /**
-     * @deprecated (since 1.113.0) - Use {@link sap.ui.core.Configuration#setCalendarWeekNumbering} instead.
+     * @deprecated (since 1.113.0) - Use {@link sap.ui.core.Configuration.FormatSettings#setCalendarWeekNumbering }
+     * instead.
      *
      * Defines the day used as the first day of the week.
      *
@@ -14780,7 +14745,20 @@ declare module "sap/ui/core/Configuration" {
       /**
        * contains the customizing data for the support of Islamic calendar.
        */
-      aMappings: LegacyDateCalendarCustomizing[]
+      aMappings: Array<{
+        /**
+         * The date format
+         */
+        dateFormat: string;
+        /**
+         * The Islamic date
+         */
+        islamicMonthStart: string;
+        /**
+         * The corresponding Gregorian date
+         */
+        gregDate: string;
+      }>
     ): this;
     /**
      * Allows to specify one of the legacy ABAP date formats.
@@ -14921,23 +14899,6 @@ declare module "sap/ui/core/Configuration" {
       bTrailingCurrencyCode: boolean
     ): this;
   }
-  /**
-   * The object that contains the information for date calendar customizing
-   */
-  export type LegacyDateCalendarCustomizing = {
-    /**
-     * The IO of the date format. It has value "A" or "B".
-     */
-    dateFormat: "A" | "B";
-    /**
-     * The Islamic date in format "yyyyMMdd".
-     */
-    islamicMonthStart: string;
-    /**
-     * The corresponding Gregorian date in format "yyyyMMdd".
-     */
-    gregDate: string;
-  };
 }
 
 declare module "sap/ui/core/Control" {
@@ -15799,9 +15760,7 @@ declare module "sap/ui/core/Control" {
      * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
      * or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group} documentation.
      */
-    validateFieldGroup?: (
-      oEvent: Event<Control$ValidateFieldGroupEventParameters>
-    ) => void;
+    validateFieldGroup?: (oEvent: Control$ValidateFieldGroupEvent) => void;
   }
 
   export interface Control$ValidateFieldGroupEventParameters {
@@ -15810,12 +15769,6 @@ declare module "sap/ui/core/Control" {
      */
     fieldGroupIds?: string[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Control$ValidateFieldGroupEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ControlValidateFieldGroupEventParameters = Control$ValidateFieldGroupEventParameters;
 
   export type Control$ValidateFieldGroupEvent = Event<Control$ValidateFieldGroupEventParameters>;
 }
@@ -15965,6 +15918,26 @@ declare module "sap/ui/core/Core" {
    * ```
    */
   interface Core {
+    /**
+     * Returns true, if the styles of the current theme are already applied, false otherwise.
+     *
+     * This function must not be used before the init event of the Core. If the styles are not yet applied a
+     * theme changed event will follow when the styles will be applied.
+     */
+    isThemeApplied: undefined;
+
+    /**
+     * Triggers a realignment of controls
+     *
+     * This method should be called after changing the cozy/compact CSS class of a DOM element at runtime, for
+     * example at the `<body>` tag. Controls can listen to the themeChanged event to realign their appearance
+     * after changing the theme. Changing the cozy/compact CSS class should then also be handled as a theme
+     * change. In more simple scenarios where the cozy/compact CSS class is added to a DOM element which contains
+     * only a few controls it might not be necessary to trigger the realigment of all controls placed in the
+     * DOM, for example changing the cozy/compact CSS class at a single control
+     */
+    notifyContentDensityChanged: undefined;
+
     /**
      * Creates a new subclass of class sap.ui.core.Core with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -17059,15 +17032,6 @@ declare module "sap/ui/core/Core" {
       oDomRef: Element
     ): boolean;
     /**
-     * Returns true, if the styles of the current theme are already applied, false otherwise.
-     *
-     * This function must not be used before the init event of the Core. If the styles are not yet applied a
-     * theme changed event will follow when the styles will be applied.
-     *
-     * @returns whether the styles of the current theme are already applied
-     */
-    isThemeApplied(): boolean;
-    /**
      * Loads the given library and its dependencies and makes its content available to the application.
      *
      * What it does:
@@ -17165,17 +17129,6 @@ declare module "sap/ui/core/Core" {
      * be the case for asynchronous UI behavior
      */
     lock(): void;
-    /**
-     * Triggers a realignment of controls
-     *
-     * This method should be called after changing the cozy/compact CSS class of a DOM element at runtime, for
-     * example at the `<body>` tag. Controls can listen to the themeChanged event to realign their appearance
-     * after changing the theme. Changing the cozy/compact CSS class should then also be handled as a theme
-     * change. In more simple scenarios where the cozy/compact CSS class is added to a DOM element which contains
-     * only a few controls it might not be necessary to trigger the realigment of all controls placed in the
-     * DOM, for example changing the cozy/compact CSS class at a single control
-     */
-    notifyContentDensityChanged(): void;
     /**
      * @deprecated (since 1.73) - Plugins never have been meant as a public offering, but were intended for
      * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
@@ -18009,51 +17962,21 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
 
   export interface ItemNavigation$AfterFocusEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$AfterFocusEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ItemNavigationAfterFocusEventParameters = ItemNavigation$AfterFocusEventParameters;
-
   export type ItemNavigation$AfterFocusEvent = Event<ItemNavigation$AfterFocusEventParameters>;
 
   export interface ItemNavigation$BeforeFocusEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$BeforeFocusEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ItemNavigationBeforeFocusEventParameters = ItemNavigation$BeforeFocusEventParameters;
 
   export type ItemNavigation$BeforeFocusEvent = Event<ItemNavigation$BeforeFocusEventParameters>;
 
   export interface ItemNavigation$BorderReachedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$BorderReachedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ItemNavigationBorderReachedEventParameters = ItemNavigation$BorderReachedEventParameters;
-
   export type ItemNavigation$BorderReachedEvent = Event<ItemNavigation$BorderReachedEventParameters>;
 
   export interface ItemNavigation$FocusAgainEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$FocusAgainEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ItemNavigationFocusAgainEventParameters = ItemNavigation$FocusAgainEventParameters;
-
   export type ItemNavigation$FocusAgainEvent = Event<ItemNavigation$FocusAgainEventParameters>;
 
   export interface ItemNavigation$FocusLeaveEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ItemNavigation$FocusLeaveEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ItemNavigationFocusLeaveEventParameters = ItemNavigation$FocusLeaveEventParameters;
 
   export type ItemNavigation$FocusLeaveEvent = Event<ItemNavigation$FocusLeaveEventParameters>;
 }
@@ -18834,7 +18757,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event<DragDropInfo$DragStartEventParameters>) => void;
+    dragStart?: (oEvent: DragDropInfo$DragStartEvent) => void;
 
     /**
      * @since 1.56
@@ -18845,12 +18768,6 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
   }
 
   export interface DragDropInfo$DragEndEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragDropInfo$DragEndEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DragDropInfoDragEndEventParameters = DragDropInfo$DragEndEventParameters;
 
   export type DragDropInfo$DragEndEvent = Event<DragDropInfo$DragEndEventParameters>;
 
@@ -18871,12 +18788,6 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     browserEvent?: Event;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragDropInfo$DragStartEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DragDropInfoDragStartEventParameters = DragDropInfo$DragStartEventParameters;
-
   export type DragDropInfo$DragStartEvent = Event<DragDropInfo$DragStartEventParameters>;
 }
 
@@ -18892,11 +18803,11 @@ declare module "sap/ui/core/dnd/DragInfo" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import UI5Element from "sap/ui/core/Element";
 
   import { DragSession } from "sap/ui/core/dnd/DragAndDrop";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.56
@@ -19165,14 +19076,14 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event<DragInfo$DragStartEventParameters>) => void;
+    dragStart?: (oEvent: DragInfo$DragStartEvent) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when a drag operation is being ended.
      */
-    dragEnd?: (oEvent: Event<DragInfo$DragEndEventParameters>) => void;
+    dragEnd?: (oEvent: DragInfo$DragEndEvent) => void;
   }
 
   export interface DragInfo$DragEndEventParameters {
@@ -19192,12 +19103,6 @@ declare module "sap/ui/core/dnd/DragInfo" {
     browserEvent?: Event;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragInfo$DragEndEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DragInfoDragEndEventParameters = DragInfo$DragEndEventParameters;
-
   export type DragInfo$DragEndEvent = Event<DragInfo$DragEndEventParameters>;
 
   export interface DragInfo$DragStartEventParameters {
@@ -19216,12 +19121,6 @@ declare module "sap/ui/core/dnd/DragInfo" {
      */
     browserEvent?: Event;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DragInfo$DragStartEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DragInfoDragStartEventParameters = DragInfo$DragStartEventParameters;
 
   export type DragInfo$DragStartEvent = Event<DragInfo$DragStartEventParameters>;
 }
@@ -19385,11 +19284,11 @@ declare module "sap/ui/core/dnd/DropInfo" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import UI5Element from "sap/ui/core/Element";
 
   import { DragSession } from "sap/ui/core/dnd/DragAndDrop";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.56
@@ -19841,20 +19740,20 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * This event is fired when a dragged element enters a drop target.
      */
-    dragEnter?: (oEvent: Event<DropInfo$DragEnterEventParameters>) => void;
+    dragEnter?: (oEvent: DropInfo$DragEnterEvent) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when an element is being dragged over a valid drop target.
      */
-    dragOver?: (oEvent: Event<DropInfo$DragOverEventParameters>) => void;
+    dragOver?: (oEvent: DropInfo$DragOverEvent) => void;
 
     /**
      * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
      * info.
      */
-    drop?: (oEvent: Event<DropInfo$DropEventParameters>) => void;
+    drop?: (oEvent: DropInfo$DropEvent) => void;
   }
 
   export interface DropInfo$DragEnterEventParameters {
@@ -19873,12 +19772,6 @@ declare module "sap/ui/core/dnd/DropInfo" {
      */
     browserEvent?: Event;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DragEnterEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DropInfoDragEnterEventParameters = DropInfo$DragEnterEventParameters;
 
   export type DropInfo$DragEnterEvent = Event<DropInfo$DragEnterEventParameters>;
 
@@ -19905,12 +19798,6 @@ declare module "sap/ui/core/dnd/DropInfo" {
      */
     browserEvent?: Event;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DragOverEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DropInfoDragOverEventParameters = DropInfo$DragOverEventParameters;
 
   export type DropInfo$DragOverEvent = Event<DropInfo$DragOverEventParameters>;
 
@@ -19942,12 +19829,6 @@ declare module "sap/ui/core/dnd/DropInfo" {
      */
     browserEvent?: Event;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropInfo$DropEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DropInfoDropEventParameters = DropInfo$DropEventParameters;
 
   export type DropInfo$DropEvent = Event<DropInfo$DropEventParameters>;
 }
@@ -21611,9 +21492,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21692,7 +21571,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -21724,9 +21603,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21808,7 +21685,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -21842,9 +21719,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21917,7 +21792,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calendar type which is used to format and parse the date. This value is by default either set in
          * the configuration or calculated based on the current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale-specific texts/settings
@@ -21951,9 +21826,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -22032,7 +21905,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -24053,9 +23926,7 @@ declare module "sap/ui/core/HTML" {
      * When the control doesn't have string content and no preserved DOM existed for this control, then this
      * event will fire, but there won't be a DOM node for this control.
      */
-    afterRendering?: (
-      oEvent: Event<HTML$AfterRenderingEventParameters>
-    ) => void;
+    afterRendering?: (oEvent: HTML$AfterRenderingEvent) => void;
   }
 
   export interface HTML$AfterRenderingEventParameters {
@@ -24065,12 +23936,6 @@ declare module "sap/ui/core/HTML" {
      */
     isPreservedDOM?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HTML$AfterRenderingEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HTMLAfterRenderingEventParameters = HTML$AfterRenderingEventParameters;
 
   export type HTML$AfterRenderingEvent = Event<HTML$AfterRenderingEventParameters>;
 }
@@ -24337,7 +24202,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
     /**
      * Fired if an error with initialization or hyphenation occurs.
      */
-    error?: (oEvent: Event<Hyphenation$ErrorEventParameters>) => void;
+    error?: (oEvent: Hyphenation$ErrorEvent) => void;
   }
 
   export interface Hyphenation$ErrorEventParameters {
@@ -24346,12 +24211,6 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
      */
     sErrorMessage?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Hyphenation$ErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HyphenationErrorEventParameters = Hyphenation$ErrorEventParameters;
 
   export type Hyphenation$ErrorEvent = Event<Hyphenation$ErrorEventParameters>;
 }
@@ -25088,12 +24947,6 @@ declare module "sap/ui/core/Icon" {
   }
 
   export interface Icon$PressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Icon$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $IconPressEventParameters = Icon$PressEventParameters;
 
   export type Icon$PressEvent = Event<Icon$PressEventParameters>;
 }
@@ -26494,7 +26347,7 @@ declare module "sap/ui/core/Locale" {
       /**
        * the locale identifier, in format en-US or en_US.
        */
-      sLocaleId: string
+      sLocale: string
     );
 
     /**
@@ -26532,7 +26385,7 @@ declare module "sap/ui/core/Locale" {
      * The extension always consists of a singleton character (not 'x'), a dash '-' and one or more extension
      * token, each separated again with a dash.
      *
-     * Use {@link #getExtensionSubtags} to get the individual extension tokens as an array.
+     * Use {@link #getExtensions} to get the individual extension tokens as an array.
      *
      * @returns the extension or `null`
      */
@@ -26726,7 +26579,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.46
@@ -26747,7 +26600,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.27.0
@@ -26859,7 +26712,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.46
@@ -26892,7 +26745,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string | string[];
     /**
      * Get date pattern in format "short", "medium", "long" or "full".
@@ -26908,7 +26761,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get datetime pattern in style "short", "medium", "long" or "full".
@@ -26924,7 +26777,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get day periods in width "narrow", "abbreviated" or "wide".
@@ -26940,7 +26793,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone day periods in width "narrow", "abbreviated" or "wide".
@@ -26956,7 +26809,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get day names in width "narrow", "abbreviated" or "wide".
@@ -26972,7 +26825,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone day names in width "narrow", "abbreviated" or "wide".
@@ -26988,7 +26841,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.25.0
@@ -27044,7 +26897,7 @@ declare module "sap/ui/core/LocaleData" {
       /**
        * the type of calendar
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.32.0
@@ -27061,7 +26914,7 @@ declare module "sap/ui/core/LocaleData" {
       /**
        * the type of calendar
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Returns the day that usually is regarded as the first day of a week in the current locale.
@@ -27094,7 +26947,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get locale specific language names.
@@ -27152,7 +27005,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone month names in width "narrow", "abbreviated" or "wide".
@@ -27168,7 +27021,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get number symbol "decimal", "group", "plusSign", "minusSign", "percentSign".
@@ -27232,7 +27085,7 @@ declare module "sap/ui/core/LocaleData" {
      *
      * @returns the preferred calendar type
      */
-    getPreferredCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPreferredCalendarType(): CalendarType;
     /**
      * @since 1.34
      *
@@ -27255,7 +27108,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone quarter names in width "narrow", "abbreviated" or "wide".
@@ -27271,7 +27124,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.25.0
@@ -27507,7 +27360,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.54
@@ -28861,12 +28714,6 @@ declare module "sap/ui/core/message/MessageProcessor" {
      */
     newMessages?: Message;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MessageProcessor$MessageChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MessageProcessorMessageChangeEventParameters = MessageProcessor$MessageChangeEventParameters;
 
   export type MessageProcessor$MessageChangeEvent = Event<MessageProcessor$MessageChangeEventParameters>;
 }
@@ -30890,41 +30737,17 @@ declare module "sap/ui/core/mvc/View" {
 
   export interface View$AfterInitEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$AfterInitEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ViewAfterInitEventParameters = View$AfterInitEventParameters;
-
   export type View$AfterInitEvent = Event<View$AfterInitEventParameters>;
 
   export interface View$AfterRenderingEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$AfterRenderingEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ViewAfterRenderingEventParameters = View$AfterRenderingEventParameters;
 
   export type View$AfterRenderingEvent = Event<View$AfterRenderingEventParameters>;
 
   export interface View$BeforeExitEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$BeforeExitEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ViewBeforeExitEventParameters = View$BeforeExitEventParameters;
-
   export type View$BeforeExitEvent = Event<View$BeforeExitEventParameters>;
 
   export interface View$BeforeRenderingEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'View$BeforeRenderingEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ViewBeforeRenderingEventParameters = View$BeforeRenderingEventParameters;
 
   export type View$BeforeRenderingEvent = Event<View$BeforeRenderingEventParameters>;
 
@@ -32175,31 +31998,13 @@ declare module "sap/ui/core/Popup" {
     zIndex?: number;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$BlockLayerStateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $PopupBlockLayerStateChangeEventParameters = Popup$BlockLayerStateChangeEventParameters;
-
   export type Popup$BlockLayerStateChangeEvent = Event<Popup$BlockLayerStateChangeEventParameters>;
 
   export interface Popup$ClosedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$ClosedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $PopupClosedEventParameters = Popup$ClosedEventParameters;
-
   export type Popup$ClosedEvent = Event<Popup$ClosedEventParameters>;
 
   export interface Popup$OpenedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Popup$OpenedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $PopupOpenedEventParameters = Popup$OpenedEventParameters;
 
   export type Popup$OpenedEvent = Event<Popup$OpenedEventParameters>;
 }
@@ -33984,12 +33789,6 @@ declare module "sap/ui/core/routing/Route" {
     nestedRoute?: Route;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$BeforeMatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouteBeforeMatchedEventParameters = Route$BeforeMatchedEventParameters;
-
   export type Route$BeforeMatchedEvent = Event<Route$BeforeMatchedEventParameters>;
 
   export interface Route$MatchedEventParameters {
@@ -34040,12 +33839,6 @@ declare module "sap/ui/core/routing/Route" {
     targetControls?: Control[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$MatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouteMatchedEventParameters = Route$MatchedEventParameters;
-
   export type Route$MatchedEvent = Event<Route$MatchedEventParameters>;
 
   export interface Route$PatternMatchedEventParameters {
@@ -34088,12 +33881,6 @@ declare module "sap/ui/core/routing/Route" {
     targetControls?: Control[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$PatternMatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RoutePatternMatchedEventParameters = Route$PatternMatchedEventParameters;
-
   export type Route$PatternMatchedEvent = Event<Route$PatternMatchedEventParameters>;
 
   export interface Route$SwitchedEventParameters {
@@ -34113,12 +33900,6 @@ declare module "sap/ui/core/routing/Route" {
      */
     config?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Route$SwitchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouteSwitchedEventParameters = Route$SwitchedEventParameters;
 
   export type Route$SwitchedEvent = Event<Route$SwitchedEventParameters>;
 }
@@ -34566,12 +34347,6 @@ declare module "sap/ui/core/routing/Target" {
     routeRelevant?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Target$DisplayEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TargetDisplayEventParameters = Target$DisplayEventParameters;
-
   export type Target$DisplayEvent = Event<Target$DisplayEventParameters>;
 }
 
@@ -34771,12 +34546,6 @@ declare module "sap/ui/core/routing/HashChanger" {
     hash?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChanger$HashSetEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $HashChangerHashSetEventParameters = HashChanger$HashSetEventParameters;
-
   export type HashChanger$HashSetEvent = Event<HashChanger$HashSetEventParameters>;
 }
 
@@ -34889,13 +34658,6 @@ declare module "sap/ui/core/routing/HashChangerBase" {
     fullHash?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChangerBase$HashChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type $HashChangerBaseHashChangedEventParameters = HashChangerBase$HashChangedEventParameters;
-
   export type HashChangerBase$HashChangedEvent = Event<HashChangerBase$HashChangedEventParameters>;
 
   export interface HashChangerBase$HashReplacedEventParameters {
@@ -34904,13 +34666,6 @@ declare module "sap/ui/core/routing/HashChangerBase" {
      */
     hash?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'HashChangerBase$HashReplacedEventParameters'
-   * in 1.115.1 and any later releases.
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type $HashChangerBaseHashReplacedEventParameters = HashChangerBase$HashReplacedEventParameters;
 
   export type HashChangerBase$HashReplacedEvent = Event<HashChangerBase$HashReplacedEventParameters>;
 }
@@ -36118,12 +35873,6 @@ declare module "sap/ui/core/routing/Router" {
     nestedRoute?: Route;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$BeforeRouteMatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouterBeforeRouteMatchedEventParameters = Router$BeforeRouteMatchedEventParameters;
-
   export type Router$BeforeRouteMatchedEvent = Event<Router$BeforeRouteMatchedEventParameters>;
 
   export interface Router$BypassedEventParameters {
@@ -36132,12 +35881,6 @@ declare module "sap/ui/core/routing/Router" {
      */
     hash?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$BypassedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouterBypassedEventParameters = Router$BypassedEventParameters;
 
   export type Router$BypassedEvent = Event<Router$BypassedEventParameters>;
 
@@ -36189,12 +35932,6 @@ declare module "sap/ui/core/routing/Router" {
     targetControls?: Control[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$RouteMatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouterRouteMatchedEventParameters = Router$RouteMatchedEventParameters;
-
   export type Router$RouteMatchedEvent = Event<Router$RouteMatchedEventParameters>;
 
   export interface Router$RoutePatternMatchedEventParameters {
@@ -36237,12 +35974,6 @@ declare module "sap/ui/core/routing/Router" {
     targetControls?: Control[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$RoutePatternMatchedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouterRoutePatternMatchedEventParameters = Router$RoutePatternMatchedEventParameters;
-
   export type Router$RoutePatternMatchedEvent = Event<Router$RoutePatternMatchedEventParameters>;
 
   export interface Router$TitleChangedEventParameters {
@@ -36270,12 +36001,6 @@ declare module "sap/ui/core/routing/Router" {
      */
     propagated?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Router$TitleChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RouterTitleChangedEventParameters = Router$TitleChangedEventParameters;
 
   export type Router$TitleChangedEvent = Event<Router$TitleChangedEventParameters>;
 }
@@ -36865,12 +36590,6 @@ declare module "sap/ui/core/routing/Targets" {
     routeRelevant?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Targets$DisplayEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TargetsDisplayEventParameters = Targets$DisplayEventParameters;
-
   export type Targets$DisplayEvent = Event<Targets$DisplayEventParameters>;
 
   export interface Targets$TitleChangedEventParameters {
@@ -36884,12 +36603,6 @@ declare module "sap/ui/core/routing/Targets" {
      */
     name?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Targets$TitleChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TargetsTitleChangedEventParameters = Targets$TitleChangedEventParameters;
 
   export type Targets$TitleChangedEvent = Event<Targets$TitleChangedEventParameters>;
 }
@@ -37026,12 +36739,6 @@ declare module "sap/ui/core/routing/Views" {
      */
     viewOptions?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Views$CreatedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ViewsCreatedEventParameters = Views$CreatedEventParameters;
 
   export type Views$CreatedEvent = Event<Views$CreatedEventParameters>;
 }
@@ -37367,7 +37074,7 @@ declare module "sap/ui/core/ScrollBar" {
     /**
      * Scroll event.
      */
-    scroll?: (oEvent: Event<ScrollBar$ScrollEventParameters>) => void;
+    scroll?: (oEvent: ScrollBar$ScrollEvent) => void;
   }
 
   export interface ScrollBar$ScrollEventParameters {
@@ -37391,12 +37098,6 @@ declare module "sap/ui/core/ScrollBar" {
      */
     oldScrollPos?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ScrollBar$ScrollEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ScrollBarScrollEventParameters = ScrollBar$ScrollEventParameters;
 
   export type ScrollBar$ScrollEvent = Event<ScrollBar$ScrollEventParameters>;
 }
@@ -39524,21 +39225,9 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
 
   export interface TemplateControl$AfterRenderingEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TemplateControl$AfterRenderingEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TemplateControlAfterRenderingEventParameters = TemplateControl$AfterRenderingEventParameters;
-
   export type TemplateControl$AfterRenderingEvent = Event<TemplateControl$AfterRenderingEventParameters>;
 
   export interface TemplateControl$BeforeRenderingEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TemplateControl$BeforeRenderingEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TemplateControlBeforeRenderingEventParameters = TemplateControl$BeforeRenderingEventParameters;
 
   export type TemplateControl$BeforeRenderingEvent = Event<TemplateControl$BeforeRenderingEventParameters>;
 }
@@ -40007,12 +39696,6 @@ declare module "sap/ui/core/TooltipBase" {
   }
 
   export interface TooltipBase$ClosedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TooltipBase$ClosedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TooltipBaseClosedEventParameters = TooltipBase$ClosedEventParameters;
 
   export type TooltipBase$ClosedEvent = Event<TooltipBase$ClosedEventParameters>;
 }
@@ -43236,12 +42919,6 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
     pcpFields?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SapPcpWebSocket$MessageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SapPcpWebSocketMessageEventParameters = SapPcpWebSocket$MessageEventParameters;
-
   export type SapPcpWebSocket$MessageEvent = Event<SapPcpWebSocket$MessageEventParameters>;
 }
 
@@ -43665,21 +43342,9 @@ declare module "sap/ui/core/ws/WebSocket" {
     wasClean?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$CloseEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $WebSocketCloseEventParameters = WebSocket$CloseEventParameters;
-
   export type WebSocket$CloseEvent = Event<WebSocket$CloseEventParameters>;
 
   export interface WebSocket$ErrorEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$ErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $WebSocketErrorEventParameters = WebSocket$ErrorEventParameters;
 
   export type WebSocket$ErrorEvent = Event<WebSocket$ErrorEventParameters>;
 
@@ -43690,21 +43355,9 @@ declare module "sap/ui/core/ws/WebSocket" {
     data?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$MessageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $WebSocketMessageEventParameters = WebSocket$MessageEventParameters;
-
   export type WebSocket$MessageEvent = Event<WebSocket$MessageEventParameters>;
 
   export interface WebSocket$OpenEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'WebSocket$OpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $WebSocketOpenEventParameters = WebSocket$OpenEventParameters;
 
   export type WebSocket$OpenEvent = Event<WebSocket$OpenEventParameters>;
 }
@@ -43725,7 +43378,7 @@ declare module "sap/ui/core/XMLComposite" {
   /**
    * @since 1.56.0
    * @deprecated (since 1.88) - use {@link topic:c1512f6ce1454ff1913e3857bad56392 Standard Composite Controls}
-   * @experimental (since 1.56.0)
+   * Experimental (since 1.56.0)
    *
    * Base Class for XMLComposite controls.
    */
@@ -44818,7 +44471,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * @experimental - This module is only for experimental use!
+   * Experimental - This module is only for experimental use!
    * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for OData entity sets with aggregate semantics.
@@ -45531,7 +45184,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * @experimental - This module is only for experimental use!
+   * Experimental - This module is only for experimental use!
    * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The OData4Analytics API is purely experimental, not yet functionally complete and not meant for productive
@@ -47357,7 +47010,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * @experimental (since 1.58)
+   * Experimental (since 1.58)
    *
    * The ManagedObjectModel class can be used for data binding of properties and aggregations for managed
    * objects.
@@ -47487,7 +47140,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * The context object
        */
-      oContext: Context,
+      oContext?: Context,
       /**
        * Additional, implementation-specific parameters
        */
@@ -47778,7 +47431,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Context object
      */
-    getContext(): Context;
+    getContext(): null | undefined | Context;
     /**
      * @since 1.82.0
      *
@@ -47800,7 +47453,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Model to which this binding belongs
      */
-    getModel(): Model;
+    getModel(): null | Model;
     /**
      * Returns the model path to which this binding binds.
      *
@@ -47809,7 +47462,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Binding path
      */
-    getPath(): string;
+    getPath(): null | string;
     /**
      * @since 1.88.0
      *
@@ -47934,12 +47587,6 @@ declare module "sap/ui/model/Binding" {
     dataState?: DataState;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$AggregatedDataStateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BindingAggregatedDataStateChangeEventParameters = Binding$AggregatedDataStateChangeEventParameters;
-
   export type Binding$AggregatedDataStateChangeEvent = Event<Binding$AggregatedDataStateChangeEventParameters>;
 
   export interface Binding$ChangeEventParameters {
@@ -47950,12 +47597,6 @@ declare module "sap/ui/model/Binding" {
     reason?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BindingChangeEventParameters = Binding$ChangeEventParameters;
-
   export type Binding$ChangeEvent = Event<Binding$ChangeEventParameters>;
 
   export interface Binding$DataReceivedEventParameters {
@@ -47965,21 +47606,9 @@ declare module "sap/ui/model/Binding" {
     data?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataReceivedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BindingDataReceivedEventParameters = Binding$DataReceivedEventParameters;
-
   export type Binding$DataReceivedEvent = Event<Binding$DataReceivedEventParameters>;
 
   export interface Binding$DataRequestedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataRequestedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BindingDataRequestedEventParameters = Binding$DataRequestedEventParameters;
 
   export type Binding$DataRequestedEvent = Event<Binding$DataRequestedEventParameters>;
 
@@ -47989,12 +47618,6 @@ declare module "sap/ui/model/Binding" {
      */
     dataState?: DataState;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Binding$DataStateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BindingDataStateChangeEventParameters = Binding$DataStateChangeEventParameters;
 
   export type Binding$DataStateChangeEvent = Event<Binding$DataStateChangeEventParameters>;
 }
@@ -48840,6 +48463,12 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     getBindings(): any[];
     /**
+     * Returns `null` for the context of this binding instance, as a composite binding has no context.
+     *
+     * @returns `null`
+     */
+    getContext(): null;
+    /**
      * Returns the current external value of the bound target which is formatted via a type or formatter function.
      *
      * @returns The current value of the bound target
@@ -48852,6 +48481,18 @@ declare module "sap/ui/model/CompositeBinding" {
      * @returns The current values of the nested bindings
      */
     getInternalValue(): any[];
+    /**
+     * Returns `null` for the model of this binding instance, as a composite binding has no model.
+     *
+     * @returns `null`
+     */
+    getModel(): null;
+    /**
+     * Returns `null` for the path of this binding instance, as a composite binding has no path.
+     *
+     * @returns `null`
+     */
+    getPath(): null;
     /**
      * Returns the current raw value of the bound target which is an array of the raw (model) values of nested
      * bindings.
@@ -48875,6 +48516,14 @@ declare module "sap/ui/model/CompositeBinding" {
      * @returns A reference to itself
      */
     initialize(): this;
+    /**
+     * @since 1.79.0
+     *
+     * Returns whether all binding parts are resolved.
+     *
+     * @returns Whether all binding parts are resolved
+     */
+    isResolved(): boolean;
     /**
      * Suspends the binding update. No change events will be fired.
      *
@@ -50825,6 +50474,23 @@ declare module "sap/ui/model/ListBinding" {
       sPath: string
     ): any[];
     /**
+     * Protected:  Do not call from applications (only from related classes in the framework)
+     *
+     * Returns the string key for the given model context, which is a unique representation of the context's
+     * data. This key is used in extended change detection to compute the difference between current and previous
+     * contexts retrieved via {@link sap.ui.model.ListBinding#getContexts}.
+     *
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
+     *
+     * @returns The key for the given context
+     */
+    getEntryKey(
+      /**
+       * The context for which the key is to be computed
+       */
+      oContext: Context
+    ): string;
+    /**
      * @since 1.96.0
      *
      * Returns the filters set via the constructor or via {@link #filter} for the given {@link sap.ui.model.FilterType}.
@@ -50891,7 +50557,7 @@ declare module "sap/ui/model/ListBinding" {
      * in its constructor or in its {@link #filter} method; add filters which you want to keep with the "and"
      * conjunction to the resulting filter before calling {@link #filter}.
      *
-     * The implementation of this method is optional for model specific implementations of `sap.ui.model.ListBinding`.
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
      * Check for existence of this function before calling it.
      *
      * @returns A Promise that resolves with a {@link sap.ui.model.Filter} representing the entries with messages;
@@ -50925,25 +50591,22 @@ declare module "sap/ui/model/ListBinding" {
        */
       aSorters: Sorter | Sorter[]
     ): this;
+    /**
+     * Protected:  Do not call from applications (only from related classes in the framework)
+     *
+     * Update the list and apply sorting and filtering. Called after creation of the list binding on enabling
+     * extended change detection, see {@link sap.ui.model.ListBinding#enableExtendedChangeDetection}.
+     *
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
+     */
+    update(): void;
   }
 
   export interface ListBinding$FilterEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ListBinding$FilterEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ListBindingFilterEventParameters = ListBinding$FilterEventParameters;
-
   export type ListBinding$FilterEvent = Event<ListBinding$FilterEventParameters>;
 
   export interface ListBinding$SortEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ListBinding$SortEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ListBindingSortEventParameters = ListBinding$SortEventParameters;
 
   export type ListBinding$SortEvent = Event<ListBinding$SortEventParameters>;
 }
@@ -51859,12 +51522,6 @@ declare module "sap/ui/model/Model" {
     filepos?: int;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$ParseErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ModelParseErrorEventParameters = Model$ParseErrorEventParameters;
-
   export type Model$ParseErrorEvent = Event<Model$ParseErrorEventParameters>;
 
   export interface Model$PropertyChangeEventParameters {
@@ -51888,12 +51545,6 @@ declare module "sap/ui/model/Model" {
      */
     value?: any;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$PropertyChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ModelPropertyChangeEventParameters = Model$PropertyChangeEventParameters;
 
   export type Model$PropertyChangeEvent = Event<Model$PropertyChangeEventParameters>;
 
@@ -51935,12 +51586,6 @@ declare module "sap/ui/model/Model" {
     infoObject?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ModelRequestCompletedEventParameters = Model$RequestCompletedEventParameters;
-
   export type Model$RequestCompletedEvent = Event<Model$RequestCompletedEventParameters>;
 
   export interface Model$RequestFailedEventParameters {
@@ -51964,12 +51609,6 @@ declare module "sap/ui/model/Model" {
      */
     responseText?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ModelRequestFailedEventParameters = Model$RequestFailedEventParameters;
 
   export type Model$RequestFailedEvent = Event<Model$RequestFailedEventParameters>;
 
@@ -52000,18 +51639,12 @@ declare module "sap/ui/model/Model" {
     infoObject?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Model$RequestSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ModelRequestSentEventParameters = Model$RequestSentEventParameters;
-
   export type Model$RequestSentEvent = Event<Model$RequestSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataTreeBindingAdapter" {
   /**
-   * @experimental - This module is only for experimental and internal use!
+   * Experimental - This module is only for experimental and internal use!
    *
    * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
    * controls. Only usable with the sap.ui.table.TreeTable control. The functions defined here are only available
@@ -52808,21 +52441,9 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
 
   export interface ODataAnnotations$FailedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataAnnotations$FailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataAnnotationsFailedEventParameters = ODataAnnotations$FailedEventParameters;
-
   export type ODataAnnotations$FailedEvent = Event<ODataAnnotations$FailedEventParameters>;
 
   export interface ODataAnnotations$LoadedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataAnnotations$LoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataAnnotationsLoadedEventParameters = ODataAnnotations$LoadedEventParameters;
 
   export type ODataAnnotations$LoadedEvent = Event<ODataAnnotations$LoadedEventParameters>;
 }
@@ -53476,21 +53097,9 @@ declare module "sap/ui/model/odata/ODataMetadata" {
 
   export interface ODataMetadata$FailedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataMetadata$FailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataMetadataFailedEventParameters = ODataMetadata$FailedEventParameters;
-
   export type ODataMetadata$FailedEvent = Event<ODataMetadata$FailedEventParameters>;
 
   export interface ODataMetadata$LoadedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataMetadata$LoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataMetadataLoadedEventParameters = ODataMetadata$LoadedEventParameters;
 
   export type ODataMetadata$LoadedEvent = Event<ODataMetadata$LoadedEventParameters>;
 }
@@ -55810,41 +55419,17 @@ declare module "sap/ui/model/odata/ODataModel" {
 
   export interface ODataModel$AnnotationsFailedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelAnnotationsFailedEventParameters = ODataModel$AnnotationsFailedEventParameters;
-
   export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
 
   export interface ODataModel$AnnotationsLoadedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsLoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelAnnotationsLoadedEventParameters = ODataModel$AnnotationsLoadedEventParameters;
 
   export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
 
   export interface ODataModel$MetadataFailedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelMetadataFailedEventParameters = ODataModel$MetadataFailedEventParameters;
-
   export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
 
   export interface ODataModel$MetadataLoadedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataLoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelMetadataLoadedEventParameters = ODataModel$MetadataLoadedEventParameters;
 
   export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
 }
@@ -57158,7 +56743,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
      */
     getPartsIgnoringMessages(): number[];
     /**
-     * @experimental (since 1.114.0)
+     * Experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -58146,7 +57731,7 @@ declare module "sap/ui/model/odata/type/ODataType" {
      */
     static getMetadata(): Metadata;
     /**
-     * @experimental (since 1.114.0)
+     * Experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -59371,7 +58956,8 @@ declare module "sap/ui/model/odata/v2/Context" {
      * in the back end. **Note:** The context must not be used anymore after successful deletion.
      *
      * @returns A promise resolving with `undefined` in case of successful deletion or rejecting with an error
-     * in case the deletion failed
+     * in case the deletion failed. If the `DELETE` request has been aborted, the error has an `aborted` flag
+     * set to `true`.
      */
     delete(
       /**
@@ -60382,8 +59968,12 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
          */
         groupId?: string;
         /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context.
+         * Whether the created context is inactive. An inactive context will only be sent to the server when it
+         * has become active after a property update. From then on it behaves like any other created context.
+         *  When a property update happens on an inactive context, the {@link sap.ui.model.odata.v2.ODataListBinding#event:createActivate 'createActivate' }
+         * event is fired, and the context becomes active, unless the event handler prevents this. While inactive,
+         * the context does not count as a {@link sap.ui.model.odata.v2.ODataModel#hasPendingChanges pending change }
+         * and does not contribute to the {@link #getCount count}.
          */
         inactive?: boolean;
         /**
@@ -60603,12 +60193,6 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
   }
 
   export interface ODataListBinding$CreateActivateEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateActivateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingCreateActivateEventParameters = ODataListBinding$CreateActivateEventParameters;
 
   export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 }
@@ -61580,7 +61164,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         changeSetId?: string;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the request has been aborted, the error has an `aborted`
+         * flag set to `true`.
          */
         error?: Function;
         /**
@@ -61687,7 +61272,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `POST` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -61711,7 +61297,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange }
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
          * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
@@ -62664,7 +62250,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `GET` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -62766,7 +62353,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `DELETE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -62827,7 +62415,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       aPath?: any[],
       /**
-       * Whether also deferred requests are taken into account
+       * Whether also deferred requests are taken into account so that they are aborted
        */
       bAll?: boolean,
       /**
@@ -63067,7 +62655,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information
+         * which contains additional error information. If all contained requests have been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -63115,7 +62704,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `PUT/MERGE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -63146,7 +62736,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange }
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
          * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
@@ -63187,12 +62777,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     result?: Error[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelAnnotationsFailedEventParameters = ODataModel$AnnotationsFailedEventParameters;
-
   export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
 
   export interface ODataModel$AnnotationsLoadedEventParameters {
@@ -63202,12 +62786,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     result?: Source[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$AnnotationsLoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelAnnotationsLoadedEventParameters = ODataModel$AnnotationsLoadedEventParameters;
 
   export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
 
@@ -63255,12 +62833,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelBatchRequestCompletedEventParameters = ODataModel$BatchRequestCompletedEventParameters;
-
   export type ODataModel$BatchRequestCompletedEvent = Event<ODataModel$BatchRequestCompletedEventParameters>;
 
   export interface ODataModel$BatchRequestFailedEventParameters {
@@ -63307,12 +62879,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     requests?: any[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelBatchRequestFailedEventParameters = ODataModel$BatchRequestFailedEventParameters;
-
   export type ODataModel$BatchRequestFailedEvent = Event<ODataModel$BatchRequestFailedEventParameters>;
 
   export interface ODataModel$BatchRequestSentEventParameters {
@@ -63337,12 +62903,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     requests?: any[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$BatchRequestSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelBatchRequestSentEventParameters = ODataModel$BatchRequestSentEventParameters;
 
   export type ODataModel$BatchRequestSentEvent = Event<ODataModel$BatchRequestSentEventParameters>;
 
@@ -63378,12 +62938,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelMetadataFailedEventParameters = ODataModel$MetadataFailedEventParameters;
-
   export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
 
   export interface ODataModel$MetadataLoadedEventParameters {
@@ -63392,12 +62946,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     metadata?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$MetadataLoadedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelMetadataLoadedEventParameters = ODataModel$MetadataLoadedEventParameters;
 
   export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
 
@@ -63424,12 +62972,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     response?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestCompletedEventParameters = ODataModel$RequestCompletedEventParameters;
 
   export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
 
@@ -63472,12 +63014,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     response?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestFailedEventParameters = ODataModel$RequestFailedEventParameters;
-
   export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
 
   export interface ODataModel$RequestSentEventParameters
@@ -63497,12 +63033,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     headers?: Record<string, string>;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestSentEventParameters = ODataModel$RequestSentEventParameters;
 
   export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
 }
@@ -64662,7 +64192,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
-     * @experimental (since 1.111.0)
+     * Experimental (since 1.111.0)
      *
      * Tells whether this context is currently selected, but not {@link #delete deleted} on the client.
      * See:
@@ -64984,7 +64514,7 @@ declare module "sap/ui/model/odata/v4/Context" {
       bRetry?: boolean
     ): Promise<any>;
     /**
-     * @experimental (since 1.111.0)
+     * Experimental (since 1.111.0)
      *
      * Determines whether this context is currently selected. If the preconditions of {@link #setKeepAlive }
      * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
@@ -65526,53 +65056,23 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   export interface ODataContextBinding$ChangeEventParameters
     extends Binding$ChangeEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataContextBindingChangeEventParameters = ODataContextBinding$ChangeEventParameters;
-
   export type ODataContextBinding$ChangeEvent = Event<ODataContextBinding$ChangeEventParameters>;
 
   export interface ODataContextBinding$DataReceivedEventParameters
     extends Binding$DataReceivedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$DataReceivedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataContextBindingDataReceivedEventParameters = ODataContextBinding$DataReceivedEventParameters;
 
   export type ODataContextBinding$DataReceivedEvent = Event<ODataContextBinding$DataReceivedEventParameters>;
 
   export interface ODataContextBinding$DataRequestedEventParameters
     extends Binding$DataRequestedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$DataRequestedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataContextBindingDataRequestedEventParameters = ODataContextBinding$DataRequestedEventParameters;
-
   export type ODataContextBinding$DataRequestedEvent = Event<ODataContextBinding$DataRequestedEventParameters>;
 
   export interface ODataContextBinding$PatchCompletedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$PatchCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataContextBindingPatchCompletedEventParameters = ODataContextBinding$PatchCompletedEventParameters;
-
   export type ODataContextBinding$PatchCompletedEvent = Event<ODataContextBinding$PatchCompletedEventParameters>;
 
   export interface ODataContextBinding$PatchSentEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataContextBinding$PatchSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataContextBindingPatchSentEventParameters = ODataContextBinding$PatchSentEventParameters;
 
   export type ODataContextBinding$PatchSentEvent = Event<ODataContextBinding$PatchSentEventParameters>;
 }
@@ -66666,93 +66166,39 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   export interface ODataListBinding$ChangeEventParameters
     extends Binding$ChangeEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingChangeEventParameters = ODataListBinding$ChangeEventParameters;
-
   export type ODataListBinding$ChangeEvent = Event<ODataListBinding$ChangeEventParameters>;
 
   export interface ODataListBinding$CreateActivateEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateActivateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingCreateActivateEventParameters = ODataListBinding$CreateActivateEventParameters;
 
   export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 
   export interface ODataListBinding$CreateCompletedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingCreateCompletedEventParameters = ODataListBinding$CreateCompletedEventParameters;
-
   export type ODataListBinding$CreateCompletedEvent = Event<ODataListBinding$CreateCompletedEventParameters>;
 
   export interface ODataListBinding$CreateSentEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$CreateSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingCreateSentEventParameters = ODataListBinding$CreateSentEventParameters;
 
   export type ODataListBinding$CreateSentEvent = Event<ODataListBinding$CreateSentEventParameters>;
 
   export interface ODataListBinding$DataReceivedEventParameters
     extends Binding$DataReceivedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$DataReceivedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingDataReceivedEventParameters = ODataListBinding$DataReceivedEventParameters;
-
   export type ODataListBinding$DataReceivedEvent = Event<ODataListBinding$DataReceivedEventParameters>;
 
   export interface ODataListBinding$DataRequestedEventParameters
     extends Binding$DataRequestedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$DataRequestedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingDataRequestedEventParameters = ODataListBinding$DataRequestedEventParameters;
-
   export type ODataListBinding$DataRequestedEvent = Event<ODataListBinding$DataRequestedEventParameters>;
 
   export interface ODataListBinding$PatchCompletedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$PatchCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingPatchCompletedEventParameters = ODataListBinding$PatchCompletedEventParameters;
 
   export type ODataListBinding$PatchCompletedEvent = Event<ODataListBinding$PatchCompletedEventParameters>;
 
   export interface ODataListBinding$PatchSentEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$PatchSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingPatchSentEventParameters = ODataListBinding$PatchSentEventParameters;
-
   export type ODataListBinding$PatchSentEvent = Event<ODataListBinding$PatchSentEventParameters>;
 
   export interface ODataListBinding$RefreshEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataListBinding$RefreshEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataListBindingRefreshEventParameters = ODataListBinding$RefreshEventParameters;
 
   export type ODataListBinding$RefreshEvent = Event<ODataListBinding$RefreshEventParameters>;
 }
@@ -68611,86 +68057,38 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
 
   export interface ODataModel$DataReceivedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$DataReceivedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelDataReceivedEventParameters = ODataModel$DataReceivedEventParameters;
-
   export type ODataModel$DataReceivedEvent = Event<ODataModel$DataReceivedEventParameters>;
 
   export interface ODataModel$DataRequestedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$DataRequestedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelDataRequestedEventParameters = ODataModel$DataRequestedEventParameters;
 
   export type ODataModel$DataRequestedEvent = Event<ODataModel$DataRequestedEventParameters>;
 
   export interface ODataModel$ParseErrorEventParameters
     extends Model$ParseErrorEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$ParseErrorEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelParseErrorEventParameters = ODataModel$ParseErrorEventParameters;
-
   export type ODataModel$ParseErrorEvent = Event<ODataModel$ParseErrorEventParameters>;
 
   export interface ODataModel$PropertyChangeEventParameters
     extends Model$PropertyChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$PropertyChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelPropertyChangeEventParameters = ODataModel$PropertyChangeEventParameters;
 
   export type ODataModel$PropertyChangeEvent = Event<ODataModel$PropertyChangeEventParameters>;
 
   export interface ODataModel$RequestCompletedEventParameters
     extends Model$RequestCompletedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestCompletedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestCompletedEventParameters = ODataModel$RequestCompletedEventParameters;
-
   export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
 
   export interface ODataModel$RequestFailedEventParameters
     extends Model$RequestFailedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestFailedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestFailedEventParameters = ODataModel$RequestFailedEventParameters;
 
   export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
 
   export interface ODataModel$RequestSentEventParameters
     extends Model$RequestSentEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$RequestSentEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelRequestSentEventParameters = ODataModel$RequestSentEventParameters;
-
   export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
 
   export interface ODataModel$SessionTimeoutEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataModel$SessionTimeoutEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataModelSessionTimeoutEventParameters = ODataModel$SessionTimeoutEventParameters;
 
   export type ODataModel$SessionTimeoutEvent = Event<ODataModel$SessionTimeoutEventParameters>;
 }
@@ -69047,33 +68445,15 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   export interface ODataPropertyBinding$ChangeEventParameters
     extends Binding$ChangeEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataPropertyBindingChangeEventParameters = ODataPropertyBinding$ChangeEventParameters;
-
   export type ODataPropertyBinding$ChangeEvent = Event<ODataPropertyBinding$ChangeEventParameters>;
 
   export interface ODataPropertyBinding$DataReceivedEventParameters
     extends Binding$DataReceivedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$DataReceivedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataPropertyBindingDataReceivedEventParameters = ODataPropertyBinding$DataReceivedEventParameters;
-
   export type ODataPropertyBinding$DataReceivedEvent = Event<ODataPropertyBinding$DataReceivedEventParameters>;
 
   export interface ODataPropertyBinding$DataRequestedEventParameters
     extends Binding$DataRequestedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ODataPropertyBinding$DataRequestedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ODataPropertyBindingDataRequestedEventParameters = ODataPropertyBinding$DataRequestedEventParameters;
 
   export type ODataPropertyBinding$DataRequestedEvent = Event<ODataPropertyBinding$DataRequestedEventParameters>;
 }
@@ -71085,7 +70465,7 @@ declare module "sap/ui/model/type/Date" {
      */
     getOutputPattern(): string;
     /**
-     * @experimental (since 1.114.0)
+     * Experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -71222,7 +70602,7 @@ declare module "sap/ui/model/type/DateInterval" {
       sTargetType: string
     ): string;
     /**
-     * @experimental (since 1.114.0)
+     * Experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -76649,7 +76029,7 @@ declare module "sap/ui/test/Opa" {
     /**
      * "and" property for chaining actions and assertions
      */
-    and: this;
+    and: Omit<this, "and">;
 
     /**
      * A map of QUnit-style assertions to be used in an opaTest. Contains all methods available on QUnit.assert
@@ -76918,7 +76298,7 @@ declare module "sap/ui/test/Opa5" {
     /**
      * "and" property for chaining
      */
-    and: this;
+    and: Omit<this, "and">;
 
     /**
      * A map of QUnit-style assertions to be used in an opaTest.
@@ -78752,7 +78132,7 @@ declare namespace sap {
       /**
        * The module export value or a function that calculates that value
        */
-      vFactory: (p1: any) => any | any,
+      vFactory: Function | any,
       /**
        * Whether an export to global names is required - should be used by SAP-owned code only
        */
@@ -78995,7 +78375,7 @@ declare namespace sap {
       /**
        * The module export value or a function that calculates that value
        */
-      vFactory: (p1: any) => any | any,
+      vFactory: Function | any,
       /**
        * Whether an export to global names is required - should be used by SAP-owned code only
        */
@@ -79239,7 +78619,7 @@ declare namespace sap {
       /**
        * The module export value or a function that calculates that value
        */
-      vFactory: (p1: any) => any | any,
+      vFactory: Function | any,
       /**
        * Whether an export to global names is required - should be used by SAP-owned code only
        */
@@ -79477,7 +78857,7 @@ declare namespace sap {
       /**
        * The module export value or a function that calculates that value
        */
-      vFactory: (p1: any) => any | any,
+      vFactory: Function | any,
       /**
        * Whether an export to global names is required - should be used by SAP-owned code only
        */
@@ -80233,7 +79613,7 @@ declare namespace sap {
       /**
        * Callback function to execute after resolving an array of dependencies
        */
-      fnCallback?: (p1: any) => void,
+      fnCallback?: Function,
       /**
        * Callback function to execute if an error was detected while loading the dependencies or executing the
        * factory function. Note that due to browser restrictions not all errors will be reported via this callback.
@@ -81035,7 +80415,7 @@ declare namespace sap {
        */
       namespace analytics {
         /**
-         * @experimental - This module is only for experimental use!
+         * Experimental - This module is only for experimental use!
          * Protected:  Do not call from applications (only from related classes in the framework)
          *
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
@@ -81153,6 +80533,20 @@ declare namespace sap {
 
     "sap/base/assert": undefined;
 
+    "sap/base/Event": undefined;
+
+    "sap/base/i18n/date/CalendarType": undefined;
+
+    "sap/base/i18n/date/CalendarWeekNumbering": undefined;
+
+    "sap/base/i18n/date/TimezoneUtils": undefined;
+
+    "sap/base/i18n/Formatting": undefined;
+
+    "sap/base/i18n/LanguageTag": undefined;
+
+    "sap/base/i18n/Localization": undefined;
+
     "sap/base/i18n/ResourceBundle": undefined;
 
     "sap/base/Log": undefined;
@@ -81267,6 +80661,8 @@ declare namespace sap {
 
     "sap/ui/core/_UrlResolver": undefined;
 
+    "sap/ui/core/AnimationMode": undefined;
+
     "sap/ui/core/AppCacheBuster": undefined;
 
     "sap/ui/core/BusyIndicator": undefined;
@@ -81292,6 +80688,8 @@ declare namespace sap {
     "sap/ui/core/Configuration": undefined;
 
     "sap/ui/core/Control": undefined;
+
+    "sap/ui/core/ControlBehavior": undefined;
 
     "sap/ui/core/Core": undefined;
 
@@ -81342,8 +80740,6 @@ declare namespace sap {
     "sap/ui/core/format/ListFormat": undefined;
 
     "sap/ui/core/format/NumberFormat": undefined;
-
-    "sap/ui/core/format/TimezoneUtil": undefined;
 
     "sap/ui/core/Fragment": undefined;
 
@@ -81463,6 +80859,8 @@ declare namespace sap {
 
     "sap/ui/core/service/ServiceFactory": undefined;
 
+    "sap/ui/core/StaticArea": undefined;
+
     "sap/ui/core/support/Hotkeys": undefined;
 
     "sap/ui/core/support/Plugin": undefined;
@@ -81472,6 +80870,8 @@ declare namespace sap {
     "sap/ui/core/support/usage/EventBroadcaster": undefined;
 
     "sap/ui/core/syncStyleClass": undefined;
+
+    "sap/ui/core/Theming": undefined;
 
     "sap/ui/core/theming/Parameters": undefined;
 

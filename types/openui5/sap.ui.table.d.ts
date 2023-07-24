@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -430,7 +430,7 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
+   * Experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
    *
    * A column menu which is used by the analytical column
    */
@@ -2556,9 +2556,7 @@ declare module "sap/ui/table/Column" {
      *
      * Fires before the column menu is opened.
      */
-    columnMenuOpen?: (
-      oEvent: Event<Column$ColumnMenuOpenEventParameters>
-    ) => void;
+    columnMenuOpen?: (oEvent: Column$ColumnMenuOpenEvent) => void;
   }
 
   export interface Column$ColumnMenuOpenEventParameters {
@@ -2567,12 +2565,6 @@ declare module "sap/ui/table/Column" {
      */
     menu?: Menu;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Column$ColumnMenuOpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ColumnColumnMenuOpenEventParameters = Column$ColumnMenuOpenEventParameters;
 
   export type Column$ColumnMenuOpenEvent = Event<Column$ColumnMenuOpenEventParameters>;
 }
@@ -3120,7 +3112,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * This event is fired when the selection is changed.
      */
     selectionChange?: (
-      oEvent: Event<MultiSelectionPlugin$SelectionChangeEventParameters>
+      oEvent: MultiSelectionPlugin$SelectionChangeEvent
     ) => void;
   }
 
@@ -3142,12 +3134,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     customPayload?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MultiSelectionPlugin$SelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MultiSelectionPluginSelectionChangeEventParameters = MultiSelectionPlugin$SelectionChangeEventParameters;
-
   export type MultiSelectionPlugin$SelectionChangeEvent = Event<MultiSelectionPlugin$SelectionChangeEventParameters>;
 }
 
@@ -3162,7 +3148,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
 
   /**
    * @since 1.64
-   * @experimental (since 1.64)
+   * Experimental (since 1.64)
    *
    * Implements the selection methods for a table.
    */
@@ -3330,12 +3316,6 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
   }
 
   export interface SelectionPlugin$SelectionChangeEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SelectionPlugin$SelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SelectionPluginSelectionChangeEventParameters = SelectionPlugin$SelectionChangeEventParameters;
 
   export type SelectionPlugin$SelectionChangeEvent = Event<SelectionPlugin$SelectionChangeEventParameters>;
 }
@@ -3713,9 +3693,9 @@ declare module "sap/ui/table/RowActionItem" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import Row from "sap/ui/table/Row";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.45
@@ -3995,7 +3975,7 @@ declare module "sap/ui/table/RowActionItem" {
     /**
      * The `press` is fired when the user triggers the corresponding action.
      */
-    press?: (oEvent: Event<RowActionItem$PressEventParameters>) => void;
+    press?: (oEvent: RowActionItem$PressEvent) => void;
   }
 
   export interface RowActionItem$PressEventParameters {
@@ -4009,12 +3989,6 @@ declare module "sap/ui/table/RowActionItem" {
      */
     row?: Row;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowActionItem$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RowActionItemPressEventParameters = RowActionItem$PressEventParameters;
 
   export type RowActionItem$PressEvent = Event<RowActionItem$PressEventParameters>;
 }
@@ -5296,7 +5270,7 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
+     * Experimental - Experimental! Presently implemented to only work with a very limited set of controls
      * (e.g. sap.m.Text).
      *
      * Triggers automatic resizing of a column to the widest content.
@@ -5731,7 +5705,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @deprecated (since 1.56) - replaced by the `sap.ui.export` library.
-     * @experimental - Experimental because the property for the column/cell definitions (sortProperty) could
+     * Experimental - Experimental because the property for the column/cell definitions (sortProperty) could
      * change in future.
      *
      * Creates a new {@link sap.ui.core.util.Export} object and fills row/column information from the table
@@ -6345,7 +6319,7 @@ declare module "sap/ui/table/Table" {
      */
     getFooter(): Control | string;
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
+     * Experimental (since 1.28) - This feature has a limited functionality.
      *
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
      */
@@ -7224,7 +7198,7 @@ declare module "sap/ui/table/Table" {
       vFooter: Control | string
     ): this;
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
+     * Experimental (since 1.28) - This feature has a limited functionality.
      *
      * Sets the associated {@link #getGroupBy groupBy}.
      *
@@ -8005,7 +7979,7 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
+     * Experimental (since 1.28) - This feature has a limited functionality.
      *
      * The column by which the table is grouped. Grouping will only be performed if `enableGrouping` is set
      * to `true`. Setting `groupBy` in the view does not work and throws an error. It can only be set if the
@@ -8024,24 +7998,22 @@ declare module "sap/ui/table/Table" {
      *
      * **Note:** If a selection plugin is applied to the table, this event won't be fired.
      */
-    rowSelectionChange?: (
-      oEvent: Event<Table$RowSelectionChangeEventParameters>
-    ) => void;
+    rowSelectionChange?: (oEvent: Table$RowSelectionChangeEvent) => void;
 
     /**
      * fired when a column of the table has been selected
      */
-    columnSelect?: (oEvent: Event<Table$ColumnSelectEventParameters>) => void;
+    columnSelect?: (oEvent: Table$ColumnSelectEvent) => void;
 
     /**
      * fired when a table column is resized.
      */
-    columnResize?: (oEvent: Event<Table$ColumnResizeEventParameters>) => void;
+    columnResize?: (oEvent: Table$ColumnResizeEvent) => void;
 
     /**
      * fired when a table column is moved.
      */
-    columnMove?: (oEvent: Event<Table$ColumnMoveEventParameters>) => void;
+    columnMove?: (oEvent: Table$ColumnMoveEvent) => void;
 
     /**
      * This event is fired before a sort order is applied to a column, if the table is sorted via {@link sap.ui.table.Table#sort }
@@ -8049,7 +8021,7 @@ declare module "sap/ui/table/Table" {
      *
      * Sorters that are directly applied to the table binding will not fire this event.
      */
-    sort?: (oEvent: Event<Table$SortEventParameters>) => void;
+    sort?: (oEvent: Table$SortEvent) => void;
 
     /**
      * This event is fired before a filter is applied to a column, if the table is filtered via {@link sap.ui.table.Table#filter }
@@ -8057,26 +8029,24 @@ declare module "sap/ui/table/Table" {
      *
      * Filters that are directly applied to the table binding will not fire this event.
      */
-    filter?: (oEvent: Event<Table$FilterEventParameters>) => void;
+    filter?: (oEvent: Table$FilterEvent) => void;
 
     /**
      * fired when the table is grouped (experimental!).
      */
-    group?: (oEvent: Event<Table$GroupEventParameters>) => void;
+    group?: (oEvent: Table$GroupEvent) => void;
 
     /**
      * fired when the visibility of a table column is changed.
      */
-    columnVisibility?: (
-      oEvent: Event<Table$ColumnVisibilityEventParameters>
-    ) => void;
+    columnVisibility?: (oEvent: Table$ColumnVisibilityEvent) => void;
 
     /**
      * @since 1.21.0
      *
      * fired when the user clicks a cell of the table (experimental!).
      */
-    cellClick?: (oEvent: Event<Table$CellClickEventParameters>) => void;
+    cellClick?: (oEvent: Table$CellClickEvent) => void;
 
     /**
      * @since 1.21.0
@@ -8084,25 +8054,21 @@ declare module "sap/ui/table/Table" {
      *
      * fired when the user clicks a cell of the table.
      */
-    cellContextmenu?: (
-      oEvent: Event<Table$CellContextmenuEventParameters>
-    ) => void;
+    cellContextmenu?: (oEvent: Table$CellContextmenuEvent) => void;
 
     /**
      * @since 1.54
      *
      * Fired when the user requests the context menu for a table cell.
      */
-    beforeOpenContextMenu?: (
-      oEvent: Event<Table$BeforeOpenContextMenuEventParameters>
-    ) => void;
+    beforeOpenContextMenu?: (oEvent: Table$BeforeOpenContextMenuEvent) => void;
 
     /**
      * @since 1.21.0
      *
      * fired when a column of the table should be freezed
      */
-    columnFreeze?: (oEvent: Event<Table$ColumnFreezeEventParameters>) => void;
+    columnFreeze?: (oEvent: Table$ColumnFreezeEvent) => void;
 
     /**
      * @since 1.23.0
@@ -8110,7 +8076,7 @@ declare module "sap/ui/table/Table" {
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
      */
-    customFilter?: (oEvent: Event<Table$CustomFilterEventParameters>) => void;
+    customFilter?: (oEvent: Table$CustomFilterEvent) => void;
 
     /**
      * @since 1.37.0
@@ -8119,7 +8085,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      */
     firstVisibleRowChanged?: (
-      oEvent: Event<Table$FirstVisibleRowChangedEventParameters>
+      oEvent: Table$FirstVisibleRowChangedEvent
     ) => void;
 
     /**
@@ -8127,9 +8093,7 @@ declare module "sap/ui/table/Table" {
      *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      */
-    busyStateChanged?: (
-      oEvent: Event<Table$BusyStateChangedEventParameters>
-    ) => void;
+    busyStateChanged?: (oEvent: Table$BusyStateChangedEvent) => void;
 
     /**
      * @since 1.60
@@ -8137,7 +8101,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
      */
-    paste?: (oEvent: Event<Table$PasteEventParameters>) => void;
+    paste?: (oEvent: Table$PasteEvent) => void;
 
     /**
      * @since 1.86
@@ -8167,12 +8131,6 @@ declare module "sap/ui/table/Table" {
     contextMenu?: IContextMenu;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$BeforeOpenContextMenuEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableBeforeOpenContextMenuEventParameters = Table$BeforeOpenContextMenuEventParameters;
-
   export type Table$BeforeOpenContextMenuEvent = Event<Table$BeforeOpenContextMenuEventParameters>;
 
   export interface Table$BusyStateChangedEventParameters {
@@ -8181,12 +8139,6 @@ declare module "sap/ui/table/Table" {
      */
     busy?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$BusyStateChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableBusyStateChangedEventParameters = Table$BusyStateChangedEventParameters;
 
   export type Table$BusyStateChangedEvent = Event<Table$BusyStateChangedEventParameters>;
 
@@ -8223,12 +8175,6 @@ declare module "sap/ui/table/Table" {
     rowBindingContext?: Context;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CellClickEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableCellClickEventParameters = Table$CellClickEventParameters;
-
   export type Table$CellClickEvent = Event<Table$CellClickEventParameters>;
 
   export interface Table$CellContextmenuEventParameters {
@@ -8264,12 +8210,6 @@ declare module "sap/ui/table/Table" {
     rowBindingContext?: Context;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CellContextmenuEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableCellContextmenuEventParameters = Table$CellContextmenuEventParameters;
-
   export type Table$CellContextmenuEvent = Event<Table$CellContextmenuEventParameters>;
 
   export interface Table$ColumnFreezeEventParameters {
@@ -8278,12 +8218,6 @@ declare module "sap/ui/table/Table" {
      */
     column?: Column;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnFreezeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableColumnFreezeEventParameters = Table$ColumnFreezeEventParameters;
 
   export type Table$ColumnFreezeEvent = Event<Table$ColumnFreezeEventParameters>;
 
@@ -8299,12 +8233,6 @@ declare module "sap/ui/table/Table" {
     newPos?: int;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnMoveEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableColumnMoveEventParameters = Table$ColumnMoveEventParameters;
-
   export type Table$ColumnMoveEvent = Event<Table$ColumnMoveEventParameters>;
 
   export interface Table$ColumnResizeEventParameters {
@@ -8319,12 +8247,6 @@ declare module "sap/ui/table/Table" {
     width?: CSSSize;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnResizeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableColumnResizeEventParameters = Table$ColumnResizeEventParameters;
-
   export type Table$ColumnResizeEvent = Event<Table$ColumnResizeEventParameters>;
 
   export interface Table$ColumnSelectEventParameters {
@@ -8333,12 +8255,6 @@ declare module "sap/ui/table/Table" {
      */
     column?: Column;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnSelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableColumnSelectEventParameters = Table$ColumnSelectEventParameters;
 
   export type Table$ColumnSelectEvent = Event<Table$ColumnSelectEventParameters>;
 
@@ -8354,12 +8270,6 @@ declare module "sap/ui/table/Table" {
     newVisible?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnVisibilityEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableColumnVisibilityEventParameters = Table$ColumnVisibilityEventParameters;
-
   export type Table$ColumnVisibilityEvent = Event<Table$ColumnVisibilityEventParameters>;
 
   export interface Table$CustomFilterEventParameters {
@@ -8373,12 +8283,6 @@ declare module "sap/ui/table/Table" {
      */
     value?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CustomFilterEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableCustomFilterEventParameters = Table$CustomFilterEventParameters;
 
   export type Table$CustomFilterEvent = Event<Table$CustomFilterEventParameters>;
 
@@ -8394,12 +8298,6 @@ declare module "sap/ui/table/Table" {
     value?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$FilterEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableFilterEventParameters = Table$FilterEventParameters;
-
   export type Table$FilterEvent = Event<Table$FilterEventParameters>;
 
   export interface Table$FirstVisibleRowChangedEventParameters {
@@ -8408,12 +8306,6 @@ declare module "sap/ui/table/Table" {
      */
     firstVisibleRow?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$FirstVisibleRowChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableFirstVisibleRowChangedEventParameters = Table$FirstVisibleRowChangedEventParameters;
 
   export type Table$FirstVisibleRowChangedEvent = Event<Table$FirstVisibleRowChangedEventParameters>;
 
@@ -8424,12 +8316,6 @@ declare module "sap/ui/table/Table" {
     column?: Column;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$GroupEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableGroupEventParameters = Table$GroupEventParameters;
-
   export type Table$GroupEvent = Event<Table$GroupEventParameters>;
 
   export interface Table$PasteEventParameters {
@@ -8439,12 +8325,6 @@ declare module "sap/ui/table/Table" {
      */
     data?: string[][];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$PasteEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TablePasteEventParameters = Table$PasteEventParameters;
 
   export type Table$PasteEvent = Event<Table$PasteEventParameters>;
 
@@ -8476,21 +8356,9 @@ declare module "sap/ui/table/Table" {
     userInteraction?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$RowSelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableRowSelectionChangeEventParameters = Table$RowSelectionChangeEventParameters;
-
   export type Table$RowSelectionChangeEvent = Event<Table$RowSelectionChangeEventParameters>;
 
   export interface Table$RowsUpdatedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$RowsUpdatedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableRowsUpdatedEventParameters = Table$RowsUpdatedEventParameters;
 
   export type Table$RowsUpdatedEvent = Event<Table$RowsUpdatedEventParameters>;
 
@@ -8510,12 +8378,6 @@ declare module "sap/ui/table/Table" {
      */
     columnAdded?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$SortEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TableSortEventParameters = Table$SortEventParameters;
 
   export type Table$SortEvent = Event<Table$SortEventParameters>;
 }
@@ -8668,7 +8530,7 @@ declare module "sap/ui/table/TablePersoController" {
      */
     getTable(): ID;
     /**
-     * @experimental (since 1.21.2) - API might change / feature requires the sap.m library!
+     * Experimental (since 1.21.2) - API might change / feature requires the sap.m library!
      *
      * Opens the personalization dialog for the Table to modify the visibility and the order of the columns.
      *
@@ -9543,9 +9405,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
      */
-    toggleOpenState?: (
-      oEvent: Event<TreeTable$ToggleOpenStateEventParameters>
-    ) => void;
+    toggleOpenState?: (oEvent: TreeTable$ToggleOpenStateEvent) => void;
   }
 
   export interface TreeTable$ToggleOpenStateEventParameters {
@@ -9564,12 +9424,6 @@ declare module "sap/ui/table/TreeTable" {
      */
     expanded?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TreeTable$ToggleOpenStateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TreeTableToggleOpenStateEventParameters = TreeTable$ToggleOpenStateEventParameters;
 
   export type TreeTable$ToggleOpenStateEvent = Event<TreeTable$ToggleOpenStateEventParameters>;
 }

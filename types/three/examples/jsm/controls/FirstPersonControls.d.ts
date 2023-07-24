@@ -1,4 +1,4 @@
-import { Camera, Vector3 } from '../../../src/Three';
+import { Camera, Vector3 } from '../../../src/Three.js';
 
 export class FirstPersonControls {
     constructor(object: Camera, domElement?: HTMLElement);

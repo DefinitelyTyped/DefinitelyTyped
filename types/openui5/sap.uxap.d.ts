@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/uxap/library" {
   /**
@@ -933,7 +933,7 @@ declare module "sap/uxap/BlockBase" {
      *
      * Fired when an aggregated view is instantiated.
      */
-    viewInit?: (oEvent: Event<BlockBase$ViewInitEventParameters>) => void;
+    viewInit?: (oEvent: BlockBase$ViewInitEvent) => void;
   }
 
   export interface BlockBase$ViewInitEventParameters {
@@ -942,12 +942,6 @@ declare module "sap/uxap/BlockBase" {
      */
     view?: View;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'BlockBase$ViewInitEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $BlockBaseViewInitEventParameters = BlockBase$ViewInitEventParameters;
 
   export type BlockBase$ViewInitEvent = Event<BlockBase$ViewInitEventParameters>;
 }
@@ -3483,22 +3477,18 @@ declare module "sap/uxap/ObjectPageHeader" {
      * The event is fired when the objectPage header title selector (down-arrow) is pressed
      */
     titleSelectorPress?: (
-      oEvent: Event<ObjectPageHeader$TitleSelectorPressEventParameters>
+      oEvent: ObjectPageHeader$TitleSelectorPressEvent
     ) => void;
 
     /**
      * The event is fired when the Locked button is pressed
      */
-    markLockedPress?: (
-      oEvent: Event<ObjectPageHeader$MarkLockedPressEventParameters>
-    ) => void;
+    markLockedPress?: (oEvent: ObjectPageHeader$MarkLockedPressEvent) => void;
 
     /**
      * The event is fired when the unsaved changes button is pressed
      */
-    markChangesPress?: (
-      oEvent: Event<ObjectPageHeader$MarkChangesPressEventParameters>
-    ) => void;
+    markChangesPress?: (oEvent: ObjectPageHeader$MarkChangesPressEvent) => void;
   }
 
   export interface ObjectPageHeader$MarkChangesPressEventParameters {
@@ -3507,12 +3497,6 @@ declare module "sap/uxap/ObjectPageHeader" {
      */
     domRef?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageHeader$MarkChangesPressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageHeaderMarkChangesPressEventParameters = ObjectPageHeader$MarkChangesPressEventParameters;
 
   export type ObjectPageHeader$MarkChangesPressEvent = Event<ObjectPageHeader$MarkChangesPressEventParameters>;
 
@@ -3523,12 +3507,6 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageHeader$MarkLockedPressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageHeaderMarkLockedPressEventParameters = ObjectPageHeader$MarkLockedPressEventParameters;
-
   export type ObjectPageHeader$MarkLockedPressEvent = Event<ObjectPageHeader$MarkLockedPressEventParameters>;
 
   export interface ObjectPageHeader$TitleSelectorPressEventParameters {
@@ -3537,12 +3515,6 @@ declare module "sap/uxap/ObjectPageHeader" {
      */
     domRef?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageHeader$TitleSelectorPressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageHeaderTitleSelectorPressEventParameters = ObjectPageHeader$TitleSelectorPressEventParameters;
 
   export type ObjectPageHeader$TitleSelectorPressEvent = Event<ObjectPageHeader$TitleSelectorPressEventParameters>;
 }
@@ -6254,24 +6226,20 @@ declare module "sap/uxap/ObjectPageLayout" {
      * The event is fired when the `headerContentPinned` property is changed via user interaction.
      */
     headerContentPinnedStateChange?: (
-      oEvent: Event<ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters>
+      oEvent: ObjectPageLayout$HeaderContentPinnedStateChangeEvent
     ) => void;
 
     /**
      * The event is fired when the Anchor bar is switched from moving to fixed or the other way round.
      */
-    toggleAnchorBar?: (
-      oEvent: Event<ObjectPageLayout$ToggleAnchorBarEventParameters>
-    ) => void;
+    toggleAnchorBar?: (oEvent: ObjectPageLayout$ToggleAnchorBarEvent) => void;
 
     /**
      * @since 1.73
      *
      * Fired when the current section is changed by scrolling.
      */
-    sectionChange?: (
-      oEvent: Event<ObjectPageLayout$SectionChangeEventParameters>
-    ) => void;
+    sectionChange?: (oEvent: ObjectPageLayout$SectionChangeEvent) => void;
 
     /**
      * The event is fired when the Edit Header button is pressed
@@ -6283,9 +6251,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * The event is fired when the selected section is changed using the navigation.
      */
-    navigate?: (
-      oEvent: Event<ObjectPageLayout$NavigateEventParameters>
-    ) => void;
+    navigate?: (oEvent: ObjectPageLayout$NavigateEvent) => void;
 
     /**
      * @since 1.77
@@ -6293,17 +6259,11 @@ declare module "sap/uxap/ObjectPageLayout" {
      * Fired when the visibility of subsections is changed.
      */
     subSectionVisibilityChange?: (
-      oEvent: Event<ObjectPageLayout$SubSectionVisibilityChangeEventParameters>
+      oEvent: ObjectPageLayout$SubSectionVisibilityChangeEvent
     ) => void;
   }
 
   export interface ObjectPageLayout$EditHeaderButtonPressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$EditHeaderButtonPressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutEditHeaderButtonPressEventParameters = ObjectPageLayout$EditHeaderButtonPressEventParameters;
 
   export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<ObjectPageLayout$EditHeaderButtonPressEventParameters>;
 
@@ -6313,12 +6273,6 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     pinned?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutHeaderContentPinnedStateChangeEventParameters = ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters;
 
   export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters>;
 
@@ -6334,12 +6288,6 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$NavigateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutNavigateEventParameters = ObjectPageLayout$NavigateEventParameters;
-
   export type ObjectPageLayout$NavigateEvent = Event<ObjectPageLayout$NavigateEventParameters>;
 
   export interface ObjectPageLayout$SectionChangeEventParameters {
@@ -6354,12 +6302,6 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$SectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutSectionChangeEventParameters = ObjectPageLayout$SectionChangeEventParameters;
-
   export type ObjectPageLayout$SectionChangeEvent = Event<ObjectPageLayout$SectionChangeEventParameters>;
 
   export interface ObjectPageLayout$SubSectionVisibilityChangeEventParameters {
@@ -6368,12 +6310,6 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     visibleSubSections?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$SubSectionVisibilityChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutSubSectionVisibilityChangeEventParameters = ObjectPageLayout$SubSectionVisibilityChangeEventParameters;
 
   export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<ObjectPageLayout$SubSectionVisibilityChangeEventParameters>;
 
@@ -6384,12 +6320,6 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     fixed?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ObjectPageLayout$ToggleAnchorBarEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ObjectPageLayoutToggleAnchorBarEventParameters = ObjectPageLayout$ToggleAnchorBarEventParameters;
 
   export type ObjectPageLayout$ToggleAnchorBarEvent = Event<ObjectPageLayout$ToggleAnchorBarEventParameters>;
 }

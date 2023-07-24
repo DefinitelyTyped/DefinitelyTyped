@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -3621,9 +3621,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     /**
      * Fired when the currently active GridSettings changes
      */
-    layoutChange?: (
-      oEvent: Event<GridResponsiveLayout$LayoutChangeEventParameters>
-    ) => void;
+    layoutChange?: (oEvent: GridResponsiveLayout$LayoutChangeEvent) => void;
   }
 
   export interface GridResponsiveLayout$LayoutChangeEventParameters {
@@ -3632,12 +3630,6 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
      */
     layout?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'GridResponsiveLayout$LayoutChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $GridResponsiveLayoutLayoutChangeEventParameters = GridResponsiveLayout$LayoutChangeEventParameters;
 
   export type GridResponsiveLayout$LayoutChangeEvent = Event<GridResponsiveLayout$LayoutChangeEventParameters>;
 }
@@ -4319,9 +4311,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     /**
      * Fired when the currently active layout changes
      */
-    layoutChange?: (
-      oEvent: Event<ResponsiveColumnLayout$LayoutChangeEventParameters>
-    ) => void;
+    layoutChange?: (oEvent: ResponsiveColumnLayout$LayoutChangeEvent) => void;
   }
 
   export interface ResponsiveColumnLayout$LayoutChangeEventParameters {
@@ -4330,12 +4320,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
      */
     layout?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ResponsiveColumnLayout$LayoutChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ResponsiveColumnLayoutLayoutChangeEventParameters = ResponsiveColumnLayout$LayoutChangeEventParameters;
 
   export type ResponsiveColumnLayout$LayoutChangeEvent = Event<ResponsiveColumnLayout$LayoutChangeEventParameters>;
 }
@@ -5023,19 +5007,13 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * Fires when the current breakpoint has been changed.
      */
     breakpointChanged?: (
-      oEvent: Event<DynamicSideContent$BreakpointChangedEventParameters>
+      oEvent: DynamicSideContent$BreakpointChangedEvent
     ) => void;
   }
 
   export interface DynamicSideContent$BreakpointChangedEventParameters {
     currentBreakpoint?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DynamicSideContent$BreakpointChangedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DynamicSideContentBreakpointChangedEventParameters = DynamicSideContent$BreakpointChangedEventParameters;
 
   export type DynamicSideContent$BreakpointChangedEvent = Event<DynamicSideContent$BreakpointChangedEventParameters>;
 }
@@ -8691,7 +8669,7 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
 
   /**
    * @since 1.86.0
-   * @experimental (since 1.86)
+   * Experimental (since 1.86)
    *
    * A `SemanticFormElement` element is a special `FormElement` that contains semantically connected fields.
    * These field controls are divided by delimiter controls. In display mode, they are rendered as one condensed
@@ -12508,7 +12486,7 @@ declare module "sap/ui/layout/PaneContainer" {
     /**
      * Fired when contents are resized.
      */
-    resize?: (oEvent: Event<PaneContainer$ResizeEventParameters>) => void;
+    resize?: (oEvent: PaneContainer$ResizeEvent) => void;
   }
 
   export interface PaneContainer$ResizeEventParameters {
@@ -12522,12 +12500,6 @@ declare module "sap/ui/layout/PaneContainer" {
      */
     newSizes?: float[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'PaneContainer$ResizeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $PaneContainerResizeEventParameters = PaneContainer$ResizeEventParameters;
 
   export type PaneContainer$ResizeEvent = Event<PaneContainer$ResizeEventParameters>;
 }
@@ -13894,7 +13866,7 @@ declare module "sap/ui/layout/Splitter" {
     /**
      * Event is fired when contents are resized.
      */
-    resize?: (oEvent: Event<Splitter$ResizeEventParameters>) => void;
+    resize?: (oEvent: Splitter$ResizeEvent) => void;
   }
 
   export interface Splitter$ResizeEventParameters {
@@ -13915,12 +13887,6 @@ declare module "sap/ui/layout/Splitter" {
     newSizes?: int[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Splitter$ResizeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SplitterResizeEventParameters = Splitter$ResizeEventParameters;
-
   export type Splitter$ResizeEvent = Event<Splitter$ResizeEventParameters>;
 }
 
@@ -13938,7 +13904,7 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 
   /**
    * @since 1.22.0
-   * @experimental (since 1.22.0) - API is not yet finished and might change completely
+   * Experimental (since 1.22.0) - API is not yet finished and might change completely
    *
    * Holds layout data for the splitter contents. Allowed size values are numeric values ending in "px" and
    * "%" and the special case "auto". (The CSS value "auto" is used internally to recalculate the size of

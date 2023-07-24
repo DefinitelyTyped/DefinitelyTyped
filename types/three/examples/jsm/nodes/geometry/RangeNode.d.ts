@@ -1,6 +1,6 @@
-import { Color, Vector2, Vector3, Vector4 } from '../../../../src/Three';
-import Node from '../core/Node';
-import NodeBuilder from '../core/NodeBuilder';
+import { Color, Vector2, Vector3, Vector4 } from '../../../../src/Three.js';
+import Node from '../core/Node.js';
+import NodeBuilder from '../core/NodeBuilder.js';
 
 export type RangeModeBound = number | Color | Vector2 | Vector3 | Vector4;
 

@@ -2017,6 +2017,10 @@
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
         },
+        "google-spreadsheet": {
+            "libraryName": "google-spreadsheet",
+            "asOfVersion": "4.0.0"
+        },
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
             "asOfVersion": "3.0.3"
@@ -2392,6 +2396,10 @@
         "inversify-restify-utils": {
             "libraryName": "inversify-restify-utils",
             "asOfVersion": "2.0.0"
+        },
+        "iobroker": {
+            "libraryName": "@iobroker/types",
+            "asOfVersion": "5.0.6"
         },
         "ionic": {
             "libraryName": "ionic",

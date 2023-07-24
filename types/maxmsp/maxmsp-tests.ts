@@ -24,9 +24,14 @@ const colorValue = myDict.get('color');
 const keys = myDict.getkeys();
 
 // File usage example
-const file = new File('test.txt', 'write', 'TEXT');
+let file = new File('test.txt', 'write', 'TEXT');
 file.writeline('This is a test.');
 file.writestring('Some random text.');
+file.close();
+
+file = new File('test.txt');
+file.readline();
+file.readline(2);
 file.close();
 
 // Folder usage example

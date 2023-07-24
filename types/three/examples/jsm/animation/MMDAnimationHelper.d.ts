@@ -8,15 +8,16 @@ import {
     SkinnedMesh,
     Bone,
     AnimationMixer,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { CCDIKSolver } from './CCDIKSolver';
-import { MMDPhysics } from './MMDPhysics';
+import { CCDIKSolver } from './CCDIKSolver.js';
+import { MMDPhysics } from './MMDPhysics.js';
 
 export interface MMDAnimationHelperParameter {
     sync?: boolean | undefined;
     afterglow?: number | undefined;
     resetPhysicsOnLoop?: boolean | undefined;
+    pmxAnimation?: boolean | undefined;
 }
 
 export interface MMDAnimationHelperAddParameter {
@@ -55,6 +56,7 @@ export class MMDAnimationHelper {
         sync: boolean;
         afterglow: number;
         resetPhysicsOnLoop: boolean;
+        pmxAnimation: boolean;
     };
     enabled: {
         animation: boolean;

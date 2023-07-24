@@ -1,4 +1,4 @@
-import { Object3D } from './../core/Object3D';
+import { Object3D } from './../core/Object3D.js';
 
 /**
  * A {@link Bone} which is part of a {@link THREE.Skeleton | Skeleton}

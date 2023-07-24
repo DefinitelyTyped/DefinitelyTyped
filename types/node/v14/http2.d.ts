@@ -80,7 +80,7 @@ declare module 'http2' {
         readonly sentHeaders: OutgoingHttpHeaders;
         readonly sentInfoHeaders?: OutgoingHttpHeaders[] | undefined;
         readonly sentTrailers?: OutgoingHttpHeaders | undefined;
-        readonly session: Http2Session;
+        readonly session: Http2Session | undefined;
         readonly state: StreamState;
 
         close(code?: number, callback?: () => void): void;

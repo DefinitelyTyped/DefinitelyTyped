@@ -797,8 +797,36 @@ declare module 'node-forge' {
         function create(tagClass: Class, type: Type, constructed: boolean, value: Bytes | Asn1[]): Asn1;
         function fromDer(bytes: Bytes | util.ByteBuffer, strict?: boolean): Asn1;
         function toDer(obj: Asn1): util.ByteBuffer;
-        function oidToDer(oid: OID): util.ByteStringBuffer;
-        function derToOid(der: util.ByteStringBuffer): OID;
+
+        /**
+         * Converts an OID dot-separated string to a byte buffer. The byte buffer
+         * contains only the DER-encoded value, not any tag or length bytes.
+         *
+         * @param oid the OID dot-separated string.
+         *
+         * @return the byte buffer.
+         */
+        function oidToDer(oid: OID): util.ByteBuffer;
+
+        /**
+         * Converts a DER-encoded byte buffer to an OID dot-separated string. The
+         * byte buffer should contain only the DER-encoded value, not any tag or
+         * length bytes.
+         *
+         * @param bytes the byte buffer.
+         *
+         * @return the OID dot-separated string.
+         */
+        function derToOid(bytes: Bytes | util.ByteBuffer): OID;
+
+        function integerToDer(int: number): util.ByteBuffer;
+        function derToInteger(bytes: Bytes | util.ByteBuffer): number;
+
+        function dateToUtcTime(date: Date | string): Bytes;
+        function utcTimeToDate(bytes: Bytes): Date;
+
+        function dateToGeneralizedTime(date: Date | string): Bytes;
+        function generalizedTimeToDate(bytes: Bytes): Date;
     }
 
     namespace util {
@@ -1086,8 +1114,8 @@ declare module 'node-forge' {
             sha256: typeof md.sha256;
             sha384: typeof md.sha384;
             sha512: typeof md.sha512;
-            'sha512/224': typeof md['sha512/224'];
-            'sha512/256': typeof md['sha512/256'];
+            'sha512/224': (typeof md)['sha512/224'];
+            'sha512/256': (typeof md)['sha512/256'];
         };
     };
 

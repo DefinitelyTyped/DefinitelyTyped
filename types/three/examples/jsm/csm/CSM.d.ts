@@ -1,4 +1,4 @@
-import { Camera, Vector3, DirectionalLight, Material, Vector2, Object3D } from '../../../src/Three';
+import { Camera, Vector3, DirectionalLight, Material, Vector2, Object3D } from '../../../src/Three.js';
 
 export enum CMSMode {
     practical = 'practical',
@@ -24,7 +24,7 @@ export interface CMSParameters {
 }
 
 export class CSM {
-    constructor(data?: CMSParameters);
+    constructor(data: CMSParameters);
     camera: Camera;
     parent: Object3D;
     cascades: number;
@@ -58,4 +58,4 @@ export class CSM {
     dispose(): void;
 }
 
-import CSMFrustrum from './CSMFrustum';
+import CSMFrustrum from './CSMFrustum.js';

@@ -1,5 +1,7 @@
-import { ColorRepresentation } from '../math/Color';
-import { LineSegments } from './../objects/LineSegments';
+import { ColorRepresentation } from '../math/Color.js';
+import { LineSegments } from './../objects/LineSegments.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
 
 /**
  * The {@link GridHelper} is an object to define grids
@@ -16,7 +18,7 @@ import { LineSegments } from './../objects/LineSegments';
  * @see {@link https://threejs.org/docs/index.html#api/en/helpers/GridHelper | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/GridHelper.js | Source}
  */
-export class GridHelper extends LineSegments {
+export class GridHelper extends LineSegments<BufferGeometry, LineBasicMaterial> {
     /**
      * Creates a new {@link GridHelper} of size 'size' and divided into 'divisions' segments per side
      * @remarks

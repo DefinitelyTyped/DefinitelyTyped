@@ -173,6 +173,15 @@ interface UserFragment_updatable$key {
     readonly $updatableFragmentSpreads: FragmentRefs<'UserFragment_updatable'>;
 }
 
+// Updatable query.
+interface UserQuery$data {
+    userName: string;
+}
+interface UserQuery {
+    response: UserQuery$data;
+    variables: {};
+}
+
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
@@ -183,7 +192,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
-    const { updatableData } = store.readUpdatableFragment_EXPERIMENTAL(
+    const { updatableData: updatableFragment } = store.readUpdatableFragment(
         graphql`
             fragment UserComponent_user on User {
                 name
@@ -191,7 +200,19 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
         `,
         dataRef,
     );
-    updatableData.name = 'NewName';
+    updatableFragment.name = 'NewName';
+
+    const { updatableData: updatableQuery } = store.readUpdatableQuery<UserQuery>(
+        graphql`
+            query UserQuery {
+                user {
+                    name
+                }
+            }
+        `,
+        {},
+    );
+    updatableQuery.userName = 'NewName';
 }
 
 interface MessageEdge {

@@ -30,6 +30,7 @@ import {
     Ai,
     AppModernization,
     MovingDolly,
+    AdvocateMask,
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -63,3 +64,4 @@ import {
 <Ai />; // $ExpectType Element
 <AppModernization />; // $ExpectType Element
 <MovingDolly />; // $ExpectType Element
+<AdvocateMask />; // $ExpectType Element

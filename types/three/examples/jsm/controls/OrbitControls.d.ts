@@ -1,4 +1,4 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
+import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
 
 /**
  * Orbit controls allow the camera to orbit around a target.

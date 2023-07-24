@@ -1,9 +1,9 @@
-import { FogBase } from './Fog';
-import { Material } from './../materials/Material';
-import { Object3D } from './../core/Object3D';
-import { Color } from '../math/Color';
-import { Texture } from '../textures/Texture';
-import { CubeTexture } from '../Three';
+import { FogBase } from './Fog.js';
+import { Material } from './../materials/Material.js';
+import { Object3D } from './../core/Object3D.js';
+import { Color } from '../math/Color.js';
+import { Texture } from '../textures/Texture.js';
+import { CubeTexture } from '../Three.js';
 
 /**
  * Scenes allow you to set up what and where is to be rendered by three.js

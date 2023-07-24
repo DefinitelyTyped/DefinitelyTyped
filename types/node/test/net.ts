@@ -1,5 +1,5 @@
 import * as net from 'node:net';
-import { LookupOneOptions } from 'node:dns';
+import { LookupAddress, LookupAllOptions } from 'node:dns';
 import { Socket } from 'node:dgram';
 
 {
@@ -106,7 +106,7 @@ import { Socket } from 'node:dgram';
         host: "localhost",
         localAddress: "10.0.0.1",
         localPort: 1234,
-        lookup: (_hostname: string, _options: LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
+        lookup: (_hostname: string, _options: LookupAllOptions, _callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void): void => {
             // nothing
         },
         port: 80,

@@ -11,7 +11,7 @@ import {
     IUniform,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 export interface Variable {
     name: string;
@@ -49,7 +49,7 @@ export class GPUComputationRenderer {
         magFilter: MagnificationTextureFilter,
     ): WebGLRenderTarget;
     createTexture(): DataTexture;
-    renderTexture(input: Texture, output: Texture): void;
+    renderTexture(input: Texture, output: WebGLRenderTarget): void;
     doRenderTarget(material: Material, output: WebGLRenderTarget): void;
     dispose(): void;
 }
