@@ -6,7 +6,7 @@
 /**
  * This declaration specifies that the function is the exported object from the file
  */
-export = asyncPool;
+export { asyncPool };
 
 /**
  * Runs multiple promise-returning & async functions in a limited concurrency pool.
