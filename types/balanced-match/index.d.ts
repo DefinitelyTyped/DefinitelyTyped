@@ -39,14 +39,14 @@ interface Output {
  * the first match that was closed will be used.
  * For example, `{{a}` will match `['{', 'a', '']` and `{a}}` will match `['', 'a', '}']`
  */
-declare function balanced(a: string | RegExp, b: string | RegExp, str: string): Output | void;
+declare function balanced(a: string | RegExp, b: string | RegExp, str: string): Output | undefined;
 
 declare namespace balanced {
     /**
      * For the first non-nested matching pair of `a` and `b` in `str`,
      * return an array with indexes: `[ <a index>, <b index> ]`.
      */
-    function range(a: string | RegExp, b: string | RegExp, str: string): Output | void;
+    function range(a: string | RegExp, b: string | RegExp, str: string): [number, number] | undefined;
 }
 
 export = balanced;
