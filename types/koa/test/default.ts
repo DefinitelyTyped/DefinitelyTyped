@@ -42,7 +42,8 @@ app.use((ctx: Koa.Context, next) => {
         ctx.user = {}; // undeclared property
         ctx[Symbol('locale')] = 'en-US'; // symbol property key
         ctx[200] = {}; // number property key
-        ctx.assert(ctx[200], 404, 'Yep!');
+        ctx['views'] = 123; // string property key
+        ctx.assert(true, 404, 'Yep!');
     });
 });
 
