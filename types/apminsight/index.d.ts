@@ -1,9 +1,9 @@
 // Type definitions for apminsight 3.0
 // Project: https://www.npmjs.com/package/apminsight
-// Definitions by: Zoho Corporation Pvt. Ltd. <apm-insight@zohocorp.com>
+// Definitions by: Site24x7 <https://github.com/site24x7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-//https://www.site24x7.com/help/apm/nodejs-agent/nodejs-custom-instrumentation.html
+// https://www.site24x7.com/help/apm/nodejs-agent/nodejs-custom-instrumentation.html
 
 export = AgentAPI;
 declare function AgentAPI(optionsFromAgentInit?: JSON): typeof AgentAPI;
@@ -14,7 +14,6 @@ declare namespace AgentAPI {
     function config(): void;
 
     /**
-     * 
      * @param txnName Transaction name of the web transaction.
      * @param func Function that will be executed once txn is created.
      * This API is called to create web transactions and will track the method calls made within func.
@@ -22,7 +21,6 @@ declare namespace AgentAPI {
     function startWebTransaction(txnName: string, func: any): any;
 
     /**
-     * 
      * @param txnName Transaction name of the background transaction.
      * @param func Function that will be executed once txn is created.
      * This API is called to create background transactions and will track the method calls made within func.
@@ -40,7 +38,7 @@ declare namespace AgentAPI {
      * @param componentName Name of the component if any.
      * @param handler Handler will be executed after creating tracker.
      * @param cb Call back function which will be executed after the tracker completion.
-     * The agent captures default framework components, classes, and methods. However, user-defined classes and methods 
+     * The agent captures default framework components, classes, and methods. However, user-defined classes and methods
      * can be monitored only by instrumenting them with the following API.
      */
     function startTracker(trackerName: string, componentName: string, handler: any, cb?: any): any;
