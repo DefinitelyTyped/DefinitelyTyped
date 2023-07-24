@@ -1,4 +1,4 @@
-import asyncPool = require('tiny-async-pool');
+import * as asyncPool from 'tiny-async-pool';
 
 const expected = ['A', 'B', 'C'];
 
