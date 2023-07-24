@@ -1,23 +1,23 @@
-// Type definitions for big.js 6.1
+// Type definitions for big.js 6.2
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Big {
-    export type BigSource = number | string | Big;
+    type BigSource = number | string | Big;
 
     /**
      * GT = 1, EQ = 0, LT = -1
      */
-    export type Comparison = -1 | 0 | 1;
+    type Comparison = -1 | 0 | 1;
 
     /**
      * RoundDown = 0, RoundHalfUp = 1, RoundHalfEven = 2, RoundUp = 3
      */
-    export type RoundingMode = 0 | 1 | 2 | 3;
+    type RoundingMode = 0 | 1 | 2 | 3;
 
-    export interface BigConstructor {
+    interface BigConstructor {
         /**
          * Returns a new instance of a Big number object
          *
@@ -114,7 +114,7 @@ declare namespace Big {
         readonly Big: BigConstructor;
     }
 
-    export interface Big {
+    interface Big {
         /** Returns a Big number whose value is the absolute value, i.e. the magnitude, of this Big number. */
         abs(): Big;
         /**
@@ -122,13 +122,13 @@ declare namespace Big {
          *
          * @throws `NaN` if n is invalid.
          */
-        add(n: Big.BigSource): Big;
+        add(n: BigSource): Big;
         /**
          * Compare the values.
          *
          * @throws `NaN` if n is invalid.
          */
-        cmp(n: Big.BigSource): Big.Comparison;
+        cmp(n: BigSource): Comparison;
         /**
          * Returns a Big number whose value is the value of this Big number divided by n.
          *
@@ -138,43 +138,43 @@ declare namespace Big {
          * @throws `±Infinity` on division by zero.
          * @throws `NaN` on division of zero by zero.
          */
-        div(n: Big.BigSource): Big;
+        div(n: BigSource): Big;
         /**
          * Returns true if the value of this Big equals the value of n, otherwise returns false.
          *
          * @throws `NaN` if n is invalid.
          */
-        eq(n: Big.BigSource): boolean;
+        eq(n: BigSource): boolean;
         /**
          * Returns true if the value of this Big is greater than the value of n, otherwise returns false.
          *
          * @throws `NaN` if n is invalid.
          */
-        gt(n: Big.BigSource): boolean;
+        gt(n: BigSource): boolean;
         /**
          * Returns true if the value of this Big is greater than or equal to the value of n, otherwise returns false.
          *
          * @throws `NaN` if n is invalid.
          */
-        gte(n: Big.BigSource): boolean;
+        gte(n: BigSource): boolean;
         /**
          * Returns true if the value of this Big is less than the value of n, otherwise returns false.
          *
          * @throws `NaN` if n is invalid.
          */
-        lt(n: Big.BigSource): boolean;
+        lt(n: BigSource): boolean;
         /**
          * Returns true if the value of this Big is less than or equal to the value of n, otherwise returns false.
          *
          * @throws `NaN` if n is invalid.
          */
-        lte(n: Big.BigSource): boolean;
+        lte(n: BigSource): boolean;
         /**
          * Returns a Big number whose value is the value of this Big number minus n.
          *
          * @throws `NaN` if n is invalid.
          */
-        minus(n: Big.BigSource): Big;
+        minus(n: BigSource): Big;
         /**
          * Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n.
          *
@@ -182,13 +182,13 @@ declare namespace Big {
          *
          * @throws `NaN` if n is negative or otherwise invalid.
          */
-        mod(n: Big.BigSource): Big;
+        mod(n: BigSource): Big;
         /**
          * Returns a Big number whose value is the value of this Big number times n - alias for .times().
          *
          * @throws `NaN` if n is invalid.
          */
-        mul(n: Big.BigSource): Big;
+        mul(n: BigSource): Big;
         /**
          * Return a new Big whose value is the value of this Big negated.
          */
@@ -198,7 +198,7 @@ declare namespace Big {
          *
          * @throws `NaN` if n is invalid.
          */
-        plus(n: Big.BigSource): Big;
+        plus(n: BigSource): Big;
         /**
          * Returns a Big number whose value is the value of this Big number raised to the power exp.
          *
@@ -219,7 +219,7 @@ declare namespace Big {
          * @throws `!prec!` if sd is invalid.
          * @throws `!Big.RM!` if rm is invalid.
          */
-        prec(sd: number, rm?: Big.RoundingMode): Big;
+        prec(sd: number, rm?: RoundingMode): Big;
         /**
          * Returns a Big number whose value is the value of this Big number rounded using rounding mode rm to a maximum of dp decimal places.
          *
@@ -228,7 +228,7 @@ declare namespace Big {
          * @throws `!round!` if dp is invalid.
          * @throws `!Big.RM!` if rm is invalid.
          */
-        round(dp?: number, rm?: Big.RoundingMode): Big;
+        round(dp?: number, rm?: RoundingMode): Big;
         /**
          * Returns a Big number whose value is the square root of this Big number.
          *
@@ -242,13 +242,13 @@ declare namespace Big {
          *
          * @throws `NaN` if n is invalid.
          */
-        sub(n: Big.BigSource): Big;
+        sub(n: BigSource): Big;
         /**
          * Returns a Big number whose value is the value of this Big number times n.
          *
          * @throws `NaN` if n is invalid.
          */
-        times(n: Big.BigSource): Big;
+        times(n: BigSource): Big;
         /**
          * Returns a string representing the value of this Big number in exponential notation to a fixed number of decimal places dp.
          *
@@ -263,7 +263,7 @@ declare namespace Big {
          * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
          * @throws `!toFix!` if dp is invalid.
          */
-        toExponential(dp?: number, rm?: Big.RoundingMode): string;
+        toExponential(dp?: number, rm?: RoundingMode): string;
         /**
          * Returns a string representing the value of this Big number in normal notation to a fixed number of decimal places dp.
          *
@@ -281,7 +281,7 @@ declare namespace Big {
          * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
          * @throws `!toFix!` if dp is invalid.
          */
-        toFixed(dp?: number, rm?: Big.RoundingMode): string;
+        toFixed(dp?: number, rm?: RoundingMode): string;
         /**
          * Returns a string representing the value of this Big number to the specified number of significant digits sd.
          *
@@ -297,7 +297,7 @@ declare namespace Big {
          * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
          * @throws `!toPre!` if sd is invalid.
          */
-        toPrecision(sd?: number, rm?: Big.RoundingMode): string;
+        toPrecision(sd?: number, rm?: RoundingMode): string;
         /**
          * Returns a string representing the value of this Big number.
          *
@@ -347,7 +347,6 @@ declare namespace Big {
         s: number;
     }
 }
-
 
 // We want the exported symbol 'Big' to represent two things:
 // - The Big interface, when used in a type context.
