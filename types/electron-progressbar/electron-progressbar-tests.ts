@@ -15,7 +15,7 @@ progressBar.on('ready', () => {
 });
 
 progressBar.on('progress', () => {
-    progressBar.detail = 'progress called 1st time without values`
+    progressBar.detail = 'progress called 1st time without values'
 });
 
 progressBar.on('progress', (value) => {
