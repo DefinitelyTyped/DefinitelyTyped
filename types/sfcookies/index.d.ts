@@ -1,6 +1,6 @@
 // Type definitions for sfcookies 1.0
 // Project: https://github.com/15Dkatz/sfcookies
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Gabriel Arriagada <https://github.com/ggvbo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
