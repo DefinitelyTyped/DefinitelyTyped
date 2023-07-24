@@ -594,7 +594,7 @@ export interface NightwatchOptions {
      */
     skiptags?: string;
 
-	/**
+    /**
 	 * Tag(s) used/to be used during test execution.
 	 * Can be a single tag or an array of tags.
 	 */
