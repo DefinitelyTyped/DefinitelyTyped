@@ -330,7 +330,7 @@
 /types/ascii2mathml/                                      @RagibHasin
 /types/asciichart/                                        @pokutuna
 /types/asenv/                                             @remisery
-/types/asn1/                                              @jgeurts
+/types/asn1/                                              @jgeurts @shortstuffsushi
 /types/aspect-fit/                                        @ChocolateLoverRaj
 /types/aspnet-identity-pw/                                @jt000
 /types/assert/                                            @nicoabie @LinusU @ExE-Boss
@@ -1522,8 +1522,9 @@
 /types/diff/                                              @vvakame @szdc @BendingBender @peterblazejewicz
 /types/diff/v3/                                           @vvakame @szdc
 /types/diff3/                                             @alex-titarenko
+/types/diffable-html/                                     @ZhangYiJiang
 /types/diffie-hellman/                                    @BendingBender
-/types/difflib/                                           @majames @hlegendre
+/types/difflib/                                           @majames @hlegendre @antoniomin
 /types/digibyte/                                          @lautarodragan @werewolfe @nyancodeid
 /types/digital-goods-browser/                             @vantezzen
 /types/digital-link.js/                                   @eoin-obrien
@@ -7425,7 +7426,7 @@
 /types/setimmediate/                                      @ExE-Boss
 /types/settings/                                          @shreyjain1994
 /types/setup-polly-jest/                                  @offirgolan
-/types/sfcookies/                                         @DefinitelyTyped
+/types/sfcookies/                                         @ggvbo
 /types/sfdx-faye/                                         @mdonnalley
 /types/sha/                                               @oBusk
 /types/sha.js/                                            @BendingBender
@@ -8270,7 +8271,7 @@
 /types/unbox-primitive/                                   @BendingBender
 /types/unbzip2-stream/                                    @plumdog
 /types/unc-path-regex/                                    @BendingBender
-/types/underscore/                                        @borisyankov @jbaldwin @ccurrens @confususs @jgonggrijp @ffflorian @regevbr @peterblazejewicz @reubenrybnik
+/types/underscore/                                        @borisyankov @jbaldwin @ccurrens @confususs @jgonggrijp @ffflorian @regevbr @peterblazejewicz @reubenrybnik @LukeGT
 /types/underscore-ko/                                     @MagicMau
 /types/underscore.string/                                 @rygine
 /types/undertaker/                                        @tkqubo @GiedriusGrabauskas @sh0ji
