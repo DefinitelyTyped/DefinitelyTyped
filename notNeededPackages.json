@@ -1088,6 +1088,10 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron": {
+            "libraryName": "cron",
+            "asOfVersion": "2.4.0"
+        },
         "cron-converter": {
             "libraryName": "cron-converter",
             "asOfVersion": "2.0.0"
