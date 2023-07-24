@@ -2402,6 +2402,7 @@ declare namespace React {
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
+        content?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
