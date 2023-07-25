@@ -1,7 +1,7 @@
 import ScrollBooster from 'scrollbooster';
 
-const viewport = document.querySelector<HTMLDivElement>('.viewport');
-const content = document.querySelector<HTMLDivElement>('.scrollable-content');
+const viewport = document.createElement('div');
+const content = document.createElement('div');
 
 const sb = new ScrollBooster({
     viewport,
