@@ -190,7 +190,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): any[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the filter delegate of the chart that provides basic filter functionality, such as adding filter
      * fields. **Note:** The functionality provided in this delegate acts as a subset of a `FilterBarDelegate`
@@ -1146,7 +1146,7 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
    */
   interface TableDelegate {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the row binding of the table if possible, rebinds otherwise.
      *
@@ -1240,7 +1240,7 @@ declare module "sap/ui/mdc/TableDelegate" {
    */
   interface TableDelegate {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Collapses all nodes.
      */
@@ -1251,7 +1251,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Expands all nodes.
      */
@@ -1262,7 +1262,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the feature set for exporting data in the MDC Table.
      *
@@ -1275,7 +1275,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Formats the title text of a group header row of the table.
      *
@@ -1296,7 +1296,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       sProperty: string
     ): string | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the filter delegate of the table that provides basic filter functionality, such as adding filter
      * fields. **Note:** The functionality provided in this delegate acts as a subset of a `FilterBarDelegate`
@@ -1308,7 +1308,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       addItem: (p1: Table, p2: string) => Promise<FilterField>;
     };
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns filters that are used when updating the table's binding and are created based on the filter conditions
      * of the table and its associated filter control.
@@ -1322,7 +1322,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): Filter[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new sorter for the grouping functionality.
      *
@@ -1335,7 +1335,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): Sorter | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the sort conditions that are used when updating the table's binding.
      *
@@ -1348,7 +1348,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oTable: Table
     ): Sorter[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Rebinds the table.
      */
@@ -1363,7 +1363,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oBindingInfo: AggregationBindingInfo
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the row binding of the table.
      *
@@ -1385,7 +1385,7 @@ declare module "sap/ui/mdc/TableDelegate" {
       oBinding?: ListBinding
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides a hook to update the binding info object that is used to bind the table to the model.
      */
@@ -2855,7 +2855,7 @@ declare module "sap/ui/mdc/Chart" {
 
   /**
    * @since 1.88
-   * Experimental (since 1.88)
+   * @experimental (since 1.88)
    *
    * The `Chart` control creates a chart based on metadata and the configuration specified.
    *  **Note:** The inner chart needs to be assigned `ChartDelegate`.
@@ -3043,7 +3043,7 @@ declare module "sap/ui/mdc/Chart" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionDetailsActionPressed selectionDetailsActionPressed} to attached listeners.
      *
@@ -5541,7 +5541,7 @@ declare module "sap/ui/mdc/Control" {
 
   /**
    * @since 1.61
-   * Experimental (since 1.61)
+   * @experimental (since 1.61)
    *
    * The base class for MDC controls providing delegate-related functionality (see {@link sap.ui.mdc.mixin.DelegateMixin}).
    */
@@ -5579,7 +5579,7 @@ declare module "sap/ui/mdc/Control" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides access to the delegate initialization `Promise`. **Note:** `initControlDelegate` must be called
      * to start the delegate initialization
@@ -5588,7 +5588,7 @@ declare module "sap/ui/mdc/Control" {
      */
     static awaitControlDelegate(): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides access to the property helper initialization `Promise`.
      *
@@ -5619,7 +5619,7 @@ declare module "sap/ui/mdc/Control" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Finalize the propertyHelper using the control's delegate.
      *
@@ -5654,7 +5654,7 @@ declare module "sap/ui/mdc/Control" {
      */
     static getPayload(): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the property helper instance, if available.
      *
@@ -5669,7 +5669,7 @@ declare module "sap/ui/mdc/Control" {
     static getTypeMap(): /* was: sap.ui.mdc.util.TypeMap */ any;
     /**
      * @deprecated - (since 1.115.0) - please see {@link #getTypeMap}
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `typeUtil` made available by a delegate module.
      *
@@ -5679,7 +5679,7 @@ declare module "sap/ui/mdc/Control" {
       | any
       | /* was: sap.ui.mdc.util.TypeMap */ any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Loads and initializes the delegate module related to the enhanced control.
      *
@@ -5692,7 +5692,7 @@ declare module "sap/ui/mdc/Control" {
       oPreloadedModule?: /* was: sap.ui.mdc.BaseDelegate */ any
     ): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Loads and initializes the property helper related to the enhanced control.
      *
@@ -5713,7 +5713,7 @@ declare module "sap/ui/mdc/Control" {
       bFinal?: object[]
     ): Promise</* was: sap.ui.mdc.util.PropertyHelper */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Indicates if the control's propertyHelper already contains all available properties
      *
@@ -5780,7 +5780,7 @@ declare module "sap/ui/mdc/Element" {
 
   /**
    * @since 1.74
-   * Experimental (since 1.74)
+   * @experimental (since 1.74)
    *
    * The base class for MDC composite elements providing delegate-related functionality (see {@link sap.ui.mdc.mixin.DelegateMixin}).
    */
@@ -5818,7 +5818,7 @@ declare module "sap/ui/mdc/Element" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides access to the delegate initialization `Promise`. **Note:** `initControlDelegate` must be called
      * to start the delegate initialization
@@ -5827,7 +5827,7 @@ declare module "sap/ui/mdc/Element" {
      */
     static awaitControlDelegate(): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides access to the property helper initialization `Promise`.
      *
@@ -5858,7 +5858,7 @@ declare module "sap/ui/mdc/Element" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Finalize the propertyHelper using the control's delegate.
      *
@@ -5893,7 +5893,7 @@ declare module "sap/ui/mdc/Element" {
      */
     static getPayload(): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the property helper instance, if available.
      *
@@ -5908,7 +5908,7 @@ declare module "sap/ui/mdc/Element" {
     static getTypeMap(): /* was: sap.ui.mdc.util.TypeMap */ any;
     /**
      * @deprecated - (since 1.115.0) - please see {@link #getTypeMap}
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `typeUtil` made available by a delegate module.
      *
@@ -5918,7 +5918,7 @@ declare module "sap/ui/mdc/Element" {
       | any
       | /* was: sap.ui.mdc.util.TypeMap */ any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Loads and initializes the delegate module related to the enhanced control.
      *
@@ -5931,7 +5931,7 @@ declare module "sap/ui/mdc/Element" {
       oPreloadedModule?: /* was: sap.ui.mdc.BaseDelegate */ any
     ): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Loads and initializes the property helper related to the enhanced control.
      *
@@ -5952,7 +5952,7 @@ declare module "sap/ui/mdc/Element" {
       bFinal?: object[]
     ): Promise</* was: sap.ui.mdc.util.PropertyHelper */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Indicates if the control's propertyHelper already contains all available properties
      *
@@ -6516,7 +6516,7 @@ declare module "sap/ui/mdc/Field" {
 
   /**
    * @since 1.54.0
-   * Experimental (since 1.54.0)
+   * @experimental (since 1.54.0)
    *
    * The `Field` control is used to bind its value to data of a certain data type. Based on the data type
    * settings, a default control is rendered by the `Field` as follows:
@@ -6695,7 +6695,7 @@ declare module "sap/ui/mdc/Field" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -7670,14 +7670,14 @@ declare module "sap/ui/mdc/field/FieldBase" {
       oBindingInfo: PropertyBindingInfo
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if all needed information is provided to create the internal content control. If possible create
      * internal controls.
      */
     checkCreateInternalContent(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * If the value is the initial value of the type (String types) and the field does not show tokens or operators,
      * no condition must be set as the field is then empty.
@@ -7737,7 +7737,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     destroyFieldInfo(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys the internal content controls.
      */
@@ -7796,13 +7796,13 @@ declare module "sap/ui/mdc/field/FieldBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Here inheriting controls need to fire the control-specific change event.
      */
     fireChangeEvent(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -7815,7 +7815,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
       mParameters?: FieldBase$LiveChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -7829,7 +7829,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
     ): this;
     /**
      * @since 1.82.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:submit submit} to attached listeners.
      *
@@ -7846,7 +7846,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines the `BaseType` of the currently used data type.
      *
@@ -7949,14 +7949,14 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getContentEdit(): Control1;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      *
      * @returns oContentFactory the ContentFactory of the Field
      */
     getContentFactory(): /* was: sap.ui.mdc.field.content.ContentFactory */ any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the currently used content controls.
      *
@@ -8043,7 +8043,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getFieldInfo(): FieldInfoBase;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides some internals of the field to be used in {@link sap.ui.mdc.field.ConditionsType ConditionsType }
      * for format and parse the conditions.
@@ -8097,7 +8097,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getMultipleLines(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event that is
      * fired when width of the control is changed.
@@ -8129,7 +8129,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getRequired(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines, based on conditions, the value returned by the `change` event.
      *
@@ -8159,7 +8159,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getShowEmptyIndicator(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the supported operators.
      *
@@ -8194,7 +8194,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides some internals of the unit part of the field to be used in {@link sap.ui.mdc.field.ConditionsType ConditionsType }
      * for format and parse the conditions.
@@ -8239,7 +8239,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getWidth(): CSSSize;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handler of the `ModelContextChange` event.
      */
@@ -8250,14 +8250,14 @@ declare module "sap/ui/mdc/field/FieldBase" {
       oEvent: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes internal data-types and dependent objects.
      */
     initDataType(): void;
     /**
      * @since 1.115.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the field is already destoyed or destruction has started.
      *
@@ -8267,7 +8267,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     isFieldDestroyed(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the given property value is initial and has not been explicitly set or no binding exist.
      * Even after setting the default value or setting null/undefined (which also causes the default value to
@@ -8282,7 +8282,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
       sPropertyName: string
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if there is invalid input.
      *
@@ -8291,7 +8291,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
     isInvalidInput(): boolean;
     /**
      * @since 1.115.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the field is configured to be a `SearchField`
      *
@@ -8302,7 +8302,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     isSearchField(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Observes changes.
      *
@@ -8333,7 +8333,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
       vAriaLabelledBy: int | ID | Control1
     ): ID | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Resets invalid input information.
      *
@@ -8773,7 +8773,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
       sWidth?: CSSSize
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Triggers a check if all relevant properties are set to create the internal content control.
      *
@@ -8789,7 +8789,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     unbindConditions(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Triggers an update of the internal content controls.
      *
@@ -9303,7 +9303,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if there is a direct navigation or if there is a popover to be opened.
      *
@@ -9346,7 +9346,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataUpdate dataUpdate} to attached listeners.
      *
@@ -9359,7 +9359,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:popoverAfterOpen popoverAfterOpen} to attached listeners.
      *
@@ -9391,7 +9391,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
      */
     getDirectLinkHrefAndTarget(): Promise<DirectLinkObject | null>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent control.
      *
@@ -9641,7 +9641,7 @@ declare module "sap/ui/mdc/FilterBar" {
 
   /**
    * @since 1.61.0
-   * Experimental (since 1.61.0)
+   * @experimental (since 1.61.0)
    *
    * The `FilterBar` control is used to display filter attrtibutes in a user-friendly manner to populate values
    * for a query. The filters are arranged in a logical row that is divided depending on the space available
@@ -10099,7 +10099,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filtersChanged filtersChanged} to attached listeners.
      *
@@ -10112,7 +10112,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       mParameters?: FilterBarBase$FiltersChangedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -10796,7 +10796,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys the `CollectiveSearch` control.
      *
@@ -10806,7 +10806,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
      */
     destroyCollectiveSearch(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the `CollectiveSearch` control
      *
@@ -10853,7 +10853,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
      */
     getFilterFieldThreshold(): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the `CollectiveSearch` control
      *
@@ -11142,7 +11142,7 @@ declare module "sap/ui/mdc/FilterField" {
 
   /**
    * @since 1.48.0
-   * Experimental (since 1.48.0)
+   * @experimental (since 1.48.0)
    *
    * The `FilterField` control is used to filter data based on the conditions. The conditions are managed
    * in the corresponding {@link sap.ui.mdc.condition.ConditionModel ConditionModel}. That is why the `conditions`
@@ -11331,7 +11331,7 @@ declare module "sap/ui/mdc/FilterField" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11559,7 +11559,7 @@ declare module "sap/ui/mdc/Link" {
 
   /**
    * @since 1.74
-   * Experimental (since 1.74.0)
+   * @experimental (since 1.74.0)
    *
    * A `Link` element can be used inside a `fieldInfo` aggregation of {@link sap.ui.mdc.Field} to enable navigation
    * scenarios with one or more targets through direct navigation or by opening a `Panel`.
@@ -11629,7 +11629,7 @@ declare module "sap/ui/mdc/Link" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Retrieves the relevant metadata for the panel and returns a property info array.
      *
@@ -11642,7 +11642,7 @@ declare module "sap/ui/mdc/Link" {
       oPanel: /* was: sap.ui.mdc.link.Panel */ any
     ): object[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Retrieves the items that are initially part of the baseline which is used when a reset is done.
      *
@@ -12179,7 +12179,7 @@ declare module "sap/ui/mdc/MultiValueField" {
 
   /**
    * @since 1.93.0
-   * Experimental (since 1.93.0)
+   * @experimental (since 1.93.0)
    *
    * A `MultiValueField` control can hold multiple values. The values are stored as items. A `MultiValueField`
    * control can be used to bind its items to data of a certain data type. Based on the data type settings,
@@ -12355,7 +12355,7 @@ declare module "sap/ui/mdc/MultiValueField" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -12738,7 +12738,7 @@ declare module "sap/ui/mdc/Table" {
 
   /**
    * @since 1.58
-   * Experimental (since 1.58.0)
+   * @experimental (since 1.58.0)
    *
    * A metadata-driven table to simplify the usage of existing tables, such as the `ResponsiveTable` and `GridTable`
    * controls. The metadata needs to be provided via the {@link module:sap/ui/mdc/TableDelegate TableDelegate }
@@ -13045,7 +13045,7 @@ declare module "sap/ui/mdc/Table" {
      */
     destroyCopyProvider(): this;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Destroys the creationRow in the aggregation {@link #getCreationRow creationRow}.
      *
@@ -13165,7 +13165,7 @@ declare module "sap/ui/mdc/Table" {
     ): this;
     /**
      * @since 1.75
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeExport beforeExport} to attached listeners.
      *
@@ -13178,7 +13178,7 @@ declare module "sap/ui/mdc/Table" {
       mParameters?: Table$BeforeExportEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paste paste} to attached listeners.
      *
@@ -13191,7 +13191,7 @@ declare module "sap/ui/mdc/Table" {
       mParameters?: Table$PasteEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rowPress rowPress} to attached listeners.
      *
@@ -13204,7 +13204,7 @@ declare module "sap/ui/mdc/Table" {
       mParameters?: Table$RowPressEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -13298,7 +13298,7 @@ declare module "sap/ui/mdc/Table" {
      */
     getCopyProvider(): CopyProvider;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Gets content of aggregation {@link #getCreationRow creationRow}.
      *
@@ -13446,7 +13446,7 @@ declare module "sap/ui/mdc/Table" {
     getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
      * @since 1.116
-     * Experimental - Internal use only
+     * @experimental - Internal use only
      *
      * Gets current value of property {@link #getHeaderStyle headerStyle}.
      *
@@ -13870,7 +13870,7 @@ declare module "sap/ui/mdc/Table" {
       oCopyProvider: CopyProvider
     ): this;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Sets the aggregated {@link #getCreationRow creationRow}.
      *
@@ -14094,7 +14094,7 @@ declare module "sap/ui/mdc/Table" {
     ): this;
     /**
      * @since 1.116
-     * Experimental - Internal use only
+     * @experimental - Internal use only
      *
      * Sets a new value for property {@link #getHeaderStyle headerStyle}.
      *
@@ -14477,7 +14477,7 @@ declare module "sap/ui/mdc/Table" {
 
     /**
      * @since 1.116
-     * Experimental - Internal use only
+     * @experimental - Internal use only
      *
      * Defines style of the header. For more information, see {@link sap.m.Title#setTitleStyle}.
      */
@@ -14693,7 +14693,7 @@ declare module "sap/ui/mdc/Table" {
     columns?: Column[] | Column | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * This row can be used for user input to create new data if {@link sap.ui.mdc.enums.TableType TableType }
      * is "`Table`". **Note:** Once the binding supports creating transient records, this aggregation will be
@@ -14920,7 +14920,7 @@ declare module "sap/ui/mdc/table/Column" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Destroys the creationTemplate in the aggregation {@link #getCreationTemplate creationTemplate}.
      *
@@ -14942,7 +14942,7 @@ declare module "sap/ui/mdc/table/Column" {
      */
     destroyTemplate(): this;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Gets content of aggregation {@link #getCreationTemplate creationTemplate}.
      *
@@ -15078,7 +15078,7 @@ declare module "sap/ui/mdc/table/Column" {
      */
     getWidth(): CSSSize;
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * Sets the aggregated {@link #getCreationTemplate creationTemplate}.
      *
@@ -15388,7 +15388,7 @@ declare module "sap/ui/mdc/table/Column" {
     template?: Control;
 
     /**
-     * Experimental - Do not use
+     * @experimental - Do not use
      *
      * `CreationRow` template.
      *
@@ -16498,7 +16498,7 @@ declare module "sap/ui/mdc/table/RowActionItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -17229,7 +17229,7 @@ declare module "sap/ui/mdc/ValueHelp" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0)
+   * @experimental (since 1.95.0)
    *
    * Element for the `ValueHelp` association in the {@link sap.ui.mdc.field.FieldBase FieldBase} controls.
    */
@@ -17766,7 +17766,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -17779,7 +17779,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:disconnect disconnect} to attached listeners.
      *
@@ -17792,7 +17792,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigated navigated} to attached listeners.
      *
@@ -17805,7 +17805,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: ValueHelp$NavigatedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -17818,7 +17818,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: ValueHelp$OpenEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -17831,7 +17831,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: ValueHelp$OpenedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -17844,7 +17844,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       mParameters?: ValueHelp$SelectEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:switchToValueHelp switchToValueHelp} to attached listeners.
      *
@@ -18746,7 +18746,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Binds the content to the container.
      */
@@ -18757,7 +18757,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oContent: Content
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Closes the container control or element.
      */
@@ -18907,7 +18907,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -18920,7 +18920,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -18933,7 +18933,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:confirm confirm} to attached listeners.
      *
@@ -18946,7 +18946,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: Container$ConfirmEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigated navigated} to attached listeners.
      *
@@ -18959,7 +18959,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: Container$NavigatedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -18972,7 +18972,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestDelegateContent requestDelegateContent} to attached listeners.
      *
@@ -18985,7 +18985,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: Container$RequestDelegateContentEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestSwitchToDialog requestSwitchToDialog} to attached listeners.
      *
@@ -18998,7 +18998,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -19011,7 +19011,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       mParameters?: Container$SelectEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the configuration for a specific content.
      *
@@ -19024,7 +19024,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oContent: Content
     ): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the container control or element that is opened (for example, a popover or dialog).
      */
@@ -19037,7 +19037,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getContent(): Content[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns control connected to value help.
      *
@@ -19054,7 +19054,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getLocalFilterValue(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
@@ -19062,7 +19062,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getMaxConditions(): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `Promise` for content creation.
      *
@@ -19070,7 +19070,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getRetrieveDelegateContentPromise(): Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the currently used content.
      *
@@ -19088,7 +19088,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getTitle(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `UIArea` of the content.
      *
@@ -19096,7 +19096,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getUIAreaForContent(): UIArea | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `cancelled` event of the content.
      *
@@ -19109,7 +19109,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `closed` event of the container control or element.
      */
@@ -19120,7 +19120,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `confirmed` event of the content.
      *
@@ -19133,7 +19133,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `requestSwitchToDialog` event of the content.
      */
@@ -19144,7 +19144,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `opened` event of the container control or element.
      */
@@ -19155,7 +19155,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `navigated` event of the content.
      */
@@ -19166,7 +19166,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the `select` event of the content.
      *
@@ -19208,7 +19208,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       iIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns if the value help is used for single selection.
      *
@@ -19216,7 +19216,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     isSingleSelect(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Triggers navigation in the content of the container.
      */
@@ -19227,7 +19227,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       iStep: int
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Observes property and aggregation changes.
      */
@@ -19238,7 +19238,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oChanges: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Opens the container control or element.
      */
@@ -19253,7 +19253,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       bTypeahead: boolean
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Places the content into the container control or element.
      *
@@ -19318,7 +19318,7 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       sTitle?: string
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Unbinds the content from the container.
      */
@@ -19776,7 +19776,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provides access to the delegate initialization `Promise` of the value help.
      *
@@ -19784,7 +19784,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     awaitValueHelpDelegate(): Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a condition based on the used operator.
      *
@@ -19898,7 +19898,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -19911,7 +19911,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:confirm confirm} to attached listeners.
      *
@@ -19924,7 +19924,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       mParameters?: Content$ConfirmEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigated navigated} to attached listeners.
      *
@@ -19937,7 +19937,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       mParameters?: Content$NavigatedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestSwitchToDialog requestSwitchToDialog} to attached listeners.
      *
@@ -19950,7 +19950,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -19987,7 +19987,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     getConfig(): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns control connected to value help.
      *
@@ -20015,7 +20015,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     getFilterValue(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
@@ -20053,7 +20053,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     getTokenizerTitle(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the used `ValueHelpDelegate`.
      *
@@ -20061,7 +20061,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     getValueHelpDelegate(): /* was: sap.ui.mdc.BaseDelegate */ any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines the `ValueHelp` instance.
      *
@@ -20079,7 +20079,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     getVisible(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called if the `conditions` property changed.
      */
@@ -20090,7 +20090,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oChanges: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called if the `filterValue` property changed.
      */
@@ -20101,7 +20101,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oChanges: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the parent container is open.
      *
@@ -20109,7 +20109,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isContainerOpen(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the parent container is opening.
      *
@@ -20117,7 +20117,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isContainerOpening(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns if the value help is used for single selection.
      *
@@ -20125,7 +20125,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isSingleSelect(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the container of the content is used as `typeAhead` inside the value help.
      *
@@ -20135,7 +20135,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isTypeahead(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if delegate of the value help has been initialized.
      *
@@ -20143,7 +20143,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isValueHelpDelegateInitialized(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Observes property and aggregation changes.
      */
@@ -20154,25 +20154,25 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oChanges: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called if `ValueHelp` connection to a control changed.
      */
     onConnectionChange(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Performs logic needed if the container closes.
      */
     onContainerClose(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Performs logic needed if the container opens.
      */
     onContainerOpen(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the the content needs to provide a scrolling mechanism like a {@link sap.m.ScrollContainer ScrollContainer}.
      *
@@ -20539,13 +20539,13 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Applies the filter to the content control.
      */
     applyFilters(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a payload for a value.
      *
@@ -20617,7 +20617,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
      */
     getGroup(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets an item for a `BindingContext`.
      *
@@ -20645,7 +20645,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
      */
     getKeyPath(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the `BindingInfo` of the content.
      *
@@ -20653,7 +20653,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
      */
     getListBindingInfo(): AggregationBindingInfo;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the conditions that are selecatble from list content.
      *
@@ -20896,7 +20896,7 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
      */
     getCaseSensitive(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the `ListBinding` of the content.
      *
@@ -22067,7 +22067,7 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:contentUpdated contentUpdated} to attached listeners.
      *

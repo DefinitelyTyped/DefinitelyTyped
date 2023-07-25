@@ -3269,13 +3269,13 @@ declare module "sap/ui/core/InvisibleRenderer" {
 
   /**
    * @since 1.66.0
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Provides the default renderer for the controls that have set their `visible` property to `false`.
    */
   interface InvisibleRenderer {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible placeholder DOM element.
      *
@@ -3288,7 +3288,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the placeholder DOM element of the provided control.
      *
@@ -3301,7 +3301,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): HTMLElement | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Renders an invisible placeholder to identify the location of the invisible control within the DOM tree.
      *
@@ -4987,7 +4987,7 @@ declare module "sap/ui/app/Application" {
 
   /**
    * @deprecated (since 1.15.1) - The Component class is enhanced to take care about the Application code.
-   * Experimental (since 1.11.1) - The Application class is still under construction, so some implementation
+   * @experimental (since 1.11.1) - The Application class is still under construction, so some implementation
    * details can be changed in future.
    *
    * Abstract application class. Extend this class to create a central application class.
@@ -5055,7 +5055,7 @@ declare module "sap/ui/app/Application" {
      */
     static getMetadata(): ComponentMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates and returns the root component. Override this method in your application implementation, if you
      * want to override the default creation by metadata.
@@ -5188,7 +5188,7 @@ declare module "sap/ui/app/MockServer" {
 
   /**
    * @deprecated (since 1.15.1) - The mock server code has been moved to sap.ui.core.util - see {@link sap.ui.core.util.MockServer}
-   * Experimental (since 1.13.0) - The mock server is still under construction, so some implementation details
+   * @experimental (since 1.13.0) - The mock server is still under construction, so some implementation details
    * can be changed in future.
    *
    * Class to mock a server.
@@ -5573,7 +5573,7 @@ declare module "sap/ui/base/Event" {
      */
     getSource(): EventProvider;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Init this event with its data.
      *
@@ -5605,7 +5605,7 @@ declare module "sap/ui/base/Event" {
      */
     preventDefault(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Reset event data, needed for pooling.
      * See:
@@ -5795,7 +5795,7 @@ declare module "sap/ui/base/EventProvider" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires an {@link sap.ui.base.Event event} with the given settings and notifies all attached event handlers.
      *
@@ -5823,7 +5823,7 @@ declare module "sap/ui/base/EventProvider" {
       bEnableEventBubbling?: boolean
     ): this | boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object.
      *
@@ -5835,7 +5835,7 @@ declare module "sap/ui/base/EventProvider" {
      */
     getEventingParent(): EventProvider | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether there are any registered event handlers for the event with the given identifier.
      *
@@ -6352,7 +6352,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds some entity `oObject` to the aggregation identified by `sAggregationName`.
      *
@@ -6384,7 +6384,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds some object with the ID `sId` to the association identified by `sAssociationName` and marks this
      * ManagedObject as changed.
@@ -6912,7 +6912,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys (all) the managed object(s) in the aggregation named `sAggregationName` and empties the aggregation.
      * If the aggregation did contain any object, this ManagedObject is marked as changed.
@@ -7051,7 +7051,7 @@ declare module "sap/ui/base/ManagedObject" {
       bIncludeBindingTemplates?: boolean
     ): ManagedObject[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -7064,7 +7064,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: ManagedObject$FormatErrorEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:modelContextChange modelContextChange} to attached listeners.
      *
@@ -7077,7 +7077,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -7090,7 +7090,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: ManagedObject$ParseErrorEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -7103,7 +7103,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: ManagedObject$ValidationErrorEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -7116,7 +7116,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: ManagedObject$ValidationSuccessEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the aggregated object(s) for the named aggregation of this ManagedObject.
      *
@@ -7149,7 +7149,7 @@ declare module "sap/ui/base/ManagedObject" {
       oDefaultForCreation?: ManagedObject | any[]
     ): ManagedObject | ManagedObject[] | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of the association with the given name.
      *
@@ -7217,7 +7217,7 @@ declare module "sap/ui/base/ManagedObject" {
       sModelName?: string
     ): Context | null | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the binding info for the given property or aggregation.
      *
@@ -7235,7 +7235,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): PropertyBindingInfo | AggregationBindingInfo;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get the binding path for a specific aggregation/property.
      *
@@ -7248,7 +7248,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): string | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent managed object as new eventing parent to enable control event bubbling or `null` if
      * this object hasn't been added to a parent yet.
@@ -7398,7 +7398,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     getParent(): ManagedObject | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the value for the property with the given `sPropertyName`.
      *
@@ -7423,7 +7423,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     hasModel(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Searches for the provided ManagedObject in the named aggregation and returns its 0-based index if found,
      * or -1 otherwise. Returns -2 if the given named aggregation is of cardinality 0..1 and doesn't reference
@@ -7446,7 +7446,7 @@ declare module "sap/ui/base/ManagedObject" {
       oObject: ManagedObject
     ): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Inserts managed object `oObject` to the aggregation named `sAggregationName` at position `iIndex`.
      *
@@ -7488,7 +7488,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Marks this object and its aggregated children as 'invalid'.
      *
@@ -7525,7 +7525,7 @@ declare module "sap/ui/base/ManagedObject" {
     isDestroyed(): boolean;
     /**
      * @since 1.93
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if an object's destruction has been started. During the descruction of an object its ID is still
      * registered, and child objects could be still aggregated. Creating another object with the same ID would
@@ -7535,7 +7535,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isDestroyStarted(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this ManagedObject.
      *
@@ -7543,7 +7543,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isInvalidateSuppressed(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the given property value is initial and has not been explicitly set or bound. Even after
      * setting the default value or setting null/undefined (which also causes the default value to be set),
@@ -7558,7 +7558,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is used internally and should only be overridden by a tree managed object which utilizes
      * the tree binding. In this case and if the aggregation is a tree node the overridden method should then
@@ -7575,7 +7575,7 @@ declare module "sap/ui/base/ManagedObject" {
     ): boolean;
     /**
      * @since 1.28
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called, whenever messages for this object exist.
      */
@@ -7590,7 +7590,7 @@ declare module "sap/ui/base/ManagedObject" {
       aMessages: any[]
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which can be called, when an aggregation needs to be refreshed. This method does not make
      * any change on the aggregation, but just calls the `getContexts` method of the binding to trigger fetching
@@ -7607,7 +7607,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes an object from the aggregation named `sAggregationName` with cardinality 0..n.
      *
@@ -7643,7 +7643,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes all objects from the 0..n-aggregation named `sAggregationName`.
      *
@@ -7672,7 +7672,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes all the objects in the 0..n-association named `sAssociationName` and returns an array with their
      * IDs. This ManagedObject is marked as changed, if the association contained any objects.
@@ -7694,7 +7694,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): any[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes a `ManagedObject` from the association named `sAssociationName`.
      *
@@ -7729,7 +7729,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): string | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Resets the given property to the default value and also restores the "initial" state (like it has never
      * been set).
@@ -7749,7 +7749,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets a new object in the named 0..1 aggregation of this ManagedObject and marks this ManagedObject as
      * changed.
@@ -7795,7 +7795,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the associated object for the given managed association of cardinality '0..1' and marks this ManagedObject
      * as changed.
@@ -7890,7 +7890,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName?: string
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the given value for the given property after validating and normalizing it, marks this object as
      * changed.
@@ -7995,7 +7995,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressReset: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called whenever an aggregation binding has changed.
      *
@@ -8033,7 +8033,7 @@ declare module "sap/ui/base/ManagedObject" {
       }
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given aggregation name.
      *
@@ -8057,7 +8057,7 @@ declare module "sap/ui/base/ManagedObject" {
       bMultiple: boolean
     ): ManagedObject | any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given property name.
      *
@@ -8989,7 +8989,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds information to the given oAggregatedObject about its original API parent (or a subsequent API parent
      * in case of multiple forwarding). MUST be called before an element is forwarded to another internal aggregation
@@ -9014,7 +9014,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Completes the information about the original API parent of the given element. MUST be called after an
      * element is forwarded to another internal aggregation. For every call to ManagedObjectMetadata.addAPIParentInfoBegin(...)
@@ -9148,7 +9148,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllEvents(): Record<string, MetadataOptions1.Event>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) aggregations of the described class, including
      * private aggregations from the ancestor classes.
@@ -9164,7 +9164,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAggregations(): Record<string, MetadataOptions1.Aggregation>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) associations of the described class, including
      * private associations from the ancestor classes.
@@ -9180,7 +9180,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAssociations(): Record<string, MetadataOptions1.Association>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) properties of the described class, including private
      * properties from the ancestor classes.
@@ -9305,7 +9305,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getLibraryName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private aggregation declared by the described class or
      * by any of its ancestors.
@@ -9326,7 +9326,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): MetadataOptions1.Aggregation | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private association declared by the described class or
      * by any of its ancestors.
@@ -9344,7 +9344,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sName: string
     ): MetadataOptions1.Association | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private property declared by the described class or by
      * any of its ancestors.
@@ -9950,7 +9950,7 @@ declare module "sap/ui/base/ObjectPool" {
     __implements__sap_ui_base_Poolable: boolean;
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called by the `ObjectPool` when this instance will be activated for a caller.
      *
@@ -9966,7 +9966,7 @@ declare module "sap/ui/base/ObjectPool" {
       ...args: any[]
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called by the object pool when an instance is returned to the pool.
      *
@@ -10021,56 +10021,56 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.110
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains accessibility information for a control.
    */
   export type AccessibilityInfo = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The WAI-ARIA role which is implemented by the control.
      */
     role?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A translated text that represents the control type. Might correlate with the role.
      */
     type?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Describes the most relevant control state (e.g. the input's value) - it should be a translated text.
      * **Note:** The type and the enabled/editable state shouldn`t be handled here.
      */
     description?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control can get the focus.
      */
     focusable?: boolean;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is enabled. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     enabled?: boolean | null;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is editable. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     editable?: boolean | null;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is readonly. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     readonly?: boolean | null;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A list of elements or controls that are aggregated by the given control (e.g. when the control is a layout).
      * Primitive values in the list will be ignored. **Note:** Children should only be provided when it is helpful
@@ -10562,37 +10562,37 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.111
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains focus information for input controls.
    */
   export type FocusInfo = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The ID of the focused control.
      */
     id?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The position of the cursor.
      */
     cursorPos?: int;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The start position of selection.
      */
     selectionStart?: int;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The end position of selection.
      */
     selectionEnd?: int;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Prevents scrolling.
      */
@@ -10626,7 +10626,7 @@ declare module "sap/ui/core/library" {
   }
   /**
    * @since 1.104
-   * Experimental (since 1.104)
+   * @experimental (since 1.104)
    *
    * Implementing this interface allows a control to be accessible via access keys.
    */
@@ -10635,7 +10635,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.104
-     * Experimental (since 1.104)
+     * @experimental (since 1.104)
      *
      * Returns a refence to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
      * method is used.
@@ -10643,14 +10643,14 @@ declare module "sap/ui/core/library" {
     getAccessKeysFocusTarget?(): void;
     /**
      * @since 1.104
-     * Experimental (since 1.104)
+     * @experimental (since 1.104)
      *
      * If implemented called when access keys feature is enabled and highlighting is over
      */
     onAccKeysHighlightEnd?(): void;
     /**
      * @since 1.104
-     * Experimental (since 1.104)
+     * @experimental (since 1.104)
      *
      * If implemented called when access keys feature is enabled and highlighting is ongoing
      */
@@ -10685,7 +10685,7 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.98
-   * Experimental (since 1.98)
+   * @experimental (since 1.98)
    *
    * Marker interface for controls that can serve as a menu for a table column header.
    *
@@ -10696,7 +10696,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.98.0
-     * Experimental (since 1.98)
+     * @experimental (since 1.98)
      *
      * Returns the sap.ui.core.aria.HasPopup<\code> type of the menu.
      *
@@ -10705,7 +10705,7 @@ declare module "sap/ui/core/library" {
     getAriaHasPopupType(): aria.HasPopup | keyof typeof aria.HasPopup;
     /**
      * @since 1.98
-     * Experimental (since 1.98)
+     * @experimental (since 1.98)
      *
      * Opens the menu using the column header.
      */
@@ -10906,7 +10906,7 @@ declare module "sap/ui/core/library" {
   }
   /**
    * @since 1.78
-   * Experimental (since 1.73)
+   * @experimental (since 1.73)
    *
    * Enumeration for different mode behaviors of the `InvisibleMessage`.
    */
@@ -10939,7 +10939,7 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.86.0
-   * Experimental (since 1.86)
+   * @experimental (since 1.86)
    *
    * Marker interface for controls that can be used as content of `sap.ui.layout.form.SemanticFormElement`.
    *
@@ -10954,7 +10954,7 @@ declare module "sap/ui/core/library" {
 
     /**
      * @since 1.86.0
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Returns the formatted value of a control used in a `SemanticFormElement`.
      *
@@ -10971,7 +10971,7 @@ declare module "sap/ui/core/library" {
     getFormFormattedValue?(): string | Promise<string>;
     /**
      * @since 1.86.0
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Returns the name of the value-holding property of a control used in a `SemanticFormElement`.
      *
@@ -11915,7 +11915,7 @@ declare module "sap/ui/core/CommandExecution" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:execute execute} to attached listeners.
      *
@@ -12486,7 +12486,7 @@ declare module "sap/ui/core/Component" {
           }
     ): Component | Promise<Component>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Cleans up the Component instance before destruction.
      *
@@ -12644,7 +12644,7 @@ declare module "sap/ui/core/Component" {
       sLocalServiceAlias: string
     ): Promise</* was: sap.ui.core.service.Service */ any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the Component instance after creation.
      *
@@ -12656,7 +12656,7 @@ declare module "sap/ui/core/Component" {
     init(): void;
     /**
      * @since 1.88
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is activated
      */
@@ -12675,7 +12675,7 @@ declare module "sap/ui/core/Component" {
     ): void;
     /**
      * @since 1.88
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is deactivated
      */
@@ -13123,7 +13123,7 @@ declare module "sap/ui/core/ComponentContainer" {
     ): this;
     /**
      * @since 1.50
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentCreated componentCreated} to attached listeners.
      *
@@ -13137,7 +13137,7 @@ declare module "sap/ui/core/ComponentContainer" {
     ): this;
     /**
      * @since 1.60
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentFailed componentFailed} to attached listeners.
      *
@@ -13826,7 +13826,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getManifestObject(): Manifest;
     /**
      * @since 1.27.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the version of the metadata which could be 1 or 2. 1 is for legacy metadata whereas 2 is for
      * the manifest.
@@ -13869,7 +13869,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getVersion(): string;
     /**
      * @since 1.33.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the class of this metadata is a component base class or not.
      *
@@ -15278,7 +15278,7 @@ declare module "sap/ui/core/Control" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validateFieldGroup validateFieldGroup} to attached listeners.
      *
@@ -15292,7 +15292,7 @@ declare module "sap/ui/core/Control" {
     ): this;
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function (if available on the concrete control) provides the current accessibility state of the
      * control.
@@ -15402,7 +15402,7 @@ declare module "sap/ui/core/Control" {
      */
     getIdForLabel(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a renderer for this control instance.
      *
@@ -15439,7 +15439,7 @@ declare module "sap/ui/core/Control" {
       sStyleClass: string
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Marks this control and its children for a re-rendering, usually because its state has changed and now
      * differs from the rendered DOM.
@@ -15469,7 +15469,7 @@ declare module "sap/ui/core/Control" {
      */
     isBusy(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the control is completed.
      *
@@ -15484,7 +15484,7 @@ declare module "sap/ui/core/Control" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called before the rendering of the control is started.
      *
@@ -15547,7 +15547,7 @@ declare module "sap/ui/core/Control" {
      * async re-rendering.
      *
      * The recommended alternative is to rely on invalidation and standard re-rendering.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Synchronously updates the DOM of this control to reflect the current object state.
      *
@@ -16531,7 +16531,7 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -16569,7 +16569,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -16607,7 +16607,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -16645,7 +16645,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -17019,7 +17019,7 @@ declare module "sap/ui/core/Core" {
      */
     isMobile(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given DOM element is the root of the static area.
      *
@@ -17989,7 +17989,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Delegate for touch scrolling on mobile devices.
    *
@@ -18001,7 +18001,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
    */
   export default class ScrollEnablement extends BaseObject {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a ScrollEnablement delegate that can be attached to Controls requiring capabilities for scrolling
      * of a certain part of their DOM.
@@ -18051,7 +18051,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.delegate.ScrollEnablement with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -18076,7 +18076,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.delegate.ScrollEnablement.
      *
@@ -18084,7 +18084,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys this Scrolling delegate.
      *
@@ -18092,7 +18092,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     destroy(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates scroll position of a child of a container.
      *
@@ -18106,7 +18106,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): object;
     /**
      * @since 1.9.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for horizontal scrolling.
      *
@@ -18115,7 +18115,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     getHorizontal(): boolean;
     /**
      * @since 1.9.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for vertical scrolling.
      *
@@ -18123,7 +18123,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     getVertical(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Refreshes this Scrolling delegate.
      */
@@ -18168,7 +18168,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnScrollEndCallback: Function
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Scrolls to an element within a container.
      */
@@ -18197,7 +18197,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     /**
      * @since 1.17
      * @deprecated (since 1.42)
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Setter for property `bounce`.
      */
@@ -18209,7 +18209,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.11.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets GrowingList control to scroll container
      */
@@ -18228,7 +18228,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnOverflowChange: Function
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable horizontal scrolling.
      */
@@ -18240,7 +18240,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.16.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets IconTabBar control to scroll container
      */
@@ -18260,7 +18260,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.9.2
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set overflow control on top of scroll container.
      */
@@ -18271,7 +18271,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       oControl: Control
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable vertical scrolling.
      */
@@ -18668,7 +18668,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     ): this;
     /**
      * @since 1.56
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -18681,7 +18681,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -19011,7 +19011,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     ): this;
     /**
      * @since 1.56
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -19024,7 +19024,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       mParameters?: DragInfo$DragEndEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -19169,25 +19169,25 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sKey: string
     ): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the dragged control, if available within the same UI5 application frame.
      */
     getDragControl(): UI5Element | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * The valid drop target underneath the dragged control.
      */
     getDropControl(): UI5Element | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop configuration corresponding to the drop control.
      */
     getDropInfo(): DropInfo | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the calculated position of the drop action relative to the valid dropped control.
      */
@@ -19195,7 +19195,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       | dnd.RelativeDropPosition
       | keyof typeof dnd.RelativeDropPosition;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop indicator.
      *
@@ -19203,7 +19203,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
      */
     getIndicator(): HTMLElement | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the visual configuration of the drop indicator.
      *
@@ -19244,13 +19244,13 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sData: string
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set the valid drop control.
      */
     setDropControl(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Defines the visual configuration of the drop indicator for the current `DropInfo`.
      */
@@ -19553,7 +19553,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
      *
@@ -19570,7 +19570,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     ): boolean;
     /**
      * @since 1.56
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragOver dragOver} to attached listeners.
      *
@@ -19583,7 +19583,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       mParameters?: DropInfo$DragOverEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:drop drop} to attached listeners.
      *
@@ -20109,7 +20109,7 @@ declare module "sap/ui/core/Element" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM node that represents this Element wrapped as jQuery object. I.e. the element
      * returned by {@link sap.ui.core.Element#getDomRef} is wrapped and returned.
@@ -20212,7 +20212,7 @@ declare module "sap/ui/core/Element" {
       oThis?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Applies the focus info.
      *
@@ -20401,7 +20401,7 @@ declare module "sap/ui/core/Element" {
      */
     destroyTooltip(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Allows the parent of a control to enhance the ARIA information during rendering.
      *
@@ -20425,7 +20425,7 @@ declare module "sap/ui/core/Element" {
       mAriaProps: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Hook method for cleaning up the element instance before destruction.
      *
@@ -20501,7 +20501,7 @@ declare module "sap/ui/core/Element" {
      */
     getDependents(): UI5Element[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM Element that represents this UI5 Element. By default the DOM Element with
      * the same ID as this Element is returned. Subclasses should override this method if the lookup via id
@@ -20551,7 +20551,7 @@ declare module "sap/ui/core/Element" {
       sModelName?: string
     ): ContextBinding | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus or `null` if there's no such element currently.
      *
@@ -20561,7 +20561,7 @@ declare module "sap/ui/core/Element" {
      */
     getFocusDomRef(): Element | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information.
      *
@@ -20663,7 +20663,7 @@ declare module "sap/ui/core/Element" {
       oDragDropConfig: DragDropBase
     ): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the element instance after creation.
      *
@@ -20846,7 +20846,7 @@ declare module "sap/ui/core/Element" {
       oDelegate: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This triggers immediate rerendering of its parent and thus of itself and its children.
      *
@@ -23449,13 +23449,13 @@ declare module "sap/ui/core/History" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * History handles the history of certain controls (e.g. sap.ui.commons.SearchField).
    */
   export default class History extends BaseObject {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates an instance of the History.
      *
@@ -23474,7 +23474,7 @@ declare module "sap/ui/core/History" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.History with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -23499,7 +23499,7 @@ declare module "sap/ui/core/History" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.History.
      *
@@ -23666,7 +23666,7 @@ declare module "sap/ui/core/HTML" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -24122,7 +24122,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -24374,7 +24374,7 @@ declare module "sap/ui/core/Icon" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -24387,7 +24387,7 @@ declare module "sap/ui/core/Icon" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -25869,7 +25869,7 @@ declare module "sap/ui/core/LabelEnablement" {
 
   /**
    * @since 1.28.0
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Helper functionality for enhancement of a `Label` with common label functionality.
    * See:
@@ -25877,7 +25877,7 @@ declare module "sap/ui/core/LabelEnablement" {
    */
   interface LabelEnablement {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function should be called on a label control to enrich its functionality.
      *
@@ -25932,7 +25932,7 @@ declare module "sap/ui/core/LabelEnablement" {
       oElement: UI5Element
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Helper function for the `Label` control to render the HTML 'for' attribute.
      *
@@ -27522,7 +27522,7 @@ declare module "sap/ui/core/Manifest" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function to load the manifest by URL
      *
@@ -27965,13 +27965,13 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Check Messages and update controls with messages
      */
     checkMessages(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set Messages to check
      */
@@ -28526,7 +28526,7 @@ declare module "sap/ui/core/message/MessageParser" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the registered processor on which the events for message handling can be fired
      *
@@ -28547,7 +28547,7 @@ declare module "sap/ui/core/message/MessageParser" {
       oRequest: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is used by the model to register itself as MessageProcessor for this parser
      *
@@ -28674,7 +28674,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
     ): this;
     /**
      * @deprecated - 1.115 Use {@link sap.ui.core.messages.MessageManager#updateMessages} instead
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageChange messageChange} to attached listeners.
      *
@@ -28987,7 +28987,7 @@ declare module "sap/ui/core/mvc/Controller" {
       }
     ): Promise<Control | Control[]>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, after the HTML is placed in the DOM-Tree. It can
      * be used to apply additional changes to the DOM after the Renderer has finished. (Even though this method
@@ -28998,7 +28998,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onAfterRendering(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, before the Renderer is called and the HTML is
      * placed in the DOM-Tree. It can be used to perform clean-up-tasks before re-rendering. (Even though this
@@ -29009,7 +29009,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onBeforeRendering(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon desctuction of the View. The controller should perform its internal destruction
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -29018,7 +29018,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onExit(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon initialization of the View. The controller can perform its internal setup
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -29904,7 +29904,7 @@ declare module "sap/ui/core/mvc/View" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.30
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Register a preprocessor for all views of a specific type.
      *
@@ -30282,7 +30282,7 @@ declare module "sap/ui/core/mvc/View" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterInit afterInit} to attached listeners.
      *
@@ -30295,7 +30295,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -30308,7 +30308,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeExit beforeExit} to attached listeners.
      *
@@ -30321,7 +30321,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -30335,7 +30335,7 @@ declare module "sap/ui/core/mvc/View" {
     ): this;
     /**
      * @since 1.88
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by typed views, returning the flag whether to prefix the IDs of controls automatically
      * or not, if the controls are created inside the {@link sap.ui.core.mvc.View#createContent} function. By
@@ -30405,7 +30405,7 @@ declare module "sap/ui/core/mvc/View" {
       sId: string
     ): string | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object which is also passed to the preprocessors
      * See:
@@ -30454,7 +30454,7 @@ declare module "sap/ui/core/mvc/View" {
      */
     getWidth(): CSSSize;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if any preprocessors are active for the specified type
      *
@@ -30527,7 +30527,7 @@ declare module "sap/ui/core/mvc/View" {
       vContent: int | string | Control
     ): Control | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Executes preprocessors for a type of source
      *
@@ -31577,7 +31577,7 @@ declare module "sap/ui/core/Popup" {
      */
     exit(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -31590,7 +31590,7 @@ declare module "sap/ui/core/Popup" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -32155,7 +32155,7 @@ declare module "sap/ui/core/Renderer" {
       oRendererInfo?: object
     ): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the TextAlignment for the provided configuration.
      *
@@ -32355,7 +32355,7 @@ declare module "sap/ui/core/RenderManager" {
     constructor();
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible Placeholder DOM element. This method can be used to get direct
      * access to the placeholder DOM element. Also statically available as RenderManager.createInvisiblePlaceholderId()
@@ -33719,7 +33719,7 @@ declare module "sap/ui/core/routing/Route" {
     ): this;
     /**
      * @since 1.46.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeMatched beforeMatched} to attached listeners.
      *
@@ -34184,7 +34184,7 @@ declare module "sap/ui/core/routing/Target" {
     static getMetadata(): Metadata;
     /**
      * @since 1.46.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function is called between the target view is loaded and the view is added to the container.
      *
@@ -34252,7 +34252,7 @@ declare module "sap/ui/core/routing/Target" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys the target, will be called by {@link sap.m.routing.Targets} don't call this directly.
      *
@@ -34296,7 +34296,7 @@ declare module "sap/ui/core/routing/Target" {
       control: Control;
     }>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -34402,7 +34402,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hashChanger to a new instance, destroys the old one and copies all its event listeners to the
      * new one
@@ -34414,7 +34414,7 @@ declare module "sap/ui/core/routing/HashChanger" {
       oHashChanger: HashChanger
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Cleans the event registration
      * See:
@@ -34422,7 +34422,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     destroy(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires the hashchanged event, may be extended to modify the hash before fireing the event
      */
@@ -34443,7 +34443,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     getHash(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Defines the events and its parameters which should be used for tracking the hash changes
      *
@@ -34480,25 +34480,25 @@ declare module "sap/ui/core/routing/HashChanger" {
   }
   /**
    * @since 1.82.0
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the event info for the events that are forwarded to {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventInfo = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the event that is fired by the HashChanger and should be forwarded to the RouterHashChanger
      */
     name: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
      */
     paramMapping?: HashChangerEventParameterMapping;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
      * other routing classes, for example {@link sap.ui.core.routing.History}.
@@ -34508,13 +34508,13 @@ declare module "sap/ui/core/routing/HashChanger" {
 
   /**
    * @since 1.82.0
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the parameter mapping for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventParameterMapping = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `newHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34522,7 +34522,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     newHash?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34530,7 +34530,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     oldHash?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34559,7 +34559,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Base Class for manipulating and receiving changes of hash segment.
    *
@@ -34567,12 +34567,12 @@ declare module "sap/ui/core/routing/HashChangerBase" {
    */
   export default class HashChangerBase extends EventProvider {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.HashChangerBase with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -34597,7 +34597,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.HashChangerBase.
      *
@@ -34605,7 +34605,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -34628,7 +34628,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
         | keyof typeof routing.HistoryDirection
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -35428,7 +35428,7 @@ declare module "sap/ui/core/routing/Router" {
       oListener: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRouteMatched beforeRouteMatched} to attached listeners.
      *
@@ -35441,7 +35441,7 @@ declare module "sap/ui/core/routing/Router" {
       oParameters?: Router$BeforeRouteMatchedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:bypassed bypassed} to attached listeners.
      *
@@ -35456,7 +35456,7 @@ declare module "sap/ui/core/routing/Router" {
       oParameters?: Router$BypassedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routeMatched routeMatched} to attached listeners.
      *
@@ -35469,7 +35469,7 @@ declare module "sap/ui/core/routing/Router" {
       oParameters?: Router$RouteMatchedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routePatternMatched routePatternMatched} to attached listeners.
      *
@@ -35486,7 +35486,7 @@ declare module "sap/ui/core/routing/Router" {
     ): this;
     /**
      * @deprecated (since 1.28) - use {@link #getViews} instead.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:viewCreated viewCreated} to attached listeners.
      *
@@ -35794,7 +35794,7 @@ declare module "sap/ui/core/routing/Router" {
       bReplace?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Will trigger routing events + place targets for routes matching the string.
      */
@@ -36015,7 +36015,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
   import Router from "sap/ui/core/routing/Router";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Class for manipulating and receiving changes of the relevant hash segment which belongs to a router.
    * This Class doesn't change the browser hash directly, but informs its parent RouterHashChanger and finally
@@ -36023,12 +36023,12 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
    */
   export default class RouterHashChanger extends HashChangerBase {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.RouterHashChanger with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -36053,7 +36053,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.RouterHashChanger.
      *
@@ -36061,7 +36061,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Save the given hash and potentially fires a "hashChanged" event; may be extended to modify the hash before
      * firing the event.
@@ -36082,7 +36082,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bUpdateHashOnly: boolean
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the current hash
      *
@@ -36090,7 +36090,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     getHash(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -36122,7 +36122,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bSuppressActiveHashCollect?: boolean
     ): Promise<any> | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Reset the hash if the given router is the active router that is saved in this RouterHashChanger
      *
@@ -36138,7 +36138,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       oRouter: Router
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -36186,32 +36186,32 @@ declare module "sap/ui/core/routing/Targets" {
 
   /**
    * @since 1.84.0
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Object containing the target info for displaying targets
    */
   export type TargetInfo = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Defines the name of the target that is going to be displayed
      */
     name: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A prefix that is used for reserving a dedicated section in the browser hash for the router of this target.
      * This needs to be set only for target that has type "Component"
      */
     prefix?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the titleChanged event from this target should be propagated to the parent or not
      */
     propagateTitle?: boolean;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the target is relevant to the current matched route or not. If 'true', then the dynamic target
      * is linked to the route's life cycle. When switching to a different route, then the dynamic target will
@@ -36219,7 +36219,7 @@ declare module "sap/ui/core/routing/Targets" {
      */
     routeRelevant?: boolean;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Since 1.90. Whether the router of the "Component" target ignores the browser hash when it's re-initialized.
      * This parameter only has effect when the target is of type "Component" and its router is currently stopped.
@@ -36672,7 +36672,7 @@ declare module "sap/ui/core/routing/Views" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -36895,7 +36895,7 @@ declare module "sap/ui/core/ScrollBar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
@@ -38568,7 +38568,7 @@ declare module "sap/ui/core/tmpl/Template" {
       mSettings?: $TemplateSettings
     );
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * parses the given path and extracts the model and path
      */
@@ -38939,7 +38939,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for an aggregation to get notified once the property changes to invalidate the
      * control and trigger a re-rendering.
@@ -38953,7 +38953,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for a property to get notified once the property changes to invalidate the control
      * and trigger a re-rendering.
@@ -38967,7 +38967,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -38990,7 +38990,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39009,7 +39009,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39028,7 +39028,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -39043,7 +39043,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new DOM element
      *
@@ -39100,7 +39100,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -39113,7 +39113,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -39140,7 +39140,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplate(): ID;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the instance specific renderer for an anonymous template control.
      *
@@ -39148,7 +39148,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplateRenderer(): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * checks whether the control is inline or not
      *
@@ -39185,7 +39185,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oTemplate: ID | Template
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the instance specific renderer for an anonymous template control.
      *
@@ -39378,7 +39378,7 @@ declare module "sap/ui/core/TooltipBase" {
     ): this;
     /**
      * @since 1.11.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -39837,7 +39837,7 @@ declare module "sap/ui/core/UIArea" {
      */
     destroyDependents(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provide getBindingContext, as UIArea can be parent of an element.
      *
@@ -39858,7 +39858,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getDependents(): Control[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the Core's event provider as new eventing parent to enable control event bubbling to the core
      * to ensure compatibility with the core validation events.
@@ -39893,7 +39893,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getRootNode(): Element;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns this UI area. Needed to stop recursive calls from an element to its parent.
      *
@@ -39959,7 +39959,7 @@ declare module "sap/ui/core/UIArea" {
       iIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Triggers asynchronous re-rendering of the `UIArea`'s content.
      *
@@ -39968,7 +39968,7 @@ declare module "sap/ui/core/UIArea" {
      */
     invalidate(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM)
      *
@@ -39976,7 +39976,7 @@ declare module "sap/ui/core/UIArea" {
      */
     isActive(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this UIArea.
      *
@@ -40380,7 +40380,7 @@ declare module "sap/ui/core/UIComponent" {
     ): string;
     /**
      * @since 1.15.1
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by UIComponents, returning the flag whether to prefix the IDs of controls
      * automatically or not if the controls are created inside the {@link sap.ui.core.UIComponent#createContent }
@@ -40393,7 +40393,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getAutoPrefixId(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object which will be the UIArea of the containing
      * ComponentContainer or null.
@@ -40419,7 +40419,7 @@ declare module "sap/ui/core/UIComponent" {
     ): string | null;
     /**
      * @since 1.44.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of {@link sap.ui.core.UIComponent#createContent}. If you specified a `rootView` in
      * your metadata or in the descriptor file (manifest.json), you will get the instance of the root view.
@@ -40470,7 +40470,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getUIArea(): UIArea;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the component instance after creation.
      *
@@ -40482,7 +40482,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     init(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is completed.
      *
@@ -40492,7 +40492,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     onAfterRendering(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is started.
      *
@@ -41463,7 +41463,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the generation process of the file.
      *
@@ -41477,7 +41477,7 @@ declare module "sap/ui/core/util/ExportType" {
       oExport: Export
     ): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a cell "generator" (inspired by ES6 Generators)
      *
@@ -41485,7 +41485,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     cellGenerator(): Generator;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a column "generator" (inspired by ES6 Generators)
      *
@@ -41493,7 +41493,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     columnGenerator(): Generator;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *  Should be implemented by the individual types!
@@ -41520,7 +41520,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getCharset(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of columns.
      *
@@ -41544,7 +41544,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getMimeType(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of rows.
      *
@@ -41552,7 +41552,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getRowCount(): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a row "generator" (inspired by ES6 Generators)
      *
@@ -41736,7 +41736,7 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *
@@ -42871,7 +42871,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -43239,7 +43239,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -43252,7 +43252,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oParameters?: WebSocket$CloseEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -43265,7 +43265,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -43278,7 +43278,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oParameters?: WebSocket$MessageEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -43378,7 +43378,7 @@ declare module "sap/ui/core/XMLComposite" {
   /**
    * @since 1.56.0
    * @deprecated (since 1.88) - use {@link topic:c1512f6ce1454ff1913e3857bad56392 Standard Composite Controls}
-   * Experimental (since 1.56.0)
+   * @experimental (since 1.56.0)
    *
    * Base Class for XMLComposite controls.
    */
@@ -43537,7 +43537,7 @@ declare module "sap/ui/core/XMLComposite" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an element by its ID in the context of the XMLComposite.
      *
@@ -43552,7 +43552,7 @@ declare module "sap/ui/core/XMLComposite" {
       sId: string
     ): UI5Element | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -44049,7 +44049,7 @@ declare module "sap/ui/Device" {
       bSuppressClasses?: boolean
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes a previously initialized range set and detaches all registered handlers.
      *
@@ -44471,8 +44471,8 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * Experimental - This module is only for experimental use!
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @experimental - This module is only for experimental use!
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for OData entity sets with aggregate semantics.
    *
@@ -44487,7 +44487,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
    */
   export default class AnalyticalBinding extends TreeBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -44555,7 +44555,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.analytics.AnalyticalBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -44580,7 +44580,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.analytics.AnalyticalBinding.
      *
@@ -45008,7 +45008,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       aSorter: Sorter | any[]
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's structure with new analytical information.
      *
@@ -45055,7 +45055,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
   export default class AnalyticalTreeBindingAdapter {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -45063,7 +45063,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
     constructor();
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Retrieves the currently set number of expanded levels from the Binding (commonly an AnalyticalBinding).
      *
@@ -45077,7 +45077,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
      */
     hasTotaledMeasures(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the number of expanded levels on the TreeBinding (commonly an AnalyticalBinding). This is NOT the
      * same as AnalyticalTreeBindingAdapter#collapse or AnalyticalTreeBindingAdapter#expand. Setting the number
@@ -45184,8 +45184,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * Experimental - This module is only for experimental use!
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @experimental - This module is only for experimental use!
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The OData4Analytics API is purely experimental, not yet functionally complete and not meant for productive
    * usage. At present, its only purpose is to demonstrate how easy analytical extensions of OData4SAP can
@@ -47010,7 +47010,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Experimental (since 1.58)
+   * @experimental (since 1.58)
    *
    * The ManagedObjectModel class can be used for data binding of properties and aggregations for managed
    * objects.
@@ -47063,7 +47063,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -47078,7 +47078,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
       fnFilter: Function
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -47177,7 +47177,7 @@ declare module "sap/ui/model/Binding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
@@ -47244,7 +47244,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches the `fnFunction` event handler to the {@link #event:DataStateChange DataStateChange} event of
      * thi `sap.ui.model.Binding`.
@@ -47263,7 +47263,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attach multiple events.
      *
@@ -47276,7 +47276,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      *
@@ -47301,7 +47301,7 @@ declare module "sap/ui/model/Binding" {
      */
     destroy(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
@@ -47357,7 +47357,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:DataStateChange DataStateChange} event of
      * this `sap.ui.model.Binding`.
@@ -47373,7 +47373,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detach multiple events.
      *
@@ -47386,7 +47386,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      */
@@ -47401,7 +47401,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataReceived dataReceived} to attached listeners.
      *
@@ -47414,7 +47414,7 @@ declare module "sap/ui/model/Binding" {
       oParameters: Binding$DataReceivedEventParameters
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataRequested dataRequested} to attached listeners.
      */
@@ -47473,7 +47473,7 @@ declare module "sap/ui/model/Binding" {
      */
     getResolvedPath(): string | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. The default implementation
      * calls checkUpdate(true).
@@ -47566,7 +47566,7 @@ declare module "sap/ui/model/Binding" {
      */
     suspend(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the binding should be updated by comparing the current model against a specified model.
      *
@@ -47783,13 +47783,13 @@ declare module "sap/ui/model/ClientListBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for client models.
    */
   export default class ClientListBinding extends ListBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientListBinding.
      *
@@ -47825,7 +47825,7 @@ declare module "sap/ui/model/ClientListBinding" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientListBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -47850,7 +47850,7 @@ declare module "sap/ui/model/ClientListBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientListBinding.
      *
@@ -47880,7 +47880,7 @@ declare module "sap/ui/model/ClientListBinding" {
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
@@ -48009,13 +48009,13 @@ declare module "sap/ui/model/ClientPropertyBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for client models.
    */
   export default class ClientPropertyBinding extends PropertyBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientPropertyBinding.
      *
@@ -48043,7 +48043,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientPropertyBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -48068,7 +48068,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientPropertyBinding.
      *
@@ -48094,7 +48094,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for client models.
    *
@@ -48107,7 +48107,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
    */
   export default class ClientTreeBinding extends TreeBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientTreeBinding.
      *
@@ -48144,7 +48144,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientTreeBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -48169,7 +48169,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientTreeBinding.
      *
@@ -48209,7 +48209,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     getCount(): number | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -48230,7 +48230,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       iLength: int
     ): Context[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return root contexts for the tree
      *
@@ -48275,7 +48275,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
 declare module "sap/ui/model/ClientTreeBindingAdapter" {
   export default class ClientTreeBindingAdapter {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -48358,7 +48358,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48376,7 +48376,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `change` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48394,7 +48394,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -48412,7 +48412,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48427,7 +48427,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `change` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48442,7 +48442,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -48507,7 +48507,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     getValue(): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The method should be called when creating a binding. The default implementation
      * calls checkUpdate(true). Prevent checkUpdate to be triggered while initializing nested bindings, it is
@@ -48603,7 +48603,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     suspend(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the property bindings in the composite binding should be updated by calling updateRequired
      * on all property bindings with the specified model.
@@ -48662,7 +48662,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns or sets whether the data state is changed. As long as changed was not set to false the data state
      * is dirty and the corresponding binding will fire data state change events.
@@ -48714,7 +48714,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     getControlMessages(): Message[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of values for the given property in the inner datastates.
      *
@@ -48910,7 +48910,7 @@ declare module "sap/ui/model/CompositeType" {
     ): any[] | any;
     /**
      * @since 1.100.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Processes the types of the parts of this composite type. A concrete composite type may override this
      * method if it needs to derive information from the types of the parts.
@@ -49205,7 +49205,7 @@ declare module "sap/ui/model/DataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the data state is changed, or resets the data state in case the parameter `bNewState`
      * is false; reset data state means that the data state properties are replaced with the changed properties.
@@ -49298,7 +49298,7 @@ declare module "sap/ui/model/DataState" {
      */
     isLaundering(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets an array of control state messages.
      *
@@ -49311,7 +49311,7 @@ declare module "sap/ui/model/DataState" {
       aMessages: Message[]
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the dirty value that was rejected by the type validation.
      *
@@ -49324,7 +49324,7 @@ declare module "sap/ui/model/DataState" {
       vInvalidValue: any
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the laundering state of the data state.
      *
@@ -49348,7 +49348,7 @@ declare module "sap/ui/model/DataState" {
       aMessages?: Message[]
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted original value of the data.
      *
@@ -49361,7 +49361,7 @@ declare module "sap/ui/model/DataState" {
       vOriginalValue: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted value of the data state,
      *
@@ -49817,13 +49817,13 @@ declare module "sap/ui/model/json/JSONListBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for JSON format.
    */
   export default class JSONListBinding extends ClientListBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -50057,13 +50057,13 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for JSON format.
    */
   export default class JSONPropertyBinding extends ClientPropertyBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -50100,7 +50100,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for JSON format.
    *
@@ -50110,7 +50110,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
    */
   export default class JSONTreeBinding extends ClientTreeBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -50238,7 +50238,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      *
@@ -50258,7 +50258,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "sort")` when
      * a sorter event is fired.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      *
@@ -50277,7 +50277,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      */
@@ -50293,7 +50293,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      */
@@ -50308,7 +50308,7 @@ declare module "sap/ui/model/ListBinding" {
       oListener?: object
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates delta of specified old data array and new data array.
      *
@@ -50331,7 +50331,7 @@ declare module "sap/ui/model/ListBinding" {
       index: int;
     }>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable extended change detection. When extended change detection is enabled, the list binding provides
      * detailed information about changes, for example which entries have been removed or inserted. This can
@@ -50400,7 +50400,7 @@ declare module "sap/ui/model/ListBinding" {
      */
     getAllCurrentContexts(): Context[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
@@ -50474,7 +50474,7 @@ declare module "sap/ui/model/ListBinding" {
       sPath: string
     ): any[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the string key for the given model context, which is a unique representation of the context's
      * data. This key is used in extended change detection to compute the difference between current and previous
@@ -50547,7 +50547,7 @@ declare module "sap/ui/model/ListBinding" {
     isLengthFinal(): boolean;
     /**
      * @since 1.77.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -50592,7 +50592,7 @@ declare module "sap/ui/model/ListBinding" {
       aSorters: Sorter | Sorter[]
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Update the list and apply sorting and filtering. Called after creation of the list binding on enabling
      * extended change detection, see {@link sap.ui.model.ListBinding#enableExtendedChangeDetection}.
@@ -51262,7 +51262,7 @@ declare module "sap/ui/model/Model" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -51276,7 +51276,7 @@ declare module "sap/ui/model/Model" {
       oParameters?: Model$ParseErrorEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:propertyChange propertyChange} to attached listeners.
      *
@@ -51289,7 +51289,7 @@ declare module "sap/ui/model/Model" {
       oParameters?: Model$PropertyChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestCompleted requestCompleted} to attached listeners.
      *
@@ -51302,7 +51302,7 @@ declare module "sap/ui/model/Model" {
       oParameters?: Model$RequestCompletedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestFailed requestFailed} to attached listeners.
      *
@@ -51315,7 +51315,7 @@ declare module "sap/ui/model/Model" {
       oParameters?: Model$RequestFailedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestSent requestSent} to attached listeners.
      *
@@ -51350,7 +51350,7 @@ declare module "sap/ui/model/Model" {
       oContext: Context
     ): Message[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns model messages for which the target matches the given resolved binding path.
      *
@@ -51644,7 +51644,7 @@ declare module "sap/ui/model/Model" {
 
 declare module "sap/ui/model/odata/ODataTreeBindingAdapter" {
   /**
-   * Experimental - This module is only for experimental and internal use!
+   * @experimental - This module is only for experimental and internal use!
    *
    * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
    * controls. Only usable with the sap.ui.table.TreeTable control. The functions defined here are only available
@@ -52334,7 +52334,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -52364,7 +52364,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -52629,7 +52629,7 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list
      *
@@ -53006,7 +53006,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -53036,7 +53036,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -54178,7 +54178,7 @@ declare module "sap/ui/model/odata/ODataModel" {
          */
         tokenHandling?: boolean;
         /**
-         * experimental - true when user credentials are to be included in a cross-origin request. Please note that
+         * @experimental - true when user credentials are to be included in a cross-origin request. Please note that
          * this works only if all requests are asynchronous.
          */
         withCredentials?: boolean;
@@ -54263,7 +54263,7 @@ declare module "sap/ui/model/odata/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) to the be parsed for OData annotations, which are then merged into the annotations
      * object which can be retrieved by calling the getServiceAnnotations()-method. If a $metadata url is passed
@@ -54283,7 +54283,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds new xml content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the getServiceAnnotations()-method.
@@ -54786,7 +54786,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -54816,7 +54816,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -54834,7 +54834,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -54864,7 +54864,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -55491,7 +55491,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the current value of the bound target
      *
@@ -55499,7 +55499,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     getValue(): object;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. If metadata is not yet
      * available, do nothing, method will be called again when metadata is loaded.
@@ -55894,7 +55894,7 @@ declare module "sap/ui/model/odata/type/Byte" {
      */
     getName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -56743,7 +56743,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
      */
     getPartsIgnoringMessages(): number[];
     /**
-     * Experimental (since 1.114.0)
+     * @experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -57419,7 +57419,7 @@ declare module "sap/ui/model/odata/type/Int16" {
      */
     getName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -57507,7 +57507,7 @@ declare module "sap/ui/model/odata/type/Int32" {
      */
     getName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -57731,7 +57731,7 @@ declare module "sap/ui/model/odata/type/ODataType" {
      */
     static getMetadata(): Metadata;
     /**
-     * Experimental (since 1.114.0)
+     * @experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -57929,7 +57929,7 @@ declare module "sap/ui/model/odata/type/SByte" {
      */
     getName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -60037,7 +60037,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     getAllCurrentContexts(): Context1[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list.
      *
@@ -60152,7 +60152,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
     ): void;
     /**
      * @since 1.77.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -60462,7 +60462,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) whose content should be parsed as OData annotations, which are then merged into the
      * annotations object which can be retrieved by calling the {@link #getServiceAnnotations}-method. If a
@@ -60482,7 +60482,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds new XML content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the {@link #getServiceAnnotations}-method.
@@ -61648,7 +61648,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -61661,7 +61661,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters?: ODataModel$AnnotationsFailedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -61674,7 +61674,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters?: ODataModel$AnnotationsLoadedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestCompleted batchRequestCompleted} to attached listeners.
      *
@@ -61687,7 +61687,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters: ODataModel$BatchRequestCompletedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestFailed batchRequestFailed} to attached listeners.
      *
@@ -61700,7 +61700,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters: ODataModel$BatchRequestFailedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestSent batchRequestSent} to attached listeners.
      *
@@ -61713,7 +61713,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters?: ODataModel$BatchRequestSentEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -61726,7 +61726,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oParameters?: ODataModel$MetadataFailedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -64192,7 +64192,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
-     * Experimental (since 1.111.0)
+     * @experimental (since 1.111.0)
      *
      * Tells whether this context is currently selected, but not {@link #delete deleted} on the client.
      * See:
@@ -64514,7 +64514,7 @@ declare module "sap/ui/model/odata/v4/Context" {
       bRetry?: boolean
     ): Promise<any>;
     /**
-     * Experimental (since 1.111.0)
+     * @experimental (since 1.111.0)
      *
      * Determines whether this context is currently selected. If the preconditions of {@link #setKeepAlive }
      * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
@@ -64725,7 +64725,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataContextBinding$PatchCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -64903,7 +64903,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData context binding: Fires a 'change' event in case the binding has a resolved path
      * and its root binding is not suspended.
@@ -65059,7 +65059,13 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   export type ODataContextBinding$ChangeEvent = Event<ODataContextBinding$ChangeEventParameters>;
 
   export interface ODataContextBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {}
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
 
   export type ODataContextBinding$DataReceivedEvent = Event<ODataContextBinding$DataReceivedEventParameters>;
 
@@ -65068,7 +65074,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
 
   export type ODataContextBinding$DataRequestedEvent = Event<ODataContextBinding$DataRequestedEventParameters>;
 
-  export interface ODataContextBinding$PatchCompletedEventParameters {}
+  export interface ODataContextBinding$PatchCompletedEventParameters {
+    /**
+     * Whether all PATCHes are successfully processed
+     */
+    success?: boolean;
+  }
 
   export type ODataContextBinding$PatchCompletedEvent = Event<ODataContextBinding$PatchCompletedEventParameters>;
 
@@ -65103,6 +65114,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   } from "sap/ui/model/Binding";
 
   import Event from "sap/ui/base/Event";
+
+  import ChangeReason from "sap/ui/model/ChangeReason";
 
   /**
    * @since 1.37.0
@@ -65396,7 +65409,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$CreateCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -65413,7 +65426,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$CreateSentEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -65430,7 +65443,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$PatchCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -65535,7 +65548,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     getAllCurrentContexts(): Context[];
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns already created binding contexts for all entities in this list binding for the range determined
      * by the given start index `iStart` and `iLength`. If at least one of the entities in the given range has
@@ -65767,7 +65780,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData list binding: Fires an event in case the binding has a resolved path and its root
      * binding is not suspended. If the model's parameter `autoExpandSelect` is used (see {@link sap.ui.model.odata.v4.ODataModel#constructor}),
@@ -65885,7 +65898,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     requestDownloadUrl(): Promise<string>;
     /**
      * @since 1.86.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests an {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -66089,7 +66102,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     toString(): string;
     /**
      * @since 1.53.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's system query option `$apply` based on the given data aggregation information. Its
      * value is "groupby((<dimension_1,...,dimension_N,unit_or_text_1,...,unit_or_text_K>), aggregate(<measure>
@@ -66164,7 +66177,14 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   }
 
   export interface ODataListBinding$ChangeEventParameters
-    extends Binding$ChangeEventParameters {}
+    extends Binding$ChangeEventParameters {
+    /**
+     * During automatic determination of $expand and $select, a "virtual" context is first added with detailed
+     * reason "AddVirtualContext" and then removed with detailed reason "RemoveVirtualContext" (since 1.69.0);
+     * `undefined` is used in all other cases
+     */
+    detailedReason?: string;
+  }
 
   export type ODataListBinding$ChangeEvent = Event<ODataListBinding$ChangeEventParameters>;
 
@@ -66172,16 +66192,38 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 
-  export interface ODataListBinding$CreateCompletedEventParameters {}
+  export interface ODataListBinding$CreateCompletedEventParameters {
+    /**
+     * The context for the created entity
+     */
+    context?: Context;
+
+    /**
+     * Whether the POST was successfully processed; in case of an error, the error is already reported to the
+     * {@link sap.ui.core.message.MessageManager}
+     */
+    success?: boolean;
+  }
 
   export type ODataListBinding$CreateCompletedEvent = Event<ODataListBinding$CreateCompletedEventParameters>;
 
-  export interface ODataListBinding$CreateSentEventParameters {}
+  export interface ODataListBinding$CreateSentEventParameters {
+    /**
+     * The context for the created entity
+     */
+    context?: Context;
+  }
 
   export type ODataListBinding$CreateSentEvent = Event<ODataListBinding$CreateSentEventParameters>;
 
   export interface ODataListBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {}
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
 
   export type ODataListBinding$DataReceivedEvent = Event<ODataListBinding$DataReceivedEventParameters>;
 
@@ -66190,7 +66232,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   export type ODataListBinding$DataRequestedEvent = Event<ODataListBinding$DataRequestedEventParameters>;
 
-  export interface ODataListBinding$PatchCompletedEventParameters {}
+  export interface ODataListBinding$PatchCompletedEventParameters {
+    /**
+     * Whether all PATCHes are successfully processed
+     */
+    success?: boolean;
+  }
 
   export type ODataListBinding$PatchCompletedEvent = Event<ODataListBinding$PatchCompletedEventParameters>;
 
@@ -66198,7 +66245,22 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   export type ODataListBinding$PatchSentEvent = Event<ODataListBinding$PatchSentEventParameters>;
 
-  export interface ODataListBinding$RefreshEventParameters {}
+  export interface ODataListBinding$RefreshEventParameters {
+    /**
+     * The reason for the 'refresh' event could be
+     * 	 {@link sap.ui.model.ChangeReason.Context Context} when the binding's parent context is changed,
+     * {@link sap.ui.model.ChangeReason.Filter Filter} on {@link #filter} and {@link #setAggregation},
+     * {@link sap.ui.model.ChangeReason.Refresh Refresh} on {@link #refresh}, or when the binding is initialized,
+     *  {@link sap.ui.model.ChangeReason.Sort Sort} on {@link #sort}.  {@link #changeParameters} leads
+     * to {@link sap.ui.model.ChangeReason.Filter Filter} if one of the parameters '$filter' and '$search' is
+     * changed, otherwise it leads to {@link sap.ui.model.ChangeReason.Sort Sort} if the parameter '$orderby'
+     * is changed; in other cases, it leads to {@link sap.ui.model.ChangeReason.Change Change}.
+     *  If APIs that would normally fire change events have been called while the binding is suspended, {@link #resume }
+     * leads to the "strongest" change reason in the order {@link sap.ui.model.ChangeReason.Filter Filter},
+     * {@link sap.ui.model.ChangeReason.Sort Sort}, {@link sap.ui.model.ChangeReason.Refresh Refresh}, {@link sap.ui.model.ChangeReason.Change Change}.
+     */
+    reason?: ChangeReason;
+  }
 
   export type ODataListBinding$RefreshEvent = Event<ODataListBinding$RefreshEventParameters>;
 }
@@ -67694,7 +67756,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$DataReceivedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -67711,7 +67773,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$DataRequestedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -68055,11 +68117,33 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     toString(): string;
   }
 
-  export interface ODataModel$DataReceivedEventParameters {}
+  export interface ODataModel$DataReceivedEventParameters {
+    /**
+     * An empty data object if a back-end request succeeds
+     */
+    data?: object;
+
+    /**
+     * The error object if a back-end request failed.
+     */
+    error?: Error;
+
+    /**
+     * The absolute path to the entity which caused the event. The path is only provided for additional property
+     * requests; for other requests it is `undefined`.
+     */
+    path?: string;
+  }
 
   export type ODataModel$DataReceivedEvent = Event<ODataModel$DataReceivedEventParameters>;
 
-  export interface ODataModel$DataRequestedEventParameters {}
+  export interface ODataModel$DataRequestedEventParameters {
+    /**
+     * The absolute path to the entity which caused the event. The path is only provided for additional property
+     * requests; for other requests it is `undefined`.
+     */
+    path?: string;
+  }
 
   export type ODataModel$DataRequestedEvent = Event<ODataModel$DataRequestedEventParameters>;
 
@@ -68069,7 +68153,18 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
   export type ODataModel$ParseErrorEvent = Event<ODataModel$ParseErrorEventParameters>;
 
   export interface ODataModel$PropertyChangeEventParameters
-    extends Model$PropertyChangeEventParameters {}
+    extends Model$PropertyChangeEventParameters {
+    /**
+     * A promise on the outcome of the PATCH request, much like {@link sap.ui.model.odata.v4.Context#setProperty }
+     * provides it for `bRetry === true`; missing in case there is no PATCH
+     */
+    promise?: Promise<any>;
+
+    /**
+     * The property binding's {@link sap.ui.model.Binding#getResolvedPath resolved path}
+     */
+    resolvedPath?: string;
+  }
 
   export type ODataModel$PropertyChangeEvent = Event<ODataModel$PropertyChangeEventParameters>;
 
@@ -68448,7 +68543,13 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   export type ODataPropertyBinding$ChangeEvent = Event<ODataPropertyBinding$ChangeEventParameters>;
 
   export interface ODataPropertyBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {}
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
 
   export type ODataPropertyBinding$DataReceivedEvent = Event<ODataPropertyBinding$DataReceivedEventParameters>;
 
@@ -68746,7 +68847,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     resume(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the binding mode.
      */
@@ -69225,7 +69326,7 @@ declare module "sap/ui/model/SelectionModel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -69466,7 +69567,7 @@ declare module "sap/ui/model/SimpleType" {
       sTargetType: string
     ): any | Promise<any>;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object with `format` and `parse` methods. `format` converts the internal value which has a
      * JavaScript primitive type or is a built-in object such as Date which can be used by a control to the
@@ -69695,20 +69796,20 @@ declare module "sap/ui/model/StaticBinding" {
 
 declare module "sap/ui/model/TreeAutoExpandMode" {
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Different modes for setting the auto expand mode on tree or analytical bindings.
    */
   enum TreeAutoExpandMode {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * If supported by a backend provider with analytical capabilities, the requests needed for an automatic
      * node expansion are bundled.
      */
     Bundled = "Bundled",
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Tree nodes will be expanded in sequence, level by level (Single requests are sent).
      */
@@ -69802,7 +69903,7 @@ declare module "sap/ui/model/TreeBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -69821,7 +69922,7 @@ declare module "sap/ui/model/TreeBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -69936,7 +70037,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
 
   export default class TreeBindingAdapter {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -70009,7 +70110,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -70035,7 +70136,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       }
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets an array of contexts for the requested part of the tree.
      *
@@ -70069,11 +70170,11 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
 
   /**
    * @deprecated (since 1.96.0) - use {@link sap.ui.model.TreeBindingAdapter} instead
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export default class TreeBindingCompatibilityAdapter {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -70455,7 +70556,7 @@ declare module "sap/ui/model/type/Date" {
      */
     static getMetadata(): Metadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the output pattern.
      * See:
@@ -70465,7 +70566,7 @@ declare module "sap/ui/model/type/Date" {
      */
     getOutputPattern(): string;
     /**
-     * Experimental (since 1.114.0)
+     * @experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -70602,7 +70703,7 @@ declare module "sap/ui/model/type/DateInterval" {
       sTargetType: string
     ): string;
     /**
-     * Experimental (since 1.114.0)
+     * @experimental (since 1.114.0)
      *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
@@ -71650,13 +71751,13 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for XML format
    */
   export default class XMLTreeBinding extends ClientTreeBinding {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       oModel: XMLModel,
@@ -71678,7 +71779,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       mParameters?: object
     );
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -71700,7 +71801,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
     );
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -71778,7 +71879,7 @@ declare module "sap/ui/test/actions/Action" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter Should be
      * overwritten by subclasses
@@ -75754,7 +75855,7 @@ declare module "sap/ui/test/matchers/Matcher" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter.
      *
@@ -77463,18 +77564,18 @@ declare module "sap/ui/test/PageObjectFactory" {
 
   /**
    * @since 1.26
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Page Object Factory.
    */
   export default class PageObjectFactory extends BaseObject {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a set of page objects, each consisting of actions and assertions, and adds them to the Opa configuration.
      *
@@ -80415,8 +80516,8 @@ declare namespace sap {
        */
       namespace analytics {
         /**
-         * Experimental - This module is only for experimental use!
-         * Protected:  Do not call from applications (only from related classes in the framework)
+         * @experimental - This module is only for experimental use!
+         * @ui5-protected Do not call from applications (only from related classes in the framework)
          *
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
          */

@@ -249,7 +249,7 @@ declare module "sap/uxap/AnchorBar" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -598,7 +598,7 @@ declare module "sap/uxap/BlockBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a view.
      *
@@ -641,7 +641,7 @@ declare module "sap/uxap/BlockBase" {
     ): this;
     /**
      * @since 1.72
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:viewInit viewInit} to attached listeners.
      *
@@ -2546,7 +2546,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:markChangesPress markChangesPress} to attached listeners.
      *
@@ -2559,7 +2559,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       mParameters?: ObjectPageHeader$MarkChangesPressEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:markLockedPress markLockedPress} to attached listeners.
      *
@@ -2572,7 +2572,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       mParameters?: ObjectPageHeader$MarkLockedPressEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:titleSelectorPress titleSelectorPress} to attached listeners.
      *
@@ -4855,7 +4855,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:editHeaderButtonPress editHeaderButtonPress} to attached listeners.
      *
@@ -4869,7 +4869,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @since 1.93
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:headerContentPinnedStateChange headerContentPinnedStateChange} to attached
      * listeners.
@@ -4884,7 +4884,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @since 1.40
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -4898,7 +4898,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @since 1.73
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionChange sectionChange} to attached listeners.
      *
@@ -4912,7 +4912,7 @@ declare module "sap/uxap/ObjectPageLayout" {
     ): this;
     /**
      * @since 1.77
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:subSectionVisibilityChange subSectionVisibilityChange} to attached listeners.
      *
@@ -4925,7 +4925,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       mParameters?: ObjectPageLayout$SubSectionVisibilityChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleAnchorBar toggleAnchorBar} to attached listeners.
      *
@@ -5367,7 +5367,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       iIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This triggers rerendering of itself and its children.
      */
@@ -6937,7 +6937,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      */
     getImportance(): Importance | keyof typeof Importance;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the control name text.
      *
@@ -7078,7 +7078,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
       bVisible?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Performs the update of the invisible text label. This method is called for example when the section title
      * is changed.

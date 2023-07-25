@@ -17,7 +17,7 @@ import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
 import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
-import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
@@ -204,4 +204,9 @@ Mobile.setIcons({precomposed: false});
 sap.ui.require(["sap/m/Button", "sap/m/Input"], (B: typeof Button, I: typeof Input) => {
     const b = new B({text: "Hello"});
     const i = new I();
+});
+
+// 1.116.1: more event parameters defined
+odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedEvent) => {
+    const contect = evt.getParameter("context");
 });

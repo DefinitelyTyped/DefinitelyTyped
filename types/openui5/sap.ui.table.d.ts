@@ -430,7 +430,7 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * Experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
+   * @experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
    *
    * A column menu which is used by the analytical column
    */
@@ -874,7 +874,7 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function is used by some composite controls to force updating the AnalyticalInfo
      */
@@ -1122,7 +1122,7 @@ declare module "sap/ui/table/AnalyticalTable" {
       bSumOnTop?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function is used by some composite controls to avoid updating the AnalyticalInfo when several column
      * are added to the table. In order to finally update the AnalyticalInfo and request data, resumeUpdateAnalyticalInfo
@@ -1438,7 +1438,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * @since 1.33.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnMenuOpen columnMenuOpen} to attached listeners.
      *
@@ -1749,7 +1749,7 @@ declare module "sap/ui/table/Column" {
      */
     getTemplate(): Control | string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a template clone. It either finds an unused clone or clones a new one from the template.
      *
@@ -2293,7 +2293,7 @@ declare module "sap/ui/table/Column" {
       sWidth?: CSSSize
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the column should be rendered.
      *
@@ -2830,7 +2830,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -3148,7 +3148,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
 
   /**
    * @since 1.64
-   * Experimental (since 1.64)
+   * @experimental (since 1.64)
    *
    * Implements the selection methods for a table.
    */
@@ -3262,7 +3262,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -3827,7 +3827,7 @@ declare module "sap/ui/table/RowActionItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -5270,7 +5270,7 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * Experimental - Experimental! Presently implemented to only work with a very limited set of controls
+     * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
      * (e.g. sap.m.Text).
      *
      * Triggers automatic resizing of a column to the widest content.
@@ -5705,7 +5705,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @deprecated (since 1.56) - replaced by the `sap.ui.export` library.
-     * Experimental - Experimental because the property for the column/cell definitions (sortProperty) could
+     * @experimental - Experimental because the property for the column/cell definitions (sortProperty) could
      * change in future.
      *
      * Creates a new {@link sap.ui.core.util.Export} object and fills row/column information from the table
@@ -5738,7 +5738,7 @@ declare module "sap/ui/table/Table" {
     ): void;
     /**
      * @since 1.54
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
      *
@@ -5755,7 +5755,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:busyStateChanged busyStateChanged} to attached listeners.
      *
@@ -5769,7 +5769,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @since 1.21.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cellClick cellClick} to attached listeners.
      *
@@ -5787,7 +5787,7 @@ declare module "sap/ui/table/Table" {
     /**
      * @since 1.21.0
      * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cellContextmenu cellContextmenu} to attached listeners.
      *
@@ -5804,7 +5804,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @since 1.21.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnFreeze columnFreeze} to attached listeners.
      *
@@ -5820,7 +5820,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnFreezeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnMove columnMove} to attached listeners.
      *
@@ -5836,7 +5836,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnMoveEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
@@ -5852,7 +5852,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnResizeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnSelect columnSelect} to attached listeners.
      *
@@ -5868,7 +5868,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnSelectEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnVisibility columnVisibility} to attached listeners.
      *
@@ -5885,7 +5885,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @since 1.23.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:customFilter customFilter} to attached listeners.
      *
@@ -5898,7 +5898,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$CustomFilterEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
@@ -5915,7 +5915,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:firstVisibleRowChanged firstVisibleRowChanged} to attached listeners.
      *
@@ -5928,7 +5928,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$FirstVisibleRowChangedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:group group} to attached listeners.
      *
@@ -5945,7 +5945,7 @@ declare module "sap/ui/table/Table" {
     ): boolean;
     /**
      * @since 1.60
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paste paste} to attached listeners.
      *
@@ -5961,7 +5961,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$PasteEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rowSelectionChange rowSelectionChange} to attached listeners.
      *
@@ -5975,7 +5975,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @since 1.86
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rowsUpdated rowsUpdated} to attached listeners.
      *
@@ -5988,7 +5988,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
@@ -6319,7 +6319,7 @@ declare module "sap/ui/table/Table" {
      */
     getFooter(): Control | string;
     /**
-     * Experimental (since 1.28) - This feature has a limited functionality.
+     * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
      */
@@ -7198,7 +7198,7 @@ declare module "sap/ui/table/Table" {
       vFooter: Control | string
     ): this;
     /**
-     * Experimental (since 1.28) - This feature has a limited functionality.
+     * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * Sets the associated {@link #getGroupBy groupBy}.
      *
@@ -7979,7 +7979,7 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
-     * Experimental (since 1.28) - This feature has a limited functionality.
+     * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * The column by which the table is grouped. Grouping will only be performed if `enableGrouping` is set
      * to `true`. Setting `groupBy` in the view does not work and throws an error. It can only be set if the
@@ -8530,7 +8530,7 @@ declare module "sap/ui/table/TablePersoController" {
      */
     getTable(): ID;
     /**
-     * Experimental (since 1.21.2) - API might change / feature requires the sap.m library!
+     * @experimental (since 1.21.2) - API might change / feature requires the sap.m library!
      *
      * Opens the personalization dialog for the Table to modify the visibility and the order of the columns.
      *
@@ -8922,7 +8922,7 @@ declare module "sap/ui/table/TreeTable" {
       iLevel: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      *
@@ -9283,7 +9283,7 @@ declare module "sap/ui/table/TreeTable" {
       iToIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Allows to hide the tree structure (tree icons, indentation) in tree mode (property `useGroupMode` is
      * set to `false`).
