@@ -3220,9 +3220,6 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
             : P;
 
 declare global {
-    /**
-     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
-     */
     namespace JSX {
         // We don't just alias React.ElementType because React.ElementType
         // historically does more than we need it to.
