@@ -22,6 +22,9 @@ declare module 'stream' {
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     import * as streamWeb from 'node:stream/web';
+
+    type ComposeFnParam = (source: any) => void;
+
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -29,6 +32,7 @@ declare module 'stream' {
                 end?: boolean | undefined;
             }
         ): T;
+        compose<T extends NodeJS.ReadableStream>(stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>, options?: { signal: AbortSignal }): T;
     }
     namespace internal {
         class Stream extends internal {
