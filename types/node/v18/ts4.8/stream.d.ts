@@ -24,7 +24,7 @@ declare module 'stream' {
     import * as streamWeb from 'node:stream/web';
 
     type ComposeFnParam = (source: any) => void;
-    
+
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
