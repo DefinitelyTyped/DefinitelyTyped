@@ -2,7 +2,6 @@
 // Project: https://github.com/baalexander/node-portscanner
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
 
 import { Duplex } from "readable-stream";
 
