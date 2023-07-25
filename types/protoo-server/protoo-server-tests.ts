@@ -9,7 +9,7 @@ const wss = new WebSocketServer(server);
 wss.on('connectionrequest', async (info, accept, reject) => {
     const transport = accept();
 
-    const peer: Peer = await room.createPeer('foo', transport);
+    const peer: Peer = room.createPeer('foo', transport);
     peer.id; // $ExpectType string
     peer.closed; // $ExpectType boolean
     const res = room.hasPeer('foo'); // $ExpectType boolean
