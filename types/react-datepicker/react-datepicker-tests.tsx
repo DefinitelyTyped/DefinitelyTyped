@@ -151,6 +151,7 @@ const topLogger: Modifier<'topLogger'> = {
         nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
+    renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
