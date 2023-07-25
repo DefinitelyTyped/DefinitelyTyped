@@ -3,7 +3,7 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                   markdreyer <https://github.com/markdreyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
+// TypeScript Version: 4.0
 
 /// <reference types="node" />
 

@@ -3,7 +3,6 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
 
 import { Logger } from 'winston';
 import LoaderRegistry = require('rdf-loaders-registry');

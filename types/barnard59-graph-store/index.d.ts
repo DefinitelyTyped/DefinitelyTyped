@@ -3,7 +3,6 @@
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
 
 export { default as get } from './get';
 export { default as post } from './post';
