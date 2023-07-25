@@ -1,6 +1,5 @@
 import useStore, { Store, InitializerFunction, Options } from 'use-global-hook';
 import Immer from 'immer';
-import React = require('react');
 
 interface stateType {
     value: string;
@@ -26,7 +25,7 @@ const options: Options<stateType, associatedActionsType> = {
 };
 
 // with options
-const store = useStore<stateType, associatedActionsType>(React, { value: '' }, {}, options);
+const store = useStore<stateType, associatedActionsType>({ value: '' }, {}, options);
 
 // default
 store(); // $ExpectType [stateType, associatedActionsType]
@@ -53,12 +52,12 @@ store<string, setFunc>(
 );
 
 // without options
-useStore<stateType, associatedActionsType>(React, { value: '' }, {});
-useStore<stateType, associatedActionsType>(React, { value: '' }, {}, {});
+useStore<stateType, associatedActionsType>({ value: '' }, {});
+useStore<stateType, associatedActionsType>({ value: '' }, {}, {});
 
 // with options
-useStore<stateType, associatedActionsType>(React, { value: '' }, {}, { Immer });
-useStore<stateType, associatedActionsType>(React, { value: '' }, {}, { initializer });
+useStore<stateType, associatedActionsType>({ value: '' }, {}, { Immer });
+useStore<stateType, associatedActionsType>({ value: '' }, {}, { initializer });
 
 // with initializer (backward compatibility with 0.1.2)
-useStore<stateType, associatedActionsType>(React, { value: '' }, {}, initializer);
+useStore<stateType, associatedActionsType>({ value: '' }, {}, initializer);
