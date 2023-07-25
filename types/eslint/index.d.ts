@@ -152,7 +152,11 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
+    getAncestors(node: ESTree.Node): ESTree.Node[];
+
     getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
+
+    getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
     getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
@@ -211,6 +215,13 @@ export class SourceCode {
     getCommentsInside(node: ESTree.Node): ESTree.Comment[];
 
     getScope(node: ESTree.Node): Scope.Scope;
+
+    isSpaceBetween(
+        first: ESTree.Node|AST.Token,
+        second: ESTree.Node|AST.Token
+    ): boolean;
+
+    markVariableAsUsed(name: string, refNode?: ESTree.Node): boolean;
 }
 
 export namespace SourceCode {

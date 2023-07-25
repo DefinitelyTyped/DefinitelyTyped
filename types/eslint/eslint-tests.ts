@@ -63,6 +63,10 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
+sourceCode.isSpaceBetween(TOKEN, TOKEN);
+sourceCode.isSpaceBetween(AST, TOKEN);
+sourceCode.isSpaceBetween(TOKEN, AST);
+
 const loc = sourceCode.getLocFromIndex(0);
 loc.line; // $ExpectType number
 loc.column; // $ExpectType number
@@ -261,6 +265,13 @@ sourceCode.getCommentsAfter(AST);
 sourceCode.getCommentsAfter(TOKEN);
 
 sourceCode.getCommentsInside(AST);
+
+sourceCode.markVariableAsUsed('foo');
+sourceCode.markVariableAsUsed('foo', AST);
+
+sourceCode.getDeclaredVariables(AST); // $ExpectType Variable[]
+
+sourceCode.getAncestors(AST); // $ExpectType Node[]
 
 //#endregion
 
