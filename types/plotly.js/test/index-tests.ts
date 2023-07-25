@@ -932,6 +932,8 @@ function rand() {
     myPlot.removeAllListeners('plotly_restyle');
 
     myPlot.data; // $ExpectType Data[]
+
+    myPlot.layout; // $ExpectType Layout
 })();
 //////////////////////////////////////////////////////////////////////
 
