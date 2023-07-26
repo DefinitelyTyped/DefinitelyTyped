@@ -55,3 +55,10 @@ parser.Interactive(src, (stmts: sh.Stmt[]) => {
     const incomplete = parser.Incomplete(); // $ExpectType boolean
     return true;
 });
+
+// Test syntax.IsIncomplete
+try {
+    parser.Parse("echo ${", "src");
+} catch (err) {
+    syntax.IsIncomplete(err); // $ExpectType boolean
+}
