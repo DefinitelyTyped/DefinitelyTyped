@@ -110,6 +110,7 @@ declare namespace sh {
             NodeType(node: Node): string;
             SplitBraces<T = {}>(word: T): T
             Walk(node: Node, walker: (node: Node) => boolean): void;
+            IsIncomplete(err: any): boolean;
         };
     }
 }
