@@ -1864,7 +1864,7 @@ declare class MGraphics {
     /**
      * Returns an array with two values: width and height. This is the measurement of the provided text using the current font and size.
      */
-    text_measure(): number[];
+    text_measure(text: string): [number, number];
 
     /**
      * Returns a Javascript array where each value is the text name of a font installed on your system. You can determine the length of the array by using the variable fontlist.length.
