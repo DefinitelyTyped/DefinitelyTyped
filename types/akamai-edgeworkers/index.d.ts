@@ -1525,7 +1525,7 @@ declare module "html-rewriter" {
          * Read the value of a given attribute name on the tag or undefined if it doesn’t exist.
          * @param text is the case-insensitive name of the attribute.
          */
-        getAttribute(text: string): string | undefined;
+        getAttribute(text: string ): string | undefined;
 
         /**
          * Insert content right after the start tag of the element.
