@@ -1389,12 +1389,12 @@ declare class UInt64 {
     xor(v: UInt64 | number | string): UInt64;
 
     /**
-     * Makes a new UInt64 whose value is `this` << `v`.
+     * Makes a new UInt64 whose value is `this` >> `v`.
      */
     shr(v: UInt64 | number | string): UInt64;
 
     /**
-     * Makes a new UInt64 whose value is `this` >> `v`.
+     * Makes a new UInt64 whose value is `this` << `v`.
      */
     shl(v: UInt64 | number | string): UInt64;
 
