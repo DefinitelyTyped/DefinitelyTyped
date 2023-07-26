@@ -42,6 +42,83 @@ declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
 
+type MaxMessage =
+    | 'buildcollective'
+    | 'checkpreempt'
+    | 'clean'
+    | 'clearmaxwindow'
+    | 'closefile'
+    | 'crash'
+    | 'db.exportmetadata'
+    | 'db.importmetadata'
+    | 'db.reset'
+    | 'debug'
+    | 'disablevirtualmididestinations'
+    | 'disablevirtualmidisources'
+    | 'enablepathcache'
+    | 'externaleditor'
+    | 'externs'
+    | 'fileformat'
+    | 'fixwidthratio'
+    | 'getarch'
+    | 'getdefaultpatcherheight'
+    | 'getdefaultpatcherwidth'
+    | 'getenablepathcache'
+    | 'geteventinterval'
+    | 'getfixwidthratio'
+    | 'getpollthrottle'
+    | 'getqueuethrottle'
+    | 'getrefreshrate'
+    | 'getruntime'
+    | 'getslop'
+    | 'getsysqelemthrottle'
+    | 'getsystem'
+    | 'getversion'
+    | 'hidecursor'
+    | 'hidemenubar'
+    | 'htmlref'
+    | 'interval'
+    | 'launchbrowser'
+    | 'maxcharheightforsubpixelantialiasing'
+    | 'maxinwmenu'
+    | 'maxwindow'
+    | 'midilist'
+    | 'nativetextrendering'
+    | 'notypeinfo'
+    | 'objectfile'
+    | 'openfile'
+    | 'paths'
+    | 'preempt'
+    | 'pupdate'
+    | 'purgemididevices'
+    | 'quit'
+    | 'refresh'
+    | 'refreshrate'
+    | 'relaunchmax'
+    | 'runtime'
+    | 'sendinterval'
+    | 'sendapppath'
+    | 'setdefaultpatcherheight'
+    | 'setdefaultpatcherwidth'
+    | 'seteventinterval'
+    | 'setmixergbitmode'
+    | 'setmixerlatency'
+    | 'setmixerparallel'
+    | 'setmixerramptime'
+    | 'setmirrortoconsole'
+    | 'setsleep'
+    | 'setpollthrottle'
+    | 'setqueuethrottle'
+    | 'setslop'
+    | 'setsysqelemthrottle'
+    | 'showcursor'
+    | 'showmenubar'
+    | 'size'
+    | 'system'
+    | 'useexternaleditor'
+    | 'useslowbutcompletesearching'
+    | string;
+
 /**
  * The Buffer object in JavaScript is a companion to the buffer~ object you instantiate in Max patchers,
  * and provides the ability to access samples and metadata for the buffer~ object with the associated name.
@@ -857,6 +934,11 @@ declare class Max {
      * Displays the Max Window. If the Max window if not currently open, the window will be displayed. If the window is currently open, it will bring it to the front.
      */
     maxwindow(): void;
+
+    /**
+     * Sends a message to max
+     */
+    message(maxMessage: MaxMessage): void;
 
     /**
      * The word midi, followed by a variable-length message, allows messages to be sent to configure the system MIDI object.
