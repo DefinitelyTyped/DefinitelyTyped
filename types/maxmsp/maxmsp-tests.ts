@@ -161,6 +161,7 @@ testmax.showcursor();
 testmax.showmenubar();
 testmax.size();
 testmax.system('windows', 'my_message');
+testmax.message("hidecursor");
 testmax.useslowbutcompletesearching(1);
 
 // Create a new Maxobj
