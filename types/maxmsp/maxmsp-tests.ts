@@ -359,7 +359,7 @@ myMGraphics.text_path('Hello');
 const fontExtents = myMGraphics.font_extents();
 post(fontExtents);
 const textMeasure = myMGraphics.text_measure("my-string");
-const [widht, height] = textMeasure;
+const [width, height] = textMeasure;
 post(textMeasure);
 const fontlist = myMGraphics.getfontlist();
 post(fontlist);
