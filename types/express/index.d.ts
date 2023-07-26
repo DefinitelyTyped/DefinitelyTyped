@@ -95,11 +95,11 @@ declare namespace e {
     interface CookieOptions extends core.CookieOptions {}
     interface Errback extends core.Errback {}
     interface ErrorRequestHandler<
-        P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        P extends core.Params = {},
+        ResBody = {},
+        ReqBody = {},
+        ReqQuery extends core.Query = {},
+        Locals extends Record<string, any> = {}
     > extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface Express extends core.Express {}
     interface Handler extends core.Handler {}
@@ -111,23 +111,23 @@ declare namespace e {
     interface NextFunction extends core.NextFunction {}
     interface Locals extends core.Locals {}
     interface Request<
-        P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        P extends core.Params = {},
+        ResBody = {},
+        ReqBody = {},
+        ReqQuery extends core.Query = {},
+        Locals extends Record<string, any> = {}
     > extends core.Request<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestHandler<
-        P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
-    > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
+        P extends core.Params = {},
+        ResBody = {},
+        ReqBody = {},
+        ReqQuery extends core.Query = {},
+        Locals extends Record<string, any> = {}
+    > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> { }
     interface RequestParamHandler extends core.RequestParamHandler {}
     interface Response<
-        ResBody = any,
-        Locals extends Record<string, any> = Record<string, any>
+        ResBody = {},
+        Locals extends Record<string, any> = {}
     > extends core.Response<ResBody, Locals> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}

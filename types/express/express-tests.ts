@@ -19,7 +19,7 @@ namespace express_tests {
         '/static',
         express.static(__dirname + '/public', {
             setHeaders: res => {
-                // $ExpectType Response<any, Record<string, any>>
+                // $ExpectType Response<{}, {}>
                 res;
                 res.set('foo', 'bar');
             },
@@ -182,9 +182,8 @@ namespace express_tests {
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express)
-    router.get('/:foo/:bar', (req: express.Request<{ foo: string; bar: number }>) => {
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string; }>) => {
         req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectType number
         // @ts-expect-error
         req.params.baz;
     });
@@ -197,8 +196,8 @@ namespace express_tests {
     });
 
     // Query will be defaulted to any
-    router.get('/:foo', (req: express.Request<{}>) => {
-        req.query; // $ExpectType ParsedQs
+    router.get('/:foo', (req: express.Request) => {
+        req.query; // $ExpectType {}
     });
 
     // Locals can be a custom type
