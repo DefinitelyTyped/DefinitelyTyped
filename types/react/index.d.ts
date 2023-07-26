@@ -83,7 +83,13 @@ declare namespace React {
                */
               deprecatedLegacyContext?: any,
           ) => ReactNode)
-        | (new (props: P) => Component<any, any>);
+        | (new (
+              props: P,
+              /**
+               * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods
+               */
+              deprecatedLegacyContext?: any,
+          ) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
