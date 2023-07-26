@@ -120,7 +120,7 @@ namespace express_tests {
         const header3: string | undefined = req.header('header');
 
         req.headers.existingHeader as string;
-        (req.headers.nonExistingHeader as any) as undefined;
+        req.headers.nonExistingHeader as any as undefined;
 
         // Since 4.14.0 req.range() has options
         req.range(2, { combine: true });
@@ -182,7 +182,7 @@ namespace express_tests {
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express)
-    router.get('/:foo/:bar', (req: express.Request<{ foo: string; }>) => {
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string }>) => {
         req.params.foo; // $ExpectType string
         // @ts-expect-error
         req.params.baz;
