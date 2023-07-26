@@ -1,6 +1,6 @@
-export interface Projection {
+export interface Projection<T> {
     ProjectionType?: 'ALL' | 'KEYS_ONLY' | 'INCLUDE' | string;
-    NonKeyAttributes?: string[];
+    NonKeyAttributes?: Array<keyof T>;
 }
 
 import * as stream from 'stream';

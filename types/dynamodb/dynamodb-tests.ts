@@ -57,7 +57,7 @@ let BlogPost = dynamo.define('BlogPost', {
     schema: {
         email: Joi.string().email(),
         title: Joi.string(),
-        content: Joi.binary(),
+        content: Joi.binary() as any,
         tags: dynamo.types.stringSet(),
     },
 });
@@ -203,15 +203,6 @@ AccountTyped.create([item1, item2, item3], (err, accounts) => {
     });
 });
 
-let params: dynamo.Model.OperationOptions = {};
-params.ConditionExpression = '#i <> :x';
-params.ExpressionAttributeNames = { '#i': 'id' };
-params.ExpressionAttributeValues = { ':x': 123 };
-
-Account.create({ id: 123, name: 'Kurt Warner' }, params, (error, acc) => {
-    // ...
-});
-
 Account.create(
     { id: 123, name: 'Kurt Warner' },
     { overwrite: false },
@@ -298,24 +289,6 @@ BlogPost.update(
     },
 );
 
-params = {};
-params.UpdateExpression =
-    'SET #year = #year + :inc, #dir.titles = list_append(#dir.titles, :title), #act[0].firstName = :firstName ADD tags :tag';
-params.ConditionExpression = '#year = :current';
-params.ExpressionAttributeNames = {
-    '#year': 'releaseYear',
-    '#dir': 'director',
-    '#act': 'actors',
-};
-
-params.ExpressionAttributeValues = {
-    ':inc': 1,
-    ':current': 2001,
-    ':title': ['The Man'],
-    ':firstName': 'Rob',
-    ':tag': dynamo.Set(['Sports', 'Horror'], 'S'),
-};
-
 const Movie = dynamo.define('Movie', {
     hashKey: 'foo',
     schema: {},
@@ -323,7 +296,22 @@ const Movie = dynamo.define('Movie', {
 
 Movie.update(
     { title: 'Movie 0', description: 'This is a description' },
-    params,
+    {
+        UpdateExpression: 'SET #year = #year + :inc, #dir.titles = list_append(#dir.titles, :title), #act[0].firstName = :firstName ADD tags :tag',
+        ConditionExpression: '#year = :current',
+        ExpressionAttributeNames: {
+            '#year': 'releaseYear',
+            '#dir': 'director',
+            '#act': 'actors',
+        },
+        ExpressionAttributeValues: {
+            ':inc': 1,
+            ':current': 2001,
+            ':title': ['The Man'],
+            ':firstName': 'Rob',
+            ':tag': dynamo.Set(['Sports', 'Horror'], 'S'),
+        }
+    },
     (err, mov) => {},
 );
 
@@ -349,33 +337,34 @@ Account.destroy('foo@example.com', { ReturnValues: true }, (err, acc) => {
     console.log('deleted account name', acc.get('name'));
 });
 
-params = {};
-params.ConditionExpression = '#v = :x';
-params.ExpressionAttributeNames = { '#v': 'version' };
-params.ExpressionAttributeValues = { ':x': '2' };
-
-Account.destroy({ id: 123 }, params, (err, acc) => {});
+Account.destroy({
+    id: 123
+}, {
+    ConditionExpression: '#v = :x',
+    ExpressionAttributeNames: { '#v': 'version' },
+    ExpressionAttributeValues: { ':x': '2' }
+}, (err, acc) => {});
 
 Account.get('test@example.com', (err, acc) => {
-    console.log('got account', acc.get('email'));
+    console.log('got account', acc!.get('email'));
 });
 
 AccountTyped.get('test@example.com', (err, acc) => {
-    console.log('got account', acc.get('email'), acc.attrs.email);
+    console.log('got account', acc!.get('email'), acc!.attrs.email);
 });
 
 Account.get('test@example.com', { ConsistentRead: true }, (err, acc) => {
-    console.log('got account', acc.get('email'));
+    console.log('got account', acc!.get('email'));
 });
 
 Account.get(
     'test@example.com',
     { ConsistentRead: true, AttributesToGet: ['name', 'age'] },
     (err, acc) => {
-        console.log('got account', acc.get('email'));
-        console.log(acc.get('name'));
-        console.log(acc.get('age'));
-        console.log(acc.get('email')); // prints null
+        console.log('got account', acc!.get('email'));
+        console.log(acc!.get('name'));
+        console.log(acc!.get('age'));
+        console.log(acc!.get('email')); // prints null
     },
 );
 
@@ -383,14 +372,14 @@ BlogPost.get(
     'werner@example.com',
     'dynamodb-keeps-getting-better-and-cheaper',
     (err, post) => {
-        console.log('loaded post by range and hash key', post.get('content'));
+        console.log('loaded post by range and hash key', post!.get('content'));
     },
 );
 
 BlogPost.get(
     { email: 'werner@example.com', title: 'Expanding the Cloud' },
     (err, post) => {
-        console.log('loded post', post.get('content'));
+        console.log('loded post', post!.get('content'));
     },
 );
 
@@ -594,7 +583,7 @@ BlogPost = dynamo.define('Account', {
     schema: {
         email: Joi.string().email(),
         title: Joi.string(),
-        content: Joi.binary(),
+        content: Joi.binary() as any, // https://github.com/hapijs/joi/pull/2961
         PublishedDateTime: Joi.date(),
     },
 
