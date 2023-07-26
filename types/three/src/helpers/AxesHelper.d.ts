@@ -1,5 +1,5 @@
-import { Color } from '../math/Color';
-import { LineSegments } from './../objects/LineSegments';
+import { Color } from '../math/Color.js';
+import { LineSegments } from './../objects/LineSegments.js';
 
 /**
  * An axis object to visualize the 3 axes in a simple way.

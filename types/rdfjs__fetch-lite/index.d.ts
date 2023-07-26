@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { DatasetCoreFactory, DatasetCore, Quad, Stream, BaseQuad } from '@rdfjs/types';
-import * as formats from '@rdfjs/formats-common';
+import { Formats } from '@rdfjs/formats-common';
 
 export interface FormatsInit extends RequestInit {
-    formats: typeof formats;
+    formats: Formats;
     fetch?: typeof fetch | undefined;
 }
 

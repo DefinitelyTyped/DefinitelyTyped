@@ -74,6 +74,7 @@ export interface Config {
     debug: boolean;
     track_links_timeout: number;
     track_pageview: boolean;
+    skip_first_touch_marketing: boolean;
     cookie_expiration: number;
     upgrade: boolean;
     disable_persistence: boolean;

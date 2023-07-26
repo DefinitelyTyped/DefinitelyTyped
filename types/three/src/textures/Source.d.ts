@@ -17,6 +17,8 @@ export class Source {
      */
     readonly isSource: true;
 
+    readonly id: number;
+
     /**
      * The actual data of a texture.
      * @remarks The type of this property depends on the texture that uses this instance.

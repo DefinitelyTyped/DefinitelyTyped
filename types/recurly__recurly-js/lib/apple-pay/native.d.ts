@@ -32,20 +32,20 @@ export type ApplePayErrorCode =
    * Indicates that the shipping address or contact information is invalid or missing.
    * Use with contactField
    */
-  | "shippingContactInvalid"
+  | 'shippingContactInvalid'
   /**
    * Indicates that the billing address information is invalid or missing.
    * Use with contactField
    */
-  | "billingContactInvalid"
+  | 'billingContactInvalid'
   /**
    * Indicates that the merchant can’t provide service to the shipping address (for example, can’t deliver to a P.O. Box).
    */
-  | "addressUnserviceable"
+  | 'addressUnserviceable'
   /**
    * Indicates an unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
    */
-  | "unknown";
+  | 'unknown';
 
 /**
  * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
@@ -202,6 +202,11 @@ export type ApplePayPaymentRequest = {
   requiredShippingContactFields?: ApplePayContactField[];
 
   /**
+   * The fields of billing information the user must provide to process the transaction. Defaults to `['postalAddress']`.
+   */
+  requiredBillingContactFields?: ApplePayContactField[];
+
+  /**
    * Shipping contact information for the user.
    */
   shippingContact?: ApplePayPaymentContact;
@@ -325,6 +330,16 @@ export type ApplePayShippingMethodSelectedEvent = {
    * The shipping method selected by the user.
    */
   shippingMethod: any;
+};
+
+/**
+ * An event object that contains the coupon code.
+ */
+export type ApplePayCouponCodeChangedEvent = {
+  /**
+   * The coupon code selected by the user.
+   */
+  couponCode: string;
 };
 
 /**

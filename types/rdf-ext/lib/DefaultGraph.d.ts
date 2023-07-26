@@ -1,5 +1,5 @@
 import { DefaultGraph } from '@rdfjs/types';
-import { PropType } from './_PropType';
+import { PropType } from './_PropType.js';
 
 export interface DefaultGraphExt extends DefaultGraph {
   toCanonical(): string;

@@ -1,12 +1,27 @@
 // Type definitions for difflib 0.2
 // Project: https://github.com/qiao/difflib.js
-// Definitions by: majames <https://github.com/majames>, Hugues Le Gendre <https://github.com/hlegendre>
+// Definitions by: majames <https://github.com/majames>
+//                 Hugues Le Gendre <https://github.com/hlegendre>
+//                 Antonio Min <https://github.com/antoniomin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
 export class SequenceMatcher<T> {
     constructor(isjunk: (() => boolean) | null, left: T, right: T, autojunk?: boolean);
+    setSeqs(left: T, right: T): ((char: string) => boolean) | undefined;
+    setSeq1(left: T): null | undefined;
+    setSeq2(right: T): ((char: string) => boolean) | undefined;
+    findLongestMatch(
+        leftIndexStart: number,
+        leftIndexEnd: number,
+        rightIndexStart: number,
+        rightIndexEnd: number,
+    ): [number, number, number];
+    getMatchingBlocks(): Array<[number, number, number]>;
     getOpcodes(): Array<['replace' | 'delete' | 'insert' | 'equal', number, number, number, number]>;
+    ratio(): number;
+    quickRatio(): number;
+    realQuickRatio(): number;
 }
 
 export class Differ {

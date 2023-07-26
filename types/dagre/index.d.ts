@@ -15,7 +15,7 @@ export namespace graphlib {
 
         graph(): GraphLabel;
         isDirected(): boolean;
-        isMultiGraph(): boolean;
+        isMultigraph(): boolean;
         setGraph(label: GraphLabel): Graph<T>;
 
         edge(edgeObj: Edge): GraphEdge;

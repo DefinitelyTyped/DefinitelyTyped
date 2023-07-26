@@ -1,4 +1,12 @@
-import { BufferGeometry, ColorRepresentation, Mesh, ShaderMaterial, Side, Texture, Vector3 } from '../../../src/Three';
+import {
+    BufferGeometry,
+    ColorRepresentation,
+    Mesh,
+    ShaderMaterial,
+    Side,
+    Texture,
+    Vector3,
+} from '../../../src/Three.js';
 
 export interface WaterOptions {
     textureWidth?: number;

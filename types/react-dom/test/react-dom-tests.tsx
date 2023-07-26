@@ -383,7 +383,7 @@ function pipeableStreamDocumentedExample() {
 
     let didError = false;
     const response: Response = {} as any;
-    const { pipe } = ReactDOMServer.renderToPipeableStream(<App />, {
+    const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ['/main.js'],
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
@@ -401,6 +401,16 @@ function pipeableStreamDocumentedExample() {
             console.error(err);
         },
     });
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort();
+    }, 1000);
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort("timeout");
+    }, 1000);
 }
 
 /**

@@ -622,6 +622,12 @@ addAbortSignal(new AbortSignal(), new Readable());
     // When the param includes unsupported DuplexOptions
     // @ts-expect-error
     Duplex.fromWeb({ readable, writable }, { emitClose: true });
+
+    // $ExpectType Duplex
+    Duplex.from(readable);
+
+    // $ExpectType Duplex
+    Duplex.from(writable);
 }
 
 async function testReadableStream() {

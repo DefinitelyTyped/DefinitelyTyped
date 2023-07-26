@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.40
+// Type definitions for eslint 8.44
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -152,7 +152,11 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
+    getAncestors(node: ESTree.Node): ESTree.Node[];
+
     getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
+
+    getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
     getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
@@ -211,6 +215,13 @@ export class SourceCode {
     getCommentsInside(node: ESTree.Node): ESTree.Comment[];
 
     getScope(node: ESTree.Node): Scope.Scope;
+
+    isSpaceBetween(
+        first: ESTree.Node|AST.Token,
+        second: ESTree.Node|AST.Token
+    ): boolean;
+
+    markVariableAsUsed(name: string, refNode?: ESTree.Node): boolean;
 }
 
 export namespace SourceCode {
@@ -843,7 +854,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | "latest" | undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | "latest" | undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;

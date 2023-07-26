@@ -1460,32 +1460,72 @@ declare module 'util' {
 
         /**
          * Gets and sets the type portion of the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/javascript');
+         * console.log(myMIME.type);
+         * // Prints: text
+         * myMIME.type = 'application';
+         * console.log(myMIME.type);
+         * // Prints: application
+         * console.log(String(myMIME));
+         * // Prints: application/javascript
+         * ```
          */
         type: string;
         /**
          * Gets and sets the subtype portion of the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/ecmascript');
+         * console.log(myMIME.subtype);
+         * // Prints: ecmascript
+         * myMIME.subtype = 'javascript';
+         * console.log(myMIME.subtype);
+         * // Prints: javascript
+         * console.log(String(myMIME));
+         * // Prints: text/javascript
+         * ```
          */
         subtype: string;
         /**
-         * Gets the essence of the MIME.
-         *
+         * Gets the essence of the MIME. This property is read only.
          * Use `mime.type` or `mime.subtype` to alter the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/javascript;key=value');
+         * console.log(myMIME.essence);
+         * // Prints: text/javascript
+         * myMIME.type = 'application';
+         * console.log(myMIME.essence);
+         * // Prints: application/javascript
+         * console.log(String(myMIME));
+         * // Prints: application/javascript;key=value
+         * ```
          */
         readonly essence: string;
         /**
-         * Gets the `MIMEParams` object representing the parameters of the MIME.
+         * Gets the `MIMEParams` object representing the
+         * parameters of the MIME. This property is read-only. See `MIMEParams` documentation for details.
          */
         readonly params: MIMEParams;
         /**
-         * Returns the serialized MIME.
+         * The `toString()` method on the `MIMEType` object returns the serialized MIME.
          *
-         * Because of the need for standard compliance, this method
-         * does not allow users to customize the serialization process of the MIME.
+         * Because of the need for standard compliance, this method does not allow users
+         * to customize the serialization process of the MIME.
          */
         toString(): string;
     }
     /**
-     * @since v18.13.0
+     * The `MIMEParams` API provides read and write access to the parameters of a`MIMEType`.
+     * @since v19.1.0, v18.13.0
      */
     export class MIMEParams {
         /**
@@ -1494,11 +1534,14 @@ declare module 'util' {
         delete(name: string): void;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
+         * Each item of the iterator is a JavaScript `Array`. The first item of the array
+         * is the `name`, the second item of the array is the `value`.
          */
         entries(): IterableIterator<[name: string, value: string]>;
         /**
-         * Returns the value of the first name-value pair whose name is `name`.
-         * If there are no such pairs, `null` is returned.
+         * Returns the value of the first name-value pair whose name is `name`. If there
+         * are no such pairs, `null` is returned.
+         * @return or `null` if there is no name-value pair with the given `name`.
          */
         get(name: string): string | null;
         /**
@@ -1507,12 +1550,33 @@ declare module 'util' {
         has(name: string): boolean;
         /**
          * Returns an iterator over the names of each name-value pair.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const { params } = new MIMEType('text/plain;foo=0;bar=1');
+         * for (const name of params.keys()) {
+         *   console.log(name);
+         * }
+         * // Prints:
+         * //   foo
+         * //   bar
+         * ```
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `MIMEParams` object associated with `name` to `value`.
-         * If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `MIMEParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const { params } = new MIMEType('text/plain;foo=0;bar=1');
+         * params.set('foo', 'def');
+         * params.set('baz', 'xyz');
+         * console.log(params.toString());
+         * // Prints: foo=def&#x26;bar=1&#x26;baz=xyz
+         * ```
          */
         set(name: string, value: string): void;
         /**

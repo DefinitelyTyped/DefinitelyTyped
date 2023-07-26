@@ -104,7 +104,7 @@ declare namespace CustomFunctions {
          *
          * @eventproperty
          */
-        onCanceled: () => void;
+        onCanceled?: () => void;
     }
 
     /**

@@ -1,6 +1,17 @@
-import { Usage } from '../constants';
-import { Matrix3 } from './../math/Matrix3';
-import { Matrix4 } from './../math/Matrix4';
+import { Usage, AttributeGPUType } from '../constants.js';
+import { Matrix3 } from '../math/Matrix3.js';
+import { Matrix4 } from '../math/Matrix4.js';
+
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
 
 /**
  * This class stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes )
@@ -34,7 +45,7 @@ export class BufferAttribute {
      * Default `false`.
      * @throws `TypeError` When the {@link array} is not a `TypedArray`;
      */
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean); // array parameter should be `TypedArray`.
+    constructor(array: TypedArray, itemSize: number, normalized?: boolean);
 
     /**
      * Optional name for this attribute instance.
@@ -46,7 +57,7 @@ export class BufferAttribute {
      * The {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} holding data stored in the buffer.
      * @returns `TypedArray`
      */
-    array: ArrayLike<number>;
+    array: TypedArray;
 
     /**
      * The length of vectors that are being stored in the {@link BufferAttribute.array | array}.
@@ -65,6 +76,14 @@ export class BufferAttribute {
      * @defaultValue {@link THREE.StaticDrawUsage | THREE.StaticDrawUsage}.
      */
     usage: Usage;
+
+    /**
+     * Configures the bound GPU type for use in shaders. Either {@link FloatType} or {@link IntType}, default is {@link FloatType}.
+     *
+     * Note: this only has an effect for integer arrays and is not configurable for float arrays. For lower precision
+     * float types, see https://threejs.org/docs/#api/en/core/bufferAttributeTypes/BufferAttributeTypes.
+     */
+    gpuType: AttributeGPUType;
 
     /**
      * This can be used to only update some components of stored vectors (for example, just the component related to color).

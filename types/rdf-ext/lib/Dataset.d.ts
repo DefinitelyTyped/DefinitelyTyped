@@ -1,7 +1,7 @@
-import Dataset from '@rdfjs/dataset/DatasetCore';
+import Dataset from '@rdfjs/dataset/DatasetCore.js';
 import { Quad, DatasetCore, Stream, Term } from '@rdfjs/types';
-import { PropType } from './_PropType';
-import { QuadExt } from './Quad';
+import { PropType } from './_PropType.js';
+import { QuadExt } from './Quad.js';
 
 export interface DatasetExt extends Dataset<QuadExt> {
     addAll(quads: Iterable<Quad>): this;
