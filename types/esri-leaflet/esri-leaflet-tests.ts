@@ -55,6 +55,7 @@ basemapLayer = new L.esri.BasemapLayer('TerrainLabels');
 
 basemapLayer = L.esri.basemapLayer('Streets', { token: 'token' });
 basemapLayer = new L.esri.BasemapLayer('Streets', { token: 'token' });
+basemapLayer = new L.esri.BasemapLayer('Streets', { token: 'token', ignoreDeprecationWarning: true });
 
 let imageMapLayer: L.esri.ImageMapLayer;
 let imageMapLayerOptions: L.esri.ImageMapLayerOptions;
@@ -67,6 +68,16 @@ imageMapLayerOptions = {
     bandIds: '1',
     noData: 0,
     noDataInterpretation: 'no-data',
+    maxZoom: 15,
+    minZoom: 1,
+    opacity: 0.5,
+    position: 'front',
+    f: 'json',
+    format: 'jpgpng',
+    attribution: 'MIT',
+    useCors: true,
+    proxy: '//localhost/proxy',
+    pane: 'imagePane',
 };
 
 imageMapLayer = L.esri.imageMapLayer(imageMapLayerOptions);
@@ -74,6 +85,15 @@ imageMapLayer = L.esri.imageMapLayer(imageMapLayerOptions);
 imageMapLayer.bindPopup((error, layer) => {
     return 'Pixel value: ' + layer.pixel.properties.value;
 });
+
+imageMapLayer.getMosaicRule();
+imageMapLayer.getRenderingRule();
+imageMapLayer.query();
+imageMapLayer.getBandIds();
+imageMapLayer.getNoDataInterpretation();
+imageMapLayer.getPixelType();
+imageMapLayer.setPixelType('U8');
+imageMapLayer.bringToBack().bringToFront().unbindPopup().setOpacity(0.5).setZIndex(1).authenticate('secret');
 
 let tiledMapLayer: L.esri.TiledMapLayer;
 

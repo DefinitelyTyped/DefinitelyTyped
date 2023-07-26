@@ -750,7 +750,23 @@ declare module 'leaflet' {
              * signed integer, unsigned integer, or floating point. Possible values: `C128`, `C64`, `F32`, `F64`,
              * `S16`, `S32`, `S8`, `U1`, `U16`, `U2`, `U32`, `U4`, `U8`, `UNKNOWN`.
              */
-            setPixelType(pixelType: string): this;
+            setPixelType(
+                pixelType:
+                    | 'C128'
+                    | 'C64'
+                    | 'F32'
+                    | 'F64'
+                    | 'S16'
+                    | 'S32'
+                    | 'S8'
+                    | 'U1'
+                    | 'U16'
+                    | 'U2'
+                    | 'U32'
+                    | 'U4'
+                    | 'U8'
+                    | 'UNKNOWN',
+            ): this;
 
             /**
              * Returns a new `L.esri.Query` object that can be used to query this service.
