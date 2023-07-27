@@ -47,6 +47,7 @@ es/argentina--obelisk/index.d.ts
 es/art--tools--01/index.d.ts
 es/asia--australia/index.d.ts
 es/assessment-used/index.d.ts
+es/asset-management/index.d.ts
 es/assets/index.d.ts
 es/atlanta/index.d.ts
 es/audio-data/index.d.ts
@@ -62,7 +63,10 @@ es/baby--bottle/index.d.ts
 es/backpack/index.d.ts
 es/badge/index.d.ts
 es/bag/index.d.ts
+es/balloon/index.d.ts
+es/balloon--hot-air/index.d.ts
 es/bangalore/index.d.ts
+es/banking/index.d.ts
 es/barcelona/index.d.ts
 es/bee/index.d.ts
 es/beijing--municipal/index.d.ts
@@ -101,6 +105,7 @@ es/calendar--date/index.d.ts
 es/calendar--event/index.d.ts
 es/camera/index.d.ts
 es/canada--maple-leaf/index.d.ts
+es/candy/index.d.ts
 es/capitol/index.d.ts
 es/carbon--for-ibm-dotcom/index.d.ts
 es/carbon--for-ibm-product/index.d.ts
@@ -174,6 +179,7 @@ es/cloud--upload/index.d.ts
 es/cloud--vmware/index.d.ts
 es/cloud-pak--family/index.d.ts
 es/cloud-pak--for-applications/index.d.ts
+es/cloud-pak--for-business-automation/index.d.ts
 es/cloud-pak--for-data/index.d.ts
 es/cloud-pak--for-integration/index.d.ts
 es/cloud-pak--for-multicloud-management/index.d.ts
@@ -235,6 +241,7 @@ es/cookie/index.d.ts
 es/copenhagen--planetarium/index.d.ts
 es/copenhagen--snekkja/index.d.ts
 es/coronavirus/index.d.ts
+es/coupon/index.d.ts
 es/credit--card/index.d.ts
 es/crop/index.d.ts
 es/cupcake/index.d.ts
@@ -328,6 +335,7 @@ es/emergency--exit/index.d.ts
 es/employee--insights/index.d.ts
 es/encryption/index.d.ts
 es/endpoint--protection/index.d.ts
+es/energy--crisis/index.d.ts
 es/engine/index.d.ts
 es/enterprise--design--thinking--01/index.d.ts
 es/enterprise--design--thinking--02/index.d.ts
@@ -335,8 +343,14 @@ es/envelope/index.d.ts
 es/erlenmeyer--flask/index.d.ts
 es/escalator--down/index.d.ts
 es/escalator--up/index.d.ts
+es/esg-reporting--01/index.d.ts
+es/esg-reporting--02/index.d.ts
 es/europe--africa/index.d.ts
 es/event-driven/index.d.ts
+es/event--automation/index.d.ts
+es/event--endpoint-management/index.d.ts
+es/event--processing/index.d.ts
+es/event--streams/index.d.ts
 es/expand--horz/index.d.ts
 es/expand--user/index.d.ts
 es/expand--vert/index.d.ts
@@ -376,9 +390,11 @@ es/financial--networks/index.d.ts
 es/financial--news/index.d.ts
 es/fire--alarm/index.d.ts
 es/fire--extinguisher/index.d.ts
+es/firecracker/index.d.ts
 es/firefighter/index.d.ts
 es/firewall/index.d.ts
 es/first--aid/index.d.ts
+es/flag/index.d.ts
 es/flash--storage/index.d.ts
 es/flashing--content/index.d.ts
 es/flexibility/index.d.ts
@@ -424,8 +440,12 @@ es/globe--locations/index.d.ts
 es/go--language/index.d.ts
 es/goals/index.d.ts
 es/govern--users--and--identities/index.d.ts
+es/government--01/index.d.ts
+es/government--02/index.d.ts
 es/graphic-intensive-workloads/index.d.ts
 es/green-energy/index.d.ts
+es/green-it--01/index.d.ts
+es/green-it--02/index.d.ts
 es/group/index.d.ts
 es/growth/index.d.ts
 es/guitar/index.d.ts
@@ -435,6 +455,7 @@ es/hail--mixed/index.d.ts
 es/hamburg--philharmone/index.d.ts
 es/handicap/index.d.ts
 es/handicap--active/index.d.ts
+es/handshake/index.d.ts
 es/hard--drive/index.d.ts
 es/hard--drive--network/index.d.ts
 es/hard--ice--cream/index.d.ts
@@ -514,10 +535,12 @@ es/language--03/index.d.ts
 es/language--04/index.d.ts
 es/language--05/index.d.ts
 es/language--translation/index.d.ts
+es/lantern/index.d.ts
 es/launch/index.d.ts
 es/leader/index.d.ts
 es/lift-and-shift/index.d.ts
 es/lightning/index.d.ts
+es/link/index.d.ts
 es/list--bullet/index.d.ts
 es/list--checkbox/index.d.ts
 es/location/index.d.ts
@@ -552,6 +575,8 @@ es/mas/index.d.ts
 es/master--threat--hunting/index.d.ts
 es/math--curve/index.d.ts
 es/maximize/index.d.ts
+es/medal--01/index.d.ts
+es/medal--02/index.d.ts
 es/medical/index.d.ts
 es/medical--charts/index.d.ts
 es/medical--staff/index.d.ts
@@ -572,6 +597,8 @@ es/mobile--phone/index.d.ts
 es/modernize/index.d.ts
 es/monitor/index.d.ts
 es/monitored--item--on--conveyor/index.d.ts
+es/moon-cake/index.d.ts
+es/moon--full/index.d.ts
 es/mortar-and-pestle/index.d.ts
 es/moscow/index.d.ts
 es/movement--in--overlapping--networks/index.d.ts
@@ -585,6 +612,7 @@ es/mri/index.d.ts
 es/mri--patient/index.d.ts
 es/multitask/index.d.ts
 es/munich/index.d.ts
+es/music/index.d.ts
 es/natural--language--classifier/index.d.ts
 es/natural--language--understanding/index.d.ts
 es/network/index.d.ts
@@ -625,6 +653,7 @@ es/optimize/index.d.ts
 es/optimize--cash-flow--01/index.d.ts
 es/optimize--cash-flow--02/index.d.ts
 es/organization/index.d.ts
+es/ornament/index.d.ts
 es/overcast/index.d.ts
 es/overview/index.d.ts
 es/paper--clip/index.d.ts
@@ -725,6 +754,7 @@ es/reset--settings/index.d.ts
 es/resilience/index.d.ts
 es/resource-health/index.d.ts
 es/resources/index.d.ts
+es/retail--sustainable/index.d.ts
 es/retrieve--and--rank/index.d.ts
 es/rich--text--format/index.d.ts
 es/rio-de-janeiro/index.d.ts
@@ -747,6 +777,7 @@ es/save-time/index.d.ts
 es/scale/index.d.ts
 es/scale--02/index.d.ts
 es/scaling--containers/index.d.ts
+es/scan-code/index.d.ts
 es/scatter--matrix/index.d.ts
 es/seattle/index.d.ts
 es/secure--data/index.d.ts
@@ -766,6 +797,8 @@ es/server--operating-systems/index.d.ts
 es/server--rack/index.d.ts
 es/serverless/index.d.ts
 es/servers/index.d.ts
+es/shanghai--oriental-pearl-tower/index.d.ts
+es/shanghai--cityscape/index.d.ts
 es/sharing-data/index.d.ts
 es/shirt/index.d.ts
 es/shop/index.d.ts
@@ -778,6 +811,7 @@ es/slider/index.d.ts
 es/small-components-making-a-larger-whole/index.d.ts
 es/sneaker/index.d.ts
 es/snow/index.d.ts
+es/snowflake/index.d.ts
 es/social--work--01/index.d.ts
 es/social--work--02/index.d.ts
 es/social--worker/index.d.ts
@@ -819,11 +853,17 @@ es/subsecond/index.d.ts
 es/summit/index.d.ts
 es/sunny/index.d.ts
 es/sunny--hazy/index.d.ts
+es/supply-chain--01/index.d.ts
+es/supply-chain--02/index.d.ts
 es/supply--chain--optimization--01/index.d.ts
 es/supply--chain--optimization--02/index.d.ts
 es/support/index.d.ts
 es/support--services/index.d.ts
 es/sustainability/index.d.ts
+es/sustainability--02/index.d.ts
+es/sustainability--03/index.d.ts
+es/sustainability--04/index.d.ts
+es/sustainability--strategy/index.d.ts
 es/swipe--left/index.d.ts
 es/swipe--right/index.d.ts
 es/synergy/index.d.ts
@@ -900,6 +940,7 @@ es/trash/index.d.ts
 es/tree/index.d.ts
 es/tree--diagram/index.d.ts
 es/tree--map/index.d.ts
+es/trophy/index.d.ts
 es/troubleshooting/index.d.ts
 es/trousers/index.d.ts
 es/trust/index.d.ts
@@ -1032,6 +1073,7 @@ lib/argentina--obelisk/index.d.ts
 lib/art--tools--01/index.d.ts
 lib/asia--australia/index.d.ts
 lib/assessment-used/index.d.ts
+lib/asset-management/index.d.ts
 lib/assets/index.d.ts
 lib/atlanta/index.d.ts
 lib/audio-data/index.d.ts
@@ -1047,7 +1089,10 @@ lib/baby--bottle/index.d.ts
 lib/backpack/index.d.ts
 lib/badge/index.d.ts
 lib/bag/index.d.ts
+lib/balloon/index.d.ts
+lib/balloon--hot-air/index.d.ts
 lib/bangalore/index.d.ts
+lib/banking/index.d.ts
 lib/barcelona/index.d.ts
 lib/bee/index.d.ts
 lib/beijing--municipal/index.d.ts
@@ -1086,6 +1131,7 @@ lib/calendar--date/index.d.ts
 lib/calendar--event/index.d.ts
 lib/camera/index.d.ts
 lib/canada--maple-leaf/index.d.ts
+lib/candy/index.d.ts
 lib/capitol/index.d.ts
 lib/carbon--for-ibm-dotcom/index.d.ts
 lib/carbon--for-ibm-product/index.d.ts
@@ -1159,6 +1205,7 @@ lib/cloud--upload/index.d.ts
 lib/cloud--vmware/index.d.ts
 lib/cloud-pak--family/index.d.ts
 lib/cloud-pak--for-applications/index.d.ts
+lib/cloud-pak--for-business-automation/index.d.ts
 lib/cloud-pak--for-data/index.d.ts
 lib/cloud-pak--for-integration/index.d.ts
 lib/cloud-pak--for-multicloud-management/index.d.ts
@@ -1220,6 +1267,7 @@ lib/cookie/index.d.ts
 lib/copenhagen--planetarium/index.d.ts
 lib/copenhagen--snekkja/index.d.ts
 lib/coronavirus/index.d.ts
+lib/coupon/index.d.ts
 lib/credit--card/index.d.ts
 lib/crop/index.d.ts
 lib/cupcake/index.d.ts
@@ -1313,6 +1361,7 @@ lib/emergency--exit/index.d.ts
 lib/employee--insights/index.d.ts
 lib/encryption/index.d.ts
 lib/endpoint--protection/index.d.ts
+lib/energy--crisis/index.d.ts
 lib/engine/index.d.ts
 lib/enterprise--design--thinking--01/index.d.ts
 lib/enterprise--design--thinking--02/index.d.ts
@@ -1320,8 +1369,14 @@ lib/envelope/index.d.ts
 lib/erlenmeyer--flask/index.d.ts
 lib/escalator--down/index.d.ts
 lib/escalator--up/index.d.ts
+lib/esg-reporting--01/index.d.ts
+lib/esg-reporting--02/index.d.ts
 lib/europe--africa/index.d.ts
 lib/event-driven/index.d.ts
+lib/event--automation/index.d.ts
+lib/event--endpoint-management/index.d.ts
+lib/event--processing/index.d.ts
+lib/event--streams/index.d.ts
 lib/expand--horz/index.d.ts
 lib/expand--user/index.d.ts
 lib/expand--vert/index.d.ts
@@ -1361,9 +1416,11 @@ lib/financial--networks/index.d.ts
 lib/financial--news/index.d.ts
 lib/fire--alarm/index.d.ts
 lib/fire--extinguisher/index.d.ts
+lib/firecracker/index.d.ts
 lib/firefighter/index.d.ts
 lib/firewall/index.d.ts
 lib/first--aid/index.d.ts
+lib/flag/index.d.ts
 lib/flash--storage/index.d.ts
 lib/flashing--content/index.d.ts
 lib/flexibility/index.d.ts
@@ -1409,8 +1466,12 @@ lib/globe--locations/index.d.ts
 lib/go--language/index.d.ts
 lib/goals/index.d.ts
 lib/govern--users--and--identities/index.d.ts
+lib/government--01/index.d.ts
+lib/government--02/index.d.ts
 lib/graphic-intensive-workloads/index.d.ts
 lib/green-energy/index.d.ts
+lib/green-it--01/index.d.ts
+lib/green-it--02/index.d.ts
 lib/group/index.d.ts
 lib/growth/index.d.ts
 lib/guitar/index.d.ts
@@ -1420,6 +1481,7 @@ lib/hail--mixed/index.d.ts
 lib/hamburg--philharmone/index.d.ts
 lib/handicap/index.d.ts
 lib/handicap--active/index.d.ts
+lib/handshake/index.d.ts
 lib/hard--drive/index.d.ts
 lib/hard--drive--network/index.d.ts
 lib/hard--ice--cream/index.d.ts
@@ -1499,10 +1561,12 @@ lib/language--03/index.d.ts
 lib/language--04/index.d.ts
 lib/language--05/index.d.ts
 lib/language--translation/index.d.ts
+lib/lantern/index.d.ts
 lib/launch/index.d.ts
 lib/leader/index.d.ts
 lib/lift-and-shift/index.d.ts
 lib/lightning/index.d.ts
+lib/link/index.d.ts
 lib/list--bullet/index.d.ts
 lib/list--checkbox/index.d.ts
 lib/location/index.d.ts
@@ -1537,6 +1601,8 @@ lib/mas/index.d.ts
 lib/master--threat--hunting/index.d.ts
 lib/math--curve/index.d.ts
 lib/maximize/index.d.ts
+lib/medal--01/index.d.ts
+lib/medal--02/index.d.ts
 lib/medical/index.d.ts
 lib/medical--charts/index.d.ts
 lib/medical--staff/index.d.ts
@@ -1557,6 +1623,8 @@ lib/mobile--phone/index.d.ts
 lib/modernize/index.d.ts
 lib/monitor/index.d.ts
 lib/monitored--item--on--conveyor/index.d.ts
+lib/moon-cake/index.d.ts
+lib/moon--full/index.d.ts
 lib/mortar-and-pestle/index.d.ts
 lib/moscow/index.d.ts
 lib/movement--in--overlapping--networks/index.d.ts
@@ -1570,6 +1638,7 @@ lib/mri/index.d.ts
 lib/mri--patient/index.d.ts
 lib/multitask/index.d.ts
 lib/munich/index.d.ts
+lib/music/index.d.ts
 lib/natural--language--classifier/index.d.ts
 lib/natural--language--understanding/index.d.ts
 lib/network/index.d.ts
@@ -1610,6 +1679,7 @@ lib/optimize/index.d.ts
 lib/optimize--cash-flow--01/index.d.ts
 lib/optimize--cash-flow--02/index.d.ts
 lib/organization/index.d.ts
+lib/ornament/index.d.ts
 lib/overcast/index.d.ts
 lib/overview/index.d.ts
 lib/paper--clip/index.d.ts
@@ -1710,6 +1780,7 @@ lib/reset--settings/index.d.ts
 lib/resilience/index.d.ts
 lib/resource-health/index.d.ts
 lib/resources/index.d.ts
+lib/retail--sustainable/index.d.ts
 lib/retrieve--and--rank/index.d.ts
 lib/rich--text--format/index.d.ts
 lib/rio-de-janeiro/index.d.ts
@@ -1732,6 +1803,7 @@ lib/save-time/index.d.ts
 lib/scale/index.d.ts
 lib/scale--02/index.d.ts
 lib/scaling--containers/index.d.ts
+lib/scan-code/index.d.ts
 lib/scatter--matrix/index.d.ts
 lib/seattle/index.d.ts
 lib/secure--data/index.d.ts
@@ -1751,6 +1823,8 @@ lib/server--operating-systems/index.d.ts
 lib/server--rack/index.d.ts
 lib/serverless/index.d.ts
 lib/servers/index.d.ts
+lib/shanghai--oriental-pearl-tower/index.d.ts
+lib/shanghai--cityscape/index.d.ts
 lib/sharing-data/index.d.ts
 lib/shirt/index.d.ts
 lib/shop/index.d.ts
@@ -1763,6 +1837,7 @@ lib/slider/index.d.ts
 lib/small-components-making-a-larger-whole/index.d.ts
 lib/sneaker/index.d.ts
 lib/snow/index.d.ts
+lib/snowflake/index.d.ts
 lib/social--work--01/index.d.ts
 lib/social--work--02/index.d.ts
 lib/social--worker/index.d.ts
@@ -1804,11 +1879,17 @@ lib/subsecond/index.d.ts
 lib/summit/index.d.ts
 lib/sunny/index.d.ts
 lib/sunny--hazy/index.d.ts
+lib/supply-chain--01/index.d.ts
+lib/supply-chain--02/index.d.ts
 lib/supply--chain--optimization--01/index.d.ts
 lib/supply--chain--optimization--02/index.d.ts
 lib/support/index.d.ts
 lib/support--services/index.d.ts
 lib/sustainability/index.d.ts
+lib/sustainability--02/index.d.ts
+lib/sustainability--03/index.d.ts
+lib/sustainability--04/index.d.ts
+lib/sustainability--strategy/index.d.ts
 lib/swipe--left/index.d.ts
 lib/swipe--right/index.d.ts
 lib/synergy/index.d.ts
@@ -1885,6 +1966,7 @@ lib/trash/index.d.ts
 lib/tree/index.d.ts
 lib/tree--diagram/index.d.ts
 lib/tree--map/index.d.ts
+lib/trophy/index.d.ts
 lib/troubleshooting/index.d.ts
 lib/trousers/index.d.ts
 lib/trust/index.d.ts
