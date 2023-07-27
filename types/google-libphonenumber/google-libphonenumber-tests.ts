@@ -1,6 +1,11 @@
-
 import libphonenumber = require('google-libphonenumber');
-import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-libphonenumber';
+import {
+    PhoneNumberFormat,
+    PhoneNumberUtil,
+    AsYouTypeFormatter,
+    ShortNumberInfo,
+    RegionCode,
+} from 'google-libphonenumber';
 
 () => {
     // Require `PhoneNumberFormat`.
@@ -23,7 +28,7 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
     // Print number in the original format with specified region.
     console.log(phoneUtil.formatInOriginalFormat(phoneNumber, 'US'));
     // => (202) 456-1414
-}
+};
 
 () => {
     // Require `AsYouTypeFormatter`.
@@ -40,7 +45,7 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
     console.log(formatter.inputDigit('2')); // => (650) 253-22
 
     formatter.clear();
-}
+};
 
 // Get instance of `PhoneNumberUtil`
 var phoneNumberUtil = PhoneNumberUtil.getInstance();
@@ -50,3 +55,20 @@ phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number
 
 const aNumber = phoneNumberUtil.parse('+39 02-12345678', 'IT');
 phoneNumberUtil.getNationalSignificantNumber(aNumber); // $ExpectType string
+
+// Get instance of `ShortNumberInfo`
+const shortInfo = ShortNumberInfo.getInstance();
+const phoneNumber = phoneNumberUtil.parse('123456', 'FR');
+const regionCode: RegionCode = 'FR';
+
+shortInfo.isPossibleShortNumberForRegion(phoneNumber, regionCode); // $ExpectType boolean
+shortInfo.isPossibleShortNumber(phoneNumber); // $ExpectType boolean
+shortInfo.isValidShortNumberForRegion(phoneNumber, regionCode); // $ExpectType boolean
+shortInfo.isValidShortNumber(phoneNumber); // $ExpectType boolean
+shortInfo.getExpectedCostForRegion(phoneNumber, regionCode); // $ExpectType ShortNumberCost
+shortInfo.getExpectedCost(phoneNumber); // $ExpectType ShortNumberCost
+shortInfo.connectsToEmergencyNumber('911', 'US'); // $ExpectType boolean
+shortInfo.isEmergencyNumber('911', 'US'); // $ExpectType boolean
+shortInfo.isCarrierSpecific(phoneNumber); // $ExpectType boolean
+shortInfo.isCarrierSpecificForRegion(phoneNumber, regionCode); // $ExpectType boolean
+shortInfo.isSmsServiceForRegion(phoneNumber, regionCode); // $ExpectType boolean
