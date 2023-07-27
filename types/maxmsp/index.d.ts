@@ -1683,6 +1683,11 @@ declare class MGraphics {
     autofill: number;
 
     /**
+     * Array of two values width and height of the jsui object in the maxpat
+     */
+    size: [number, number];
+
+    /**
      * The init routine is the first thing that an mgraphics-based Javascript program needs to call. It initializes the library, sets up the internal mgraphics variables and prepares the jsui object
      * for drawing.
      */
