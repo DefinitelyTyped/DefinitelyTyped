@@ -33,7 +33,6 @@ import {
     AdvocateMask,
     UserMask,
 } from "@carbon/pictograms-react";
-import UnauthorizedUserAccess from "@carbon/pictograms-react/es/unauthorized--user--access";
 
 <Airplane />; // $ExpectType Element
 <Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element
@@ -68,4 +67,3 @@ import UnauthorizedUserAccess from "@carbon/pictograms-react/es/unauthorized--us
 <MovingDolly />; // $ExpectType Element
 <AdvocateMask />; // $ExpectType Element
 <UserMask />; // $ExpectType Element
-<UnauthorizedUserAccess />; // $ExpectType Element
