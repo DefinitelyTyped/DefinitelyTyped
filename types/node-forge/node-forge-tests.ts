@@ -15,13 +15,17 @@ forge.pki.setRsaPrivateKey(
 );
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
+let privateKeyAsn1 = forge.pki.privateKeyToAsn1(keypair.privateKey);
+let publicKeyAsn1 = forge.pki.publicKeyToAsn1(keypair.publicKey);
 let publicKeyRSAPem: forge.pki.PEM = forge.pki.publicKeyToRSAPublicKeyPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
+let publicKeyFromAsn1 = forge.pki.publicKeyFromAsn1(publicKeyAsn1);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
+let privateKeyFromAsn1 = forge.pki.privateKeyFromAsn1(privateKeyAsn1);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
@@ -779,6 +783,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let plainText = 'content';
     let cipher = publicKeyRsa.encrypt(plainText);
     let result = privateKeyRsa.decrypt(cipher);
+    if (result !== plainText) {
+        throw new Error('decrypt result not match');
+    }
+}
+{
+    let plainText = 'content';
+    let cipher = publicKeyFromAsn1.encrypt(plainText);
+    let result = privateKeyFromAsn1.decrypt(cipher);
     if (result !== plainText) {
         throw new Error('decrypt result not match');
     }
