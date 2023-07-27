@@ -2,13 +2,14 @@
 // Project: https://github.com/pracucci/node-cidr-matcher
 // Definitions by: Sam Murphy <https://github.com/SamMurphyDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare class Matcher {
     /**
      * Constructs a matcher for a list of CIDR ranges
      *
      * @param cidrRanges - list of IPv4 & IPv6 CIDR ranges
      */
-    constructor(cidrRanges: readonly string[]);
+    constructor(cidrRanges?: readonly string[]);
 
     /**
      * Does the CIDR ranges include the IP address
