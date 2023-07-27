@@ -1,13 +1,12 @@
-import katex, { KatexOptions } from 'katex';
-import renderMathInElement, { RenderMathInElementOptions } from 'katex/contrib/auto-render';
-import katexReplaceWithTex from 'katex/contrib/katex2tex';
+import katex = require('katex');
+import renderMathInElement = require('katex/contrib/auto-render');
 
 class KatexTest {
     constructor() {
         katex.render('My Latex String', document.createElement('div'));
 
         try {
-            let options: KatexOptions = {
+            let options: katex.KatexOptions = {
                 throwOnError: true,
             };
             let value: string = katex.renderToString('My Latex String', options);
@@ -17,7 +16,7 @@ class KatexTest {
             }
         }
 
-        const renderMathInElementOptions: RenderMathInElementOptions = {
+        const renderMathInElementOptions: renderMathInElement.RenderMathInElementOptions = {
             delimiters: [
                 { left: '$$', right: '$$', display: true },
                 { left: '\\[', right: '\\]', display: true },
@@ -37,21 +36,5 @@ class KatexTest {
         const range = document.createRange();
         range.selectNode(container);
         const fragment = range.cloneContents();
-        katexReplaceWithTex(fragment, {
-            inline: ['$', '$'],
-            display: ['$$', '$$'],
-        }).textContent;
-        katexReplaceWithTex(fragment, {
-            inline: ['(', ')'],
-            display: ['[', ']'],
-        }).textContent;
-        katexReplaceWithTex(fragment, {
-            inline: ['$', '$'],
-            display: ['[', ']'],
-        }).textContent;
-        katexReplaceWithTex(fragment, {
-            inline: ['(', ')'],
-            display: ['$$', '$$'],
-        }).textContent;
     }
 }
