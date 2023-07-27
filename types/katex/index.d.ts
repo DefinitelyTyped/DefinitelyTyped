@@ -9,9 +9,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TrustContext {
-    command: string
-    url: string
-    protocol: string
+    command: string;
+    url: string;
+    protocol: string;
 }
 
 /** Documentation: https://katex.org/docs/options.html */
@@ -132,6 +132,9 @@ export interface KatexOptions {
     globalGroup?: boolean | undefined;
 }
 
+/**
+ * KaTeX error, usually during parsing.
+ */
 export class ParseError implements Error {
     constructor(message: string, lexer: any, position: number);
 
@@ -140,26 +143,19 @@ export class ParseError implements Error {
     position: number;
 }
 
-declare const katex: {
-    /**
-     * Renders a TeX expression into the specified DOM element
-     * @param tex A TeX expression
-     * @param element The DOM element to render into
-     * @param options KaTeX options
-     */
-    render: (tex: string, element: HTMLElement, options?: KatexOptions) => void,
+/**
+ * Renders a TeX expression into the specified DOM element
+ * @param tex A TeX expression
+ * @param element The DOM element to render into
+ * @param options KaTeX options
+ */
+export function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
 
-    /**
-     * Renders a TeX expression into an HTML string
-     * @param tex A TeX expression
-     * @param options KaTeX options
-     */
-    renderToString: (tex: string, options?: KatexOptions) => string,
+/**
+ * Renders a TeX expression into an HTML string
+ * @param tex A TeX expression
+ * @param options KaTeX options
+ */
+export function renderToString(tex: string, options?: KatexOptions): string;
 
-    /**
-     * KaTeX error, usually during parsing.
-     */
-    ParseError: typeof ParseError,
-}
-
-export default katex;
+export as namespace katex;
