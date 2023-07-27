@@ -38,6 +38,11 @@ export interface Bitmap {
     data: Buffer;
 }
 
+export interface SvgObject {
+    size: number;
+    path: string;
+}
+
 export interface Options {
     // error correction level. One of L, M, Q, H. Default M.
     ec_level?: ec_level | undefined;
@@ -61,7 +66,7 @@ export function image(text: string, options?: Options): NodeJS.ReadableStream;
 export function imageSync(text: string, level?: ec_level): Buffer;
 export function imageSync(text: string, options?: Options): string | Buffer;
 
-export function svgObject(text: string, level?: ec_level): any;
-export function svgObject(text: string, options?: Options): any;
+export function svgObject(text: string, level?: ec_level): SvgObject;
+export function svgObject(text: string, options?: Options): SvgObject;
 
 export function matrix(text: string, level?: ec_level): any[][];
