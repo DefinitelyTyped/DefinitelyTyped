@@ -359,7 +359,7 @@ declare namespace libphonenumber {
         isSmsServiceForRegion(number: PhoneNumber, regionDialingFrom: string): boolean;
     }
 
-    export type RegionCodeUnknown = 'ZZ'
+    export type RegionCodeUnknown = 'ZZ';
     export type RegionCode =
         | 'AC'
         | 'AD'
