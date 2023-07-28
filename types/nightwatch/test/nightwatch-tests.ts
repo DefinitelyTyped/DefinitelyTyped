@@ -90,6 +90,9 @@ const testGeneral: NightwatchTests = {
             }
             isNightwatchAPI(this);
         });
+
+        // check types on browser.options
+        isType<string | string[] | undefined>(browser.options.tag_filter);
     },
 
     'Demo Nightwatch API commands with async/await': async () => {

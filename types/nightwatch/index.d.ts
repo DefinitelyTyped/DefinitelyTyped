@@ -595,6 +595,12 @@ export interface NightwatchOptions {
     skiptags?: string;
 
     /**
+     * Tag(s) used/to be used during test execution.
+     * Can be a single tag or an array of tags.
+     */
+    tag_filter?: string | string[];
+
+    /**
      * Use xpath as the default locator strategy.
      */
     use_xpath?: boolean;
@@ -1810,7 +1816,7 @@ export interface NightwatchAPI
      */
     setSessionId(sessionId: string): this;
 
-    options: NightwatchTestOptions;
+    options: NightwatchOptions & Pick<NightwatchTestOptions, "desiredCapabilities">;
 
     Keys: NightwatchKeys;
 
