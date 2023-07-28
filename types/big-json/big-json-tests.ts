@@ -10,12 +10,10 @@ import type { Stream } from 'node:stream';
 const promisifiedStringifiedJson = bigJson.stringify({ body: { a: 'abc' } });
 
 // $ExpectType void
-bigJson.stringify({ body: { a: 'abc' } },
-  (str: string): void => {
+bigJson.stringify({ body: { a: 'abc' } }, (str: string): void => {
     // $ExpectType string
     str;
-  }
-);
+});
 
 // @ts-expect-error
 bigJson.stringify({ a: 'abc' });
@@ -30,12 +28,10 @@ bigJson.stringify({ body: 'abc' });
 const promisifedParseJson = bigJson.parse({ body: '{ "a": "abc" }' });
 
 // $ExpectType void
-bigJson.parse({ body: '{ "a": "abc" }' },
-  (result: object): void => {
+bigJson.parse({ body: '{ "a": "abc" }' }, (result: object): void => {
     // $ExpectType object
     result;
-  }
-);
+});
 
 // @ts-expect-error
 bigJson.parse('{ "a": "abc" }');

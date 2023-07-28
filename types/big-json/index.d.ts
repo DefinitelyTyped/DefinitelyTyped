@@ -11,22 +11,16 @@ declare function createParseStream(): Stream;
 declare function createStringifyStream(opts: { body: object }): Stream;
 
 declare function parse(opts: { body: string }): Promise<object | ReadonlyArray<object>>;
-declare function parse(
-    opts: { body: string },
-    callback: (result: object | ReadonlyArray<object>) => void,
-): void;
+declare function parse(opts: { body: string }, callback: (result: object | ReadonlyArray<object>) => void): void;
 
 declare function stringify(opts: { body: object }): Promise<string>;
-declare function stringify(
-    opts: { body: object },
-    callback: (result: string) => void,
-): void;
+declare function stringify(opts: { body: object }, callback: (result: string) => void): void;
 
 declare const exported: {
-    createParseStream: typeof createParseStream,
-    createStringifyStream: typeof createStringifyStream,
-    parse: typeof parse,
-    stringify: typeof stringify,
+    createParseStream: typeof createParseStream;
+    createStringifyStream: typeof createStringifyStream;
+    parse: typeof parse;
+    stringify: typeof stringify;
 };
 
 export default exported;
