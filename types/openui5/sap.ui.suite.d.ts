@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -190,7 +190,7 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -403,12 +403,6 @@ declare module "sap/ui/suite/TaskCircle" {
 
   export interface TaskCircle$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TaskCircle$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TaskCirclePressEventParameters = TaskCircle$PressEventParameters;
-
   export type TaskCircle$PressEvent = Event<TaskCircle$PressEventParameters>;
 }
 
@@ -579,7 +573,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -680,12 +674,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   }
 
   export interface VerticalProgressIndicator$PressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VerticalProgressIndicator$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VerticalProgressIndicatorPressEventParameters = VerticalProgressIndicator$PressEventParameters;
 
   export type VerticalProgressIndicator$PressEvent = Event<VerticalProgressIndicator$PressEventParameters>;
 }

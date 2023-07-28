@@ -1,8 +1,25 @@
 /**
+ * To use any constant, import the `constants` object from the photoshop module first.
+ *
+ * ```javascript
+ * const {app, constants} = require("photoshop");
+ *
+ * await app.activeDocument.resizeImage(
+ *     800, 600, 100,
+ *     constants.InterpolationMethod.AUTOMATIC
+ * );
+ * ```
+ */
+/**
  * The method to use for bitmap interpolation.
  *
- * Pass to [[PreferencesGeneral.imageInterpolation]],
- * [[Layer.scale]](), [[Layer.skew]](), [[Layer.rotate]]()
+ * Pass to
+ * - [[PreferencesGeneral.imageInterpolation]]
+ * - [[Layer.scale]]()
+ * - [[Layer.skew]]()
+ * - [[Layer.rotate]]()
+ * - [[Selection.resizeBoundary]]()
+ * - [[Selection.rotateBoundary]]()
  *
  * @minVersion 24.0
  */
@@ -751,7 +768,7 @@ export declare enum PathKind {
 }
 /**
  * The selection behavior when a selection already exists.
- * Used in [[PathItem.makeSelection]]()
+ * Used in [[PathItem.makeSelection]](), [[Selection.saveTo]]() and [[Selection.load]]()
  * @minVersion 23.3
  */
 export declare enum SelectionType {
