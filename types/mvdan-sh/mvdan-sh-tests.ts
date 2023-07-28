@@ -1,5 +1,6 @@
 import sh = require('mvdan-sh');
 import { LangVariant, Node } from 'mvdan-sh';
+import assert = require('assert');
 
 // LangVariant isn't really exported by `mvdan-sh`.
 // Therefore, it's value is expected to not be accessible.
@@ -61,4 +62,49 @@ try {
     parser.Parse("echo ${", "src");
 } catch (err) {
     syntax.IsIncomplete(err); // $ExpectType boolean
+}
+
+// Test Commands
+// The shell commands are ported from https://github.com/mvdan/sh/blob/master/syntax/canonical.sh
+const commands = [
+    '! foo bar >a &',
+    'foo() { bar; }',
+    `{
+        var1="some long value" # var1 comment
+        var2=short             # var2 comment
+    }`,
+    'if foo; then bar; fi',
+    `for foo in a b c; do
+        bar
+    done`,
+    `case $foo in
+    a) A ;;
+    b)
+        B
+        ;;
+    esac`,
+    'foo | bar',
+    `foo &&
+        $(bar) &&
+        (more)`,
+    'foo 2>&1',
+    '$((3 + 4))'
+];
+
+const expect = [
+    'CallExpr',
+    'FuncDecl',
+    'Block',
+    'IfClause',
+    'ForClause',
+    'CaseClause',
+    'BinaryCmd',
+    'BinaryCmd',
+    'CallExpr',
+    'CallExpr'
+];
+
+for (let i = 0; i < commands.length; i++) {
+    const stmt = parser.Parse(commands[i]).Stmts[0]!.Cmd;
+    assert.strictEqual(syntax.NodeType(stmt), expect[i]);
 }
