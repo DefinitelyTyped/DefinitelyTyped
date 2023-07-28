@@ -10,8 +10,11 @@ import type { Stream } from 'node:stream';
 declare function createParseStream(): Stream;
 declare function createStringifyStream(opts: { body: object }): Stream;
 
-declare function parse(opts: { body: string }): Promise<object | ReadonlyArray<object>>;
-declare function parse(opts: { body: string }, callback: (result: object | ReadonlyArray<object>) => void): void;
+declare function parse(opts: { body: string | Buffer }): Promise<object | ReadonlyArray<object>>;
+declare function parse(
+    opts: { body: string | Buffer },
+    callback: (result: object | ReadonlyArray<object>) => void,
+): void;
 
 declare function stringify(opts: { body: object }): Promise<string>;
 declare function stringify(opts: { body: object }, callback: (result: string) => void): void;

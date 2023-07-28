@@ -25,6 +25,9 @@ bigJson.stringify({ body: 'abc' });
 // $ExpectType Promise<object | readonly object[]>
 const promisifedParseJson = bigJson.parse({ body: '{ "a": "abc" }' });
 
+// $ExpectType Promise<object | readonly object[]>
+const promisifiedBufferParsedJson = bigJson.parse({ body: Buffer.from('{ "a": "abc" }') });
+
 // $ExpectType void
 bigJson.parse({ body: '{ "a": "abc" }' }, (result: object): void => {
     // $ExpectType object
