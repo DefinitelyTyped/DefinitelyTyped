@@ -63,8 +63,8 @@ app.use(ctx => {
     ctx.is(''); // $ExpectType string | false | null
     ctx.is(['']); // $ExpectType string | false | null
 
-    ctx.vary("Origin");
-    ctx.vary(["Origin", "User-Agent"]);
+    ctx.vary("Origin"); // $ExpectType void
+    ctx.vary(["Origin", "User-Agent"]); // $ExpectType void
 });
 
 // response
