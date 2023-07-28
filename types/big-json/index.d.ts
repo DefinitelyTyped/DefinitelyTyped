@@ -7,17 +7,17 @@
 
 import type { Stream } from 'node:stream';
 
-declare function createParseStream(): Stream;
-declare function createStringifyStream(opts: { body: object }): Stream;
+export declare function createParseStream(): Stream;
+export declare function createStringifyStream(opts: { body: object }): Stream;
 
-declare function parse(opts: { body: string | Buffer }): Promise<object | ReadonlyArray<object>>;
-declare function parse(
+export declare function parse(opts: { body: string | Buffer }): Promise<object | ReadonlyArray<object>>;
+export declare function parse(
     opts: { body: string | Buffer },
     callback: (result: object | ReadonlyArray<object>) => void,
 ): void;
 
-declare function stringify(opts: { body: object }): Promise<string>;
-declare function stringify(opts: { body: object }, callback: (result: string) => void): void;
+export declare function stringify(opts: { body: object }): Promise<string>;
+export declare function stringify(opts: { body: object }, callback: (result: string) => void): void;
 
 declare const exported: {
     createParseStream: typeof createParseStream;
