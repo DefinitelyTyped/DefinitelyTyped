@@ -24,9 +24,14 @@ const colorValue = myDict.get('color');
 const keys = myDict.getkeys();
 
 // File usage example
-const file = new File('test.txt', 'write', 'TEXT');
+let file = new File('test.txt', 'write', 'TEXT');
 file.writeline('This is a test.');
 file.writestring('Some random text.');
+file.close();
+
+file = new File('test.txt');
+file.readline();
+file.readline(2);
 file.close();
 
 // Folder usage example
@@ -156,6 +161,7 @@ testmax.showcursor();
 testmax.showmenubar();
 testmax.size();
 testmax.system('windows', 'my_message');
+testmax.message("hidecursor");
 testmax.useslowbutcompletesearching(1);
 
 // Create a new Maxobj
@@ -353,7 +359,8 @@ myMGraphics.show_text('Hello');
 myMGraphics.text_path('Hello');
 const fontExtents = myMGraphics.font_extents();
 post(fontExtents);
-const textMeasure = myMGraphics.text_measure();
+const textMeasure = myMGraphics.text_measure("my-string");
+const [width, height] = textMeasure;
 post(textMeasure);
 const fontlist = myMGraphics.getfontlist();
 post(fontlist);

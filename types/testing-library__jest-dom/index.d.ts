@@ -17,6 +17,6 @@ declare global {
     }
 }
 
-declare module "expect" {
+declare module 'expect' {
     interface Matchers<R = void, T = unknown> extends TestingLibraryMatchers<typeof expect.stringContaining, R> {}
 }
