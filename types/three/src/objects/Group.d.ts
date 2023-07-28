@@ -24,7 +24,7 @@ import { Object3D } from './../core/Object3D.js';
  */
 export class Group extends Object3D {
     /**
-     * Creates a new {@link Bone}.
+     * Creates a new {@link Group}.
      */
     constructor();
 

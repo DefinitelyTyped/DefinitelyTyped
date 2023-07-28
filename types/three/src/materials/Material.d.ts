@@ -1,7 +1,7 @@
-import { Plane } from './../math/Plane.js';
-import { EventDispatcher } from './../core/EventDispatcher.js';
-import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
-import { Shader } from './../renderers/shaders/ShaderLib.js';
+import { Plane } from '../math/Plane.js';
+import { EventDispatcher } from '../core/EventDispatcher.js';
+import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
+import { Shader } from '../renderers/shaders/ShaderLib.js';
 import {
     BlendingDstFactor,
     BlendingEquation,
@@ -135,7 +135,7 @@ export class Material extends EventDispatcher {
      * See the WebGL / clipping /intersection example. Default is null.
      * @default null
      */
-    clippingPlanes: any;
+    clippingPlanes: Plane[];
 
     /**
      * Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
