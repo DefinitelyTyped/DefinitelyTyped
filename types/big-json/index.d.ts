@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import type { Stream } from 'stream';
+import type { Stream } from 'node:stream';
 
 declare function createParseStream(): Stream;
 declare function createStringifyStream(opts: { body: object }): Stream;
