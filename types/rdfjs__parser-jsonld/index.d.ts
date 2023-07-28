@@ -4,7 +4,7 @@
 //                 tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Context } from 'jsonld/jsonld-spec';
+import { Context } from 'jsonld/jsonld-spec.js';
 import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 import { EventEmitter } from 'events';
 
