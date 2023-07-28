@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import bigJson from 'big-json';
 import type { Stream } from 'node:stream';
 
