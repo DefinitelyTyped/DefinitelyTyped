@@ -1,15 +1,20 @@
 import sh = require('mvdan-sh');
-import { LangVariant, Node } from 'mvdan-sh';
+import { LangVariant, ParNamesOperator, Node } from 'mvdan-sh';
 import assert = require('assert');
 
-// LangVariant isn't really exported by `mvdan-sh`.
+// LangVariant/Token/RedirOperator/... isn't really exported by `mvdan-sh`.
 // Therefore, it's value is expected to not be accessible.
-// This statement should cause an error:
+// These statements should cause an error:
 // @ts-expect-error
 LangVariant;
+// @ts-expect-error
+Token;
+// @ts-expect-error
+RedirOperator;
 
-// However, this statement should work:
+// However, these statements should work:
 const variant = LangVariant.LangBash;
+const operator = ParNamesOperator.NamesPrefix;
 
 const { syntax } = sh;
 
@@ -108,3 +113,6 @@ for (let i = 0; i < commands.length; i++) {
     const stmt = parser.Parse(commands[i]).Stmts[0]!.Cmd;
     assert.strictEqual(syntax.NodeType(stmt), expect[i]);
 }
+
+// Test operators
+assert.strictEqual(operator, 0x26);
