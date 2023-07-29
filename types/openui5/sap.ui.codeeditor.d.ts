@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -221,7 +221,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -234,7 +234,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       mParameters?: CodeEditor$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -657,12 +657,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: (oEvent: Event<CodeEditor$LiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: CodeEditor$LiveChangeEvent) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: (oEvent: Event<CodeEditor$ChangeEventParameters>) => void;
+    change?: (oEvent: CodeEditor$ChangeEvent) => void;
   }
 
   export interface CodeEditor$ChangeEventParameters {
@@ -677,12 +677,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     oldValue?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CodeEditor$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CodeEditorChangeEventParameters = CodeEditor$ChangeEventParameters;
-
   export type CodeEditor$ChangeEvent = Event<CodeEditor$ChangeEventParameters>;
 
   export interface CodeEditor$LiveChangeEventParameters {
@@ -696,12 +690,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     editorEvent?: object;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CodeEditor$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CodeEditorLiveChangeEventParameters = CodeEditor$LiveChangeEventParameters;
 
   export type CodeEditor$LiveChangeEvent = Event<CodeEditor$LiveChangeEventParameters>;
 }

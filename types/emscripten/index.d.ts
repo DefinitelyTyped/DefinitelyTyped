@@ -80,6 +80,8 @@ interface EmscriptenModule {
     HEAPU32: Uint32Array;
     HEAPF32: Float32Array;
     HEAPF64: Float64Array;
+    HEAP64: BigInt64Array;
+    HEAPU64: BigUint64Array;
 
     TOTAL_STACK: number;
     TOTAL_MEMORY: number;

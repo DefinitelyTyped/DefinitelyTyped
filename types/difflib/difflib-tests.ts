@@ -1,7 +1,23 @@
 import { Differ, SequenceMatcher, contextDiff, unifiedDiff } from 'difflib';
 
 const sequenceMatcher = new SequenceMatcher(null, ['first', 'second'], ['third', 'fourth']);
+// $ExpectType ((char: string) => boolean) | undefined
+const setSeqs = sequenceMatcher.setSeqs(['five', 'six'], ['seven', 'eight']);
+// $ExpectType null | undefined
+const setSeq1 = sequenceMatcher.setSeq1(['nine', 'ten']);
+// $ExpectType ((char: string) => boolean) | undefined
+const setSeq2 = sequenceMatcher.setSeq2(['eleven', 'twelve']);
+// $ExpectType [number, number, number]
+const longestMatch = sequenceMatcher.findLongestMatch(0, 1, 0, 1);
+// $ExpectType [number, number, number][]
+const matchingBlocks = sequenceMatcher.getMatchingBlocks();
 sequenceMatcher.getOpcodes();
+// $ExpectType number
+const ratio = sequenceMatcher.ratio();
+// $ExpectType number
+const quickRatio = sequenceMatcher.quickRatio();
+// $ExpectType number
+const realQuickRatio = sequenceMatcher.realQuickRatio();
 
 const differ = new Differ();
 // $ExpectType string[]

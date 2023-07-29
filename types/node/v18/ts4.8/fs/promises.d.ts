@@ -14,6 +14,7 @@ declare module 'fs/promises' {
     import { ReadableStream } from 'node:stream/web';
     import {
         BigIntStats,
+        BigIntStatsFs,
         BufferEncodingOption,
         constants as fsConstants,
         CopyOptions,
@@ -30,7 +31,9 @@ declare module 'fs/promises' {
         RmDirOptions,
         RmOptions,
         StatOptions,
+        StatFsOptions,
         Stats,
+        StatsFs,
         TimeLike,
         WatchEventType,
         WatchOptions,
@@ -79,6 +82,13 @@ declare module 'fs/promises' {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+    }
+    interface ReadableWebStreamOptions {
+        /**
+         * Whether to open a normal or a `'bytes'` stream.
+         * @since v18.17.0
+         */
+        type?: 'bytes' | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -236,7 +246,7 @@ declare module 'fs/promises' {
          * @since v17.0.0
          * @experimental
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -630,6 +640,7 @@ declare module 'fs/promises' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -645,6 +656,7 @@ declare module 'fs/promises' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Promise<Buffer[]>;
@@ -658,6 +670,7 @@ declare module 'fs/promises' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -671,6 +684,7 @@ declare module 'fs/promises' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Promise<Dirent[]>;
     /**
@@ -745,6 +759,24 @@ declare module 'fs/promises' {
         }
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
+    /**
+     * @since v18.15.0
+     * @return Fulfills with an {fs.StatFs} for the file system.
+     */
+    function statfs(
+        path: PathLike,
+        opts?: StatFsOptions & {
+            bigint?: false | undefined;
+        }
+    ): Promise<StatsFs>;
+    function statfs(
+        path: PathLike,
+        opts: StatFsOptions & {
+            bigint: true;
+        }
+    ): Promise<BigIntStatsFs>;
+    function statfs(path: PathLike, opts?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
+
     /**
      * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.
      * @since v10.0.0
