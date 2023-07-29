@@ -22,7 +22,7 @@ declare namespace postcssClamp {
          *     width: max(10em, 14px);
          * }
          * ```
-         * @see {@link <https://github.com/polemius/postcss-clamp/tree/master#precalculate>}
+         * @see {@link <https://github.com/polemius/postcss-clamp#precalculate>}
          */
         precalculate?: boolean | undefined;
         /** @default false */
