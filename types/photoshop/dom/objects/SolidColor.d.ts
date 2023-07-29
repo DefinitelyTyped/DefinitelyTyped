@@ -2,6 +2,11 @@ import * as Colors from './Colors';
 import { ColorModel } from '../Constants';
 /**
  * Represents a color, and allows for mapping into all available Photoshop color models.
+ * Import SolidColor from the Photoshop's app object:
+ *
+ * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
+ * ```
  *
  * When a property is accessed (either via read or write), the current color model
  * of the SolidColor objects gets set to the space of the accessor. Photoshop internally
@@ -40,6 +45,11 @@ import { ColorModel } from '../Constants';
  * @minVersion 23.0
  */
 export declare class SolidColor {
+    /**
+     * The class name of the referenced object: *"SolidColor"*.
+     * @minVersion 24.2
+     */
+    get typename(): "SolidColor";
     /**
      * The color's representation in RGB color space.
      *
@@ -101,9 +111,4 @@ export declare class SolidColor {
      * @minVersion 23.0
      */
     constructor(model?: ColorModel);
-    /**
-     * The class name of the referenced object: *"SolidColor"*.
-     * @minVersion 24.2
-     */
-    get typename(): "SolidColor";
 }

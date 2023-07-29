@@ -3,6 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
+            "es2020",
             "dom"
         ],
         "noImplicitAny": true,

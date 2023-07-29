@@ -693,6 +693,20 @@ function elementTypeTests() {
     };
     const FCWithLegacyContext: React.FC<{ foo: string }> = ReturnWithLegacyContext;
 
+    class RenderWithLegacyContext extends React.Component {
+        static contextTypes = { foo: PropTypes.node.isRequired };
+
+        constructor(props: {}, context: {}) {
+            super(props, context);
+        }
+
+        render() {
+            // $ExpectType unknown
+            this.context;
+            return (this.context as any).foo;
+        }
+    }
+
     // Desired behavior.
     // @ts-expect-error
     <ReturnVoid />;
@@ -776,6 +790,9 @@ function elementTypeTests() {
 
     <ReturnWithLegacyContext foo="one" />;
     React.createElement(ReturnWithLegacyContext, {foo: 'one'});
+
+    <RenderWithLegacyContext />;
+    React.createElement(RenderWithLegacyContext);
 }
 
 function managingRefs() {

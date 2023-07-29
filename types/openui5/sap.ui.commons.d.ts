@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.116.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -930,7 +930,7 @@ declare module "sap/ui/commons/Accordion" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionClose sectionClose} to attached listeners.
      *
@@ -943,7 +943,7 @@ declare module "sap/ui/commons/Accordion" {
       mParameters?: Accordion$SectionCloseEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionOpen sectionOpen} to attached listeners.
      *
@@ -956,7 +956,7 @@ declare module "sap/ui/commons/Accordion" {
       mParameters?: Accordion$SectionOpenEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionsReorder sectionsReorder} to attached listeners.
      *
@@ -1102,21 +1102,17 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * Event is triggered when the user opens a section.
      */
-    sectionOpen?: (oEvent: Event<Accordion$SectionOpenEventParameters>) => void;
+    sectionOpen?: (oEvent: Accordion$SectionOpenEvent) => void;
 
     /**
      * Event is triggered when the user closes a section.
      */
-    sectionClose?: (
-      oEvent: Event<Accordion$SectionCloseEventParameters>
-    ) => void;
+    sectionClose?: (oEvent: Accordion$SectionCloseEvent) => void;
 
     /**
      * Event is triggered when the user changes the position of a section.
      */
-    sectionsReorder?: (
-      oEvent: Event<Accordion$SectionsReorderEventParameters>
-    ) => void;
+    sectionsReorder?: (oEvent: Accordion$SectionsReorderEvent) => void;
   }
 
   export interface Accordion$SectionCloseEventParameters {
@@ -1125,12 +1121,6 @@ declare module "sap/ui/commons/Accordion" {
      */
     closeSectionId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Accordion$SectionCloseEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $AccordionSectionCloseEventParameters = Accordion$SectionCloseEventParameters;
 
   export type Accordion$SectionCloseEvent = Event<Accordion$SectionCloseEventParameters>;
 
@@ -1146,12 +1136,6 @@ declare module "sap/ui/commons/Accordion" {
     closeSectionIds?: string[];
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Accordion$SectionOpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $AccordionSectionOpenEventParameters = Accordion$SectionOpenEventParameters;
-
   export type Accordion$SectionOpenEvent = Event<Accordion$SectionOpenEventParameters>;
 
   export interface Accordion$SectionsReorderEventParameters {
@@ -1165,12 +1149,6 @@ declare module "sap/ui/commons/Accordion" {
      */
     newIndex?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Accordion$SectionsReorderEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $AccordionSectionsReorderEventParameters = Accordion$SectionsReorderEventParameters;
 
   export type Accordion$SectionsReorderEvent = Event<Accordion$SectionsReorderEventParameters>;
 }
@@ -1337,7 +1315,7 @@ declare module "sap/ui/commons/AccordionSection" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
@@ -1532,7 +1510,7 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * Event is fired when the user scrolls the panel
      */
-    scroll?: (oEvent: Event<AccordionSection$ScrollEventParameters>) => void;
+    scroll?: (oEvent: AccordionSection$ScrollEvent) => void;
   }
 
   export interface AccordionSection$ScrollEventParameters {
@@ -1546,12 +1524,6 @@ declare module "sap/ui/commons/AccordionSection" {
      */
     top?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'AccordionSection$ScrollEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $AccordionSectionScrollEventParameters = AccordionSection$ScrollEventParameters;
 
   export type AccordionSection$ScrollEvent = Event<AccordionSection$ScrollEventParameters>;
 }
@@ -1697,7 +1669,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:logoff logoff} to attached listeners.
      *
@@ -1867,12 +1839,6 @@ declare module "sap/ui/commons/ApplicationHeader" {
   }
 
   export interface ApplicationHeader$LogoffEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ApplicationHeader$LogoffEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ApplicationHeaderLogoffEventParameters = ApplicationHeader$LogoffEventParameters;
 
   export type ApplicationHeader$LogoffEvent = Event<ApplicationHeader$LogoffEventParameters>;
 }
@@ -2217,7 +2183,7 @@ declare module "sap/ui/commons/AutoComplete" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -2307,7 +2273,7 @@ declare module "sap/ui/commons/AutoComplete" {
     /**
      * Fired when the user has changed the value and a suggestion list update should occur.
      */
-    suggest?: (oEvent: Event<AutoComplete$SuggestEventParameters>) => void;
+    suggest?: (oEvent: AutoComplete$SuggestEvent) => void;
   }
 
   export interface AutoComplete$SuggestEventParameters {
@@ -2316,12 +2282,6 @@ declare module "sap/ui/commons/AutoComplete" {
      */
     suggestValue?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'AutoComplete$SuggestEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $AutoCompleteSuggestEventParameters = AutoComplete$SuggestEventParameters;
 
   export type AutoComplete$SuggestEvent = Event<AutoComplete$SuggestEventParameters>;
 }
@@ -3042,7 +3002,7 @@ declare module "sap/ui/commons/Button" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -3059,7 +3019,7 @@ declare module "sap/ui/commons/Button" {
      */
     focus(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -3532,12 +3492,6 @@ declare module "sap/ui/commons/Button" {
   }
 
   export interface Button$PressEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Button$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ButtonPressEventParameters = Button$PressEventParameters;
 
   export type Button$PressEvent = Event<Button$PressEventParameters>;
 }
@@ -4049,7 +4003,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -4065,7 +4019,7 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: CalloutBase$BeforeOpenEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -4078,7 +4032,7 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -4092,7 +4046,7 @@ declare module "sap/ui/commons/CalloutBase" {
     ): this;
     /**
      * @since 1.11.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -4126,7 +4080,7 @@ declare module "sap/ui/commons/CalloutBase" {
     /**
      * The event is fired when the popup is opened.
      */
-    open?: (oEvent: Event<CalloutBase$OpenEventParameters>) => void;
+    open?: (oEvent: CalloutBase$OpenEvent) => void;
 
     /**
      * Event is fired when the Callout window is closed.
@@ -4137,7 +4091,7 @@ declare module "sap/ui/commons/CalloutBase" {
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
      */
-    beforeOpen?: (oEvent: Event<CalloutBase$BeforeOpenEventParameters>) => void;
+    beforeOpen?: (oEvent: CalloutBase$BeforeOpenEvent) => void;
 
     /**
      * @since 1.11.0
@@ -4154,21 +4108,9 @@ declare module "sap/ui/commons/CalloutBase" {
     parent?: Control;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalloutBase$BeforeOpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalloutBaseBeforeOpenEventParameters = CalloutBase$BeforeOpenEventParameters;
-
   export type CalloutBase$BeforeOpenEvent = Event<CalloutBase$BeforeOpenEventParameters>;
 
   export interface CalloutBase$CloseEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalloutBase$CloseEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalloutBaseCloseEventParameters = CalloutBase$CloseEventParameters;
 
   export type CalloutBase$CloseEvent = Event<CalloutBase$CloseEventParameters>;
 
@@ -4179,21 +4121,9 @@ declare module "sap/ui/commons/CalloutBase" {
     parent?: Control;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalloutBase$OpenEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalloutBaseOpenEventParameters = CalloutBase$OpenEventParameters;
-
   export type CalloutBase$OpenEvent = Event<CalloutBase$OpenEventParameters>;
 
   export interface CalloutBase$OpenedEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CalloutBase$OpenedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CalloutBaseOpenedEventParameters = CalloutBase$OpenedEventParameters;
 
   export type CalloutBase$OpenedEvent = Event<CalloutBase$OpenedEventParameters>;
 }
@@ -4365,7 +4295,7 @@ declare module "sap/ui/commons/Carousel" {
      */
     getFirstVisibleIndex(): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -4887,7 +4817,7 @@ declare module "sap/ui/commons/CheckBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -4900,7 +4830,7 @@ declare module "sap/ui/commons/CheckBox" {
       mParameters?: CheckBox$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -5235,7 +5165,7 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event<CheckBox$ChangeEventParameters>) => void;
+    change?: (oEvent: CheckBox$ChangeEvent) => void;
   }
 
   export interface CheckBox$ChangeEventParameters {
@@ -5244,12 +5174,6 @@ declare module "sap/ui/commons/CheckBox" {
      */
     checked?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'CheckBox$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $CheckBoxChangeEventParameters = CheckBox$ChangeEventParameters;
 
   export type CheckBox$ChangeEvent = Event<CheckBox$ChangeEventParameters>;
 }
@@ -5434,7 +5358,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Compares the previous value with the current value and fires the "Change" event if the ComboBox is editable
      * and the value has changed or whether the value has been changed e.g. via up/down or auto-complete feature
@@ -5482,7 +5406,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     destroyItems(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fire event change to attached listeners.
      *
@@ -5499,7 +5423,7 @@ declare module "sap/ui/commons/ComboBox" {
       mArguments?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -5519,7 +5443,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     getDisplaySecondaryValues(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM element which represents the icon for value help. Could be overwritten in child-classes.
      *
@@ -5601,7 +5525,7 @@ declare module "sap/ui/commons/ComboBox" {
       iIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapenter pseudo events on the control
      */
@@ -5612,7 +5536,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapescape pseudo events on the control
      */
@@ -5623,7 +5547,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle saphide pseudo events on the control
      */
@@ -5634,7 +5558,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapnextmodifiers pseudo events on the control if in toolbar prevent item navigation if popup is
      * opened.
@@ -5646,7 +5570,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapshow pseudo events on the control
      */
@@ -5825,12 +5749,6 @@ declare module "sap/ui/commons/ComboBox" {
     selectedItem?: ListItem;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ComboBox$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ComboBoxChangeEventParameters = ComboBox$ChangeEventParameters;
-
   export type ComboBox$ChangeEvent = Event<ComboBox$ChangeEventParameters>;
 }
 
@@ -5918,7 +5836,7 @@ declare module "sap/ui/commons/DatePicker" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fire event change to attached listeners.
      *
@@ -5941,7 +5859,7 @@ declare module "sap/ui/commons/DatePicker" {
       bInvalidValue?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -6215,7 +6133,7 @@ declare module "sap/ui/commons/Dialog" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -7014,7 +6932,7 @@ declare module "sap/ui/commons/Dialog" {
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
      */
-    closed?: (oEvent: Event<Dialog$ClosedEventParameters>) => void;
+    closed?: (oEvent: Dialog$ClosedEvent) => void;
   }
 
   export interface Dialog$ClosedEventParameters {
@@ -7038,12 +6956,6 @@ declare module "sap/ui/commons/Dialog" {
      */
     left?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Dialog$ClosedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DialogClosedEventParameters = Dialog$ClosedEventParameters;
 
   export type Dialog$ClosedEvent = Event<Dialog$ClosedEventParameters>;
 }
@@ -7199,7 +7111,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:searchHelp searchHelp} to attached listeners.
      *
@@ -7266,7 +7178,7 @@ declare module "sap/ui/commons/DropdownBox" {
      */
     getTooltip_AsString(): string | undefined;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Ensure that handed in ListBoxes are taken from the visible UI immediately.
      */
@@ -7277,7 +7189,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle the click event happening in the DropdownBox
      */
@@ -7288,7 +7200,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle focusin event Ensures the text gets selected when focus gets into the field
      */
@@ -7299,7 +7211,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keydown event
      */
@@ -7310,7 +7222,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keypress event
      */
@@ -7321,7 +7233,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keyup event This must only be considered if it is from Backspace-key in IE or after paste. In
      * case there is a keyup with a tab this results from being entered via tabbing and can be ignored, too.
@@ -7333,7 +7245,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle paste event
      */
@@ -7344,7 +7256,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle pseudo event onsapdelete. If triggered with open dropdown and current item provided by history
      * feature, removes the selected item from this instance's history.
@@ -7356,7 +7268,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle pseudo event onsaphome
      */
@@ -7367,7 +7279,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Move the cursor one step to the left (and adapt selection)
      */
@@ -7378,7 +7290,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Move the cursor one step to the right (and adapt selection)
      */
@@ -7389,7 +7301,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapshow pseudo events on the control
      */
@@ -7400,7 +7312,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle the select event happening in the DropdownBox
      */
@@ -7530,7 +7442,7 @@ declare module "sap/ui/commons/DropdownBox" {
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
      */
-    searchHelp?: (oEvent: Event<DropdownBox$SearchHelpEventParameters>) => void;
+    searchHelp?: (oEvent: DropdownBox$SearchHelpEvent) => void;
   }
 
   export interface DropdownBox$SearchHelpEventParameters {
@@ -7539,12 +7451,6 @@ declare module "sap/ui/commons/DropdownBox" {
      */
     value?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'DropdownBox$SearchHelpEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $DropdownBoxSearchHelpEventParameters = DropdownBox$SearchHelpEventParameters;
 
   export type DropdownBox$SearchHelpEvent = Event<DropdownBox$SearchHelpEventParameters>;
 }
@@ -7750,19 +7656,19 @@ declare module "sap/ui/commons/TextField" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object representing the serialized focus information.
    */
   export type FocusInfo = {
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * ID of the component
      */
     id?: string;
     /**
-     * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * User input
      */
@@ -7840,7 +7746,7 @@ declare module "sap/ui/commons/TextField" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Compares the previous value with the current value and fires the change event if the TextField is editable
      * and the value has changed.
@@ -8018,7 +7924,7 @@ declare module "sap/ui/commons/TextField" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -8031,7 +7937,7 @@ declare module "sap/ui/commons/TextField" {
       mParameters?: TextField$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -8044,7 +7950,7 @@ declare module "sap/ui/commons/TextField" {
       mParameters?: TextField$LiveChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -8101,7 +8007,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getEnabled(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information
      *
@@ -8129,7 +8035,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getImeMode(): ImeMode | keyof typeof ImeMode;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Method for accessing the DOM Ref of the input element.
      *
@@ -8233,7 +8139,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getWidth(): CSSSize;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when control is receiving the focus
      */
@@ -8244,7 +8150,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler for keyup. fire the liveChange event
      */
@@ -8255,7 +8161,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when enter key is pressed.
      * See:
@@ -8268,7 +8174,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when control is losing the focus
      */
@@ -8279,7 +8185,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when text selection starts. When the text field is disabled, the text should not
      * be selectable, so cancel the event.
@@ -8699,14 +8605,14 @@ declare module "sap/ui/commons/TextField" {
      * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
      * key is pressed.
      */
-    change?: (oEvent: Event<TextField$ChangeEventParameters>) => void;
+    change?: (oEvent: TextField$ChangeEvent) => void;
 
     /**
      * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
      * This is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: (oEvent: Event<TextField$LiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: TextField$LiveChangeEvent) => void;
   }
 
   export interface TextField$ChangeEventParameters {
@@ -8716,12 +8622,6 @@ declare module "sap/ui/commons/TextField" {
     newValue?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TextField$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TextFieldChangeEventParameters = TextField$ChangeEventParameters;
-
   export type TextField$ChangeEvent = Event<TextField$ChangeEventParameters>;
 
   export interface TextField$LiveChangeEventParameters {
@@ -8730,12 +8630,6 @@ declare module "sap/ui/commons/TextField" {
      */
     liveValue?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TextField$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TextFieldLiveChangeEventParameters = TextField$LiveChangeEventParameters;
 
   export type TextField$LiveChangeEvent = Event<TextField$LiveChangeEventParameters>;
 }
@@ -10202,7 +10096,7 @@ declare module "sap/ui/commons/Image" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -10415,12 +10309,6 @@ declare module "sap/ui/commons/Image" {
 
   export interface Image$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Image$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ImagePressEventParameters = Image$PressEventParameters;
-
   export type Image$PressEvent = Event<Image$PressEventParameters>;
 }
 
@@ -10597,7 +10485,7 @@ declare module "sap/ui/commons/ImageMap" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -10702,7 +10590,7 @@ declare module "sap/ui/commons/ImageMap" {
     /**
      * Event for the areas that can be clicked in an ImageMap
      */
-    press?: (oEvent: Event<ImageMap$PressEventParameters>) => void;
+    press?: (oEvent: ImageMap$PressEvent) => void;
   }
 
   export interface ImageMap$PressEventParameters {
@@ -10711,12 +10599,6 @@ declare module "sap/ui/commons/ImageMap" {
      */
     areaId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ImageMap$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ImageMapPressEventParameters = ImageMap$PressEventParameters;
 
   export type ImageMap$PressEvent = Event<ImageMap$PressEventParameters>;
 }
@@ -10951,7 +10833,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -10965,7 +10847,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
     ): this;
     /**
      * @since 1.16.5
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -10978,7 +10860,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       mParameters?: InPlaceEdit$LiveChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -11160,7 +11042,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
      */
-    change?: (oEvent: Event<InPlaceEdit$ChangeEventParameters>) => void;
+    change?: (oEvent: InPlaceEdit$ChangeEvent) => void;
 
     /**
      * @since 1.16.5
@@ -11169,7 +11051,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: (oEvent: Event<InPlaceEdit$LiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: InPlaceEdit$LiveChangeEvent) => void;
   }
 
   export interface InPlaceEdit$ChangeEventParameters {
@@ -11179,12 +11061,6 @@ declare module "sap/ui/commons/InPlaceEdit" {
     newValue?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'InPlaceEdit$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $InPlaceEditChangeEventParameters = InPlaceEdit$ChangeEventParameters;
-
   export type InPlaceEdit$ChangeEvent = Event<InPlaceEdit$ChangeEventParameters>;
 
   export interface InPlaceEdit$LiveChangeEventParameters {
@@ -11193,12 +11069,6 @@ declare module "sap/ui/commons/InPlaceEdit" {
      */
     liveValue?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'InPlaceEdit$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $InPlaceEditLiveChangeEventParameters = InPlaceEdit$LiveChangeEventParameters;
 
   export type InPlaceEdit$LiveChangeEvent = Event<InPlaceEdit$LiveChangeEventParameters>;
 }
@@ -11292,7 +11162,7 @@ declare module "sap/ui/commons/Label" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -14313,7 +14183,7 @@ declare module "sap/ui/commons/Link" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -14333,7 +14203,7 @@ declare module "sap/ui/commons/Link" {
      */
     focus(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -14596,12 +14466,6 @@ declare module "sap/ui/commons/Link" {
 
   export interface Link$PressEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Link$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $LinkPressEventParameters = Link$PressEventParameters;
-
   export type Link$PressEvent = Event<Link$PressEventParameters>;
 }
 
@@ -14822,7 +14686,7 @@ declare module "sap/ui/commons/ListBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -15490,7 +15354,7 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Event is fired when selection is changed by user interaction.
      */
-    select?: (oEvent: Event<ListBox$SelectEventParameters>) => void;
+    select?: (oEvent: ListBox$SelectEvent) => void;
   }
 
   export interface ListBox$SelectEventParameters {
@@ -15517,12 +15381,6 @@ declare module "sap/ui/commons/ListBox" {
      */
     selectedIndices?: int[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ListBox$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ListBoxSelectEventParameters = ListBox$SelectEventParameters;
 
   export type ListBox$SelectEvent = Event<ListBox$SelectEventParameters>;
 }
@@ -15895,9 +15753,9 @@ declare module "sap/ui/commons/MenuButton" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
+  import Event from "sap/ui/base/Event";
 
   import MenuItemBase1 from "sap/ui/commons/MenuItemBase";
 
@@ -16105,7 +15963,7 @@ declare module "sap/ui/commons/MenuButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelected itemSelected} to attached listeners.
      *
@@ -16118,7 +15976,7 @@ declare module "sap/ui/commons/MenuButton" {
       mParameters?: MenuButton$ItemSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      * See:
@@ -16222,9 +16080,7 @@ declare module "sap/ui/commons/MenuButton" {
     /**
      * Event that is fired when a menu item is selected by the user
      */
-    itemSelected?: (
-      oEvent: Event<MenuButton$ItemSelectedEventParameters>
-    ) => void;
+    itemSelected?: (oEvent: MenuButton$ItemSelectedEvent) => void;
   }
 
   export interface MenuButton$ItemSelectedEventParameters {
@@ -16238,12 +16094,6 @@ declare module "sap/ui/commons/MenuButton" {
      */
     item?: MenuItemBase;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MenuButton$ItemSelectedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MenuButtonItemSelectedEventParameters = MenuButton$ItemSelectedEventParameters;
 
   export type MenuButton$ItemSelectedEvent = Event<MenuButton$ItemSelectedEventParameters>;
 
@@ -16259,12 +16109,6 @@ declare module "sap/ui/commons/MenuButton" {
      */
     item?: MenuItemBase1;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MenuButton$PressEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MenuButtonPressEventParameters = MenuButton$PressEventParameters;
 
   export type MenuButton$PressEvent = Event<MenuButton$PressEventParameters>;
 }
@@ -17543,7 +17387,7 @@ declare module "sap/ui/commons/MessageToast" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:next next} to attached listeners.
      *
@@ -17614,12 +17458,6 @@ declare module "sap/ui/commons/MessageToast" {
 
   export interface MessageToast$NextEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MessageToast$NextEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $MessageToastNextEventParameters = MessageToast$NextEventParameters;
-
   export type MessageToast$NextEvent = Event<MessageToast$NextEventParameters>;
 }
 
@@ -17630,9 +17468,9 @@ declare module "sap/ui/commons/Paginator" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import { PaginatorEvent } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -17763,7 +17601,7 @@ declare module "sap/ui/commons/Paginator" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:page page} to attached listeners.
      *
@@ -17841,7 +17679,7 @@ declare module "sap/ui/commons/Paginator" {
     /**
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
      */
-    page?: (oEvent: Event<Paginator$PageEventParameters>) => void;
+    page?: (oEvent: Paginator$PageEvent) => void;
   }
 
   export interface Paginator$PageEventParameters {
@@ -17864,12 +17702,6 @@ declare module "sap/ui/commons/Paginator" {
      */
     type?: PaginatorEvent | keyof typeof PaginatorEvent;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Paginator$PageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $PaginatorPageEventParameters = Paginator$PageEventParameters;
 
   export type Paginator$PageEvent = Event<Paginator$PageEventParameters>;
 }
@@ -18065,7 +17897,7 @@ declare module "sap/ui/commons/Panel" {
      */
     getEnabled(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information.
      *
@@ -18640,7 +18472,7 @@ declare module "sap/ui/commons/ProgressIndicator" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -19026,7 +18858,7 @@ declare module "sap/ui/commons/RadioButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -19395,12 +19227,6 @@ declare module "sap/ui/commons/RadioButton" {
 
   export interface RadioButton$SelectEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RadioButton$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RadioButtonSelectEventParameters = RadioButton$SelectEventParameters;
-
   export type RadioButton$SelectEvent = Event<RadioButton$SelectEventParameters>;
 }
 
@@ -19615,7 +19441,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -19983,7 +19809,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: (oEvent: Event<RadioButtonGroup$SelectEventParameters>) => void;
+    select?: (oEvent: RadioButtonGroup$SelectEvent) => void;
   }
 
   export interface RadioButtonGroup$SelectEventParameters {
@@ -19992,12 +19818,6 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      */
     selectedIndex?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RadioButtonGroup$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RadioButtonGroupSelectEventParameters = RadioButtonGroup$SelectEventParameters;
 
   export type RadioButtonGroup$SelectEvent = Event<RadioButtonGroup$SelectEventParameters>;
 }
@@ -20303,7 +20123,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -20316,7 +20136,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       mParameters?: RatingIndicator$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -20656,7 +20476,7 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: (oEvent: Event<RatingIndicator$ChangeEventParameters>) => void;
+    change?: (oEvent: RatingIndicator$ChangeEvent) => void;
   }
 
   export interface RatingIndicator$ChangeEventParameters {
@@ -20665,12 +20485,6 @@ declare module "sap/ui/commons/RatingIndicator" {
      */
     value?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RatingIndicator$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RatingIndicatorChangeEventParameters = RatingIndicator$ChangeEventParameters;
 
   export type RatingIndicator$ChangeEvent = Event<RatingIndicator$ChangeEventParameters>;
 }
@@ -20841,7 +20655,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rangeSwitch rangeSwitch} to attached listeners.
      *
@@ -21008,9 +20822,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The event is fired the width of the container reaches a new range.
      */
-    rangeSwitch?: (
-      oEvent: Event<ResponsiveContainer$RangeSwitchEventParameters>
-    ) => void;
+    rangeSwitch?: (oEvent: ResponsiveContainer$RangeSwitchEvent) => void;
   }
 
   export interface ResponsiveContainer$RangeSwitchEventParameters {
@@ -21019,12 +20831,6 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      */
     currentRange?: ResponsiveContainerRange;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ResponsiveContainer$RangeSwitchEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ResponsiveContainerRangeSwitchEventParameters = ResponsiveContainer$RangeSwitchEventParameters;
 
   export type ResponsiveContainer$RangeSwitchEvent = Event<ResponsiveContainer$RangeSwitchEventParameters>;
 }
@@ -21342,7 +21148,7 @@ declare module "sap/ui/commons/RichTooltip" {
      */
     getValueStateText(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates the height of the RichTooltip to set a proper min-height. Additionally the ARIA attributes
      * are set to the corresponding elements.
@@ -21659,7 +21465,7 @@ declare module "sap/ui/commons/RoadMap" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stepExpanded stepExpanded} to attached listeners.
      *
@@ -21672,7 +21478,7 @@ declare module "sap/ui/commons/RoadMap" {
       mParameters?: RoadMap$StepExpandedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stepSelected stepSelected} to attached listeners.
      *
@@ -21869,12 +21675,12 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Event is fired when the user selects a step.
      */
-    stepSelected?: (oEvent: Event<RoadMap$StepSelectedEventParameters>) => void;
+    stepSelected?: (oEvent: RoadMap$StepSelectedEvent) => void;
 
     /**
      * Event is fired when a given step is expanded or collapsed by user.
      */
-    stepExpanded?: (oEvent: Event<RoadMap$StepExpandedEventParameters>) => void;
+    stepExpanded?: (oEvent: RoadMap$StepExpandedEvent) => void;
   }
 
   export interface RoadMap$StepExpandedEventParameters {
@@ -21884,12 +21690,6 @@ declare module "sap/ui/commons/RoadMap" {
     stepId?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RoadMap$StepExpandedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RoadMapStepExpandedEventParameters = RoadMap$StepExpandedEventParameters;
-
   export type RoadMap$StepExpandedEvent = Event<RoadMap$StepExpandedEventParameters>;
 
   export interface RoadMap$StepSelectedEventParameters {
@@ -21898,12 +21698,6 @@ declare module "sap/ui/commons/RoadMap" {
      */
     stepId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RoadMap$StepSelectedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RoadMapStepSelectedEventParameters = RoadMap$StepSelectedEventParameters;
 
   export type RoadMap$StepSelectedEvent = Event<RoadMap$StepSelectedEventParameters>;
 }
@@ -22652,7 +22446,7 @@ declare module "sap/ui/commons/RowRepeater" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
@@ -22665,7 +22459,7 @@ declare module "sap/ui/commons/RowRepeater" {
       mParameters?: RowRepeater$FilterEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:page page} to attached listeners.
      *
@@ -22678,7 +22472,7 @@ declare module "sap/ui/commons/RowRepeater" {
       mParameters?: RowRepeater$PageEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -22691,7 +22485,7 @@ declare module "sap/ui/commons/RowRepeater" {
       mParameters?: RowRepeater$ResizeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
@@ -23177,22 +22971,22 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * This event is triggered when a filter is set.
      */
-    filter?: (oEvent: Event<RowRepeater$FilterEventParameters>) => void;
+    filter?: (oEvent: RowRepeater$FilterEvent) => void;
 
     /**
      * This event is triggered when a sorting is applied.
      */
-    sort?: (oEvent: Event<RowRepeater$SortEventParameters>) => void;
+    sort?: (oEvent: RowRepeater$SortEvent) => void;
 
     /**
      * This event is triggered when paging was executed.
      */
-    page?: (oEvent: Event<RowRepeater$PageEventParameters>) => void;
+    page?: (oEvent: RowRepeater$PageEvent) => void;
 
     /**
      * This event is triggered when the number of rows was changed.
      */
-    resize?: (oEvent: Event<RowRepeater$ResizeEventParameters>) => void;
+    resize?: (oEvent: RowRepeater$ResizeEvent) => void;
   }
 
   export interface RowRepeater$FilterEventParameters {
@@ -23201,12 +22995,6 @@ declare module "sap/ui/commons/RowRepeater" {
      */
     filterId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowRepeater$FilterEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RowRepeaterFilterEventParameters = RowRepeater$FilterEventParameters;
 
   export type RowRepeater$FilterEvent = Event<RowRepeater$FilterEventParameters>;
 
@@ -23222,12 +23010,6 @@ declare module "sap/ui/commons/RowRepeater" {
     previousPage?: int;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowRepeater$PageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RowRepeaterPageEventParameters = RowRepeater$PageEventParameters;
-
   export type RowRepeater$PageEvent = Event<RowRepeater$PageEventParameters>;
 
   export interface RowRepeater$ResizeEventParameters {
@@ -23242,12 +23024,6 @@ declare module "sap/ui/commons/RowRepeater" {
     previousNumberOfRows?: int;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowRepeater$ResizeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RowRepeaterResizeEventParameters = RowRepeater$ResizeEventParameters;
-
   export type RowRepeater$ResizeEvent = Event<RowRepeater$ResizeEventParameters>;
 
   export interface RowRepeater$SortEventParameters {
@@ -23256,12 +23032,6 @@ declare module "sap/ui/commons/RowRepeater" {
      */
     sorterId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowRepeater$SortEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $RowRepeaterSortEventParameters = RowRepeater$SortEventParameters;
 
   export type RowRepeater$SortEvent = Event<RowRepeater$SortEventParameters>;
 }
@@ -23831,7 +23601,7 @@ declare module "sap/ui/commons/SearchField" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -23844,7 +23614,7 @@ declare module "sap/ui/commons/SearchField" {
       mParameters?: SearchField$SearchEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -24561,12 +24331,12 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: (oEvent: Event<SearchField$SearchEventParameters>) => void;
+    search?: (oEvent: SearchField$SearchEvent) => void;
 
     /**
      * Event which is fired when new suggest values are required.
      */
-    suggest?: (oEvent: Event<SearchField$SuggestEventParameters>) => void;
+    suggest?: (oEvent: SearchField$SuggestEvent) => void;
   }
 
   export interface SearchField$SearchEventParameters {
@@ -24576,12 +24346,6 @@ declare module "sap/ui/commons/SearchField" {
     query?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SearchField$SearchEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SearchFieldSearchEventParameters = SearchField$SearchEventParameters;
-
   export type SearchField$SearchEvent = Event<SearchField$SearchEventParameters>;
 
   export interface SearchField$SuggestEventParameters {
@@ -24590,12 +24354,6 @@ declare module "sap/ui/commons/SearchField" {
      */
     value?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SearchField$SuggestEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SearchFieldSuggestEventParameters = SearchField$SuggestEventParameters;
 
   export type SearchField$SuggestEvent = Event<SearchField$SuggestEventParameters>;
 }
@@ -24776,7 +24534,7 @@ declare module "sap/ui/commons/SegmentedButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the Buttons
      */
@@ -24861,7 +24619,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -24992,7 +24750,7 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * Event fired when button selected
      */
-    select?: (oEvent: Event<SegmentedButton$SelectEventParameters>) => void;
+    select?: (oEvent: SegmentedButton$SelectEvent) => void;
   }
 
   export interface SegmentedButton$SelectEventParameters {
@@ -25001,12 +24759,6 @@ declare module "sap/ui/commons/SegmentedButton" {
      */
     selectedButtonId?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SegmentedButton$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SegmentedButtonSelectEventParameters = SegmentedButton$SelectEventParameters;
 
   export type SegmentedButton$SelectEvent = Event<SegmentedButton$SelectEventParameters>;
 }
@@ -25239,7 +24991,7 @@ declare module "sap/ui/commons/Slider" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -25252,7 +25004,7 @@ declare module "sap/ui/commons/Slider" {
       mParameters?: Slider$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -25736,13 +25488,13 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Value was changed. This event is fired if the value has changed by a user action.
      */
-    change?: (oEvent: Event<Slider$ChangeEventParameters>) => void;
+    change?: (oEvent: Slider$ChangeEvent) => void;
 
     /**
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
      */
-    liveChange?: (oEvent: Event<Slider$LiveChangeEventParameters>) => void;
+    liveChange?: (oEvent: Slider$LiveChangeEvent) => void;
   }
 
   export interface Slider$ChangeEventParameters {
@@ -25752,12 +25504,6 @@ declare module "sap/ui/commons/Slider" {
     value?: float;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Slider$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SliderChangeEventParameters = Slider$ChangeEventParameters;
-
   export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters>;
 
   export interface Slider$LiveChangeEventParameters {
@@ -25766,12 +25512,6 @@ declare module "sap/ui/commons/Slider" {
      */
     value?: float;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Slider$LiveChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $SliderLiveChangeEventParameters = Slider$LiveChangeEventParameters;
 
   export type Slider$LiveChangeEvent = Event<Slider$LiveChangeEventParameters>;
 }
@@ -26768,7 +26508,7 @@ declare module "sap/ui/commons/TabStrip" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -26781,7 +26521,7 @@ declare module "sap/ui/commons/TabStrip" {
       mParameters?: TabStrip$CloseEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -26976,12 +26716,12 @@ declare module "sap/ui/commons/TabStrip" {
     /**
      * Fires when the user selects a tab.
      */
-    select?: (oEvent: Event<TabStrip$SelectEventParameters>) => void;
+    select?: (oEvent: TabStrip$SelectEvent) => void;
 
     /**
      * Fires when the user closes a tab.
      */
-    close?: (oEvent: Event<TabStrip$CloseEventParameters>) => void;
+    close?: (oEvent: TabStrip$CloseEvent) => void;
   }
 
   export interface TabStrip$CloseEventParameters {
@@ -26991,12 +26731,6 @@ declare module "sap/ui/commons/TabStrip" {
     index?: int;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TabStrip$CloseEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TabStripCloseEventParameters = TabStrip$CloseEventParameters;
-
   export type TabStrip$CloseEvent = Event<TabStrip$CloseEventParameters>;
 
   export interface TabStrip$SelectEventParameters {
@@ -27005,12 +26739,6 @@ declare module "sap/ui/commons/TabStrip" {
      */
     index?: int;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TabStrip$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TabStripSelectEventParameters = TabStrip$SelectEventParameters;
 
   export type TabStrip$SelectEvent = Event<TabStrip$SelectEventParameters>;
 }
@@ -27443,7 +27171,7 @@ declare module "sap/ui/commons/TextView" {
       oBindingInfo: PropertyBindingInfo
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -28038,7 +27766,7 @@ declare module "sap/ui/commons/ToggleButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -28836,7 +28564,7 @@ declare module "sap/ui/commons/Tree" {
      */
     expandAll(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -28852,7 +28580,7 @@ declare module "sap/ui/commons/Tree" {
       mParameters?: Tree$SelectEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -29202,14 +28930,12 @@ declare module "sap/ui/commons/Tree" {
     /**
      * Event is fired when a tree node is selected.
      */
-    select?: (oEvent: Event<Tree$SelectEventParameters>) => void;
+    select?: (oEvent: Tree$SelectEvent) => void;
 
     /**
      * fired when the selection of the tree has been changed
      */
-    selectionChange?: (
-      oEvent: Event<Tree$SelectionChangeEventParameters>
-    ) => void;
+    selectionChange?: (oEvent: Tree$SelectionChangeEvent) => void;
   }
 
   export interface Tree$SelectEventParameters {
@@ -29224,12 +28950,6 @@ declare module "sap/ui/commons/Tree" {
     nodeContext?: object;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Tree$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TreeSelectEventParameters = Tree$SelectEventParameters;
-
   export type Tree$SelectEvent = Event<Tree$SelectEventParameters>;
 
   export interface Tree$SelectionChangeEventParameters {
@@ -29243,12 +28963,6 @@ declare module "sap/ui/commons/Tree" {
      */
     nodeContexts?: object[];
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Tree$SelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TreeSelectionChangeEventParameters = Tree$SelectionChangeEventParameters;
 
   export type Tree$SelectionChangeEvent = Event<Tree$SelectionChangeEventParameters>;
 }
@@ -29528,7 +29242,7 @@ declare module "sap/ui/commons/TreeNode" {
       bDisableExpandFinishedHandler: boolean
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
@@ -29541,7 +29255,7 @@ declare module "sap/ui/commons/TreeNode" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      *
@@ -29850,9 +29564,7 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node state has changed.
      */
-    toggleOpenState?: (
-      oEvent: Event<TreeNode$ToggleOpenStateEventParameters>
-    ) => void;
+    toggleOpenState?: (oEvent: TreeNode$ToggleOpenStateEvent) => void;
 
     /**
      * Node is selected
@@ -29862,12 +29574,6 @@ declare module "sap/ui/commons/TreeNode" {
 
   export interface TreeNode$SelectedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TreeNode$SelectedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TreeNodeSelectedEventParameters = TreeNode$SelectedEventParameters;
-
   export type TreeNode$SelectedEvent = Event<TreeNode$SelectedEventParameters>;
 
   export interface TreeNode$ToggleOpenStateEventParameters {
@@ -29876,12 +29582,6 @@ declare module "sap/ui/commons/TreeNode" {
      */
     opened?: boolean;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TreeNode$ToggleOpenStateEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TreeNodeToggleOpenStateEventParameters = TreeNode$ToggleOpenStateEventParameters;
 
   export type TreeNode$ToggleOpenStateEvent = Event<TreeNode$ToggleOpenStateEventParameters>;
 }
@@ -30032,7 +29732,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -30294,7 +29994,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event<TriStateCheckBox$ChangeEventParameters>) => void;
+    change?: (oEvent: TriStateCheckBox$ChangeEvent) => void;
   }
 
   export interface TriStateCheckBox$ChangeEventParameters {
@@ -30303,12 +30003,6 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      */
     selectionState?: string;
   }
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TriStateCheckBox$ChangeEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $TriStateCheckBoxChangeEventParameters = TriStateCheckBox$ChangeEventParameters;
 
   export type TriStateCheckBox$ChangeEvent = Event<TriStateCheckBox$ChangeEventParameters>;
 }
@@ -30459,7 +30153,7 @@ declare module "sap/ui/commons/ValueHelpField" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:valueHelpRequest valueHelpRequest} to attached listeners.
      *
@@ -30499,7 +30193,7 @@ declare module "sap/ui/commons/ValueHelpField" {
      */
     getIconURL(): URI;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle F4 event
      */
@@ -30585,12 +30279,6 @@ declare module "sap/ui/commons/ValueHelpField" {
   }
 
   export interface ValueHelpField$ValueHelpRequestEventParameters {}
-
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'ValueHelpField$ValueHelpRequestEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $ValueHelpFieldValueHelpRequestEventParameters = ValueHelpField$ValueHelpRequestEventParameters;
 
   export type ValueHelpField$ValueHelpRequestEvent = Event<ValueHelpField$ValueHelpRequestEventParameters>;
 }

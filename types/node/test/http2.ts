@@ -156,7 +156,7 @@ import { URL } from 'node:url';
         silent: true
     });
 
-    const sesh: Http2Session = http2Stream.session;
+    const sesh: Http2Session | undefined = http2Stream.session;
 
     http2Stream.setTimeout(100, () => {});
     const trailers: OutgoingHttpHeaders = {};
