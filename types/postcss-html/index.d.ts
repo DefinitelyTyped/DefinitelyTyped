@@ -11,8 +11,8 @@ declare namespace postcssHtml {
         scss?: Syntax | undefined;
     }
 
-    var parse: Parser;
-    var stringify: Stringifier;
+    let parse: Parser;
+    let stringify: Stringifier;
 }
 
 declare function postcssHtml(config?: postcssHtml.Config): Syntax;
