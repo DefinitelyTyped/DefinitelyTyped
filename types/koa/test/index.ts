@@ -62,6 +62,9 @@ app.use(ctx => {
     ctx.acceptsLanguages(['']); // $ExpectType string | false
     ctx.is(''); // $ExpectType string | false | null
     ctx.is(['']); // $ExpectType string | false | null
+
+    ctx.vary("Origin"); // $ExpectType void
+    ctx.vary(["Origin", "User-Agent"]); // $ExpectType void
 });
 
 // response
