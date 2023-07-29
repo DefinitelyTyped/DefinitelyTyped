@@ -13,7 +13,7 @@ declare namespace postcssClamp {
          * .foo {
          *   width: clamp(10em, 4px, 10px);
          * }
-         *```
+         * ```
          *
          * Becomes
          *
