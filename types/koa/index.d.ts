@@ -333,7 +333,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Vary on `field`.
      */
-    vary(field: string): void;
+    vary(field: string | string[]): void;
 
     /**
      * Perform a 302 redirect to `url`.
