@@ -15,6 +15,6 @@ declare namespace postcssHtml {
     var stringify: Stringifier;
 }
 
-declare function postcssHtml(config?: postcssHtml.Config): typeof postcssHtml;
+declare function postcssHtml(config?: postcssHtml.Config): Syntax;
 
 export = postcssHtml;
