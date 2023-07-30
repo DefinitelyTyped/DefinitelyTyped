@@ -3,7 +3,7 @@
 // Definitions by: Zenoo <https://github.com/Zenoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReadableStream } from 'stream/web';
+import { Transform } from 'stream';
 import { BufferFile } from 'vinyl';
 
 declare class Spritesmith {
@@ -53,7 +53,7 @@ declare namespace Spritesmith {
     }
 
     interface SpritesmithResult {
-        image: ReadableStream;
+        image: Transform;
         coordinates: Record<string, { x: number; y: number; width: number; height: number }>;
         properties: { width: number; height: number };
     }
