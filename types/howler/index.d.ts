@@ -13,12 +13,6 @@ export type HowlErrorCallback = (soundId: number, error: unknown) => void;
 export type SpatialOrientation = [number, number, number];
 export type SpatialPosition = [number, number, number];
 
-export enum State {
-    Unloaded = 'unloaded',
-    Loading = 'loading',
-    Loaded = 'loaded',
-}
-
 export interface SoundSpriteDefinitions {
     [name: string]: [number, number] | [number, number, boolean];
 }
