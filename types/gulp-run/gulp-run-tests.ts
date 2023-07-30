@@ -41,29 +41,15 @@ new run.Command('echo Hello, World!', {
     usePowerShell: true,
 });
 
-new run.Command('echo Hello World').exec(); // $ExpectType Vinyl
-new run.Command('echo Hello World').exec('foo'); // $ExpectType Vinyl
-// $ExpectType Vinyl
+new run.Command('echo Hello World').exec(); // $ExpectType File
+new run.Command('echo Hello World').exec('foo'); // $ExpectType File
+// $ExpectType File
 new run.Command('echo Hello World').exec('foo', error => {
-    error; // $ExpectType (Error & { status: number }) | null
+    error; // $ExpectType (Error & { status: number; }) | null
 });
 
-///// Taken from https://github.com/m19c/gulp-run#usage /////
-// use gulp-run to start a pipeline
-gulp.task('hello-world', function () {
-    return run('echo Hello World')
-        .exec() // prints "Hello World\n".
-        .pipe(gulp.dest('output')); // writes "Hello World\n" to output/echo.
-});
+gulp.task('hello-world', () => run('echo Hello World').exec().pipe(gulp.dest('output')));
 
-// use gulp-run in the middle of a pipeline:
-gulp.task('even-lines', function () {
-    return gulp
-        .src('path/to/input/*') // get input files.
-        .pipe(run('awk "NR % 2 == 0"')) // use awk to extract the even lines.
-        .pipe(gulp.dest('path/to/output')); // profit.
-});
-
-// use gulp-run without gulp
-var cmd = new run.Command('cat'); // create a command object for `cat`.
-cmd.exec('hello world'); // call `cat` with 'hello world' on stdin.
+gulp.task('even-lines', () =>
+    gulp.src('path/to/input/*').pipe(run('awk "NR % 2 == 0"')).pipe(gulp.dest('path/to/output')),
+);
