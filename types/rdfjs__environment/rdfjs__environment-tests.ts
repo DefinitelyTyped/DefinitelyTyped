@@ -1,5 +1,6 @@
 import { NamedNode, Stream } from '@rdfjs/types';
 import Environment from '@rdfjs/environment';
+import { FactoryConstructor } from '@rdfjs/environment/Environment.js';
 import FormatsFactory from '@rdfjs/environment/FormatsFactory.js';
 import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js';
 import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js';
@@ -91,3 +92,24 @@ const envOneFactoryInitOnly = new Environment([
 ]);
 
 envOneFactoryInitOnly.formats.import(envOneFactoryInitOnly.formats);
+
+// eslint-disable-next-line no-unnecessary-generics
+function customFactory<F extends FactoryConstructor>(...additionalFactories: F[]) {
+    return new Environment([
+        DataFactory,
+        ...additionalFactories,
+    ]);
+}
+
+function testCustomFactoryMethod() {
+    const env = customFactory(class Factory {
+        foo() {
+            return 'bar';
+        }
+    });
+
+    // $ExpectType BlankNode
+    const node = env.blankNode();
+    // $ExpectType string
+    const foo = env.foo();
+}

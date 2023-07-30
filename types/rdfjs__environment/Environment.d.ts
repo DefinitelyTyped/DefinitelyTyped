@@ -1,4 +1,4 @@
-interface FactoryConstructor<F = {}> {
+export interface FactoryConstructor<F = {}> {
     new (...args: any[]): F;
 }
 
