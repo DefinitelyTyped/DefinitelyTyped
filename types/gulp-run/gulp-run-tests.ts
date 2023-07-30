@@ -1,6 +1,53 @@
 import run = require('gulp-run');
 import gulp = require('gulp');
 
+// Only required args
+run('echo Hello World');
+new run('echo Hello World');
+// Empty options
+run('echo Hello World', {});
+new run('echo Hello World', {});
+// All options
+run('echo Hello World', {
+    env: { foo: 'bar' },
+    cwd: '/',
+    silent: false,
+    verbosity: 3,
+    usePowerShell: true,
+});
+new run('echo Hello World', {
+    env: { foo: 'bar' },
+    cwd: '/',
+    silent: false,
+    verbosity: 3,
+    usePowerShell: true,
+});
+
+// GulpRunner#exec
+new run('echo Hello World').exec();
+new run('echo Hello World').exec('foo');
+new run('echo Hello World').exec('foo', error => {
+    error; // $ExpectType Error | null | undefined
+});
+
+// GulpRunner.Command
+new run.Command('echo Hello, World!');
+new run.Command('echo Hello, World!', {});
+new run.Command('echo Hello, World!', {
+    env: { foo: 'bar' },
+    cwd: '/',
+    silent: false,
+    verbosity: 3,
+    usePowerShell: true,
+});
+
+new run.Command('echo Hello World').exec(); // $ExpectType Vinyl
+new run.Command('echo Hello World').exec('foo'); // $ExpectType Vinyl
+// $ExpectType Vinyl
+new run.Command('echo Hello World').exec('foo', error => {
+    error; // $ExpectType (Error & { status: number }) | null
+});
+
 ///// Taken from https://github.com/m19c/gulp-run#usage /////
 // use gulp-run to start a pipeline
 gulp.task('hello-world', function () {
