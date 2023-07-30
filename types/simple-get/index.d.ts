@@ -6,7 +6,6 @@
 /// <reference types="node" />
 
 import { ClientRequest, IncomingMessage, RequestOptions } from 'http';
-import { URL } from 'url';
 import * as FormData from 'form-data';
 import { ReadStream } from 'fs';
 
@@ -33,25 +32,25 @@ export = simpleGet;
 
 type Callback = (err: Error | null, res?: IncomingMessage) => void | never;
 
-declare function simpleGet(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+declare function simpleGet(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
 declare namespace simpleGet {
     export function concat(
-        options: string | SimpleGetOptions | URL,
+        options: string | SimpleGetOptions,
         cb: (err: Error | null, res?: IncomingMessage, data?: Buffer | object) => void | never,
     ): ClientRequest | never;
 
-    export function get(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    export function get(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
-    export function head(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    export function head(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
-    export function patch(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    export function patch(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
-    export function post(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    export function post(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
-    export function put(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    export function put(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
-    function _delete(options: string | SimpleGetOptions | URL, cb: Callback): ClientRequest | never;
+    function _delete(options: string | SimpleGetOptions, cb: Callback): ClientRequest | never;
 
     export { _delete as delete };
 }
