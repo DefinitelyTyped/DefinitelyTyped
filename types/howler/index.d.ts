@@ -289,6 +289,7 @@ import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from '.';
 export { Howler };
 
 declare global {
+    // tslint:disable:no-empty-interface
     interface Howl extends _Howl {}
     interface HowlerGlobal extends _HowlerGlobal {}
     var Howl: typeof _Howl;
