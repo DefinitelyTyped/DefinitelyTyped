@@ -285,7 +285,7 @@ export class HowlerGlobal {
     orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
 }
 
-import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from 'howler';
+import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from '.';
 export { Howler };
 
 declare global {
