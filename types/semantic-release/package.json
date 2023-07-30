@@ -1,4 +1,7 @@
 {
     "private": true,
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "aggregate-error": "^4.0"
+    }
 }
