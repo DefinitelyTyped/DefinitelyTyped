@@ -29,7 +29,7 @@ export interface PannerAttributes {
 }
 
 export interface Sound {
-    (howl: Howl): this;
+    new(howl: Howl): this;
 }
 
 export interface HowlListeners {
