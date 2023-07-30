@@ -3,7 +3,7 @@
 // Definitions by: Manuel Sanchez <https://github.com/msanchezdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function sortBy<T = Record<string,unknown>>(...args: ReadonlyArray<keyof T>): (a: T, b: T) => number;
-declare function sortBy<T = Record<string,unknown>>(...args: Array<keyof T | (<K extends keyof T>(key: K, value: T[K]) => any)>): (a: T, b: T) => number;
+declare function sortBy<T = Record<string,unknown>>(...args: ReadonlyArray<keyof T | `-${keyof T}`>): (a: T, b: T) => number;
+declare function sortBy<T = Record<string,unknown>>(...args: Array<keyof T | `-${keyof T}` | (<K extends keyof T>(key: K, value: T[K]) => any)>): (a: T, b: T) => number;
 
 export = sortBy;
