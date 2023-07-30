@@ -1,17 +1,16 @@
 import semanticRelease, * as lib from 'semantic-release';
-import * as signale from 'signale';
 
-function analyzeCommits(pluginConfig: any, context: lib.AnalyzeCommitsContext) {
+function analyzeCommits(pluginConfig: any, context: lib.Context) {
     const commits = context.commits;
 }
 
-function verify(pluginConfig: any, context: lib.VerifyConditionsContext) {
+function verify(pluginConfig: any, context: lib.Context) {
     if (!('AWS_ACCESS_KEY_ID' in context.env)) {
         throw new Error('AWS_ACCESS_KEY_ID not set');
     }
 }
 
-function publish(pluginConfig: any, context: lib.PublishContext) {
+function publish(pluginConfig: any, context: lib.Context) {
     const version = context.nextRelease && context.nextRelease.version;
     context.logger.log(`New version ${version}`);
 }
@@ -64,59 +63,33 @@ const options2: lib.Options = {
     ],
 };
 
-const context: lib.AnalyzeCommitsContext = {
-    stdout: process.stdout,
-    stderr: process.stderr,
-    envCi: {
-        isCi: true,
-        commit: '121212',
-        branch: 'master',
+const context: lib.Context = {
+    nextRelease: {
+        type: 'major',
+        version: '1.0.0',
+        gitTag: '1.0.0',
+        gitHead: 'f1eed296d2ffe184fb15f52b1c5ad778f5c87645',
+        notes: 'New release',
     },
-    branches: [
-        {
-            name: 'next',
-            channel: 'next',
-            prerelease: 'beta',
-        },
-        {
-            name: 'rc*',
-            prerelease: true,
-        },
-        {
-            name: 'legacy',
-            range: '1.x',
-        },
-    ],
-    lastRelease: {
-        name: 'example-lib',
-        channels: [],
-        version: '1.2.0',
-        gitTag: 'v1.2.0',
-        gitHead: 'a018aff59995a17c0564fa3fd0cb96223f4d4096',
+    logger: {
+        await: (...message: string[]) => {},
+        complete: (...message: string[]) => {},
+        debug: (...message: string[]) => {},
+        error: (...message: string[]) => {},
+        fatal: (...message: string[]) => {},
+        fav: (...message: string[]) => {},
+        info: (...message: string[]) => {},
+        log: (...message: string[]) => {},
+        note: (...message: string[]) => {},
+        pause: (...message: string[]) => {},
+        pending: (...message: string[]) => {},
+        star: (...message: string[]) => {},
+        start: (...message: string[]) => {},
+        success: (...message: string[]) => {},
+        wait: (...message: string[]) => {},
+        warn: (...message: string[]) => {},
+        watch: (...message: string[]) => {},
     },
-    releases: [
-        {
-            name: 'example-lib',
-            url: 'https://www.npmjs.com/package/example-lib',
-            type: 'minor',
-            version: '1.2.0',
-            gitHead: 'a018aff59995a17c0564fa3fd0cb96223f4d4096',
-            gitTag: 'v1.2.0',
-            notes: '',
-            pluginName: '@semantic',
-        },
-        {
-            name: 'example-lib',
-            url: 'https://www.npmjs.com/package/example-lib',
-            type: 'prerelease',
-            version: '1.2.0-pre.2',
-            gitHead: 'a018aff59995a17c0564fa3fd0cb96223f4d4096',
-            gitTag: 'v1.2.0-pre.2',
-            notes: '',
-            pluginName: '@semantic',
-        },
-    ],
-    logger: new signale.Signale(),
     env: {
         AWS_ACCESS_KEY_ID: '12345',
         SHELL: '/bin/bash',
@@ -156,21 +129,7 @@ const context: lib.AnalyzeCommitsContext = {
 
 analyzeCommits({}, context);
 verify({}, context);
-publish(
-    {},
-    {
-        ...context,
-        nextRelease: {
-            type: 'major',
-            channel: '',
-            name: 'example-lib',
-            version: '1.0.0',
-            gitTag: '1.0.0',
-            gitHead: 'f1eed296d2ffe184fb15f52b1c5ad778f5c87645',
-            notes: 'New release',
-        },
-    },
-);
+publish({}, context);
 
 const config: lib.Config = {
     cwd: '/home/example/code/semantic-release',
@@ -189,8 +148,6 @@ const result2: Promise<lib.Result> = semanticRelease(options2);
 
 const result3: lib.Result = {
     lastRelease: {
-        channels: [],
-        name: 'example-lib',
         version: '1.1.0',
         gitTag: 'v1.1.0',
         gitHead: 'ce5e4bb0624ffaf1deec298b6c79962efec7dd3b',
@@ -223,8 +180,6 @@ const result3: lib.Result = {
         },
     ],
     nextRelease: {
-        channel: '',
-        name: 'example-lib',
         type: 'minor',
         version: '1.2.0',
         gitTag: 'v1.2.0',
@@ -256,5 +211,4 @@ const result3: lib.Result = {
 };
 
 import getGitAuthUrl from 'semantic-release/lib/get-git-auth-url';
-import { countReset } from 'console';
 const result4: Promise<string> = getGitAuthUrl(context);
