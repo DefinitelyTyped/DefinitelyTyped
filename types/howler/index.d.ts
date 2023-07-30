@@ -28,10 +28,6 @@ export interface PannerAttributes {
     rolloffFactor?: number;
 }
 
-export interface Sound {
-    new(howl: Howl): this;
-}
-
 export interface HowlListeners {
     /** Fires when the sound has been stopped. The first parameter is the ID of the sound. */
     onstop?: HowlCallback | undefined;
