@@ -2,6 +2,7 @@
 // Project: https://github.com/MrBoolean/gulp-run
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.6
 /// <reference types="node" />
 
 import { Transform } from 'node:stream';
