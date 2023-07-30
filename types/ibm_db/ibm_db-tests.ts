@@ -38,6 +38,7 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
 /** ibmdb.Pool */
 async function testPool() {
   const pool = new ibmdb.Pool();
+  pool.poolSize; // $ExpectType number
   const conn = await pool.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<dbport>;PROTOCOL=TCPIP");
   conn.query('select 1 from sysibm.sysdummy1', (err, data) => {
       if (err) return false;

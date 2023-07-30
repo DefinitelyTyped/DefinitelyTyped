@@ -220,7 +220,7 @@ export class Pool implements PoolOptions {
     index: number;
     availablePool: object;
     usedPool: object;
-    poolsize: number;
+    poolSize: number;
     odbc: ODBC;
     constructor(options?: PoolOptions);
     open(connStr: string): Promise<Database>;
