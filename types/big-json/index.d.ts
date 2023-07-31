@@ -18,12 +18,3 @@ export function parse(
 
 export function stringify(opts: { body: object }): Promise<string>;
 export function stringify(opts: { body: object }, callback: (result: string) => void): void;
-
-declare const exported: {
-    createParseStream: typeof createParseStream;
-    createStringifyStream: typeof createStringifyStream;
-    parse: typeof parse;
-    stringify: typeof stringify;
-};
-
-export default exported;
