@@ -49,6 +49,7 @@ import isISO8601Func from 'validator/lib/isISO8601';
 import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
 import isISO4217Func from 'validator/lib/isISO4217';
+import isISO6391Func from 'validator/lib/isISO6391';
 import isISRCFunc from 'validator/lib/isISRC';
 import isIMEIFunc from 'validator/lib/isIMEI';
 import isInFunc from 'validator/lib/isIn';
@@ -228,6 +229,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     validator.isISO4217; // $ExpectType (str: string) => boolean
     isISO4217Func; // $ExpectType (str: string) => boolean
+
+    validator.isISO6391; // $ExpectType (str: string) => boolean
+    isISO6391Func; // $ExpectType (str: string) => boolean
 
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
@@ -410,6 +414,7 @@ import isISO8601FuncEs from 'validator/es/lib/isISO8601';
 import isISO31661Alpha2FuncEs, { CountryCodes } from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
 import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
+import isISO6391FuncEs from 'validator/es/lib/isISO6391';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
 import isInFuncEs from 'validator/es/lib/isIn';
 import isIntFuncEs from 'validator/es/lib/isInt';
@@ -710,6 +715,8 @@ const any: any = null;
 
     result = validator.isISO31661Alpha2('sample');
     result = validator.isISO31661Alpha3('sample');
+
+    result = validator.isISO6391('sample');
 
     result = validator.isISRC('sample');
 
