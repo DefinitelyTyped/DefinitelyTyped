@@ -8,7 +8,7 @@
 import { EventEmitter } from 'node:events';
 import { ChildProcessWithoutNullStreams } from 'node:child_process';
 
-export type ResultEntry = number | string | boolean | ResultList | ResultDict;
+export type ResultEntry = number | string | ResultList | ResultDict;
 export type Result = Record<string, ResultEntry>;
 
 export interface ResultList {
