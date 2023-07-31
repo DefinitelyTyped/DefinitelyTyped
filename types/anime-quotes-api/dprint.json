@@ -4,7 +4,7 @@
     "indentWidth": 4,
     "lineWidth": 120,
     "quoteStyle": "alwaysSingle",
-    "trailingCommas": "onlyMultiline",
+    "trailingCommas": "onlyMultiLine",
     "useTabs": true
   },
   "plugins": [
