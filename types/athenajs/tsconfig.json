@@ -11,10 +11,10 @@
     "noEmit": true,
     "types": [],
     "lib": [
-      "es5",
-      "es6",
-      "es2015.iterable",
-      "dom"
+        "es5",
+        "es6",
+        "es2015.iterable",
+        "dom"
     ],
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true

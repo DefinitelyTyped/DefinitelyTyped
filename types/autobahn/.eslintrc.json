@@ -1,8 +1,8 @@
 {
-  "rules": {
-    "export-just-namespace": "off",
-    "no-any-union": "off",
-    "no-unnecessary-generics": "off",
-    "no-single-element-tuple-type": "off"
-  }
+    "rules": {
+        "export-just-namespace": "off",
+        "no-any-union": "off",
+        "no-unnecessary-generics": "off",
+        "no-single-element-tuple-type": "off"
+    }
 }

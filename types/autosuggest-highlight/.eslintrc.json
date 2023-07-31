@@ -1,5 +1,5 @@
 {
-  "rules": {
-    "no-useless-files": "off"
-  }
+    "rules": {
+        "no-useless-files": "off"
+    }
 }
