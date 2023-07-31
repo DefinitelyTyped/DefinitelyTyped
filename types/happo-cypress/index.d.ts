@@ -6,10 +6,10 @@
 
 /// <reference types="cypress" />
 
-export type HappoScreenshotTarget = {
-    name: string,
-    browser: string,
-    viewport: string,
+export interface HappoScreenshotTarget {
+    name: string;
+    browser: string;
+    viewport: string;
 }
 
 export interface HappoScreenshotOptions {
