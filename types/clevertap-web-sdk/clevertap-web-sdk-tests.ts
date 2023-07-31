@@ -2,7 +2,7 @@ import clevertap = require('clevertap-web-sdk');
 
 clevertap.privacy.push({ optOut: false }); // Set the flag to true, if the user of the device opts out of sharing their data
 clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user agrees to share their IP data
-clevertap.init('ACCOUNT_ID', 'eu1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
+clevertap.init('ACCOUNT_ID', 'us1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
 clevertap.raiseNotificationClicked = () => {
