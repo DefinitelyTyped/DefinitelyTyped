@@ -6,7 +6,7 @@ var treeNode: AngularUITree.ITreeNode = {
 
 var treeNode2: AngularUITree.ITreeNode = {
     id: '0',
-    nodes: [treeNode,],
+    nodes: [treeNode],
     title: 'test2',
 };
 
@@ -19,7 +19,7 @@ var fakeScope: ng.IScope | AngularUITree.IParentTreeNodeScope = dummyJQueryNode.
 
 var treeNodeScope: AngularUITree.ITreeNodeScope = <AngularUITree.ITreeNodeScope> fakeScope;
 
-(<AngularUITree.IParentTreeNodeScope> fakeScope).isParent = (nodeScope: AngularUITree.ITreeNodeScope,) => {
+(<AngularUITree.IParentTreeNodeScope> fakeScope).isParent = (nodeScope: AngularUITree.ITreeNodeScope) => {
     return true;
 };
 
@@ -71,7 +71,7 @@ var acceptCallback: AngularUITree.IAcceptCallback = (
     return false;
 };
 
-var droppedCallback: AngularUITree.IDroppedCallback = (eventInfo: AngularUITree.IEventInfo,) => {
+var droppedCallback: AngularUITree.IDroppedCallback = (eventInfo: AngularUITree.IEventInfo) => {
     return;
 };
 

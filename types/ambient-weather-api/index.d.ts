@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class AmbientWeatherApi {
-    constructor(credentials: AmbientWeatherApi.Credentials,);
+    constructor(credentials: AmbientWeatherApi.Credentials);
 
     /** Get all weather devices. */
     userDevices(): Promise<AmbientWeatherApi.Device[]>;
@@ -25,16 +25,16 @@ declare class AmbientWeatherApi {
     disconnect(): void;
 
     /** Subscribe to updates from your devices. */
-    subscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>,): void;
+    subscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
 
     /** Unsubscribe from updates from your devices. */
-    unsubscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>,): void;
+    unsubscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
 
-    on(eventname: 'connect', callback: () => void,): void;
-    on(eventname: 'subscribed', callback: (data: { devices: AmbientWeatherApi.Device[] },) => void,): void;
+    on(eventname: 'connect', callback: () => void): void;
+    on(eventname: 'subscribed', callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
     on(
         eventname: 'data',
-        callback: (data: AmbientWeatherApi.DeviceData & { device: AmbientWeatherApi.Device },) => void,
+        callback: (data: AmbientWeatherApi.DeviceData & { device: AmbientWeatherApi.Device }) => void,
     ): void;
 }
 
@@ -58,7 +58,7 @@ declare namespace AmbientWeatherApi {
     interface DeviceLocation {
         geo: {
             type: 'Point';
-            coordinates: [number, number,];
+            coordinates: [number, number];
         };
         elevation: number;
         location: string;

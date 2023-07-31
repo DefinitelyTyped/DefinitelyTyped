@@ -28,7 +28,7 @@ interface AutoLaunchOptions {
 }
 
 declare class AutoLaunch {
-    constructor(options: AutoLaunchOptions,);
+    constructor(options: AutoLaunchOptions);
 
     /**
      * Enables auto-launch at start up.

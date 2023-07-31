@@ -13,10 +13,10 @@
         headers: {
             a: '0987654321',
         },
-    },);
+    });
     await ap.sendSocketMessage({
         data: 'web socket msg',
-    },);
+    });
     ap.offSocketOpen();
     ap.offSocketError();
     ap.offSocketClose();
@@ -27,22 +27,22 @@
         data: {
             pageId: '1',
         },
-    },);
-    ap.getSessionData('pageId',);
+    });
+    ap.getSessionData('pageId');
 
     ap.parseQueryString();
 
     const images = await ap.chooseImage({
         count: 2,
-    },);
+    });
     ap.previewImage({
         urls: images.apFilePaths,
-    },);
+    });
 
     ap.chooseVideo({
         maxDuration: 30,
-        sourceType: ['camera',],
-    },);
+        sourceType: ['camera'],
+    });
 
     ap.onBackgroundAudioPlay();
     ap.onBackgroundAudioPause();
@@ -52,10 +52,10 @@
         url: 'https://os.alipayobjects.com/rmsportal/FOjtUAVjVsfldZgjBdxE.mp3',
         title: '舒缓轻音乐',
         cover: 'https://zos.alipayobjects.com/rmsportal/VRrMXbgUSdsibQjwZpyT.png',
-    },);
+    });
 
     ap.pauseBackgroundAudio();
-    ap.seekBackgroundAudio(0,);
+    ap.seekBackgroundAudio(0);
     ap.getBackgroundAudioPlayerState();
 
     ap.stopBackgroundAudio();
@@ -66,7 +66,7 @@
 
     const location = await ap.getLocation();
 
-    ap.openLocation(location,);
+    ap.openLocation(location);
 
     ap.getNetworkType();
 
@@ -88,8 +88,8 @@
     ap.getBluetoothAdapterState();
 
     ap.startBluetoothDevicesDiscovery({
-        services: ['0000fdd7-0000-1011-8004-00987f9b34fb',],
-    },);
+        services: ['0000fdd7-0000-1011-8004-00987f9b34fb'],
+    });
     ap.stopBluetoothDevicesDiscovery();
     const bltDevices = await ap.getBluetoothDevices();
 
@@ -97,18 +97,18 @@
         const deviceId = bltDevices.devices[0].deviceId;
         await ap.connectBLEDevice({
             deviceId,
-        },);
+        });
 
-        const { services, } = await ap.getBLEDeviceServices({
+        const { services } = await ap.getBLEDeviceServices({
             deviceId,
-        },);
+        });
 
         if (services.length) {
             const serviceId = services[0].serviceId;
             const bleDevices = await ap.getBLEDeviceCharacteristics({
                 deviceId,
                 serviceId,
-            },);
+            });
 
             if (bleDevices.characteristics.length) {
                 const characteristicId = bleDevices.characteristics[0].characteristicId;
@@ -120,7 +120,7 @@
                     serviceId,
                     // 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
                     characteristicId,
-                },);
+                });
 
                 await ap.writeBLECharacteristicValue({
                     // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
@@ -131,7 +131,7 @@
                     characteristicId,
                     // 这里的value是 16 进制字符串
                     value: 'value',
-                },);
+                });
                 await ap.readBLECharacteristicValue({
                     // 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
                     deviceId,
@@ -139,7 +139,7 @@
                     serviceId,
                     // 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
                     characteristicId,
-                },);
+                });
             }
         }
 
@@ -147,7 +147,7 @@
 
         ap.disconnectBLEDevice({
             deviceId,
-        },);
+        });
     }
 
     ap.offBLECharacteristicValueChange();
@@ -165,10 +165,10 @@
 
     ap.pushWindow({
         url: 'https://google.com',
-    },);
+    });
     ap.popWindow();
-    ap.popTo(-1,);
-    ap.redirectTo('https://github.com',);
+    ap.popTo(-1);
+    ap.redirectTo('https://github.com');
 
     ap.onResume();
     ap.onPause();
@@ -184,20 +184,20 @@
     ap.onAppResume();
     ap.offAppResume();
 
-    ap.alert('Hello World',);
-    ap.confirm('Hello World',);
-    ap.showToast('Hello world',);
+    ap.alert('Hello World');
+    ap.confirm('Hello World');
+    ap.showToast('Hello world');
     ap.hideToast();
-    ap.showLoading('Loading...',);
+    ap.showLoading('Loading...');
     ap.hideLoading();
     ap.showActionSheet({
-        items: ['item1', 'item2', 'item3',],
-    },);
+        items: ['item1', 'item2', 'item3'],
+    });
 
     ap.onTitleClick();
     ap.setNavigationBar({
         title: 'title',
-    },);
+    });
 
     ap.offTitleClick();
     ap.showNavigationBarLoading();
@@ -211,7 +211,7 @@
                 type: 'user',
             },
         ],
-    },);
+    });
 
     ap.showOptionButton();
     ap.hideOptionButton();
@@ -224,9 +224,9 @@
                 icon: 'user',
             },
         ],
-    },);
+    });
 
-    ap.allowPullDownRefresh(true,);
+    ap.allowPullDownRefresh(true);
     ap.onPullDownRefresh();
     ap.offPullDownRefresh();
 
@@ -236,7 +236,7 @@
     ap.chooseCity();
     ap.datePicker();
 
-    ap.tradePay('orderStr',);
+    ap.tradePay('orderStr');
 
     ap.getServerTime();
 });

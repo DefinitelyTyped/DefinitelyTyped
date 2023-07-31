@@ -8,7 +8,7 @@ declare namespace angular.environment {
         /**
          * Sets the configuration object
          */
-        config: (config: angular.environment.Config,) => void;
+        config: (config: angular.environment.Config) => void;
         /**
          * Evaluates the current domain and
          * loads the correct environment variables.
@@ -18,7 +18,7 @@ declare namespace angular.environment {
          * Retrieves the correct version of a
          * variable for the current environment.
          */
-        read: (key: string,) => any;
+        read: (key: string) => any;
     }
     interface Service {
         /**
@@ -29,19 +29,19 @@ declare namespace angular.environment {
         /**
          * Force sets the current environment
          */
-        set: (environment: string,) => void;
+        set: (environment: string) => void;
 
         /**
          * Evaluates current environment against
          * environment parameter.
          */
-        is: (environment: string,) => boolean;
+        is: (environment: string) => boolean;
 
         /**
          * Retrieves the correct version of a
          * variable for the current environment.
          */
-        read: (key: string,) => any;
+        read: (key: string) => any;
     }
 
     interface Config {

@@ -104,7 +104,7 @@ declare namespace AMap {
          * 输入提示，根据输入关键字提示匹配信息
          * @param options 选项
          */
-        constructor(options?: Autocomplete.Options,);
+        constructor(options?: Autocomplete.Options);
         /**
          * 根据输入关键字提示匹配信息
          * @param keyword 关键字
@@ -112,30 +112,30 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string,) => void,
+            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void,
         ): void;
         /**
          * 设置提示Poi类型，多个类型用“|”分隔
          * @param type Poi类型
          */
-        setType(type?: string,): void;
+        setType(type?: string): void;
         /**
          * 设置城市
          * @param city 城市
          */
-        setCity(city?: string,): void;
+        setCity(city?: string): void;
         /**
          * 设置是否强制限制城市
          * @param cityLimit 是否强制限制城市
          */
-        setCityLimit(cityLimit: boolean,): void;
+        setCityLimit(cityLimit: boolean): void;
 
         // internal
         /**
          * 设置查询语言
          * @param lang 语言
          */
-        setLang(lang?: Lang,): void;
+        setLang(lang?: Lang): void;
         /**
          * 返回查询语言
          */

@@ -12,7 +12,7 @@ const controlBar = new AMap.ControlBar({
     },
     showZoomBar: true,
     showControlButton: true,
-},);
+});
 
 // $ExpectType void
 controlBar.show();
@@ -20,4 +20,4 @@ controlBar.show();
 // $ExpectType void
 controlBar.hide();
 
-map.addControl(controlBar,);
+map.addControl(controlBar);

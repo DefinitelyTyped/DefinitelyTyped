@@ -25,7 +25,7 @@ export default class GaugeBand {
      * and positive number means the color will be lighter.
      * @default []
      */
-    gradientRatio: [number,];
+    gradientRatio: [number];
 
     /**
      * Unique id of a band.
@@ -56,10 +56,10 @@ export default class GaugeBand {
     /**
      * Sets end value for the band.
      */
-    setEndValue(value: number,): void;
+    setEndValue(value: number): void;
 
     /**
      * Sets start value for the band.
      */
-    setStartValue(value: number,): void;
+    setStartValue(value: number): void;
 }

@@ -71,14 +71,14 @@ declare module 'angular' {
              *
              * @param name name of field
              */
-            $activate(name: string,): void;
+            $activate(name: string): void;
 
             /**
              * Triggers `oncancel` event and calls `$hide()`.
              */
             $cancel(): void;
 
-            $setWaiting(value: boolean,): void;
+            $setWaiting(value: boolean): void;
 
             /**
              * Shows error message for particular field.
@@ -86,7 +86,7 @@ declare module 'angular' {
              * @param name name of field
              * @param msg error message
              */
-            $setError(name: string, msg: string,): void;
+            $setError(name: string, msg: string): void;
 
             $submit(): void;
 

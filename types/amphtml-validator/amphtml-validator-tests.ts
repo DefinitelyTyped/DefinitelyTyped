@@ -2,8 +2,8 @@ import * as ampHtmlValidator from 'amphtml-validator';
 
 (async () => {
     const validator = await ampHtmlValidator.getInstance();
-    const result = validator.validateString('<html></html>',);
-    const { status, errors, } = result;
+    const result = validator.validateString('<html></html>');
+    const { status, errors } = result;
     if (status === 'FAIL' || status === 'UNKNOWN') {
         const errs = errors.map(err => {
             const {
@@ -16,12 +16,12 @@ import * as ampHtmlValidator from 'amphtml-validator';
                 params,
             } = err;
             return err;
-        },);
+        });
     }
 })();
 
 (() => {
-    const validator = ampHtmlValidator.newInstance('',);
-    const result = validator.validateString('<html></html>', 'AMP4ADS',);
-    const { status, errors, } = result;
+    const validator = ampHtmlValidator.newInstance('');
+    const result = validator.validateString('<html></html>', 'AMP4ADS');
+    const { status, errors } = result;
 })();

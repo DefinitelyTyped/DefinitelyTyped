@@ -1,10 +1,10 @@
-var myapp = angular.module('myapp', ['cgNotify',],);
+var myapp = angular.module('myapp', ['cgNotify']);
 
 myapp.controller('MyController', [
     '$scope',
     'cgNotify',
-    function($scope: ng.IScope, notify: ng.cgNotify.INotifyService,) { // <-- Inject notify
-        var notifyObj = notify('Your notification message',); // <-- Call notify with your message
+    function($scope: ng.IScope, notify: ng.cgNotify.INotifyService) { // <-- Inject notify
+        var notifyObj = notify('Your notification message'); // <-- Call notify with your message
         notifyObj.close();
 
         notify.config({
@@ -14,7 +14,7 @@ myapp.controller('MyController', [
             templateUrl: 'angular-notify.html',
             position: 'center',
             container: document.body,
-        },);
+        });
 
         notify({
             message: 'My message',
@@ -23,8 +23,8 @@ myapp.controller('MyController', [
             container: document.body,
             classes: '', // <-- CSS class names
             $scope: $scope,
-        },); // <-- Call notify with your message + option
+        }); // <-- Call notify with your message + option
 
         notify.closeAll();
     },
-],);
+]);

@@ -49,20 +49,20 @@ export class ProtectPDFOperation {
     /**
      * Constructs a {@link ProtectPDFOperation} instance.
      */
-    static createNew(options: PasswordProtectOptions,): ProtectPDFOperation;
+    static createNew(options: PasswordProtectOptions): ProtectPDFOperation;
     static get SupportedSourceFormat(): {
         /**
          * Represents "application/pdf" media type
          */
         pdf: string;
     };
-    constructor(options: any,);
+    constructor(options: any);
     sourceFileRef: any;
     options: any;
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -70,8 +70,8 @@ export class ProtectPDFOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
 }
-import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
-import { PasswordProtectOptions, } from './option/protectpdf/password-protect-options';
+import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { PasswordProtectOptions } from './option/protectpdf/password-protect-options';

@@ -16,16 +16,16 @@ import * as adobeAnalytics from '@adobe/aio-lib-analytics';
             },
         ],
         metricContainer: {
-            metrics: [{ id: 'foobar', },],
+            metrics: [{ id: 'foobar' }],
         },
         dimension: 'foobar',
         settings: {
             limit: 20,
             page: 2,
         },
-    },);
+    });
 
     const rowsValue = report.body.rows?.map(row => {
         return row.value;
-    },);
+    });
 })();

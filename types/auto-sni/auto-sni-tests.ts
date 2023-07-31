@@ -3,17 +3,17 @@ const a = autosni({
     agreeTos: true,
     email: '',
     dir: '',
-    domains: ['',],
-},);
+    domains: [''],
+});
 
 const b = autosni({
     agreeTos: true,
     email: '',
     domains: () => [],
-},);
+});
 
 const c = autosni({
     agreeTos: true,
     email: '',
-    domains: () => Promise.resolve([],),
-},);
+    domains: () => Promise.resolve([]),
+});

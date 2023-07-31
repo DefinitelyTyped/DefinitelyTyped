@@ -16,24 +16,24 @@ declare module 'angular' {
              * Creates a `bag` scoped under `scope` and identified by `name`. You should provide the entire `drake` instance.
              * Typically, the directive takes care of this step.
              */
-            add(scope: IScope, name: string, drake: d.Drake,): Bag;
+            add(scope: IScope, name: string, drake: d.Drake): Bag;
             /**
              * Returns the `bag` for a s`drake` instance
              */
-            find(scope: IScope, name: string,): Readonly<Bag> | undefined;
+            find(scope: IScope, name: string): Readonly<Bag> | undefined;
             /**
              * Sets the `options` used to instantiate a `drake`.
              * Refer to the documentation for `dragula` to learn more about the options themselves.
              */
-            options(scope: IScope, name: string, options?: d.DragulaOptions,): void;
+            options(scope: IScope, name: string, options?: d.DragulaOptions): void;
             /**
              * Destroys a `drake` instance named `name` scoped under `scope`.
              */
-            destroy(scope: IScope, name: string,): void;
+            destroy(scope: IScope, name: string): void;
             /**
              * models to sync with
              */
-            handleModels(scope: IScope, drake: d.Drake,): void;
+            handleModels(scope: IScope, drake: d.Drake): void;
         }
 
         /**
@@ -46,7 +46,7 @@ declare module 'angular' {
     }
 }
 
-declare function angularDragula(angular: angular.IAngularStatic,): 'dragula';
+declare function angularDragula(angular: angular.IAngularStatic): 'dragula';
 
 export as namespace angularDragula;
 export = angularDragula;

@@ -17,19 +17,19 @@ declare namespace Animated_GIF {
 }
 
 declare class Animated_GIF {
-    constructor(options?: Animated_GIF.options,);
+    constructor(options?: Animated_GIF.options);
 
-    setSize(width: number, height: number,): void;
-    setDelay(delay: number,): void;
-    setRepeat(repeat: number | null,): void;
+    setSize(width: number, height: number): void;
+    setDelay(delay: number): void;
+    setRepeat(repeat: number | null): void;
 
-    addFrame(element: CanvasImageSource,): void;
-    addFrameImageData(imageData: ImageData,): void;
+    addFrame(element: CanvasImageSource): void;
+    addFrameImageData(imageData: ImageData): void;
 
-    onRenderProgress(callback: (percent: number,) => void,): void;
+    onRenderProgress(callback: (percent: number) => void): void;
     isRendering(): boolean;
-    getBase64GIF(callback: (gifBase64: string,) => void,): void;
-    getBlobGIF(callback: (blob: Blob,) => void,): void;
+    getBase64GIF(callback: (gifBase64: string) => void): void;
+    getBlobGIF(callback: (blob: Blob) => void): void;
     destroy(): void;
 }
 

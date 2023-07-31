@@ -42,7 +42,7 @@ declare module 'angular' {
             timezone?: string | undefined;
         }
 
-        type DatepickerCallback<T,> = (args: IDatepickerCellArgs,) => T;
+        type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
 
         type DatepickerMode = 'day' | 'month' | 'year';
 
@@ -331,19 +331,19 @@ declare module 'angular' {
              * @param {IModalSettings} options
              * @returns {IModalInstanceService}
              */
-            open(options: IModalSettings,): IModalInstanceService;
+            open(options: IModalSettings): IModalInstanceService;
         }
 
         interface IModalInstanceService {
             /**
              * A method that can be used to close a modal, passing a result. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              */
-            close(result?: any,): void;
+            close(result?: any): void;
 
             /**
              * A method that can be used to dismiss a modal, passing a reason. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              */
-            dismiss(reason?: any,): void;
+            dismiss(reason?: any): void;
 
             /**
              * A promise that is resolved when a modal is closed and rejected when a modal is dismissed.
@@ -377,14 +377,14 @@ declare module 'angular' {
              *
              * @returns true if the modal was closed; otherwise false
              */
-            $dismiss(reason?: any,): boolean;
+            $dismiss(reason?: any): boolean;
 
             /**
              * Close the dialog resolving the promise to the given value. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              *
              * @returns true if the modal was closed; otherwise false
              */
-            $close(result?: any,): boolean;
+            $close(result?: any): boolean;
         }
 
         interface IModalSettings {
@@ -522,22 +522,22 @@ declare module 'angular' {
             /**
              * Opens a new modal instance.
              */
-            open(modalInstance: IModalInstanceService, modal: any,): void;
+            open(modalInstance: IModalInstanceService, modal: any): void;
 
             /**
              * Closes a modal instance with an optional result.
              */
-            close(modalInstance: IModalInstanceService, result?: any,): void;
+            close(modalInstance: IModalInstanceService, result?: any): void;
 
             /**
              * Dismisses a modal instance with an optional reason.
              */
-            dismiss(modalInstance: IModalInstanceService, reason?: any,): void;
+            dismiss(modalInstance: IModalInstanceService, reason?: any): void;
 
             /**
              * Dismiss all open modal instances with an optional reason that will be passed to each instance.
              */
-            dismissAll(reason?: any,): void;
+            dismissAll(reason?: any): void;
 
             /**
              * Gets the topmost modal instance that is open.
@@ -689,12 +689,12 @@ declare module 'angular' {
             /**
              * Provides a read-only equivalent of jQuery's position function.
              */
-            position(element: JQuery,): IPositionCoordinates;
+            position(element: JQuery): IPositionCoordinates;
 
             /**
              * Provides a read-only equivalent of jQuery's offset function.
              */
-            offset(element: JQuery,): IPositionCoordinates;
+            offset(element: JQuery): IPositionCoordinates;
         }
 
         interface IProgressConfig {
@@ -877,12 +877,12 @@ declare module 'angular' {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */
-            options(value: ITooltipOptions,): void;
+            options(value: ITooltipOptions): void;
 
             /**
              * Extends the default trigger mappings with mappings of your own. E.g. `{ 'openTrigger': 'closeTrigger' }`.
              */
-            setTriggers(triggers: Object,): void;
+            setTriggers(triggers: Object): void;
         }
 
         /**

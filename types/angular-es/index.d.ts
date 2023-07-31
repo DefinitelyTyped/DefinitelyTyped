@@ -5,11 +5,11 @@
 
 declare module 'angular-es' {
     interface ClassDecorator {
-        <TFunction extends Function,>(target: TFunction,): TFunction | void;
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
     interface MethodDecorator {
-        <T,>(
+        <T>(
             target: Object,
             propertyKey: string | symbol,
             descriptor: TypedPropertyDescriptor<T>,
@@ -50,7 +50,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Component(component: iComponent,): ngESDecorator;
+    function Component(component: iComponent): ngESDecorator;
 
     /**
      * Register config block
@@ -64,7 +64,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Constant(name: string,): ngESDecorator;
+    function Constant(name: string): ngESDecorator;
 
     /**
      * Register controller
@@ -73,7 +73,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Controller(name: string,): ngESDecorator;
+    function Controller(name: string): ngESDecorator;
 
     /**
      * Register decorator
@@ -82,7 +82,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Decorator(name: string,): ngESDecorator;
+    function Decorator(name: string): ngESDecorator;
 
     /**
      * Register directive
@@ -91,7 +91,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Directive(name: string,): ngESDecorator;
+    function Directive(name: string): ngESDecorator;
 
     /**
      * Register factory
@@ -100,7 +100,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Factory(name: string,): ngESDecorator;
+    function Factory(name: string): ngESDecorator;
 
     /**
      * Register filter
@@ -109,7 +109,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Filter(name: string,): ngESDecorator;
+    function Filter(name: string): ngESDecorator;
 
     /**
      * Add $inject property to target
@@ -136,7 +136,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Module(name: string,): ngESDecorator;
+    function Module(name: string): ngESDecorator;
 
     /**
      * Register provider
@@ -145,7 +145,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Provider(name: string,): ngESDecorator;
+    function Provider(name: string): ngESDecorator;
 
     /**
      * Register run block
@@ -161,7 +161,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Service(name: string,): ngESDecorator;
+    function Service(name: string): ngESDecorator;
 
     /**
      * Register value
@@ -170,7 +170,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Value(name: string,): ngESDecorator;
+    function Value(name: string): ngESDecorator;
 
     export {
         Component,

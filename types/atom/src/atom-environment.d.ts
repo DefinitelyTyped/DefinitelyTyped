@@ -83,22 +83,22 @@ export interface AtomEnvironment {
 
     // Event Subscription
     /** Invoke the given callback whenever ::beep is called. */
-    onDidBeep(callback: () => void,): Disposable;
+    onDidBeep(callback: () => void): Disposable;
 
     /**
      *  Invoke the given callback when there is an unhandled error, but before
      *  the devtools pop open.
      */
-    onWillThrowError(callback: (event: PreventableExceptionThrownEvent,) => void,): Disposable;
+    onWillThrowError(callback: (event: PreventableExceptionThrownEvent) => void): Disposable;
 
     /** Invoke the given callback whenever there is an unhandled error. */
-    onDidThrowError(callback: (event: ExceptionThrownEvent,) => void,): Disposable;
+    onDidThrowError(callback: (event: ExceptionThrownEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback as soon as the shell environment is loaded (or
      *  immediately if it was already loaded).
      */
-    whenShellEnvironmentLoaded(callback: () => void,): Disposable;
+    whenShellEnvironmentLoaded(callback: () => void): Disposable;
 
     // Atom Details
     /** Returns a boolean that is true if the current window is in development mode. */
@@ -141,7 +141,7 @@ export interface AtomEnvironment {
         newWindow?: boolean | undefined;
         devMode?: boolean | undefined;
         safeMode?: boolean | undefined;
-    },): void;
+    }): void;
 
     /** Close the current window. */
     close(): void;
@@ -150,16 +150,16 @@ export interface AtomEnvironment {
     getSize(): { width: number; height: number };
 
     /** Set the size of current window. */
-    setSize(width: number, height: number,): void;
+    setSize(width: number, height: number): void;
 
     /** Get the position of current window. */
     getPosition(): { x: number; y: number };
 
     /** Set the position of current window. */
-    setPosition(x: number, y: number,): void;
+    setPosition(x: number, y: number): void;
 
     /** Prompt the user to select one or more folders. */
-    pickFolder(callback: (paths: string[] | null,) => void,): void;
+    pickFolder(callback: (paths: string[] | null) => void): void;
 
     /** Get the current window. */
     getCurrentWindow(): object;
@@ -189,7 +189,7 @@ export interface AtomEnvironment {
     isFullScreen(): boolean;
 
     /** Set the full screen state of the current window. */
-    setFullScreen(fullScreen: boolean,): void;
+    setFullScreen(fullScreen: boolean): void;
 
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
@@ -231,7 +231,7 @@ export interface AtomEnvironment {
      *  @param checkboxChecked The checked state of the checkbox if `checkboxLabel` was set.
      *  Otherwise false.
      */
-    confirm(options: ConfirmationOptions, callback: (response: number, checkboxChecked: boolean,) => void,): void;
+    confirm(options: ConfirmationOptions, callback: (response: number, checkboxChecked: boolean) => void): void;
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog. If a callback
@@ -265,7 +265,7 @@ export interface AtomEnvironment {
         buttons?: {
             [key: string]: () => void;
         } | undefined;
-    },): number;
+    }): number;
 
     // Managing the Dev Tools
     /** Open the dev tools for the current window. */
@@ -275,7 +275,7 @@ export interface AtomEnvironment {
     toggleDevTools(): Promise<null>;
 
     /** Execute code in dev tools. */
-    executeJavaScriptInDevTools(code: string,): void;
+    executeJavaScriptInDevTools(code: string): void;
 
     /** Undocumented: get Atom config directory path */
     getConfigDirPath(): string;

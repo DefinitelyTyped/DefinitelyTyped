@@ -17,7 +17,7 @@ import KeymapManager = require('atom-keymap');
 Many of the types used by Atom Keymap can be referenced from the AtomKeymap namespace.
 
 ```ts
-function example(keybind: AtomKeymap.KeyBinding,) {}
+function example(keybind: AtomKeymap.KeyBinding) {}
 ```
 
 ### Exposing Private Methods and Properties

@@ -365,7 +365,7 @@ declare namespace MSForms {
         private 'MSForms.ComboBox_typekey': ComboBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        AddItem(pvargItem?: number, pvargIndex?: number,): void;
+        AddItem(pvargItem?: number, pvargIndex?: number): void;
         AutoSize: boolean;
         AutoTab: boolean;
         AutoWordSelect: boolean;
@@ -377,7 +377,7 @@ declare namespace MSForms {
         BoundColumn: number;
         readonly CanPaste: boolean;
         Clear(): void;
-        Column(pvargColumn: number, pvargIndex?: number,): any;
+        Column(pvargColumn: number, pvargIndex?: number): any;
         Column(): SafeArray;
         ColumnCount: number;
         ColumnHeads: boolean;
@@ -405,7 +405,7 @@ declare namespace MSForms {
         HideSelection: boolean;
         IMEMode: fmIMEMode;
         readonly LineCount: number;
-        List(pvargIndex: number, pvargColumn?: number,): any;
+        List(pvargIndex: number, pvargColumn?: number): any;
         List(): SafeArray;
         readonly ListCount: number;
         ListCursor: any;
@@ -421,7 +421,7 @@ declare namespace MSForms {
         MouseIcon: stdole.StdPicture;
         MousePointer: fmMousePointer;
         Paste(): void;
-        RemoveItem(pvargIndex: number,): boolean;
+        RemoveItem(pvargIndex: number): boolean;
         SelectionMargin: boolean;
         SelLength: number;
         SelStart: number;
@@ -470,22 +470,22 @@ declare namespace MSForms {
     class Control {
         private 'MSForms.Control_typekey': Control;
         private constructor();
-        _GetHeight(Height: number,): void;
+        _GetHeight(Height: number): void;
         _GethWnd(): number;
         _GetID(): number;
-        _GetLeft(Left: number,): void;
-        _GetOldHeight(OldHeight: number,): void;
-        _GetOldLeft(OldLeft: number,): void;
-        _GetOldTop(OldTop: number,): void;
-        _GetOldWidth(OldWidth: number,): void;
-        _GetTop(Top: number,): void;
-        _GetWidth(Width: number,): void;
-        _Move(Left: number, Top: number, Width: number, Height: number,): void;
-        _SetHeight(Height: number,): void;
-        _SetLeft(Left: number,): void;
-        _SetTop(Top: number,): void;
-        _SetWidth(Width: number,): void;
-        _ZOrder(zPosition: fmZOrder,): void;
+        _GetLeft(Left: number): void;
+        _GetOldHeight(OldHeight: number): void;
+        _GetOldLeft(OldLeft: number): void;
+        _GetOldTop(OldTop: number): void;
+        _GetOldWidth(OldWidth: number): void;
+        _GetTop(Top: number): void;
+        _GetWidth(Width: number): void;
+        _Move(Left: number, Top: number, Width: number, Height: number): void;
+        _SetHeight(Height: number): void;
+        _SetLeft(Left: number): void;
+        _SetTop(Top: number): void;
+        _SetWidth(Width: number): void;
+        _ZOrder(zPosition: fmZOrder): void;
         BoundValue: any;
         Cancel: boolean;
         ControlSource: string;
@@ -496,7 +496,7 @@ declare namespace MSForms {
         InSelection: boolean;
         readonly LayoutEffect: fmLayoutEffect;
         Left: number;
-        Move(Left?: any, Top?: any, Width?: any, Height?: any, Layout?: any,): void;
+        Move(Left?: any, Top?: any, Width?: any, Height?: any, Layout?: any): void;
         Name: string;
         readonly Object: any;
         readonly OldHeight: number;
@@ -506,7 +506,7 @@ declare namespace MSForms {
         readonly Parent: any;
         RowSource: string;
         RowSourceType: number;
-        Select(SelectInGroup: boolean,): void;
+        Select(SelectInGroup: boolean): void;
         SetFocus(): void;
         TabIndex: number;
         TabStop: boolean;
@@ -514,16 +514,16 @@ declare namespace MSForms {
         Top: number;
         Visible: boolean;
         Width: number;
-        ZOrder(zPosition?: any,): void;
+        ZOrder(zPosition?: any): void;
     }
 
     interface Controls {
-        _AddByClass(clsid: number,): Control;
-        _GetItemByID(ID: number,): Control;
-        _GetItemByIndex(lIndex: number,): Control;
-        _GetItemByName(pstr: string,): Control;
-        _Move(cx: number, cy: number,): void;
-        Add(bstrProgID: string, Name?: any, Visible?: any,): Control;
+        _AddByClass(clsid: number): Control;
+        _GetItemByID(ID: number): Control;
+        _GetItemByIndex(lIndex: number): Control;
+        _GetItemByName(pstr: string): Control;
+        _Move(cx: number, cy: number): void;
+        Add(bstrProgID: string, Name?: any, Visible?: any): Control;
         AlignToGrid(): void;
         BringForward(): void;
         BringToFront(): void;
@@ -532,45 +532,45 @@ declare namespace MSForms {
         readonly Count: number;
         Cut(): void;
         Enum(): any;
-        Item(varg: any,): any;
-        Move(cx: number, cy: number,): void;
-        Remove(varg: any,): void;
+        Item(varg: any): any;
+        Move(cx: number, cy: number): void;
+        Remove(varg: any): void;
         SelectAll(): void;
         SendBackward(): void;
         SendToBack(): void;
-        (varg: any,): any;
+        (varg: any): any;
     }
 
     class DataObject {
         private 'MSForms.DataObject_typekey': DataObject;
         private constructor();
         Clear(): void;
-        GetFormat(Format: any,): boolean;
+        GetFormat(Format: any): boolean;
         GetFromClipboard(): void;
-        GetText(Format?: any,): string;
+        GetText(Format?: any): string;
         PutInClipboard(): void;
-        SetText(Text: string, Format?: any,): void;
-        StartDrag(OKEffect?: any,): fmDropEffect;
+        SetText(Text: string, Format?: any): void;
+        StartDrag(OKEffect?: any): fmDropEffect;
     }
 
     class Frame {
         private 'MSForms.Frame_typekey': Frame;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        _GetGridX(GridX: number,): void;
-        _GetGridY(GridY: number,): void;
-        _GetInsideHeight(InsideHeight: number,): void;
-        _GetInsideWidth(InsideWidth: number,): void;
-        _GetScrollHeight(ScrollHeight: number,): void;
-        _GetScrollLeft(ScrollLeft: number,): void;
-        _GetScrollTop(ScrollTop: number,): void;
-        _GetScrollWidth(ScrollWidth: number,): void;
-        _SetGridX(GridX: number,): void;
-        _SetGridY(GridY: number,): void;
-        _SetScrollHeight(ScrollHeight: number,): void;
-        _SetScrollLeft(ScrollLeft: number,): void;
-        _SetScrollTop(ScrollTop: number,): void;
-        _SetScrollWidth(ScrollWidth: number,): void;
+        _GetGridX(GridX: number): void;
+        _GetGridY(GridY: number): void;
+        _GetInsideHeight(InsideHeight: number): void;
+        _GetInsideWidth(InsideWidth: number): void;
+        _GetScrollHeight(ScrollHeight: number): void;
+        _GetScrollLeft(ScrollLeft: number): void;
+        _GetScrollTop(ScrollTop: number): void;
+        _GetScrollWidth(ScrollWidth: number): void;
+        _SetGridX(GridX: number): void;
+        _SetGridY(GridY: number): void;
+        _SetScrollHeight(ScrollHeight: number): void;
+        _SetScrollLeft(ScrollLeft: number): void;
+        _SetScrollTop(ScrollTop: number): void;
+        _SetScrollWidth(ScrollWidth: number): void;
         readonly ActiveControl: Control;
         BackColor: number;
         BorderColor: number;
@@ -601,7 +601,7 @@ declare namespace MSForms {
         PictureTiling: boolean;
         RedoAction(): void;
         Repaint(): void;
-        Scroll(xAction?: any, yAction?: any,): void;
+        Scroll(xAction?: any, yAction?: any): void;
         ScrollBars: fmScrollBars;
         ScrollHeight: number;
         ScrollLeft: number;
@@ -769,14 +769,14 @@ declare namespace MSForms {
         private 'MSForms.ListBox_typekey': ListBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        AddItem(pvargItem?: any, pvargIndex?: any,): void;
+        AddItem(pvargItem?: any, pvargIndex?: any): void;
         BackColor: number;
         BorderColor: number;
         BordersSuppress: boolean;
         BorderStyle: fmBorderStyle;
         BoundColumn: any;
         Clear(): void;
-        Column(pvargColumn: number, pvargIndex?: number,): any;
+        Column(pvargColumn: number, pvargIndex?: number): any;
         Column(): SafeArray;
         ColumnCount: number;
         ColumnHeads: boolean;
@@ -794,7 +794,7 @@ declare namespace MSForms {
         ForeColor: number;
         IMEMode: fmIMEMode;
         IntegralHeight: boolean;
-        List(pvargIndex: number, pvargColumn?: number,): any;
+        List(pvargIndex: number, pvargColumn?: number): any;
         List(): SafeArray;
         readonly ListCount: number;
         ListCursor: any;
@@ -806,8 +806,8 @@ declare namespace MSForms {
         MouseIcon: stdole.StdPicture;
         MousePointer: fmMousePointer;
         MultiSelect: fmMultiSelect;
-        RemoveItem(pvargIndex: any,): void;
-        Selected(pvargIndex: any,): boolean;
+        RemoveItem(pvargIndex: any): void;
+        Selected(pvargIndex: any): boolean;
         SpecialEffect: fmSpecialEffect;
         Text: string;
         TextAlign: fmTextAlign;
@@ -821,10 +821,10 @@ declare namespace MSForms {
         private 'MSForms.MultiPage_typekey': MultiPage;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        _GetTabFixedHeight(Height: number,): void;
-        _GetTabFixedWidth(Width: number,): void;
-        _SetTabFixedHeight(Height: number,): void;
-        _SetTabFixedWidth(Width: number,): void;
+        _GetTabFixedHeight(Height: number): void;
+        _GetTabFixedWidth(Width: number): void;
+        _SetTabFixedHeight(Height: number): void;
+        _SetTabFixedWidth(Width: number): void;
         BackColor: number;
         Enabled: boolean;
         Font: NewFont;
@@ -899,20 +899,20 @@ declare namespace MSForms {
     class Page {
         private 'MSForms.Page_typekey': Page;
         private constructor();
-        _GetGridX(GridX: number,): void;
-        _GetGridY(GridY: number,): void;
-        _GetInsideHeight(InsideHeight: number,): void;
-        _GetInsideWidth(InsideWidth: number,): void;
-        _GetScrollHeight(ScrollHeight: number,): void;
-        _GetScrollLeft(ScrollLeft: number,): void;
-        _GetScrollTop(ScrollTop: number,): void;
-        _GetScrollWidth(ScrollWidth: number,): void;
-        _SetGridX(GridX: number,): void;
-        _SetGridY(GridY: number,): void;
-        _SetScrollHeight(ScrollHeight: number,): void;
-        _SetScrollLeft(ScrollLeft: number,): void;
-        _SetScrollTop(ScrollTop: number,): void;
-        _SetScrollWidth(ScrollWidth: number,): void;
+        _GetGridX(GridX: number): void;
+        _GetGridY(GridY: number): void;
+        _GetInsideHeight(InsideHeight: number): void;
+        _GetInsideWidth(InsideWidth: number): void;
+        _GetScrollHeight(ScrollHeight: number): void;
+        _GetScrollLeft(ScrollLeft: number): void;
+        _GetScrollTop(ScrollTop: number): void;
+        _GetScrollWidth(ScrollWidth: number): void;
+        _SetGridX(GridX: number): void;
+        _SetGridY(GridY: number): void;
+        _SetScrollHeight(ScrollHeight: number): void;
+        _SetScrollLeft(ScrollLeft: number): void;
+        _SetScrollTop(ScrollTop: number): void;
+        _SetScrollWidth(ScrollWidth: number): void;
         Accelerator: string;
         readonly ActiveControl: Control;
         readonly CanPaste: boolean;
@@ -941,7 +941,7 @@ declare namespace MSForms {
         PictureTiling: boolean;
         RedoAction(): void;
         Repaint(): void;
-        Scroll(xAction?: any, yAction?: any,): void;
+        Scroll(xAction?: any, yAction?: any): void;
         ScrollBars: fmScrollBars;
         ScrollHeight: number;
         ScrollLeft: number;
@@ -962,17 +962,17 @@ declare namespace MSForms {
     }
 
     interface Pages {
-        _AddCtrl(clsid: number, bstrName: string, bstrCaption: string,): Page;
-        _GetItemByIndex(lIndex: number,): Control;
-        _GetItemByName(pstrName: string,): Control;
-        _InsertCtrl(clsid: number, bstrName: string, bstrCaption: string, lIndex: number,): Page;
-        Add(bstrName?: any, bstrCaption?: any, lIndex?: any,): Page;
+        _AddCtrl(clsid: number, bstrName: string, bstrCaption: string): Page;
+        _GetItemByIndex(lIndex: number): Control;
+        _GetItemByName(pstrName: string): Control;
+        _InsertCtrl(clsid: number, bstrName: string, bstrCaption: string, lIndex: number): Page;
+        Add(bstrName?: any, bstrCaption?: any, lIndex?: any): Page;
         Clear(): void;
         readonly Count: number;
         Enum(): any;
-        Item(varg: any,): any;
-        Remove(varg: any,): void;
-        (varg: any,): any;
+        Item(varg: any): any;
+        Remove(varg: any): void;
+        (varg: any): any;
     }
 
     class ReturnBoolean {
@@ -1053,31 +1053,31 @@ declare namespace MSForms {
     }
 
     interface Tabs {
-        _Add(bstrName: string, bstrCaption: string,): Tab;
-        _GetItemByIndex(lIndex: number,): Tab;
-        _GetItemByName(bstr: string,): Tab;
-        _Insert(bstrName: string, bstrCaption: string, lIndex: number,): Tab;
-        Add(bstrName?: any, bstrCaption?: any, lIndex?: any,): Tab;
+        _Add(bstrName: string, bstrCaption: string): Tab;
+        _GetItemByIndex(lIndex: number): Tab;
+        _GetItemByName(bstr: string): Tab;
+        _Insert(bstrName: string, bstrCaption: string, lIndex: number): Tab;
+        Add(bstrName?: any, bstrCaption?: any, lIndex?: any): Tab;
         Clear(): void;
         readonly Count: number;
         Enum(): any;
-        Item(varg: any,): any;
-        Remove(varg: any,): void;
-        (varg: any,): any;
+        Item(varg: any): any;
+        Remove(varg: any): void;
+        (varg: any): any;
     }
 
     class TabStrip {
         private 'MSForms.TabStrip_typekey': TabStrip;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        _GetClientHeight(ClientHeight: number,): void;
-        _GetClientLeft(ClientLeft: number,): void;
-        _GetClientTop(ClientTop: number,): void;
-        _GetClientWidth(ClientWidth: number,): void;
-        _GetTabFixedHeight(TabFixedHeight: number,): void;
-        _GetTabFixedWidth(TabFixedWidth: number,): void;
-        _SetTabFixedHeight(TabFixedHeight: number,): void;
-        _SetTabFixedWidth(TabFixedWidth: number,): void;
+        _GetClientHeight(ClientHeight: number): void;
+        _GetClientLeft(ClientLeft: number): void;
+        _GetClientTop(ClientTop: number): void;
+        _GetClientWidth(ClientWidth: number): void;
+        _GetTabFixedHeight(TabFixedHeight: number): void;
+        _GetTabFixedWidth(TabFixedWidth: number): void;
+        _SetTabFixedHeight(TabFixedHeight: number): void;
+        _SetTabFixedWidth(TabFixedWidth: number): void;
         BackColor: number;
         readonly ClientHeight: number;
         readonly ClientLeft: number;
@@ -1208,20 +1208,20 @@ declare namespace MSForms {
         private 'MSForms.UserForm_typekey': UserForm;
         private constructor();
         readonly _Font_Reserved: NewFont;
-        _GetGridX(GridX: number,): void;
-        _GetGridY(GridY: number,): void;
-        _GetInsideHeight(InsideHeight: number,): void;
-        _GetInsideWidth(InsideWidth: number,): void;
-        _GetScrollHeight(ScrollHeight: number,): void;
-        _GetScrollLeft(ScrollLeft: number,): void;
-        _GetScrollTop(ScrollTop: number,): void;
-        _GetScrollWidth(ScrollWidth: number,): void;
-        _SetGridX(GridX: number,): void;
-        _SetGridY(GridY: number,): void;
-        _SetScrollHeight(ScrollHeight: number,): void;
-        _SetScrollLeft(ScrollLeft: number,): void;
-        _SetScrollTop(ScrollTop: number,): void;
-        _SetScrollWidth(ScrollWidth: number,): void;
+        _GetGridX(GridX: number): void;
+        _GetGridY(GridY: number): void;
+        _GetInsideHeight(InsideHeight: number): void;
+        _GetInsideWidth(InsideWidth: number): void;
+        _GetScrollHeight(ScrollHeight: number): void;
+        _GetScrollLeft(ScrollLeft: number): void;
+        _GetScrollTop(ScrollTop: number): void;
+        _GetScrollWidth(ScrollWidth: number): void;
+        _SetGridX(GridX: number): void;
+        _SetGridY(GridY: number): void;
+        _SetScrollHeight(ScrollHeight: number): void;
+        _SetScrollLeft(ScrollLeft: number): void;
+        _SetScrollTop(ScrollTop: number): void;
+        _SetScrollWidth(ScrollWidth: number): void;
         readonly ActiveControl: Control;
         BackColor: number;
         BorderColor: number;
@@ -1253,7 +1253,7 @@ declare namespace MSForms {
         PictureTiling: boolean;
         RedoAction(): void;
         Repaint(): void;
-        Scroll(xAction?: any, yAction?: any,): void;
+        Scroll(xAction?: any, yAction?: any): void;
         ScrollBars: fmScrollBars;
         ScrollHeight: number;
         ScrollLeft: number;
@@ -1271,7 +1271,7 @@ declare namespace MSForms {
     }
 
     namespace EventHelperTypes {
-        type Container_BeforeDragOver_ArgNames = ['Cancel', 'Control', 'Data', 'X', 'Y', 'State', 'Effect', 'Shift',];
+        type Container_BeforeDragOver_ArgNames = ['Cancel', 'Control', 'Data', 'X', 'Y', 'State', 'Effect', 'Shift'];
 
         type Container_BeforeDropOrPaste_ArgNames = [
             'Cancel',
@@ -1284,13 +1284,13 @@ declare namespace MSForms {
             'Shift',
         ];
 
-        type Container_Scroll_ArgNames = ['ActionX', 'ActionY', 'RequestDx', 'RequestDy', 'ActualDx', 'ActualDy',];
+        type Container_Scroll_ArgNames = ['ActionX', 'ActionY', 'RequestDx', 'RequestDy', 'ActualDx', 'ActualDy'];
 
-        type Control_BeforeDragOver_ArgNames = ['Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift',];
+        type Control_BeforeDragOver_ArgNames = ['Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift'];
 
-        type Control_BeforeDropOrPaste_ArgNames = ['Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift',];
+        type Control_BeforeDropOrPaste_ArgNames = ['Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
 
-        type Error_ArgNames = ['Number', 'Description', 'SCode', 'Source', 'HelpFile', 'HelpContext', 'CancelDisplay',];
+        type Error_ArgNames = ['Number', 'Description', 'SCode', 'Source', 'HelpFile', 'HelpContext', 'CancelDisplay'];
 
         type MultiPage_BeforeDragOver_ArgNames = [
             'Index',
@@ -1337,9 +1337,9 @@ declare namespace MSForms {
             'ActualDy',
         ];
 
-        type TabStrip_BeforeDragOver_ArgNames = ['Index', 'Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift',];
+        type TabStrip_BeforeDragOver_ArgNames = ['Index', 'Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift'];
 
-        type TabStrip_BeforeDropOrPaste_ArgNames = ['Index', 'Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift',];
+        type TabStrip_BeforeDropOrPaste_ArgNames = ['Index', 'Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
 
         interface Container_BeforeDragOver_Parameter {
             readonly Cancel: ReturnBoolean;
@@ -1493,19 +1493,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.CheckBox,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.CheckBox, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.CheckBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.CheckBox,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.CheckBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.CheckBox,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1514,13 +1514,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.CheckBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.CheckBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.CheckBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.CheckBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.CheckBox,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1547,19 +1547,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.ComboBox,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.ComboBox, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.ComboBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.ComboBox,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ComboBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.ComboBox,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1568,13 +1568,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.ComboBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.ComboBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.ComboBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.ComboBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.ComboBox,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1601,19 +1601,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.CommandButton,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.CommandButton, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.CommandButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.CommandButton,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.CommandButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.CommandButton,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1622,13 +1622,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.CommandButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.CommandButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.CommandButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.CommandButton,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.CommandButton,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1637,20 +1637,20 @@ interface ActiveXObject {
     on(
         obj: MSForms.Control,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.Control, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.Control, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'AddControl' | 'RemoveControl',
-        argNames: ['Control',],
-        handler: (this: MSForms.Frame, parameter: { readonly Control: MSForms.Control },) => void,
+        argNames: ['Control'],
+        handler: (this: MSForms.Frame, parameter: { readonly Control: MSForms.Control }) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'BeforeDragOver',
         argNames: MSForms.EventHelperTypes.Container_BeforeDragOver_ArgNames,
-        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter,) => void,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Frame,
@@ -1664,19 +1664,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.Frame,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.Frame, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.Frame, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.Frame,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1685,13 +1685,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.Frame,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.Frame, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.Frame, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.Frame,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1701,19 +1701,19 @@ interface ActiveXObject {
         obj: MSForms.Frame,
         event: 'Scroll',
         argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames,
-        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter,) => void,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Frame,
         event: 'Zoom',
-        argNames: ['Percent',],
-        handler: (this: MSForms.Frame, parameter: { Percent: number },) => void,
+        argNames: ['Percent'],
+        handler: (this: MSForms.Frame, parameter: { Percent: number }) => void,
     ): void;
     on(
         obj: MSForms.Image,
         event: 'BeforeDragOver',
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,) => void,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Image,
@@ -1727,19 +1727,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.Image,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.Image, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.Image, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.Image,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Image,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.Image,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1749,7 +1749,7 @@ interface ActiveXObject {
         obj: MSForms.Label,
         event: 'BeforeDragOver',
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,) => void,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Label,
@@ -1763,19 +1763,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.Label,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.Label, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.Label, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.Label,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Label,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.Label,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1785,7 +1785,7 @@ interface ActiveXObject {
         obj: MSForms.ListBox,
         event: 'BeforeDragOver',
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,) => void,
+        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ListBox,
@@ -1799,19 +1799,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.ListBox,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.ListBox, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.ListBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.ListBox,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ListBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.ListBox,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1820,13 +1820,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.ListBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.ListBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.ListBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.ListBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.ListBox,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1835,7 +1835,7 @@ interface ActiveXObject {
     on(
         obj: MSForms.MultiPage,
         event: 'AddControl' | 'RemoveControl',
-        argNames: ['Index', 'Control',],
+        argNames: ['Index', 'Control'],
         handler: (
             this: MSForms.MultiPage,
             parameter: { readonly Index: number; readonly Control: MSForms.Control },
@@ -1862,13 +1862,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.MultiPage,
         event: 'Click' | 'Layout',
-        argNames: ['Index',],
-        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number },) => void,
+        argNames: ['Index'],
+        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number }) => void,
     ): void;
     on(
         obj: MSForms.MultiPage,
         event: 'DblClick',
-        argNames: ['Index', 'Cancel',],
+        argNames: ['Index', 'Cancel'],
         handler: (
             this: MSForms.MultiPage,
             parameter: { readonly Index: number; readonly Cancel: MSForms.ReturnBoolean },
@@ -1878,12 +1878,12 @@ interface ActiveXObject {
         obj: MSForms.MultiPage,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.MultiPage_Error_ArgNames,
-        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Error_Parameter,) => void,
+        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.MultiPage,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.MultiPage,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1892,13 +1892,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.MultiPage,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.MultiPage, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.MultiPage, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.MultiPage,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Index', 'Button', 'Shift', 'X', 'Y',],
+        argNames: ['Index', 'Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.MultiPage,
             parameter: {
@@ -1914,13 +1914,13 @@ interface ActiveXObject {
         obj: MSForms.MultiPage,
         event: 'Scroll',
         argNames: MSForms.EventHelperTypes.MultiPage_Scroll_ArgNames,
-        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Scroll_Parameter,) => void,
+        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Scroll_Parameter) => void,
     ): void;
     on(
         obj: MSForms.MultiPage,
         event: 'Zoom',
-        argNames: ['Index', 'Percent',],
-        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number; Percent: number },) => void,
+        argNames: ['Index', 'Percent'],
+        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number; Percent: number }) => void,
     ): void;
     on(
         obj: MSForms.OptionButton,
@@ -1943,19 +1943,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.OptionButton,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.OptionButton, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.OptionButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.OptionButton,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.OptionButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.OptionButton,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -1964,13 +1964,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.OptionButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.OptionButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.OptionButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.OptionButton,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.OptionButton,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -1998,12 +1998,12 @@ interface ActiveXObject {
         obj: MSForms.ScrollBar,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ScrollBar,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.ScrollBar,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2012,8 +2012,8 @@ interface ActiveXObject {
     on(
         obj: MSForms.ScrollBar,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.ScrollBar, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.ScrollBar, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.SpinButton,
@@ -2037,12 +2037,12 @@ interface ActiveXObject {
         obj: MSForms.SpinButton,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.SpinButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.SpinButton,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2051,8 +2051,8 @@ interface ActiveXObject {
     on(
         obj: MSForms.SpinButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.SpinButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.SpinButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.TabStrip,
@@ -2075,13 +2075,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.TabStrip,
         event: 'Click',
-        argNames: ['Index',],
-        handler: (this: MSForms.TabStrip, parameter: { readonly Index: number },) => void,
+        argNames: ['Index'],
+        handler: (this: MSForms.TabStrip, parameter: { readonly Index: number }) => void,
     ): void;
     on(
         obj: MSForms.TabStrip,
         event: 'DblClick',
-        argNames: ['Index', 'Cancel',],
+        argNames: ['Index', 'Cancel'],
         handler: (
             this: MSForms.TabStrip,
             parameter: { readonly Index: number; readonly Cancel: MSForms.ReturnBoolean },
@@ -2091,12 +2091,12 @@ interface ActiveXObject {
         obj: MSForms.TabStrip,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.TabStrip,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.TabStrip,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2105,13 +2105,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.TabStrip,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.TabStrip, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.TabStrip, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.TabStrip,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Index', 'Button', 'Shift', 'X', 'Y',],
+        argNames: ['Index', 'Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.TabStrip,
             parameter: {
@@ -2127,7 +2127,7 @@ interface ActiveXObject {
         obj: MSForms.TextBox,
         event: 'BeforeDragOver',
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,) => void,
+        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.TextBox,
@@ -2141,19 +2141,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.TextBox,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.TextBox, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.TextBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.TextBox,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.TextBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.TextBox,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2162,13 +2162,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.TextBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.TextBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.TextBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.TextBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.TextBox,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -2195,19 +2195,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.ToggleButton,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.ToggleButton, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.ToggleButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.ToggleButton,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ToggleButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.ToggleButton,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2216,13 +2216,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.ToggleButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.ToggleButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.ToggleButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.ToggleButton,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.ToggleButton,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -2231,8 +2231,8 @@ interface ActiveXObject {
     on(
         obj: MSForms.UserForm,
         event: 'AddControl' | 'RemoveControl',
-        argNames: ['Control',],
-        handler: (this: MSForms.UserForm, parameter: { readonly Control: MSForms.Control },) => void,
+        argNames: ['Control'],
+        handler: (this: MSForms.UserForm, parameter: { readonly Control: MSForms.Control }) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
@@ -2255,19 +2255,19 @@ interface ActiveXObject {
     on(
         obj: MSForms.UserForm,
         event: 'DblClick',
-        argNames: ['Cancel',],
-        handler: (this: MSForms.UserForm, parameter: { readonly Cancel: MSForms.ReturnBoolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: MSForms.UserForm, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
         event: 'Error',
         argNames: MSForms.EventHelperTypes.Error_ArgNames,
-        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Error_Parameter,) => void,
+        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: MSForms.UserForm,
             parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
@@ -2276,13 +2276,13 @@ interface ActiveXObject {
     on(
         obj: MSForms.UserForm,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: MSForms.UserForm, parameter: { readonly KeyAscii: MSForms.ReturnInteger },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: MSForms.UserForm, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: MSForms.UserForm,
             parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
@@ -2292,88 +2292,88 @@ interface ActiveXObject {
         obj: MSForms.UserForm,
         event: 'Scroll',
         argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames,
-        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter,) => void,
+        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
         event: 'Zoom',
-        argNames: ['Percent',],
-        handler: (this: MSForms.UserForm, parameter: { Percent: number },) => void,
+        argNames: ['Percent'],
+        handler: (this: MSForms.UserForm, parameter: { Percent: number }) => void,
     ): void;
     on(
         obj: MSForms.CheckBox,
         event: 'Change' | 'Click',
-        handler: (this: MSForms.CheckBox, parameter: {},) => void,
+        handler: (this: MSForms.CheckBox, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.ComboBox,
         event: 'Change' | 'Click' | 'DropButtonClick',
-        handler: (this: MSForms.ComboBox, parameter: {},) => void,
+        handler: (this: MSForms.ComboBox, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.CommandButton,
         event: 'Click',
-        handler: (this: MSForms.CommandButton, parameter: {},) => void,
+        handler: (this: MSForms.CommandButton, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.Control,
         event: 'AfterUpdate' | 'Enter',
-        handler: (this: MSForms.Control, parameter: {},) => void,
+        handler: (this: MSForms.Control, parameter: {}) => void,
     ): void;
-    on(obj: MSForms.Frame, event: 'Click' | 'Layout', handler: (this: MSForms.Frame, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLCheckbox, event: 'Click', handler: (this: MSForms.HTMLCheckbox, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLHidden, event: 'Click', handler: (this: MSForms.HTMLHidden, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLImage, event: 'Click', handler: (this: MSForms.HTMLImage, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLOption, event: 'Click', handler: (this: MSForms.HTMLOption, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLPassword, event: 'Click', handler: (this: MSForms.HTMLPassword, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLReset, event: 'Click', handler: (this: MSForms.HTMLReset, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLSelect, event: 'Click', handler: (this: MSForms.HTMLSelect, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLSubmit, event: 'Click', handler: (this: MSForms.HTMLSubmit, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLText, event: 'Click', handler: (this: MSForms.HTMLText, parameter: {},) => void,): void;
-    on(obj: MSForms.HTMLTextArea, event: 'Click', handler: (this: MSForms.HTMLTextArea, parameter: {},) => void,): void;
-    on(obj: MSForms.Image, event: 'Click', handler: (this: MSForms.Image, parameter: {},) => void,): void;
-    on(obj: MSForms.Label, event: 'Click', handler: (this: MSForms.Label, parameter: {},) => void,): void;
+    on(obj: MSForms.Frame, event: 'Click' | 'Layout', handler: (this: MSForms.Frame, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLCheckbox, event: 'Click', handler: (this: MSForms.HTMLCheckbox, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLHidden, event: 'Click', handler: (this: MSForms.HTMLHidden, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLImage, event: 'Click', handler: (this: MSForms.HTMLImage, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLOption, event: 'Click', handler: (this: MSForms.HTMLOption, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLPassword, event: 'Click', handler: (this: MSForms.HTMLPassword, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLReset, event: 'Click', handler: (this: MSForms.HTMLReset, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLSelect, event: 'Click', handler: (this: MSForms.HTMLSelect, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLSubmit, event: 'Click', handler: (this: MSForms.HTMLSubmit, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLText, event: 'Click', handler: (this: MSForms.HTMLText, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLTextArea, event: 'Click', handler: (this: MSForms.HTMLTextArea, parameter: {}) => void): void;
+    on(obj: MSForms.Image, event: 'Click', handler: (this: MSForms.Image, parameter: {}) => void): void;
+    on(obj: MSForms.Label, event: 'Click', handler: (this: MSForms.Label, parameter: {}) => void): void;
     on(
         obj: MSForms.ListBox,
         event: 'Change' | 'Click',
-        handler: (this: MSForms.ListBox, parameter: {},) => void,
+        handler: (this: MSForms.ListBox, parameter: {}) => void,
     ): void;
-    on(obj: MSForms.MultiPage, event: 'Change', handler: (this: MSForms.MultiPage, parameter: {},) => void,): void;
+    on(obj: MSForms.MultiPage, event: 'Change', handler: (this: MSForms.MultiPage, parameter: {}) => void): void;
     on(
         obj: MSForms.OptionButton,
         event: 'Change' | 'Click',
-        handler: (this: MSForms.OptionButton, parameter: {},) => void,
+        handler: (this: MSForms.OptionButton, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.ScrollBar,
         event: 'Change' | 'Scroll',
-        handler: (this: MSForms.ScrollBar, parameter: {},) => void,
+        handler: (this: MSForms.ScrollBar, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.SpinButton,
         event: 'Change' | 'SpinDown' | 'SpinUp',
-        handler: (this: MSForms.SpinButton, parameter: {},) => void,
+        handler: (this: MSForms.SpinButton, parameter: {}) => void,
     ): void;
-    on(obj: MSForms.TabStrip, event: 'Change', handler: (this: MSForms.TabStrip, parameter: {},) => void,): void;
+    on(obj: MSForms.TabStrip, event: 'Change', handler: (this: MSForms.TabStrip, parameter: {}) => void): void;
     on(
         obj: MSForms.TextBox,
         event: 'Change' | 'DropButtonClick',
-        handler: (this: MSForms.TextBox, parameter: {},) => void,
+        handler: (this: MSForms.TextBox, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.ToggleButton,
         event: 'Change' | 'Click',
-        handler: (this: MSForms.ToggleButton, parameter: {},) => void,
+        handler: (this: MSForms.ToggleButton, parameter: {}) => void,
     ): void;
     on(
         obj: MSForms.UserForm,
         event: 'Click' | 'Layout',
-        handler: (this: MSForms.UserForm, parameter: {},) => void,
+        handler: (this: MSForms.UserForm, parameter: {}) => void,
     ): void;
     set(
         obj: MSForms.ComboBox | MSForms.ListBox,
         propertyName: 'Column' | 'List',
-        parameterTypes: [number, number,] | [number,],
+        parameterTypes: [number, number] | [number],
         newValue: any,
     ): void;
     set(
@@ -2382,7 +2382,7 @@ interface ActiveXObject {
         parameterTypes: number[],
         newValue: SafeArray,
     ): void;
-    set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any,], newValue: boolean,): void;
+    set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
 }
 
 interface ActiveXObjectNameMap {

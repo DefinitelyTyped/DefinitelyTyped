@@ -1,14 +1,14 @@
-import { AWSError, } from '../error';
-import { Token, } from '../token';
+import { AWSError } from '../error';
+import { Token } from '../token';
 export class TokenProviderChain {
     /**
      * Creates a new TokenProviderChain with a default set of providers specified by defaultProviders.
      */
-    constructor(providers?: provider[],);
+    constructor(providers?: provider[]);
     /**
      * Resolves the provider chain by searching for the first set of token in providers.
      */
-    resolve(callback: (err: AWSError | null, token?: Token,) => void,): TokenProviderChain;
+    resolve(callback: (err: AWSError | null, token?: Token) => void): TokenProviderChain;
     /**
      * Return a Promise on resolve() function
      */

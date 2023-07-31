@@ -1,5 +1,5 @@
 import ansi = require('ansi');
-const cursor = ansi(process.stdout,);
+const cursor = ansi(process.stdout);
 
 Object.keys({
     white: 37,
@@ -19,10 +19,10 @@ Object.keys({
     brightMagenta: 95,
     brightCyan: 96,
     brightWhite: 97,
-},).forEach(color => {
+}).forEach(color => {
     const cname = color.replace(
         /([a-z])([A-Z])/g,
-        (_: string, l: string, u: string,): string => `${l} ${u.toLowerCase()}`,
+        (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`,
     );
 
     ((cursor[color] as (...anything: any[]) => ansi.Cursor)()
@@ -32,4 +32,4 @@ Object.keys({
             `Hello, bold ${cname} world!\n`,
         )
         .reset();
-},);
+});

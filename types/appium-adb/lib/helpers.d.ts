@@ -1,4 +1,4 @@
-import { StartAppOptions, } from './tools/apk-utils';
+import { StartAppOptions } from './tools/apk-utils';
 import systemCallMethods from './tools/system-calls';
 
 export const APKS_EXTENSION: '.apks';
@@ -22,7 +22,7 @@ export function getSdkRootFromEnv(): string | undefined;
  * @throws If either the corresponding env variable is unset or is
  * pointing to an invalid file system entry
  */
-export function requireSdkRoot(customRoot?: string | null,): Promise<string>;
+export function requireSdkRoot(customRoot?: string | null): Promise<string>;
 
 export interface PlatformInfo {
     /**
@@ -42,9 +42,9 @@ export interface PlatformInfo {
  *
  * @return The resulting path to the newest installed platform.
  */
-export function getAndroidPlatformAndPath(sdkRoot: string,): Promise<PlatformInfo>;
+export function getAndroidPlatformAndPath(sdkRoot: string): Promise<PlatformInfo>;
 
-export function unzipFile(zipPath: string, dstRoot?: string,): Promise<void>;
+export function unzipFile(zipPath: string, dstRoot?: string): Promise<void>;
 
 /**
  * Unsigns the given apk by removing the
@@ -56,9 +56,9 @@ export function unzipFile(zipPath: string, dstRoot?: string,): Promise<void>;
  * unsigned and overwritten
  * @throws if there was an error during the unsign operation
  */
-export function unsignApk(apkPath: string,): Promise<boolean>;
+export function unsignApk(apkPath: string): Promise<boolean>;
 
-export function getIMEListFromOutput(stdout: string,): string[];
+export function getIMEListFromOutput(stdout: string): string[];
 
 export function getJavaHome(): Promise<string>;
 
@@ -73,7 +73,7 @@ export function getOpenSslForOs(): Promise<string>;
  * @returns An absolute path to apksigner tool.
  * @throws If the tool is not present on the local file system.
  */
-export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>,): Promise<string>;
+export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>): Promise<string>;
 
 /**
  * Get the absolute path to apkanalyzer tool.
@@ -103,23 +103,23 @@ export function getApkanalyzerForOs(
  * @param dumpsys - The output of dumpsys window command.
  * @return True if lock screen is showing.
  */
-export function isShowingLockscreen(dumpsys: string,): boolean;
+export function isShowingLockscreen(dumpsys: string): boolean;
 
 /*
  * Checks mCurrentFocus in dumpsys output to determine if Keyguard is activated
  */
-export function isCurrentFocusOnKeyguard(dumpsys: string,): boolean;
+export function isCurrentFocusOnKeyguard(dumpsys: string): boolean;
 
 /*
  * Reads SurfaceOrientation in dumpsys output
  */
-export function getSurfaceOrientation(dumpsys: string,): number | null;
+export function getSurfaceOrientation(dumpsys: string): number | null;
 
 /*
  * Checks mScreenOnFully in dumpsys output to determine if screen is showing
  * Default is true
  */
-export function isScreenOnFully(dumpsys: string,): boolean;
+export function isScreenOnFully(dumpsys: string): boolean;
 
 /**
  * Builds command line representation for the given
@@ -129,7 +129,7 @@ export function isScreenOnFully(dumpsys: string,): boolean;
  * @param apiLevel - The actual OS API level
  * @returns The actual command line array
  */
-export function buildStartCmd(startAppOptions: StartAppOptions, apiLevel: number,): string[];
+export function buildStartCmd(startAppOptions: StartAppOptions, apiLevel: number): string[];
 
 export function getSdkToolsVersion(): Promise<{ major: number; minor: number; build: number }>;
 
@@ -141,7 +141,7 @@ export function getSdkToolsVersion(): Promise<{ major: number; minor: number; bu
  * @returns The full paths to the resulting folders sorted by
  * modification date (the newest comes first) or an empty list if no macthes were found
  */
-export function getBuildToolsDirs(sdkRoot: string,): Promise<string[]>;
+export function getBuildToolsDirs(sdkRoot: string): Promise<string[]>;
 
 /**
  * Retrieves the list of permission names encoded in `dumpsys package` command output.
@@ -199,7 +199,7 @@ export interface InstallOptions {
  * @param options - The options mapping to transform
  * @returns The array of arguments
  */
-export function buildInstallArgs(apiLevel: number, options?: InstallOptions,): string[];
+export function buildInstallArgs(apiLevel: number, options?: InstallOptions): string[];
 
 export interface ManifestInfo {
     /**
@@ -227,7 +227,7 @@ export interface ManifestInfo {
  * @param manifest The manifest content formatted as JSON
  * See https://www.npmjs.com/package/adbkit-apkreader for detailed format description
  */
-export function parseManifest(manifest: object,): ManifestInfo;
+export function parseManifest(manifest: object): ManifestInfo;
 
 /**
  * Parses apk strings from aapt tool output
@@ -239,7 +239,7 @@ export function parseManifest(manifest: object,): ManifestInfo;
  * values are represented as arrays. If no config found for the
  * given marker then an empty mapping is returned.
  */
-export function parseAaptStrings(rawOutput: string, configMarker: string,): Record<string, string | string[]>;
+export function parseAaptStrings(rawOutput: string, configMarker: string): Record<string, string | string[]>;
 
 /**
  * Parses apk strings from aapt2 tool output
@@ -251,7 +251,7 @@ export function parseAaptStrings(rawOutput: string, configMarker: string,): Reco
  * values are represented as arrays. If no config found for the
  * given marker then an empty mapping is returned.
  */
-export function parseAapt2Strings(rawOutput: string, configMarker: string,): Record<string, string | string[]>;
+export function parseAapt2Strings(rawOutput: string, configMarker: string): Record<string, string | string[]>;
 
 /**
  * Formats the config marker, which is then passed to parse.. methods
@@ -280,7 +280,7 @@ export function formatConfigMarker(
  * @throws If the output cannot be parsed
  * as a valid JSON
  */
-export function parseJsonData(output: string, entityName: string,): unknown;
+export function parseJsonData(output: string, entityName: string): unknown;
 
 /**
  * Transforms the given language and country abbreviations
@@ -291,7 +291,7 @@ export function parseJsonData(output: string, entityName: string,): unknown;
  * @returns The generated arguments. The
  * resulting array might be empty if both arguments are empty
  */
-export function toAvdLocaleArgs(language?: string, country?: string,): string[];
+export function toAvdLocaleArgs(language?: string, country?: string): string[];
 
 /**
  * Retrieves the full path to the Android preferences root
@@ -305,7 +305,7 @@ export function getAndroidPrefsRoot(): Promise<string>;
  *
  * @param location The full path to the directory
  */
-export function dirExists(location?: string,): Promise<boolean>;
+export function dirExists(location?: string): Promise<boolean>;
 
 /**
  * Escapes special characters in command line arguments.
@@ -317,7 +317,7 @@ export function dirExists(location?: string,): Promise<boolean>;
  * @param arg Non-escaped argument string
  * @returns The escaped argument
  */
-export function escapeShellArg(arg: string,): string;
+export function escapeShellArg(arg: string): string;
 
 /**
  * Parses the name of launchable package activity
@@ -332,7 +332,7 @@ export function escapeShellArg(arg: string,): string;
  * with the expectation that the app manifest could be parsed next
  * in order to determine category names for these.
  */
-export function parseLaunchableActivityNames(dumpsys: string,): string[];
+export function parseLaunchableActivityNames(dumpsys: string): string[];
 
 /**
  * Check if the given string is a valid component name
@@ -341,7 +341,7 @@ export function parseLaunchableActivityNames(dumpsys: string,): string[];
  * @return The result of Regexp.exec operation
  * or _null_ if no matches are found
  */
-export function matchComponentName(classString: string,): RegExpExecArray | null;
+export function matchComponentName(classString: string): RegExpExecArray | null;
 
 /**
  * Calculates the path to the current module's root folder

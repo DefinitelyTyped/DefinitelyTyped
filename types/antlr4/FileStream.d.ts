@@ -5,5 +5,5 @@ import InputStream from './InputStream';
  * when you construct the object.
  */
 export default class FileStream extends InputStream {
-    constructor(fileName: string, decodeToUnicodeCodePoints?: boolean,);
+    constructor(fileName: string, decodeToUnicodeCodePoints?: boolean);
 }

@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type DecodedData = string;
-declare function atob(encodedData: string,): DecodedData;
+declare function atob(encodedData: string): DecodedData;
 
 export = atob;

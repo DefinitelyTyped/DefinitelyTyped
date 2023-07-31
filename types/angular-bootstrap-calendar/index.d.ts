@@ -22,7 +22,7 @@ declare module 'angular' {
              * The action that occurs when it's clicked
              * @param args - the IEvent whose action was clicked
              */
-            onClick: (args: any,) => void;
+            onClick: (args: any) => void;
         }
 
         interface IEventColor {
@@ -155,27 +155,27 @@ declare module 'angular' {
 
         namespace events {
             interface IOnEventClick {
-                (calendarEvent: IEvent,): void;
+                (calendarEvent: IEvent): void;
             }
 
             interface IOnEventTimesChanged {
-                (calendarEvent: IEvent, calendarNewEventStart: Date, calendarNewEventEnd: Date,): void;
+                (calendarEvent: IEvent, calendarNewEventStart: Date, calendarNewEventEnd: Date): void;
             }
 
             interface IOnEditEventClick {
-                (calendarEvent: IEvent,): void;
+                (calendarEvent: IEvent): void;
             }
 
             interface IOnDeleteEventClick {
-                (calendarEvent: IEvent,): void;
+                (calendarEvent: IEvent): void;
             }
 
             interface IOnTimespanClick {
-                (calendarDate: Date, calendarCell: ICalendarCell,): void;
+                (calendarDate: Date, calendarCell: ICalendarCell): void;
             }
 
             interface IOnViewChangeClick {
-                (calendarDate: Date, calendarNextView: string,): boolean;
+                (calendarDate: Date, calendarNextView: string): boolean;
             }
         }
     }

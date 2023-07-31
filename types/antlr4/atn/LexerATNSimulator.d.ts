@@ -62,17 +62,17 @@ export default class LexerATNSimulator extends ATNSimulator {
      * then the ATN does the accept and the DFA simulator that invoked it
      * can simply return the predicted token type.
      */
-    constructor(recog: Lexer, atn: ATN, decisionToDFA: DFA[], sharedContextCache: PredictionContextCache,);
+    constructor(recog: Lexer, atn: ATN, decisionToDFA: DFA[], sharedContextCache: PredictionContextCache);
 
-    copyState(simulator: LexerATNSimulator,): void;
+    copyState(simulator: LexerATNSimulator): void;
 
-    match(input: InputStream, mode: number,): number;
+    match(input: InputStream, mode: number): number;
 
     reset(): void;
 
-    matchATN(input: InputStream,): number;
+    matchATN(input: InputStream): number;
 
-    execATN(input: InputStream, ds0: DFAState,): number;
+    execATN(input: InputStream, ds0: DFAState): number;
 
     /**
      * Get an existing target state for an edge in the DFA. If the target state
@@ -85,7 +85,7 @@ export default class LexerATNSimulator extends ATNSimulator {
      * `t`, or `null` if the target state for this edge is not
      * already cached
      */
-    getExistingTargetState(s: DFAState, t: number,): DFAState | null;
+    getExistingTargetState(s: DFAState, t: number): DFAState | null;
 
     /**
      * Compute a target state for an edge in the DFA, and attempt to add the
@@ -99,15 +99,15 @@ export default class LexerATNSimulator extends ATNSimulator {
      * `t`. If `t` does not lead to a valid DFA state, this method
      * returns {@link ERROR}.
      */
-    computeTargetState(input: InputStream, s: DFAState, t: number,): DFAState;
+    computeTargetState(input: InputStream, s: DFAState, t: number): DFAState;
 
-    failOrAccept(prevAccept: SimState, input: InputStream, reach: ATNConfigSet, t: number,): number;
+    failOrAccept(prevAccept: SimState, input: InputStream, reach: ATNConfigSet, t: number): number;
 
     /**
      * Given a starting configuration set, figure out all ATN configurations
      * we can reach upon input `t`. Parameter `reach` is a return parameter.
      */
-    getReachableConfigSet(input: InputStream, closure: ATNConfigSet, reach: ATNConfigSet, t: number,): void;
+    getReachableConfigSet(input: InputStream, closure: ATNConfigSet, reach: ATNConfigSet, t: number): void;
 
     accept(
         input: InputStream,
@@ -118,9 +118,9 @@ export default class LexerATNSimulator extends ATNSimulator {
         charPos: number,
     ): void;
 
-    getReachableTarget(trans: Transition, t: number,): ATNState;
+    getReachableTarget(trans: Transition, t: number): ATNState;
 
-    computeStartState(input: InputStream, p: DecisionState,): OrderedATNConfigSet;
+    computeStartState(input: InputStream, p: DecisionState): OrderedATNConfigSet;
 
     /**
      * Since the alternatives within any lexer decision are ordered by
@@ -169,11 +169,11 @@ export default class LexerATNSimulator extends ATNSimulator {
      *
      * @return `true` if the specified predicate evaluates to `true`.
      */
-    evaluatePredicate(input: InputStream, ruleIndex: number, predIndex: number, speculative: boolean,): boolean;
+    evaluatePredicate(input: InputStream, ruleIndex: number, predIndex: number, speculative: boolean): boolean;
 
-    captureSimState(settings: SimState, input: InputStream, dfaState: DFAState,): void;
+    captureSimState(settings: SimState, input: InputStream, dfaState: DFAState): void;
 
-    addDFAEdge(from_: DFAState, tk: number, to?: DFAState, cfgs?: ATNConfigSet,): DFAState;
+    addDFAEdge(from_: DFAState, tk: number, to?: DFAState, cfgs?: ATNConfigSet): DFAState;
 
     /**
      * Add a new DFA state if there isn't one with this set of
@@ -181,13 +181,13 @@ export default class LexerATNSimulator extends ATNSimulator {
      * configuration containing an ATN rule stop state. Later, when
      * traversing the DFA, we will know which rule to accept.
      */
-    addDFAState(configs: ATNConfigSet,): DFAState;
+    addDFAState(configs: ATNConfigSet): DFAState;
 
-    getDFA(mode: number,): DFA | undefined;
+    getDFA(mode: number): DFA | undefined;
 
-    getText(input: InputStream,): string;
+    getText(input: InputStream): string;
 
-    consume(input: InputStream,): void;
+    consume(input: InputStream): void;
 
-    getTokenName(tt: number,): string;
+    getTokenName(tt: number): string;
 }

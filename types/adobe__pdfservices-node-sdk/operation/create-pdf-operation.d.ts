@@ -1,8 +1,8 @@
-import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
-import { CreatePDFFromExcelOptions, } from './option/createpdf/create-pdf-from-excel-options';
-import { CreatePDFFromHtmlOptions, } from './option/createpdf/create-pdf-from-html-options';
-import { CreatePDFFromPPTOptions, } from './option/createpdf/create-pdf-from-ppt-options';
-import { CreatePDFFromWordOptions, } from './option/createpdf/create-pdf-from-word-options';
+import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { CreatePDFFromExcelOptions } from './option/createpdf/create-pdf-from-excel-options';
+import { CreatePDFFromHtmlOptions } from './option/createpdf/create-pdf-from-html-options';
+import { CreatePDFFromPPTOptions } from './option/createpdf/create-pdf-from-ppt-options';
+import { CreatePDFFromWordOptions } from './option/createpdf/create-pdf-from-word-options';
 
 /**
  * An operation that converts a non-PDF file to a PDF file. Some source formats may have associated conversion parameters
@@ -221,7 +221,7 @@ export class CreatePDFOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Sets the conversion parameters for this operation.
      * on the source format of the file which is being converted to PDF. For example, for HTML to PDF conversions,
@@ -242,6 +242,6 @@ export class CreatePDFOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
 }

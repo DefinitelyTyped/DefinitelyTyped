@@ -17,6 +17,6 @@ declare namespace createUploadLink {
  * Creates a [terminating Apollo Link](https://www.apollographql.com/docs/link/overview/#terminating-links) capable of file uploads.
  * @see https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink
  */
-declare function createUploadLink(uploadLinkOptions?: createUploadLink.UploadLinkOptions,): apolloCore.ApolloLink;
+declare function createUploadLink(uploadLinkOptions?: createUploadLink.UploadLinkOptions): apolloCore.ApolloLink;
 
 export = createUploadLink;

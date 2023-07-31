@@ -41,7 +41,7 @@ export interface ApiGatewayClient {
 }
 
 export const apigClientFactory: {
-    newClient(apiGatewayClientConfig: ApiGatewayClientConfig,): ApiGatewayClient;
+    newClient(apiGatewayClientConfig: ApiGatewayClientConfig): ApiGatewayClient;
 };
 
 export default apigClientFactory;

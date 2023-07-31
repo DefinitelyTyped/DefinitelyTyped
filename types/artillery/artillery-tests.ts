@@ -27,7 +27,7 @@ type EE = EventEmitter;
 type M = Match;
 type ReqParams = RequestParams;
 
-const actionFn: ActionFn<{ foo: string }, { bar(baz: string,): number }> = (context, ee, next,) => {
+const actionFn: ActionFn<{ foo: string }, { bar(baz: string): number }> = (context, ee, next) => {
     context; // $ExpectType ScenarioContext<{ foo: string; }, { bar(baz: string): number; }>
     context.vars.$environment; // $ExpectType string | undefined
     context.vars.$processEnvironment; // $ExpectType Record<string, string>
@@ -36,334 +36,334 @@ const actionFn: ActionFn<{ foo: string }, { bar(baz: string,): number }> = (cont
     context.vars.foo; // $ExpectType string
 
     context.funcs.$randomNumber(); // $ExpectType number
-    context.funcs.$randomNumber(1,); // $ExpectType number
-    context.funcs.$randomNumber(1, 2,); // $ExpectType number
-    context.funcs.$randomString(1,); // $ExpectType string
-    context.funcs.$template(1,); // $ExpectType 1
-    context.funcs.bar('foo',); // $ExpectType number
+    context.funcs.$randomNumber(1); // $ExpectType number
+    context.funcs.$randomNumber(1, 2); // $ExpectType number
+    context.funcs.$randomString(1); // $ExpectType string
+    context.funcs.$template(1); // $ExpectType 1
+    context.funcs.bar('foo'); // $ExpectType number
 
     ee; // $ExpectType EventEmitter
 
     next(); // $ExpectType void
-    next(new Error(),); // $ExpectType void
+    next(new Error()); // $ExpectType void
 
     // $ExpectType EventEmitter
-    ee.addListener('counter', (name, value,) => {
+    ee.addListener('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.addListener('histogram', (name, value,) => {
+    ee.addListener('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.addListener('customStat', (name, value,) => {
+    ee.addListener('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.addListener('started', () => {},); // $ExpectType EventEmitter
-    ee.addListener('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.addListener('started', () => {}); // $ExpectType EventEmitter
+    ee.addListener('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.addListener('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.addListener('match', (success, match,) => {
+    ee.addListener('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.addListener('response', (delta, code, uid,) => {
+    ee.addListener('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.addListener('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.on('counter', (name, value,) => {
+    ee.on('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.on('histogram', (name, value,) => {
+    ee.on('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.on('customStat', (name, value,) => {
+    ee.on('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.on('started', () => {},); // $ExpectType EventEmitter
-    ee.on('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.on('started', () => {}); // $ExpectType EventEmitter
+    ee.on('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.on('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.on('match', (success, match,) => {
+    ee.on('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.on('response', (delta, code, uid,) => {
+    ee.on('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.on('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.once('counter', (name, value,) => {
+    ee.once('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.once('histogram', (name, value,) => {
+    ee.once('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.once('customStat', (name, value,) => {
+    ee.once('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.once('started', () => {},); // $ExpectType EventEmitter
-    ee.once('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.once('started', () => {}); // $ExpectType EventEmitter
+    ee.once('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.once('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.once('match', (success, match,) => {
+    ee.once('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.once('response', (delta, code, uid,) => {
+    ee.once('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.once('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.removeListener('counter', (name, value,) => {
+    ee.removeListener('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.removeListener('histogram', (name, value,) => {
+    ee.removeListener('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.removeListener('customStat', (name, value,) => {
+    ee.removeListener('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.removeListener('started', () => {},); // $ExpectType EventEmitter
-    ee.removeListener('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.removeListener('started', () => {}); // $ExpectType EventEmitter
+    ee.removeListener('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.removeListener('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.removeListener('match', (success, match,) => {
+    ee.removeListener('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.removeListener('response', (delta, code, uid,) => {
+    ee.removeListener('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.removeListener('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.off('counter', (name, value,) => {
+    ee.off('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.off('histogram', (name, value,) => {
+    ee.off('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.off('customStat', (name, value,) => {
+    ee.off('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.off('started', () => {},); // $ExpectType EventEmitter
-    ee.off('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.off('started', () => {}); // $ExpectType EventEmitter
+    ee.off('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.off('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.off('match', (success, match,) => {
+    ee.off('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.off('response', (delta, code, uid,) => {
+    ee.off('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.off('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.prependListener('counter', (name, value,) => {
+    ee.prependListener('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependListener('histogram', (name, value,) => {
+    ee.prependListener('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependListener('customStat', (name, value,) => {
+    ee.prependListener('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.prependListener('started', () => {},); // $ExpectType EventEmitter
-    ee.prependListener('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.prependListener('started', () => {}); // $ExpectType EventEmitter
+    ee.prependListener('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.prependListener('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependListener('match', (success, match,) => {
+    ee.prependListener('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependListener('response', (delta, code, uid,) => {
+    ee.prependListener('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.prependListener('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
     // $ExpectType EventEmitter
-    ee.prependOnceListener('counter', (name, value,) => {
+    ee.prependOnceListener('counter', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependOnceListener('histogram', (name, value,) => {
+    ee.prependOnceListener('histogram', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependOnceListener('customStat', (name, value,) => {
+    ee.prependOnceListener('customStat', (name, value) => {
         name; // $ExpectType string
         value; // $ExpectType number
-    },);
-    ee.prependOnceListener('started', () => {},); // $ExpectType EventEmitter
-    ee.prependOnceListener('request', () => {},); // $ExpectType EventEmitter
+    });
+    ee.prependOnceListener('started', () => {}); // $ExpectType EventEmitter
+    ee.prependOnceListener('request', () => {}); // $ExpectType EventEmitter
     // $ExpectType EventEmitter
     ee.prependOnceListener('error', error => {
         error; // $ExpectType unknown
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependOnceListener('match', (success, match,) => {
+    ee.prependOnceListener('match', (success, match) => {
         success; // $ExpectType boolean
         match; // $ExpectType Match
         match.expected; // $ExpectType string
         match.got; // $ExpectType string | undefined
         match.expression; // $ExpectType string
         match.strict; // $ExpectType boolean | undefined
-    },);
+    });
     // $ExpectType EventEmitter
-    ee.prependOnceListener('response', (delta, code, uid,) => {
+    ee.prependOnceListener('response', (delta, code, uid) => {
         delta; // $ExpectType number
         code; // $ExpectType number
         uid; // $ExpectType string
-    },);
+    });
     // $ExpectType EventEmitter
     ee.prependOnceListener('foo', bar => {
         bar; // $ExpectType unknown
-    },);
+    });
 
-    ee.emit('counter', 'foo', 1,); // $ExpectType boolean
-    ee.emit('histogram', 'foo', 1,); // $ExpectType boolean
-    ee.emit('customStat', 'foo', 1,); // $ExpectType boolean
-    ee.emit('started',); // $ExpectType boolean
-    ee.emit('request',); // $ExpectType boolean
-    ee.emit('error', new Error(),); // $ExpectType boolean
-    ee.emit('match', true, null as any as Match,); // $ExpectType boolean
-    ee.emit('response', 1, 1, 'foo',); // $ExpectType boolean
-    ee.emit('foo', Symbol(),); // $ExpectType boolean
+    ee.emit('counter', 'foo', 1); // $ExpectType boolean
+    ee.emit('histogram', 'foo', 1); // $ExpectType boolean
+    ee.emit('customStat', 'foo', 1); // $ExpectType boolean
+    ee.emit('started'); // $ExpectType boolean
+    ee.emit('request'); // $ExpectType boolean
+    ee.emit('error', new Error()); // $ExpectType boolean
+    ee.emit('match', true, null as any as Match); // $ExpectType boolean
+    ee.emit('response', 1, 1, 'foo'); // $ExpectType boolean
+    ee.emit('foo', Symbol()); // $ExpectType boolean
 };
 
-const beforeScenarioFn: BeforeScenarioFn = (context, ee, next,) => {
+const beforeScenarioFn: BeforeScenarioFn = (context, ee, next) => {
     context; // $ExpectType ScenarioContext<Record<string, unknown>, Record<string, (...args: any[]) => any>>
 
     ee; // $ExpectType EventEmitter
 
     next(); // $ExpectType void
-    next(new Error(),); // $ExpectType void
+    next(new Error()); // $ExpectType void
 };
 
-const afterScenarioFn: AfterScenarioFn = (context, ee, next,) => {
+const afterScenarioFn: AfterScenarioFn = (context, ee, next) => {
     context; // $ExpectType ScenarioContext<Record<string, unknown>, Record<string, (...args: any[]) => any>>
 
     ee; // $ExpectType EventEmitter
 
     next(); // $ExpectType void
-    next(new Error(),); // $ExpectType void
+    next(new Error()); // $ExpectType void
 };
 
-const beforeRequestFn: BeforeRequestFn = (requestParams, context, ee, next,) => {
+const beforeRequestFn: BeforeRequestFn = (requestParams, context, ee, next) => {
     requestParams; // $ExpectType RequestParams
     requestParams.url; // $ExpectType string | undefined
     requestParams.uri; // $ExpectType string | undefined
@@ -387,10 +387,10 @@ const beforeRequestFn: BeforeRequestFn = (requestParams, context, ee, next,) => 
     ee; // $ExpectType EventEmitter
 
     next(); // $ExpectType void
-    next(new Error(),); // $ExpectType void
+    next(new Error()); // $ExpectType void
 };
 
-const afterResponseFn: AfterResponseFn = (requestConfig, response, context, ee, next,) => {
+const afterResponseFn: AfterResponseFn = (requestConfig, response, context, ee, next) => {
     requestConfig.url; // $ExpectType string | URL | undefined
     requestConfig.method; // $ExpectType Method | undefined
     requestConfig.headers; // $ExpectType Headers | undefined
@@ -409,5 +409,5 @@ const afterResponseFn: AfterResponseFn = (requestConfig, response, context, ee, 
     ee; // $ExpectType EventEmitter
 
     next(); // $ExpectType void
-    next(new Error(),); // $ExpectType void
+    next(new Error()); // $ExpectType void
 };

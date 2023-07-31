@@ -34,7 +34,7 @@ export default class RuleContext extends RuleNode {
      */
     readonly invokingState: number;
 
-    constructor(parent?: RuleContext, invokingState?: number,);
+    constructor(parent?: RuleContext, invokingState?: number);
 
     depth(): number;
 
@@ -77,19 +77,19 @@ export default class RuleContext extends RuleNode {
      * a subclass of ParserRuleContext with backing field and set
      * option contextSuperClass.
      */
-    setAltNumber(altNumber: number,): void;
+    setAltNumber(altNumber: number): void;
 
-    getChild(i: number,): RuleContext | null;
+    getChild(i: number): RuleContext | null;
 
     getChildCount(): number;
 
-    accept(visitor: ParseTreeVisitor,): void;
+    accept(visitor: ParseTreeVisitor): void;
 
     /**
      * Print out a whole tree, not just a node, in LISP format
      * (root child1 .. childN). Print just a node if this is a leaf.
      */
-    toStringTree(ruleNames: string[], recog: Parser,): string;
+    toStringTree(ruleNames: string[], recog: Parser): string;
 
-    toString(ruleNames: string[], stop: RuleContext,): string;
+    toString(ruleNames: string[], stop: RuleContext): string;
 }

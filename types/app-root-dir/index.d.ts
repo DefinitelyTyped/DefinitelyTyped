@@ -12,7 +12,7 @@ interface AppRootDir {
      *    how many instances of app-root-dir module are installed,
      *    they will all return the same directory
      */
-    set(dirname: string,): void;
+    set(dirname: string): void;
 }
 
 declare const AppRootDir: AppRootDir;

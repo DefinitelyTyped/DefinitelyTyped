@@ -1,10 +1,10 @@
-import { Credentials, } from '../credentials';
+import { Credentials } from '../credentials';
 export class SAMLCredentials extends Credentials {
     /**
      * Creates a new credentials object.
      * @param {object} params - The map of params passed to AWS.STS.assumeRoleWithSAML().
      */
-    constructor(params: SAMLCredentialsParams,);
+    constructor(params: SAMLCredentialsParams);
     params: SAMLCredentialsParams;
 }
 interface SAMLCredentialsParams {

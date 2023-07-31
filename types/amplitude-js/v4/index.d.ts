@@ -6,7 +6,7 @@
 
 export as namespace amplitude;
 
-type Callback = (responseCode: number, responseBody: string, details?: { reason: string },) => void;
+type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 type LogReturn = number | void;
 
 interface Config {
@@ -52,57 +52,57 @@ interface Config {
 }
 
 export class Identify {
-    set(key: string, value: any,): Identify;
-    setOnce(key: string, value: any,): Identify;
-    add(key: string, value: number | string,): Identify;
-    append(key: string, value: any,): Identify;
-    prepend(key: string, value: any,): Identify;
+    set(key: string, value: any): Identify;
+    setOnce(key: string, value: any): Identify;
+    add(key: string, value: number | string): Identify;
+    append(key: string, value: any): Identify;
+    prepend(key: string, value: any): Identify;
 
-    unset(key: string,): Identify;
+    unset(key: string): Identify;
 }
 
 export class Revenue {
-    setProductId(productId: string,): Revenue;
-    setQuantity(quantity: number,): Revenue;
-    setPrice(price: number,): Revenue;
-    setRevenueType(revenueType: string,): Revenue;
-    setEventProperties(eventProperties: any,): Revenue;
+    setProductId(productId: string): Revenue;
+    setQuantity(quantity: number): Revenue;
+    setPrice(price: number): Revenue;
+    setRevenueType(revenueType: string): Revenue;
+    setEventProperties(eventProperties: any): Revenue;
 }
 
 export class AmplitudeClient {
-    constructor(instanceName?: string,);
+    constructor(instanceName?: string);
 
     options: Config;
 
-    init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient,) => void,): void;
+    init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
 
-    setVersionName(versionName: string,): void;
+    setVersionName(versionName: string): void;
 
     isNewSession(): boolean;
-    setSessionId(sessionId: number,): void;
+    setSessionId(sessionId: number): void;
     getSessionId(): number;
 
-    setDomain(domain: string,): void;
-    setUserId(userId: string | null,): void;
+    setDomain(domain: string): void;
+    setUserId(userId: string | null): void;
 
-    setDeviceId(id: string,): void;
+    setDeviceId(id: string): void;
     regenerateDeviceId(): void;
 
-    identify(identify_obj: Identify, opt_callback?: Callback,): void;
+    identify(identify_obj: Identify, opt_callback?: Callback): void;
 
-    setUserProperties(properties: any,): void;
-    setGlobalUserProperties(properties: any,): void;
+    setUserProperties(properties: any): void;
+    setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
 
-    setOptOut(enable: boolean,): void;
+    setOptOut(enable: boolean): void;
 
-    setGroup(groupType: string, groupName: string | string[],): void;
+    setGroup(groupType: string, groupName: string | string[]): void;
 
-    logEvent(event: string, data?: any, callback?: Callback,): LogReturn;
-    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback,): LogReturn;
-    logRevenueV2(revenue_obj: Revenue,): LogReturn;
-    logRevenue(pric: number, quantity: number, product: string,): LogReturn;
-    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback,): LogReturn;
+    logEvent(event: string, data?: any, callback?: Callback): LogReturn;
+    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
+    logRevenueV2(revenue_obj: Revenue): LogReturn;
+    logRevenue(pric: number, quantity: number, product: string): LogReturn;
+    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
@@ -114,37 +114,37 @@ export function init(
     apiKey: string,
     userId?: string,
     options?: Config,
-    callback?: (client: AmplitudeClient,) => void,
+    callback?: (client: AmplitudeClient) => void,
 ): void;
 
-export function setVersionName(version: string,): void;
+export function setVersionName(version: string): void;
 
 export function isNewSession(): boolean;
 export function getSessionId(): number;
 
-export function setDomain(domain: string,): void;
+export function setDomain(domain: string): void;
 
-export function setUserId(userId: string | null,): void;
+export function setUserId(userId: string | null): void;
 
-export function setDeviceId(id: string,): void;
+export function setDeviceId(id: string): void;
 export function regenerateDeviceId(): void;
 
-export function identify(identify: Identify, callback?: Callback,): void;
+export function identify(identify: Identify, callback?: Callback): void;
 
-export function setUserProperties(properties: any,): void;
-export function setGlobalUserProperties(properties: any,): void;
+export function setUserProperties(properties: any): void;
+export function setGlobalUserProperties(properties: any): void;
 export function clearUserProperties(): void;
 
-export function setOptOut(optOut: boolean,): void;
+export function setOptOut(optOut: boolean): void;
 
-export function setGroup(groupType: string, groupName: string | string[],): void;
+export function setGroup(groupType: string, groupName: string | string[]): void;
 
-export function logEvent(event: string, data?: any, callback?: Callback,): LogReturn;
-export function logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback,): LogReturn;
-export function logRevenueV2(revenue_obj: Revenue,): LogReturn;
-export function logRevenue(pric: number, quantity: number, product: string,): LogReturn;
-export function logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback,): LogReturn;
+export function logEvent(event: string, data?: any, callback?: Callback): LogReturn;
+export function logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
+export function logRevenueV2(revenue_obj: Revenue): LogReturn;
+export function logRevenue(pric: number, quantity: number, product: string): LogReturn;
+export function logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
 
-export function getInstance(instanceName?: string,): AmplitudeClient;
+export function getInstance(instanceName?: string): AmplitudeClient;
 export const __VERSION__: string;
 export var options: Config;

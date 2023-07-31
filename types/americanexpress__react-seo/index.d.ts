@@ -76,6 +76,6 @@ export interface SEOProps {
     siteUrl: string;
 }
 
-declare function SEO(props: SEOProps,): JSX.Element;
+declare function SEO(props: SEOProps): JSX.Element;
 
 export default SEO;

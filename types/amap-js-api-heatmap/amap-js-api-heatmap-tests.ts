@@ -3,9 +3,9 @@ declare const map: AMap.Map;
 // @ts-expect-error
 new AMap.Heatmap();
 // $ExpectType Heatmap
-new AMap.Heatmap(map,);
+new AMap.Heatmap(map);
 // $ExpectType Heatmap
-new AMap.Heatmap(map, {},);
+new AMap.Heatmap(map, {});
 // $ExpectType Heatmap
 const heatmap = new AMap.Heatmap(map, {
     radius: 30,
@@ -15,17 +15,17 @@ const heatmap = new AMap.Heatmap(map, {
         0.85: 'rgb(100, 0, 255)',
         1.0: 'rgb(100, 0, 255)',
     },
-    opacity: [0, 0.5,],
-    zooms: [1, 18,],
-},);
+    opacity: [0, 0.5],
+    zooms: [1, 18],
+});
 
 // $ExpectType void
-heatmap.setMap(map,);
+heatmap.setMap(map);
 
 // $ExpectType void
 heatmap.setOptions();
 // $ExpectType void
-heatmap.setOptions({},);
+heatmap.setOptions({});
 // $ExpectType void
 heatmap.setOptions({
     radius: 30,
@@ -35,9 +35,9 @@ heatmap.setOptions({
         0.85: 'rgb(100, 0, 255)',
         1.0: 'rgb(100, 0, 255)',
     },
-    opacity: [0, 0.5,],
-    zooms: [1, 18,],
-},);
+    opacity: [0, 0.5],
+    zooms: [1, 18],
+});
 
 // $ExpectType void
 heatmap.setDataSet({
@@ -49,7 +49,7 @@ heatmap.setDataSet({
         },
     ],
     max: 1,
-},);
+});
 
 // $ExpectType void
 heatmap.setDataSet({
@@ -66,12 +66,12 @@ heatmap.setDataSet({
             max: 1,
         };
     },
-},);
+});
 
 // $ExpectType void
-heatmap.addDataPoint(1, 2,);
+heatmap.addDataPoint(1, 2);
 // $ExpectType void
-heatmap.addDataPoint(1, 2, 3,);
+heatmap.addDataPoint(1, 2, 3);
 
 // $ExpectType void
 heatmap.show();

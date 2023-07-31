@@ -1,12 +1,12 @@
-import { ReadStream, WriteStream, } from 'fs';
-import { Disposable, } from '../../../index';
-import { Directory, } from './directory';
+import { ReadStream, WriteStream } from 'fs';
+import { Disposable } from '../../../index';
+import { Directory } from './directory';
 
 /** Represents an individual file that can be watched, read from, and written to. */
 export class File {
     // Construction
     /** Configures a new File instance, no files are accessed. */
-    constructor(filePath: string, symlink?: boolean,);
+    constructor(filePath: string, symlink?: boolean);
 
     /**
      *  Creates the file on disk that corresponds to ::getPath() if no such file
@@ -16,20 +16,20 @@ export class File {
 
     // Event Subscription
     /** Invoke the given callback when the file's contents change. */
-    onDidChange(callback: () => void,): Disposable;
+    onDidChange(callback: () => void): Disposable;
 
     /** Invoke the given callback when the file's path changes. */
-    onDidRename(callback: () => void,): Disposable;
+    onDidRename(callback: () => void): Disposable;
 
     /** Invoke the given callback when the file is deleted. */
-    onDidDelete(callback: () => void,): Disposable;
+    onDidDelete(callback: () => void): Disposable;
 
     /**
      *  Invoke the given callback when there is an error with the watch. When
      *  your callback has been invoked, the file will have unsubscribed from the
      *  file watches.
      */
-    onWillThrowWatchError(callback: (event: PathWatchErrorThrownEvent,) => void,): Disposable;
+    onWillThrowWatchError(callback: (event: PathWatchErrorThrownEvent) => void): Disposable;
 
     // File Metadata
     /** Returns a boolean, always true. */
@@ -57,7 +57,7 @@ export class File {
     getDigestSync(): string;
 
     /** Sets the file's character set encoding name. */
-    setEncoding(encoding: string,): void;
+    setEncoding(encoding: string): void;
 
     /** Returns the string encoding name for this file (default: "utf8"). */
     getEncoding(): string;
@@ -84,19 +84,19 @@ export class File {
 
     // Reading and Writing
     /** Reads the contents of the file. */
-    read(flushCache?: boolean,): Promise<string | null>;
+    read(flushCache?: boolean): Promise<string | null>;
 
     /** Returns a stream to read the content of the file. */
     createReadStream(): ReadStream;
 
     /** Overwrites the file with the given text. */
-    write(text: string,): Promise<undefined>;
+    write(text: string): Promise<undefined>;
 
     /** Returns a stream to write content to the file. */
     createWriteStream(): WriteStream;
 
     /** Overwrites the file with the given text. */
-    writeSync(text: string,): undefined;
+    writeSync(text: string): undefined;
 }
 
 export interface PathWatchErrorThrownEvent {

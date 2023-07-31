@@ -72,13 +72,13 @@ export default class AmCoordinateChart extends AmChart {
     /**
      * Adds a graph to the chart.
      */
-    addGraph(graph: AmGraph,): void;
+    addGraph(graph: AmGraph): void;
     /**
      * Adds value axis to the chart.
      * One value axis is created automatically, so if you don't want to change anything or add more value axes,
      * you don't need to add it.
      */
-    addValueAxis(axis: ValueAxis,): void;
+    addValueAxis(axis: ValueAxis): void;
     /**
      * You can trigger the animation of the chart.
      */
@@ -86,49 +86,49 @@ export default class AmCoordinateChart extends AmChart {
     /**
      * AmGraph Returns graph by id.
      */
-    getGraphById(graphId: string,): AmGraph;
+    getGraphById(graphId: string): AmGraph;
     /**
      * Returns value axis by id.
      */
-    getValueAxisById(axisId: string,): ValueAxis;
+    getValueAxisById(axisId: string): ValueAxis;
     /**
      * Hide the graph (if it is visible).
      * Usually this method is called from the Legend, when you click on the legend marker.
      */
-    hideGraph(graph: AmGraph,): void;
+    hideGraph(graph: AmGraph): void;
     /**
      * Hide value balloon of a graph.
      * Usually this method is called from the Legend, when you click on the legend text.
      */
-    hideGraphsBalloon(graph: AmGraph,): void;
+    hideGraphsBalloon(graph: AmGraph): void;
     /**
      * Highlight the graph. Usually this method is called from the Legend, when you roll-over the legend entry.
      */
-    highlightGraph(graph: AmGraph,): void;
+    highlightGraph(graph: AmGraph): void;
     /**
      * Removes graph from the chart.
      */
-    removeGraph(graph: AmGraph,): void;
+    removeGraph(graph: AmGraph): void;
     /**
      * Removes value axis from the chart.
      * When you remove value axis, all graphs assigned to this axis are also removed.
      */
-    removeValueAxis(axis: ValueAxis,): void;
+    removeValueAxis(axis: ValueAxis): void;
     /**
      * Show the graph (if it is hidden).
      * Usually this method is called from the Legend, when you click on the legend marker.
      */
-    showGraph(graph: AmGraph,): void;
+    showGraph(graph: AmGraph): void;
     /**
      * Show value balloon of a graph.
      * Usually this method is called from the Legend, when you click on the legend text.
      */
-    showGraphsBalloon(graph: AmGraph,): void;
+    showGraphsBalloon(graph: AmGraph): void;
     /**
      * UnhighlightGraph the graph.
      * Usually this method is called from the Legend, when you roll-out the legend entry.
      */
-    unhighlightGraph(graph: AmGraph,): void;
+    unhighlightGraph(graph: AmGraph): void;
     /**
      * Adds event listener of the type "clickGraphItem" or "doubleClickGraphItem" or
      * "rightClickGraphItem" or "rollOutGraphItem" or "rollOverGraphItem" to the object.

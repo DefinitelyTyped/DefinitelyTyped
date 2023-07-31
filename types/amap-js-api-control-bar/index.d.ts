@@ -38,7 +38,7 @@ declare namespace AMap {
          * 组合了旋转、倾斜、复位、缩放在内的地图控件
          * @param options 选项
          */
-        constructor(options?: ControlBar.Options,);
+        constructor(options?: ControlBar.Options);
         // internal
         show(): void;
         hide(): void;

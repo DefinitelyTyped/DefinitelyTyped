@@ -17,7 +17,7 @@
  *
  * @returns Lc (lightness contrast) as a numeric value within ± 127
  */
-export function APCAcontrast(txtY: number, bgY: number, places?: number,): number | string;
+export function APCAcontrast(txtY: number, bgY: number, places?: number): number | string;
 
 /**
  * @param [rgb]
@@ -27,7 +27,7 @@ export function APCAcontrast(txtY: number, bgY: number, places?: number,): numbe
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function sRGBtoY(rgb: [r: number, g: number, b: number,],): number;
+export function sRGBtoY(rgb: [r: number, g: number, b: number]): number;
 
 /**
  * @param [rgb]
@@ -37,7 +37,7 @@ export function sRGBtoY(rgb: [r: number, g: number, b: number,],): number;
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function displayP3toY(rgb: [r: number, g: number, b: number,],): number;
+export function displayP3toY(rgb: [r: number, g: number, b: number]): number;
 
 /**
  * @param [rgb]
@@ -47,7 +47,7 @@ export function displayP3toY(rgb: [r: number, g: number, b: number,],): number;
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function adobeRGBtoY(rgb?: [r: number, g: number, b: number,],): number;
+export function adobeRGBtoY(rgb?: [r: number, g: number, b: number]): number;
 
 /**
  * @param [rgbaFG]
@@ -66,10 +66,10 @@ export function adobeRGBtoY(rgb?: [r: number, g: number, b: number,],): number;
  * Defaults to `true`.
  */
 export function alphaBlend(
-    rgbaFG?: [r: number, g: number, b: number, a: number,],
-    rgbBG?: [r: number, g: number, b: number,],
+    rgbaFG?: [r: number, g: number, b: number, a: number],
+    rgbBG?: [r: number, g: number, b: number],
     isInt?: boolean,
-): [r: number, g: number, b: number,];
+): [r: number, g: number, b: number];
 
 /**
  * Calculate the APCA contrast for named or hex colors.
@@ -95,8 +95,8 @@ export function alphaBlend(
  * @returns Lc (lightness contrast) as a numeric value within ± 127
  */
 export function calcAPCA(
-    textColor: number | string | [r: number, g: number, b: number, a?: number,],
-    bgColor: number | string | [r: number, g: number, b: number,],
+    textColor: number | string | [r: number, g: number, b: number, a?: number],
+    bgColor: number | string | [r: number, g: number, b: number],
     places?: number,
     isInt?: boolean,
 ): number | string;

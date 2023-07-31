@@ -1,26 +1,26 @@
 suite('A', () => {
-    setUp(() => {},);
+    setUp(() => {});
 
-    tearDown(() => {},);
+    tearDown(() => {});
 
     test('Empty Test', () => {
-        assert.isTrue(true,);
+        assert.isTrue(true);
     });
-},);
+});
 
 suite('B', () => {
     setUp(() => {
-        return { message: 'Hello, World!', };
-    },);
-
-    tearDown((state: any,) => {
-        delete state.message;
-    },);
-
-    test('Test that msg equals \'Hello, World!`', ({ message, }: any,) => {
-        assert.deepEqual(message, 'Hello, World!',);
+        return { message: 'Hello, World!' };
     });
-},);
+
+    tearDown((state: any) => {
+        delete state.message;
+    });
+
+    test('Test that msg equals \'Hello, World!`', ({ message }: any) => {
+        assert.deepEqual(message, 'Hello, World!');
+    });
+});
 
 suite('C', () => {
     interface State {
@@ -28,14 +28,14 @@ suite('C', () => {
     }
 
     setUp((): State => {
-        return { message: 'QWERTY', };
-    },);
-
-    tearDown((state: State,) => {
-        delete state.message;
-    },);
-
-    test('Empty Test', ({ message, }: State,) => {
-        assert.deepEqual(message, 'QWERTY',);
+        return { message: 'QWERTY' };
     });
-},);
+
+    tearDown((state: State) => {
+        delete state.message;
+    });
+
+    test('Empty Test', ({ message }: State) => {
+        assert.deepEqual(message, 'QWERTY');
+    });
+});

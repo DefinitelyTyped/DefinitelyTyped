@@ -5,7 +5,7 @@
 // TypeScript Version: 3.2
 
 import 'karma';
-import { NextHandleFunction, } from 'connect';
+import { NextHandleFunction } from 'connect';
 
 declare module 'karma' {
     interface ConfigOptions {
@@ -27,4 +27,4 @@ export interface MiddlewareOptions {
         [path: string]: string;
     };
 }
-export function middleware(options?: MiddlewareOptions,): NextHandleFunction;
+export function middleware(options?: MiddlewareOptions): NextHandleFunction;

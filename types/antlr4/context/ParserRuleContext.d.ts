@@ -14,29 +14,29 @@ export default class ParserRuleContext extends RuleContext {
     readonly ruleIndex: number;
     readonly exception: RecognitionException;
 
-    constructor(parent?: RuleContext, invokingState?: number,);
+    constructor(parent?: RuleContext, invokingState?: number);
 
-    copyFrom(ctx: ParserRuleContext,): void;
+    copyFrom(ctx: ParserRuleContext): void;
 
-    enterRule(listener: ParseTreeListener,): void;
+    enterRule(listener: ParseTreeListener): void;
 
-    exitRule(listener: ParseTreeListener,): void;
+    exitRule(listener: ParseTreeListener): void;
 
-    addChild(child: ParserRuleContext,): TerminalNode;
+    addChild(child: ParserRuleContext): TerminalNode;
 
     removeLastChild(): void;
 
-    addTokenNode(token: Token,): Token;
+    addTokenNode(token: Token): Token;
 
-    addErrorNode(badToken: Token,): ErrorNode;
+    addErrorNode(badToken: Token): ErrorNode;
 
-    getChild<T extends ParseTree,>(i: number, type?: { new(...args: any[]): T },): T | null;
+    getChild<T extends ParseTree>(i: number, type?: { new(...args: any[]): T }): T | null;
 
-    getToken(ttype: number, i: number,): Token;
+    getToken(ttype: number, i: number): Token;
 
-    getTokens(ttype: number,): Token[];
+    getTokens(ttype: number): Token[];
 
-    getTypedRuleContext<T extends ParserRuleContext,>(cxtType: { new(...args: any[]): T }, i: number,): T;
+    getTypedRuleContext<T extends ParserRuleContext>(cxtType: { new(...args: any[]): T }, i: number): T;
 
-    getTypedRuleContexts<T extends ParserRuleContext,>(cxtType: { new(...args: any[]): T },): T[];
+    getTypedRuleContexts<T extends ParserRuleContext>(cxtType: { new(...args: any[]): T }): T[];
 }

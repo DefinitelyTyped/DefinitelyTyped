@@ -34,7 +34,7 @@ export namespace Azure.ServiceBus {
     export type Duration = string;
     export type DateString = string;
 
-    export interface Dictionary<T,> {
+    export interface Dictionary<T> {
         [k: string]: T;
     }
 
@@ -334,7 +334,7 @@ export namespace Azure.ServiceBus {
         response: Response,
     ) => void;
 
-    export type TypedResultAndResponseCallback<T,> = (
+    export type TypedResultAndResponseCallback<T> = (
         error: Error | null,
         result: T,
         response: Response,

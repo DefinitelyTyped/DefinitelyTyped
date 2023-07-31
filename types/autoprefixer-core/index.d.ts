@@ -28,14 +28,14 @@ interface Result {
 interface Processor {
     postcss: any;
     info(): string;
-    process(css: string, opts?: Options,): Result;
+    process(css: string, opts?: Options): Result;
 }
 
 interface Exports {
-    (config: Config,): Processor;
+    (config: Config): Processor;
     postcss: any;
     info(): string;
-    process(css: string, opts?: Options,): Result;
+    process(css: string, opts?: Options): Result;
 }
 
 declare var exports: Exports;

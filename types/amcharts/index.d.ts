@@ -96,7 +96,7 @@ export namespace AmCharts {
     /**
      * Create chart by params.
      */
-    function makeChart(selector: string, params: any, delay?: number,): AmChart;
+    function makeChart(selector: string, params: any, delay?: number): AmChart;
 
     /**
      * Set a method to be called before initializing the chart.
@@ -107,7 +107,7 @@ export namespace AmCharts {
      * @param types - Which chart types should call this method. Defaults to all
      * if none is passed.
      */
-    function addInitHandler(handler: () => {}, types?: string[],): any;
+    function addInitHandler(handler: () => {}, types?: string[]): any;
 
     class AmAngularGauge extends _AmAngularGauge {}
     class AmBalloon extends _AmBalloon {}

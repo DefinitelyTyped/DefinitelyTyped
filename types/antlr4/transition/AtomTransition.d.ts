@@ -6,11 +6,11 @@ export default class AtomTransition extends Transition {
     readonly label: IntervalSet;
     readonly serializationType: number;
 
-    constructor(target: ATNState, label: number,);
+    constructor(target: ATNState, label: number);
 
     makeLabel(): IntervalSet;
 
-    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number,): boolean;
+    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number): boolean;
 
     toString(): string;
 }

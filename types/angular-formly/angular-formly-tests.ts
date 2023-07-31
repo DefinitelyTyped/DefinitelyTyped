@@ -1,4 +1,4 @@
-var app = angular.module('app', ['formly',],);
+var app = angular.module('app', ['formly']);
 
 interface IScope extends ng.IScope {
     to: { label: string };
@@ -11,29 +11,29 @@ class FormConfig {
     ) {
         formlyConfig.setWrapper({
             name: 'validation',
-            types: ['input', 'customInput',],
+            types: ['input', 'customInput'],
             templateUrl: 'my-messages.html',
-        },);
+        });
 
         formlyConfig.setWrapper([
             {
                 name: 'validation-0',
-                types: ['input-0', 'customInput-0',],
+                types: ['input-0', 'customInput-0'],
                 templateUrl: 'my-messages-0.html',
             },
             {
                 name: 'validation-1',
-                types: ['input-1', 'customInput-1',],
+                types: ['input-1', 'customInput-1'],
                 templateUrl: 'my-messages-1.html',
             },
-        ],);
+        ]);
 
-        formlyValidationMessages.addStringMessage('required', 'This field is required',);
+        formlyValidationMessages.addStringMessage('required', 'This field is required');
 
         formlyConfig.setType({
             name: 'customInput',
             extends: 'input',
-        },);
+        });
 
         formlyConfig.disableWarnings = true;
         formlyConfig.templateManipulators = undefined;
@@ -44,7 +44,7 @@ class FormConfig {
         formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = angular.noop;
         formlyConfig.extras.explicitAsync = true;
         formlyConfig.extras.fieldTransform = angular.noop;
-        formlyConfig.extras.fieldTransform = [angular.noop,];
+        formlyConfig.extras.fieldTransform = [angular.noop];
         formlyConfig.extras.getFieldId = angular.noop;
         formlyConfig.extras.ngModelAttrsManipulatorPreferUnbound = true;
     }
@@ -81,9 +81,9 @@ class AppController {
                 type: 'input',
                 validators: {
                     ipAddress: {
-                        expression: function(viewValue, modelValue,) {
+                        expression: function(viewValue, modelValue) {
                             var value = modelValue || viewValue;
-                            return /(\d{1,3}\.){3}\d{1,3}/.test(value,);
+                            return /(\d{1,3}\.){3}\d{1,3}/.test(value);
                         },
                         message: '$viewValue + " is not a valid IP Address"',
                     },
@@ -96,7 +96,7 @@ class AppController {
                 },
                 validation: {
                     messages: {
-                        required: function($viewValue: any, $modelValue: any, scope: AngularFormly.ITemplateScope,) {
+                        required: function($viewValue: any, $modelValue: any, scope: AngularFormly.ITemplateScope) {
                             return scope.to.label + ' is required';
                         },
                     },
@@ -131,7 +131,7 @@ class AppController {
                 // From http://angular-formly.com/#/example/other/nested-formly-forms
                 key: 'address',
                 wrapper: 'panel',
-                templateOptions: { label: 'Address', },
+                templateOptions: { label: 'Address' },
                 fieldGroup: [{
                     key: 'town',
                     type: 'input',
@@ -140,10 +140,10 @@ class AppController {
                         type: 'text',
                         label: 'Town',
                     },
-                },],
+                }],
             },
         ];
     }
 }
 
-app.controller('AppController', AppController,);
+app.controller('AppController', AppController);

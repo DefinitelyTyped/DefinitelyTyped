@@ -42,11 +42,11 @@ declare module 'angular' {
             /* ========== SETTINGS RELATED METHODS =============*/
 
             disableHtml5Mode(): void;
-            disableType(notificationType: string,): void;
+            disableType(notificationType: string): void;
             enableHtml5Mode(): void;
-            enableType(notificationType: string,): void;
+            enableType(notificationType: string): void;
             getSettings(): ISettings;
-            toggleType(notificationType: string,): void;
+            toggleType(notificationType: string): void;
             toggleHtml5Mode(): void;
             requestHtml5ModePermissions(): boolean;
 
@@ -57,20 +57,20 @@ declare module 'angular' {
 
             /* ============== NOTIFICATION METHODS ==============*/
 
-            info(title: string,): INotification;
-            info(title: string, content: string,): INotification;
-            info(title: string, content: string, userData: any,): INotification;
-            error(title: string,): INotification;
-            error(title: string, content: string,): INotification;
-            error(title: string, content: string, userData: any,): INotification;
-            success(title: string,): INotification;
-            success(title: string, content: string,): INotification;
-            success(title: string, content: string, userData: any,): INotification;
-            warning(title: string,): INotification;
-            warning(title: string, content: string,): INotification;
-            warning(title: string, content: string, userData: any,): INotification;
-            awesomeNotify(type: string, icon: string, title: string, content: string, userData: any,): INotification;
-            notify(image: string, title: string, content: string, userData: any,): INotification;
+            info(title: string): INotification;
+            info(title: string, content: string): INotification;
+            info(title: string, content: string, userData: any): INotification;
+            error(title: string): INotification;
+            error(title: string, content: string): INotification;
+            error(title: string, content: string, userData: any): INotification;
+            success(title: string): INotification;
+            success(title: string, content: string): INotification;
+            success(title: string, content: string, userData: any): INotification;
+            warning(title: string): INotification;
+            warning(title: string, content: string): INotification;
+            warning(title: string, content: string, userData: any): INotification;
+            awesomeNotify(type: string, icon: string, title: string, content: string, userData: any): INotification;
+            notify(image: string, title: string, content: string, userData: any): INotification;
             makeNotification(
                 type: string,
                 image: string,

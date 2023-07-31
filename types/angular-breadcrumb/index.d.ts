@@ -41,7 +41,7 @@ declare module 'angular' {
             /**
              * Setter for options defined in a module.config block
              */
-            setOptions(options: breadcrumbProviderOptions,): void;
+            setOptions(options: breadcrumbProviderOptions): void;
         }
 
         /**

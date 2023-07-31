@@ -1,4 +1,4 @@
-import { Callback, Handler, } from '../handler';
+import { Callback, Handler } from '../handler';
 
 export type AutoScalingScaleInHandler = Handler<AutoScalingScaleInEvent, AutoScalingScaleInResult>;
 export type AutoScalingScaleInCallback = Callback<AutoScalingScaleInResult>;

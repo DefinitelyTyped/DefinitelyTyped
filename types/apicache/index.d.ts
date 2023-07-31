@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as express from 'express';
-import { RedisClient, } from 'redis';
+import { RedisClient } from 'redis';
 
 export const id: number;
 
 /**
  * clears cache target (key or group), or entire cache if no value passed, returns new index.
  */
-export function clear(target: string | any[],): any;
+export function clear(target: string | any[]): any;
 
 /** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;
 
-export function getDuration(duration: string | number,): any;
+export function getDuration(duration: string | number): any;
 
 /**
  * returns current cache index [of keys]
@@ -48,13 +48,13 @@ export function middleware(
 /**
  * used to create a new ApiCache instance (by default, simply requiring this library shares a common instance)
  */
-export function newInstance(config: Options,): any;
+export function newInstance(config: Options): any;
 
 /**
  * getter/setter for global options. If used as a setter, this function is
  * chainable, allowing you to do things such as... say... return the middleware.
  */
-export function options(options?: Options,): any;
+export function options(options?: Options): any;
 
 export function resetIndex(): void;
 
@@ -72,7 +72,7 @@ export interface Options {
     /** if true, req.path will be used as cache key instead of req.url. Defaults to false */
     jsonp?: boolean | undefined;
     /** appendKey takes the req/res objects and returns a custom value to extend the cache key */
-    appendKey?: ((req: express.Request, res: express.Response,) => string) | Array<(keyof express.Request)> | undefined;
+    appendKey?: ((req: express.Request, res: express.Response) => string) | Array<(keyof express.Request)> | undefined;
     /** list of headers that should never be cached */
     headerBlacklist?: string[] | undefined;
     statusCodes?: {
@@ -90,7 +90,7 @@ export interface Options {
     /** Event callbacks */
     events?: {
         /** Expire callback triggered by redis client is used. Defaults to empty function */
-        expire: (err: Error | null, reply: number,) => void | undefined;
+        expire: (err: Error | null, reply: number) => void | undefined;
     } | undefined;
     /**
      * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues

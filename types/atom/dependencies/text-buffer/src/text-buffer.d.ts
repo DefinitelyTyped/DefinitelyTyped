@@ -1,4 +1,4 @@
-import { ReadStream, WriteStream, } from 'fs';
+import { ReadStream, WriteStream } from 'fs';
 import {
     Disposable,
     FileSavedEvent,
@@ -41,22 +41,22 @@ export class TextBuffer {
     readonly destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
-    static load(filePath: string | TextBufferFileBackend, params?: BufferLoadOptions,): Promise<TextBuffer>;
+    static load(filePath: string | TextBufferFileBackend, params?: BufferLoadOptions): Promise<TextBuffer>;
 
     /**
      *  Create a new buffer backed by the given file path. For better performance,
      *  use TextBuffer.load instead.
      */
-    static loadSync(filePath: string, params?: BufferLoadOptions,): TextBuffer;
+    static loadSync(filePath: string, params?: BufferLoadOptions): TextBuffer;
 
     /**
      *  Restore a TextBuffer based on an earlier state created using the
      *  TextBuffer::serialize method.
      */
-    static deserialize(params: object,): Promise<TextBuffer>;
+    static deserialize(params: object): Promise<TextBuffer>;
 
     /** Create a new buffer with the given starting text. */
-    constructor(text: string,);
+    constructor(text: string);
     /** Create a new buffer with the given params. */
     constructor(params?: {
         /** The initial string text of the buffer. */
@@ -66,10 +66,10 @@ export class TextBuffer {
          *  be destroyed if its file is deleted.
          */
         shouldDestroyOnFileDelete?(): boolean;
-    },);
+    });
 
     /** Returns a plain javascript object representation of the TextBuffer. */
-    serialize(options?: { markerLayers?: boolean | undefined; history?: boolean | undefined },): object;
+    serialize(options?: { markerLayers?: boolean | undefined; history?: boolean | undefined }): object;
 
     /** Returns the unique identifier for this buffer. */
     getId(): string;
@@ -79,79 +79,79 @@ export class TextBuffer {
      *  Invoke the given callback synchronously before the content of the buffer
      *  changes.
      */
-    onWillChange(callback: (event: BufferChangingEvent,) => void,): Disposable;
+    onWillChange(callback: (event: BufferChangingEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback synchronously when the content of the buffer
      *  changes. You should probably not be using this in packages.
      */
-    onDidChange(callback: (event: BufferChangedEvent,) => void,): Disposable;
+    onDidChange(callback: (event: BufferChangedEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback synchronously when a transaction finishes with
      *  a list of all the changes in the transaction.
      */
-    onDidChangeText(callback: (event: BufferStoppedChangingEvent,) => void,): Disposable;
+    onDidChangeText(callback: (event: BufferStoppedChangingEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback asynchronously following one or more changes after
      *  ::getStoppedChangingDelay milliseconds elapse without an additional change.
      */
-    onDidStopChanging(callback: (event: BufferStoppedChangingEvent,) => void,): Disposable;
+    onDidStopChanging(callback: (event: BufferStoppedChangingEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback when the in-memory contents of the buffer become
      *  in conflict with the contents of the file on disk.
      */
-    onDidConflict(callback: () => void,): Disposable;
+    onDidConflict(callback: () => void): Disposable;
 
     /** Invoke the given callback if the value of ::isModified changes. */
-    onDidChangeModified(callback: (modified: boolean,) => void,): Disposable;
+    onDidChangeModified(callback: (modified: boolean) => void): Disposable;
 
     /**
      *  Invoke the given callback when all marker ::onDidChange observers have been
      *  notified following a change to the buffer.
      */
-    onDidUpdateMarkers(callback: () => void,): Disposable;
+    onDidUpdateMarkers(callback: () => void): Disposable;
 
-    onDidCreateMarker(callback: (marker: Marker,) => void,): Disposable;
+    onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
 
     /** Invoke the given callback when the value of ::getPath changes. */
-    onDidChangePath(callback: (path: string,) => void,): Disposable;
+    onDidChangePath(callback: (path: string) => void): Disposable;
 
     /** Invoke the given callback when the value of ::getEncoding changes. */
-    onDidChangeEncoding(callback: (encoding: string,) => void,): Disposable;
+    onDidChangeEncoding(callback: (encoding: string) => void): Disposable;
 
     /**
      *  Invoke the given callback before the buffer is saved to disk. If the
      *  given callback returns a promise, then the buffer will not be saved until
      *  the promise resolves.
      */
-    onWillSave(callback: () => Promise<void> | void,): Disposable;
+    onWillSave(callback: () => Promise<void> | void): Disposable;
 
     /** Invoke the given callback after the buffer is saved to disk. */
-    onDidSave(callback: (event: FileSavedEvent,) => void,): Disposable;
+    onDidSave(callback: (event: FileSavedEvent) => void): Disposable;
 
     /** Invoke the given callback after the file backing the buffer is deleted. */
-    onDidDelete(callback: () => void,): Disposable;
+    onDidDelete(callback: () => void): Disposable;
 
     /**
      *  Invoke the given callback before the buffer is reloaded from the contents
      *  of its file on disk.
      */
-    onWillReload(callback: () => void,): Disposable;
+    onWillReload(callback: () => void): Disposable;
 
     /**
      *  Invoke the given callback after the buffer is reloaded from the contents
      *  of its file on disk.
      */
-    onDidReload(callback: () => void,): Disposable;
+    onDidReload(callback: () => void): Disposable;
 
     /** Invoke the given callback when the buffer is destroyed. */
-    onDidDestroy(callback: () => void,): Disposable;
+    onDidDestroy(callback: () => void): Disposable;
 
     /** Invoke the given callback when there is an error in watching the file. */
-    onWillThrowWatchError(callback: (errorObject: HandleableErrorEvent,) => void,): Disposable;
+    onWillThrowWatchError(callback: (errorObject: HandleableErrorEvent) => void): Disposable;
 
     /**
      *  Get the number of milliseconds that will elapse without a change before
@@ -177,13 +177,13 @@ export class TextBuffer {
     getPath(): string | undefined;
 
     /** Set the path for the buffer's associated file. */
-    setPath(filePath: string,): void;
+    setPath(filePath: string): void;
 
     /** Experimental: Set a custom {TextBufferFileBackend} object as the buffer's backing store. */
-    setFile(fileBackend: TextBufferFileBackend,): void;
+    setFile(fileBackend: TextBufferFileBackend): void;
 
     /** Sets the character set encoding for this buffer. */
-    setEncoding(encoding: string,): void;
+    setEncoding(encoding: string): void;
 
     /** Returns the string encoding of this buffer. */
     getEncoding(): string;
@@ -202,7 +202,7 @@ export class TextBuffer {
     getText(): string;
 
     /** Get the text in a range. */
-    getTextInRange(range: RangeCompatible,): string;
+    getTextInRange(range: RangeCompatible): string;
 
     /** Get the text of all lines in the buffer, without their line endings. */
     getLines(): string[];
@@ -214,31 +214,31 @@ export class TextBuffer {
      *  Get the text of the line at the given 0-indexed row, without its line ending.
      *  @param row A number representing the row.
      */
-    lineForRow(row: number,): string | undefined;
+    lineForRow(row: number): string | undefined;
 
     /** Get the line ending for the given 0-indexed row. */
-    lineEndingForRow(row: number,): string | undefined;
+    lineEndingForRow(row: number): string | undefined;
 
     /**
      *  Get the length of the line for the given 0-indexed row, without its line
      *  ending.
      */
-    lineLengthForRow(row: number,): number;
+    lineLengthForRow(row: number): number;
 
     /** Determine if the given row contains only whitespace. */
-    isRowBlank(row: number,): boolean;
+    isRowBlank(row: number): boolean;
 
     /**
      *  Given a row, find the first preceding row that's not blank.
      *  Returns a number or null if there's no preceding non-blank row.
      */
-    previousNonBlankRow(startRow: number,): number | null;
+    previousNonBlankRow(startRow: number): number | null;
 
     /**
      *  Given a row, find the next row that's not blank.
      *  Returns a number or null if there's no next non-blank row.
      */
-    nextNonBlankRow(startRow: number,): number | null;
+    nextNonBlankRow(startRow: number): number | null;
 
     /**
      *  Return true if the buffer contains any astral-plane Unicode characters that
@@ -248,31 +248,31 @@ export class TextBuffer {
 
     // Mutating Text
     /** Replace the entire contents of the buffer with the given text. */
-    setText(text: string,): Range;
+    setText(text: string): Range;
 
     /**
      *  Replace the current buffer contents by applying a diff based on the
      *  given text.
      */
-    setTextViaDiff(text: string,): void;
+    setTextViaDiff(text: string): void;
 
     /** Set the text in the given range. */
-    setTextInRange(range: RangeCompatible, text: string, options?: TextEditOptions,): Range;
+    setTextInRange(range: RangeCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Insert text at the given position. */
-    insert(position: PointCompatible, text: string, options?: TextEditOptions,): Range;
+    insert(position: PointCompatible, text: string, options?: TextEditOptions): Range;
 
     /** Append text to the end of the buffer. */
-    append(text: string, options?: TextEditOptions,): Range;
+    append(text: string, options?: TextEditOptions): Range;
 
     /** Delete the text in the given range. */
-    delete(range: RangeCompatible,): Range;
+    delete(range: RangeCompatible): Range;
 
     /**
      *  Delete the line associated with a specified 0-indexed row.
      *  @param row A number representing the row to delete.
      */
-    deleteRow(row: number,): Range;
+    deleteRow(row: number): Range;
 
     /**
      *  Delete the lines associated with the specified 0-indexed row range.
@@ -280,7 +280,7 @@ export class TextBuffer {
      *  If the row range is out of bounds, it will be clipped. If the `startRow`
      *  is greater than the `endRow`, they will be reordered.
      */
-    deleteRows(startRow: number, endRow: number,): Range;
+    deleteRows(startRow: number, endRow: number): Range;
 
     // Markers
     /** Create a layer to contain a set of related markers. */
@@ -296,7 +296,7 @@ export class TextBuffer {
      *  Get a MarkerLayer by id.
      *  Returns a MarkerLayer or undefined if no layer exists with the given id.
      */
-    getMarkerLayer(id: string,): MarkerLayer | undefined;
+    getMarkerLayer(id: string): MarkerLayer | undefined;
 
     /** Get the default MarkerLayer. */
     getDefaultMarkerLayer(): MarkerLayer;
@@ -324,10 +324,10 @@ export class TextBuffer {
     getMarkers(): Marker[];
 
     /** Get an existing marker by its id from the default marker layer. */
-    getMarker(id: number,): Marker;
+    getMarker(id: number): Marker;
 
     /** Find markers conforming to the given parameters in the default marker layer. */
-    findMarkers(params: FindMarkerOptions,): Marker[];
+    findMarkers(params: FindMarkerOptions): Marker[];
 
     /** Get the number of markers in the default marker layer. */
     getMarkerCount(): number;
@@ -337,21 +337,21 @@ export class TextBuffer {
      *  Undo the last operation. If a transaction is in progress, aborts it.
      *  @return A boolean of whether or not a change was made.
      */
-    undo(options?: HistoryTraversalOptions,): boolean;
+    undo(options?: HistoryTraversalOptions): boolean;
 
     /**
      *  Redo the last operation.
      *  @return A boolean of whether or not a change was made.
      */
-    redo(options?: HistoryTraversalOptions,): boolean;
+    redo(options?: HistoryTraversalOptions): boolean;
 
     /** Batch multiple operations as a single undo/redo step. */
-    transact<T,>(
+    transact<T>(
         optionsOrInterval: number | ({ groupingInterval?: number | undefined } & HistoryTransactionOptions),
         fn: () => T,
     ): T;
     /** Batch multiple operations as a single undo/redo step. */
-    transact<T,>(fn: () => T,): T;
+    transact<T>(fn: () => T): T;
 
     /**
      *  Abort the currently running transaction.
@@ -368,20 +368,20 @@ export class TextBuffer {
      *  `::revertToCheckpoint` and `::groupChangesSinceCheckpoint`.
      *  @return A checkpoint ID value.
      */
-    createCheckpoint(options?: HistoryTransactionOptions,): number;
+    createCheckpoint(options?: HistoryTransactionOptions): number;
 
     /**
      *  Revert the buffer to the state it was in when the given checkpoint was created.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    revertToCheckpoint(checkpoint: number, options?: HistoryTraversalOptions,): boolean;
+    revertToCheckpoint(checkpoint: number, options?: HistoryTraversalOptions): boolean;
 
     /**
      *  Group all changes since the given checkpoint into a single transaction for
      *  purposes of undo/redo.
      *  @return A boolean indicating whether the operation succeeded.
      */
-    groupChangesSinceCheckpoint(checkpoint: number, options?: HistoryTransactionOptions,): boolean;
+    groupChangesSinceCheckpoint(checkpoint: number, options?: HistoryTransactionOptions): boolean;
 
     /**
      *  Group the last two text changes for purposes of undo/redo.
@@ -418,18 +418,18 @@ export class TextBuffer {
      *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      */
-    scan(regex: RegExp, iterator: (params: BufferScanResult,) => void,): void;
+    scan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      */
-    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult,) => void,): void;
+    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult) => void): void;
 
     /**
      *  Scan regular expression matches in the entire buffer in reverse order,
      *  calling the given iterator function on each match.
      */
-    backwardsScan(regex: RegExp, iterator: (params: BufferScanResult,) => void,): void;
+    backwardsScan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in the entire buffer in reverse order,
      *  calling the given iterator function on each match.
@@ -437,14 +437,14 @@ export class TextBuffer {
     backwardsScan(
         regex: RegExp,
         options: ScanContextOptions,
-        iterator: (params: ContextualBufferScanResult,) => void,
+        iterator: (params: ContextualBufferScanResult) => void,
     ): void;
 
     /**
      *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
      */
-    scanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult,) => void,): void;
+    scanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
@@ -453,14 +453,14 @@ export class TextBuffer {
         regex: RegExp,
         range: RangeCompatible,
         options: ScanContextOptions,
-        iterator: (params: ContextualBufferScanResult,) => void,
+        iterator: (params: ContextualBufferScanResult) => void,
     ): void;
 
     /**
      *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.
      */
-    backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult,) => void,): void;
+    backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.
@@ -469,11 +469,11 @@ export class TextBuffer {
         regex: RegExp,
         range: RangeCompatible,
         options: ScanContextOptions,
-        iterator: (params: ContextualBufferScanResult,) => void,
+        iterator: (params: ContextualBufferScanResult) => void,
     ): void;
 
     /** Replace all regular expression matches in the entire buffer. */
-    replace(regex: RegExp, replacementText: string,): number;
+    replace(regex: RegExp, replacementText: string): number;
 
     // Buffer Range Details
     /** Get the range spanning from [0, 0] to ::getEndPosition. */
@@ -504,32 +504,32 @@ export class TextBuffer {
      *  newline, which results in a range that extends to the start of the next line.
      *  (default: false)
      */
-    rangeForRow(row: number, includeNewline?: boolean,): Range;
+    rangeForRow(row: number, includeNewline?: boolean): Range;
 
     /**
      *  Convert a position in the buffer in row/column coordinates to an absolute
      *  character offset, inclusive of line ending characters.
      */
-    characterIndexForPosition(position: PointCompatible,): number;
+    characterIndexForPosition(position: PointCompatible): number;
 
     /**
      *  Convert an absolute character offset, inclusive of newlines, to a position
      *  in the buffer in row/column coordinates.
      */
-    positionForCharacterIndex(offset: number,): Point;
+    positionForCharacterIndex(offset: number): Point;
 
     /** Clip the given range so it starts and ends at valid positions. */
-    clipRange(range: RangeCompatible,): Range;
+    clipRange(range: RangeCompatible): Range;
 
     /** Clip the given point so it is at a valid position in the buffer. */
-    clipPosition(position: PointCompatible,): Point;
+    clipPosition(position: PointCompatible): Point;
 
     // Buffer Operations
     /** Save the buffer. */
     save(): Promise<void>;
 
     /** Save the buffer at a specific path. */
-    saveAs(filePath: string,): Promise<void>;
+    saveAs(filePath: string): Promise<void>;
 
     /** Reload the buffer's contents from disk. */
     reload(): void;
@@ -586,20 +586,20 @@ export interface TextBufferFileBackend {
      *  when the file changes. The method should return a {Disposable} that
      *  can be used to prevent further calls to the callback.
      */
-    onDidChange?(callback: () => void,): Disposable;
+    onDidChange?(callback: () => void): Disposable;
 
     /**
      *  A {Function} that invokes its callback argument
      *  when the file is deleted. The method should return a {Disposable} that
      *  can be used to prevent further calls to the callback.
      */
-    onDidDelete?(callback: () => void,): Disposable;
+    onDidDelete?(callback: () => void): Disposable;
     /**
      *  A {Function} that invokes its callback argument
      *  when the file is renamed. The method should return a {Disposable} that
      *  can be used to prevent further calls to the callback.
      */
-    onDidRename?(callback: () => void,): Disposable;
+    onDidRename?(callback: () => void): Disposable;
 }
 
 export interface BufferChangingEvent {
@@ -657,7 +657,7 @@ export interface BufferScanResult {
     match: RegExpExecArray;
     matchText: string;
     range: Range;
-    replace(replacementText: string,): void;
+    replace(replacementText: string): void;
     stop(): void;
     stopped: boolean;
 }

@@ -31,7 +31,7 @@ declare module 'angular' {
          * @param html HTML input.
          */
         interface ISanitizeService {
-            (html: string,): string;
+            (html: string): string;
         }
 
         /**
@@ -45,8 +45,8 @@ declare module 'angular' {
              * @param flag Enable or disable SVG support in the sanitizer.
              */
             enableSvg(): boolean;
-            enableSvg(flag: boolean,): ISanitizeProvider;
-            enableSvg(flag?: boolean,): boolean | ISanitizeProvider;
+            enableSvg(flag: boolean): ISanitizeProvider;
+            enableSvg(flag?: boolean): boolean | ISanitizeProvider;
 
             /**
              * Extends the built-in lists of valid HTML/SVG elements, i.e. elements that are considered safe and are not stripped off during sanitization.
@@ -76,7 +76,7 @@ declare module 'angular' {
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidAttrs
              * @param attrs A list of valid attributes.
              */
-            addValidAttrs(attrs: string[],): ISanitizeProvider;
+            addValidAttrs(attrs: string[]): ISanitizeProvider;
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ declare module 'angular' {
                 (
                     text: string,
                     target?: string,
-                    attributes?: { [attribute: string]: string } | ((url: string,) => { [attribute: string]: string }),
+                    attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string }),
                 ): string;
             }
         }
@@ -105,7 +105,7 @@ declare module 'angular' {
         // Extend angular $filter declarations to include filters from angular.sanitize module
         ///////////////////////////////////////////////////////////////////////////////
         interface IFilterService {
-            (name: 'linky',): angular.sanitize.filter.ILinky;
+            (name: 'linky'): angular.sanitize.filter.ILinky;
         }
     }
 }

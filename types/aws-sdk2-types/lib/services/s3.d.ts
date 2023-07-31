@@ -1,33 +1,33 @@
-import { ManagedUpload, } from '../s3/managed_upload';
-import { Service, } from '../service';
+import { ManagedUpload } from '../s3/managed_upload';
+import { Service } from '../service';
 import S3 = require('../../clients/s3');
 
 export class S3Customizations extends Service {
     /**
      * Get a pre-signed URL for a given operation name.
      */
-    getSignedUrl(operation: string, params: any, callback: (err: Error, url: string,) => void,): void;
+    getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
     /**
      * Get a pre-signed URL for a given operation name.
      */
-    getSignedUrl(operation: string, params: any,): string;
+    getSignedUrl(operation: string, params: any): string;
 
     /**
      * Returns a 'thenable' promise that will be resolved with a pre-signed URL for a given operation name.
      */
-    getSignedUrlPromise(operation: string, params: any,): Promise<string>;
+    getSignedUrlPromise(operation: string, params: any): Promise<string>;
 
     /**
      * Get the form fields and target URL for direct POST uploading.
      */
     createPresignedPost(
         params: S3.PresignedPost.Params,
-        callback: (err: Error, data: S3.PresignedPost,) => void,
+        callback: (err: Error, data: S3.PresignedPost) => void,
     ): void;
     /**
      * Get the form fields and target URL for direct POST uploading.
      */
-    createPresignedPost(params: S3.PresignedPost.Params,): S3.PresignedPost;
+    createPresignedPost(params: S3.PresignedPost.Params): S3.PresignedPost;
 
     /**
      * Uploads an arbitrarily sized buffer, blob, or stream, using intelligent
@@ -39,7 +39,7 @@ export class S3Customizations extends Service {
     upload(
         params: S3.Types.PutObjectRequest,
         options?: ManagedUpload.ManagedUploadOptions,
-        callback?: (err: Error, data: ManagedUpload.SendData,) => void,
+        callback?: (err: Error, data: ManagedUpload.SendData) => void,
     ): ManagedUpload;
     /**
      * Uploads an arbitrarily sized buffer, blob, or stream, using intelligent
@@ -50,7 +50,7 @@ export class S3Customizations extends Service {
      */
     upload(
         params: S3.Types.PutObjectRequest,
-        callback?: (err: Error, data: ManagedUpload.SendData,) => void,
+        callback?: (err: Error, data: ManagedUpload.SendData) => void,
     ): ManagedUpload;
     static ManagedUpload: typeof ManagedUpload;
 }

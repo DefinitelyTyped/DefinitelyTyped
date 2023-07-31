@@ -6,7 +6,7 @@
 declare const stringify: typeof JSON.stringify;
 declare const parse: typeof JSON.parse;
 
-declare function JSONBig(options?: Options,): { parse: typeof parse; stringify: typeof stringify };
+declare function JSONBig(options?: Options): { parse: typeof parse; stringify: typeof stringify };
 
 interface Options {
     /**

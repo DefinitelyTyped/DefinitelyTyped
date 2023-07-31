@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function accurateInterval(
-    func: (scheduledTime: number,) => void,
+    func: (scheduledTime: number) => void,
     interval: number,
     opts: accurateInterval.Opts,
 ): accurateInterval.AccurateInterval;

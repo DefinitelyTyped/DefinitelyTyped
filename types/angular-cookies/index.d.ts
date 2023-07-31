@@ -62,13 +62,13 @@ declare module 'angular' {
          * see https://docs.angularjs.org/api/ngCookies/service/$cookies
          */
         interface ICookiesService {
-            get(key: string,): string;
-            getObject(key: string,): any;
-            getObject<T,>(key: string,): T;
+            get(key: string): string;
+            getObject(key: string): any;
+            getObject<T>(key: string): T;
             getAll(): any;
-            put(key: string, value: string, options?: ICookiesOptions,): void;
-            putObject(key: string, value: any, options?: ICookiesOptions,): void;
-            remove(key: string, options?: ICookiesOptions,): void;
+            put(key: string, value: string, options?: ICookiesOptions): void;
+            putObject(key: string, value: any, options?: ICookiesOptions): void;
+            remove(key: string, options?: ICookiesOptions): void;
         }
     }
 }

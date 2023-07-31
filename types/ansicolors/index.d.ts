@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Colors {
-    (value: string,): string;
+    (value: string): string;
     [key: string]: this;
     white: this;
     black: this;

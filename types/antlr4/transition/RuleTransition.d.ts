@@ -9,7 +9,7 @@ export default class RuleTransition extends Transition {
 
     followState: ATNState;
 
-    constructor(ruleStart: RuleStartState, ruleIndex: number, precedence: number, followState: ATNState,);
+    constructor(ruleStart: RuleStartState, ruleIndex: number, precedence: number, followState: ATNState);
 
-    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number,): false;
+    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number): false;
 }

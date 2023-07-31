@@ -12,36 +12,36 @@ const verifyOptions = {
 
 (async () => {
     // $ExpectType string
-    (await argon2.hash(mandatoryOptions,)).encoded;
+    (await argon2.hash(mandatoryOptions)).encoded;
     // $ExpectType Uint8Array
-    (await argon2.hash(mandatoryOptions,)).hash;
+    (await argon2.hash(mandatoryOptions)).hash;
     // $ExpectType string
-    (await argon2.hash(mandatoryOptions,)).hashHex;
+    (await argon2.hash(mandatoryOptions)).hashHex;
 
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, distPath: 'path', },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, distPath: 'path' })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, hashLen: 24, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, hashLen: 24 })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, mem: 1024, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, mem: 1024 })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, parallelism: 1, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, parallelism: 1 })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, time: 1, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, time: 1 })).encoded;
     // $ExpectType string
-    const encodedSecret = (await argon2.hash({ ...mandatoryOptions, secret: new Uint8Array([1, 2, 3,],), },)).encoded;
+    const encodedSecret = (await argon2.hash({ ...mandatoryOptions, secret: new Uint8Array([1, 2, 3]) })).encoded;
     // $ExpectType string
-    const encodedAdditional = (await argon2.hash({ ...mandatoryOptions, ad: new Uint8Array([1, 2, 3,],), },)).encoded;
+    const encodedAdditional = (await argon2.hash({ ...mandatoryOptions, ad: new Uint8Array([1, 2, 3]) })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2d, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2d })).encoded;
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2i, },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded;
 
     // $ExpectType undefined
-    await argon2.verify(verifyOptions,);
+    await argon2.verify(verifyOptions);
 
     // @ts-expect-error
-    (await argon2.hash({ ...mandatoryOptions, secret: 'test', },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, secret: 'test' })).encoded;
     // @ts-expect-error
-    (await argon2.hash({ ...mandatoryOptions, ad: 'test', },)).encoded;
+    (await argon2.hash({ ...mandatoryOptions, ad: 'test' })).encoded;
 })();

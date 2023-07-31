@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface Dictionary<T,> {
+interface Dictionary<T> {
     [key: string]: T;
 }
 
@@ -40,44 +40,44 @@ export interface VariantInfo {
 
 type simpleData = string | number | boolean;
 type callback = () => void;
-type variantInfoCallback = (variantInfo: VariantInfo,) => void;
-type unenrollmentCallback = (variantInfo: VariantInfo, unenrollmentReason: string,) => void;
+type variantInfoCallback = (variantInfo: VariantInfo) => void;
+type unenrollmentCallback = (variantInfo: VariantInfo, unenrollmentReason: string) => void;
 
 interface Apptimize {
     flushTracking(): void;
     getApptimizeAnonUserId(): string;
     getApptimizeSDKPlatform(): string;
     getApptimizeSDKVersion(): string;
-    getBool(name: string, defaultValue: boolean,): boolean;
-    getBoolArray(name: string, defaultValue: boolean[],): boolean[];
-    getBoolDictionary(name: string, defaultValue: Dictionary<boolean>,): Dictionary<boolean>;
+    getBool(name: string, defaultValue: boolean): boolean;
+    getBoolArray(name: string, defaultValue: boolean[]): boolean[];
+    getBoolDictionary(name: string, defaultValue: Dictionary<boolean>): Dictionary<boolean>;
     getCustomAttributes(): Dictionary<simpleData>;
     getCustomerUserId(): string;
-    getDouble(name: string, defaultValue: number,): number;
-    getDoubleArray(name: string, defaultValue: number[],): number[];
-    getDoubleDictionary(name: string, defaultValue: Dictionary<number>,): Dictionary<number>;
-    getInt(name: string, defaultValue: number,): number;
-    getIntArray(name: string, defaultValue: number[],): number[];
-    getIntDictionary(name: string, defaultValue: Dictionary<number>,): Dictionary<number>;
-    getString(name: string, defaultValue: string,): string;
-    getStringArray(name: string, defaultValue: string[],): string[];
-    getStringDictionary(name: string, defaultValue: Dictionary<string>,): Dictionary<string>;
+    getDouble(name: string, defaultValue: number): number;
+    getDoubleArray(name: string, defaultValue: number[]): number[];
+    getDoubleDictionary(name: string, defaultValue: Dictionary<number>): Dictionary<number>;
+    getInt(name: string, defaultValue: number): number;
+    getIntArray(name: string, defaultValue: number[]): number[];
+    getIntDictionary(name: string, defaultValue: Dictionary<number>): Dictionary<number>;
+    getString(name: string, defaultValue: string): string;
+    getStringArray(name: string, defaultValue: string[]): string[];
+    getStringDictionary(name: string, defaultValue: Dictionary<string>): Dictionary<string>;
     getVariantInfo(): VariantInfo[];
-    isFeatureFlagEnabled(name: string,): boolean;
-    runCodeBlock(codeBlockVariableName: string, callback: Dictionary<callback>,): void;
-    setAppName(name: string,): void;
-    setAppVersion(version: string,): void;
-    setCustomAttributes(attributes: Dictionary<simpleData>,): void;
-    setCustomerUserId(id: string,): void;
-    setOnApptimizeInitializedCallback(callback: callback,): void;
-    setOnEnrolledInExperimentCallback(callback: variantInfoCallback,): void;
-    setOnMetadataUpdatedCallback(callback: callback,): void;
-    setOnParticipatedInExperimentCallback(callback: variantInfoCallback,): void;
-    setOnUnenrolledInExperimentCallback(callback: unenrollmentCallback,): void;
-    setPilotTargetingId(id: string,): void;
-    setup(appKey: string, configAttributes?: ConfigAttributes,): void;
-    track(eventName: string,): void;
-    trackValue(eventName: string, value: number,): void;
+    isFeatureFlagEnabled(name: string): boolean;
+    runCodeBlock(codeBlockVariableName: string, callback: Dictionary<callback>): void;
+    setAppName(name: string): void;
+    setAppVersion(version: string): void;
+    setCustomAttributes(attributes: Dictionary<simpleData>): void;
+    setCustomerUserId(id: string): void;
+    setOnApptimizeInitializedCallback(callback: callback): void;
+    setOnEnrolledInExperimentCallback(callback: variantInfoCallback): void;
+    setOnMetadataUpdatedCallback(callback: callback): void;
+    setOnParticipatedInExperimentCallback(callback: variantInfoCallback): void;
+    setOnUnenrolledInExperimentCallback(callback: unenrollmentCallback): void;
+    setPilotTargetingId(id: string): void;
+    setup(appKey: string, configAttributes?: ConfigAttributes): void;
+    track(eventName: string): void;
+    trackValue(eventName: string, value: number): void;
     updateApptimizeMetadataOnce(): void;
 }
 

@@ -27,6 +27,6 @@ export namespace Azure.ServiceBus.Results {
     }
 }
 
-export function serialize(resource: Azure.ServiceBus.Results.TopicProperties,): string;
+export function serialize(resource: Azure.ServiceBus.Results.TopicProperties): string;
 
-export function parse(xml: object,): object | object[];
+export function parse(xml: object): object | object[];

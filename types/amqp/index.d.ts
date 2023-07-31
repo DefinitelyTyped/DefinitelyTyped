@@ -9,53 +9,53 @@
 import * as events from 'events';
 import * as net from 'net';
 
-export type Callback<T,> = (value: T,) => void;
+export type Callback<T> = (value: T) => void;
 export interface AMQPClient extends net.Socket {
-    publish(routingKey: string, body: any, options: {}, callback: (err?: boolean, msg?: string,) => void,): void;
+    publish(routingKey: string, body: any, options: {}, callback: (err?: boolean, msg?: string) => void): void;
 
     disconnect(): void;
 
-    queue(queueName: string, callback?: Callback<QueueCallback>,): AMQPQueue;
-    queue(queueName: string, options: QueueOptions, callback?: Callback<QueueCallback>,): AMQPQueue;
+    queue(queueName: string, callback?: Callback<QueueCallback>): AMQPQueue;
+    queue(queueName: string, options: QueueOptions, callback?: Callback<QueueCallback>): AMQPQueue;
 
-    exchange(callback?: Callback<void>,): AMQPExchange;
-    exchange(exchangeName: string, callback?: Callback<void>,): AMQPExchange;
-    exchange(exchangeName: string, options: ExchangeOptions, callback?: Callback<void>,): AMQPExchange;
+    exchange(callback?: Callback<void>): AMQPExchange;
+    exchange(exchangeName: string, callback?: Callback<void>): AMQPExchange;
+    exchange(exchangeName: string, options: ExchangeOptions, callback?: Callback<void>): AMQPExchange;
 }
 
 export interface AMQPQueue extends events.EventEmitter {
-    subscribe(callback: SubscribeCallback,): void;
-    subscribe(options: SubscribeOptions, callback: SubscribeCallback,): void;
+    subscribe(callback: SubscribeCallback): void;
+    subscribe(options: SubscribeOptions, callback: SubscribeCallback): void;
 
-    unsubscribe(consumerTag: string,): void;
+    unsubscribe(consumerTag: string): void;
 
-    bind(exchangeName: string, routingKey: string, callback?: Callback<AMQPQueue>,): void;
-    bind(routingKey: string, callback?: Callback<AMQPQueue>,): void;
+    bind(exchangeName: string, routingKey: string, callback?: Callback<AMQPQueue>): void;
+    bind(routingKey: string, callback?: Callback<AMQPQueue>): void;
 
-    unbind(exchangeName: string, routingKey: string,): void;
-    unbind(routingKey: string,): void;
+    unbind(exchangeName: string, routingKey: string): void;
+    unbind(routingKey: string): void;
 
-    bind_headers(exchangeName: string, routingKey: string,): void;
-    bind_headers(routingKey: string,): void;
+    bind_headers(exchangeName: string, routingKey: string): void;
+    bind_headers(routingKey: string): void;
 
-    unbind_headers(exchangeName: string, routingKey: string,): void;
-    unbind_headers(routingKey: string,): void;
+    unbind_headers(exchangeName: string, routingKey: string): void;
+    unbind_headers(routingKey: string): void;
 
-    shift(reject: boolean,): void;
-    shift(reject: boolean, requeue: boolean,): void;
+    shift(reject: boolean): void;
+    shift(reject: boolean, requeue: boolean): void;
 
-    destroy(options?: DestroyOptions,): void;
+    destroy(options?: DestroyOptions): void;
 }
 
 export interface AMQPExchange extends events.EventEmitter {
-    on(event: 'open' | 'ack' | 'error' | 'exchangeBindOk' | 'exchangeUnbindOk', callback: Callback<void>,): this;
+    on(event: 'open' | 'ack' | 'error' | 'exchangeBindOk' | 'exchangeUnbindOk', callback: Callback<void>): this;
 
-    publish(routingKey: string, message: Buffer | {}, callback: (err?: boolean, msg?: string,) => void,): void;
+    publish(routingKey: string, message: Buffer | {}, callback: (err?: boolean, msg?: string) => void): void;
     publish(
         routingKey: string,
         message: Buffer | {},
         options: ExchangePublishOptions,
-        callback?: (err?: boolean, msg?: string,) => void,
+        callback?: (err?: boolean, msg?: string) => void,
     ): void;
 
     /**
@@ -67,14 +67,14 @@ export interface AMQPExchange extends events.EventEmitter {
      *
      * If the exchange has queue bindings the server does not delete it but raises a channel exception instead
      */
-    destroy(ifUnused: boolean,): void;
+    destroy(ifUnused: boolean): void;
 
-    bind(sourceExchange: string, routingKey: string, callback?: Callback<void>,): void;
-    unbind(sourceExchange: string, routingKey: string, callback?: Callback<void>,): void;
-    bind_headers(exchange: string, routing: string, callback?: Callback<void>,): void;
+    bind(sourceExchange: string, routingKey: string, callback?: Callback<void>): void;
+    unbind(sourceExchange: string, routingKey: string, callback?: Callback<void>): void;
+    bind_headers(exchange: string, routing: string, callback?: Callback<void>): void;
 }
 
-export function createConnection(options: ConnectionOptions,): AMQPClient;
+export function createConnection(options: ConnectionOptions): AMQPClient;
 
 export interface DeliveryInfo {
     contentType: string;
@@ -87,8 +87,8 @@ export interface DeliveryInfo {
 }
 
 export interface Ack extends DeliveryInfo {
-    acknowledge(all: boolean,): void;
-    reject(requeue: boolean,): void;
+    acknowledge(all: boolean): void;
+    reject(requeue: boolean): void;
 }
 
 export interface ConnectionOptions {

@@ -1,6 +1,6 @@
-import { AutoScalingScaleInHandler, AutoScalingScaleInResult, } from 'aws-lambda';
+import { AutoScalingScaleInHandler, AutoScalingScaleInResult } from 'aws-lambda';
 
-const handler: AutoScalingScaleInHandler = async (event, context, callback,) => {
+const handler: AutoScalingScaleInHandler = async (event, context, callback) => {
     str = event.AutoScalingGroupARN;
     str = event.AutoScalingGroupName;
     str = event.CapacityToTerminate[0].AvailabilityZone;
@@ -14,10 +14,10 @@ const handler: AutoScalingScaleInHandler = async (event, context, callback,) => 
     boolOrUndefined = event.HasMoreInstances;
 
     const result: AutoScalingScaleInResult = {
-        InstanceIDs: ['i-532085293', 'i-108479122',],
+        InstanceIDs: ['i-532085293', 'i-108479122'],
     };
 
-    callback(new Error(),);
-    callback(null, result,);
+    callback(new Error());
+    callback(null, result);
     return result;
 };

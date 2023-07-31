@@ -20,7 +20,7 @@ declare class User {
         attributes?: any,
     );
     toCrowd(): UserObj;
-    static fromCrowd(userObj: UserObj,): User;
+    static fromCrowd(userObj: UserObj): User;
 }
 
 interface UserObj {

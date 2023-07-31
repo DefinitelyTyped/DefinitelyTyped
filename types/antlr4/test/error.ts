@@ -23,41 +23,41 @@ import IntervalSet from 'antlr4/misc/IntervalSet';
 import Parser from 'antlr4/Parser';
 import Token from 'antlr4/Token';
 
-const atnInstance = new ATN(0, 0,);
-const atnConfigSetInstance = new ATNConfigSet(false,);
+const atnInstance = new ATN(0, 0);
+const atnConfigSetInstance = new ATNConfigSet(false);
 const bitsetInstance = new BitSet();
-const dfaInstance = new DFA(atnInstance, 0,);
-const inputStreamInstance = new InputStream('',);
+const dfaInstance = new DFA(atnInstance, 0);
+const inputStreamInstance = new InputStream('');
 const intervalSetInstance = new IntervalSet();
-const lexerInstance = new Lexer(inputStreamInstance,);
-const parserInstance = new Parser(new CommonTokenStream(lexerInstance,),);
+const lexerInstance = new Lexer(inputStreamInstance);
+const parserInstance = new Parser(new CommonTokenStream(lexerInstance));
 const parserRuleContextInstance = new ParserRuleContext();
 const recognitionException = new RecognitionException({
     message: '',
     recognizer: parserInstance,
     input: inputStreamInstance,
     ctx: parserRuleContextInstance,
-},);
+});
 const tokenInstance = new Token();
 
 // BailErrorStrategy
 const bailErrorStrategyInstance = new BailErrorStrategy();
-bailErrorStrategyInstance.recoverInline(parserInstance,); // $ExpectType Token
+bailErrorStrategyInstance.recoverInline(parserInstance); // $ExpectType Token
 
 // ConsoleErrorListener
 ConsoleErrorListener.INSTANCE; // $ExpectType ConsoleErrorListener
 new ConsoleErrorListener();
 
 // DiagnosticErrorListener
-const diagnosticErrorListener = new DiagnosticErrorListener(false,);
+const diagnosticErrorListener = new DiagnosticErrorListener(false);
 diagnosticErrorListener.exactOnly; // $ExpectType boolean
-diagnosticErrorListener.getDecisionDescription(parserInstance, dfaInstance,); // $ExpectType string
-diagnosticErrorListener.getConflictingAlts(bitsetInstance, atnConfigSetInstance,); // $ExpectType BitSet
+diagnosticErrorListener.getDecisionDescription(parserInstance, dfaInstance); // $ExpectType string
+diagnosticErrorListener.getConflictingAlts(bitsetInstance, atnConfigSetInstance); // $ExpectType BitSet
 
 // ErrorListener
 const errorListenerInstance = new ErrorListener();
-errorListenerInstance.syntaxError(parserInstance, tokenInstance, 0, 0, '', recognitionException,); // $ExpectType void
-errorListenerInstance.reportAmbiguity(parserInstance, dfaInstance, 0, 0, false, bitsetInstance, atnConfigSetInstance,); // $ExpectType void
+errorListenerInstance.syntaxError(parserInstance, tokenInstance, 0, 0, '', recognitionException); // $ExpectType void
+errorListenerInstance.reportAmbiguity(parserInstance, dfaInstance, 0, 0, false, bitsetInstance, atnConfigSetInstance); // $ExpectType void
 // $ExpectType void
 errorListenerInstance.reportAttemptingFullContext(
     parserInstance,
@@ -67,19 +67,19 @@ errorListenerInstance.reportAttemptingFullContext(
     bitsetInstance,
     atnConfigSetInstance,
 );
-errorListenerInstance.reportContextSensitivity(parserInstance, dfaInstance, 0, 0, undefined, atnConfigSetInstance,); // $ExpectType void
+errorListenerInstance.reportContextSensitivity(parserInstance, dfaInstance, 0, 0, undefined, atnConfigSetInstance); // $ExpectType void
 
 // ErrorStrategy
 const errorStrategy = new ErrorStrategy();
-errorStrategy.reset(parserInstance,); // $ExpectType void
-errorStrategy.recoverInline(parserInstance,); // $ExpectType void
-errorStrategy.recover(parserInstance, recognitionException,); // $ExpectType void
-errorStrategy.sync(parserInstance,); // $ExpectType void
-errorStrategy.inErrorRecoveryMode(parserInstance,); // $ExpectType void
-errorStrategy.reportError(parserInstance, recognitionException,); // $ExpectType void
+errorStrategy.reset(parserInstance); // $ExpectType void
+errorStrategy.recoverInline(parserInstance); // $ExpectType void
+errorStrategy.recover(parserInstance, recognitionException); // $ExpectType void
+errorStrategy.sync(parserInstance); // $ExpectType void
+errorStrategy.inErrorRecoveryMode(parserInstance); // $ExpectType void
+errorStrategy.reportError(parserInstance, recognitionException); // $ExpectType void
 
 // FailedPredicateException
-const failedPredicateException = new FailedPredicateException(parserInstance, '', '',);
+const failedPredicateException = new FailedPredicateException(parserInstance, '', '');
 failedPredicateException.ruleIndex; // $ExpectType number
 failedPredicateException.predicateIndex; // $ExpectType number
 failedPredicateException.predicate; // $ExpectType string
@@ -90,7 +90,7 @@ const inputMismatchExceptionInstance = new InputMismatchException({
     recognizer: parserInstance,
     input: inputStreamInstance,
     ctx: parserRuleContextInstance,
-},);
+});
 
 // LexerNoViableAltException
 const lexerNoViableAltException = new LexerNoViableAltException(
@@ -111,9 +111,9 @@ const noViableAltException = new NoViableAltException(
     undefined,
     atnConfigSetInstance,
 );
-new NoViableAltException(parserInstance, inputStreamInstance, undefined, undefined, atnConfigSetInstance,);
-new NoViableAltException(parserInstance, undefined, tokenInstance, undefined, atnConfigSetInstance,);
-new NoViableAltException(parserInstance, undefined, undefined, tokenInstance, atnConfigSetInstance,);
+new NoViableAltException(parserInstance, inputStreamInstance, undefined, undefined, atnConfigSetInstance);
+new NoViableAltException(parserInstance, undefined, tokenInstance, undefined, atnConfigSetInstance);
+new NoViableAltException(parserInstance, undefined, undefined, tokenInstance, atnConfigSetInstance);
 new NoViableAltException(
     parserInstance,
     undefined,
@@ -137,7 +137,7 @@ noViableAltException.startToken; // $ExpectType Token
 new ParseCancellationException();
 
 // ProxyErrorListener
-const proxyErrorListener = new ProxyErrorListener([errorListenerInstance,],);
+const proxyErrorListener = new ProxyErrorListener([errorListenerInstance]);
 proxyErrorListener.delegates; // $ExpectType ErrorListener[]
 
 // RecognitionException
@@ -159,22 +159,22 @@ defaultErrorStrategyInstance.lastErrorStates; // $ExpectTypenumber[] | null
 defaultErrorStrategyInstance.nextTokensContext; // $ExpectType ParserRuleContext
 defaultErrorStrategyInstance.nextTokenState; // $ExpectType number
 defaultErrorStrategyInstance.nextTokensState; // $ExpectType number
-defaultErrorStrategyInstance.beginErrorCondition(parserInstance,); // $ExpectType void
-defaultErrorStrategyInstance.inErrorRecoveryMode(parserInstance,); // $ExpectType boolean
-defaultErrorStrategyInstance.endErrorCondition(parserInstance,); // $ExpectType void
-defaultErrorStrategyInstance.reportMatch(parserInstance,); // $ExpectType void
-defaultErrorStrategyInstance.reportError(parserInstance, recognitionException,); // $ExpectType void
-defaultErrorStrategyInstance.reportNoViableAlternative(parserInstance, noViableAltException,); // $ExpectType void
-defaultErrorStrategyInstance.reportInputMismatch(parserInstance, inputMismatchExceptionInstance,); // $ExpectType void
-defaultErrorStrategyInstance.reportFailedPredicate(parserInstance, failedPredicateException,); // $ExpectType void
-defaultErrorStrategyInstance.reportUnwantedToken(parserInstance,); // $ExpectType void
-defaultErrorStrategyInstance.reportMissingToken(parserInstance,); // $ExpectType void
-defaultErrorStrategyInstance.recoverInline(parserInstance,); // $ExpectType Token
-defaultErrorStrategyInstance.singleTokenInsertion(parserInstance,); // $ExpectType boolean
-defaultErrorStrategyInstance.singleTokenDeletion(parserInstance,); // $ExpectType Token
-defaultErrorStrategyInstance.getMissingSymbol(parserInstance,); // $ExpectType Token
-defaultErrorStrategyInstance.getExpectedTokens(parserInstance,); // $ExpectType Token[]
-defaultErrorStrategyInstance.getTokenErrorDisplay(tokenInstance,); // $ExpectType string
-defaultErrorStrategyInstance.escapeWSAndQuote('',); // $ExpectType string
-defaultErrorStrategyInstance.getErrorRecoverySet(parserInstance,); // $ExpectType IntervalSet
-defaultErrorStrategyInstance.consumeUntil(parserInstance, intervalSetInstance,); // $ExpectType void
+defaultErrorStrategyInstance.beginErrorCondition(parserInstance); // $ExpectType void
+defaultErrorStrategyInstance.inErrorRecoveryMode(parserInstance); // $ExpectType boolean
+defaultErrorStrategyInstance.endErrorCondition(parserInstance); // $ExpectType void
+defaultErrorStrategyInstance.reportMatch(parserInstance); // $ExpectType void
+defaultErrorStrategyInstance.reportError(parserInstance, recognitionException); // $ExpectType void
+defaultErrorStrategyInstance.reportNoViableAlternative(parserInstance, noViableAltException); // $ExpectType void
+defaultErrorStrategyInstance.reportInputMismatch(parserInstance, inputMismatchExceptionInstance); // $ExpectType void
+defaultErrorStrategyInstance.reportFailedPredicate(parserInstance, failedPredicateException); // $ExpectType void
+defaultErrorStrategyInstance.reportUnwantedToken(parserInstance); // $ExpectType void
+defaultErrorStrategyInstance.reportMissingToken(parserInstance); // $ExpectType void
+defaultErrorStrategyInstance.recoverInline(parserInstance); // $ExpectType Token
+defaultErrorStrategyInstance.singleTokenInsertion(parserInstance); // $ExpectType boolean
+defaultErrorStrategyInstance.singleTokenDeletion(parserInstance); // $ExpectType Token
+defaultErrorStrategyInstance.getMissingSymbol(parserInstance); // $ExpectType Token
+defaultErrorStrategyInstance.getExpectedTokens(parserInstance); // $ExpectType Token[]
+defaultErrorStrategyInstance.getTokenErrorDisplay(tokenInstance); // $ExpectType string
+defaultErrorStrategyInstance.escapeWSAndQuote(''); // $ExpectType string
+defaultErrorStrategyInstance.getErrorRecoverySet(parserInstance); // $ExpectType IntervalSet
+defaultErrorStrategyInstance.consumeUntil(parserInstance, intervalSetInstance); // $ExpectType void

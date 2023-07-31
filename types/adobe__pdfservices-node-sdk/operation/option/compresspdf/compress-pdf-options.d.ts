@@ -4,7 +4,7 @@ export class CompressPDFOptions {
      * Returns a builder for {@link CompressPDFOptions}.
      */
     static get Builder(): any;
-    constructor(builder: any,);
+    constructor(builder: any);
     compressionLevel: any;
     validate(): any;
 }

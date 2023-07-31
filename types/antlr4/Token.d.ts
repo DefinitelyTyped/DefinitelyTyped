@@ -1,7 +1,7 @@
 import InputStream from './InputStream';
 import Lexer from './Lexer';
 
-export type TokenSourceTuple = [Lexer, InputStream,] | [null, null,];
+export type TokenSourceTuple = [Lexer, InputStream] | [null, null];
 
 export default class Token {
     static readonly INVALID_TYPE: 0;
@@ -48,7 +48,7 @@ export default class Token {
 
     getInputStream(): InputStream;
 
-    set text(text: string,);
+    set text(text: string);
 
     get text(): string;
 }

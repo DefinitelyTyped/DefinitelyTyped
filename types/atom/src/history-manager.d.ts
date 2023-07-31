@@ -1,4 +1,4 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /**
  *  History manager for remembering which projects have been opened.
@@ -17,7 +17,7 @@ export interface HistoryManager {
     clearProjects(): void;
 
     /** Invoke the given callback when the list of projects changes. */
-    onDidChangeProjects(callback: (args: { reloaded: boolean },) => void,): Disposable;
+    onDidChangeProjects(callback: (args: { reloaded: boolean }) => void): Disposable;
 }
 
 export interface ProjectHistory {

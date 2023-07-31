@@ -39,7 +39,7 @@ declare module 'angular' {
             ///////////////
 
             /** Sets the current language and makes sure that all translations get updated correctly. */
-            setCurrentLanguage(lang: string,): void;
+            setCurrentLanguage(lang: string): void;
 
             /** Returns the current language. */
             getCurrentLanguage(): string;
@@ -50,28 +50,28 @@ declare module 'angular' {
              *                   - Keys: Singular English strings (as defined in the source files)
              *                   - Values: Either a single string for signular-only strings or an array of plural forms.
              */
-            setStrings(language: string, strings: { [key: string]: string | string[] },): void;
+            setStrings(language: string, strings: { [key: string]: string | string[] }): void;
 
             /** Get the correct pluralized (but untranslated) string for the value of n. */
-            getStringForm(string: string, n: number,): string;
+            getStringForm(string: string, n: number): string;
 
             /** Translate a string with the given scope. Uses Angular.JS interpolation, so something like this will do what you expect:
              * var hello = gettextCatalog.getString("Hello {{name}}!", { name: "Ruben" });
              * // var hello will be "Hallo Ruben!" in Dutch.
              * The scope parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.
              */
-            getString(string: string, scope?: any, context?: string,): string;
+            getString(string: string, scope?: any, context?: string): string;
 
             /** Translate a plural string with the given context. */
-            getPlural(n: number, string: string, stringPlural: string, scope?: any, context?: string,): string;
+            getPlural(n: number, string: string, stringPlural: string, scope?: any, context?: string): string;
 
             /** Load a set of translation strings from a given URL.This should be a JSON catalog generated with grunt-angular-gettext. More details https://angular-gettext.rocketeer.be/dev-guide/lazy-loading/ */
-            loadRemote(url: string,): ng.IHttpPromise<any>;
+            loadRemote(url: string): ng.IHttpPromise<any>;
         }
 
         /** If you have text that should be translated in your JavaScript code, wrap it with a call to a function named gettext. This module provides an injectable function to do so */
         interface gettextFunction {
-            (dummyString: string,): string;
+            (dummyString: string): string;
         }
     }
 }

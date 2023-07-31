@@ -40,7 +40,7 @@ export class InsertPagesOperation {
     /**
      * Sets a base input file.
      */
-    setBaseInput(baseSourceFileRef: FileRef,): void;
+    setBaseInput(baseSourceFileRef: FileRef): void;
     /**
      * Adds the pages of the input PDF file to be inserted at the specified page of the base PDF file.
      * <p>
@@ -49,7 +49,7 @@ export class InsertPagesOperation {
      * If <code>pageRanges</code> is not provided, all the pages of the input PDF file will be inserted at the specified
      * page of the base PDF file.
      */
-    addPagesToInsertAt(basePage: number, inputFile: FileRef, pageRanges?: PageRanges,): void;
+    addPagesToInsertAt(basePage: number, inputFile: FileRef, pageRanges?: PageRanges): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -57,8 +57,8 @@ export class InsertPagesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
-    updateFilesToInsert(basePage: any, combineOperationInput: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
+    updateFilesToInsert(basePage: any, combineOperationInput: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges, } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';

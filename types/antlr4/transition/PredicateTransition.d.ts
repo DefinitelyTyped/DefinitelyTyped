@@ -8,9 +8,9 @@ export default class PredicateTransition extends AbstractPredicateTransition {
     readonly predIndex: number;
     readonly isCtxDependent: boolean;
 
-    constructor(target: ATNState, ruleIndex: number, predIndex: number, isCtxDependent: boolean,);
+    constructor(target: ATNState, ruleIndex: number, predIndex: number, isCtxDependent: boolean);
 
-    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number,): false;
+    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number): false;
 
     getPredicate(): Predicate;
 }

@@ -4,10 +4,10 @@
  * @return byte array
  * @exception throws ValidationException
  */
-export function validateAndSerializeToJsonBytes(o: unknown,): Buffer;
+export function validateAndSerializeToJsonBytes(o: unknown): Buffer;
 
-interface FromMap<T,> {
-    fromMap(m: any,): T;
+interface FromMap<T> {
+    fromMap(m: any): T;
 }
 
 /**
@@ -16,6 +16,6 @@ interface FromMap<T,> {
  * @param type instance type
  * @return object
  */
-export function deserializeJsonBytesToObj<T,>(bytes: Buffer, type: FromMap<T>,): T;
+export function deserializeJsonBytesToObj<T>(bytes: Buffer, type: FromMap<T>): T;
 
 export {};

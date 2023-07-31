@@ -7,4 +7,4 @@ appdynamics.profile({
     controllerSslEnabled: true,
     tierName: 'tier-name',
     nodeName: 'node-name',
-},);
+});

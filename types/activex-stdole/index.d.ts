@@ -100,8 +100,8 @@ interface ActiveXObject {
     on(
         obj: stdole.StdFont,
         event: 'FontChanged',
-        argNames: ['PropertyName',],
-        handler: (this: stdole.StdFont, parameter: { readonly PropertyName: string },) => void,
+        argNames: ['PropertyName'],
+        handler: (this: stdole.StdFont, parameter: { readonly PropertyName: string }) => void,
     ): void;
 }
 

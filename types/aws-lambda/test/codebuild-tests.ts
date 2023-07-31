@@ -88,7 +88,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:30:43 AM',
                     'end-time': 'Jun 15, 2020 10:31:07 AM',
                     'duration-in-seconds': 23,
@@ -96,7 +96,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:31:07 AM',
                     'end-time': 'Jun 15, 2020 10:31:33 AM',
                     'duration-in-seconds': 26,
@@ -104,7 +104,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:31:33 AM',
                     'end-time': 'Jun 15, 2020 10:33:12 AM',
                     'duration-in-seconds': 99,
@@ -112,7 +112,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:33:12 AM',
                     'end-time': 'Jun 15, 2020 10:33:12 AM',
                     'duration-in-seconds': 0,
@@ -130,7 +130,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'FAILED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:41:39 AM',
                     'end-time': 'Jun 15, 2020 10:41:39 AM',
                     'duration-in-seconds': 0,
@@ -138,7 +138,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:41:39 AM',
                     'end-time': 'Jun 15, 2020 10:41:39 AM',
                     'duration-in-seconds': 0,
@@ -146,7 +146,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
                     'phase-status': 'SUCCEEDED',
                 },
                 {
-                    'phase-context': [': ',],
+                    'phase-context': [': '],
                     'start-time': 'Jun 15, 2020 10:41:39 AM',
                     'end-time': 'Jun 15, 2020 10:41:41 AM',
                     'duration-in-seconds': 2,
@@ -166,7 +166,7 @@ const CodeBuildCloudWatchStateEvent: CodeBuildCloudWatchStateEvent = {
     },
 };
 
-const eventBridgeHandler: CodeBuildCloudWatchStateHandler = async (event, context, callback,) => {
+const eventBridgeHandler: CodeBuildCloudWatchStateHandler = async (event, context, callback) => {
     str = event.account;
     codeBuildStateEventDetail = event.detail;
     str = event.id;
@@ -215,11 +215,11 @@ const eventBridgeHandler: CodeBuildCloudWatchStateHandler = async (event, contex
     num = detail['additional-information']['queued-timeout-in-minutes'];
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };
 
-export const snsEventCodeBuildStateHandler = async (snsEvent: SNSEvent,) => {
-    const event: CodeBuildCloudWatchStateEvent = JSON.parse(snsEvent.Records[0].Sns.Message,);
+export const snsEventCodeBuildStateHandler = async (snsEvent: SNSEvent) => {
+    const event: CodeBuildCloudWatchStateEvent = JSON.parse(snsEvent.Records[0].Sns.Message);
 
     codeBuildStateEventDetail = event.detail;
 };

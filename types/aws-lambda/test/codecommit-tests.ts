@@ -1,4 +1,4 @@
-import { CodeCommitTriggerEvent, } from 'aws-lambda';
+import { CodeCommitTriggerEvent } from 'aws-lambda';
 
 const event: CodeCommitTriggerEvent = {
     Records: [

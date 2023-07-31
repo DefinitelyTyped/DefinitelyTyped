@@ -1,4 +1,4 @@
-import { Disposable, Pane, PaneItemObservedEvent, } from '../index';
+import { Disposable, Pane, PaneItemObservedEvent } from '../index';
 
 /** A container at the edges of the editor window capable of holding items. */
 export interface Dock {
@@ -26,16 +26,16 @@ export interface Dock {
 
     // Event Subscription
     /** Invoke the given callback when the visibility of the dock changes. */
-    onDidChangeVisible(callback: (visible: boolean,) => void,): Disposable;
+    onDidChangeVisible(callback: (visible: boolean) => void): Disposable;
 
     /**
      *  Invoke the given callback with the current and all future visibilities of
      *  the dock.
      */
-    observeVisible(callback: (visible: boolean,) => void,): Disposable;
+    observeVisible(callback: (visible: boolean) => void): Disposable;
 
     /** Invoke the given callback with all current and future panes items in the dock. */
-    observePaneItems(callback: (item: object,) => void,): Disposable;
+    observePaneItems(callback: (item: object) => void): Disposable;
 
     /**
      *  Invoke the given callback when the active pane item changes.
@@ -44,40 +44,40 @@ export interface Dock {
      *  expensive operations via this method. Consider ::onDidStopChangingActivePaneItem
      *  to delay operations until after changes stop occurring.
      */
-    onDidChangeActivePaneItem(callback: (item: object,) => void,): Disposable;
+    onDidChangeActivePaneItem(callback: (item: object) => void): Disposable;
 
     /** Invoke the given callback when the active pane item stops changing. */
-    onDidStopChangingActivePaneItem(callback: (item: object,) => void,): Disposable;
+    onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane item and with all future
      *  active pane items in the dock.
      */
-    observeActivePaneItem(callback: (item: object,) => void,): Disposable;
+    observeActivePaneItem(callback: (item: object) => void): Disposable;
 
     /** Invoke the given callback when a pane is added to the dock. */
-    onDidAddPane(callback: (event: { pane: Pane },) => void,): Disposable;
+    onDidAddPane(callback: (event: { pane: Pane }) => void): Disposable;
 
     /** Invoke the given callback before a pane is destroyed in the dock. */
-    onWillDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
+    onWillDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
 
     /** Invoke the given callback when a pane is destroyed in the dock. */
-    onDidDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
+    onDidDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
 
     /** Invoke the given callback with all current and future panes in the dock. */
-    observePanes(callback: (pane: Pane,) => void,): Disposable;
+    observePanes(callback: (pane: Pane) => void): Disposable;
 
     /** Invoke the given callback when the active pane changes. */
-    onDidChangeActivePane(callback: (pane: Pane,) => void,): Disposable;
+    onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane and when the active
      *  pane changes.
      */
-    observeActivePane(callback: (pane: Pane,) => void,): Disposable;
+    observeActivePane(callback: (pane: Pane) => void): Disposable;
 
     /** Invoke the given callback when a pane item is added to the dock. */
-    onDidAddPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
+    onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback when a pane item is about to be destroyed, before the user is
@@ -86,16 +86,16 @@ export interface Dock {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void | Promise<void>,): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
-    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
+    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
 
     /**
      *  Invoke the given callback when the hovered state of the dock changes.
      *  @param hovered Is the dock now hovered?
      */
-    onDidChangeHovered(callback: (hovered: boolean,) => void,): Disposable;
+    onDidChangeHovered(callback: (hovered: boolean) => void): Disposable;
 
     // Pane Items
     /** Get all pane items in the dock. */

@@ -1,4 +1,4 @@
-import { Game, } from 'athenajs';
+import { Game } from 'athenajs';
 import Grid from './grid';
 
 const tetris = new Game({
@@ -8,4 +8,4 @@ const tetris = new Game({
     width: 800,
     height: 600,
     scene: new Grid(),
-},);
+});

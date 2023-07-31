@@ -1,4 +1,4 @@
-import { Azure, } from '../index';
+import { Azure } from '../index';
 import NotificationHubService = require('azure-sb/lib/notificationhubservice');
 import ResponseCallback = Azure.ServiceBus.ResponseCallback;
 import NotificationHubRegistration = Azure.ServiceBus.NotificationHubRegistration;
@@ -31,7 +31,7 @@ interface ToastTemplate {
 }
 
 declare class MpnsService {
-    constructor(notificationHubService: NotificationHubService,);
+    constructor(notificationHubService: NotificationHubService);
 
     public notificationHubService: NotificationHubService;
 
@@ -52,7 +52,7 @@ declare class MpnsService {
         callback: ResponseCallback,
     ): void;
 
-    public createNativeRegistration(channel: string, tags: string | string[], callback: ResponseCallback,): void;
+    public createNativeRegistration(channel: string, tags: string | string[], callback: ResponseCallback): void;
 
     public createNativeRegistration(
         channel: string,
@@ -125,7 +125,7 @@ declare class MpnsService {
         callback: ResponseCallback,
     ): void;
 
-    public listRegistrationsByChannel(channel: string, callback: ResponseCallback,): void;
+    public listRegistrationsByChannel(channel: string, callback: ResponseCallback): void;
 
     public listRegistrationsByChannel(
         channel: string,

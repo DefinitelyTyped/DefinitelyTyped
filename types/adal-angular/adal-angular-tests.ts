@@ -1,26 +1,26 @@
 import AuthenticationContext = require('adal-angular');
 
-const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error,) => {
+const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error) => {
     if (error) {
-        console.error(errorDescription, error,);
+        console.error(errorDescription, error);
         return;
     }
     if (config.popUp) {
-        authenticationContext.getUser(onUser,);
+        authenticationContext.getUser(onUser);
     }
 };
 
-const onToken: AuthenticationContext.TokenCallback = (errorDesc, token, error,) => {
+const onToken: AuthenticationContext.TokenCallback = (errorDesc, token, error) => {
     if (error) {
-        console.error(error,);
+        console.error(error);
         return;
     }
-    console.log('Making request with token:', token,);
+    console.log('Making request with token:', token);
 };
 
-const onUser: AuthenticationContext.UserCallback = (error, user,) => {
+const onUser: AuthenticationContext.UserCallback = (error, user) => {
     if (error) {
-        console.error(error,);
+        console.error(error);
         return;
     }
     acquireAnAccessToken();
@@ -30,7 +30,7 @@ const acquireAnAccessToken = () => {
     const resourceId = 'https://graph.microsoft.net';
     authenticationContext.acquireToken(
         resourceId,
-        (errorDesc, token, error,) => {
+        (errorDesc, token, error) => {
             if (error) {
                 if (config.popUp) {
                     authenticationContext.acquireTokenPopup(
@@ -47,7 +47,7 @@ const acquireAnAccessToken = () => {
                     );
                 }
             } else {
-                onToken(errorDesc, token, error,);
+                onToken(errorDesc, token, error);
             }
         },
     );
@@ -65,10 +65,10 @@ const config: AuthenticationContext.Options = {
     callback: onLogin,
 };
 
-const authenticationContext = new AuthenticationContext(config,);
+const authenticationContext = new AuthenticationContext(config);
 window.Logging.level = authenticationContext.CONSTANTS.LOGGING_LEVEL.ERROR;
 
-if (authenticationContext.isCallback(window.location.hash,)) {
+if (authenticationContext.isCallback(window.location.hash)) {
     authenticationContext.handleWindowCallback();
 } else if (authenticationContext.getCachedUser() == null) {
     authenticationContext.login();
@@ -78,9 +78,9 @@ if (authenticationContext.isCallback(window.location.hash,)) {
 
 const injectedContext = AuthenticationContext.inject({
     clientId: '7cee0f68-5051-41f6-9e45-80463d21d65d',
-},);
+});
 injectedContext.handleWindowCallback();
 
 setTimeout(() => {
     authenticationContext.logOut();
-}, 60000,);
+}, 60000);

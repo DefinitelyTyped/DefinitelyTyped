@@ -1,20 +1,20 @@
 import * as angular from 'angular';
 
 angular
-    .module('app', ['ngDesktopNotification',],)
+    .module('app', ['ngDesktopNotification'])
     .config([
         'desktopNotificationProvider',
-        (desktopNotificationProvider: angular.desktopNotification.IDesktopNotificationProvider,) => {
+        (desktopNotificationProvider: angular.desktopNotification.IDesktopNotificationProvider) => {
             desktopNotificationProvider.config({
                 autoClose: true,
                 duration: 5,
                 showOnPageHidden: false,
-            },);
+            });
         },
-    ],)
+    ])
     .controller('AppController', [
         'desktopNotification',
-        (desktopNotification: angular.desktopNotification.IDesktopNotificationService,) => {
+        (desktopNotification: angular.desktopNotification.IDesktopNotificationService) => {
             // Check support and permission
             const isNotificationSupported = desktopNotification.isSupported();
             const currentNotificationPermission = desktopNotification.currentPermission();
@@ -45,4 +45,4 @@ angular
                 },
             );
         },
-    ],);
+    ]);

@@ -4,7 +4,7 @@
  * @summary Test for "accwizard" without options.
  */
 function testBasic() {
-    $('#test',).accwizard();
+    $('#test').accwizard();
 }
 
 /**
@@ -31,5 +31,5 @@ function testWithOptions() {
         onDestroy: function() {},
     };
 
-    $('#test',).accwizard(options,);
+    $('#test').accwizard(options);
 }

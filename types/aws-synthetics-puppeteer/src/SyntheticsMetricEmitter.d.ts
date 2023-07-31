@@ -4,8 +4,8 @@ declare module 'SyntheticsMetricEmitter' {
         _namespace: string;
         _awsCloudWatchClient: any;
         _syntheticsConfiguration: SyntheticsConfiguration;
-        configure(namespace: any, syntheticsConfiguration: any,): void;
-        setNamespace(namespace: any,): void;
+        configure(namespace: any, syntheticsConfiguration: any): void;
+        setNamespace(namespace: any): void;
         getAwsAccountLevelMetricParameters(
             namespace: any,
             metricName: any,
@@ -53,7 +53,7 @@ declare module 'SyntheticsMetricEmitter' {
             Unit: any;
             Value: any;
         };
-        putMetric(params: any,): Promise<void>;
+        putMetric(params: any): Promise<void>;
         publishResult(
             canaryName: any,
             result: any,
@@ -65,5 +65,5 @@ declare module 'SyntheticsMetricEmitter' {
             stepConfiguration: any,
         ): Promise<boolean>;
     }
-    import { SyntheticsConfiguration, } from 'SyntheticsConfiguration';
+    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
 }

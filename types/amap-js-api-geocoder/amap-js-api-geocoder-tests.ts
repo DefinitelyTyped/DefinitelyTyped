@@ -1,10 +1,10 @@
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number,];
+declare const lnglatTuple: [number, number];
 
 // $ExpectType Geocoder
 new AMap.Geocoder();
 // $ExpectType Geocoder
-new AMap.Geocoder({},);
+new AMap.Geocoder({});
 // $ExpectType Geocoder
 const geocoder = new AMap.Geocoder({
     city: 'city',
@@ -12,10 +12,10 @@ const geocoder = new AMap.Geocoder({
     lang: 'zh_cn',
     batch: true,
     extensions: 'all',
-},);
+});
 
 // $ExpectType void
-geocoder.getLocation('address', (status, result,) => {
+geocoder.getLocation('address', (status, result) => {
     // $ExpectType SearchStatus
     status;
     if (typeof result !== 'string') {
@@ -61,18 +61,18 @@ geocoder.getLocation('address', (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
 // $ExpectType void
-geocoder.getLocation(['address', 'address',], () => {},);
+geocoder.getLocation(['address', 'address'], () => {});
 
 // $ExpectType void
 geocoder.setCity();
 // $ExpectType void
-geocoder.setCity('city',);
+geocoder.setCity('city');
 
 // $ExpectType void
-geocoder.getAddress(lnglat, (status, result,) => {
+geocoder.getAddress(lnglat, (status, result) => {
     // $ExpectType SearchStatus
     status;
     if (typeof result !== 'string') {
@@ -183,24 +183,24 @@ geocoder.getAddress(lnglat, (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
 // $ExpectType void
-geocoder.getAddress([lnglat, lnglat,], (status, result,) => {
+geocoder.getAddress([lnglat, lnglat], (status, result) => {
     if (typeof result !== 'string') {
         // $ExpectType ReGeocode[]
         result.regeocodes;
     }
-},);
+});
 
-geocoder.on('error', (event: AMap.Geocoder.EventMap['error'],) => {
+geocoder.on('error', (event: AMap.Geocoder.EventMap['error']) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
-},);
+});
 
-geocoder.on('complete', (event: AMap.Geocoder.EventMap['complete'],) => {
+geocoder.on('complete', (event: AMap.Geocoder.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
     if ('info' in event) {
@@ -219,9 +219,9 @@ geocoder.on('complete', (event: AMap.Geocoder.EventMap['complete'],) => {
         // $ExpectType ReGeocode[]
         event.regeocodes;
     }
-},);
+});
 
 // $ExpectType void
-geocoder.getAddress(lnglatTuple, () => {},);
+geocoder.getAddress(lnglatTuple, () => {});
 // $ExpectType void
-geocoder.getAddress([lnglatTuple, lnglatTuple,], () => {},);
+geocoder.getAddress([lnglatTuple, lnglatTuple], () => {});

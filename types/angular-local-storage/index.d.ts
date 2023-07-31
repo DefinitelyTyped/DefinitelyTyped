@@ -25,24 +25,24 @@ declare module 'angular' {
              * });
              * @param prefix default: ls.<your-key>
              */
-            setPrefix(prefix: string,): ILocalStorageServiceProvider;
+            setPrefix(prefix: string): ILocalStorageServiceProvider;
             /**
              * Setter for the storageType
              * localstorage or sessionStorage. default: localStorage
              */
-            setStorageType(storageType: string,): ILocalStorageServiceProvider;
+            setStorageType(storageType: string): ILocalStorageServiceProvider;
             /**
              * If localStorage is not supported, the library will default to cookies instead. This behavior can be disabled
              * default: true
              */
-            setDefaultToCookie(shouldDefault: boolean,): ILocalStorageServiceProvider;
+            setDefaultToCookie(shouldDefault: boolean): ILocalStorageServiceProvider;
             /**
              * Setter for cookie config
              * @param exp number of days before cookies expire (0 = does not expire). default: 30
              * @param path the web path the cookie represents. default: '/'
              * @param secure to store cookies as secure. default: false
              */
-            setStorageCookie(exp: number, path: string, secure: boolean,): ILocalStorageServiceProvider;
+            setStorageCookie(exp: number, path: string, secure: boolean): ILocalStorageServiceProvider;
             /**
              * Set the cookie domain, since this runs inside a the config() block,
              * only providers and constants can be injected.
@@ -50,13 +50,13 @@ declare module 'angular' {
              * use a hardcoded string or window.location.
              * No default value
              */
-            setStorageCookieDomain(domain: string,): ILocalStorageServiceProvider;
+            setStorageCookieDomain(domain: string): ILocalStorageServiceProvider;
             /**
              * Send signals for each of the following actions:
              * @param setItem default: true
              * @param removeItem default: false
              */
-            setNotify(setItem: boolean, removeItem: boolean,): ILocalStorageServiceProvider;
+            setNotify(setItem: boolean, removeItem: boolean): ILocalStorageServiceProvider;
         }
 
         // tslint:disable-next-line interface-name
@@ -70,15 +70,15 @@ declare module 'angular' {
              * Directly adds a value to cookies.
              * Note: Typically used as a fallback if local storage is not supported.
              */
-            set(key: string, val: string, daysToExpiry?: number,): boolean;
+            set(key: string, val: string, daysToExpiry?: number): boolean;
             /**
              * Directly get a value from a cookie.
              */
-            get(key: string,): string;
+            get(key: string): string;
             /**
              * Remove directly value from a cookie.
              */
-            remove(key: string,): boolean;
+            remove(key: string): boolean;
             /**
              * Remove all data for this app from cookie.
              */
@@ -92,7 +92,7 @@ declare module 'angular' {
             /**
              * Change the local storage prefix during execution
              */
-            changePrefix(newPrefix: string,): void;
+            changePrefix(newPrefix: string): void;
             /**
              * Checks if the browser support the current storage type(e.g: localStorage, sessionStorage).
              * Returns: Boolean
@@ -106,18 +106,18 @@ declare module 'angular' {
              * Directly adds a value to local storage.
              * If local storage is not supported, use cookies instead.
              */
-            set(key: string, value: any, storageType?: StorageType,): boolean;
+            set(key: string, value: any, storageType?: StorageType): boolean;
             /**
              * Directly get a value from local storage.
              * If local storage is not supported, use cookies instead.
              * Returns: value from local storage
              */
-            get(key: string, storageType?: StorageType,): any;
+            get(key: string, storageType?: StorageType): any;
             /**
              * Return array of keys for local storage, ignore keys that not owned.
              * Returns: value from local storage
              */
-            keys(storageType?: StorageType,): string[];
+            keys(storageType?: StorageType): string[];
             /**
              * Remove a list of items from the local storage by their given keys.
              * The last item in the variable argument list can optionally be the StorageType.
@@ -134,21 +134,21 @@ declare module 'angular' {
              * If local storage is not supported, use cookies instead.
              * Note: Optionally takes a regular expression string and removes matching.
              */
-            clearAll(regularExpression?: RegExp, storageType?: StorageType,): boolean;
+            clearAll(regularExpression?: RegExp, storageType?: StorageType): boolean;
             /**
              * Bind $scope key to localStorageService.
              * Usage: localStorageService.bind(scope, property, value[optional], key[optional])
              * Returns: deregistration function for this listener.
              */
-            bind(scope: IScope, property: string, value?: any, key?: string, storageType?: StorageType,): () => void;
+            bind(scope: IScope, property: string, value?: any, key?: string, storageType?: StorageType): () => void;
             /**
              * Return the derive key
              */
-            deriveKey(key: string,): string;
+            deriveKey(key: string): string;
             /**
              * Return localStorageService.length, ignore keys that not owned.
              */
-            length(storageType?: StorageType,): number;
+            length(storageType?: StorageType): number;
             /**
              * Deal with browser's cookies directly.
              */

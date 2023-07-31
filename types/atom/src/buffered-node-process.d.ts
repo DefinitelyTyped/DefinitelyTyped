@@ -1,4 +1,4 @@
-import { BufferedProcess, NodeProcessOptions, } from '../index';
+import { BufferedProcess, NodeProcessOptions } from '../index';
 
 /**
  *  Like BufferedProcess, but accepts a Node script as the command to run.
@@ -6,5 +6,5 @@ import { BufferedProcess, NodeProcessOptions, } from '../index';
  */
 export class BufferedNodeProcess extends BufferedProcess {
     /** Runs the given Node script by spawning a new child process. */
-    constructor(options: NodeProcessOptions,);
+    constructor(options: NodeProcessOptions);
 }

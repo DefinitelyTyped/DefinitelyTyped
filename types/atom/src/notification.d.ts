@@ -1,16 +1,16 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /** A notification to the user containing a message and type. */
 export class Notification {
-    constructor(type: 'warning' | 'info' | 'success', message: string, options?: NotificationOptions,);
-    constructor(type: 'fatal' | 'error', message: string, options?: ErrorNotificationOptions,);
+    constructor(type: 'warning' | 'info' | 'success', message: string, options?: NotificationOptions);
+    constructor(type: 'fatal' | 'error', message: string, options?: ErrorNotificationOptions);
 
     // Event Subscription
     /** Invoke the given callback when the notification is dismissed. */
-    onDidDismiss(callback: (notification: Notification,) => void,): Disposable;
+    onDidDismiss(callback: (notification: Notification) => void): Disposable;
 
     /** Invoke the given callback when the notification is displayed. */
-    onDidDisplay(callback: (notification: Notification,) => void,): Disposable;
+    onDidDisplay(callback: (notification: Notification) => void): Disposable;
 
     // Methods
     /** Returns the Notification's type. */
@@ -30,7 +30,7 @@ export interface NotificationOptions {
     buttons?:
         | Array<{
             className?: string | undefined;
-            onDidClick?(event: MouseEvent,): void;
+            onDidClick?(event: MouseEvent): void;
             text?: string | undefined;
         }>
         | undefined;

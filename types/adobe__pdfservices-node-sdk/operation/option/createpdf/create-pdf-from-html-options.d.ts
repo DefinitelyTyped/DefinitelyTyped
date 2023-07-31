@@ -6,7 +6,7 @@ export class CreatePDFFromHtmlOptions {
      * Returns a builder for {@link CreatePDFFromHtmlOptions}.
      */
     static get Builder(): any;
-    constructor(builder: any,);
+    constructor(builder: any);
     includeHeaderFooter: any;
     pageLayout: any;
     dataToMerge: any;

@@ -1,11 +1,11 @@
 declare const map: AMap.Map;
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number,];
+declare const lnglatTuple: [number, number];
 
 // $ExpectType Driving
 new AMap.Driving();
 // $ExpectType Driving
-new AMap.Driving({},);
+new AMap.Driving({});
 // $ExpectType Driving
 const driving = new AMap.Driving({
     policy: AMap.DrivingPolicy.LEAST_DISTANCE,
@@ -20,15 +20,15 @@ const driving = new AMap.Driving({
     isOutline: true,
     outlineColor: 'blue',
     autoFitView: true,
-},);
+});
 
 // $ExpectType void
-driving.search(lnglat, lnglat,);
+driving.search(lnglat, lnglat);
 // $ExpectType void
-driving.search(lnglatTuple, lnglatTuple,);
+driving.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
-driving.search(lnglat, lnglat, { waypoints: [lnglat,], },);
-driving.search(lnglat, lnglat, { waypoints: [lnglat,], }, (status, result,) => {
+driving.search(lnglat, lnglat, { waypoints: [lnglat] });
+driving.search(lnglat, lnglat, { waypoints: [lnglat] }, (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     if (typeof result !== 'string') {
         // $ExpectType LngLat
@@ -150,8 +150,8 @@ driving.search(lnglat, lnglat, { waypoints: [lnglat,], }, (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
-driving.search([{ keyword: 'start', }, { keyword: 'end', },], (status, result,) => {
+});
+driving.search([{ keyword: 'start' }, { keyword: 'end' }], (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResultExt
@@ -170,25 +170,25 @@ driving.search([{ keyword: 'start', }, { keyword: 'end', },], (status, result,) 
         // $ExpectType string
         result;
     }
-},);
+});
 
 driving.search([
-    { keyword: 'start', city: 'startCity', },
-    { keyword: 'end', city: 'endCity', },
-],);
+    { keyword: 'start', city: 'startCity' },
+    { keyword: 'end', city: 'endCity' },
+]);
 
 // $ExpectType void
 driving.setPolicy();
 // $ExpectType void
-driving.setPolicy(AMap.DrivingPolicy.LEAST_DISTANCE,);
+driving.setPolicy(AMap.DrivingPolicy.LEAST_DISTANCE);
 
 // $ExpectType void
-driving.setAvoidPolygons([[lnglat, lnglat, lnglat, lnglat,],],);
+driving.setAvoidPolygons([[lnglat, lnglat, lnglat, lnglat]]);
 // $ExpectType void
-driving.setAvoidPolygons([[lnglatTuple, lnglatTuple, lnglatTuple, lnglatTuple,],],);
+driving.setAvoidPolygons([[lnglatTuple, lnglatTuple, lnglatTuple, lnglatTuple]]);
 
 // $ExpectType void
-driving.setAvoidRoad('roadName',);
+driving.setAvoidRoad('roadName');
 
 // $ExpectType void
 driving.clearAvoidRoad();
@@ -209,24 +209,24 @@ driving.clear();
 driving.searchOnAMAP({
     origin: lnglat,
     destination: lnglat,
-},);
+});
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglatTuple,
     destination: lnglatTuple,
-},);
+});
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglatTuple,
     originName: 'originName',
     destination: lnglatTuple,
     destinationName: 'destinationName',
-},);
+});
 
 // $ExpectType void
-driving.setProvinceAndNumber('province', 'number',);
+driving.setProvinceAndNumber('province', 'number');
 
-driving.on('complete', (event: AMap.Driving.EventMap['complete'],) => {
+driving.on('complete', (event: AMap.Driving.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
@@ -251,4 +251,4 @@ driving.on('complete', (event: AMap.Driving.EventMap['complete'],) => {
         event.taxi_cost;
         event.waypoints;
     }
-},);
+});

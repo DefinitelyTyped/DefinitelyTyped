@@ -16,7 +16,7 @@
 
 import * as adlib from 'adlib';
 
-const transform1: adlib.TransformFunction = (key: string, value: any, settings: any, param?: any,): any => {
+const transform1: adlib.TransformFunction = (key: string, value: any, settings: any, param?: any): any => {
     return null;
 };
 
@@ -34,6 +34,6 @@ const settings = {
     },
 };
 
-const interpolated = adlib.adlib(template, settings, transformsList,);
+const interpolated = adlib.adlib(template, settings, transformsList);
 
-const list: string[] = adlib.listDependencies(template,);
+const list: string[] = adlib.listDependencies(template);

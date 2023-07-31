@@ -6,7 +6,7 @@
 /**
  * Starts the profiling process.
  */
-export function profile(config: ProfileParameter,): void;
+export function profile(config: ProfileParameter): void;
 
 /**
  * appdynamics monitors your Node.js applications in production.

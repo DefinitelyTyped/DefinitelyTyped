@@ -23,7 +23,7 @@ export type APIGatewayEventRequestContext = APIGatewayEventRequestContextWithAut
 >;
 
 // The requestContext property of both request authorizer and proxy integration events.
-export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext,> {
+export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext> {
     accountId: string;
     apiId: string;
     // This one is a bit confusing: it is not actually present in authorizer calls

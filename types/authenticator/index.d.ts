@@ -20,7 +20,7 @@ export function generateKey(): string;
  * Generates a 6-digit (20-bit) decimal time-based token.
  * @param formattedKey 32-character (160-bit) base32 key.
  */
-export function generateToken(formattedKey: string,): string;
+export function generateToken(formattedKey: string): string;
 
 /**
  * Generates an `OTPAUTH://` scheme URI for QR Code generation.
@@ -51,4 +51,4 @@ export function generateTotpUri(
  * @param formattedKey 32-character (160-bit) base32 key.
  * @param formattedToken 6-digit (20-bit) decimal time-based token.
  */
-export function verifyToken(formattedKey: string, formattedToken: string,): VerifyResult | null;
+export function verifyToken(formattedKey: string, formattedToken: string): VerifyResult | null;

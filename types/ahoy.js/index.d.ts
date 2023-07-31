@@ -61,13 +61,13 @@ export interface Config {
  * Modify Ahoy configuration. Must be called before ahoy.start() (or before DOMContentLoaded if startOnReady is set to
  * true).
  */
-export function configure(options: Partial<Config>,): void;
+export function configure(options: Partial<Config>): void;
 
 /** Initialize Ahoy.js if it has not yet been. */
 export function start(): void;
 
 /** Call callback when Ahoy.js has been initialized. */
-export function ready(callback: () => void,): void;
+export function ready(callback: () => void): void;
 
 export function getVisitToken(): string;
 export function getVisitId(): string;
@@ -82,25 +82,25 @@ export function reset(): boolean;
  *
  * @param [enabled=true]
  */
-export function debug(enabled?: boolean,): boolean;
+export function debug(enabled?: boolean): boolean;
 
 /** Send a single Ahoy tracking event. */
-export function track(name: string, properties?: EventProperties,): boolean;
+export function track(name: string, properties?: EventProperties): boolean;
 
 /**
  * Track form control changes.
  * @deprecated trackChanges is deprecated and will be removed in 0.5.0
  */
-export function trackChanges(selector: string,): void;
+export function trackChanges(selector: string): void;
 
 /** Track link and button clicks. */
-export function trackClicks(selector: string,): void;
+export function trackClicks(selector: string): void;
 
 /** Track form submits. */
-export function trackSubmits(selector: string,): void;
+export function trackSubmits(selector: string): void;
 
 /** Send a view event for the current page. */
-export function trackView(additionalProperties?: EventProperties,): void;
+export function trackView(additionalProperties?: EventProperties): void;
 
 export as namespace ahoy;
 
@@ -109,13 +109,13 @@ declare namespace ahoy {
      * Modify Ahoy configuration. Must be called before ahoy.start() (or before DOMContentLoaded if startOnReady is set
      * to true).
      */
-    function configure(options: Partial<Config>,): void;
+    function configure(options: Partial<Config>): void;
 
     /** Initialize Ahoy.js if it has not yet been. */
     function start(): void;
 
     /** Call callback when Ahoy.js has been initialized. */
-    function ready(callback: () => void,): void;
+    function ready(callback: () => void): void;
 
     function getVisitToken(): string;
     function getVisitId(): string;
@@ -130,25 +130,25 @@ declare namespace ahoy {
      *
      * @param [enabled=true]
      */
-    function debug(enabled?: boolean,): boolean;
+    function debug(enabled?: boolean): boolean;
 
     /** Send a single Ahoy tracking event. */
-    function track(name: string, properties?: EventProperties,): boolean;
+    function track(name: string, properties?: EventProperties): boolean;
 
     /**
      * Track form control changes.
      * @deprecated trackChanges is deprecated and will be removed in 0.5.0
      */
-    function trackChanges(selector: string,): void;
+    function trackChanges(selector: string): void;
 
     /** Track link and button clicks. */
-    function trackClicks(selector: string,): void;
+    function trackClicks(selector: string): void;
 
     /** Track form submits. */
-    function trackSubmits(selector: string,): void;
+    function trackSubmits(selector: string): void;
 
     /** Send a view event for the current page. */
-    function trackView(additionalProperties?: EventProperties,): void;
+    function trackView(additionalProperties?: EventProperties): void;
 }
 
 export default ahoy;

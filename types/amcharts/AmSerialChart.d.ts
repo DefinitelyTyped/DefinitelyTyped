@@ -110,7 +110,7 @@ export default class AmSerialChart extends AmRectangularChart {
     /**
      * Number Returns index of the specified category value.
      */
-    getCategoryIndexByValue(value: number,): void;
+    getCategoryIndexByValue(value: number): void;
     /**
      * Zooms out, charts shows all available data.
      */
@@ -118,13 +118,13 @@ export default class AmSerialChart extends AmRectangularChart {
     /**
      * Zooms the chart by the value of the category axis.
      */
-    zoomToCategoryValues(start: Date, end: Date,): void;
+    zoomToCategoryValues(start: Date, end: Date): void;
     /**
      * Zooms the chart from one date to another.
      */
-    zoomToDates(start: Date, end: Date,): void;
+    zoomToDates(start: Date, end: Date): void;
     /**
      * Zooms the chart by the index of the category.
      */
-    zoomToIndexes(start: Date, end: Date,): void;
+    zoomToIndexes(start: Date, end: Date): void;
 }

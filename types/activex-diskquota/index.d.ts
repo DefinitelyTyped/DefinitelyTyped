@@ -79,7 +79,7 @@ declare namespace DiskQuotaTypeLibrary {
         private constructor();
 
         /** Add a user quota entry by Name */
-        AddUser(LogonName: string,): DIDiskQuotaUser;
+        AddUser(LogonName: string): DIDiskQuotaUser;
 
         /** Default quota limit applied to new volume users (byte value) */
         DefaultQuotaLimit: number;
@@ -94,16 +94,16 @@ declare namespace DiskQuotaTypeLibrary {
         readonly DefaultQuotaThresholdText: string;
 
         /** Delete a user quota entry */
-        DeleteUser(pUser: DIDiskQuotaUser,): void;
+        DeleteUser(pUser: DIDiskQuotaUser): void;
 
         /** Find a user quota entry by Name */
-        FindUser(LogonName: string,): DIDiskQuotaUser;
+        FindUser(LogonName: string): DIDiskQuotaUser;
 
         /** Promote a user quota entry to the head of the name resolution queue */
-        GiveUserNameResolutionPriority(pUser: DIDiskQuotaUser,): void;
+        GiveUserNameResolutionPriority(pUser: DIDiskQuotaUser): void;
 
         /** Initialize the quota control object for a specified volume */
-        Initialize(path: string, bReadWrite: boolean,): void;
+        Initialize(path: string, bReadWrite: boolean): void;
 
         /** Invalidate the cache of user name information */
         InvalidateSidNameCache(): void;
@@ -127,7 +127,7 @@ declare namespace DiskQuotaTypeLibrary {
         ShutdownNameResolution(): void;
 
         /** Translates a user logon name to a security ID */
-        TranslateLogonNameToSID(LogonName: string,): string;
+        TranslateLogonNameToSID(LogonName: string): string;
 
         /** Control the resolution of user Security IDs to user Names */
         UserNameResolution: UserNameResolutionConstants;
@@ -138,7 +138,7 @@ interface ActiveXObject {
     on(
         obj: DiskQuotaTypeLibrary.DiskQuotaControl,
         event: 'OnUserNameChanged',
-        argNames: ['pUser',],
+        argNames: ['pUser'],
         handler: (
             this: DiskQuotaTypeLibrary.DiskQuotaControl,
             parameter: { readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser },
@@ -151,5 +151,5 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: DiskQuotaTypeLibrary.DiskQuotaControl,): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
+    new(col: DiskQuotaTypeLibrary.DiskQuotaControl): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
 }

@@ -1,14 +1,14 @@
-import { Credentials, } from '../credentials';
-import { AWSError, } from '../error';
+import { Credentials } from '../credentials';
+import { AWSError } from '../error';
 export class CredentialProviderChain {
     /**
      * Creates a new CredentialProviderChain with a default set of providers specified by defaultProviders.
      */
-    constructor(providers?: provider[],);
+    constructor(providers?: provider[]);
     /**
      * Resolves the provider chain by searching for the first set of credentials in providers.
      */
-    resolve(callback: (err: AWSError | null, credentials?: Credentials,) => void,): CredentialProviderChain;
+    resolve(callback: (err: AWSError | null, credentials?: Credentials) => void): CredentialProviderChain;
     /**
      * Return a Promise on resolve() function
      */

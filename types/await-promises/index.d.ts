@@ -11,8 +11,8 @@ declare class AwaitPromises {
     wait(): Promise<void>;
 }
 
-type MaybePromise<T,> = T | Promise<T>;
+type MaybePromise<T> = T | Promise<T>;
 
-export function wait(func: () => MaybePromise<unknown>,): Promise<void>;
+export function wait(func: () => MaybePromise<unknown>): Promise<void>;
 
 export default AwaitPromises;

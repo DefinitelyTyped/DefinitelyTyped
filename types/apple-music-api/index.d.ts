@@ -26,7 +26,7 @@ declare namespace AppleMusicApi {
     }
 
     // https://developer.apple.com/documentation/applemusicapi/relationship
-    interface Relationship<ResourceType,> {
+    interface Relationship<ResourceType> {
         data: ResourceType[];
         href: string;
         meta?: any;

@@ -8,11 +8,11 @@
 
 declare namespace aa {
     export interface ILabelStrategies {
-        [strategyName: string]: (element: ng.IAugmentedJQueryStatic, labelText: string, isRequired: boolean,) => void;
+        [strategyName: string]: (element: ng.IAugmentedJQueryStatic, labelText: string, isRequired: boolean) => void;
     }
 
     export interface IFieldGroupStrategies {
-        [strategyName: string]: (element: ng.IAugmentedJQueryStatic,) => void;
+        [strategyName: string]: (element: ng.IAugmentedJQueryStatic) => void;
     }
 
     export interface IValMsgPlacementStrategies {
@@ -26,11 +26,11 @@ declare namespace aa {
     export interface IValidIconStrategy {
         validIcon: string;
         invalidIcon: string;
-        getContainer(element: ng.IAugmentedJQueryStatic,): void;
+        getContainer(element: ng.IAugmentedJQueryStatic): void;
     }
 
     export interface ISpinnerClickStrategies {
-        [strategyName: string]: (element: ng.IAugmentedJQueryStatic,) => void;
+        [strategyName: string]: (element: ng.IAugmentedJQueryStatic) => void;
     }
 
     export interface IOnNavigateAwayStrategies {
@@ -70,7 +70,7 @@ declare namespace aa {
     }
 
     export interface INotifyPredicate {
-        (message: string, options: any, notifier: any,): any;
+        (message: string, options: any, notifier: any): any;
     }
 
     export interface INotifyDefaults {
@@ -100,8 +100,8 @@ declare namespace aa {
         notifyConfigs: any;
         defaultTargetContainerName: string;
         defaultNotifyConfig: string;
-        addOrUpdateNotifyConfig(name: string, opts: INotifyConfig,): void;
-        optionsTransformer(options: INotifyOptions, $sce: ng.ISCEService,): void;
+        addOrUpdateNotifyConfig(name: string, opts: INotifyConfig): void;
+        optionsTransformer(options: INotifyOptions, $sce: ng.ISCEService): void;
     }
 
     export interface IExternalFormValidationConfig {
@@ -109,6 +109,6 @@ declare namespace aa {
         ignore?: any;
         globals?: any;
         resolve?: any;
-        resolveFn?: ((modelValue: string,) => string) | undefined;
+        resolveFn?: ((modelValue: string) => string) | undefined;
     }
 }

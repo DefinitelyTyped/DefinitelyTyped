@@ -1,5 +1,5 @@
-import { ChildProcess, } from 'child_process';
-import { Disposable, HandleableErrorEvent, } from '../index';
+import { ChildProcess } from 'child_process';
+import { Disposable, HandleableErrorEvent } from '../index';
 
 /**
  *  A wrapper which provides standard error/output line buffering for
@@ -8,7 +8,7 @@ import { Disposable, HandleableErrorEvent, } from '../index';
 export class BufferedProcess {
     readonly process?: ChildProcess | undefined;
 
-    constructor(options: ProcessOptions,);
+    constructor(options: ProcessOptions);
 
     // Event Subscription
     /**
@@ -17,7 +17,7 @@ export class BufferedProcess {
      *  call handle() on the object passed to your callback to indicate that you
      *  have handled this error.
      */
-    onWillThrowError(callback: (errorObject: HandleableErrorEvent,) => void,): Disposable;
+    onWillThrowError(callback: (errorObject: HandleableErrorEvent) => void): Disposable;
 
     // Helper Methods
     /** Terminate the process. */
@@ -41,16 +41,16 @@ export interface NodeProcessOptions {
      *  The callback that receives a single argument which contains the standard
      *  output from the command.
      */
-    stdout?(data: string,): void;
+    stdout?(data: string): void;
 
     /**
      *  The callback that receives a single argument which contains the standard
      *  error output from the command.
      */
-    stderr?(data: string,): void;
+    stderr?(data: string): void;
 
     /** The callback which receives a single argument containing the exit status. */
-    exit?(code: number,): void;
+    exit?(code: number): void;
 }
 
 export interface ProcessOptions extends NodeProcessOptions {

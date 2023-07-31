@@ -4,4 +4,4 @@ import ajvMergePatch = require('ajv-merge-patch');
 
 const ajv = new Ajv();
 
-ajvMergePatch(ajv,); // $ExpectType void
+ajvMergePatch(ajv); // $ExpectType void

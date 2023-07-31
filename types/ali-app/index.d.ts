@@ -23,13 +23,13 @@ declare namespace my {
         /** 文件的临时路径 */
         apFilePath: string;
     }
-    interface BaseOptions<R = any, E = any,> {
+    interface BaseOptions<R = any, E = any> {
         /** 接口调用成功的回调函数 */
-        success?(res: R,): void;
+        success?(res: R): void;
         /** 接口调用失败的回调函数 */
-        fail?(res: E,): void;
+        fail?(res: E): void;
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?(res: any,): void;
+        complete?(res: any): void;
     }
     interface ErrCodeResponse {
         errCode: number;
@@ -50,7 +50,7 @@ declare namespace my {
      * 注意：为了不让用户在使用小程序时造成困扰，
      * 我们规定页面路径只能是五层，请尽量避免多层级的交互方式。
      */
-    function navigateTo(options: NavigateToOptions,): void;
+    function navigateTo(options: NavigateToOptions): void;
 
     interface RedirectToOptions extends BaseOptions {
         /** 需要跳转的应用内页面的路径 */
@@ -59,7 +59,7 @@ declare namespace my {
     /**
      * 关闭当前页面，跳转到应用内的某个页面。
      */
-    function redirectTo(options: RedirectToOptions,): void;
+    function redirectTo(options: RedirectToOptions): void;
 
     interface NavigateBackOptions extends BaseOptions {
         /** 返回的页面数，如果 delta 大于现有打开的页面数，则返回到首页 */
@@ -68,7 +68,7 @@ declare namespace my {
     /**
      * 关闭当前页面，返回上一级或多级页面。可通过 getCurrentPages 获取当前的页面栈信息，决定需要返回几层。
      */
-    function navigateBack(options?: NavigateBackOptions,): void;
+    function navigateBack(options?: NavigateBackOptions): void;
 
     interface ReLaunchOptions extends BaseOptions {
         /**
@@ -81,7 +81,7 @@ declare namespace my {
     /**
      * 关闭所有页面，打开到应用内的某个页面。
      */
-    function reLaunch(options?: ReLaunchOptions,): void;
+    function reLaunch(options?: ReLaunchOptions): void;
 
     interface SetNavigationBarOptions extends BaseOptions {
         /** 页面标题 */
@@ -98,7 +98,7 @@ declare namespace my {
     /**
      * 动态设置当前页面的标题。
      */
-    function setNavigationBar(options: Partial<SetNavigationBarOptions>,): void;
+    function setNavigationBar(options: Partial<SetNavigationBarOptions>): void;
 
     /**
      * 显示导航栏 loading
@@ -120,7 +120,7 @@ declare namespace my {
     /**
      * 跳转到指定 tabBar 页面，并关闭其他所有非 tabBar 页面
      */
-    function switchTab(options: SwitchTabOptions,): void;
+    function switchTab(options: SwitchTabOptions): void;
     // #endregion
 
     // #region 交互反馈 https://docs.alipay.com/mini/api/ui-feedback
@@ -133,7 +133,7 @@ declare namespace my {
         /** 按钮文字，默认确定 */
         buttonText: string;
     }
-    function alert(options: Partial<AlertOptions>,): void;
+    function alert(options: Partial<AlertOptions>): void;
 
     interface ConfirmOptions extends BaseOptions {
         /** confirm框的标题 */
@@ -144,9 +144,9 @@ declare namespace my {
         confirmButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
         cancelButtonText: string;
-        success(result: { confirm: boolean },): void;
+        success(result: { confirm: boolean }): void;
     }
-    function confirm(options: Partial<ConfirmOptions>,): void;
+    function confirm(options: Partial<ConfirmOptions>): void;
 
     interface PromptOptions extends BaseOptions {
         /** prompt框标题 */
@@ -161,9 +161,9 @@ declare namespace my {
         okButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
         cancelButtonText: string;
-        success(result: { ok: boolean; inputValue: string },): void;
+        success(result: { ok: boolean; inputValue: string }): void;
     }
-    function prompt(options: PromptOptions,): void;
+    function prompt(options: PromptOptions): void;
 
     interface ToastOptions extends BaseOptions {
         /**
@@ -180,7 +180,7 @@ declare namespace my {
     /**
      * 显示消息提示框
      */
-    function showToast(options: Partial<ToastOptions>,): void;
+    function showToast(options: Partial<ToastOptions>): void;
     function hideToast(): void;
 
     interface LoadingOptions extends BaseOptions {
@@ -196,7 +196,7 @@ declare namespace my {
     /**
      * 显示加载提示
      */
-    function showLoading(options?: LoadingOptions,): void;
+    function showLoading(options?: LoadingOptions): void;
     interface HideLoadingOptions {
         /**
          * 体指当前page实例，某些场景下，需要指明在哪个page执行hideLoading。
@@ -206,7 +206,7 @@ declare namespace my {
     /**
      * 隐藏消息提示框
      */
-    function hideLoading(options?: HideLoadingOptions,): void;
+    function hideLoading(options?: HideLoadingOptions): void;
 
     interface Badge {
         /** 需要飘红的选项的索引，从0开始 */
@@ -251,12 +251,12 @@ declare namespace my {
              * 用户点击的按钮，从上到下的顺序，从0开始
              */
             index: number;
-        },): void;
+        }): void;
     }
     /**
      * 显示操作菜单
      */
-    function showActionSheet(options: ActionSheetOptions,): void;
+    function showActionSheet(options: ActionSheetOptions): void;
     // #endregion
 
     // #region 下拉刷新 https://docs.alipay.com/mini/api/ui-pulldown
@@ -270,7 +270,7 @@ declare namespace my {
          * 需要在页面对应的 .json 配置文件中配置 "pullRefresh": true 选项，才能开启下拉刷新事件。
          * 当处理完数据刷新后，调用 my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
          */
-        onPullDownRefresh?(this: Page,): void;
+        onPullDownRefresh?(this: Page): void;
     }
     /**
      * 停止当前页面的下拉刷新。
@@ -283,17 +283,17 @@ declare namespace my {
         success(result: {
             name: string; // 选中的联系人姓名
             mobile: string; // 选中的联系人手机号
-        },): void;
+        }): void;
         /**
          * 10    没有权限
          * 11    用户取消操作(或设备未授权使用通讯录)
          */
-        fail?(error: 10 | 11,): void;
+        fail?(error: 10 | 11): void;
     }
     /**
      * 选择本地系统通信录中某个联系人的电话。
      */
-    function choosePhoneContact(options: ChoosePhoneContactOptions,): void;
+    function choosePhoneContact(options: ChoosePhoneContactOptions): void;
 
     interface ChooseAlipayContactOptions extends BaseOptions {
         /** 单次最多选择联系人个数，默认 1，最大 10 */
@@ -304,17 +304,17 @@ declare namespace my {
             email: string; // 账号的邮箱
             avatar: string; // 账号的头像链接
             userId: string; // 支付宝账号唯一 userId
-        },): void;
+        }): void;
         /**
          * 10    没有权限
          * 11    用户取消操作(或设备未授权使用通讯录)
          */
-        fail?(error: 10 | 11,): void;
+        fail?(error: 10 | 11): void;
     }
     /**
      * 唤起支付宝通讯录，选择一个或者多个支付宝联系人。
      */
-    function chooseAlipayContact(options: ChooseAlipayContactOptions,): void;
+    function chooseAlipayContact(options: ChooseAlipayContactOptions): void;
 
     interface ContactsDic {
         /**
@@ -352,12 +352,12 @@ declare namespace my {
 
         success(result: {
             contactsDicArray: ContactsDic[];
-        },): void;
+        }): void;
     }
     /**
      * 唤起选人组件，默认只包含支付宝联系人，可以通过修改参数包含手机通讯录联系人或者双向通讯录联系人。
      */
-    function chooseContact(options: ChooseContactOptions,): void;
+    function chooseContact(options: ChooseContactOptions): void;
     // #endregion
 
     // #region 选择城市 https://docs.alipay.com/mini/api/ui-city
@@ -371,14 +371,14 @@ declare namespace my {
         showHotCities: boolean; //     是否显示热门城市，默认 true
         cities: City[]; // 自定义城市列表，列表内对象字段见下表
         hotCities: City[]; // 自定义热门城市列表，列表内对象字段见下表
-        success(result: { city: string; adCode: string },): void;
+        success(result: { city: string; adCode: string }): void;
     }
     /**
      * 打开城市选择列表
      *
      * 如果用户没有选择任何城市直接点击了返回，将不会触发回调函数。
      */
-    function chooseCity(options: Partial<ChooseCityOptions>,): void;
+    function chooseCity(options: Partial<ChooseCityOptions>): void;
     // #endregion
 
     // #region 选择日期 https://docs.alipay.com/mini/api/ui-date
@@ -398,14 +398,14 @@ declare namespace my {
         startDate: string;
         /** 最大日期时间 */
         endDate: string;
-        success(result: { date: string },): void;
+        success(result: { date: string }): void;
         /** 11 用户取消操作 */
-        fail(error: 11,): void;
+        fail(error: 11): void;
     }
     /**
      * 打开日期选择列表
      */
-    function datePicker(optiosn: Partial<DatePickerOptions>,): void;
+    function datePicker(optiosn: Partial<DatePickerOptions>): void;
     // #endregion
 
     // #region 动画 https://docs.alipay.com/mini/api/ui-animation
@@ -452,7 +452,7 @@ declare namespace my {
      *
      * 注意: export 方法每次调用后会清掉之前的动画操作
      */
-    function createAnimation(options: Partial<CreateAnimationOptions>,): Animation;
+    function createAnimation(options: Partial<CreateAnimationOptions>): Animation;
     /** 动画实例可以调用以下方法来描述动画，调用结束后会返回自身，支持链式调用的写法。 */
     interface Animation {
         /**
@@ -462,7 +462,7 @@ declare namespace my {
          * 一组动画完成后才会进行下一组动画。
          * @param options 指定当前组动画的配置
          */
-        step(options?: CreateAnimationOptions,): void;
+        step(options?: CreateAnimationOptions): void;
         /**
          * 导出动画操作
          *
@@ -470,75 +470,75 @@ declare namespace my {
          */
         export(): Animator;
         /** 透明度，参数范围 0~1 */
-        opacity(value: number,): Animation;
+        opacity(value: number): Animation;
         /** 颜色值 */
-        backgroundColor(color: string,): Animation;
+        backgroundColor(color: string): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        width(length: number,): Animation;
+        width(length: number): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        height(length: number,): Animation;
+        height(length: number): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        top(length: number,): Animation;
+        top(length: number): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        left(length: number,): Animation;
+        left(length: number): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        bottom(length: number,): Animation;
+        bottom(length: number): Animation;
         /** 长度值，如果传入 Number 则默认使用 px，可传入其他自定义单位的长度值 */
-        right(length: number,): Animation;
+        right(length: number): Animation;
         /** deg的范围-180~180，从原点顺时针旋转一个deg角度 */
-        rotate(deg: number,): Animation;
+        rotate(deg: number): Animation;
         /** deg的范围-180~180，在X轴旋转一个deg角度 */
-        rotateX(deg: number,): Animation;
+        rotateX(deg: number): Animation;
         /** deg的范围-180~180，在Y轴旋转一个deg角度 */
-        rotateY(deg: number,): Animation;
+        rotateY(deg: number): Animation;
         /** deg的范围-180~180，在Z轴旋转一个deg角度 */
-        rotateZ(deg: number,): Animation;
+        rotateZ(deg: number): Animation;
         /** 同transform-function rotate3d */
-        rotate3d(x: number, y: number, z: number, deg: number,): Animation;
+        rotate3d(x: number, y: number, z: number, deg: number): Animation;
         /**
          * 一个参数时，表示在X轴、Y轴同时缩放sx倍数；
          * 两个参数时表示在X轴缩放sx倍数，在Y轴缩放sy倍数
          */
-        scale(sx: number, sy?: number,): Animation;
+        scale(sx: number, sy?: number): Animation;
         /** 在X轴缩放sx倍数 */
-        scaleX(sx: number,): Animation;
+        scaleX(sx: number): Animation;
         /** 在Y轴缩放sy倍数 */
-        scaleY(sy: number,): Animation;
+        scaleY(sy: number): Animation;
         /** 在Z轴缩放sy倍数 */
-        scaleZ(sz: number,): Animation;
+        scaleZ(sz: number): Animation;
         /** 在X轴缩放sx倍数，在Y轴缩放sy倍数，在Z轴缩放sz倍数 */
-        scale3d(sx: number, sy: number, sz: number,): Animation;
+        scale3d(sx: number, sy: number, sz: number): Animation;
         /**
          * 一个参数时，表示在X轴偏移tx，单位px；
          * 两个参数时，表示在X轴偏移tx，在Y轴偏移ty，单位px。
          */
-        translate(tx: number, ty?: number,): Animation;
+        translate(tx: number, ty?: number): Animation;
         /**
          * 在X轴偏移tx，单位px
          */
-        translateX(tx: number,): Animation;
+        translateX(tx: number): Animation;
         /**
          * 在Y轴偏移tx，单位px
          */
-        translateY(ty: number,): Animation;
+        translateY(ty: number): Animation;
         /**
          * 在Z轴偏移tx，单位px
          */
-        translateZ(tz: number,): Animation;
+        translateZ(tz: number): Animation;
         /**
          * 在X轴偏移tx，在Y轴偏移ty，在Z轴偏移tz，单位px
          */
-        translate3d(tx: number, ty: number, tz: number,): Animation;
+        translate3d(tx: number, ty: number, tz: number): Animation;
         /**
          * 参数范围-180~180；
          * 一个参数时，Y轴坐标不变，X轴坐标延顺时针倾斜ax度；
          * 两个参数时，分别在X轴倾斜ax度，在Y轴倾斜ay度
          */
-        skew(ax: number, ay?: number,): Animation;
+        skew(ax: number, ay?: number): Animation;
         /** 参数范围-180~180；Y轴坐标不变，X轴坐标延顺时针倾斜ax度 */
-        skewX(ax: number,): Animation;
+        skewX(ax: number): Animation;
         /** 参数范围-180~180；X轴坐标不变，Y轴坐标延顺时针倾斜ay度 */
-        skewY(ay: number,): Animation;
+        skewY(ay: number): Animation;
         /**
          * 同transform-function matrix
          */
@@ -591,7 +591,7 @@ declare namespace my {
          * @param stop 渐变点位置，值必须在 [0,1] 范围内
          * @param color 颜色值
          */
-        addColorStop(stop: number, color: Color,): void;
+        addColorStop(stop: number, color: Color): void;
     }
 
     interface TextMetrics {
@@ -603,28 +603,28 @@ declare namespace my {
         /**
          * 把当前画布的内容导出生成图片，并返回文件路径。
          */
-        toTempFilePath(options?: Partial<ToTempFilePathOptions>,): void;
+        toTempFilePath(options?: Partial<ToTempFilePathOptions>): void;
         /**
          * textAlign 是 Canvas 2D API 描述绘制文本时，文本的对齐方式的属性。注意，该对齐是基于
          * CanvasRenderingContext2D.fillText 方法的x的值。所以如果 textAlign="center"，那么该文本将画在 x-50%*width
          */
-        setTextAlign(textAlign: 'left' | 'right' | 'center' | 'start' | 'end',): void;
+        setTextAlign(textAlign: 'left' | 'right' | 'center' | 'start' | 'end'): void;
         /**
          * textBaseline 是 Canvas 2D API 描述绘制文本时，当前文本基线的属性。
          */
-        setTextBaseline(textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom',): void;
+        setTextBaseline(textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom'): void;
         /**
          * 设置填充色。
          *
          * 如果没有设置 fillStyle，则默认颜色为 black。
          */
-        setFillStyle(color: Color,): void;
+        setFillStyle(color: Color): void;
         /**
          * 设置边框颜色。
          *
          * 如果没有设置 strokeStyle，则默认颜色为 black。
          */
-        setStrokeStyle(color: Color,): void;
+        setStrokeStyle(color: Color): void;
         /**
          * 设置阴影样式。
          * 如果没有设置，offsetX 的默认值为 0， offsetY 的默认值为 0， blur 的默认值为 0，color 的默认值为 black。
@@ -633,7 +633,7 @@ declare namespace my {
          * @param blur 0~100 阴影的模糊级别，值越大越模糊
          * @param color 阴影颜色
          */
-        setShadow(offsetX: number, offsetY: number, blur: number, color: Color,): void;
+        setShadow(offsetX: number, offsetY: number, blur: number, color: Color): void;
 
         /**
          * 创建一个线性的渐变色。
@@ -643,7 +643,7 @@ declare namespace my {
          * @param x1 终点 x 坐标
          * @param y1 终点 y 坐标
          */
-        createLinearGradient(x0: number, y0: number, x1: number, y1: number,): CanvasAction;
+        createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasAction;
 
         /**
          * 创建一个圆形的渐变色。
@@ -654,34 +654,34 @@ declare namespace my {
          * @param r 圆半径
          * @returns
          */
-        createCircularGradient(x: number, y: number, r: number,): CanvasAction;
+        createCircularGradient(x: number, y: number, r: number): CanvasAction;
 
         /**
          * 设置线条的宽度。
          * @param lineWidth 线条宽度，单位为 px
          */
-        setLineWidth(lineWidth: number,): void;
+        setLineWidth(lineWidth: number): void;
 
         /**
          * 设置线条的端点样式。
          *
          * @param lineCap 线条的结束端点样式
          */
-        setLineCap(lineCap: 'round' | 'butt' | 'square',): void;
+        setLineCap(lineCap: 'round' | 'butt' | 'square'): void;
 
         /**
          * 设置线条的交点样式。
          *
          * @param lineJoin 线条的结束交点样式
          */
-        setLineJoin(lineJoin: 'round' | 'bevel' | 'miter',): void;
+        setLineJoin(lineJoin: 'round' | 'bevel' | 'miter'): void;
 
         /**
          * 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当 setLineJoin() 为 miter 时才有效。超过最大倾斜长度的，连接处将以 lineJoin 为 bevel 来显示
          *
          * @param miterLimit 最大斜接长度
          */
-        setMiterLimit(miterLimit: number,): void;
+        setMiterLimit(miterLimit: number): void;
 
         /**
          * 创建一个矩形。
@@ -691,7 +691,7 @@ declare namespace my {
          * @param width 矩形路径宽度
          * @param height 矩形路径高度
          */
-        rect(x: number, y: number, width: number, height: number,): void;
+        rect(x: number, y: number, width: number, height: number): void;
 
         /**
          * 填充矩形。
@@ -701,7 +701,7 @@ declare namespace my {
          * @param width 矩形路径宽度
          * @param height 矩形路径高度
          */
-        fillRect(x: number, y: number, width: number, height: number,): void;
+        fillRect(x: number, y: number, width: number, height: number): void;
 
         /**
          * 画一个矩形(非填充)。
@@ -711,7 +711,7 @@ declare namespace my {
          * @param width 矩形路径宽度
          * @param height 矩形路径高度
          */
-        strokeRect(x: number, y: number, width: number, height: number,): void;
+        strokeRect(x: number, y: number, width: number, height: number): void;
 
         /**
          * 清除画布上在该矩形区域内的内容。
@@ -721,7 +721,7 @@ declare namespace my {
          * @param width 矩形路径宽度
          * @param height 矩形路径高度
          */
-        clearRect(x: number, y: number, width: number, height: number,): void;
+        clearRect(x: number, y: number, width: number, height: number): void;
 
         /**
          * 对当前路径中的内容进行填充。默认的填充色为黑色。
@@ -753,7 +753,7 @@ declare namespace my {
          * @param x 目标位置 x 坐标
          * @param y 目标位置 y 坐标
          */
-        moveTo(x: number, y: number,): void;
+        moveTo(x: number, y: number): void;
 
         /**
          * lineTo 方法增加一个新点，然后创建一条从上次指定点到目标点的线。
@@ -762,7 +762,7 @@ declare namespace my {
          * @param x 目标位置 x 坐标
          * @param y 目标位置 y 坐标
          */
-        lineTo(x: number, y: number,): void;
+        lineTo(x: number, y: number): void;
 
         /**
          * 画一条弧线。
@@ -774,7 +774,7 @@ declare namespace my {
          * @param sAngle
          * @param eAngle
          */
-        arc(x: number, y: number, r: number, sAngle: number, eAngle: number,): void;
+        arc(x: number, y: number, r: number, sAngle: number, eAngle: number): void;
 
         /**
          * 创建三次方贝塞尔曲线路径。
@@ -786,7 +786,7 @@ declare namespace my {
          * @param x
          * @param y
          */
-        bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number,): void;
+        bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
 
         /**
          * 将当前创建的路径设置为当前剪切路径。
@@ -801,7 +801,7 @@ declare namespace my {
          * @param x 结束点 x 坐标
          * @param y 结束点 y 坐标
          */
-        quadraticCurveTo(cpx: number, cpy: number, x: number, y: number,): void;
+        quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
 
         /**
          * 在调用scale方法后，之后创建的路径其横纵坐标会被缩放。多次调用scale，倍数会相乘。
@@ -809,14 +809,14 @@ declare namespace my {
          * @param scaleWidth 横坐标缩放倍数 (1 = 100%，0.5 = 50%，2 = 200%)
          * @param scaleHeight 纵坐标轴缩放倍数 (1 = 100%，0.5 = 50%，2 = 200%)
          */
-        scale(scaleWidth: number, scaleHeight: number,): void;
+        scale(scaleWidth: number, scaleHeight: number): void;
 
         /**
          * 以原点为中心，原点可以用 translate方法修改。顺时针旋转当前坐标轴。多次调用rotate，旋转的角度会叠加。
          *
          * @param rotate 旋转角度，以弧度计(degrees * Math.PI/180；degrees 范围为0~360)
          */
-        rotate(rotate: number,): void;
+        rotate(rotate: number): void;
 
         /**
          * 对当前坐标系的原点(0, 0)进行变换，默认的坐标系原点为页面左上角。
@@ -824,14 +824,14 @@ declare namespace my {
          * @param x 水平坐标平移量
          * @param y 竖直坐标平移量
          */
-        translate(x: number, y: number,): void;
+        translate(x: number, y: number): void;
 
         /**
          * 设置字体大小。
          *
          * @param fontSize 字号
          */
-        setFontSize(fontSize: number,): void;
+        setFontSize(fontSize: number): void;
 
         /**
          * 在画布上绘制被填充的文本。
@@ -840,7 +840,7 @@ declare namespace my {
          * @param x 绘制文本的左上角 x 坐标
          * @param y 绘制文本的左上角 y 坐标
          */
-        fillText(text: string, x: number, y: number,): void;
+        fillText(text: string, x: number, y: number): void;
 
         /**
          * 绘制图像，图像保持原始尺寸。
@@ -851,21 +851,21 @@ declare namespace my {
          * @param width 图像宽度
          * @param height 图像高度
          */
-        drawImage(imageResource: string, x: number, y: number, width: number, height: number,): void;
+        drawImage(imageResource: string, x: number, y: number, width: number, height: number): void;
 
         /**
          * 设置全局画笔透明度。
          *
          * @param alpha 透明度，0 表示完全透明，1 表示不透明 范围 [0, 1]
          */
-        setGlobalAlpha(alpha: number,): void;
+        setGlobalAlpha(alpha: number): void;
 
         /**
          * 设置虚线的样式
          *
          * @param segments 一组描述交替绘制线段和间距（坐标空间单位）长度的数字。 如果数组元素的数量是奇数， 数组的元素会被复制并重复。例如， [5, 15, 25] 会变成 [5, 15, 25, 5, 15, 25]。
          */
-        setLineDash(segments: number[],): void;
+        setLineDash(segments: number[]): void;
 
         /**
          * 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述。你可以缩放、旋转、移动和倾斜上下文。
@@ -920,21 +920,21 @@ declare namespace my {
          * 绘图上下文需要由 my.createCanvasContext(canvasId) 来创建。
          * @param [reserve] 本次绘制是否接着上一次绘制，即 reserve 参数为 false 时则在本次调用 drawCanvas绘制之前 native 层应先清空画布再继续绘制；若 reserver 参数为true 时，则保留当前画布上的内容，本次调用drawCanvas绘制的内容覆盖在上面，默认 false
          */
-        draw(reserve?: boolean,): void;
+        draw(reserve?: boolean): void;
 
-        measureText(text: string,): TextMetrics;
+        measureText(text: string): TextMetrics;
     }
     /**
      * 创建 canvas 绘图上下文
      *
      * 该绘图上下文只作用于对应 canvasId 的 <canvas/>
      */
-    function createCanvasContext(canvasId: string,): ConvasContext;
+    function createCanvasContext(canvasId: string): ConvasContext;
     // #endregion
 
     // #region 地图 https://docs.alipay.com/mini/api/ui-map
     interface GetCenterLocationOptions extends BaseOptions {
-        success?(res: { longitude: string; latitude: string },): void;
+        success?(res: { longitude: string; latitude: string }): void;
     }
 
     interface MapContext extends BaseOptions {
@@ -943,7 +943,7 @@ declare namespace my {
          *
          * @param options
          */
-        getCenterLocation(options: GetCenterLocationOptions,): void;
+        getCenterLocation(options: GetCenterLocationOptions): void;
         /**
          * 将地图中心移动到当前定位点，需要配合 map 组件的 show-location 使用
          */
@@ -956,7 +956,7 @@ declare namespace my {
      * @param mapId
      * @returns
      */
-    function createMapContext(mapId: string,): MapContext;
+    function createMapContext(mapId: string): MapContext;
 
     // #endregion
 
@@ -977,7 +977,7 @@ declare namespace my {
      *
      * @param options
      */
-    function pageScrollTo(options: PageScrollToOptions,): void;
+    function pageScrollTo(options: PageScrollToOptions): void;
     // #endregion
 
     // #region 节点查询 https://docs.alipay.com/mini/api/selector-query
@@ -1021,8 +1021,8 @@ declare namespace my {
          * 如果提供了callback回调函数，在执行selectQuery的exec方法后
          * 节点信息会在callback中返回。
          */
-        boundingClientRect<T extends NodesRefRect | NodesRefRect[],>(
-            callback?: (rect: T,) => void,
+        boundingClientRect<T extends NodesRefRect | NodesRefRect[]>(
+            callback?: (rect: T) => void,
         ): SelectorQuery;
         /**
          * 添加节点的滚动位置查询请求，以像素为单位。
@@ -1031,7 +1031,7 @@ declare namespace my {
          * 返回的节点信息中，每个节点的滚动位置用scrollLeft、scrollHeight字段描述。
          * 如果提供了callback回调函数，在执行selectQuery的exec方法后，节点信息会在callback中返回。
          */
-        scrollOffset(callback?: (rect: NodeRefOffset,) => void,): SelectorQuery;
+        scrollOffset(callback?: (rect: NodeRefOffset) => void): SelectorQuery;
         // /**
         //  * 获取节点的相关信息，需要获取的字段在fields中指定。
         //  * 返回值是nodesRef对应的selectorQuery。
@@ -1061,12 +1061,12 @@ declare namespace my {
          * + 跨自定义组件的后代选择器：.the-ancestor >>> .the-descendant
          * + 多选择器的并集：#a-node, .some-other-nodes
          */
-        select(selector: string,): NodesRef;
+        select(selector: string): NodesRef;
         /**
          * 在当前页面下选择匹配选择器selector的节点，返回一个NodesRef对象实例。
          * 与selectorQuery.selectNode(selector)不同的是，它选择所有匹配选择器的节点。
          */
-        selectAll(selector: string,): NodesRef;
+        selectAll(selector: string): NodesRef;
         /**
          * 选择显示区域，可用于获取显示区域的尺寸、滚动位置等信息
          * 返回一个NodesRef对象实例。
@@ -1076,7 +1076,7 @@ declare namespace my {
          * 执行所有的请求
          * 请求结果按请求次序构成数组，在callback的第一个参数中返回。
          */
-        exec(callback?: (result: any[],) => void,): void;
+        exec(callback?: (result: any[]) => void): void;
     }
     /**
      * 获取一个节点查询对象 SelectorQuery。
@@ -1084,7 +1084,7 @@ declare namespace my {
      * @param page 可以指定 page 属性，默认为当前页面
      * @returns
      */
-    function createSelectorQuery(page?: any,): SelectorQuery;
+    function createSelectorQuery(page?: any): SelectorQuery;
     // #endregion
 
     // #region 级联选择 https://docs.alipay.com/mini/api/ewdxl3
@@ -1100,10 +1100,10 @@ declare namespace my {
         success?(res: {
             success: boolean; // 是否选择完成,取消返回false
             result: MultiLevelSelectItem[]; // 选择的结果，如[{“name”:”杭州市”},{“name”:”上城区”},{“name”:”古翠街道”}]
-        },): void;
+        }): void;
     }
 
-    function multiLevelSelect(options?: MultiLevelSelectOptions,): void;
+    function multiLevelSelect(options?: MultiLevelSelectOptions): void;
     // #endregion
 }
 
@@ -1118,13 +1118,13 @@ declare namespace my {
                 [scope: string]: number;
             }; // 失败的授权类型，key是授权失败的 scope，value 是对应的错误码
             authSucessScope: string[]; // 成功的授权 scope
-        },): void;
+        }): void;
     }
     /**
      * 获取授权码。
      * 详细用户授权接入参考 [指引](https://docs.alipay.com/mini/introduce/auth)。
      */
-    function getAuthCode(options: GetAuthCodeOptions,): void;
+    function getAuthCode(options: GetAuthCodeOptions): void;
     // #endregion
 
     // #region 客户端获取会员信息 https://docs.alipay.com/mini/api/userinfo
@@ -1132,13 +1132,13 @@ declare namespace my {
         success?(res: {
             nickName: string; // 用户昵称
             avatar: string; // 用户头像链接
-        },): void;
+        }): void;
     }
     /**
      * 客户端获取会员信息
      * 获取会员信息首先需要获取用户授权，详细会员信息获取参考[指引](https://docs.alipay.com/mini/introduce/auth)，采用 jsapi 调用的方式。
      */
-    function getAuthUserInfo(options: GetAuthUserInfoOptions,): void;
+    function getAuthUserInfo(options: GetAuthUserInfoOptions): void;
     // #endregion
 
     // #region 小程序唤起支付 https://docs.alipay.com/mini/api/openapi-pay
@@ -1155,14 +1155,14 @@ declare namespace my {
             // 6004 | 支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
             // 99 | 用户点击忘记密码导致快捷界面退出(only iOS)
             resultCode: string;
-        },): void;
+        }): void;
     }
     /**
      * 发起支付。
      * 详细接入支付方式参考[指引](https://docs.alipay.com/mini/introduce/pay)。
      * @param options
      */
-    function tradePay(options: TradePayOptions,): void;
+    function tradePay(options: TradePayOptions): void;
     // #endregion
 
     // #region 支付代扣签约 https://docs.alipay.com/mini/api/pay-sign
@@ -1181,7 +1181,7 @@ declare namespace my {
      * 6001 | 用户中途取消
      * 6002 | 网络连接错误     * @param options
      */
-    function paySignCenter(options: PaySignCenterOptions,): void;
+    function paySignCenter(options: PaySignCenterOptions): void;
     // #endregion
 
     // #region 小程序二维码 https://docs.alipay.com/mini/api/openapi-qrcode
@@ -1204,7 +1204,7 @@ declare namespace my {
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      * @param options
      */
-    function openMerchantCardList(options: OpenMerchantCardList,): void;
+    function openMerchantCardList(options: OpenMerchantCardList): void;
 
     interface OpenCardDetailOptions extends BaseOptions {
         passId: string; // 卡实例Id
@@ -1219,7 +1219,7 @@ declare namespace my {
      * 2）通过会员卡创建的卡
      * 调用alipay.marketing.card.query(会员卡查询)接口，在schema_url中可获取，具体参数为“p=xxx”，xxx即为passId。
      */
-    function openCardDetail(options: OpenCardDetailOptions,): void;
+    function openCardDetail(options: OpenCardDetailOptions): void;
 
     /**
      * 打开支付宝券列表
@@ -1236,7 +1236,7 @@ declare namespace my {
      * 打开当前用户的某个商户的券列表
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
-    function openMerchantVoucherList(options: OpenMerchantVoucherListOptions,): void;
+    function openMerchantVoucherList(options: OpenMerchantVoucherListOptions): void;
 
     interface OpenVoucherDetailOptions1 extends BaseOptions {
         passId: string; // 券实例Id，调用券发放接口可以获取该参数（如果传入了partnerId和serialNumber则不需传入）
@@ -1249,7 +1249,7 @@ declare namespace my {
      * 打开当前用户的某张券的详情页（非口碑）
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
-    function openVoucherDetail(options: OpenVoucherDetailOptions1 | OpenVoucherDetailOptions2,): void;
+    function openVoucherDetail(options: OpenVoucherDetailOptions1 | OpenVoucherDetailOptions2): void;
 
     interface OpenKBVoucherDetailOptions1 extends BaseOptions {
         passId: string; // 卡实例Id（如果传入了partnerId和serialNumber则不需传入）
@@ -1262,7 +1262,7 @@ declare namespace my {
      * 打开当前用户的某张券的详情页（口碑）
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
-    function openKBVoucherDetail(options: OpenKBVoucherDetailOptions1 | OpenKBVoucherDetailOptions2,): void;
+    function openKBVoucherDetail(options: OpenKBVoucherDetailOptions1 | OpenKBVoucherDetailOptions2): void;
 
     /**
      * 打开支付宝票列表。
@@ -1277,7 +1277,7 @@ declare namespace my {
      * 打开某个商户的票列表
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
-    function openMerchantTicketList(options: OpenMerchantTicketListOptions,): void;
+    function openMerchantTicketList(options: OpenMerchantTicketListOptions): void;
 
     interface OpenTicketDetailOptions1 extends BaseOptions {
         passId: string; // 卡实例Id（如果传入了partnerId和serialNumber则不需要传入passId）
@@ -1291,7 +1291,7 @@ declare namespace my {
      *
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
-    function openTicketDetail(options: OpenTicketDetailOptions1 | OpenTicketDetailOptions2,): void;
+    function openTicketDetail(options: OpenTicketDetailOptions1 | OpenTicketDetailOptions2): void;
     // #endregion
 
     // #region 会员开卡授权 https://docs.alipay.com/mini/api/add-card-auth
@@ -1326,12 +1326,12 @@ declare namespace my {
          * 开卡授权的页面地址，从alipay.marketing.card.activateurl.apply接口获取
          */
         url: string;
-        success?(res: AddCardAuthResult,): void;
+        success?(res: AddCardAuthResult): void;
     }
     /**
      * 小程序唤起会员开卡授权页面，小程序接入会员卡[点此查看](https://docs.alipay.com/mini/introduce/card)
      */
-    function addCardAuth(options: AddCardAuthOptions,): void;
+    function addCardAuth(options: AddCardAuthOptions): void;
     // #endregion
 
     // #region 芝麻认证 https://docs.alipay.com/mini/api/zm-service
@@ -1341,14 +1341,14 @@ declare namespace my {
             token: string; // 认证标识
             passed: string; // 认证是否通过
             reason?: string | undefined; // 认证不通过原因
-        },): void;
+        }): void;
     }
     /**
      * 芝麻认证接口，调用此接口可以唤起芝麻认证页面并进行人脸身份验证。
      * 有关芝麻认证的产品和接入介绍，详见 [芝麻认证](https://docs.alipay.com/mini/introduce/zm-verify)。
      * 需要通过蚂蚁开发平台，调用certification.initialize接口进行[认证初始化](https://docs.alipay.com/zmxy/271/105914)。获得biz_no 后，方能通过以下接口激活芝麻认证小程序。
      */
-    function startZMVerify(options: StartZMVerifyOptions,): void;
+    function startZMVerify(options: StartZMVerifyOptions): void;
     // #endregion
 
     // #region 信用借还 https://docs.alipay.com/mini/api/zmcreditborrow
@@ -1506,9 +1506,9 @@ declare namespace my {
                 user_id: string;
                 callbackData: any; // todo only in example
             };
-        },): void;
+        }): void;
     }
-    function zmCreditBorrow(options: ZMCreditBorrowOptions,): void;
+    function zmCreditBorrow(options: ZMCreditBorrowOptions): void;
     // #endregion
 
     // #region 文本风险识别 https://docs.alipay.com/mini/api/text-identification
@@ -1546,13 +1546,13 @@ declare namespace my {
                  * 识别错误消息
                  */
                 errorMessage: string;
-            },): void;
-        },): void;
+            }): void;
+        }): void;
     }
     /**
      * 文本风险识别， **支付宝客户端10.1.10及以上版本支持。**详细接入参考[指引](https://docs.alipay.com/mini/introduce/text-identification)
      */
-    function textRiskIdentification(options: TextRiskIdentificationOptions,): void;
+    function textRiskIdentification(options: TextRiskIdentificationOptions): void;
     // #endregion
 
     // #region 小程序跳转 https://docs.alipay.com/mini/api/open-miniprogram
@@ -1578,7 +1578,7 @@ declare namespace my {
      * 跳转到其他小程序。详细接入参考[指引](https://docs.alipay.com/mini/introduce/open-miniprogram)
      * @param options
      */
-    function navigateToMiniProgram(options: NavigateToMiniProgramOptions,): void;
+    function navigateToMiniProgram(options: NavigateToMiniProgramOptions): void;
     interface NavigateBackMiniProgramOptions extends BaseOptions {
         /**
          * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据
@@ -1588,19 +1588,19 @@ declare namespace my {
     /**
      * 跳转回上一个小程序，只有当另一个小程序跳转到当前小程序时才会能调用成功
      */
-    function navigateBackMiniProgram(options: NavigateBackMiniProgramOptions,): void;
+    function navigateBackMiniProgram(options: NavigateBackMiniProgramOptions): void;
     // #endregion
 
     // #region webview组件控制 https://docs.alipay.com/mini/api/webview-context
     interface WebViewContext {
-        postMessage(param: any,): void;
+        postMessage(param: any): void;
     }
     /**
      * 创建并返回 web-view 上下文 webViewContext 对象。
      *
      * @param webviewId 要创建的web-view所对应的id属性
      */
-    function createWebViewContext(webviewId: string,): WebViewContext;
+    function createWebViewContext(webviewId: string): WebViewContext;
     // #endregion
 }
 
@@ -1619,12 +1619,12 @@ declare namespace my {
              * 图片文件描述
              */
             apFilePaths: string[];
-        },): void;
+        }): void;
     }
     /**
      * 从本地相册选择图片或使用相机拍照。
      */
-    function chooseImage(options: Partial<ChooseImageOptions>,): void;
+    function chooseImage(options: Partial<ChooseImageOptions>): void;
 
     interface GenerateImageFromCodeOptions extends BaseOptions {
         code: string;
@@ -1634,14 +1634,14 @@ declare namespace my {
          * @defaultValue 'H'
          */
         correctLevel?: 'L' | 'M' | 'Q' | 'H';
-        success?(res: { image: string },): void;
+        success?(res: { image: string }): void;
     }
 
     /**
      * 生成二维码，由客户端生成，速度快且不耗流量。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.generateimagefromcode)
      * @param options
      */
-    function generateImageFromCode(options: GenerateImageFromCodeOptions,): void;
+    function generateImageFromCode(options: GenerateImageFromCodeOptions): void;
 
     interface PreviewImageOptions extends BaseOptions {
         /** 当当前显示图片索引，默认 0 */
@@ -1652,34 +1652,34 @@ declare namespace my {
     /**
      * 预览图片。
      */
-    function previewImage(options: PreviewImageOptions,): void;
+    function previewImage(options: PreviewImageOptions): void;
 
     interface SaveImageOptions extends BaseOptions {
         /**
          * 要保存的图片链接
          */
         url: string;
-        success?(res: { errMsg: string },): void;
+        success?(res: { errMsg: string }): void;
     }
     /**
      * @deprecated
      * 保存在线图片到手机相册。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.saveimage)
      */
-    function saveImage(options: SaveImageOptions,): void;
+    function saveImage(options: SaveImageOptions): void;
 
     interface SaveImageToPhotosAlbumOptions extends BaseOptions {
         /**
          * 要保存的图片链接
          */
         filePath: string;
-        success?(res: { errMsg: string },): void;
+        success?(res: { errMsg: string }): void;
     }
 
     /**
      * 保存在线图片到手机相册。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.saveImagetophotosalbum)
      * @param options
      */
-    function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions,): void;
+    function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
 
     interface CompressImageOptions extends BaseOptions {
         /**
@@ -1703,12 +1703,12 @@ declare namespace my {
              * 压缩后的路径数组
              */
             apFilePaths: string[];
-        },): void;
+        }): void;
     }
     /**
      * 压缩图片。扫码体验：
      */
-    function compressImage(options: CompressImageOptions,): void;
+    function compressImage(options: CompressImageOptions): void;
 
     interface GetImageInfoOptions extends BaseOptions {
         /**
@@ -1732,12 +1732,12 @@ declare namespace my {
                 | 'lright-mirrored'
                 | 'left';
             type: 'png' | 'jpg' | 'gif' | 'webp' | 'hevc' | 'bmp' | 'heic';
-        },): void;
+        }): void;
     }
     /**
      * 获取图片信息。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo)
      */
-    function getImageInfo(options: GetImageInfoOptions,): void;
+    function getImageInfo(options: GetImageInfoOptions): void;
     // #endregion
 }
 
@@ -1754,7 +1754,7 @@ declare namespace my {
      * 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的数据。
      * 这是异步接口。
      */
-    function setStorage(options: SetStorageOptions,): void;
+    function setStorage(options: SetStorageOptions): void;
 
     /**
      * 同步将数据存储在本地缓存中指定的 key 中。
@@ -1763,25 +1763,25 @@ declare namespace my {
      * @param key 本地缓存中的指定的 key
      * @param data 需要存储的内容
      */
-    function setStorageSync(options: { key: string; data: any },): void;
+    function setStorageSync(options: { key: string; data: any }): void;
 
     interface GetStorageOptions extends BaseOptions {
         /** 本地缓存中的指定的 key */
         key: string;
         /** 接口调用的回调函数,res = {data: key对应的内容} */
-        success(res: DataResponse,): void;
+        success(res: DataResponse): void;
     }
     /**
      * 获取缓存数据。
      * 这是异步接口。
      */
-    function getStorage(options: GetStorageOptions,): void;
+    function getStorage(options: GetStorageOptions): void;
 
     /**
      * 同步获取缓存数据。
      * 这是同步接口
      */
-    function getStorageSync(options: { key: string },): any;
+    function getStorageSync(options: { key: string }): any;
 
     interface RemoveStorageOptions extends BaseOptions {
         key: string;
@@ -1790,14 +1790,14 @@ declare namespace my {
      * 删除缓存数据。
      * 这是异步接口。
      */
-    function removeStorage(options: RemoveStorageOptions,): void;
+    function removeStorage(options: RemoveStorageOptions): void;
 
     /**
      * 同步删除缓存数据。
      * 这是同步接口。
      * @param key 缓存数据的key
      */
-    function removeStorageSync(options: { key: string },): void;
+    function removeStorageSync(options: { key: string }): void;
 
     /**
      * 清除本地数据缓存。
@@ -1826,12 +1826,12 @@ declare namespace my {
         limitSize: number;
     }
     interface GetStorageInfoOptions extends BaseOptions {
-        success(res: StorageInfo,): void;
+        success(res: StorageInfo): void;
     }
     /**
      * 异步获取当前storage的相关信息
      */
-    function getStorageInfo(options: GetStorageInfoOptions,): void;
+    function getStorageInfo(options: GetStorageInfoOptions): void;
 
     function getStorageInfoSync(): StorageInfo;
     // #endregion
@@ -1847,12 +1847,12 @@ declare namespace my {
     interface SaveFileOptions extends BaseOptions {
         /** 文件路径 */
         apFilePath: string;
-        success?(res: SavedFileData,): void;
+        success?(res: SavedFileData): void;
     }
     /**
      * 保存文件到本地（本地文件大小总容量限制：10M）
      */
-    function saveFile(options: SaveFileOptions,): void;
+    function saveFile(options: SaveFileOptions): void;
 
     interface GetFileInfoSuccess {
         /** 文件大小，单位：B */
@@ -1865,13 +1865,13 @@ declare namespace my {
         apFilePath: string;
         /** 摘要算法，支持md5和sha1，默认为md5 */
         digestAlgorithm?: 'md5' | 'sha1' | undefined;
-        success?(options: GetFileInfoSuccess,): void;
+        success?(options: GetFileInfoSuccess): void;
     }
     /**
      *  获取文件信息
      * 基础库版本 1.4.0 开始支持，低版本需做兼容处理
      */
-    function getFileInfo(options: GetFileInfoOptions,): void;
+    function getFileInfo(options: GetFileInfoOptions): void;
 
     interface SavedFileInfoData {
         /**
@@ -1887,12 +1887,12 @@ declare namespace my {
         /** 文件路径 */
         apFilePath: string;
         /** 接口调用成功的回调函数 */
-        success?(res: SavedFileInfoData,): void;
+        success?(res: SavedFileInfoData): void;
     }
     /**
      * 获取保存的文件信息
      */
-    function getSavedFileInfo(options: GetSavedFileInfoOptions,): void;
+    function getSavedFileInfo(options: GetSavedFileInfoOptions): void;
 
     interface GetSavedFileListOptions extends BaseOptions {
         success?(res: {
@@ -1904,15 +1904,15 @@ declare namespace my {
                 /** 文件路径 */
                 apFilePath: string;
             }>;
-        },): void;
+        }): void;
     }
-    function getSavedFileList(options: GetSavedFileListOptions,): void;
+    function getSavedFileList(options: GetSavedFileListOptions): void;
 
     type RemoveSavedFileOptions = GetSavedFileInfoOptions;
     /**
      * 删除某个保存的文件
      */
-    function removeSavedFile(options: RemoveSavedFileOptions,): void;
+    function removeSavedFile(options: RemoveSavedFileOptions): void;
     // #endregion
 }
 
@@ -1988,12 +1988,12 @@ declare namespace my {
          */
         type: 0 | 1 | 2 | 3;
         /** 接口调用成功的回调函数，返回内容详见返回参数说明。 */
-        success(res: LocationData,): void;
+        success(res: LocationData): void;
     }
     /**
      * 获取用户当前的地理位置信息
      */
-    function getLocation(options: Partial<GetLocationOptions>,): void;
+    function getLocation(options: Partial<GetLocationOptions>): void;
 
     interface OpenLocationOptions extends BaseOptions {
         /** 经度 */
@@ -2010,7 +2010,7 @@ declare namespace my {
     /**
      * 使用微信内置地图查看位置
      */
-    function openLocation(options: OpenLocationOptions,): void;
+    function openLocation(options: OpenLocationOptions): void;
 
     interface ChooseLocationData {
         /**
@@ -2031,12 +2031,12 @@ declare namespace my {
         longitude: number;
     }
     interface ChooseLocationOptions extends BaseOptions {
-        success(res: ChooseLocationData,): void;
+        success(res: ChooseLocationData): void;
     }
     /**
      * 使用支付宝内置地图选择地理位置。
      */
-    function chooseLocation(options: ChooseLocationOptions,): void;
+    function chooseLocation(options: ChooseLocationOptions): void;
     // #endregion
 }
 
@@ -2062,9 +2062,9 @@ declare namespace my {
         /** 期望返回的数据格式，默认json，支持json，text，base64 */
         dataType?: 'json' | 'text' | 'base64' | undefined;
         /** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
-        success?(res: DataResponse,): void;
+        success?(res: DataResponse): void;
     }
-    function httpRequest(options: RequestOptions,): void;
+    function httpRequest(options: RequestOptions): void;
 
     interface UploadFileOptions extends BaseOptions {
         /** 开发者服务器地址 */
@@ -2087,12 +2087,12 @@ declare namespace my {
             /** HTTP 状态码 */
             statusCode: string;
             header: any;
-        },): void;
+        }): void;
     }
     /**
      * 上传本地资源到开发者服务器。
      */
-    function uploadFile(options: UploadFileOptions,): void;
+    function uploadFile(options: UploadFileOptions): void;
 
     interface DownloadFileOptions extends BaseOptions {
         /** 下载文件地址 */
@@ -2100,12 +2100,12 @@ declare namespace my {
         /** HTTP 请求 Header */
         header?: RequestHeader | undefined;
         /** 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'} */
-        success?(res: TempFileResponse,): void;
+        success?(res: TempFileResponse): void;
     }
     /**
      * 下载文件资源到本地。
      */
-    function downloadFile(options: DownloadFileOptions,): void;
+    function downloadFile(options: DownloadFileOptions): void;
 
     interface ConnectSocketOptions extends BaseOptions {
         /** 目标服务器url */
@@ -2120,32 +2120,32 @@ declare namespace my {
      * 创建一个 WebSocket 的连接；
      * 一个支付宝小程序同时只能保留一个 WebSocket 连接，如果当前已存在 WebSocket 连接，会自动关闭该连接，并重新创建一个新的 WebSocket 连接。
      */
-    function connectSocket(options: ConnectSocketOptions,): void;
+    function connectSocket(options: ConnectSocketOptions): void;
 
     /**
      * 监听WebSocket连接打开事件。
      */
-    function onSocketOpen(callback: () => void,): void;
+    function onSocketOpen(callback: () => void): void;
 
     /**
      * 监听WebSocket关闭。
      */
-    function onSocketClose(callback: () => void,): void;
+    function onSocketClose(callback: () => void): void;
 
     /**
      * 取消监听WebSocket连接打开事件。
      */
-    function offSocketOpen(callback: () => void,): void;
+    function offSocketOpen(callback: () => void): void;
 
     /**
      * 监听WebSocket错误。
      */
-    function onSocketError(callback: (error: any,) => void,): void;
+    function onSocketError(callback: (error: any) => void): void;
 
     /**
      * 取消监听WebSocket错误。
      */
-    function offSocketError(callback: (error: any,) => void,): void;
+    function offSocketError(callback: (error: any) => void): void;
 
     interface SendSocketMessageOptions extends BaseOptions {
         /**
@@ -2160,7 +2160,7 @@ declare namespace my {
     /**
      * 通过 WebSocket 连接发送数据，需要先使用 my.connectSocket 发起建连，并在 my.onSocketOpen 回调之后再发送数据。
      */
-    function sendSocketMessage(options: SendSocketMessageOptions,): void;
+    function sendSocketMessage(options: SendSocketMessageOptions): void;
 
     /**
      * 监听WebSocket接受到服务器的消息事件。
@@ -2175,22 +2175,22 @@ declare namespace my {
              * 如果需要发送二进制数据，需要将入参数据经 base64 编码成 String 后赋值 data，同时将此字段设置为true，否则如果是普通的文本内容 String，不需要设置此字段
              */
             isBuffer?: boolean | undefined;
-        },) => void,
+        }) => void,
     ): void;
-    function offSocketMessage(callback: (error: any,) => void,): void;
+    function offSocketMessage(callback: (error: any) => void): void;
 
     interface CloseSocketOptions extends BaseOptions {
-        success?(res: any,): void;
+        success?(res: any): void;
     }
     /**
      * 监听WebSocket关闭。
      */
-    function closeSocket(options?: CloseSocketOptions,): void;
+    function closeSocket(options?: CloseSocketOptions): void;
 
     /**
      * 取消监听WebSocket关闭。
      */
-    function offSocketClose(callback: (error: any,) => void,): void;
+    function offSocketClose(callback: (error: any) => void): void;
     // #endregion
 }
 
@@ -2208,7 +2208,7 @@ declare namespace my {
      * - attribute 表示组件属性名
      * - option 表示组件属性值
      */
-    function canIUse(api: string,): boolean;
+    function canIUse(api: string): boolean;
     // #endregion
 
     // #region 获取基础库版本号 https://docs.alipay.com/mini/api/sdk-version
@@ -2278,9 +2278,9 @@ declare namespace my {
         app: 'alipay' | string;
     }
     interface GetSystemInfoOptions extends BaseOptions {
-        success?(res: SystemInfo,): void;
+        success?(res: SystemInfo): void;
     }
-    function getSystemInfo(options: GetSystemInfoOptions,): void;
+    function getSystemInfo(options: GetSystemInfoOptions): void;
     function getSystemInfoSync(): SystemInfo;
     // #endregion
 
@@ -2291,10 +2291,10 @@ declare namespace my {
             networkAvailable: boolean;
             /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
             networkType: NetworkType;
-        },): void;
+        }): void;
     }
     type NetworkType = 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
-    function getNetworkType(options: GetNetworkTypeOptions,): void;
+    function getNetworkType(options: GetNetworkTypeOptions): void;
 
     /**
      * 开始网络状态变化的监听
@@ -2305,7 +2305,7 @@ declare namespace my {
             isConnected: boolean;
             /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
             networkType: NetworkType;
-        },) => void,
+        }) => void,
     ): void;
 
     /**
@@ -2318,36 +2318,36 @@ declare namespace my {
     interface GetClipboardOptions extends BaseOptions {
         success?(res: {
             text: string;
-        },): void;
+        }): void;
     }
-    function getClipboard(options: GetClipboardOptions,): void;
+    function getClipboard(options: GetClipboardOptions): void;
 
     interface SetClipboardOptions extends BaseOptions {
         /** 剪贴板数据 */
         text: string;
     }
-    function setClipboard(options: SetClipboardOptions,): void;
+    function setClipboard(options: SetClipboardOptions): void;
     // #endregion
 
     // #region 摇一摇 https://docs.alipay.com/mini/api/shake
-    function watchShake(options: BaseOptions,): void;
+    function watchShake(options: BaseOptions): void;
     // #endregion
 
     // #region 震动 https://docs.alipay.com/mini/api/vibrate
     /**
      * 调用震动功能。
      */
-    function vibrate(options?: BaseOptions,): void;
+    function vibrate(options?: BaseOptions): void;
 
     /**
      * 调用震动功能。
      */
-    function vibrateLong(options?: BaseOptions,): void;
+    function vibrateLong(options?: BaseOptions): void;
 
     /**
      * 调用震动功能。
      */
-    function vibrateShort(options?: BaseOptions,): void;
+    function vibrateShort(options?: BaseOptions): void;
     // #endregion
 
     // #region 拨打电话 https://docs.alipay.com/mini/api/macke-call
@@ -2360,7 +2360,7 @@ declare namespace my {
     /**
      * 拨打电话
      */
-    function makePhoneCall(options: MakePhoneCallOptions,): void;
+    function makePhoneCall(options: MakePhoneCallOptions): void;
     // #endregion
 
     // #region 获取服务器时间 https://docs.alipay.com/mini/api/get-server-time
@@ -2368,16 +2368,16 @@ declare namespace my {
         success?(res: {
             /** 服务器时间的毫秒数 */
             time: number;
-        },): void;
+        }): void;
     }
-    function getServerTime(options: GetServerTimeOptions,): void;
+    function getServerTime(options: GetServerTimeOptions): void;
     // #endregion
 
     // #region 用户截屏事件 https://docs.alipay.com/mini/api/user-capture-screen
     /**
      * 监听用户主动截屏事件，用户使用系统截屏按键截屏时触发此事件
      */
-    function onUserCaptureScreen(callback?: (res: any,) => void,): void;
+    function onUserCaptureScreen(callback?: (res: any) => void): void;
 
     /**
      * 取消监听截屏事件。一般需要与 my.onUserCaptureScreen 成对出现。
@@ -2389,22 +2389,22 @@ declare namespace my {
     interface SetKeepScreenOnOptions extends BaseOptions {
         /** 是否保持屏幕常亮 */
         keepScreenOn: boolean;
-        success?(res: { errMsg: string },): void;
+        success?(res: { errMsg: string }): void;
     }
     /**
      * 设置是否保持常亮状态。
      * 仅在当前小程序生效，离开小程序后设置失效。
      */
-    function setKeepScreenOn(options?: SetKeepScreenOnOptions,): void;
+    function setKeepScreenOn(options?: SetKeepScreenOnOptions): void;
 
     interface GetScreenBrightnessOptions extends BaseOptions {
         /** 屏幕亮度值，范围 0~1，0 最暗，1 最亮 */
-        success(value: number,): void;
+        success(value: number): void;
     }
     /**
      * 获取屏幕亮度
      */
-    function getScreenBrightness(options?: GetScreenBrightnessOptions,): void;
+    function getScreenBrightness(options?: GetScreenBrightnessOptions): void;
 
     interface SetScreenBrightnessOptions extends BaseOptions {
         /** 需要设置的屏幕亮度，取值范围0-1 */
@@ -2413,7 +2413,7 @@ declare namespace my {
     /**
      * 设置屏幕亮度
      */
-    function setScreenBrightness(options: SetScreenBrightnessOptions,): void;
+    function setScreenBrightness(options: SetScreenBrightnessOptions): void;
     // #endregion
 
     // #region 权限引导 https://docs.alipay.com/mini/api/show-auth-guide
@@ -2446,7 +2446,7 @@ declare namespace my {
             | 'LBSSERVICE'
             | 'LBS';
     }
-    function showAuthGuide(options: showAuthGuideOptions,): void;
+    function showAuthGuide(options: showAuthGuideOptions): void;
     // #endregion
 }
 
@@ -2479,12 +2479,12 @@ declare namespace my {
          * 是否隐藏相册（不允许从相册选择图片），只能从相机扫码
          */
         hideAlbum?: boolean | undefined;
-        success?(res: ScanCodeData,): void;
+        success?(res: ScanCodeData): void;
     }
     /**
      * 调起客户端扫码界面，扫码成功后返回对应的结果
      */
-    function scan(options: ScanOptions,): void;
+    function scan(options: ScanOptions): void;
     // #endregion
 }
 
@@ -2502,20 +2502,20 @@ declare namespace my {
              * 是否支持 BLE
              */
             isSupportBLE: boolean;
-        },): void;
+        }): void;
     }
     /**
      * 初始化小程序蓝牙模块，生效周期为调用 my.openBluetoothAdapter 至调用 my.closeBluetoothAdapter 或小程序被销毁为止。 在小程序蓝牙适配器模块生效期间，开发者可以正常调用下面的小程序API，并会收到蓝牙模块相关的 on 事件回调。
      */
-    function openBluetoothAdapter(options: Partial<OpenBluetoothAdapterOptions>,): void;
+    function openBluetoothAdapter(options: Partial<OpenBluetoothAdapterOptions>): void;
 
     interface CloseBluetoothAdapterOptions extends BaseOptions {
-        success(res: any,): void;
+        success(res: any): void;
     }
     /**
      * 关闭本机蓝牙模块
      */
-    function closeBluetoothAdapter(options: CloseBluetoothAdapterOptions,): void;
+    function closeBluetoothAdapter(options: CloseBluetoothAdapterOptions): void;
 
     interface BluetoothAdapterStateData extends ErrMsgResponse {
         /**
@@ -2528,12 +2528,12 @@ declare namespace my {
         available: boolean;
     }
     interface GetBluetoothAdapterStateOptions extends BaseOptions {
-        success(res: BluetoothAdapterStateData,): void;
+        success(res: BluetoothAdapterStateData): void;
     }
     /**
      * 获取本机蓝牙适配器状态
      */
-    function getBluetoothAdapterState(options: GetBluetoothAdapterStateOptions,): void;
+    function getBluetoothAdapterState(options: GetBluetoothAdapterStateOptions): void;
 
     interface StartBluetoothDevicesDiscoveryOptions extends BaseOptions {
         /**
@@ -2553,15 +2553,15 @@ declare namespace my {
     /**
      * 开始搜寻附近的蓝牙外围设备。搜索结果将在 my.onBluetoothDeviceFound 事件中返回。
      */
-    function startBluetoothDevicesDiscovery(options: StartBluetoothDevicesDiscoveryOptions,): void;
+    function startBluetoothDevicesDiscovery(options: StartBluetoothDevicesDiscoveryOptions): void;
 
     interface StopBluetoothDevicesDiscoveryOptions extends BaseOptions {
-        success(res: ErrMsgResponse,): void;
+        success(res: ErrMsgResponse): void;
     }
     /**
      * 停止搜寻附近的蓝牙外围设备。请在确保找到需要连接的设备后调用该方法停止搜索。
      */
-    function stopBluetoothDevicesDiscovery(options: StopBluetoothDevicesDiscoveryOptions,): void;
+    function stopBluetoothDevicesDiscovery(options: StopBluetoothDevicesDiscoveryOptions): void;
 
     /**
      * 蓝牙设备信息
@@ -2606,7 +2606,7 @@ declare namespace my {
     /**
      * 获取所有已发现的蓝牙设备，包括已经和本机处于连接状态的设备。
      */
-    function getBluetoothDevices(options: GetBluetoothDevicesOptions,): void;
+    function getBluetoothDevices(options: GetBluetoothDevicesOptions): void;
 
     interface GetConnectedBluetoothDevicesOptions extends BaseOptions {
         services?: string[] | undefined;
@@ -2619,7 +2619,7 @@ declare namespace my {
     /**
      * 获取处于已连接状态的设备。
      */
-    function getConnectedBluetoothDevices(options: GetConnectedBluetoothDevicesOptions,): void;
+    function getConnectedBluetoothDevices(options: GetConnectedBluetoothDevicesOptions): void;
 
     interface BLEDeviceOptions extends BaseOptions {
         /**
@@ -2630,12 +2630,12 @@ declare namespace my {
     /**
      * 连接低功耗蓝牙设备。
      */
-    function connectBLEDevice(options: BLEDeviceOptions,): void;
+    function connectBLEDevice(options: BLEDeviceOptions): void;
 
     /**
      * 断开与低功耗蓝牙设备的连接。
      */
-    function disconnectBLEDevice(options: BLEDeviceOptions,): void;
+    function disconnectBLEDevice(options: BLEDeviceOptions): void;
 
     interface WriteBLECharacteristicValueOptions extends BaseOptions {
         /**
@@ -2698,7 +2698,7 @@ declare namespace my {
     /**
      * 读取低功耗蓝牙设备特征值中的数据。调用后在 my.onBLECharacteristicValueChange() 事件中接收数据返回。
      */
-    function readBLECharacteristicValue(options: ReadBLECharacteristicValueOptions,): void;
+    function readBLECharacteristicValue(options: ReadBLECharacteristicValueOptions): void;
 
     interface NotifyBLECharacteristicValueChangeOptions extends BaseOptions {
         /**
@@ -2722,7 +2722,7 @@ declare namespace my {
          */
         state?: boolean | undefined;
     }
-    function notifyBLECharacteristicValueChange(optons: NotifyBLECharacteristicValueChangeOptions,): void;
+    function notifyBLECharacteristicValueChange(optons: NotifyBLECharacteristicValueChangeOptions): void;
 
     interface NotifyBLECharacteristicValueChangedOptions extends BaseOptions {
         /**
@@ -2745,12 +2745,12 @@ declare namespace my {
          * true: 启用 notify; false: 停用 notify
          */
         state: boolean;
-        success(res: ErrMsgResponse,): void;
+        success(res: ErrMsgResponse): void;
     }
     /**
      * 启用低功耗蓝牙设备特征值变化时的 notify 功能。注意：设备的特征值必须支持 notify/indicate 才可以成功调用，具体参照 characteristic 的 properties 属性 另外，必须先启用 notify 才能监听到设备 characteristicValueChange 事件。
      */
-    function notifyBLECharacteristicValueChanged(options: NotifyBLECharacteristicValueChangedOptions,): void;
+    function notifyBLECharacteristicValueChanged(options: NotifyBLECharacteristicValueChangedOptions): void;
 
     interface GetBLEDeviceServicesOptions extends BaseOptions {
         /**
@@ -2778,7 +2778,7 @@ declare namespace my {
     /**
      * 获取蓝牙设备所有 service（服务）
      */
-    function getBLEDeviceServices(options: GetBLEDeviceServicesOptions,): void;
+    function getBLEDeviceServices(options: GetBLEDeviceServicesOptions): void;
 
     interface GetBLEDeviceCharacteristicsOptions extends BaseOptions {
         /**
@@ -2835,22 +2835,22 @@ declare namespace my {
     /**
      * 获取蓝牙设备所有 characteristic（特征值）
      */
-    function getBLEDeviceCharacteristics(options: GetBLEDeviceCharacteristicsOptions,): void;
+    function getBLEDeviceCharacteristics(options: GetBLEDeviceCharacteristicsOptions): void;
 
     interface OnBluetoothDeviceFoundOptions extends BaseOptions {
         success?(res: {
             devices: BluetoothDevice[];
-        },): void;
+        }): void;
     }
     /**
      * 搜索到新的蓝牙设备时触发此事件。
      */
-    function onBluetoothDeviceFound(options: OnBluetoothDeviceFoundOptions,): void;
+    function onBluetoothDeviceFound(options: OnBluetoothDeviceFoundOptions): void;
 
     /**
      * 移除寻找到新的蓝牙设备事件的监听。
      */
-    function offBluetoothDeviceFound(callback?: any,): void;
+    function offBluetoothDeviceFound(callback?: any): void;
 
     interface OnBLECharacteristicValueChangeOptions extends BaseOptions {
         success?(res: {
@@ -2870,12 +2870,12 @@ declare namespace my {
              * 特征值最新的16进制值
              */
             value: ArrayBuffer;
-        },): void;
+        }): void;
     }
     /**
      * 监听低功耗蓝牙设备的特征值变化的事件。
      */
-    function onBLECharacteristicValueChange(options: OnBLECharacteristicValueChangeOptions,): void;
+    function onBLECharacteristicValueChange(options: OnBLECharacteristicValueChangeOptions): void;
 
     interface OnBLEConnectionStateChangedOptions extends BaseOptions {
         success?(res: {
@@ -2887,17 +2887,17 @@ declare namespace my {
              * 连接目前的状态
              */
             connected: boolean;
-        },): void;
+        }): void;
     }
     /**
      * 移除低功耗蓝牙设备的特征值变化事件的监听。
      */
-    function offBLECharacteristicValueChange(callback?: any,): void;
+    function offBLECharacteristicValueChange(callback?: any): void;
 
     /**
      * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等。
      */
-    function onBLEConnectionStateChanged(options: OnBLEConnectionStateChangedOptions,): void;
+    function onBLEConnectionStateChanged(options: OnBLEConnectionStateChangedOptions): void;
 
     /**
      * 移除低功耗蓝牙连接状态变化事件的监听。
@@ -2917,7 +2917,7 @@ declare namespace my {
     /**
      * 监听本机蓝牙状态变化的事件。
      */
-    function onBluetoothAdapterStateChange(callback: (res: BluetoothAdapterState,) => void,): void;
+    function onBluetoothAdapterStateChange(callback: (res: BluetoothAdapterState) => void): void;
 
     /**
      * 移除本机蓝牙状态变化的事件的监听。
@@ -2934,20 +2934,20 @@ declare namespace my {
          * iBeacon设备广播的 uuids
          */
         uuids: string[];
-        success?(res: ErrMsgResponse,): void;
+        success?(res: ErrMsgResponse): void;
     }
     /**
      * 开始搜索附近的iBeacon设备
      */
-    function startBeaconDiscovery(options: StartBeaconDiscoveryOptions,): void;
+    function startBeaconDiscovery(options: StartBeaconDiscoveryOptions): void;
 
     interface StopBeaconDiscoveryOptions extends BaseOptions {
-        success?(res: ErrMsgResponse,): void;
+        success?(res: ErrMsgResponse): void;
     }
     /**
      * 停止搜索附近的iBeacon设备
      */
-    function stopBeaconDiscovery(options: StopBeaconDiscoveryOptions,): void;
+    function stopBeaconDiscovery(options: StopBeaconDiscoveryOptions): void;
 
     interface Beacon {
         /** iBeacon 设备广播的 uuid */
@@ -2975,22 +2975,22 @@ declare namespace my {
         errMsg: string;
     }
     interface GetBeaconsOptions extends BaseOptions {
-        success?(options: GetBeaconsSuccess,): void;
+        success?(options: GetBeaconsSuccess): void;
     }
     /**
      * 获取所有已搜索到的iBeacon设备
      */
-    function getBeacons(options: GetBeaconsOptions,): void;
+    function getBeacons(options: GetBeaconsOptions): void;
 
     interface BeaconUpdateOptions extends BaseOptions {
         success?(res: {
             beacons: Beacon[];
-        },): void;
+        }): void;
     }
     /**
      * 监听 iBeacon 设备的更新事件
      */
-    function onBeaconUpdate(options: BeaconUpdateOptions,): void;
+    function onBeaconUpdate(options: BeaconUpdateOptions): void;
 
     interface BeaconServiceChangeOptions extends BaseOptions {
         success?(res: {
@@ -3002,12 +3002,12 @@ declare namespace my {
              * 目前是否处于搜索状态
              */
             discovering: boolean;
-        },): void;
+        }): void;
     }
     /**
      * 监听 iBeacon 服务的状态变化
      */
-    function onBeaconServiceChange(options: BeaconServiceChangeOptions,): void;
+    function onBeaconServiceChange(options: BeaconServiceChangeOptions): void;
     // #endregion
 }
 
@@ -3032,12 +3032,12 @@ declare namespace my {
              * 经过处理过后得到的文本，加密为Base64编码文本，解密为原始文本
              */
             text: string;
-        },): void;
+        }): void;
     }
     /**
      * 非对称加密。
      */
-    function rsa(options: RsaOptions,): void;
+    function rsa(options: RsaOptions): void;
     // #endregion
 }
 
@@ -3056,12 +3056,12 @@ declare namespace my {
      * @param eventName 自定义事件名，需申请
      * @param data 上报的数据
      */
-    function reportAnalytics(eventName: string, data: any,): void;
+    function reportAnalytics(eventName: string, data: any): void;
 
     /**
      * 隐藏分享按钮。
      */
-    function hideShareMenu(options?: BaseOptions,): void;
+    function hideShareMenu(options?: BaseOptions): void;
     // #endregion
 }
 
@@ -3103,29 +3103,29 @@ declare namespace my {
          * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
          * 生命周期函数
          */
-        onLaunch?: ((this: App, option: LaunchOptions,) => void) | undefined;
+        onLaunch?: ((this: App, option: LaunchOptions) => void) | undefined;
         /**
          * 监听小程序显示。
          * 当小程序启动，或从后台进入前台显示，会触发 onShow
          * 生命周期函数
          */
-        onShow?: ((this: App, option: LaunchOptions,) => void) | undefined;
+        onShow?: ((this: App, option: LaunchOptions) => void) | undefined;
         /**
          * 监听小程序隐藏。
          * 当小程序从前台进入后台，会触发 onHide
          * 生命周期函数
          */
-        onHide?: ((this: App,) => void) | undefined;
+        onHide?: ((this: App) => void) | undefined;
         /**
          * 错误监听函数
          * 当小程序发生脚本错误或者 api 调用失败时
          * 会触发 onError 并带上错误信息
          */
-        onError?: ((this: App, msg: string,) => void) | undefined;
+        onError?: ((this: App, msg: string) => void) | undefined;
         /**
          * 小程序退出时触发
          */
-        onUnlaunch?: ((this: App,) => void) | undefined;
+        onUnlaunch?: ((this: App) => void) | undefined;
         /**
          * 全局Data
          */
@@ -3133,7 +3133,7 @@ declare namespace my {
         [key: string]: any;
     }
     interface CreateIntersectionObserverOption {
-        thresholds?: [number, number,] | undefined;
+        thresholds?: [number, number] | undefined;
         initialRatio?: number | undefined;
         selectAll?: boolean | undefined;
     }
@@ -3154,11 +3154,11 @@ declare namespace my {
         relativeRect: RectArea;
     }
     interface IntersectionObserver {
-        relativeTo(selector?: string, margins?: Margins,): IntersectionObserver;
-        relativeToViewport(margins?: Margins,): IntersectionObserver;
+        relativeTo(selector?: string, margins?: Margins): IntersectionObserver;
+        relativeToViewport(margins?: Margins): IntersectionObserver;
         observe(
             selector?: string,
-            callback?: (response: ObserveResponse,) => void,
+            callback?: (response: ObserveResponse) => void,
         ): IntersectionObserver;
         disconnect(): void;
     }
@@ -3168,11 +3168,11 @@ declare namespace my {
         /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
         target?: string | undefined;
         /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-        linked?: ((target: Component,) => void) | undefined;
+        linked?: ((target: Component) => void) | undefined;
         /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-        linkChanged?: ((target: Component,) => void) | undefined;
+        linkChanged?: ((target: Component) => void) | undefined;
         /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-        unlinked?: ((target: Component,) => void) | undefined;
+        unlinked?: ((target: Component) => void) | undefined;
     }
     interface Component {
         /**
@@ -3208,7 +3208,7 @@ declare namespace my {
             data: any,
             callback?: () => void,
         ): void;
-        hasBehavior(behavior: any,): boolean;
+        hasBehavior(behavior: any): boolean;
         triggerEvent(
             name: string,
             details?: any,
@@ -3226,12 +3226,12 @@ declare namespace my {
          * 使用选择器选择组件实例节点
          * 返回匹配到的第一个组件实例对象
          */
-        selectComponent(selector: string,): Component;
+        selectComponent(selector: string): Component;
         /**
          * selector  使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组
          */
-        selectAllComponents(selector: string,): Component[];
-        getRelationNodes(relationKey: string,): ComponentRelation[];
+        selectAllComponents(selector: string): Component[];
+        getRelationNodes(relationKey: string): ComponentRelation[];
     }
     interface Page extends Component {
         /**
@@ -3256,7 +3256,7 @@ declare namespace my {
          * scrollTop 滚动到页面的目标位置（单位px）
          * [duration] 滚动动画的时长，默认300ms，单位 ms
          */
-        pageScrollTo(option?: PageScrollToOptions,): void;
+        pageScrollTo(option?: PageScrollToOptions): void;
         [key: string]: any;
     }
     interface App {
@@ -3295,7 +3295,7 @@ declare namespace my {
         | TransitionEventType
         | 'tap'
         | 'longpress';
-    interface BaseEvent<T extends string, Detail,> {
+    interface BaseEvent<T extends string, Detail> {
         type: T;
         timeStamp: number;
         currentTarget: EventTarget;
@@ -3308,25 +3308,25 @@ declare namespace my {
     }
     interface PageOptions {
         data: any;
-        onLaunch(this: Page, options: Options,): void;
-        onShow(this: Page, options: Options,): void;
-        onHide(this: Page,): void;
-        onError(this: Page,): void;
+        onLaunch(this: Page, options: Options): void;
+        onShow(this: Page, options: Options): void;
+        onHide(this: Page): void;
+        onError(this: Page): void;
         [key: string]: any;
     }
-    function postMessage(param: any,): void;
-    type onMessageFun = (p: any,) => void;
+    function postMessage(param: any): void;
+    type onMessageFun = (p: any) => void;
     let onMessage: onMessageFun;
 }
 
-declare function App(app: Partial<my.AppOptions & my.App>,): void;
+declare function App(app: Partial<my.AppOptions & my.App>): void;
 
 declare function getApp(): my.App;
 
-declare function Behavior(options?: any,): my.Component;
+declare function Behavior(options?: any): my.Component;
 
-declare function Component(options?: any,): my.Component;
+declare function Component(options?: any): my.Component;
 
-declare function Page(options: Partial<my.PageOptions & my.Page>,): void;
+declare function Page(options: Partial<my.PageOptions & my.Page>): void;
 
 declare function getCurrentPages(): my.Page[];

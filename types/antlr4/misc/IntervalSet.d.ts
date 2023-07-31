@@ -6,33 +6,33 @@ export default class IntervalSet {
 
     first(): number;
 
-    addOne(v: number,): void;
+    addOne(v: number): void;
 
-    addRange(l: number, h: number,): void;
+    addRange(l: number, h: number): void;
 
-    addInterval(toAdd: Interval,): void;
+    addInterval(toAdd: Interval): void;
 
-    addSet(other: IntervalSet,): IntervalSet;
+    addSet(other: IntervalSet): IntervalSet;
 
-    reduce(pos: number,): void;
+    reduce(pos: number): void;
 
-    complement(start: number, stop: number,): IntervalSet;
+    complement(start: number, stop: number): IntervalSet;
 
-    contains(item: number,): boolean;
+    contains(item: number): boolean;
 
-    removeRange(toRemove: Interval,): void;
+    removeRange(toRemove: Interval): void;
 
-    removeOne(value: number,): void;
+    removeOne(value: number): void;
 
-    toString(literalNames?: string[], symbolicNames?: string[], elemsAreChar?: boolean,): string;
+    toString(literalNames?: string[], symbolicNames?: string[], elemsAreChar?: boolean): string;
 
     toCharString(): string;
 
     toIndexString(): string;
 
-    toTokenString(literalNames: string[], symbolicNames: string[],): string;
+    toTokenString(literalNames: string[], symbolicNames: string[]): string;
 
-    elementName(literalNames: string[], symbolicNames: string[], token: number,): string;
+    elementName(literalNames: string[], symbolicNames: string[], token: number): string;
 
     get length(): number;
 }

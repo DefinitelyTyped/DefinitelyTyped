@@ -51,7 +51,7 @@ declare module 'angular' {
              * Update the message body.
              * @param newText new message body
              */
-            setText(newText: string,): void;
+            setText(newText: string): void;
         }
 
         /**
@@ -67,73 +67,73 @@ declare module 'angular' {
              * Set default TTL settings.
              * @param ttl configuration of TTL for different type of message
              */
-            globalTimeToLive(ttl: IGrowlTTLConfig,): IGrowlProvider;
+            globalTimeToLive(ttl: IGrowlTTLConfig): IGrowlProvider;
             /**
              * Set default TTL settings.
              * @param ttl ttl in milliseconds
              */
-            globalTimeToLive(ttl: number,): IGrowlProvider;
+            globalTimeToLive(ttl: number): IGrowlProvider;
             /**
              * Set default setting for disabling close button.
              * @param disableCloseButton
              */
-            globalDisableCloseButton(disableCloseButton: boolean,): IGrowlProvider;
+            globalDisableCloseButton(disableCloseButton: boolean): IGrowlProvider;
             /**
              * Set default setting for disabling icons.
              * @param disableIcons
              */
-            globalDisableIcons(disableIcons: boolean,): IGrowlProvider;
+            globalDisableIcons(disableIcons: boolean): IGrowlProvider;
             /**
              * Set reversing order of displaying new messages.
              * @param reverseOrder
              */
-            globalReversedOrder(reverseOrder: boolean,): IGrowlProvider;
+            globalReversedOrder(reverseOrder: boolean): IGrowlProvider;
             /**
              * Set default setting for displaying message disappear countdown.
              * @param disableCountDown
              */
-            globalDisableCountDown(disableCountDown: boolean,): IGrowlProvider;
+            globalDisableCountDown(disableCountDown: boolean): IGrowlProvider;
             /**
              * Set default allowance for inline messages.
              * @param inline
              */
-            globalInlineMessages(inline: boolean,): IGrowlProvider;
+            globalInlineMessages(inline: boolean): IGrowlProvider;
             /**
              * Set default message position.
              * @param position
              */
-            globalPosition(position: string,): IGrowlProvider;
+            globalPosition(position: string): IGrowlProvider;
             /**
              * Enable/disable displaying only unique messages.
              * @param onlyUniqueMessages
              */
-            onlyUniqueMessages(onlyUniqueMessages: boolean,): IGrowlProvider;
+            onlyUniqueMessages(onlyUniqueMessages: boolean): IGrowlProvider;
 
             /**
              * Set key where messages are stored (for http interceptor).
              * @param messageVariableKey
              */
-            messagesKey(messageKey: string,): IGrowlProvider;
+            messagesKey(messageKey: string): IGrowlProvider;
             /**
              * Set key where message text is stored (for http interceptor).
              * @param messageVariableKey
              */
-            messageTextKey(messageTextKey: string,): IGrowlProvider;
+            messageTextKey(messageTextKey: string): IGrowlProvider;
             /**
              * Set key where title of message is stored (for http interceptor).
              * @param messageVariableKey
              */
-            messageTitleKey(messageTitleKey: string,): IGrowlProvider;
+            messageTitleKey(messageTitleKey: string): IGrowlProvider;
             /**
              * Set key where severity of message is stored (for http interceptor).
              * @param messageVariableKey
              */
-            messageSeverityKey(messageSeverityKey: string,): IGrowlProvider;
+            messageSeverityKey(messageSeverityKey: string): IGrowlProvider;
             /**
              * Set key where variables for message are stored (for http interceptor).
              * @param messageVariableKey
              */
-            messageVariableKey(messageVariableKey: string,): IGrowlProvider;
+            messageVariableKey(messageVariableKey: string): IGrowlProvider;
         }
 
         /**
@@ -144,68 +144,68 @@ declare module 'angular' {
              * Show warning message.
              * @param message text to display (or code for angular-translate)
              */
-            warning(message: string,): IGrowlMessage;
+            warning(message: string): IGrowlMessage;
             /**
              * Show warning message.
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              */
-            warning(message: string, config: IGrowlMessageConfig,): IGrowlMessage;
+            warning(message: string, config: IGrowlMessageConfig): IGrowlMessage;
 
             /**
              * Show error message.
              * @param message text to display (or code for angular-translate)
              */
-            error(message: string,): IGrowlMessage;
+            error(message: string): IGrowlMessage;
             /**
              * Show error message.
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              */
-            error(message: string, config: IGrowlMessageConfig,): IGrowlMessage;
+            error(message: string, config: IGrowlMessageConfig): IGrowlMessage;
 
             /**
              * Show information message.
              * @param message text to display (or code for angular-translate)
              */
-            info(message: string,): IGrowlMessage;
+            info(message: string): IGrowlMessage;
             /**
              * Show information message.
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              */
-            info(message: string, config: IGrowlMessageConfig,): IGrowlMessage;
+            info(message: string, config: IGrowlMessageConfig): IGrowlMessage;
 
             /**
              * Show success message.
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              */
-            success(message: string,): IGrowlMessage;
+            success(message: string): IGrowlMessage;
             /**
              * Show success message.
              * @param message text to display (or code for angular-translate)
              */
-            success(message: string, config: IGrowlMessageConfig,): IGrowlMessage;
+            success(message: string, config: IGrowlMessageConfig): IGrowlMessage;
 
             /**
              * Show message (generic).
              * @param message text to display (or code for angular-translate)
              */
-            general(message: string,): IGrowlMessage;
+            general(message: string): IGrowlMessage;
             /**
              * Show message (generic).
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              */
-            general(message: string, config: IGrowlMessageConfig,): IGrowlMessage;
+            general(message: string, config: IGrowlMessageConfig): IGrowlMessage;
             /**
              * Show message (generic).
              * @param message text to display (or code for angular-translate)
              * @param config additional message configuration
              * @param severity message severity (error, warning, success, info).
              */
-            general(message: string, config: IGrowlMessageConfig, severity: string,): IGrowlMessage;
+            general(message: string, config: IGrowlMessageConfig, severity: string): IGrowlMessage;
 
             /**
              * Get current setting for displaying only unique messages.
@@ -236,27 +236,27 @@ declare module 'angular' {
              * @param referenceId
              * @param limitMessages
              */
-            initDirective(referenceId: number, limitMessages: number,): angular.IDirective;
+            initDirective(referenceId: number, limitMessages: number): angular.IDirective;
 
             /**
              * Get current messages
              */
-            getAllMessages(referenceId?: number,): IGrowlMessage[];
+            getAllMessages(referenceId?: number): IGrowlMessage[];
 
             /**
              * Destroy all messages
              */
-            destroyAllMessages(referenceId?: number,): void;
+            destroyAllMessages(referenceId?: number): void;
 
             /**
              * Add a message
              */
-            addMessage(message: IGrowlMessage,): IGrowlMessage;
+            addMessage(message: IGrowlMessage): IGrowlMessage;
 
             /**
              * Delete a message
              */
-            deleteMessage(message: IGrowlMessage,): void;
+            deleteMessage(message: IGrowlMessage): void;
         }
     }
 }

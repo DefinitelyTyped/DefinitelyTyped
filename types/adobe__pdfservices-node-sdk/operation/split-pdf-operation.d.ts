@@ -41,20 +41,20 @@ export class SplitPDFOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Sets the page ranges on the basis of which to split the input PDF file.
      * Each page range corresponds to a single output file having the pages specified in the page range.
      */
-    setPageRanges(pageRanges: PageRanges,): void;
+    setPageRanges(pageRanges: PageRanges): void;
     /**
      * Sets the number of documents to split the input PDF.
      */
-    setFileCount(fileCount: number,): void;
+    setFileCount(fileCount: number): void;
     /**
      * Sets the maximum number of pages each of the output files can have.
      */
-    setPageCount(pageCount: number,): void;
+    setPageCount(pageCount: number): void;
     /**
      * Executes this operation synchronously using the supplied context and returns a new list of FileRef instances for the resultant PDF files.
      *
@@ -62,7 +62,7 @@ export class SplitPDFOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef[]>;
-    validate(context: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef[]>;
+    validate(context: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges, PdfFormat, } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, PdfFormat } from '../pdfservices-sdk';

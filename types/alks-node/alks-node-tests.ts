@@ -34,15 +34,15 @@ const awsKey: AwsKey = {
     sessionToken: 'sessionToken',
 };
 
-createIamKey(acct, auth, 1, {}, () => {},);
-createIamRole(acct, auth, 'roleName', 'roleType', true, {}, () => {},);
-createIamTrustRole(acct, auth, 'roleName', 'roleType', 'trustArn', {}, () => {},);
-createKey(acct, auth, 1, {}, () => {},);
-createLongTermKey(acct, auth, 'iamUserName', {}, () => {},);
-deleteIamRole(acct, auth, 'roleName', {}, () => {},);
-deleteLongTermKey(acct, auth, 'iamUserName', {}, () => {},);
-generateConsoleUrl(awsKey, {}, () => {},);
-getAccounts('server', 'userId', auth, {}, () => {},);
-getDurations(acct, auth, {}, () => {},);
-getIamRoleTypes('server', 'userId', auth, {}, () => {},);
-refreshTokenToAccessToken(acct, 'token', {}, () => {},);
+createIamKey(acct, auth, 1, {}, () => {});
+createIamRole(acct, auth, 'roleName', 'roleType', true, {}, () => {});
+createIamTrustRole(acct, auth, 'roleName', 'roleType', 'trustArn', {}, () => {});
+createKey(acct, auth, 1, {}, () => {});
+createLongTermKey(acct, auth, 'iamUserName', {}, () => {});
+deleteIamRole(acct, auth, 'roleName', {}, () => {});
+deleteLongTermKey(acct, auth, 'iamUserName', {}, () => {});
+generateConsoleUrl(awsKey, {}, () => {});
+getAccounts('server', 'userId', auth, {}, () => {});
+getDurations(acct, auth, {}, () => {});
+getIamRoleTypes('server', 'userId', auth, {}, () => {});
+refreshTokenToAccessToken(acct, 'token', {}, () => {});

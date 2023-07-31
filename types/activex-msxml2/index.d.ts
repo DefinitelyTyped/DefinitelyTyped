@@ -392,7 +392,7 @@ declare namespace MSXML2 {
         abort(): void;
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** flag for asynchronous download */
         async: boolean;
@@ -405,25 +405,25 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** create an attribute node */
-        createAttribute(name: string,): IXMLDOMAttribute;
+        createAttribute(name: string): IXMLDOMAttribute;
 
         /** create a CDATA section node */
-        createCDATASection(data: string,): IXMLDOMCDATASection;
+        createCDATASection(data: string): IXMLDOMCDATASection;
 
         /** create a comment node */
-        createComment(data: string,): IXMLDOMComment;
+        createComment(data: string): IXMLDOMComment;
 
         /** create a DocumentFragment node */
         createDocumentFragment(): IXMLDOMDocumentFragment;
 
         /** create an Element node */
-        createElement(tagName: string,): IXMLDOMElement;
+        createElement(tagName: string): IXMLDOMElement;
 
         /** create an entity reference node */
-        createEntityReference(name: string,): IXMLDOMEntityReference;
+        createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
         createNode(
@@ -441,10 +441,10 @@ declare namespace MSXML2 {
         ): IXMLDOMNode;
 
         /** create a processing instruction node */
-        createProcessingInstruction(target: string, data: string,): IXMLDOMProcessingInstruction;
+        createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
 
         /** create a text node */
-        createTextNode(data: string,): IXMLDOMText;
+        createTextNode(data: string): IXMLDOMText;
 
         /** the data type of the node */
         dataType: string | null;
@@ -462,29 +462,29 @@ declare namespace MSXML2 {
         readonly firstChild: IXMLDOMNode;
 
         /** build a list of elements by name */
-        getElementsByTagName(tagName: string,): IXMLDOMNodeList;
+        getElementsByTagName(tagName: string): IXMLDOMNodeList;
 
         /** get the value of the named property */
-        getProperty(name: string,): any;
+        getProperty(name: string): any;
         hasChildNodes(): boolean;
 
         /** info on this DOM implementation */
         readonly implementation: IXMLDOMImplementation;
 
         /** clone node such that clones ownerDocument is this document */
-        importNode(node: IXMLDOMNode, deep: boolean,): IXMLDOMNode;
+        importNode(node: IXMLDOMNode, deep: boolean): IXMLDOMNode;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
 
         /** load document from the specified XML source */
-        load(xmlSource: any,): boolean;
+        load(xmlSource: any): boolean;
 
         /** load the document from a string */
-        loadXML(bstrXML: string,): boolean;
+        loadXML(bstrXML: string): boolean;
 
         /** A collection of all namespaces for this document */
         readonly namespaces: IXMLDOMSchemaCollection;
@@ -496,7 +496,7 @@ declare namespace MSXML2 {
         readonly nextSibling: IXMLDOMNode;
 
         /** retrieve node from it's ID */
-        nodeFromID(idString: string,): IXMLDOMNode;
+        nodeFromID(idString: string): IXMLDOMNode;
 
         /** name of the node */
         readonly nodeName: string;
@@ -547,28 +547,28 @@ declare namespace MSXML2 {
         readonly readyState: number;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** indicates whether the parser resolves references to external DTD/Entities/Schema */
         resolveExternals: boolean;
 
         /** save the document to a specified destination */
-        save(destination: any,): void;
+        save(destination: any): void;
 
         /** The associated schema cache */
         schemas: any;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** set the value of the named property */
-        setProperty(name: string, value: any,): void;
+        setProperty(name: string, value: any): void;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -577,10 +577,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** get the URL for the loaded XML document */
         readonly url: string;
@@ -589,7 +589,7 @@ declare namespace MSXML2 {
         validate(): IXMLDOMParseError;
 
         /** perform runtime validation on the currently loaded XML document node */
-        validateNode(node: IXMLDOMNode,): IXMLDOMParseError;
+        validateNode(node: IXMLDOMNode): IXMLDOMParseError;
 
         /** indicates whether the parser performs validation */
         validateOnParse: boolean;
@@ -607,7 +607,7 @@ declare namespace MSXML2 {
         abort(): void;
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** flag for asynchronous download */
         async: boolean;
@@ -620,34 +620,34 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** create an attribute node */
-        createAttribute(name: string,): IXMLDOMAttribute;
+        createAttribute(name: string): IXMLDOMAttribute;
 
         /** create a CDATA section node */
-        createCDATASection(data: string,): IXMLDOMCDATASection;
+        createCDATASection(data: string): IXMLDOMCDATASection;
 
         /** create a comment node */
-        createComment(data: string,): IXMLDOMComment;
+        createComment(data: string): IXMLDOMComment;
 
         /** create a DocumentFragment node */
         createDocumentFragment(): IXMLDOMDocumentFragment;
 
         /** create an Element node */
-        createElement(tagName: string,): IXMLDOMElement;
+        createElement(tagName: string): IXMLDOMElement;
 
         /** create an entity reference node */
-        createEntityReference(name: string,): IXMLDOMEntityReference;
+        createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: any, name: string, namespaceURI: string,): IXMLDOMNode;
+        createNode(type: any, name: string, namespaceURI: string): IXMLDOMNode;
 
         /** create a processing instruction node */
-        createProcessingInstruction(target: string, data: string,): IXMLDOMProcessingInstruction;
+        createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
 
         /** create a text node */
-        createTextNode(data: string,): IXMLDOMText;
+        createTextNode(data: string): IXMLDOMText;
 
         /** the data type of the node */
         dataType: any;
@@ -665,29 +665,29 @@ declare namespace MSXML2 {
         readonly firstChild: IXMLDOMNode;
 
         /** build a list of elements by name */
-        getElementsByTagName(tagName: string,): IXMLDOMNodeList;
+        getElementsByTagName(tagName: string): IXMLDOMNodeList;
 
         /** get the value of the named property */
-        getProperty(name: string,): any;
+        getProperty(name: string): any;
         hasChildNodes(): boolean;
 
         /** info on this DOM implementation */
         readonly implementation: IXMLDOMImplementation;
 
         /** clone node such that clones ownerDocument is this document */
-        importNode(node: IXMLDOMNode, deep: boolean,): IXMLDOMNode;
+        importNode(node: IXMLDOMNode, deep: boolean): IXMLDOMNode;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
 
         /** load document from the specified XML source */
-        load(xmlSource: any,): boolean;
+        load(xmlSource: any): boolean;
 
         /** load the document from a string */
-        loadXML(bstrXML: string,): boolean;
+        loadXML(bstrXML: string): boolean;
 
         /** A collection of all namespaces for this document */
         readonly namespaces: IXMLDOMSchemaCollection;
@@ -699,7 +699,7 @@ declare namespace MSXML2 {
         readonly nextSibling: IXMLDOMNode;
 
         /** retrieve node from it's ID */
-        nodeFromID(idString: string,): IXMLDOMNode;
+        nodeFromID(idString: string): IXMLDOMNode;
 
         /** name of the node */
         readonly nodeName: string;
@@ -750,28 +750,28 @@ declare namespace MSXML2 {
         readonly readyState: number;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** indicates whether the parser resolves references to external DTD/Entities/Schema */
         resolveExternals: boolean;
 
         /** save the document to a specified destination */
-        save(destination: any,): void;
+        save(destination: any): void;
 
         /** The associated schema cache */
         schemas: any;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** set the value of the named property */
-        setProperty(name: string, value: any,): void;
+        setProperty(name: string, value: any): void;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -780,10 +780,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** get the URL for the loaded XML document */
         readonly url: string;
@@ -792,7 +792,7 @@ declare namespace MSXML2 {
         validate(): IXMLDOMParseError;
 
         /** perform runtime validation on the currently loaded XML document node */
-        validateNode(node: IXMLDOMNode,): IXMLDOMParseError;
+        validateNode(node: IXMLDOMNode): IXMLDOMParseError;
 
         /** indicates whether the parser performs validation */
         validateOnParse: boolean;
@@ -806,7 +806,7 @@ declare namespace MSXML2 {
         private 'MSXML2.FreeThreadedXMLHTTP60_typekey': FreeThreadedXMLHTTP60;
         private constructor();
         abort(): void;
-        getAllResponseHeaders(ppwszHeaders: string,): void;
+        getAllResponseHeaders(ppwszHeaders: string): void;
         GetCookie(
             pwszUrl: string,
             pwszName: string,
@@ -814,7 +814,7 @@ declare namespace MSXML2 {
             pcCookies: number,
             ppCookies: tagXHR_COOKIE,
         ): void;
-        getResponseHeader(pwszHeader: string, ppwszValue: string,): void;
+        getResponseHeader(pwszHeader: string, ppwszValue: string): void;
         open(
             pwszMethod: string,
             pwszUrl: string,
@@ -824,19 +824,19 @@ declare namespace MSXML2 {
             pwszProxyUserName: string,
             pwszProxyPassword: string,
         ): void;
-        send(pBody: ISequentialStream, cbBody: number,): void;
-        SetCookie(pCookie: tagXHR_COOKIE, pdwCookieState: number,): void;
-        SetCustomResponseStream(pSequentialStream: ISequentialStream,): void;
-        setProperty(eProperty: XHR_PROPERTY, ullValue: number,): void;
-        setRequestHeader(pwszHeader: string, pwszValue: string,): void;
+        send(pBody: ISequentialStream, cbBody: number): void;
+        SetCookie(pCookie: tagXHR_COOKIE, pdwCookieState: number): void;
+        SetCustomResponseStream(pSequentialStream: ISequentialStream): void;
+        setProperty(eProperty: XHR_PROPERTY, ullValue: number): void;
+        setRequestHeader(pwszHeader: string, pwszValue: string): void;
     }
 
     /** IMXNamespacePrefixes interface */
     // tslint:disable-next-line:interface-name
     interface IMXNamespacePrefixes {
-        item(index: number,): string;
+        item(index: number): string;
         readonly length: number;
-        (index: number,): string;
+        (index: number): string;
     }
 
     /** XML Schema */
@@ -858,7 +858,7 @@ declare namespace MSXML2 {
         readonly types: ISchemaItemCollection;
         readonly unhandledAttributes: IVBSAXAttributes;
         readonly version: string;
-        writeAnnotation(annotationSink: any,): boolean;
+        writeAnnotation(annotationSink: any): boolean;
     }
 
     /** XML Schema Item */
@@ -871,32 +871,32 @@ declare namespace MSXML2 {
         readonly namespaceURI: string;
         readonly schema: ISchema;
         readonly unhandledAttributes: IVBSAXAttributes;
-        writeAnnotation(annotationSink: any,): boolean;
+        writeAnnotation(annotationSink: any): boolean;
     }
 
     /** XML Schema Item Collection */
     // tslint:disable-next-line:interface-name
     interface ISchemaItemCollection {
-        item(index: number,): ISchemaItem;
-        itemByName(name: string,): ISchemaItem;
-        itemByQName(name: string, namespaceURI: string,): ISchemaItem;
+        item(index: number): ISchemaItem;
+        itemByName(name: string): ISchemaItem;
+        itemByQName(name: string, namespaceURI: string): ISchemaItem;
         readonly length: number;
-        (index: number,): ISchemaItem;
+        (index: number): ISchemaItem;
     }
 
     /** XML Schema String Collection */
     // tslint:disable-next-line:interface-name
     interface ISchemaStringCollection {
-        item(index: number,): string;
+        item(index: number): string;
         readonly length: number;
-        (index: number,): string;
+        (index: number): string;
     }
 
     class ISequentialStream {
         private 'MSXML2.ISequentialStream_typekey': ISequentialStream;
         private constructor();
-        RemoteRead(pv: number, cb: number, pcbRead: number,): void;
-        RemoteWrite(pv: number, cb: number, pcbWritten: number,): void;
+        RemoteRead(pv: number, cb: number, pcbRead: number): void;
+        RemoteWrite(pv: number, cb: number, pcbWritten: number): void;
     }
 
     /** IVBSAXAttributes interface */
@@ -905,37 +905,37 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Look up the index of an attribute by Namespace name. */
-        getIndexFromName(strURI: string, strLocalName: string,): number;
+        getIndexFromName(strURI: string, strLocalName: string): number;
 
         /** Look up the index of an attribute by XML 1.0 qualified name. */
-        getIndexFromQName(strQName: string,): number;
+        getIndexFromQName(strQName: string): number;
 
         /** Look up an attribute's local name by index. */
-        getLocalName(nIndex: number,): string;
+        getLocalName(nIndex: number): string;
 
         /** Look up an attribute's XML 1.0 qualified name by index. */
-        getQName(nIndex: number,): string;
+        getQName(nIndex: number): string;
 
         /** Look up an attribute's type by index. */
-        getType(nIndex: number,): string;
+        getType(nIndex: number): string;
 
         /** Look up an attribute's type by Namespace name. */
-        getTypeFromName(strURI: string, strLocalName: string,): string;
+        getTypeFromName(strURI: string, strLocalName: string): string;
 
         /** Look up an attribute's type by XML 1.0 qualified name. */
-        getTypeFromQName(strQName: string,): string;
+        getTypeFromQName(strQName: string): string;
 
         /** Look up an attribute's Namespace URI by index. */
-        getURI(nIndex: number,): string;
+        getURI(nIndex: number): string;
 
         /** Look up an attribute's value by index. */
-        getValue(nIndex: number,): string;
+        getValue(nIndex: number): string;
 
         /** Look up an attribute's value by Namespace name. */
-        getValueFromName(strURI: string, strLocalName: string,): string;
+        getValueFromName(strURI: string, strLocalName: string): string;
 
         /** Look up an attribute's value by XML 1.0 qualified name. */
-        getValueFromQName(strQName: string,): string;
+        getValueFromQName(strQName: string): string;
 
         /** Get the number of attributes in the list. */
         readonly length: number;
@@ -947,7 +947,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Receive notification of character data. */
-        characters(strChars: string,): void;
+        characters(strChars: string): void;
 
         /** Receive an object for locating the origin of SAX document events. */
         readonly documentLocator: IVBSAXLocator;
@@ -956,19 +956,19 @@ declare namespace MSXML2 {
         endDocument(): void;
 
         /** Receive notification of the end of an element. */
-        endElement(strNamespaceURI: string, strLocalName: string, strQName: string,): void;
+        endElement(strNamespaceURI: string, strLocalName: string, strQName: string): void;
 
         /** End the scope of a prefix-URI mapping. */
-        endPrefixMapping(strPrefix: string,): void;
+        endPrefixMapping(strPrefix: string): void;
 
         /** Receive notification of ignorable whitespace in element content. */
-        ignorableWhitespace(strChars: string,): void;
+        ignorableWhitespace(strChars: string): void;
 
         /** Receive notification of a processing instruction. */
-        processingInstruction(strTarget: string, strData: string,): void;
+        processingInstruction(strTarget: string, strData: string): void;
 
         /** Receive notification of a skipped entity. */
-        skippedEntity(strName: string,): void;
+        skippedEntity(strName: string): void;
 
         /** Receive notification of the beginning of a document. */
         startDocument(): void;
@@ -982,7 +982,7 @@ declare namespace MSXML2 {
         ): void;
 
         /** Begin the scope of a prefix-URI Namespace mapping. */
-        startPrefixMapping(strPrefix: string, strURI: string,): void;
+        startPrefixMapping(strPrefix: string, strURI: string): void;
     }
 
     /** IVBSAXDTDHandler interface */
@@ -991,10 +991,10 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Receive notification of a notation declaration event. */
-        notationDecl(strName: string, strPublicId: string, strSystemId: string,): void;
+        notationDecl(strName: string, strPublicId: string, strSystemId: string): void;
 
         /** Receive notification of an unparsed entity declaration event. */
-        unparsedEntityDecl(strName: string, strPublicId: string, strSystemId: string, strNotationName: string,): void;
+        unparsedEntityDecl(strName: string, strPublicId: string, strSystemId: string, strNotationName: string): void;
     }
 
     /** IVBSAXEntityResolver interface */
@@ -1003,7 +1003,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Allow the application to resolve external entities. */
-        resolveEntity(strPublicId: string, strSystemId: string,): any;
+        resolveEntity(strPublicId: string, strSystemId: string): any;
     }
 
     /** IVBSAXErrorHandler interface */
@@ -1012,13 +1012,13 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Receive notification of a recoverable error. */
-        error(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number,): void;
+        error(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number): void;
 
         /** Receive notification of a non-recoverable error. */
-        fatalError(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number,): void;
+        fatalError(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number): void;
 
         /** Receive notification of an ignorable warning. */
-        ignorableWarning(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number,): void;
+        ignorableWarning(oLocator: IVBSAXLocator, strErrorMessage: string, nErrorCode: number): void;
     }
 
     /** IVBSAXLocator interface */
@@ -1044,7 +1044,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1054,7 +1054,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -1067,7 +1067,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1112,16 +1112,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1130,10 +1130,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** string value of the attribute */
         value: any;
@@ -1147,10 +1147,10 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** append string to value */
-        appendData(data: string,): void;
+        appendData(data: string): void;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1160,7 +1160,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** value of the node */
         data: string;
@@ -1172,17 +1172,17 @@ declare namespace MSXML2 {
         readonly definition: IXMLDOMNode;
 
         /** delete string within the value */
-        deleteData(offset: number, count: number,): void;
+        deleteData(offset: number, count: number): void;
 
         /** first child of the node */
         readonly firstChild: IXMLDOMNode;
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** insert string into value */
-        insertData(offset: number, data: string,): void;
+        insertData(offset: number, data: string): void;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1227,37 +1227,37 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** replace string within the value */
-        replaceData(offset: number, count: number, data: string,): void;
+        replaceData(offset: number, count: number, data: string): void;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
 
         /** split the text node into two text nodes at the position specified */
-        splitText(offset: number,): IXMLDOMText;
+        splitText(offset: number): IXMLDOMText;
 
         /** retrieve substring of value */
-        substringData(offset: number, count: number,): string;
+        substringData(offset: number, count: number): string;
 
         /** text content of the node and subtree */
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1268,10 +1268,10 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** append string to value */
-        appendData(data: string,): void;
+        appendData(data: string): void;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1281,7 +1281,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** value of the node */
         data: string;
@@ -1293,17 +1293,17 @@ declare namespace MSXML2 {
         readonly definition: IXMLDOMNode;
 
         /** delete string within the value */
-        deleteData(offset: number, count: number,): void;
+        deleteData(offset: number, count: number): void;
 
         /** first child of the node */
         readonly firstChild: IXMLDOMNode;
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** insert string into value */
-        insertData(offset: number, data: string,): void;
+        insertData(offset: number, data: string): void;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1348,34 +1348,34 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** replace string within the value */
-        replaceData(offset: number, count: number, data: string,): void;
+        replaceData(offset: number, count: number, data: string): void;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
 
         /** retrieve substring of value */
-        substringData(offset: number, count: number,): string;
+        substringData(offset: number, count: number): string;
 
         /** text content of the node and subtree */
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1389,7 +1389,7 @@ declare namespace MSXML2 {
         abort(): void;
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** flag for asynchronous download */
         async: boolean;
@@ -1402,34 +1402,34 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** create an attribute node */
-        createAttribute(name: string,): IXMLDOMAttribute;
+        createAttribute(name: string): IXMLDOMAttribute;
 
         /** create a CDATA section node */
-        createCDATASection(data: string,): IXMLDOMCDATASection;
+        createCDATASection(data: string): IXMLDOMCDATASection;
 
         /** create a comment node */
-        createComment(data: string,): IXMLDOMComment;
+        createComment(data: string): IXMLDOMComment;
 
         /** create a DocumentFragment node */
         createDocumentFragment(): IXMLDOMDocumentFragment;
 
         /** create an Element node */
-        createElement(tagName: string,): IXMLDOMElement;
+        createElement(tagName: string): IXMLDOMElement;
 
         /** create an entity reference node */
-        createEntityReference(name: string,): IXMLDOMEntityReference;
+        createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: any, name: string, namespaceURI: string,): IXMLDOMNode;
+        createNode(type: any, name: string, namespaceURI: string): IXMLDOMNode;
 
         /** create a processing instruction node */
-        createProcessingInstruction(target: string, data: string,): IXMLDOMProcessingInstruction;
+        createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
 
         /** create a text node */
-        createTextNode(data: string,): IXMLDOMText;
+        createTextNode(data: string): IXMLDOMText;
 
         /** the data type of the node */
         dataType: any;
@@ -1447,23 +1447,23 @@ declare namespace MSXML2 {
         readonly firstChild: IXMLDOMNode;
 
         /** build a list of elements by name */
-        getElementsByTagName(tagName: string,): IXMLDOMNodeList;
+        getElementsByTagName(tagName: string): IXMLDOMNodeList;
         hasChildNodes(): boolean;
 
         /** info on this DOM implementation */
         readonly implementation: IXMLDOMImplementation;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
 
         /** load document from the specified XML source */
-        load(xmlSource: any,): boolean;
+        load(xmlSource: any): boolean;
 
         /** load the document from a string */
-        loadXML(bstrXML: string,): boolean;
+        loadXML(bstrXML: string): boolean;
 
         /** the URI for the namespace applying to the node */
         readonly namespaceURI: string;
@@ -1472,7 +1472,7 @@ declare namespace MSXML2 {
         readonly nextSibling: IXMLDOMNode;
 
         /** retrieve node from it's ID */
-        nodeFromID(idString: string,): IXMLDOMNode;
+        nodeFromID(idString: string): IXMLDOMNode;
 
         /** name of the node */
         readonly nodeName: string;
@@ -1523,22 +1523,22 @@ declare namespace MSXML2 {
         readonly readyState: number;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** indicates whether the parser resolves references to external DTD/Entities/Schema */
         resolveExternals: boolean;
 
         /** save the document to a specified destination */
-        save(destination: any,): void;
+        save(destination: any): void;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1547,10 +1547,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** get the URL for the loaded XML document */
         readonly url: string;
@@ -1567,7 +1567,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1577,7 +1577,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -1590,7 +1590,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1632,16 +1632,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1650,10 +1650,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1664,7 +1664,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1674,7 +1674,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -1690,7 +1690,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1738,16 +1738,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1756,10 +1756,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1770,7 +1770,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1780,7 +1780,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -1792,17 +1792,17 @@ declare namespace MSXML2 {
         readonly firstChild: IXMLDOMNode;
 
         /** look up the string value of an attribute by name */
-        getAttribute(name: string,): any;
+        getAttribute(name: string): any;
 
         /** look up the attribute node by name */
-        getAttributeNode(name: string,): IXMLDOMAttribute;
+        getAttributeNode(name: string): IXMLDOMAttribute;
 
         /** build a list of elements by name */
-        getElementsByTagName(tagName: string,): IXMLDOMNodeList;
+        getElementsByTagName(tagName: string): IXMLDOMNodeList;
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1847,28 +1847,28 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove an attribute by name */
-        removeAttribute(name: string,): void;
+        removeAttribute(name: string): void;
 
         /** remove the specified attribute */
-        removeAttributeNode(DOMAttribute: IXMLDOMAttribute,): IXMLDOMAttribute;
+        removeAttributeNode(DOMAttribute: IXMLDOMAttribute): IXMLDOMAttribute;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** set the string value of an attribute by name */
-        setAttribute(name: string, value: any,): void;
+        setAttribute(name: string, value: any): void;
 
         /** set the specified attribute on the element */
-        setAttributeNode(DOMAttribute: IXMLDOMAttribute,): IXMLDOMAttribute;
+        setAttributeNode(DOMAttribute: IXMLDOMAttribute): IXMLDOMAttribute;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1880,10 +1880,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1894,7 +1894,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -1904,7 +1904,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -1917,7 +1917,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -1959,16 +1959,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -1977,10 +1977,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -1989,19 +1989,19 @@ declare namespace MSXML2 {
     class IXMLDOMImplementation {
         private 'MSXML2.IXMLDOMImplementation_typekey': IXMLDOMImplementation;
         private constructor();
-        hasFeature(feature: string, version: string,): boolean;
+        hasFeature(feature: string, version: string): boolean;
     }
 
     // tslint:disable-next-line:interface-name
     interface IXMLDOMNamedNodeMap {
         /** lookup item by name */
-        getNamedItem(name: string,): IXMLDOMNode;
+        getNamedItem(name: string): IXMLDOMNode;
 
         /** lookup the item by name and namespace */
-        getQualifiedItem(baseName: string, namespaceURI: string,): IXMLDOMNode;
+        getQualifiedItem(baseName: string, namespaceURI: string): IXMLDOMNode;
 
         /** collection of nodes */
-        item(index: number,): IXMLDOMNode;
+        item(index: number): IXMLDOMNode;
 
         /** number of nodes in the collection */
         readonly length: number;
@@ -2010,19 +2010,19 @@ declare namespace MSXML2 {
         nextNode(): IXMLDOMNode;
 
         /** remove item by name */
-        removeNamedItem(name: string,): IXMLDOMNode;
+        removeNamedItem(name: string): IXMLDOMNode;
 
         /** remove the item by name and namespace */
-        removeQualifiedItem(baseName: string, namespaceURI: string,): IXMLDOMNode;
+        removeQualifiedItem(baseName: string, namespaceURI: string): IXMLDOMNode;
 
         /** reset the position of iterator */
         reset(): void;
 
         /** set item by name */
-        setNamedItem(newItem: IXMLDOMNode,): IXMLDOMNode;
+        setNamedItem(newItem: IXMLDOMNode): IXMLDOMNode;
 
         /** collection of nodes */
-        (index: number,): IXMLDOMNode;
+        (index: number): IXMLDOMNode;
     }
 
     /** Core DOM node interface */
@@ -2031,7 +2031,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -2041,7 +2041,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data type of the node */
         dataType: any;
@@ -2054,7 +2054,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -2096,16 +2096,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -2114,10 +2114,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -2126,7 +2126,7 @@ declare namespace MSXML2 {
     // tslint:disable-next-line:interface-name
     interface IXMLDOMNodeList {
         /** collection of nodes */
-        item(index: number,): IXMLDOMNode;
+        item(index: number): IXMLDOMNode;
 
         /** number of nodes in the collection */
         readonly length: number;
@@ -2138,7 +2138,7 @@ declare namespace MSXML2 {
         reset(): void;
 
         /** collection of nodes */
-        (index: number,): IXMLDOMNode;
+        (index: number): IXMLDOMNode;
     }
 
     /** structure for reporting parser errors */
@@ -2173,7 +2173,7 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -2183,7 +2183,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** the data */
         data: string;
@@ -2199,7 +2199,7 @@ declare namespace MSXML2 {
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -2241,16 +2241,16 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
@@ -2262,10 +2262,10 @@ declare namespace MSXML2 {
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -2275,25 +2275,25 @@ declare namespace MSXML2 {
     // tslint:disable-next-line:interface-name
     interface IXMLDOMSchemaCollection {
         /** add a new schema */
-        add(namespaceURI: string, var_1: any,): void;
+        add(namespaceURI: string, var_1: any): void;
 
         /** copy & merge other collection into this one */
-        addCollection(otherCollection: IXMLDOMSchemaCollection,): void;
+        addCollection(otherCollection: IXMLDOMSchemaCollection): void;
 
         /** lookup schema by namespaceURI */
-        get(namespaceURI: string,): IXMLDOMNode;
+        get(namespaceURI: string): IXMLDOMNode;
 
         /** number of schemas in collection */
         readonly length: number;
 
         /** Get namespaceURI for schema by index */
-        namespaceURI(index: number,): string;
+        namespaceURI(index: number): string;
 
         /** remove schema by namespaceURI */
-        remove(namespaceURI: string,): void;
+        remove(namespaceURI: string): void;
 
         /** Get namespaceURI for schema by index */
-        (index: number,): string;
+        (index: number): string;
     }
 
     class IXMLDOMText {
@@ -2301,10 +2301,10 @@ declare namespace MSXML2 {
         private constructor();
 
         /** append a child node */
-        appendChild(newChild: IXMLDOMNode,): IXMLDOMNode;
+        appendChild(newChild: IXMLDOMNode): IXMLDOMNode;
 
         /** append string to value */
-        appendData(data: string,): void;
+        appendData(data: string): void;
 
         /** the collection of the node's attributes */
         readonly attributes: IXMLDOMNamedNodeMap;
@@ -2314,7 +2314,7 @@ declare namespace MSXML2 {
 
         /** the collection of the node's children */
         readonly childNodes: IXMLDOMNodeList;
-        cloneNode(deep: boolean,): IXMLDOMNode;
+        cloneNode(deep: boolean): IXMLDOMNode;
 
         /** value of the node */
         data: string;
@@ -2326,17 +2326,17 @@ declare namespace MSXML2 {
         readonly definition: IXMLDOMNode;
 
         /** delete string within the value */
-        deleteData(offset: number, count: number,): void;
+        deleteData(offset: number, count: number): void;
 
         /** first child of the node */
         readonly firstChild: IXMLDOMNode;
         hasChildNodes(): boolean;
 
         /** insert a child node */
-        insertBefore(newChild: IXMLDOMNode, refChild: any,): IXMLDOMNode;
+        insertBefore(newChild: IXMLDOMNode, refChild: any): IXMLDOMNode;
 
         /** insert string into value */
-        insertData(offset: number, data: string,): void;
+        insertData(offset: number, data: string): void;
 
         /** last child of the node */
         readonly lastChild: IXMLDOMNode;
@@ -2381,37 +2381,37 @@ declare namespace MSXML2 {
         readonly previousSibling: IXMLDOMNode;
 
         /** remove a child node */
-        removeChild(childNode: IXMLDOMNode,): IXMLDOMNode;
+        removeChild(childNode: IXMLDOMNode): IXMLDOMNode;
 
         /** replace a child node */
-        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode,): IXMLDOMNode;
+        replaceChild(newChild: IXMLDOMNode, oldChild: IXMLDOMNode): IXMLDOMNode;
 
         /** replace string within the value */
-        replaceData(offset: number, count: number, data: string,): void;
+        replaceData(offset: number, count: number, data: string): void;
 
         /** execute query on the subtree */
-        selectNodes(queryString: string,): IXMLDOMNodeList;
+        selectNodes(queryString: string): IXMLDOMNodeList;
 
         /** execute query on the subtree */
-        selectSingleNode(queryString: string,): IXMLDOMNode;
+        selectSingleNode(queryString: string): IXMLDOMNode;
 
         /** indicates whether node is a default value */
         readonly specified: boolean;
 
         /** split the text node into two text nodes at the position specified */
-        splitText(offset: number,): IXMLDOMText;
+        splitText(offset: number): IXMLDOMText;
 
         /** retrieve substring of value */
-        substringData(offset: number, count: number,): string;
+        substringData(offset: number, count: number): string;
 
         /** text content of the node and subtree */
         text: string;
 
         /** apply the stylesheet to the subtree */
-        transformNode(stylesheet: IXMLDOMNode,): string;
+        transformNode(stylesheet: IXMLDOMNode): string;
 
         /** apply the stylesheet to the subtree, returning the result through a document or a stream */
-        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any,): void;
+        transformNodeToObject(stylesheet: IXMLDOMNode, outputObject: any): void;
 
         /** return the XML source for the node and each of its descendants */
         readonly xml: string;
@@ -2421,11 +2421,11 @@ declare namespace MSXML2 {
     class IXMLHTTPRequest2Callback {
         private 'MSXML2.IXMLHTTPRequest2Callback_typekey': IXMLHTTPRequest2Callback;
         private constructor();
-        ondataavailable(pXHR: FreeThreadedXMLHTTP60, pResponseStream: ISequentialStream,): void;
-        OnError(pXHR: FreeThreadedXMLHTTP60, hrError: undefined,): void;
-        OnHeadersAvailable(pXHR: FreeThreadedXMLHTTP60, dwStatus: number, pwszStatus: string,): void;
-        OnRedirect(pXHR: FreeThreadedXMLHTTP60, pwszRedirectUrl: string,): void;
-        OnResponseReceived(pXHR: FreeThreadedXMLHTTP60, pResponseStream: ISequentialStream,): void;
+        ondataavailable(pXHR: FreeThreadedXMLHTTP60, pResponseStream: ISequentialStream): void;
+        OnError(pXHR: FreeThreadedXMLHTTP60, hrError: undefined): void;
+        OnHeadersAvailable(pXHR: FreeThreadedXMLHTTP60, dwStatus: number, pwszStatus: string): void;
+        OnRedirect(pXHR: FreeThreadedXMLHTTP60, pwszRedirectUrl: string): void;
+        OnResponseReceived(pXHR: FreeThreadedXMLHTTP60, pResponseStream: ISequentialStream): void;
     }
 
     /** IXSLProcessor Interface */
@@ -2434,13 +2434,13 @@ declare namespace MSXML2 {
         private constructor();
 
         /** pass object to stylesheet */
-        addObject(obj: any, namespaceURI: string,): void;
+        addObject(obj: any, namespaceURI: string): void;
 
         /**
          * set <xsl:param> values
          * @param namespaceURI [namespaceURI='0']
          */
-        addParameter(baseName: string, parameter: any, namespaceURI?: string,): void;
+        addParameter(baseName: string, parameter: any, namespaceURI?: string): void;
 
         /** XML input tree to transform */
         input: any;
@@ -2461,7 +2461,7 @@ declare namespace MSXML2 {
          * set XSL mode and it's namespace
          * @param namespaceURI [namespaceURI='0']
          */
-        setStartMode(mode: string, namespaceURI?: string,): void;
+        setStartMode(mode: string, namespaceURI?: string): void;
 
         /** starting XSL mode */
         readonly startMode: string;
@@ -2514,16 +2514,16 @@ declare namespace MSXML2 {
         private 'MSXML2.MXNamespaceManager60_typekey': MXNamespaceManager60;
         private constructor();
         allowOverride: boolean;
-        declarePrefix(prefix: string, namespaceURI: string,): void;
+        declarePrefix(prefix: string, namespaceURI: string): void;
         getDeclaredPrefixes(): IMXNamespacePrefixes;
-        getPrefixes(namespaceURI: string,): IMXNamespacePrefixes;
-        getURI(prefix: string,): any;
-        getURIFromNode(strPrefix: string, contextNode: IXMLDOMNode,): any;
+        getPrefixes(namespaceURI: string): IMXNamespacePrefixes;
+        getURI(prefix: string): any;
+        getURIFromNode(strPrefix: string, contextNode: IXMLDOMNode): any;
         popContext(): void;
         pushContext(): void;
 
         /** @param fDeep [fDeep=true] */
-        pushNodeContext(contextNode: IXMLDOMNode, fDeep?: boolean,): void;
+        pushNodeContext(contextNode: IXMLDOMNode, fDeep?: boolean): void;
         reset(): void;
     }
 
@@ -2566,16 +2566,16 @@ declare namespace MSXML2 {
         private constructor();
 
         /** Add an attribute to the end of the list. */
-        addAttribute(strURI: string, strLocalName: string, strQName: string, strType: string, strValue: string,): void;
+        addAttribute(strURI: string, strLocalName: string, strQName: string, strType: string, strValue: string): void;
 
         /** Add an attribute, whose value is equal to the indexed attribute in the input attributes object, to the end of the list. */
-        addAttributeFromIndex(varAtts: any, nIndex: number,): void;
+        addAttributeFromIndex(varAtts: any, nIndex: number): void;
 
         /** Clear the attribute list for reuse. */
         clear(): void;
 
         /** Remove an attribute from the list. */
-        removeAttribute(nIndex: number,): void;
+        removeAttribute(nIndex: number): void;
 
         /** Set an attribute in the list. */
         setAttribute(
@@ -2588,22 +2588,22 @@ declare namespace MSXML2 {
         ): void;
 
         /** Copy an entire Attributes object. */
-        setAttributes(varAtts: any,): void;
+        setAttributes(varAtts: any): void;
 
         /** Set the local name of a specific attribute. */
-        setLocalName(nIndex: number, strLocalName: string,): void;
+        setLocalName(nIndex: number, strLocalName: string): void;
 
         /** Set the qualified name of a specific attribute. */
-        setQName(nIndex: number, strQName: string,): void;
+        setQName(nIndex: number, strQName: string): void;
 
         /** Set the type of a specific attribute. */
-        setType(nIndex: number, strType: string,): void;
+        setType(nIndex: number, strType: string): void;
 
         /** Set the Namespace URI of a specific attribute. */
-        setURI(nIndex: number, strURI: string,): void;
+        setURI(nIndex: number, strURI: string): void;
 
         /** Set the value of a specific attribute. */
-        setValue(nIndex: number, strValue: string,): void;
+        setValue(nIndex: number, strValue: string): void;
     }
 
     /** SAX XML Reader 6.0 */
@@ -2627,22 +2627,22 @@ declare namespace MSXML2 {
         errorHandler: IVBSAXErrorHandler;
 
         /** Look up the value of a feature. */
-        getFeature(strName: string,): boolean;
+        getFeature(strName: string): boolean;
 
         /** Look up the value of a property. */
-        getProperty(strName: string,): any;
+        getProperty(strName: string): any;
 
         /** Parse an XML document. */
-        parse(varInput?: any,): void;
+        parse(varInput?: any): void;
 
         /** Parse an XML document from a system identifier (URI). */
-        parseURL(strURL: string,): void;
+        parseURL(strURL: string): void;
 
         /** Set the state of a feature. */
-        putFeature(strName: string, fValue: boolean,): void;
+        putFeature(strName: string, fValue: boolean): void;
 
         /** Set the value of a property. */
-        putProperty(strName: string, varValue: any,): void;
+        putProperty(strName: string, varValue: any): void;
 
         /** Set or get the secure base URL for the document. */
         secureBaseURL: string;
@@ -2660,16 +2660,16 @@ declare namespace MSXML2 {
         getAllResponseHeaders(): string;
 
         /** Get an option value */
-        getOption(option: SERVERXMLHTTP_OPTION,): any;
+        getOption(option: SERVERXMLHTTP_OPTION): any;
 
         /** Get HTTP response header */
-        getResponseHeader(bstrHeader: string,): string;
+        getResponseHeader(bstrHeader: string): string;
 
         /** Register a complete event handler */
         readonly onreadystatechange: any;
 
         /** Open HTTP connection */
-        open(bstrMethod: string, bstrUrl: string, varAsync?: any, bstrUser?: any, bstrPassword?: any,): void;
+        open(bstrMethod: string, bstrUrl: string, varAsync?: any, bstrUser?: any, bstrPassword?: any): void;
 
         /** Get ready state */
         readonly readyState: number;
@@ -2687,22 +2687,22 @@ declare namespace MSXML2 {
         readonly responseXML: any;
 
         /** Send HTTP request */
-        send(varBody?: any,): void;
+        send(varBody?: any): void;
 
         /** Set an option value */
-        setOption(option: SERVERXMLHTTP_OPTION, value: any,): void;
+        setOption(option: SERVERXMLHTTP_OPTION, value: any): void;
 
         /** Specify proxy configuration */
-        setProxy(proxySetting: SXH_PROXY_SETTING, varProxyServer?: any, varBypassList?: any,): void;
+        setProxy(proxySetting: SXH_PROXY_SETTING, varProxyServer?: any, varBypassList?: any): void;
 
         /** Specify proxy authentication credentials */
-        setProxyCredentials(bstrUserName: string, bstrPassword: string,): void;
+        setProxyCredentials(bstrUserName: string, bstrPassword: string): void;
 
         /** Add HTTP request header */
-        setRequestHeader(bstrHeader: string, bstrValue: string,): void;
+        setRequestHeader(bstrHeader: string, bstrValue: string): void;
 
         /** Specify timeout settings (in milliseconds) */
-        setTimeouts(resolveTimeout: number, connectTimeout: number, sendTimeout: number, receiveTimeout: number,): void;
+        setTimeouts(resolveTimeout: number, connectTimeout: number, sendTimeout: number, receiveTimeout: number): void;
 
         /** Get HTTP status code */
         readonly status: number;
@@ -2711,7 +2711,7 @@ declare namespace MSXML2 {
         readonly statusText: string;
 
         /** Wait for asynchronous send to complete, with optional timeout (in seconds) */
-        waitForResponse(timeoutInSeconds?: any,): boolean;
+        waitForResponse(timeoutInSeconds?: any): boolean;
     }
 
     interface tagXHR_COOKIE {
@@ -2735,13 +2735,13 @@ declare namespace MSXML2 {
         getAllResponseHeaders(): string;
 
         /** Get HTTP response header */
-        getResponseHeader(bstrHeader: string,): string;
+        getResponseHeader(bstrHeader: string): string;
 
         /** Register a complete event handler */
         readonly onreadystatechange: any;
 
         /** Open HTTP connection */
-        open(bstrMethod: string, bstrUrl: string, varAsync?: any, bstrUser?: any, bstrPassword?: any,): void;
+        open(bstrMethod: string, bstrUrl: string, varAsync?: any, bstrUser?: any, bstrPassword?: any): void;
 
         /** Get ready state */
         readonly readyState: number;
@@ -2759,10 +2759,10 @@ declare namespace MSXML2 {
         readonly responseXML: any;
 
         /** Send HTTP request */
-        send(varBody?: any,): void;
+        send(varBody?: any): void;
 
         /** Add HTTP request header */
-        setRequestHeader(bstrHeader: string, bstrValue: string,): void;
+        setRequestHeader(bstrHeader: string, bstrValue: string): void;
 
         /** Get HTTP status code */
         readonly status: number;
@@ -2774,29 +2774,29 @@ declare namespace MSXML2 {
     /** XML Schema Cache 6.0 */
     interface XMLSchemaCache60 {
         /** add a new schema */
-        add(namespaceURI: string, var_1: any,): void;
+        add(namespaceURI: string, var_1: any): void;
 
         /** copy & merge other collection into this one */
-        addCollection(otherCollection: IXMLDOMSchemaCollection,): void;
+        addCollection(otherCollection: IXMLDOMSchemaCollection): void;
 
         /** lookup schema by namespaceURI */
-        get(namespaceURI: string,): IXMLDOMNode;
-        getDeclaration(node: IXMLDOMNode,): ISchemaItem;
-        getSchema(namespaceURI: string,): ISchema;
+        get(namespaceURI: string): IXMLDOMNode;
+        getDeclaration(node: IXMLDOMNode): ISchemaItem;
+        getSchema(namespaceURI: string): ISchema;
 
         /** number of schemas in collection */
         readonly length: number;
 
         /** Get namespaceURI for schema by index */
-        namespaceURI(index: number,): string;
+        namespaceURI(index: number): string;
 
         /** remove schema by namespaceURI */
-        remove(namespaceURI: string,): void;
+        remove(namespaceURI: string): void;
         validate(): void;
         validateOnLoad: boolean;
 
         /** Get namespaceURI for schema by index */
-        (index: number,): string;
+        (index: number): string;
     }
 
     /** XSL Stylesheet Cache 6.0 */
@@ -2816,12 +2816,12 @@ interface ActiveXObject {
     on(
         obj: MSXML2.DOMDocument60,
         event: 'ondataavailable' | 'onreadystatechange',
-        handler: (this: MSXML2.DOMDocument60, parameter: {},) => void,
+        handler: (this: MSXML2.DOMDocument60, parameter: {}) => void,
     ): void;
     on(
         obj: MSXML2.FreeThreadedDOMDocument60,
         event: 'ondataavailable' | 'onreadystatechange',
-        handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {},) => void,
+        handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void,
     ): void;
 }
 

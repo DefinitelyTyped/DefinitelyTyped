@@ -67,45 +67,45 @@ str = clientContextClient.installationId;
 
 declare const untypedCallback: AWSLambda.Callback;
 untypedCallback();
-untypedCallback(undefined,);
-untypedCallback(null,);
-untypedCallback(error,);
-untypedCallback(str,); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
-untypedCallback(null, anyObj,);
-untypedCallback(undefined, bool,);
-untypedCallback(null, bool,);
-untypedCallback(null, str,);
-untypedCallback(null, num,);
-untypedCallback(null, { foo: 123, },);
-untypedCallback(null, { bar: 123, },);
+untypedCallback(undefined);
+untypedCallback(null);
+untypedCallback(error);
+untypedCallback(str); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
+untypedCallback(null, anyObj);
+untypedCallback(undefined, bool);
+untypedCallback(null, bool);
+untypedCallback(null, str);
+untypedCallback(null, num);
+untypedCallback(null, { foo: 123 });
+untypedCallback(null, { bar: 123 });
 // @ts-expect-error
-untypedCallback(null, anyObj, anyObj,);
+untypedCallback(null, anyObj, anyObj);
 
 interface TestResult {
     foo: number;
 }
 declare const typedCallback: AWSLambda.Callback<TestResult>;
 typedCallback();
-typedCallback(undefined,);
-typedCallback(null,);
-typedCallback(error,);
-typedCallback(str,); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
-typedCallback(null, anyObj,);
-typedCallback(null, { foo: 123, },);
+typedCallback(undefined);
+typedCallback(null);
+typedCallback(error);
+typedCallback(str); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
+typedCallback(null, anyObj);
+typedCallback(null, { foo: 123 });
 // @ts-expect-error
-typedCallback(null, str,);
+typedCallback(null, str);
 // @ts-expect-error
-typedCallback(null, { bar: 123, },);
+typedCallback(null, { bar: 123 });
 
 /* Compatibility functions */
 context.done();
-context.done(error,);
-context.done(error, anyObj,);
-context.succeed(str,);
-context.succeed(anyObj,);
-context.succeed(str, anyObj,);
-context.fail(error,);
-context.fail(str,);
+context.done(error);
+context.done(error, anyObj);
+context.succeed(str);
+context.succeed(anyObj);
+context.succeed(str, anyObj);
+context.fail(error);
+context.fail(str);
 
 interface CustomEvent {
     eventString: string;
@@ -119,7 +119,7 @@ type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult>;
 type CustomCallback = AWSLambda.Callback<CustomResult>;
 
 // Untyped handlers should work
-const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb,) => {
+const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb) => {
     // $ExpectType any
     event;
     // $ExpectType Context
@@ -127,24 +127,24 @@ const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb,) => {
     // $ExpectType Callback<any>
     cb;
     // Can still use callback
-    cb(null, { resultString: str, },);
+    cb(null, { resultString: str });
     if (bool) {
         // Uncaught error
-        return { resultString: bool, };
+        return { resultString: bool };
     }
-    return { resultString: str, };
+    return { resultString: str };
 };
 
-const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb,) => {
+const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
     // $ExpectType any
     event;
     // $ExpectType Context
     context;
     // $ExpectType Callback<any>
     cb;
-    cb(null, { resultString: str, },);
+    cb(null, { resultString: str });
     // Uncaught error
-    cb(null, { resultString: bool, },);
+    cb(null, { resultString: bool });
 };
 
 /* In node8.10 runtime, handlers may return a promise for the result value, so existing async
@@ -155,12 +155,12 @@ const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb,) => {
 
 // Test we get error for unsafe old style
 // @ts-expect-error
-const unsafeAsyncHandler: CustomHandler = async (event, context, cb,) => {
-    cb(null, { resultString: 'No longer valid', },);
+const unsafeAsyncHandler: CustomHandler = async (event, context, cb) => {
+    cb(null, { resultString: 'No longer valid' });
 };
 
 // Test safe old style still works
-const typedCallbackHandler: CustomHandler = (event, context, cb,) => {
+const typedCallbackHandler: CustomHandler = (event, context, cb) => {
     // $ExpectType CustomEvent
     event;
     str = event.eventString;
@@ -170,17 +170,17 @@ const typedCallbackHandler: CustomHandler = (event, context, cb,) => {
     // $ExpectType Callback<CustomResult>
     cb;
     cb();
-    cb(null,);
-    cb(new Error(),);
+    cb(null);
+    cb(new Error());
     // @ts-expect-error
-    cb(null, {},);
-    cb(null, { resultString: str, },);
+    cb(null, {});
+    cb(null, { resultString: str });
     // @ts-expect-error
-    cb(null, { resultString: bool, },);
+    cb(null, { resultString: bool });
 };
 
 // Test preferred new type
-const typedAsyncHandler: CustomHandler = async (event, context, cb,) => {
+const typedAsyncHandler: CustomHandler = async (event, context, cb) => {
     // $ExpectType CustomEvent
     event;
     // $ExpectType Context
@@ -188,12 +188,12 @@ const typedAsyncHandler: CustomHandler = async (event, context, cb,) => {
     // $ExpectType Callback<CustomResult>
     cb;
     // Can still use callback
-    cb(null, { resultString: str, },);
-    return { resultString: 'Is now valid!', };
+    cb(null, { resultString: str });
+    return { resultString: 'Is now valid!' };
 };
 
 // @ts-expect-error
-const badTypedAsyncHandler: CustomHandler = async (event, context, cb,) => ({ resultString: bool, });
+const badTypedAsyncHandler: CustomHandler = async (event, context, cb) => ({ resultString: bool });
 
 // Test using untyped Callback type still works.
 const mixedUntypedCallbackTypedHandler: CustomHandler = (

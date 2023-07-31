@@ -26,7 +26,7 @@ export interface CustomChallengeResult {
  * Common attributes shared by all User Pool Lambda Trigger Events
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-event-parameter-shared
  */
-export interface BaseTriggerEvent<T extends string,> {
+export interface BaseTriggerEvent<T extends string> {
     version: string;
     region: string;
     userPoolId: string;

@@ -20,7 +20,7 @@ declare namespace AMap {
             /**
              * 获取图块取图地址
              */
-            getTileUrl?: string | ((x: number, y: number, level: number,) => string) | undefined;
+            getTileUrl?: string | ((x: number, y: number, level: number) => string) | undefined;
             /**
              * 图层叠加的顺序值
              */
@@ -32,7 +32,7 @@ declare namespace AMap {
             /**
              * 支持的缩放级别范围
              */
-            zooms?: [number, number,] | undefined;
+            zooms?: [number, number] | undefined;
             /**
              * 是否在高清屏下进行清晰度适配
              */
@@ -64,7 +64,7 @@ declare namespace AMap {
              * 实时交通图层
              * @param options 图层选项
              */
-            constructor(options?: Traffic.Options,);
+            constructor(options?: Traffic.Options);
         }
     }
 
@@ -73,7 +73,7 @@ declare namespace AMap {
          * 切片图层
          * @param options 图层选项
          */
-        constructor(options?: TileLayer.Options,);
+        constructor(options?: TileLayer.Options);
         /**
          * 获取当前图层所有切片号
          */
@@ -86,6 +86,6 @@ declare namespace AMap {
          * 设置图层的取图地址
          * @param url 取图地址
          */
-        setTileUrl(url: string | ((x: number, y: number, level: number,) => string),): void;
+        setTileUrl(url: string | ((x: number, y: number, level: number) => string)): void;
     }
 }

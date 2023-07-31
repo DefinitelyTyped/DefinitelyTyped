@@ -14,19 +14,19 @@ export interface Model extends React.ComponentClass {
     readonly from: number;
     readonly to: number;
     readonly scrollSize: number;
-    getIndex: (offset: number,) => number;
-    getOffset: (index: number,) => number;
-    getSize: (index: number,) => number;
+    getIndex: (offset: number) => number;
+    getOffset: (index: number) => number;
+    getSize: (index: number) => number;
     readonly visibleFrom: number;
-    scrollTo: (index: number, smooth: boolean,) => void;
-    setOuterNode: (node: HTMLElement,) => void;
-    el: (index: number, node: React.ReactNode,) => void;
+    scrollTo: (index: number, smooth: boolean) => void;
+    setOuterNode: (node: HTMLElement) => void;
+    el: (index: number, node: React.ReactNode) => void;
 }
 
 export interface useVirtualModelProps {
     itemCount?: number;
     // getEstimatedItemSize is not marked explicitly optional in useVirtualModel, but model implmentation gives it a default, thus making it optional.
-    getEstimatedItemSize?: (itemSizes: number, scrollSize: number, newItemCount?: number,) => number;
+    getEstimatedItemSize?: (itemSizes: number, scrollSize: number, newItemCount?: number) => number;
     estimatedWidgetSize?: number;
     overscanCount?: number;
     horizontal?: boolean;
@@ -36,7 +36,7 @@ export interface useVirtualModelProps {
  * I've created a VirtualModelFunction type because useVirtual is a utility hook that calls (and returns) useVirtualModel.
  * Both hooks accept the same props and return a model.
  */
-type VirtualModelFunction = (props?: useVirtualModelProps,) => Model;
+type VirtualModelFunction = (props?: useVirtualModelProps) => Model;
 
 export const useVirtualModel: VirtualModelFunction;
 export const useVirtual: VirtualModelFunction;
@@ -54,19 +54,19 @@ export const EVT_ALL: EventType[];
 /**
  * useSubscription is a hook that subscribes to a model and calls a callback when one of the passed events is triggered.
  */
-export function useSubscription(model: Model, events: EventType[], callback: (() => void) | null,): void;
+export function useSubscription(model: Model, events: EventType[], callback: (() => void) | null): void;
 
 /**
  * useComponentSubscription is a hook used for subscribing a component to a model.
  * Usually you won't need to use this hook directly.
  */
-export function useComponentSubscription(model: Model, events?: EventType[],): void;
+export function useComponentSubscription(model: Model, events?: EventType[]): void;
 
 /**
  * useOnce keeps a ref to the underlying component.
  * If the ref is null, the callback is called to create the component.
  */
-export function useOnce<T extends React.ReactNode,>(callback: () => T,): T;
+export function useOnce<T extends React.ReactNode>(callback: () => T): T;
 
 export interface SubscriptionProps {
     model: Model;
@@ -83,7 +83,7 @@ export const Subscription: React.FC<React.PropsWithChildren<SubscriptionProps>>;
  */
 export function mapVisibleRange(
     model: Model,
-    callback: (from: number, delta?: number,) => void,
+    callback: (from: number, delta?: number) => void,
     countOffset?: boolean,
 ): void;
 

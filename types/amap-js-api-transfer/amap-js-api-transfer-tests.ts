@@ -1,13 +1,13 @@
 declare const map: AMap.Map;
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number,];
+declare const lnglatTuple: [number, number];
 
 // @ts-expect-error
 new AMap.Transfer();
 // $ExpectType Transfer
 new AMap.Transfer({
     city: 'city',
-},);
+});
 // $ExpectType Transfer
 const transfer = new AMap.Transfer({
     city: 'city1',
@@ -21,14 +21,14 @@ const transfer = new AMap.Transfer({
     isOutline: true,
     outlineColor: 'green',
     autoFitView: true,
-},);
+});
 
 // $ExpectType void
-transfer.search(lnglat, lnglat,);
+transfer.search(lnglat, lnglat);
 // $ExpectType void
-transfer.search(lnglatTuple, lnglatTuple,);
+transfer.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
-transfer.search(lnglat, lnglat, (status, result,) => {
+transfer.search(lnglat, lnglat, (status, result) => {
     const temp: 'complete' | 'no_data' | 'error' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResultBase
@@ -309,10 +309,10 @@ transfer.search(lnglat, lnglat, (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
 // $ExpectType void
-transfer.search([{ keyword: 'origin', }, { keyword: 'destination', },], (status, result,) => {
+transfer.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, result) => {
     const temp: 'complete' | 'no_data' | 'error' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResultExt
@@ -329,9 +329,9 @@ transfer.search([{ keyword: 'origin', }, { keyword: 'destination', },], (status,
         // $ExpectType string
         result;
     }
-},);
+});
 
-transfer.on('complete', (event: AMap.Transfer.EventMap['complete'],) => {
+transfer.on('complete', (event: AMap.Transfer.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
     if ('info' in event) {
@@ -361,11 +361,11 @@ transfer.on('complete', (event: AMap.Transfer.EventMap['complete'],) => {
         // $ExpectType Poi | undefined
         event.end;
     }
-},);
+});
 
-transfer.on('error', (event: AMap.Transfer.EventMap['error'],) => {
+transfer.on('error', (event: AMap.Transfer.EventMap['error']) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
-},);
+});

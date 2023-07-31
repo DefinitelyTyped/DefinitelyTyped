@@ -336,9 +336,9 @@ declare namespace DAO {
         Cancel(): void;
         Close(): void;
         readonly Connect: string;
-        CreateQueryDef(Name?: string, SQLText?: string,): QueryDef;
+        CreateQueryDef(Name?: string, SQLText?: string): QueryDef;
         readonly Database: Database;
-        Execute(Query: string, Options?: RecordsetOptionEnum,): void;
+        Execute(Query: string, Options?: RecordsetOptionEnum): void;
         readonly hDbc: number;
         readonly Name: string;
         OpenRecordset(
@@ -358,9 +358,9 @@ declare namespace DAO {
 
     interface Connections {
         readonly Count: number;
-        Item(Item: number | string,): Connection;
+        Item(Item: number | string): Connection;
         Refresh(): void;
-        (Item: number | string,): Connection;
+        (Item: number | string): Connection;
     }
 
     class Container {
@@ -378,9 +378,9 @@ declare namespace DAO {
 
     interface Containers {
         readonly Count: number;
-        Item(Item: number | string,): Container;
+        Item(Item: number | string): Container;
         Refresh(): void;
-        (Item: number | string,): Container;
+        (Item: number | string): Container;
     }
 
     class Database {
@@ -391,8 +391,8 @@ declare namespace DAO {
         Connect: string;
         readonly Connection: Connection;
         readonly Containers: Containers;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
-        CreateQueryDef(Name?: string, SQLText?: string,): QueryDef;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
+        CreateQueryDef(Name?: string, SQLText?: string): QueryDef;
         CreateRelation(
             Name?: string,
             Table?: string,
@@ -406,17 +406,17 @@ declare namespace DAO {
             Connect?: string,
         ): TableDef;
         DesignMasterID: string;
-        Execute(Query: string, Options?: RecordsetOptionEnum,): void;
-        MakeReplica(PathName: string, Description: string, Options?: ReplicaTypeEnum,): void;
+        Execute(Query: string, Options?: RecordsetOptionEnum): void;
+        MakeReplica(PathName: string, Description: string, Options?: ReplicaTypeEnum): void;
         readonly Name: string;
-        NewPassword(bstrOld: string, bstrNew: string,): void;
+        NewPassword(bstrOld: string, bstrNew: string): void;
         OpenRecordset(
             Name: string,
             Type?: RecordsetTypeEnum,
             Options?: RecordsetOptionEnum,
             LockEdit?: LockTypeEnum,
         ): Recordset;
-        PopulatePartial(DbPathName: string,): void;
+        PopulatePartial(DbPathName: string): void;
         readonly Properties: Properties;
         readonly QueryDefs: QueryDefs;
         QueryTimeout: number;
@@ -424,7 +424,7 @@ declare namespace DAO {
         readonly Recordsets: Recordsets;
         readonly Relations: Relations;
         readonly ReplicaID: string;
-        Synchronize(DbPathName: string, ExchangeType?: SynchronizeTypeEnum,): void;
+        Synchronize(DbPathName: string, ExchangeType?: SynchronizeTypeEnum): void;
         readonly TableDefs: TableDefs;
         readonly Transactions: boolean;
         readonly Updatable: boolean;
@@ -433,9 +433,9 @@ declare namespace DAO {
 
     interface Databases {
         readonly Count: number;
-        Item(Item: number | string,): Database;
+        Item(Item: number | string): Database;
         Refresh(): void;
-        (Item: number | string,): Database;
+        (Item: number | string): Database;
     }
 
     class DBEngine {
@@ -444,7 +444,7 @@ declare namespace DAO {
         BeginTrans(): void;
 
         /** @param Option [Option=0] */
-        CommitTrans(Option?: number,): void;
+        CommitTrans(Option?: number): void;
 
         /**
          * Compact a closed database
@@ -471,17 +471,17 @@ declare namespace DAO {
          * * the password, in the form `;pwd=MyNewPassword'`
          * * both the constant and a password, e.g. `dbLangGreek + ';pwd=MyNewPassword'`
          */
-        CreateDatabase(Name: string, Locale: LanguageConstants | string, Option?: DatabaseTypeEnum,): Database;
-        CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: WorkspaceTypeEnum,): Workspace;
+        CreateDatabase(Name: string, Locale: LanguageConstants | string, Option?: DatabaseTypeEnum): Database;
+        CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: WorkspaceTypeEnum): Workspace;
         readonly DefaultPassword: string;
         DefaultType: number;
         readonly DefaultUser: string;
         readonly Errors: Errors;
-        Idle(Action?: IdleEnum,): void;
+        Idle(Action?: IdleEnum): void;
         IniPath: string;
 
         /** Returns various statistics from the Jet engine */
-        ISAMStats(StatNum: ISAMStatsEnum, Reset?: boolean,): number;
+        ISAMStats(StatNum: ISAMStatsEnum, Reset?: boolean): number;
         LoginTimeout: number;
 
         /**
@@ -493,12 +493,12 @@ declare namespace DAO {
             ReadOnly?: boolean,
             Connect?: string,
         ): Connection;
-        OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string,): Database;
+        OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string): Database;
         readonly Properties: Properties;
-        RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string,): void;
-        RepairDatabase(Name: string,): void;
+        RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
+        RepairDatabase(Name: string): void;
         Rollback(): void;
-        SetOption(Option: SetOptionEnum, Value: any,): void;
+        SetOption(Option: SetOptionEnum, Value: any): void;
         SystemDB: string;
         readonly Version: string;
         readonly Workspaces: Workspaces;
@@ -509,7 +509,7 @@ declare namespace DAO {
         private constructor();
         readonly AllPermissions: number;
         readonly Container: string;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         readonly DateCreated: VarDate;
         readonly LastUpdated: VarDate;
         readonly Name: string;
@@ -521,9 +521,9 @@ declare namespace DAO {
 
     interface Documents {
         readonly Count: number;
-        Item(Item: number | string,): Document;
+        Item(Item: number | string): Document;
         Refresh(): void;
-        (Item: number | string,): Document;
+        (Item: number | string): Document;
     }
 
     class Error {
@@ -538,36 +538,36 @@ declare namespace DAO {
 
     interface Errors {
         readonly Count: number;
-        Item(Item: any,): Error;
+        Item(Item: any): Error;
         Refresh(): void;
-        (Item: any,): Error;
+        (Item: any): Error;
     }
 
     class Field {
         private constructor();
         private 'DAO.Field2_typekey': Field;
         AllowZeroLength: boolean;
-        AppendChunk(Val: any,): void;
+        AppendChunk(Val: any): void;
         AppendOnly: boolean;
         Attributes: number;
         readonly CollatingOrder: number;
         readonly CollectionIndex: number;
         readonly ComplexType: ComplexType;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         readonly DataUpdatable: boolean;
         DefaultValue: any;
         Expression: string;
         readonly FieldSize: number;
         ForeignName: string;
-        GetChunk(Offset: number, Bytes: number,): any;
+        GetChunk(Offset: number, Bytes: number): any;
         readonly IsComplex: boolean;
-        LoadFromFile(FileName: string,): void;
+        LoadFromFile(FileName: string): void;
         Name: string;
         OrdinalPosition: number;
         readonly OriginalValue: any;
         readonly Properties: Properties;
         Required: boolean;
-        SaveToFile(FileName: string,): void;
+        SaveToFile(FileName: string): void;
         Size: number;
         readonly SourceField: string;
         readonly SourceTable: string;
@@ -580,18 +580,18 @@ declare namespace DAO {
     }
 
     interface Fields {
-        Append(Field: Field,): void;
+        Append(Field: Field): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Field;
+        Delete(Name: string): void;
+        Item(Item: number | string): Field;
         Refresh(): void;
-        (Item: number | string,): Field;
+        (Item: number | string): Field;
     }
 
     class Group {
         private 'DAO.Group_typekey': Group;
         private constructor();
-        CreateUser(Name?: string, PID?: string, Password?: string,): User;
+        CreateUser(Name?: string, PID?: string, Password?: string): User;
         Name: string;
         readonly PID: string;
         readonly Properties: Properties;
@@ -599,20 +599,20 @@ declare namespace DAO {
     }
 
     interface Groups {
-        Append(Group: Group,): void;
+        Append(Group: Group): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Group;
+        Delete(Name: string): void;
+        Item(Item: number | string): Group;
         Refresh(): void;
-        (Item: number | string,): Group;
+        (Item: number | string): Group;
     }
 
     class Index {
         private 'DAO.Index_typekey': Index;
         private constructor();
         Clustered: boolean;
-        CreateField(Name?: string,): Field;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
+        CreateField(Name?: string): Field;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         readonly DistinctCount: number;
         Fields: Fields;
         readonly Foreign: boolean;
@@ -625,12 +625,12 @@ declare namespace DAO {
     }
 
     interface Indexes {
-        Append(Index: Index,): void;
+        Append(Index: Index): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Index;
+        Delete(Name: string): void;
+        Item(Item: number | string): Index;
         Refresh(): void;
-        (Item: number | string,): Index;
+        (Item: number | string): Index;
     }
 
     class Parameter {
@@ -645,18 +645,18 @@ declare namespace DAO {
 
     interface Parameters {
         readonly Count: number;
-        Item(Item: number | string,): Parameter;
+        Item(Item: number | string): Parameter;
         Refresh(): void;
-        (Item: number | string,): Parameter;
+        (Item: number | string): Parameter;
     }
 
     interface Properties {
-        Append(Property: Property,): void;
+        Append(Property: Property): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Property;
+        Delete(Name: string): void;
+        Item(Item: number | string): Property;
         Refresh(): void;
-        (Item: number | string,): Property;
+        (Item: number | string): Property;
     }
 
     class Property {
@@ -676,16 +676,16 @@ declare namespace DAO {
         Cancel(): void;
         Close(): void;
         Connect: string;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         readonly DateCreated: VarDate;
-        Execute(Options?: RecordsetOptionEnum,): void;
+        Execute(Options?: RecordsetOptionEnum): void;
         readonly Fields: Fields;
         readonly hStmt: number;
         readonly LastUpdated: VarDate;
         MaxRecords: number;
         Name: string;
         ODBCTimeout: number;
-        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum, LockEdit?: LockTypeEnum,): Recordset;
+        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum, LockEdit?: LockTypeEnum): Recordset;
         readonly Parameters: Parameters;
         Prepare: QueryDefStateEnum;
         readonly Properties: Properties;
@@ -698,12 +698,12 @@ declare namespace DAO {
     }
 
     interface QueryDefs {
-        Append(QueryDef: QueryDef,): void;
+        Append(QueryDef: QueryDef): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): QueryDef;
+        Delete(Name: string): void;
+        Item(Item: number | string): QueryDef;
         Refresh(): void;
-        (Item: number | string,): QueryDef;
+        (Item: number | string): QueryDef;
     }
 
     interface Recordset {
@@ -720,10 +720,10 @@ declare namespace DAO {
         Cancel(): void;
 
         /** @param UpdateType [UpdateType=1] */
-        CancelUpdate(UpdateType?: number,): void;
+        CancelUpdate(UpdateType?: number): void;
         Clone(): Recordset;
         Close(): void;
-        Collect(Item: any,): any;
+        Collect(Item: any): any;
         Connection: Connection;
         CopyQueryDef(): QueryDef;
         readonly DateCreated: VarDate;
@@ -732,23 +732,23 @@ declare namespace DAO {
         readonly EditMode: EditModeEnum;
         readonly EOF: boolean;
         readonly Fields: Fields;
-        FillCache(Rows?: number, StartBookmark?: string,): void;
+        FillCache(Rows?: number, StartBookmark?: string): void;
         Filter: string;
-        FindFirst(Criteria: string,): void;
-        FindLast(Criteria: string,): void;
-        FindNext(Criteria: string,): void;
-        FindPrevious(Criteria: string,): void;
-        GetRows(NumRows?: number,): any;
+        FindFirst(Criteria: string): void;
+        FindLast(Criteria: string): void;
+        FindNext(Criteria: string): void;
+        FindPrevious(Criteria: string): void;
+        GetRows(NumRows?: number): any;
         readonly hStmt: number;
         Index: string;
         readonly LastModified: Bookmark;
         readonly LastUpdated: VarDate;
         LockEdits: boolean;
-        Move(Rows: number, StartBookmark?: Bookmark,): void;
+        Move(Rows: number, StartBookmark?: Bookmark): void;
         MoveFirst(): void;
 
         /** @param Options [Options=0] */
-        MoveLast(Options?: number,): void;
+        MoveLast(Options?: number): void;
         MoveNext(): void;
         MovePrevious(): void;
         readonly Name: string;
@@ -756,13 +756,13 @@ declare namespace DAO {
         readonly NoMatch: boolean;
         readonly ODBCFetchCount: number;
         readonly ODBCFetchDelay: number;
-        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum,): Recordset;
+        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum): Recordset;
         readonly Parent: Database;
         PercentPosition: number;
         readonly Properties: Properties;
         readonly RecordCount: number;
         readonly RecordStatus: number;
-        Requery(NewQueryDef?: QueryDef,): void;
+        Requery(NewQueryDef?: QueryDef): void;
         readonly Restartable: boolean;
         Seek(
             Comparison: string,
@@ -790,25 +790,25 @@ declare namespace DAO {
          * @param UpdateType [UpdateType=1]
          * @param Force [Force=false]
          */
-        Update(UpdateType?: UpdateTypeEnum, Force?: boolean,): void;
+        Update(UpdateType?: UpdateTypeEnum, Force?: boolean): void;
         UpdateOptions: UpdateCriteriaEnum;
         readonly ValidationRule: string;
         readonly ValidationText: string;
-        (FieldIndex: number | string,): Field;
+        (FieldIndex: number | string): Field;
     }
 
     interface Recordsets {
         readonly Count: number;
-        Item(Item: number | string,): Recordset;
+        Item(Item: number | string): Recordset;
         Refresh(): void;
-        (Item: number | string,): Recordset;
+        (Item: number | string): Recordset;
     }
 
     class Relation {
         private 'DAO.Relation_typekey': Relation;
         private constructor();
         Attributes: RelationAttributeEnum;
-        CreateField(Name?: string,): Field;
+        CreateField(Name?: string): Field;
         readonly Fields: Fields;
         ForeignTable: string;
         Name: string;
@@ -818,12 +818,12 @@ declare namespace DAO {
     }
 
     interface Relations {
-        Append(Relation: Relation,): void;
+        Append(Relation: Relation): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Relation;
+        Delete(Name: string): void;
+        Item(Item: number | string): Relation;
         Refresh(): void;
-        (Item: number | string,): Relation;
+        (Item: number | string): Relation;
     }
 
     class TableDef {
@@ -832,15 +832,15 @@ declare namespace DAO {
         Attributes: TableDefAttributeEnum;
         readonly ConflictTable: string;
         Connect: string;
-        CreateField(Name?: string, Type?: DataTypeEnum, Size?: number,): Field;
-        CreateIndex(Name?: string,): Index;
-        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean,): Property;
+        CreateField(Name?: string, Type?: DataTypeEnum, Size?: number): Field;
+        CreateIndex(Name?: string): Index;
+        CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         readonly DateCreated: VarDate;
         readonly Fields: Fields;
         readonly Indexes: Indexes;
         readonly LastUpdated: VarDate;
         Name: string;
-        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum,): Recordset;
+        OpenRecordset(Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum): Recordset;
         readonly Properties: Properties;
         readonly RecordCount: number;
         RefreshLink(): void;
@@ -852,33 +852,33 @@ declare namespace DAO {
     }
 
     interface TableDefs {
-        Append(TableDef: TableDef,): void;
+        Append(TableDef: TableDef): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): TableDef;
+        Delete(Name: string): void;
+        Item(Item: number | string): TableDef;
         Refresh(): void;
-        (Item: number | string,): TableDef;
+        (Item: number | string): TableDef;
     }
 
     class User {
         private 'DAO.User_typekey': User;
         private constructor();
-        CreateGroup(Name?: string, PID?: string,): Group;
+        CreateGroup(Name?: string, PID?: string): Group;
         readonly Groups: Groups;
         Name: string;
-        NewPassword(bstrOld: string, bstrNew: string,): void;
+        NewPassword(bstrOld: string, bstrNew: string): void;
         readonly Password: string;
         readonly PID: string;
         readonly Properties: Properties;
     }
 
     interface Users {
-        Append(User: User,): void;
+        Append(User: User): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): User;
+        Delete(Name: string): void;
+        Item(Item: number | string): User;
         Refresh(): void;
-        (Item: number | string,): User;
+        (Item: number | string): User;
     }
 
     class Workspace {
@@ -888,7 +888,7 @@ declare namespace DAO {
         Close(): void;
 
         /** @param Options [Options=0] */
-        CommitTrans(Options?: number,): void;
+        CommitTrans(Options?: number): void;
         readonly Connections: Connections;
 
         /**
@@ -897,9 +897,9 @@ declare namespace DAO {
          * * the password, in the form `;pwd=MyNewPassword'`
          * * both the constant and a password, e.g. `dbLangGreek + ';pwd=MyNewPassword'`
          */
-        CreateDatabase(Name: string, Connect: string, Option?: DatabaseTypeEnum,): Database;
-        CreateGroup(Name?: string, PID?: string,): Group;
-        CreateUser(Name?: string, PID?: string, Password?: string,): User;
+        CreateDatabase(Name: string, Connect: string, Option?: DatabaseTypeEnum): Database;
+        CreateGroup(Name?: string, PID?: string): Group;
+        CreateUser(Name?: string, PID?: string, Password?: string): User;
         readonly Databases: Databases;
         DefaultCursorDriver: number;
         readonly Groups: Groups;
@@ -917,7 +917,7 @@ declare namespace DAO {
             ReadOnly?: boolean,
             Connect?: string,
         ): Connection;
-        OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string,): Database;
+        OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string): Database;
         readonly Properties: Properties;
         Rollback(): void;
         readonly Type: number;
@@ -926,12 +926,12 @@ declare namespace DAO {
     }
 
     interface Workspaces {
-        Append(Workspace: Workspace,): void;
+        Append(Workspace: Workspace): void;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Item: number | string,): Workspace;
+        Delete(Name: string): void;
+        Item(Item: number | string): Workspace;
         Refresh(): void;
-        (Item: number | string,): Workspace;
+        (Item: number | string): Workspace;
     }
 }
 

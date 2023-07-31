@@ -3,11 +3,11 @@ import ErrorNode from './ErrorNode';
 import TerminalNode from './TerminalNode';
 
 export default class ParseTreeListener {
-    visitTerminal(node: TerminalNode,): void;
+    visitTerminal(node: TerminalNode): void;
 
-    visitErrorNode(node: ErrorNode,): void;
+    visitErrorNode(node: ErrorNode): void;
 
-    enterEveryRule(ctx: ParserRuleContext,): void;
+    enterEveryRule(ctx: ParserRuleContext): void;
 
-    exitEveryRule(ctx: ParserRuleContext,): void;
+    exitEveryRule(ctx: ParserRuleContext): void;
 }

@@ -20,7 +20,7 @@ const options: Aos.AosOptions = {
 };
 
 Aos.init();
-Aos.init(options,);
+Aos.init(options);
 
 Aos.refresh();
 Aos.refreshHard();
@@ -28,11 +28,11 @@ Aos.refreshHard();
 document.addEventListener('aos:in', event => {
     event;
     event.detail;
-},);
+});
 
-document.addEventListener('aos:out', () => {},);
+document.addEventListener('aos:out', () => {});
 
 // aos also creates custom events for every unique id, which you can't cover in d.ts
 document.addEventListener('aos:in:sectionId' as Aos.AosEventType, event => {
     event.detail;
-},);
+});

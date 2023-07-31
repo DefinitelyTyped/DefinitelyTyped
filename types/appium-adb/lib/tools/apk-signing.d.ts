@@ -39,7 +39,7 @@ interface ApkSigning {
      * @throws If apksigner binary is not present on the local file system
      *                 or the return code is not equal to zero.
      */
-    executeApksigner(args?: ReadonlyArray<string>,): Promise<string>;
+    executeApksigner(args?: ReadonlyArray<string>): Promise<string>;
 
     /**
      * (Re)sign the given apk file on the local file system with the default certificate.
@@ -47,7 +47,7 @@ interface ApkSigning {
      * @param apk - The full path to the local apk file.
      * @throws If signing fails.
      */
-    signWithDefaultCert(apk: string,): Promise<void>;
+    signWithDefaultCert(apk: string): Promise<void>;
 
     /**
      * (Re)sign the given apk file on the local file system with a custom certificate.
@@ -55,7 +55,7 @@ interface ApkSigning {
      * @param apk - The full path to the local apk file.
      * @throws If signing fails.
      */
-    signWithCustomCert(apk: string,): Promise<void>;
+    signWithCustomCert(apk: string): Promise<void>;
 
     /**
      * (Re)sign the given apk file on the local file system with either
@@ -65,7 +65,7 @@ interface ApkSigning {
      * @param appPath - The full path to the local .apk(s) file.
      * @throws If signing fails.
      */
-    sign(appPath: string,): Promise<void>;
+    sign(appPath: string): Promise<void>;
 
     /**
      * Perform zip-aligning to the given local apk file.
@@ -75,7 +75,7 @@ interface ApkSigning {
      * or false if the apk has been already aligned.
      * @throws If zip-align fails.
      */
-    zipAlignApk(apk: string,): Promise<boolean>;
+    zipAlignApk(apk: string): Promise<boolean>;
 
     /**
      * Check if the app is already signed with the default Appium certificate.
@@ -84,12 +84,12 @@ interface ApkSigning {
      * @param pgk - The name of application package.
      * @return True if given application is already signed.
      */
-    checkApkCert(appPath: string, pkg: string, opts?: CertCheckOptions,): Promise<boolean>;
+    checkApkCert(appPath: string, pkg: string, opts?: CertCheckOptions): Promise<boolean>;
 
     /**
      * Retrieve the the hash of the given keystore.
      *
      * @throws If getting keystore hash fails.
      */
-    getKeystoreHash(keytool: string, md5re: RegExp,): Promise<KeystoreHash>;
+    getKeystoreHash(keytool: string, md5re: RegExp): Promise<KeystoreHash>;
 }

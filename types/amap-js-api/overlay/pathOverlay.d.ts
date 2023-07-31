@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace PathOverlay {
-        interface EventMap<I = PathOverlay,> extends ShapeOverlay.EventMap<I> {}
-        interface Options<ExtraData = any,> extends Overlay.Options<ExtraData> {
+        interface EventMap<I = PathOverlay> extends ShapeOverlay.EventMap<I> {}
+        interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**
              * 是否可见
              */
@@ -40,8 +40,8 @@ declare namespace AMap {
             lineCap?: StrokeLineCap | undefined;
         }
     }
-    abstract class PathOverlay<ExtraData = any,> extends ShapeOverlay<ExtraData> {
-        constructor(options?: PathOverlay.Options<ExtraData>,);
+    abstract class PathOverlay<ExtraData = any> extends ShapeOverlay<ExtraData> {
+        constructor(options?: PathOverlay.Options<ExtraData>);
         /**
          * 获取范围
          */

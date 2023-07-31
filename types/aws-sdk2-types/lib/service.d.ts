@@ -1,7 +1,7 @@
-import { ConfigBase, ConfigurationOptions, } from './config-base';
-import { Endpoint, } from './endpoint';
-import { AWSError, } from './error';
-import { Request, } from './request';
+import { ConfigBase, ConfigurationOptions } from './config-base';
+import { Endpoint } from './endpoint';
+import { AWSError } from './error';
+import { Request } from './request';
 
 export interface WaiterConfiguration {
     /**
@@ -19,7 +19,7 @@ export class Service {
     /**
      * Creates a new service object with a configuration object.
      */
-    constructor(config?: ServiceConfigurationOptions,);
+    constructor(config?: ServiceConfigurationOptions);
 
     /**
      * Defines a new Service class using a service identifier and list of versions including an optional set of features (functions) to apply to the class prototype.
@@ -28,7 +28,7 @@ export class Service {
      * @param {string[]} versions - a list of versions that work with this service.
      * @param {Object} features - an object to attach to the prototype.
      */
-    defineService(serviceIdentifier: string, versions: string[], features?: any,): typeof Service;
+    defineService(serviceIdentifier: string, versions: string[], features?: any): typeof Service;
     /**
      * Calls an operation on a service with the given input parameters.
      *
@@ -38,7 +38,7 @@ export class Service {
     makeRequest(
         operation: string,
         params?: { [key: string]: any },
-        callback?: (err: AWSError, data: any,) => void,
+        callback?: (err: AWSError, data: any) => void,
     ): Request<any, AWSError>;
     /**
      * Calls an operation on a service with the given input parameters, without any authentication data.
@@ -49,21 +49,21 @@ export class Service {
     makeUnauthenticatedRequest(
         operation: string,
         params?: { [key: string]: any },
-        callback?: (err: AWSError, data: any,) => void,
+        callback?: (err: AWSError, data: any) => void,
     ): Request<any, AWSError>;
     /**
      * Override this method to setup any custom request listeners for each new request to the service.
      */
-    setupRequestListeners(request: Request<any, AWSError>,): void;
+    setupRequestListeners(request: Request<any, AWSError>): void;
     /**
      * Waits for a given state.
      */
     waitFor(
         state: string,
         params?: { [key: string]: any; $waiter?: WaiterConfiguration },
-        callback?: (err: AWSError, data: any,) => void,
+        callback?: (err: AWSError, data: any) => void,
     ): Request<any, AWSError>;
-    waitFor(state: string, callback?: (err: AWSError, data: any,) => void,): Request<any, AWSError>;
+    waitFor(state: string, callback?: (err: AWSError, data: any) => void): Request<any, AWSError>;
 
     /**
      * The list of API versions supported by this service.

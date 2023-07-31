@@ -10,34 +10,34 @@
 /// <reference types="node" />
 
 import * as FS from 'fs';
-import { Constants, } from './util';
+import { Constants } from './util';
 
 declare class AdmZip {
     /**
      * @param fileNameOrRawData If provided, reads an existing archive. Otherwise creates a new, empty archive.
      * @param options Options when initializing the ZIP file
      */
-    constructor(fileNameOrRawData?: string | Buffer, options?: Partial<AdmZip.InitOptions>,);
+    constructor(fileNameOrRawData?: string | Buffer, options?: Partial<AdmZip.InitOptions>);
     /**
      * Extracts the given entry from the archive and returns the content as a Buffer object
      * @param entry ZipEntry object or String with the full path of the entry
      * @param pass Password used for decrypting the file
      * @return Buffer or Null in case of error
      */
-    readFile(entry: string | AdmZip.IZipEntry, pass?: string | Buffer,): Buffer | null;
+    readFile(entry: string | AdmZip.IZipEntry, pass?: string | Buffer): Buffer | null;
     /**
      * Asynchronous `readFile`.
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param callback Called with a `Buffer` or `null` in case of error.
      */
-    readFileAsync(entry: string | AdmZip.IZipEntry, callback: (data: Buffer | null, err: string,) => void,): void;
+    readFileAsync(entry: string | AdmZip.IZipEntry, callback: (data: Buffer | null, err: string) => void): void;
     /**
      * Extracts the given entry from the archive and returns the content as
      * plain text in the given encoding.
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param encoding If no encoding is specified `"utf8"` is used.
      */
-    readAsText(fileName: string | AdmZip.IZipEntry, encoding?: string,): string;
+    readAsText(fileName: string | AdmZip.IZipEntry, encoding?: string): string;
     /**
      * Asynchronous `readAsText`.
      * @param entry The full path of the entry or a `IZipEntry` object.
@@ -46,7 +46,7 @@ declare class AdmZip {
      */
     readAsTextAsync(
         fileName: string | AdmZip.IZipEntry,
-        callback: (data: string, err: string,) => void,
+        callback: (data: string, err: string) => void,
         encoding?: string,
     ): void;
     /**
@@ -54,13 +54,13 @@ declare class AdmZip {
      * and files if the given entry is a directory.
      * @param entry The full path of the entry or a `IZipEntry` object.
      */
-    deleteFile(entry: string | AdmZip.IZipEntry,): void;
+    deleteFile(entry: string | AdmZip.IZipEntry): void;
     /**
      * Adds a comment to the zip. The zip must be rewritten after
      * adding the comment.
      * @param comment Content of the comment.
      */
-    addZipComment(comment: string,): void;
+    addZipComment(comment: string): void;
     /**
      * @return The zip comment.
      */
@@ -72,20 +72,20 @@ declare class AdmZip {
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param comment The comment to add to the entry.
      */
-    addZipEntryComment(entry: string | AdmZip.IZipEntry, comment: string,): void;
+    addZipEntryComment(entry: string | AdmZip.IZipEntry, comment: string): void;
     /**
      * Returns the comment of the specified entry.
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @return The comment of the specified entry.
      */
-    getZipEntryComment(entry: string | AdmZip.IZipEntry,): string;
+    getZipEntryComment(entry: string | AdmZip.IZipEntry): string;
     /**
      * Updates the content of an existing entry inside the archive. The zip
      * must be rewritten after updating the content.
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param content The entry's new contents.
      */
-    updateFile(entry: string | AdmZip.IZipEntry, content: Buffer,): void;
+    updateFile(entry: string | AdmZip.IZipEntry, content: Buffer): void;
     /**
      * Adds a file from the disk to the archive.
      * @param localPath Path to a file on disk.
@@ -94,7 +94,7 @@ declare class AdmZip {
      * @param zipName Name for the file.
      * @param comment Comment to be attached to the file
      */
-    addLocalFile(localPath: string, zipPath?: string, zipName?: string, comment?: string,): void;
+    addLocalFile(localPath: string, zipPath?: string, zipName?: string, comment?: string): void;
     /**
      * Adds a local directory and all its nested files and directories to the
      * archive.
@@ -102,7 +102,7 @@ declare class AdmZip {
      * @param zipPath Path to a folder in the archive. Default: `""`.
      * @param filter RegExp or Function if files match will be included.
      */
-    addLocalFolder(localPath: string, zipPath?: string, filter?: RegExp | ((filename: string,) => boolean),): void;
+    addLocalFolder(localPath: string, zipPath?: string, filter?: RegExp | ((filename: string) => boolean)): void;
     /**
      * Asynchronous addLocalFile
      * @param localPath
@@ -113,9 +113,9 @@ declare class AdmZip {
      */
     addLocalFolderAsync(
         localPath: string,
-        callback: (success?: boolean, err?: string,) => void,
+        callback: (success?: boolean, err?: string) => void,
         zipPath?: string,
-        filter?: RegExp | ((filename: string,) => boolean),
+        filter?: RegExp | ((filename: string) => boolean),
     ): void;
     /**
      * @param localPath - path where files will be extracted
@@ -125,7 +125,7 @@ declare class AdmZip {
      */
     addLocalFolderPromise(
         localPath: string,
-        props: { zipPath?: string; filter?: RegExp | ((filename: string,) => boolean) },
+        props: { zipPath?: string; filter?: RegExp | ((filename: string) => boolean) },
     ): Promise<void>;
     /**
      * Allows you to create a entry (file or directory) in the zip file.
@@ -137,7 +137,7 @@ declare class AdmZip {
      * @param comment Comment to add to the entry.
      * @param attr Attribute to add to the entry.
      */
-    addFile(entryName: string, content: Buffer, comment?: string, attr?: number,): void;
+    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): void;
     /**
      * Returns an array of `IZipEntry` objects representing the files and folders
      * inside the archive.
@@ -148,7 +148,7 @@ declare class AdmZip {
      * @param name Name of the file or folder to retrieve.
      * @return The entry corresponding to the `name`.
      */
-    getEntry(name: string,): AdmZip.IZipEntry | null;
+    getEntry(name: string): AdmZip.IZipEntry | null;
     /**
      * Returns the number of entries in the ZIP
      * @return The amount of entries in the ZIP
@@ -158,7 +158,7 @@ declare class AdmZip {
      * Loop through each entry in the ZIP
      * @param callback The callback that receives each individual entry
      */
-    forEach(callback: (entry: AdmZip.IZipEntry,) => void,): void;
+    forEach(callback: (entry: AdmZip.IZipEntry) => void): void;
     /**
      * Extracts the given entry to the given `targetPath`.
      * If the entry is a directory inside the archive, the entire directory and
@@ -188,7 +188,7 @@ declare class AdmZip {
      * Test the archive
      * @param password The password for the archive
      */
-    test(password?: string | Buffer,): boolean;
+    test(password?: string | Buffer): boolean;
     /**
      * Extracts the entire archive to the given location.
      * @param targetPath Target location.
@@ -217,14 +217,14 @@ declare class AdmZip {
         targetPath: string,
         overwrite?: boolean,
         keepOriginalPermission?: boolean,
-        callback?: (error?: Error,) => void,
+        callback?: (error?: Error) => void,
     ): void;
     /**
      * Writes the newly created zip file to disk at the specified location or
      * if a zip was opened and no `targetFileName` is provided, it will
      * overwrite the opened zip.
      */
-    writeZip(targetFileName?: string, callback?: (error: Error | null,) => void,): void;
+    writeZip(targetFileName?: string, callback?: (error: Error | null) => void): void;
     /**
      * Writes the newly created zip file to disk at the specified location or
      * if a zip was opened and no `targetFileName` is provided, it will
@@ -246,10 +246,10 @@ declare class AdmZip {
      * @param onItemEnd called after an entry is compressed.
      */
     toBuffer(
-        onSuccess: (buffer: Buffer,) => void,
+        onSuccess: (buffer: Buffer) => void,
         onFail?: (...args: any[]) => void,
-        onItemStart?: (name: string,) => void,
-        onItemEnd?: (name: string,) => void,
+        onItemStart?: (name: string) => void,
+        onItemEnd?: (name: string) => void,
     ): void;
     /**
      * Asynchronously convert the promise to a Buffer
@@ -300,11 +300,11 @@ declare namespace AdmZip {
          * Asynchronously retrieve the compressed data for this entry. Note that
          * this may trigger compression if any properties were modified.
          */
-        getCompressedDataAsync(callback: (data: Buffer,) => void,): void;
+        getCompressedDataAsync(callback: (data: Buffer) => void): void;
         /**
          * Set the (uncompressed) data to be associated with this entry.
          */
-        setData(value: string | Buffer,): void;
+        setData(value: string | Buffer): void;
         /**
          * Get the decompressed data associated with this entry.
          */
@@ -312,7 +312,7 @@ declare namespace AdmZip {
         /**
          * Asynchronously get the decompressed data associated with this entry.
          */
-        getDataAsync(callback: (data: Buffer, err: string,) => void,): void;
+        getDataAsync(callback: (data: Buffer, err: string) => void): void;
         /**
          * Returns the CEN Entry Header to be written to the output zip file, plus
          * the extra data and the entry comment.
@@ -345,8 +345,8 @@ declare namespace AdmZip {
         readonly entryHeaderSize: number;
         readonly realDataOffset: number;
         readonly dataHeader: DataHeader;
-        loadDataHeaderFromBinary(data: Buffer,): void;
-        loadFromBinary(data: Buffer,): void;
+        loadDataHeaderFromBinary(data: Buffer): void;
+        loadFromBinary(data: Buffer): void;
         dataHeaderToBinary(): Buffer;
         entryHeaderToBinary(): Buffer;
         toString(): string;

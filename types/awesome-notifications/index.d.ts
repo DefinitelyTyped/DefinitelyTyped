@@ -43,7 +43,7 @@ export interface AwnOptions {
     position?: AwnPosition;
     maxNotifications?: number;
     animationDuration?: number;
-    formatError?: (error: Error,) => string | Error;
+    formatError?: (error: Error) => string | Error;
     durations?: AwnDurations;
     minDurations?: {
         async?: number;
@@ -62,7 +62,7 @@ export default class AWN {
      * Lightweight JavaScript library with enhanced asynchronous events support.
      * @param  opts AwnOptions object
      */
-    constructor(opts?: AwnOptions,);
+    constructor(opts?: AwnOptions);
 
     /**
      * Shows new tip toast
@@ -70,7 +70,7 @@ export default class AWN {
      * @param  options Instance of `AwnOptions`, which will override globals for this call
      * @return         A new HTMLElement instance
      */
-    tip(message: string, options?: AwnOptions,): HTMLElement;
+    tip(message: string, options?: AwnOptions): HTMLElement;
 
     /**
      * Shows new info toast
@@ -78,7 +78,7 @@ export default class AWN {
      * @param  options Instance of `AwnOptions`, which will override globals for this call
      * @return         A new HTMLElement instance
      */
-    info(message: string, options?: AwnOptions,): HTMLElement;
+    info(message: string, options?: AwnOptions): HTMLElement;
 
     /**
      * Shows new success toast
@@ -86,7 +86,7 @@ export default class AWN {
      * @param  options Instance of `AwnOptions`, which will override globals for this call
      * @return         A new HTMLElement instance
      */
-    success(message: string, options?: AwnOptions,): HTMLElement;
+    success(message: string, options?: AwnOptions): HTMLElement;
 
     /**
      * Shows new warning toast
@@ -94,7 +94,7 @@ export default class AWN {
      * @param  options Instance of `AwnOptions`, which will override globals for this call
      * @return         A new HTMLElement instance
      */
-    warning(message: string, options?: AwnOptions,): HTMLElement;
+    warning(message: string, options?: AwnOptions): HTMLElement;
 
     /**
      * Shows new alert toast
@@ -102,7 +102,7 @@ export default class AWN {
      * @param  options Instance of `AwnOptions`, which will override globals for this call
      * @return         A new HTMLElement instance
      */
-    alert(message: string, options?: AwnOptions,): HTMLElement;
+    alert(message: string, options?: AwnOptions): HTMLElement;
 
     /**
      * Closes all visible toasts. Do nothing if there’re no visible toasts.
@@ -133,21 +133,21 @@ export default class AWN {
      * @param message   A message of async toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param options   Instance of `AwnOptions`, which will override globals for this call
      */
-    async<T = unknown,>(
+    async<T = unknown>(
         promise: Promise<T>,
-        onResolve?: (resp?: T,) => void,
-        onReject?: (error: Error,) => void | string,
+        onResolve?: (resp?: T) => void,
+        onReject?: (error: Error) => void | string,
         message?: string,
         options?: AwnOptions,
     ): Promise<T>;
-    async<T = unknown,>(
+    async<T = unknown>(
         promise: Promise<T>,
         onResolve?: string,
-        onReject?: (resp?: T,) => void,
+        onReject?: (resp?: T) => void,
         message?: string,
         options?: AwnOptions,
     ): Promise<T>;
-    async<T,>(
+    async<T>(
         promise: Promise<T>,
         onResolve: string,
         onReject?: string,
@@ -179,21 +179,21 @@ export default class AWN {
      * @param message   A message of async toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param options   Instance of `AwnOptions`, which will override globals for this call
      */
-    asyncBlock<T = unknown,>(
+    asyncBlock<T = unknown>(
         promise: Promise<T>,
-        onResolve?: (resp?: T,) => void,
-        onReject?: (error: Error,) => void | string,
+        onResolve?: (resp?: T) => void,
+        onReject?: (error: Error) => void | string,
         message?: string,
         options?: AwnOptions,
     ): Promise<T>;
-    asyncBlock<T = unknown,>(
+    asyncBlock<T = unknown>(
         promise: Promise<T>,
         onResolve?: string,
-        onReject?: (resp?: T,) => void,
+        onReject?: (resp?: T) => void,
         message?: string,
         options?: AwnOptions,
     ): Promise<T>;
-    asyncBlock<T,>(
+    asyncBlock<T>(
         promise: Promise<T>,
         onResolve: string,
         onReject?: string,
@@ -206,7 +206,7 @@ export default class AWN {
      * @param  className Defines modal window DOM element class name, it will be concatenated with default prefix ‘awn-popup-‘
      * @param  options   Instance of `AwnOptions`, which will override globals for this call
      */
-    modal(message: string, className?: string, options?: AwnOptions,): void;
+    modal(message: string, className?: string, options?: AwnOptions): void;
 
     /**
      * Shows new confirmation window.
@@ -224,5 +224,5 @@ export default class AWN {
      * @param  options  Instance of `AwnOptions`, which will override globals for this call
      * @return          A new `HTMLElement` instance
      */
-    confirm(message: string, onOk?: () => void, onCancel?: () => void | false, options?: AwnOptions,): HTMLElement;
+    confirm(message: string, onOk?: () => void, onCancel?: () => void | false, options?: AwnOptions): HTMLElement;
 }

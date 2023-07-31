@@ -1,4 +1,4 @@
-import { Permissions, } from './permissions';
+import { Permissions } from './permissions';
 
 /**
  * Parameters for securing PDF file with a password using {@link ProtectPDFOperation}.
@@ -68,7 +68,7 @@ export class PasswordProtectOptions {
      * Returns a builder for {@link PasswordProtectOptions}.
      */
     static get Builder(): typeof PasswordProtectOptionsBuilder;
-    constructor(builder: PasswordProtectOptions,);
+    constructor(builder: PasswordProtectOptions);
     userPassword: string;
     ownerPassword: string;
     encryptionAlgorithm: EncryptionAlgorithm;
@@ -77,10 +77,10 @@ export class PasswordProtectOptions {
     validate(): boolean;
 }
 export class PasswordProtectOptionsBuilder {
-    setUserPassword(userPassword: string,): PasswordProtectOptionsBuilder;
-    setOwnerPassword(ownerPassword: string,): PasswordProtectOptionsBuilder;
-    setEncryptionAlgorithm(encryptionAlgorithm: keyof EncryptionAlgorithm,): PasswordProtectOptionsBuilder;
-    setContentEncryption(contentEncryption: keyof ContentEncryption,): PasswordProtectOptionsBuilder;
-    setPermissions(permissions: Permissions,): PasswordProtectOptionsBuilder;
+    setUserPassword(userPassword: string): PasswordProtectOptionsBuilder;
+    setOwnerPassword(ownerPassword: string): PasswordProtectOptionsBuilder;
+    setEncryptionAlgorithm(encryptionAlgorithm: keyof EncryptionAlgorithm): PasswordProtectOptionsBuilder;
+    setContentEncryption(contentEncryption: keyof ContentEncryption): PasswordProtectOptionsBuilder;
+    setPermissions(permissions: Permissions): PasswordProtectOptionsBuilder;
     build(): PasswordProtectOptions;
 }

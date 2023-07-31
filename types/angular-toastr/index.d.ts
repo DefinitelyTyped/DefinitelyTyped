@@ -26,9 +26,9 @@ declare module 'angular' {
             extendedTimeOut?: number | undefined;
             extraData?: any;
             messageClass?: string | undefined;
-            onHidden?: ((wasClicked: boolean, toast: angular.toastr.IToast,) => void) | undefined;
-            onShown?: ((toast: angular.toastr.IToast,) => void) | undefined;
-            onTap?: ((toast: angular.toastr.IToast,) => void) | undefined;
+            onHidden?: ((wasClicked: boolean, toast: angular.toastr.IToast) => void) | undefined;
+            onShown?: ((toast: angular.toastr.IToast) => void) | undefined;
+            onTap?: ((toast: angular.toastr.IToast) => void) | undefined;
             progressBar?: boolean | undefined;
             tapToDismiss?: boolean | undefined;
             templates?: {
@@ -94,7 +94,7 @@ declare module 'angular' {
              *
              * @param {IToast} toast Optional toast object to delete
              */
-            clear(toast?: IToast,): void;
+            clear(toast?: IToast): void;
             /**
              * Create error toast notification message.
              *
@@ -102,7 +102,7 @@ declare module 'angular' {
              * @param {String} title Title to show on toast
              * @param {IToastOptions} options Override default toast options
              */
-            error(message: string, title?: string, options?: IToastOptions,): IToast;
+            error(message: string, title?: string, options?: IToastOptions): IToast;
             /**
              * Create info toast notification message.
              *
@@ -110,7 +110,7 @@ declare module 'angular' {
              * @param {String} title Title to show on toast
              * @param {IToastOptions} options Override default toast options
              */
-            info(message: string, title?: string, options?: IToastOptions,): IToast;
+            info(message: string, title?: string, options?: IToastOptions): IToast;
             /**
              * Create success toast notification message.
              *
@@ -118,7 +118,7 @@ declare module 'angular' {
              * @param {String} title Title to show on toast
              * @param {IToastOptions} options Override default toast options
              */
-            success(message: string, title?: string, options?: IToastOptions,): IToast;
+            success(message: string, title?: string, options?: IToastOptions): IToast;
             /**
              * Create warning toast notification message.
              *
@@ -126,7 +126,7 @@ declare module 'angular' {
              * @param {String} title Title to show on toast
              * @param {IToastOptions} options Override default toast options
              */
-            warning(message: string, title?: string, options?: IToastOptions,): IToast;
+            warning(message: string, title?: string, options?: IToastOptions): IToast;
         }
     }
 }

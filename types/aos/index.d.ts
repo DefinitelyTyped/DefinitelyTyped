@@ -49,7 +49,7 @@ declare namespace Aos {
          *   to window scroll event and fire once document is ready to set initial state
          *  @param options options
          */
-        init(options?: AosOptions,): void;
+        init(options?: AosOptions): void;
         /**
          * Refresh AOS
          */
@@ -140,7 +140,7 @@ declare global {
     interface Document {
         addEventListener(
             type: Aos.AosEventType,
-            listener: (event: Aos.AosEvent,) => void,
+            listener: (event: Aos.AosEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
     }

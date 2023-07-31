@@ -73,7 +73,7 @@ declare const android: {
             | {
                 toString(): string;
             }
-            | ((version: android.AndroidVersion,) => boolean),
+            | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion | null;
     /**
      *  Retrieve all Android versions that meet the criteria of the argument.
@@ -85,7 +85,7 @@ declare const android: {
             | {
                 toString(): string;
             }
-            | ((version: android.AndroidVersion,) => boolean),
+            | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion[] | null;
 } & android.MapVersionSupport;
 

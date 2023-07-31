@@ -1,5 +1,5 @@
-import { Handler, } from '../../handler';
-import { BaseTriggerEvent, ChallengeResult, CustomChallengeResult, StringMap, } from './_common';
+import { Handler } from '../../handler';
+import { BaseTriggerEvent, ChallengeResult, CustomChallengeResult, StringMap } from './_common';
 
 /**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-define-auth-challenge.html

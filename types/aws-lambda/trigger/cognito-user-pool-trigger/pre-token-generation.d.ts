@@ -1,5 +1,5 @@
-import { Handler, } from '../../handler';
-import { BaseTriggerEvent, StringMap, } from './_common';
+import { Handler } from '../../handler';
+import { BaseTriggerEvent, StringMap } from './_common';
 
 export interface GroupOverrideDetails {
     groupsToOverride?: string[] | undefined;
@@ -7,7 +7,7 @@ export interface GroupOverrideDetails {
     preferredRole?: string | undefined;
 }
 
-export interface BasePreTokenGenerationTriggerEvent<T extends string,> extends BaseTriggerEvent<T> {
+export interface BasePreTokenGenerationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
     request: {
         userAttributes: StringMap;
         groupConfiguration: GroupOverrideDetails;

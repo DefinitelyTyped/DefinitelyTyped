@@ -130,12 +130,12 @@ export default class AmStockChart {
     /**
      * Adds panel to the stock chart. Requires stockChart.validateNow() method to be called after this action.
      */
-    addPanel(panel: StockPanel,): void;
+    addPanel(panel: StockPanel): void;
     /**
      * Adds panel to the stock chart at a specified index.
      * Requires stockChart.validateNow() method to be called after this action.
      */
-    addPanelAt(panel: StockPanel, index: number,): void;
+    addPanelAt(panel: StockPanel, index: number): void;
     /**
      * Destroys chart, all timeouts and listeners.
      */
@@ -147,7 +147,7 @@ export default class AmStockChart {
     /**
      * Removes panel from the stock chart. Requires stockChart.validateNow() method to be called after this action.
      */
-    removePanel(panel: StockPanel,): void;
+    removePanel(panel: StockPanel): void;
     /**
      * Shows event bullets.
      */
@@ -163,7 +163,7 @@ export default class AmStockChart {
     /**
      * Zooms chart to specified dates. startDate, endDate - Date objects.
      */
-    zoom(startDate: Date, endDate: Date,): void;
+    zoom(startDate: Date, endDate: Date): void;
     /**
      * Zooms out the chart.
      */
@@ -194,5 +194,5 @@ export default class AmStockChart {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any,): void;
+    removeListener(chart: AmChart, type: string, handler: any): void;
 }

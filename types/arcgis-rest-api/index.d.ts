@@ -25,11 +25,11 @@ export interface FeatureSet extends HasZM {
     features: Feature[];
 }
 
-export type Position2D = [number, number,];
-export type Position = Position2D | [number, number, number,] | [number, number, number, number,];
+export type Position2D = [number, number];
+export type Position = Position2D | [number, number, number] | [number, number, number, number];
 
 export interface CircularArc {
-    'c': [Position, Position2D,];
+    'c': [Position, Position2D];
 }
 
 export interface Arc {
@@ -135,7 +135,7 @@ export type esriGeometryType =
     | 'esriGeometryPolygon'
     | 'esriGeometryEnvelope';
 
-export type Color = [number, number, number, number,];
+export type Color = [number, number, number, number];
 export type SimpleMarkerSymbolStyle =
     | 'esriSMSCircle'
     | 'esriSMSCross'

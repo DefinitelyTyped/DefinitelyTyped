@@ -32,7 +32,7 @@ export default class GaugeAxis {
      * and positive number means the color will be lighter.
      * @default []
      */
-    bandGradientRatio: [number,];
+    bandGradientRatio: [number];
 
     /**
      * Opacity of band outlines.
@@ -55,7 +55,7 @@ export default class GaugeAxis {
     /**
      * Array of bands - GaugeBand objects. Bands are used to draw color fills between specified values.
      */
-    bands: [GaugeBand,];
+    bands: [GaugeBand];
 
     /**
      * Text displayed below the axis center.
@@ -151,7 +151,7 @@ export default class GaugeAxis {
      * You can use this function to format axis labels.
      * This function is called and value is passed as a attribute: labelFunction(value);
      */
-    labelFunction: (value: number,) => string;
+    labelFunction: (value: number) => string;
 
     /**
      * Distance from axis to the labels.
@@ -288,25 +288,25 @@ export default class GaugeAxis {
     /**
      * Adds event listener to the object.
      */
-    addListener(type: string, handler: any,): void;
+    addListener(type: string, handler: any): void;
 
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any,): void;
+    removeListener(chart: AmChart, type: string, handler: any): void;
 
     /**
      * Sets bottom text.
      */
-    setBottomText(text: string,): void;
+    setBottomText(text: string): void;
 
     /**
      * Sets top text.
      */
-    setTopText(textstring: string,): void;
+    setTopText(textstring: string): void;
 
     /**
      * Returns angle of the value.
      */
-    value2angle(value: number,): void;
+    value2angle(value: number): void;
 }

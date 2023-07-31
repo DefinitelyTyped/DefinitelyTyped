@@ -2,7 +2,7 @@ declare namespace AMap {
     namespace MarkerShape {
         interface CircleOptions {
             type: 'circle';
-            coords: [number, number, number,];
+            coords: [number, number, number];
         }
         interface PolyOptions {
             type: 'poly';
@@ -10,7 +10,7 @@ declare namespace AMap {
         }
         interface RectOptions {
             type: 'rect';
-            coords: [number, number, number, number,];
+            coords: [number, number, number, number];
         }
         type Options = CircleOptions | PolyOptions | RectOptions;
     }
@@ -20,6 +20,6 @@ declare namespace AMap {
          * Marker点击范围
          * @param options 选项
          */
-        constructor(options: MarkerShape.Options,);
+        constructor(options: MarkerShape.Options);
     }
 }

@@ -77,7 +77,7 @@ interface SettingsClientCommands {
      * @throws If Appium Settings has failed to start
      * @returns self instance for chaining
      */
-    requireRunningSettingsApp(opts?: SettingsAppStartupOptions,): Promise<this>;
+    requireRunningSettingsApp(opts?: SettingsAppStartupOptions): Promise<this>;
 
     /**
      * Change the state of WiFi on the device under test.
@@ -86,7 +86,7 @@ interface SettingsClientCommands {
      * @param isEmulator [false] - Set it to true if the device under test
      *                                       is an emulator rather than a real device.
      */
-    setWifiState(on: boolean, isEmulator?: boolean,): Promise<void>;
+    setWifiState(on: boolean, isEmulator?: boolean): Promise<void>;
 
     /**
      * Change the state of Data transfer on the device under test.
@@ -95,7 +95,7 @@ interface SettingsClientCommands {
      * @param isEmulator [false] - Set it to true if the device under test
      *                                       is an emulator rather than a real device.
      */
-    setDataState(on: boolean, isEmulator?: boolean,): Promise<void>;
+    setDataState(on: boolean, isEmulator?: boolean): Promise<void>;
 
     /**
      * Change the state of animation on the device under test.
@@ -110,7 +110,7 @@ interface SettingsClientCommands {
      *
      * @param on - True to enable and false to disable it.
      */
-    setAnimationState(on: boolean,): Promise<void>;
+    setAnimationState(on: boolean): Promise<void>;
 
     /**
      * Change the locale on the device under test. Don't need to reboot the device after changing the locale.
@@ -122,7 +122,7 @@ interface SettingsClientCommands {
      * @param country - Country. e.g. US, JP
      * @param script - Script. e.g. Hans in `zh-Hans-CN`
      */
-    setDeviceSysLocaleViaSettingApp(language: string, country: string, script?: string,): Promise<void>;
+    setDeviceSysLocaleViaSettingApp(language: string, country: string, script?: string): Promise<void>;
 
     /**
      * Emulate geolocation coordinates on the device under test.
@@ -132,7 +132,7 @@ interface SettingsClientCommands {
      * @param isEmulator [false] - Set it to true if the device under test
      *                                       is an emulator rather than a real device.
      */
-    setGeoLocation(location: Location, isEmulator?: boolean,): Promise<void>;
+    setGeoLocation(location: Location, isEmulator?: boolean): Promise<void>;
 
     /**
      * Get the current cached GPS location from the device under test.
@@ -155,7 +155,7 @@ interface SettingsClientCommands {
      *
      * @throws If the GPS cache cannot be refreshed.
      */
-    refreshGeoLocationCache(timeoutMs?: number,): Promise<void>;
+    refreshGeoLocationCache(timeoutMs?: number): Promise<void>;
 
     /**
      * Performs the given editor action on the focused input field.
@@ -167,7 +167,7 @@ interface SettingsClientCommands {
      *                                 names are supported: `normal, unspecified, none,
      *                                 go, search, send, next, done, previous`
      */
-    performEditorAction(action: string | number,): Promise<void>;
+    performEditorAction(action: string | number): Promise<void>;
 
     /**
      * Retrieves the text content of the device's clipboard.
@@ -273,7 +273,7 @@ interface SettingsClientCommands {
      * ```
      * @throws If there was an error while getting the SMS list
      */
-    getSmsList(opts?: SmsListOptions,): Promise<{ items: SmsItem[]; total: number }>;
+    getSmsList(opts?: SmsListOptions): Promise<{ items: SmsItem[]; total: number }>;
 
     /**
      * Types the given Unicode string.
@@ -283,7 +283,7 @@ interface SettingsClientCommands {
      * @param text The string to type
      * @returns `true` if the input text has been successfully sent to adb
      */
-    typeUnicode(text: string,): Promise<boolean>;
+    typeUnicode(text: string): Promise<boolean>;
 
     /**
      * Performs recursive media scan at the given destination.
@@ -293,5 +293,5 @@ interface SettingsClientCommands {
      * @param destination File/folder path on the remote device.
      * @throws If there was an unexpected error by scanning.
      */
-    scanMedia(destination: string,): Promise<void>;
+    scanMedia(destination: string): Promise<void>;
 }

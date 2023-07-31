@@ -16,7 +16,7 @@ declare module 'amplify' {
          * data: A set of key/value pairs of data to be sent to the resource.
          * callback: A function to invoke if the resource is retrieved successfully.
          */
-        (resourceId: string, hash?: any, callback?: Function,): JQueryPromise<any>;
+        (resourceId: string, hash?: any, callback?: Function): JQueryPromise<any>;
 
         /***
          * Request a resource.
@@ -26,6 +26,6 @@ declare module 'amplify' {
          *   success (optional): Function to invoke on success.
          *   error (optional): Function to invoke on error.
          */
-        (settings: RequestSettings,): JQueryPromise<any>;
+        (settings: RequestSettings): JQueryPromise<any>;
     }
 }

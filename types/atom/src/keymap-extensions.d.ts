@@ -1,4 +1,4 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /**
  *  Allows commands to be associated with keystrokes in a context-sensitive way.
@@ -13,29 +13,29 @@ export interface KeymapManager {
 
     // Event Subscription
     /** Invoke the given callback when one or more keystrokes completely match a key binding. */
-    onDidMatchBinding(callback: (event: FullKeybindingMatchEvent,) => void,): Disposable;
+    onDidMatchBinding(callback: (event: FullKeybindingMatchEvent) => void): Disposable;
 
     /** Invoke the given callback when one or more keystrokes partially match a binding. */
-    onDidPartiallyMatchBindings(callback: (event: PartialKeybindingMatchEvent,) => void,): Disposable;
+    onDidPartiallyMatchBindings(callback: (event: PartialKeybindingMatchEvent) => void): Disposable;
 
     /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
-    onDidFailToMatchBinding(callback: (event: FailedKeybindingMatchEvent,) => void,): Disposable;
+    onDidFailToMatchBinding(callback: (event: FailedKeybindingMatchEvent) => void): Disposable;
 
     /** Invoke the given callback when a keymap file is reloaded. */
-    onDidReloadKeymap(callback: (event: KeymapLoadedEvent,) => void,): Disposable;
+    onDidReloadKeymap(callback: (event: KeymapLoadedEvent) => void): Disposable;
 
     /** Invoke the given callback when a keymap file is unloaded. */
-    onDidUnloadKeymap(callback: (event: KeymapLoadedEvent,) => void,): Disposable;
+    onDidUnloadKeymap(callback: (event: KeymapLoadedEvent) => void): Disposable;
 
     /** Invoke the given callback when a keymap file not able to be loaded. */
-    onDidFailToReadFile(callback: (error: FailedKeymapFileReadEvent,) => void,): Disposable;
+    onDidFailToReadFile(callback: (error: FailedKeymapFileReadEvent) => void): Disposable;
 
     // Adding and Removing Bindings
     /** Construct KeyBindings from an object grouping them by CSS selector. */
-    build(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number,): KeyBinding[];
+    build(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): KeyBinding[];
 
     /** Add sets of key bindings grouped by CSS selector. */
-    add(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number,): Disposable;
+    add(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): Disposable;
 
     // Accessing Bindings
     /** Get all current key bindings. */
@@ -46,30 +46,30 @@ export interface KeymapManager {
         keystrokes?: string | undefined; // e.g. 'ctrl-x ctrl-s'
         command?: string | undefined; // e.g. 'editor:backspace'
         target?: Element | undefined;
-    },): KeyBinding[];
+    }): KeyBinding[];
 
     // Managing Keymap Files
     /** Load the key bindings from the given path. */
-    loadKeymap(bindingsPath: string, options?: { watch?: boolean | undefined; priority?: number | undefined },): void;
+    loadKeymap(bindingsPath: string, options?: { watch?: boolean | undefined; priority?: number | undefined }): void;
 
     /**
      *  Cause the keymap to reload the key bindings file at the given path whenever
      *  it changes.
      */
-    watchKeymap(filePath: string, options?: { priority: number },): void;
+    watchKeymap(filePath: string, options?: { priority: number }): void;
 
     // Managing Keyboard Events
     /**
      *  Dispatch a custom event associated with the matching key binding for the
      *  given `KeyboardEvent` if one can be found.
      */
-    handleKeyboardEvent(event: KeyboardEvent,): void;
+    handleKeyboardEvent(event: KeyboardEvent): void;
 
     /** Translates a keydown event to a keystroke string. */
-    keystrokeForKeyboardEvent(event: KeyboardEvent,): string;
+    keystrokeForKeyboardEvent(event: KeyboardEvent): string;
 
     /** Customize translation of raw keyboard events to keystroke strings. */
-    addKeystrokeResolver(resolver: (event: AddedKeystrokeResolverEvent,) => string,): Disposable;
+    addKeystrokeResolver(resolver: (event: AddedKeystrokeResolverEvent) => string): Disposable;
 
     /**
      *  Get the number of milliseconds allowed before pending states caused by
@@ -102,7 +102,7 @@ export interface KeyBinding {
 
     // Comparison
     /** Determines whether the given keystroke matches any contained within this binding. */
-    matches(keystroke: string,): boolean;
+    matches(keystroke: string): boolean;
 
     /**
      *  Compare another KeyBinding to this instance.
@@ -110,7 +110,7 @@ export interface KeyBinding {
      *  Returns 0 if this binding is equivalent to the argument.
      *  Returns >= 1 if the argument is considered greater or of higher priority.
      */
-    compare(other: KeyBinding,): number;
+    compare(other: KeyBinding): number;
 }
 
 export interface PartialKeybindingMatchEvent {

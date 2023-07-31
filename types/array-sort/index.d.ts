@@ -3,15 +3,15 @@
 // Definitions by: Daniel Schmidt <https://github.com/DanielMSchmidt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Comparator<T,> = (a: T, b: T,) => number;
-type ComparisonArg<T,> = string | Comparator<T>;
-type ComparisonArgs<T,> = ComparisonArg<T> | Array<ComparisonArg<T>>;
+type Comparator<T> = (a: T, b: T) => number;
+type ComparisonArg<T> = string | Comparator<T>;
+type ComparisonArgs<T> = ComparisonArg<T> | Array<ComparisonArg<T>>;
 
 interface Options {
     readonly reverse: boolean;
 }
 
-declare function arraySort<T,>(
+declare function arraySort<T>(
     arr: T[],
     props?: ComparisonArgs<T>,
     options?: Options,

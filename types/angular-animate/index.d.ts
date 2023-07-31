@@ -19,7 +19,7 @@ declare module 'angular' {
         }
 
         interface IAnimateCallbackObject {
-            eventFn?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions,) => any) | undefined;
+            eventFn?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
             beforeSetClass?:
                 | ((
                     element: JQuery,
@@ -39,10 +39,10 @@ declare module 'angular' {
                 ) => any)
                 | undefined;
             beforeAddClass?:
-                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions,) => any)
+                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
                 | undefined;
             addClass?:
-                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions,) => any)
+                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
                 | undefined;
             beforeRemoveClass?:
                 | ((
@@ -60,9 +60,9 @@ declare module 'angular' {
                     options: IAnimationOptions,
                 ) => any)
                 | undefined;
-            enter?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions,) => any) | undefined;
-            leave?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions,) => any) | undefined;
-            move?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions,) => any) | undefined;
+            enter?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            leave?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            move?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
             animate?:
                 | ((
                     element: JQuery,
@@ -88,7 +88,7 @@ declare module 'angular' {
              * @param container the container element that will capture each of the animation events that are fired on itself as well as among its children
              * @param callback the callback function that will be fired when the listener is triggered
              */
-            on(event: string, container: JQuery, callback: (element?: JQuery, phase?: string,) => any,): void;
+            on(event: string, container: JQuery, callback: (element?: JQuery, phase?: string) => any): void;
 
             /**
              * Deregisters an event listener based on the event which has been associated with the provided element.
@@ -97,7 +97,7 @@ declare module 'angular' {
              * @param container the container element the event listener was placed on
              * @param callback the callback function that was registered as the listener
              */
-            off(event: string, container?: JQuery, callback?: (element?: JQuery, phase?: string,) => any,): void;
+            off(event: string, container?: JQuery, callback?: (element?: JQuery, phase?: string) => any): void;
 
             /**
              * Associates the provided element with a host parent element to allow the element to be animated even if it exists outside of the DOM structure of the Angular application.
@@ -105,7 +105,7 @@ declare module 'angular' {
              * @param element the external element that will be pinned
              * @param parentElement the host parent element that will be associated with the external element
              */
-            pin(element: JQuery, parentElement: JQuery,): void;
+            pin(element: JQuery, parentElement: JQuery): void;
 
             /**
              * Globally enables / disables animations.
@@ -114,13 +114,13 @@ declare module 'angular' {
              * @param value If provided then set the animation on or off.
              * @returns current animation state
              */
-            enabled(element: JQuery, value?: boolean,): boolean;
-            enabled(value?: boolean,): boolean;
+            enabled(element: JQuery, value?: boolean): boolean;
+            enabled(value?: boolean): boolean;
 
             /**
              * Cancels the provided animation.
              */
-            cancel(animationPromise: IAnimationPromise,): void;
+            cancel(animationPromise: IAnimationPromise): void;
 
             /**
              * Performs an inline animation on the element.
@@ -163,7 +163,7 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            leave(element: JQuery, options?: IAnimationOptions,): IAnimationPromise;
+            leave(element: JQuery, options?: IAnimationOptions): IAnimationPromise;
 
             /**
              * Fires the move DOM operation. Just before the animation starts, the animate service will either append
@@ -175,7 +175,7 @@ declare module 'angular' {
              * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the move animation
              * @returns the animation callback promise
              */
-            move(element: JQuery, parentElement: JQuery, afterElement?: JQuery,): IAnimationPromise;
+            move(element: JQuery, parentElement: JQuery, afterElement?: JQuery): IAnimationPromise;
 
             /**
              * Triggers a custom animation event based off the className variable and then attaches the className
@@ -186,7 +186,7 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            addClass(element: JQuery, className: string, options?: IAnimationOptions,): IAnimationPromise;
+            addClass(element: JQuery, className: string, options?: IAnimationOptions): IAnimationPromise;
 
             /**
              * Triggers a custom animation event based off the className variable and then removes the CSS class
@@ -197,7 +197,7 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            removeClass(element: JQuery, className: string, options?: IAnimationOptions,): IAnimationPromise;
+            removeClass(element: JQuery, className: string, options?: IAnimationOptions): IAnimationPromise;
 
             /**
              * Adds and/or removes the given CSS classes to and from the element. Once complete, the done() callback
@@ -209,7 +209,7 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            setClass(element: JQuery, add: string, remove: string, options?: IAnimationOptions,): IAnimationPromise;
+            setClass(element: JQuery, add: string, remove: string, options?: IAnimationOptions): IAnimationPromise;
         }
 
         /**
@@ -223,7 +223,7 @@ declare module 'angular' {
              * @param name The name of the animation.
              * @param factory The factory function that will be executed to return the animation object.
              */
-            register(name: string, factory: IAnimateFactory,): void;
+            register(name: string, factory: IAnimateFactory): void;
 
             /**
              * Gets and/or sets the CSS class expression that is checked when performing an animation.
@@ -231,7 +231,7 @@ declare module 'angular' {
              * @param expression The className expression which will be checked against all animations.
              * @returns The current CSS className expression value. If null then there is no expression value.
              */
-            classNameFilter(expression?: RegExp,): RegExp;
+            classNameFilter(expression?: RegExp): RegExp;
         }
 
         /**
@@ -343,7 +343,7 @@ declare module 'angular' {
              *
              * @param callbackFn: the callback function to be run
              */
-            done(callbackFn: (animationFinished: boolean,) => void,): void;
+            done(callbackFn: (animationFinished: boolean) => void): void;
         }
 
         /**
@@ -351,13 +351,13 @@ declare module 'angular' {
          * see http://docs.angularjs.org/api/ngAnimate/service/$animateCss
          */
         interface IAnimateCssService {
-            (element: JQuery, animateCssOptions: IAnimationOptions,): IAnimateCssRunner;
+            (element: JQuery, animateCssOptions: IAnimationOptions): IAnimateCssRunner;
         }
     }
 
     interface IModule {
-        animation(name: string, animationFactory: angular.animate.IAnimateFactory,): IModule;
-        animation(name: string, inlineAnnotatedFunction: any[],): IModule;
-        animation(object: Object,): IModule;
+        animation(name: string, animationFactory: angular.animate.IAnimateFactory): IModule;
+        animation(name: string, inlineAnnotatedFunction: any[]): IModule;
+        animation(object: Object): IModule;
     }
 }

@@ -120,7 +120,7 @@ declare namespace AMap {
      * 公交站点查询服务
      */
     class StationSearch extends EventEmitter {
-        constructor(options?: StationSearch.Options,);
+        constructor(options?: StationSearch.Options);
         /**
          * 根据给定的公交站点id进行公交站点详情检索
          * @param id 公交站点的唯一标识
@@ -128,7 +128,7 @@ declare namespace AMap {
          */
         searchById(
             id: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string,) => void,
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 根据给定公交站点名称进行公交站点详情查询
@@ -137,22 +137,22 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string,) => void,
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置查询结果页码
          * @param pageIndex 页码,取值范围：1-100
          */
-        setPageIndex(pageIndex?: number,): void;
+        setPageIndex(pageIndex?: number): void;
         /**
          * 设置单页显示结果条数
          * @param pageSize 条数,取值范围：1-100
          */
-        setPageSize(pageSize?: number,): void;
+        setPageSize(pageSize?: number): void;
         /**
          * 设置查询城市
          * @param city 城市:cityname（中文或中文全拼）、citycode或adcode
          */
-        setCity(city?: string,): void;
+        setCity(city?: string): void;
     }
 }

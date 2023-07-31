@@ -2,7 +2,7 @@ export class Endpoint {
     /**
      * Constructs a new endpoint given an endpoint URL.
      */
-    constructor(url: string,);
+    constructor(url: string);
 
     /**
      * The host portion of the endpoint including the port, e.g., example.com:80.

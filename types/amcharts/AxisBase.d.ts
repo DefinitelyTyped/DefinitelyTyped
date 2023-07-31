@@ -140,9 +140,9 @@ export default class AxisBase {
     /**
      * Adds guide to the axis.
      */
-    addGuide(guide: Guide,): void;
+    addGuide(guide: Guide): void;
     /**
      * Removes guide from the axis.
      */
-    removeGuide(guide: Guide,): void;
+    removeGuide(guide: Guide): void;
 }

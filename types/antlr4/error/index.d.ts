@@ -10,15 +10,15 @@ import ParseCancellationException from './ParseCancellationException';
 import RecognitionException from './RecognitionException';
 
 declare namespace error {
-    export { RecognitionException, };
-    export { NoViableAltException, };
-    export { LexerNoViableAltException, };
-    export { InputMismatchException, };
-    export { FailedPredicateException, };
-    export { DiagnosticErrorListener, };
-    export { BailErrorStrategy, };
-    export { DefaultErrorStrategy, };
-    export { ErrorListener, };
-    export { ParseCancellationException, };
+    export { RecognitionException };
+    export { NoViableAltException };
+    export { LexerNoViableAltException };
+    export { InputMismatchException };
+    export { FailedPredicateException };
+    export { DiagnosticErrorListener };
+    export { BailErrorStrategy };
+    export { DefaultErrorStrategy };
+    export { ErrorListener };
+    export { ParseCancellationException };
 }
 export default error;

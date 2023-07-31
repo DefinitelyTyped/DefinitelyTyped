@@ -1,7 +1,7 @@
 import AddToHomeScreen = require('a2hs.js');
 
 AddToHomeScreen();
-AddToHomeScreen({},);
+AddToHomeScreen({});
 
 AddToHomeScreen({
     backgroundColor: 'red',
@@ -16,4 +16,4 @@ AddToHomeScreen({
         `<svg enable-background="new 0 0 1952.00 734.93" height="25" viewBox="0 0 1952 734.93" width="70" xmlns="http://www.w3.org/2000/svg">`,
     htmlContent:
         `Install <strong>{{brandName}} web app</strong> on your iOS device: tap share and <strong>Add to Home Screen</strong> ↓`,
-},);
+});

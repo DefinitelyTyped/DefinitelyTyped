@@ -65,39 +65,39 @@ export interface ComponentMap {
         ) => React.ReactElement<React.HTMLAttributes<HTMLTableCellElement>>);
 
     // Row rendering function
-    Row?: ({ i, i2, model, data, }: {
+    Row?: ({ i, i2, model, data }: {
         i: number;
         i2: number;
         model: Headless.Model;
         data: RowProps;
-    },) => React.ReactNode;
+    }) => React.ReactNode;
 
     // Cell is called by Row, since the user can override Row, they can choose to pass different props to Cell.
     // I don't think it's possible to tighten this type.
-    Cell?: (props: Record<string, unknown>,) => React.ReactNode;
+    Cell?: (props: Record<string, unknown>) => React.ReactNode;
     // Same as above.
-    CellForEmptyRow?: (props: Record<string, unknown>,) => React.ReactNode;
+    CellForEmptyRow?: (props: Record<string, unknown>) => React.ReactNode;
 
-    HeaderCells?: ({ columns, components, }: {
+    HeaderCells?: ({ columns, components }: {
         columns: ColumnModel[];
         components: ComponentMap;
-    },) => React.ReactNode;
+    }) => React.ReactNode;
     // Same as above.
-    HeaderCell?: (props: Record<string, unknown>,) => React.ReactNode;
+    HeaderCell?: (props: Record<string, unknown>) => React.ReactNode;
 
-    FooterCells?: ({ columns, components, }: {
+    FooterCells?: ({ columns, components }: {
         columns: ColumnModel[];
         components: ComponentMap;
-    },) => React.ReactNode;
-    FooterCell?: (props: Record<string, unknown>,) => React.ReactNode;
+    }) => React.ReactNode;
+    FooterCell?: (props: Record<string, unknown>) => React.ReactNode;
 
     // "/* To prevent double memoization in case of HOC usage */"
-    OriginalRow?: ({ i, i2, model, data, }: {
+    OriginalRow?: ({ i, i2, model, data }: {
         i: number;
         i2: number;
         model: Headless.Model;
         data: RowProps;
-    },) => React.ReactNode;
+    }) => React.ReactNode;
 }
 
 export const DefaultTableComponents: ComponentMap;
@@ -108,9 +108,9 @@ export interface TableColumnProps {
     align?: React.CSSProperties['textAlign'];
     label?: string;
     Cell?: React.ReactNode;
-    render?: (cellData: any, row: any,) => React.ReactNode;
+    render?: (cellData: any, row: any) => React.ReactNode;
     // Note, format overrides render if both are present.
-    format?: (cellData: any,) => React.ReactNode;
+    format?: (cellData: any) => React.ReactNode;
     background?: string;
     border?: string;
     width?: number;
@@ -141,8 +141,8 @@ export class ColumnModel {
     align?: React.CSSProperties['textAlign'];
     label?: string;
     Cell?: React.ReactNode;
-    render?: (cellData: any, row: any,) => React.ReactNode;
-    format?: (cellData: any,) => React.ReactNode;
+    render?: (cellData: any, row: any) => React.ReactNode;
+    format?: (cellData: any) => React.ReactNode;
     background?: string;
     border?: string;
     width?: number;
@@ -160,10 +160,10 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     // The default Row component calls getRowData with the index of the row.
     getRowData: (...args: any[]) => any;
 
-    getKey?: (index: number, rowProps?: RowProps,) => any;
+    getKey?: (index: number, rowProps?: RowProps) => any;
 
     // getRowProps by default provides a ref to the row.  You shouldn't need to use this since you can override the Row component.
-    getRowProps?: (model: Headless.Model, index: number, rowData?: any,) => RowProps;
+    getRowProps?: (model: Headless.Model, index: number, rowData?: any) => RowProps;
 
     components?: ComponentMap;
     headless?: boolean;

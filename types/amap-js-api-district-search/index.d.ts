@@ -82,7 +82,7 @@ declare namespace AMap {
          * 行政区查询
          * @param options 选项
          */
-        constructor(options?: DistrictSearch.Options,);
+        constructor(options?: DistrictSearch.Options);
         /**
          * 根据关键字查询行政区或商圈信息
          * @param keyword 关键词
@@ -90,19 +90,19 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string,) => void,
+            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置关键字对应的行政区级别或商圈
          * @param level 级别
          */
-        setLevel(level?: DistrictSearch.Level,): void;
+        setLevel(level?: DistrictSearch.Level): void;
         /**
          * 设置下级行政区级数
          * @param district 级数
          */
-        setSubdistrict(district?: 0 | 1 | 2 | 3,): void;
+        setSubdistrict(district?: 0 | 1 | 2 | 3): void;
         // internal
-        setExtensions(extensions?: boolean,): void;
+        setExtensions(extensions?: boolean): void;
     }
 }

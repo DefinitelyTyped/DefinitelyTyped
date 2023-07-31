@@ -21,6 +21,6 @@ declare namespace apiErrorHandler {
     }
 }
 
-declare function apiErrorHandler(options?: any,): express.ErrorRequestHandler;
+declare function apiErrorHandler(options?: any): express.ErrorRequestHandler;
 
 export = apiErrorHandler;

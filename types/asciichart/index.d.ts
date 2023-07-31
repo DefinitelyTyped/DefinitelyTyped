@@ -14,7 +14,7 @@ export const magenta: string;
 export const cyan: string;
 export const lightgray: string;
 declare const _default: string; // default is a reserved word
-export { _default as default, };
+export { _default as default };
 export const darkgray: string;
 export const lightred: string;
 export const lightgreen: string;
@@ -31,7 +31,7 @@ export const reset: string;
  */
 export type Color = string | undefined;
 
-export function colored(char: string, color: Color,): string;
+export function colored(char: string, color: Color): string;
 
 export interface PlotConfig {
     offset?: number | undefined;
@@ -40,8 +40,8 @@ export interface PlotConfig {
     colors?: Color[] | undefined;
     min?: number | undefined;
     max?: number | undefined;
-    symbols?: [string, string, string, string, string, string, string, string, string, string,] | undefined;
-    format?: ((x: number, i: number,) => string) | undefined;
+    symbols?: [string, string, string, string, string, string, string, string, string, string] | undefined;
+    format?: ((x: number, i: number) => string) | undefined;
 }
 
-export function plot(series: ReadonlyArray<number | number[]>, cfg?: PlotConfig,): string;
+export function plot(series: ReadonlyArray<number | number[]>, cfg?: PlotConfig): string;

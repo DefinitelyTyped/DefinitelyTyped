@@ -43,7 +43,7 @@ declare module 'angular' {
              *
              * @param newParams Object.<string, string> mapping of URL parameter names to values
              */
-            updateParams(newParams: { [key: string]: string },): void;
+            updateParams(newParams: { [key: string]: string }): void;
         }
 
         type InlineAnnotatedFunction = Function | Array<string | Function>;
@@ -69,7 +69,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            template?: string | { ($routeParams?: IRouteParamsService,): string } | undefined;
+            template?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {(string|Function)=}
              * Path or function that returns a path to an html template that should be used by ngView.
@@ -78,7 +78,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            templateUrl?: string | { ($routeParams?: IRouteParamsService,): string } | undefined;
+            templateUrl?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {Object.<string, Function>=}
              * An optional map of dependencies which should be injected into the controller. If any of these
@@ -132,7 +132,7 @@ declare module 'angular' {
              * as though there was no redirection.
              */
             redirectTo?: string | {
-                ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any,): string;
+                ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any): string;
             } | undefined;
             /**
              * {Function=}
@@ -213,7 +213,7 @@ declare module 'angular' {
              *
              * @param enabled If provided, update the internal eagerInstantiationEnabled flag.
              */
-            eagerInstantiationEnabled(enabled: boolean,): IRouteProvider;
+            eagerInstantiationEnabled(enabled: boolean): IRouteProvider;
             /**
              * Call this method as a getter (i.e. without any arguments) to get the current value of the eagerInstantiationEnabled flag.
              */
@@ -223,7 +223,7 @@ declare module 'angular' {
              *
              * @param params Mapping information to be assigned to $route.current.
              */
-            otherwise(params: IRoute | string,): IRouteProvider;
+            otherwise(params: IRoute | string): IRouteProvider;
             /**
              * Adds a new route definition to the $route service.
              *
@@ -237,7 +237,7 @@ declare module 'angular' {
              *
              * @param route Mapping information to be assigned to $route.current on route match.
              */
-            when(path: string, route: IRoute,): IRouteProvider;
+            when(path: string, route: IRoute): IRouteProvider;
         }
     }
 }

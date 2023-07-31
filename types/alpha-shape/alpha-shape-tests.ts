@@ -11,7 +11,7 @@ import alphaShape = require('alpha-shape');
 const sites: number[][] = [];
 
 for (let i = 0; i < 10; ++i) {
-    sites.push([Math.random(), Math.random(),],);
+    sites.push([Math.random(), Math.random()]);
 }
 
-const cells = alphaShape(0, sites,);
+const cells = alphaShape(0, sites);

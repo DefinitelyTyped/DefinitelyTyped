@@ -17,64 +17,64 @@ const intervalSetInstance = new IntervalSet();
 const ruleStartStateInstance = new RuleStartState();
 
 // ActionTransition
-const actionTransitionInstance = new ActionTransition(atnStateInstance, 0, 0, true,);
+const actionTransitionInstance = new ActionTransition(atnStateInstance, 0, 0, true);
 actionTransitionInstance.serializationType; // $ExpectType number
 actionTransitionInstance.ruleIndex; // $ExpectType number
 actionTransitionInstance.actionIndex; // $ExpectType number
 actionTransitionInstance.isCtxDependent; // $ExpectType boolean
-actionTransitionInstance.matches(0, 0, 0,); // $ExpectType false
+actionTransitionInstance.matches(0, 0, 0); // $ExpectType false
 
 // AtomTransition
-const atomTransitionInstance = new AtomTransition(atnStateInstance, 0,);
+const atomTransitionInstance = new AtomTransition(atnStateInstance, 0);
 atomTransitionInstance.label; // $ExpectType IntervalSet
 atomTransitionInstance.serializationType; // $ExpectType number
 atomTransitionInstance.makeLabel(); // $ExpectType IntervalSet
-atomTransitionInstance.matches(0, 0, 0,); // $ExpectType boolean
+atomTransitionInstance.matches(0, 0, 0); // $ExpectType boolean
 atomTransitionInstance.toString(); // $ExpectType string
 
 // EpsilonTransition
-const epsilonTransitionInstance = new EpsilonTransition(atnStateInstance, 0,);
+const epsilonTransitionInstance = new EpsilonTransition(atnStateInstance, 0);
 epsilonTransitionInstance.serializationType; // $ExpectType number
 epsilonTransitionInstance.outermostPrecedenceReturn; // $ExpectType number
-epsilonTransitionInstance.matches(0, 0, 0,); // $ExpectType false
+epsilonTransitionInstance.matches(0, 0, 0); // $ExpectType false
 
 // PrecedencePredicateTransition
-const precedencePredicateTransitionInstance = new PrecedencePredicateTransition(atnStateInstance, 0,);
+const precedencePredicateTransitionInstance = new PrecedencePredicateTransition(atnStateInstance, 0);
 precedencePredicateTransitionInstance.serializationType; // $ExpectType number
 precedencePredicateTransitionInstance.precedence; // $ExpectType number
-precedencePredicateTransitionInstance.matches(0, 0, 0,); // $ExpectType false
+precedencePredicateTransitionInstance.matches(0, 0, 0); // $ExpectType false
 precedencePredicateTransitionInstance.getPredicate(); // $ExpectType PrecedencePredicate
 
 // PredicateTransition
-const predicateTransitionInstance = new PredicateTransition(atnStateInstance, 0, 0, false,);
+const predicateTransitionInstance = new PredicateTransition(atnStateInstance, 0, 0, false);
 predicateTransitionInstance.serializationType; // $ExpectType number
 predicateTransitionInstance.ruleIndex; // $ExpectType number
 predicateTransitionInstance.predIndex; // $ExpectType number
 predicateTransitionInstance.isCtxDependent; // $ExpectType boolean
-predicateTransitionInstance.matches(0, 0, 0,); // $ExpectType false
+predicateTransitionInstance.matches(0, 0, 0); // $ExpectType false
 predicateTransitionInstance.getPredicate(); // $ExpectType Predicate
 
 // RangeTransition
-const rangeTransitionInstance = new RangeTransition(atnStateInstance, 0, 0,);
+const rangeTransitionInstance = new RangeTransition(atnStateInstance, 0, 0);
 rangeTransitionInstance.serializationType; // $ExpectType number
 rangeTransitionInstance.start; // $ExpectType number
 rangeTransitionInstance.stop; // $ExpectType number
 rangeTransitionInstance.label; // $ExpectType IntervalSet
 rangeTransitionInstance.makeLabel(); // $ExpectType IntervalSet
-rangeTransitionInstance.matches(0, 0, 0,); // $ExpectType boolean
+rangeTransitionInstance.matches(0, 0, 0); // $ExpectType boolean
 
 // RuleTransition
-const ruleTransitionInstance = new RuleTransition(ruleStartStateInstance, 0, 0, atnStateInstance,);
+const ruleTransitionInstance = new RuleTransition(ruleStartStateInstance, 0, 0, atnStateInstance);
 ruleTransitionInstance.ruleIndex; // $ExpectType number
 ruleTransitionInstance.precedence; // $ExpectType number
 ruleTransitionInstance.serializationType; // $ExpectType number
 ruleTransitionInstance.followState; // $ExpectType ATNState
-ruleTransitionInstance.matches(0, 0, 0,); // $ExpectType false
+ruleTransitionInstance.matches(0, 0, 0); // $ExpectType false
 
 // SetTransition
-const setTransitionInstance = new SetTransition(atnStateInstance, intervalSetInstance,);
+const setTransitionInstance = new SetTransition(atnStateInstance, intervalSetInstance);
 setTransitionInstance.serializationType; // $ExpectType number
-setTransitionInstance.matches(0, 0, 0,); // $ExpectType boolean
+setTransitionInstance.matches(0, 0, 0); // $ExpectType boolean
 setTransitionInstance.toString(); // $ExpectType string
 
 // Transition
@@ -100,9 +100,9 @@ Transition.serializationTypes.SetTransition; // $ExpectType 7
 Transition.serializationTypes.NotSetTransition; // $ExpectType 8
 Transition.serializationTypes.WildcardTransition; // $ExpectType 9
 Transition.serializationTypes.PrecedencePredicateTransition; // $ExpectType 10
-const transitionInstance = new Transition(atnStateInstance,);
+const transitionInstance = new Transition(atnStateInstance);
 transitionInstance.target; // $ExpectType ATNState
 
 // WildcardTransition
-const wildcardTransition = new WildcardTransition(atnStateInstance,);
+const wildcardTransition = new WildcardTransition(atnStateInstance);
 wildcardTransition.serializationType; // $ExpectType number

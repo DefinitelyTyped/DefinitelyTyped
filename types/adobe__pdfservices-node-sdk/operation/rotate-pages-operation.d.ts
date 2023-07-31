@@ -51,7 +51,7 @@ export class RotatePagesOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Sets angle (in clockwise direction) for rotating pages of the input PDF file; can be invoked
      * multiple times to set rotation angle for different set of pages.
@@ -93,9 +93,9 @@ export class RotatePagesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
-    validateAngleValue(angle: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
+    validateAngleValue(angle: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges, } from '../pdfservices-sdk';
-import { PageActions, } from './delete-pages-operation';
+import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { PageActions } from './delete-pages-operation';

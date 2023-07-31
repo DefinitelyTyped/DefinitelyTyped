@@ -1,4 +1,4 @@
-import { MessageStreamDefinition, MessageStreamDefinitionMap, TypesMap, ValidationsMap, } from '.';
+import { MessageStreamDefinition, MessageStreamDefinitionMap, TypesMap, ValidationsMap } from '.';
 
 /**
  * Message stream information including its definition, storage status and export status.
@@ -25,11 +25,11 @@ export class MessageStreamInfo {
     /**
      * @param value
      */
-    set definition(value: MessageStreamDefinition | null,);
+    set definition(value: MessageStreamDefinition | null);
     /**
      * @param value
      */
-    withDefinition(value: MessageStreamDefinition | null,): this;
+    withDefinition(value: MessageStreamDefinition | null): this;
 
     /**
      * Stream status including oldest/newest sequence number and total bytes.
@@ -38,25 +38,25 @@ export class MessageStreamInfo {
     /**
      * @param value  Stream status including oldest/newest sequence number and total bytes.
      */
-    set storageStatus(value: MessageStreamInfoStorageStatus,);
+    set storageStatus(value: MessageStreamInfoStorageStatus);
     /**
      * @param value Stream status including oldest/newest sequence number and total bytes.
      */
-    withStorageStatus(value: MessageStreamInfoStorageStatus,): this;
+    withStorageStatus(value: MessageStreamInfoStorageStatus): this;
 
     get exportStatuses(): MessageStreamInfoExportStatuses[];
 
     /**
      * @param value
      */
-    set exportStatuses(value: MessageStreamInfoExportStatuses[],);
+    set exportStatuses(value: MessageStreamInfoExportStatuses[]);
 
     /**
      * @param value
      */
-    withExportStatuses(value: MessageStreamInfoExportStatuses[],): this;
+    withExportStatuses(value: MessageStreamInfoExportStatuses[]): this;
 
-    static fromMap(d: Record<string, unknown>,): MessageStreamInfo;
+    static fromMap(d: Record<string, unknown>): MessageStreamInfo;
 
     asMap(): {
         definition?: MessageStreamDefinitionMap;
@@ -88,11 +88,11 @@ declare class MessageStreamInfoStorageStatus {
     /**
      * @param value The sequence number of the first message which is still accessible in the stream.
      */
-    set oldestSequenceNumber(value: number | null,);
+    set oldestSequenceNumber(value: number | null);
     /**
      * @param value The sequence number of the first message which is still accessible in the stream.
      */
-    withOldestSequenceNumber(value: number | null,): this;
+    withOldestSequenceNumber(value: number | null): this;
 
     /**
      * The sequence number of the last appended message.
@@ -101,11 +101,11 @@ declare class MessageStreamInfoStorageStatus {
     /**
      * @param value The sequence number of the last appended message.
      */
-    set newestSequenceNumber(value: number | null,);
+    set newestSequenceNumber(value: number | null);
     /**
      * @param value The sequence number of the last appended message.
      */
-    withNewestSequenceNumber(value: number | null,): this;
+    withNewestSequenceNumber(value: number | null): this;
 
     /**
      * The current total size of the stream in bytes.
@@ -114,14 +114,14 @@ declare class MessageStreamInfoStorageStatus {
     /**
      * @param value The current total size of the stream in bytes.
      */
-    set totalBytes(value: number | null,);
+    set totalBytes(value: number | null);
     /**
      * @param value The current total size of the stream in bytes.
      * @returns
      */
-    withTotalBytes(value: number | null,): this;
+    withTotalBytes(value: number | null): this;
 
-    static fromMap(d: Record<string, unknown>,): MessageStreamInfoStorageStatus;
+    static fromMap(d: Record<string, unknown>): MessageStreamInfoStorageStatus;
 
     asMap(): MessageStreamInfoStorageStatusMap;
 
@@ -165,11 +165,11 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value The unique export identifier.
      */
-    set exportConfigIdentifier(value: string | null,);
+    set exportConfigIdentifier(value: string | null);
     /**
      * @param value The unique export identifier.
      */
-    withExportConfigIdentifier(value: string | null,): this;
+    withExportConfigIdentifier(value: string | null): this;
 
     /**
      * The sequence number of the last message which was successfully exported.
@@ -178,11 +178,11 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value The sequence number of the last message which was successfully exported.
      */
-    set lastExportedSequenceNumber(value: number | null,);
+    set lastExportedSequenceNumber(value: number | null);
     /**
      * @param value The sequence number of the last message which was successfully exported.
      */
-    withLastExportedSequenceNumber(value: number | null,): this;
+    withLastExportedSequenceNumber(value: number | null): this;
 
     /**
      * The last time an export was attempted. Data is Unix epoch time in milliseconds.
@@ -191,11 +191,11 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value The last time an export was attempted. Data is Unix epoch time in milliseconds.
      */
-    set lastExportTime(value: number | null,);
+    set lastExportTime(value: number | null);
     /**
      * @param value The last time an export was attempted. Data is Unix epoch time in milliseconds.
      */
-    withLastExportTime(value: number | null,): this;
+    withLastExportTime(value: number | null): this;
 
     /**
      * Error message from the last export attempt if it failed.
@@ -204,11 +204,11 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value Error message from the last export attempt if it failed.
      */
-    set errorMessage(value: string | null,);
+    set errorMessage(value: string | null);
     /**
      * @param value Error message from the last export attempt if it failed.
      */
-    withErrorMessage(value: string | null,): this;
+    withErrorMessage(value: string | null): this;
 
     /**
      * Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
@@ -217,11 +217,11 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
      */
-    set exportedBytesFromStream(value: number | null,);
+    set exportedBytesFromStream(value: number | null);
     /**
      * @param value Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
      */
-    withExportedBytesFromStream(value: number | null,): this;
+    withExportedBytesFromStream(value: number | null): this;
 
     /**
      * Total messages exported/processed.
@@ -231,13 +231,13 @@ declare class MessageStreamInfoExportStatuses {
     /**
      * @param value Total messages exported/processed.
      */
-    set exportedMessagesCount(value: number | null,);
+    set exportedMessagesCount(value: number | null);
     /**
      * @param value Total messages exported/processed.
      */
-    withExportedMessagesCount(value: number | null,): this;
+    withExportedMessagesCount(value: number | null): this;
 
-    static fromMap(d: Record<string, unknown>,): MessageStreamInfoExportStatuses;
+    static fromMap(d: Record<string, unknown>): MessageStreamInfoExportStatuses;
 
     asMap(): MessageStreamInfoExportStatusesMap;
 

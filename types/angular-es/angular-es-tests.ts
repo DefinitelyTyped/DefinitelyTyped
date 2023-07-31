@@ -1,17 +1,17 @@
 //
 //  @Component
 //
-import { Component, } from 'angular-es';
+import { Component } from 'angular-es';
 @Component({
     selector: '',
-},)
+})
 class MyComponentController {
 }
 
 //
 // @Config
 //
-import { Config, } from 'angular-es';
+import { Config } from 'angular-es';
 
 @Config()
 class MyConfig {
@@ -20,9 +20,9 @@ class MyConfig {
 //
 // @Constant
 //
-import { Constant, } from 'angular-es';
+import { Constant } from 'angular-es';
 
-@Constant('MyConstant',)
+@Constant('MyConstant')
 class MyConstant {
     foo = 'foo';
     bar = 'bar';
@@ -31,69 +31,69 @@ class MyConstant {
 //
 // @Controller
 //
-import { Controller, } from 'angular-es';
+import { Controller } from 'angular-es';
 
-@Controller('MyController',)
+@Controller('MyController')
 class MyController {
 }
 
 //
 // @Decorator
 //
-import { Decorator, } from 'angular-es';
+import { Decorator } from 'angular-es';
 
-@Decorator('MyServiceDecorator',)
+@Decorator('MyServiceDecorator')
 class MyServiceDecorator {
 }
 
 //
 // @Directive
 //
-import { Directive, } from 'angular-es';
+import { Directive } from 'angular-es';
 
-@Directive('MyDirective',)
+@Directive('MyDirective')
 class MyDirective {
 }
 
 //
 // @Factory
 //
-import { Factory, } from 'angular-es';
+import { Factory } from 'angular-es';
 
-@Factory('MyFactory',)
+@Factory('MyFactory')
 class MyFactory {
 }
 
 //
 // @Filter
 //
-import { Filter, } from 'angular-es';
+import { Filter } from 'angular-es';
 
-@Filter('MyFilter',)
+@Filter('MyFilter')
 class MyFilter {
 }
 
 //
 // @Inject
 //
-import { Inject, } from 'angular-es';
+import { Inject } from 'angular-es';
 
-@Inject('fooBar',)
+@Inject('fooBar')
 class MyFooService {
-    @Inject('bazBar',)
-    myMethod(bazBar: Object,) {
+    @Inject('bazBar')
+    myMethod(bazBar: Object) {
     }
 
-    constructor(fooBar: Object,) {
+    constructor(fooBar: Object) {
     }
 }
 
 //
 // @InjectAsProperty
 //
-import { InjectAsProperty, } from 'angular-es';
+import { InjectAsProperty } from 'angular-es';
 
-@InjectAsProperty('fooBar',)
+@InjectAsProperty('fooBar')
 class MyFooBarService {
     fooBar: Object;
 
@@ -105,26 +105,26 @@ class MyFooBarService {
 //
 // @Module
 //
-import { Module, } from 'angular-es';
+import { Module } from 'angular-es';
 
-@Module('my.module',)
-@Service('MyModuleService',)
+@Module('my.module')
+@Service('MyModuleService')
 class MyModuleService {
 }
 
 //
 // @Provider
 //
-import { Provider, } from 'angular-es';
+import { Provider } from 'angular-es';
 
-@Provider('MyProvider',)
+@Provider('MyProvider')
 class MyProvider {
 }
 
 //
 // @Run
 //
-import { Run, } from 'angular-es';
+import { Run } from 'angular-es';
 
 @Run()
 class MyRunBlock {
@@ -133,16 +133,16 @@ class MyRunBlock {
 //
 // @Service
 //
-import { Service, } from 'angular-es';
+import { Service } from 'angular-es';
 
-@Service('MyService',)
+@Service('MyService')
 class MyService {
 }
 //
 // @Value
 //
-import { Value, } from 'angular-es';
+import { Value } from 'angular-es';
 
-@Value('MyValue',)
+@Value('MyValue')
 class MyValue {
 }

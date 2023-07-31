@@ -11,28 +11,28 @@ export as namespace Accessibility;
 declare class Accessibility {
     readonly menuInterface: Accessibility.MenuInterface;
     /** @deprecated */
-    static init(options?: Accessibility.Options,): Accessibility;
+    static init(options?: Accessibility.Options): Accessibility;
 
-    constructor(options?: Accessibility.Options,);
+    constructor(options?: Accessibility.Options);
 
-    alterTextSpace(isIncrease: boolean,): void;
+    alterTextSpace(isIncrease: boolean): void;
     build(): void;
-    deleteOppositesIfDefined(options: Accessibility.Options,): Accessibility.Options;
+    deleteOppositesIfDefined(options: Accessibility.Options): Accessibility.Options;
     destroy(): void;
     disabledUnsupportedFeatures(): void;
     fontFallback(): void;
     initFontSize(): void;
     injectCss(): void;
-    invoke(action: () => void,): void;
+    invoke(action: () => void): void;
     listen(): void;
-    onChange(updateSession: boolean,): void;
+    onChange(updateSession: boolean): void;
     read(): void;
-    resetIfDefined(src: any, dest: any, prop: string,): void;
-    runHotkey(name: string,): void;
+    resetIfDefined(src: any, dest: any, prop: string): void;
+    runHotkey(name: string): void;
     saveSession(): void;
     setSessionFromCache(): void;
     speechToText(): void;
-    textToSpeech(text: string,): void;
+    textToSpeech(text: string): void;
     toggleMenu(): void;
 }
 
@@ -45,13 +45,13 @@ declare namespace Accessibility {
         decreaseText: () => void;
         increaseTextSpacing: () => void;
         decreaseTextSpacing: () => void;
-        invertColors: (destroy?: boolean,) => void;
-        grayHues: (destroy?: boolean,) => void;
-        underlineLinks: (destroy?: boolean,) => void;
-        bigCursor: (destroy?: boolean,) => void;
-        readingGuide: (destroy?: boolean,) => void;
-        textToSpeech: (destroy?: boolean,) => void;
-        speechToText: (destroy?: boolean,) => void;
+        invertColors: (destroy?: boolean) => void;
+        grayHues: (destroy?: boolean) => void;
+        underlineLinks: (destroy?: boolean) => void;
+        bigCursor: (destroy?: boolean) => void;
+        readingGuide: (destroy?: boolean) => void;
+        textToSpeech: (destroy?: boolean) => void;
+        speechToText: (destroy?: boolean) => void;
     }
     interface Options {
         icon?: Icon | undefined;
@@ -182,7 +182,7 @@ declare namespace Accessibility {
         } | undefined;
     }
 
-    type HotKeyDefinition = [number, number, string,];
+    type HotKeyDefinition = [number, number, string];
     interface Dimensions {
         width?: SizeOrPosition | undefined;
         height?: SizeOrPosition | undefined;

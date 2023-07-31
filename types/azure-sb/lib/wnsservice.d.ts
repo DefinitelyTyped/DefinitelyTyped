@@ -1,6 +1,6 @@
 import NotificationHubService = require('azure-sb/lib/notificationhubservice');
 import Callback = Azure.ServiceBus.ResponseCallback;
-import { Azure, } from 'azure-sb';
+import { Azure } from 'azure-sb';
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
 import Dictionary = Azure.ServiceBus.Dictionary;
 
@@ -42,7 +42,7 @@ type badges =
 type types = 'wns/toast' | 'wns/badge' | 'wns/tile' | 'wns/raw';
 
 declare class WnsService {
-    constructor(service: NotificationHubService,);
+    constructor(service: NotificationHubService);
 
     public notificationHubService: NotificationHubService;
 
@@ -424,21 +424,21 @@ declare class WnsService {
         callback?: Callback,
     ): void;
 
-    sendBadge(tags: badges | badges[], value: string | number, callback?: Callback,): void;
+    sendBadge(tags: badges | badges[], value: string | number, callback?: Callback): void;
 
-    sendBadge(tags: badges | badges[], value: string | number, options: Options, callback?: Callback,): void;
+    sendBadge(tags: badges | badges[], value: string | number, options: Options, callback?: Callback): void;
 
-    sendRaw(tags: string | string[], payload: any, callback?: Callback,): void;
+    sendRaw(tags: string | string[], payload: any, callback?: Callback): void;
 
-    sendRaw(tags: string | string[], payload: any, options: Options, callback?: Callback,): void;
+    sendRaw(tags: string | string[], payload: any, options: Options, callback?: Callback): void;
 
-    send(tags: string | string[], payload: string, type: types, callback?: Callback,): void;
+    send(tags: string | string[], payload: string, type: types, callback?: Callback): void;
 
-    send(tags: string | string[], payload: string, type: types, options: Options, callback: Callback,): void;
+    send(tags: string | string[], payload: string, type: types, options: Options, callback: Callback): void;
 
-    createNativeRegistration(channel: string, tags: string | string[], callback: Callback,): void;
+    createNativeRegistration(channel: string, tags: string | string[], callback: Callback): void;
 
-    createNativeRegistration(channel: string, tags: string | string[], options: Options, callback: Callback,): void;
+    createNativeRegistration(channel: string, tags: string | string[], options: Options, callback: Callback): void;
 
     createOrUpdateNativeRegistration(
         registrationId: string,
@@ -455,9 +455,9 @@ declare class WnsService {
         callback: Callback,
     ): void;
 
-    listRegistrationsByChannel(channel: string, callback: Callback,): void;
+    listRegistrationsByChannel(channel: string, callback: Callback): void;
 
-    listRegistrationsByChannel(channel: string, options: ListNotificationHubsOptions, callback: Callback,): void;
+    listRegistrationsByChannel(channel: string, options: ListNotificationHubsOptions, callback: Callback): void;
 }
 
 export = WnsService;

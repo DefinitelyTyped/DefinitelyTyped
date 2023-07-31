@@ -1,4 +1,4 @@
-import { AWSError, } from './error';
+import { AWSError } from './error';
 
 /**
  * Represents AWS token object, which contains {token}, and optional
@@ -31,7 +31,7 @@ export class Token {
      *
      * @param {object} options - An option hash containing a set of token information.
      */
-    constructor(options: TokenOptions,);
+    constructor(options: TokenOptions);
 
     /**
      * Gets the existing token, refreshing it if it's are not yet loaded or have expired.
@@ -40,7 +40,7 @@ export class Token {
      *
      * @param {get} callback - When called with no error, the token information has been loaded into the object.
      */
-    get(callback: (err?: AWSError,) => void,): void;
+    get(callback: (err?: AWSError) => void): void;
 
     /**
      * Gets the existing token, refreshing ot if necessary, and returns
@@ -60,7 +60,7 @@ export class Token {
      *
      * @param {function} callback - When called with no error, the token information has been loaded into the object.
      */
-    refresh(callback: (err?: AWSError,) => void,): void;
+    refresh(callback: (err?: AWSError) => void): void;
 
     /**
      * Invokes a token refresh and returns a promise that will be fulfilled

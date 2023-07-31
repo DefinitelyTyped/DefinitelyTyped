@@ -10,36 +10,36 @@
 // TypeScript Version: 4.0
 
 export class ArgumentParser extends ArgumentGroup {
-    constructor(options?: ArgumentParserOptions,);
-    add_subparsers(options?: SubparserOptions,): SubParser;
-    parse_args(args?: string[], ns?: Namespace | object,): any;
+    constructor(options?: ArgumentParserOptions);
+    add_subparsers(options?: SubparserOptions): SubParser;
+    parse_args(args?: string[], ns?: Namespace | object): any;
     print_usage(): void;
     print_help(): void;
     format_usage(): string;
     format_help(): string;
-    parse_known_args(args?: string[], ns?: Namespace | object,): any[];
-    convert_arg_line_to_args(argLine: string,): string[];
-    exit(status: number, message: string,): void;
-    error(err: string | Error,): void;
+    parse_known_args(args?: string[], ns?: Namespace | object): any[];
+    convert_arg_line_to_args(argLine: string): string[];
+    exit(status: number, message: string): void;
+    error(err: string | Error): void;
 }
 
 // tslint:disable-next-line:no-unnecessary-class
 export class Namespace {
-    constructor(options: object,);
+    constructor(options: object);
     [key: string]: any;
 }
 
 export class SubParser {
-    add_parser(name: string, options?: SubArgumentParserOptions,): ArgumentParser;
+    add_parser(name: string, options?: SubArgumentParserOptions): ArgumentParser;
 }
 
 export class ArgumentGroup {
-    add_argument(arg: string, options?: ArgumentOptions,): void;
-    add_argument(arg1: string, arg2: string, options?: ArgumentOptions,): void;
-    add_argument_group(options?: ArgumentGroupOptions,): ArgumentGroup;
-    add_mutually_exclusive_group(options?: { required: boolean },): ArgumentGroup;
-    set_defaults(options?: {},): void;
-    get_default(dest: string,): any;
+    add_argument(arg: string, options?: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, options?: ArgumentOptions): void;
+    add_argument_group(options?: ArgumentGroupOptions): ArgumentGroup;
+    add_mutually_exclusive_group(options?: { required: boolean }): ArgumentGroup;
+    set_defaults(options?: {}): void;
+    get_default(dest: string): any;
 }
 
 export interface SubparserOptions {
@@ -83,7 +83,7 @@ export interface ArgumentGroupOptions {
 
 export abstract class Action {
     protected dest: string;
-    constructor(options: ActionConstructorOptions,);
+    constructor(options: ActionConstructorOptions);
     abstract call(
         parser: ArgumentParser,
         namespace: Namespace,
@@ -95,13 +95,13 @@ export abstract class Action {
 // Can be used in conjunction with the exit_on_error flag to save the error message
 // and use it in a fashion other than printing to stdout.
 export class ArgumentError extends Error {
-    constructor(argument: Action, message: string,);
+    constructor(argument: Action, message: string);
     str(): string;
 }
 
 // An error from trying to convert a command line string to a type.
 export class ArgumentTypeError extends Error {
-    constructor(message: string,);
+    constructor(message: string);
 }
 
 // Passed to the Action constructor.  Subclasses are just expected to relay this to
@@ -115,7 +115,7 @@ export class RawDescriptionHelpFormatter {}
 export class RawTextHelpFormatter {}
 
 export interface ArgumentOptions {
-    action?: string | { new(options: ActionConstructorOptions,): Action } | undefined;
+    action?: string | { new(options: ActionConstructorOptions): Action } | undefined;
     option_strings?: string[] | undefined;
     dest?: string | undefined;
     nargs?: string | number | undefined;
@@ -131,7 +131,7 @@ export interface ArgumentOptions {
 }
 
 export class BooleanOptionalAction extends Action {
-    call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null,): void;
+    call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
 }
 
 export const SUPPRESS: string;

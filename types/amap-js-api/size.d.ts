@@ -5,7 +5,7 @@ declare namespace AMap {
          * @param width 宽度像素
          * @param height 长度像素
          */
-        constructor(width: number, height: number,);
+        constructor(width: number, height: number);
         /**
          * 获得宽度
          */
@@ -20,6 +20,6 @@ declare namespace AMap {
         toString(): string;
 
         // internal
-        contains(size: { x: number; y: number },): boolean;
+        contains(size: { x: number; y: number }): boolean;
     }
 }

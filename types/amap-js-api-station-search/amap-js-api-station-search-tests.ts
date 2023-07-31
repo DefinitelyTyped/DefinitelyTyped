@@ -1,15 +1,15 @@
 // $ExpectType StationSearch
 new AMap.StationSearch();
 // $ExpectType StationSearch
-new AMap.StationSearch({},);
+new AMap.StationSearch({});
 // $ExpectType StationSearch
 const stationSearch = new AMap.StationSearch({
     pageIndex: 1,
     pageSize: 10,
     city: '深圳',
-},);
+});
 
-stationSearch.search('keyword', (status, result,) => {
+stationSearch.search('keyword', (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     status;
     if (typeof result !== 'string') {
@@ -51,26 +51,26 @@ stationSearch.search('keyword', (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
-stationSearch.searchById('id', (status, result,) => {
+stationSearch.searchById('id', (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
-},);
+});
 
 // $ExpectType void
-stationSearch.setPageIndex(10,);
+stationSearch.setPageIndex(10);
 // $ExpectType void
 stationSearch.setPageIndex();
 
 // $ExpectType void
-stationSearch.setPageSize(10,);
+stationSearch.setPageSize(10);
 // $ExpectType void
 stationSearch.setPageSize();
 
 // $ExpectType void
-stationSearch.setCity('city',);
+stationSearch.setCity('city');
 // $ExpectType void
 stationSearch.setCity();
 

@@ -18,7 +18,7 @@ export default class Lexer extends Recognizer {
     static readonly MIN_CHAR_VALUE: 0x0000;
     static readonly MAX_CHAR_VALUE: 0x10ffff;
 
-    constructor(input: InputStream | null,);
+    constructor(input: InputStream | null);
 
     reset(): void;
 
@@ -28,13 +28,13 @@ export default class Lexer extends Recognizer {
 
     more(): void;
 
-    mode(m: number,): void;
+    mode(m: number): void;
 
-    pushMode(mode: number,): void;
+    pushMode(mode: number): void;
 
     popMode(): number;
 
-    emitToken(token: Token,): void;
+    emitToken(token: Token): void;
 
     emit(): CommonToken;
 
@@ -44,13 +44,13 @@ export default class Lexer extends Recognizer {
 
     getAllTokens(): Token[];
 
-    notifyListeners(e: RecognitionException,): void;
+    notifyListeners(e: RecognitionException): void;
 
-    getErrorDisplay(s: string,): string;
+    getErrorDisplay(s: string): string;
 
-    getErrorDisplayForChar(c: string,): string;
+    getErrorDisplayForChar(c: string): string;
 
-    getCharErrorDisplay(c: string,): string;
+    getCharErrorDisplay(c: string): string;
 
     /**
      * Lexers can normally match any char in it's vocabulary after matching
@@ -58,16 +58,16 @@ export default class Lexer extends Recognizer {
      * it all works out. You can instead use the rule invocation stack
      * to do sophisticated error recovery if you are in a fragment rule.
      */
-    recover(re: RecognitionException,): void;
+    recover(re: RecognitionException): void;
 
-    set inputStream(input: InputStream,);
+    set inputStream(input: InputStream);
     get inputStream(): InputStream;
-    set type(type: number,);
+    set type(type: number);
     get type(): number;
-    set line(line: number,);
+    set line(line: number);
     get line(): number;
-    set column(column: number,);
+    set column(column: number);
     get column(): number;
-    set text(text: string,);
+    set text(text: string);
     get text(): string;
 }

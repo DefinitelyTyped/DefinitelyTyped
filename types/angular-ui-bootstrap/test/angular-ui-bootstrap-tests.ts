@@ -1,4 +1,4 @@
-const testApp = angular.module('testApp',);
+const testApp = angular.module('testApp');
 
 testApp.config((
     $accordionConfig: ng.ui.bootstrap.IAccordionConfig,
@@ -76,7 +76,7 @@ testApp.config((
     $datepickerPopupConfig.ngModelOptions.allowInvalid = false;
     $datepickerPopupConfig.ngModelOptions.timezone = 'EST';
     $datepickerPopupConfig.ngModelOptions.updateOn = 'click';
-    $datepickerPopupConfig.altInputFormats = ['mm/dd/YYYY', 'mm-dd-YY',];
+    $datepickerPopupConfig.altInputFormats = ['mm/dd/YYYY', 'mm-dd-YY'];
     $datepickerPopupConfig.appendToBody = true;
     $datepickerPopupConfig.currentText = 'Select Today';
     $datepickerPopupConfig.clearText = 'Reset Selection';
@@ -141,13 +141,13 @@ testApp.config((
     $ratingConfig.max = 10;
     $ratingConfig.stateOff = 'rating-state-off';
     $ratingConfig.stateOn = 'rating-state-on';
-    $ratingConfig.titles = ['1', '2', '3', '4', '5',];
+    $ratingConfig.titles = ['1', '2', '3', '4', '5'];
 
     /**
      * $timepickerConfig tests
      */
     $timepickerConfig.hourStep = 2;
-    $timepickerConfig.meridians = ['-AM-', '-PM-',];
+    $timepickerConfig.meridians = ['-AM-', '-PM-'];
     $timepickerConfig.minuteStep = 5;
     $timepickerConfig.secondStep = 5;
     $timepickerConfig.mousewheel = false;
@@ -169,11 +169,11 @@ testApp.config((
         appendToBody: true,
         trigger: 'mouseenter hover',
         useContentExp: true,
-    },);
+    });
     $tooltipProvider.setTriggers({
         'customOpenTrigger': 'customCloseTrigger',
-    },);
-},);
+    });
+});
 
 testApp.controller('TestCtrl', (
     $scope: ng.ui.bootstrap.IModalScope,
@@ -199,87 +199,87 @@ testApp.controller('TestCtrl', (
         openedClass: 'modal-open my-modal',
         resolve: {
             items: () => {
-                return [1, 2, 3, 4, 5,];
+                return [1, 2, 3, 4, 5];
             },
         },
         scope: $scope,
         template: '<div>i\'m a template!</div>',
         templateUrl: '/templates/modal.html',
         windowClass: 'modal-test',
-    },);
+    });
 
     modalInstance.opened.then(() => {
-        $log.log('modal opened',);
-    },);
+        $log.log('modal opened');
+    });
 
     modalInstance.rendered.then(() => {
-        $log.log('modal rendered',);
-    },);
+        $log.log('modal rendered');
+    });
 
     modalInstance.closed.then(() => {
-        $log.log('modal closed',);
-    },);
+        $log.log('modal closed');
+    });
 
-    modalInstance.result.then((closeResult: any,) => {
-        $log.log('modal closed', closeResult,);
-    }, (dismissResult: any,) => {
-        $log.log('modal dismissed', dismissResult,);
-    },);
+    modalInstance.result.then((closeResult: any) => {
+        $log.log('modal closed', closeResult);
+    }, (dismissResult: any) => {
+        $log.log('modal dismissed', dismissResult);
+    });
 
     $modal.open({
         backdrop: 'static',
-    },);
+    });
 
     $modal.open({
         template: () => '<div>i\'m a template!</div>',
-    },);
+    });
 
     $modal.open({
         templateUrl: () => '/templates/modal.html',
-    },);
+    });
 
-    $modal.getPromiseChain().then(() => {},);
+    $modal.getPromiseChain().then(() => {});
 
     $modal.getPromiseChain().then(value => value * 2);
 
-    $modal.getPromiseChain().then((value: string,) => value);
+    $modal.getPromiseChain().then((value: string) => value);
 
     /**
      * test the $modalStack service
      */
-    $modalStack.open(modalInstance, { scope: $scope, },);
-    $modalStack.close(modalInstance,);
-    $modalStack.close(modalInstance, 'with reason',);
-    $modalStack.dismiss(modalInstance,);
-    $modalStack.dismiss(modalInstance, 'with reason',);
+    $modalStack.open(modalInstance, { scope: $scope });
+    $modalStack.close(modalInstance);
+    $modalStack.close(modalInstance, 'with reason');
+    $modalStack.dismiss(modalInstance);
+    $modalStack.dismiss(modalInstance, 'with reason');
     $modalStack.dismissAll();
-    $modalStack.dismissAll('with reason',);
+    $modalStack.dismissAll('with reason');
     $modalStack.getTop().key.close();
 
     /**
      * test the $position service
      */
-    const elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates,): void => {
-        $log.log('height', coordinates.height,);
-        $log.log('left', coordinates.left,);
-        $log.log('top', coordinates.top,);
-        $log.log('width', coordinates.width,);
+    const elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates): void => {
+        $log.log('height', coordinates.height);
+        $log.log('left', coordinates.left);
+        $log.log('top', coordinates.top);
+        $log.log('width', coordinates.width);
     };
-    const element = angular.element('<div/>',);
-    elementLogger($position.position(element,),);
-    elementLogger($position.offset(element,),);
+    const element = angular.element('<div/>');
+    elementLogger($position.position(element));
+    elementLogger($position.offset(element));
 
     /**
      * test the $transition service
      */
-    $log.log('animationEndEventName', $transition.animationEndEventName,);
-    $log.log('transitionEndEventName', $transition.transitionEndEventName,);
+    $log.log('animationEndEventName', $transition.animationEndEventName);
+    $log.log('transitionEndEventName', $transition.transitionEndEventName);
 
-    const transitionElement = angular.element('<div/>',);
-    $transition(transitionElement, 'transition-class', { animation: true, },);
-    $transition(transitionElement, { height: '100px', width: '50px', }, { animation: true, },);
-    $transition(transitionElement, () => {}, { animation: true, },);
-},);
+    const transitionElement = angular.element('<div/>');
+    $transition(transitionElement, 'transition-class', { animation: true });
+    $transition(transitionElement, { height: '100px', width: '50px' }, { animation: true });
+    $transition(transitionElement, () => {}, { animation: true });
+});
 
 testApp.controller('ModalTestCtrl', (
     $scope: IModalTestCtrlScope,
@@ -288,12 +288,12 @@ testApp.controller('ModalTestCtrl', (
     items: Array<number>,
 ) => {
     items.forEach(item => {
-        $log.log(item,);
-    },);
+        $log.log(item);
+    });
 
     $scope.close = () => {
         if ($scope.useReason) {
-            $modalInstance.close('with reason',);
+            $modalInstance.close('with reason');
         } else {
             $modalInstance.close();
         }
@@ -301,12 +301,12 @@ testApp.controller('ModalTestCtrl', (
 
     $scope.dismiss = () => {
         if ($scope.useReason) {
-            $modalInstance.dismiss('with reason',);
+            $modalInstance.dismiss('with reason');
         } else {
             $modalInstance.dismiss();
         }
     };
-},);
+});
 
 interface IModalTestCtrlScope {
     useReason: boolean;

@@ -7,7 +7,7 @@
 import * as angular from 'angular';
 
 export interface FileUploaderFactory {
-    new(options?: Partial<FileUploaderOptions>,): FileUploader;
+    new(options?: Partial<FileUploaderOptions>): FileUploader;
 }
 
 export interface FileUploaderOptions {
@@ -100,7 +100,7 @@ export interface FileUploader extends FileUploaderOptions {
     /**
      * Remove an item from the queue, where value is {FileItem} or index of item.
      */
-    removeFromQueue(value: FileItem | number,): void;
+    removeFromQueue(value: FileItem | number): void;
     /**
      * Removes all elements from the queue.
      */
@@ -108,11 +108,11 @@ export interface FileUploader extends FileUploaderOptions {
     /**
      * Uploads an item, where value is {FileItem} or index of item.
      */
-    uploadItem(value: FileItem | number,): void;
+    uploadItem(value: FileItem | number): void;
     /**
      * Cancels uploading of item, where value is {FileItem} or index of item.
      */
-    cancelItem(value: FileItem | number,): void;
+    cancelItem(value: FileItem | number): void;
     /**
      * Upload all pending items on the queue.
      */
@@ -128,15 +128,15 @@ export interface FileUploader extends FileUploaderOptions {
     /**
      * Returns true if value is {File}.
      */
-    isFile(value: any,): boolean;
+    isFile(value: any): boolean;
     /**
      * Returns true if value is {FileLikeObject}.
      */
-    isFileLikeObject(value: any,): boolean;
+    isFileLikeObject(value: any): boolean;
     /**
      * Returns the index of the {FileItem} queue element.
      */
-    getIndexOfItem(fileItem: FileItem,): number;
+    getIndexOfItem(fileItem: FileItem): number;
     /**
      * Return items are ready to upload.
      */
@@ -151,43 +151,43 @@ export interface FileUploader extends FileUploaderOptions {
     /**
      * Fires after adding all the dragged or selected files to the queue.
      */
-    onAfterAddingAll(addedItems: FileItem[],): void;
+    onAfterAddingAll(addedItems: FileItem[]): void;
     /**
      * When adding a file failed
      */
-    onWhenAddingFileFailed(item: FileItem, filter: Filter, options: object,): void;
+    onWhenAddingFileFailed(item: FileItem, filter: Filter, options: object): void;
     /**
      * Fires after adding a single file to the queue.
      */
-    onAfterAddingFile(item: FileItem,): void;
+    onAfterAddingFile(item: FileItem): void;
     /**
      * Fires before uploading an item.
      */
-    onBeforeUploadItem(item: FileItem,): void;
+    onBeforeUploadItem(item: FileItem): void;
     /**
      * On file upload progress.
      */
-    onProgressItem(item: FileItem, progress: number,): void;
+    onProgressItem(item: FileItem, progress: number): void;
     /**
      * On file successfully uploaded
      */
-    onSuccessItem(item: FileItem, response: Response, status: number, headers: Headers,): void;
+    onSuccessItem(item: FileItem, response: Response, status: number, headers: Headers): void;
     /**
      * On upload error
      */
-    onErrorItem(item: FileItem, response: Response, status: number, headers: Headers,): void;
+    onErrorItem(item: FileItem, response: Response, status: number, headers: Headers): void;
     /**
      * On cancel uploading
      */
-    onCancelItem(item: FileItem, response: Response, status: number, headers: Headers,): void;
+    onCancelItem(item: FileItem, response: Response, status: number, headers: Headers): void;
     /**
      * On file upload complete (independently of the sucess of the operation)
      */
-    onCompleteItem(item: FileItem, response: Response, status: number, headers: Headers,): void;
+    onCompleteItem(item: FileItem, response: Response, status: number, headers: Headers): void;
     /**
      * On upload queue progress
      */
-    onProgressAll(progress: number,): void;
+    onProgressAll(progress: number): void;
     /**
      * On all loaded when uploading an entire queue, or on file loaded when uploading a single independent file
      */
@@ -305,25 +305,25 @@ export interface FileItem {
     /**
      * On file upload progress.
      */
-    onProgress(progress: number,): void;
+    onProgress(progress: number): void;
     /**
      * On file successfully uploaded
      */
-    onSuccess(response: Response, status: number, headers: Headers,): void;
+    onSuccess(response: Response, status: number, headers: Headers): void;
     /**
      * On upload error
      */
-    onError(response: Response, status: number, headers: Headers,): void;
+    onError(response: Response, status: number, headers: Headers): void;
     /**
      * On cancel uploading
      */
-    onCancel(response: Response, status: number, headers: Headers,): void;
+    onCancel(response: Response, status: number, headers: Headers): void;
     /**
      * On file upload complete (independently of the sucess of the operation)
      */
-    onComplete(response: Response, status: number, headers: Headers,): void;
+    onComplete(response: Response, status: number, headers: Headers): void;
 }
-export type SyncFilter = (item: File | FileLikeObject, options?: object,) => boolean;
+export type SyncFilter = (item: File | FileLikeObject, options?: object) => boolean;
 export type AsyncFilter = (
     item: File | FileLikeObject,
     options: object | undefined,

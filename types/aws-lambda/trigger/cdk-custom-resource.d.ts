@@ -1,5 +1,5 @@
-import { Callback, Handler, } from '../handler';
-import { CloudFormationCustomResourceEvent, } from './cloudformation-custom-resource';
+import { Callback, Handler } from '../handler';
+import { CloudFormationCustomResourceEvent } from './cloudformation-custom-resource';
 
 // The CDK docs only specify 'important' properties, but in reality the incoming event
 // to the Lambda matches that of a traditional custom resource.

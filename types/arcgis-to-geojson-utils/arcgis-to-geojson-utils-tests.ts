@@ -10,11 +10,11 @@ const arcgisPoint: arcgisApi.Point = {
 };
 const geojsonPoint: GeoJSON.Point = {
     type: 'Point',
-    coordinates: [45.5165, -122.6764,],
+    coordinates: [45.5165, -122.6764],
 };
 
 // parse ArcGIS JSON, convert it to GeoJSON
-const geojson = utils.arcgisToGeoJSON(arcgisPoint,);
+const geojson = utils.arcgisToGeoJSON(arcgisPoint);
 
 // take GeoJSON and convert it to ArcGIS JSON
-const arcgis = utils.geojsonToArcGIS(geojsonPoint,);
+const arcgis = utils.geojsonToArcGIS(geojsonPoint);

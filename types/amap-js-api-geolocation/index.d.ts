@@ -164,7 +164,7 @@ declare namespace AMap {
             /**
              * 中心点
              */
-            center: [number, number,];
+            center: [number, number];
             /**
              * 城市
              */
@@ -206,7 +206,7 @@ declare namespace AMap {
          * 定位服务
          * @param options 选项
          */
-        constructor(options?: Geolocation.Options,);
+        constructor(options?: Geolocation.Options);
         /**
          * 是否支持浏览器定位
          */
@@ -229,7 +229,7 @@ declare namespace AMap {
          * 取消对当前位置的监控
          * @param wathcId 监控id
          */
-        clearWatch(wathcId: string,): string | undefined;
+        clearWatch(wathcId: string): string | undefined;
         /**
          * 进行IP城市查询
          * @param callback 回调

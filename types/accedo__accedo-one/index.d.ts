@@ -16,7 +16,7 @@
  */
 
 export as namespace accedoOne;
-declare function accedoOne(config: AccedoConfig,): AccedoClient;
+declare function accedoOne(config: AccedoConfig): AccedoClient;
 export = accedoOne;
 export {};
 
@@ -31,7 +31,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntries(params?: AccedoEntryParams,): Promise<any>;
+    getEntries(params?: AccedoEntryParams): Promise<any>;
 
     /**
      * Get one content entry by id, based on the given parameters.
@@ -40,7 +40,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntryById(id: string, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>,): Promise<any>;
+    getEntryById(id: string, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>): Promise<any>;
 
     /**
      * Get one content entry, based on the given parameters.
@@ -49,7 +49,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntryByAlias<A,>(alias: A, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>,): Promise<A>;
+    getEntryByAlias<A>(alias: A, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>): Promise<A>;
 
     /**
      * Create a session and store it for reuse in this client instance.
@@ -85,7 +85,7 @@ declare class AccedoClient {
      * @param metadata extra metadata (will go through JSON.stringify). Can be passed as any number of trailing arguments.
      */
 
-    sendLog(level: AccedoLog.Level, details: Readonly<AccedoLog.Details>, metadata?: any,): Promise<boolean>;
+    sendLog(level: AccedoLog.Level, details: Readonly<AccedoLog.Details>, metadata?: any): Promise<boolean>;
 
     /**
      * Returns the currently stored sessionKey for this client instance
@@ -126,7 +126,7 @@ declare class AccedoClient {
      * @returns A promise denoting the success of the operation
      */
 
-    sendUsageStopEvent(retentionTimeInSeconds?: number | string,): Promise<boolean>;
+    sendUsageStopEvent(retentionTimeInSeconds?: number | string): Promise<boolean>;
 
     /**
      * Get all the enabled plugins
@@ -159,7 +159,7 @@ declare class AccedoClient {
      * @returns a promise of the requested data
      */
 
-    getMetadataByKey(key: string,): Promise<any>;
+    getMetadataByKey(key: string): Promise<any>;
 
     /**
      * Get the metadata by specific keys
@@ -168,7 +168,7 @@ declare class AccedoClient {
      * @returns a promise of the requested data
      */
 
-    getMetadataByKeys(keys: string[],): Promise<any>;
+    getMetadataByKeys(keys: string[]): Promise<any>;
 
     /**
      * Get all the application-scope data for a given user
@@ -177,7 +177,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    getAllApplicationScopeDataByUser(userName: string,): Promise<any>;
+    getAllApplicationScopeDataByUser(userName: string): Promise<any>;
 
     /**
      * Get all the application-group-scope data for a given user
@@ -186,7 +186,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    getAllApplicationGroupScopeDataByUser(userName: string,): Promise<any>;
+    getAllApplicationGroupScopeDataByUser(userName: string): Promise<any>;
 
     /**
      * Get all the application-scope data for a given user and data key
@@ -195,7 +195,7 @@ declare class AccedoClient {
      * @param key a key to specify what data to obtain
      */
 
-    getApplicationScopeDataByUserAndKey(userName: string, key: string,): Promise<any>;
+    getApplicationScopeDataByUserAndKey(userName: string, key: string): Promise<any>;
 
     /**
      * Get all the application-group-scope data for a given user
@@ -205,7 +205,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    getApplicationGroupScopeDataByUserAndKey(userName: string, key: string,): Promise<any>;
+    getApplicationGroupScopeDataByUserAndKey(userName: string, key: string): Promise<any>;
 
     /**
      * Set the application-scope data for a given user
@@ -215,7 +215,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    setApplicationScopeUserData<D extends object,>(userName: string, data: D,): Promise<D>;
+    setApplicationScopeUserData<D extends object>(userName: string, data: D): Promise<D>;
 
     /**
      * Set the application-group-scope data for a given user
@@ -225,7 +225,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    setApplicationGroupScopeUserData<D extends object,>(userName: string, data: D,): Promise<D>;
+    setApplicationGroupScopeUserData<D extends object>(userName: string, data: D): Promise<D>;
 
     /**
      * Set the application-scope data for a given user
@@ -236,7 +236,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    setApplicationScopeUserDataByKey<D extends object,>(userName: string, key: string, data: D,): Promise<D>;
+    setApplicationScopeUserDataByKey<D extends object>(userName: string, key: string, data: D): Promise<D>;
 
     /**
      * Set the application-group-scope data for a given user
@@ -247,7 +247,7 @@ declare class AccedoClient {
      * @returns A promise of the requested data
      */
 
-    setApplicationGroupScopeUserDataByKey<D extends object,>(userName: string, key: string, data: D,): Promise<D>;
+    setApplicationGroupScopeUserDataByKey<D extends object>(userName: string, key: string, data: D): Promise<D>;
 
     /**
      * Get all the available locales
@@ -266,7 +266,7 @@ declare class AccedoClient {
      * @returns A promise of the success of the operation
      */
 
-    sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>,): Promise<boolean>;
+    sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>): Promise<boolean>;
 }
 
 declare namespace AccedoLog {
@@ -390,10 +390,10 @@ interface AccedoConfig {
     log?: ((...args: any[]) => void) | undefined;
 
     /** Callback to obtain the new deviceId, if one gets generated */
-    onDeviceIdGenerated?: ((deviceId: string,) => void) | undefined;
+    onDeviceIdGenerated?: ((deviceId: string) => void) | undefined;
 
     /** Callback to obtain the sessionKey, anytime a new one gets generated */
-    onSessionKeyChanged?: ((sessionKey: string,) => void) | undefined;
+    onSessionKeyChanged?: ((sessionKey: string) => void) | undefined;
 
     /** All APIs calls will use this as the base API URL (defaults to the Accedo One API URL) */
     target?: string | undefined;

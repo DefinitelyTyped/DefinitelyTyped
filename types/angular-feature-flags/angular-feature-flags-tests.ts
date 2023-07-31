@@ -1,6 +1,6 @@
 import * as ng from 'angular';
 
-const myApp = ng.module('myApp', ['feature-flags',],);
+const myApp = ng.module('myApp', ['feature-flags']);
 
 const flagsData: Array<ng.featureflags.FlagData> = [
     {
@@ -17,16 +17,16 @@ const flagsData: Array<ng.featureflags.FlagData> = [
     },
 ];
 
-myApp.config(function(featureFlagsProvider: ng.featureflags.FeatureFlagsProvider,) {
-    featureFlagsProvider.setInitialFlags(flagsData,);
-},);
+myApp.config(function(featureFlagsProvider: ng.featureflags.FeatureFlagsProvider) {
+    featureFlagsProvider.setInitialFlags(flagsData);
+});
 
 myApp.run(function(
     $q: ng.IQService,
     $http: ng.IHttpService,
     featureFlags: ng.featureflags.FeatureFlagsService,
 ) {
-    featureFlags.set($q.resolve(flagsData,),);
-    featureFlags.set($http.get('/data/flags.json',),);
-    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>('/data/flags.json',),);
-},);
+    featureFlags.set($q.resolve(flagsData));
+    featureFlags.set($http.get('/data/flags.json'));
+    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>('/data/flags.json'));
+});

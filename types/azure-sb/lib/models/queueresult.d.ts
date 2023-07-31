@@ -31,8 +31,8 @@ export namespace Azure.ServiceBus.Results {
     }
 
     export interface QueueResult {
-        serialize(resource: QueueProperties,): string;
+        serialize(resource: QueueProperties): string;
 
-        parse(xml: object,): object | object[];
+        parse(xml: object): object | object[];
     }
 }

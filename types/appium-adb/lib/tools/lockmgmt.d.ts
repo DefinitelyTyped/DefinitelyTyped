@@ -22,7 +22,7 @@ interface LockMgmt {
      * @return True if the given credential matches to the device's one
      * @throws If the verification faces an unexpected error
      */
-    verifyLockCredential(credential?: string | null,): Promise<boolean>;
+    verifyLockCredential(credential?: string | null): Promise<boolean>;
 
     /**
      * Clears current lock credentials. Usually it takes several seconds for a device to
@@ -36,7 +36,7 @@ interface LockMgmt {
      * null/empty value assumes the device has no lock currently set.
      * @throws If operation faces an unexpected error
      */
-    clearLockCredential(credential?: string | null,): Promise<void>;
+    clearLockCredential(credential?: string | null): Promise<void>;
 
     /**
      * Checks whether the device is locked with a credential (either pin or a password

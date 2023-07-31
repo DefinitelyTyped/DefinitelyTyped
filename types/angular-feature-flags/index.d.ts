@@ -34,7 +34,7 @@ declare module 'angular' {
         }
 
         export interface FeatureFlagsProvider {
-            setInitialFlags(flags: ReadonlyArray<FlagData>,): void;
+            setInitialFlags(flags: ReadonlyArray<FlagData>): void;
         }
 
         export interface FeatureFlagsService {

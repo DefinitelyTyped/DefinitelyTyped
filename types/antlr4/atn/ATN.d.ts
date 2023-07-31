@@ -47,7 +47,7 @@ export default class ATN {
 
     modeToStartState: TokensStartState[];
 
-    constructor(grammarType: number, maxTokenType: number,);
+    constructor(grammarType: number, maxTokenType: number);
 
     /**
      * Compute the set of valid tokens that can occur starting in state `s`.
@@ -55,24 +55,24 @@ export default class ATN {
      * the rule surrounding `s`. In other words, the set will be
      * restricted to tokens reachable staying within `s`'s rule
      */
-    nextTokensInContext(s: ATNState, ctx?: RuleContext,): IntervalSet;
+    nextTokensInContext(s: ATNState, ctx?: RuleContext): IntervalSet;
 
     /**
      * Compute the set of valid tokens that can occur starting in `s` and
      * staying in same rule. {@link Token.EPSILON} is in set if we reach end of
      * rule
      */
-    nextTokensNoContext(s: ATNState,): IntervalSet;
+    nextTokensNoContext(s: ATNState): IntervalSet;
 
-    nextTokens(s: ATNState, ctx?: RuleContext,): IntervalSet;
+    nextTokens(s: ATNState, ctx?: RuleContext): IntervalSet;
 
-    addState(state: ATNState,): void;
+    addState(state: ATNState): void;
 
-    removeState(state: ATNState,): void;
+    removeState(state: ATNState): void;
 
-    defineDecisionState(s: DecisionState,): number;
+    defineDecisionState(s: DecisionState): number;
 
-    getDecisionState(decision: number,): DecisionState;
+    getDecisionState(decision: number): DecisionState;
 
     /**
      * Computes the set of input symbols which could follow ATN state number
@@ -91,5 +91,5 @@ export default class ATN {
      * @return The set of potentially valid input symbols which could follow the
      * specified state in the specified context.
      */
-    getExpectedTokens(stateNumber: number, ctx: RuleContext,): IntervalSet;
+    getExpectedTokens(stateNumber: number, ctx: RuleContext): IntervalSet;
 }

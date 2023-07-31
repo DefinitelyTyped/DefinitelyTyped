@@ -14,7 +14,7 @@ declare function asyncBusboy(
     req: http.IncomingMessage,
     options: asyncBusboy.OnFileOptions,
 ): Promise<asyncBusboy.OnFileResult>;
-declare function asyncBusboy(req: http.IncomingMessage, options?: asyncBusboy.Options,): Promise<asyncBusboy.Result>;
+declare function asyncBusboy(req: http.IncomingMessage, options?: asyncBusboy.Options): Promise<asyncBusboy.Result>;
 
 declare namespace asyncBusboy {
     interface Options extends Omit<busboy.BusboyConfig, 'headers'> {
@@ -41,7 +41,7 @@ declare namespace asyncBusboy {
     }
 }
 
-type WithRequiredProps<T extends {}, K extends keyof T,> =
+type WithRequiredProps<T extends {}, K extends keyof T> =
     & Omit<T, K>
     & {
         [MK in K]-?: NonNullable<T[MK]>;

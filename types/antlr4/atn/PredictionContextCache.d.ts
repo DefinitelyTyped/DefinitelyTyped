@@ -14,9 +14,9 @@ export default class PredictionContextCache {
      * return that one instead and do not add a new context to the cache.
      * Protect shared cache from unsafe thread access.
      */
-    add(ctx: PredictionContext,): PredictionContext;
+    add(ctx: PredictionContext): PredictionContext;
 
-    get(ctx: PredictionContext,): PredictionContext | null;
+    get(ctx: PredictionContext): PredictionContext | null;
 
     get length(): number;
 }

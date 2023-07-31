@@ -8,7 +8,7 @@ const Component = () => (
     <SEO
         title='Lorem Ipsum'
         description='Lorem ipsum sat delor.'
-        keywords={['foo', 'bar',]}
+        keywords={['foo', 'bar']}
         siteUrl='http://example.com'
         image={{
             src: 'http://example.com/foo.jpg',

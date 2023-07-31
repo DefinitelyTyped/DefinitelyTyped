@@ -1,5 +1,5 @@
-import { Disposable, } from '../../../index';
-import { DisplayMarker, Marker, PointCompatible, RangeCompatible, } from './text-buffer';
+import { Disposable } from '../../../index';
+import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from './text-buffer';
 
 /**
  *  Experimental: A container for a related set of markers at the DisplayLayer level.
@@ -23,21 +23,21 @@ export interface DisplayMarkerLayer {
 
     // Event Subscription
     /** Subscribe to be notified synchronously when this layer is destroyed. */
-    onDidDestroy(callback: () => void,): Disposable;
+    onDidDestroy(callback: () => void): Disposable;
 
     /**
      *  Subscribe to be notified asynchronously whenever markers are created, updated,
      *  or destroyed on this layer. Prefer this method for optimal performance when
      *  interacting with layers that could contain large numbers of markers.
      */
-    onDidUpdate(callback: () => void,): Disposable;
+    onDidUpdate(callback: () => void): Disposable;
 
     /**
      *  Subscribe to be notified synchronously whenever markers are created on this
      *  layer. Avoid this method for optimal performance when interacting with layers
      *  that could contain large numbers of markers.
      */
-    onDidCreateMarker(callback: (marker: DisplayMarker | Marker,) => void,): Disposable;
+    onDidCreateMarker(callback: (marker: DisplayMarker | Marker) => void): Disposable;
 
     // Marker creation
     /** Create a marker with the given screen range. */
@@ -88,7 +88,7 @@ export interface DisplayMarkerLayer {
 
     // Querying
     /** Get an existing marker by its id. */
-    getMarker(id: number,): DisplayMarker;
+    getMarker(id: number): DisplayMarker;
 
     /** Get all markers in the layer. */
     getMarkers(): DisplayMarker[];
@@ -104,7 +104,7 @@ export interface DisplayMarkerLayer {
      *  there are several special properties that will be compared with the range of the
      *  markers rather than their properties.
      */
-    findMarkers(properties: FindDisplayMarkerOptions,): DisplayMarker[];
+    findMarkers(properties: FindDisplayMarkerOptions): DisplayMarker[];
 }
 
 export interface FindDisplayMarkerOptions {
@@ -148,13 +148,13 @@ export interface FindDisplayMarkerOptions {
      *  Only include markers intersecting this Array of [startRow, endRow] in
      *  buffer coordinates.
      */
-    intersectsBufferRowRange?: [number, number,] | undefined;
+    intersectsBufferRowRange?: [number, number] | undefined;
 
     /**
      *  Only include markers intersecting this Array of [startRow, endRow] in
      *  screen coordinates.
      */
-    intersectsScreenRowRange?: [number, number,] | undefined;
+    intersectsScreenRowRange?: [number, number] | undefined;
 
     /** Only include markers containing this Range in buffer coordinates. */
     containsBufferRange?: RangeCompatible | undefined;

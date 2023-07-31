@@ -1,4 +1,4 @@
-import { AWSError, } from './error';
+import { AWSError } from './error';
 /**
  * Represents a metadata service available on EC2 instances. Using the request() method, you can receieve metadata about any available resource on the metadata service.
  */
@@ -6,15 +6,15 @@ export class MetadataService {
     /**
      * Creates a new MetadataService object with a given set of options.
      */
-    constructor(options?: MetadataServiceOptions,);
+    constructor(options?: MetadataServiceOptions);
     /**
      * Sends a request to the instance metadata service for a given resource.
      */
-    request(path: string, callback: (err: AWSError, data: string,) => void,): void;
+    request(path: string, callback: (err: AWSError, data: string) => void): void;
     request(
         path: string,
         options: { method?: string; headers?: { [key: string]: String } },
-        callback: (err: AWSError, data: string,) => void,
+        callback: (err: AWSError, data: string) => void,
     ): void;
     /**
      * 169.254.169.254

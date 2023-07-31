@@ -1,6 +1,6 @@
-import { SNSEventRecord, SNSHandler, SNSMessage, SNSMessageAttribute, SNSMessageAttributes, } from 'aws-lambda';
+import { SNSEventRecord, SNSHandler, SNSMessage, SNSMessageAttribute, SNSMessageAttributes } from 'aws-lambda';
 
-const handler: SNSHandler = async (event, context, callback,) => {
+const handler: SNSHandler = async (event, context, callback) => {
     const record: SNSEventRecord = event.Records[num];
 
     str = record.EventSource;
@@ -26,5 +26,5 @@ const handler: SNSHandler = async (event, context, callback,) => {
     str = attribute.Value;
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };

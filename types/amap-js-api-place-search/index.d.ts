@@ -62,7 +62,7 @@ declare namespace AMap {
              */
             data: Poi[];
         }
-        type SelectChangeEvent<N extends string, E,> = Event<
+        type SelectChangeEvent<N extends string, E> = Event<
             N,
             SelectChangeEventData & {
                 event: E;
@@ -649,7 +649,7 @@ declare namespace AMap {
          * 地点搜索服务
          * @param options 选项
          */
-        constructor(options?: PlaceSearch.Options,);
+        constructor(options?: PlaceSearch.Options);
         /**
          * 根据关键字搜索
          * @param keyword 根据关键字搜索
@@ -657,7 +657,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult,) => void,
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 周边查询
@@ -670,7 +670,7 @@ declare namespace AMap {
             keyword: string,
             center: LocationValue,
             radius: number,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult,) => void,
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 根据范围和关键词进行范围查询
@@ -681,7 +681,7 @@ declare namespace AMap {
         searchInBounds(
             keyword: string,
             bounds: Bounds | Polygon,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult,) => void,
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 根据POIID 查询POI 详细信息
@@ -690,38 +690,38 @@ declare namespace AMap {
          */
         getDetails(
             POIID: string,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult,) => void,
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 设置查询类别
          * @param type 查询类别
          */
-        setType(type?: string,): void;
+        setType(type?: string): void;
         /**
          * 设置是否强制限制城市
          * @param limit 是否强制限制城市
          */
-        setCityLimit(limit?: boolean,): void;
+        setCityLimit(limit?: boolean): void;
         /**
          * 设置查询结果特定页数
          * @param pageIndex 页码
          */
-        setPageIndex(pageIndex?: number,): void;
+        setPageIndex(pageIndex?: number): void;
         /**
          * 设置查询单页结果数
          * @param pageSize 结果数
          */
-        setPageSize(pageSize?: number,): void;
+        setPageSize(pageSize?: number): void;
         /**
          * 设置查询城市
          * @param city 城市
          */
-        setCity(city?: string,): void;
+        setCity(city?: string): void;
         /**
          * 设置检索语言类型
          * @param lang 语言类型
          */
-        setLang(lang?: Lang,): void;
+        setLang(lang?: Lang): void;
         /**
          * 获取检索语言类型
          */
@@ -734,12 +734,12 @@ declare namespace AMap {
          * 唤起高德地图客户端marker页
          * @param obj 唤起参数
          */
-        poiOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined },): void;
+        poiOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined }): void;
         /**
          * 唤起高德地图客户端POI详情页
          * @param obj 唤起参数
          */
-        detailOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined },): void;
+        detailOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined }): void;
 
         // internal
         open(): void;

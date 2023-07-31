@@ -35,7 +35,7 @@ export interface Argon2BrowserHashResult {
 }
 
 // Argon2Error provided on promise rejection
-export function verify(options: Argon2VerifyOptions,): Promise<undefined>;
+export function verify(options: Argon2VerifyOptions): Promise<undefined>;
 
 export interface Argon2VerifyOptions {
     pass: string;

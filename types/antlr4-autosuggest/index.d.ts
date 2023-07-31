@@ -8,10 +8,10 @@ import antlr4 from 'antlr4';
 export type CasePreference = 'LOWER' | 'UPPER' | 'BOTH';
 
 export interface AutoSuggester {
-    autosuggest: (inputText: string,) => string[];
+    autosuggest: (inputText: string) => string[];
 }
 
-export interface Constructor<T,> {
+export interface Constructor<T> {
     new(...args: any[]): T;
 }
 

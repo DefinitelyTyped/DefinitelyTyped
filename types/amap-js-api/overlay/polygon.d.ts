@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace Polygon {
-        interface EventMap<I = Polygon,> extends PathOverlay.EventMap<I> {}
-        interface Options<ExtraData = any,> extends PathOverlay.Options<ExtraData> {
+        interface EventMap<I = Polygon> extends PathOverlay.EventMap<I> {}
+        interface Options<ExtraData = any> extends PathOverlay.Options<ExtraData> {
             /**
              * 多边形轮廓线的节点坐标数组
              */
@@ -16,7 +16,7 @@ declare namespace AMap {
             fillOpacity?: number | undefined;
         }
 
-        interface GetOptionsResult<ExtraData = any,> extends ShapeOverlay.GetOptionsResult<ExtraData> {
+        interface GetOptionsResult<ExtraData = any> extends ShapeOverlay.GetOptionsResult<ExtraData> {
             /**
              * 多边形填充颜色
              */
@@ -37,17 +37,17 @@ declare namespace AMap {
         }
     }
 
-    class Polygon<ExtraData = any,> extends PathOverlay<ExtraData> {
+    class Polygon<ExtraData = any> extends PathOverlay<ExtraData> {
         /**
          * 多边形
          * @param options 选项
          */
-        constructor(options?: Polygon.Options<ExtraData>,);
+        constructor(options?: Polygon.Options<ExtraData>);
         /**
          * 设置多边形轮廓线节点数组
          * @param path 轮廓线节点
          */
-        setPath(path: LocationValue[] | LocationValue[][],): void;
+        setPath(path: LocationValue[] | LocationValue[][]): void;
         /**
          * 获取多边形轮廓线节点数组
          */
@@ -56,7 +56,7 @@ declare namespace AMap {
          * 修改多边形属性
          * @param options 属性
          */
-        setOptions(options: Polygon.Options<ExtraData>,): void;
+        setOptions(options: Polygon.Options<ExtraData>): void;
         /**
          * 获取多边形的属性
          */
@@ -73,6 +73,6 @@ declare namespace AMap {
          * 判断指定点坐标是否在多边形范围内
          * @param point 坐标
          */
-        contains(point: LocationValue,): boolean;
+        contains(point: LocationValue): boolean;
     }
 }

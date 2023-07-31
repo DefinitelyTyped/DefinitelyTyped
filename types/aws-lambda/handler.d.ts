@@ -81,7 +81,7 @@
  *      you will automatically return a promise that will resolve with a returned value,
  *      or reject with a thrown value.
  */
-export type Handler<TEvent = any, TResult = any,> = (
+export type Handler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
@@ -110,15 +110,15 @@ export interface Context {
     // as of the 12.x runtime, so they are not removed from the types.
 
     /** @deprecated Use handler callback or promise result */
-    done(error?: Error, result?: any,): void;
+    done(error?: Error, result?: any): void;
     /** @deprecated Use handler callback with first argument or reject a promise result */
-    fail(error: Error | string,): void;
+    fail(error: Error | string): void;
     /** @deprecated Use handler callback with second argument or resolve a promise result */
-    succeed(messageOrObject: any,): void;
+    succeed(messageOrObject: any): void;
     // Unclear what behavior this is supposed to have, I couldn't find any still extant reference,
     // and it behaves like the above, ignoring the object parameter.
     /** @deprecated Use handler callback or promise result */
-    succeed(message: string, object: any,): void;
+    succeed(message: string, object: any): void;
 }
 
 export interface CognitoIdentity {
@@ -168,4 +168,4 @@ export interface ClientContextEnv {
  *   Parameter to use to provide the result payload for a successful lambda execution.
  *   Pass `null` or `undefined` for the `error` parameter to use this parameter.
  */
-export type Callback<TResult = any,> = (error?: Error | string | null, result?: TResult,) => void;
+export type Callback<TResult = any> = (error?: Error | string | null, result?: TResult) => void;

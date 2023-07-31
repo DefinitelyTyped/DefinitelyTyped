@@ -1,12 +1,12 @@
-import { ConfigBase, ConfigurationOptions, } from './config-base';
-import { ConfigurationServiceApiVersions, ConfigurationServicePlaceholders, } from './config_service_placeholders';
+import { ConfigBase, ConfigurationOptions } from './config-base';
+import { ConfigurationServiceApiVersions, ConfigurationServicePlaceholders } from './config_service_placeholders';
 
 export class Config extends ConfigBase {
     /**
      * Creates a new configuration object.
      * This is the object that passes option data along to service requests, including credentials, security, region information, and some service specific settings.
      */
-    constructor(options?: ConfigurationOptions & ConfigurationServicePlaceholders & APIVersions,);
+    constructor(options?: ConfigurationOptions & ConfigurationServicePlaceholders & APIVersions);
     /**
      * Loads configuration data from a JSON file into this config object.
      * Loading configuration will reset all existing configuration on the object.
@@ -14,7 +14,7 @@ export class Config extends ConfigBase {
      *
      * @param {string} path - the path relative to your process's current working directory to load configuration from.
      */
-    loadFromPath(path: string,): Config & ConfigurationServicePlaceholders & APIVersions;
+    loadFromPath(path: string): Config & ConfigurationServicePlaceholders & APIVersions;
     /**
      * Updates the current configuration object with new options.
      *
@@ -51,4 +51,4 @@ export interface APIVersions {
 }
 
 // for backwards compatible client generation
-export { ConfigBase, } from './config-base';
+export { ConfigBase } from './config-base';

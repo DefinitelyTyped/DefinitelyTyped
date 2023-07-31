@@ -1,11 +1,11 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /**
  *  A container representing a panel on the edges of the editor window. You
  *  should not create a Panel directly, instead use Workspace::addTopPanel and
  *  friends to add panels.
  */
-export interface Panel<T = object,> {
+export interface Panel<T = object> {
     /** Whether or not the Panel is visible. */
     readonly visible: boolean;
 
@@ -15,10 +15,10 @@ export interface Panel<T = object,> {
 
     // Event Subscription
     /** Invoke the given callback when the pane hidden or shown. */
-    onDidChangeVisible(callback: (visible: boolean,) => void,): Disposable;
+    onDidChangeVisible(callback: (visible: boolean) => void): Disposable;
 
     /** Invoke the given callback when the pane is destroyed. */
-    onDidDestroy(callback: (panel: Panel<T>,) => void,): Disposable;
+    onDidDestroy(callback: (panel: Panel<T>) => void): Disposable;
 
     // Panel Details
     /** Returns the panel's item. */

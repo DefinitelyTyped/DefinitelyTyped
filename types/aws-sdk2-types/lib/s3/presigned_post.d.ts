@@ -21,7 +21,7 @@ export namespace PresignedPost {
          * An array of conditions that must be met for the form upload to be
          * accepted by S3.
          */
-        Conditions?: Array<{ [key: string]: any } | [string, any, any,]>;
+        Conditions?: Array<{ [key: string]: any } | [string, any, any]>;
 
         /**
          * The number of seconds for which the POST form's signed policy should be

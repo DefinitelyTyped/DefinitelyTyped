@@ -1,10 +1,10 @@
-import { AnalogClock, } from 'analog-clock';
+import { AnalogClock } from 'analog-clock';
 
 // Create an AnalogClock instance
 const analogClockInstance = new AnalogClock();
 
 // Append the instance to the document body
-document.body.appendChild(analogClockInstance,);
+document.body.appendChild(analogClockInstance);
 
 // Start and stop the clock
 analogClockInstance.start();

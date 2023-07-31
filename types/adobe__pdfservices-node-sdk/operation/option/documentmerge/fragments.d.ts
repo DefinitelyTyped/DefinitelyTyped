@@ -7,11 +7,11 @@ export class Fragments {
     /**
      * To add JsonObject into the fragmentsList.
      */
-    addFragment(fragment: any,): void;
+    addFragment(fragment: any): void;
     /**
      * To add List of JsonObject into the fragmentsList.
      */
-    addFragments(fragments: any[],): void;
+    addFragments(fragments: any[]): void;
     /**
      * Gets the fragmentsList.
      */

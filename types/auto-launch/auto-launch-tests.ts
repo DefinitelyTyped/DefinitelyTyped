@@ -6,7 +6,7 @@ const minecraftAutoLauncher = new AutoLaunch({
     mac: {
         useLaunchAgent: true,
     },
-},);
+});
 
 minecraftAutoLauncher.enable();
 minecraftAutoLauncher.disable();
@@ -17,7 +17,7 @@ minecraftAutoLauncher.isEnabled()
             return;
         }
         minecraftAutoLauncher.enable();
-    },)
+    })
     .catch(err => {
-        console.error(err,);
-    },);
+        console.error(err);
+    });

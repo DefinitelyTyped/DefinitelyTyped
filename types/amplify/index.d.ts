@@ -29,7 +29,7 @@ declare namespace amplify {
 
     interface AjaxSettings extends JQueryAjaxSettings {
         cache?: any;
-        dataMap?: {} | ((data: any,) => {}) | undefined;
+        dataMap?: {} | ((data: any) => {}) | undefined;
         decoder?: any /* string or amplifyDecoder */;
     }
 
@@ -40,7 +40,7 @@ declare namespace amplify {
          * data: A set of key/value pairs of data to be sent to the resource.
          * callback: A function to invoke if the resource is retrieved successfully.
          */
-        (resourceId: string, hash?: any, callback?: Function,): void;
+        (resourceId: string, hash?: any, callback?: Function): void;
 
         /***
          * Request a resource.
@@ -50,7 +50,7 @@ declare namespace amplify {
          *   success (optional): Function to invoke on success.
          *   error (optional): Function to invoke on error.
          */
-        (settings: RequestSettings,): any;
+        (settings: RequestSettings): any;
 
         /***
          * Define a resource.
@@ -61,7 +61,7 @@ declare namespace amplify {
          *   cache: See the cache section for more details.
          *   decoder: See the decoder section for more details.
          */
-        define(resourceId: string, requestType: string, settings?: AjaxSettings,): void;
+        define(resourceId: string, requestType: string, settings?: AjaxSettings): void;
 
         /***
          * Define a custom request.
@@ -72,7 +72,7 @@ declare namespace amplify {
          *   success: Callback to invoke on success.
          *   error: Callback to invoke on error.
          */
-        define(resourceId: string, resource: (settings: RequestSettings,) => void,): void;
+        define(resourceId: string, resource: (settings: RequestSettings) => void): void;
 
         decoders: Decoders;
         cache: any;
@@ -85,7 +85,7 @@ declare namespace amplify {
          * callback: Function to invoke when the message is published.
          * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
          */
-        (topic: string, callback: Function, priority?: number,): void;
+        (topic: string, callback: Function, priority?: number): void;
         /***
          * Subscribe to a message.
          * topic: Name of the message to subscribe to.
@@ -93,7 +93,7 @@ declare namespace amplify {
          * callback: Function to invoke when the message is published.
          * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
          */
-        (topic: string, context: any, callback: Function, priority?: number,): void;
+        (topic: string, context: any, callback: Function, priority?: number): void;
     }
     interface StorageTypeStore {
         /***
@@ -103,12 +103,12 @@ declare namespace amplify {
          * value: The value to store. The value can be anything that can be serialized as JSON.
          * [options]: A set of key/value pairs that relate to settings for storing the value.
          */
-        (key: string, value: any, options?: any,): void;
+        (key: string, value: any, options?: any): void;
 
         /***
          * Gets a stored value based on the key.
          */
-        (key: string,): any;
+        (key: string): any;
 
         /***
          * Gets a hash of all stored values.
@@ -151,7 +151,7 @@ declare namespace amplify {
          * topic: The topic being unsubscribed from.
          * callback: The callback that was originally subscribed.
          */
-        unsubscribe(topic: string, callback: Function,): void;
+        unsubscribe(topic: string, callback: Function): void;
 
         /***
          * Publish a message.

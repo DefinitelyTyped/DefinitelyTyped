@@ -1,10 +1,10 @@
 const cloudFrontFunctionValue: AWSCloudFrontFunction.ValueObject = {
-    key1: { value: 'text/plain', },
+    key1: { value: 'text/plain' },
     key2: {
         value: 't1',
         multiValue: [
-            { value: 't1', },
-            { value: 't2', },
+            { value: 't1' },
+            { value: 't2' },
         ],
     },
 };
@@ -64,15 +64,15 @@ const cloudFrontFunctionEvent: AWSCloudFrontFunction.Event = {
     response: cloudFrontResponse,
 };
 
-function handler1(event: AWSCloudFrontFunction.Event,): AWSCloudFrontFunction.Request {
-    const { request, } = event;
+function handler1(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Request {
+    const { request } = event;
 
     const pathSegments = request.uri
-        .split('/',)
+        .split('/')
         .filter(x => x);
 
-    if (pathSegments[pathSegments.length - 1].indexOf('.',) !== -1) {
-        request.uri = `/${pathSegments[0]}/${pathSegments.slice(2,).join('/',)}`;
+    if (pathSegments[pathSegments.length - 1].indexOf('.') !== -1) {
+        request.uri = `/${pathSegments[0]}/${pathSegments.slice(2).join('/')}`;
         return request;
     }
 
@@ -80,12 +80,12 @@ function handler1(event: AWSCloudFrontFunction.Event,): AWSCloudFrontFunction.Re
     return request;
 }
 
-function handler2(event: AWSCloudFrontFunction.Event,): AWSCloudFrontFunction.Request | AWSCloudFrontFunction.Response {
-    const { request, } = event;
+function handler2(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Request | AWSCloudFrontFunction.Response {
+    const { request } = event;
 
-    const isSecondPathSegmentApi = (pathSegments: string[],) => !!(pathSegments?.[1]?.toLowerCase() === 'api');
+    const isSecondPathSegmentApi = (pathSegments: string[]) => !!(pathSegments?.[1]?.toLowerCase() === 'api');
 
-    const response = (locale: string, requestUri: string,) => (
+    const response = (locale: string, requestUri: string) => (
         {
             statusCode: 302,
             statusDescription: 'Found',
@@ -98,16 +98,16 @@ function handler2(event: AWSCloudFrontFunction.Event,): AWSCloudFrontFunction.Re
     );
 
     const pathSegments = request.uri
-        .split('/',)
+        .split('/')
         .filter(x => x);
 
-    if (isSecondPathSegmentApi(pathSegments,)) {
+    if (isSecondPathSegmentApi(pathSegments)) {
         return request;
     }
 
     const cookieValue = request.cookies?.locale?.value;
 
-    const locale = /^[a-z]{2}-[A-Z]{2}$/.test(cookieValue,) ? cookieValue : 'en-US';
+    const locale = /^[a-z]{2}-[A-Z]{2}$/.test(cookieValue) ? cookieValue : 'en-US';
 
-    return response(locale, request.uri,);
+    return response(locale, request.uri);
 }

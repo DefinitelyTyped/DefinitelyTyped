@@ -33,7 +33,7 @@ interface AllTheCitiesCity {
         | 'STLMT';
     loc: {
         type: 'Point';
-        coordinates: [number, number,];
+        coordinates: [number, number];
     };
 }
 

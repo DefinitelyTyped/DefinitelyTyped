@@ -5,7 +5,7 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import { Compiler, } from 'webpack';
+import { Compiler } from 'webpack';
 
 declare namespace AssetsWebpackPlugin {
     interface Assets {
@@ -14,7 +14,7 @@ declare namespace AssetsWebpackPlugin {
         };
     }
 
-    type ProcessOutputFn = (assets: Assets,) => string;
+    type ProcessOutputFn = (assets: Assets) => string;
 
     interface Options {
         /**
@@ -157,9 +157,9 @@ declare namespace AssetsWebpackPlugin {
 }
 
 declare class AssetsWebpackPlugin {
-    constructor(options?: AssetsWebpackPlugin.Options,);
+    constructor(options?: AssetsWebpackPlugin.Options);
 
-    apply(compiler: Compiler,): void;
+    apply(compiler: Compiler): void;
 }
 
 export = AssetsWebpackPlugin;

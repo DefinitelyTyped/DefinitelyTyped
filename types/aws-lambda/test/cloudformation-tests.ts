@@ -5,7 +5,7 @@ import {
     CloudFormationCustomResourceSuccessResponse,
 } from 'aws-lambda';
 
-const handler: CloudFormationCustomResourceHandler = async (event, context, callback,) => {
+const handler: CloudFormationCustomResourceHandler = async (event, context, callback) => {
     switch (event.RequestType) {
         case 'Create':
             str = event.LogicalResourceId;
@@ -71,5 +71,5 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
     response = failedResponse;
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };

@@ -36,10 +36,10 @@ export interface ActionAttributes {
 }
 
 export interface AckeeInstance {
-    record: (domainId: string, attrs?: ReturnType<typeof attributes>,) => AckeeTrackingReturn;
-    updateRecord: (recordId: string,) => AckeeTrackingReturn;
-    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string,) => void,) => void;
-    updateAction: (actionId: string, attributes: ActionAttributes,) => void;
+    record: (domainId: string, attrs?: ReturnType<typeof attributes>) => AckeeTrackingReturn;
+    updateRecord: (recordId: string) => AckeeTrackingReturn;
+    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string) => void) => void;
+    updateAction: (actionId: string, attributes: ActionAttributes) => void;
 }
 
 export interface DefaultData {
@@ -63,10 +63,10 @@ export interface DetailedData {
     browserHeight: number;
 }
 
-export function create(server: string, options?: TrackingOptions,): AckeeInstance;
+export function create(server: string, options?: TrackingOptions): AckeeInstance;
 
-export function attributes(detailed?: false,): DefaultData;
-export function attributes(detailed: true,): DefaultData & DetailedData;
-export function attributes(detailed?: boolean,): DefaultData | (DefaultData & DetailedData);
+export function attributes(detailed?: false): DefaultData;
+export function attributes(detailed: true): DefaultData & DetailedData;
+export function attributes(detailed?: boolean): DefaultData | (DefaultData & DetailedData);
 
 export function detect(): void;

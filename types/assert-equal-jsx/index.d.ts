@@ -8,7 +8,7 @@ import * as React from 'react';
 
 declare namespace assertEqualJSX {
     interface AsssertOptions {
-        sanitize?(str: string,): string;
+        sanitize?(str: string): string;
     }
 }
 

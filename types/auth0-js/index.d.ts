@@ -14,7 +14,7 @@
 export as namespace auth0;
 
 export class Authentication {
-    constructor(options: AuthOptions,);
+    constructor(options: AuthOptions);
 
     passwordless: PasswordlessAuthentication;
     dbConnection: DBConnection;
@@ -26,134 +26,134 @@ export class Authentication {
      * @see {@link https://auth0.com/docs/api/authentication#authorize-client}
      * @see {@link https://auth0.com/docs/api/authentication#social}
      */
-    buildAuthorizeUrl(options: AuthorizeUrlOptions,): string;
+    buildAuthorizeUrl(options: AuthorizeUrlOptions): string;
 
     /**
      * Builds and returns the Logout url in order to initialize a new authN/authZ transaction
      *
      * @param options: https://auth0.com/docs/api/authentication#!#get--v2-logout
      */
-    buildLogoutUrl(options?: LogoutOptions,): string;
+    buildLogoutUrl(options?: LogoutOptions): string;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password` grant type
      *
      * @param options: https://auth0.com/docs/api-auth/grant/password
      */
-    loginWithDefaultDirectory(options: DefaultDirectoryLoginOptions, callback: Auth0Callback<any>,): void;
+    loginWithDefaultDirectory(options: DefaultDirectoryLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ro` endpoint
      * @deprecated `loginWithResourceOwner` will be soon deprecated, user `login` instead.
      */
-    loginWithResourceOwner(options: ResourceOwnerLoginOptions, callback: Auth0Callback<any>,): void;
+    loginWithResourceOwner(options: ResourceOwnerLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password-realm` grant type
      */
-    login(options: DefaultLoginOptions, callback: Auth0Callback<any>,): void;
+    login(options: DefaultLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint
      */
-    oauthToken(options: any, callback: Auth0Callback<any>,): void;
+    oauthToken(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      */
-    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>,): void;
+    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      */
-    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>,): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
      */
-    userInfo(accessToken: string, callback: Auth0Callback<Auth0UserProfile>,): void;
+    userInfo(accessToken: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Makes a call to the `/delegation` endpoint
      *
      * @param options: https://auth0.com/docs/api/authentication#!#post--delegation
      */
-    delegation(options: DelegationOptions, callback: Auth0Callback<Auth0DelegationToken>,): any;
+    delegation(options: DelegationOptions, callback: Auth0Callback<Auth0DelegationToken>): any;
 
     /**
      * Fetches the user country based on the ip.
      */
-    getUserCountry(callback: Auth0Callback<{ countryCode: string }>,): void;
+    getUserCountry(callback: Auth0Callback<{ countryCode: string }>): void;
 }
 
 export class PasswordlessAuthentication {
-    constructor(request: any, option: any,);
+    constructor(request: any, option: any);
 
     /**
      * Builds and returns the passwordless TOTP verify url in order to initialize a new authN/authZ transaction
      */
-    buildVerifyUrl(options: PasswordlessVerifyOptions,): string;
+    buildVerifyUrl(options: PasswordlessVerifyOptions): string;
 
     /**
      * Initializes a new passwordless authN/authZ transaction
      *
      * @param options: https://auth0.com/docs/api/authentication#passwordless
      */
-    start(options: PasswordlessStartOptions, callback: Auth0Callback<any>,): void;
+    start(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Verifies the passwordless TOTP and returns an error if any.
      */
-    verify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>,): void;
+    verify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 }
 
 export class DBConnection {
-    constructor(request: any, option: any,);
+    constructor(request: any, option: any);
 
     /**
      * Creates a new user in a Auth0 Database connection
      * @param options https://auth0.com/docs/api/authentication#signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>,): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>): void;
 
     /**
      * Initializes the change password flow
      *
      * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      */
-    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>,): void;
+    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Management {
     /**
      * Initialize your client class, by using a Non Interactive Client to fetch an access_token via the Client Credentials Grant.
      */
-    constructor(options: ManagementOptions,);
+    constructor(options: ManagementOptions);
 
     /**
      * Returns the user profile. https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
      */
-    getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>,): void;
+    getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      */
-    patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>,): void;
+    patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Updates the user attributes.
      * It will patch the root attributes that the server allows it.
      * {@link https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id}
      */
-    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>,): void;
+    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      */
-    linkUser(userId: string, secondaryUserToken: string, callback: Auth0Callback<any>,): void;
+    linkUser(userId: string, secondaryUserToken: string, callback: Auth0Callback<any>): void;
 }
 
 export class WebAuth {
-    constructor(options: AuthOptions,);
+    constructor(options: AuthOptions);
     client: Authentication;
     popup: Popup;
     redirect: Redirect;
@@ -164,7 +164,7 @@ export class WebAuth {
      *
      * @param options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      */
-    authorize(options?: AuthorizeOptions,): void;
+    authorize(options?: AuthorizeOptions): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
@@ -175,7 +175,7 @@ export class WebAuth {
      *
      * @param callback: any(err, token_payload)
      */
-    parseHash(callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>,): void;
+    parseHash(callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
@@ -186,14 +186,14 @@ export class WebAuth {
      *
      * @param callback: any(err, token_payload)
      */
-    parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>,): void;
+    parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
      *
      * @param callback: function(err, {payload, transaction})
      */
-    validateToken(token: string, nonce: string, callback: Auth0Callback<any>,): void;
+    validateToken(token: string, nonce: string, callback: Auth0Callback<any>): void;
 
     /**
      * Executes a silent authentication transaction under the hood in order to fetch a new tokens for the current session.
@@ -203,21 +203,21 @@ export class WebAuth {
      *
      * @param options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
      */
-    renewAuth(options: RenewAuthOptions, callback: Auth0Callback<any>,): void;
+    renewAuth(options: RenewAuthOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Initialices a change password transaction
      *
      * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      */
-    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>,): void;
+    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user
      *
      * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<any>,): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user, automatically logs the user in after the signup and returns the user token.
@@ -225,7 +225,7 @@ export class WebAuth {
      *
      * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      */
-    signupAndAuthorize(options: DbSignUpOptions, callback: Auth0Callback<any>,): void;
+    signupAndAuthorize(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow.
@@ -238,7 +238,7 @@ export class WebAuth {
      * @param cb Callback function called only when an authentication error, like invalid username or password, occurs.
      * For other types of errors, there will be a redirect to the `redirectUri`.
      */
-    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>,): void;
+    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Runs the callback code for the cross origin authentication call.
@@ -263,28 +263,28 @@ export class WebAuth {
      *
      * @see {@link https://auth0.com/docs/api/authentication#logout}
      */
-    logout(options: LogoutOptions,): void;
+    logout(options: LogoutOptions): void;
 
     /**
      * Initialices a passwordless authentication transaction
      *
      * @param options: https://auth0.com/docs/api/authentication#passwordless
      */
-    passwordlessStart(options: PasswordlessStartOptions, callback: Auth0Callback<any>,): void;
+    passwordlessStart(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Verifies the passwordless TOTP and redirects to finish the passwordless transaction
      *
      * @param options:
      */
-    passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>,): void;
+    passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Logs in a user with the verification code sent to the user
      * @param options
      * @param callback
      */
-    passwordlessLogin(options: PasswordlessLoginOptions, callback: Auth0Callback<any>,): void;
+    passwordlessLogin(options: PasswordlessLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
@@ -293,7 +293,7 @@ export class WebAuth {
      * @param cb
      * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
-    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>,): void;
+    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
 
     /**
      * Renders the captcha challenge in the provided element.
@@ -304,11 +304,11 @@ export class WebAuth {
      *
      * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
      */
-    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>,): Captcha;
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): Captcha;
 }
 
 export class Redirect {
-    constructor(client: any, options: any,);
+    constructor(client: any, options: any);
 
     /**
      * Performs authentication with username/email and password with a database connection
@@ -349,7 +349,7 @@ export class Redirect {
 }
 
 export class Popup {
-    constructor(client: any, options: any,);
+    constructor(client: any, options: any);
 
     /**
      * Returns a new instance of the popup handler
@@ -361,7 +361,7 @@ export class Popup {
      *
      * @param options: receives the window height and width and any other window feature to be sent to window.open
      */
-    preload(options: any,): any;
+    preload(options: any): any;
 
     /**
      * Handles the popup logic for the callback page.
@@ -382,7 +382,7 @@ export class Popup {
          * We **strongly** recommend validating the `id_token` yourself if you disable the verification.
          */
         _idTokenVerification?: string | undefined;
-    },): void;
+    }): void;
 
     /**
      * Shows inside a new window the hosted login page (`/authorize`) in order to start a new authN/authZ transaction and post its result using `postMessage`.
@@ -493,7 +493,7 @@ export class Popup {
 }
 
 export class CrossOriginAuthentication {
-    constructor(webAuth: any, options: any,);
+    constructor(webAuth: any, options: any);
 
     /**
      * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow.
@@ -505,7 +505,7 @@ export class CrossOriginAuthentication {
      * @param cb Callback function called only when an authentication error, like invalid username or password, occurs.
      * For other types of errors, there will be a redirect to the `redirectUri`.
      */
-    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>,): void;
+    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
@@ -513,7 +513,7 @@ export class CrossOriginAuthentication {
     callback(): void;
 }
 
-export type Auth0Callback<T, E = Auth0Error,> = (error: null | E, result: T,) => void;
+export type Auth0Callback<T, E = Auth0Error> = (error: null | E, result: T) => void;
 
 export interface TokenProvider {
     enableCache?: boolean | undefined;
@@ -574,10 +574,10 @@ export interface AuthOptions {
     __tryLocalStorageFirst?: boolean | undefined;
 }
 
-export type DoneCallback = (err?: Auth0Error,) => void;
+export type DoneCallback = (err?: Auth0Error) => void;
 
 export interface Captcha {
-    reload: (done: DoneCallback,) => void;
+    reload: (done: DoneCallback) => void;
     getValue: () => string;
 }
 
@@ -601,14 +601,14 @@ export interface CaptchaTemplates {
     /**
      * Template function receiving the challenge and returning an string
      */
-    auth0?: ((challenge: Auth0Challenge,) => string) | undefined;
+    auth0?: ((challenge: Auth0Challenge) => string) | undefined;
 
     /**
      * Template function receiving the challenge and returning an string
      */
-    recaptcha_v2?: ((challenge: Auth0Challenge,) => string) | undefined;
+    recaptcha_v2?: ((challenge: Auth0Challenge) => string) | undefined;
 
-    error: (error: Error,) => string;
+    error: (error: Error) => string;
 }
 
 export interface Auth0Challenge {
@@ -891,7 +891,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
-    onRedirecting?: (done: () => void,) => void | undefined;
+    onRedirecting?: (done: () => void) => void | undefined;
 }
 
 export interface LogoutOptions {

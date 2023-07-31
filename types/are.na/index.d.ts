@@ -59,7 +59,7 @@ declare class Arena {
         baseURL?: string | undefined;
         authToken?: string | undefined;
         requestHandler?: CustomRequestHandler | undefined;
-    },);
+    });
 
     /**
      * Base object for Group related API requests
@@ -79,11 +79,11 @@ declare class Arena {
         /**
          * Get the group as an Object.
          */
-        get(params?: PaginationParams,): Promise<Arena.Group>;
+        get(params?: PaginationParams): Promise<Arena.Group>;
         /**
          * Get a group's channels, as an array. Supports pagination.
          */
-        channels(params?: PaginationParams,): Promise<Arena.Channel[]>;
+        channels(params?: PaginationParams): Promise<Arena.Channel[]>;
     };
 
     /**
@@ -104,39 +104,39 @@ declare class Arena {
         /**
          * Get the channel as an Object. Gets a list of public channels if slug/id not specified. Supports pagination.
          */
-        get(params?: PaginationParams,): Promise<Arena.Channel>;
+        get(params?: PaginationParams): Promise<Arena.Channel>;
         /**
          * Limited view of the channel
          */
-        thumb(params?: Params,): Promise<Arena.Channel>;
+        thumb(params?: Params): Promise<Arena.Channel>;
         /**
          * Get all of the connections of the channel (channels where this channel is connected). Supports pagination.
          */
-        connections(params?: PaginationParams,): Promise<any>;
+        connections(params?: PaginationParams): Promise<any>;
         /**
          * Get all of the channels connected to blocks in the channel. Supports pagination.
          */
-        channels(params?: PaginationParams,): Promise<Arena.Channel[]>;
+        channels(params?: PaginationParams): Promise<Arena.Channel[]>;
         /**
          * Get the channel's contents only, as an array. Supports pagination.
          */
-        contents(params?: PaginationParams,): Promise<Arena.Block[]>;
+        contents(params?: PaginationParams): Promise<Arena.Block[]>;
         /**
          * Get the channel's collaborators. Supports pagination.
          */
-        collaborators(params?: PaginationParams,): Promise<Arena.User[]>;
+        collaborators(params?: PaginationParams): Promise<Arena.User[]>;
         /**
          * Creates a new channel. Called as or channel().create(title, status). Title is required, status is optional.
          */
-        create(title: string, status: Arena.ChannelStatus,): Promise<void>;
+        create(title: string, status: Arena.ChannelStatus): Promise<void>;
         /**
          * Creates a new channel. Called as channel(title).create(status). Title is required, status is optional.
          */
-        create(status: Arena.ChannelStatus,): Promise<void>;
+        create(status: Arena.ChannelStatus): Promise<void>;
         /**
          * Delete the channel. Can be called as channel(slug).delete() or channel().delete(slug).
          */
-        delete(slug: string,): Promise<void>;
+        delete(slug: string): Promise<void>;
         /**
          * Update the channel's attributes. params should be an object and can include title and/or status.
          * Currently it appears that the are.na API requires both values.
@@ -149,20 +149,20 @@ declare class Arena {
         /**
          * Add collaborators to a channel. Pass userIds as an Array or multiple arguments.
          */
-        addCollaborators(userIDs: string[],): Promise<Arena.User[]>;
+        addCollaborators(userIDs: string[]): Promise<Arena.User[]>;
         addCollaborators(...userIDs: string[]): Promise<Arena.User[]>;
         /**
          * Remove collaborators from a channel. Accepts userIds in the same format as addCollaborators.
          */
-        deleteCollaborators(userIDs: string[],): Promise<Arena.User[]>;
+        deleteCollaborators(userIDs: string[]): Promise<Arena.User[]>;
         /**
          * Create a block and add it to the channel. Specify textual content or a source link.
          */
-        createBlock(content: any,): Promise<Arena.Block>;
+        createBlock(content: any): Promise<Arena.Block>;
         /**
          * Remove a block from the channel
          */
-        deleteBlock(blockID: string,): Promise<void>;
+        deleteBlock(blockID: string): Promise<void>;
     };
 
     /**
@@ -183,21 +183,21 @@ declare class Arena {
         /**
          * Get the block specified by id
          */
-        get(params?: Params,): Promise<Arena.Block>;
+        get(params?: Params): Promise<Arena.Block>;
         /**
          * Get a list of the channels a block belongs to
          */
-        channels(params?: Params,): Promise<Arena.Channel[]>;
+        channels(params?: Params): Promise<Arena.Channel[]>;
         /**
          * Create a block and add it to the channel.
          * Specify textual content or a source link.
          */
-        create(channelSlug: string, content: any,): Promise<Arena.Channel>;
+        create(channelSlug: string, content: any): Promise<Arena.Channel>;
         /**
          * Update a block. Pass an object with one or more of content,
          * title or description fields to update those fields.
          */
-        update(params: { content?: any; title?: string | undefined; description?: string | undefined },): Promise<void>;
+        update(params: { content?: any; title?: string | undefined; description?: string | undefined }): Promise<void>;
     };
 
     /**
@@ -218,19 +218,19 @@ declare class Arena {
         /**
          * Get a user specified by id
          */
-        get(params?: Params,): Promise<Arena.User>;
+        get(params?: Params): Promise<Arena.User>;
         /**
          * Get a user's channels, as an array. Supports pagination.
          */
-        channels(params?: PaginationParams,): Promise<Arena.Channel[]>;
+        channels(params?: PaginationParams): Promise<Arena.Channel[]>;
         /**
          * Get a list of users and/or blocks the user is following. Supports pagination.
          */
-        following(params?: PaginationParams,): Promise<Array<Arena.Block | Arena.User>>;
+        following(params?: PaginationParams): Promise<Array<Arena.Block | Arena.User>>;
         /**
          * Get a list of the user's followers. Supports pagination.
          */
-        followers(params?: PaginationParams,): Promise<Arena.User[]>;
+        followers(params?: PaginationParams): Promise<Arena.User[]>;
     };
 
     /**
@@ -261,15 +261,15 @@ declare class Arena {
         /**
          * Search for users.
          */
-        users(params: Params,): Promise<Arena.User[]>;
+        users(params: Params): Promise<Arena.User[]>;
         /**
          * Search for channels.
          */
-        channels(params: Params,): Promise<Arena.Channel[]>;
+        channels(params: Params): Promise<Arena.Channel[]>;
         /**
          * Search for blocks.
          */
-        blocks(params: Params,): Promise<Arena.Block[]>;
+        blocks(params: Params): Promise<Arena.Block[]>;
     };
 }
 

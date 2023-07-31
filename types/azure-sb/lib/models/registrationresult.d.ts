@@ -16,8 +16,8 @@
 
 export namespace Azure.ServiceBus.Results {
     export interface RegistrationResult {
-        serialize(type: string, resource: object, properties: string[],): string;
+        serialize(type: string, resource: object, properties: string[]): string;
 
-        parse(xml: object,): object | object[];
+        parse(xml: object): object | object[];
     }
 }

@@ -9,4 +9,4 @@
 
 export = alpha_shape;
 
-declare function alpha_shape(alpha: number, points: number[][],): number[][];
+declare function alpha_shape(alpha: number, points: number[][]): number[][];

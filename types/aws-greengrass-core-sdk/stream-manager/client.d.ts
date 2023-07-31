@@ -1,9 +1,9 @@
-import { Message, MessageStreamDefinition, MessageStreamInfo, ReadMessagesOptions, } from './data';
+import { Message, MessageStreamDefinition, MessageStreamInfo, ReadMessagesOptions } from './data';
 import * as util from './util';
 
 export * from './data';
 export * from './exceptions';
-export { util, };
+export { util };
 
 export interface StreamManagerLogger {
     error(...args: never[]): void;
@@ -16,7 +16,7 @@ export interface StreamManagerClientOptions {
     port?: number;
     host?: string;
     onConnectCb?: () => unknown;
-    onErrorCb?: (e: Error,) => unknown;
+    onErrorCb?: (e: Error) => unknown;
     logger?: StreamManagerLogger;
 }
 
@@ -42,7 +42,7 @@ export class StreamManagerClient {
      * @param opts.onErrorCb Optional, but highly suggested callback to be called when a connection error occurs.
      * @param opts.logger
      */
-    constructor(opts?: StreamManagerClientOptions,);
+    constructor(opts?: StreamManagerClientOptions);
 
     /**
      * Append a message into the specified message stream. Returns the sequence number of the message
@@ -52,7 +52,7 @@ export class StreamManagerClient {
      * @param data Buffer containing the data to be written.
      * @returns
      */
-    appendMessage(streamName: string, data: Buffer,): Promise<number>;
+    appendMessage(streamName: string, data: Buffer): Promise<number>;
 
     /**
      * Create a message stream with a given definition.
@@ -60,7 +60,7 @@ export class StreamManagerClient {
      * @param definition
      * @returns
      */
-    createMessageStream(definition: MessageStreamDefinition,): Promise<void>;
+    createMessageStream(definition: MessageStreamDefinition): Promise<void>;
 
     /**
      * Updates a message stream with the new definition.
@@ -69,7 +69,7 @@ export class StreamManagerClient {
      * @param definition
      * @returns
      */
-    updateMessageStream(definition: MessageStreamDefinition,): Promise<void>;
+    updateMessageStream(definition: MessageStreamDefinition): Promise<void>;
 
     /**
      * Deletes a message stream based on its name. Nothing is returned if the request succeeds.
@@ -78,7 +78,7 @@ export class StreamManagerClient {
      * @param streamName The name of the stream to be deleted.
      * @returns
      */
-    deleteMessageStream(streamName: string,): Promise<void>;
+    deleteMessageStream(streamName: string): Promise<void>;
 
     /**
      * Read message(s) from a chosen stream with options. If no options are specified it will try to read
@@ -101,7 +101,7 @@ export class StreamManagerClient {
      * </p>
      * @returns  List of one or more messages.
      */
-    readMessages(streamName: string, options?: ReadMessagesOptions | null,): Promise<Message[]>;
+    readMessages(streamName: string, options?: ReadMessagesOptions | null): Promise<Message[]>;
 
     /**
      * List the streams in StreamManager. Returns a list of their names.
@@ -117,19 +117,19 @@ export class StreamManagerClient {
      * @param streamName The name of the stream to describe
      * @returns
      */
-    describeMessageStream(streamName: string,): Promise<MessageStreamInfo>;
+    describeMessageStream(streamName: string): Promise<MessageStreamInfo>;
 
     /**
      * Add a callback for when the client connects.
      * @param f
      */
-    onConnected(f: () => unknown,): void;
+    onConnected(f: () => unknown): void;
 
     /**
      * Add a callback for when an error occurs.
      * @param f
      */
-    onError(f: (e: Error,) => unknown,): void;
+    onError(f: (e: Error) => unknown): void;
 
     /**
      * Close the connection

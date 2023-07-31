@@ -3,22 +3,22 @@ import ahoy from 'ahoy.js';
 // $ExpectType void
 ahoy.start();
 
-ahoy.configure({},);
+ahoy.configure({});
 
 ahoy.configure({
     cookies: false,
-},);
+});
 
 ahoy.configure({
     // @ts-expect-error
     cookies: 1,
-},);
+});
 
 // $ExpectType void
-ahoy.trackSubmits('#selector',);
+ahoy.trackSubmits('#selector');
 
 // $ExpectType void
-ahoy.trackClicks('#selector',);
+ahoy.trackClicks('#selector');
 
 // $ExpectType void
-ahoy.trackChanges('#selector',);
+ahoy.trackChanges('#selector');

@@ -1,6 +1,6 @@
 angular
-    .module('toastr-tests', ['toastr',],)
-    .config(function(toastrConfig: angular.toastr.IToastrConfig,) {
+    .module('toastr-tests', ['toastr'])
+    .config(function(toastrConfig: angular.toastr.IToastrConfig) {
         let toastContainerConfig: angular.toastr.IToastContainerConfig = {
                 autoDismiss: false,
                 containerId: 'toast-container',
@@ -41,23 +41,23 @@ angular
                 toastClass: 'toast',
             };
 
-        angular.extend(toastrConfig, toastContainerConfig, toastConfig,);
-    },)
-    .controller('ToastrController', function(toastr: angular.toastr.IToastrService,) {
+        angular.extend(toastrConfig, toastContainerConfig, toastConfig);
+    })
+    .controller('ToastrController', function(toastr: angular.toastr.IToastrService) {
         toastr.info('<input type="checkbox" checked> Success!', 'With HTML', {
             allowHtml: true,
-        },);
+        });
 
         toastr.success('What a nice button', 'Button spree', {
             closeButton: true,
-        },);
+        });
 
         toastr.info('What a nice apple button', 'Button spree', {
             closeButton: true,
             closeHtml: '<button></button>',
-        },);
+        });
 
         toastr.info('I am totally custom!', 'Happy toast', {
             iconClass: 'toast-pink',
-        },);
-    },);
+        });
+    });

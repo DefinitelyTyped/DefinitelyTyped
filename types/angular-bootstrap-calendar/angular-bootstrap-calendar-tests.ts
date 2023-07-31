@@ -1,10 +1,10 @@
-var myApp = angular.module('testModule',);
+var myApp = angular.module('testModule');
 
 interface MyAppScope extends ng.IScope {
     events: ng.bootstrap.calendar.IEvent[];
 }
 
-myApp.config(function(calendarConfig: ng.bootstrap.calendar.ICalendarConfig,) {
+myApp.config(function(calendarConfig: ng.bootstrap.calendar.ICalendarConfig) {
     calendarConfig.templates.calendarMonthView = 'path/to/custom/template.html'; // change the month view template to a custom template
 
     calendarConfig.dateFormatter = 'moment'; // use either moment or angular to format dates on the calendar. Default angular. Setting this will override any date formats you have already set.
@@ -20,15 +20,15 @@ myApp.config(function(calendarConfig: ng.bootstrap.calendar.ICalendarConfig,) {
     calendarConfig.displayEventEndTimes = true; // This will display event end times on the month and year views. Default false.
 
     calendarConfig.showTimesOnWeekView = true; // Make the week view more like the day view, with the caveat that event end times are ignored.
-},);
+});
 
-var someController: Function = ($scope: MyAppScope,) => {
+var someController: Function = ($scope: MyAppScope) => {
     $scope.events = [
         {
             title: 'My event title', // The title of the event
             type: 'info', // The type of the event (determines its color). Can be important, warning, info, inverse, success or special
-            startsAt: new Date(2013, 5, 1, 1,), // A javascript date object for when the event starts
-            endsAt: new Date(2014, 8, 26, 15,), // Optional - a javascript date object for when the event ends
+            startsAt: new Date(2013, 5, 1, 1), // A javascript date object for when the event starts
+            endsAt: new Date(2014, 8, 26, 15), // Optional - a javascript date object for when the event ends
             editable: false, // If edit-event-html is set and this field is explicitly set to false then dont make it editable.
             deletable: false, // If delete-event-html is set and this field is explicitly set to false then dont make it deleteable
             draggable: true, // Allow an event to be dragged and dropped

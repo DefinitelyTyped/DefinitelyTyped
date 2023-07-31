@@ -7,7 +7,7 @@ export default class LexerNoViableAltException extends RecognitionException {
     readonly startIndex: number;
     readonly deadEndConfigs: ATNConfigSet;
 
-    constructor(lexer: Lexer, input: InputStream, startIndex: number, deadEndConfigs: ATNConfigSet,);
+    constructor(lexer: Lexer, input: InputStream, startIndex: number, deadEndConfigs: ATNConfigSet);
 
     toString(): string;
 }

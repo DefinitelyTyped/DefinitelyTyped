@@ -1,48 +1,48 @@
-import { CompressionLevel, CompressPDFOptions, } from './operation/option/compresspdf/compress-pdf-options';
-import { CreatePDFFromExcelOptions, } from './operation/option/createpdf/create-pdf-from-excel-options';
-import { CreatePDFFromHtmlOptions, } from './operation/option/createpdf/create-pdf-from-html-options';
-import { CreatePDFFromPPTOptions, } from './operation/option/createpdf/create-pdf-from-ppt-options';
-import { CreatePDFFromWordOptions, } from './operation/option/createpdf/create-pdf-from-word-options';
-import { PageLayout, } from './operation/option/createpdf/page-layout';
-import { DocumentMergeOptions, OutputFormat, } from './operation/option/documentmerge/document-merge-options';
-import { Fragments as FragmentsType, } from './operation/option/documentmerge/fragments';
-import { ExtractPdfOptions, } from './operation/option/extractpdf/extract-pdf-options';
-import { OCROptions, } from './operation/option/ocr/ocr-options';
-import { PageRanges, } from './operation/option/page-ranges';
+import { CompressionLevel, CompressPDFOptions } from './operation/option/compresspdf/compress-pdf-options';
+import { CreatePDFFromExcelOptions } from './operation/option/createpdf/create-pdf-from-excel-options';
+import { CreatePDFFromHtmlOptions } from './operation/option/createpdf/create-pdf-from-html-options';
+import { CreatePDFFromPPTOptions } from './operation/option/createpdf/create-pdf-from-ppt-options';
+import { CreatePDFFromWordOptions } from './operation/option/createpdf/create-pdf-from-word-options';
+import { PageLayout } from './operation/option/createpdf/page-layout';
+import { DocumentMergeOptions, OutputFormat } from './operation/option/documentmerge/document-merge-options';
+import { Fragments as FragmentsType } from './operation/option/documentmerge/fragments';
+import { ExtractPdfOptions } from './operation/option/extractpdf/extract-pdf-options';
+import { OCROptions } from './operation/option/ocr/ocr-options';
+import { PageRanges } from './operation/option/page-ranges';
 import {
     ContentEncryption,
     EncryptionAlgorithm,
     PasswordProtectOptions,
     Permission,
 } from './operation/option/protectpdf/password-protect-options';
-import { Permissions, } from './operation/option/protectpdf/permissions';
+import { Permissions } from './operation/option/protectpdf/permissions';
 
-import { CombineFilesOperation, } from './operation/combine-file-operation';
-import { CompressPDFOperation, } from './operation/compress-pdf-operation';
-import { CreatePDFOperation, } from './operation/create-pdf-operation';
-import { DeletePagesOperation, } from './operation/delete-pages-operation';
-import { DocumentMergeOperation, } from './operation/document-merge-operation';
-import { ExportPDFOperation, } from './operation/export-pdf-operation';
-import { ExportPDFToImagesOperation, } from './operation/export-pdf-to-images-operation';
-import { ExtractPdfOperation, } from './operation/extract-pdf-operation';
-import { InsertPagesOperation, } from './operation/insert-pages-operation';
-import { LinearizePDFOperation, } from './operation/linearize-pdf-operation';
-import { OCROperation, } from './operation/ocr-operation';
-import { PDFPropertiesOperation, } from './operation/pdf-properties-operation';
-import { ProtectPDFOperation, } from './operation/protect-pdf-operation';
-import { RemoveProtectionOperation, } from './operation/remove-protection-operation';
-import { ReorderPagesOperation, } from './operation/reorder-pages-operation';
-import { ReplacePagesOperation, } from './operation/replace-pages-operation';
-import { RotatePagesOperation, } from './operation/rotate-pages-operation';
-import { SplitPDFOperation, } from './operation/split-pdf-operation';
+import { CombineFilesOperation } from './operation/combine-file-operation';
+import { CompressPDFOperation } from './operation/compress-pdf-operation';
+import { CreatePDFOperation } from './operation/create-pdf-operation';
+import { DeletePagesOperation } from './operation/delete-pages-operation';
+import { DocumentMergeOperation } from './operation/document-merge-operation';
+import { ExportPDFOperation } from './operation/export-pdf-operation';
+import { ExportPDFToImagesOperation } from './operation/export-pdf-to-images-operation';
+import { ExtractPdfOperation } from './operation/extract-pdf-operation';
+import { InsertPagesOperation } from './operation/insert-pages-operation';
+import { LinearizePDFOperation } from './operation/linearize-pdf-operation';
+import { OCROperation } from './operation/ocr-operation';
+import { PDFPropertiesOperation } from './operation/pdf-properties-operation';
+import { ProtectPDFOperation } from './operation/protect-pdf-operation';
+import { RemoveProtectionOperation } from './operation/remove-protection-operation';
+import { ReorderPagesOperation } from './operation/reorder-pages-operation';
+import { ReplacePagesOperation } from './operation/replace-pages-operation';
+import { RotatePagesOperation } from './operation/rotate-pages-operation';
+import { SplitPDFOperation } from './operation/split-pdf-operation';
 
-import { Credentials, } from './auth/credentials';
-import { ClientConfig, } from './client-config';
-import { ServiceApiError, } from './error/service-api-error';
-import { ServiceUsageError, } from './error/service-usage-error';
-import { ExecutionContext, } from './execution-context';
-import { FileRef, } from './io/file-ref';
-import { PDFPropertiesOptions, } from './operation/option/pdfproperties/pdf-properties-options';
+import { Credentials } from './auth/credentials';
+import { ClientConfig } from './client-config';
+import { ServiceApiError } from './error/service-api-error';
+import { ServiceUsageError } from './error/service-usage-error';
+import { ExecutionContext } from './execution-context';
+import { FileRef } from './io/file-ref';
+import { PDFPropertiesOptions } from './operation/option/pdfproperties/pdf-properties-options';
 export interface PdfFormat {
     /**
      * Represents "application/pdf" media type
@@ -51,7 +51,7 @@ export interface PdfFormat {
 }
 
 export namespace CreatePDF {
-    export { CreatePDFOperation as Operation, };
+    export { CreatePDFOperation as Operation };
     export const SupportedMediaTypes: {
         bmp: string;
         doc: string;
@@ -92,11 +92,11 @@ export namespace CreatePDF {
     };
     export namespace options {
         namespace html {
-            export { CreatePDFFromHtmlOptions, };
-            export { PageLayout, };
+            export { CreatePDFFromHtmlOptions };
+            export { PageLayout };
         }
         namespace word {
-            export { CreatePDFFromWordOptions, };
+            export { CreatePDFFromWordOptions };
             export const SupportedDocumentLanguage: {
                 DA_DK: string;
                 LT_LT: string;
@@ -139,7 +139,7 @@ export namespace CreatePDF {
             };
         }
         namespace excel {
-            export { CreatePDFFromExcelOptions, };
+            export { CreatePDFFromExcelOptions };
             export const SupportedDocumentLanguage: {
                 DA_DK: string;
                 LT_LT: string;
@@ -182,7 +182,7 @@ export namespace CreatePDF {
             };
         }
         namespace ppt {
-            export { CreatePDFFromPPTOptions, };
+            export { CreatePDFFromPPTOptions };
             export const SupportedDocumentLanguage: {
                 DA_DK: string;
                 LT_LT: string;
@@ -227,7 +227,7 @@ export namespace CreatePDF {
     }
 }
 export namespace ExportPDF {
-    export { ExportPDFOperation as Operation, };
+    export { ExportPDFOperation as Operation };
     export const SupportedSourceFormat: {
         pdf: string;
     };
@@ -242,7 +242,7 @@ export namespace ExportPDF {
     };
 }
 export namespace ExportPDFToImages {
-    export { ExportPDFToImagesOperation as Operation, };
+    export { ExportPDFToImagesOperation as Operation };
     export const SupportedSourceFormat: {
         pdf: string;
     };
@@ -252,16 +252,16 @@ export namespace ExportPDFToImages {
     };
 }
 export namespace CombineFiles {
-    export { CombineFilesOperation as Operation, };
+    export { CombineFilesOperation as Operation };
     export const SupportedSourceFormat: {
         pdf: string;
     };
 }
 export namespace OCR {
-    export { OCROperation as Operation, };
+    export { OCROperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
     export namespace options {
-        export { OCROptions, };
+        export { OCROptions };
         export const OCRSupportedLocale: {
             DA_DK: string;
             LT_LT: string;
@@ -309,69 +309,69 @@ export namespace OCR {
     }
 }
 export namespace CompressPDF {
-    export { CompressPDFOperation as Operation, };
+    export { CompressPDFOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
     export namespace options {
-        export { CompressPDFOptions, };
+        export { CompressPDFOptions };
         export const CompressionLevel: CompressionLevel;
     }
 }
 export namespace LinearizePDF {
-    export { LinearizePDFOperation as Operation, };
+    export { LinearizePDFOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace ProtectPDF {
-    export { ProtectPDFOperation as Operation, };
+    export { ProtectPDFOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
     export namespace options {
-        export { PasswordProtectOptions, };
-        export { Permissions, };
+        export { PasswordProtectOptions };
+        export { Permissions };
         export const EncryptionAlgorithm: EncryptionAlgorithm;
         export const ContentEncryption: ContentEncryption;
         export const Permission: Permission;
     }
 }
 export namespace ExtractPDF {
-    export { ExtractPdfOperation as Operation, };
+    export { ExtractPdfOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
     export namespace options {
-        export { ExtractPdfOptions, };
+        export { ExtractPdfOptions };
         export const TableStructureType: any;
         export const ExtractElementType: any;
         export const ExtractRenditionsElementType: any;
     }
 }
 export namespace RotatePages {
-    export { RotatePagesOperation as Operation, };
+    export { RotatePagesOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
     export const Angle: any;
 }
 export namespace DeletePages {
-    export { DeletePagesOperation as Operation, };
+    export { DeletePagesOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace ReorderPages {
-    export { ReorderPagesOperation as Operation, };
+    export { ReorderPagesOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace InsertPages {
-    export { InsertPagesOperation as Operation, };
+    export { InsertPagesOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace ReplacePages {
-    export { ReplacePagesOperation as Operation, };
+    export { ReplacePagesOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace RemoveProtection {
-    export { RemoveProtectionOperation as Operation, };
+    export { RemoveProtectionOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace SplitPDF {
-    export { SplitPDFOperation as Operation, };
+    export { SplitPDFOperation as Operation };
     export const SupportedSourceFormat: PdfFormat;
 }
 export namespace DocumentMerge {
-    export { DocumentMergeOperation as Operation, };
+    export { DocumentMergeOperation as Operation };
     export const SupportedSourceFormat: { docx: string };
     export namespace options {
         const DocumentMergeOptions: DocumentMergeOptions;
@@ -379,15 +379,15 @@ export namespace DocumentMerge {
     }
 }
 export namespace PDFProperties {
-    export { PDFPropertiesOperation as Operation, };
+    export { PDFPropertiesOperation as Operation };
     export const SupportedSourceFormat: any;
     export namespace options {
         const PDFPropertiesOptions: PDFPropertiesOptions;
     }
 }
 export namespace Error {
-    export { ServiceApiError, };
-    export { ServiceUsageError, };
+    export { ServiceApiError };
+    export { ServiceUsageError };
 }
 export const Fragments: FragmentsType;
-export { ClientConfig, Credentials, ExecutionContext, FileRef, PageRanges, };
+export { ClientConfig, Credentials, ExecutionContext, FileRef, PageRanges };

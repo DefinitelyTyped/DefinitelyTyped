@@ -5,7 +5,7 @@ var auth0 = new Auth0({
     clientID: 'dsa7d77dsa7d7',
     callbackURL: 'http://my-app.com/callback',
     callbackOnLocationHash: true,
-},);
+});
 
 auth0.login(
     {
@@ -16,11 +16,11 @@ auth0.login(
             height: 800,
         },
     },
-    (err, profile, idToken, accessToken, state,) => {
+    (err, profile, idToken, accessToken, state) => {
         if (err) {
-            alert('something went wrong: ' + err.message,);
+            alert('something went wrong: ' + err.message);
             return;
         }
-        alert('hello ' + profile.name,);
+        alert('hello ' + profile.name);
     },
 );

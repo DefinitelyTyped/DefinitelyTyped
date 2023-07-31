@@ -1,4 +1,4 @@
-import { Disposable, Package, } from '../index';
+import { Disposable, Package } from '../index';
 
 /** Handles loading and activating available themes. */
 export interface ThemeManager {
@@ -7,7 +7,7 @@ export interface ThemeManager {
      *  Invoke callback when style sheet changes associated with updating the
      *  list of active themes have completed.
      */
-    onDidChangeActiveThemes(callback: () => void,): Disposable;
+    onDidChangeActiveThemes(callback: () => void): Disposable;
 
     // Accessing Loaded Themes
     /** Returns an Array of strings of all the loaded theme names. */

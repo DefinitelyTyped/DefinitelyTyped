@@ -1,7 +1,7 @@
-import { SubProcess, TeenProcessExecOptions, } from 'teen_process';
-import { Log, LogcatOpts, } from '../logcat';
+import { SubProcess, TeenProcessExecOptions } from 'teen_process';
+import { Log, LogcatOpts } from '../logcat';
 
-export { LogcatOpts, };
+export { LogcatOpts };
 
 export interface SetPropOptions {
     /**
@@ -75,8 +75,8 @@ interface AdbCommands {
      * @param args Array of argument values to create chunks for
      * @throws If any of the chunks returns non-zero exit code after being executed
      */
-    shellChunks<A extends number | string,>(
-        argTransformer: (arg: A,) => ReadonlyArray<string>,
+    shellChunks<A extends number | string>(
+        argTransformer: (arg: A) => ReadonlyArray<string>,
         args: ReadonlyArray<A>,
     ): Promise<void>;
 
@@ -142,7 +142,7 @@ interface AdbCommands {
      * @param remotePath - The new path to be created.
      * @return mkdir command output.
      */
-    mkdir(remotePath: string,): Promise<string>;
+    mkdir(remotePath: string): Promise<string>;
 
     /**
      * Verify whether the given argument is a
@@ -152,7 +152,7 @@ interface AdbCommands {
      * @return The result of Regexp.exec operation
      *                          or _null_ if no matches are found.
      */
-    isValidClass(classString: string,): RegExpExecArray | null;
+    isValidClass(classString: string): RegExpExecArray | null;
 
     /**
      * Fetches the fully qualified name of the launchable activity for the
@@ -166,7 +166,7 @@ interface AdbCommands {
      * @return Fully qualified name of the launchable activity
      * @throws {Error} If there was an error while resolving the activity name
      */
-    resolveLaunchableActivity(pkg: string, opts?: ResolveActivityOptions,): Promise<string>;
+    resolveLaunchableActivity(pkg: string, opts?: ResolveActivityOptions): Promise<string>;
 
     /**
      * Force application to stop on the device under test.
@@ -174,7 +174,7 @@ interface AdbCommands {
      * @param pkg - The package name to be stopped.
      * @return The output of the corresponding adb command.
      */
-    forceStop(pkg: string,): Promise<string>;
+    forceStop(pkg: string): Promise<string>;
 
     /**
      * Kill application
@@ -182,7 +182,7 @@ interface AdbCommands {
      * @param pkg - The package name to be stopped.
      * @return The output of the corresponding adb command.
      */
-    killPackage(pkg: string,): Promise<string>;
+    killPackage(pkg: string): Promise<string>;
 
     /**
      * Clear the user data of the particular application on the device
@@ -191,7 +191,7 @@ interface AdbCommands {
      * @param pkg - The package name to be cleared.
      * @return The output of the corresponding adb command.
      */
-    clear(pkg: string,): Promise<string>;
+    clear(pkg: string): Promise<string>;
 
     /**
      * Grant all permissions requested by the particular package.
@@ -202,7 +202,7 @@ interface AdbCommands {
      * @param apk - The path to the actual apk file.
      * @throws If there was an error while granting permissions
      */
-    grantAllPermissions(pkg: string, apk: string,): Promise<void>;
+    grantAllPermissions(pkg: string, apk: string): Promise<void>;
 
     /**
      * Grant multiple permissions for the particular package.
@@ -213,7 +213,7 @@ interface AdbCommands {
      * @param permissions - The list of permissions to be granted.
      * @throws If there was an error while changing permissions.
      */
-    grantPermissions(pkg: string, permissions: ReadonlyArray<string>,): Promise<void>;
+    grantPermissions(pkg: string, permissions: ReadonlyArray<string>): Promise<void>;
 
     /**
      * Grant single permission for the particular package.
@@ -222,7 +222,7 @@ interface AdbCommands {
      * @param permission - The full name of the permission to be granted.
      * @throws If there was an error while changing permissions.
      */
-    grantPermission(pkg: string, permission: string,): Promise<void>;
+    grantPermission(pkg: string, permission: string): Promise<void>;
 
     /**
      * Revoke single permission from the particular package.
@@ -231,7 +231,7 @@ interface AdbCommands {
      * @param permission - The full name of the permission to be revoked.
      * @throws If there was an error while changing permissions.
      */
-    revokePermission(pkg: string, permission: string,): Promise<void>;
+    revokePermission(pkg: string, permission: string): Promise<void>;
 
     /**
      * Retrieve the list of granted permissions for the particular package.
@@ -242,7 +242,7 @@ interface AdbCommands {
      * @return The list of granted permissions or an empty list.
      * @throws If there was an error while changing permissions.
      */
-    getGrantedPermissions(pkg: string, cmdOutput?: string | null,): Promise<string[]>;
+    getGrantedPermissions(pkg: string, cmdOutput?: string | null): Promise<string[]>;
 
     /**
      * Retrieve the list of denied permissions for the particular package.
@@ -252,7 +252,7 @@ interface AdbCommands {
      *                                    _dumpsys package_ command. It may speed up the method execution.
      * @return The list of denied permissions or an empty list.
      */
-    getDeniedPermissions(pkg: string, cmdOutput?: string | null,): Promise<string[]>;
+    getDeniedPermissions(pkg: string, cmdOutput?: string | null): Promise<string[]>;
 
     /**
      * Retrieve the list of requested permissions for the particular package.
@@ -262,7 +262,7 @@ interface AdbCommands {
      *                                    _dumpsys package_ command. It may speed up the method execution.
      * @return The list of requested permissions or an empty list.
      */
-    getReqPermissions(pkg: string, cmdOutput?: string | null,): Promise<string[]>;
+    getReqPermissions(pkg: string, cmdOutput?: string | null): Promise<string[]>;
 
     /**
      * Retrieve the list of location providers for the device under test.
@@ -276,7 +276,7 @@ interface AdbCommands {
      *
      * @param enabled - Whether to enable (true) or disable (false) the GPS provider.
      */
-    toggleGPSLocationProvider(enabled: boolean,): Promise<void>;
+    toggleGPSLocationProvider(enabled: boolean): Promise<void>;
 
     /**
      * Set hidden api policy to manage access to non-SDK APIs.
@@ -304,7 +304,7 @@ interface AdbCommands {
      * @throws If there was an error and ignoreError was true while executing 'adb shell settings put global'
      *                 command on the device under test.
      */
-    setHiddenApiPolicy(value: number | string, ignoreError?: boolean,): Promise<void>;
+    setHiddenApiPolicy(value: number | string, ignoreError?: boolean): Promise<void>;
 
     /**
      * Reset access to non-SDK APIs to its default setting.
@@ -314,14 +314,14 @@ interface AdbCommands {
      * @throws If there was an error and ignoreError was true while executing 'adb shell settings delete global'
      *                 command on the device under test.
      */
-    setDefaultHiddenApiPolicy(ignoreError?: boolean,): Promise<void>;
+    setDefaultHiddenApiPolicy(ignoreError?: boolean): Promise<void>;
 
     /**
      * Stop the particular package if it is running and clears its application data.
      *
      * @param pkg - The package name to be processed.
      */
-    stopAndClear(pkg: string,): Promise<void>;
+    stopAndClear(pkg: string): Promise<void>;
 
     /**
      * Retrieve the list of available input methods (IMEs) for the device under test.
@@ -342,21 +342,21 @@ interface AdbCommands {
      *
      * @param imeId - One of existing IME ids.
      */
-    enableIME(imeId: string,): Promise<void>;
+    enableIME(imeId: string): Promise<void>;
 
     /**
      * Disable the particular input method on the device under test.
      *
      * @param imeId - One of existing IME ids.
      */
-    disableIME(imeId: string,): Promise<void>;
+    disableIME(imeId: string): Promise<void>;
 
     /**
      * Set the particular input method on the device under test.
      *
      * @param imeId - One of existing IME ids.
      */
-    setIME(imeId: string,): Promise<void>;
+    setIME(imeId: string): Promise<void>;
 
     /**
      * Get the default input method on the device under test.
@@ -370,14 +370,14 @@ interface AdbCommands {
      *
      * @param keycode - The actual key code to be sent.
      */
-    keyevent(keycode: string | number,): Promise<void>;
+    keyevent(keycode: string | number): Promise<void>;
 
     /**
      * Send the particular text to the device under test.
      *
      * @param text - The actual text to be sent.
      */
-    inputText(text: string,): Promise<void>;
+    inputText(text: string): Promise<void>;
 
     /**
      * Clear the active text field on the device under test by sending
@@ -385,7 +385,7 @@ interface AdbCommands {
      *
      * @param length [100] - The maximum length of the text in the field to be cleared.
      */
-    clearTextField(length?: number,): Promise<void>;
+    clearTextField(length?: number): Promise<void>;
 
     /**
      * Send the special keycode to the device under test in order to lock it.
@@ -430,7 +430,7 @@ interface AdbCommands {
      *
      * @return The actual output of the given command.
      */
-    sendTelnetCommand(command: string,): Promise<string>;
+    sendTelnetCommand(command: string): Promise<string>;
 
     /**
      * Check the state of Airplane mode on the device under test.
@@ -444,7 +444,7 @@ interface AdbCommands {
      *
      * @param on - True to enable the Airplane mode in Settings and false to disable it.
      */
-    setAirplaneMode(on: boolean,): Promise<void>;
+    setAirplaneMode(on: boolean): Promise<void>;
 
     /**
      * Broadcast the state of Airplane mode on the device under test.
@@ -453,7 +453,7 @@ interface AdbCommands {
      *
      * @param on - True to broadcast enable and false to broadcast disable.
      */
-    broadcastAirplaneMode(on: boolean,): Promise<void>;
+    broadcastAirplaneMode(on: boolean): Promise<void>;
 
     /**
      * Check the state of WiFi on the device under test.
@@ -476,7 +476,7 @@ interface AdbCommands {
      * @param isEmulator [false] - Set it to true if the device under test
      *                                       is an emulator rather than a real device.
      */
-    setDataState(on: boolean, isEmulator?: boolean,): Promise<void>;
+    setDataState(on: boolean, isEmulator?: boolean): Promise<void>;
 
     /**
      * Change the state of WiFi and/or Data transfer on the device under test.
@@ -505,7 +505,7 @@ interface AdbCommands {
      *
      * @param path - The path to be removed recursively.
      */
-    rimraf(path: string,): Promise<void>;
+    rimraf(path: string): Promise<void>;
 
     /**
      * Send a file to the device under test.
@@ -517,7 +517,7 @@ interface AdbCommands {
      *                        _exec_ method options, for more information about available
      *                        options.
      */
-    push(localPath: string, remotePath: string, opts?: TeenProcessExecOptions,): Promise<void>;
+    push(localPath: string, remotePath: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Receive a file from the device under test.
@@ -529,7 +529,7 @@ interface AdbCommands {
      *                        _exec_ method options, for more information about available
      *                        options.
      */
-    pull(remotePath: string, localPath: string, opts?: TeenProcessExecOptions,): Promise<void>;
+    pull(remotePath: string, localPath: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Check whether the process with the particular name is running on the device
@@ -539,7 +539,7 @@ interface AdbCommands {
      * @return True if the given process is running.
      * @throws If the given process name is not a valid class name.
      */
-    processExists(processName: string,): Promise<boolean>;
+    processExists(processName: string): Promise<boolean>;
 
     /**
      * Get TCP port forwarding with adb on the device under test.
@@ -553,7 +553,7 @@ interface AdbCommands {
      * @param systemPort - The number of the local system port.
      * @param devicePort - The number of the remote device port.
      */
-    forwardPort(systemPort: string | number, devicePort: string | number,): Promise<void>;
+    forwardPort(systemPort: string | number, devicePort: string | number): Promise<void>;
 
     /**
      * Remove TCP port forwarding with adb on the device under test. The forwarding
@@ -562,7 +562,7 @@ interface AdbCommands {
      * @param systemPort - The number of the local system port
      *                                     to remove forwarding on.
      */
-    removePortForward(systemPort: string | number,): Promise<void>;
+    removePortForward(systemPort: string | number): Promise<void>;
 
     /**
      * Get TCP port forwarding with adb on the device under test.
@@ -577,7 +577,7 @@ interface AdbCommands {
      * @param devicePort - The number of the remote device port.
      * @param systemPort - The number of the local system port.
      */
-    reversePort(devicePort: string | number, systemPort: string | number,): Promise<void>;
+    reversePort(devicePort: string | number, systemPort: string | number): Promise<void>;
 
     /**
      * Remove TCP port forwarding with adb on the device under test. The forwarding
@@ -586,7 +586,7 @@ interface AdbCommands {
      * @param devicePort - The number of the remote device port
      *                                     to remove forwarding on.
      */
-    removePortReverse(devicePort: string | number,): Promise<void>;
+    removePortReverse(devicePort: string | number): Promise<void>;
 
     /**
      * Setup TCP port forwarding with adb on the device under test. The difference
@@ -596,7 +596,7 @@ interface AdbCommands {
      * @param systemPort - The number of the local system port.
      * @param devicePort - The number of the remote device port.
      */
-    forwardAbstractPort(systemPort: string | number, devicePort: string | number,): Promise<void>;
+    forwardAbstractPort(systemPort: string | number, devicePort: string | number): Promise<void>;
 
     /**
      * Execute ping shell command on the device under test.
@@ -619,7 +619,7 @@ interface AdbCommands {
      *
      * @throws If restart fails.
      */
-    startLogcat(opts?: LogcatOpts,): Promise<void>;
+    startLogcat(opts?: LogcatOpts): Promise<void>;
 
     /**
      * Stop the active logcat process which gathers logs.
@@ -643,7 +643,7 @@ interface AdbCommands {
      *                              a log record object with `timestamp`, `level` and `message` properties.
      * @throws If logcat process is not running.
      */
-    setLogcatListener(listener: (outputObj: Log,) => void,): void;
+    setLogcatListener(listener: (outputObj: Log) => void): void;
 
     /**
      * Removes the previously set callback for the logcat output event.
@@ -652,7 +652,7 @@ interface AdbCommands {
      *                              passed to `setLogcatListener`
      * @throws If logcat process is not running.
      */
-    removeLogcatListener(listener: (outputObj: Log,) => void,): void;
+    removeLogcatListener(listener: (outputObj: Log) => void): void;
 
     /**
      * At some point of time Google has changed the default `ps` behaviour, so it only
@@ -672,7 +672,7 @@ interface AdbCommands {
      * in the active processes list
      * @returns The process name
      */
-    getNameByPid(pid: string | number,): Promise<string>;
+    getNameByPid(pid: string | number): Promise<string>;
 
     /**
      * Get the list of process ids for the particular process on the device under test.
@@ -681,7 +681,7 @@ interface AdbCommands {
      * @return The list of matched process IDs or an empty list.
      * @throws If the passed process name is not a valid one
      */
-    getPIDsByName(name: string,): Promise<number[]>;
+    getPIDsByName(name: string): Promise<number[]>;
 
     /**
      * Get the list of process ids for the particular process on the device under test.
@@ -689,7 +689,7 @@ interface AdbCommands {
      * @param name - The part of process name.
      * @return The list of matched process IDs or an empty list.
      */
-    killProcessesByName(name: string,): Promise<void>;
+    killProcessesByName(name: string): Promise<void>;
 
     /**
      * Kill the particular process on the device under test.
@@ -699,7 +699,7 @@ interface AdbCommands {
      * @param pid - The ID of the process to be killed.
      * @throws If the process cannot be killed.
      */
-    killProcessByPID(pid: string | number,): Promise<void>;
+    killProcessByPID(pid: string | number): Promise<void>;
 
     /**
      * Broadcast process killing on the device under test.
@@ -708,7 +708,7 @@ interface AdbCommands {
      * @param processName - The name of the killed process.
      * @throws If the process was not killed.
      */
-    broadcastProcessEnd(intent: string, processName: string,): Promise<void>;
+    broadcastProcessEnd(intent: string, processName: string): Promise<void>;
 
     /**
      * Broadcast a message to the given intent.
@@ -716,7 +716,7 @@ interface AdbCommands {
      * @param intent - The name of the intent to broadcast to.
      * @throws If intent name is not a valid class name.
      */
-    broadcast(intent: string,): Promise<void>;
+    broadcast(intent: string): Promise<void>;
 
     /**
      * Kill Android instruments if they are currently running.
@@ -732,7 +732,7 @@ interface AdbCommands {
      *                                  the activity with.
      * @throws If any exception is reported by adb shell.
      */
-    instrument(pkg: string, activity: string, instrumentWith: string,): Promise<void>;
+    instrument(pkg: string, activity: string, instrumentWith: string): Promise<void>;
 
     /**
      * Collect Android coverage by instrumenting the particular activity.
@@ -744,7 +744,7 @@ interface AdbCommands {
      * @return The promise is successfully resolved if the instrumentation starts
      *                   without errors.
      */
-    androidCoverage(instrumentClass: string, waitPkg: string, waitActivity: string,): Promise<void>;
+    androidCoverage(instrumentClass: string, waitPkg: string, waitActivity: string): Promise<void>;
 
     /**
      * Get the particular property of the device under test.
@@ -754,7 +754,7 @@ interface AdbCommands {
      *
      * @return The value of the given property.
      */
-    getDeviceProperty(property: string,): Promise<string>;
+    getDeviceProperty(property: string): Promise<string>;
 
     /**
      * Set the particular property of the device under test.
@@ -765,7 +765,7 @@ interface AdbCommands {
      *
      * @throws If _setprop_ utility fails to change property value.
      */
-    setDeviceProperty(prop: string, val: string, opts?: SetPropOptions,): Promise<void>;
+    setDeviceProperty(prop: string, val: string, opts?: SetPropOptions): Promise<void>;
 
     /**
      * @return Current system language on the device under test.
@@ -830,7 +830,7 @@ interface AdbCommands {
      * @param proxyHost - The host name of the proxy.
      * @param proxyPort - The port number to be set.
      */
-    setHttpProxy(proxyHost: string, proxyPort: string | number,): Promise<void>;
+    setHttpProxy(proxyHost: string, proxyPort: string | number): Promise<void>;
 
     /**
      * Delete HTTP proxy in device global settings.
@@ -847,7 +847,7 @@ interface AdbCommands {
      * @param value - property value.
      * @return command output.
      */
-    setSetting(namespace: string, setting: string, value: string | number,): Promise<string>;
+    setSetting(namespace: string, setting: string, value: string | number): Promise<string>;
 
     /**
      * Get device property.
@@ -857,7 +857,7 @@ interface AdbCommands {
      * @param setting - property name.
      * @return property value.
      */
-    getSetting(namespace: string, setting: string,): Promise<string>;
+    getSetting(namespace: string, setting: string): Promise<string>;
 
     /**
      * Retrieve the `adb bugreport` command output. This
@@ -866,7 +866,7 @@ interface AdbCommands {
      * @param timeout [120000] - Command timeout in milliseconds
      * @returns Command stdout
      */
-    bugreport(timeout?: number,): Promise<string>;
+    bugreport(timeout?: number): Promise<string>;
 
     /**
      * Initiate screenrecord utility on the device
@@ -876,7 +876,7 @@ interface AdbCommands {
      * @param options [{}]
      * @returns screenrecord process, which can be then controlled by the client code
      */
-    screenrecord(destination: string, options?: ScreenrecordOptions,): SubProcess;
+    screenrecord(destination: string, options?: ScreenrecordOptions): SubProcess;
 
     /**
      * Executes the given function with the given input method context
@@ -885,7 +885,7 @@ interface AdbCommands {
      * @param ime - Valid IME identifier
      * @param fn - Function to execute
      */
-    runInImeContext<T,>(ime: string, fn: () => Promise<T>,): Promise<T>;
+    runInImeContext<T>(ime: string, fn: () => Promise<T>): Promise<T>;
 
     /**
      * Get tz database time zone formatted timezone

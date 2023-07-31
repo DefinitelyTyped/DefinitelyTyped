@@ -8,12 +8,12 @@ export as namespace AceDiff;
 export = AceDiff;
 
 declare class AceDiff {
-    constructor(opts: AceDiff.AceDiffConstructorOpts,);
+    constructor(opts: AceDiff.AceDiffConstructorOpts);
     getEditors(): {
         left: any;
         right: any;
     };
-    setOptions(options: AceDiff.AceDiffOpts,): void;
+    setOptions(options: AceDiff.AceDiffOpts): void;
     getNumDiffs(): number;
     diff(): void;
     destroy(): void;

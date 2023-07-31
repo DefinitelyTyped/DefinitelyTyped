@@ -12,7 +12,7 @@ declare namespace AMap {
             /**
              * 缩放范围
              */
-            zooms?: [number, number,] | undefined;
+            zooms?: [number, number] | undefined;
             /**
              * 透明度
              */
@@ -20,16 +20,16 @@ declare namespace AMap {
         }
     }
 
-    abstract class MediaLayer<E extends HTMLElement,> extends Layer {
+    abstract class MediaLayer<E extends HTMLElement> extends Layer {
         /**
          * @param options 图层选项
          */
-        constructor(options?: MediaLayer.Options,);
+        constructor(options?: MediaLayer.Options);
         /**
          * 设置显示范围
          * @param bounds 显示范围
          */
-        setBounds(bounds: Bounds,): void;
+        setBounds(bounds: Bounds): void;
         /**
          * 获取显示的范围
          */
@@ -38,7 +38,7 @@ declare namespace AMap {
          * 设置图层选项
          * @param options 图层选项
          */
-        setOptions(options: Partial<MediaLayer.Options>,): void;
+        setOptions(options: Partial<MediaLayer.Options>): void;
         /**
          * 获取图层选项
          */
@@ -57,7 +57,7 @@ declare namespace AMap {
          * 修改Image的Url
          * @param url url
          */
-        setImageUrl(url: string,): void;
+        setImageUrl(url: string): void;
         /**
          * 返回Image的Url
          */
@@ -69,7 +69,7 @@ declare namespace AMap {
          * 修改Video的Url
          * @param source url
          */
-        setVideoUrl(source: string | string[],): void;
+        setVideoUrl(source: string | string[]): void;
         /**
          * 返回Video的Url
          */
@@ -81,7 +81,7 @@ declare namespace AMap {
          * 修改显示的Canvas
          * @param canvas Canvas对象
          */
-        setCanvas(canvas: HTMLCanvasElement,): void;
+        setCanvas(canvas: HTMLCanvasElement): void;
         /**
          * 返回Canvas对象
          */

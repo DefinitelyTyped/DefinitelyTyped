@@ -1,7 +1,7 @@
-import { Handler, } from '../../handler';
-import { BaseTriggerEvent, StringMap, } from './_common';
+import { Handler } from '../../handler';
+import { BaseTriggerEvent, StringMap } from './_common';
 
-export interface BasePostConfirmationTriggerEvent<T extends string,> extends BaseTriggerEvent<T> {
+export interface BasePostConfirmationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
     request: {
         userAttributes: StringMap;
         clientMetadata?: StringMap | undefined;

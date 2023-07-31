@@ -77,9 +77,9 @@ export default class StockPanel extends AmSerialChart {
     /**
      * Adds a graph to the panel.
      */
-    addStockGraph(graph: StockGraph,): void;
+    addStockGraph(graph: StockGraph): void;
     /**
      * Removes graph from the panel.
      */
-    removeStockGraph(graph: StockGraph,): void;
+    removeStockGraph(graph: StockGraph): void;
 }

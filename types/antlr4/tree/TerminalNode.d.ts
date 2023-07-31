@@ -7,9 +7,9 @@ export default class TerminalNode implements ParseTree {
     parentCtx: ParseTree;
     symbol: Token;
 
-    constructor(symbol: Token,);
+    constructor(symbol: Token);
 
-    getChild(i: number,): null;
+    getChild(i: number): null;
 
     getSymbol(): Token;
 
@@ -21,7 +21,7 @@ export default class TerminalNode implements ParseTree {
 
     getChildCount(): number;
 
-    accept<T extends ParseTreeVisitor,>(visitor: T,): T;
+    accept<T extends ParseTreeVisitor>(visitor: T): T;
 
     getText(): string;
 

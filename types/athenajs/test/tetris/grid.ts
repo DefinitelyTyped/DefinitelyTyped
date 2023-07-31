@@ -1,4 +1,4 @@
-import { AudioManager as AM, Deferred, Dom, Map, Scene, SimpleText, Tile, } from 'athenajs';
+import { AudioManager as AM, Deferred, Dom, Map, Scene, SimpleText, Tile } from 'athenajs';
 import FlashLines from './flash_lines';
 import Shape from './shape';
 
@@ -98,17 +98,17 @@ class Grid extends Scene {
                     src: 'sound/rotate.mp3',
                 },
             ],
-        },);
+        });
 
         // here we keep game-related properties
         this.score = 0;
         this.level = 0;
         this.lines = 0;
         this.timing = START_TIMING;
-        this.scoreTable = [40, 100, 300, 1200,];
+        this.scoreTable = [40, 100, 300, 1200];
 
         // we only need to catch the 'ground' event from the 'shape' element
-        this.bindEvents('shape:ground',);
+        this.bindEvents('shape:ground');
     }
 
     /**
@@ -132,7 +132,7 @@ class Grid extends Scene {
                 offsetY: MAP_TILES_OFFSET_Y,
                 width: TILE_WIDTH,
                 height: TILE_HEIGHT,
-            },);
+            });
         }
 
         tiles.push({
@@ -140,7 +140,7 @@ class Grid extends Scene {
             offsetY: MAP_TILES_OFFSET_Y,
             width: TILE_WIDTH,
             height: TILE_HEIGHT,
-        },);
+        });
 
         return tiles;
     }
@@ -156,11 +156,11 @@ class Grid extends Scene {
             tileHeight: TILE_WIDTH,
             width: TILE_WIDTH * MAP_COLS,
             height: TILE_HEIGHT * MAP_ROWS,
-            buffer: new ArrayBuffer(MAP_COLS * MAP_ROWS * 2,),
-        },);
+            buffer: new ArrayBuffer(MAP_COLS * MAP_ROWS * 2),
+        });
 
         // finally add the tileset
-        map.addTileSet(this.generateTileSet(),);
+        map.addTileSet(this.generateTileSet());
 
         return map;
     }
@@ -168,16 +168,16 @@ class Grid extends Scene {
     resetMap() {
         const map = this.map;
 
-        map.clear(0, Tile.TYPE.AIR,);
+        map.clear(0, Tile.TYPE.AIR);
 
         // set map tiles around the playground as wall tiles
         for (let i = 0; i < map.numRows; ++i) {
-            map.updateTile(0, i, WALL_TILE, Tile.TYPE.WALL,);
-            map.updateTile(map.numCols - 1, i, WALL_TILE, Tile.TYPE.WALL,);
+            map.updateTile(0, i, WALL_TILE, Tile.TYPE.WALL);
+            map.updateTile(map.numCols - 1, i, WALL_TILE, Tile.TYPE.WALL);
         }
 
         for (let i = 0; i < map.numCols; ++i) {
-            map.updateTile(i, map.numRows - 1, WALL_TILE, Tile.TYPE.WALL,);
+            map.updateTile(i, map.numRows - 1, WALL_TILE, Tile.TYPE.WALL);
         }
     }
 
@@ -189,57 +189,57 @@ class Grid extends Scene {
             data: {
                 speed: this.timing,
             },
-        },);
+        });
 
         this.nextShape = new Shape('nextShape', {
             x: 610,
             y: 110,
-        },);
+        });
 
         this.nextShape.movable = false;
         this.nextString = new SimpleText('nextString', {
             text: 'Next',
             x: 620,
             y: 70,
-        },);
+        });
 
         this.scoreString = new SimpleText('scoreString', {
             text: 'Score: 0',
             x: 50,
             y: 70,
-        },);
+        });
 
         this.linesString = new SimpleText('linesString', {
             text: 'Lines: 0',
             x: 50,
             y: 120,
-        },);
+        });
 
         this.levelString = new SimpleText('levelString', {
             text: 'Level: 0',
             x: 50,
             y: 170,
-        },);
+        });
 
         this.pauseString = new SimpleText('pauseString', {
             text: 'Pause',
             x: 380,
             y: 550,
             visible: false,
-        },);
+        });
 
         this.controls = new SimpleText('controlsString', {
             text: 'Controls:\narrow keys',
             x: 50,
             y: 220,
-        },);
+        });
 
         this.flashLines = new FlashLines('flash', {
             x: (TOTAL_WIDTH - TILE_WIDTH * MAP_COLS) / 2 + TILE_WIDTH,
             y: (TOTAL_HEIGHT - TILE_HEIGHT * MAP_ROWS) / 2,
             width: TILE_WIDTH * (MAP_COLS - 2),
             lineHeight: TILE_HEIGHT,
-        },);
+        });
     }
 
     /**
@@ -255,7 +255,7 @@ class Grid extends Scene {
     start() {
         const map = this.map;
 
-        this.setBackgroundImage('img/background.png',);
+        this.setBackgroundImage('img/background.png');
 
         // center map
         this.setMap(
@@ -264,7 +264,7 @@ class Grid extends Scene {
             (TOTAL_HEIGHT - map.height) / 2,
         );
 
-        map.addObject(this.shape,);
+        map.addObject(this.shape);
 
         this.addObject([
             this.nextShape,
@@ -275,7 +275,7 @@ class Grid extends Scene {
             this.pauseString,
             this.flashLines,
             this.controls,
-        ],);
+        ]);
 
         this.reset();
     }
@@ -290,9 +290,9 @@ class Grid extends Scene {
 
         this.shape.setRandomShape();
         this.nextShape.setRandomShape();
-        this.linesString.setText('Lines: ' + this.lines,);
-        this.scoreString.setText('Score: ' + this.score,);
-        this.levelString.setText('Level: ' + this.level,);
+        this.linesString.setText('Lines: ' + this.lines);
+        this.scoreString.setText('Score: ' + this.score);
+        this.levelString.setText('Level: ' + this.level);
 
         this.shape.movable = true;
         this.shape.behavior.reset();
@@ -302,15 +302,15 @@ class Grid extends Scene {
      * Called on game over, simply displays the score in an alert box and restarts the game
      */
     gameover() {
-        AM.play('gameover',);
-        alert('game over!' + this.score,);
+        AM.play('gameover');
+        alert('game over!' + this.score);
         this.reset();
     }
 
     /**
      * This method is called whenever an event that has been registered is received
      */
-    onEvent(event: any,) {
+    onEvent(event: any) {
         const nextShape = this.nextShape;
         const shape = this.shape;
 
@@ -323,18 +323,18 @@ class Grid extends Scene {
                     event.data.startLine,
                     event.data.numRows,
                 ).then(() => {
-                    shape.setShape(nextShape.shapeName, nextShape.rotation,);
+                    shape.setShape(nextShape.shapeName, nextShape.rotation);
                     nextShape.setRandomShape();
 
                     this.shape.moveToTop();
 
                     // we may have a game over here: if the shape collides with another one
-                    if (!this.shape.snapTile(0, 0, false,)) {
+                    if (!this.shape.snapTile(0, 0, false)) {
                         this.gameover();
                     } else {
                         this.shape.movable = true;
                     }
-                },);
+                });
                 break;
         }
     }
@@ -347,7 +347,7 @@ class Grid extends Scene {
         const shape = this.shape;
         const data = this.shape.shape;
         const map = this.map;
-        const pos = map.getTileIndexFromPixel(shape.x, shape.y,);
+        const pos = map.getTileIndexFromPixel(shape.x, shape.y);
         const buffer = shape.getMatrix();
         const rows = data.height / map.tileHeight;
         const cols = data.width / map.tileWidth;
@@ -355,7 +355,7 @@ class Grid extends Scene {
         for (let j = 0; j < rows; ++j) {
             for (let i = 0; i < cols; ++i) {
                 if (buffer[j * cols + i]) {
-                    map.updateTile(pos.x + i, pos.y + j, data.color, Tile.TYPE.WALL,);
+                    map.updateTile(pos.x + i, pos.y + j, data.color, Tile.TYPE.WALL);
                 }
             }
         }
@@ -365,8 +365,8 @@ class Grid extends Scene {
      * returns the number of lines that contains no hole, starting from
      * startLine up to startLine + height
      */
-    getLinesToRemove(startLine: number, height: number,): number[] {
-        console.log('[Grid] getLinesToRemove()',);
+    getLinesToRemove(startLine: number, height: number): number[] {
+        console.log('[Grid] getLinesToRemove()');
         const map = this.map;
         const lines: number[] = [];
         let lastLine = startLine + height - 1;
@@ -377,10 +377,10 @@ class Grid extends Scene {
         for (let j = lastLine; j >= startLine; --j) {
             let hole = false;
             for (let i = 1; i < map.numCols - 1; ++i) {
-                hole = hole || map.getTileBehaviorAtIndex(i, j,) !== Tile.TYPE.WALL;
+                hole = hole || map.getTileBehaviorAtIndex(i, j) !== Tile.TYPE.WALL;
             }
             if (!hole) {
-                lines.push(j,);
+                lines.push(j);
             }
         }
 
@@ -392,26 +392,26 @@ class Grid extends Scene {
      */
     updateLevel() {
         const oldLevel = this.level;
-        this.level = Math.floor(this.lines / 10,);
-        this.levelString.setText('Level: ' + this.level,);
+        this.level = Math.floor(this.lines / 10);
+        this.levelString.setText('Level: ' + this.level);
         this.timing = START_TIMING - this.level * LEVEL_TIMING;
         this.shape.data['speed'] = this.timing;
-        oldLevel !== this.level && AM.play('level',);
+        oldLevel !== this.level && AM.play('level');
     }
 
     /**
      * Updates the player's score using line number & current level
      */
-    increaseScore(lines: number,) {
+    increaseScore(lines: number) {
         this.score += this.scoreTable[lines - 1] + this.level * this.scoreTable[lines - 1];
         this.lines += lines;
-        this.linesString.setText('Lines: ' + this.lines,);
-        this.scoreString.setText('Score: ' + this.score,);
+        this.linesString.setText('Lines: ' + this.lines);
+        this.scoreString.setText('Score: ' + this.score);
 
         if (lines === 4) {
-            AM.play('lines_tetris',);
+            AM.play('lines_tetris');
         } else {
-            AM.play('lines',);
+            AM.play('lines');
         }
     }
 
@@ -419,44 +419,44 @@ class Grid extends Scene {
      * Removes lines from the map, shifting the map as needed, and adding
      * empty tiles at the top
      */
-    removeLinesFromMap(startLine: number, height: number,) {
+    removeLinesFromMap(startLine: number, height: number) {
         const map = this.map;
-        const lines = this.getLinesToRemove(startLine, height,);
+        const lines = this.getLinesToRemove(startLine, height);
 
         // no full lines detected
         if (!lines.length) {
-            return Deferred.resolve(true,);
+            return Deferred.resolve(true);
         }
 
         this.flashLines.lines = lines;
         return this.flashLines.flash().then(() => {
             // shift the map for each line to remove
             for (let i = 0; i < lines.length; ++i) {
-                map.shift(lines[i] + i, 1,);
+                map.shift(lines[i] + i, 1);
             }
 
             // add wall at each side of the new lines
             for (let i = 0; i < height; ++i) {
                 for (let j = 0; j < map.numCols; ++j) {
-                    map.updateTile(j, i, 0, Tile.TYPE.AIR,);
+                    map.updateTile(j, i, 0, Tile.TYPE.AIR);
                 }
-                map.updateTile(0, i, 8, Tile.TYPE.WALL,);
-                map.updateTile(map.numCols - 1, i, 8, Tile.TYPE.WALL,);
+                map.updateTile(0, i, 8, Tile.TYPE.WALL);
+                map.updateTile(map.numCols - 1, i, 8, Tile.TYPE.WALL);
             }
 
-            Dom('.athena-game',).addClass('shake-vertical shake-constant',);
+            Dom('.athena-game').addClass('shake-vertical shake-constant');
             setTimeout(() => {
-                Dom('.athena-game',).removeClass('shake-vertical shake-constant',);
-            }, 300,);
+                Dom('.athena-game').removeClass('shake-vertical shake-constant');
+            }, 300);
 
-            this.increaseScore(lines.length,);
+            this.increaseScore(lines.length);
             this.updateLevel();
-        },);
+        });
     }
 
-    pause(isRunning: boolean,) {
+    pause(isRunning: boolean) {
         this.pauseString.visible = !isRunning;
-        AM.play('pause',);
+        AM.play('pause');
     }
 }
 

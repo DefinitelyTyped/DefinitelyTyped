@@ -61,8 +61,8 @@ export default class ValueAxis extends AxisBase {
      * labelFunction(valueText, date, valueAxis)
      * Your function should return string.
      */
-    labelFunction(value: number, valueText: string, valueAxis: ValueAxis,): string;
-    labelFunction(valueText: string, data: Date, valueAxis: ValueAxis,): string;
+    labelFunction(value: number, valueText: string, valueAxis: ValueAxis): string;
+    labelFunction(valueText: string, data: Date, valueAxis: ValueAxis): string;
     /**
      * Specifies if this value axis' scale should be logarithmic.
      */
@@ -202,29 +202,29 @@ export default class ValueAxis extends AxisBase {
     /**
      * Adds guide to the axis.
      */
-    addGuide(guide: Guide,): void;
+    addGuide(guide: Guide): void;
     /**
      * Number, - value of coordinate. Returns value of the coordinate.  coordinate - y or x coordinate, in pixels.
      */
-    coordinateToValue(coordinate: number,): void;
+    coordinateToValue(coordinate: number): void;
     /**
      * Number - coordinate Returns coordinate of the value in pixels. value - Number
      */
-    getCoordinate(value: number,): void;
+    getCoordinate(value: number): void;
     /**
      * Removes guide from the axis.
      */
-    removeGuide(guide: Guide,): void;
+    removeGuide(guide: Guide): void;
 
     /**
      * One value axis can be synchronized with another value axis.
      * You should set synchronizationMultiplyer in order for this to work.
      */
-    synchronizeWithAxis(axis: ValueAxis,): void;
+    synchronizeWithAxis(axis: ValueAxis): void;
     /**
      * XY Chart only. Zooms-in the axis to the provided values.
      */
-    zoomToValues(startValue: number, endValue: number,): void;
+    zoomToValues(startValue: number, endValue: number): void;
 
     /**
      * Adds event listener.
@@ -246,5 +246,5 @@ export default class ValueAxis extends AxisBase {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any,): void;
+    removeListener(chart: AmChart, type: string, handler: any): void;
 }

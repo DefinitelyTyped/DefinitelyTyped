@@ -5,12 +5,12 @@
 //                 Ryan Block <https://github.com/ryanblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Callback, StartOptions, } from './shared';
-export { Callback, StartOptions, };
+import { Callback, StartOptions } from './shared';
+export { Callback, StartOptions };
 
-export { events, } from './events';
-export { http, } from './http';
-export { tables, } from './tables';
+export { events } from './events';
+export { http } from './http';
+export { tables } from './tables';
 
 /**
  * Starts the Sandbox; first checks that ports are available to consume, prints a banner, loads Architect and userland environment variables, hydrates application dependencies, and starts various
@@ -18,12 +18,12 @@ export { tables, } from './tables';
  *
  * Invokes callback once everything is ready, or returns a promise if callback is falsy.
  */
-export function start(opts?: StartOptions,): Promise<string>;
-export function start(opts: StartOptions | undefined, callback: Callback,): void;
+export function start(opts?: StartOptions): Promise<string>;
+export function start(opts: StartOptions | undefined, callback: Callback): void;
 
 /**
  * Shuts down anything started by sandbox.start(). Invokes callback once shut down, or returns a promise if callback is falsy. Unless you have specific per-service needs, we generally advise most
  * folks use this interface for testing
  */
 export function end(): Promise<string>;
-export function end(callback: Callback,): void;
+export function end(callback: Callback): void;

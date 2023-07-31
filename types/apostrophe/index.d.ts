@@ -20,10 +20,10 @@ declare namespace apostrophe {
 
     // Pass in custom modules as first argument
     // second argument is additional custom options e.g. restApi exposed by apostrophe-headless
-    interface AposConstructor<M = {}, O = {},> {
+    interface AposConstructor<M = {}, O = {}> {
         afterInit?: (() => void) | undefined;
         afterListen?: (() => void) | undefined;
-        initFailed?: ((error: any,) => void) | undefined;
+        initFailed?: ((error: any) => void) | undefined;
         baseUrl?: string | undefined;
         modules: { [K in AposCoreModules & M]?: AposModuleOptions | O };
         prefix?: string | undefined;
@@ -33,7 +33,7 @@ declare namespace apostrophe {
     }
 
     const ui: {
-        globalBusy: (state: any,) => any;
+        globalBusy: (state: any) => any;
         link: (
             sel: string,
             verb: string,
@@ -47,12 +47,12 @@ declare namespace apostrophe {
     };
 
     const adminBar: {
-        link: (name: string, callback: () => any,) => void;
+        link: (name: string, callback: () => any) => void;
     };
 
-    function change(arg: object | string,): any;
+    function change(arg: object | string): any;
 
-    function create(type: string, options: any, callback?: () => any,): any;
+    function create(type: string, options: any, callback?: () => any): any;
 
     const contextPiece: {
         _id: string;
@@ -68,14 +68,14 @@ declare namespace apostrophe {
     ): any;
 
     const docs: {
-        getManager: (type: string,) => void;
-        setManager: (type: string, manager: any,) => void;
-        lock: (id: string, callback?: () => any,) => void;
-        lockAndWatch: (id: string, callback?: () => any,) => void;
-        unlock: (_id: string, sync: any, callback?: () => any,) => any;
+        getManager: (type: string) => void;
+        setManager: (type: string, manager: any) => void;
+        lock: (id: string, callback?: () => any) => void;
+        lockAndWatch: (id: string, callback?: () => any) => void;
+        unlock: (_id: string, sync: any, callback?: () => any) => any;
     };
 
-    function emit(name: string, arg?: any,): any;
+    function emit(name: string, arg?: any): any;
 
     const modules: object;
 
@@ -90,11 +90,11 @@ declare namespace apostrophe {
         cancelTopModal: () => void;
     };
 
-    function notify(message: string | object, options: AposObject,): any;
+    function notify(message: string | object, options: AposObject): any;
 
-    function off(eventName: string, fn?: () => any,): any;
+    function off(eventName: string, fn?: () => any): any;
 
-    function on(eventName: string, fn?: () => any,): any;
+    function on(eventName: string, fn?: () => any): any;
 
     const schemas: {
         convert: (
@@ -104,7 +104,7 @@ declare namespace apostrophe {
             options: any,
             callback?: () => any,
         ) => any;
-        newInstance: (schema: Schema,) => any;
+        newInstance: (schema: Schema) => any;
         populate: (
             data: any,
             name: string,
@@ -123,14 +123,14 @@ declare namespace apostrophe {
     };
 
     const utils: {
-        capitalizeFirst: (s: string,) => string;
-        camelName: (s: string,) => string;
-        error: (msg: string,) => void;
+        capitalizeFirst: (s: string) => string;
+        camelName: (s: string) => string;
+        error: (msg: string) => void;
         generateId: () => string;
     };
 
     const versions: {
-        edit: (id: string, afterRevert?: () => void,) => any;
+        edit: (id: string, afterRevert?: () => void) => any;
     };
 
     interface AposObject {
@@ -177,23 +177,23 @@ declare namespace apostrophe {
                 callback: () => any,
             ): void;
         };
-        empty?(field: any, value: any,): void;
-        bless?(req: any, field: any,): void;
-        index(value: any, field: any, texts: any,): void;
+        empty?(field: any, value: any): void;
+        bless?(req: any, field: any): void;
+        index(value: any, field: any, texts: any): void;
     }
 
     interface Schema {
         createRoutes(): any[];
         pushAssets(): void;
         pushCreateSingleton(): void;
-        compose(options: AposObject,): void;
-        refine(schema: Schema, options: AposObject,): void;
-        toGroups(fields: Fields,): void;
-        subset(schema: Schema, fields: Fields,): Schema;
-        newInstance(schema: Schema,): any;
-        subsetInstance(schema: Schema, instance: AposObject,): any;
-        empty(schema: Schema, object: AposObject,): void;
-        indexFields(schema: Schema, object: AposObject, texts: any,): void;
+        compose(options: AposObject): void;
+        refine(schema: Schema, options: AposObject): void;
+        toGroups(fields: Fields): void;
+        subset(schema: Schema, fields: Fields): Schema;
+        newInstance(schema: Schema): any;
+        subsetInstance(schema: Schema, instance: AposObject): any;
+        empty(schema: Schema, object: AposObject): void;
+        indexFields(schema: Schema, object: AposObject, texts: any): void;
         convert(
             req: any,
             schema: Schema,
@@ -202,7 +202,7 @@ declare namespace apostrophe {
             output: any,
             callback: () => any,
         ): void;
-        isVisible(schema: Schema, object: AposObject, name: string,): void;
+        isVisible(schema: Schema, object: AposObject, name: string): void;
         export(
             req: any,
             schema: Schema,
@@ -229,21 +229,21 @@ declare namespace apostrophe {
             withJoins: any,
             callback: () => any,
         ): void;
-        addFieldType(type: AposType,): void;
-        getFieldType(typeName: string,): void;
-        addFilters(schema: Schema, options: any, cursor: any,): void;
-        joinFilterChoices(field: any, cursor: any, valueField: any,): void;
-        addJoinSlugFilter(field: any, cursor: any, suffix: any,): void;
-        pageServe(req: any,): void;
-        sortedDistinct(property: any, cursor: any, callback: () => any,): void;
-        cursorFilterInterested(cursor: any, name: string,): void;
+        addFieldType(type: AposType): void;
+        getFieldType(typeName: string): void;
+        addFilters(schema: Schema, options: any, cursor: any): void;
+        joinFilterChoices(field: any, cursor: any, valueField: any): void;
+        addJoinSlugFilter(field: any, cursor: any, suffix: any): void;
+        pageServe(req: any): void;
+        sortedDistinct(property: any, cursor: any, callback: () => any): void;
+        cursorFilterInterested(cursor: any, name: string): void;
         afterInit(): void;
-        validate(schema: Schema, options: any,): void;
+        validate(schema: Schema, options: any): void;
     }
 
     interface AposModule {
-        emit(name: string,): void;
-        on(name: string, methodName: any, fn: () => any,): void;
+        emit(name: string): void;
+        on(name: string, methodName: any, fn: () => any): void;
     }
 
     type AposCoreModules =
@@ -303,7 +303,7 @@ declare namespace apostrophe {
         | 'apostrophe-widgets';
 
     // Pass in custom modules to AposModuleOptions to allow them in extend
-    interface AposModuleOptions<C = {},> {
+    interface AposModuleOptions<C = {}> {
         extend: AposCoreModules | C;
         name?: string | undefined;
         label: string;
@@ -317,7 +317,7 @@ declare namespace apostrophe {
             label: string;
             fields: string[];
         }[] | undefined;
-        beforeConstruct?: ((self: any, options: any,) => any) | undefined;
+        beforeConstruct?: ((self: any, options: any) => any) | undefined;
         defer?: boolean | undefined;
         filters?: {
             projection?: {

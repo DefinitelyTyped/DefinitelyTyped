@@ -1,7 +1,7 @@
-import { crypto, pem2ab, } from 'crypto';
+import { crypto, pem2ab } from 'crypto';
 
-const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33,],);
-const iv = new Uint8Array([237, 234, 45, 119, 168, 16, 178, 26, 14, 182, 253, 39, 79, 181, 180, 219,],);
+const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33]);
+const iv = new Uint8Array([237, 234, 45, 119, 168, 16, 178, 26, 14, 182, 253, 39, 79, 181, 180, 219]);
 const data = new Uint8Array([
     44,
     237,
@@ -53,7 +53,7 @@ const data = new Uint8Array([
     188,
     133,
     109,
-],);
+]);
 const keyData: Uint8Array = new Uint8Array([
     93,
     210,
@@ -71,7 +71,7 @@ const keyData: Uint8Array = new Uint8Array([
     117,
     91,
     33,
-],);
+]);
 const signature = new Uint8Array([
     77,
     125,
@@ -137,19 +137,19 @@ const signature = new Uint8Array([
     192,
     218,
     43,
-],);
+]);
 const algorithm = 'SHA-1';
 const pemEncodedKey = `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELScIYCjf+IOluv9pppNv0xIGXTBp
 KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
 -----END PUBLIC KEY-----`;
-const array = new Uint32Array(1,);
+const array = new Uint32Array(1);
 
-crypto.subtle.importKey('pkcs8', raw_key, { name: 'RANDOM', }, true, ['encrypt', 'decrypt', 'sign',],);
-crypto.subtle.importKey('spki', raw_key, { name: 'RANDOM', }, true, ['wrapKey',],);
-crypto.subtle.importKey('raw', raw_key, { name: 'AES-GCM', }, false, ['encrypt',],);
+crypto.subtle.importKey('pkcs8', raw_key, { name: 'RANDOM' }, true, ['encrypt', 'decrypt', 'sign']);
+crypto.subtle.importKey('spki', raw_key, { name: 'RANDOM' }, true, ['wrapKey']);
+crypto.subtle.importKey('raw', raw_key, { name: 'AES-GCM' }, false, ['encrypt']);
 crypto.subtle
-    .importKey('raw', raw_key, 'AES-CBC', false, ['encrypt', 'decrypt',],)
+    .importKey('raw', raw_key, 'AES-CBC', false, ['encrypt', 'decrypt'])
     .then(imported_key => {
         crypto.subtle.encrypt(
             {
@@ -168,7 +168,7 @@ crypto.subtle
                     imported_key,
                     encrypted_data,
                 );
-            },);
+            });
 
         crypto.subtle.verify(
             {
@@ -179,7 +179,7 @@ crypto.subtle
             signature,
             data,
         );
-    },);
+    });
 crypto.subtle.importKey(
     'jwk',
     {
@@ -201,14 +201,14 @@ crypto.subtle.importKey(
         hash: 'SHA-256',
     },
     false,
-    ['sign',],
+    ['sign'],
 ).then(imported_key => {
     crypto.subtle.sign(
         'RSASSA-PKCS1-v1_5',
         imported_key,
         data,
     );
-},);
+});
 crypto.subtle.importKey(
     'jwk',
     {
@@ -222,15 +222,15 @@ crypto.subtle.importKey(
         hash: 'SHA-256',
     },
     false,
-    ['sign', 'verify',],
+    ['sign', 'verify'],
 ).then(imported_key => {
-    const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110,],);
-    crypto.subtle.sign('HMAC', imported_key, data,).then(sig => {
-        crypto.subtle.verify('HMAC', imported_key, sig, data,);
-    },);
-},);
+    const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110]);
+    crypto.subtle.sign('HMAC', imported_key, data).then(sig => {
+        crypto.subtle.verify('HMAC', imported_key, sig, data);
+    });
+});
 
-crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM', }, false, ['encrypt', 'decrypt',],)
+crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt'])
     .then(imported_key => {
         const iv: Uint8Array = new Uint8Array([
             237,
@@ -249,14 +249,14 @@ crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM', }, false, ['encrypt',
             181,
             180,
             219,
-        ],);
-        const raw_data: Uint8Array = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,],);
-        crypto.subtle.encrypt({ name: 'AES-GCM', iv: { iv, }, tagLength: 96, }, imported_key, raw_data,).then(
+        ]);
+        const raw_data: Uint8Array = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+        crypto.subtle.encrypt({ name: 'AES-GCM', iv: { iv }, tagLength: 96 }, imported_key, raw_data).then(
             encrypted_data => {
                 crypto.subtle.decrypt(
                     {
                         name: 'AES-GCM',
-                        iv: { iv, },
+                        iv: { iv },
                         tagLength: 96,
                     },
                     imported_key,
@@ -264,10 +264,10 @@ crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM', }, false, ['encrypt',
                 );
             },
         );
-    },);
+    });
 
-crypto.subtle.digest(algorithm, data.buffer,);
+crypto.subtle.digest(algorithm, data.buffer);
 
-pem2ab(pemEncodedKey,);
+pem2ab(pemEncodedKey);
 
-crypto.getRandomValues(array,);
+crypto.getRandomValues(array);

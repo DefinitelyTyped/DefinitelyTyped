@@ -19,13 +19,13 @@ declare module 'angular' {
             active(): boolean;
             tracking(): boolean;
             trackingCount(): number;
-            addPromise<T,>(promise: angular.IPromise<T>,): angular.IDeferred<void>;
+            addPromise<T>(promise: angular.IPromise<T>): angular.IDeferred<void>;
             createPromise(): angular.IDeferred<void>;
             cancel(): void;
         }
 
         interface PromiseTrackerService {
-            (options?: PromiseTrackerOptions,): PromiseTracker;
+            (options?: PromiseTrackerOptions): PromiseTracker;
         }
     }
 

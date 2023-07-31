@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Server, } from 'https';
+import { Server } from 'https';
 
 declare namespace createServer {
     type DomainList = Array<string | string[]>;
@@ -22,6 +22,6 @@ declare namespace createServer {
     }
 }
 
-declare function createServer(opts: createServer.Options, app?: any,): Server;
+declare function createServer(opts: createServer.Options, app?: any): Server;
 
 export = createServer;

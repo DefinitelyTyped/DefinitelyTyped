@@ -75,7 +75,7 @@ export interface Annyang {
      * Start listening.
      * It's a good idea to call this after adding some commands first, but not mandatory.
      */
-    start(options?: StartOptions,): void;
+    start(options?: StartOptions): void;
 
     /**
      * Stop listening, and turn off mic.
@@ -98,14 +98,14 @@ export interface Annyang {
      *
      * @param [newState=true] Turn on/off debug messages
      */
-    debug(newState?: boolean,): void;
+    debug(newState?: boolean): void;
 
     /**
      * Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
      *
      * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
      */
-    setLanguage(lang: string,): void;
+    setLanguage(lang: string): void;
 
     /**
      * Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
@@ -120,7 +120,7 @@ export interface Annyang {
      * // annyang will now listen to all three commands
      * ````
      */
-    addCommands(commands: CommandOption,): void;
+    addCommands(commands: CommandOption): void;
 
     /**
      * Removes all existing commands or a specific command
@@ -135,7 +135,7 @@ export interface Annyang {
      * annyang.removeCommands();
      * ````
      */
-    removeCommands(command?: string,): void;
+    removeCommands(command?: string): void;
 
     /**
      * Removes a list of commands
@@ -148,17 +148,17 @@ export interface Annyang {
      * annyang.removeCommands(['howdy', 'hi']);
      * ````
      */
-    removeCommands(command: string[],): void;
+    removeCommands(command: string[]): void;
 
     addCallback(
         event: Events,
-        callback: (userSaid?: string, commandText?: string, results?: string[],) => void,
+        callback: (userSaid?: string, commandText?: string, results?: string[]) => void,
         context?: any,
     ): void;
 
     removeCallback(
         event?: Events,
-        callback?: (userSaid: string, commandText: string, results: string[],) => void,
+        callback?: (userSaid: string, commandText: string, results: string[]) => void,
     ): void;
 
     /**
@@ -188,5 +188,5 @@ export interface Annyang {
      *   );
      * ````
      */
-    trigger(command: string | string[],): void;
+    trigger(command: string | string[]): void;
 }

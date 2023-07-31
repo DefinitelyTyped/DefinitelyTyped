@@ -22,7 +22,7 @@ declare class AuthenticationContext {
     RESPONSE_TYPE: AuthenticationContext.ResponseType;
     CONSTANTS: AuthenticationContext.Constants;
 
-    constructor(options: AuthenticationContext.Options,);
+    constructor(options: AuthenticationContext.Options);
     /**
      * Initiates the login process by redirecting the user to Azure AD authorization endpoint.
      */
@@ -35,7 +35,7 @@ declare class AuthenticationContext {
      * Gets token for the specified resource from the cache.
      * @param resource A URI that identifies the resource for which the token is requested.
      */
-    getCachedToken(resource: string,): string;
+    getCachedToken(resource: string): string;
     /**
      * If user object exists, returns it. Else creates a new user object by decoding `id_token` from the cache.
      */
@@ -56,7 +56,7 @@ declare class AuthenticationContext {
      * @param resource Resource URI identifying the target resource.
      * @param callback The callback provided by the caller. It will be called with token or error.
      */
-    acquireToken(resource: string, callback: AuthenticationContext.TokenCallback,): void;
+    acquireToken(resource: string, callback: AuthenticationContext.TokenCallback): void;
     /**
      * Acquires token (interactive flow using a popup window) by sending request to AAD to obtain a new token.
      * @param resource Resource URI identifying the target resource.
@@ -85,7 +85,7 @@ declare class AuthenticationContext {
      * Redirects the browser to Azure AD authorization endpoint.
      * @param urlNavigate URL of the authorization endpoint.
      */
-    promptUser(urlNavigate: string,): void;
+    promptUser(urlNavigate: string): void;
     /**
      * Clears cache items.
      */
@@ -94,7 +94,7 @@ declare class AuthenticationContext {
      * Clears cache items for a given resource.
      * @param resource Resource URI identifying the target resource.
      */
-    clearCacheForResource(resource: string,): void;
+    clearCacheForResource(resource: string): void;
     /**
      * Redirects user to logout endpoint. After logout, it will redirect to `postLogoutRedirectUri` if added as a property on the config object.
      */
@@ -103,12 +103,12 @@ declare class AuthenticationContext {
      * Calls the passed in callback with the user object or error message related to the user.
      * @param callback The callback provided by the caller. It will be called with user or error.
      */
-    getUser(callback: AuthenticationContext.UserCallback,): void;
+    getUser(callback: AuthenticationContext.UserCallback): void;
     /**
      * Checks if the URL fragment contains access token, id token or error description.
      * @param hash Hash passed from redirect page.
      */
-    isCallback(hash: string,): boolean;
+    isCallback(hash: string): boolean;
     /**
      * Gets login error.
      */
@@ -116,21 +116,21 @@ declare class AuthenticationContext {
     /**
      * Creates a request info object from the URL fragment and returns it.
      */
-    getRequestInfo(hash: string,): AuthenticationContext.RequestInfo;
+    getRequestInfo(hash: string): AuthenticationContext.RequestInfo;
     /**
      * Saves token or error received in the response from AAD in the cache. In case of `id_token`, it also creates the user object.
      */
-    saveTokenFromHash(requestInfo: AuthenticationContext.RequestInfo,): void;
+    saveTokenFromHash(requestInfo: AuthenticationContext.RequestInfo): void;
     /**
      * Gets resource for given endpoint if mapping is provided with config.
      * @param endpoint Resource URI identifying the target resource.
      */
-    getResourceForEndpoint(resource: string,): string;
+    getResourceForEndpoint(resource: string): string;
     /**
      * This method must be called for processing the response received from AAD. It extracts the hash, processes the token or error, saves it in the cache and calls the callbacks with the result.
      * @param hash Hash fragment of URL. Defaults to `window.location.hash`.
      */
-    handleWindowCallback(hash?: string,): void;
+    handleWindowCallback(hash?: string): void;
 
     /**
      * Checks the logging Level, constructs the log message and logs it. Users need to implement/override this method to turn on logging.
@@ -138,57 +138,57 @@ declare class AuthenticationContext {
      * @param message Message to log.
      * @param error Error to log.
      */
-    log(level: AuthenticationContext.LoggingLevel, message: string, error: any,): void;
+    log(level: AuthenticationContext.LoggingLevel, message: string, error: any): void;
     /**
      * Logs messages when logging level is set to 0.
      * @param message Message to log.
      * @param error Error to log.
      */
-    error(message: string, error: any,): void;
+    error(message: string, error: any): void;
     /**
      * Logs messages when logging level is set to 1.
      * @param message Message to log.
      */
-    warn(message: string,): void;
+    warn(message: string): void;
     /**
      * Logs messages when logging level is set to 2.
      * @param message Message to log.
      */
-    info(message: string,): void;
+    info(message: string): void;
     /**
      * Logs messages when logging level is set to 3.
      * @param message Message to log.
      */
-    verbose(message: string,): void;
+    verbose(message: string): void;
 
     /**
      * Logs Pii messages when Logging Level is set to 0 and window.piiLoggingEnabled is set to true.
      * @param message Message to log.
      * @param error Error to log.
      */
-    errorPii(message: string, error: any,): void;
+    errorPii(message: string, error: any): void;
 
     /**
      * Logs  Pii messages when Logging Level is set to 1 and window.piiLoggingEnabled is set to true.
      * @param message Message to log.
      */
-    warnPii(message: string,): void;
+    warnPii(message: string): void;
 
     /**
      * Logs messages when Logging Level is set to 2 and window.piiLoggingEnabled is set to true.
      * @param message Message to log.
      */
-    infoPii(message: string,): void;
+    infoPii(message: string): void;
 
     /**
      * Logs messages when Logging Level is set to 3 and window.piiLoggingEnabled is set to true.
      * @param message Message to log.
      */
-    verbosePii(message: string,): void;
+    verbosePii(message: string): void;
 }
 
 declare namespace AuthenticationContext {
-    function inject(config: Options,): AuthenticationContext;
+    function inject(config: Options): AuthenticationContext;
 
     type LoggingLevel = 0 | 1 | 2 | 3;
 
@@ -236,7 +236,7 @@ declare namespace AuthenticationContext {
         error: any,
     ) => void;
 
-    type UserCallback = (errorDesc: string | null, user: UserInfo | null,) => void;
+    type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
 
     /**
      * Configuration options for Authentication Context
@@ -269,7 +269,7 @@ declare namespace AuthenticationContext {
         /**
          * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
          */
-        displayCall?: ((url: string,) => void) | undefined;
+        displayCall?: ((url: string) => void) | undefined;
         /**
          * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
          */
@@ -322,7 +322,7 @@ declare namespace AuthenticationContext {
 
     interface LoggingConfig {
         level: LoggingLevel;
-        log: (message: string,) => void;
+        log: (message: string) => void;
         piiLoggingEnabled: boolean;
     }
 

@@ -1,8 +1,8 @@
-import aabUtilsMethods, { ApkCreationOptions, } from './aab-utils';
-import methods, { LogcatOpts, ResolveActivityOptions, ScreenrecordOptions, SetPropOptions, } from './adb-commands';
-import emuMethods, { EmuInfo, EmuVersionInfo, ExecTelnetOptions, } from './adb-emu-commands';
-import manifestMethods, { APKInfo, } from './android-manifest';
-import apkSigningMethods, { CertCheckOptions, KeystoreHash, } from './apk-signing';
+import aabUtilsMethods, { ApkCreationOptions } from './aab-utils';
+import methods, { LogcatOpts, ResolveActivityOptions, ScreenrecordOptions, SetPropOptions } from './adb-commands';
+import emuMethods, { EmuInfo, EmuVersionInfo, ExecTelnetOptions } from './adb-emu-commands';
+import manifestMethods, { APKInfo } from './android-manifest';
+import apkSigningMethods, { CertCheckOptions, KeystoreHash } from './apk-signing';
 import apkUtilsMethods, {
     AppInfo,
     CachingOptions,
@@ -14,8 +14,8 @@ import apkUtilsMethods, {
     StartUriOptions,
     UninstallOptions,
 } from './apk-utils';
-import apksUtilsMethods, { InstallApksOptions, } from './apks-utils';
-import keyboardCommands, { KeyboardState, } from './keyboard-commands';
+import apksUtilsMethods, { InstallApksOptions } from './apks-utils';
+import keyboardCommands, { KeyboardState } from './keyboard-commands';
 import lockManagementCommands from './lockmgmt';
 import settingsClientCommands, {
     Location,
@@ -55,7 +55,7 @@ export type AdbMethods =
 declare const adbMethods: AdbMethods;
 export default adbMethods;
 
-export { getAndroidBinaryPath, } from './system-calls';
+export { getAndroidBinaryPath } from './system-calls';
 
 export {
     AdbExecOptions,

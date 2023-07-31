@@ -1,4 +1,4 @@
-import { Drawable, Game, Map, Scene, } from 'athenajs';
+import { Drawable, Game, Map, Scene } from 'athenajs';
 
 let num: number;
 
@@ -9,46 +9,46 @@ const myScene: Scene = new Scene({
         id: 'myRes',
         src: 'src',
         type: 'image',
-    },],
+    }],
     opacity: 1,
     layers: 0,
     hudScene,
-},);
+});
 
 num = myScene.getOpacity();
-myScene.setOpacity(10,);
+myScene.setOpacity(10);
 
-const sprite = new Drawable('mySprite', {},);
+const sprite = new Drawable('mySprite', {});
 
-myScene.debug(false,);
-myScene.bindEvents('gameover',);
-myScene.addObject(sprite,);
+myScene.debug(false);
+myScene.bindEvents('gameover');
+myScene.addObject(sprite);
 myScene.animate('Fade', {
     easing: 'linear',
-},).then(() => {
-    console.log('effect ended',);
-},);
-myScene.fadeIn(1000,).then(() => {
-    myScene.fadeOut(2000,);
-    myScene.fadeInAndOut(2000, 1000, 1000,);
-    console.log(myScene.getPlayTime(),);
-},);
+}).then(() => {
+    console.log('effect ended');
+});
+myScene.fadeIn(1000).then(() => {
+    myScene.fadeOut(2000);
+    myScene.fadeInAndOut(2000, 1000, 1000);
+    console.log(myScene.getPlayTime());
+});
 
-myScene.load('image', 'img/foo.png',);
-myScene.load('image', 'img/background.png', 'bg',);
-myScene.loadAudio('sound/yeah.mp3',);
-myScene.loadImage('img/bar.gif',);
-myScene.loadAudio('sound/yeah.mp3',);
-myScene.loadAudio('maps/map.json',);
+myScene.load('image', 'img/foo.png');
+myScene.load('image', 'img/background.png', 'bg');
+myScene.loadAudio('sound/yeah.mp3');
+myScene.loadImage('img/bar.gif');
+myScene.loadAudio('sound/yeah.mp3');
+myScene.loadAudio('maps/map.json');
 
-myScene.setBackgroundImage(new Image(),);
-myScene.setLayerPriority(10, true,);
+myScene.setBackgroundImage(new Image());
+myScene.setLayerPriority(10, true);
 
-myScene.notify('ready',);
+myScene.notify('ready');
 
-myScene.removeObject(sprite,);
+myScene.removeObject(sprite);
 
-myScene.setMap({},);
+myScene.setMap({});
 myScene.setMap(
     new Map({
         src: 'img/tiles.png',
@@ -56,5 +56,5 @@ myScene.setMap(
         tileHeight: 32,
         width: 240,
         height: 320,
-    },),
+    }),
 );

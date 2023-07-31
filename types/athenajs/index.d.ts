@@ -5,67 +5,67 @@
 
 export as namespace AthenaJS;
 
-export function Dom(sel?: string | HTMLElement,): _Dom<HTMLElement>;
+export function Dom(sel?: string | HTMLElement): _Dom<HTMLElement>;
 
 export class Scene {
-    constructor(options?: SceneOptions,);
+    constructor(options?: SceneOptions);
     map: Map;
     hudScene: Scene | null;
     running: boolean;
     opacity: number;
-    addObject(object: Drawable | Drawable[], layer?: number,): Scene;
-    animate(fxName: string, options: EffectOptions,): Promise;
-    bindEvents(eventList: string,): void;
-    debug(bool?: boolean,): void;
-    fadeIn(duration: number,): Promise;
-    fadeOut(duration: number,): Promise;
-    fadeInAndOut(inDuration: number, delay: number, outDuration: number,): Promise;
+    addObject(object: Drawable | Drawable[], layer?: number): Scene;
+    animate(fxName: string, options: EffectOptions): Promise;
+    bindEvents(eventList: string): void;
+    debug(bool?: boolean): void;
+    fadeIn(duration: number): Promise;
+    fadeOut(duration: number): Promise;
+    fadeInAndOut(inDuration: number, delay: number, outDuration: number): Promise;
     getOpacity(): number;
     getPlayTime(): number;
-    load(type: string, src: string, id?: string,): void;
-    loadAudio(src: string, id?: string,): void;
-    loadImage(src: string, id?: string,): void;
-    loadMap(src: string, id?: string,): void;
-    notify(name: string, data?: JSObject,): void;
-    removeObject(obj: Drawable,): void;
-    setBackgroundImage(image: string | HTMLImageElement,): void;
-    setLayerPriority(layer: number, background: boolean,): void;
-    setMap(map: Map | JSObject, x?: number, y?: number,): void;
-    setOpacity(opacity: number,): void;
+    load(type: string, src: string, id?: string): void;
+    loadAudio(src: string, id?: string): void;
+    loadImage(src: string, id?: string): void;
+    loadMap(src: string, id?: string): void;
+    notify(name: string, data?: JSObject): void;
+    removeObject(obj: Drawable): void;
+    setBackgroundImage(image: string | HTMLImageElement): void;
+    setLayerPriority(layer: number, background: boolean): void;
+    setMap(map: Map | JSObject, x?: number, y?: number): void;
+    setOpacity(opacity: number): void;
     setup(): void;
     start(): void;
     stop(): void;
 }
 export class Game {
-    constructor(options: GameOptions,);
-    bindEvents(eventList: string,): void;
-    setScene(scene: Scene,): void;
+    constructor(options: GameOptions);
+    bindEvents(eventList: string): void;
+    setScene(scene: Scene): void;
     toggleFullscreen(): void;
-    toggleSound(bool: boolean,): void;
-    toggleTileInspector(bool: boolean,): void;
+    toggleSound(bool: boolean): void;
+    toggleTileInspector(bool: boolean): void;
     togglePause(): void;
     scene: Scene;
     sound: boolean;
 }
 export class Drawable {
-    constructor(type: string, options: DrawableOptions,);
-    addChild(child: Drawable,): void;
-    animate(name: string, options: JSObject,): Promise;
+    constructor(type: string, options: DrawableOptions);
+    addChild(child: Drawable): void;
+    animate(name: string, options: JSObject): Promise;
     center(): Drawable;
-    destroy(data?: any,): void;
-    moveTo(x: number, y: number, duration?: number,): Drawable;
-    notify(id: string, data?: JSObject,): void;
-    onCollision(object: Drawable,): void;
-    onEvent(eventType: string, data?: JSObject,): void;
-    playSound(id: string, options?: { pan?: boolean | undefined; loop?: false | undefined },): void;
-    setBehavior(behavior: string | { new(sprite: Drawable, options?: JSObject,): Behavior }, options?: JSObject,): void;
-    setScale(scale: number,): void;
+    destroy(data?: any): void;
+    moveTo(x: number, y: number, duration?: number): Drawable;
+    notify(id: string, data?: JSObject): void;
+    onCollision(object: Drawable): void;
+    onEvent(eventType: string, data?: JSObject): void;
+    playSound(id: string, options?: { pan?: boolean | undefined; loop?: false | undefined }): void;
+    setBehavior(behavior: string | { new(sprite: Drawable, options?: JSObject): Behavior }, options?: JSObject): void;
+    setScale(scale: number): void;
     getCurrentWidth(): number;
     getCurrentHeight(): number;
-    getProperty(prop: string,): any;
-    setProperty(prop: string, value: any,): void;
-    setMask(mask: MaskOptions | null, exclude?: boolean,): void;
-    stopAnimate(endValue?: number,): void;
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setMask(mask: MaskOptions | null, exclude?: boolean): void;
+    stopAnimate(endValue?: number): void;
     reset(): void;
     show(): void;
     hide(): void;
@@ -107,21 +107,21 @@ export interface MenuOptions {
 }
 
 export class Menu extends Drawable {
-    constructor(id: string, options: MenuOptions,);
+    constructor(id: string, options: MenuOptions);
     nextItem(): void;
     getSelectedItemIndex(): number;
 }
 
 export class SimpleText extends Drawable {
-    constructor(type: string, simpleTextOptions: SimpleTextOptions,);
+    constructor(type: string, simpleTextOptions: SimpleTextOptions);
     getCurrentOffsetX(): number;
     getCurrentOffsetY(): number;
-    setColor(color: string,): void;
-    setSize(width: number, height: number,): void;
-    setText(text: string,): void;
+    setColor(color: string): void;
+    setSize(width: number, height: number): void;
+    setText(text: string): void;
 }
 export class Paint extends Drawable {
-    constructor(type: string, paintOptions: PaintOptions,);
+    constructor(type: string, paintOptions: PaintOptions);
     arc(
         cx: number,
         cy: number,
@@ -131,22 +131,22 @@ export class Paint extends Drawable {
         fillStyle: string,
         borderSize: number,
     ): void;
-    fill(color?: string,): void;
-    circle(cx: number, cy: number, r: number, fillStyle?: string, borderWidth?: number, borderStyle?: string,): void;
-    rect(x: number, y: number, width: number, height: number, color: string,): void;
+    fill(color?: string): void;
+    circle(cx: number, cy: number, r: number, fillStyle?: string, borderWidth?: number, borderStyle?: string): void;
+    rect(x: number, y: number, width: number, height: number, color: string): void;
     name: string;
     color: string;
 }
 
 export class BitmapText extends Drawable {
-    constructor(type: string, textOptions: BitmapTextOptions,);
-    setText(text: string,): void;
+    constructor(type: string, textOptions: BitmapTextOptions);
+    setText(text: string): void;
 }
 
 export class Sprite extends Drawable {
-    constructor(type: string, spriteOptions: SpriteOptions,);
-    addAnimation(name: string, imgPath: string, options: AnimOptions,): void;
-    setAnimation(name: string, fn?: Callback, frameNum?: number, revert?: boolean,): void;
+    constructor(type: string, spriteOptions: SpriteOptions);
+    addAnimation(name: string, imgPath: string, options: AnimOptions): void;
+    setAnimation(name: string, fn?: Callback, frameNum?: number, revert?: boolean): void;
     clearMove(): void;
 }
 
@@ -156,19 +156,19 @@ export interface pixelPos {
 }
 
 export class Map {
-    constructor(options: MapOptions,);
-    addObject(obj: Drawable, layerIndex?: number,): void;
-    addTileSet(tiles: TileDesc[],): void;
-    checkMatrixForCollision(buffer: number[], matrixWidth: number, x: number, y: number, behavior: number,): boolean;
-    clear(tileNum?: number, behavior?: number,): void;
-    getTileBehaviorAtIndex(col: number, row: number,): number;
-    getTileIndexFromPixel(x: number, y: number,): pixelPos;
-    moveTo(x: number, y: number,): void;
+    constructor(options: MapOptions);
+    addObject(obj: Drawable, layerIndex?: number): void;
+    addTileSet(tiles: TileDesc[]): void;
+    checkMatrixForCollision(buffer: number[], matrixWidth: number, x: number, y: number, behavior: number): boolean;
+    clear(tileNum?: number, behavior?: number): void;
+    getTileBehaviorAtIndex(col: number, row: number): number;
+    getTileIndexFromPixel(x: number, y: number): pixelPos;
+    moveTo(x: number, y: number): void;
     respawn(): void;
-    setData(map: Uint8Array, behaviors: Uint8Array,): void;
-    setEasing(easing: string,): void;
-    shift(startLine: number, height: number,): void;
-    updateTile(col: number, row: number, tileNum?: number, behavior?: number,): void;
+    setData(map: Uint8Array, behaviors: Uint8Array): void;
+    setEasing(easing: string): void;
+    shift(startLine: number, height: number): void;
+    updateTile(col: number, row: number, tileNum?: number, behavior?: number): void;
     duration: number;
     numRows: number;
     numCols: number;
@@ -179,7 +179,7 @@ export class Map {
 }
 
 export class Tile {
-    constructor(options: JSObject,);
+    constructor(options: JSObject);
     static TYPE: {
         AIR: 1;
         WALL: 2;
@@ -214,7 +214,7 @@ export interface MapOptions {
 }
 
 export interface FXInstance {
-    addFX(fxName: string, FxClass: { new(options: EffectOptions, display: Display,): Effect },): void;
+    addFX(fxName: string, FxClass: { new(options: EffectOptions, display: Display): Effect }): void;
 }
 
 export const FX: FXInstance;
@@ -228,25 +228,25 @@ export class _FX {
     /**
      * Add a new Effect
      */
-    addFX(fxName: string, FxClass: { new(): Effect },): void;
+    addFX(fxName: string, FxClass: { new(): Effect }): void;
 
     /**
      * Retrieve an effect Class by its name
      */
-    getEffect(fxName: string,): Effect;
+    getEffect(fxName: string): Effect;
 
     /**
      * Add a new easing function for other objects to use
      */
     addEasing(
         easingName: string,
-        easingFn: (x?: number, t?: number, b?: number, c?: number, d?: number,) => void,
+        easingFn: (x?: number, t?: number, b?: number, c?: number, d?: number) => void,
     ): void;
 
     /**
      * Retrieves an easing function
      */
-    getEasing(easingName: string,): (x?: number, t?: number, b?: number, c?: number, d?: number,) => void;
+    getEasing(easingName: string): (x?: number, t?: number, b?: number, c?: number, d?: number) => void;
 }
 
 export interface EffectOptions {
@@ -267,12 +267,12 @@ export class Effect {
     /**
      * This the class constructor. Default options are:
      */
-    constructor(options: EffectOptions, display: Display,);
+    constructor(options: EffectOptions, display: Display);
 
     /**
      * Changes the easing function used for the ffect
      */
-    setEasing(easing: (x?: number, t?: number, b?: number, c?: number, d?: number,) => void,): void;
+    setEasing(easing: (x?: number, t?: number, b?: number, c?: number, d?: number) => void): void;
 
     /**
      * Called when the ffect is started.
@@ -284,14 +284,14 @@ export class Effect {
     /**
      * called when the effect is stopped
      */
-    stop(object: any, setEndValue: any,): void;
+    stop(object: any, setEndValue: any): void;
 
     /**
      * Calculates current animation process
      *
      * This method can be overridden but the super should always be calle first
      */
-    process(ctx: RenderingContext, fxCtx?: RenderingContext, obj?: any,): boolean;
+    process(ctx: RenderingContext, fxCtx?: RenderingContext, obj?: any): boolean;
 }
 
 // why do we need this ?
@@ -309,12 +309,12 @@ export class Display {
     /**
      * Creates a new Display instance
      */
-    constructor(options: DisplayOptions, target: string | HTMLElement,);
+    constructor(options: DisplayOptions, target: string | HTMLElement);
 
     /**
      * Creates a new (offscreen) drawing buffer
      */
-    getBuffer(width: number, height: number,): RenderingContext;
+    getBuffer(width: number, height: number): RenderingContext;
 
     /**
      * Toggles fullscreen display scaling
@@ -324,12 +324,12 @@ export class Display {
     /**
      * Changes the zIndex property of the specified layer canvas
      */
-    setLayerZIndex(layer: number, zIndex: number,): void;
+    setLayerZIndex(layer: number, zIndex: number): void;
 
     /**
      * Clears a canvas display buffer
      */
-    clearScreen(ctx: RenderingContext,): void;
+    clearScreen(ctx: RenderingContext): void;
 
     /**
      * Clears every rendering buffer, including the special fxCtx one
@@ -339,12 +339,12 @@ export class Display {
     /**
      * Changes the (CSS) opacity of a canvas
      */
-    setCanvasOpacity(canvas: HTMLElement, opacity: number,): void;
+    setCanvasOpacity(canvas: HTMLElement, opacity: number): void;
 
     /**
      * Renders the specified scene
      */
-    renderScene(scene: Scene,): void;
+    renderScene(scene: Scene): void;
 
     /**
      * Prepares the canvas before rendering images.
@@ -360,24 +360,24 @@ export class Display {
      * any of these delays that can impact gameplay and alter the gameplay experience
      * in a negative way.
      */
-    prepareCanvas(resources: JSObject[],): void;
+    prepareCanvas(resources: JSObject[]): void;
 
     /**
      * Starts an animation on the display
      */
-    animate(fxName: string, options: EffectOptions, context: RenderingContext,): Promise;
+    animate(fxName: string, options: EffectOptions, context: RenderingContext): Promise;
 
     /**
      * stops current animation
      *
      * TODO
      */
-    stopAnimate(fxName?: string,): void;
+    stopAnimate(fxName?: string): void;
 
     /**
      * Executes an effect on a frame at a given time
      */
-    executeFx(ctx: RenderingContext, fxCtx: RenderingContext, obj: Drawable, time: number, when: string,): void;
+    executeFx(ctx: RenderingContext, fxCtx: RenderingContext, obj: Drawable, time: number, when: string): void;
 
     /**
      * Clears every display layer and clears fx queues
@@ -391,7 +391,7 @@ export class MapEvent {
     /**
      * Creates a new MapEvent
      */
-    constructor(map: Map,);
+    constructor(map: Map);
 
     /**
      * Resets the MapEvent switches, events and items
@@ -401,36 +401,36 @@ export class MapEvent {
     /**
      * Adds a new [`Drawable`]{#item} onto the map
      */
-    addItem(id: string, item: Drawable,): void;
+    addItem(id: string, item: Drawable): void;
 
     /**
      * Returns an item
      */
-    getItem(id: string,): Drawable | undefined;
+    getItem(id: string): Drawable | undefined;
 
     // TODO: ability to trigger an event once a switch has been modified
-    setSwitch(id: string, bool: boolean,): void;
+    setSwitch(id: string, bool: boolean): void;
 
-    toggleSwitch(id: string,): void;
+    toggleSwitch(id: string): void;
 
     /**
      * Retrieves a switch from the map using its id
      */
-    getSwitch(id: string,): any;
+    getSwitch(id: string): any;
 
     /**
      * checks of conditions of specified trigger are valid
      */
-    checkConditions(trigger: JSObject,): boolean;
+    checkConditions(trigger: JSObject): boolean;
 
-    handleAction(options: JSObject,): void;
+    handleAction(options: JSObject): void;
 
-    handleEvent(options: JSObject,): boolean;
+    handleEvent(options: JSObject): boolean;
 
     /**
      * Schedule adding a new object to the map
      */
-    scheduleSprite(spriteId: string, spriteOptions: JSObject, delay: number,): Drawable;
+    scheduleSprite(spriteId: string, spriteOptions: JSObject, delay: number): Drawable;
 
     /**
      * Add a new wave of objects to the map
@@ -438,13 +438,13 @@ export class MapEvent {
      *
      * @related {Wave}
      */
-    handleWave(options: JSObject,): boolean;
+    handleWave(options: JSObject): boolean;
 
     endWave(): void;
 
-    triggerEvent(id: string,): void;
+    triggerEvent(id: string): void;
 
-    isEventTriggered(id: string,): boolean;
+    isEventTriggered(id: string): boolean;
 }
 
 export class Behavior {
@@ -452,10 +452,10 @@ export class Behavior {
     vy: number;
     gravity: number;
     sprite: Drawable;
-    constructor(sprite: Drawable, options?: JSObject,);
-    onUpdate(timestamp: number,): void;
-    onVXChange?(vx: number,): void;
-    onVYChange?(vy: number,): void;
+    constructor(sprite: Drawable, options?: JSObject);
+    onUpdate(timestamp: number): void;
+    onVXChange?(vx: number): void;
+    onVYChange?(vy: number): void;
 
     /**
      * Returns current mapEvent
@@ -472,19 +472,19 @@ export interface _AudioManager {
      * *Note* if a sound with the same id has already been added, it will be replaced
      * by the new one.
      */
-    addSound(id: string, element: HTMLAudioElement,): void;
+    addSound(id: string, element: HTMLAudioElement): void;
     /**
      * Toggles global sound playback
      */
-    toggleSound(bool: boolean,): void;
+    toggleSound(bool: boolean): void;
     /**
      * Plays the specified sound with `id`.
      */
-    play(id: string, loop?: boolean, volume?: number, panning?: number,): any;
+    play(id: string, loop?: boolean, volume?: number, panning?: number): any;
     /**
      * Stops playing the sound id
      */
-    stop(id: string, instanceId: any,): void;
+    stop(id: string, instanceId: any): void;
 }
 
 export const AudioManager: _AudioManager;
@@ -498,20 +498,20 @@ export interface Res {
 export type Callback = (...args: any[]) => void;
 
 export interface _NotificationManager {
-    notify(name: string, data?: JSObject,): void;
+    notify(name: string, data?: JSObject): void;
 }
 
 export const NotificationManager: _NotificationManager;
 
 export interface _ResourceManager {
-    addResources(resource: Res, group?: string,): Promise;
-    getCanvasFromImage(image: HTMLImageElement,): HTMLCanvasElement;
-    getResourceById(id: string, group?: string, fullObject?: boolean,): any;
-    loadResources(group: string, progressCb?: Callback, errorCb?: Callback,): void;
-    loadImage(res: Res, group?: string,): Promise;
-    loadAudio(res: Res, group?: string,): Promise;
-    newResourceFromPool(id: string,): any;
-    registerScript(id: string, elt: any, poolSize?: number,): void;
+    addResources(resource: Res, group?: string): Promise;
+    getCanvasFromImage(image: HTMLImageElement): HTMLCanvasElement;
+    getResourceById(id: string, group?: string, fullObject?: boolean): any;
+    loadResources(group: string, progressCb?: Callback, errorCb?: Callback): void;
+    loadImage(res: Res, group?: string): Promise;
+    loadAudio(res: Res, group?: string): Promise;
+    newResourceFromPool(id: string): any;
+    registerScript(id: string, elt: any, poolSize?: number): void;
 }
 
 export const ResourceManager: _ResourceManager;
@@ -600,24 +600,24 @@ export interface _InputManager {
     /**
      * Changes input mode
      */
-    setInputMode(mode: string,): void;
+    setInputMode(mode: string): void;
     /**
      * Returns an object with the state of all keys
      */
     getAllKeysStatus(): JSObject;
-    getKeyStatus(key: string, latch: boolean,): boolean;
-    isKeyDown(key: string | number, latch?: boolean,): boolean;
+    getKeyStatus(key: string, latch: boolean): boolean;
+    isKeyDown(key: string | number, latch?: boolean): boolean;
     /**
      * Install callback that gets called when a key is pressed/released
      */
-    installKeyCallback(key: string, event: string, callback: (key: string, event: string,) => void,): void;
-    removeKeyCallback(key: string, event: string, callback: () => void,): void;
+    installKeyCallback(key: string, event: string, callback: (key: string, event: string) => void): void;
+    removeKeyCallback(key: string, event: string, callback: () => void): void;
     clearEvents(): void;
 }
 
 export interface Promise {
-    then(val?: () => any,): Promise;
-    catch(val?: () => any,): Promise;
+    then(val?: () => any): Promise;
+    catch(val?: () => any): Promise;
 }
 
 /* Deferred */
@@ -626,26 +626,26 @@ export class Deferred {
     /**
      * Creates and immediately resolves a new deferred.
      */
-    static resolve(val?: any,): Promise;
+    static resolve(val?: any): Promise;
     promise: Promise;
-    reject(val: any,): void;
-    resolve(val: any,): void;
+    reject(val: any): void;
+    resolve(val: any): void;
 }
 
 /* Dom support */
-export interface _Dom<TElement,> extends Iterable<TElement> {
+export interface _Dom<TElement> extends Iterable<TElement> {
     [key: number]: TElement;
     length: number;
-    css(prop: string, val: string,): _Dom<TElement>;
-    css(prop: JSObject,): _Dom<TElement>;
-    css(prop: string,): string | null;
-    find(selector: string,): _Dom<TElement>;
-    appendTo(selector: string | _Dom<TElement> | HTMLElement,): _Dom<TElement>;
-    attr(att: string, val: string,): _Dom<TElement>;
-    attr(att: JSObject,): _Dom<TElement>;
-    addClass(classes: string,): _Dom<TElement>;
-    removeClass(classes: string,): _Dom<TElement>;
-    html(str: string,): _Dom<TElement>;
+    css(prop: string, val: string): _Dom<TElement>;
+    css(prop: JSObject): _Dom<TElement>;
+    css(prop: string): string | null;
+    find(selector: string): _Dom<TElement>;
+    appendTo(selector: string | _Dom<TElement> | HTMLElement): _Dom<TElement>;
+    attr(att: string, val: string): _Dom<TElement>;
+    attr(att: JSObject): _Dom<TElement>;
+    addClass(classes: string): _Dom<TElement>;
+    removeClass(classes: string): _Dom<TElement>;
+    html(str: string): _Dom<TElement>;
     show(): _Dom<TElement>;
     hide(): _Dom<TElement>;
 }
@@ -673,7 +673,7 @@ export interface SceneOptions {
 export interface DrawableOptions {
     x?: number | undefined;
     y?: number | undefined;
-    behavior?: { new(sprite: Drawable, options?: JSObject,): Behavior } | undefined;
+    behavior?: { new(sprite: Drawable, options?: JSObject): Behavior } | undefined;
     canCollide?: boolean | undefined;
     canCollideFriendBullet?: boolean | undefined;
     collideGroup?: number | undefined;

@@ -243,5 +243,5 @@ export default class AmLegend {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any,): void;
+    removeListener(chart: AmChart, type: string, handler: any): void;
 }

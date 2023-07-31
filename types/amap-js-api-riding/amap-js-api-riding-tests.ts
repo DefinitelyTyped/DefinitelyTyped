@@ -1,11 +1,11 @@
 declare const map: AMap.Map;
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number,];
+declare const lnglatTuple: [number, number];
 
 // $ExpectType Riding
 new AMap.Riding();
 // $ExpectType Riding
-new AMap.Riding({},);
+new AMap.Riding({});
 // $ExpectType Riding
 const riding = new AMap.Riding({
     map,
@@ -15,14 +15,14 @@ const riding = new AMap.Riding({
     isOutline: true,
     outlineColor: 'color',
     autoFitView: true,
-},);
+});
 
 // $ExpectType void
-riding.search(lnglat, lnglat,);
+riding.search(lnglat, lnglat);
 // $ExpectType void
-riding.search(lnglatTuple, lnglatTuple,);
+riding.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
-riding.search(lnglat, lnglat, (status, result,) => {
+riding.search(lnglat, lnglat, (status, result) => {
     const statusTemp: 'complete' | 'error' | 'no_data' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResultBase
@@ -82,10 +82,10 @@ riding.search(lnglat, lnglat, (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
-riding.search([{ keyword: 'origin', }, { keyword: 'destination', },],);
-riding.search([{ keyword: 'origin', }, { keyword: 'destination', },], (status, result,) => {
+riding.search([{ keyword: 'origin' }, { keyword: 'destination' }]);
+riding.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, result) => {
     const statusTemp: 'complete' | 'error' | 'no_data' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResultExt
@@ -112,19 +112,19 @@ riding.search([{ keyword: 'origin', }, { keyword: 'destination', },], (status, r
         // $ExpectType string
         result;
     }
-},);
+});
 
 // $ExpectType void
 riding.clear();
 
-riding.on('error', (event: AMap.Riding.EventMap['error'],) => {
+riding.on('error', (event: AMap.Riding.EventMap['error']) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
-},);
+});
 
-riding.on('complete', (event: AMap.Riding.EventMap['complete'],) => {
+riding.on('complete', (event: AMap.Riding.EventMap['complete']) => {
     // $ExpectType number
     event.count;
     // $ExpectType LngLat
@@ -153,4 +153,4 @@ riding.on('complete', (event: AMap.Riding.EventMap['complete'],) => {
         // $ExpectType Poi | undefined
         event.end;
     }
-},);
+});

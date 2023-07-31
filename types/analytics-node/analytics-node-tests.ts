@@ -8,8 +8,8 @@ function testConfig(): void {
         host: 'http://example.com',
         enable: true,
         timeout: 1000,
-        errorHandler: err => console.error(err,),
-    },);
+        errorHandler: err => console.error(err),
+    });
 }
 
 function testConfigWithStringTimeout(): void {
@@ -19,8 +19,8 @@ function testConfigWithStringTimeout(): void {
         host: 'http://example.com',
         enable: true,
         timeout: '1000',
-        errorHandler: err => console.error(err,),
-    },);
+        errorHandler: err => console.error(err),
+    });
 }
 
 function testConfigWithFlushedSet(): void {
@@ -31,8 +31,8 @@ function testConfigWithFlushedSet(): void {
         enable: true,
         timeout: 1000,
         flushed: true,
-        errorHandler: err => console.error(err,),
-    },);
+        errorHandler: err => console.error(err),
+    });
 }
 
 function testIdentify(): void {
@@ -44,7 +44,7 @@ function testIdentify(): void {
             plan: 'Enterprise',
             friends: 42,
         },
-    },);
+    });
 
     analytics.identify(
         {
@@ -58,7 +58,7 @@ function testIdentify(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -72,7 +72,7 @@ function testTrack(): void {
             revenue: 39.95,
             shippingMethod: '2-day',
         },
-    },);
+    });
 
     analytics.track({
         anonymousId: '019mr8mf4r',
@@ -81,7 +81,7 @@ function testTrack(): void {
             revenue: 39.95,
             shippingMethod: '2-day',
         },
-    },);
+    });
 
     // no userId or anonymousId set
     // @ts-expect-error
@@ -91,7 +91,7 @@ function testTrack(): void {
             revenue: 39.95,
             shippingMethod: '2-day',
         },
-    },);
+    });
 
     analytics.track(
         {
@@ -104,7 +104,7 @@ function testTrack(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -121,7 +121,7 @@ function testPage(): void {
             title: 'Node.js Library - Segment',
             referrer: 'https://github.com/segmentio/analytics-node',
         },
-    },);
+    });
 
     analytics.page(
         {
@@ -137,7 +137,7 @@ function testPage(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -153,7 +153,7 @@ function testScreen(): void {
             title: 'Node.js Library - Segment',
             referrer: 'https://github.com/segmentio/analytics-node',
         },
-    },);
+    });
 
     analytics.screen(
         {
@@ -168,7 +168,7 @@ function testScreen(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -176,13 +176,13 @@ function testScreen(): void {
 
 function testAlias(): void {
     // the anonymous user does actions ...
-    analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event', },);
+    analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event' });
     // the anonymous user signs up and is aliased
-    analytics.alias({ previousId: 'anonymous_user', userId: 'identified@gmail.com', },);
+    analytics.alias({ previousId: 'anonymous_user', userId: 'identified@gmail.com' });
     // the identified user is identified
-    analytics.identify({ userId: 'identified@gmail.com', traits: { plan: 'Free', }, },);
+    analytics.identify({ userId: 'identified@gmail.com', traits: { plan: 'Free' } });
     // the identified user does actions ...
-    analytics.track({ userId: 'identified@gmail.com', event: 'Identified Action', },);
+    analytics.track({ userId: 'identified@gmail.com', event: 'Identified Action' });
 }
 
 function testGroup(): void {
@@ -193,7 +193,7 @@ function testGroup(): void {
             name: 'Initech',
             description: 'Accounting Software',
         },
-    },);
+    });
 
     analytics.group(
         {
@@ -206,7 +206,7 @@ function testGroup(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -224,7 +224,7 @@ function testIntegrations(): void {
                 appsflyer_id: 'example-id',
             },
         },
-    },);
+    });
 
     analytics.track(
         {
@@ -241,7 +241,7 @@ function testIntegrations(): void {
         },
         err => {
             if (err) {
-                console.error(err,);
+                console.error(err);
             }
         },
     );
@@ -249,11 +249,11 @@ function testIntegrations(): void {
 
 function testFlush(): void {
     analytics.flush();
-    analytics.flush((err, batch,) => {
+    analytics.flush((err, batch) => {
         if (err) {
-            alert('Oh nos!',);
+            alert('Oh nos!');
         } else {
-            console.log(batch.batch[0].type,);
+            console.log(batch.batch[0].type);
         }
-    },);
+    });
 }

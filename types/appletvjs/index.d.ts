@@ -8,7 +8,7 @@ declare var Device: AppleTVJS.Device;
 declare var navigationDocument: AppleTVJS.NavigationDocument;
 declare var Settings: AppleTVJS.Settings;
 
-declare function evaluateScripts(scripts: string[], complete: (success: boolean,) => void,): void;
+declare function evaluateScripts(scripts: string[], complete: (success: boolean) => void): void;
 
 declare namespace AppleTVJS {
     interface App {
@@ -17,21 +17,21 @@ declare namespace AppleTVJS {
          * This attribute must be set to a function that accepts an “options” argument.
          * For example App.onError = function (options) {}.
          */
-        onError: (options: any,) => void;
+        onError: (options: any) => void;
 
         /**
          * The onExit attribute is used to complete any actions that need to be cleaned
          * up when the app has been exited. This attribute must be set to a function that
          * accepts an “options” argument. For example App.onExit = function (options) {}.
          */
-        onExit: (options: any,) => void;
+        onExit: (options: any) => void;
 
         /**
          * The onLaunch attribute is used to start any required actions when the app
          * launches. This attribute must be set to a function that accepts an “options”
          * argument. For example App.onLaunch = function (options) {}.
          */
-        onLaunch: (options: any,) => void;
+        onLaunch: (options: any) => void;
 
         /**
          * This function reloads the initial JavaScript file without quitting the app.
@@ -41,7 +41,7 @@ declare namespace AppleTVJS {
          * to a function that accepts an “options” argument.
          * For example App.onError = function (options) {}.
          */
-        reload(options?: any, reloadData?: any,): void;
+        reload(options?: any, reloadData?: any): void;
     }
 
     interface Device {
@@ -66,7 +66,7 @@ declare namespace AppleTVJS {
 
     interface FeatureElement extends Element {
         /** Gets a feature for a given element. */
-        getFeature(feature: string,): any;
+        getFeature(feature: string): any;
     }
 
     class Highlight {
@@ -119,7 +119,7 @@ declare namespace AppleTVJS {
          * @param type Valid values are: audio, video. Defaults to video.
          * @param url The URL pointing to the media item information.
          */
-        constructor(type: string, url?: string,);
+        constructor(type: string, url?: string);
 
         /**
          * The domain that the rating applies to.
@@ -178,16 +178,16 @@ declare namespace AppleTVJS {
         resumeTime: number;
 
         /** A callback function used to load the asset identifier for an item. */
-        loadAssetID: (url: string, callback: (assetID: string, error: string,) => void,) => void;
+        loadAssetID: (url: string, callback: (assetID: string, error: string) => void) => void;
 
         /** A callback function used to load the security certificate for an item. */
-        loadCertificate: (url: string, callback: (certificate: string, error: string,) => void,) => void;
+        loadCertificate: (url: string, callback: (certificate: string, error: string) => void) => void;
 
         /** A callback function used to load the security key for an item. */
         loadKey: (
             url: string,
             requestData: any,
-            callback: (key: string, renewalDate: string, error: string,) => void,
+            callback: (key: string, renewalDate: string, error: string) => void,
         ) => void;
     }
 
@@ -195,36 +195,36 @@ declare namespace AppleTVJS {
         /**
          * Retrieves the document associated with the specified menu item.
          */
-        getDocument(menuItem: Element,): Document;
+        getDocument(menuItem: Element): Document;
 
         /**
          * Associates a document with a menu item.
          */
-        setDocument(document: Document, menuItem: Element,): void;
+        setDocument(document: Document, menuItem: Element): void;
 
         /**
          * Sets the focus in a menu bar to the specified menu item.
          */
-        setSelectedItem(menuItem: Element,): void;
+        setSelectedItem(menuItem: Element): void;
     }
 
     interface NavigationDocument {
         /**
          * Inserts a new document directly before a document currently on the stack.
          */
-        insertBeforeDocument(document: Document, beforeDocument?: Document,): void;
+        insertBeforeDocument(document: Document, beforeDocument?: Document): void;
 
         /**
          * This function searches the stack for the first instance of the document
          * contained in the beforeDocument parameter and inserts the document contained
          * in the document parameter on top of it.
          */
-        pushDocument(document: Document,): void;
+        pushDocument(document: Document): void;
 
         /**
          * Replaces a document on the stack with a new document.
          */
-        replaceDocument(document: Document, beforeDocument?: Document,): void;
+        replaceDocument(document: Document, beforeDocument?: Document): void;
 
         /** Dismisses the document displayed in modal view. */
         dismissModal(): void;
@@ -232,7 +232,7 @@ declare namespace AppleTVJS {
         /**
          * Displays the passed document on top of the current document.
          */
-        presentModal(document: Document,): void;
+        presentModal(document: Document): void;
 
         /** The documents currently on the stack. */
         documents: Document[];
@@ -250,7 +250,7 @@ declare namespace AppleTVJS {
         /**
          * Removes all of the documents on the stack that are above the passed document.
          */
-        popToDocument(document: Document,): void;
+        popToDocument(document: Document): void;
 
         /**
          * Removes all documents from the stack except for the bottom most document.
@@ -260,7 +260,7 @@ declare namespace AppleTVJS {
         /**
          * Removes the specified document from the stack.
          */
-        removeDocument(document: Document,): void;
+        removeDocument(document: Document): void;
     }
 
     class Player {
@@ -293,10 +293,10 @@ declare namespace AppleTVJS {
         playbackState: string;
 
         /** Sets the playback point to a specified time. */
-        seekToTime(time: number,): void;
+        seekToTime(time: number): void;
 
         /** Sets the playback speed. */
-        setPlaybackRate(playbackRate: number,): void;
+        setPlaybackRate(playbackRate: number): void;
 
         /** Stops the currently playing item and dismisses the player UI. */
         stop(): void;
@@ -321,7 +321,7 @@ declare namespace AppleTVJS {
          * playerInvalidated
          * playedToEndOfMediaItem
          */
-        mediaItemDidChange: (reason: string,) => void;
+        mediaItemDidChange: (reason: string) => void;
 
         /**
          * An event that indicates if a seek to time request was accomplished.
@@ -331,10 +331,10 @@ declare namespace AppleTVJS {
          * false or null— The seek was not performed.
          * An integer value — The seek will be performed to the stated value and not the initial requested value.
          */
-        requestSeekToTime: (result?: any,) => void;
+        requestSeekToTime: (result?: any) => void;
 
         /** An event that indicates a state change request has occurred. */
-        shouldHandleStateChange: (result: boolean,) => void;
+        shouldHandleStateChange: (result: boolean) => void;
 
         /** An event that indicates the state has changed. */
         stateDidChange: () => void;
@@ -354,7 +354,7 @@ declare namespace AppleTVJS {
 
     class Playlist {
         /** Returns the MediaItem located in the indicated array index. */
-        item(index: number,): MediaItem;
+        item(index: number): MediaItem;
 
         /** The number of items in the playlist. */
         length: number;
@@ -363,10 +363,10 @@ declare namespace AppleTVJS {
         pop(): MediaItem;
 
         /** Adds a media item to the end of a playlist. */
-        push(object: MediaItem,): void;
+        push(object: MediaItem): void;
 
         /** Deletes the indicated array elements and replaces them with the specified elements. */
-        splice(index: number, howManu: number, object: MediaItem,): MediaItem[];
+        splice(index: number, howManu: number, object: MediaItem): MediaItem[];
     }
 
     interface Restrictions {
@@ -377,13 +377,13 @@ declare namespace AppleTVJS {
         maxMovieRank: number;
 
         /** The maximum movie rating allowed for the specified country. */
-        maxMovieRatingForCountry(countryCode: string,): string;
+        maxMovieRatingForCountry(countryCode: string): string;
 
         /** The maximum television show ranking allowed. */
         maxTVShowRank: number;
 
         /** Sets the maximum television show rating allowed for the specified country. */
-        maxTVShowRatingForCountry(countryCode: string,): string;
+        maxTVShowRatingForCountry(countryCode: string): string;
     }
 
     interface Settings {

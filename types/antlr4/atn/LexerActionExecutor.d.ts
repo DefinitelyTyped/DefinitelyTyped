@@ -17,7 +17,7 @@ export default class LexerActionExecutor {
      * @return A {@link LexerActionExecutor} for executing the combine actions
      * of `lexerActionExecutor` and `lexerAction`.
      */
-    static append(lexerActionExecutor: LexerActionExecutor, lexerAction: LexerAction,): LexerActionExecutor;
+    static append(lexerActionExecutor: LexerActionExecutor, lexerAction: LexerAction): LexerActionExecutor;
 
     readonly lexerActions: LexerAction[];
 
@@ -35,7 +35,7 @@ export default class LexerActionExecutor {
      * efficiently, ensuring that actions appearing only at the end of the rule do
      * not cause bloating of the {@link DFA} created for the lexer.
      */
-    constructor(lexerActions: LexerAction[] | null,);
+    constructor(lexerActions: LexerAction[] | null);
 
     /**
      * Creates a {@link LexerActionExecutor} which encodes the current offset
@@ -66,7 +66,7 @@ export default class LexerActionExecutor {
      * @return A {@link LexerActionExecutor} which stores input stream offsets
      * for all position-dependent lexer actions.
      */
-    fixOffsetBeforeMatch(offset: number,): LexerActionExecutor;
+    fixOffsetBeforeMatch(offset: number): LexerActionExecutor;
 
     /**
      * Execute the actions encapsulated by this executor within the context of a
@@ -86,11 +86,11 @@ export default class LexerActionExecutor {
      * {@link IntStream.seek} to set the `input` position to the beginning
      * of the token.
      */
-    execute(lexer: Lexer, input: InputStream, startIndex: number,): void;
+    execute(lexer: Lexer, input: InputStream, startIndex: number): void;
 
     hashCode(): number;
 
-    updateHashCode(hash: HashCode,): void;
+    updateHashCode(hash: HashCode): void;
 
-    equals(other: LexerActionExecutor,): boolean;
+    equals(other: LexerActionExecutor): boolean;
 }

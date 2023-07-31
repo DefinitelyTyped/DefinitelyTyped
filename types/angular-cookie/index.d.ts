@@ -16,17 +16,17 @@ declare namespace angular.cookie {
         /**
          * Get a cookie with a specific key
          */
-        (key: string,): any;
+        (key: string): any;
 
         /**
          * Create a cookie
          */
-        (key: string, value: any, options?: CookieOptions,): any;
+        (key: string, value: any, options?: CookieOptions): any;
 
         /**
          * Remove a cookie
          */
-        remove(key: string, options?: CookieOptions,): void;
+        remove(key: string, options?: CookieOptions): void;
     }
 
     interface CookieOptions {
@@ -58,11 +58,11 @@ declare namespace angular.cookie {
         /**
          * The method that will be used to encode the cookie value (should be passed when using Set).
          */
-        encode?: ((value: any,) => any) | undefined;
+        encode?: ((value: any) => any) | undefined;
 
         /**
          * The method that will be used to decode extracted cookie values (should be passed when using Get).
          */
-        decode?: ((value: any,) => any) | undefined;
+        decode?: ((value: any) => any) | undefined;
     }
 }

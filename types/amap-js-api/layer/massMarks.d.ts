@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace MassMarks {
-        interface EventMap<I = MassMarks,> {
+        interface EventMap<I = MassMarks> {
             click: UIEvent<'click', I>;
             dblclick: UIEvent<'dblclick', I>;
             mousedown: UIEvent<'mousedown', I>;
@@ -30,7 +30,7 @@ declare namespace AMap {
             rotation?: number | undefined;
         }
 
-        type UIEvent<N extends string, I,> = Event<N, {
+        type UIEvent<N extends string, I> = Event<N, {
             /**
              * 事件触发目标
              */
@@ -66,18 +66,18 @@ declare namespace AMap {
         }
     }
 
-    class MassMarks<D extends MassMarks.Data = MassMarks.Data,> extends Layer {
+    class MassMarks<D extends MassMarks.Data = MassMarks.Data> extends Layer {
         /**
          * 海量点类，利用该类可同时在地图上展示万级别的点
          * @param data 点对象数组或url
          * @param opts 选项
          */
-        constructor(data: D[] | string, opts: MassMarks.Options,);
+        constructor(data: D[] | string, opts: MassMarks.Options);
         /**
          * 设置显示样式
          * @param style 样式设置
          */
-        setStyle(style: MassMarks.Style | MassMarks.Style[],): void;
+        setStyle(style: MassMarks.Style | MassMarks.Style[]): void;
         /**
          * 获取显示样式
          */
@@ -86,7 +86,7 @@ declare namespace AMap {
          * 设置数据集
          * @param data 数据集
          */
-        setData(data: D[] | string,): void;
+        setData(data: D[] | string): void;
         /**
          * 获取数据集
          */

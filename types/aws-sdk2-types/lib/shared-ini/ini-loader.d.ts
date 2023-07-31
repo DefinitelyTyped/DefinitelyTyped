@@ -25,5 +25,5 @@ export class IniLoader {
      * files.
      * @returns {object} object of all profile information in the file
      */
-    loadFrom(options: LoadFileOptions,): IniFileContent;
+    loadFrom(options: LoadFileOptions): IniFileContent;
 }

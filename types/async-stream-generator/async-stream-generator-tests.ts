@@ -15,8 +15,8 @@ function* notAsync() {
 // @ts-expect-error
 streamify();
 // @ts-expect-error
-streamify(notGenerator(),);
+streamify(notGenerator());
 // @ts-expect-error
-streamify(notAsync(),);
-streamify(generator(),); // $ExpectType Readable
-streamify(generator(),).pipe(process.stdout,);
+streamify(notAsync());
+streamify(generator()); // $ExpectType Readable
+streamify(generator()).pipe(process.stdout);

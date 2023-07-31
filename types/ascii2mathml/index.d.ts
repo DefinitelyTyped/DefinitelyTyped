@@ -13,14 +13,14 @@ interface ascii2mathml {
      * ASCIIMath expression to MathML markup.
      * @param options Options
      */
-    (options: A2MML.Options,): ascii2mathml;
+    (options: A2MML.Options): ascii2mathml;
 
     /**
      * Converts ASCIIMath expression to MathML markup.
      * @param asciimath ASCIIMath expression
      * @param options Options
      */
-    (asciimath: string, options?: A2MML.Options,): string;
+    (asciimath: string, options?: A2MML.Options): string;
 }
 
 declare namespace A2MML {

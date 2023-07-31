@@ -9,22 +9,22 @@ export = c;
 interface args {
     sub: string[];
 
-    option(name: string | [string, string,], description: string, defaultValue?: any, init?: OptionInitFunction,): args;
-    options(list: Option[],): args;
+    option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): args;
+    options(list: Option[]): args;
     command(
         name: string,
         description: string,
-        init?: (name: string, sub: string[], options: ConfigurationOptions,) => void,
+        init?: (name: string, sub: string[], options: ConfigurationOptions) => void,
         aliases?: string[],
     ): args;
-    example(usage: string, description: string,): args;
-    examples(list: Example[],): args;
-    parse(argv: string[], options?: ConfigurationOptions,): { [key: string]: any };
+    example(usage: string, description: string): args;
+    examples(list: Example[]): args;
+    parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
     showHelp(): void;
     showVersion(): void;
 }
 
-type OptionInitFunction = (value: any,) => any;
+type OptionInitFunction = (value: any) => any;
 
 interface MriOptions {
     args?: string[] | undefined;
@@ -36,7 +36,7 @@ interface MriOptions {
         [key: string]: any;
     } | undefined;
     string?: string | string[] | undefined;
-    unknown?: ((param: string,) => boolean) | undefined;
+    unknown?: ((param: string) => boolean) | undefined;
 }
 
 interface MinimistOptions {
@@ -50,14 +50,14 @@ interface MinimistOptions {
     } | undefined;
     stopEarly?: boolean | undefined;
     '--'?: boolean | undefined;
-    unknown?: ((param: string,) => boolean) | undefined;
+    unknown?: ((param: string) => boolean) | undefined;
 }
 
 interface ConfigurationOptions {
     help?: boolean | undefined;
     name?: string | undefined;
     version?: boolean | undefined;
-    usageFilter?: ((output: any,) => any) | undefined;
+    usageFilter?: ((output: any) => any) | undefined;
     value?: string | undefined;
     mri: MriOptions;
     minimist?: MinimistOptions | undefined;
@@ -66,7 +66,7 @@ interface ConfigurationOptions {
 }
 
 interface Option {
-    name: string | [string, string,];
+    name: string | [string, string];
     description: string;
     init?: OptionInitFunction | undefined;
     defaultValue?: any;

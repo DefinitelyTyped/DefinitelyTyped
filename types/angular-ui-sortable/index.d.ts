@@ -10,18 +10,18 @@
 import * as ng from 'angular';
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-type Omit<T, K extends keyof T,> = Pick<
+type Omit<T, K extends keyof T> = Pick<
     T,
     ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
 >;
 
 declare module 'angular' {
     export namespace ui {
-        interface UISortableOptions<T,> extends SortableOptions<T> {
+        interface UISortableOptions<T> extends SortableOptions<T> {
             'ui-floating'?: 'auto' | boolean | undefined;
         }
 
-        interface UISortableProperties<T,> {
+        interface UISortableProperties<T> {
             /**
              * Holds the index of the drop target that the dragged item was dropped.
              */
@@ -85,11 +85,11 @@ declare module 'angular' {
             isCustomHelperUsed(): Boolean;
         }
 
-        interface UISortableUIItem<T,> extends Omit<ng.IAugmentedJQuery, 'sortable'> {
+        interface UISortableUIItem<T> extends Omit<ng.IAugmentedJQuery, 'sortable'> {
             sortable: UISortableProperties<T>;
         }
 
-        interface UISortableUIParams<T,> extends Omit<SortableUIParams, 'item'> {
+        interface UISortableUIParams<T> extends Omit<SortableUIParams, 'item'> {
             item: UISortableUIItem<T>;
         }
 
@@ -103,10 +103,10 @@ declare module 'angular' {
         }
 
         interface SortableHelperFunctionOption {
-            (event: JQueryEventObject, ui: ng.IAugmentedJQuery,): JQuery;
+            (event: JQueryEventObject, ui: ng.IAugmentedJQuery): JQuery;
         }
 
-        interface SortableOptions<T,> extends SortableEvents<T> {
+        interface SortableOptions<T> extends SortableEvents<T> {
             /**
              * jQuery, Element, Selector or string
              * Default: "parent"
@@ -198,11 +198,11 @@ declare module 'angular' {
             placeholder: ng.IAugmentedJQuery;
         }
 
-        interface SortableEvent<T,> {
-            (event: JQueryEventObject, ui: UISortableUIParams<T>,): void;
+        interface SortableEvent<T> {
+            (event: JQueryEventObject, ui: UISortableUIParams<T>): void;
         }
 
-        interface SortableEvents<T,> {
+        interface SortableEvents<T> {
             activate?: SortableEvent<T> | undefined;
             beforeStop?: SortableEvent<T> | undefined;
             change?: SortableEvent<T> | undefined;

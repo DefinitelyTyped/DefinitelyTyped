@@ -28,12 +28,12 @@ declare namespace AMap {
              * WMTS图层
              * @param options 图层选项
              */
-            constructor(options: WMTS.Options,);
+            constructor(options: WMTS.Options);
             /**
              * 设置wmts服务地址
              * @param url 服务地址
              */
-            setUrl(url: string,): void;
+            setUrl(url: string): void;
             /**
              * 返回wmts服务地址
              */
@@ -42,7 +42,7 @@ declare namespace AMap {
              * 设置OGC标准的WMTS getTile接口的参数
              * @param params 接口参数
              */
-            setParams(params: WMTS.Params,): void;
+            setParams(params: WMTS.Params): void;
             /**
              * 返回OGC标准的WMTS getTile接口的参数
              */

@@ -1,8 +1,8 @@
-import { crypto, pem2ab, } from 'crypto';
+import { crypto, pem2ab } from 'crypto';
 
-export async function onClientRequest(request: EW.IngressClientRequest,) {
-    const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33,],);
-    const iv = new Uint8Array([237, 234, 45, 119, 168, 16, 178, 26, 14, 182, 253, 39, 79, 181, 180, 219,],);
+export async function onClientRequest(request: EW.IngressClientRequest) {
+    const raw_key = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33]);
+    const iv = new Uint8Array([237, 234, 45, 119, 168, 16, 178, 26, 14, 182, 253, 39, 79, 181, 180, 219]);
     const data1 = new Uint8Array([
         44,
         237,
@@ -54,7 +54,7 @@ export async function onClientRequest(request: EW.IngressClientRequest,) {
         188,
         133,
         109,
-    ],);
+    ]);
     const pemEncodedKey = `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELScIYCjf+IOluv9pppNv0xIGXTBp
 KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
@@ -124,9 +124,9 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
         192,
         218,
         43,
-    ],);
-    const data2 = new Uint8Array([104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33,],);
-    const data3 = new Uint8Array([84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 97,],);
+    ]);
+    const data2 = new Uint8Array([104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]);
+    const data3 = new Uint8Array([84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 97]);
     const data4: Uint8Array = new Uint8Array([
         93,
         210,
@@ -144,9 +144,9 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
         117,
         91,
         33,
-    ],);
+    ]);
     const algorithm = 'SHA-1';
-    const array = new Uint32Array(1,);
+    const array = new Uint32Array(1);
 
     /**
      * Imports the key
@@ -161,9 +161,9 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
     const imported_key = await crypto.subtle.importKey(
         'raw',
         raw_key,
-        { name: 'AES-CBC', },
+        { name: 'AES-CBC' },
         false,
-        ['encrypt', 'decrypt',],
+        ['encrypt', 'decrypt'],
     );
 
     /**
@@ -176,11 +176,11 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with the imported key as a CryptoKey object.
      */
-    crypto.subtle.importKey('raw', raw_key, { name: 'AES-GCM', }, false, ['encrypt',],).then(() => {
-        request.respondWith(200, {}, 'pass',);
-    },).catch(e => {
-        request.respondWith(501, {}, 'failure: ' + e,);
-    },);
+    crypto.subtle.importKey('raw', raw_key, { name: 'AES-GCM' }, false, ['encrypt']).then(() => {
+        request.respondWith(200, {}, 'pass');
+    }).catch(e => {
+        request.respondWith(501, {}, 'failure: ' + e);
+    });
 
     /**
      * Imports the key
@@ -194,10 +194,10 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      */
     const cryptoKey = await crypto.subtle.importKey(
         'spki',
-        pem2ab(pemEncodedKey,),
-        { name: 'ECDSA', namedCurve: 'P-256', },
+        pem2ab(pemEncodedKey),
+        { name: 'ECDSA', namedCurve: 'P-256' },
         false,
-        ['verify',],
+        ['verify'],
     );
 
     /**
@@ -225,13 +225,13 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with an ArrayBuffer containing the plaintext
      */
-    crypto.subtle.decrypt({ name: 'AES-CBC', iv, }, imported_key, encrypted_data,)
+    crypto.subtle.decrypt({ name: 'AES-CBC', iv }, imported_key, encrypted_data)
         .then(() => {
-            request.respondWith(200, {}, 'pass',);
-        },)
+            request.respondWith(200, {}, 'pass');
+        })
         .catch(e => {
-            request.respondWith(501, {}, 'failure: ' + e,);
-        },);
+            request.respondWith(501, {}, 'failure: ' + e);
+        });
 
     /**
      * Verify a digital signature
@@ -259,15 +259,15 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with an ArrayBuffer containing the digest
      */
-    crypto.subtle.digest(algorithm, data3.buffer,)
+    crypto.subtle.digest(algorithm, data3.buffer)
         .then(hash => {
-            const hashArray = Array.from(new Uint8Array(hash,),); // convert buffer to byte array
-            const hashHex = bytesToHex(hashArray,); // convert bytes to hex string
-            request.respondWith(200, {}, `${algorithm}: digest (hex): ${hashHex}`,);
-        },)
+            const hashArray = Array.from(new Uint8Array(hash)); // convert buffer to byte array
+            const hashHex = bytesToHex(hashArray); // convert bytes to hex string
+            request.respondWith(200, {}, `${algorithm}: digest (hex): ${hashHex}`);
+        })
         .catch(e => {
-            request.respondWith(501, {}, `${algorithm}: failure: ${e}`,);
-        },);
+            request.respondWith(501, {}, `${algorithm}: failure: ${e}`);
+        });
 
     /**
      * Imports the key
@@ -292,9 +292,9 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
             hash: 'SHA-256',
         },
         false,
-        ['sign', 'verify',],
+        ['sign', 'verify'],
     );
-    const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110,],);
+    const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110]);
 
     /**
      * Sign generates a digital signature.
@@ -304,7 +304,7 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A Promise that fulfills with an ArrayBuffer containing the signature
      */
-    const sig = await crypto.subtle.sign('HMAC', hmac_imported_key, data,);
+    const sig = await crypto.subtle.sign('HMAC', hmac_imported_key, data);
     /**
      * Verify a digital signature
      * @param algorithm An object specifying the algorithm to be used
@@ -314,11 +314,11 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
      */
-    await crypto.subtle.verify('HMAC', hmac_imported_key, sig, data,).then(isVerified => {
-        request.respondWith(200, {}, 'Verified: ' + isVerified,);
-    },).catch(e => {
-        request.respondWith(501, {}, 'failure: ' + e,);
-    },);
+    await crypto.subtle.verify('HMAC', hmac_imported_key, sig, data).then(isVerified => {
+        request.respondWith(200, {}, 'Verified: ' + isVerified);
+    }).catch(e => {
+        request.respondWith(501, {}, 'failure: ' + e);
+    });
 
     /**
      * Imports the key
@@ -330,29 +330,29 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with the imported key as a CryptoKey object.
      */
-    const raw_imported_key = await crypto.subtle.importKey('raw', data4, { name: 'AES-GCM', }, false, [
+    const raw_imported_key = await crypto.subtle.importKey('raw', data4, { name: 'AES-GCM' }, false, [
         'encrypt',
         'decrypt',
-    ],);
-    const raw_data: Uint8Array = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,],);
+    ]);
+    const raw_data: Uint8Array = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
     const aes_gcm_encrypted = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv: { iv, }, tagLength: 96, },
+        { name: 'AES-GCM', iv: { iv }, tagLength: 96 },
         imported_key,
         raw_data,
     );
     await crypto.subtle.decrypt(
         {
             name: 'AES-GCM',
-            iv: { iv, },
+            iv: { iv },
             tagLength: 96,
         },
         raw_imported_key,
         aes_gcm_encrypted,
     ).then(() => {
-        request.respondWith(200, {}, 'pass',);
-    },).catch(e => {
-        request.respondWith(501, {}, 'failure: ' + e,);
-    },);
+        request.respondWith(200, {}, 'pass');
+    }).catch(e => {
+        request.respondWith(501, {}, 'failure: ' + e);
+    });
 
     /**
      * A function that allows you to get cryptographically strong random values
@@ -360,17 +360,17 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
      */
-    crypto.getRandomValues(array,);
-    request.addHeader('X-Random-Number', array[0].toString(),);
+    crypto.getRandomValues(array);
+    request.addHeader('X-Random-Number', array[0].toString());
 }
 
-function bytesToHex(bytes: number[],) {
+function bytesToHex(bytes: number[]) {
     const hex = [];
     let i = 0;
     for (; i < bytes.length; i++) {
         const current = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
-        hex.push((current >>> 4).toString(16,),);
-        hex.push((current & 0xF).toString(16,),);
+        hex.push((current >>> 4).toString(16));
+        hex.push((current & 0xF).toString(16));
     }
-    return hex.join('',);
+    return hex.join('');
 }

@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat, } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
 
 /**
  * An operation that allows to remove password security from a PDF document.
@@ -29,17 +29,17 @@ export class RemoveProtectionOperation {
      */
     static createNew(): RemoveProtectionOperation;
     static get SupportedSourceFormat(): PdfFormat;
-    constructor(password: any,);
+    constructor(password: any);
     sourceFileRef: any;
     password: any;
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Specifies the intended password depending on the type of password security attached to the input PDF document.
      */
-    setPassword(password: string,): void;
+    setPassword(password: string): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -47,6 +47,6 @@ export class RemoveProtectionOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
 }

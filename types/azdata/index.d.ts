@@ -46,48 +46,48 @@ declare module 'azdata' {
      * Namespace for Data Management Protocol global methods
      */
     export namespace dataprotocol {
-        export function registerConnectionProvider(provider: ConnectionProvider,): vscode.Disposable;
+        export function registerConnectionProvider(provider: ConnectionProvider): vscode.Disposable;
 
-        export function registerBackupProvider(provider: BackupProvider,): vscode.Disposable;
+        export function registerBackupProvider(provider: BackupProvider): vscode.Disposable;
 
-        export function registerRestoreProvider(provider: RestoreProvider,): vscode.Disposable;
+        export function registerRestoreProvider(provider: RestoreProvider): vscode.Disposable;
 
-        export function registerScriptingProvider(provider: ScriptingProvider,): vscode.Disposable;
+        export function registerScriptingProvider(provider: ScriptingProvider): vscode.Disposable;
 
-        export function registerObjectExplorerProvider(provider: ObjectExplorerProvider,): vscode.Disposable;
+        export function registerObjectExplorerProvider(provider: ObjectExplorerProvider): vscode.Disposable;
 
-        export function registerObjectExplorerNodeProvider(provider: ObjectExplorerNodeProvider,): vscode.Disposable;
+        export function registerObjectExplorerNodeProvider(provider: ObjectExplorerNodeProvider): vscode.Disposable;
 
-        export function registerIconProvider(provider: IconProvider,): vscode.Disposable;
+        export function registerIconProvider(provider: IconProvider): vscode.Disposable;
 
-        export function registerTaskServicesProvider(provider: TaskServicesProvider,): vscode.Disposable;
+        export function registerTaskServicesProvider(provider: TaskServicesProvider): vscode.Disposable;
 
-        export function registerFileBrowserProvider(provider: FileBrowserProvider,): vscode.Disposable;
+        export function registerFileBrowserProvider(provider: FileBrowserProvider): vscode.Disposable;
 
-        export function registerProfilerProvider(provider: ProfilerProvider,): vscode.Disposable;
+        export function registerProfilerProvider(provider: ProfilerProvider): vscode.Disposable;
 
-        export function registerMetadataProvider(provider: MetadataProvider,): vscode.Disposable;
+        export function registerMetadataProvider(provider: MetadataProvider): vscode.Disposable;
 
-        export function registerQueryProvider(provider: QueryProvider, isLiveShare?: boolean,): vscode.Disposable;
+        export function registerQueryProvider(provider: QueryProvider, isLiveShare?: boolean): vscode.Disposable;
 
-        export function registerAdminServicesProvider(provider: AdminServicesProvider,): vscode.Disposable;
+        export function registerAdminServicesProvider(provider: AdminServicesProvider): vscode.Disposable;
 
-        export function registerAgentServicesProvider(provider: AgentServicesProvider,): vscode.Disposable;
+        export function registerAgentServicesProvider(provider: AgentServicesProvider): vscode.Disposable;
 
-        export function registerCapabilitiesServiceProvider(provider: CapabilitiesProvider,): vscode.Disposable;
+        export function registerCapabilitiesServiceProvider(provider: CapabilitiesProvider): vscode.Disposable;
 
         /**
          * Get the provider corresponding to the given provider ID and type
          * @param providerId The ID that the provider was registered with
          * @param providerType The type of the provider
          */
-        export function getProvider<T extends DataProvider,>(providerId: string, providerType: DataProviderType,): T;
+        export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): T;
 
         /**
          * Get all registered providers of the given type
          * @param providerType The type of the providers
          */
-        export function getProvidersByType<T extends DataProvider,>(providerType: DataProviderType,): T[];
+        export function getProvidersByType<T extends DataProvider>(providerType: DataProviderType): T[];
 
         /**
          * An {@link vscode.Event} which fires when the specific flavor of a language used in DMP
@@ -106,7 +106,7 @@ declare module 'azdata' {
          * @param provider The provider to register
          * @return Handle to the provider for disposal
          */
-        export function registerProvider(provider: CredentialProvider,): vscode.Disposable;
+        export function registerProvider(provider: CredentialProvider): vscode.Disposable;
 
         /**
          * Retrieves a provider from the extension host if one has been registered. Any credentials
@@ -115,7 +115,7 @@ declare module 'azdata' {
          * @param namespaceId ID that will be appended to credential IDs.
          * @return Promise that returns the namespaced provider
          */
-        export function getProvider(namespaceId: string,): Thenable<CredentialProvider>;
+        export function getProvider(namespaceId: string): Thenable<CredentialProvider>;
     }
 
     /**
@@ -171,7 +171,7 @@ declare module 'azdata' {
             azureTenantId?: string | undefined;
             options: { [name: string]: any };
 
-            static createFrom(options: { [key: string]: any },): ConnectionProfile;
+            static createFrom(options: { [key: string]: any }): ConnectionProfile;
         }
 
         /**
@@ -184,7 +184,7 @@ declare module 'azdata' {
          * @param activeConnectionsOnly Indicates whether only get the active connections, default value is false.
          * @returns array of connections
          */
-        export function getConnections(activeConnectionsOnly?: boolean,): Thenable<ConnectionProfile[]>;
+        export function getConnections(activeConnectionsOnly?: boolean): Thenable<ConnectionProfile[]>;
 
         /**
          * Get all active connections
@@ -194,21 +194,21 @@ declare module 'azdata' {
         /**
          * Get connection string
          */
-        export function getConnectionString(connectionId: string, includePassword: boolean,): Thenable<string>;
+        export function getConnectionString(connectionId: string, includePassword: boolean): Thenable<string>;
 
         /**
          * Get the credentials for a connection
          * @param connectionId The id of the connection
          * @returns A dictionary containing the credentials as they would be included in the connection's options dictionary
          */
-        export function getCredentials(connectionId: string,): Thenable<{ [name: string]: string }>;
+        export function getCredentials(connectionId: string): Thenable<{ [name: string]: string }>;
 
         /**
          * Get ServerInfo for a connectionId
          * @param connectionId The id of the connection
          * @returns ServerInfo
          */
-        export function getServerInfo(connectionId: string,): Thenable<ServerInfo>;
+        export function getServerInfo(connectionId: string): Thenable<ServerInfo>;
 
         /**
          * Interface for representing a connection when working with connection APIs
@@ -230,7 +230,7 @@ declare module 'azdata' {
          * @param connectionId The ID of the connection
          * @returns An list of names of databases
          */
-        export function listDatabases(connectionId: string,): Thenable<string[]>;
+        export function listDatabases(connectionId: string): Thenable<string[]>;
 
         /**
          * Get a URI corresponding to the given connection so that it can be used with data
@@ -238,7 +238,7 @@ declare module 'azdata' {
          * Note: If the given connection corresponds to multiple URIs this may return any of them
          * @param connectionId The ID of the connection
          */
-        export function getUriForConnection(connectionId: string,): Thenable<string>;
+        export function getUriForConnection(connectionId: string): Thenable<string>;
 
         /**
          * Opens the connection dialog, calls the callback with the result. If connection was successful
@@ -280,21 +280,21 @@ declare module 'azdata' {
              * @param ownerUri Connection's owner uri
              * @param args Connection profile
              */
-            onConnectionEvent(type: ConnectionEventType, ownerUri: string, args: IConnectionProfile,): void;
+            onConnectionEvent(type: ConnectionEventType, ownerUri: string, args: IConnectionProfile): void;
         }
 
         /**
          * Register a connection event listener
          * @param listener The connection event listener
          */
-        export function registerConnectionEventListener(listener: ConnectionEventListener,): vscode.Disposable;
+        export function registerConnectionEventListener(listener: ConnectionEventListener): vscode.Disposable;
 
         /**
          * Get connection profile by its owner uri
          * @param ownerUri The owner uri of the connection
          * @returns Thenable to return the connection profile matching the ownerUri
          */
-        export function getConnection(ownerUri: string,): Thenable<ConnectionProfile>;
+        export function getConnection(ownerUri: string): Thenable<ConnectionProfile>;
     }
 
     /**
@@ -310,7 +310,7 @@ declare module 'azdata' {
          * @returns The node corresponding to the given connection and path,
          * or undefined if no such node exists.
          */
-        export function getNode(connectionId: string, nodePath?: string,): Thenable<ObjectExplorerNode>;
+        export function getNode(connectionId: string, nodePath?: string): Thenable<ObjectExplorerNode>;
 
         /**
          * Get all active Object Explorer connection nodes
@@ -342,7 +342,7 @@ declare module 'azdata' {
          * @param sessionId The id of the session that the node exists on
          * @returns The IConnectionProfile for the session
          */
-        export function getSessionConnectionProfile(sessionId: string,): Thenable<IConnectionProfile>;
+        export function getSessionConnectionProfile(sessionId: string): Thenable<IConnectionProfile>;
 
         /**
          * Interface for representing and interacting with items in Object Explorer
@@ -362,7 +362,7 @@ declare module 'azdata' {
              * Set whether the node is expanded or collapsed
              * @param expandedState The new state of the node. If 'None', the node will not be changed
              */
-            setExpandedState(expandedState: vscode.TreeItemCollapsibleState,): Thenable<void>;
+            setExpandedState(expandedState: vscode.TreeItemCollapsibleState): Thenable<void>;
 
             /**
              * Set whether the node is selected
@@ -370,7 +370,7 @@ declare module 'azdata' {
              * @param clearOtherSelections If true, clear any other selections. If false, leave any existing selections.
              * Defaults to true when selected is true and false when selected is false.
              */
-            setSelected(selected: boolean, clearOtherSelections?: boolean,): Thenable<void>;
+            setSelected(selected: boolean, clearOtherSelections?: boolean): Thenable<void>;
 
             /**
              * Get all the child nodes. Returns an empty list if there are no children.
@@ -630,21 +630,21 @@ declare module 'azdata' {
     }
 
     export interface ConnectionProvider extends DataProvider {
-        connect(connectionUri: string, connectionInfo: ConnectionInfo,): Thenable<boolean>;
+        connect(connectionUri: string, connectionInfo: ConnectionInfo): Thenable<boolean>;
 
-        disconnect(connectionUri: string,): Thenable<boolean>;
+        disconnect(connectionUri: string): Thenable<boolean>;
 
-        cancelConnect(connectionUri: string,): Thenable<boolean>;
+        cancelConnect(connectionUri: string): Thenable<boolean>;
 
-        listDatabases(connectionUri: string,): Thenable<ListDatabasesResult>;
+        listDatabases(connectionUri: string): Thenable<ListDatabasesResult>;
 
-        changeDatabase(connectionUri: string, newDatabase: string,): Thenable<boolean>;
+        changeDatabase(connectionUri: string, newDatabase: string): Thenable<boolean>;
 
-        rebuildIntelliSenseCache(connectionUri: string,): Thenable<void>;
+        rebuildIntelliSenseCache(connectionUri: string): Thenable<void>;
 
-        getConnectionString(connectionUri: string, includePassword: boolean,): Thenable<string>;
+        getConnectionString(connectionUri: string, includePassword: boolean): Thenable<string>;
 
-        buildConnectionInfo?(connectionString: string,): Thenable<ConnectionInfo>;
+        buildConnectionInfo?(connectionString: string): Thenable<ConnectionInfo>;
 
         /**
          * Registers a handler for ConnectionComplete events.
@@ -652,7 +652,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnConnectionComplete(handler: (connSummary: ConnectionInfoSummary,) => any,): void;
+        registerOnConnectionComplete(handler: (connSummary: ConnectionInfoSummary) => any): void;
 
         /**
          * Registers a handler for IntellisenseCacheComplete events.
@@ -660,7 +660,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnIntelliSenseCacheComplete(handler: (connectionUri: string,) => any,): void;
+        registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void;
 
         /**
          * Registers a handler for ConnectionChanged events.
@@ -668,7 +668,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnConnectionChanged(handler: (changedConnInfo: ChangedConnectionInfo,) => any,): void;
+        registerOnConnectionChanged(handler: (changedConnInfo: ChangedConnectionInfo) => any): void;
     }
 
     export enum ServiceOptionType {
@@ -802,7 +802,7 @@ declare module 'azdata' {
     }
 
     export interface CapabilitiesProvider extends DataProvider {
-        getServerCapabilities(client: DataProtocolClientCapabilities,): Thenable<DataProtocolServerCapabilities>;
+        getServerCapabilities(client: DataProtocolClientCapabilities): Thenable<DataProtocolServerCapabilities>;
     }
 
     export enum MetadataType {
@@ -880,13 +880,13 @@ declare module 'azdata' {
     }
 
     export interface MetadataProvider extends DataProvider {
-        getMetadata(connectionUri: string,): Thenable<ProviderMetadata>;
+        getMetadata(connectionUri: string): Thenable<ProviderMetadata>;
 
-        getDatabases(connectionUri: string,): Thenable<string[] | DatabaseInfo[]>;
+        getDatabases(connectionUri: string): Thenable<string[] | DatabaseInfo[]>;
 
-        getTableInfo(connectionUri: string, metadata: ObjectMetadata,): Thenable<ColumnMetadata[]>;
+        getTableInfo(connectionUri: string, metadata: ObjectMetadata): Thenable<ColumnMetadata[]>;
 
-        getViewInfo(connectionUri: string, metadata: ObjectMetadata,): Thenable<ColumnMetadata[]>;
+        getViewInfo(connectionUri: string, metadata: ObjectMetadata): Thenable<ColumnMetadata[]>;
     }
 
     export enum ScriptOperation {
@@ -925,7 +925,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnScriptingComplete(handler: (scriptingCompleteResult: ScriptingCompleteResult,) => any,): void;
+        registerOnScriptingComplete(handler: (scriptingCompleteResult: ScriptingCompleteResult) => any): void;
     }
 
     export interface ScriptingCompleteResult {
@@ -960,11 +960,11 @@ declare module 'azdata' {
     export interface CredentialProvider {
         handle: number;
 
-        saveCredential(credentialId: string, password: string,): Thenable<boolean>;
+        saveCredential(credentialId: string, password: string): Thenable<boolean>;
 
-        readCredential(credentialId: string,): Thenable<Credential>;
+        readCredential(credentialId: string): Thenable<Credential>;
 
-        deleteCredential(credentialId: string,): Thenable<boolean>;
+        deleteCredential(credentialId: string): Thenable<boolean>;
     }
 
     export interface DidChangeLanguageFlavorParams {
@@ -978,16 +978,16 @@ declare module 'azdata' {
     }
 
     export interface QueryProvider extends DataProvider {
-        cancelQuery(ownerUri: string,): Thenable<QueryCancelResult>;
-        runQuery(ownerUri: string, selection: ISelectionData, runOptions?: ExecutionPlanOptions,): Thenable<void>;
-        runQueryStatement(ownerUri: string, line: number, column: number,): Thenable<void>;
-        runQueryString(ownerUri: string, queryString: string,): Thenable<void>;
-        runQueryAndReturn(ownerUri: string, queryString: string,): Thenable<SimpleExecuteResult>;
-        parseSyntax(ownerUri: string, query: string,): Thenable<SyntaxParseResult>;
-        getQueryRows(rowData: QueryExecuteSubsetParams,): Thenable<QueryExecuteSubsetResult>;
-        disposeQuery(ownerUri: string,): Thenable<void>;
-        saveResults(requestParams: SaveResultsRequestParams,): Thenable<SaveResultRequestResult>;
-        setQueryExecutionOptions(ownerUri: string, options: QueryExecutionOptions,): Thenable<void>;
+        cancelQuery(ownerUri: string): Thenable<QueryCancelResult>;
+        runQuery(ownerUri: string, selection: ISelectionData, runOptions?: ExecutionPlanOptions): Thenable<void>;
+        runQueryStatement(ownerUri: string, line: number, column: number): Thenable<void>;
+        runQueryString(ownerUri: string, queryString: string): Thenable<void>;
+        runQueryAndReturn(ownerUri: string, queryString: string): Thenable<SimpleExecuteResult>;
+        parseSyntax(ownerUri: string, query: string): Thenable<SyntaxParseResult>;
+        getQueryRows(rowData: QueryExecuteSubsetParams): Thenable<QueryExecuteSubsetResult>;
+        disposeQuery(ownerUri: string): Thenable<void>;
+        saveResults(requestParams: SaveResultsRequestParams): Thenable<SaveResultRequestResult>;
+        setQueryExecutionOptions(ownerUri: string, options: QueryExecutionOptions): Thenable<void>;
 
         // Notifications
         /**
@@ -996,48 +996,48 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnQueryComplete(handler: (result: QueryExecuteCompleteNotificationResult,) => any,): void;
+        registerOnQueryComplete(handler: (result: QueryExecuteCompleteNotificationResult) => any): void;
         /**
          * Registers a handler for BatchStart events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnBatchStart(handler: (batchInfo: QueryExecuteBatchNotificationParams,) => any,): void;
+        registerOnBatchStart(handler: (batchInfo: QueryExecuteBatchNotificationParams) => any): void;
         /**
          * Registers a handler for BatchComplete events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnBatchComplete(handler: (batchInfo: QueryExecuteBatchNotificationParams,) => any,): void;
+        registerOnBatchComplete(handler: (batchInfo: QueryExecuteBatchNotificationParams) => any): void;
         /**
          * Registers a handler for ResultSetAvailable events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnResultSetAvailable(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams,) => any,): void;
+        registerOnResultSetAvailable(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams) => any): void;
         /**
          * Registers a handler for ResultSetUpdated events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnResultSetUpdated(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams,) => any,): void;
+        registerOnResultSetUpdated(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams) => any): void;
         /**
          * Registers a handler for Message events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnMessage(handler: (message: QueryExecuteMessageParams,) => any,): void;
+        registerOnMessage(handler: (message: QueryExecuteMessageParams) => any): void;
 
         // Edit Data Requests
-        commitEdit(ownerUri: string,): Thenable<void>;
-        createRow(ownerUri: string,): Thenable<EditCreateRowResult>;
-        deleteRow(ownerUri: string, rowId: number,): Thenable<void>;
-        disposeEdit(ownerUri: string,): Thenable<void>;
+        commitEdit(ownerUri: string): Thenable<void>;
+        createRow(ownerUri: string): Thenable<EditCreateRowResult>;
+        deleteRow(ownerUri: string, rowId: number): Thenable<void>;
+        disposeEdit(ownerUri: string): Thenable<void>;
         initializeEdit(
             ownerUri: string,
             schemaName: string,
@@ -1046,15 +1046,15 @@ declare module 'azdata' {
             rowLimit: number,
             queryString: string,
         ): Thenable<void>;
-        revertCell(ownerUri: string, rowId: number, columnId: number,): Thenable<EditRevertCellResult>;
-        revertRow(ownerUri: string, rowId: number,): Thenable<void>;
+        revertCell(ownerUri: string, rowId: number, columnId: number): Thenable<EditRevertCellResult>;
+        revertRow(ownerUri: string, rowId: number): Thenable<void>;
         updateCell(
             ownerUri: string,
             rowId: number,
             columnId: number,
             newValue: string,
         ): Thenable<EditUpdateCellResult>;
-        getEditRows(rowData: EditSubsetParams,): Thenable<EditSubsetResult>;
+        getEditRows(rowData: EditSubsetParams): Thenable<EditSubsetResult>;
 
         // Edit Data Notifications
         /**
@@ -1063,7 +1063,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnEditSessionReady(handler: (ownerUri: string, success: boolean, message: string,) => any,): void;
+        registerOnEditSessionReady(handler: (ownerUri: string, success: boolean, message: string) => any): void;
     }
 
     export interface IDbColumn {
@@ -1462,7 +1462,7 @@ declare module 'azdata' {
         static readonly ColumnMasterKey: SqlThemeIcon;
         static readonly ColumnEncryptionKey: SqlThemeIcon;
 
-        private constructor(id: string,);
+        private constructor(id: string);
 
         /**
          * Gets the ID for the theme icon for help in cases where string comparison is needed
@@ -1509,11 +1509,11 @@ declare module 'azdata' {
     }
 
     export interface ObjectExplorerProviderBase extends DataProvider {
-        expandNode(nodeInfo: ExpandNodeInfo,): Thenable<boolean>;
+        expandNode(nodeInfo: ExpandNodeInfo): Thenable<boolean>;
 
-        refreshNode(nodeInfo: ExpandNodeInfo,): Thenable<boolean>;
+        refreshNode(nodeInfo: ExpandNodeInfo): Thenable<boolean>;
 
-        findNodes(findNodesInfo: FindNodesInfo,): Thenable<ObjectExplorerFindNodesResponse>;
+        findNodes(findNodesInfo: FindNodesInfo): Thenable<ObjectExplorerFindNodesResponse>;
 
         /**
          * Registers a handler for ExpandCompleted events.
@@ -1521,13 +1521,13 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnExpandCompleted(handler: (response: ObjectExplorerExpandInfo,) => any,): void;
+        registerOnExpandCompleted(handler: (response: ObjectExplorerExpandInfo) => any): void;
     }
 
     export interface ObjectExplorerProvider extends ObjectExplorerProviderBase {
-        createNewSession(connInfo: ConnectionInfo,): Thenable<ObjectExplorerSessionResponse>;
+        createNewSession(connInfo: ConnectionInfo): Thenable<ObjectExplorerSessionResponse>;
 
-        closeSession(closeSessionInfo: ObjectExplorerCloseSessionInfo,): Thenable<ObjectExplorerCloseSessionResponse>;
+        closeSession(closeSessionInfo: ObjectExplorerCloseSessionInfo): Thenable<ObjectExplorerCloseSessionResponse>;
 
         /**
          * Registers a handler for SessionCreated events.
@@ -1535,7 +1535,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnSessionCreated(handler: (response: ObjectExplorerSession,) => any,): void;
+        registerOnSessionCreated(handler: (response: ObjectExplorerSession) => any): void;
 
         /**
          * Registers a handler for SessionDisconnected events.
@@ -1543,7 +1543,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnSessionDisconnected?(handler: (response: ObjectExplorerSession,) => any,): void;
+        registerOnSessionDisconnected?(handler: (response: ObjectExplorerSession) => any): void;
     }
 
     export interface ObjectExplorerNodeProvider extends ObjectExplorerProviderBase {
@@ -1558,13 +1558,13 @@ declare module 'azdata' {
          */
         readonly group?: string | undefined;
 
-        handleSessionOpen(session: ObjectExplorerSession,): Thenable<boolean>;
+        handleSessionOpen(session: ObjectExplorerSession): Thenable<boolean>;
 
-        handleSessionClose(closeSessionInfo: ObjectExplorerCloseSessionInfo,): void;
+        handleSessionClose(closeSessionInfo: ObjectExplorerCloseSessionInfo): void;
     }
 
     export interface IconProvider extends DataProvider {
-        getConnectionIconId(connection: IConnectionProfile, serverInfo: ServerInfo,): Thenable<string | undefined>;
+        getConnectionIconId(connection: IConnectionProfile, serverInfo: ServerInfo): Thenable<string | undefined>;
     }
 
     // Admin Services interfaces  -----------------------------------------------------------------------
@@ -1587,13 +1587,13 @@ declare module 'azdata' {
     }
 
     export interface AdminServicesProvider extends DataProvider {
-        createDatabase(connectionUri: string, database: DatabaseInfo,): Thenable<CreateDatabaseResponse>;
+        createDatabase(connectionUri: string, database: DatabaseInfo): Thenable<CreateDatabaseResponse>;
 
-        createLogin(connectionUri: string, login: LoginInfo,): Thenable<CreateLoginResponse>;
+        createLogin(connectionUri: string, login: LoginInfo): Thenable<CreateLoginResponse>;
 
-        getDefaultDatabaseInfo(connectionUri: string,): Thenable<DatabaseInfo>;
+        getDefaultDatabaseInfo(connectionUri: string): Thenable<DatabaseInfo>;
 
-        getDatabaseInfo(connectionUri: string,): Thenable<DatabaseInfo>;
+        getDatabaseInfo(connectionUri: string): Thenable<DatabaseInfo>;
     }
 
     // Agent Services types
@@ -2010,16 +2010,16 @@ declare module 'azdata' {
 
     export interface AgentServicesProvider extends DataProvider {
         // Job management methods
-        getJobs(ownerUri: string,): Thenable<AgentJobsResult>;
-        getJobHistory(ownerUri: string, jobId: string, jobName: string,): Thenable<AgentJobHistoryResult>;
-        jobAction(ownerUri: string, jobName: string, action: string,): Thenable<ResultStatus>;
-        createJob(ownerUri: string, jobInfo: AgentJobInfo,): Thenable<CreateAgentJobResult>;
-        updateJob(ownerUri: string, originalJobName: string, jobInfo: AgentJobInfo,): Thenable<UpdateAgentJobResult>;
-        deleteJob(ownerUri: string, jobInfo: AgentJobInfo,): Thenable<ResultStatus>;
-        getJobDefaults(ownerUri: string,): Thenable<AgentJobDefaultsResult>;
+        getJobs(ownerUri: string): Thenable<AgentJobsResult>;
+        getJobHistory(ownerUri: string, jobId: string, jobName: string): Thenable<AgentJobHistoryResult>;
+        jobAction(ownerUri: string, jobName: string, action: string): Thenable<ResultStatus>;
+        createJob(ownerUri: string, jobInfo: AgentJobInfo): Thenable<CreateAgentJobResult>;
+        updateJob(ownerUri: string, originalJobName: string, jobInfo: AgentJobInfo): Thenable<UpdateAgentJobResult>;
+        deleteJob(ownerUri: string, jobInfo: AgentJobInfo): Thenable<ResultStatus>;
+        getJobDefaults(ownerUri: string): Thenable<AgentJobDefaultsResult>;
 
         // Notebook management methods
-        getNotebooks(ownerUri: string,): Thenable<AgentNotebooksResult>;
+        getNotebooks(ownerUri: string): Thenable<AgentNotebooksResult>;
         getNotebookHistory(
             ownerUri: string,
             jobId: string,
@@ -2041,7 +2041,7 @@ declare module 'azdata' {
             notebook: AgentNotebookInfo,
             templateFilePath: string,
         ): Thenable<CreateAgentNotebookResult>;
-        deleteNotebook(ownerUri: string, notebook: AgentNotebookInfo,): Thenable<ResultStatus>;
+        deleteNotebook(ownerUri: string, notebook: AgentNotebookInfo): Thenable<ResultStatus>;
         updateNotebook(
             ownerUri: string,
             originalNotebookName: string,
@@ -2067,49 +2067,49 @@ declare module 'azdata' {
         ): Thenable<ResultStatus>;
 
         // Job Step management methods
-        createJobStep(ownerUri: string, stepInfo: AgentJobStepInfo,): Thenable<CreateAgentJobStepResult>;
+        createJobStep(ownerUri: string, stepInfo: AgentJobStepInfo): Thenable<CreateAgentJobStepResult>;
         updateJobStep(
             ownerUri: string,
             originalJobStepName: string,
             stepInfo: AgentJobStepInfo,
         ): Thenable<UpdateAgentJobStepResult>;
-        deleteJobStep(ownerUri: string, stepInfo: AgentJobStepInfo,): Thenable<ResultStatus>;
+        deleteJobStep(ownerUri: string, stepInfo: AgentJobStepInfo): Thenable<ResultStatus>;
 
         // Alert management methods
-        getAlerts(ownerUri: string,): Thenable<AgentAlertsResult>;
-        createAlert(ownerUri: string, alertInfo: AgentAlertInfo,): Thenable<CreateAgentAlertResult>;
+        getAlerts(ownerUri: string): Thenable<AgentAlertsResult>;
+        createAlert(ownerUri: string, alertInfo: AgentAlertInfo): Thenable<CreateAgentAlertResult>;
         updateAlert(
             ownerUri: string,
             originalAlertName: string,
             alertInfo: AgentAlertInfo,
         ): Thenable<UpdateAgentAlertResult>;
-        deleteAlert(ownerUri: string, alertInfo: AgentAlertInfo,): Thenable<ResultStatus>;
+        deleteAlert(ownerUri: string, alertInfo: AgentAlertInfo): Thenable<ResultStatus>;
 
         // Operator management methods
-        getOperators(ownerUri: string,): Thenable<AgentOperatorsResult>;
-        createOperator(ownerUri: string, operatorInfo: AgentOperatorInfo,): Thenable<CreateAgentOperatorResult>;
+        getOperators(ownerUri: string): Thenable<AgentOperatorsResult>;
+        createOperator(ownerUri: string, operatorInfo: AgentOperatorInfo): Thenable<CreateAgentOperatorResult>;
         updateOperator(
             ownerUri: string,
             originalOperatorName: string,
             operatorInfo: AgentOperatorInfo,
         ): Thenable<UpdateAgentOperatorResult>;
-        deleteOperator(ownerUri: string, operatorInfo: AgentOperatorInfo,): Thenable<ResultStatus>;
+        deleteOperator(ownerUri: string, operatorInfo: AgentOperatorInfo): Thenable<ResultStatus>;
 
         // Proxy management methods
-        getProxies(ownerUri: string,): Thenable<AgentProxiesResult>;
-        createProxy(ownerUri: string, proxyInfo: AgentProxyInfo,): Thenable<CreateAgentProxyResult>;
+        getProxies(ownerUri: string): Thenable<AgentProxiesResult>;
+        createProxy(ownerUri: string, proxyInfo: AgentProxyInfo): Thenable<CreateAgentProxyResult>;
         updateProxy(
             ownerUri: string,
             originalProxyName: string,
             proxyInfo: AgentProxyInfo,
         ): Thenable<UpdateAgentProxyResult>;
-        deleteProxy(ownerUri: string, proxyInfo: AgentProxyInfo,): Thenable<ResultStatus>;
+        deleteProxy(ownerUri: string, proxyInfo: AgentProxyInfo): Thenable<ResultStatus>;
 
         // Credential method
-        getCredentials(ownerUri: string,): Thenable<GetCredentialsResult>;
+        getCredentials(ownerUri: string): Thenable<GetCredentialsResult>;
 
         // Job Schedule management methods
-        getJobSchedules(ownerUri: string,): Thenable<AgentJobSchedulesResult>;
+        getJobSchedules(ownerUri: string): Thenable<AgentJobSchedulesResult>;
         createJobSchedule(
             ownerUri: string,
             scheduleInfo: AgentJobScheduleInfo,
@@ -2119,9 +2119,9 @@ declare module 'azdata' {
             originalScheduleName: string,
             scheduleInfo: AgentJobScheduleInfo,
         ): Thenable<UpdateAgentJobScheduleResult>;
-        deleteJobSchedule(ownerUri: string, scheduleInfo: AgentJobScheduleInfo,): Thenable<ResultStatus>;
+        deleteJobSchedule(ownerUri: string, scheduleInfo: AgentJobScheduleInfo): Thenable<ResultStatus>;
 
-        registerOnUpdated(handler: () => any,): void;
+        registerOnUpdated(handler: () => any): void;
     }
     // DacFx interfaces  -----------------------------------------------------------------------
 
@@ -2189,9 +2189,9 @@ declare module 'azdata' {
     }
 
     export interface TaskServicesProvider extends DataProvider {
-        getAllTasks(listTasksParams: ListTasksParams,): Thenable<ListTasksResponse>;
+        getAllTasks(listTasksParams: ListTasksParams): Thenable<ListTasksResponse>;
 
-        cancelTask(cancelTaskParams: CancelTaskParams,): Thenable<boolean>;
+        cancelTask(cancelTaskParams: CancelTaskParams): Thenable<boolean>;
 
         /**
          * Registers a handler for TaskCreated events.
@@ -2199,7 +2199,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnTaskCreated(handler: (response: TaskInfo,) => any,): void;
+        registerOnTaskCreated(handler: (response: TaskInfo) => any): void;
 
         /**
          * Registers a handler for TaskStatusChanged events.
@@ -2207,7 +2207,7 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnTaskStatusChanged(handler: (response: TaskProgressInfo,) => any,): void;
+        registerOnTaskStatusChanged(handler: (response: TaskProgressInfo) => any): void;
     }
 
     // Disaster Recovery interfaces  -----------------------------------------------------------------------
@@ -2232,14 +2232,14 @@ declare module 'azdata' {
             backupInfo: { [key: string]: any },
             taskExecutionMode: TaskExecutionMode,
         ): Thenable<BackupResponse>;
-        getBackupConfigInfo(connectionUri: string,): Thenable<BackupConfigInfo>;
+        getBackupConfigInfo(connectionUri: string): Thenable<BackupConfigInfo>;
     }
 
     export interface RestoreProvider extends DataProvider {
-        getRestorePlan(connectionUri: string, restoreInfo: RestoreInfo,): Thenable<RestorePlanResponse>;
-        cancelRestorePlan(connectionUri: string, restoreInfo: RestoreInfo,): Thenable<boolean>;
-        restore(connectionUri: string, restoreInfo: RestoreInfo,): Thenable<RestoreResponse>;
-        getRestoreConfigInfo(connectionUri: string,): Thenable<RestoreConfigInfo>;
+        getRestorePlan(connectionUri: string, restoreInfo: RestoreInfo): Thenable<RestorePlanResponse>;
+        cancelRestorePlan(connectionUri: string, restoreInfo: RestoreInfo): Thenable<boolean>;
+        restore(connectionUri: string, restoreInfo: RestoreInfo): Thenable<RestoreResponse>;
+        getRestoreConfigInfo(connectionUri: string): Thenable<RestoreConfigInfo>;
     }
 
     export interface RestoreInfo {
@@ -2299,17 +2299,17 @@ declare module 'azdata' {
     }
 
     export interface ProfilerProvider extends DataProvider {
-        createSession(sessionId: string, sessionName: string, template: ProfilerSessionTemplate,): Thenable<boolean>;
-        startSession(sessionId: string, sessionName: string,): Thenable<boolean>;
-        stopSession(sessionId: string,): Thenable<boolean>;
-        pauseSession(sessionId: string,): Thenable<boolean>;
-        getXEventSessions(sessionId: string,): Thenable<string[]>;
-        connectSession(sessionId: string,): Thenable<boolean>;
-        disconnectSession(sessionId: string,): Thenable<boolean>;
+        createSession(sessionId: string, sessionName: string, template: ProfilerSessionTemplate): Thenable<boolean>;
+        startSession(sessionId: string, sessionName: string): Thenable<boolean>;
+        stopSession(sessionId: string): Thenable<boolean>;
+        pauseSession(sessionId: string): Thenable<boolean>;
+        getXEventSessions(sessionId: string): Thenable<string[]>;
+        connectSession(sessionId: string): Thenable<boolean>;
+        disconnectSession(sessionId: string): Thenable<boolean>;
 
-        registerOnSessionEventsAvailable(handler: (response: ProfilerSessionEvents,) => any,): void;
-        registerOnSessionStopped(handler: (response: ProfilerSessionStoppedParams,) => any,): void;
-        registerOnProfilerSessionCreated(handler: (response: ProfilerSessionCreatedParams,) => any,): void;
+        registerOnSessionEventsAvailable(handler: (response: ProfilerSessionEvents) => any): void;
+        registerOnSessionStopped(handler: (response: ProfilerSessionStoppedParams) => any): void;
+        registerOnProfilerSessionCreated(handler: (response: ProfilerSessionCreatedParams) => any): void;
     }
 
     export interface IProfilerTableRow {
@@ -2401,24 +2401,24 @@ declare module 'azdata' {
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnFileBrowserOpened(handler: (response: FileBrowserOpenedParams,) => any,): void;
-        expandFolderNode(ownerUri: string, expandPath: string,): Thenable<boolean>;
+        registerOnFileBrowserOpened(handler: (response: FileBrowserOpenedParams) => any): void;
+        expandFolderNode(ownerUri: string, expandPath: string): Thenable<boolean>;
         /**
          * Registers a handler for FolderNodeExpanded events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnFolderNodeExpanded(handler: (response: FileBrowserExpandedParams,) => any,): void;
-        validateFilePaths(ownerUri: string, serviceType: string, selectedFiles: string[],): Thenable<boolean>;
+        registerOnFolderNodeExpanded(handler: (response: FileBrowserExpandedParams) => any): void;
+        validateFilePaths(ownerUri: string, serviceType: string, selectedFiles: string[]): Thenable<boolean>;
         /**
          * Registers a handler for FilePathsValidated events.
          *
          * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
          * will overwrite the handler registered by the provider extension which will likely break this functionality.
          */
-        registerOnFilePathsValidated(handler: (response: FileBrowserValidatedParams,) => any,): void;
-        closeFileBrowser(ownerUri: string,): Thenable<FileBrowserCloseResponse>;
+        registerOnFilePathsValidated(handler: (response: FileBrowserValidatedParams) => any): void;
+        closeFileBrowser(ownerUri: string): Thenable<FileBrowserCloseResponse>;
     }
 
     export interface FileTreeNode {
@@ -2490,7 +2490,7 @@ declare module 'azdata' {
          * account going stale).
          * @param updatedAccount Account object with updated properties
          */
-        export function accountUpdated(updatedAccount: Account,): void;
+        export function accountUpdated(updatedAccount: Account): void;
 
         /**
          * Gets all added accounts.
@@ -2506,7 +2506,7 @@ declare module 'azdata' {
          * @return Promise to return the security token
          * @deprecated use getAccountSecurityToken
          */
-        export function getSecurityToken(account: Account, resource?: AzureResource,): Thenable<{ [key: string]: any }>;
+        export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{ [key: string]: any }>;
 
         /**
          * The token used to authenticate an account.
@@ -2743,7 +2743,7 @@ declare module 'azdata' {
          * @param storedAccounts Accounts restored from the memento
          * @return Account objects after being rehydrated (if necessary)
          */
-        initialize(storedAccounts: Account[],): Thenable<Account[]>;
+        initialize(storedAccounts: Account[]): Thenable<Account[]>;
 
         /**
          * Generates a security token for the provided account
@@ -2752,7 +2752,7 @@ declare module 'azdata' {
          * @return Promise to return a security token object
          * @deprecated use {@link AccountProvider.getAccountSecurityToken}
          */
-        getSecurityToken(account: Account, resource: AzureResource,): Thenable<{} | undefined>;
+        getSecurityToken(account: Account, resource: AzureResource): Thenable<{} | undefined>;
 
         /**
          * Generates a security token for the provided account and tenant
@@ -2778,13 +2778,13 @@ declare module 'azdata' {
          * Otherwise, returns a new updated account instance.
          * @param account - An account.
          */
-        refresh(account: Account,): Thenable<Account | PromptFailedResult>;
+        refresh(account: Account): Thenable<Account | PromptFailedResult>;
 
         /**
          * Clears sensitive information for an account. To be called when account is removed
          * @param accountKey - Key that uniquely identifies the account to clear
          */
-        clear(accountKey: AccountKey,): Thenable<void>;
+        clear(accountKey: AccountKey): Thenable<void>;
 
         /**
          * Called from the account management service when the user has cancelled an auto OAuth
@@ -2841,7 +2841,7 @@ declare module 'azdata' {
          * @param account Account with which firewall rule request will be made.
          * @param firewallruleInfo Firewall rule creation information
          */
-        createFirewallRule(account: Account, firewallruleInfo: FirewallRuleInfo,): Thenable<CreateFirewallRuleResponse>;
+        createFirewallRule(account: Account, firewallruleInfo: FirewallRuleInfo): Thenable<CreateFirewallRuleResponse>;
 
         /**
          * Handles the response from the firewall rule creation request
@@ -2961,7 +2961,7 @@ declare module 'azdata' {
          *
          * @param message Body of the message.
          */
-        postMessage(message: any,): Thenable<any>;
+        postMessage(message: any): Thenable<any>;
     }
 
     export interface DashboardWebview {
@@ -2980,7 +2980,7 @@ declare module 'azdata' {
          *
          * @param message Body of the message.
          */
-        postMessage(message: any,): Thenable<any>;
+        postMessage(message: any): Thenable<any>;
 
         /**
          * The connection info for the dashboard the webview exists on
@@ -3002,7 +3002,7 @@ declare module 'azdata' {
         /**
          * Register a provider for a webview widget
          */
-        export function registerWebviewProvider(widgetId: string, handler: (webview: DashboardWebview,) => void,): void;
+        export function registerWebviewProvider(widgetId: string, handler: (webview: DashboardWebview) => void): void;
     }
 
     /**
@@ -3041,13 +3041,13 @@ declare module 'azdata' {
             /**
              * Opens the editor
              */
-            openEditor(position?: vscode.ViewColumn,): Thenable<void>;
+            openEditor(position?: vscode.ViewColumn): Thenable<void>;
 
             /**
              * Registers a save handler for this editor. This will be called if {@link ModelViewEditorOptions.supportsSave}
              * is set to true and the editor is marked as dirty
              */
-            registerSaveHandler(handler: () => Thenable<boolean>,): void;
+            registerSaveHandler(handler: () => Thenable<boolean>): void;
         }
     }
 
@@ -3096,13 +3096,13 @@ declare module 'azdata' {
          * @param thisArg The `this` context used when invoking the handler function.
          * @return Disposable which unregisters this task on disposal.
          */
-        export function registerTask(task: string, callback: ITaskHandler, thisArg?: any,): vscode.Disposable;
+        export function registerTask(task: string, callback: ITaskHandler, thisArg?: any): vscode.Disposable;
 
         /**
          * Starts an operation to run in the background
          * @param operationInfo Operation Information
          */
-        export function startBackgroundOperation(operationInfo: BackgroundOperationInfo,): void;
+        export function startBackgroundOperation(operationInfo: BackgroundOperationInfo): void;
     }
 
     /**
@@ -3127,12 +3127,12 @@ declare module 'azdata' {
         image(): ComponentBuilder<ImageComponent, ImageComponentProperties>;
         button(): ComponentBuilder<ButtonComponent, ButtonProperties>;
         dropDown(): ComponentBuilder<DropDownComponent, DropDownProperties>;
-        tree<T,>(): ComponentBuilder<TreeComponent<T>, TreeProperties>;
+        tree<T>(): ComponentBuilder<TreeComponent<T>, TreeProperties>;
         listBox(): ComponentBuilder<ListBoxComponent, ListBoxProperties>;
         table(): ComponentBuilder<TableComponent, TableComponentProperties>;
         declarativeTable(): ComponentBuilder<DeclarativeTableComponent, DeclarativeTableProperties>;
-        dashboardWidget(widgetId: string,): ComponentBuilder<DashboardWidgetComponent, ComponentProperties>;
-        dashboardWebview(webviewId: string,): ComponentBuilder<DashboardWebviewComponent, ComponentProperties>;
+        dashboardWidget(widgetId: string): ComponentBuilder<DashboardWidgetComponent, ComponentProperties>;
+        dashboardWebview(webviewId: string): ComponentBuilder<DashboardWebviewComponent, ComponentProperties>;
         formContainer(): FormBuilder;
         groupContainer(): GroupBuilder;
         toolbarContainer(): ToolbarBuilder;
@@ -3148,16 +3148,16 @@ declare module 'azdata' {
         slider(): ComponentBuilder<SliderComponent, SliderComponentProperties>;
     }
 
-    export interface TreeComponentDataProvider<T,> extends vscode.TreeDataProvider<T> {
-        getTreeItem(element: T,): TreeComponentItem | Thenable<TreeComponentItem>;
+    export interface TreeComponentDataProvider<T> extends vscode.TreeDataProvider<T> {
+        getTreeItem(element: T): TreeComponentItem | Thenable<TreeComponentItem>;
     }
 
-    export interface NodeCheckedEventParameters<T,> {
+    export interface NodeCheckedEventParameters<T> {
         element: T;
         checked: boolean;
     }
 
-    export interface TreeComponentView<T,> extends vscode.Disposable {
+    export interface TreeComponentView<T> extends vscode.Disposable {
         onNodeCheckedChanged: vscode.Event<NodeCheckedEventParameters<T>>;
         onDidChangeSelection: vscode.Event<vscode.TreeViewSelectionChangeEvent<T>>;
     }
@@ -3167,19 +3167,19 @@ declare module 'azdata' {
         enabled?: boolean | undefined;
     }
 
-    export interface ComponentBuilder<TComponent extends Component, TPropertyBag extends ComponentProperties,> {
+    export interface ComponentBuilder<TComponent extends Component, TPropertyBag extends ComponentProperties> {
         component(): TComponent;
         /**
          * @deprecated Use withProps instead
          */
-        withProperties(properties: TPropertyBag,): ComponentBuilder<TComponent, TPropertyBag>;
+        withProperties(properties: TPropertyBag): ComponentBuilder<TComponent, TPropertyBag>;
         /**
          * Sets the initial set of properties for the component being created
          * @param properties The properties to apply to the component
          */
-        withProps(properties: TPropertyBag,): ComponentBuilder<TComponent, TPropertyBag>;
+        withProps(properties: TPropertyBag): ComponentBuilder<TComponent, TPropertyBag>;
         withValidation(
-            validation: (component: TComponent,) => boolean | Thenable<boolean>,
+            validation: (component: TComponent) => boolean | Thenable<boolean>,
         ): ComponentBuilder<TComponent, TPropertyBag>;
     }
     export interface ContainerBuilder<
@@ -3188,7 +3188,7 @@ declare module 'azdata' {
         TItemLayout,
         TPropertyBag extends ContainerProperties,
     > extends ComponentBuilder<TComponent, TPropertyBag> {
-        withLayout(layout: TLayout,): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
+        withLayout(layout: TLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
         withItems(
             components: Array<Component>,
             itemLayout?: TItemLayout,
@@ -3197,7 +3197,7 @@ declare module 'azdata' {
          * Sets the initial set of properties for the container being created
          * @param properties The properties to apply to the container
          */
-        withProps(properties: TPropertyBag,): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
+        withProps(properties: TPropertyBag): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
     }
 
     export interface FlexBuilder
@@ -3233,14 +3233,14 @@ declare module 'azdata' {
          *
          * @param toolbarComponents the definitions
          */
-        addToolbarItems(toolbarComponents: Array<ToolbarComponent>,): void;
+        addToolbarItems(toolbarComponents: Array<ToolbarComponent>): void;
 
         /**
          * Creates a child component and adds it to this container.
          *
          * @param toolbarComponent the component to be added
          */
-        addToolbarItem(toolbarComponent: ToolbarComponent,): void;
+        addToolbarItem(toolbarComponent: ToolbarComponent): void;
     }
 
     export interface LoadingComponentBuilder extends ComponentBuilder<LoadingComponent, LoadingComponentProperties> {
@@ -3248,13 +3248,13 @@ declare module 'azdata' {
          * Set the component wrapped by the LoadingComponent
          * @param component The component to wrap
          */
-        withItem(component: Component,): LoadingComponentBuilder;
+        withItem(component: Component): LoadingComponentBuilder;
     }
 
     export interface FormBuilder
         extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout, ContainerProperties>
     {
-        withFormItems(components: (FormComponent | FormComponentGroup)[], itemLayout?: FormItemLayout,): FormBuilder;
+        withFormItems(components: (FormComponent | FormComponentGroup)[], itemLayout?: FormItemLayout): FormBuilder;
 
         /**
          * Creates a collection of child components and adds them all to this container
@@ -3262,7 +3262,7 @@ declare module 'azdata' {
          * @param formComponents the definitions
          * @param [itemLayout] Optional layout for the child items
          */
-        addFormItems(formComponents: Array<FormComponent | FormComponentGroup>, itemLayout?: FormItemLayout,): void;
+        addFormItems(formComponents: Array<FormComponent | FormComponentGroup>, itemLayout?: FormItemLayout): void;
 
         /**
          * Creates a child component and adds it to this container.
@@ -3270,7 +3270,7 @@ declare module 'azdata' {
          * @param formComponent the component to be added
          * @param [itemLayout] Optional layout for this child item
          */
-        addFormItem(formComponent: FormComponent | FormComponentGroup, itemLayout?: FormItemLayout,): void;
+        addFormItem(formComponent: FormComponent | FormComponentGroup, itemLayout?: FormItemLayout): void;
 
         /**
          * Inserts a from component in a given position in the form. Returns error given invalid index
@@ -3287,7 +3287,7 @@ declare module 'azdata' {
         /**
          * Removes a from item from the from
          */
-        removeFormItem(formComponent: FormComponent | FormComponentGroup,): boolean;
+        removeFormItem(formComponent: FormComponent | FormComponentGroup): boolean;
     }
 
     export interface Component extends ComponentProperties {
@@ -3299,7 +3299,7 @@ declare module 'azdata' {
          * @returns Thenable that completes once the update
          * has been applied in the UI
          */
-        updateProperties(properties: { [key: string]: any },): Thenable<void>;
+        updateProperties(properties: { [key: string]: any }): Thenable<void>;
 
         /**
          * Sends an updated property of the component to the UI
@@ -3307,14 +3307,14 @@ declare module 'azdata' {
          * @returns Thenable that completes once the update
          * has been applied in the UI
          */
-        updateProperty(key: string, value: any,): Thenable<void>;
+        updateProperty(key: string, value: any): Thenable<void>;
 
         /**
          * Updates the specified CSS Styles and notifies the UI
          * @param cssStyles The styles to update
          * @returns Thenable that completes once the update has been applied to the UI
          */
-        updateCssStyles(cssStyles: CssStyles,): Thenable<void>;
+        updateCssStyles(cssStyles: CssStyles): Thenable<void>;
 
         /**
          * Event fired to notify that the component's validity has changed
@@ -3337,7 +3337,7 @@ declare module 'azdata' {
         focus(): Thenable<void>;
     }
 
-    export interface FormComponent<T extends Component = Component,> {
+    export interface FormComponent<T extends Component = Component> {
         component: T;
         title?: string | undefined;
         actions?: Component[] | undefined;
@@ -3368,7 +3368,7 @@ declare module 'azdata' {
     /**
      * A component that contains other components
      */
-    export interface Container<TLayout, TItemLayout,> extends Component {
+    export interface Container<TLayout, TItemLayout> extends Component {
         /**
          * A copy of the child items array. This cannot be added to directly -
          * components must be created using the create methods instead
@@ -3385,7 +3385,7 @@ declare module 'azdata' {
          * @param itemConfigs the definitions
          * @param [itemLayout] Optional layout for the child items
          */
-        addItems(itemConfigs: Array<Component>, itemLayout?: TItemLayout,): void;
+        addItems(itemConfigs: Array<Component>, itemLayout?: TItemLayout): void;
 
         /**
          * Creates a child component and adds it to this container.
@@ -3394,7 +3394,7 @@ declare module 'azdata' {
          * @param component the component to be added
          * @param [itemLayout] Optional layout for this child item
          */
-        addItem(component: Component, itemLayout?: TItemLayout,): void;
+        addItem(component: Component, itemLayout?: TItemLayout): void;
 
         /**
          * Creates a child component and inserts it to this container. Returns error given invalid index
@@ -3403,26 +3403,26 @@ declare module 'azdata' {
          * @param index the index to insert the component to
          * @param [itemLayout] Optional layout for this child item
          */
-        insertItem(component: Component, index: number, itemLayout?: TItemLayout,): void;
+        insertItem(component: Component, index: number, itemLayout?: TItemLayout): void;
 
         /**
          * @param component Removes a component from this container
          */
-        removeItem(component: Component,): boolean;
+        removeItem(component: Component): boolean;
 
         /**
          * Defines the layout for this container
          *
          * @param layout object
          */
-        setLayout(layout: TLayout,): void;
+        setLayout(layout: TLayout): void;
 
         /**
          * Sets the layout for the specified child component
          * @param component The component to set the layout for
          * @param layout The layout to apply
          */
-        setItemLayout(component: Component, layout: TItemLayout,): void;
+        setItemLayout(component: Component, layout: TItemLayout): void;
     }
 
     export interface NavContainer extends Container<any, any> {
@@ -4403,13 +4403,13 @@ declare module 'azdata' {
          * Sets the filter currently applied to this table - only rows with index in the given array will be visible. undefined
          * will clear the filter
          */
-        setFilter(rowIndexes: number[] | undefined,): void;
+        setFilter(rowIndexes: number[] | undefined): void;
 
         /**
          * Sets the data values.
          * @param v The new data values
          */
-        setDataValues(v: DeclarativeTableCellValue[][],): Promise<void>;
+        setDataValues(v: DeclarativeTableCellValue[][]): Promise<void>;
     }
 
     export interface ListBoxComponent extends Component, ListBoxProperties {
@@ -4432,15 +4432,15 @@ declare module 'azdata' {
         /**
          * Append data to the existing table data.
          */
-        appendData(data: any[][],): Thenable<void>;
+        appendData(data: any[][]): Thenable<void>;
     }
 
     export interface FileBrowserTreeComponent extends Component, FileBrowserTreeProperties {
         onDidChange: vscode.Event<any>;
     }
 
-    export interface TreeComponent<T,> extends Component, TreeProperties {
-        registerDataProvider<T,>(dataProvider: TreeComponentDataProvider<T>,): TreeComponentView<T>;
+    export interface TreeComponent<T> extends Component, TreeProperties {
+        registerDataProvider<T>(dataProvider: TreeComponentDataProvider<T>): TreeComponentView<T>;
     }
 
     export interface WebViewComponent extends Component {
@@ -4802,13 +4802,13 @@ declare module 'azdata' {
          * update the tabs.
          * @param tabs new tabs
          */
-        updateTabs(tabs: (Tab | TabGroup)[],): void;
+        updateTabs(tabs: (Tab | TabGroup)[]): void;
 
         /**
          * Selects the tab with the specified id
          * @param id The id of the tab to select
          */
-        selectTab(id: string,): void;
+        selectTab(id: string): void;
     }
 
     /**
@@ -4949,21 +4949,21 @@ declare module 'azdata' {
          * Once this has been done, the components will be laid out in the UI and
          * can be accessed and altered as needed.
          */
-        initializeModel<T extends Component,>(root: T,): Thenable<void>;
+        initializeModel<T extends Component>(root: T): Thenable<void>;
     }
 
     export namespace ui {
         /**
          * Register a provider for a model-view widget
          */
-        export function registerModelViewProvider(widgetId: string, handler: (view: ModelView,) => void,): void;
+        export function registerModelViewProvider(widgetId: string, handler: (view: ModelView) => void): void;
     }
 
     export namespace window {
         /**
          * creates a web view dialog
          */
-        export function createWebViewDialog(title: string,): ModalDialog;
+        export function createWebViewDialog(title: string): ModalDialog;
 
         /**
          * @deprecated please use the method createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth) instead.
@@ -4972,7 +4972,7 @@ declare module 'azdata' {
          * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param isWide Indicates whether the dialog is wide or normal
          */
-        export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean,): Dialog;
+        export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
 
         /**
          * Create a dialog with the given title
@@ -4980,7 +4980,7 @@ declare module 'azdata' {
          * @param dialogName Non-localized name of the dialog for identifying in telemetry events.
          * @param width Width of the dialog, default is 'narrow'.
          */
-        export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth,): Dialog;
+        export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
 
         /**
          * Create a dialog with the given title
@@ -5009,7 +5009,7 @@ declare module 'azdata' {
              * Registers the initial set of tabs for this dashboard
              * @param handler Callback for creating the initial set of tabs to display
              */
-            registerTabs(handler: (view: ModelView,) => Thenable<(DashboardTab | DashboardTabGroup)[]>,): void;
+            registerTabs(handler: (view: ModelView) => Thenable<(DashboardTab | DashboardTabGroup)[]>): void;
             /**
              * Open the dashboard
              */
@@ -5022,12 +5022,12 @@ declare module 'azdata' {
              * Updates the tabs that are currently displayed
              * @param tabs The new set of tabs to display
              */
-            updateTabs(tabs: (DashboardTab | DashboardTabGroup)[],): void;
+            updateTabs(tabs: (DashboardTab | DashboardTabGroup)[]): void;
             /**
              * Selects the tab with the given ID
              * @param id The ID of the tab to select
              */
-            selectTab(id: string,): void;
+            selectTab(id: string): void;
         }
 
         /**
@@ -5046,30 +5046,30 @@ declare module 'azdata' {
          * Create a dialog tab which can be included as part of the content of a dialog
          * @param title The title of the page, displayed on the tab to select the page
          */
-        export function createTab(title: string,): DialogTab;
+        export function createTab(title: string): DialogTab;
 
         /**
          * Create a button which can be included in a dialog
          * @param label The label of the button
          */
-        export function createButton(label: string, position?: DialogButtonPosition,): Button;
+        export function createButton(label: string, position?: DialogButtonPosition): Button;
 
         /**
          * Opens the given dialog if it is not already open
          */
-        export function openDialog(dialog: Dialog,): void;
+        export function openDialog(dialog: Dialog): void;
 
         /**
          * Closes the given dialog if it is open
          */
-        export function closeDialog(dialog: Dialog,): void;
+        export function closeDialog(dialog: Dialog): void;
 
         /**
          * Create a wizard page with the given title, for inclusion in a wizard
          * @param title The title of the page
          * @param pageName The optional page name parameter will be used for telemetry
          */
-        export function createWizardPage(title: string, pageName?: string,): WizardPage;
+        export function createWizardPage(title: string, pageName?: string): WizardPage;
 
         /**
          * Create a wizard with the given title and width
@@ -5077,7 +5077,7 @@ declare module 'azdata' {
          * @param name The name used to identify the wizard in telemetry
          * @param width The width of the wizard, default value is 'narrow'
          */
-        export function createWizard(title: string, name?: string, width?: DialogWidth,): Wizard;
+        export function createWizard(title: string, name?: string, width?: DialogWidth): Wizard;
 
         /**
          * Used to control whether a message in a dialog/wizard is displayed as an error,
@@ -5108,7 +5108,7 @@ declare module 'azdata' {
              * Register model view content for the dialog.
              * Doesn't do anything if model view is already registered
              */
-            registerContent(handler: (view: ModelView,) => Thenable<void>,): void;
+            registerContent(handler: (view: ModelView) => Thenable<void>): void;
 
             /**
              * Returns the model view content if registered. Returns undefined if model review is not registered
@@ -5253,13 +5253,13 @@ declare module 'azdata' {
              * @param validator The callback that gets executed when the user tries to click
              * done. Return true to allow the dialog to close or false to block it from closing
              */
-            registerCloseValidator(validator: () => boolean | Thenable<boolean>,): void;
+            registerCloseValidator(validator: () => boolean | Thenable<boolean>): void;
 
             /**
              * Register an operation to run in the background when the dialog is done
              * @param operationInfo Operation Information
              */
-            registerOperation(operationInfo: BackgroundOperationInfo,): void;
+            registerOperation(operationInfo: BackgroundOperationInfo): void;
 
             /**
              * Fired when the dialog is closed for any reason. The value indicates the reason it was closed (such as 'ok' or 'cancel')
@@ -5441,25 +5441,25 @@ declare module 'azdata' {
              * @param index The index in the pages array to add the page at, or undefined to
              * add it at the end
              */
-            addPage(page: WizardPage, index?: number,): Thenable<void>;
+            addPage(page: WizardPage, index?: number): Thenable<void>;
 
             /**
              * Remove the page at the given index from the wizard
              * @param index The index in the pages array to remove
              */
-            removePage(index: number,): Thenable<void>;
+            removePage(index: number): Thenable<void>;
 
             /**
              * Go to the page at the given index in the pages array.
              * @param index The index of the page to go to
              */
-            setCurrentPage(index: number,): Thenable<void>;
+            setCurrentPage(index: number): Thenable<void>;
 
             /**
              * Open the wizard. Does nothing if the wizard is already open.
              * @param source Where the wizard was opened from for telemetry (ex: command palette, context menu)
              */
-            open(source?: string,): Thenable<void>;
+            open(source?: string): Thenable<void>;
 
             /**
              * Close the wizard. Does nothing if the wizard is not open.
@@ -5475,7 +5475,7 @@ declare module 'azdata' {
              * cancel it.
              */
             registerNavigationValidator(
-                validator: (pageChangeInfo: WizardPageChangeInfo,) => boolean | Thenable<boolean>,
+                validator: (pageChangeInfo: WizardPageChangeInfo) => boolean | Thenable<boolean>,
             ): void;
 
             /**
@@ -5488,7 +5488,7 @@ declare module 'azdata' {
              * Register an operation to run in the background when the wizard is done
              * @param operationInfo Operation Information
              */
-            registerOperation(operationInfo: BackgroundOperationInfo,): void;
+            registerOperation(operationInfo: BackgroundOperationInfo): void;
         }
     }
 
@@ -5571,19 +5571,19 @@ declare module 'azdata' {
              * Set the document's execution options, which will be used whenever a query is executed.
              * @param options The execution options
              */
-            setExecutionOptions(options: Map<string, any>,): Thenable<void>;
+            setExecutionOptions(options: Map<string, any>): Thenable<void>;
 
             /**
              * Adds a custom tab to the query editor results view
              * @param tab The tab to add
              */
-            createQueryTab(tab: window.DialogTab,): void;
+            createQueryTab(tab: window.DialogTab): void;
 
             /**
              * Connect the query document using the given connection profile
              * @param connectionProfile The profile to use as the connection
              */
-            connect(connectionProfile: connection.ConnectionProfile,): Thenable<void>;
+            connect(connectionProfile: connection.ConnectionProfile): Thenable<void>;
         }
 
         /**
@@ -5591,7 +5591,7 @@ declare module 'azdata' {
          * @param fileUri file URI for the query editor
          * @param connectionId connection ID
          */
-        export function connect(fileUri: string, connectionId: string,): Thenable<void>;
+        export function connect(fileUri: string, connectionId: string): Thenable<void>;
 
         /**
          * Run query if it is a query editor and it is already opened.
@@ -5599,17 +5599,17 @@ declare module 'azdata' {
          * @param options options
          * @param runCurrentQuery true: run current query only, false: run all the queries in the file, default is true.
          */
-        export function runQuery(fileUri: string, options?: Map<string, string>, runCurrentQuery?: boolean,): void;
+        export function runQuery(fileUri: string, options?: Map<string, string>, runCurrentQuery?: boolean): void;
 
         /**
          * Register a query event listener
          */
-        export function registerQueryEventListener(listener: QueryEventListener,): vscode.Disposable;
+        export function registerQueryEventListener(listener: QueryEventListener): vscode.Disposable;
 
         /**
          * Get a QueryDocument object for a file URI
          */
-        export function getQueryDocument(fileUri: string,): Thenable<QueryDocument>;
+        export function getQueryDocument(fileUri: string): Thenable<QueryDocument>;
 
         /**
          * Opens an untitled text document. The editor will prompt the user for a file
@@ -5766,7 +5766,7 @@ declare module 'azdata' {
          * @param status Operation Status
          * @param message Progress message
          */
-        updateStatus(status: TaskStatus, message?: string,): void;
+        updateStatus(status: TaskStatus, message?: string): void;
 
         /**
          * Operation Id
@@ -5810,7 +5810,7 @@ declare module 'azdata' {
         /**
          * The actual operation to execute
          */
-        operation: (operation: BackgroundOperation,) => void;
+        operation: (operation: BackgroundOperation) => void;
     }
 
     export interface ConnectionResult {
@@ -5961,7 +5961,7 @@ declare module 'azdata' {
              * @param range A cell range.
              * @return The given range or a new, adjusted range.
              */
-            validateCellRange(range: CellRange,): CellRange;
+            validateCellRange(range: CellRange): CellRange;
         }
 
         /**
@@ -5988,7 +5988,7 @@ declare module 'azdata' {
              * @param start A number.
              * @param end A number.
              */
-            constructor(start: number, end: number,);
+            constructor(start: number, end: number);
         }
 
         export interface NotebookEditor {
@@ -6015,7 +6015,7 @@ declare module 'azdata' {
              * @return A promise that resolves with a value indicating if the edits could be applied.
              */
             edit(
-                callback: (editBuilder: NotebookEditorEdit,) => void,
+                callback: (editBuilder: NotebookEditorEdit) => void,
                 options?: { undoStopBefore: boolean; undoStopAfter: boolean },
             ): Thenable<boolean>;
 
@@ -6025,17 +6025,17 @@ declare module 'azdata' {
              * @param cell An optional cell in this notebook which should be executed. If no cell is defined, it will run the active cell instead
              * @return A promise that resolves with a value indicating if the cell was run or not.
              */
-            runCell(cell?: NotebookCell,): Thenable<boolean>;
+            runCell(cell?: NotebookCell): Thenable<boolean>;
 
             /**
              * Kicks off execution of all code cells. Thenable will resolve only when full execution of all cells is completed.
              */
-            runAllCells(startCell?: NotebookCell, endCell?: NotebookCell,): Thenable<boolean>;
+            runAllCells(startCell?: NotebookCell, endCell?: NotebookCell): Thenable<boolean>;
 
             /**
              * Clears the outputs of the active code cell in a notebook.
              */
-            clearOutput(cell?: NotebookCell,): Thenable<boolean>;
+            clearOutput(cell?: NotebookCell): Thenable<boolean>;
 
             /**
              * Clears the outputs of all code cells in a Notebook
@@ -6046,7 +6046,7 @@ declare module 'azdata' {
             /**
              * Changes the Notebook's kernel. Thenable will resolve only after kernel change is complete.
              */
-            changeKernel(kernel: IKernelSpec,): Thenable<boolean>;
+            changeKernel(kernel: IKernelSpec): Thenable<boolean>;
         }
 
         export interface NotebookCell {
@@ -6139,7 +6139,7 @@ declare module 'azdata' {
              * @param location The range this operation should remove.
              * @param value The new cell this operation should insert after removing `location`.
              */
-            replace(location: number | CellRange, value: ICellContents,): void;
+            replace(location: number | CellRange, value: ICellContents): void;
 
             /**
              * Insert a cell (optionally) at a specific index. Any index outside of the length of the cells
@@ -6149,18 +6149,18 @@ declare module 'azdata' {
              * @param value The new text this operation should insert.
              * @param collapsed The collapsed state of the new cell. Default value is `false` if not provided.
              */
-            insertCell(value: ICellContents, index?: number, collapsed?: boolean,): void;
+            insertCell(value: ICellContents, index?: number, collapsed?: boolean): void;
 
             /**
              * Delete a certain cell.
              *
              * @param index The index of the cell to remove.
              */
-            deleteCell(index: number,): void;
+            deleteCell(index: number): void;
         }
 
-        export function registerSerializationProvider(provider: NotebookSerializationProvider,): vscode.Disposable;
-        export function registerExecuteProvider(provider: NotebookExecuteProvider,): vscode.Disposable;
+        export function registerSerializationProvider(provider: NotebookSerializationProvider): vscode.Disposable;
+        export function registerExecuteProvider(provider: NotebookExecuteProvider): vscode.Disposable;
 
         export interface IStandardKernel {
             readonly name: string;
@@ -6170,13 +6170,13 @@ declare module 'azdata' {
 
         export interface NotebookSerializationProvider {
             readonly providerId: string;
-            getSerializationManager(notebookUri: vscode.Uri,): Thenable<SerializationManager>;
+            getSerializationManager(notebookUri: vscode.Uri): Thenable<SerializationManager>;
         }
 
         export interface NotebookExecuteProvider {
             readonly providerId: string;
-            getExecuteManager(notebookUri: vscode.Uri,): Thenable<ExecuteManager>;
-            handleNotebookClosed(notebookUri: vscode.Uri,): void;
+            getExecuteManager(notebookUri: vscode.Uri): Thenable<ExecuteManager>;
+            handleNotebookClosed(notebookUri: vscode.Uri): void;
         }
 
         export interface SerializationManager {
@@ -6221,7 +6221,7 @@ declare module 'azdata' {
              * Starts the server. Some server types may not support or require this.
              * Should no-op if server is already started
              */
-            startServer(kernelSpec: IKernelSpec,): Thenable<void>;
+            startServer(kernelSpec: IKernelSpec): Thenable<void>;
 
             /**
              * Stops the server. Some server types may not support or require this
@@ -6237,7 +6237,7 @@ declare module 'azdata' {
             /* Reads contents from a Uri representing a local or remote notebook and returns a
              * JSON object containing the cells and metadata about the notebook
              */
-            deserializeNotebook(contents: string,): Thenable<INotebookContents>;
+            deserializeNotebook(contents: string): Thenable<INotebookContents>;
 
             /**
              * Save a file.
@@ -6249,7 +6249,7 @@ declare module 'azdata' {
              * @returns A thenable which resolves with the file content model when the
              *   file is saved.
              */
-            serializeNotebook(notebook: INotebookContents,): Thenable<string>;
+            serializeNotebook(notebook: INotebookContents): Thenable<string>;
         }
 
         /**
@@ -6405,9 +6405,9 @@ declare module 'azdata' {
 
             readonly specs: IAllKernels | undefined;
 
-            startNew(options: ISessionOptions,): Thenable<ISession>;
+            startNew(options: ISessionOptions): Thenable<ISession>;
 
-            shutdown(id: string,): Thenable<void>;
+            shutdown(id: string): Thenable<void>;
         }
 
         export interface ISession {
@@ -6454,11 +6454,11 @@ declare module 'azdata' {
              */
             defaultKernelLoaded?: boolean | undefined;
 
-            changeKernel(kernelInfo: IKernelSpec,): Thenable<IKernel>;
+            changeKernel(kernelInfo: IKernelSpec): Thenable<IKernel>;
 
-            configureKernel(kernelInfo: IKernelSpec,): Thenable<void>;
+            configureKernel(kernelInfo: IKernelSpec): Thenable<void>;
 
-            configureConnection(connection: IConnectionProfile,): Thenable<void>;
+            configureConnection(connection: IConnectionProfile): Thenable<void>;
         }
 
         export interface ISessionOptions {
@@ -6534,7 +6534,7 @@ declare module 'azdata' {
              *
              * **See also:** [[IExecuteReply]]
              */
-            requestExecute(content: IExecuteRequest, disposeOnDone?: boolean,): IFuture;
+            requestExecute(content: IExecuteRequest, disposeOnDone?: boolean): IFuture;
 
             /**
              * Send a `complete_request` message.
@@ -6549,7 +6549,7 @@ declare module 'azdata' {
              * Fulfills with the `complete_reply` content when the shell reply is
              * received and validated.
              */
-            requestComplete(content: ICompleteRequest,): Thenable<ICompleteReplyMsg>;
+            requestComplete(content: ICompleteRequest): Thenable<ICompleteReplyMsg>;
 
             /**
              * Interrupt a kernel.
@@ -6684,8 +6684,8 @@ declare module 'azdata' {
             display_name?: string | undefined;
         }
 
-        export interface MessageHandler<T extends IMessage,> {
-            handle(message: T,): void | Thenable<void>;
+        export interface MessageHandler<T extends IMessage> {
+            handle(message: T): void | Thenable<void>;
         }
 
         /**
@@ -6721,7 +6721,7 @@ declare module 'azdata' {
              * `done` Thenable also resolves to the reply message after this handler has
              * been called.
              */
-            setReplyHandler(handler: MessageHandler<IShellMessage>,): void;
+            setReplyHandler(handler: MessageHandler<IShellMessage>): void;
 
             /**
              * Sets the stdin handler for the kernel future.
@@ -6730,7 +6730,7 @@ declare module 'azdata' {
              * If the handler returns a Thenable, all kernel message processing pauses
              * until the Thenable is resolved.
              */
-            setStdInHandler(handler: MessageHandler<IStdinMessage>,): void;
+            setStdInHandler(handler: MessageHandler<IStdinMessage>): void;
 
             /**
              * Sets the iopub handler for the kernel future.
@@ -6739,7 +6739,7 @@ declare module 'azdata' {
              * If the handler returns a Thenable, all kernel message processing pauses
              * until the Thenable is resolved.
              */
-            setIOPubHandler(handler: MessageHandler<IIOPubMessage>,): void;
+            setIOPubHandler(handler: MessageHandler<IIOPubMessage>): void;
 
             /**
              * Register hook for IOPub messages.
@@ -6761,7 +6761,7 @@ declare module 'azdata' {
              * deactivated immediately.
              */
             registerMessageHook(
-                hook: (msg: IIOPubMessage,) => boolean | Thenable<boolean>,
+                hook: (msg: IIOPubMessage) => boolean | Thenable<boolean>,
             ): void;
 
             /**
@@ -6773,13 +6773,13 @@ declare module 'azdata' {
              * If a hook is removed during the hook processing, it will be deactivated immediately.
              */
             removeMessageHook(
-                hook: (msg: IIOPubMessage,) => boolean | Thenable<boolean>,
+                hook: (msg: IIOPubMessage) => boolean | Thenable<boolean>,
             ): void;
 
             /**
              * Send an `input_reply` message.
              */
-            sendInputReply(content: IInputReply,): void;
+            sendInputReply(content: IInputReply): void;
         }
 
         export interface IExecuteReplyMsg extends IShellMessage {
@@ -6859,11 +6859,11 @@ declare module 'azdata' {
             value: string;
         }
 
-        export function registerNavigationProvider(provider: NavigationProvider,): vscode.Disposable;
+        export function registerNavigationProvider(provider: NavigationProvider): vscode.Disposable;
 
         export interface NavigationProvider {
             readonly providerId: string;
-            getNavigation(notebookUri: vscode.Uri,): Thenable<NavigationResult>;
+            getNavigation(notebookUri: vscode.Uri): Thenable<NavigationResult>;
         }
 
         export interface NavigationResult {

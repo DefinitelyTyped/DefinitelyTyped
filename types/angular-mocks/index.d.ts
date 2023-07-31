@@ -27,12 +27,12 @@ declare module 'angular' {
     // as a return type seems to be not useful. E.g. it requires type assertions in `beforeEach(inject(...))`.
     interface IInjectStatic {
         (...fns: Array<Injectable<(...args: any[]) => void>>): any; // void | (() => void);
-        strictDi(val?: boolean,): any; // void | (() => void);
+        strictDi(val?: boolean): any; // void | (() => void);
     }
 
     interface IMockStatic {
         // see https://docs.angularjs.org/api/ngMock/function/angular.mock.dump
-        dump(obj: any,): string;
+        dump(obj: any): string;
 
         inject: IInjectStatic;
 
@@ -43,7 +43,7 @@ declare module 'angular' {
         };
 
         // see https://docs.angularjs.org/api/ngMock/type/angular.mock.TzDate
-        TzDate(offset: number, timestamp: number | string,): Date;
+        TzDate(offset: number, timestamp: number | string): Date;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ declare module 'angular' {
     // see https://docs.angularjs.org/api/ngMock/provider/$exceptionHandlerProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IExceptionHandlerProvider extends IServiceProvider {
-        mode(mode: string,): void;
+        mode(mode: string): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ declare module 'angular' {
          *
          * @param delay - The maximum timeout amount to flush up until.
          */
-        flush(delay?: number,): void;
+        flush(delay?: number): void;
 
         /**
          * **Deprecated** since version 1.7.3. (Use `$verifyNoPendingTasks` instead.)
@@ -108,7 +108,7 @@ declare module 'angular' {
          * @param millis - The maximum timeout amount to flush up until.
          * @return The amount of time moved forward.
          */
-        flush(millis: number,): number;
+        flush(millis: number): number;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ declare module 'angular' {
     ///////////////////////////////////////////////////////////////////////////
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
-        <T,>(
+        <T>(
             controllerConstructor: (new(...args: any[]) => T) | ((...args: any[]) => T) | string,
             locals?: any,
             bindings?: any,
@@ -146,7 +146,7 @@ declare module 'angular' {
     interface IComponentControllerService {
         // TBinding is an interface exposed by a component as per John Papa's style guide
         // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
-        <T, TBinding,>(
+        <T, TBinding>(
             componentName: string,
             locals: { $scope?: IScope | undefined; [key: string]: any },
             bindings?: TBinding,
@@ -172,7 +172,7 @@ declare module 'angular' {
          * after `skip`) will be flushed.
          * @param skip Number of pending requests to skip. For example, a value of 5 would skip the first 5 pending requests and start flushing from the 6th onwards. _(default: 0)_
          */
-        flush(count?: number, skip?: number,): void;
+        flush(count?: number, skip?: number): void;
 
         /**
          * Resets all request expectations, but preserves all backend definitions.
@@ -185,7 +185,7 @@ declare module 'angular' {
          * @param digest Do digest before checking expectation. Pass anything except false to trigger digest.
          * NOTE: this flag is purposely undocumented by Angular, which means it's not to be used in normal client code.
          */
-        verifyNoOutstandingExpectation(digest?: boolean,): void;
+        verifyNoOutstandingExpectation(digest?: boolean): void;
 
         /**
          * Verifies that there are no outstanding requests that need to be flushed.
@@ -204,9 +204,9 @@ declare module 'angular' {
          */
         expect(
             method: string,
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -219,8 +219,8 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectDELETE(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -233,8 +233,8 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectGET(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -248,8 +248,8 @@ declare module 'angular' {
          */
 
         expectHEAD(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -261,7 +261,7 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectJSONP(
-            url: string | RegExp | ((url: string,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -275,9 +275,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectPATCH(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -291,9 +291,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectPOST(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -307,9 +307,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         expectPUT(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -321,7 +321,7 @@ declare module 'angular' {
          * @param method HTTP method
          * @param url HTTP url string that supports colon param matching
          */
-        expectRoute(method: string, url: string,): mock.IRequestHandler;
+        expectRoute(method: string, url: string): mock.IRequestHandler;
 
         /**
          * Creates a new backend definition.
@@ -334,9 +334,9 @@ declare module 'angular' {
          */
         when(
             method: string,
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -348,8 +348,8 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenDELETE(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -362,8 +362,8 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenGET(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -375,8 +375,8 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenHEAD(
-            url: string | RegExp | ((url: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -388,7 +388,7 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenJSONP(
-            url: string | RegExp | ((url: string,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -401,9 +401,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenPATCH(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -417,9 +417,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenPOST(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -435,9 +435,9 @@ declare module 'angular' {
          * @param keys Array of keys to assign to regex matches in the request url.
          */
         whenPUT(
-            url: string | RegExp | ((url: string,) => boolean),
-            data?: string | RegExp | object | ((data: string,) => boolean),
-            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders,) => boolean),
+            url: string | RegExp | ((url: string) => boolean),
+            data?: string | RegExp | object | ((data: string) => boolean),
+            headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
             keys?: string[],
         ): mock.IRequestHandler;
 
@@ -449,7 +449,7 @@ declare module 'angular' {
          * @param method HTTP method.
          * @param url HTTP url string that supports colon param matching.
          */
-        whenRoute(method: string, url: string,): mock.IRequestHandler;
+        whenRoute(method: string, url: string): mock.IRequestHandler;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -479,7 +479,7 @@ declare module 'angular' {
          *
          * @param millis - The number of milliseconds to flush.
          */
-        (delay?: number,): void;
+        (delay?: number): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -508,7 +508,7 @@ declare module 'angular' {
          *
          * @param taskType - The type of tasks to check for.
          */
-        (taskType?: string,): void;
+        (taskType?: string): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -549,7 +549,7 @@ declare module 'angular' {
                     data: string | object,
                     headers: IHttpHeaders,
                     params: { [key: string]: string },
-                ) => [number, string | object, IHttpHeaders, string,],
+                ) => [number, string | object, IHttpHeaders, string],
             ): IRequestHandler;
 
             /**

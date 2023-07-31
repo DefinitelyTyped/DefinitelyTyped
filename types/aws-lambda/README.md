@@ -36,9 +36,9 @@ For a service `foo` and trigger `bar`, there should ideally be
 a file `trigger/foo-bar.d.ts` containing something like:
 
 ```ts
-import { Callback, Handler, } from '../handler';
+import { Callback, Handler } from '../handler';
 
-import { FooCommonType, } from '../common/foo';
+import { FooCommonType } from '../common/foo';
 
 export type FooBarHandler = Handler<FooBarEvent, FooBarResult>;
 export type FooBarCallback = Callback<FooBarResult>;

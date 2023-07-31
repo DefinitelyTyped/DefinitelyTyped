@@ -1,12 +1,12 @@
 declare namespace AMap {
     namespace ShapeOverlay {
-        interface EventMap<I = ShapeOverlay,> extends Overlay.EventMap<I> {
+        interface EventMap<I = ShapeOverlay> extends Overlay.EventMap<I> {
             show: Event<'show', { target: I }>;
             hide: Event<'hide', { target: I }>;
             options: Event<'options'>;
             change: Event<'change', { target: I }>;
         }
-        interface GetOptionsResult<ExtraData = any,> {
+        interface GetOptionsResult<ExtraData = any> {
             /**
              * 所属地图
              */
@@ -49,12 +49,12 @@ declare namespace AMap {
             clickable: boolean;
         }
     }
-    abstract class ShapeOverlay<ExtraData = any,> extends Overlay<ExtraData> {
+    abstract class ShapeOverlay<ExtraData = any> extends Overlay<ExtraData> {
         /**
          * 设置覆盖物属性
          * @param options 属性
          */
-        abstract setOptions(options: {},): void;
+        abstract setOptions(options: {}): void;
         /**
          * 获得属性
          */
@@ -67,7 +67,7 @@ declare namespace AMap {
          * 设置层级
          * @param zIndex 层级
          */
-        setzIndex(zIndex: number,): void;
+        setzIndex(zIndex: number): void;
         /**
          * 返回可见
          */
@@ -75,6 +75,6 @@ declare namespace AMap {
         /**
          * 设置是否可以拖拽
          */
-        setDraggable(draggable: boolean,): void;
+        setDraggable(draggable: boolean): void;
     }
 }

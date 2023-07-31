@@ -1,5 +1,5 @@
-import { Handler, } from '../handler';
-import { EventBridgeEvent, } from './eventbridge';
+import { Handler } from '../handler';
+import { EventBridgeEvent } from './eventbridge';
 
 export interface S3ObjectAccessTierChangedNotificationEventDetail {
     version: '0';
@@ -282,7 +282,7 @@ export type S3NotificationEvent =
     | S3ObjectTagsAddedNotificationEvent
     | S3ObjectTagsDeletedNotificationEvent;
 
-export type S3NotificationEventBridgeHandler<EventType extends S3NotificationEvent = S3NotificationEvent,> = Handler<
+export type S3NotificationEventBridgeHandler<EventType extends S3NotificationEvent = S3NotificationEvent> = Handler<
     EventBridgeEvent<EventType['detail-type'], EventType['detail']> & {
         source: 'aws.s3';
     },

@@ -55,7 +55,7 @@ declare namespace AngularFormly {
      * see http://docs.angular-formly.com/docs/formly-expressions#expressionproperties-validators--messages
      */
     interface IExpressionFunction {
-        ($viewValue: any, $modelValue: any, scope: ITemplateScope,): any;
+        ($viewValue: any, $modelValue: any, scope: ITemplateScope): any;
     }
 
     interface IModelOptions {
@@ -67,7 +67,7 @@ declare namespace AngularFormly {
     }
 
     interface ITemplateManipulator {
-        (template: string | HTMLElement, options: Object, scope: ITemplateScope,): string | HTMLElement;
+        (template: string | HTMLElement, options: Object, scope: ITemplateScope): string | HTMLElement;
     }
 
     interface ITemplateManipulators {
@@ -139,7 +139,7 @@ declare namespace AngularFormly {
      */
     interface IWatcher {
         deep?: boolean | undefined; // Defaults to false
-        expression?: string | { (field: IFieldRuntimeObject, scope: ITemplateScope,): boolean } | undefined;
+        expression?: string | { (field: IFieldRuntimeObject, scope: ITemplateScope): boolean } | undefined;
         listener: (
             field: IFieldRuntimeObject,
             newValue: any,
@@ -360,7 +360,7 @@ declare namespace AngularFormly {
          */
         template?:
             | string
-            | { (fieldConfiguration: IFieldConfigurationObject,): string | ng.IPromise<string> }
+            | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> }
             | undefined;
 
         /**
@@ -387,7 +387,7 @@ declare namespace AngularFormly {
          */
         templateUrl?:
             | string
-            | { (fieldConfiguration: IFieldConfigurationObject,): string | ng.IPromise<string> }
+            | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> }
             | undefined;
 
         /**
@@ -447,7 +447,7 @@ declare namespace AngularFormly {
          * see http://docs.angular-formly.com/docs/field-configuration-object#value-gettersetter-function
          */
         value?(): any; // Getter
-        value?(val: any,): void; // Setter
+        value?(val: any): void; // Setter
 
         /**
          * An object which has at least two properties called expression and listener. The watch.expression is added
@@ -555,8 +555,8 @@ declare namespace AngularFormly {
     interface IFormlyConfig {
         disableWarnings: boolean;
         extras: IFormlyConfigExtras;
-        setType(typeOptions: ITypeOptions,): void;
-        setWrapper(wrapperOptions: IWrapperOptions | Array<IWrapperOptions>,): void;
+        setType(typeOptions: ITypeOptions): void;
+        setWrapper(wrapperOptions: IWrapperOptions | Array<IWrapperOptions>): void;
         templateManipulators: ITemplateManipulators;
     }
 
@@ -604,7 +604,7 @@ declare namespace AngularFormly {
             suffix: string,
             alternate: string,
         ): void;
-        addStringMessage(name: string, string: string,): void;
-        messages: { [key: string]: ($viewValue: any, $modelValue: any, scope: ITemplateScope,) => string };
+        addStringMessage(name: string, string: string): void;
+        messages: { [key: string]: ($viewValue: any, $modelValue: any, scope: ITemplateScope) => string };
     }
 }

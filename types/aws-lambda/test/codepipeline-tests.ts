@@ -1,4 +1,4 @@
-import { CodePipelineCloudWatchEvent, CodePipelineEvent, } from 'aws-lambda';
+import { CodePipelineCloudWatchEvent, CodePipelineEvent } from 'aws-lambda';
 
 // TODO
 
@@ -53,7 +53,7 @@ const CodePipelineEvent: CodePipelineEvent = {
     },
 };
 
-CodePipelineEvent['CodePipeline.job'].data.encryptionKey = { type: 'KMS', id: 'key', };
+CodePipelineEvent['CodePipeline.job'].data.encryptionKey = { type: 'KMS', id: 'key' };
 
 /* CodePipeline CloudWatch Events
  * see https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
@@ -67,7 +67,7 @@ const CodePipelineCloudWatchEvent: CodePipelineCloudWatchEvent = {
     account: 'Pipeline_Account',
     time: 'TimeStamp',
     region: 'us-east-1',
-    resources: ['arn:aws:codepipeline:us-east-1:account_ID:myPipeline',],
+    resources: ['arn:aws:codepipeline:us-east-1:account_ID:myPipeline'],
     detail: {
         pipeline: 'myPipeline',
         version: 1,

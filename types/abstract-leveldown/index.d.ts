@@ -10,9 +10,9 @@ export interface AbstractOptions {
     readonly [k: string]: any;
 }
 
-export type ErrorCallback = (err: Error | undefined,) => void;
-export type ErrorValueCallback<V,> = (err: Error | undefined, value: V,) => void;
-export type ErrorKeyValueCallback<K, V,> = (err: Error | undefined, key: K, value: V,) => void;
+export type ErrorCallback = (err: Error | undefined) => void;
+export type ErrorValueCallback<V> = (err: Error | undefined, value: V) => void;
+export type ErrorKeyValueCallback<K, V> = (err: Error | undefined, key: K, value: V) => void;
 
 export interface AbstractOpenOptions extends AbstractOptions {
     createIfMissing?: boolean | undefined;
@@ -23,33 +23,33 @@ export interface AbstractGetOptions extends AbstractOptions {
     asBuffer?: boolean | undefined;
 }
 
-export interface AbstractLevelDOWN<K = any, V = any,> extends AbstractOptions {
-    open(cb: ErrorCallback,): void;
-    open(options: AbstractOpenOptions, cb: ErrorCallback,): void;
+export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
+    open(cb: ErrorCallback): void;
+    open(options: AbstractOpenOptions, cb: ErrorCallback): void;
 
-    close(cb: ErrorCallback,): void;
+    close(cb: ErrorCallback): void;
 
-    get(key: K, cb: ErrorValueCallback<V>,): void;
-    get(key: K, options: AbstractGetOptions, cb: ErrorValueCallback<V>,): void;
+    get(key: K, cb: ErrorValueCallback<V>): void;
+    get(key: K, options: AbstractGetOptions, cb: ErrorValueCallback<V>): void;
 
-    put(key: K, value: V, cb: ErrorCallback,): void;
-    put(key: K, value: V, options: AbstractOptions, cb: ErrorCallback,): void;
+    put(key: K, value: V, cb: ErrorCallback): void;
+    put(key: K, value: V, options: AbstractOptions, cb: ErrorCallback): void;
 
-    del(key: K, cb: ErrorCallback,): void;
-    del(key: K, options: AbstractOptions, cb: ErrorCallback,): void;
+    del(key: K, cb: ErrorCallback): void;
+    del(key: K, options: AbstractOptions, cb: ErrorCallback): void;
 
-    getMany(key: K[], cb: ErrorValueCallback<V[]>,): void;
-    getMany(key: K[], options: AbstractGetOptions, cb: ErrorValueCallback<V[]>,): void;
+    getMany(key: K[], cb: ErrorValueCallback<V[]>): void;
+    getMany(key: K[], options: AbstractGetOptions, cb: ErrorValueCallback<V[]>): void;
 
     batch(): AbstractChainedBatch<K, V>;
-    batch(array: ReadonlyArray<AbstractBatch<K, V>>, cb: ErrorCallback,): AbstractChainedBatch<K, V>;
+    batch(array: ReadonlyArray<AbstractBatch<K, V>>, cb: ErrorCallback): AbstractChainedBatch<K, V>;
     batch(
         array: ReadonlyArray<AbstractBatch<K, V>>,
         options: AbstractOptions,
         cb: ErrorCallback,
     ): AbstractChainedBatch<K, V>;
 
-    iterator(options?: AbstractIteratorOptions<K>,): AbstractIterator<K, V>;
+    iterator(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
 
     readonly status: 'new' | 'opening' | 'open' | 'closing' | 'closed';
     isOperational(): boolean;
@@ -57,12 +57,12 @@ export interface AbstractLevelDOWN<K = any, V = any,> extends AbstractOptions {
 
 export interface AbstractLevelDOWNConstructor {
     // eslint-disable-next-line no-unnecessary-generics
-    new<K = any, V = any,>(location: string,): AbstractLevelDOWN<K, V>;
+    new<K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
     // eslint-disable-next-line no-unnecessary-generics
-    <K = any, V = any,>(location: string,): AbstractLevelDOWN<K, V>;
+    <K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
 }
 
-export interface AbstractIteratorOptions<K = any,> extends AbstractOptions {
+export interface AbstractIteratorOptions<K = any> extends AbstractOptions {
     gt?: K | undefined;
     gte?: K | undefined;
     lt?: K | undefined;
@@ -75,45 +75,45 @@ export interface AbstractIteratorOptions<K = any,> extends AbstractOptions {
     valueAsBuffer?: boolean | undefined;
 }
 
-export type AbstractBatch<K = any, V = any,> = PutBatch<K, V> | DelBatch<K, V>;
+export type AbstractBatch<K = any, V = any> = PutBatch<K, V> | DelBatch<K, V>;
 
-export interface PutBatch<K = any, V = any,> {
+export interface PutBatch<K = any, V = any> {
     readonly type: 'put';
     readonly key: K;
     readonly value: V;
 }
 
-export interface DelBatch<K = any, V = any,> {
+export interface DelBatch<K = any, V = any> {
     readonly type: 'del';
     readonly key: K;
 }
 
-export interface AbstractChainedBatch<K = any, V = any,> extends AbstractOptions {
-    put: (key: K, value: V,) => this;
-    del: (key: K,) => this;
+export interface AbstractChainedBatch<K = any, V = any> extends AbstractOptions {
+    put: (key: K, value: V) => this;
+    del: (key: K) => this;
     clear: () => this;
-    write(cb: ErrorCallback,): any;
-    write(options: any, cb: ErrorCallback,): any;
+    write(cb: ErrorCallback): any;
+    write(options: any, cb: ErrorCallback): any;
 }
 
 export interface AbstractChainedBatchConstructor {
     // eslint-disable-next-line no-unnecessary-generics
-    new<K = any, V = any,>(db: any,): AbstractChainedBatch<K, V>;
+    new<K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
     // eslint-disable-next-line no-unnecessary-generics
-    <K = any, V = any,>(db: any,): AbstractChainedBatch<K, V>;
+    <K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
 }
 
-export interface AbstractIterator<K, V,> extends AbstractOptions {
+export interface AbstractIterator<K, V> extends AbstractOptions {
     db: AbstractLevelDOWN<K, V>;
-    next(cb: ErrorKeyValueCallback<K, V>,): this;
-    end(cb: ErrorCallback,): void;
+    next(cb: ErrorKeyValueCallback<K, V>): this;
+    end(cb: ErrorCallback): void;
 }
 
 export interface AbstractIteratorConstructor {
     // eslint-disable-next-line no-unnecessary-generics
-    new<K = any, V = any,>(db: any,): AbstractIterator<K, V>;
+    new<K = any, V = any>(db: any): AbstractIterator<K, V>;
     // eslint-disable-next-line no-unnecessary-generics
-    <K = any, V = any,>(db: any,): AbstractIterator<K, V>;
+    <K = any, V = any>(db: any): AbstractIterator<K, V>;
 }
 
 export const AbstractLevelDOWN: AbstractLevelDOWNConstructor;

@@ -42,7 +42,7 @@ export default class AmGraph {
      * If you set some function, the graph will call it and pass GraphDataItem and AmGraph objects to it.
      * This function should return a string which will be displayed in a balloon.
      */
-    balloonFunction(graphDataItem: GraphDataItem, amGraph: AmGraph,): string;
+    balloonFunction(graphDataItem: GraphDataItem, amGraph: AmGraph): string;
     /**
      * Balloon text.
      * You can use tags like
@@ -323,8 +323,8 @@ export default class AmGraph {
      * Graph will call this function and pass reference to GraphDataItem and formatted text as attributes.
      * This function should return string which will be displayed as label.
      */
-    labelFunction(value: number, valueText: string, valueAxis: ValueAxis,): string;
-    labelFunction(valueText: string, data: Date, valueAxis: ValueAxis,): string;
+    labelFunction(value: number, valueText: string, valueAxis: ValueAxis): string;
+    labelFunction(valueText: string, data: Date, valueAxis: ValueAxis): string;
     /**
      * Offset of data label.
      * @default 0

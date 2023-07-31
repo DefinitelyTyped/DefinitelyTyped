@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Context, Script, } from 'vm';
+import { Context, Script } from 'vm';
 
 export interface ValidationError {
     severity: ValidationErrorSeverity;
@@ -35,7 +35,7 @@ export function getInstance(
     validatorJs?: string,
     userAgent?: string,
 ): Promise<Validator>;
-export function newInstance(validatorJsContents: string,): Validator;
+export function newInstance(validatorJsContents: string): Validator;
 
 /**
  * Enums from protobufs

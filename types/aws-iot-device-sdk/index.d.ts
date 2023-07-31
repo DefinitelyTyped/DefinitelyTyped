@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter, } from 'events';
+import { EventEmitter } from 'events';
 import * as mqtt from 'mqtt';
 import * as WebSocket from 'ws';
 
@@ -147,7 +147,7 @@ export class device extends EventEmitter {
      * connection with the AWS IoT platform and with arguments as specified
      * in options.
      */
-    constructor(options?: DeviceOptions,);
+    constructor(options?: DeviceOptions);
 
     /**
      * Update the credentials set used to authenticate via WebSocket/SigV4.
@@ -155,17 +155,17 @@ export class device extends EventEmitter {
      * This method is designed to be invoked during the callback of the
      * getCredentialsForIdentity method in the AWS SDK for JavaScript.
      */
-    updateWebSocketCredentials(accessKeyId: string, secretKey: string, sessionToken: string, expiration: Date,): void;
+    updateWebSocketCredentials(accessKeyId: string, secretKey: string, sessionToken: string, expiration: Date): void;
 
-    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void,): this;
+    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void): this;
 
     // Error | string comes from:
     // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b46/device/index.js#L744
     // Remove when https://github.com/aws/aws-iot-device-sdk-js/issues/95 is fixed
-    on(event: 'error', listener: (error: Error | string,) => void,): this;
+    on(event: 'error', listener: (error: Error | string) => void): this;
 
     /** Emitted when a message is received on a topic not related to any Thing Shadows */
-    on(event: 'message', listener: (topic: string, payload: any,) => void,): this;
+    on(event: 'message', listener: (topic: string, payload: any) => void): this;
 
     // The following publish, subscribe, unsubscribe and end Definitions
     // are derived from the mqtt definition as they are re-surfaced through
@@ -184,7 +184,7 @@ export class device extends EventEmitter {
         topic: string,
         message: Buffer | string,
         options?: mqtt.IClientPublishOptions,
-        callback?: (error?: Error,) => void,
+        callback?: (error?: Error) => void,
     ): mqtt.Client;
 
     /**
@@ -205,7 +205,7 @@ export class device extends EventEmitter {
      * @param topic  is a String topic or an array of topics to unsubscribe from
      * @param callback  fired on unsuback
      */
-    unsubscribe(topic: string | string[], callback?: mqtt.PacketCallback,): mqtt.Client;
+    unsubscribe(topic: string | string[], callback?: mqtt.PacketCallback): mqtt.Client;
 
     /**
      * end - close connection
@@ -214,7 +214,7 @@ export class device extends EventEmitter {
      *     This parameter is optional.
      * @param callback
      */
-    end(force?: boolean, callback?: Function,): mqtt.Client;
+    end(force?: boolean, callback?: Function): mqtt.Client;
 }
 
 export interface ThingShadowOptions extends DeviceOptions {
@@ -251,7 +251,7 @@ export interface RegisterOptions {
  * additional functionality to operate on Thing Shadows via the AWS IoT API.
  */
 export class thingShadow extends EventEmitter {
-    constructor(options?: ThingShadowOptions,);
+    constructor(options?: ThingShadowOptions);
 
     /**
      * Register interest in the Thing Shadow named thingName.
@@ -268,7 +268,7 @@ export class thingShadow extends EventEmitter {
     register(
         thingName: string,
         options?: RegisterOptions,
-        callback?: (error: Error, failedTopics: mqtt.ISubscriptionGrant[],) => void,
+        callback?: (error: Error, failedTopics: mqtt.ISubscriptionGrant[]) => void,
     ): void;
 
     /**
@@ -277,7 +277,7 @@ export class thingShadow extends EventEmitter {
      * The thingShadow class will unsubscribe from all applicable topics
      * and no more events will be fired for thingName.
      */
-    unregister(thingName: string,): void;
+    unregister(thingName: string): void;
 
     /**
      * Update the Thing Shadow named thingName with the state specified in the
@@ -296,7 +296,7 @@ export class thingShadow extends EventEmitter {
      * Note that it should be of atomic type (i.e. numeric or string).
      * This function returns "null" if an operation is already in progress.
      */
-    update(thingName: string, stateObject: any,): string | null;
+    update(thingName: string, stateObject: any): string | null;
 
     /**
      * Get the current state of the Thing Shadow named thingName, which must
@@ -314,7 +314,7 @@ export class thingShadow extends EventEmitter {
      * type (i.e. numeric or string). This function returns "null" if an
      * operation is already in progress.
      */
-    get(thingName: string, clientToken?: string,): string | null;
+    get(thingName: string, clientToken?: string): string | null;
 
     /**
      * Delete the Thing Shadow named thingName, which must have been previously
@@ -331,7 +331,7 @@ export class thingShadow extends EventEmitter {
      * type (i.e. numeric or string). This function returns "null" if an
      * operation is already in progress.
      */
-    delete(thingName: string, clientToken?: string,): string | null;
+    delete(thingName: string, clientToken?: string): string | null;
 
     // The following publish, subscribe, unsubscribe and end Definitions
     // are copied from the mqtt definition as they are re-surfaced through
@@ -385,13 +385,13 @@ export class thingShadow extends EventEmitter {
      *     This parameter is optional.
      * @param callback
      */
-    end(force?: boolean, callback?: Function,): mqtt.Client;
+    end(force?: boolean, callback?: Function): mqtt.Client;
 
-    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void,): this;
-    on(event: 'error', listener: (error: Error,) => void,): this;
+    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void): this;
+    on(event: 'error', listener: (error: Error) => void): this;
 
     /** Emitted when a message is received on a topic not related to any Thing Shadows */
-    on(event: 'message', listener: (topic: string, payload: any,) => void,): this;
+    on(event: 'message', listener: (topic: string, payload: any) => void): this;
 
     /**
      * Emitted when an operation update|get|delete completes.
@@ -416,15 +416,15 @@ export class thingShadow extends EventEmitter {
     ): this;
 
     /** Emitted when an operation update|get|delete has timed out. */
-    on(event: 'timeout', listener: (thingName: string, clientToken: string,) => void,): this;
+    on(event: 'timeout', listener: (thingName: string, clientToken: string) => void): this;
 
     /** Emitted when a delta has been received for a registered Thing Shadow. */
-    on(event: 'delta', listener: (thingName: string, stateObject: any,) => void,): this;
+    on(event: 'delta', listener: (thingName: string, stateObject: any) => void): this;
 
     /** Emitted when a different client"s update or delete operation is accepted on the shadow. */
     on(
         event: 'foreignStateChange',
-        listener: (thingName: string, operation: 'update' | 'delete', stateObject: any,) => void,
+        listener: (thingName: string, operation: 'update' | 'delete', stateObject: any) => void,
     ): this;
 }
 
@@ -473,7 +473,7 @@ export interface job {
      * @param statusDetails - optional document describing the status details of the in progress job
      * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
      */
-    inProgress(statusDetails?: statusDetails, callback?: (err: Error,) => void,): void;
+    inProgress(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
 
     /**
      * Update the status of the job execution to be FAILED for the thing associated with the job.
@@ -481,7 +481,7 @@ export interface job {
      * @param statusDetails - optional document describing the status details of the in progress job e.g.
      * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
      */
-    failed(statusDetails?: statusDetails, callback?: (err: Error,) => void,): void;
+    failed(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
 
     /**
      * Update the status of the job execution to be SUCCESS for the thing associated with the job.
@@ -489,7 +489,7 @@ export interface job {
      * @param statusDetails - optional document describing the status details of the in progress job e.g.
      * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
      */
-    succeeded(statusDetails?: statusDetails, callback?: (err: Error,) => void,): void;
+    succeeded(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
 }
 
 export class jobs extends device {
@@ -499,7 +499,7 @@ export class jobs extends device {
      * are the same as those in the device class and the `jobs` class supports all of the
      * same events and functions as the `device` class.
      */
-    constructor(options?: DeviceOptions,);
+    constructor(options?: DeviceOptions);
 
     /**
      * Subscribes to job execution notifications for the thing named `thingName`. If
@@ -516,7 +516,7 @@ export class jobs extends device {
      *     - `err` a subscription error or an error that occurs when client is disconnecting
      *     - `job` an object that contains  job execution information and functions for updating job execution status.
      */
-    subscribeToJobs(thingName: string, operationName: string, callback?: (err: Error, job: job,) => void,): void;
+    subscribeToJobs(thingName: string, operationName: string, callback?: (err: Error, job: job) => void): void;
 
     /**
      * Causes any existing queued job executions for the given thing to be published
@@ -525,7 +525,7 @@ export class jobs extends device {
      * @param thingName - name of the Thing to cancel job execution notifications for
      * @param callback - function (err) callback for when the startJobNotifications operation completes
      */
-    startJobNotifications(thingName: string, callback: (error: Error,) => void,): mqtt.Client;
+    startJobNotifications(thingName: string, callback: (error: Error) => void): mqtt.Client;
 
     /**
      * Unsubscribes from job execution notifications for the thing named `thingName` having
@@ -536,5 +536,5 @@ export class jobs extends device {
      * @param operationName - optional name of previously subscribed operation names
      * @param callback - function (err) callback for when the unsubscribe operation completes
      */
-    unsubscribeFromJobs(thingName: string, operationName: string, callback: (err: Error,) => void,): void;
+    unsubscribeFromJobs(thingName: string, operationName: string, callback: (err: Error) => void): void;
 }

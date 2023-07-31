@@ -15,7 +15,7 @@ declare namespace mapkit {
     /**
      * Initialize a mapkit object by providing an authorization callback and language.
      */
-    function init(options: MapKitInitOptions,): void;
+    function init(options: MapKitInitOptions): void;
     /**
      * Subscribes a listener function to an event type.
      *
@@ -24,9 +24,9 @@ declare namespace mapkit {
      * Event as its sole argument.
      * @param thisObject An object set as the this keyword on the listener function.
      */
-    function addEventListener<T,>(
+    function addEventListener<T>(
         type: InitializationEventType,
-        listener: (this: T, event: InitializationEvent,) => void,
+        listener: (this: T, event: InitializationEvent) => void,
         thisObject?: T,
     ): void;
     /**
@@ -36,9 +36,9 @@ declare namespace mapkit {
      * @param listener The callback function to remove.
      * @param thisObject An object set as the this keyword on the listener function.
      */
-    function removeEventListener<T,>(
+    function removeEventListener<T>(
         type: InitializationEventType,
-        listener: (this: T, event: InitializationEvent,) => void,
+        listener: (this: T, event: InitializationEvent) => void,
         thisObject?: T,
     ): void;
     /**
@@ -64,7 +64,7 @@ declare namespace mapkit {
          * @param done A function that completes the MapKit JS token request. Called
          * after creating a new token.
          */
-        authorizationCallback: (done: (token: string,) => void,) => void;
+        authorizationCallback: (done: (token: string) => void) => void;
         /**
          * An ID that indicates the preferred language in which to display map
          * labels, controls, directions, and other text.
@@ -109,7 +109,7 @@ declare namespace mapkit {
          * @param options An object that contains options for initializing a map's
          * features.
          */
-        constructor(parent: string | Element, options?: MapConstructorOptions,);
+        constructor(parent: string | Element, options?: MapConstructorOptions);
         /**
          * Adds an event listener to handle events triggered by user interactions
          * and the framework.
@@ -120,17 +120,17 @@ declare namespace mapkit {
          * @param thisObject An object to be set as the this keyword on the listener
          * function.
          */
-        addEventListener<T, K extends keyof MapEvents<this>,>(
+        addEventListener<T, K extends keyof MapEvents<this>>(
             type: K,
-            listener: (this: T, event: MapEvents<this>[K],) => void,
+            listener: (this: T, event: MapEvents<this>[K]) => void,
             thisObject?: T,
         ): void;
         /**
          * Removes an event listener.
          */
-        removeEventListener<T, K extends keyof MapEvents<this>,>(
+        removeEventListener<T, K extends keyof MapEvents<this>>(
             type: K,
-            listener: (type: T, event: MapEvents<this>[K],) => void,
+            listener: (type: T, event: MapEvents<this>[K]) => void,
             thisObject?: T,
         ): void;
         /**
@@ -174,7 +174,7 @@ declare namespace mapkit {
         /**
          * Centers the map to the provided coordinate, with optional animation.
          */
-        setCenterAnimated(coordinate: Coordinate, animate?: boolean,): this;
+        setCenterAnimated(coordinate: Coordinate, animate?: boolean): this;
         /**
          * The area currently displayed by the map.
          */
@@ -182,7 +182,7 @@ declare namespace mapkit {
         /**
          * Changes the map's region to the region provided, with optional animation.
          */
-        setRegionAnimated(region: CoordinateRegion, animate?: boolean,): this;
+        setRegionAnimated(region: CoordinateRegion, animate?: boolean): this;
         /**
          * The map's rotation, in degrees.
          */
@@ -190,7 +190,7 @@ declare namespace mapkit {
         /**
          * Changes the map's rotation setting to the number of degrees specified.
          */
-        setRotationAnimated(degrees: number, animate?: boolean,): this;
+        setRotationAnimated(degrees: number, animate?: boolean): this;
         /**
          * The visible area of the map defined in map units.
          */
@@ -198,7 +198,7 @@ declare namespace mapkit {
         /**
          * Changes the map's visible map rectangle to the specified map rectangle.
          */
-        setVisibleMapRectAnimated(mapRect: MapRect, animate?: boolean,): this;
+        setVisibleMapRectAnimated(mapRect: MapRect, animate?: boolean): this;
         /**
          * Sets a constraint for the center of the map.
          */
@@ -206,7 +206,7 @@ declare namespace mapkit {
         /**
          * Changes the map's camera boundary with an animated transition.
          */
-        setCameraBoundaryAnimated(coordinateRegionOrMapRect: CoordinateRegion | MapRect, animate?: boolean,): this;
+        setCameraBoundaryAnimated(coordinateRegionOrMapRect: CoordinateRegion | MapRect, animate?: boolean): this;
         /**
          * Sets the altitude of the camera above the center of the map.
          */
@@ -214,7 +214,7 @@ declare namespace mapkit {
         /**
          * Changes the map's camera distance with an animated transition.
          */
-        setCameraDistanceAnimated(distance: number, animate?: boolean,): this;
+        setCameraDistanceAnimated(distance: number, animate?: boolean): this;
         /**
          * Sets the minimum and maximum distance of the camera from the map center.
          */
@@ -222,7 +222,7 @@ declare namespace mapkit {
         /**
          * Changes the map's camera zoom range with an animated transition.
          */
-        setCameraZoomRangeAnimated(cameraZoomRange: CameraZoomRange, animate?: boolean,): this;
+        setCameraZoomRangeAnimated(cameraZoomRange: CameraZoomRange, animate?: boolean): this;
 
         // Configuring the Map's Appearance
 
@@ -333,7 +333,7 @@ declare namespace mapkit {
          * Adjusts the maps visible region to bring the specified overlays and
          * annotations into view.
          */
-        showItems<I = Array<Annotation | Overlay>,>(items: I, options?: MapShowItemsOptions,): I;
+        showItems<I = Array<Annotation | Overlay>>(items: I, options?: MapShowItemsOptions): I;
 
         // Annotating the Map
 
@@ -349,28 +349,28 @@ declare namespace mapkit {
          * A delegate method for modifying an annotation that represents a group of
          * annotations that are combined into a cluster.
          */
-        annotationForCluster(clusterAnnotation: Annotation,): void;
+        annotationForCluster(clusterAnnotation: Annotation): void;
         /**
          * Returns the list of annotation objects located in the specified map
          * rectangle.
          */
-        annotationsInMapRect(mapRect: MapRect,): Annotation[];
+        annotationsInMapRect(mapRect: MapRect): Annotation[];
         /**
          * Adds an annotation to the map.
          */
-        addAnnotation(annotation: Annotation,): Annotation;
+        addAnnotation(annotation: Annotation): Annotation;
         /**
          * Adds multiple annotations to the map.
          */
-        addAnnotations(annotations: Annotation[],): Annotation[];
+        addAnnotations(annotations: Annotation[]): Annotation[];
         /**
          * Removes an annotation from the map.
          */
-        removeAnnotation(annotation: Annotation,): Annotation;
+        removeAnnotation(annotation: Annotation): Annotation;
         /**
          * Removes multiple annotations from the map.
          */
-        removeAnnotations(annotations: Annotation[],): Annotation[];
+        removeAnnotations(annotations: Annotation[]): Annotation[];
 
         // Adding and Removing Overlays
 
@@ -385,27 +385,27 @@ declare namespace mapkit {
         /**
          * Returns an array of overlays at a given point on the webpage.
          */
-        overlaysAtPoint(point: DOMPoint,): Overlay[];
+        overlaysAtPoint(point: DOMPoint): Overlay[];
         /**
          * Adds an overlay to the map.
          */
-        addOverlay(overlay: Overlay,): Overlay;
+        addOverlay(overlay: Overlay): Overlay;
         /**
          * Adds multiple overlays to the map.
          */
-        addOverlays(overlays: Overlay[],): Overlay[];
+        addOverlays(overlays: Overlay[]): Overlay[];
         /**
          * Removes an overlay from the map.
          */
-        removeOverlay(overlay: Overlay,): Overlay;
+        removeOverlay(overlay: Overlay): Overlay;
         /**
          * Removes multiple overlays from the map.
          */
-        removeOverlays(overlays: Overlay[],): Overlay[];
+        removeOverlays(overlays: Overlay[]): Overlay[];
         /**
          * Returns the topmost overlay at a given point on the webpage.
          */
-        topOverlayAtPoint(point: DOMPoint,): Overlay | null;
+        topOverlayAtPoint(point: DOMPoint): Overlay | null;
 
         // Adding and Removing Geographical Features
 
@@ -431,19 +431,19 @@ declare namespace mapkit {
         /**
          * Adds a tile overlay to the map.
          */
-        addTileOverlay(tileOverlay: TileOverlay,): TileOverlay;
+        addTileOverlay(tileOverlay: TileOverlay): TileOverlay;
         /**
          * Adds an array of tile overlays to the map.
          */
-        addTileOverlays(tileOverlays: TileOverlay[],): TileOverlay[];
+        addTileOverlays(tileOverlays: TileOverlay[]): TileOverlay[];
         /**
          * Removes a tile overlay from the map.
          */
-        removeTileOverlay(tileOverlay: TileOverlay,): TileOverlay;
+        removeTileOverlay(tileOverlay: TileOverlay): TileOverlay;
         /**
          * Removes an array of tile overlays from the map.
          */
-        removeTileOverlays(tileOverlays: TileOverlay[],): TileOverlay[];
+        removeTileOverlays(tileOverlays: TileOverlay[]): TileOverlay[];
 
         // Displaying the User's Location
 
@@ -467,11 +467,11 @@ declare namespace mapkit {
         /**
          * Converts a coordinate on the map to a point in the page's coordinate system.
          */
-        convertCoordinateToPointOnPage(coordinate: Coordinate,): DOMPoint;
+        convertCoordinateToPointOnPage(coordinate: Coordinate): DOMPoint;
         /**
          * Converts a point in page coordinates to the corresponding map coordinate.
          */
-        convertPointOnPageToCoordinate(point: DOMPoint,): Coordinate;
+        convertPointOnPageToCoordinate(point: DOMPoint): Coordinate;
     }
 
     /**
@@ -547,7 +547,7 @@ declare namespace mapkit {
         /**
          * A delegate method for modifying cluster annotations.
          */
-        annotationForCluster?(annotation: Annotation,): void;
+        annotationForCluster?(annotation: Annotation): void;
         /**
          * An array of all the annotations on the map.
          */
@@ -608,13 +608,13 @@ declare namespace mapkit {
      */
     const maps: Map[];
 
-    interface EventBase<T,> {
+    interface EventBase<T> {
         type: string;
         target: T;
     }
 
     // Map Display Events
-    interface MapDisplayEvents<T,> {
+    interface MapDisplayEvents<T> {
         'region-change-start': EventBase<T>;
         'region-change-end': EventBase<T>;
         'rotation-start': EventBase<T>;
@@ -626,7 +626,7 @@ declare namespace mapkit {
         'map-type-change': EventBase<T>;
     }
     // Map Annotations Overlay Events
-    interface MapAnnotationOverlayEvents<T,> {
+    interface MapAnnotationOverlayEvents<T> {
         select: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
         deselect: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
         'drag-start': EventBase<T> & { annotation: Annotation };
@@ -635,20 +635,20 @@ declare namespace mapkit {
     }
 
     // User Location Events
-    interface MapUserLocationEvents<T,> {
+    interface MapUserLocationEvents<T> {
         'user-location-change': EventBase<T> & { coordinate: Coordinate; timestamp: Date };
         'user-location-error': EventBase<T> & { code: number; message: string };
     }
 
     // Map Interaction Events
-    interface MapInteractionEvents<T,> {
+    interface MapInteractionEvents<T> {
         'single-tap': EventBase<T>;
         'double-tap': EventBase<T>;
         'long-press': EventBase<T>;
     }
 
     // All map events
-    type MapEvents<T,> =
+    type MapEvents<T> =
         & MapDisplayEvents<T>
         & MapAnnotationOverlayEvents<T>
         & MapUserLocationEvents<T>
@@ -687,7 +687,7 @@ declare namespace mapkit {
          * @param height The distance (measured using map points) along the north-south
          * axis of the map projection.
          */
-        constructor(x: number, y: number, width: number, height: number,);
+        constructor(x: number, y: number, width: number, height: number);
         /**
          * The origin point of a rectangle.
          */
@@ -729,12 +729,12 @@ declare namespace mapkit {
          *
          * @param anotherRect The map rectangle to equate to.
          */
-        equals(anotherRect: MapRect,): boolean;
+        equals(anotherRect: MapRect): boolean;
         /**
          * @param scaleFactor The scale factor.
          * @param scaleCenter The center map point for scaling.
          */
-        scale(scaleFactor: number, scaleCenter: MapPoint,): MapRect;
+        scale(scaleFactor: number, scaleCenter: MapPoint): MapRect;
         /**
          * Returns the region that corresponds to a map rectangle.
          */
@@ -754,7 +754,7 @@ declare namespace mapkit {
          * @param span A CoordinateSpan that represents the amount of map to
          * display. The span also defines the current zoom level used by the map object.
          */
-        constructor(center: Coordinate, span: CoordinateSpan,);
+        constructor(center: Coordinate, span: CoordinateSpan);
         /**
          * The center point of the region.
          */
@@ -774,7 +774,7 @@ declare namespace mapkit {
         /**
          * Returns a Boolean value indicating whether two regions are equal.
          */
-        equals(anotherRegion: CoordinateRegion,): boolean;
+        equals(anotherRegion: CoordinateRegion): boolean;
         /**
          * Returns the map rectangle that corresponds to the calling coordinate region.
          */
@@ -793,7 +793,7 @@ declare namespace mapkit {
         /**
          * Creates a coordinate object with the specified latitude and longitude.
          */
-        constructor(latitude: number, longitude: number,);
+        constructor(latitude: number, longitude: number);
         /**
          * The latitude in degrees.
          */
@@ -809,7 +809,7 @@ declare namespace mapkit {
         /**
          * Returns a Boolean value indicating whether two coordinates are equal.
          */
-        equals(anotherCoordinate: Coordinate,): boolean;
+        equals(anotherCoordinate: Coordinate): boolean;
         /**
          * Returns the map point that corresponds to the coordinate.
          */
@@ -836,13 +836,13 @@ declare namespace mapkit {
          * @param left The amount of padding, in CSS pixels, to inset the map from
          * the left edge.
          */
-        constructor(top?: number, right?: number, bottom?: number, left?: number,);
+        constructor(top?: number, right?: number, bottom?: number, left?: number);
         /**
          * Creates a padding object, and initializes its inset margin properties.
          *
          * @param options An object literal of inset margin properties
          */
-        constructor(options?: PaddingConstructorOptions,);
+        constructor(options?: PaddingConstructorOptions);
         /**
          * The amount of padding, in CSS pixels, to inset the map from the bottom edge.
          */
@@ -894,7 +894,7 @@ declare namespace mapkit {
          */
         constructor(
             coordinate: Coordinate,
-            factory: (coordinate: Coordinate, options: AnnotationConstructorOptions,) => Element,
+            factory: (coordinate: Coordinate, options: AnnotationConstructorOptions) => Element,
             options?: AnnotationConstructorOptions,
         );
         /**
@@ -907,9 +907,9 @@ declare namespace mapkit {
          * @param thisObject An object to be set as the this keyword on the
          * listener function.
          */
-        addEventListener<T,>(
+        addEventListener<T>(
             type: AnnotationEventType,
-            listener: (this: T, event: EventBase<Map>,) => void,
+            listener: (this: T, event: EventBase<Map>) => void,
             thisObject?: T,
         ): void;
         /**
@@ -921,9 +921,9 @@ declare namespace mapkit {
          * @param thisObject An object to be set as the this keyword on the listener
          * function.
          */
-        removeEventListener<T,>(
+        removeEventListener<T>(
             type: AnnotationEventType,
-            listener: (this: T, event: EventBase<Map>,) => void,
+            listener: (this: T, event: EventBase<Map>) => void,
             thisObject?: T,
         ): void;
         /**
@@ -1127,37 +1127,37 @@ declare namespace mapkit {
         /**
          * Returns a point determining the callout's anchor offset.
          */
-        calloutAnchorOffsetForAnnotation?(annotation: Annotation, size: { width: number; height: number },): DOMPoint;
+        calloutAnchorOffsetForAnnotation?(annotation: Annotation, size: { width: number; height: number }): DOMPoint;
         /**
          * Determines whether the callout should appear for an annotation.
          */
-        calloutShouldAppearForAnnotation?(annotation: Annotation,): boolean;
+        calloutShouldAppearForAnnotation?(annotation: Annotation): boolean;
         /**
          * Determines whether the callout should animate.
          */
-        calloutShouldAnimateForAnnotation?(annotation: Annotation,): boolean;
+        calloutShouldAnimateForAnnotation?(annotation: Annotation): boolean;
         /**
          * Returns a CSS animation used when the callout appears.
          */
-        calloutAppearanceAnimationForAnnotation?(annotation: Annotation,): string;
+        calloutAppearanceAnimationForAnnotation?(annotation: Annotation): string;
         /**
          * Returns custom content for the callout bubble.
          */
-        calloutContentForAnnotation?(annotation: Annotation,): Element;
+        calloutContentForAnnotation?(annotation: Annotation): Element;
         /**
          * Returns an element representing a custom callout.
          */
-        calloutElementForAnnotation?(annotation: Annotation,): Element;
+        calloutElementForAnnotation?(annotation: Annotation): Element;
         /**
          * Returns an element used as a custom accessory on the left side of the
          * callout content area.
          */
-        calloutLeftAccessoryForAnnotation?(annotation: Annotation,): Element;
+        calloutLeftAccessoryForAnnotation?(annotation: Annotation): Element;
         /**
          * Returns an element used as a custom accessory on the right side of the
          * callout content area.
          */
-        calloutRightAccessoryForAnnotation?(annotation: Annotation,): Element;
+        calloutRightAccessoryForAnnotation?(annotation: Annotation): Element;
     }
 
     /**
@@ -1167,7 +1167,7 @@ declare namespace mapkit {
         /**
          * Initializes an image annotation with a URL to its image and a coordinate.
          */
-        constructor(coordinate: Coordinate, options: ImageAnnotationConstructorOptions,);
+        constructor(coordinate: Coordinate, options: ImageAnnotationConstructorOptions);
     }
 
     /**
@@ -1194,7 +1194,7 @@ declare namespace mapkit {
          * @param coordinate The coordinate at which this annotation should appear.
          * @param options A hash of properties with which to initialize the annotation.
          */
-        constructor(coordinate: Coordinate, options?: MarkerAnnotationConstructorOptions,);
+        constructor(coordinate: Coordinate, options?: MarkerAnnotationConstructorOptions);
         /**
          * A value that determines the behavior of the subtitle's visibility.
          */
@@ -1274,13 +1274,13 @@ declare namespace mapkit {
         /**
          * Starts listening for the specified type of event.
          */
-        addEventListener(type: OverlayEventType, listener: (event: EventBase<this>,) => void, thisObject?: any,): void;
+        addEventListener(type: OverlayEventType, listener: (event: EventBase<this>) => void, thisObject?: any): void;
         /**
          * Stops listening for the specified type of event.
          */
         removeEventListener(
             type: OverlayEventType,
-            listener: (event: EventBase<this>,) => void,
+            listener: (event: EventBase<this>) => void,
             thisObject?: any,
         ): void;
         /**
@@ -1322,7 +1322,7 @@ declare namespace mapkit {
          * @param options An object literal of Overlay properties used to initialize
          * the circle.
          */
-        constructor(coordinate: Coordinate, radius: number, options?: StylesOverlayOptions,);
+        constructor(coordinate: Coordinate, radius: number, options?: StylesOverlayOptions);
         /**
          * The coordinate of the circle overlay's center.
          */
@@ -1344,7 +1344,7 @@ declare namespace mapkit {
          * @param options An object literal of style options with which to initialize
          * the polyline.
          */
-        constructor(points: Coordinate[], options?: StylesOverlayOptions,);
+        constructor(points: Coordinate[], options?: StylesOverlayOptions);
         /**
          * An array of coordinate points that define the polyline overlay's shape.
          */
@@ -1364,7 +1364,7 @@ declare namespace mapkit {
          * @param options An object literal of options with which to initialize the
          * polygon.
          */
-        constructor(points: Coordinate[], options?: StylesOverlayOptions,);
+        constructor(points: Coordinate[], options?: StylesOverlayOptions);
         /**
          * One or more arrays of coordinates that define the polygon overlay shape.
          */
@@ -1413,7 +1413,7 @@ declare namespace mapkit {
          * @param longitudeDelta The amount of east-to-west distance (measured in
          * degrees) to display for the map region.
          */
-        constructor(latitudeDelta: number, longitudeDelta: number,);
+        constructor(latitudeDelta: number, longitudeDelta: number);
         /**
          * The amount of north-to-south distance (measured in degrees) to display on
          * the map.
@@ -1431,7 +1431,7 @@ declare namespace mapkit {
         /**
          * Returns a Boolean value that indicates whether two spans are equal.
          */
-        equals(anotherSpan: CoordinateSpan,): boolean;
+        equals(anotherSpan: CoordinateSpan): boolean;
     }
 
     /**
@@ -1441,7 +1441,7 @@ declare namespace mapkit {
         /**
          * Creates a tile overlay with a URL template and style options.
          */
-        constructor(urlTemplate: string | URLTemplateCallback, options?: TileOverlayConstructorOptions,);
+        constructor(urlTemplate: string | URLTemplateCallback, options?: TileOverlayConstructorOptions);
         /**
          * A string, or callback function that returns a string, with a URL that
          * provides the requested tile.
@@ -1493,7 +1493,7 @@ declare namespace mapkit {
         data?: object | undefined;
     }
 
-    type URLTemplateCallback = (x: number, y: number, z: number, scale: number, data: object,) => string;
+    type URLTemplateCallback = (x: number, y: number, z: number, scale: number, data: object) => string;
 
     /**
      * A set of observable attributes for overlays, including color and opacity of
@@ -1503,7 +1503,7 @@ declare namespace mapkit {
         /**
          * Creates and initializes a style object.
          */
-        constructor(options?: StyleConstructorOptions,);
+        constructor(options?: StyleConstructorOptions);
         /**
          * The fill color of a shape.
          */
@@ -1625,21 +1625,21 @@ declare namespace mapkit {
          *
          * @param options A JavaScript object with unit distance values as keys with matched CSS colors.
          */
-        constructor(options?: object,);
+        constructor(options?: object);
         /**
          * Adds a color transition point to the gradient.
          *
          * @param offset The unit distance at which to add the color.
          * @param color The CSS color at the transition point.
          */
-        addColorStop(offset: number, color: string,): void;
+        addColorStop(offset: number, color: string): void;
         /**
          * Adds a color transition at the index point in the list of points within a polyline.
          *
          * @param index A valid index into a polyline’s points.
          * @param color The CSS color at the index point.
          */
-        addColorStopAtIndex(index: number, color: string,): void;
+        addColorStopAtIndex(index: number, color: string): void;
     }
 
     /**
@@ -1651,13 +1651,13 @@ declare namespace mapkit {
          * Initialize a geocoder object and set optional language and user location
          * properties.
          */
-        constructor(options?: GeocoderConstructorOptions,);
+        constructor(options?: GeocoderConstructorOptions);
         /**
          * Converts an address to geographic coordinates.
          */
         lookup(
             place: string,
-            callback: (error: Error | null, data: GeocoderResponse,) => void,
+            callback: (error: Error | null, data: GeocoderResponse) => void,
             options?: GeocoderLookupOptions,
         ): number;
         /**
@@ -1671,7 +1671,7 @@ declare namespace mapkit {
          */
         reverseLookup(
             coordinate: Coordinate,
-            callback: (error: Error | null, data: GeocoderResponse,) => void,
+            callback: (error: Error | null, data: GeocoderResponse) => void,
             options?: Pick<GeocoderConstructorOptions, 'language'>,
         ): number;
         /**
@@ -1679,7 +1679,7 @@ declare namespace mapkit {
          *
          * @param id The request ID of the lookup or reverseLookup to cancel.
          */
-        cancel(id: number,): boolean;
+        cancel(id: number): boolean;
         /**
          * A Boolean value that indicates whether the geocoder should return results
          * near the user's current location.
@@ -1821,7 +1821,7 @@ declare namespace mapkit {
          *
          * @param options Options that you may provide when creating a search object.
          */
-        constructor(options?: SearchConstructorOptions,);
+        constructor(options?: SearchConstructorOptions);
         /**
          * Retrieves the results of a search query.
          *
@@ -1833,7 +1833,7 @@ declare namespace mapkit {
          * @returns a request ID (integer) that can be passed to cancel to abort a
          * pending request.
          */
-        search<Q extends string | SearchAutocompleteResult,>(
+        search<Q extends string | SearchAutocompleteResult>(
             query: Q,
             callback: SearchDelegate | SearchCallback<Q>,
             options?: SearchOptions,
@@ -1862,7 +1862,7 @@ declare namespace mapkit {
          * @param id The integer ID returned by a call to Search.search
          * @return true if the server canceled the pending search request.
          */
-        cancel(id: number,): boolean;
+        cancel(id: number): boolean;
     }
 
     /**
@@ -1946,7 +1946,7 @@ declare namespace mapkit {
         limitToCountries?: string | undefined;
     }
 
-    type SearchCallback<Q,> = (
+    type SearchCallback<Q> = (
         error: Error | null,
         data: {
             /**
@@ -1966,7 +1966,7 @@ declare namespace mapkit {
         },
     ) => void;
 
-    type AutocompleteSearchCallback = (error: Error | null, data: SearchAutocompleteResponse,) => void;
+    type AutocompleteSearchCallback = (error: Error | null, data: SearchAutocompleteResponse) => void;
 
     /**
      * An object or callback function called when performing a search or autocomplete
@@ -1977,21 +1977,21 @@ declare namespace mapkit {
          * Upon successful completion of a search request, this method returns a data
          * object that is the same as the one passed to the search callback function.
          */
-        searchDidComplete?(data: SearchResponse,): void;
+        searchDidComplete?(data: SearchResponse): void;
         /**
          * Called when the search request fails.
          */
-        searchDidError?(error: Error,): void;
+        searchDidError?(error: Error): void;
         /**
          * When an autocomplete request successfully completes, this method returns
          * a data array that is the same as the one passed to the autocomplete
          * callback function.
          */
-        autocompleteDidComplete?(data: SearchAutocompleteResponse,): void;
+        autocompleteDidComplete?(data: SearchAutocompleteResponse): void;
         /**
          * Invoked when an autocomplete request fails.
          */
-        autocompleteDidError?(error: Error,): void;
+        autocompleteDidError?(error: Error): void;
     }
 
     /**
@@ -2078,11 +2078,11 @@ declare namespace mapkit {
         /**
          * Creates a point of interest filter that includes categories from a list that you provide.
          */
-        static including(categoryList: PointOfInterestCategory[],): PointOfInterestFilter;
+        static including(categoryList: PointOfInterestCategory[]): PointOfInterestFilter;
         /**
          * Creates a point of interest filter that excludes categories from a list that you provide.
          */
-        static excluding(categoryList: PointOfInterestCategory[],): PointOfInterestFilter;
+        static excluding(categoryList: PointOfInterestCategory[]): PointOfInterestFilter;
         /**
          * A filter that includes all point of interest categories.
          */
@@ -2094,11 +2094,11 @@ declare namespace mapkit {
         /**
          * Returns a Boolean value that indicates whether the filter includes the provided point of interest category.
          */
-        includesCategory(category: PointOfInterestCategory,): boolean;
+        includesCategory(category: PointOfInterestCategory): boolean;
         /**
          * Returns a Boolean value that indicates whether the filter excludes the provided point of interest category.
          */
-        excludesCategory(category: PointOfInterestCategory,): boolean;
+        excludesCategory(category: PointOfInterestCategory): boolean;
     }
 
     /**
@@ -2110,7 +2110,7 @@ declare namespace mapkit {
          *
          * @param options Options that you may provide when you create a points of interest search.
          */
-        constructor(options?: PointsOfInterestSearchOptions,);
+        constructor(options?: PointsOfInterestSearchOptions);
         /**
          * The region that bounds the area in which to fetch points of interest.
          */
@@ -2154,7 +2154,7 @@ declare namespace mapkit {
          * @param id The integer ID returned by a call to Search.search
          * @return true if the server canceled the pending search request.
          */
-        cancel(id: number,): boolean;
+        cancel(id: number): boolean;
     }
 
     /**
@@ -2183,7 +2183,7 @@ declare namespace mapkit {
         pointOfInterestFilter?: PointOfInterestFilter | undefined;
     }
 
-    type PointsOfInterestSearchCallback = (error: Error | null, data: PointsOfInterestSearchResponse,) => void;
+    type PointsOfInterestSearchCallback = (error: Error | null, data: PointsOfInterestSearchResponse) => void;
 
     /**
      * An object or callback function that MapKit JS calls when fetching points of interest.
@@ -2192,11 +2192,11 @@ declare namespace mapkit {
         /**
          * Tells the delegate that the search completed.
          */
-        searchDidComplete?(data: PointsOfInterestSearchResponse,): void;
+        searchDidComplete?(data: PointsOfInterestSearchResponse): void;
         /**
          * Tells the delegate that the search failed due to an error.
          */
-        searchDidError?(error: Error,): void;
+        searchDidError?(error: Error): void;
     }
 
     /**
@@ -2386,7 +2386,7 @@ declare namespace mapkit {
          * @param An object containing the options for creating a directions object.
          * This parameter is optional.
          */
-        constructor(options?: DirectionsConstructorOptions,);
+        constructor(options?: DirectionsConstructorOptions);
         /**
          * Retrieves estimated arrival times to up to 10 destinations from a single starting point.
          *
@@ -2394,7 +2394,7 @@ declare namespace mapkit {
          * @param callback A callback function that receives the estimated time response object, returned asynchronously.
          * @return A request ID, which you can pass to cancel to abort a pending request.
          */
-        eta(request: EtaRequestOptions, callback: (error: Error | null, data: EtaResponse,) => void,): number;
+        eta(request: EtaRequestOptions, callback: (error: Error | null, data: EtaResponse) => void): number;
         /**
          * Retrieves directions and estimated travel time for the specified start
          * and end points.
@@ -2405,13 +2405,13 @@ declare namespace mapkit {
          * returned asynchronously.
          * @return A request ID, which you can pass to cancel to abort a pending request.
          */
-        route(request: DirectionsRequest, callback: (error: Error | null, data: DirectionsResponse,) => void,): number;
+        route(request: DirectionsRequest, callback: (error: Error | null, data: DirectionsResponse) => void): number;
         /**
          * Cancels a previous request for route directions.
          *
          * @param id The ID returned by a call to route.
          */
-        cancel(id: number,): boolean;
+        cancel(id: number): boolean;
     }
 
     namespace Directions {
@@ -2605,7 +2605,7 @@ declare namespace mapkit {
          * @param x The point along the east-west axis of the map projection.
          * @param  The point along the north-south axis of the map projection.
          */
-        constructor(x: number, y: number,);
+        constructor(x: number, y: number);
         /**
          * The location of the point along the x-axis of the map.
          */
@@ -2623,7 +2623,7 @@ declare namespace mapkit {
          *
          * @param anotherPoint A map point to use for comparison.
          */
-        equals(anotherPoint: MapPoint,): boolean;
+        equals(anotherPoint: MapPoint): boolean;
         /**
          * Returns a coordinate containing the latitude and longitude corresponding
          * to a map point.
@@ -2644,7 +2644,7 @@ declare namespace mapkit {
          * @param height The distance (measured using map points) along the
          * north-south axis of the map projection.
          */
-        constructor(width: number, height: number,);
+        constructor(width: number, height: number);
         /**
          * The height value, in map point units.
          */
@@ -2662,7 +2662,7 @@ declare namespace mapkit {
          *
          * @param anotherSize The map size to equate to.
          */
-        equals(anotherSize: MapSize,): boolean;
+        equals(anotherSize: MapSize): boolean;
     }
 
     /**
@@ -2679,7 +2679,7 @@ declare namespace mapkit {
          * @param southLatitude The south latitude of the bounding region.
          * @param westLongitude The west longitude of the bounding region.
          */
-        constructor(northLatitude: number, eastLongitude: number, southLatitude: number, westLongitude: number,);
+        constructor(northLatitude: number, eastLongitude: number, southLatitude: number, westLongitude: number);
         /**
          * The east longitude of the bounding region.
          */
@@ -2713,7 +2713,7 @@ declare namespace mapkit {
         /**
          * Describes the minimum and maximum camera distance in meters.
          */
-        constructor(minCameraDistance: CameraZoomRangeConstructorOptions | number, maxCameraDistance?: number,);
+        constructor(minCameraDistance: CameraZoomRangeConstructorOptions | number, maxCameraDistance?: number);
         /**
          * The minimum allowed distance of the camera from the center of the map in meters.
          */
@@ -2749,7 +2749,7 @@ declare namespace mapkit {
         callback?: GeoJSONDelegate | ImportGeoJSONCallback,
     ): ItemCollection | Error;
 
-    type ImportGeoJSONCallback = (error: Error, result: ItemCollection,) => void;
+    type ImportGeoJSONCallback = (error: Error, result: ItemCollection) => void;
 
     /**
      * A delegate object that controls a GeoJSON import in order to override
@@ -2808,7 +2808,7 @@ declare namespace mapkit {
          * @param geoJSON The original GeoJSON object for this Point. This object could
          * be a simple Point or a Feature with the Point geometry type.
          */
-        itemForPoint?(coordinate: Coordinate, geoJSON: object,): Array<Annotation | Overlay>;
+        itemForPoint?(coordinate: Coordinate, geoJSON: object): Array<Annotation | Overlay>;
         /**
          * Overrides a multipoint object.
          *
@@ -2827,7 +2827,7 @@ declare namespace mapkit {
          * or you could completely replace the overlay.
          * @param geoJSON The original GeoJSON object for this polygon.
          */
-        itemForPolygon?(overlay: PolygonOverlay, geoJSON: object,): Annotation | Overlay | Array<Annotation | Overlay>;
+        itemForPolygon?(overlay: PolygonOverlay, geoJSON: object): Annotation | Overlay | Array<Annotation | Overlay>;
         /**
          * Overrides a multipolygon.
          *
@@ -2845,21 +2845,21 @@ declare namespace mapkit {
          * @param overlay The overlay to style.
          * @param geoJSON The original GeoJSON for this feature or geometry object.
          */
-        styleForOverlay?(overlay: Overlay, geoJSON: object,): Style;
+        styleForOverlay?(overlay: Overlay, geoJSON: object): Style;
         /**
          * Completes the GeoJSON import.
          *
          * @param result The mapped item collection.
          * @param geoJSON The original parsed GeoJSON object.
          */
-        geoJSONDidComplete?(result: ItemCollection, geoJSON: object,): void;
+        geoJSONDidComplete?(result: ItemCollection, geoJSON: object): void;
         /**
          * Indicates the GeoJSON import failed.
          *
          * @param error An Error instance related to the last blocking error.
          * @param geoJSON The original parsed GeoJSON object.
          */
-        geoJSONDidError?(error: Error, geoJSON: object,): void;
+        geoJSONDidError?(error: Error, geoJSON: object): void;
     }
 
     /**

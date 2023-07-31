@@ -46,7 +46,7 @@ interface AlloyControllerUI {
      * @param apiName Name of the UI element to create. This can either be the full class name, such as `Ti.UI.Button`, or the XML element, such as `Button`.
      * @param opts Styles and any additional properties you would like to apply directly the created view.
      */
-    create(apiName: string, opts?: AlloyStyleDict,): any;
+    create(apiName: string, opts?: AlloyStyleDict): any;
 }
 
 interface AlloyFactories {
@@ -58,7 +58,7 @@ interface AlloyFactories {
      * @param name Name of model to hold in this collection.
      * @param args Arguments to pass to the collection.
      */
-    createCollection(name: string, args?: any,): Backbone.Collection;
+    createCollection(name: string, args?: any): Backbone.Collection;
 
     /**
      * Factory method for instantiating a controller.
@@ -68,7 +68,7 @@ interface AlloyFactories {
      * @param name Name of controller to instantiate.
      * @param args Arguments to pass to the controller
      */
-    createController(name: string, args?: any,): AlloyController;
+    createController(name: string, args?: any): AlloyController;
 
     /**
      * Factory method for instantiating a Backbone Model object.
@@ -78,7 +78,7 @@ interface AlloyFactories {
      * @param name Name of model to instantiate.
      * @param args Arguments to pass to the model.
      */
-    createModel(name: string, args?: any,): Backbone.Model;
+    createModel(name: string, args?: any): Backbone.Model;
 
     /**
      * Factory method for instantiating a widget controller.
@@ -89,8 +89,8 @@ interface AlloyFactories {
      * @param name Name of the view within the widget to instantiate ('widget' by default)
      * @param args Arguments to pass to the widget.
      */
-    createWidget(id: string, args?: any,): AlloyController;
-    createWidget(id: string, name?: string, args?: any,): AlloyController;
+    createWidget(id: string, args?: any): AlloyController;
+    createWidget(id: string, name?: string, args?: any): AlloyController;
 }
 
 /**
@@ -109,7 +109,7 @@ interface AlloyController extends Backbone.Events {
      * @param classes Array or space-separated list of classes to apply.
      * @param opts Dictionary of properties to apply after classes have been added.
      */
-    addClass<T extends Titanium.Proxy,>(proxy: T, classes: string | string[], opts?: Partial<T>,): void;
+    addClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
     /**
      * Adds a tracked event listeners to a view proxy object. By default, any event listener declared in XML is tracked by Alloy.
@@ -119,7 +119,7 @@ interface AlloyController extends Backbone.Events {
      * @param callback Callback function to invoke when the event is fired.
      * @returns ID attribute of the view object. If one does not exist, Alloy will create a unique ID.
      */
-    addListener(proxy: Titanium.Proxy, type: string, callback: (e: any,) => void,): string;
+    addListener(proxy: Titanium.Proxy, type: string, callback: (e: any) => void): string;
 
     /**
      * Creates a dictionary of properties based on the specified styles.
@@ -127,7 +127,7 @@ interface AlloyController extends Backbone.Events {
      * @param opts Dictionary of styles to apply.
      * @returns Dictionary of properties that can be passed to a view factory function or applyProperties().
      */
-    createStyle(opts: any,): Partial<Titanium.Proxy>;
+    createStyle(opts: any): Partial<Titanium.Proxy>;
 
     /**
      * Frees binding resources associated with this controller and its UI
@@ -150,7 +150,7 @@ interface AlloyController extends Backbone.Events {
      * @param proxy Proxy view object.
      * @param type Name of the event.
      */
-    getListener(proxy?: Titanium.Proxy, type?: string,): any[];
+    getListener(proxy?: Titanium.Proxy, type?: string): any[];
 
     /**
      * Returns a list of the root view elements associated with this controller.
@@ -164,7 +164,7 @@ interface AlloyController extends Backbone.Events {
      *
      * @param id ID of the view to return.
      */
-    getView(id?: string,): any;
+    getView(id?: string): any;
 
     /**
      * Returns a list of all IDed view elements associated with this controller.
@@ -178,7 +178,7 @@ interface AlloyController extends Backbone.Events {
      * @param classes Array or space-separated list of classes to remove.
      * @param opts Dictionary of properties to apply after the class removal.
      */
-    removeClass<T extends Titanium.Proxy,>(proxy: T, classes: string | string[], opts?: Partial<T>,): void;
+    removeClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
     /**
      * Removes all tracked event listeners or only the ones specified by the parameters.
@@ -191,7 +191,7 @@ interface AlloyController extends Backbone.Events {
      * @param type Name of the event to remove.
      * @param callback Callback to remove.
      */
-    removeListener(proxy: Titanium.Proxy, type?: string, callback?: (e: any,) => void,): AlloyController;
+    removeListener(proxy: Titanium.Proxy, type?: string, callback?: (e: any) => void): AlloyController;
 
     /**
      * Sets the array of TSS classes for the target View object, adding the classes specified and removing any applied classes that are not specified.
@@ -200,14 +200,14 @@ interface AlloyController extends Backbone.Events {
      * @param classes Array or space-separated list of classes to apply after the reset.
      * @param opts Dictionary of properties to apply after the reset.
      */
-    resetClass<T extends Titanium.Proxy,>(proxy: T, classes: string | string[], opts?: Partial<T>,): void;
+    resetClass<T extends Titanium.Proxy>(proxy: T, classes: string | string[], opts?: Partial<T>): void;
 
     /**
      * Applies a set of properties to view elements associated with this controller.
      *
      * @param args An object whose keys are the IDs (in form '#id') of views to which the styles will be applied.
      */
-    updateViews(args: { [k: string]: any },): AlloyController;
+    updateViews(args: { [k: string]: any }): AlloyController;
 }
 
 interface SingletonCollections {
@@ -217,7 +217,7 @@ interface SingletonCollections {
      *
      * @param name The name of the base model for the collection.
      */
-    instance(name: string,): Backbone.Collection;
+    instance(name: string): Backbone.Collection;
     [key: string]: unknown;
 }
 
@@ -228,7 +228,7 @@ interface SingletonModels {
      *
      * @param name The name of the base model for the model.
      */
-    instance(name: string,): Backbone.Model;
+    instance(name: string): Backbone.Model;
     [key: string]: unknown;
 }
 

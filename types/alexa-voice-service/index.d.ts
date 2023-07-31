@@ -33,7 +33,7 @@ declare namespace AVS {
     }
 
     class Player {
-        on(eventType: Player.EventTypes, callback?: () => void,): void;
+        on(eventType: Player.EventTypes, callback?: () => void): void;
     }
 
     namespace Player {
@@ -52,14 +52,14 @@ declare namespace AVS {
 
 declare class AVS {
     player: AVS.Player;
-    constructor(params: AVS.AVSParams,);
+    constructor(params: AVS.AVSParams);
 
-    on(eventType: AVS.EventTypes, callback?: () => void,): void;
+    on(eventType: AVS.EventTypes, callback?: () => void): void;
     refreshToken(): Promise<AVS.TokenResponse>;
     requestMic(): Promise<any>;
     startRecording(): Promise<void>;
     stopRecording(): Promise<DataView | undefined>;
-    sendAudio(dataView: DataView,): Promise<{
+    sendAudio(dataView: DataView): Promise<{
         xhr: any;
         response: {
             httpVersion: string;

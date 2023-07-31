@@ -1,23 +1,23 @@
-import { Agent as httpAgent, } from 'http';
-import { Agent as httpsAgent, } from 'https';
-import { Credentials, CredentialsOptions, } from './credentials';
-import { CredentialProviderChain, } from './credentials/credential_provider_chain';
-import { AWSError, } from './error';
-import { Token, } from './token';
-import { TokenProviderChain, } from './token/token_provider_chain';
+import { Agent as httpAgent } from 'http';
+import { Agent as httpsAgent } from 'https';
+import { Credentials, CredentialsOptions } from './credentials';
+import { CredentialProviderChain } from './credentials/credential_provider_chain';
+import { AWSError } from './error';
+import { Token } from './token';
+import { TokenProviderChain } from './token/token_provider_chain';
 
 export class ConfigBase extends ConfigurationOptions {
-    constructor(options?: ConfigurationOptions,);
+    constructor(options?: ConfigurationOptions);
     /**
      * Loads credentials from the configuration object.
      */
     getCredentials(
-        callback: (err: AWSError | null, credentials: Credentials | CredentialsOptions | null,) => void,
+        callback: (err: AWSError | null, credentials: Credentials | CredentialsOptions | null) => void,
     ): void;
     /**
      * Loads token from the token object.
      */
-    getToken(callback: (err: AWSError | null, token: Token | null,) => void,): void;
+    getToken(callback: (err: AWSError | null, token: Token | null) => void): void;
     /**
      * Loads configuration data from a JSON file into this config object.
      * Loading configuration will reset all existing configuration on the object.
@@ -25,21 +25,21 @@ export class ConfigBase extends ConfigurationOptions {
      *
      * @param {string} path - the path relative to your process's current working directory to load configuration from.
      */
-    loadFromPath(path: string,): ConfigBase;
+    loadFromPath(path: string): ConfigBase;
     /**
      * Updates the current configuration object with new options.
      *
      * @param {ConfigurationOptions} options - a map of option keys and values.
      * @param {boolean} allowUnknownKeys - Whether unknown keys can be set on the configuration object.
      */
-    update(options: ConfigurationOptions & { [key: string]: any }, allowUnknownKeys: true,): void;
+    update(options: ConfigurationOptions & { [key: string]: any }, allowUnknownKeys: true): void;
     /**
      * Updates the current configuration object with new options.
      *
      * @param {ConfigurationOptions} options - a map of option keys and values.
      * @param {boolean} allowUnknownKeys - Defaults to false. Whether unknown keys can be set on the configuration object.
      */
-    update(options: ConfigurationOptions, allowUnknownKeys?: false,): void;
+    update(options: ConfigurationOptions, allowUnknownKeys?: false): void;
     /**
      * Gets the promise dependency the SDK will use wherever Promises are returned.
      */
@@ -48,7 +48,7 @@ export class ConfigBase extends ConfigurationOptions {
      * Sets the promise dependency the SDK will use wherever Promises are returned.
      * @param {function} dep - a reference to a Promise constructor
      */
-    setPromisesDependency(dep: any,): void;
+    setPromisesDependency(dep: any): void;
 }
 
 export interface HTTPOptions {
@@ -89,7 +89,7 @@ export interface HTTPOptions {
     xhrWithCredentials?: boolean;
 }
 export interface Logger {
-    write?: (chunk: any, encoding?: string, callback?: () => void,) => void;
+    write?: (chunk: any, encoding?: string, callback?: () => void) => void;
     log?: (...messages: any[]) => void;
     warn?: (...message: any[]) => void;
 }
@@ -122,7 +122,7 @@ export interface RetryDelayOptions {
      * A custom function that accepts a retry count and error and returns the amount of time to delay in milliseconds. If the result is a non-zero negative value, no further retry attempts will be made.
      * The base option will be ignored if this option is supplied.
      */
-    customBackoff?: (retryCount: number, err?: Error,) => number;
+    customBackoff?: (retryCount: number, err?: Error) => number;
 }
 
 /**

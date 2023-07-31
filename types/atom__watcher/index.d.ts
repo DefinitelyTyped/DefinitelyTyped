@@ -4,7 +4,7 @@
 //                 Jan Vlnas <https://github.com/jnv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Disposable, } from 'event-kit';
+import { Disposable } from 'event-kit';
 
 export const DISABLE: unique symbol;
 export const STDOUT: unique symbol;
@@ -110,10 +110,10 @@ export interface RenamedEvent extends BaseEvent {
 }
 
 export type Event = RenamedEvent | OtherEvent;
-export type EventConsumer = (events: Event[],) => unknown;
+export type EventConsumer = (events: Event[]) => unknown;
 
 export class PathWatcher {
-    private constructor(nativeWatcherRegistry: unknown, watchedPath: string, options: WatcherOptions,);
+    private constructor(nativeWatcherRegistry: unknown, watchedPath: string, options: WatcherOptions);
 
     getOptions(): WatcherOptions;
 
@@ -133,7 +133,7 @@ export class PathWatcher {
      * The `callback` argument will be invoked with an `Error` with a stack trace that likely isn't very
      * helpful and a message that hopefully is.
      */
-    onDidError(callback: (err: unknown,) => unknown,): Disposable;
+    onDidError(callback: (err: unknown) => unknown): Disposable;
 
     /**
      * Release an event subscription. The event callback associated with this `PathWatcher` will not be called after
@@ -181,4 +181,4 @@ export function watchPath(
  * Tweak package-global settings. This method may be called even after watchers have been started. The `Promise`
  * it returns resolves when all changed settings have taken effect. All configuration settings are optional. Omitted keys are left unchanged.
  */
-export function configure(settings: Partial<WatcherSettings>,): Promise<void>;
+export function configure(settings: Partial<WatcherSettings>): Promise<void>;

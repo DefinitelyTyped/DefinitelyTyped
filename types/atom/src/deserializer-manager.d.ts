@@ -1,4 +1,4 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /** Manages the deserializers used for serialized state. */
 export interface DeserializerManager {
@@ -6,10 +6,10 @@ export interface DeserializerManager {
     add(...deserializers: Deserializer[]): Disposable;
 
     /** Deserialize the state and params. */
-    deserialize(state: object,): object | undefined;
+    deserialize(state: object): object | undefined;
 }
 
 export interface Deserializer {
     name: string;
-    deserialize(state: object,): object;
+    deserialize(state: object): object;
 }

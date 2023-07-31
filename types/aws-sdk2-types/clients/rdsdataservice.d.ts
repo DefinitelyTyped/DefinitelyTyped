@@ -1,93 +1,93 @@
-import { ConfigBase as Config, } from '../lib/config-base';
-import { AWSError, } from '../lib/error';
-import { Request, } from '../lib/request';
-import { Response, } from '../lib/response';
-import { Service, } from '../lib/service';
-import { ServiceConfigurationOptions, } from '../lib/service';
+import { ConfigBase as Config } from '../lib/config-base';
+import { AWSError } from '../lib/error';
+import { Request } from '../lib/request';
+import { Response } from '../lib/response';
+import { Service } from '../lib/service';
+import { ServiceConfigurationOptions } from '../lib/service';
 interface Blob {}
 declare class RDSDataService extends Service {
     /**
      * Constructs a service object. This object has one method for each API operation.
      */
-    constructor(options?: RDSDataService.Types.ClientConfiguration,);
+    constructor(options?: RDSDataService.Types.ClientConfiguration);
     config: Config & RDSDataService.Types.ClientConfiguration;
     /**
      * Runs a batch SQL statement over an array of data. You can run bulk update and insert operations for multiple records using a DML statement with different parameter sets. Bulk operations can provide a significant performance improvement over individual insert and update operations.  If a call isn't part of a transaction because it doesn't include the transactionID parameter, changes that result from the call are committed automatically. There isn't a fixed upper limit on the number of parameter sets. However, the maximum size of the HTTP request submitted through the Data API is 4 MiB. If the request exceeds this limit, the Data API returns an error and doesn't process the request. This 4-MiB limit includes the size of the HTTP headers and the JSON notation in the request. Thus, the number of parameter sets that you can include depends on a combination of factors, such as the size of the SQL statement and the size of each parameter set. The response size limit is 1 MiB. If the call returns more than 1 MiB of response data, the call is terminated.
      */
     batchExecuteStatement(
         params: RDSDataService.Types.BatchExecuteStatementRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.BatchExecuteStatementResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.BatchExecuteStatementResponse) => void,
     ): Request<RDSDataService.Types.BatchExecuteStatementResponse, AWSError>;
     /**
      * Runs a batch SQL statement over an array of data. You can run bulk update and insert operations for multiple records using a DML statement with different parameter sets. Bulk operations can provide a significant performance improvement over individual insert and update operations.  If a call isn't part of a transaction because it doesn't include the transactionID parameter, changes that result from the call are committed automatically. There isn't a fixed upper limit on the number of parameter sets. However, the maximum size of the HTTP request submitted through the Data API is 4 MiB. If the request exceeds this limit, the Data API returns an error and doesn't process the request. This 4-MiB limit includes the size of the HTTP headers and the JSON notation in the request. Thus, the number of parameter sets that you can include depends on a combination of factors, such as the size of the SQL statement and the size of each parameter set. The response size limit is 1 MiB. If the call returns more than 1 MiB of response data, the call is terminated.
      */
     batchExecuteStatement(
-        callback?: (err: AWSError, data: RDSDataService.Types.BatchExecuteStatementResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.BatchExecuteStatementResponse) => void,
     ): Request<RDSDataService.Types.BatchExecuteStatementResponse, AWSError>;
     /**
      * Starts a SQL transaction.  A transaction can run for a maximum of 24 hours. A transaction is terminated and rolled back automatically after 24 hours. A transaction times out if no calls use its transaction ID in three minutes. If a transaction times out before it's committed, it's rolled back automatically. DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a separate ExecuteStatement call with continueAfterTimeout enabled.
      */
     beginTransaction(
         params: RDSDataService.Types.BeginTransactionRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.BeginTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.BeginTransactionResponse) => void,
     ): Request<RDSDataService.Types.BeginTransactionResponse, AWSError>;
     /**
      * Starts a SQL transaction.  A transaction can run for a maximum of 24 hours. A transaction is terminated and rolled back automatically after 24 hours. A transaction times out if no calls use its transaction ID in three minutes. If a transaction times out before it's committed, it's rolled back automatically. DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a separate ExecuteStatement call with continueAfterTimeout enabled.
      */
     beginTransaction(
-        callback?: (err: AWSError, data: RDSDataService.Types.BeginTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.BeginTransactionResponse) => void,
     ): Request<RDSDataService.Types.BeginTransactionResponse, AWSError>;
     /**
      * Ends a SQL transaction started with the BeginTransaction operation and commits the changes.
      */
     commitTransaction(
         params: RDSDataService.Types.CommitTransactionRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.CommitTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.CommitTransactionResponse) => void,
     ): Request<RDSDataService.Types.CommitTransactionResponse, AWSError>;
     /**
      * Ends a SQL transaction started with the BeginTransaction operation and commits the changes.
      */
     commitTransaction(
-        callback?: (err: AWSError, data: RDSDataService.Types.CommitTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.CommitTransactionResponse) => void,
     ): Request<RDSDataService.Types.CommitTransactionResponse, AWSError>;
     /**
      * Runs one or more SQL statements.  This operation is deprecated. Use the BatchExecuteStatement or ExecuteStatement operation.
      */
     executeSql(
         params: RDSDataService.Types.ExecuteSqlRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteSqlResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteSqlResponse) => void,
     ): Request<RDSDataService.Types.ExecuteSqlResponse, AWSError>;
     /**
      * Runs one or more SQL statements.  This operation is deprecated. Use the BatchExecuteStatement or ExecuteStatement operation.
      */
     executeSql(
-        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteSqlResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteSqlResponse) => void,
     ): Request<RDSDataService.Types.ExecuteSqlResponse, AWSError>;
     /**
      * Runs a SQL statement against a database.  If a call isn't part of a transaction because it doesn't include the transactionID parameter, changes that result from the call are committed automatically. If the binary response data from the database is more than 1 MB, the call is terminated.
      */
     executeStatement(
         params: RDSDataService.Types.ExecuteStatementRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteStatementResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteStatementResponse) => void,
     ): Request<RDSDataService.Types.ExecuteStatementResponse, AWSError>;
     /**
      * Runs a SQL statement against a database.  If a call isn't part of a transaction because it doesn't include the transactionID parameter, changes that result from the call are committed automatically. If the binary response data from the database is more than 1 MB, the call is terminated.
      */
     executeStatement(
-        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteStatementResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.ExecuteStatementResponse) => void,
     ): Request<RDSDataService.Types.ExecuteStatementResponse, AWSError>;
     /**
      * Performs a rollback of a transaction. Rolling back a transaction cancels its changes.
      */
     rollbackTransaction(
         params: RDSDataService.Types.RollbackTransactionRequest,
-        callback?: (err: AWSError, data: RDSDataService.Types.RollbackTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.RollbackTransactionResponse) => void,
     ): Request<RDSDataService.Types.RollbackTransactionResponse, AWSError>;
     /**
      * Performs a rollback of a transaction. Rolling back a transaction cancels its changes.
      */
     rollbackTransaction(
-        callback?: (err: AWSError, data: RDSDataService.Types.RollbackTransactionResponse,) => void,
+        callback?: (err: AWSError, data: RDSDataService.Types.RollbackTransactionResponse) => void,
     ): Request<RDSDataService.Types.RollbackTransactionResponse, AWSError>;
 }
 declare namespace RDSDataService {

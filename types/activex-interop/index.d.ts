@@ -8,15 +8,15 @@
 interface ActiveXObjectNameMap {}
 
 interface ActiveXObject {
-    new<K extends keyof ActiveXObjectNameMap,>(progid: K,): ActiveXObjectNameMap[K];
-    new(s: string,): any;
+    new<K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
+    new(s: string): any;
 }
 declare var ActiveXObject: ActiveXObject;
 
 /**
  * Represents an Automation SAFEARRAY
  */
-declare class SafeArray<T = any,> {
+declare class SafeArray<T = any> {
     private constructor();
     private SafeArray_typekey: SafeArray<T>;
 }
@@ -24,7 +24,7 @@ declare class SafeArray<T = any,> {
 /**
  * Allows enumerating over a COM collection, which may not have indexed item access.
  */
-interface Enumerator<T = any,> {
+interface Enumerator<T = any> {
     /**
      * Returns true if the current item is the last one in the collection, or the collection is empty,
      * or the current item is undefined.
@@ -50,7 +50,7 @@ interface Enumerator<T = any,> {
 }
 
 interface EnumeratorConstructor {
-    new<T = any,>(collection: { Item(index: any,): T },): Enumerator<T>;
+    new<T = any>(collection: { Item(index: any): T }): Enumerator<T>;
 }
 
 declare var Enumerator: EnumeratorConstructor;
@@ -58,7 +58,7 @@ declare var Enumerator: EnumeratorConstructor;
 /**
  * Enables reading from a COM safe array, which might have an alternate lower bound, or multiple dimensions.
  */
-interface VBArray<T = any,> {
+interface VBArray<T = any> {
     /**
      * Returns the number of dimensions (1-based).
      */
@@ -73,13 +73,13 @@ interface VBArray<T = any,> {
      * Returns the smallest available index for a given dimension.
      * @param dimension 1-based dimension (defaults to 1)
      */
-    lbound(dimension?: number,): number;
+    lbound(dimension?: number): number;
 
     /**
      * Returns the largest available index for a given dimension.
      * @param dimension 1-based dimension (defaults to 1)
      */
-    ubound(dimension?: number,): number;
+    ubound(dimension?: number): number;
 
     /**
      * Returns a Javascript array with all the elements in the VBArray. If there are multiple dimensions,
@@ -90,7 +90,7 @@ interface VBArray<T = any,> {
 }
 
 interface VBArrayConstructor {
-    new<T = any,>(safeArray: SafeArray<T>,): VBArray<T>;
+    new<T = any>(safeArray: SafeArray<T>): VBArray<T>;
 }
 
 declare var VBArray: VBArrayConstructor;
@@ -102,7 +102,7 @@ declare class VarDate {
 }
 
 interface DateConstructor {
-    new(vd: VarDate,): Date;
+    new(vd: VarDate): Date;
 }
 
 interface Date {

@@ -1,4 +1,4 @@
-import { Disposable, Tooltip, } from '../index';
+import { Disposable, Tooltip } from '../index';
 
 export type TooltipPlacement =
     | 'top'
@@ -34,9 +34,9 @@ export interface TooltipManager {
     ): Disposable;
 
     /** Find the tooltips that have been applied to the given element. */
-    findTooltips(target: HTMLElement,): Tooltip[];
+    findTooltips(target: HTMLElement): Tooltip[];
 }
 
-export interface JQueryCompatible<Element extends Node = HTMLElement,> extends Iterable<Element> {
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
     jquery: string;
 }

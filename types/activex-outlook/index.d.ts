@@ -1283,8 +1283,8 @@ declare namespace Outlook {
         readonly ExchangeConnectionMode: OlExchangeConnectionMode;
         readonly ExchangeMailboxServerName: string;
         readonly ExchangeMailboxServerVersion: string;
-        GetAddressEntryFromID(ID: string,): AddressEntry;
-        GetRecipientFromID(EntryID: string,): Recipient;
+        GetAddressEntryFromID(ID: string): AddressEntry;
+        GetRecipientFromID(EntryID: string): Recipient;
         readonly Parent: any;
         readonly Session: NameSpace;
         readonly SmtpAddress: string;
@@ -1309,7 +1309,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Account;
+        Item(Index: any): Account;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -1350,16 +1350,16 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Action;
+        Item(Index: any): Action;
         readonly Parent: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
     class AddressEntries {
         private 'Outlook.AddressEntries_typekey': AddressEntries;
         private constructor();
-        Add(Type: string, Name?: any, Address?: any,): AddressEntry;
+        Add(Type: string, Name?: any, Address?: any): AddressEntry;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
@@ -1367,11 +1367,11 @@ declare namespace Outlook {
         GetLast(): AddressEntry;
         GetNext(): AddressEntry;
         GetPrevious(): AddressEntry;
-        Item(Index: any,): AddressEntry;
+        Item(Index: any): AddressEntry;
         readonly Parent: any;
         readonly RawTable: any;
         readonly Session: NameSpace;
-        Sort(Property?: any, Order?: any,): void;
+        Sort(Property?: any, Order?: any): void;
     }
 
     class AddressEntry {
@@ -1382,12 +1382,12 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         Delete(): void;
-        Details(HWnd?: any,): void;
+        Details(HWnd?: any): void;
         readonly DisplayType: OlDisplayType;
         GetContact(): ContactItem;
         GetExchangeDistributionList(): ExchangeDistributionList;
         GetExchangeUser(): ExchangeUser;
-        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any,): string;
+        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any): string;
         readonly ID: string;
         readonly Manager: AddressEntry;
         MAPIOBJECT: any;
@@ -1397,7 +1397,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         readonly Session: NameSpace;
         Type: string;
-        Update(MakePermanent?: any, Refresh?: any,): void;
+        Update(MakePermanent?: any, Refresh?: any): void;
         UpdateFreeBusy(): void;
     }
 
@@ -1426,7 +1426,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): AddressList;
+        Item(Index: any): AddressList;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -1449,33 +1449,33 @@ declare namespace Outlook {
         ActiveExplorer(): Explorer;
         ActiveInspector(): Inspector;
         ActiveWindow(): any;
-        AdvancedSearch(Scope: string, Filter?: any, SearchSubFolders?: any, Tag?: any,): Search;
+        AdvancedSearch(Scope: string, Filter?: any, SearchSubFolders?: any, Tag?: any): Search;
         readonly AnswerWizard: Office.AnswerWizard;
         readonly Application: Application;
         readonly Assistance: Office.IAssistance;
         readonly Assistant: Office.Assistant;
         readonly Class: OlObjectClass;
         readonly COMAddIns: Office.COMAddIns;
-        CopyFile(FilePath: string, DestFolderPath: string,): any;
-        CreateItem(ItemType: OlItemType.olAppointmentItem,): AppointmentItem;
-        CreateItem(ItemType: OlItemType.olContactItem,): ContactItem;
-        CreateItem(ItemType: OlItemType.olDistributionListItem,): DistListItem;
-        CreateItem(ItemType: OlItemType.olJournalItem,): JournalItem;
-        CreateItem(ItemType: OlItemType.olMailItem,): MailItem;
-        CreateItem(ItemType: OlItemType.olMobileItemMMS | OlItemType.olMobileItemSMS,): MobileItem;
-        CreateItem(ItemType: OlItemType.olNoteItem,): NoteItem;
-        CreateItem(ItemType: OlItemType.olPostItem,): PostItem;
-        CreateItem(ItemType: OlItemType.olTaskItem,): TaskItem;
-        CreateItemFromTemplate(TemplatePath: string, InFolder?: any,): any;
-        CreateObject(ObjectName: string,): any;
+        CopyFile(FilePath: string, DestFolderPath: string): any;
+        CreateItem(ItemType: OlItemType.olAppointmentItem): AppointmentItem;
+        CreateItem(ItemType: OlItemType.olContactItem): ContactItem;
+        CreateItem(ItemType: OlItemType.olDistributionListItem): DistListItem;
+        CreateItem(ItemType: OlItemType.olJournalItem): JournalItem;
+        CreateItem(ItemType: OlItemType.olMailItem): MailItem;
+        CreateItem(ItemType: OlItemType.olMobileItemMMS | OlItemType.olMobileItemSMS): MobileItem;
+        CreateItem(ItemType: OlItemType.olNoteItem): NoteItem;
+        CreateItem(ItemType: OlItemType.olPostItem): PostItem;
+        CreateItem(ItemType: OlItemType.olTaskItem): TaskItem;
+        CreateItemFromTemplate(TemplatePath: string, InFolder?: any): any;
+        CreateObject(ObjectName: string): any;
         readonly DefaultProfileName: string;
         readonly Explorers: Explorers;
         FeatureInstall: Office.MsoFeatureInstall;
-        GetNamespace(Type: string,): NameSpace;
-        GetNewNickNames(pvar: any,): void;
-        GetObjectReference(Item: any, ReferenceType: OlReferenceType,): any;
+        GetNamespace(Type: string): NameSpace;
+        GetNewNickNames(pvar: any): void;
+        GetObjectReference(Item: any, ReferenceType: OlReferenceType): any;
         readonly Inspectors: Inspectors;
-        IsSearchSynchronous(LookInFolders: string,): boolean;
+        IsSearchSynchronous(LookInFolders: string): boolean;
         readonly IsTrusted: boolean;
         readonly LanguageSettings: Office.LanguageSettings;
         readonly Name: string;
@@ -1483,7 +1483,7 @@ declare namespace Outlook {
         readonly PickerDialog: Office.PickerDialog;
         readonly ProductCode: string;
         Quit(): void;
-        RefreshFormRegionDefinition(RegionName: string,): void;
+        RefreshFormRegionDefinition(RegionName: string): void;
         readonly Reminders: Reminders;
         readonly Session: NameSpace;
         readonly TimeZones: TimeZones;
@@ -1504,7 +1504,7 @@ declare namespace Outlook {
         Categories: string;
         readonly Class: OlObjectClass;
         ClearRecurrencePattern(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         ConferenceServerAllowExternal: boolean;
         ConferenceServerPassword: string;
@@ -1513,10 +1513,10 @@ declare namespace Outlook {
         readonly ConversationIndex: string;
         readonly ConversationTopic: string;
         Copy(): any;
-        CopyTo(DestinationFolder: Folder, CopyOptions: OlAppointmentCopyOptions,): AppointmentItem;
+        CopyTo(DestinationFolder: Folder, CopyOptions: OlAppointmentCopyOptions): AppointmentItem;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         Duration: number;
         End: VarDate;
@@ -1547,7 +1547,7 @@ declare namespace Outlook {
         readonly MeetingWorkspaceURL: string;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NetMeetingAutoStart: boolean;
         NetMeetingDocPathName: string;
         NetMeetingOrganizerAlias: string;
@@ -1572,12 +1572,12 @@ declare namespace Outlook {
         ReplyTime: VarDate;
         RequiredAttendees: string;
         Resources: string;
-        Respond(Response: OlMeetingResponse, fNoUI?: any, fAdditionalTextDialog?: any,): MeetingItem;
+        Respond(Response: OlMeetingResponse, fNoUI?: any, fAdditionalTextDialog?: any): MeetingItem;
         ResponseRequested: boolean;
         readonly ResponseStatus: OlResponseStatus;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Send(): void;
         SendUsingAccount: Account;
@@ -1622,7 +1622,7 @@ declare namespace Outlook {
         readonly PathName: string;
         Position: number;
         readonly PropertyAccessor: PropertyAccessor;
-        SaveAsFile(Path: string,): void;
+        SaveAsFile(Path: string): void;
         readonly Session: NameSpace;
         readonly Size: number;
         readonly Type: OlAttachmentType;
@@ -1631,13 +1631,13 @@ declare namespace Outlook {
     class Attachments {
         private 'Outlook.Attachments_typekey': Attachments;
         private constructor();
-        Add(Source: any, Type?: any, Position?: any, DisplayName?: any,): Attachment;
+        Add(Source: any, Type?: any, Position?: any, DisplayName?: any): Attachment;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Attachment;
+        Item(Index: any): Attachment;
         readonly Parent: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
@@ -1647,8 +1647,8 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        GetSelection(SelectionContents: OlSelectionContents,): Selection;
-        Item(Index: any,): Attachment;
+        GetSelection(SelectionContents: OlSelectionContents): Selection;
+        Item(Index: any): Attachment;
         readonly Location: OlSelectionLocation;
         readonly Parent: any;
         readonly Session: NameSpace;
@@ -1671,14 +1671,14 @@ declare namespace Outlook {
     class AutoFormatRules {
         private 'Outlook.AutoFormatRules_typekey': AutoFormatRules;
         private constructor();
-        Add(Name: string,): AutoFormatRule;
+        Add(Name: string): AutoFormatRule;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Insert(Name: string, Index: any,): AutoFormatRule;
-        Item(Index: any,): AutoFormatRule;
+        Insert(Name: string, Index: any): AutoFormatRule;
+        Item(Index: any): AutoFormatRule;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         RemoveAll(): void;
         Save(): void;
         readonly Session: NameSpace;
@@ -1691,10 +1691,10 @@ declare namespace Outlook {
         Apply(): void;
         CardSize: number;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         Delete(): void;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         readonly HeadingsFont: ViewFont;
         Language: string;
         LockUserChanges: boolean;
@@ -1732,13 +1732,13 @@ declare namespace Outlook {
         readonly Class: OlObjectClass;
         EndDate: VarDate;
         readonly Folder: Folder;
-        ForwardAsICal(MailFormat: OlCalendarMailFormat,): MailItem;
+        ForwardAsICal(MailFormat: OlCalendarMailFormat): MailItem;
         IncludeAttachments: boolean;
         IncludePrivateDetails: boolean;
         IncludeWholeCalendar: boolean;
         readonly Parent: any;
         RestrictToWorkingHours: boolean;
-        SaveAsICal(Path: string,): void;
+        SaveAsICal(Path: string): void;
         readonly Session: NameSpace;
         StartDate: VarDate;
     }
@@ -1753,7 +1753,7 @@ declare namespace Outlook {
         BoldSubjects: boolean;
         CalendarViewMode: OlCalendarViewMode;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         DaysInMultiDayMode: number;
         readonly DayWeekFont: ViewFont;
         readonly DayWeekTimeFont: ViewFont;
@@ -1762,7 +1762,7 @@ declare namespace Outlook {
         readonly DisplayedDates: any;
         EndField: string;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         Language: string;
         LockUserChanges: boolean;
         readonly MonthFont: ViewFont;
@@ -1790,10 +1790,10 @@ declare namespace Outlook {
         readonly AutoFormatRules: AutoFormatRules;
         readonly BodyFont: ViewFont;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         Delete(): void;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         readonly HeadingsFont: ViewFont;
         Language: string;
         LockUserChanges: boolean;
@@ -1816,13 +1816,13 @@ declare namespace Outlook {
     class Categories {
         private 'Outlook.Categories_typekey': Categories;
         private constructor();
-        Add(Name: string, Color?: any, ShortcutKey?: any,): Category;
+        Add(Name: string, Color?: any, ShortcutKey?: any): Category;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Category;
+        Item(Index: any): Category;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -1881,13 +1881,13 @@ declare namespace Outlook {
     class Columns {
         private 'Outlook.Columns_typekey': Columns;
         private constructor();
-        Add(Name: string,): Column;
+        Add(Name: string): Column;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Column;
+        Item(Index: any): Column;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         RemoveAll(): void;
         readonly Session: NameSpace;
     }
@@ -1914,7 +1914,7 @@ declare namespace Outlook {
         GetLast(): Conflict;
         GetNext(): Conflict;
         GetPrevious(): Conflict;
-        Item(Index: any,): Conflict;
+        Item(Index: any): Conflict;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -1924,8 +1924,8 @@ declare namespace Outlook {
         private constructor();
         Account: string;
         readonly Actions: Actions;
-        AddBusinessCardLogoPicture(Path: string,): void;
-        AddPicture(Path: string,): void;
+        AddBusinessCardLogoPicture(Path: string): void;
+        AddPicture(Path: string): void;
         Anniversary: VarDate;
         readonly Application: Application;
         AssistantName: string;
@@ -1954,7 +1954,7 @@ declare namespace Outlook {
         Children: string;
         readonly Class: OlObjectClass;
         ClearTaskFlag(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly CompanyAndFullName: string;
         readonly CompanyLastFirstNoSpace: string;
@@ -1971,7 +1971,7 @@ declare namespace Outlook {
         CustomerID: string;
         Delete(): void;
         Department: string;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         Email1Address: string;
         Email1AddressType: string;
@@ -2040,13 +2040,13 @@ declare namespace Outlook {
         MailingAddressStreet: string;
         ManagerName: string;
         readonly MAPIOBJECT: any;
-        MarkAsTask(MarkInterval: OlMarkInterval,): void;
+        MarkAsTask(MarkInterval: OlMarkInterval): void;
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         MiddleName: string;
         Mileage: string;
         MobileTelephoneNumber: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NetMeetingAlias: string;
         NetMeetingServer: string;
         NickName: string;
@@ -2082,15 +2082,15 @@ declare namespace Outlook {
         ResetBusinessCard(): void;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
-        SaveBusinessCardImage(Path: string,): void;
+        SaveAs(Path: string, Type?: any): void;
+        SaveBusinessCardImage(Path: string): void;
         readonly Saved: boolean;
         SelectedMailingAddress: OlMailingAddress;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
         ShowBusinessCardEditor(): void;
         ShowCategoriesDialog(): void;
-        ShowCheckPhoneDialog(PhoneNumber: OlContactPhoneNumber,): void;
+        ShowCheckPhoneDialog(PhoneNumber: OlContactPhoneNumber): void;
         readonly Size: number;
         Spouse: string;
         Subject: string;
@@ -2135,24 +2135,24 @@ declare namespace Outlook {
         private constructor();
         readonly Application: Application;
         readonly Class: OlObjectClass;
-        ClearAlwaysAssignCategories(Store: Store,): void;
+        ClearAlwaysAssignCategories(Store: Store): void;
         readonly ConversationID: string;
-        GetAlwaysAssignCategories(Store: Store,): string;
-        GetAlwaysDelete(Store: Store,): OlAlwaysDeleteConversation;
-        GetAlwaysMoveToFolder(Store: Store,): Folder;
-        GetChildren(Item: any,): SimpleItems;
-        GetParent(Item: any,): any;
+        GetAlwaysAssignCategories(Store: Store): string;
+        GetAlwaysDelete(Store: Store): OlAlwaysDeleteConversation;
+        GetAlwaysMoveToFolder(Store: Store): Folder;
+        GetChildren(Item: any): SimpleItems;
+        GetParent(Item: any): any;
         GetRootItems(): SimpleItems;
         GetTable(): Table;
         MarkAsRead(): void;
         MarkAsUnread(): void;
         readonly Parent: any;
         readonly Session: NameSpace;
-        SetAlwaysAssignCategories(Categories: string, Store: Store,): void;
-        SetAlwaysDelete(AlwaysDelete: OlAlwaysDeleteConversation, Store: Store,): void;
-        SetAlwaysMoveToFolder(MoveToFolder: Folder, Store: Store,): void;
-        StopAlwaysDelete(Store: Store,): void;
-        StopAlwaysMoveToFolder(Store: Store,): void;
+        SetAlwaysAssignCategories(Categories: string, Store: Store): void;
+        SetAlwaysDelete(AlwaysDelete: OlAlwaysDeleteConversation, Store: Store): void;
+        SetAlwaysMoveToFolder(MoveToFolder: Folder, Store: Store): void;
+        StopAlwaysDelete(Store: Store): void;
+        StopAlwaysMoveToFolder(Store: Store): void;
     }
 
     class ConversationHeader {
@@ -2172,8 +2172,8 @@ declare namespace Outlook {
         private 'Outlook.DistListItem_typekey': DistListItem;
         private constructor();
         readonly Actions: Actions;
-        AddMember(Recipient: Recipient,): void;
-        AddMembers(Recipients: Recipients,): void;
+        AddMember(Recipient: Recipient): void;
+        AddMembers(Recipients: Recipients): void;
         readonly Application: Application;
         readonly Attachments: Attachments;
         readonly AutoResolvedWinner: boolean;
@@ -2183,7 +2183,7 @@ declare namespace Outlook {
         readonly CheckSum: number;
         readonly Class: OlObjectClass;
         ClearTaskFlag(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -2192,14 +2192,14 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         DLName: string;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
-        GetMember(Index: number,): Recipient;
+        GetMember(Index: number): Recipient;
         Importance: OlImportance;
         readonly IsConflict: boolean;
         readonly IsMarkedAsTask: boolean;
@@ -2207,13 +2207,13 @@ declare namespace Outlook {
         readonly LastModificationTime: VarDate;
         readonly Links: Links;
         readonly MAPIOBJECT: any;
-        MarkAsTask(MarkInterval: OlMarkInterval,): void;
+        MarkAsTask(MarkInterval: OlMarkInterval): void;
         MarkForDownload: OlRemoteStatus;
         readonly MemberCount: number;
         Members: any;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         OneOffMembers: any;
         readonly OutlookInternalVersion: number;
@@ -2226,11 +2226,11 @@ declare namespace Outlook {
         ReminderSet: boolean;
         ReminderSoundFile: string;
         ReminderTime: VarDate;
-        RemoveMember(Recipient: Recipient,): void;
-        RemoveMembers(Recipients: Recipients,): void;
+        RemoveMember(Recipient: Recipient): void;
+        RemoveMembers(Recipients: Recipients): void;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -2257,7 +2257,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationIndex: string;
@@ -2265,7 +2265,7 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
@@ -2279,7 +2279,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -2287,7 +2287,7 @@ declare namespace Outlook {
         PrintOut(): void;
         readonly PropertyAccessor: PropertyAccessor;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -2302,11 +2302,11 @@ declare namespace Outlook {
         private 'Outlook.DoNotUseMeFolder_typekey': DoNotUseMeFolder;
         private constructor();
         AddressBookName: string;
-        AddToFavorites(fNoUI?: any, Name?: any,): void;
+        AddToFavorites(fNoUI?: any, Name?: any): void;
         AddToPFFavorites(): void;
         readonly Application: Application;
         readonly Class: OlObjectClass;
-        CopyTo(DestinationFolder: Folder,): Folder;
+        CopyTo(DestinationFolder: Folder): Folder;
         readonly CurrentView: View;
         CustomViewsOnly: boolean;
         readonly DefaultItemType: OlItemType;
@@ -2320,19 +2320,19 @@ declare namespace Outlook {
         readonly FullFolderPath: string;
         GetCalendarExporter(): CalendarSharing;
         GetCustomIcon(): stdole.StdPicture;
-        GetExplorer(DisplayMode?: any,): Explorer;
-        GetStorage(StorageIdentifier: string, StorageIdentifierType: OlStorageIdentifierType,): StorageItem;
-        GetTable(Filter?: any, TableContents?: any,): Table;
+        GetExplorer(DisplayMode?: any): Explorer;
+        GetStorage(StorageIdentifier: string, StorageIdentifierType: OlStorageIdentifierType): StorageItem;
+        GetTable(Filter?: any, TableContents?: any): Table;
         InAppFolderSyncObject: boolean;
         readonly IsSharePointFolder: boolean;
         readonly Items: Items;
         readonly MAPIOBJECT: any;
-        MoveTo(DestinationFolder: Folder,): void;
+        MoveTo(DestinationFolder: Folder): void;
         Name: string;
         readonly Parent: any;
         readonly PropertyAccessor: PropertyAccessor;
         readonly Session: NameSpace;
-        SetCustomIcon(Picture: stdole.StdPicture,): void;
+        SetCustomIcon(Picture: stdole.StdPicture): void;
         ShowAsOutlookAB: boolean;
         ShowItemCount: OlShowItemCount;
         readonly Store: Store;
@@ -2365,7 +2365,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Exception;
+        Item(Index: any): Exception;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -2380,13 +2380,13 @@ declare namespace Outlook {
         readonly Class: OlObjectClass;
         Comments: string;
         Delete(): void;
-        Details(HWnd?: any,): void;
+        Details(HWnd?: any): void;
         readonly DisplayType: OlDisplayType;
         GetContact(): ContactItem;
         GetExchangeDistributionList(): ExchangeDistributionList;
         GetExchangeDistributionListMembers(): AddressEntries;
         GetExchangeUser(): ExchangeUser;
-        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any,): string;
+        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any): string;
         GetMemberOfList(): AddressEntries;
         GetOwners(): AddressEntries;
         readonly ID: string;
@@ -2399,7 +2399,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         readonly Session: NameSpace;
         Type: string;
-        Update(MakePermanent?: any, Refresh?: any,): void;
+        Update(MakePermanent?: any, Refresh?: any): void;
         UpdateFreeBusy(): void;
     }
 
@@ -2418,7 +2418,7 @@ declare namespace Outlook {
         CompanyName: string;
         Delete(): void;
         Department: string;
-        Details(HWnd?: any,): void;
+        Details(HWnd?: any): void;
         readonly DisplayType: OlDisplayType;
         FirstName: string;
         GetContact(): ContactItem;
@@ -2426,7 +2426,7 @@ declare namespace Outlook {
         GetExchangeDistributionList(): ExchangeDistributionList;
         GetExchangeUser(): ExchangeUser;
         GetExchangeUserManager(): ExchangeUser;
-        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any,): string;
+        GetFreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any): string;
         GetMemberOfList(): AddressEntries;
         GetPicture(): stdole.StdPicture;
         readonly ID: string;
@@ -2446,7 +2446,7 @@ declare namespace Outlook {
         StateOrProvince: string;
         StreetAddress: string;
         Type: string;
-        Update(MakePermanent?: any, Refresh?: any,): void;
+        Update(MakePermanent?: any, Refresh?: any): void;
         UpdateFreeBusy(): void;
         YomiCompanyName: string;
         YomiDepartment: string;
@@ -2460,7 +2460,7 @@ declare namespace Outlook {
         private constructor();
         readonly AccountSelector: AccountSelector;
         Activate(): void;
-        AddToSelection(Item: any,): void;
+        AddToSelection(Item: any): void;
         readonly Application: Application;
         readonly AttachmentSelection: AttachmentSelection;
         readonly Caption: string;
@@ -2471,24 +2471,24 @@ declare namespace Outlook {
         readonly CommandBars: Office.CommandBars;
         CurrentFolder: Folder;
         CurrentView: any;
-        DeselectFolder(Folder: Folder,): void;
+        DeselectFolder(Folder: Folder): void;
         Display(): void;
         Height: number;
         readonly HTMLDocument: any;
-        IsFolderSelected(Folder: Folder,): boolean;
-        IsItemSelectableInView(Item: any,): boolean;
-        IsPaneVisible(Pane: OlPane,): boolean;
+        IsFolderSelected(Folder: Folder): boolean;
+        IsItemSelectableInView(Item: any): boolean;
+        IsPaneVisible(Pane: OlPane): boolean;
         Left: number;
         readonly NavigationPane: NavigationPane;
         readonly Panes: Panes;
         readonly Parent: any;
-        RemoveFromSelection(Item: any,): void;
-        Search(Query: string, SearchScope: OlSearchScope,): void;
+        RemoveFromSelection(Item: any): void;
+        Search(Query: string, SearchScope: OlSearchScope): void;
         SelectAllItems(): void;
-        SelectFolder(Folder: Folder,): void;
+        SelectFolder(Folder: Folder): void;
         readonly Selection: Selection;
         readonly Session: NameSpace;
-        ShowPane(Pane: OlPane, Visible: boolean,): void;
+        ShowPane(Pane: OlPane, Visible: boolean): void;
         Top: number;
         readonly Views: any;
         Width: number;
@@ -2498,11 +2498,11 @@ declare namespace Outlook {
     class Explorers {
         private 'Outlook.Explorers_typekey': Explorers;
         private constructor();
-        Add(Folder: any, DisplayMode: OlFolderDisplayMode,): Explorer;
+        Add(Folder: any, DisplayMode: OlFolderDisplayMode): Explorer;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Explorer;
+        Item(Index: any): Explorer;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -2511,11 +2511,11 @@ declare namespace Outlook {
         private 'Outlook.Folder_typekey': Folder;
         private constructor();
         AddressBookName: string;
-        AddToFavorites(fNoUI?: any, Name?: any,): void;
+        AddToFavorites(fNoUI?: any, Name?: any): void;
         AddToPFFavorites(): void;
         readonly Application: Application;
         readonly Class: OlObjectClass;
-        CopyTo(DestinationFolder: Folder,): Folder;
+        CopyTo(DestinationFolder: Folder): Folder;
         readonly CurrentView: View;
         CustomViewsOnly: boolean;
         readonly DefaultItemType: OlItemType;
@@ -2529,19 +2529,19 @@ declare namespace Outlook {
         readonly FullFolderPath: string;
         GetCalendarExporter(): CalendarSharing;
         GetCustomIcon(): stdole.StdPicture;
-        GetExplorer(DisplayMode?: any,): Explorer;
-        GetStorage(StorageIdentifier: string, StorageIdentifierType: OlStorageIdentifierType,): StorageItem;
-        GetTable(Filter?: any, TableContents?: any,): Table;
+        GetExplorer(DisplayMode?: any): Explorer;
+        GetStorage(StorageIdentifier: string, StorageIdentifierType: OlStorageIdentifierType): StorageItem;
+        GetTable(Filter?: any, TableContents?: any): Table;
         InAppFolderSyncObject: boolean;
         readonly IsSharePointFolder: boolean;
         readonly Items: Items;
         readonly MAPIOBJECT: any;
-        MoveTo(DestinationFolder: Folder,): void;
+        MoveTo(DestinationFolder: Folder): void;
         Name: string;
         readonly Parent: any;
         readonly PropertyAccessor: PropertyAccessor;
         readonly Session: NameSpace;
-        SetCustomIcon(Picture: stdole.StdPicture,): void;
+        SetCustomIcon(Picture: stdole.StdPicture): void;
         ShowAsOutlookAB: boolean;
         ShowItemCount: OlShowItemCount;
         readonly Store: Store;
@@ -2558,7 +2558,7 @@ declare namespace Outlook {
     class Folders {
         private 'Outlook.Folders_typekey': Folders;
         private constructor();
-        Add(Name: string, Type?: any,): Folder;
+        Add(Name: string, Type?: any): Folder;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
@@ -2566,10 +2566,10 @@ declare namespace Outlook {
         GetLast(): Folder;
         GetNext(): Folder;
         GetPrevious(): Folder;
-        Item(Index: any,): Folder;
+        Item(Index: any): Folder;
         readonly Parent: any;
         readonly RawTable: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
@@ -2593,7 +2593,7 @@ declare namespace Outlook {
         OneOff: boolean;
         readonly Parent: any;
         Password: string;
-        PublishForm(Registry: OlFormRegistry, Folder?: any,): void;
+        PublishForm(Registry: OlFormRegistry, Folder?: any): void;
         readonly ScriptText: string;
         readonly Session: NameSpace;
         Template: string;
@@ -2632,7 +2632,7 @@ declare namespace Outlook {
         Reflow(): void;
         Select(): void;
         readonly Session: NameSpace;
-        SetControlItemProperty(Control: any, PropertyName: string,): void;
+        SetControlItemProperty(Control: any, PropertyName: string): void;
         SuppressControlReplacement: boolean;
         Visible: boolean;
     }
@@ -2640,9 +2640,9 @@ declare namespace Outlook {
     class FormRegionStartup {
         private 'Outlook.FormRegionStartup_typekey': FormRegionStartup;
         private constructor();
-        BeforeFormRegionShow(FormRegion: FormRegion,): void;
-        GetFormRegionIcon(FormRegionName: string, LCID: number, Icon: OlFormRegionIcon,): any;
-        GetFormRegionManifest(FormRegionName: string, LCID: number,): any;
+        BeforeFormRegionShow(FormRegion: FormRegion): void;
+        GetFormRegionIcon(FormRegionName: string, LCID: number, Icon: OlFormRegionIcon): any;
+        GetFormRegionManifest(FormRegionName: string, LCID: number): any;
         GetFormRegionStorage(
             FormRegionName: string,
             Item: any,
@@ -2670,10 +2670,10 @@ declare namespace Outlook {
         readonly Application: Application;
         Apply(): void;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         Delete(): void;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         IconPlacement: OlIconViewPlacement;
         IconViewType: OlIconViewType;
         Language: string;
@@ -2710,26 +2710,26 @@ declare namespace Outlook {
         readonly AttachmentSelection: AttachmentSelection;
         readonly Caption: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         readonly CommandBars: Office.CommandBars;
         readonly CurrentItem: any;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly EditorType: OlEditorType;
         Height: number;
-        HideFormPage(PageName: string,): void;
+        HideFormPage(PageName: string): void;
         readonly HTMLEditor: any;
         IsWordMail(): boolean;
         Left: number;
         readonly ModifiedFormPages: any;
         NewFormRegion(): any;
-        OpenFormRegion(Path: string,): any;
+        OpenFormRegion(Path: string): any;
         readonly Parent: any;
-        SaveFormRegion(Page: any, FileName: string,): void;
+        SaveFormRegion(Page: any, FileName: string): void;
         readonly Session: NameSpace;
-        SetControlItemProperty(Control: any, PropertyName: string,): void;
-        SetCurrentFormPage(PageName: string,): void;
-        SetSchedulingStartTime(Start: VarDate,): void;
-        ShowFormPage(PageName: string,): void;
+        SetControlItemProperty(Control: any, PropertyName: string): void;
+        SetCurrentFormPage(PageName: string): void;
+        SetSchedulingStartTime(Start: VarDate): void;
+        ShowFormPage(PageName: string): void;
         Top: number;
         Width: number;
         WindowState: OlWindowState;
@@ -2739,11 +2739,11 @@ declare namespace Outlook {
     class Inspectors {
         private 'Outlook.Inspectors_typekey': Inspectors;
         private constructor();
-        Add(Item: any,): Inspector;
+        Add(Item: any): Inspector;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Inspector;
+        Item(Index: any): Inspector;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -2751,13 +2751,13 @@ declare namespace Outlook {
     class ItemProperties {
         private 'Outlook.ItemProperties_typekey': ItemProperties;
         private constructor();
-        Add(Name: string, Type: OlUserPropertyType, AddToFolderFields?: any, DisplayFormat?: any,): ItemProperty;
+        Add(Name: string, Type: OlUserPropertyType, AddToFolderFields?: any, DisplayFormat?: any): ItemProperty;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): ItemProperty;
+        Item(Index: any): ItemProperty;
         readonly Parent: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
@@ -2781,26 +2781,26 @@ declare namespace Outlook {
     class Items {
         private 'Outlook.Items_typekey': Items;
         private constructor();
-        Add(Type?: any,): any;
+        Add(Type?: any): any;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Find(Filter: string,): any;
+        Find(Filter: string): any;
         FindNext(): any;
         GetFirst(): any;
         GetLast(): any;
         GetNext(): any;
         GetPrevious(): any;
         IncludeRecurrences: boolean;
-        Item(Index: any,): any;
+        Item(Index: any): any;
         readonly Parent: any;
         readonly RawTable: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         ResetColumns(): void;
-        Restrict(Filter: string,): Items;
+        Restrict(Filter: string): Items;
         readonly Session: NameSpace;
-        SetColumns(Columns: string,): void;
-        Sort(Property: string, Descending?: any,): void;
+        SetColumns(Columns: string): void;
+        Sort(Property: string, Descending?: any): void;
     }
 
     class JournalItem {
@@ -2814,7 +2814,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         ContactNames: string;
@@ -2824,7 +2824,7 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         DocPosted: boolean;
         DocPrinted: boolean;
         DocRouted: boolean;
@@ -2846,7 +2846,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -2857,7 +2857,7 @@ declare namespace Outlook {
         Reply(): MailItem;
         ReplyAll(): MailItem;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -2901,13 +2901,13 @@ declare namespace Outlook {
     class Links {
         private 'Outlook.Links_typekey': Links;
         private constructor();
-        Add(Item: any,): Link;
+        Add(Item: any): Link;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Link;
+        Item(Index: any): Link;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -2915,7 +2915,7 @@ declare namespace Outlook {
         private 'Outlook.MailItem_typekey': MailItem;
         private constructor();
         readonly Actions: Actions;
-        AddBusinessCard(contact: ContactItem,): void;
+        AddBusinessCard(contact: ContactItem): void;
         AlternateRecipientAllowed: boolean;
         readonly Application: Application;
         readonly Attachments: Attachments;
@@ -2930,7 +2930,7 @@ declare namespace Outlook {
         readonly Class: OlObjectClass;
         ClearConversationIndex(): void;
         ClearTaskFlag(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -2941,7 +2941,7 @@ declare namespace Outlook {
         DeferredDeliveryTime: VarDate;
         Delete(): void;
         DeleteAfterSubmit: boolean;
-        Display(Modal?: boolean,): void;
+        Display(Modal?: boolean): void;
         readonly DownloadState: OlDownloadState;
         EnableSharedAttachments: boolean;
         readonly EntryID: string;
@@ -2965,11 +2965,11 @@ declare namespace Outlook {
         readonly LastModificationTime: VarDate;
         readonly Links: Links;
         readonly MAPIOBJECT: any;
-        MarkAsTask(MarkInterval: OlMarkInterval,): void;
+        MarkAsTask(MarkInterval: OlMarkInterval): void;
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         OriginatorDeliveryReportRequested: boolean;
         readonly OutlookInternalVersion: number;
@@ -3002,7 +3002,7 @@ declare namespace Outlook {
         readonly RetentionPolicyName: string;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         SaveSentMessageFolder: Folder;
         Send(): void;
@@ -3071,7 +3071,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -3082,7 +3082,7 @@ declare namespace Outlook {
         DeferredDeliveryTime: VarDate;
         Delete(): void;
         DeleteAfterSubmit: boolean;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         ExpiryTime: VarDate;
@@ -3092,7 +3092,7 @@ declare namespace Outlook {
         FlagStatus: OlFlagStatus;
         readonly FormDescription: FormDescription;
         Forward(): MeetingItem;
-        GetAssociatedAppointment(AddToCalendar: boolean,): AppointmentItem;
+        GetAssociatedAppointment(AddToCalendar: boolean): AppointmentItem;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
         Importance: OlImportance;
@@ -3106,7 +3106,7 @@ declare namespace Outlook {
         readonly MeetingWorkspaceURL: string;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         OriginatorDeliveryReportRequested: boolean;
         readonly OutlookInternalVersion: number;
@@ -3125,7 +3125,7 @@ declare namespace Outlook {
         readonly RetentionPolicyName: string;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         SaveSentMessageFolder: Folder;
         Send(): void;
@@ -3155,7 +3155,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly ConversationIndex: string;
         readonly ConversationTopic: string;
@@ -3163,7 +3163,7 @@ declare namespace Outlook {
         readonly Count: number;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
         Forward(): MobileItem;
@@ -3176,7 +3176,7 @@ declare namespace Outlook {
         MessageClass: string;
         Mileage: string;
         readonly MobileFormat: OlMobileFormat;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -3192,9 +3192,9 @@ declare namespace Outlook {
         readonly ReplyRecipientNames: string;
         readonly ReplyRecipients: Recipients;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
-        Send(ForceSend: boolean,): void;
+        Send(ForceSend: boolean): void;
         readonly SenderEmailAddress: string;
         readonly SenderEmailType: string;
         readonly SenderName: string;
@@ -3229,45 +3229,45 @@ declare namespace Outlook {
         private constructor();
         readonly Accounts: Accounts;
         readonly AddressLists: AddressLists;
-        AddStore(Store: any,): void;
-        AddStoreEx(Store: any, Type: OlStoreType,): void;
+        AddStore(Store: any): void;
+        AddStoreEx(Store: any, Type: OlStoreType): void;
         readonly Application: Application;
         readonly AutoDiscoverConnectionMode: OlAutoDiscoverConnectionMode;
         readonly AutoDiscoverXml: string;
         readonly Categories: Categories;
         readonly Class: OlObjectClass;
-        CompareEntryIDs(FirstEntryID: string, SecondEntryID: string,): boolean;
-        CreateContactCard(AddressEntry: AddressEntry,): Office.ContactCard;
-        CreateRecipient(RecipientName: string,): Recipient;
-        CreateSharingItem(Context: any, Provider?: any,): SharingItem;
+        CompareEntryIDs(FirstEntryID: string, SecondEntryID: string): boolean;
+        CreateContactCard(AddressEntry: AddressEntry): Office.ContactCard;
+        CreateRecipient(RecipientName: string): Recipient;
+        CreateSharingItem(Context: any, Provider?: any): SharingItem;
         readonly CurrentProfileName: string;
         readonly CurrentUser: Recipient;
         readonly DefaultStore: Store;
-        Dial(ContactItem?: any,): void;
+        Dial(ContactItem?: any): void;
         readonly ExchangeConnectionMode: OlExchangeConnectionMode;
         readonly ExchangeMailboxServerName: string;
         readonly ExchangeMailboxServerVersion: string;
         readonly Folders: Folders;
-        GetAddressEntryFromID(ID: string,): AddressEntry;
-        GetDefaultFolder(FolderType: OlDefaultFolders,): Folder;
-        GetFolderFromID(EntryIDFolder: string, EntryIDStore?: any,): Folder;
+        GetAddressEntryFromID(ID: string): AddressEntry;
+        GetDefaultFolder(FolderType: OlDefaultFolders): Folder;
+        GetFolderFromID(EntryIDFolder: string, EntryIDStore?: any): Folder;
         GetGlobalAddressList(): AddressList;
-        GetItemFromID(EntryIDItem: string, EntryIDStore?: any,): any;
-        GetRecipientFromID(EntryID: string,): Recipient;
+        GetItemFromID(EntryIDItem: string, EntryIDStore?: any): any;
+        GetRecipientFromID(EntryID: string): Recipient;
         GetSelectNamesDialog(): SelectNamesDialog;
-        GetSharedDefaultFolder(Recipient: Recipient, FolderType: OlDefaultFolders,): Folder;
-        GetStoreFromID(ID: string,): Store;
+        GetSharedDefaultFolder(Recipient: Recipient, FolderType: OlDefaultFolders): Folder;
+        GetStoreFromID(ID: string): Store;
         Logoff(): void;
-        Logon(Profile?: any, Password?: any, ShowDialog?: any, NewSession?: any,): void;
+        Logon(Profile?: any, Password?: any, ShowDialog?: any, NewSession?: any): void;
         readonly MAPIOBJECT: any;
         readonly Offline: boolean;
-        OpenSharedFolder(Path: string, Name?: any, DownloadAttachments?: any, UseTTL?: any,): Folder;
-        OpenSharedItem(Path: string,): any;
+        OpenSharedFolder(Path: string, Name?: any, DownloadAttachments?: any, UseTTL?: any): Folder;
+        OpenSharedItem(Path: string): any;
         readonly Parent: any;
         PickFolder(): Folder;
         RefreshRemoteHeaders(): void;
-        RemoveStore(Folder: Folder,): void;
-        SendAndReceive(showProgressDialog: boolean,): void;
+        RemoveStore(Folder: Folder): void;
+        SendAndReceive(showProgressDialog: boolean): void;
         readonly Session: NameSpace;
         readonly Stores: Stores;
         readonly SyncObjects: SyncObjects;
@@ -3292,13 +3292,13 @@ declare namespace Outlook {
     class NavigationFolders {
         private 'Outlook.NavigationFolders_typekey': NavigationFolders;
         private constructor();
-        Add(Folder: Folder,): NavigationFolder;
+        Add(Folder: Folder): NavigationFolder;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): NavigationFolder;
+        Item(Index: any): NavigationFolder;
         readonly Parent: any;
-        Remove(RemovableFolder: NavigationFolder,): void;
+        Remove(RemovableFolder: NavigationFolder): void;
         readonly Session: NameSpace;
     }
 
@@ -3321,10 +3321,10 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Create(GroupDisplayName: string,): NavigationGroup;
-        Delete(Group: NavigationGroup,): void;
-        GetDefaultNavigationGroup(DefaultFolderGroup: OlGroupType,): NavigationGroup;
-        Item(Index: any,): NavigationGroup;
+        Create(GroupDisplayName: string): NavigationGroup;
+        Delete(Group: NavigationGroup): void;
+        GetDefaultNavigationGroup(DefaultFolderGroup: OlGroupType): NavigationGroup;
+        Item(Index: any): NavigationGroup;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -3348,8 +3348,8 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        GetNavigationModule(ModuleType: OlNavigationModuleType,): NavigationModule;
-        Item(Index: any,): NavigationModule;
+        GetNavigationModule(ModuleType: OlNavigationModuleType): NavigationModule;
+        Item(Index: any): NavigationModule;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -3387,13 +3387,13 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Color: OlNoteColor;
         readonly Conflicts: Conflicts;
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly GetInspector: Inspector;
@@ -3405,12 +3405,12 @@ declare namespace Outlook {
         readonly Links: Links;
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         readonly Parent: any;
         PrintOut(): void;
         readonly PropertyAccessor: PropertyAccessor;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         readonly Session: NameSpace;
         readonly Size: number;
@@ -3473,7 +3473,7 @@ declare namespace Outlook {
     class OlkComboBox {
         private 'Outlook.OlkComboBox_typekey': OlkComboBox;
         private constructor();
-        AddItem(ItemText: string, Index?: any,): void;
+        AddItem(ItemText: string, Index?: any): void;
         AutoSize: boolean;
         AutoTab: boolean;
         AutoWordSelect: boolean;
@@ -3488,7 +3488,7 @@ declare namespace Outlook {
         EnterFieldBehavior: OlEnterFieldBehavior;
         readonly Font: stdole.StdFont;
         ForeColor: stdole.OLE_COLOR;
-        GetItem(Index: number,): string;
+        GetItem(Index: number): string;
         HideSelection: boolean;
         readonly ListCount: number;
         ListIndex: number;
@@ -3497,12 +3497,12 @@ declare namespace Outlook {
         MouseIcon: stdole.StdPicture;
         MousePointer: OlMousePointer;
         Paste(): void;
-        RemoveItem(Index: number,): void;
+        RemoveItem(Index: number): void;
         SelectionMargin: boolean;
         SelLength: number;
         SelStart: number;
         readonly SelText: string;
-        SetItem(Index: number, Item: string,): void;
+        SetItem(Index: number, Item: string): void;
         Style: OlComboBoxStyle;
         Text: string;
         TextAlign: OlTextAlign;
@@ -3600,7 +3600,7 @@ declare namespace Outlook {
     class OlkListBox {
         private 'Outlook.OlkListBox_typekey': OlkListBox;
         private constructor();
-        AddItem(ItemText: string, Index?: any,): void;
+        AddItem(ItemText: string, Index?: any): void;
         BackColor: stdole.OLE_COLOR;
         BorderStyle: OlBorderStyle;
         Clear(): void;
@@ -3608,8 +3608,8 @@ declare namespace Outlook {
         Enabled: boolean;
         readonly Font: stdole.StdFont;
         ForeColor: stdole.OLE_COLOR;
-        GetItem(Index: number,): string;
-        GetSelected(Index: number,): boolean;
+        GetItem(Index: number): string;
+        GetSelected(Index: number): boolean;
         readonly ListCount: number;
         ListIndex: number;
         Locked: boolean;
@@ -3617,9 +3617,9 @@ declare namespace Outlook {
         MouseIcon: stdole.StdPicture;
         MousePointer: OlMousePointer;
         MultiSelect: OlMultiSelect;
-        RemoveItem(Index: number,): void;
-        SetItem(Index: number, Item: string,): void;
-        SetSelected(Index: number, Selected: boolean,): void;
+        RemoveItem(Index: number): void;
+        SetItem(Index: number, Item: string): void;
+        SetSelected(Index: number, Selected: boolean): void;
         Text: string;
         TextAlign: OlTextAlign;
         TopIndex: number;
@@ -3753,14 +3753,14 @@ declare namespace Outlook {
     class OrderFields {
         private 'Outlook.OrderFields_typekey': OrderFields;
         private constructor();
-        Add(PropertyName: string, IsDescending?: any,): OrderField;
+        Add(PropertyName: string, IsDescending?: any): OrderField;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Insert(PropertyName: string, Index: any, IsDescending?: any,): OrderField;
-        Item(Index: any,): OrderField;
+        Insert(PropertyName: string, Index: any, IsDescending?: any): OrderField;
+        Item(Index: any): OrderField;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         RemoveAll(): void;
         readonly Session: NameSpace;
     }
@@ -3780,13 +3780,13 @@ declare namespace Outlook {
     class OutlookBarGroups {
         private 'Outlook.OutlookBarGroups_typekey': OutlookBarGroups;
         private constructor();
-        Add(Name: string, Index?: any,): OutlookBarGroup;
+        Add(Name: string, Index?: any): OutlookBarGroup;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): OutlookBarGroup;
+        Item(Index: any): OutlookBarGroup;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -3811,20 +3811,20 @@ declare namespace Outlook {
         Name: string;
         readonly Parent: any;
         readonly Session: NameSpace;
-        SetIcon(Icon: any,): void;
+        SetIcon(Icon: any): void;
         readonly Target: any;
     }
 
     class OutlookBarShortcuts {
         private 'Outlook.OutlookBarShortcuts_typekey': OutlookBarShortcuts;
         private constructor();
-        Add(Target: any, Name: string, Index?: any,): OutlookBarShortcut;
+        Add(Target: any, Name: string, Index?: any): OutlookBarShortcut;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): OutlookBarShortcut;
+        Item(Index: any): OutlookBarShortcut;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -3844,7 +3844,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): any;
+        Item(Index: any): any;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -3875,7 +3875,7 @@ declare namespace Outlook {
         readonly Class: OlObjectClass;
         ClearConversationIndex(): void;
         ClearTaskFlag(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -3884,7 +3884,7 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         ExpiryTime: VarDate;
@@ -3901,11 +3901,11 @@ declare namespace Outlook {
         readonly LastModificationTime: VarDate;
         readonly Links: Links;
         readonly MAPIOBJECT: any;
-        MarkAsTask(MarkInterval: OlMarkInterval,): void;
+        MarkAsTask(MarkInterval: OlMarkInterval): void;
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -3922,7 +3922,7 @@ declare namespace Outlook {
         Reply(): MailItem;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         readonly SenderEmailAddress: string;
         readonly SenderEmailType: string;
@@ -3947,31 +3947,31 @@ declare namespace Outlook {
         private 'Outlook.PropertyAccessor_typekey': PropertyAccessor;
         private constructor();
         readonly Application: Application;
-        BinaryToString(Value: any,): string;
+        BinaryToString(Value: any): string;
         readonly Class: OlObjectClass;
-        DeleteProperties(SchemaNames: any,): any;
-        DeleteProperty(SchemaName: string,): void;
-        GetProperties(SchemaNames: any,): any;
-        GetProperty(SchemaName: string,): any;
-        LocalTimeToUTC(Value: VarDate,): VarDate;
+        DeleteProperties(SchemaNames: any): any;
+        DeleteProperty(SchemaName: string): void;
+        GetProperties(SchemaNames: any): any;
+        GetProperty(SchemaName: string): any;
+        LocalTimeToUTC(Value: VarDate): VarDate;
         readonly Parent: any;
         readonly Session: NameSpace;
-        SetProperties(SchemaNames: any, Values: any,): any;
-        SetProperty(SchemaName: string, Value: any,): void;
-        StringToBinary(Value: string,): any;
-        UTCToLocalTime(Value: VarDate,): VarDate;
+        SetProperties(SchemaNames: any, Values: any): any;
+        SetProperty(SchemaName: string, Value: any): void;
+        StringToBinary(Value: string): any;
+        UTCToLocalTime(Value: VarDate): VarDate;
     }
 
     class PropertyPages {
         private 'Outlook.PropertyPages_typekey': PropertyPages;
         private constructor();
-        Add(Page: any, Title: string,): void;
+        Add(Page: any, Title: string): void;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): any;
+        Item(Index: any): any;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -3986,7 +3986,7 @@ declare namespace Outlook {
         Delete(): void;
         readonly DisplayType: OlDisplayType;
         readonly EntryID: string;
-        FreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any,): string;
+        FreeBusy(Start: VarDate, MinPerChar: number, CompleteFormat?: any): string;
         readonly Index: number;
         readonly MeetingResponseStatus: OlResponseStatus;
         readonly Name: string;
@@ -4004,13 +4004,13 @@ declare namespace Outlook {
     class Recipients {
         private 'Outlook.Recipients_typekey': Recipients;
         private constructor();
-        Add(Name: string,): Recipient;
+        Add(Name: string): Recipient;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Recipient;
+        Item(Index: any): Recipient;
         readonly Parent: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         ResolveAll(): boolean;
         readonly Session: NameSpace;
     }
@@ -4025,7 +4025,7 @@ declare namespace Outlook {
         Duration: number;
         EndTime: VarDate;
         readonly Exceptions: Exceptions;
-        GetOccurrence(StartDate: VarDate,): AppointmentItem;
+        GetOccurrence(StartDate: VarDate): AppointmentItem;
         Instance: number;
         Interval: number;
         MonthOfYear: number;
@@ -4053,7 +4053,7 @@ declare namespace Outlook {
         readonly OriginalReminderDate: VarDate;
         readonly Parent: any;
         readonly Session: NameSpace;
-        Snooze(SnoozeTime?: any,): void;
+        Snooze(SnoozeTime?: any): void;
     }
 
     class Reminders {
@@ -4062,9 +4062,9 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Reminder;
+        Item(Index: any): Reminder;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -4079,7 +4079,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4088,7 +4088,7 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
@@ -4104,7 +4104,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -4113,7 +4113,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         readonly RemoteMessageClass: string;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -4137,7 +4137,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4146,7 +4146,7 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
@@ -4161,7 +4161,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -4171,7 +4171,7 @@ declare namespace Outlook {
         readonly RetentionExpirationDate: VarDate;
         readonly RetentionPolicyName: string;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -4193,27 +4193,27 @@ declare namespace Outlook {
         GetLast(): any;
         GetNext(): any;
         GetPrevious(): any;
-        Item(Index: any,): any;
+        Item(Index: any): any;
         readonly Parent: any;
         readonly RawTable: any;
         ResetColumns(): void;
         readonly Session: NameSpace;
-        SetColumns(Columns: string,): void;
-        Sort(Property: string, Descending?: any,): void;
+        SetColumns(Columns: string): void;
+        Sort(Property: string, Descending?: any): void;
     }
 
     class Row {
         private 'Outlook.Row_typekey': Row;
         private constructor();
         readonly Application: Application;
-        BinaryToString(Index: any,): string;
+        BinaryToString(Index: any): string;
         readonly Class: OlObjectClass;
         GetValues(): any;
-        Item(Index: any,): any;
-        LocalTimeToUTC(Index: any,): VarDate;
+        Item(Index: any): any;
+        LocalTimeToUTC(Index: any): VarDate;
         readonly Parent: any;
         readonly Session: NameSpace;
-        UTCToLocalTime(Index: any,): VarDate;
+        UTCToLocalTime(Index: any): VarDate;
     }
 
     class Rule {
@@ -4225,7 +4225,7 @@ declare namespace Outlook {
         readonly Conditions: RuleConditions;
         Enabled: boolean;
         readonly Exceptions: RuleConditions;
-        Execute(ShowProgress?: any, Folder?: any, IncludeSubfolders?: any, RuleExecuteOption?: any,): void;
+        Execute(ShowProgress?: any, Folder?: any, IncludeSubfolders?: any, RuleExecuteOption?: any): void;
         ExecutionOrder: number;
         readonly IsLocalRule: boolean;
         Name: string;
@@ -4260,7 +4260,7 @@ declare namespace Outlook {
         readonly DesktopAlert: RuleAction;
         readonly Forward: SendRuleAction;
         readonly ForwardAsAttachment: SendRuleAction;
-        Item(Index: number,): RuleAction;
+        Item(Index: number): RuleAction;
         readonly MarkAsTask: MarkAsTaskRuleAction;
         readonly MoveToFolder: MoveOrCopyRuleAction;
         readonly NewItemAlert: NewItemAlertRuleAction;
@@ -4302,7 +4302,7 @@ declare namespace Outlook {
         readonly FromRssFeed: FromRssFeedRuleCondition;
         readonly HasAttachment: RuleCondition;
         readonly Importance: ImportanceRuleCondition;
-        Item(Index: number,): RuleCondition;
+        Item(Index: number): RuleCondition;
         readonly MeetingInviteOrUpdate: RuleCondition;
         readonly MessageHeader: TextRuleCondition;
         readonly NotTo: RuleCondition;
@@ -4326,12 +4326,12 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Create(Name: string, RuleType: OlRuleType,): Rule;
+        Create(Name: string, RuleType: OlRuleType): Rule;
         IsRssRulesProcessingEnabled: boolean;
-        Item(Index: any,): Rule;
+        Item(Index: any): Rule;
         readonly Parent: any;
-        Remove(Index: any,): void;
-        Save(ShowProgress?: any,): void;
+        Remove(Index: any): void;
+        Save(ShowProgress?: any): void;
         readonly Session: NameSpace;
     }
 
@@ -4345,7 +4345,7 @@ declare namespace Outlook {
         readonly IsSynchronous: boolean;
         readonly Parent: any;
         readonly Results: Results;
-        Save(Name: string,): Folder;
+        Save(Name: string): Folder;
         readonly Scope: string;
         readonly SearchSubFolders: boolean;
         readonly Session: NameSpace;
@@ -4359,8 +4359,8 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        GetSelection(SelectionContents: OlSelectionContents,): Selection;
-        Item(Index: any,): any;
+        GetSelection(SelectionContents: OlSelectionContents): Selection;
+        Item(Index: any): any;
         readonly Location: OlSelectionLocation;
         readonly Parent: any;
         readonly Session: NameSpace;
@@ -4382,7 +4382,7 @@ declare namespace Outlook {
         readonly Parent: any;
         Recipients: Recipients;
         readonly Session: NameSpace;
-        SetDefaultDisplayMode(defaultMode: OlDefaultSelectNamesDisplayMode,): void;
+        SetDefaultDisplayMode(defaultMode: OlDefaultSelectNamesDisplayMode): void;
         ShowOnlyInitialAddressList: boolean;
         ToLabel: string;
     }
@@ -4415,7 +4415,7 @@ declare namespace Outlook {
         private 'Outlook.SharingItem_typekey': SharingItem;
         private constructor();
         readonly Actions: Actions;
-        AddBusinessCard(contact: ContactItem,): void;
+        AddBusinessCard(contact: ContactItem): void;
         Allow(): void;
         AllowWriteAccess: boolean;
         AlternateRecipientAllowed: boolean;
@@ -4431,7 +4431,7 @@ declare namespace Outlook {
         readonly Class: OlObjectClass;
         ClearConversationIndex(): void;
         ClearTaskFlag(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4443,7 +4443,7 @@ declare namespace Outlook {
         Delete(): void;
         DeleteAfterSubmit: boolean;
         Deny(): SharingItem;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         EnableSharedAttachments: boolean;
         readonly EntryID: string;
@@ -4464,11 +4464,11 @@ declare namespace Outlook {
         readonly ItemProperties: ItemProperties;
         readonly LastModificationTime: VarDate;
         readonly MAPIOBJECT: any;
-        MarkAsTask(MarkInterval: OlMarkInterval,): void;
+        MarkAsTask(MarkInterval: OlMarkInterval): void;
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         OpenSharedFolder(): Folder;
         OriginatorDeliveryReportRequested: boolean;
@@ -4506,7 +4506,7 @@ declare namespace Outlook {
         readonly RetentionPolicyName: string;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         SaveSentMessageFolder: Folder;
         Send(): void;
@@ -4542,7 +4542,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): any;
+        Item(Index: any): any;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -4550,7 +4550,7 @@ declare namespace Outlook {
     class SolutionsModule {
         private 'Outlook.SolutionsModule_typekey': SolutionsModule;
         private constructor();
-        AddSolution(Solution: Folder, Scope: OlSolutionScope,): void;
+        AddSolution(Solution: Folder, Scope: OlSolutionScope): void;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Name: string;
@@ -4591,11 +4591,11 @@ declare namespace Outlook {
         readonly DisplayName: string;
         readonly ExchangeStoreType: OlExchangeStoreType;
         readonly FilePath: string;
-        GetDefaultFolder(FolderType: OlDefaultFolders,): Folder;
+        GetDefaultFolder(FolderType: OlDefaultFolders): Folder;
         GetRootFolder(): Folder;
         GetRules(): Rules;
         GetSearchFolders(): Folders;
-        GetSpecialFolder(FolderType: OlSpecialFolders,): Folder;
+        GetSpecialFolder(FolderType: OlSpecialFolders): Folder;
         readonly IsCachedExchange: boolean;
         readonly IsConversationEnabled: boolean;
         readonly IsDataFileStore: boolean;
@@ -4615,7 +4615,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): Store;
+        Item(Index: any): Store;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -4639,7 +4639,7 @@ declare namespace Outlook {
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): SyncObject;
+        Item(Index: any): SyncObject;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -4652,15 +4652,15 @@ declare namespace Outlook {
         readonly Columns: Columns;
         readonly EndOfTable: boolean;
         FindNextRow(): Row;
-        FindRow(Filter: string,): Row;
-        GetArray(MaxRows: number,): any;
+        FindRow(Filter: string): Row;
+        GetArray(MaxRows: number): any;
         GetNextRow(): Row;
         GetRowCount(): number;
         MoveToStart(): void;
         readonly Parent: any;
-        Restrict(Filter: string,): Table;
+        Restrict(Filter: string): Table;
         readonly Session: NameSpace;
-        Sort(SortProperty: string, Descending?: any,): void;
+        Sort(SortProperty: string, Descending?: any): void;
     }
 
     class TableView {
@@ -4677,12 +4677,12 @@ declare namespace Outlook {
         readonly AutoPreviewFont: ViewFont;
         readonly Class: OlObjectClass;
         readonly ColumnFont: ViewFont;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         DefaultExpandCollapseSetting: OlDefaultExpandCollapseSetting;
         Delete(): void;
         Filter: string;
         GetTable(): Table;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         GridLineStyle: OlGridLineStyle;
         readonly GroupByFields: OrderFields;
         HideReadingPaneHeaderInfo: boolean;
@@ -4728,7 +4728,7 @@ declare namespace Outlook {
         Categories: string;
         readonly Class: OlObjectClass;
         ClearRecurrencePattern(): void;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         Complete: boolean;
         readonly Conflicts: Conflicts;
@@ -4743,7 +4743,7 @@ declare namespace Outlook {
         readonly DelegationState: OlTaskDelegationState;
         readonly Delegator: string;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         DueDate: VarDate;
         readonly EntryID: string;
@@ -4763,7 +4763,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         Ordinal: number;
         readonly OutlookInternalVersion: number;
@@ -4780,12 +4780,12 @@ declare namespace Outlook {
         ReminderSet: boolean;
         ReminderSoundFile: string;
         ReminderTime: VarDate;
-        Respond(Response: OlTaskResponse, fNoUI: any, fAdditionalTextDialog: any,): TaskItem;
+        Respond(Response: OlTaskResponse, fNoUI: any, fAdditionalTextDialog: any): TaskItem;
         readonly ResponseState: OlTaskResponse;
         Role: string;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         SchedulePlusPriority: string;
         Send(): void;
@@ -4819,7 +4819,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4828,11 +4828,11 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
-        GetAssociatedTask(AddToTaskList: boolean,): TaskItem;
+        GetAssociatedTask(AddToTaskList: boolean): TaskItem;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
         Importance: OlImportance;
@@ -4844,7 +4844,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -4853,7 +4853,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -4875,7 +4875,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4884,11 +4884,11 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
-        GetAssociatedTask(AddToTaskList: boolean,): TaskItem;
+        GetAssociatedTask(AddToTaskList: boolean): TaskItem;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
         Importance: OlImportance;
@@ -4900,7 +4900,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -4909,7 +4909,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -4931,7 +4931,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4940,11 +4940,11 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
-        GetAssociatedTask(AddToTaskList: boolean,): TaskItem;
+        GetAssociatedTask(AddToTaskList: boolean): TaskItem;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
         Importance: OlImportance;
@@ -4956,7 +4956,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -4965,7 +4965,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -4987,7 +4987,7 @@ declare namespace Outlook {
         Body: string;
         Categories: string;
         readonly Class: OlObjectClass;
-        Close(SaveMode: OlInspectorClose,): void;
+        Close(SaveMode: OlInspectorClose): void;
         Companies: string;
         readonly Conflicts: Conflicts;
         readonly ConversationID: string;
@@ -4996,11 +4996,11 @@ declare namespace Outlook {
         Copy(): any;
         readonly CreationTime: VarDate;
         Delete(): void;
-        Display(Modal?: any,): void;
+        Display(Modal?: any): void;
         readonly DownloadState: OlDownloadState;
         readonly EntryID: string;
         readonly FormDescription: FormDescription;
-        GetAssociatedTask(AddToTaskList: boolean,): TaskItem;
+        GetAssociatedTask(AddToTaskList: boolean): TaskItem;
         GetConversation(): Conversation;
         readonly GetInspector: Inspector;
         Importance: OlImportance;
@@ -5012,7 +5012,7 @@ declare namespace Outlook {
         MarkForDownload: OlRemoteStatus;
         MessageClass: string;
         Mileage: string;
-        Move(DestFldr: Folder,): any;
+        Move(DestFldr: Folder): any;
         NoAging: boolean;
         readonly OutlookInternalVersion: number;
         readonly OutlookVersion: string;
@@ -5021,7 +5021,7 @@ declare namespace Outlook {
         readonly PropertyAccessor: PropertyAccessor;
         RTFBody: any;
         Save(): void;
-        SaveAs(Path: string, Type?: any,): void;
+        SaveAs(Path: string, Type?: any): void;
         readonly Saved: boolean;
         Sensitivity: OlSensitivity;
         readonly Session: NameSpace;
@@ -5064,12 +5064,12 @@ declare namespace Outlook {
         readonly Application: Application;
         Apply(): void;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         DefaultExpandCollapseSetting: OlDefaultExpandCollapseSetting;
         Delete(): void;
         EndField: string;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         readonly GroupByFields: OrderFields;
         readonly ItemFont: ViewFont;
         Language: string;
@@ -5115,10 +5115,10 @@ declare namespace Outlook {
         private constructor();
         readonly Application: Application;
         readonly Class: OlObjectClass;
-        ConvertTime(SourceDateTime: VarDate, SourceTimeZone: TimeZone, DestinationTimeZone: TimeZone,): VarDate;
+        ConvertTime(SourceDateTime: VarDate, SourceTimeZone: TimeZone, DestinationTimeZone: TimeZone): VarDate;
         readonly Count: number;
         readonly CurrentTimeZone: TimeZone;
-        Item(Index: any,): TimeZone;
+        Item(Index: any): TimeZone;
         readonly Parent: any;
         readonly Session: NameSpace;
     }
@@ -5138,15 +5138,15 @@ declare namespace Outlook {
     class UserDefinedProperties {
         private 'Outlook.UserDefinedProperties_typekey': UserDefinedProperties;
         private constructor();
-        Add(Name: string, Type: OlUserPropertyType, DisplayFormat?: any, Formula?: any,): UserDefinedProperty;
+        Add(Name: string, Type: OlUserPropertyType, DisplayFormat?: any, Formula?: any): UserDefinedProperty;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Find(Name: string,): UserDefinedProperty;
-        Item(Index: any,): UserDefinedProperty;
+        Find(Name: string): UserDefinedProperty;
+        Item(Index: any): UserDefinedProperty;
         readonly Parent: any;
         Refresh(): void;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
@@ -5167,14 +5167,14 @@ declare namespace Outlook {
     class UserProperties {
         private 'Outlook.UserProperties_typekey': UserProperties;
         private constructor();
-        Add(Name: string, Type: OlUserPropertyType, AddToFolderFields?: any, DisplayFormat?: any,): UserProperty;
+        Add(Name: string, Type: OlUserPropertyType, AddToFolderFields?: any, DisplayFormat?: any): UserProperty;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Find(Name: string, Custom?: any,): UserProperty;
-        Item(Index: any,): UserProperty;
+        Find(Name: string, Custom?: any): UserProperty;
+        Item(Index: any): UserProperty;
         readonly Parent: any;
-        Remove(Index: number,): void;
+        Remove(Index: number): void;
         readonly Session: NameSpace;
     }
 
@@ -5201,10 +5201,10 @@ declare namespace Outlook {
         readonly Application: Application;
         Apply(): void;
         readonly Class: OlObjectClass;
-        Copy(Name: string, SaveOption: OlViewSaveOption,): View;
+        Copy(Name: string, SaveOption: OlViewSaveOption): View;
         Delete(): void;
         Filter: string;
-        GoToDate(Date: VarDate,): void;
+        GoToDate(Date: VarDate): void;
         Language: string;
         LockUserChanges: boolean;
         Name: string;
@@ -5232,14 +5232,14 @@ declare namespace Outlook {
     class ViewFields {
         private 'Outlook.ViewFields_typekey': ViewFields;
         private constructor();
-        Add(PropertyName: string,): ViewField;
+        Add(PropertyName: string): ViewField;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Insert(PropertyName: string, Index: any,): ViewField;
-        Item(Index: any,): ViewField;
+        Insert(PropertyName: string, Index: any): ViewField;
+        Item(Index: any): ViewField;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 
@@ -5263,13 +5263,13 @@ declare namespace Outlook {
     class Views {
         private 'Outlook.Views_typekey': Views;
         private constructor();
-        Add(Name: string, ViewType: OlViewType, SaveOption: OlViewSaveOption,): View;
+        Add(Name: string, ViewType: OlViewType, SaveOption: OlViewSaveOption): View;
         readonly Application: Application;
         readonly Class: OlObjectClass;
         readonly Count: number;
-        Item(Index: any,): View;
+        Item(Index: any): View;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
         readonly Session: NameSpace;
     }
 }
@@ -5278,13 +5278,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.Accounts,
         event: 'AutoDiscoverComplete',
-        argNames: ['Account',],
-        handler: (this: Outlook.Accounts, parameter: { readonly Account: Outlook.Account },) => void,
+        argNames: ['Account'],
+        handler: (this: Outlook.Accounts, parameter: { readonly Account: Outlook.Account }) => void,
     ): void;
     on(
         obj: Outlook.AccountSelector,
         event: 'SelectedAccountChange',
-        argNames: ['SelectedAccount',],
+        argNames: ['SelectedAccount'],
         handler: (
             this: Outlook.AccountSelector,
             parameter: { readonly SelectedAccount: Outlook.Account },
@@ -5293,7 +5293,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'AdvancedSearchComplete' | 'AdvancedSearchStopped',
-        argNames: ['SearchObject',],
+        argNames: ['SearchObject'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly SearchObject: Outlook.Search },
@@ -5302,7 +5302,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'AttachmentContextMenuDisplay',
-        argNames: ['CommandBar', 'Attachments',],
+        argNames: ['CommandBar', 'Attachments'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly Attachments: Outlook.AttachmentSelection },
@@ -5311,7 +5311,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'BeforeFolderSharingDialog',
-        argNames: ['FolderToShare', 'Cancel',],
+        argNames: ['FolderToShare', 'Cancel'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly FolderToShare: Outlook.Folder; Cancel: boolean },
@@ -5320,13 +5320,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'ContextMenuClose',
-        argNames: ['ContextMenu',],
-        handler: (this: Outlook.Application, parameter: { readonly ContextMenu: Outlook.OlContextMenu },) => void,
+        argNames: ['ContextMenu'],
+        handler: (this: Outlook.Application, parameter: { readonly ContextMenu: Outlook.OlContextMenu }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'FolderContextMenuDisplay',
-        argNames: ['CommandBar', 'Folder',],
+        argNames: ['CommandBar', 'Folder'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly Folder: Outlook.Folder },
@@ -5335,7 +5335,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'ItemContextMenuDisplay',
-        argNames: ['CommandBar', 'Selection',],
+        argNames: ['CommandBar', 'Selection'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly Selection: Outlook.Selection },
@@ -5344,31 +5344,31 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'ItemLoad' | 'Reminder',
-        argNames: ['Item',],
-        handler: (this: Outlook.Application, parameter: { readonly Item: any },) => void,
+        argNames: ['Item'],
+        handler: (this: Outlook.Application, parameter: { readonly Item: any }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'ItemSend',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.Application, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.Application, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'NewMailEx',
-        argNames: ['EntryIDCollection',],
-        handler: (this: Outlook.Application, parameter: { readonly EntryIDCollection: string },) => void,
+        argNames: ['EntryIDCollection'],
+        handler: (this: Outlook.Application, parameter: { readonly EntryIDCollection: string }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'OptionsPagesAdd',
-        argNames: ['Pages',],
-        handler: (this: Outlook.Application, parameter: { readonly Pages: Outlook.PropertyPages },) => void,
+        argNames: ['Pages'],
+        handler: (this: Outlook.Application, parameter: { readonly Pages: Outlook.PropertyPages }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'ShortcutContextMenuDisplay',
-        argNames: ['CommandBar', 'Shortcut',],
+        argNames: ['CommandBar', 'Shortcut'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly Shortcut: Outlook.OutlookBarShortcut },
@@ -5377,7 +5377,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'StoreContextMenuDisplay',
-        argNames: ['CommandBar', 'Store',],
+        argNames: ['CommandBar', 'Store'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly Store: Outlook.Store },
@@ -5386,7 +5386,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.Application,
         event: 'ViewContextMenuDisplay',
-        argNames: ['CommandBar', 'View',],
+        argNames: ['CommandBar', 'View'],
         handler: (
             this: Outlook.Application,
             parameter: { readonly CommandBar: Office.CommandBar; readonly View: Outlook.View },
@@ -5395,7 +5395,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.AppointmentItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.AppointmentItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5409,7 +5409,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.AppointmentItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5418,19 +5418,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.AppointmentItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.AppointmentItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.AppointmentItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.AppointmentItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.AppointmentItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.AppointmentItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.AppointmentItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.AppointmentItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5439,19 +5439,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.AppointmentItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.AppointmentItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.AppointmentItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.AppointmentItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.AppointmentItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.AppointmentItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.AppointmentItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.AppointmentItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5460,7 +5460,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.ContactItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.ContactItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5474,7 +5474,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.ContactItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5483,19 +5483,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.ContactItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.ContactItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.ContactItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ContactItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.ContactItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.ContactItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ContactItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.ContactItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5504,19 +5504,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.ContactItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.ContactItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.ContactItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.ContactItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.ContactItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.ContactItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ContactItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.ContactItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5525,7 +5525,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.DistListItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.DistListItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5539,7 +5539,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.DistListItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5548,19 +5548,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.DistListItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.DistListItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.DistListItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DistListItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.DistListItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.DistListItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DistListItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.DistListItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5569,19 +5569,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.DistListItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.DistListItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.DistListItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.DistListItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.DistListItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.DistListItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DistListItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.DistListItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5590,7 +5590,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.DocumentItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.DocumentItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5604,7 +5604,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.DocumentItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5613,19 +5613,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.DocumentItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.DocumentItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.DocumentItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DocumentItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.DocumentItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.DocumentItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DocumentItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.DocumentItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5634,19 +5634,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.DocumentItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.DocumentItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.DocumentItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.DocumentItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.DocumentItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.DocumentItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.DocumentItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.DocumentItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5655,19 +5655,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.Explorer,
         event: 'BeforeFolderSwitch',
-        argNames: ['NewFolder', 'Cancel',],
-        handler: (this: Outlook.Explorer, parameter: { readonly NewFolder: any; Cancel: boolean },) => void,
+        argNames: ['NewFolder', 'Cancel'],
+        handler: (this: Outlook.Explorer, parameter: { readonly NewFolder: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Explorer,
         event: 'BeforeItemCopy' | 'BeforeItemCut' | 'BeforeMaximize' | 'BeforeMinimize' | 'BeforeMove' | 'BeforeSize',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.Explorer, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.Explorer, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Explorer,
         event: 'BeforeItemPaste',
-        argNames: ['ClipboardContent', 'Target', 'Cancel',],
+        argNames: ['ClipboardContent', 'Target', 'Cancel'],
         handler: (
             this: Outlook.Explorer,
             parameter: { readonly ClipboardContent: any; readonly Target: Outlook.Folder; Cancel: boolean },
@@ -5676,25 +5676,25 @@ interface ActiveXObject {
     on(
         obj: Outlook.Explorer,
         event: 'BeforeViewSwitch',
-        argNames: ['NewView', 'Cancel',],
-        handler: (this: Outlook.Explorer, parameter: { readonly NewView: any; Cancel: boolean },) => void,
+        argNames: ['NewView', 'Cancel'],
+        handler: (this: Outlook.Explorer, parameter: { readonly NewView: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Explorers,
         event: 'NewExplorer',
-        argNames: ['Explorer',],
-        handler: (this: Outlook.Explorers, parameter: { readonly Explorer: Outlook.Explorer },) => void,
+        argNames: ['Explorer'],
+        handler: (this: Outlook.Explorers, parameter: { readonly Explorer: Outlook.Explorer }) => void,
     ): void;
     on(
         obj: Outlook.Folder,
         event: 'BeforeFolderMove',
-        argNames: ['MoveTo', 'Cancel',],
-        handler: (this: Outlook.Folder, parameter: { readonly MoveTo: Outlook.Folder; Cancel: boolean },) => void,
+        argNames: ['MoveTo', 'Cancel'],
+        handler: (this: Outlook.Folder, parameter: { readonly MoveTo: Outlook.Folder; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Folder,
         event: 'BeforeItemMove',
-        argNames: ['Item', 'MoveTo', 'Cancel',],
+        argNames: ['Item', 'MoveTo', 'Cancel'],
         handler: (
             this: Outlook.Folder,
             parameter: { readonly Item: any; readonly MoveTo: Outlook.Folder; Cancel: boolean },
@@ -5703,19 +5703,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.Folders,
         event: 'FolderAdd' | 'FolderChange',
-        argNames: ['Folder',],
-        handler: (this: Outlook.Folders, parameter: { readonly Folder: Outlook.Folder },) => void,
+        argNames: ['Folder'],
+        handler: (this: Outlook.Folders, parameter: { readonly Folder: Outlook.Folder }) => void,
     ): void;
     on(
         obj: Outlook.FormRegion,
         event: 'Expanded',
-        argNames: ['Expand',],
-        handler: (this: Outlook.FormRegion, parameter: { readonly Expand: boolean },) => void,
+        argNames: ['Expand'],
+        handler: (this: Outlook.FormRegion, parameter: { readonly Expand: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Inspector,
         event: 'BeforeMaximize' | 'BeforeMinimize' | 'BeforeMove' | 'BeforeSize',
-        argNames: ['Cancel',],
+        argNames: ['Cancel'],
         handler: (
             this: Outlook.Inspector,
             parameter: { Cancel: boolean },
@@ -5724,25 +5724,25 @@ interface ActiveXObject {
     on(
         obj: Outlook.Inspector,
         event: 'PageChange',
-        argNames: ['ActivePageName',],
-        handler: (this: Outlook.Inspector, parameter: { readonly ActivePageName: string },) => void,
+        argNames: ['ActivePageName'],
+        handler: (this: Outlook.Inspector, parameter: { readonly ActivePageName: string }) => void,
     ): void;
     on(
         obj: Outlook.Inspectors,
         event: 'NewInspector',
-        argNames: ['Inspector',],
-        handler: (this: Outlook.Inspectors, parameter: { readonly Inspector: Outlook.Inspector },) => void,
+        argNames: ['Inspector'],
+        handler: (this: Outlook.Inspectors, parameter: { readonly Inspector: Outlook.Inspector }) => void,
     ): void;
     on(
         obj: Outlook.Items,
         event: 'ItemAdd' | 'ItemChange',
-        argNames: ['Item',],
-        handler: (this: Outlook.Items, parameter: { readonly Item: any },) => void,
+        argNames: ['Item'],
+        handler: (this: Outlook.Items, parameter: { readonly Item: any }) => void,
     ): void;
     on(
         obj: Outlook.JournalItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.JournalItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5756,7 +5756,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.JournalItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5765,19 +5765,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.JournalItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.JournalItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.JournalItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.JournalItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.JournalItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.JournalItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.JournalItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.JournalItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5786,19 +5786,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.JournalItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.JournalItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.JournalItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.JournalItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.JournalItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.JournalItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.JournalItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.JournalItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5807,7 +5807,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.MailItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.MailItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5821,7 +5821,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.MailItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5830,7 +5830,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.MailItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
+        argNames: ['Cancel'],
         handler: (
             this: Outlook.MailItem,
             parameter: { Cancel: boolean },
@@ -5839,13 +5839,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.MailItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.MailItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.MailItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MailItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.MailItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5854,25 +5854,25 @@ interface ActiveXObject {
     on(
         obj: Outlook.MailItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.MailItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.MailItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.MailItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.MailItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.MailItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MailItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.MailItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.MailItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.MeetingItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5886,7 +5886,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.MeetingItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5895,19 +5895,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.MeetingItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.MeetingItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.MeetingItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.MeetingItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.MeetingItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.MeetingItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5916,19 +5916,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.MeetingItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.MeetingItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.MeetingItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.MeetingItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.MeetingItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.MeetingItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -5937,7 +5937,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.MobileItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.MobileItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -5951,7 +5951,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.MobileItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -5960,19 +5960,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.MobileItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.MobileItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.MobileItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MobileItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.MobileItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.MobileItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MobileItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.MobileItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -5981,25 +5981,25 @@ interface ActiveXObject {
     on(
         obj: Outlook.MobileItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.MobileItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.MobileItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.MobileItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.MobileItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.MobileItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.MobileItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.MobileItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.MobileItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.NameSpace,
         event: 'OptionsPagesAdd',
-        argNames: ['Pages', 'Folder',],
+        argNames: ['Pages', 'Folder'],
         handler: (
             this: Outlook.NameSpace,
             parameter: { readonly Pages: Outlook.PropertyPages; readonly Folder: Outlook.Folder },
@@ -6008,7 +6008,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.NavigationGroups,
         event: 'NavigationFolderAdd' | 'SelectedChange',
-        argNames: ['NavigationFolder',],
+        argNames: ['NavigationFolder'],
         handler: (
             this: Outlook.NavigationGroups,
             parameter: { readonly NavigationFolder: Outlook.NavigationFolder },
@@ -6017,7 +6017,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.NavigationPane,
         event: 'ModuleSwitch',
-        argNames: ['CurrentModule',],
+        argNames: ['CurrentModule'],
         handler: (
             this: Outlook.NavigationPane,
             parameter: { readonly CurrentModule: Outlook.NavigationModule },
@@ -6026,7 +6026,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkBusinessCardControl,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkBusinessCardControl,
             parameter: {
@@ -6040,13 +6040,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCategory,
         event: 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkCategory, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkCategory, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkCategory,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkCategory,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6055,13 +6055,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCategory,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkCategory, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkCategory, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkCategory,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkCategory,
             parameter: {
@@ -6075,13 +6075,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCheckBox,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkCheckBox, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkCheckBox, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkCheckBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkCheckBox,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6090,13 +6090,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCheckBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkCheckBox, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkCheckBox, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkCheckBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkCheckBox,
             parameter: {
@@ -6110,13 +6110,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkComboBox,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkComboBox, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkComboBox, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkComboBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkComboBox,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6125,13 +6125,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkComboBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkComboBox, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkComboBox, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkComboBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkComboBox,
             parameter: {
@@ -6145,13 +6145,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCommandButton,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkCommandButton, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkCommandButton, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkCommandButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkCommandButton,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6160,13 +6160,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkCommandButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkCommandButton, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkCommandButton, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkCommandButton,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkCommandButton,
             parameter: {
@@ -6180,13 +6180,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkContactPhoto,
         event: 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkContactPhoto, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkContactPhoto, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkContactPhoto,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkContactPhoto,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6195,13 +6195,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkContactPhoto,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkContactPhoto, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkContactPhoto, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkContactPhoto,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkContactPhoto,
             parameter: {
@@ -6215,13 +6215,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkDateControl,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkDateControl, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkDateControl, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkDateControl,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkDateControl,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6230,13 +6230,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkDateControl,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkDateControl, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkDateControl, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkDateControl,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkDateControl,
             parameter: {
@@ -6250,7 +6250,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkInfoBar,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkInfoBar,
             parameter: {
@@ -6264,7 +6264,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkLabel,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkLabel,
             parameter: {
@@ -6278,13 +6278,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkListBox,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkListBox, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkListBox, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkListBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkListBox,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6293,13 +6293,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkListBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkListBox, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkListBox, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkListBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkListBox,
             parameter: {
@@ -6313,13 +6313,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkOptionButton,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkOptionButton, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkOptionButton, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkOptionButton,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkOptionButton,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6328,13 +6328,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkOptionButton,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkOptionButton, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkOptionButton, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkOptionButton,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkOptionButton,
             parameter: {
@@ -6348,7 +6348,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkSenderPhoto,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkSenderPhoto,
             parameter: {
@@ -6362,13 +6362,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTextBox,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkTextBox, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkTextBox, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkTextBox,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkTextBox,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6377,13 +6377,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTextBox,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkTextBox, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkTextBox, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkTextBox,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkTextBox,
             parameter: {
@@ -6397,13 +6397,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTimeControl,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkTimeControl, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkTimeControl, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeControl,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkTimeControl,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6412,13 +6412,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTimeControl,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkTimeControl, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkTimeControl, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeControl,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkTimeControl,
             parameter: {
@@ -6432,13 +6432,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTimeZoneControl,
         event: 'BeforeUpdate' | 'Exit',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OlkTimeZoneControl, parameter: { readonly Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OlkTimeZoneControl, parameter: { readonly Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeZoneControl,
         event: 'KeyDown' | 'KeyUp',
-        argNames: ['KeyCode', 'Shift',],
+        argNames: ['KeyCode', 'Shift'],
         handler: (
             this: Outlook.OlkTimeZoneControl,
             parameter: { readonly KeyCode: number; readonly Shift: Outlook.OlShiftState },
@@ -6447,13 +6447,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OlkTimeZoneControl,
         event: 'KeyPress',
-        argNames: ['KeyAscii',],
-        handler: (this: Outlook.OlkTimeZoneControl, parameter: { readonly KeyAscii: number },) => void,
+        argNames: ['KeyAscii'],
+        handler: (this: Outlook.OlkTimeZoneControl, parameter: { readonly KeyAscii: number }) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeZoneControl,
         event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'X', 'Y',],
+        argNames: ['Button', 'Shift', 'X', 'Y'],
         handler: (
             this: Outlook.OlkTimeZoneControl,
             parameter: {
@@ -6467,13 +6467,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OutlookBarGroups,
         event: 'BeforeGroupAdd',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OutlookBarGroups, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OutlookBarGroups, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OutlookBarGroups,
         event: 'BeforeGroupRemove',
-        argNames: ['Group', 'Cancel',],
+        argNames: ['Group', 'Cancel'],
         handler: (
             this: Outlook.OutlookBarGroups,
             parameter: { readonly Group: Outlook.OutlookBarGroup; Cancel: boolean },
@@ -6482,13 +6482,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OutlookBarGroups,
         event: 'GroupAdd',
-        argNames: ['NewGroup',],
-        handler: (this: Outlook.OutlookBarGroups, parameter: { readonly NewGroup: Outlook.OutlookBarGroup },) => void,
+        argNames: ['NewGroup'],
+        handler: (this: Outlook.OutlookBarGroups, parameter: { readonly NewGroup: Outlook.OutlookBarGroup }) => void,
     ): void;
     on(
         obj: Outlook.OutlookBarPane,
         event: 'BeforeGroupSwitch',
-        argNames: ['ToGroup', 'Cancel',],
+        argNames: ['ToGroup', 'Cancel'],
         handler: (
             this: Outlook.OutlookBarPane,
             parameter: { readonly ToGroup: Outlook.OutlookBarGroup; Cancel: boolean },
@@ -6497,7 +6497,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OutlookBarPane,
         event: 'BeforeNavigate',
-        argNames: ['Shortcut', 'Cancel',],
+        argNames: ['Shortcut', 'Cancel'],
         handler: (
             this: Outlook.OutlookBarPane,
             parameter: { readonly Shortcut: Outlook.OutlookBarShortcut; Cancel: boolean },
@@ -6506,13 +6506,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.OutlookBarShortcuts,
         event: 'BeforeShortcutAdd',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.OutlookBarShortcuts, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.OutlookBarShortcuts, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.OutlookBarShortcuts,
         event: 'BeforeShortcutRemove',
-        argNames: ['Shortcut', 'Cancel',],
+        argNames: ['Shortcut', 'Cancel'],
         handler: (
             this: Outlook.OutlookBarShortcuts,
             parameter: { readonly Shortcut: Outlook.OutlookBarShortcut; Cancel: boolean },
@@ -6521,7 +6521,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.OutlookBarShortcuts,
         event: 'ShortcutAdd',
-        argNames: ['NewShortcut',],
+        argNames: ['NewShortcut'],
         handler: (
             this: Outlook.OutlookBarShortcuts,
             parameter: { readonly NewShortcut: Outlook.OutlookBarShortcut },
@@ -6530,7 +6530,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.PostItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.PostItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6544,7 +6544,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.PostItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6553,7 +6553,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.PostItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
+        argNames: ['Cancel'],
         handler: (
             this: Outlook.PostItem,
             parameter: { Cancel: boolean },
@@ -6562,13 +6562,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.PostItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.PostItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.PostItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.PostItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.PostItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6577,31 +6577,31 @@ interface ActiveXObject {
     on(
         obj: Outlook.PostItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.PostItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.PostItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.PostItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.PostItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.PostItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.PostItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.PostItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.PostItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Reminders,
         event: 'BeforeReminderShow',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.Reminders, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.Reminders, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Reminders,
         event: 'ReminderAdd' | 'ReminderChange' | 'ReminderFire' | 'Snooze',
-        argNames: ['ReminderObject',],
+        argNames: ['ReminderObject'],
         handler: (
             this: Outlook.Reminders,
             parameter: { readonly ReminderObject: Outlook.Reminder },
@@ -6610,7 +6610,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.RemoteItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.RemoteItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6624,7 +6624,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.RemoteItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6633,19 +6633,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.RemoteItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.RemoteItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.RemoteItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.RemoteItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.RemoteItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.RemoteItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.RemoteItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.RemoteItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6654,25 +6654,25 @@ interface ActiveXObject {
     on(
         obj: Outlook.RemoteItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.RemoteItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.RemoteItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.RemoteItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.RemoteItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.RemoteItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.RemoteItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.RemoteItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.RemoteItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.ReportItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6686,7 +6686,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.ReportItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6695,19 +6695,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.ReportItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.ReportItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.ReportItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.ReportItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.ReportItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.ReportItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6716,31 +6716,31 @@ interface ActiveXObject {
     on(
         obj: Outlook.ReportItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.ReportItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.ReportItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.ReportItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.ReportItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.ReportItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.ReportItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Results,
         event: 'ItemAdd' | 'ItemChange',
-        argNames: ['Item',],
-        handler: (this: Outlook.Results, parameter: { readonly Item: any },) => void,
+        argNames: ['Item'],
+        handler: (this: Outlook.Results, parameter: { readonly Item: any }) => void,
     ): void;
     on(
         obj: Outlook.SharingItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.SharingItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6754,7 +6754,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.SharingItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6763,19 +6763,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.SharingItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.SharingItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.SharingItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.SharingItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.SharingItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.SharingItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.SharingItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.SharingItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6784,19 +6784,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.SharingItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.SharingItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.SharingItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.SharingItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.SharingItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.SharingItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.SharingItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.SharingItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -6805,19 +6805,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.Stores,
         event: 'BeforeStoreRemove',
-        argNames: ['Store', 'Cancel',],
-        handler: (this: Outlook.Stores, parameter: { readonly Store: Outlook.Store; Cancel: boolean },) => void,
+        argNames: ['Store', 'Cancel'],
+        handler: (this: Outlook.Stores, parameter: { readonly Store: Outlook.Store; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.Stores,
         event: 'StoreAdd',
-        argNames: ['Store',],
-        handler: (this: Outlook.Stores, parameter: { readonly Store: Outlook.Store },) => void,
+        argNames: ['Store'],
+        handler: (this: Outlook.Stores, parameter: { readonly Store: Outlook.Store }) => void,
     ): void;
     on(
         obj: Outlook.SyncObject,
         event: 'OnError',
-        argNames: ['Code', 'Description',],
+        argNames: ['Code', 'Description'],
         handler: (
             this: Outlook.SyncObject,
             parameter: { readonly Code: number; readonly Description: string },
@@ -6826,7 +6826,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.SyncObject,
         event: 'Progress',
-        argNames: ['State', 'Description', 'Value', 'Max',],
+        argNames: ['State', 'Description', 'Value', 'Max'],
         handler: (
             this: Outlook.SyncObject,
             parameter: {
@@ -6840,7 +6840,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.TaskItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6854,7 +6854,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.TaskItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6863,7 +6863,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
+        argNames: ['Cancel'],
         handler: (
             this: Outlook.TaskItem,
             parameter: { Cancel: boolean },
@@ -6872,13 +6872,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.TaskItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.TaskItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.TaskItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6887,26 +6887,26 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.TaskItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.TaskItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.TaskItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.TaskItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.TaskItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
-        handler: (this: Outlook.TaskItem, parameter: { readonly Response: any; Cancel: boolean },) => void,
+        argNames: ['Response', 'Cancel'],
+        handler: (this: Outlook.TaskItem, parameter: { readonly Response: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
-        handler: (this: Outlook.TaskRequestAcceptItem, parameter: { readonly Attachment: Outlook.Attachment },) => void,
+        argNames: ['Attachment'],
+        handler: (this: Outlook.TaskRequestAcceptItem, parameter: { readonly Attachment: Outlook.Attachment }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestAcceptItem,
@@ -6916,7 +6916,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6925,13 +6925,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.TaskRequestAcceptItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.TaskRequestAcceptItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
+        argNames: ['Item', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Item: any; Cancel: boolean },
@@ -6940,7 +6940,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -6949,7 +6949,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
+        argNames: ['Name'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Name: string },
@@ -6958,7 +6958,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
+        argNames: ['Forward', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Forward: any; Cancel: boolean },
@@ -6967,7 +6967,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestAcceptItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -6976,7 +6976,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -6990,7 +6990,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -6999,13 +6999,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.TaskRequestDeclineItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.TaskRequestDeclineItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
+        argNames: ['Item', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Item: any; Cancel: boolean },
@@ -7014,7 +7014,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -7023,7 +7023,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
+        argNames: ['Name'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Name: string },
@@ -7032,7 +7032,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
+        argNames: ['Forward', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Forward: any; Cancel: boolean },
@@ -7041,7 +7041,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestDeclineItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -7050,7 +7050,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
+        argNames: ['Attachment'],
         handler: (
             this: Outlook.TaskRequestItem,
             parameter: { readonly Attachment: Outlook.Attachment },
@@ -7064,7 +7064,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -7073,19 +7073,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.TaskRequestItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.TaskRequestItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
-        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Item: any; Cancel: boolean },) => void,
+        argNames: ['Item', 'Cancel'],
+        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Item: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -7094,19 +7094,19 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
-        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Name: string },) => void,
+        argNames: ['Name'],
+        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Name: string }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
-        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Forward: any; Cancel: boolean },) => void,
+        argNames: ['Forward', 'Cancel'],
+        handler: (this: Outlook.TaskRequestItem, parameter: { readonly Forward: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -7115,8 +7115,8 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'AttachmentAdd' | 'AttachmentRead' | 'AttachmentRemove',
-        argNames: ['Attachment',],
-        handler: (this: Outlook.TaskRequestUpdateItem, parameter: { readonly Attachment: Outlook.Attachment },) => void,
+        argNames: ['Attachment'],
+        handler: (this: Outlook.TaskRequestUpdateItem, parameter: { readonly Attachment: Outlook.Attachment }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestUpdateItem,
@@ -7126,7 +7126,7 @@ interface ActiveXObject {
             | 'BeforeAttachmentRead'
             | 'BeforeAttachmentSave'
             | 'BeforeAttachmentWriteToTempFile',
-        argNames: ['Attachment', 'Cancel',],
+        argNames: ['Attachment', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Attachment: Outlook.Attachment; Cancel: boolean },
@@ -7135,13 +7135,13 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'BeforeAutoSave' | 'BeforeCheckNames' | 'Close' | 'Open' | 'Send' | 'Write',
-        argNames: ['Cancel',],
-        handler: (this: Outlook.TaskRequestUpdateItem, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: Outlook.TaskRequestUpdateItem, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'BeforeDelete',
-        argNames: ['Item', 'Cancel',],
+        argNames: ['Item', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Item: any; Cancel: boolean },
@@ -7150,7 +7150,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'CustomAction',
-        argNames: ['Action', 'Response', 'Cancel',],
+        argNames: ['Action', 'Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Action: any; readonly Response: any; Cancel: boolean },
@@ -7159,7 +7159,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'CustomPropertyChange' | 'PropertyChange',
-        argNames: ['Name',],
+        argNames: ['Name'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Name: string },
@@ -7168,7 +7168,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'Forward',
-        argNames: ['Forward', 'Cancel',],
+        argNames: ['Forward', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Forward: any; Cancel: boolean },
@@ -7177,7 +7177,7 @@ interface ActiveXObject {
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'Reply' | 'ReplyAll',
-        argNames: ['Response', 'Cancel',],
+        argNames: ['Response', 'Cancel'],
         handler: (
             this: Outlook.TaskRequestUpdateItem,
             parameter: { readonly Response: any; Cancel: boolean },
@@ -7186,33 +7186,33 @@ interface ActiveXObject {
     on(
         obj: Outlook.Views,
         event: 'ViewAdd' | 'ViewRemove',
-        argNames: ['View',],
-        handler: (this: Outlook.Views, parameter: { readonly View: Outlook.View },) => void,
+        argNames: ['View'],
+        handler: (this: Outlook.Views, parameter: { readonly View: Outlook.View }) => void,
     ): void;
     on(
         obj: Outlook.Application,
         event: 'MAPILogonComplete' | 'NewMail' | 'Quit' | 'Startup',
-        handler: (this: Outlook.Application, parameter: {},) => void,
+        handler: (this: Outlook.Application, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.AppointmentItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.AppointmentItem, parameter: {},) => void,
+        handler: (this: Outlook.AppointmentItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.ContactItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.ContactItem, parameter: {},) => void,
+        handler: (this: Outlook.ContactItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.DistListItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.DistListItem, parameter: {},) => void,
+        handler: (this: Outlook.DistListItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.DocumentItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.DocumentItem, parameter: {},) => void,
+        handler: (this: Outlook.DocumentItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.Explorer,
@@ -7224,176 +7224,176 @@ interface ActiveXObject {
             | 'FolderSwitch'
             | 'SelectionChange'
             | 'ViewSwitch',
-        handler: (this: Outlook.Explorer, parameter: {},) => void,
+        handler: (this: Outlook.Explorer, parameter: {}) => void,
     ): void;
-    on(obj: Outlook.Folders, event: 'FolderRemove', handler: (this: Outlook.Folders, parameter: {},) => void,): void;
-    on(obj: Outlook.FormRegion, event: 'Close', handler: (this: Outlook.FormRegion, parameter: {},) => void,): void;
+    on(obj: Outlook.Folders, event: 'FolderRemove', handler: (this: Outlook.Folders, parameter: {}) => void): void;
+    on(obj: Outlook.FormRegion, event: 'Close', handler: (this: Outlook.FormRegion, parameter: {}) => void): void;
     on(
         obj: Outlook.Inspector,
         event: 'Activate' | 'AttachmentSelectionChange' | 'Close' | 'Deactivate',
-        handler: (this: Outlook.Inspector, parameter: {},) => void,
+        handler: (this: Outlook.Inspector, parameter: {}) => void,
     ): void;
-    on(obj: Outlook.Items, event: 'ItemRemove', handler: (this: Outlook.Items, parameter: {},) => void,): void;
+    on(obj: Outlook.Items, event: 'ItemRemove', handler: (this: Outlook.Items, parameter: {}) => void): void;
     on(
         obj: Outlook.JournalItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.JournalItem, parameter: {},) => void,
+        handler: (this: Outlook.JournalItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.MailItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.MailItem, parameter: {},) => void,
+        handler: (this: Outlook.MailItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.MeetingItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.MeetingItem, parameter: {},) => void,
+        handler: (this: Outlook.MeetingItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.MobileItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.MobileItem, parameter: {},) => void,
+        handler: (this: Outlook.MobileItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.NameSpace,
         event: 'AutoDiscoverComplete',
-        handler: (this: Outlook.NameSpace, parameter: {},) => void,
+        handler: (this: Outlook.NameSpace, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.NavigationGroups,
         event: 'NavigationFolderRemove',
-        handler: (this: Outlook.NavigationGroups, parameter: {},) => void,
+        handler: (this: Outlook.NavigationGroups, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkBusinessCardControl,
         event: 'Click' | 'DoubleClick',
-        handler: (this: Outlook.OlkBusinessCardControl, parameter: {},) => void,
+        handler: (this: Outlook.OlkBusinessCardControl, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkCategory,
         event: 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkCategory, parameter: {},) => void,
+        handler: (this: Outlook.OlkCategory, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkCheckBox,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkCheckBox, parameter: {},) => void,
+        handler: (this: Outlook.OlkCheckBox, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkComboBox,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'DropButtonClick' | 'Enter',
-        handler: (this: Outlook.OlkComboBox, parameter: {},) => void,
+        handler: (this: Outlook.OlkComboBox, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkCommandButton,
         event: 'AfterUpdate' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkCommandButton, parameter: {},) => void,
+        handler: (this: Outlook.OlkCommandButton, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkContactPhoto,
         event: 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkContactPhoto, parameter: {},) => void,
+        handler: (this: Outlook.OlkContactPhoto, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkDateControl,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'DropButtonClick' | 'Enter',
-        handler: (this: Outlook.OlkDateControl, parameter: {},) => void,
+        handler: (this: Outlook.OlkDateControl, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkInfoBar,
         event: 'Click' | 'DoubleClick',
-        handler: (this: Outlook.OlkInfoBar, parameter: {},) => void,
+        handler: (this: Outlook.OlkInfoBar, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkLabel,
         event: 'Click' | 'DoubleClick',
-        handler: (this: Outlook.OlkLabel, parameter: {},) => void,
+        handler: (this: Outlook.OlkLabel, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkListBox,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkListBox, parameter: {},) => void,
+        handler: (this: Outlook.OlkListBox, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkOptionButton,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkOptionButton, parameter: {},) => void,
+        handler: (this: Outlook.OlkOptionButton, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkSenderPhoto,
         event: 'Change' | 'Click' | 'DoubleClick',
-        handler: (this: Outlook.OlkSenderPhoto, parameter: {},) => void,
+        handler: (this: Outlook.OlkSenderPhoto, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkTextBox,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'Enter',
-        handler: (this: Outlook.OlkTextBox, parameter: {},) => void,
+        handler: (this: Outlook.OlkTextBox, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeControl,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'DropButtonClick' | 'Enter',
-        handler: (this: Outlook.OlkTimeControl, parameter: {},) => void,
+        handler: (this: Outlook.OlkTimeControl, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.OlkTimeZoneControl,
         event: 'AfterUpdate' | 'Change' | 'Click' | 'DoubleClick' | 'DropButtonClick' | 'Enter',
-        handler: (this: Outlook.OlkTimeZoneControl, parameter: {},) => void,
+        handler: (this: Outlook.OlkTimeZoneControl, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.PostItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.PostItem, parameter: {},) => void,
+        handler: (this: Outlook.PostItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.Reminders,
         event: 'ReminderRemove',
-        handler: (this: Outlook.Reminders, parameter: {},) => void,
+        handler: (this: Outlook.Reminders, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.RemoteItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.RemoteItem, parameter: {},) => void,
+        handler: (this: Outlook.RemoteItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.ReportItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.ReportItem, parameter: {},) => void,
+        handler: (this: Outlook.ReportItem, parameter: {}) => void,
     ): void;
-    on(obj: Outlook.Results, event: 'ItemRemove', handler: (this: Outlook.Results, parameter: {},) => void,): void;
+    on(obj: Outlook.Results, event: 'ItemRemove', handler: (this: Outlook.Results, parameter: {}) => void): void;
     on(
         obj: Outlook.SharingItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.SharingItem, parameter: {},) => void,
+        handler: (this: Outlook.SharingItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.SyncObject,
         event: 'SyncEnd' | 'SyncStart',
-        handler: (this: Outlook.SyncObject, parameter: {},) => void,
+        handler: (this: Outlook.SyncObject, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.TaskItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.TaskItem, parameter: {},) => void,
+        handler: (this: Outlook.TaskItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestAcceptItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.TaskRequestAcceptItem, parameter: {},) => void,
+        handler: (this: Outlook.TaskRequestAcceptItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestDeclineItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.TaskRequestDeclineItem, parameter: {},) => void,
+        handler: (this: Outlook.TaskRequestDeclineItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.TaskRequestItem, parameter: {},) => void,
+        handler: (this: Outlook.TaskRequestItem, parameter: {}) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestUpdateItem,
         event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload',
-        handler: (this: Outlook.TaskRequestUpdateItem, parameter: {},) => void,
+        handler: (this: Outlook.TaskRequestUpdateItem, parameter: {}) => void,
     ): void;
 }
 
@@ -7421,7 +7421,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: Outlook.ItemProperties,): Enumerator<Outlook.ItemProperty>;
-    new(col: Outlook.Reminders,): Enumerator<Outlook.Reminder>;
-    new(col: Outlook.Views,): Enumerator<Outlook.View>;
+    new(col: Outlook.ItemProperties): Enumerator<Outlook.ItemProperty>;
+    new(col: Outlook.Reminders): Enumerator<Outlook.Reminder>;
+    new(col: Outlook.Views): Enumerator<Outlook.View>;
 }

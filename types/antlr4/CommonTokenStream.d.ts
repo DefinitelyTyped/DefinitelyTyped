@@ -20,9 +20,9 @@ import Token from './Token';
  * channel.
  */
 export default class CommonTokenStream extends BufferedTokenStream {
-    constructor(lexer: Lexer, channel?: number,);
+    constructor(lexer: Lexer, channel?: number);
 
-    adjustSeekIndex(i: number,): number;
+    adjustSeekIndex(i: number): number;
 
     getNumberOfOnChannelTokens(): number;
 }

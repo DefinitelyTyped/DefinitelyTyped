@@ -56,13 +56,13 @@ declare namespace atv {
      * Stops a repeating function from running any more times.
      * @param handle The handle returned by setInterval which references the repeating task.
      */
-    function clearInterval(handle: string,): void;
+    function clearInterval(handle: string): void;
 
     /**
      * Stops a delayed function from executing.
      * @param handle The handle returned by setTimeout which references the task.
      */
-    function clearTimeout(handle: string,): void;
+    function clearTimeout(handle: string): void;
 
     /**
      * The global configuration for this app.
@@ -78,42 +78,42 @@ declare namespace atv {
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function MD5(data: any,): string;
+        function MD5(data: any): string;
 
         /**
          * Generate a SHA1 hash of the data.
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function SHA1(data: any,): string;
+        function SHA1(data: any): string;
 
         /**
          * Generate a SHA224 hash of the data.
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function SHA224(data: any,): string;
+        function SHA224(data: any): string;
 
         /**
          * Generate a SHA256 hash of the data.
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function SHA256(data: any,): string;
+        function SHA256(data: any): string;
 
         /**
          * Generate a SHA384 hash of the data.
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function SHA384(data: any,): string;
+        function SHA384(data: any): string;
 
         /**
          * Generate a SHA512 hash of the data.
          * @param data The data you wish to hash.
          * @returns The hash of the data.
          */
-        function SHA512(data: any,): string;
+        function SHA512(data: any): string;
     }
 
     /**
@@ -191,19 +191,19 @@ declare namespace atv {
          * @param xpath The xpath to query.
          * @param parentNode Optionally, the node that you want the xpath to be limited to (e.g. for descendants queries).
          */
-        evaluateXPath(xpath: string, parentNode?: Node,): Element;
+        evaluateXPath(xpath: string, parentNode?: Node): Element;
 
         /**
          * Get an element by its ID
          * @param id The ID of the element you wish to find.
          */
-        getElementById(id: string,): Element;
+        getElementById(id: string): Element;
 
         /**
          * Make a new element with the tag name supplied.
          * @param name The tag name you want to give the new element.
          */
-        makeElementNamed(name: string,): Element;
+        makeElementNamed(name: string): Element;
 
         /**
          * The root element of this document.
@@ -224,7 +224,7 @@ declare namespace atv {
          * Append a child to this element.
          * @param element The element to append.
          */
-        appendChild(element: Element,): void;
+        appendChild(element: Element): void;
 
         /**
          * Get the child elements of this element.
@@ -235,33 +235,33 @@ declare namespace atv {
          * Get an attribute from an element by the name of the attribute.
          * @param attributeName The name of the attribute to retrieve.
          */
-        getAttribute(attributeName: string,): string;
+        getAttribute(attributeName: string): string;
 
         /**
          * Get the first direct child element with the tag name specified.
          * @param name The tag name of the element to find.
          */
-        getElementByName(name: string,): Element;
+        getElementByName(name: string): Element;
 
         /**
          * Get all child elements with the tag name specified. This seems to include closing tags.
          * @param name The tag name of the element to find.
          */
-        getElementsByName(name: string,): Element[];
+        getElementsByName(name: string): Element[];
 
         /**
          * Insert a child element after a specified element.
          * @param elementToInsert The element you wish to insert.
          * @param insertAfter The element you wish to insert the other element after.
          */
-        insertChildAfter(elementToInsert: Element, insertAfter: Element,): void;
+        insertChildAfter(elementToInsert: Element, insertAfter: Element): void;
 
         /**
          * Insert a child element before the specified element.
          * @param elementToInsert The element you wish to insert.
          * @param insertBefore The element you wish to insert the other element before.
          */
-        insertChildBefore(elementToInsert: Element, insertBefore: Element,): void;
+        insertChildBefore(elementToInsert: Element, insertBefore: Element): void;
 
         /**
          * Get the parent element of this element.
@@ -272,7 +272,7 @@ declare namespace atv {
          * Remove a specific attribute by its name.
          * @param attributeName The name of the attribute to remove.
          */
-        removeAttribute(attributeName: string,): void;
+        removeAttribute(attributeName: string): void;
 
         /**
          * Remove the element from its parent.
@@ -284,14 +284,14 @@ declare namespace atv {
          * @param elementToBeReplaced The element that is going to be replaced.
          * @param elementToReplaceWith The element that has been replaced.
          */
-        replaceChild(elementToBeReplaced: Element, elementToReplaceWith: Element,): void;
+        replaceChild(elementToBeReplaced: Element, elementToReplaceWith: Element): void;
 
         /**
          * Set an attribute on the element.
          * @param key The key of the attribute.
          * @param value The value of the attribute.
          */
-        setAttribute(key: string, value: string,): void;
+        setAttribute(key: string, value: string): void;
 
         /**
          * The tag name of this element.
@@ -313,7 +313,7 @@ declare namespace atv {
          * @param document The document you wish to load.
          * @param callback A callback for whether the document was successfully loaded. The only parameter is a boolean that is true if the load was successful.
          */
-        load(document: Document, callback?: (success: boolean,) => void,): void;
+        load(document: Document, callback?: (success: boolean) => void): void;
 
         /**
          * Unload the DOMView (and return to the previous page).
@@ -345,41 +345,41 @@ declare namespace atv {
          * @param items The list of media browser items to show.
          * @param initialSelectionIndex The index of what the initial image to be displayed should be.
          */
-        show(items: Array<(MediaBrowserPhoto | MediaBrowserVideo)>, initialSelectionIndex?: number,): void;
+        show(items: Array<(MediaBrowserPhoto | MediaBrowserVideo)>, initialSelectionIndex?: number): void;
 
         /**
          * Update the metadata of the asset.
          * @param photoId The ID of the photo that you want to update.
          * @param metadata The metadata you wish to set the photo to have.
          */
-        updateMetadata(photoId: string, metadata: MediaBrowserMetadata,): void;
+        updateMetadata(photoId: string, metadata: MediaBrowserMetadata): void;
 
         /**
          * Update the metadata of the asset. This method is specifically for updating the likes.
          * @param photoId The ID of the photo that you want to update.
          * @param metadata The metadata you wish to set the photo to have.
          */
-        updateMetadataLiked(photoId: string, metadata: MediaBrowserMetadata,): void;
+        updateMetadataLiked(photoId: string, metadata: MediaBrowserMetadata): void;
 
         /**
          * The callback that is called when the media browser requests metadata.
          */
-        onLoadMetadata?: (photoId: string,) => void;
+        onLoadMetadata?: (photoId: string) => void;
 
         /**
          * The callback that is called when the user selects a photo in the media browser. This may only apply to fullscreen mode.
          */
-        onItemSelection?: (photoId: string,) => void;
+        onItemSelection?: (photoId: string) => void;
 
         /**
          * The callback when the media browser considers comments viewed (and so should be dealt with accordingly).
          */
-        onMarkCommentsAsViewed?: (photoId: string,) => void;
+        onMarkCommentsAsViewed?: (photoId: string) => void;
 
         /**
          * The callback that is called when the photo is liked or unliked.
          */
-        onLikeSelection?: (photoId: string, metadata: MediaBrowserMetadata,) => void;
+        onLikeSelection?: (photoId: string, metadata: MediaBrowserMetadata) => void;
 
         /**
          * The type of this media browser. Default allows switching between fullscreen and comments modes by pressing select. Comments screen only sets the media browser to only have fullscreen
@@ -396,7 +396,7 @@ declare namespace atv {
          * Loads an image into the ImageView.
          * @param url The URL the image is hosted at.
          */
-        loadImageAtURL(url: string,): void;
+        loadImageAtURL(url: string): void;
     }
 
     /**
@@ -429,13 +429,13 @@ declare namespace atv {
          * @param animation The animation to add.
          * @param key A unique key for this animation, so that it can be managed later.
          */
-        addAnimation(animation: ATVAnimation, key: string,): void;
+        addAnimation(animation: ATVAnimation, key: string): void;
 
         /**
          * Remove a specific animation from the view.
          * @param key The key of the animation to remove.
          */
-        removeAnimation(key: string,): void;
+        removeAnimation(key: string): void;
 
         /**
          * Remove all animations from an object.
@@ -449,7 +449,7 @@ declare namespace atv {
      * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
      * @param plist The plist to replace the page with.
      */
-    function loadAndSwapPlist(plist: string | object,): void;
+    function loadAndSwapPlist(plist: string | object): void;
 
     /**
      * Load and swap (i.e. remove the original page from the controller stack and replace it with this one) the page based on a URL pointing to an XML template.
@@ -474,7 +474,7 @@ declare namespace atv {
      * @param xml The parent node, containing the XML tree to replace the current page with.
      * @param callback A callback called when the page has been swapped, and if it was successful.
      */
-    function loadAndSwapXML(xml: Node, callback?: (success: boolean,) => void,): void;
+    function loadAndSwapXML(xml: Node, callback?: (success: boolean) => void): void;
 
     /**
      * Load the specified plist onto the controller stack and view it.
@@ -482,7 +482,7 @@ declare namespace atv {
      * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
      * @param plist The plist to display.
      */
-    function loadPlist(plist: string | object,): void;
+    function loadPlist(plist: string | object): void;
 
     /**
      * Load a page based on a URL pointing to an XML template.
@@ -507,7 +507,7 @@ declare namespace atv {
      * @param xml The parent node, containing the XML tree to replace the current page with.
      * @param callback A callback called when the page has been swapped, and if it was successful.
      */
-    function loadXML(xml: Node, callback?: (success: boolean,) => void,): void;
+    function loadXML(xml: Node, callback?: (success: boolean) => void): void;
 
     /**
      * Store data for this app that persists across sessions. This is essentially permanent, unless it is cleared.
@@ -519,7 +519,7 @@ declare namespace atv {
      * @param date The date you wish to format.
      * @param format The format you wish to use. The specification can be found at http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns.
      */
-    function localtime(date: Date, format: string,): string;
+    function localtime(date: Date, format: string): string;
 
     /**
      * Log the user out, deleting their stored authentication information.
@@ -557,7 +557,7 @@ declare namespace atv {
     /**
      * Called whenever a page is loaded. Page identifier is the ID of the first element in the body.
      */
-    let onPageLoad: ((pageIdentifier: string,) => void) | null;
+    let onPageLoad: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a page is unloaded. Page identifier is the ID of the first element in the body.
@@ -565,7 +565,7 @@ declare namespace atv {
      * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
      * them.
      */
-    let onPageUnload: ((pageIdentifier: string,) => void) | null;
+    let onPageUnload: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a new page is pushed on top of this page. Page identifier is the ID of the first element in the body.
@@ -573,7 +573,7 @@ declare namespace atv {
      * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
      * them.
      */
-    let onPageBuried: ((pageIdentifier: string,) => void) | null;
+    let onPageBuried: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a page that was previously open is brought on top of the stack again. Page identifier is the ID of the first element in the body.
@@ -581,7 +581,7 @@ declare namespace atv {
      * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
      * them.
      */
-    let onPageExhumed: ((pageIdentifier: string,) => void) | null;
+    let onPageExhumed: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called when the app is opened. If doesJavaScriptLoadRoot is true then it is reponsible for loading the initial page.
@@ -607,7 +607,7 @@ declare namespace atv {
     /**
      * This is called every time the Apple TV wants screensavers.
      */
-    let onExecuteQuery: ((query: ATVScreenSaverQuery, callback: ATVScreenSaverCallback,) => void) | null;
+    let onExecuteQuery: ((query: ATVScreenSaverQuery, callback: ATVScreenSaverCallback) => void) | null;
 
     /**
      * Called when the user is logged out. This can be used to remove any user specific data from local or session storage.
@@ -632,7 +632,7 @@ declare namespace atv {
      *
      * This method should not block. You must notify the Apple TV of *all* results with the callback, or else the login will hang for the user.
      */
-    let onAuthenticate: ((username: string, password: string, callback: ATVAuthenticationCallback,) => void) | null;
+    let onAuthenticate: ((username: string, password: string, callback: ATVAuthenticationCallback) => void) | null;
 
     /**
      * A callback that seems to be related to an unreleased Universal Search feature. This only appears in PBS applications, but is listed in strings files for ATVLegacyContentKit, so seems
@@ -642,24 +642,24 @@ declare namespace atv {
      *
      * Essentially, it is for apps to open a page when linked with a normal URL.
      */
-    let onOpenURL: ((options: ATVDeepLinkOptions,) => void) | null;
+    let onOpenURL: ((options: ATVDeepLinkOptions) => void) | null;
 
     /**
      * The callback called whenever the Apple TV is about to send a request.
      */
-    let onGenerateRequest: ((request: ATVHttpRequest,) => void) | null;
+    let onGenerateRequest: ((request: ATVHttpRequest) => void) | null;
 
     /**
      * Parses a Plist into an object. Essentially turning the 'dict' section into a JSON object.
      * @param plist The string of the plist to parse.
      */
-    function parsePlist(plist: string,): object;
+    function parsePlist(plist: string): object;
 
     /**
      * Parses an ATV XML string into a document.
      * @param xml The XML to parse.
      */
-    function parseXML(xml: string,): Document;
+    function parseXML(xml: string): Document;
 
     /**
      * A screen that displays a PIN, and/or allows a user to enter one.
@@ -698,7 +698,7 @@ declare namespace atv {
         /**
          * If the PIN is submitted, then this method is called, with the PIN as the value parameters.
          */
-        onSubmit?: (value: string,) => void;
+        onSubmit?: (value: string) => void;
 
         /**
          * If the user decides to go back, then this method is called.
@@ -798,12 +798,12 @@ declare namespace atv {
         /**
          * Called when the player asks for a new asset (e.g. the next one to be played).
          */
-        let loadMoreAssets: ((callback: ATVLoadMoreAssetsCallback,) => void) | null;
+        let loadMoreAssets: ((callback: ATVLoadMoreAssetsCallback) => void) | null;
 
         /**
          * Called when the player starts buffering. The playhead location is how much of the video has been played in seconds.
          */
-        let onStartBuffering: ((playheadLocation: number,) => void) | null;
+        let onStartBuffering: ((playheadLocation: number) => void) | null;
 
         /**
          * Called when there is enough of the asset buffered to continue playing it.
@@ -813,38 +813,38 @@ declare namespace atv {
         /**
          * Called when there is an error with the player. The error is a debug message and should not be shown to the user.
          */
-        let onPlaybackError: ((error: string,) => void) | null;
+        let onPlaybackError: ((error: string) => void) | null;
 
         /**
          * Called when there is quality of service report available. Seems to only be logs.
          */
-        let onQualityOfServiceReport: ((report: ATVQualityOfServiceReport,) => void) | null;
+        let onQualityOfServiceReport: ((report: ATVQualityOfServiceReport) => void) | null;
 
         /**
          * Called when the state of the player changes. The state is the new state of the player and the playhead location is how much of the asset has been viewed in seconds.
          */
-        let playerStateChanged: ((state: states, playheadLocation: number,) => void) | null;
+        let playerStateChanged: ((state: states, playheadLocation: number) => void) | null;
 
         /**
          * Called when the player is seeking to a specific time in seconds. This method should return the time the player should seek to. If you want to use the one set by the user, just return
          * the time supplied.
          */
-        let playerWillSeekToTime: ((time: number,) => number) | null;
+        let playerWillSeekToTime: ((time: number) => number) | null;
 
         /**
          * Whether the player should handle an event. The event parameter describes what event is being requested and the playhead location is how much of the asset has been viewed in seconds.
          */
-        let playerShouldHandleEvent: ((event: events, playheadLocation: number,) => boolean) | null;
+        let playerShouldHandleEvent: ((event: events, playheadLocation: number) => boolean) | null;
 
         /**
          * The current date has changed. This basically just reports the passage of time every second or so.
          */
-        let playerDateDidChange: ((date: Date,) => void) | null;
+        let playerDateDidChange: ((date: Date) => void) | null;
 
         /**
          * The playhead location has changed. This either happens when it has been specifically moved by the user (e.g. skipping, fast forward or rewinding) or regularly as the asset is played.
          */
-        let playerTimeDidChange: ((playheadLocation: number,) => void) | null;
+        let playerTimeDidChange: ((playheadLocation: number) => void) | null;
 
         /**
          * Called when the player has been stopped.
@@ -854,32 +854,32 @@ declare namespace atv {
         /**
          * The video controls (e.g. the progress bar) are going to be displayed. Animation duration is the length of the animation to fade in the controls.
          */
-        let onTransportControlsDisplayed: ((animationDuration: number,) => void) | null;
+        let onTransportControlsDisplayed: ((animationDuration: number) => void) | null;
 
         /**
          * The video controls (e.g. the progress bar) are going to be hidden. Animation duration is the length of the animation to fade out the controls.
          */
-        let onTransportControlsHidden: ((animationDuration: number,) => void) | null;
+        let onTransportControlsHidden: ((animationDuration: number) => void) | null;
 
         /**
          * The user has selected an audio track. The language is the short string associated with the language choice (e.g. en).
          */
-        let didSelectAudioTrack: ((language: string,) => void) | null;
+        let didSelectAudioTrack: ((language: string) => void) | null;
 
         /**
          * The user has selected a subtitle track. The subtitle parameter is an object describing their chosen subtitle.
          */
-        let didSelectSubtitleTrack: ((subtitle: ATVSubtitle,) => void) | null;
+        let didSelectSubtitleTrack: ((subtitle: ATVSubtitle) => void) | null;
 
         /**
          * The ID3 metadata for this video has changed.
          */
-        let onTimedMetdataChanged: ((metadata: AVMetadataItem,) => void) | null;
+        let onTimedMetdataChanged: ((metadata: AVMetadataItem) => void) | null;
 
         /**
          * The player has asked for related content to be loaded. If there is already an item queued, it is supplied as the upNextAsset parameter.
          */
-        let loadRelatedContent: ((upNextAsset: Element, callback: ATVLoadMoreAssetsCallback,) => void) | null;
+        let loadRelatedContent: ((upNextAsset: Element, callback: ATVLoadMoreAssetsCallback) => void) | null;
 
         /**
          * The currently playing asset.
@@ -890,21 +890,21 @@ declare namespace atv {
          * Change the currently playing asset.
          * @param newAsset An element containing the new asset to play.
          */
-        function changeToAsset(newAsset: Element,): void;
+        function changeToAsset(newAsset: Element): void;
 
         /**
          * Convert from gross time to net time. Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by
          * the interstitials.
          * @param grossTime The gross time you want to convert.
          */
-        function convertGrossToNetTime(grossTime: number,): number;
+        function convertGrossToNetTime(grossTime: number): number;
 
         /**
          * Convert from net time to gross time.  Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by
          * the interstitials.
          * @param netTime The net time you want to convert.
          */
-        function convertNetToGrossTime(netTime: number,): number;
+        function convertNetToGrossTime(netTime: number): number;
 
         /**
          * Get information about the current item playing.
@@ -957,7 +957,7 @@ declare namespace atv {
          * @param title The title of the error to show.
          * @param subtitle The subtitle of the error to show.
          */
-        function stopWithReason(title: string, subtitle: string,): void;
+        function stopWithReason(title: string, subtitle: string): void;
     }
 
     /**
@@ -969,7 +969,7 @@ declare namespace atv {
          * @param menu The element containing the pop up menu. This should be a normal popUpMenu element, wrapped in an atv and body tag.
          * @param callback Called when the menu is processed. The success boolean indicates whether the menu was shown or not.
          */
-        load(menu: Document, callback?: (success: boolean,) => void,): void;
+        load(menu: Document, callback?: (success: boolean) => void): void;
 
         /**
          * Close the popup menu.
@@ -1002,7 +1002,7 @@ declare namespace atv {
          * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
          * @param plist The plist to display.
          */
-        loadPlist(plist: string | object,): void;
+        loadPlist(plist: string | object): void;
 
         /**
          * Load a page based on a URL pointing to an XML template and replace the proxy document..
@@ -1027,7 +1027,7 @@ declare namespace atv {
          * @param xml The parent node, containing the XML tree to replace the current page with.
          * @param callback A callback called when the page has been swapped, and if it was successful.
          */
-        loadXML(xml: Node, callback?: (success: boolean,) => void,): void;
+        loadXML(xml: Node, callback?: (success: boolean) => void): void;
     }
 
     /**
@@ -1053,7 +1053,7 @@ declare namespace atv {
         /**
          * Called when the user selects a rating. Selected rating is a number between 0 and 1.
          */
-        onRate?: (selectedRating: number,) => void;
+        onRate?: (selectedRating: number) => void;
 
         /**
          * Called when the user exists the dialog without selecting a rating.
@@ -1087,13 +1087,13 @@ declare namespace atv {
      * @param ms How long you want between tasks.
      * @param args Arguments you wish to supply to the callback.
      */
-    function setInterval<TArgs extends any[],>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): string;
+    function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): string;
 
     /**
      * Set the screensaver collection that is shown in settings.
      * @param collection The collection to set.
      */
-    function setScreensaverPhotosCollection(collection: ATVScreenSaverCollection,): void;
+    function setScreensaverPhotosCollection(collection: ATVScreenSaverCollection): void;
 
     /**
      * Run a function after a specified amount of time.
@@ -1101,7 +1101,7 @@ declare namespace atv {
      * @param ms How long you wish to delay.
      * @param args Arguments you wish to pass to the function.
      */
-    function setTimeout<TArgs extends any[],>(callback: (...args: TArgs) => void, ms: number, ...args: TArgs): string;
+    function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms: number, ...args: TArgs): string;
 
     /**
      * Scrolls the user down to the bottom shelf on an item detail page. Will throw an exception if used elsewhere.
@@ -1118,12 +1118,12 @@ declare namespace atv {
          * Initializes the request with the set of product identifiers.
          * @param productIdentifiers The list of product identifiers for the products you wish to retrieve descriptions of.
          */
-        constructor(productIdentifiers: string[],);
+        constructor(productIdentifiers: string[]);
 
         /**
          * Accepts the App Store response that contains the app-requested product information.
          */
-        onProductsRequestDidReceiveResponse?: (response: SKProductsResponse,) => void;
+        onProductsRequestDidReceiveResponse?: (response: SKProductsResponse) => void;
 
         /**
          * Sends the request to the Apple App Store.
@@ -1138,7 +1138,7 @@ declare namespace atv {
         /**
          * Tells the delegate that the request failed to execute.
          */
-        onRequestDidFailWithError?: (error: SKError,) => void;
+        onRequestDidFailWithError?: (error: SKError) => void;
 
         /**
          * Tells the delegate that the request has completed.
@@ -1161,25 +1161,25 @@ declare namespace atv {
          * Adds a payment request to the queue.
          * @param payment A payment request.
          */
-        function addPayment(payment: SKPayment,): void;
+        function addPayment(payment: SKPayment): void;
 
         /**
          * Adds an observer to the payment queue.
          * @param observer The observer to add to the queue.
          */
-        function addTransactionObserver(observer: SKPaymentTransactionObserver,): void;
+        function addTransactionObserver(observer: SKPaymentTransactionObserver): void;
 
         /**
          * Removes an observer from the payment queue.
          * @param observer The observer to remove.
          */
-        function removeTransactionObserver(observer: SKPaymentTransactionObserver,): void;
+        function removeTransactionObserver(observer: SKPaymentTransactionObserver): void;
 
         /**
          * Notifies the App Store that the app finished processing the transaction.
          * @param transaction The transaction to finish.
          */
-        function finishTransaction(transaction: SKPaymentTransaction,): void;
+        function finishTransaction(transaction: SKPaymentTransaction): void;
 
         /**
          * Asks the payment queue to restore previously completed purchases.
@@ -1190,7 +1190,7 @@ declare namespace atv {
          * Asks the payment queue to restore previously completed purchases, providing an opaque identifier for the user’s account.
          * @param username An opaque identifier for the user’s account on your system.
          */
-        function restoreCompletedTransactionsWithApplicationUsername(username?: string | null,): void;
+        function restoreCompletedTransactionsWithApplicationUsername(username?: string | null): void;
 
         /**
          * Returns an array of pending transactions.
@@ -1272,7 +1272,7 @@ declare namespace atv {
         /**
          * Tells the delegate that the request failed to execute.
          */
-        onRequestDidFailWithError?: (error: SKError,) => void;
+        onRequestDidFailWithError?: (error: SKError) => void;
 
         /**
          * Tells the delegate that the request has completed.
@@ -1282,7 +1282,7 @@ declare namespace atv {
          * Initializes a receipt refresh request with optional properties.
          * @param receiptProperties The properties of the receipt.
          */
-        constructor(receiptProperties: { [key: string]: any },);
+        constructor(receiptProperties: { [key: string]: any });
     }
 
     /**
@@ -1362,7 +1362,7 @@ declare namespace atv {
         /**
          * Called when the user submits the input.
          */
-        onSubmit?: (value: string,) => void;
+        onSubmit?: (value: string) => void;
 
         /**
          * Called when the user cancels the input.
@@ -1630,7 +1630,7 @@ declare interface ATVAnimation {
      *
      * See https://developer.apple.com/documentation/quartzcore/caanimationdelegate/2097259-animationdidstop for more information.
      */
-    animationDidStop?: (finished: boolean,) => void;
+    animationDidStop?: (finished: boolean) => void;
 
     /**
      * Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
@@ -1766,20 +1766,20 @@ declare interface ATVStorage {
      * Get a value from the storage.
      * @param key The key for the value you want to find.
      */
-    getItem(key: string,): any;
+    getItem(key: string): any;
 
     /**
      * Set a value for a particular key.
      * @param key The key you want this value to be associated with.
      * @param value The value you want to store. This cannot be null or undefined.
      */
-    setItem(key: string, value: any,): void;
+    setItem(key: string, value: any): void;
 
     /**
      * Remove an item from the storage.
      * @param key The key of the item you want to remove.
      */
-    removeItem(key: string,): void;
+    removeItem(key: string): void;
 
     /**
      * Any other arbitary property is allowed here.
@@ -1880,13 +1880,13 @@ declare interface ATVScreenSaverCallback {
      * The photos were successfully queried. Return them to the ATV.
      * @param photos The photos that were queried.
      */
-    success(photos: ATVScreenSaverPhoto[],): void;
+    success(photos: ATVScreenSaverPhoto[]): void;
 
     /**
      * The photos were not successfully queried. Return an error. The screensaver will just show a default screensaver instead.
      * @param error An error to display in the syslog.
      */
-    failure(error: any,): void;
+    failure(error: any): void;
 }
 
 /**
@@ -1924,7 +1924,7 @@ declare interface ATVAuthenticationCallback {
      * If the login request failed, return an error.
      * @param error The error that is displayed to the user.
      */
-    failure(error: string,): void;
+    failure(error: string): void;
 }
 
 /**
@@ -1958,7 +1958,7 @@ declare class XMLHttpRequest {
      * Get a specific header from the response.
      * @param headerName The name of the header to retrieve.
      */
-    getResponseHeader(headerName: string,): string | null;
+    getResponseHeader(headerName: string): string | null;
 
     /**
      * Initialises the request.
@@ -1966,7 +1966,7 @@ declare class XMLHttpRequest {
      * @param url The URL to hit.
      * @param async Whether this request should be made asynchronously or not.
      */
-    open(method: string, url: string, async: boolean,): void;
+    open(method: string, url: string, async: boolean): void;
 
     /**
      * Get the current state of the request.
@@ -1992,14 +1992,14 @@ declare class XMLHttpRequest {
      * Execute the request.
      * @param body A body to post to the server.
      */
-    send(body?: any,): void;
+    send(body?: any): void;
 
     /**
      * Set a header on the request. This must be done in the OPEN state.
      * @param key The key of the header to set.
      * @param value The value of the header.
      */
-    setRequestHeader(key: string, value: string,): void;
+    setRequestHeader(key: string, value: string): void;
 
     /**
      * The HTTP status code of the request.
@@ -2032,7 +2032,7 @@ declare interface ATVHttpRequest {
      * @param key The key of the header to set.
      * @param value The value of the header.
      */
-    setRequestHeader(key: string, value: string,): void;
+    setRequestHeader(key: string, value: string): void;
 }
 
 /**
@@ -2075,13 +2075,13 @@ declare interface ATVLoadMoreAssetsCallback {
      * The new asset was successfully retrieved.
      * @param element The element containing the new asset. Make this null if the request was successful but there's no new assets.
      */
-    success(element: atv.Element | null,): void;
+    success(element: atv.Element | null): void;
 
     /**
      * The new asset was not able to be retrieved.
      * @param error The error message.
      */
-    failure(error?: string,): void;
+    failure(error?: string): void;
 }
 
 /**
@@ -2320,7 +2320,7 @@ declare interface ATVSecureKeyDelivery {
      * the asset ID is parsed directly from this (e.g. by removing the skd:// bit).
      * The callback parameter allows you to return the asset ID and indicate whether it is Base64 encoded or not, or to return an error.
      */
-    fetchAssetID?: (uri: string, callback: ATVSecureKeyFetchAssetCallback,) => void;
+    fetchAssetID?: (uri: string, callback: ATVSecureKeyFetchAssetCallback) => void;
 
     /**
      * Fetch the FairPlay certificate. The certificate must be in the DER format. These are generally shared across an app, so can be cached if desired.
@@ -2328,7 +2328,7 @@ declare interface ATVSecureKeyDelivery {
      * The 'uri' parameter is a string containing the secure key delivery URI. This is the URI that is contained within the m3u8 in the EXT-X-KEY tag. The URI will begin with "skd://".
      * The callback parameter allows you to return the certificate. This must be base64 encoded (e.g. by using XMLHttpRequest.responseDataAsBase64).
      */
-    fetchCertificate?: (uri: string, callback: ATVSecureKeyGenericCallback,) => void;
+    fetchCertificate?: (uri: string, callback: ATVSecureKeyGenericCallback) => void;
 
     /**
      * Fetch the FairPlay keys for this particular asset. These are usually unique to each media item.
@@ -2339,7 +2339,7 @@ declare interface ATVSecureKeyDelivery {
      *
      * The callback parameter allows you to return the keys. This must be base64 encoded (e.g. by using XMLHttpRequest.responseDataAsBase64).
      */
-    fetchKey?: (uri: string, requestData: string, callback: ATVSecureKeyGenericCallback,) => void;
+    fetchKey?: (uri: string, requestData: string, callback: ATVSecureKeyGenericCallback) => void;
 }
 
 /**
@@ -2352,13 +2352,13 @@ declare interface ATVSecureKeyFetchAssetCallback {
      * @param assetID The asset ID.
      * @param needsBase64Decoded If the asset ID needs to be Base64 decoded before it can be used, then this must be true.
      */
-    success(assetID: string, needsBase64Decoded: boolean,): void;
+    success(assetID: string, needsBase64Decoded: boolean): void;
 
     /**
      * The asset was was not able to be retrieved, so return an error.
      * @param error The error message to print to the log.
      */
-    failure(error: string,): void;
+    failure(error: string): void;
 }
 
 /**
@@ -2370,13 +2370,13 @@ declare interface ATVSecureKeyGenericCallback {
      * The asset ID was successfully retrieved, so return it.
      * @param assetID The certificate or the key, in Base64 format.
      */
-    success(dataBase64: string,): void;
+    success(dataBase64: string): void;
 
     /**
      * The item was was not able to be retrieved, so return an error.
      * @param error The error message to print to the log.
      */
-    failure(error: string,): void;
+    failure(error: string): void;
 }
 
 /**
@@ -2481,17 +2481,17 @@ declare interface SKPaymentTransactionObserver {
     /**
      * Tells an observer that one or more transactions have been updated.
      */
-    updatedTransactions: (transactions: SKPaymentTransaction[],) => void;
+    updatedTransactions: (transactions: SKPaymentTransaction[]) => void;
 
     /**
      * Tells an observer that one or more transactions have been removed from the queue.
      */
-    removedTransactions?: (transactions: SKPaymentTransaction[],) => void;
+    removedTransactions?: (transactions: SKPaymentTransaction[]) => void;
 
     /**
      * Tells an observer that one or more transactions have been removed from the queue.
      */
-    restoreCompletedTransactionsFailedWithError?: (error: SKError,) => void;
+    restoreCompletedTransactionsFailedWithError?: (error: SKError) => void;
 
     /**
      * Tells the observer that the payment queue has finished sending restored transactions.
@@ -2573,18 +2573,18 @@ declare interface ATVJSSlideShow {
      * @param initialSelection The initial index to use.
      * @param photos The photos to display.
      */
-    run(initialSelection: number, photos: Array<MediaBrowserPhoto | MediaBrowserVideo>,): void;
+    run(initialSelection: number, photos: Array<MediaBrowserPhoto | MediaBrowserVideo>): void;
 
     /**
      * Show the settings for the slideshow.
      * @param photos The photos that would be displayed.
      */
-    showSettings(photos: Array<MediaBrowserPhoto | MediaBrowserVideo>,): void;
+    showSettings(photos: Array<MediaBrowserPhoto | MediaBrowserVideo>): void;
 
     /**
      * Called when the user exists the slideshow. Last photo ID was the ID of the last photo displayed.
      */
-    onExit?: (lastPhotoId?: string,) => void;
+    onExit?: (lastPhotoId?: string) => void;
 }
 
 /**
@@ -2701,7 +2701,7 @@ declare interface Console {
      * @since v8.3.0
      * @param label The display label for the counter.
      */
-    count(label?: string,): void;
+    count(label?: string): void;
 
     /**
      * The `console.debug()` function is an alias for {@link log}.
@@ -2739,7 +2739,7 @@ declare interface Console {
      * This function bypasses any custom `inspect()` function defined on `obj`.
      * @since v0.1.101
      */
-    dir(obj: any,): void;
+    dir(obj: any): void;
 
     /**
      * This method calls `console.log()` passing it the arguments received.
@@ -2843,7 +2843,7 @@ declare interface Console {
      * @since v10.0.0
      * @param properties Alternate properties for constructing the table.
      */
-    table(tabularData: any, properties?: ReadonlyArray<string>,): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
 
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers
@@ -2852,7 +2852,7 @@ declare interface Console {
      * time is 3869ms, `console.timeEnd()` displays "3.869s".
      * @since v0.1.104
      */
-    time(label?: string,): void;
+    time(label?: string): void;
 
     /**
      * Stops a timer that was previously started by calling {@link time} and
@@ -2866,7 +2866,7 @@ declare interface Console {
      * ```
      * @since v0.1.104
      */
-    timeEnd(label?: string,): void;
+    timeEnd(label?: string): void;
 }
 
 /**
@@ -2878,7 +2878,7 @@ declare interface ATVNowPlaying {
      * Get the element containing the currently playing asset.
      * @param callback The callback containing the element as an argument.
      */
-    currentAsset(callback: (element: atv.Element,) => void,): void;
+    currentAsset(callback: (element: atv.Element) => void): void;
 
     /**
      * Return to the player view for the currently played item if it has been closed.
@@ -2900,13 +2900,13 @@ declare interface ATVNavigateEvent {
      * The loading of the page to navigate to was successful, so load it.
      * @param document The document to load.
      */
-    success(document: atv.Document,): void;
+    success(document: atv.Document): void;
 
     /**
      * Loading the page failed, so show an error message to the user.
      * @param errorMessage The error message to show to the user.
      */
-    failure(errorMessage: string,): void;
+    failure(errorMessage: string): void;
 }
 
 /**

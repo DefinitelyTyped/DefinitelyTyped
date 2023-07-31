@@ -1,1 +1,1 @@
-export default function arrayToString(a: any[],): string;
+export default function arrayToString(a: any[]): string;

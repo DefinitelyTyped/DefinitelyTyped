@@ -14,20 +14,20 @@ interface RootPath {
      * @param {string} pathToModule
      * @returns {string}
      */
-    resolve(pathToModule: string,): string;
+    resolve(pathToModule: string): string;
 
     /**
      * Resolve module by relative addressing from root
      * @param {string} pathToModule
      * @returns {*}
      */
-    require(pathToModule: string,): any;
+    require(pathToModule: string): any;
 
     /**
      * Explicitly set root path
      * @param {string} explicitlySetPath
      */
-    setPath(explicitlySetPath: string,): void;
+    setPath(explicitlySetPath: string): void;
 
     toString(): string;
 }

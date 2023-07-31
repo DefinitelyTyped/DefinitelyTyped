@@ -40,20 +40,20 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * This method is called to enter error recovery mode when a recognition
      * exception is reported.
      */
-    beginErrorCondition(recognizer: Parser,): void;
+    beginErrorCondition(recognizer: Parser): void;
 
-    inErrorRecoveryMode(recognizer: Parser,): boolean;
+    inErrorRecoveryMode(recognizer: Parser): boolean;
 
     /**
      * This method is called to leave error recovery mode after recovering from
      * a recognition exception.
      */
-    endErrorCondition(recognizer: Parser,): void;
+    endErrorCondition(recognizer: Parser): void;
 
     /**
      * The default implementation simply calls {@link endErrorCondition}.
      */
-    reportMatch(recognizer: Parser,): void;
+    reportMatch(recognizer: Parser): void;
 
     /**
      * The default implementation returns immediately if the handler is already
@@ -66,7 +66,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * - {@link FailedPredicateException}: Dispatches the call to {@link reportFailedPredicate}
      * - All other types: calls {@link Parser.notifyErrorListeners} to report the exception
      */
-    reportError(recognizer: Parser, e: RecognitionException,): void;
+    reportError(recognizer: Parser, e: RecognitionException): void;
 
     /**
      * This is called by {@link reportError} when the exception is a {@link NoViableAltException}.
@@ -76,7 +76,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * @param recognizer the parser instance
      * @param e the recognition exception
      */
-    reportNoViableAlternative(recognizer: Parser, e: NoViableAltException,): void;
+    reportNoViableAlternative(recognizer: Parser, e: NoViableAltException): void;
 
     /**
      * This is called by {@link reportError} when the exception is an
@@ -87,7 +87,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * @param recognizer the parser instance
      * @param e the recognition exception
      */
-    reportInputMismatch(recognizer: Parser, e: InputMismatchException,): void;
+    reportInputMismatch(recognizer: Parser, e: InputMismatchException): void;
 
     /**
      * This is called by {@link reportError} when the exception is a
@@ -98,7 +98,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * @param recognizer the parser instance
      * @param e the recognition exception
      */
-    reportFailedPredicate(recognizer: Parser, e: FailedPredicateException,): void;
+    reportFailedPredicate(recognizer: Parser, e: FailedPredicateException): void;
 
     /**
      * This method is called to report a syntax error which requires the removal
@@ -117,7 +117,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      *
      * @param recognizer the parser instance
      */
-    reportUnwantedToken(recognizer: Parser,): void;
+    reportUnwantedToken(recognizer: Parser): void;
 
     /**
      * This method is called to report a syntax error which requires the
@@ -136,7 +136,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      *
      * @param recognizer the parser instance
      */
-    reportMissingToken(recognizer: Parser,): void;
+    reportMissingToken(recognizer: Parser): void;
 
     /**
      * The default implementation attempts to recover from the mismatched input
@@ -181,7 +181,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * is in the set of tokens that can follow the `')'` token reference
      * in rule `atom`. It can assume that you forgot the `')'`.
      */
-    recoverInline(recognizer: Parser,): Token;
+    recoverInline(recognizer: Parser): Token;
 
     /**
      * This method implements the single-token insertion inline error recovery
@@ -200,7 +200,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * @return `true` if single-token insertion is a viable recovery
      * strategy for the current mismatched input, otherwise `false`
      */
-    singleTokenInsertion(recognizer: Parser,): boolean;
+    singleTokenInsertion(recognizer: Parser): boolean;
 
     /**
      * This method implements the single-token deletion inline error recovery
@@ -220,7 +220,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * @return the successfully matched {@link Token} instance if single-token
      * deletion successfully recovers from the mismatched input, otherwise `null`
      */
-    singleTokenDeletion(recognizer: Parser,): Token;
+    singleTokenDeletion(recognizer: Parser): Token;
 
     /**
      * Conjure up a missing token during error recovery.
@@ -242,9 +242,9 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * If you change what tokens must be created by the lexer,
      * override this method to create the appropriate tokens.
      */
-    getMissingSymbol(recognizer: Parser,): Token;
+    getMissingSymbol(recognizer: Parser): Token;
 
-    getExpectedTokens(recognizer: Parser,): ReturnType<Parser['getExpectedTokens']>;
+    getExpectedTokens(recognizer: Parser): ReturnType<Parser['getExpectedTokens']>;
 
     /**
      * How should a token be displayed in an error message? The default
@@ -255,9 +255,9 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * your token objects because you don't have to go modify your lexer
      * so that it creates a new Java type.
      */
-    getTokenErrorDisplay(t: Token,): string;
+    getTokenErrorDisplay(t: Token): string;
 
-    escapeWSAndQuote(s: string,): string;
+    escapeWSAndQuote(s: string): string;
 
     /**
      * Compute the error recovery set for the current rule. During
@@ -352,7 +352,7 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * Like Grosch I implement context-sensitive FOLLOW sets that are combined
      * at run-time upon error to avoid overhead during parsing.
      */
-    getErrorRecoverySet(recognizer: Parser,): IntervalSet;
+    getErrorRecoverySet(recognizer: Parser): IntervalSet;
 
-    consumeUntil(recognizer: Parser, set: IntervalSet,): void;
+    consumeUntil(recognizer: Parser, set: IntervalSet): void;
 }

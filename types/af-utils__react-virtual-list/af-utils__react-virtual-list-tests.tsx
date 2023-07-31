@@ -1,8 +1,8 @@
-import { List, useVirtualModel, } from '@af-utils/react-virtual-list';
+import { List, useVirtualModel } from '@af-utils/react-virtual-list';
 import * as React from 'react';
 
 const model = useVirtualModel();
-const itemData = [{ name: 'item1', }, { name: 'item2', }, { name: 'item3', },];
+const itemData = [{ name: 'item1' }, { name: 'item2' }, { name: 'item3' }];
 
 const renderList = () => {
     return (
@@ -16,7 +16,7 @@ const renderList = () => {
             countOffset
             id={'extraProp'}
         >
-            {({ data, },) => {
+            {({ data }) => {
                 return <div>{data.name}</div>;
             }}
         </List>

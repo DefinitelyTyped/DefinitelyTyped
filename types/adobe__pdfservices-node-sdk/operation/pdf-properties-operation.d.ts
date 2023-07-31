@@ -36,23 +36,23 @@ export class PDFPropertiesOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Sets the options for this operation. See {@link PDFPropertiesOptions} for how to specify options for PDF Properties.
      */
-    setOptions(options?: PDFPropertiesOptions,): void;
+    setOptions(options?: PDFPropertiesOptions): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      * The resulting file may be stored in the system temporary directory (per the os.tempdir(), symlinks are resolved
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    executeAndReturnFileRef(context: ExecutionContext,): Promise<FileRef>;
+    executeAndReturnFileRef(context: ExecutionContext): Promise<FileRef>;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      */
-    execute(context: ExecutionContext,): Promise<any>;
+    execute(context: ExecutionContext): Promise<any>;
     validate(): void;
 }
-import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
-import { PDFPropertiesOptions, } from './option/pdfproperties/pdf-properties-options';
+import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { PDFPropertiesOptions } from './option/pdfproperties/pdf-properties-options';

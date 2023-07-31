@@ -16,9 +16,9 @@ export type EventTypeMap = EventTypeValue;
  * The type of event, which determines how to interpret the status payload.
  */
 export class EventType {
-    constructor(value?: EventTypeValue,);
+    constructor(value?: EventTypeValue);
 
-    static fromMap(d: EventTypeMap,): EventType;
+    static fromMap(d: EventTypeMap): EventType;
 
     asMap(): EventTypeMap;
 
@@ -51,9 +51,9 @@ export type StatusMap = StatusValue;
  * The status of the event.
  */
 export class Status {
-    constructor(value?: StatusValue | null,);
+    constructor(value?: StatusValue | null);
 
-    static fromMap(d: StatusMap,): Status;
+    static fromMap(d: StatusMap): Status;
 
     asMap(): StatusMap;
 
@@ -90,9 +90,9 @@ export type StatusLevelMap = StatusLevelValue;
  * Defines the verbosity of status messages in a status-stream.
  */
 export class StatusLevel {
-    constructor(value?: StatusLevelValue | null,);
+    constructor(value?: StatusLevelValue | null);
 
-    static fromMap(d: StatusLevelMap,): StatusLevel;
+    static fromMap(d: StatusLevelMap): StatusLevel;
 
     asMap(): StatusLevelMap;
 
@@ -157,13 +157,13 @@ export class S3ExportTaskDefinition {
     /**
      * @param value The URL of the file that contains the data to upload. The file should be local on the disk.
      */
-    set inputUrl(value: string,);
+    set inputUrl(value: string);
 
     /**
      * @param value The URL of the file that contains the data to upload. The file should be local on the disk.
      * @returns
      */
-    withInputUrl(value: string,): S3ExportTaskDefinition;
+    withInputUrl(value: string): S3ExportTaskDefinition;
 
     /**
      * The name of the S3 bucket that this file should be uploaded to.
@@ -173,13 +173,13 @@ export class S3ExportTaskDefinition {
     /**
      * @param value The name of the S3 bucket that this file should be uploaded to.
      */
-    set bucket(value: string,);
+    set bucket(value: string);
 
     /**
      * @param value The name of the S3 bucket that this file should be uploaded to.
      * @returns
      */
-    withBucket(value: string,): S3ExportTaskDefinition;
+    withBucket(value: string): S3ExportTaskDefinition;
 
     /**
      * The key for the S3 object that this file should be uploaded to.
@@ -198,7 +198,7 @@ export class S3ExportTaskDefinition {
      * See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
      * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
      */
-    set key(value: string,);
+    set key(value: string);
 
     /**
      * @param value The key for the S3 object that this file should be uploaded to.
@@ -208,7 +208,7 @@ export class S3ExportTaskDefinition {
      * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
      * @returns
      */
-    withKey(value: string,): S3ExportTaskDefinition;
+    withKey(value: string): S3ExportTaskDefinition;
 
     /**
      * User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix.
@@ -223,7 +223,7 @@ export class S3ExportTaskDefinition {
      * Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings.
      * Reserved key names start with "$aws-gg-" prefix.
      */
-    set userMetadata(value: Record<string, unknown> | null,);
+    set userMetadata(value: Record<string, unknown> | null);
 
     /**
      * @param value User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix.
@@ -231,9 +231,9 @@ export class S3ExportTaskDefinition {
      * Reserved key names start with "$aws-gg-" prefix.
      * @returns
      */
-    withUserMetadata(value: Record<string, unknown> | null,): S3ExportTaskDefinition;
+    withUserMetadata(value: Record<string, unknown> | null): S3ExportTaskDefinition;
 
-    static fromMap(d: S3ExportTaskDefinitionMap,): S3ExportTaskDefinition;
+    static fromMap(d: S3ExportTaskDefinitionMap): S3ExportTaskDefinition;
 
     asMap(): S3ExportTaskDefinitionMap;
 }
@@ -263,13 +263,13 @@ export class Message {
     /**
      * @param value  The name of the stream which this message is in.
      */
-    set streamName(value: string | null,);
+    set streamName(value: string | null);
 
     /**
      * @param value The name of the stream which this message is in.
      * @returns The caller
      */
-    withStreamName(value: string | null,): this;
+    withStreamName(value: string | null): this;
 
     /**
      * The sequence number of this message within the stream.
@@ -279,13 +279,13 @@ export class Message {
     /**
      * @param value The sequence number of this message within the stream.
      */
-    set sequenceNumber(value: number | null,);
+    set sequenceNumber(value: number | null);
 
     /**
      * @param value The sequence number of this message within the stream.
      * @returns The caller
      */
-    withSequenceNumber(value: number | null,): this;
+    withSequenceNumber(value: number | null): this;
 
     /**
      * The time that the message was ingested to Stream Manager. Data is Unix epoch time in milliseconds.
@@ -295,13 +295,13 @@ export class Message {
     /**
      * @param value The time that the message was ingested to Stream Manager. Data is Unix epoch time in milliseconds.
      */
-    set ingestTime(value: number | null,);
+    set ingestTime(value: number | null);
 
     /**
      * @param value The time that the message was ingested to Stream Manager. Data is Unix epoch time in milliseconds.
      * @returns The caller
      */
-    withIngestTime(value: number | null,): this;
+    withIngestTime(value: number | null): this;
 
     /**
      * The binary message data.
@@ -311,15 +311,15 @@ export class Message {
     /**
      * @param value The binary message data.
      */
-    set payload(value: Buffer | null,);
+    set payload(value: Buffer | null);
 
     /**
      * @param value The binary message data.
      * @returns The caller
      */
-    withPayload(value: Buffer | null,): this;
+    withPayload(value: Buffer | null): this;
 
-    static fromMap(d: MessageMap,): Message;
+    static fromMap(d: MessageMap): Message;
 
     asMap(): MessageMap;
 
@@ -377,13 +377,13 @@ export class StatusContext {
     /**
      * @param value The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
      */
-    set s3ExportTaskDefinition(value: S3ExportTaskDefinition | null,);
+    set s3ExportTaskDefinition(value: S3ExportTaskDefinition | null);
 
     /**
      * @param value The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
      * @returns
      */
-    withS3ExportTaskDefinition(value: S3ExportTaskDefinition | null,): this;
+    withS3ExportTaskDefinition(value: S3ExportTaskDefinition | null): this;
 
     /**
      * The export identifier the status is associated with.
@@ -394,13 +394,13 @@ export class StatusContext {
     /**
      * @param value The export identifier the status is associated with.
      */
-    set exportIdentifier(value: string | null,);
+    set exportIdentifier(value: string | null);
 
     /**
      * @param value The export identifier the status is associated with.
      * @returns
      */
-    withExportIdentifier(value: string | null,): this;
+    withExportIdentifier(value: string | null): this;
 
     /**
      * The name of the stream the status is associated with.
@@ -411,13 +411,13 @@ export class StatusContext {
     /**
      * @param value The name of the stream the status is associated with.
      */
-    set streamName(value: string | null,);
+    set streamName(value: string | null);
 
     /**
      * @param value The name of the stream the status is associated with.
      * @returns
      */
-    withStreamName(value: string | null,): this;
+    withStreamName(value: string | null): this;
 
     /**
      * The sequence number of the message the status is associated with.
@@ -428,15 +428,15 @@ export class StatusContext {
     /**
      * @param value The sequence number of the message the status is associated with.
      */
-    set sequenceNumber(value: number | null,);
+    set sequenceNumber(value: number | null);
 
     /**
      * @param value The sequence number of the message the status is associated with.
      * @returns
      */
-    withSequenceNumber(value: number | null,): this;
+    withSequenceNumber(value: number | null): this;
 
-    static fromMap(d: StatusContextMap,): StatusContext;
+    static fromMap(d: StatusContextMap): StatusContext;
 
     asMap(): StatusContextMap;
 
@@ -481,13 +481,13 @@ export class StatusMessage {
     /**
      * @param value
      */
-    set eventType(value: EventType | null,);
+    set eventType(value: EventType | null);
 
     /**
      * @param value
      * @returns
      */
-    withEventType(value: EventType | null,): this;
+    withEventType(value: EventType | null): this;
 
     /**
      * @returns
@@ -497,13 +497,13 @@ export class StatusMessage {
     /**
      * @param value
      */
-    set statusLevel(value: StatusLevel | null,);
+    set statusLevel(value: StatusLevel | null);
 
     /**
      * @param value
      * @returns
      */
-    withStatusLevel(value: StatusLevel | null,): this;
+    withStatusLevel(value: StatusLevel | null): this;
 
     /**
      * @returns
@@ -513,13 +513,13 @@ export class StatusMessage {
     /**
      * @param value
      */
-    set status(value: Status | null,);
+    set status(value: Status | null);
 
     /**
      * @param value
      * @returns
      */
-    withStatus(value: Status | null,): this;
+    withStatus(value: Status | null): this;
 
     /**
      * @returns
@@ -529,13 +529,13 @@ export class StatusMessage {
     /**
      * @param value
      */
-    set statusContext(value: StatusContext | null,);
+    set statusContext(value: StatusContext | null);
 
     /**
      * @param value
      * @returns
      */
-    withStatusContext(value: StatusContext | null,): this;
+    withStatusContext(value: StatusContext | null): this;
 
     /**
      * String describing the status message.
@@ -546,13 +546,13 @@ export class StatusMessage {
     /**
      * @param value String describing the status message.
      */
-    set message(value: string | null,);
+    set message(value: string | null);
 
     /**
      * @param value String describing the status message.
      * @returns
      */
-    withMessage(value: string | null,): this;
+    withMessage(value: string | null): this;
 
     /**
      * The time this status was added to the status-stream (in milliseconds since epoch).
@@ -563,14 +563,14 @@ export class StatusMessage {
     /**
      * @param value The time this status was added to the status-stream (in milliseconds since epoch).
      */
-    set timestampEpochMs(value: number | null,);
+    set timestampEpochMs(value: number | null);
     /**
      * @param value The time this status was added to the status-stream (in milliseconds since epoch).
      * @returns
      */
-    withTimestampEpochMs(value: number | null,): this;
+    withTimestampEpochMs(value: number | null): this;
 
-    static fromMap(d: StatusMessageMap,): StatusMessage;
+    static fromMap(d: StatusMessageMap): StatusMessage;
 
     asMap(): StatusMessageMap;
 
@@ -623,14 +623,14 @@ export class ReadMessagesOptions {
      * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than
      * the current minimum of the stream, then it will instead start reading from the current minimum.
      */
-    set desiredStartSequenceNumber(value: number | null,);
+    set desiredStartSequenceNumber(value: number | null);
 
     /**
      * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than
      * the current minimum of the stream, then it will instead start reading from the current minimum.
      * @returns
      */
-    withDesiredStartSequenceNumber(value: number | null,): this;
+    withDesiredStartSequenceNumber(value: number | null): this;
 
     /**
      * The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages
@@ -643,14 +643,14 @@ export class ReadMessagesOptions {
      * @param value The minimum number of messages that will be returned. If not enough messages are available for reading,
      * then NotEnoughMessages exception will be thrown. The minimum values is 1 and the maximum value is 2147483647.
      */
-    set minMessageCount(value: number | null,);
+    set minMessageCount(value: number | null);
 
     /**
      * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then
      * NotEnoughMessages exception will be thrown. The minimum values is 1 and the maximum value is 2147483647.
      * @returns
      */
-    withMinMessageCount(value: number | null,): this;
+    withMinMessageCount(value: number | null): this;
 
     /**
      * The maximum number of messages that will be returned.
@@ -663,14 +663,14 @@ export class ReadMessagesOptions {
      * @param value The maximum number of messages that will be returned.
      * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
      */
-    set maxMessageCount(value: number | null,);
+    set maxMessageCount(value: number | null);
 
     /**
      * @param value The maximum number of messages that will be returned.
      * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
      * @returns
      */
-    withMaxMessageCount(value: number | null,): this;
+    withMaxMessageCount(value: number | null): this;
 
     /**
      * The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
@@ -689,7 +689,7 @@ export class ReadMessagesOptions {
      * waiting until the minimum number of messages is reached.
      * The maximum value is the value of the client timeout.
      */
-    set readTimeoutMillis(value: number | null,);
+    set readTimeoutMillis(value: number | null);
 
     /**
      * @param value The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
@@ -699,9 +699,9 @@ export class ReadMessagesOptions {
      * The maximum value is the value of the client timeout.
      * @returns
      */
-    withReadTimeoutMillis(value: number | null,): this;
+    withReadTimeoutMillis(value: number | null): this;
 
-    static fromMap(d: ReadMessagesOptionsMap,): ReadMessagesOptions;
+    static fromMap(d: ReadMessagesOptionsMap): ReadMessagesOptions;
 
     asMap(): ReadMessagesOptionsMap;
 
@@ -724,9 +724,9 @@ export interface ReadMessagesOptionsMap {
  * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
  */
 export class StrategyOnFull {
-    constructor(value?: StrategyOnFullValue | null,);
+    constructor(value?: StrategyOnFullValue | null);
 
-    static fromMap(d: StrategyOnFullMap,): StrategyOnFull;
+    static fromMap(d: StrategyOnFullMap): StrategyOnFull;
 
     asMap(): StrategyOnFullMap;
 
@@ -755,9 +755,9 @@ export interface StrategyOnFullOptionsFlipped {
  * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
  */
 export class Persistence {
-    constructor(value?: PersistenceValue | null,);
+    constructor(value?: PersistenceValue | null);
 
-    static fromMap(d: PersistenceMap,): Persistence;
+    static fromMap(d: PersistenceMap): Persistence;
 
     asMap(): PersistenceMap;
 
@@ -787,9 +787,9 @@ export type PersistenceMap = PersistenceValue;
  * JSON_BATCHED: Each batch of messages will be sent as a JSON list of Message objects as the body.
  */
 export class ExportFormat {
-    constructor(value: ExportFormatValue,);
+    constructor(value: ExportFormatValue);
 
-    static fromMap(d: ExportFormatMap,): ExportFormat;
+    static fromMap(d: ExportFormatMap): ExportFormat;
 
     asMap(): ExportFormatMap;
 
@@ -813,7 +813,7 @@ export type ExportFormatValue = keyof ExportFormatOptions;
 
 export type ExportFormatMap = ExportFormatValue;
 
-declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
+declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
     /**
      * A unique identifier to identify this individual upload stream.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
@@ -825,13 +825,13 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
      * @param value A unique identifier to identify this individual upload stream.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      */
-    set identifier(value: string | null,);
+    set identifier(value: string | null);
 
     /**
      * @param value A unique identifier to identify this individual upload stream.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      */
-    withIdentifier(value: string | null,): this;
+    withIdentifier(value: string | null): this;
     /**
      * The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded,
      * messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
@@ -846,14 +846,14 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      */
-    set batchIntervalMillis(value: number | null,);
+    set batchIntervalMillis(value: number | null);
     /**
      * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded,
      * messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      */
-    withBatchIntervalMillis(value: number | null,): this;
+    withBatchIntervalMillis(value: number | null): this;
 
     /**
      * Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
@@ -864,12 +864,12 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
     /**
      * @param value Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
      */
-    set priority(value: number | null,);
+    set priority(value: number | null);
 
     /**
      * @param value Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
      */
-    withPriority(value: number | null,): this;
+    withPriority(value: number | null): this;
 
     /**
      * The sequence number of the message to use as the starting message in the export. Default is 0.
@@ -886,7 +886,7 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
      * sequence number of the last messaged appended.
      * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
      */
-    set startSequenceNumber(value: number | null,);
+    set startSequenceNumber(value: number | null);
 
     /**
      * @param value The sequence number of the message to use as the starting message in the export. Default is 0.
@@ -894,7 +894,7 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
      * sequence number of the last messaged appended.
      * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
      */
-    withStartSequenceNumber(value: number | null,): this;
+    withStartSequenceNumber(value: number | null): this;
 
     /**
      * Enable or disable this export. Default is false.
@@ -905,12 +905,12 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap,> {
     /**
      * @param value Enable or disable this export. Default is false.
      */
-    set disabled(value: boolean | null,);
+    set disabled(value: boolean | null);
 
     /**
      * @param value Enable or disable this export. Default is false.
      */
-    withDisabled(value: boolean | null,): this;
+    withDisabled(value: boolean | null): this;
 
     asMap(): TMap;
 
@@ -974,13 +974,13 @@ export class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
     /**
      * @param value URL for HTTP endpoint which should receive the POST requests for export.
      */
-    set uri(value: string | null,);
+    set uri(value: string | null);
 
     /**
      * @param value URL for HTTP endpoint which should receive the POST requests for export.
      * @returns
      */
-    withUri(value: string | null,): HTTPConfig;
+    withUri(value: string | null): HTTPConfig;
 
     /**
      * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
@@ -998,7 +998,7 @@ export class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum batch size is 1 and the maximum is 500.
      */
-    set batchSize(value: number | null,);
+    set batchSize(value: number | null);
 
     /**
      * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
@@ -1007,7 +1007,7 @@ export class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum batch size is 1 and the maximum is 500.
      */
-    withBatchSize(value: number | null,): HTTPConfig;
+    withBatchSize(value: number | null): HTTPConfig;
 
     /**
      * Defines how messages are batched and formatted in the export payload.
@@ -1018,15 +1018,15 @@ export class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
     /**
      * @param value Defines how messages are batched and formatted in the export payload.
      */
-    set exportFormat(value: ExportFormat | null,);
+    set exportFormat(value: ExportFormat | null);
 
     /**
      * @param value Defines how messages are batched and formatted in the export payload.
      * @returns
      */
-    withExportFormat(value: ExportFormat | null,): HTTPConfig;
+    withExportFormat(value: ExportFormat | null): HTTPConfig;
 
-    static fromMap(d: HTTPConfigMap,): HTTPConfig;
+    static fromMap(d: HTTPConfigMap): HTTPConfig;
 }
 
 export interface HTTPConfigMap extends StreamConfigBaseMap {
@@ -1082,13 +1082,13 @@ export class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> 
     /**
      * @param value The name of the IoT Analytics Channel that this exporter should upload to.
      */
-    set iotChannel(value: string | null,);
+    set iotChannel(value: string | null);
 
     /**
      * @param value The name of the IoT Analytics Channel that this exporter should upload to.
      * @returns
      */
-    withIotChannel(value: string | null,): IoTAnalyticsConfig;
+    withIotChannel(value: string | null): IoTAnalyticsConfig;
 
     /**
      * A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
@@ -1101,14 +1101,14 @@ export class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> 
      * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      * This prefix must be less than 32 characters.
      */
-    set iotMsgIdPrefix(value: string | null,);
+    set iotMsgIdPrefix(value: string | null);
 
     /**
      * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      * This prefix must be less than 32 characters.
      * @returns
      */
-    withIotMsgIdPrefix(value: string | null,): IoTAnalyticsConfig;
+    withIotMsgIdPrefix(value: string | null): IoTAnalyticsConfig;
 
     /**
      * The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
@@ -1127,7 +1127,7 @@ export class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> 
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The batch size must be between 1 and 100.
      */
-    set batchSize(value: number | null,);
+    set batchSize(value: number | null);
 
     /**
      * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
@@ -1136,9 +1136,9 @@ export class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> 
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The batch size must be between 1 and 100.
      */
-    withBatchSize(value: number | null,): IoTAnalyticsConfig;
+    withBatchSize(value: number | null): IoTAnalyticsConfig;
 
-    static fromMap(d: IoTAnalyticsConfigMap,): IoTAnalyticsConfig;
+    static fromMap(d: IoTAnalyticsConfigMap): IoTAnalyticsConfig;
 }
 
 export interface IoTAnalyticsConfigMap extends StreamConfigBaseMap {
@@ -1189,13 +1189,13 @@ export class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
     /**
      * @param value The name of the Kinesis data stream that this exporter should upload to.
      */
-    set kinesisStreamName(value: string | null,);
+    set kinesisStreamName(value: string | null);
 
     /**
      * @param value The name of the Kinesis data stream that this exporter should upload to.
      * @returns
      */
-    withKinesisStreamName(value: string | null,): KinesisConfig;
+    withKinesisStreamName(value: string | null): KinesisConfig;
 
     /**
      * The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded.
@@ -1212,7 +1212,7 @@ export class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The batch size must be between 1 and 500.
      */
-    set batchSize(value: number | null,);
+    set batchSize(value: number | null);
 
     /**
      * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded.
@@ -1220,9 +1220,9 @@ export class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The batch size must be between 1 and 500.
      */
-    withBatchSize(value: number | null,): KinesisConfig;
+    withBatchSize(value: number | null): KinesisConfig;
 
-    static fromMap(d: KinesisConfigMap,): KinesisConfig;
+    static fromMap(d: KinesisConfigMap): KinesisConfig;
 }
 
 export interface KinesisConfigMap extends StreamConfigBaseMap {
@@ -1274,7 +1274,7 @@ export class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum batch size is 1 and the maximum is 10.
      */
-    set batchSize(value: number | null,);
+    set batchSize(value: number | null);
 
     /**
      * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded.
@@ -1282,9 +1282,9 @@ export class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfigMap> {
      * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      * The minimum batch size is 1 and the maximum is 10.
      */
-    withBatchSize(value: number | null,): IoTSiteWiseConfig;
+    withBatchSize(value: number | null): IoTSiteWiseConfig;
 
-    static fromMap(d: IoTSiteWiseConfigMap,): IoTSiteWiseConfig;
+    static fromMap(d: IoTSiteWiseConfigMap): IoTSiteWiseConfig;
 }
 
 export interface IoTSiteWiseConfigMap extends StreamConfigBaseMap {
@@ -1300,7 +1300,7 @@ export class StatusConfig {
      * @param statusStreamName The name of the stream to which status messages are appended.
      * The status-stream should be created before associating it with another stream.
      */
-    constructor(statusLevel?: StatusLevel | null, statusStreamName?: string | null,);
+    constructor(statusLevel?: StatusLevel | null, statusStreamName?: string | null);
 
     /**
      * Defines the verbosity of status messages in a status-stream.
@@ -1311,13 +1311,13 @@ export class StatusConfig {
     /**
      * @param value Defines the verbosity of status messages in a status-stream.
      */
-    set statusLevel(value: StatusLevel | null,);
+    set statusLevel(value: StatusLevel | null);
 
     /**
      * @param value Defines the verbosity of status messages in a status-stream.
      * @returns
      */
-    withStatusLevel(value: StatusLevel | null,): StatusConfig;
+    withStatusLevel(value: StatusLevel | null): StatusConfig;
 
     /**
      * The name of the stream to which status messages are appended.
@@ -1330,16 +1330,16 @@ export class StatusConfig {
      * @param value The name of the stream to which status messages are appended.
      * The status-stream should be created before associating it with another stream.
      */
-    set statusStreamName(value: string | null,);
+    set statusStreamName(value: string | null);
 
     /**
      * @param value The name of the stream to which status messages are appended.
      * The status-stream should be created before associating it with another stream.
      * @returns
      */
-    withStatusStreamName(value: string | null,): StatusConfig;
+    withStatusStreamName(value: string | null): StatusConfig;
 
-    static fromMap(d: StatusConfigMap,): StatusConfig;
+    static fromMap(d: StatusConfigMap): StatusConfig;
 
     asMap(): StatusConfigMap;
 
@@ -1385,14 +1385,14 @@ export class S3ExportTaskExecutorConfig {
      * @param value A unique identifier to identify this individual upload task.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      */
-    set identifier(value: string | null,);
+    set identifier(value: string | null);
 
     /**
      * @param value A unique identifier to identify this individual upload task.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      * @returns
      */
-    withIdentifier(value: string | null,): this;
+    withIdentifier(value: string | null): this;
 
     /**
      * The size threshold in bytes for when to use multipart uploads.
@@ -1405,14 +1405,14 @@ export class S3ExportTaskExecutorConfig {
      * @param value The size threshold in bytes for when to use multipart uploads.
      * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
      */
-    set sizeThresholdForMultipartUploadBytes(value: number | null,);
+    set sizeThresholdForMultipartUploadBytes(value: number | null);
 
     /**
      * @param value The size threshold in bytes for when to use multipart uploads.
      * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
      * @returns
      */
-    withSizeThresholdForMultipartUploadBytes(value: number | null,): this;
+    withSizeThresholdForMultipartUploadBytes(value: number | null): this;
 
     /**
      * Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
@@ -1422,13 +1422,13 @@ export class S3ExportTaskExecutorConfig {
     /**
      * @param value Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
      */
-    set priority(value: number | null,);
+    set priority(value: number | null);
 
     /**
      * @param value Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
      * @returns
      */
-    withPriority(value: number | null,): this;
+    withPriority(value: number | null): this;
 
     /**
      * Enable or disable this export. Default is false.
@@ -1439,13 +1439,13 @@ export class S3ExportTaskExecutorConfig {
     /**
      * @param value Enable or disable this export. Default is false.
      */
-    set disabled(value: boolean | null,);
+    set disabled(value: boolean | null);
 
     /**
      * @param value Enable or disable this export. Default is false.
      * @returns
      */
-    withDisabled(value: boolean | null,): this;
+    withDisabled(value: boolean | null): this;
 
     /**
      * Event status configuration that specifies the target status stream and verbosity.
@@ -1456,15 +1456,15 @@ export class S3ExportTaskExecutorConfig {
     /**
      * @param value Event status configuration that specifies the target status stream and verbosity.
      */
-    set statusConfig(value: StatusConfig | null,);
+    set statusConfig(value: StatusConfig | null);
 
     /**
      * @param value Event status configuration that specifies the target status stream and verbosity.
      * @returns
      */
-    withStatusConfig(value: StatusConfig | null,): this;
+    withStatusConfig(value: StatusConfig | null): this;
 
-    static fromMap(d: S3ExportTaskExecutorConfigMap,): S3ExportTaskExecutorConfig;
+    static fromMap(d: S3ExportTaskExecutorConfigMap): S3ExportTaskExecutorConfig;
 
     asMap(): S3ExportTaskDefinitionMap;
 
@@ -1509,13 +1509,13 @@ export class ExportDefinition {
     /**
      * @param value Defines how the stream is uploaded to an HTTP endpoint.
      */
-    set http(value: HTTPConfig[] | null,);
+    set http(value: HTTPConfig[] | null);
 
     /**
      * @param value Defines how the stream is uploaded to an HTTP endpoint.
      * @returns
      */
-    withHttp(value: HTTPConfig[] | null,): this;
+    withHttp(value: HTTPConfig[] | null): this;
 
     /**
      * Defines how the stream is uploaded to IoT Analytics.
@@ -1526,13 +1526,13 @@ export class ExportDefinition {
     /**
      * @param value Defines how the stream is uploaded to IoT Analytics.
      */
-    set iotAnalytics(value: IoTAnalyticsConfig[] | null,);
+    set iotAnalytics(value: IoTAnalyticsConfig[] | null);
 
     /**
      * @param value Defines how the stream is uploaded to IoT Analytics.
      * @returns
      */
-    withIotAnalytics(value: IoTAnalyticsConfig[] | null,): this;
+    withIotAnalytics(value: IoTAnalyticsConfig[] | null): this;
 
     /**
      * Defines how the stream is uploaded to Kinesis.
@@ -1543,13 +1543,13 @@ export class ExportDefinition {
     /**
      * @param value Defines how the stream is uploaded to Kinesis.
      */
-    set kinesis(value: KinesisConfig[] | null,);
+    set kinesis(value: KinesisConfig[] | null);
 
     /**
      * @param value Defines how the stream is uploaded to Kinesis.
      * @returns
      */
-    withKinesis(value: KinesisConfig[] | null,): this;
+    withKinesis(value: KinesisConfig[] | null): this;
 
     /**
      * Defines how the stream is uploaded to IoT SiteWise.
@@ -1560,13 +1560,13 @@ export class ExportDefinition {
     /**
      * @param value Defines how the stream is uploaded to IoT SiteWise.
      */
-    set IotSitewise(value: IoTSiteWiseConfig[] | null,);
+    set IotSitewise(value: IoTSiteWiseConfig[] | null);
 
     /**
      * @param value Defines how the stream is uploaded to IoT SiteWise.
      * @returns
      */
-    withIotSitewise(value: IoTSiteWiseConfig[] | null,): this;
+    withIotSitewise(value: IoTSiteWiseConfig[] | null): this;
 
     /**
      * Defines the list of configs for S3 task executors.
@@ -1576,15 +1576,15 @@ export class ExportDefinition {
     /**
      * @param value Defines the list of configs for S3 task executors.
      */
-    set s3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null,);
+    set s3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null);
 
     /**
      * @param value Defines the list of configs for S3 task executors.
      * @returns
      */
-    withS3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null,): this;
+    withS3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null): this;
 
-    static fromMap(d: ExportDefinitionMap,): ExportDefinition;
+    static fromMap(d: ExportDefinitionMap): ExportDefinition;
 
     asMap(): ExportDefinitionMap;
 
@@ -1643,13 +1643,13 @@ export class MessageStreamDefinition {
      * @param value The unique name of the stream.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      */
-    set name(value: string | null,);
+    set name(value: string | null);
     /**
      * @param value The unique name of the stream.
      * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      * @returns
      */
-    withName(value: string | null,): this;
+    withName(value: string | null): this;
 
     /**
      * The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
@@ -1659,12 +1659,12 @@ export class MessageStreamDefinition {
     /**
      * @param value The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
      */
-    set maxSize(value: number | null,);
+    set maxSize(value: number | null);
     /**
      * @param value The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
      * @returns
      */
-    withMaxSize(value: number | null,): this;
+    withMaxSize(value: number | null): this;
 
     /**
      * The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
@@ -1676,13 +1676,13 @@ export class MessageStreamDefinition {
      * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
      * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
      */
-    set streamSegmentSize(value: number | null,);
+    set streamSegmentSize(value: number | null);
     /**
      * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
      * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
      * @returns
      */
-    withStreamSegmentSize(value: number | null,): this;
+    withStreamSegmentSize(value: number | null): this;
 
     /**
      * Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
@@ -1694,13 +1694,13 @@ export class MessageStreamDefinition {
      * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
      * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      */
-    set timeToLiveMillis(value: number | null,);
+    set timeToLiveMillis(value: number | null);
     /**
      * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
      * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      * @returns
      */
-    withTimeToLiveMillis(value: number | null,): this;
+    withTimeToLiveMillis(value: number | null): this;
 
     /**
      * What to do when the maximum size of the stream is reached.
@@ -1714,14 +1714,14 @@ export class MessageStreamDefinition {
      * RejectNewData: any append message request after the stream is full will be rejected with an exception.
      * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
      */
-    set strategyOnFull(value: StrategyOnFull | null,);
+    set strategyOnFull(value: StrategyOnFull | null);
     /**
      * @param value What to do when the maximum size of the stream is reached.
      * RejectNewData: any append message request after the stream is full will be rejected with an exception.
      * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
      * @returns
      */
-    withStrategyOnFull(value: StrategyOnFull | null,): this;
+    withStrategyOnFull(value: StrategyOnFull | null): this;
 
     /**
      * Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
@@ -1734,13 +1734,13 @@ export class MessageStreamDefinition {
      * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
      * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
      */
-    set persistence(value: Persistence | null,);
+    set persistence(value: Persistence | null);
     /**
      * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
      * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
      * @returns
      */
-    withPersistence(value: Persistence | null,): this;
+    withPersistence(value: Persistence | null): this;
 
     /**
      * This only applies when Persistence is set to File mode.
@@ -1753,14 +1753,14 @@ export class MessageStreamDefinition {
      * @param value This only applies when Persistence is set to File mode.
      * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
      */
-    set flushOnWrite(value: boolean | null,);
+    set flushOnWrite(value: boolean | null);
 
     /**
      * @param value This only applies when Persistence is set to File mode.
      * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
      * @returns
      */
-    withFlushOnWrite(value: boolean | null,): this;
+    withFlushOnWrite(value: boolean | null): this;
 
     /**
      * Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
@@ -1770,14 +1770,14 @@ export class MessageStreamDefinition {
     /**
      * @param value Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
      */
-    set exportDefinition(value: ExportDefinition | null,);
+    set exportDefinition(value: ExportDefinition | null);
     /**
      * @param value Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
      * @returns
      */
-    withExportDefinition(value: ExportDefinition | null,): this;
+    withExportDefinition(value: ExportDefinition | null): this;
 
-    static fromMap(d: MessageStreamDefinitionMap,): MessageStreamDefinition;
+    static fromMap(d: MessageStreamDefinitionMap): MessageStreamDefinition;
 
     asMap(): MessageStreamDefinitionMap;
 

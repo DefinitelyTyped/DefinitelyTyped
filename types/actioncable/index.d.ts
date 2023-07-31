@@ -9,12 +9,12 @@
 declare module ActionCable {
     interface Channel {
         unsubscribe(): void;
-        perform(action: string, data: {},): void;
-        send(data: any,): boolean;
+        perform(action: string, data: {}): void;
+        send(data: any): boolean;
     }
 
     interface Subscriptions {
-        create<T extends CreateMixin,>(
+        create<T extends CreateMixin>(
             channel: string | ChannelNameWithParams,
             obj?: T & ThisType<Channel>,
         ): Channel & T;
@@ -22,7 +22,7 @@ declare module ActionCable {
 
     interface Cable {
         subscriptions: Subscriptions;
-        send(data: any,): void;
+        send(data: any): void;
         connect(): void;
         disconnect(): void;
         ensureActiveConnection(): void;
@@ -31,7 +31,7 @@ declare module ActionCable {
     interface CreateMixin {
         connected?(): void;
         disconnected?(): void;
-        received?(obj: any,): void;
+        received?(obj: any): void;
         [key: string]: any;
     }
 
@@ -41,7 +41,7 @@ declare module ActionCable {
     }
 
     function createConsumer(): Cable;
-    function createConsumer(url: string,): Cable;
+    function createConsumer(url: string): Cable;
 }
 
 declare interface AppInterface {

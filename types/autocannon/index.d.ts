@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { IncomingHttpHeaders, } from 'http';
+import { IncomingHttpHeaders } from 'http';
 
 declare namespace autocannon {
     interface Options {
@@ -98,7 +98,7 @@ declare namespace autocannon {
          *
          * @default noop(){}
          */
-        setupClient?: ((client: Client,) => void) | undefined;
+        setupClient?: ((client: Client) => void) | undefined;
 
         /**
          * A `Number` stating the max requests to make per connection.
@@ -221,36 +221,36 @@ declare namespace autocannon {
          * Emitted once everything has been setup in your autocannon instance and it has started.
          * Useful for if running the instance forever.
          */
-        on(event: 'start', listener: () => void,): this;
+        on(event: 'start', listener: () => void): this;
 
         /**
          * Emitted every second this autocannon is running a benchmark.
          * Useful for displaying stats, etc. Used by the `track` function.
          */
-        on(event: 'tick', listener: () => void,): this; // tslint:disable-line:unified-signatures
+        on(event: 'tick', listener: () => void): this; // tslint:disable-line:unified-signatures
 
         /**
          * Emitted when the autocannon finishes a benchmark.
          */
-        on(event: 'done', listener: (result: Result,) => void,): this;
+        on(event: 'done', listener: (result: Result) => void): this;
 
         /**
          * Emitted when the autocannons http-client gets a http response from the server.
          */
         on(
             event: 'response',
-            listener: (client: Client, statusCode: number, resBytes: number, responseTime: number,) => void,
+            listener: (client: Client, statusCode: number, resBytes: number, responseTime: number) => void,
         ): this;
 
         /**
          * Emitted in the case of a request error e.g. a timeout.
          */
-        on(event: 'reqError', listener: (err: any,) => void,): this;
+        on(event: 'reqError', listener: (err: any) => void): this;
 
         /**
          * Emitted if there is an error during the setup phase of autocannon.
          */
-        on(event: 'error', listener: (err: any,) => void,): this; // tslint:disable-line:unified-signatures
+        on(event: 'error', listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
     }
 
     /**
@@ -263,20 +263,20 @@ declare namespace autocannon {
          * Used to modify the headers of the request this client iterator is currently on.
          * @param headers - should be an `Object`, or `undefined` if you want to remove your headers.
          */
-        setHeaders(headers: IncomingHttpHeaders | undefined,): void;
+        setHeaders(headers: IncomingHttpHeaders | undefined): void;
 
         /**
          * Used to modify the body of the request this client iterator is currently on. body
          * @param body - should be a `String` or `Buffer`, or `undefined` if you want to remove the body.
          */
-        setBody(body: string | Buffer | undefined,): void;
+        setBody(body: string | Buffer | undefined): void;
 
         /**
          * Used to modify the both the headers and body this client iterator is currently on.
          * @param headers - should be an `Object`, or `undefined` if you want to remove your headers.
          * @param body - should be a `String` or `Buffer`, or `undefined` if you want to remove the body.
          */
-        setHeadersAndBody(headers: IncomingHttpHeaders | undefined, body: string | Buffer | undefined,): void;
+        setHeadersAndBody(headers: IncomingHttpHeaders | undefined, body: string | Buffer | undefined): void;
 
         /**
          * Used to modify the both the entire request that this client iterator is currently on.
@@ -284,29 +284,29 @@ declare namespace autocannon {
          *
          * _Note: call this when modifying multiple request values for faster encoding._
          */
-        setRequest(request: Request,): void;
+        setRequest(request: Request): void;
 
         /**
          * Used to overwrite the entire requests array that was passed into the instance on initiation.
          *
          * _Note: call this when modifying multiple requests for faster encoding._
          */
-        setRequests(newRequests: Request[],): void;
+        setRequests(newRequests: Request[]): void;
 
         /**
          * Emitted when a request sent from this client has received the headers of its reply.
          */
-        on(event: 'headers', listener: (headers: IncomingHttpHeaders,) => void,): this;
+        on(event: 'headers', listener: (headers: IncomingHttpHeaders) => void): this;
 
         /**
          * Emitted when a request sent from this client has received the body of a reply.
          */
-        on(event: 'body', listener: (body: Buffer,) => void,): this;
+        on(event: 'body', listener: (body: Buffer) => void): this;
 
         /**
          * Emitted when the client has received a completed response for a request it made.
          */
-        on(event: 'response', listener: (statusCode: number, resBytes: number, responseTime: number,) => void,): this;
+        on(event: 'response', listener: (statusCode: number, resBytes: number, responseTime: number) => void): this;
     }
 
     /**
@@ -495,11 +495,11 @@ declare namespace autocannon {
     /**
      * Track the progress of your autocannon.
      */
-    function track(instance: Instance, options?: TrackingOptions,): void;
+    function track(instance: Instance, options?: TrackingOptions): void;
     /**
      * Return string to print the result tables to the terminal, programmatically.
      */
-    function printResult(result: Result, options?: PrintResultOptions,): string;
+    function printResult(result: Result, options?: PrintResultOptions): string;
 }
 
 /**
@@ -507,9 +507,9 @@ declare namespace autocannon {
  */
 declare function autocannon(
     options: autocannon.Options,
-    callback: (err: any, result: autocannon.Result,) => any,
+    callback: (err: any, result: autocannon.Result) => any,
 ): autocannon.Instance;
 
-declare function autocannon(options: autocannon.Options,): Promise<autocannon.Result>;
+declare function autocannon(options: autocannon.Options): Promise<autocannon.Result>;
 
 export = autocannon;

@@ -53,5 +53,5 @@ export default class Transition {
 
     readonly target: ATNState;
 
-    constructor(target: ATNState,);
+    constructor(target: ATNState);
 }

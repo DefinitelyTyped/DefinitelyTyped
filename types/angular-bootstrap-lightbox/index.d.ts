@@ -48,7 +48,7 @@ declare namespace angular.bootstrap.lightbox {
 
     export interface ILightBoxProvider {
         templateUrl: string;
-        calculateImageDimensionLimits: (dimensions: IImageDimensionParameter,) => IImageDimensionLimits;
-        calculateModalDimensions: (dimensions: IModalDimensionsParameter,) => IModalDimensions;
+        calculateImageDimensionLimits: (dimensions: IImageDimensionParameter) => IImageDimensionLimits;
+        calculateModalDimensions: (dimensions: IModalDimensionsParameter) => IModalDimensions;
     }
 }

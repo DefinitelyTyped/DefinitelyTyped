@@ -24,4 +24,4 @@ export = getBounds;
  *
  * const bounds = getBounds([0, 25, 50, 75, 100]) // [0, 100]
  */
-declare function getBounds(array: ArrayLike<number>, stride?: number,): number[];
+declare function getBounds(array: ArrayLike<number>, stride?: number): number[];

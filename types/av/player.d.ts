@@ -4,9 +4,9 @@
 
 declare namespace AV {
     class Player {
-        static fromURL(url: string, opts?: HttpSourceOpts,): Player;
-        static fromFile(file: File,): Player;
-        static fromBuffer(buffer: BufferFormats,): Player;
+        static fromURL(url: string, opts?: HttpSourceOpts): Player;
+        static fromFile(file: File): Player;
+        static fromBuffer(buffer: BufferFormats): Player;
 
         buffered: number;
         duration: number;
@@ -19,7 +19,7 @@ declare namespace AV {
         asset: Asset;
         filters: Filter[];
 
-        constructor(asset: Asset,);
+        constructor(asset: Asset);
 
         preload(): void;
         play(): void;
@@ -27,32 +27,32 @@ declare namespace AV {
         togglePlayback(): void;
         stop(): void;
 
-        on(event: 'buffer', fn: (percent: number,) => void,): void;
-        on(event: 'format', fn: (object: Format,) => void,): void;
-        on(event: 'duration' | 'progress', fn: (msecs: number,) => void,): void;
-        on(event: 'metadata', fn: (object: Metadata,) => void,): void;
-        on(event: 'ready' | 'end', fn: () => void,): void;
-        on(event: 'error', fn: (err: Error,) => void,): void;
+        on(event: 'buffer', fn: (percent: number) => void): void;
+        on(event: 'format', fn: (object: Format) => void): void;
+        on(event: 'duration' | 'progress', fn: (msecs: number) => void): void;
+        on(event: 'metadata', fn: (object: Metadata) => void): void;
+        on(event: 'ready' | 'end', fn: () => void): void;
+        on(event: 'error', fn: (err: Error) => void): void;
 
-        off(event: 'buffer', fn: (percent: number,) => void,): void;
-        off(event: 'format', fn: (object: Format,) => void,): void;
-        off(event: 'duration' | 'progress', fn: (msecs: number,) => void,): void;
-        off(event: 'metadata', fn: (object: Metadata,) => void,): void;
-        off(event: 'ready' | 'end', fn: () => void,): void;
-        off(event: 'error', fn: (err: Error,) => void,): void;
+        off(event: 'buffer', fn: (percent: number) => void): void;
+        off(event: 'format', fn: (object: Format) => void): void;
+        off(event: 'duration' | 'progress', fn: (msecs: number) => void): void;
+        off(event: 'metadata', fn: (object: Metadata) => void): void;
+        off(event: 'ready' | 'end', fn: () => void): void;
+        off(event: 'error', fn: (err: Error) => void): void;
 
-        once(event: 'buffer', fn: (percent: number,) => void,): void;
-        once(event: 'format', fn: (object: Format,) => void,): void;
-        once(event: 'duration' | 'progress', fn: (msecs: number,) => void,): void;
-        once(event: 'metadata', fn: (object: Metadata,) => void,): void;
-        once(event: 'ready' | 'end', fn: () => void,): void;
-        once(event: 'error', fn: (err: Error,) => void,): void;
+        once(event: 'buffer', fn: (percent: number) => void): void;
+        once(event: 'format', fn: (object: Format) => void): void;
+        once(event: 'duration' | 'progress', fn: (msecs: number) => void): void;
+        once(event: 'metadata', fn: (object: Metadata) => void): void;
+        once(event: 'ready' | 'end', fn: () => void): void;
+        once(event: 'error', fn: (err: Error) => void): void;
 
-        emit(event: 'buffer', fn: (percent: number,) => void,): void;
-        emit(event: 'format', fn: (object: Format,) => void,): void;
-        emit(event: 'duration' | 'progress', fn: (msecs: number,) => void,): void;
-        emit(event: 'metadata', fn: (object: Metadata,) => void,): void;
-        emit(event: 'ready' | 'end', fn: () => void,): void;
-        emit(event: 'error', fn: (err: Error,) => void,): void;
+        emit(event: 'buffer', fn: (percent: number) => void): void;
+        emit(event: 'format', fn: (object: Format) => void): void;
+        emit(event: 'duration' | 'progress', fn: (msecs: number) => void): void;
+        emit(event: 'metadata', fn: (object: Metadata) => void): void;
+        emit(event: 'ready' | 'end', fn: () => void): void;
+        emit(event: 'error', fn: (err: Error) => void): void;
     }
 }

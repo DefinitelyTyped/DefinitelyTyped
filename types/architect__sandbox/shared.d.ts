@@ -6,4 +6,4 @@ export interface StartOptions {
     symlink?: boolean | undefined;
 }
 
-export type Callback = (err: null | Error, data: string | undefined,) => void;
+export type Callback = (err: null | Error, data: string | undefined) => void;

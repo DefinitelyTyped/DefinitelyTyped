@@ -7,7 +7,7 @@
  * @description Returns some ASCII cats.
  * You know, for spicing up your command line. With cats.
  */
-declare function asciiCats(cat?: asciiCats.CatName,): string;
+declare function asciiCats(cat?: asciiCats.CatName): string;
 
 /**
  *  🐈 ascii cats for node and cli

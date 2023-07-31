@@ -102,7 +102,7 @@ interface AdbEmuCommands {
     POWER_AC_STATES: typeof POWER_AC_STATES;
     GSM_CALL_ACTIONS: typeof GSM_CALL_ACTIONS;
     GSM_VOICE_STATES: typeof GSM_VOICE_STATES;
-    GSM_SIGNAL_STRENGTHS: [0, 1, 2, 3, 4,];
+    GSM_SIGNAL_STRENGTHS: [0, 1, 2, 3, 4];
     NETWORK_SPEED: typeof NETWORK_SPEED;
     SENSORS: typeof SENSORS;
 
@@ -125,7 +125,7 @@ interface AdbEmuCommands {
      *
      * @param fingerprintId - The ID of the fingerprint.
      */
-    fingerprint(fingerprintId: string,): Promise<void>;
+    fingerprint(fingerprintId: string): Promise<void>;
 
     /**
      * Change the display orientation on the connected emulator.
@@ -139,7 +139,7 @@ interface AdbEmuCommands {
      *
      * @param state ['on'] - Either 'on' or 'off'.
      */
-    powerAC(state?: POWER_AC_STATES,): Promise<void>;
+    powerAC(state?: POWER_AC_STATES): Promise<void>;
 
     /**
      * Emulate sensors values on the connected emulator.
@@ -148,14 +148,14 @@ interface AdbEmuCommands {
      * @param value  - Number to set as the sensor value.
      * @throws - If sensor type or sensor value is not defined
      */
-    sensorSet(sensor: SENSORS, value: number | string,): Promise<void>;
+    sensorSet(sensor: SENSORS, value: number | string): Promise<void>;
 
     /**
      * Emulate power capacity change on the connected emulator.
      *
      * @param percent [100] - Percentage value in range [0, 100].
      */
-    powerCapacity(percent?: string | number,): Promise<void>;
+    powerCapacity(percent?: string | number): Promise<void>;
 
     /**
      * Emulate power off event on the connected emulator.
@@ -169,7 +169,7 @@ interface AdbEmuCommands {
      * @param message [''] - The message content.
      * @throws If phone number has invalid format.
      */
-    sendSMS(phoneNumber: string | number, message?: string,): Promise<void>;
+    sendSMS(phoneNumber: string | number, message?: string): Promise<void>;
 
     /**
      * Emulate GSM call event on the connected emulator.
@@ -179,7 +179,7 @@ interface AdbEmuCommands {
      * @throws If phone number has invalid format.
      * @throws If _action_ value is invalid.
      */
-    gsmCall(phoneNumber: string | number, action?: GSM_CALL_ACTIONS,): Promise<void>;
+    gsmCall(phoneNumber: string | number, action?: GSM_CALL_ACTIONS): Promise<void>;
 
     /**
      * Emulate GSM signal strength change event on the connected emulator.
@@ -187,7 +187,7 @@ interface AdbEmuCommands {
      * @param strength [4] - A number in range [0, 4];
      * @throws If _strength_ value is invalid.
      */
-    gsmSignal(strength?: string | number,): Promise<void>;
+    gsmSignal(strength?: string | number): Promise<void>;
 
     /**
      * Emulate GSM voice event on the connected emulator.
@@ -195,7 +195,7 @@ interface AdbEmuCommands {
      * @param state ['on'] - Either 'on' or 'off'.
      * @throws If _state_ value is invalid.
      */
-    gsmVoice(state?: GSM_VOICE_STATES,): Promise<void>;
+    gsmVoice(state?: GSM_VOICE_STATES): Promise<void>;
 
     /**
      * Emulate network speed change event on the connected emulator.
@@ -203,7 +203,7 @@ interface AdbEmuCommands {
      * @param speed ['full'] - One of possible NETWORK_SPEED values.
      * @throws If _speed_ value is invalid.
      */
-    networkSpeed(speed?: NETWORK_SPEED,): Promise<void>;
+    networkSpeed(speed?: NETWORK_SPEED): Promise<void>;
 
     /**
      * Executes a command through emulator telnet console interface and returns its output
@@ -216,7 +216,7 @@ interface AdbEmuCommands {
      * @throws If there was an error while connecting to the Telnet console
      * or if the given command returned non-OK response
      */
-    execEmuConsoleCommand(cmd: string | ReadonlyArray<string>, opts?: ExecTelnetOptions,): Promise<string>;
+    execEmuConsoleCommand(cmd: string | ReadonlyArray<string>, opts?: ExecTelnetOptions): Promise<string>;
 
     /**
      * Retrieves emulator version from the file system
@@ -238,7 +238,7 @@ interface AdbEmuCommands {
      *   path.rel=avd/Pixel_XL_API_30.avd
      *   target=android-30
      */
-    getEmuImageProperties(avdName: string,): Promise<object>;
+    getEmuImageProperties(avdName: string): Promise<object>;
 
     /**
      * Check if given emulator exists in the list of available avds.
@@ -247,5 +247,5 @@ interface AdbEmuCommands {
      * Should NOT start with '@' character
      * @throws If the emulator with given name does not exist.
      */
-    checkAvdExist(avdName: string,): Promise<void>;
+    checkAvdExist(avdName: string): Promise<void>;
 }

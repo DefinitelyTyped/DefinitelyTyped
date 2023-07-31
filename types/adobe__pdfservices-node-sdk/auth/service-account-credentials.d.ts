@@ -4,7 +4,7 @@
  * <a href="https://www.adobe.com/go/dcsdks_credentials?ref=getStartedWithServicesSdk">Click Here</a>
  */
 export class ServiceAccountCredentials {
-    constructor(client_id: any, client_secret: any, private_key: any, organization_id: any, account_id: any,);
+    constructor(client_id: any, client_secret: any, private_key: any, organization_id: any, account_id: any);
     clientId: any;
     clientSecret: any;
     privateKey: any;

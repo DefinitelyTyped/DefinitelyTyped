@@ -14,7 +14,7 @@ declare namespace AMap {
                     x: number,
                     y: number,
                     z: number,
-                    success: (tile: HTMLImageElement | HTMLCanvasElement,) => void,
+                    success: (tile: HTMLImageElement | HTMLCanvasElement) => void,
                     fail: () => void,
                 ): void;
                 /**
@@ -32,7 +32,7 @@ declare namespace AMap {
              * 灵活切片图层
              * @param options 图层选项
              */
-            constructor(options?: Flexible.Options,);
+            constructor(options?: Flexible.Options);
         }
     }
 }

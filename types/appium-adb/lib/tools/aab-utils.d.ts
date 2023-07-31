@@ -41,5 +41,5 @@ interface AabUtils {
      * by default.
      * @throws If there was an error while creating the universal .apk
      */
-    extractUniversalApk(aabPath: string, opts?: ApkCreationOptions,): Promise<string>;
+    extractUniversalApk(aabPath: string, opts?: ApkCreationOptions): Promise<string>;
 }

@@ -1,4 +1,4 @@
-import { Callback, Handler, } from '../handler';
+import { Callback, Handler } from '../handler';
 
 export type LexHandler = Handler<LexEvent, LexResult>;
 export type LexCallback = Callback<LexResult>;
@@ -44,7 +44,7 @@ export interface LexSlotResolution {
 
 export interface LexSlotDetail {
     // "at least 1 but no more than 5 items"
-    resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?,];
+    resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
     originalValue: string;
 }
 

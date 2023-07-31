@@ -40,48 +40,48 @@ export class TextEditor {
     readonly id: number;
 
     // NOTE: undocumented within the public API. Don't go down the rabbit hole.
-    constructor(options?: object,);
+    constructor(options?: object);
 
     // Event Subscription
     /** Calls your callback when the buffer's title has changed. */
-    onDidChangeTitle(callback: (title: string,) => void,): Disposable;
+    onDidChangeTitle(callback: (title: string) => void): Disposable;
 
     /** Calls your callback when the buffer's path, and therefore title, has changed. */
-    onDidChangePath(callback: (path: string,) => void,): Disposable;
+    onDidChangePath(callback: (path: string) => void): Disposable;
 
     /**
      *  Invoke the given callback synchronously when the content of the buffer
      *  changes.
      */
-    onDidChange(callback: (event: EditorChangedEvent[],) => void,): Disposable;
+    onDidChange(callback: (event: EditorChangedEvent[]) => void): Disposable;
 
     /**
      *  Invoke callback when the buffer's contents change. It is emit
      *  asynchronously 300ms after the last buffer change. This is a good place
      *  to handle changes to the buffer without compromising typing performance.
      */
-    onDidStopChanging(callback: (event: BufferStoppedChangingEvent,) => void,): Disposable;
+    onDidStopChanging(callback: (event: BufferStoppedChangingEvent) => void): Disposable;
 
     /**
      *  Calls your callback when a Cursor is moved. If there are multiple cursors,
      *  your callback will be called for each cursor.
      */
-    onDidChangeCursorPosition(callback: (event: CursorPositionChangedEvent,) => void,): Disposable;
+    onDidChangeCursorPosition(callback: (event: CursorPositionChangedEvent) => void): Disposable;
 
     /** Calls your callback when a selection's screen range changes. */
-    onDidChangeSelectionRange(callback: (event: SelectionChangedEvent,) => void,): Disposable;
+    onDidChangeSelectionRange(callback: (event: SelectionChangedEvent) => void): Disposable;
 
     /** Invoke the given callback after the buffer is saved to disk. */
-    onDidSave(callback: (event: { path: string },) => void,): Disposable;
+    onDidSave(callback: (event: { path: string }) => void): Disposable;
 
     /** Invoke the given callback when the editor is destroyed. */
-    onDidDestroy(callback: () => void,): Disposable;
+    onDidDestroy(callback: () => void): Disposable;
 
     /** Retrieves the current TextBuffer. */
     getBuffer(): TextBuffer;
 
     /** Sets the read-only state for the editor. */
-    setReadOnly(readonly: boolean,): void;
+    setReadOnly(readonly: boolean): void;
 
     /** Whether or not this editor is in read-only mode. */
     isReadOnly(): boolean;
@@ -90,85 +90,85 @@ export class TextEditor {
      *  Calls your callback when a Gutter is added to the editor. Immediately calls
      *  your callback for each existing gutter.
      */
-    observeGutters(callback: (gutter: Gutter,) => void,): Disposable;
+    observeGutters(callback: (gutter: Gutter) => void): Disposable;
 
     /** Calls your callback when a Gutter is added to the editor. */
-    onDidAddGutter(callback: (gutter: Gutter,) => void,): Disposable;
+    onDidAddGutter(callback: (gutter: Gutter) => void): Disposable;
 
     /** Calls your callback when a Gutter is removed from the editor. */
-    onDidRemoveGutter(callback: (name: string,) => void,): Disposable;
+    onDidRemoveGutter(callback: (name: string) => void): Disposable;
 
     /** Calls your callback when soft wrap was enabled or disabled. */
-    onDidChangeSoftWrapped(callback: (softWrapped: boolean,) => void,): Disposable;
+    onDidChangeSoftWrapped(callback: (softWrapped: boolean) => void): Disposable;
 
     /** Calls your callback when the buffer's encoding has changed. */
-    onDidChangeEncoding(callback: (encoding: string,) => void,): Disposable;
+    onDidChangeEncoding(callback: (encoding: string) => void): Disposable;
 
     /**
      *  Calls your callback when the grammar that interprets and colorizes the text
      *  has been changed. Immediately calls your callback with the current grammar.
      */
-    observeGrammar(callback: (grammar: Grammar,) => void,): Disposable;
+    observeGrammar(callback: (grammar: Grammar) => void): Disposable;
 
     /**
      *  Calls your callback when the grammar that interprets and colorizes the text
      *  has been changed.
      */
-    onDidChangeGrammar(callback: (grammar: Grammar,) => void,): Disposable;
+    onDidChangeGrammar(callback: (grammar: Grammar) => void): Disposable;
 
     /** Calls your callback when the result of ::isModified changes. */
-    onDidChangeModified(callback: (modified: boolean,) => void,): Disposable;
+    onDidChangeModified(callback: (modified: boolean) => void): Disposable;
 
     /**
      *  Calls your callback when the buffer's underlying file changes on disk at a
      *  moment when the result of ::isModified is true.
      */
-    onDidConflict(callback: () => void,): Disposable;
+    onDidConflict(callback: () => void): Disposable;
 
     /** Calls your callback before text has been inserted. */
-    onWillInsertText(callback: (event: { text: string; cancel(): void },) => void,): Disposable;
+    onWillInsertText(callback: (event: { text: string; cancel(): void }) => void): Disposable;
 
     /** Calls your callback after text has been inserted. */
-    onDidInsertText(callback: (event: { text: string },) => void,): Disposable;
+    onDidInsertText(callback: (event: { text: string }) => void): Disposable;
 
     /**
      *  Calls your callback when a Cursor is added to the editor. Immediately calls
      *  your callback for each existing cursor.
      */
-    observeCursors(callback: (cursor: Cursor,) => void,): Disposable;
+    observeCursors(callback: (cursor: Cursor) => void): Disposable;
 
     /** Calls your callback when a Cursor is added to the editor. */
-    onDidAddCursor(callback: (cursor: Cursor,) => void,): Disposable;
+    onDidAddCursor(callback: (cursor: Cursor) => void): Disposable;
 
     /** Calls your callback when a Cursor is removed from the editor. */
-    onDidRemoveCursor(callback: (cursor: Cursor,) => void,): Disposable;
+    onDidRemoveCursor(callback: (cursor: Cursor) => void): Disposable;
 
     /**
      *  Calls your callback when a Selection is added to the editor. Immediately
      *  calls your callback for each existing selection.
      */
-    observeSelections(callback: (selection: Selection,) => void,): Disposable;
+    observeSelections(callback: (selection: Selection) => void): Disposable;
 
     /** Calls your callback when a Selection is added to the editor. */
-    onDidAddSelection(callback: (selection: Selection,) => void,): Disposable;
+    onDidAddSelection(callback: (selection: Selection) => void): Disposable;
 
     /** Calls your callback when a Selection is removed from the editor. */
-    onDidRemoveSelection(callback: (selection: Selection,) => void,): Disposable;
+    onDidRemoveSelection(callback: (selection: Selection) => void): Disposable;
 
     /**
      *  Calls your callback with each Decoration added to the editor. Calls your
      *  callback immediately for any existing decorations.
      */
-    observeDecorations(callback: (decoration: Decoration,) => void,): Disposable;
+    observeDecorations(callback: (decoration: Decoration) => void): Disposable;
 
     /** Calls your callback when a Decoration is added to the editor. */
-    onDidAddDecoration(callback: (decoration: Decoration,) => void,): Disposable;
+    onDidAddDecoration(callback: (decoration: Decoration) => void): Disposable;
 
     /** Calls your callback when a Decoration is removed from the editor. */
-    onDidRemoveDecoration(callback: (decoration: Decoration,) => void,): Disposable;
+    onDidRemoveDecoration(callback: (decoration: Decoration) => void): Disposable;
 
     /** Calls your callback when the placeholder text is changed. */
-    onDidChangePlaceholderText(callback: (placeholderText: string,) => void,): Disposable;
+    onDidChangePlaceholderText(callback: (placeholderText: string) => void): Disposable;
 
     // File Details
     /**
@@ -201,7 +201,7 @@ export class TextEditor {
     getEncoding(): string;
 
     /** Set the character set encoding to use in this editor's text buffer. */
-    setEncoding(encoding: string,): void;
+    setEncoding(encoding: string): void;
 
     // File Operations
     /**
@@ -214,14 +214,14 @@ export class TextEditor {
      *  Saves the editor's text buffer as the given path.
      *  See TextBuffer::saveAs for more details.
      */
-    saveAs(filePath: string,): Promise<void>;
+    saveAs(filePath: string): Promise<void>;
 
     // Reading Text
     /** Returns a string representing the entire contents of the editor. */
     getText(): string;
 
     /** Get the text in the given range in buffer coordinates. */
-    getTextInBufferRange(range: RangeCompatible,): string;
+    getTextInBufferRange(range: RangeCompatible): string;
 
     /** Returns a number representing the number of lines in the buffer. */
     getLineCount(): number;
@@ -248,137 +248,137 @@ export class TextEditor {
      *  Returns a string representing the contents of the line at the given
      *  buffer row.
      */
-    lineTextForBufferRow(bufferRow: number,): string;
+    lineTextForBufferRow(bufferRow: number): string;
 
     /**
      *  Returns a string representing the contents of the line at the given
      *  screen row.
      */
-    lineTextForScreenRow(screenRow: number,): string;
+    lineTextForScreenRow(screenRow: number): string;
 
     /** Get the range of the paragraph surrounding the most recently added cursor. */
     getCurrentParagraphBufferRange(): Range;
 
     // Mutating Text
     /** Replaces the entire contents of the buffer with the given string. */
-    setText(text: string, options?: ReadonlyEditOptions,): void;
+    setText(text: string, options?: ReadonlyEditOptions): void;
 
     /** Set the text in the given Range in buffer coordinates. */
-    setTextInBufferRange(range: RangeCompatible, text: string, options?: TextEditOptions & ReadonlyEditOptions,): Range;
+    setTextInBufferRange(range: RangeCompatible, text: string, options?: TextEditOptions & ReadonlyEditOptions): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions,): Range | false;
+    insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): Range | false;
 
     /** For each selection, replace the selected text with a newline. */
-    insertNewline(options?: ReadonlyEditOptions,): void;
+    insertNewline(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character following
      *  the cursor. Otherwise delete the selected text.
      */
-    delete(options?: ReadonlyEditOptions,): void;
+    delete(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete the character preceding
      *  the cursor. Otherwise delete the selected text.
      */
-    backspace(options?: ReadonlyEditOptions,): void;
+    backspace(options?: ReadonlyEditOptions): void;
 
     /**
      *  Mutate the text of all the selections in a single transaction.
      *  All the changes made inside the given function can be reverted with a single
      *  call to ::undo.
      */
-    mutateSelectedText(fn: (selection: Selection, index: number,) => void,): void;
+    mutateSelectedText(fn: (selection: Selection, index: number) => void): void;
 
     /**
      *  For each selection, transpose the selected text.
      *  If the selection is empty, the characters preceding and following the cursor
      *  are swapped. Otherwise, the selected characters are reversed.
      */
-    transpose(options?: ReadonlyEditOptions,): void;
+    transpose(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to upper case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    upperCase(options?: ReadonlyEditOptions,): void;
+    upperCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Convert the selected text to lower case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
-    lowerCase(options?: ReadonlyEditOptions,): void;
+    lowerCase(options?: ReadonlyEditOptions): void;
 
     /**
      *  Toggle line comments for rows intersecting selections.
      *  If the current grammar doesn't support comments, does nothing.
      */
-    toggleLineCommentsInSelection(options?: ReadonlyEditOptions,): void;
+    toggleLineCommentsInSelection(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at beginning the following line. */
-    insertNewlineBelow(options?: ReadonlyEditOptions,): void;
+    insertNewlineBelow(options?: ReadonlyEditOptions): void;
 
     /** For each cursor, insert a newline at the end of the preceding line. */
-    insertNewlineAbove(options?: ReadonlyEditOptions,): void;
+    insertNewlineAbove(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfWord(options?: ReadonlyEditOptions,): void;
+    deleteToBeginningOfWord(options?: ReadonlyEditOptions): void;
 
     /**
      *  Similar to ::deleteToBeginningOfWord, but deletes only back to the previous
      *  word boundary.
      */
-    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions,): void;
+    deleteToPreviousWordBoundary(options?: ReadonlyEditOptions): void;
 
     /** Similar to ::deleteToEndOfWord, but deletes only up to the next word boundary. */
-    deleteToNextWordBoundary(options?: ReadonlyEditOptions,): void;
+    deleteToNextWordBoundary(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfSubword(options?: ReadonlyEditOptions,): void;
+    deleteToBeginningOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfSubword(options?: ReadonlyEditOptions,): void;
+    deleteToEndOfSubword(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing line that precede the cursor. Otherwise delete the selected text.
      */
-    deleteToBeginningOfLine(options?: ReadonlyEditOptions,): void;
+    deleteToBeginningOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is not empty, deletes the selection
      *  otherwise, deletes all characters of the containing line following the cursor.
      *  If the cursor is already at the end of the line, deletes the following newline.
      */
-    deleteToEndOfLine(options?: ReadonlyEditOptions,): void;
+    deleteToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, delete all characters of the
      *  containing word following the cursor. Otherwise delete the selected text.
      */
-    deleteToEndOfWord(options?: ReadonlyEditOptions,): void;
+    deleteToEndOfWord(options?: ReadonlyEditOptions): void;
 
     /** Delete all lines intersecting selections. */
-    deleteLine(options?: ReadonlyEditOptions,): void;
+    deleteLine(options?: ReadonlyEditOptions): void;
 
     // History
     /** Undo the last change. */
-    undo(options?: ReadonlyEditOptions,): void;
+    undo(options?: ReadonlyEditOptions): void;
 
     /** Redo the last change. */
-    redo(options?: ReadonlyEditOptions,): void;
+    redo(options?: ReadonlyEditOptions): void;
 
     /**
      *  Batch multiple operations as a single undo/redo step.
@@ -387,7 +387,7 @@ export class TextEditor {
      *  call ::abortTransaction to terminate the function's execution and revert any changes
      *  performed up to the abortion.
      */
-    transact(fn: () => void,): void;
+    transact(fn: () => void): void;
     /**
      *  Batch multiple operations as a single undo/redo step.
      *  Any group of operations that are logically grouped from the perspective of undoing
@@ -395,7 +395,7 @@ export class TextEditor {
      *  call ::abortTransaction to terminate the function's execution and revert any changes
      *  performed up to the abortion.
      */
-    transact(groupingInterval: number, fn: () => void,): void;
+    transact(groupingInterval: number, fn: () => void): void;
 
     /**
      *  Abort an open transaction, undoing any operations performed so far within the
@@ -415,7 +415,7 @@ export class TextEditor {
      *  will be lost. If the given checkpoint is no longer present in the undo history, no
      *  changes will be made to the buffer and this method will return false.
      */
-    revertToCheckpoint(checkpoint: number,): boolean;
+    revertToCheckpoint(checkpoint: number): boolean;
 
     /**
      *  Group all changes since the given checkpoint into a single transaction for purposes
@@ -423,7 +423,7 @@ export class TextEditor {
      *  If the given checkpoint is no longer present in the undo history, no grouping will be
      *  performed and this method will return false.
      */
-    groupChangesSinceCheckpoint(checkpoint: number,): boolean;
+    groupChangesSinceCheckpoint(checkpoint: number): boolean;
 
     // TextEditor Coordinates
     /** Convert a position in buffer-coordinates to screen-coordinates. */
@@ -439,19 +439,19 @@ export class TextEditor {
     ): Point;
 
     /** Convert a range in buffer-coordinates to screen-coordinates. */
-    screenRangeForBufferRange(bufferRange: RangeCompatible,): Range;
+    screenRangeForBufferRange(bufferRange: RangeCompatible): Range;
 
     /** Convert a range in screen-coordinates to buffer-coordinates. */
-    bufferRangeForScreenRange(screenRange: RangeCompatible,): Range;
+    bufferRangeForScreenRange(screenRange: RangeCompatible): Range;
 
     /** Clip the given Point to a valid position in the buffer. */
-    clipBufferPosition(bufferPosition: PointCompatible,): Point;
+    clipBufferPosition(bufferPosition: PointCompatible): Point;
 
     /**
      *  Clip the start and end of the given range to valid positions in the buffer.
      *  See ::clipBufferPosition for more information.
      */
-    clipBufferRange(range: RangeCompatible,): Range;
+    clipBufferRange(range: RangeCompatible): Range;
 
     /** Clip the given Point to a valid position on screen. */
     clipScreenPosition(
@@ -474,7 +474,7 @@ export class TextEditor {
      *  invalidated, or is destroyed, the decoration will be updated to reflect
      *  the marker's state.
      */
-    decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions,): Decoration;
+    decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions): Decoration;
 
     /**
      *  Add a decoration to every marker in the given marker layer. Can be used to
@@ -487,19 +487,19 @@ export class TextEditor {
     ): LayerDecoration;
 
     /** Get all decorations. */
-    getDecorations(propertyFilter?: DecorationOptions,): Decoration[];
+    getDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     /** Get all decorations of type 'line'. */
-    getLineDecorations(propertyFilter?: DecorationOptions,): Decoration[];
+    getLineDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     /** Get all decorations of type 'line-number'. */
-    getLineNumberDecorations(propertyFilter?: DecorationOptions,): Decoration[];
+    getLineNumberDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     /** Get all decorations of type 'highlight'. */
-    getHighlightDecorations(propertyFilter?: DecorationOptions,): Decoration[];
+    getHighlightDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     /** Get all decorations of type 'overlay'. */
-    getOverlayDecorations(propertyFilter?: DecorationOptions,): Decoration[];
+    getOverlayDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     // Markers
     /**
@@ -563,7 +563,7 @@ export class TextEditor {
      *  are several special properties that will be compared with the range of the markers
      *  rather than their properties.
      */
-    findMarkers(properties: FindDisplayMarkerOptions,): DisplayMarker[];
+    findMarkers(properties: FindDisplayMarkerOptions): DisplayMarker[];
 
     /** Create a marker layer to group related markers. */
     addMarkerLayer(
@@ -571,7 +571,7 @@ export class TextEditor {
     ): DisplayMarkerLayer;
 
     /** Get a DisplayMarkerLayer by id. */
-    getMarkerLayer(id: number,): DisplayMarkerLayer | undefined;
+    getMarkerLayer(id: number): DisplayMarkerLayer | undefined;
 
     /**
      *  Get the default DisplayMarkerLayer.
@@ -580,7 +580,7 @@ export class TextEditor {
     getDefaultMarkerLayer(): DisplayMarkerLayer;
 
     /** Get the DisplayMarker on the default layer for the given marker id. */
-    getMarker(id: number,): DisplayMarker;
+    getMarker(id: number): DisplayMarker;
 
     /** Get all DisplayMarkers on the default marker layer. Consider using ::findMarkers. */
     getMarkers(): DisplayMarker[];
@@ -599,10 +599,10 @@ export class TextEditor {
      *  Move the cursor to the given position in buffer coordinates.
      *  If there are multiple cursors, they will be consolidated to a single cursor.
      */
-    setCursorBufferPosition(position: PointCompatible, options?: { autoscroll?: boolean | undefined },): void;
+    setCursorBufferPosition(position: PointCompatible, options?: { autoscroll?: boolean | undefined }): void;
 
     /** Get a Cursor at given screen coordinates Point. */
-    getCursorAtScreenPosition(position: PointCompatible,): Cursor | undefined;
+    getCursorAtScreenPosition(position: PointCompatible): Cursor | undefined;
 
     /** Get the position of the most recently added cursor in screen coordinates. */
     getCursorScreenPosition(): Point;
@@ -614,28 +614,28 @@ export class TextEditor {
      *  Move the cursor to the given position in screen coordinates.
      *  If there are multiple cursors, they will be consolidated to a single cursor.
      */
-    setCursorScreenPosition(position: PointCompatible, options?: { autoscroll?: boolean | undefined },): void;
+    setCursorScreenPosition(position: PointCompatible, options?: { autoscroll?: boolean | undefined }): void;
 
     /** Add a cursor at the given position in buffer coordinates. */
-    addCursorAtBufferPosition(bufferPosition: PointCompatible, options?: { autoscroll?: boolean | undefined },): Cursor;
+    addCursorAtBufferPosition(bufferPosition: PointCompatible, options?: { autoscroll?: boolean | undefined }): Cursor;
 
     /** Add a cursor at the position in screen coordinates. */
-    addCursorAtScreenPosition(screenPosition: PointCompatible,): Cursor;
+    addCursorAtScreenPosition(screenPosition: PointCompatible): Cursor;
 
     /** Returns a boolean indicating whether or not there are multiple cursors. */
     hasMultipleCursors(): boolean;
 
     /** Move every cursor up one row in screen coordinates. */
-    moveUp(lineCount?: number,): void;
+    moveUp(lineCount?: number): void;
 
     /** Move every cursor down one row in screen coordinates. */
-    moveDown(lineCount?: number,): void;
+    moveDown(lineCount?: number): void;
 
     /** Move every cursor left one column. */
-    moveLeft(columnCount?: number,): void;
+    moveLeft(columnCount?: number): void;
 
     /** Move every cursor right one column. */
-    moveRight(columnCount?: number,): void;
+    moveRight(columnCount?: number): void;
 
     /** Move every cursor to the beginning of its line in buffer coordinates. */
     moveToBeginningOfLine(): void;
@@ -699,7 +699,7 @@ export class TextEditor {
         wordRegex?: RegExp | undefined;
         includeNonWordCharacters?: boolean | undefined;
         allowPrevious?: boolean | undefined;
-    },): string;
+    }): string;
 
     /** Get an Array of all Cursors. */
     getCursors(): Cursor[];
@@ -754,7 +754,7 @@ export class TextEditor {
      *  Set the selected range in screen coordinates. If there are multiple selections,
      *  they are reduced to a single selection with the given range.
      */
-    setSelectedScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean | undefined },): void;
+    setSelectedScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean | undefined }): void;
 
     /**
      *  Set the selected ranges in screen coordinates. If there are multiple selections,
@@ -781,41 +781,41 @@ export class TextEditor {
      *  Select from the current cursor position to the given position in buffer coordinates.
      *  This method may merge selections that end up intersecting.
      */
-    selectToBufferPosition(position: PointCompatible,): void;
+    selectToBufferPosition(position: PointCompatible): void;
 
     /**
      *  Select from the current cursor position to the given position in screen coordinates.
      *  This method may merge selections that end up intersecting.
      */
-    selectToScreenPosition(position: PointCompatible,): void;
+    selectToScreenPosition(position: PointCompatible): void;
 
     /**
      *  Move the cursor of each selection one character upward while preserving the
      *  selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
-    selectUp(rowCount?: number,): void;
+    selectUp(rowCount?: number): void;
 
     /**
      *  Move the cursor of each selection one character downward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
-    selectDown(rowCount?: number,): void;
+    selectDown(rowCount?: number): void;
 
     /**
      *  Move the cursor of each selection one character leftward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
-    selectLeft(columnCount?: number,): void;
+    selectLeft(columnCount?: number): void;
 
     /**
      *  Move the cursor of each selection one character rightward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
-    selectRight(columnCount?: number,): void;
+    selectRight(columnCount?: number): void;
 
     /**
      *  Select from the top of the buffer to the end of the last selection in the buffer.
@@ -936,7 +936,7 @@ export class TextEditor {
     selectSmallerSyntaxNode(): void;
 
     /** Select the range of the given marker if it is valid. */
-    selectMarker(marker: DisplayMarker,): Range | undefined;
+    selectMarker(marker: DisplayMarker): Range | undefined;
 
     /** Get the most recently added Selection. */
     getLastSelection(): Selection;
@@ -954,7 +954,7 @@ export class TextEditor {
     // into Range::intersectsWith. Range::intersectsWith is one of the few functions
     // which does NOT take a range-compatible array.
     /** Determine if a given range in buffer coordinates intersects a selection. */
-    selectionIntersectsBufferRange(bufferRange: RangeLike,): boolean;
+    selectionIntersectsBufferRange(bufferRange: RangeLike): boolean;
 
     // Searching and Replacing
     /**
@@ -963,20 +963,20 @@ export class TextEditor {
      *
      *  ::scan functions as the replace method as well via the replace.
      */
-    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult,) => void,): void;
+    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      *
      *  ::scan functions as the replace method as well via the replace.
      */
-    scan(regex: RegExp, iterator: (params: BufferScanResult,) => void,): void;
+    scan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
 
     /**
      *  Scan regular expression matches in a given range, calling the given iterator.
      *  function on each match.
      */
-    scanInBufferRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult,) => void,): void;
+    scanInBufferRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
 
     /**
      *  Scan regular expression matches in a given range in reverse order, calling the
@@ -985,7 +985,7 @@ export class TextEditor {
     backwardsScanInBufferRange(
         regex: RegExp,
         range: RangeCompatible,
-        iterator: (params: BufferScanResult,) => void,
+        iterator: (params: BufferScanResult) => void,
     ): void;
 
     // Tab Behavior
@@ -993,7 +993,7 @@ export class TextEditor {
     getSoftTabs(): boolean;
 
     /** Enable or disable soft tabs for this editor. */
-    setSoftTabs(softTabs: boolean,): void;
+    setSoftTabs(softTabs: boolean): void;
 
     /** Toggle soft tabs for this editor. */
     toggleSoftTabs(): boolean;
@@ -1005,7 +1005,7 @@ export class TextEditor {
      *  Set the on-screen length of tab characters. Setting this to a number will
      *  override the editor.tabLength setting.
      */
-    setTabLength(tabLength: number,): void;
+    setTabLength(tabLength: number): void;
 
     /** Determine if the buffer uses hard or soft tabs. */
     usesSoftTabs(): boolean | undefined;
@@ -1022,7 +1022,7 @@ export class TextEditor {
     isSoftWrapped(): boolean;
 
     /** Enable or disable soft wrapping for this editor. */
-    setSoftWrapped(softWrapped: boolean,): boolean;
+    setSoftWrapped(softWrapped: boolean): boolean;
 
     /** Toggle soft wrapping for this editor. */
     toggleSoftWrapped(): boolean;
@@ -1037,7 +1037,7 @@ export class TextEditor {
      *  length settings of this editor. Note that if soft tabs are enabled and the tab
      *  length is 2, a row with 4 leading spaces would have an indentation level of 2.
      */
-    indentationForBufferRow(bufferRow: number,): number;
+    indentationForBufferRow(bufferRow: number): number;
 
     /**
      *  Set the indentation level for the given buffer row.
@@ -1053,10 +1053,10 @@ export class TextEditor {
     ): void;
 
     /** Indent rows intersecting selections by one level. */
-    indentSelectedRows(options?: ReadonlyEditOptions,): void;
+    indentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /** Outdent rows intersecting selections by one level. */
-    outdentSelectedRows(options?: ReadonlyEditOptions,): void;
+    outdentSelectedRows(options?: ReadonlyEditOptions): void;
 
     /**
      *  Get the indentation level of the given line of text.
@@ -1064,10 +1064,10 @@ export class TextEditor {
      *  settings of this editor. Note that if soft tabs are enabled and the tab length is 2,
      *  a row with 4 leading spaces would have an indentation level of 2.
      */
-    indentLevelForLine(line: string,): number;
+    indentLevelForLine(line: string): number;
 
     /** Indent rows intersecting selections based on the grammar's suggested indent level. */
-    autoIndentSelectedRows(options?: ReadonlyEditOptions,): void;
+    autoIndentSelectedRows(options?: ReadonlyEditOptions): void;
 
     // Grammars
     /** Get the current Grammar of this editor. */
@@ -1081,29 +1081,29 @@ export class TextEditor {
     getRootScopeDescriptor(): ScopeDescriptor;
 
     /** Get the syntactic scopeDescriptor for the given position in buffer coordinates. */
-    scopeDescriptorForBufferPosition(bufferPosition: PointCompatible,): ScopeDescriptor;
+    scopeDescriptorForBufferPosition(bufferPosition: PointCompatible): ScopeDescriptor;
 
     /**
      *  Get the syntactic tree {ScopeDescriptor} for the given position in buffer
      *  coordinates or the syntactic {ScopeDescriptor} for TextMate language mode
      */
-    syntaxTreeScopeDescriptorForBufferPosition(bufferPosition: PointCompatible,): ScopeDescriptor;
+    syntaxTreeScopeDescriptorForBufferPosition(bufferPosition: PointCompatible): ScopeDescriptor;
 
     /**
      *  Get the range in buffer coordinates of all tokens surrounding the cursor
      *  that match the given scope selector.
      */
-    bufferRangeForScopeAtCursor(scopeSelector: string,): Range;
+    bufferRangeForScopeAtCursor(scopeSelector: string): Range;
 
     /** Determine if the given row is entirely a comment. */
-    isBufferRowCommented(bufferRow: number,): boolean;
+    isBufferRowCommented(bufferRow: number): boolean;
 
     // Clipboard Operations
     /** For each selection, copy the selected text. */
     copySelectedText(): void;
 
     /** For each selection, cut the selected text. */
-    cutSelectedText(options?: ReadonlyEditOptions,): void;
+    cutSelectedText(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, replace the selected text with the contents of the clipboard.
@@ -1111,19 +1111,19 @@ export class TextEditor {
      *  each selection will be replaced with the content of the corresponding clipboard
      *  selection text.
      */
-    pasteText(options?: TextInsertionOptions & ReadonlyEditOptions,): void;
+    pasteText(options?: TextInsertionOptions & ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing screen line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfLine(options?: ReadonlyEditOptions,): void;
+    cutToEndOfLine(options?: ReadonlyEditOptions): void;
 
     /**
      *  For each selection, if the selection is empty, cut all characters of the
      *  containing buffer line following the cursor. Otherwise cut the selected text.
      */
-    cutToEndOfBufferLine(options?: ReadonlyEditOptions,): void;
+    cutToEndOfBufferLine(options?: ReadonlyEditOptions): void;
 
     // Folds
     /**
@@ -1141,10 +1141,10 @@ export class TextEditor {
      *  If the given row is foldable, the fold will begin there. Otherwise, it will
      *  begin at the first foldable row preceding the given row.
      */
-    foldBufferRow(bufferRow: number,): void;
+    foldBufferRow(bufferRow: number): void;
 
     /** Unfold all folds containing the given row in buffer coordinates. */
-    unfoldBufferRow(bufferRow: number,): void;
+    unfoldBufferRow(bufferRow: number): void;
 
     /** For each selection, fold the rows it intersects. */
     foldSelectedLines(): void;
@@ -1159,51 +1159,51 @@ export class TextEditor {
      * Fold all foldable lines at the given indent level.
      * @param level A zero-indexed number.
      */
-    foldAllAtIndentLevel(level: number,): void;
+    foldAllAtIndentLevel(level: number): void;
 
     /**
      *  Determine whether the given row in buffer coordinates is foldable.
      *  A foldable row is a row that starts a row range that can be folded.
      */
-    isFoldableAtBufferRow(bufferRow: number,): boolean;
+    isFoldableAtBufferRow(bufferRow: number): boolean;
 
     /**
      *  Determine whether the given row in screen coordinates is foldable.
      *  A foldable row is a row that starts a row range that can be folded.
      */
-    isFoldableAtScreenRow(bufferRow: number,): boolean;
+    isFoldableAtScreenRow(bufferRow: number): boolean;
 
     /** Fold the given buffer row if it isn't currently folded, and unfold it otherwise. */
-    toggleFoldAtBufferRow(bufferRow: number,): void;
+    toggleFoldAtBufferRow(bufferRow: number): void;
 
     /** Determine whether the most recently added cursor's row is folded. */
     isFoldedAtCursorRow(): boolean;
 
     /** Determine whether the given row in buffer coordinates is folded. */
-    isFoldedAtBufferRow(bufferRow: number,): boolean;
+    isFoldedAtBufferRow(bufferRow: number): boolean;
 
     /** Determine whether the given row in screen coordinates is folded. */
-    isFoldedAtScreenRow(screenRow: number,): boolean;
+    isFoldedAtScreenRow(screenRow: number): boolean;
 
     // Gutters
     /** Add a custom Gutter. */
-    addGutter(options: GutterOptions,): Gutter;
+    addGutter(options: GutterOptions): Gutter;
 
     /** Get this editor's gutters. */
     getGutters(): Gutter[];
 
     /** Get the gutter with the given name. */
-    gutterWithName(name: string,): Gutter | null;
+    gutterWithName(name: string): Gutter | null;
 
     // Scrolling the TextEditor
     /** Scroll the editor to reveal the most recently added cursor if it is off-screen. */
-    scrollToCursorPosition(options?: { center?: boolean | undefined },): void;
+    scrollToCursorPosition(options?: { center?: boolean | undefined }): void;
 
     /** Scrolls the editor to the given buffer position. */
-    scrollToBufferPosition(bufferPosition: PointCompatible, options?: { center?: boolean | undefined },): void;
+    scrollToBufferPosition(bufferPosition: PointCompatible, options?: { center?: boolean | undefined }): void;
 
     /** Scrolls the editor to the given screen position. */
-    scrollToScreenPosition(screenPosition: PointCompatible, options?: { center?: boolean | undefined },): void;
+    scrollToScreenPosition(screenPosition: PointCompatible, options?: { center?: boolean | undefined }): void;
 
     // TextEditor Rendering
     /** Retrieves the rendered line height in pixels. */
@@ -1216,11 +1216,11 @@ export class TextEditor {
      *  Set the greyed out placeholder of a mini editor. Placeholder text will be
      *  displayed when the editor has no content.
      */
-    setPlaceholderText(placeholderText: string,): void;
+    setPlaceholderText(placeholderText: string): void;
 
     /** Undocumented: Buffer range for syntax scope at position */
-    bufferRangeForScopeAtPosition(scope: string, point: PointCompatible,): Range;
+    bufferRangeForScopeAtPosition(scope: string, point: PointCompatible): Range;
 
     /** Undocumented: Get syntax token at buffer position */
-    tokenForBufferPosition(pos: PointCompatible,): { value: string; scopes: string[] };
+    tokenForBufferPosition(pos: PointCompatible): { value: string; scopes: string[] };
 }

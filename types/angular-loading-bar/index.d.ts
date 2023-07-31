@@ -63,7 +63,7 @@ declare module 'angular' {
              * Set the percentage completed
              * @param {number} n - number between 0 and 1
              */
-            set(n: number,): void;
+            set(n: number): void;
 
             /**
              * Get the percentage completed

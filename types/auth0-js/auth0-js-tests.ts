@@ -36,7 +36,7 @@ const webAuth = new auth0.WebAuth({
     _sendTelemetry: true,
     _telemetryInfo: {},
     __tryLocalStorageFirst: true,
-},);
+});
 
 webAuth.authorize({
     audience: 'https://mystore.com/api/v2',
@@ -46,11 +46,11 @@ webAuth.authorize({
     language: 'en',
     login_hint: 'email@email.com',
     prompt: 'login',
-},);
+});
 
-webAuth.parseHash((err, authResult,) => {
+webAuth.parseHash((err, authResult) => {
     if (err) {
-        console.log(err,);
+        console.log(err);
     }
 
     // The contents of authResult depend on which authentication parameters were used.
@@ -59,14 +59,14 @@ webAuth.parseHash((err, authResult,) => {
     // authResult.expiresIn - string with the access token's expiration time in seconds
     // authResult.idToken - ID token JWT containing user profile information
 
-    webAuth.client.userInfo(authResult.accessToken, (err, user,) => {
+    webAuth.client.userInfo(authResult.accessToken, (err, user) => {
         // Now you have the user's information
-    },);
-},);
+    });
+});
 
-webAuth.parseHash((err, authResult,) => {
+webAuth.parseHash((err, authResult) => {
     if (err) {
-        console.log(err,);
+        console.log(err);
     }
 
     // The contents of authResult depend on which authentication parameters were used.
@@ -75,10 +75,10 @@ webAuth.parseHash((err, authResult,) => {
     // authResult.expiresIn - string with the access token's expiration time in seconds
     // authResult.idToken - ID token JWT containing user profile information
 
-    webAuth.client.userInfo(authResult.accessToken, (err, user,) => {
+    webAuth.client.userInfo(authResult.accessToken, (err, user) => {
         // Now you have the user's information
-    },);
-},);
+    });
+});
 
 webAuth.parseHash(
     {
@@ -93,9 +93,9 @@ webAuth.parseHash(
             token_type=Bearer&state=theState&refresh_token=kajshdgfkasdjhgfas&scope=foo',
         __enableIdPInitiatedLogin: true,
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         if (err) {
-            console.log(err,);
+            console.log(err);
         }
 
         // The contents of authResult depend on which authentication parameters were used.
@@ -104,9 +104,9 @@ webAuth.parseHash(
         // authResult.expiresIn - string with the access token's expiration time in seconds
         // authResult.idToken - ID token JWT containing user profile information
 
-        webAuth.client.userInfo(authResult.accessToken, (err, user,) => {
+        webAuth.client.userInfo(authResult.accessToken, (err, user) => {
             // Now you have the user's information
-        },);
+        });
     },
 );
 
@@ -114,9 +114,9 @@ webAuth.parseHash(
     {
         nonce: 'asfd',
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         if (err) {
-            console.log(err,);
+            console.log(err);
         }
 
         // The contents of authResult depend on which authentication parameters were used.
@@ -125,27 +125,27 @@ webAuth.parseHash(
         // authResult.expiresIn - string with the access token's expiration time in seconds
         // authResult.idToken - ID token JWT containing user profile information
 
-        webAuth.client.userInfo(authResult.accessToken, (err, user,) => {
+        webAuth.client.userInfo(authResult.accessToken, (err, user) => {
             // Now you have the user's information
-        },);
+        });
     },
 );
 
-webAuth.renewAuth({}, (err, authResult,) => {
+webAuth.renewAuth({}, (err, authResult) => {
     // Renewed tokens or error
-},);
+});
 
 webAuth.renewAuth(
     {
         nonce: '123',
         state: '456',
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         // Renewed tokens or error
     },
 );
 
-webAuth.renewAuth({}, (err, authResult,) => {},);
+webAuth.renewAuth({}, (err, authResult) => {});
 
 webAuth.renewAuth(
     {
@@ -155,7 +155,7 @@ webAuth.renewAuth(
         usePostMessage: true,
         timeout: 30 * 1000,
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         // Renewed tokens or error
     },
 );
@@ -166,10 +166,10 @@ webAuth.renewAuth(
         redirectUri: 'http://page.com/callback',
         usePostMessage: true,
     },
-    (err, authResult,) => {},
+    (err, authResult) => {},
 );
 
-webAuth.changePassword({ connection: 'the_connection', email: 'me@example.com', }, err => {},);
+webAuth.changePassword({ connection: 'the_connection', email: 'me@example.com' }, err => {});
 
 webAuth.passwordlessStart(
     {
@@ -177,7 +177,7 @@ webAuth.passwordlessStart(
         email: 'me@example.com',
         send: 'code',
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
 webAuth.passwordlessLogin(
@@ -187,7 +187,7 @@ webAuth.passwordlessLogin(
         verificationCode: '456',
         state: '12313eqwasdadaasd',
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
 webAuth.signupAndAuthorize(
@@ -201,7 +201,7 @@ webAuth.signupAndAuthorize(
             foo: 'bar',
         },
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
 webAuth.client.login(
@@ -212,36 +212,36 @@ webAuth.client.login(
         audience: 'https://mystore.com/api/v2',
         scope: 'read:order write:order',
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         /*Auth tokens in the result or an error*/
     },
 );
 
 // @ts-expect-error
 webAuth.popup.buildPopupHandler();
-webAuth.popup.preload({},);
-webAuth.popup.authorize({ domain: '', redirectUri: '', responseType: 'code', }, (err, result,) => {
+webAuth.popup.preload({});
+webAuth.popup.authorize({ domain: '', redirectUri: '', responseType: 'code' }, (err, result) => {
     if (err) /* handle error */ return;
     // do something with results
     if (result) {
         // ...
     }
-},);
-webAuth.popup.loginWithCredentials({}, (err, data,) => {
+});
+webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
-},);
+});
 webAuth.popup.passwordlessVerify(
-    { type: 'sms', phoneNumber: '', connection: '', verificationCode: '', },
-    (err, data,) => {
+    { type: 'sms', phoneNumber: '', connection: '', verificationCode: '' },
+    (err, data) => {
         if (err) /* handle error */ return;
         // do something with data
     },
 );
-webAuth.popup.signupAndLogin({ email: '', password: '', connection: '', }, (err, data,) => {
+webAuth.popup.signupAndLogin({ email: '', password: '', connection: '' }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
-},);
+});
 
 webAuth.redirect.signupAndLogin(
     {
@@ -253,13 +253,13 @@ webAuth.redirect.signupAndLogin(
         },
         onRedirecting: () => {},
     },
-    (err, data,) => {
+    (err, data) => {
         if (err) /* handle error */ return;
         // do something with data
     },
 );
 
-webAuth.login({ username: 'bar', password: 'foo', state: '1234', onRedirecting: () => {}, }, (err, data,) => {},);
+webAuth.login({ username: 'bar', password: 'foo', state: '1234', onRedirecting: () => {} }, (err, data) => {});
 
 // cross-origin verification
 webAuth.crossOriginVerification();
@@ -270,7 +270,7 @@ webAuth.checkSession(
         scope: 'read:order write:order',
         redirectUri: 'https://example.com/auth/silent-callback',
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         // Authentication tokens or error
     },
 );
@@ -282,25 +282,25 @@ webAuth.checkSession(
         redirectUri: 'https://example.com/auth/silent-callback',
         usePostMessage: true,
     },
-    (err, authResult,) => {
+    (err, authResult) => {
         // Renewed tokens or error
     },
 );
 
 //  use case; get a new token for the API
-webAuth.checkSession({}, (err, authResult: auth0.Auth0Result,) => {
+webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
     if (err) {
         err; // $ExpectType Auth0Error
     } else {
         authResult.accessToken; // $ExpectType string
     }
-},);
+});
 
-const input: HTMLInputElement = document.querySelector('input[name="captcha"]',);
+const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
 // $ExpectType Captcha
-webAuth.renderCaptcha(input,);
+webAuth.renderCaptcha(input);
 // $ExpectType Captcha
-webAuth.renderCaptcha(input, {},);
+webAuth.renderCaptcha(input, {});
 // $ExpectType Captcha
 webAuth.renderCaptcha(input, {
     lang: 'pl',
@@ -311,7 +311,7 @@ webAuth.renderCaptcha(input, {
         auth0: challenge => 'auth0',
         recaptcha_v2: challenge => 'recaptcha_v2',
     },
-},);
+});
 // $ExpectType Captcha
 webAuth.renderCaptcha(
     input,
@@ -333,11 +333,11 @@ webAuth.renderCaptcha(
 );
 
 // $ExpectType void
-webAuth.renderCaptcha(input,).reload(err => {
+webAuth.renderCaptcha(input).reload(err => {
     if (err) {
         // handle error
     }
-},);
+});
 
 const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
@@ -345,10 +345,10 @@ const authentication = new auth0.Authentication({
     redirectUri: 'http://page.com/callback',
     responseType: 'code',
     _sendTelemetry: false,
-},);
+});
 
 // @ts-expect-error
-authentication.buildAuthorizeUrl({ state: '1234', },);
+authentication.buildAuthorizeUrl({ state: '1234' });
 // @ts-expect-error
 authentication.buildAuthorizeUrl();
 // $ExpectType string
@@ -361,13 +361,13 @@ authentication.buildAuthorizeUrl({
     responseType: 'code token',
     scope: 'openid email',
     state: '1234',
-},);
+});
 
-authentication.buildLogoutUrl({ clientID: 'asdfasdfds', },);
+authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });
 authentication.buildLogoutUrl();
-authentication.userInfo('abcd1234', (err, data,) => {
+authentication.userInfo('abcd1234', (err, data) => {
     // user info retrieved
-},);
+});
 
 authentication.delegation(
     {
@@ -375,9 +375,9 @@ authentication.delegation(
         refresh_token: 'your_refresh_token',
         api_type: 'app',
     },
-    (err, data,) => {
+    (err, data) => {
         if (!err) {
-            localStorage.setItem('token', data.idToken,);
+            localStorage.setItem('token', data.idToken);
         }
     },
 );
@@ -387,7 +387,7 @@ authentication.loginWithDefaultDirectory(
         username: 'someUsername',
         password: '123456',
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
 authentication.oauthToken(
@@ -396,30 +396,30 @@ authentication.oauthToken(
         password: '123456',
         grantType: 'password',
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
-authentication.getUserCountry((err, data,) => {},);
+authentication.getUserCountry((err, data) => {});
 
 authentication.getSSOData();
-authentication.getSSOData(true, (err, data,) => {},);
+authentication.getSSOData(true, (err, data) => {});
 
 // @ts-expect-error
 authentication.dbConnection.signup();
 // @ts-expect-error
-authentication.dbConnection.signup({},);
+authentication.dbConnection.signup({});
 // @ts-expect-error
-authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', },);
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla' });
 // @ts-expect-error
-authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', password: '123456', },);
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', password: '123456' });
 authentication.dbConnection.signup(
-    { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla', },
-    (auth0Error, results,) => {
+    { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
+    (auth0Error, results) => {
         if (auth0Error) {
-            const { error, errorDescription, } = auth0Error;
+            const { error, errorDescription } = auth0Error;
         }
         if (results) {
-            const { email, emailVerified, } = results;
+            const { email, emailVerified } = results;
         }
     },
 );
@@ -434,16 +434,16 @@ authentication.dbConnection.signup(
             last_location: 'Mexico',
         },
     },
-    (err, data,) => {
-        console.assert(err === null,);
-        console.assert(data.email !== null,);
+    (err, data) => {
+        console.assert(err === null);
+        console.assert(data.email !== null);
     },
 );
-authentication.dbConnection.changePassword({ connection: 'bla', email: 'blabla', }, () => {},);
+authentication.dbConnection.changePassword({ connection: 'bla', email: 'blabla' }, () => {});
 
-authentication.passwordless.start({ connection: 'bla', send: 'link', }, () => {},);
+authentication.passwordless.start({ connection: 'bla', send: 'link' }, () => {});
 authentication.passwordless.verify(
-    { connection: 'bla', verificationCode: 'asdfasd', email: 'me@example.com', },
+    { connection: 'bla', verificationCode: 'asdfasd', email: 'me@example.com' },
     () => {},
 );
 
@@ -454,26 +454,26 @@ authentication.loginWithResourceOwner(
         connection: 'the_connection',
         scope: 'openid',
     },
-    (err, data,) => {},
+    (err, data) => {},
 );
 
 const management = new auth0.Management({
     domain: 'me.auth0.com',
     token: 'token',
-},);
+});
 
-management.getUser('asd', (err, user,) => {},);
+management.getUser('asd', (err, user) => {});
 
-management.patchUserMetadata('asd', { role: 'admin', }, (err, user,) => {
+management.patchUserMetadata('asd', { role: 'admin' }, (err, user) => {
     if (!err && user.email_verified) return; // do something
-},);
+});
 
 // tslint:disable-next-line: prefer-const
 let user: auth0.Auth0UserProfile;
 // @ts-expect-error
 management.patchUserAttributes();
 // @ts-expect-error
-management.patchUserAttributes('...',);
+management.patchUserAttributes('...');
 // @ts-expect-error
-management.patchUserAttributes('...', {},);
-management.patchUserAttributes('auth0|123', user, (err, user,) => {},); // $ExpectType void
+management.patchUserAttributes('...', {});
+management.patchUserAttributes('auth0|123', user, (err, user) => {}); // $ExpectType void

@@ -48,10 +48,10 @@ export = afterAllResults;
  *   }),
  * );
  */
-declare function afterAllResults<TResults extends any[],>(
-    done: (err: Error | null, results: TResults,) => void,
+declare function afterAllResults<TResults extends any[]>(
+    done: (err: Error | null, results: TResults) => void,
 ): (
     callback?: (err: Error | null, ...args: unknown[]) => void,
-) => (err: Error | null, result: ArrayElementType<TResults>,) => void;
+) => (err: Error | null, result: ArrayElementType<TResults>) => void;
 
-type ArrayElementType<TArr extends unknown[],> = TArr extends ReadonlyArray<infer T> ? T : never;
+type ArrayElementType<TArr extends unknown[]> = TArr extends ReadonlyArray<infer T> ? T : never;

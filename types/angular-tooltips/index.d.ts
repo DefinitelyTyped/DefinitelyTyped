@@ -9,7 +9,7 @@ export = AngularTooltips;
 
 declare namespace AngularTooltips {
     interface TooltipsConfProvider {
-        configure(options: TooltipsConfProviderOptions,): void;
+        configure(options: TooltipsConfProviderOptions): void;
     }
 
     interface TooltipsConfProviderOptions {

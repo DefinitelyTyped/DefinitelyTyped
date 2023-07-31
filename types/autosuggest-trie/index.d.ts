@@ -9,22 +9,22 @@
  * @param textKey Key that every item in items must have. item will be inserted to the trie based on item[textKey].
  * @param options Additional options
  */
-declare function createTrie<T extends object,>(
+declare function createTrie<T extends object>(
     items: T[],
     textKey: keyof T,
     options?: TrieOptions<T>,
 ): Trie<T>;
 
-interface Trie<T,> {
+interface Trie<T> {
     /**
      * Returns items that match the given query.
      * @param query Non-blank query string. If query is blank, [] is returned..
      * @param options Additional query options.
      */
-    getMatches(query: string, options?: MatchOptions,): T[];
+    getMatches(query: string, options?: MatchOptions): T[];
 }
 
-interface TrieOptions<T,> {
+interface TrieOptions<T> {
     /**
      * Items comparator, similar to Array#sort's compareFunction.
      * It gets two items, and should return a number.
@@ -35,7 +35,7 @@ interface TrieOptions<T,> {
      *
      * When comparator is not specified, items within each group will preserve their order in items.
      */
-    comparator?: (a: T, b: T,) => number;
+    comparator?: (a: T, b: T) => number;
     /**
      * Used to split items' textKey into words.
      * @default /\s+/

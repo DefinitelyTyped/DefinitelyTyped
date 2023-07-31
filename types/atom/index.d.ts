@@ -12,8 +12,8 @@
 
 /// <reference types="node" />
 
-import { AtomEnvironment, } from './src/atom-environment';
-import { TextEditorElement, } from './src/text-editor-element';
+import { AtomEnvironment } from './src/atom-environment';
+import { TextEditorElement } from './src/text-editor-element';
 
 // Imports ======================================================
 declare global {

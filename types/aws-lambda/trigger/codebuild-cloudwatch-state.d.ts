@@ -1,4 +1,4 @@
-import { EventBridgeEvent, EventBridgeHandler, } from './eventbridge';
+import { EventBridgeEvent, EventBridgeHandler } from './eventbridge';
 
 export type CodeBuildCloudWatchStateHandler = EventBridgeHandler<
     'CodeBuild Build State Change',

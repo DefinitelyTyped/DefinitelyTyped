@@ -1,4 +1,4 @@
-import { Disposable, TextEditor, TextEditorElement, } from '../index';
+import { Disposable, TextEditor, TextEditorElement } from '../index';
 
 /**
  *  ViewRegistry handles the association between model and view types in Atom.
@@ -11,20 +11,20 @@ export interface ViewRegistry {
      *  Add a provider that will be used to construct views in the workspace's view
      *  layer based on model objects in its model layer.
      */
-    addViewProvider(createView: (model: object,) => HTMLElement | undefined,): Disposable;
+    addViewProvider(createView: (model: object) => HTMLElement | undefined): Disposable;
     /**
      *  Add a provider that will be used to construct views in the workspace's view
      *  layer based on model objects in its model layer.
      */
     // tslint:disable-next-line:no-any
-    addViewProvider<T,>(
+    addViewProvider<T>(
         modelConstructor: { new(...args: any[]): T }, // tslint:disable-line no-any
-        createView: (instance: T,) => HTMLElement | undefined,
+        createView: (instance: T) => HTMLElement | undefined,
     ): Disposable;
 
     /** Get the view associated with an object in the workspace. */
-    getView(obj: TextEditor,): TextEditorElement;
-    getView(obj: object,): HTMLElement;
+    getView(obj: TextEditor): TextEditorElement;
+    getView(obj: object): HTMLElement;
 }
 
 export interface ViewModel {

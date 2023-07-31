@@ -1,15 +1,15 @@
 import * as audiosprite from 'audiosprite';
 
-const files = ['file1.mp3', 'file2.mp3',];
-const opts = { output: 'result', };
+const files = ['file1.mp3', 'file2.mp3'];
+const opts = { output: 'result' };
 
-audiosprite(files, opts, (err, obj,) => {
+audiosprite(files, opts, (err, obj) => {
     if (err) {
         return err;
     }
 
-    return JSON.stringify(obj, null, 2,);
-},);
+    return JSON.stringify(obj, null, 2);
+});
 
 audiosprite(files, {
     path: 'aaa',
@@ -19,8 +19,8 @@ audiosprite(files, {
     vbr: 9,
     'vbr:vorbis': 10,
     logger: {
-        debug(a,) {
+        debug(a) {
         },
     },
-}, (err, obj,) => {
-},);
+}, (err, obj) => {
+});

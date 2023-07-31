@@ -9,7 +9,7 @@ export class ExtractPdfOptions {
      * Returns a builder for {@link ExtractPdfOptions}.
      */
     static get Builder(): typeof ExtractPDFOptionsBuilder;
-    constructor(builder: ExtractPdfOptions,);
+    constructor(builder: ExtractPdfOptions);
     renditionsToExtract: ExtractRenditionsElementType[];
     elementsToExtract: ExtractElementType[];
     getCharBounds: boolean;
@@ -55,27 +55,27 @@ export class ExtractPDFOptionsBuilder {
     /**
      * Sets the elements to extract - like text and/or tables.
      */
-    addElementsToExtract(elements: ExtractElementType[],): ExtractPDFOptionsBuilder;
+    addElementsToExtract(elements: ExtractElementType[]): ExtractPDFOptionsBuilder;
 
     /**
      * Sets the renditions to extract - like tables and/or figures.
      */
-    addElementsToExtractRenditions(elements: ExtractElementType[],): ExtractPDFOptionsBuilder;
+    addElementsToExtractRenditions(elements: ExtractElementType[]): ExtractPDFOptionsBuilder;
 
     /**
      * Boolean specifying whether to add character level bounding boxes to output json
      */
-    addCharInfo(element: boolean,): ExtractPDFOptionsBuilder;
+    addCharInfo(element: boolean): ExtractPDFOptionsBuilder;
 
     /**
      * Adds the table structure format (currently csv only) for extracting structured information.
      */
-    addTableStructureFormat(element: TableStructureType,): ExtractPDFOptionsBuilder;
+    addTableStructureFormat(element: TableStructureType): ExtractPDFOptionsBuilder;
 
     /**
      * Boolean specifying whether to get styling info of text
      */
-    getStylingInfo(element: boolean,): ExtractPDFOptionsBuilder;
+    getStylingInfo(element: boolean): ExtractPDFOptionsBuilder;
 
     /**
      * Returns a new {@link ExtractPdfOptions} instance built from the current state of this builder.

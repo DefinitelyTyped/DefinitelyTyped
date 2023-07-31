@@ -1,4 +1,4 @@
-import { AposModuleOptions, } from 'apostrophe';
+import { AposModuleOptions } from 'apostrophe';
 
 type CustomModules = 'first-custom-widgets';
 

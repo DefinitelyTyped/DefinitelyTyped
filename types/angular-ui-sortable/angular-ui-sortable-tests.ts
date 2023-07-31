@@ -1,4 +1,4 @@
-var myApp = angular.module('testModule',);
+var myApp = angular.module('testModule');
 
 interface MySortableControllerScope extends ng.IScope {
     items: SortableModelInfo[];
@@ -19,49 +19,49 @@ interface SortLogInfo {
 // Ensure that the jQuery-ui defined `sortable()` method is not overwritten
 jQuery().sortable(); // $ExpectType JQuery<HTMLElement>
 
-myApp.controller('sortableController', function($scope: MySortableControllerScope,) {
+myApp.controller('sortableController', function($scope: MySortableControllerScope) {
     $scope.sortableOptions = {
-        activate: function(e, ui,) {
+        activate: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        beforeStop: function(e, ui,) {
+        beforeStop: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        change: function(e, ui,) {
+        change: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        deactivate: function(e, ui,) {
+        deactivate: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        out: function(e, ui,) {
+        out: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        over: function(e, ui,) {
+        over: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        receive: function(e, ui,) {
+        receive: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        remove: function(e, ui,) {
+        remove: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        sort: function(e, ui,) {
+        sort: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        start: function(e, ui,) {
+        start: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
         },
-        stop: function(e, ui,) {
+        stop: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
             var uiitem: ng.ui.UISortableUIItem<SortableModelInfo> = ui.item;
@@ -82,9 +82,9 @@ myApp.controller('sortableController', function($scope: MySortableControllerScop
                 ID: $scope.sortingLog.length + 1,
                 Text: 'Moved element: ' + ui.item.sortable.model.text,
             };
-            $scope.sortingLog.push(logEntry,);
+            $scope.sortingLog.push(logEntry);
         },
-        update: function(e, ui,) {
+        update: function(e, ui) {
             var jQueryEventObject: JQueryEventObject = e;
             var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
             ui.item.sortable; // $ExpectType UISortableProperties<SortableModelInfo>
@@ -95,7 +95,7 @@ myApp.controller('sortableController', function($scope: MySortableControllerScop
     };
 
     $scope.sortableOptions.appendTo = document.body;
-    $scope.sortableOptions.appendTo = angular.element(document.body,);
+    $scope.sortableOptions.appendTo = angular.element(document.body);
     $scope.sortableOptions.appendTo = 'body';
     $scope.sortableOptions.axis = 'x';
     $scope.sortableOptions.axis = 'y';
@@ -109,7 +109,7 @@ myApp.controller('sortableController', function($scope: MySortableControllerScop
     $scope.sortableOptions.containment = false;
     $scope.sortableOptions.cursor = 'move';
     $scope.sortableOptions.cursorAt = false;
-    $scope.sortableOptions.cursorAt = { left: 5, };
+    $scope.sortableOptions.cursorAt = { left: 5 };
     $scope.sortableOptions.delay = 300;
     $scope.sortableOptions.disabled = true;
     $scope.sortableOptions.distance = 5;
@@ -117,10 +117,10 @@ myApp.controller('sortableController', function($scope: MySortableControllerScop
     $scope.sortableOptions.forceHelperSize = true;
     $scope.sortableOptions.forcePlaceholderSize = true;
     $scope.sortableOptions.grid = false;
-    $scope.sortableOptions.grid = [20, 10,];
+    $scope.sortableOptions.grid = [20, 10];
     $scope.sortableOptions.handle = '.handle';
     $scope.sortableOptions.helper = 'clone';
-    $scope.sortableOptions.helper = function(e: JQueryEventObject, item: ng.IAugmentedJQuery,) {
+    $scope.sortableOptions.helper = function(e: JQueryEventObject, item: ng.IAugmentedJQuery) {
         return item.clone();
     };
     $scope.sortableOptions.items = '> li:not(.disabled)';
@@ -136,8 +136,8 @@ myApp.controller('sortableController', function($scope: MySortableControllerScop
     $scope.sortableOptions.tolerance = 'pointer';
     $scope.sortableOptions.zIndex = 9999;
 
-    const sortableFloatingOption0: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': undefined, };
-    const sortableFloatingOption1: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': false, };
-    const sortableFloatingOption2: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': true, };
-    const sortableFloatingOption3: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': 'auto', };
-},);
+    const sortableFloatingOption0: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': undefined };
+    const sortableFloatingOption1: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': false };
+    const sortableFloatingOption2: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': true };
+    const sortableFloatingOption3: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': 'auto' };
+});

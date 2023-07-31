@@ -67,9 +67,9 @@ declare namespace Scripting {
     }
 
     /** Scripting.Dictionary */
-    interface Dictionary<TKey = any, TItem = any,> {
+    interface Dictionary<TKey = any, TItem = any> {
         /** Add a new key and item to the dictionary. */
-        Add(Key: TKey, Item: TItem,): void;
+        Add(Key: TKey, Item: TItem): void;
 
         /** Set or get the string comparison method. */
         CompareMode: CompareMethod;
@@ -78,29 +78,29 @@ declare namespace Scripting {
         readonly Count: number;
 
         /** Determine if a given key is in the dictionary. */
-        Exists(Key: TKey,): boolean;
-        HashVal(Key: TKey,): any;
+        Exists(Key: TKey): boolean;
+        HashVal(Key: TKey): any;
 
         /** Set or get the item for a given key */
-        Item(Key: TKey,): TItem;
+        Item(Key: TKey): TItem;
 
         /** Get an array containing all items in the dictionary. */
         Items(): SafeArray<TItem>;
 
         /** Change a key to a different key. */
-        Key(Key: TKey,): TKey;
+        Key(Key: TKey): TKey;
 
         /** Get an array containing all keys in the dictionary. */
         Keys(): SafeArray<TKey>;
 
         /** Remove a given key from the dictionary. */
-        Remove(Key: TKey,): void;
+        Remove(Key: TKey): void;
 
         /** Remove all information from the dictionary. */
         RemoveAll(): void;
 
         /** Set or get the item for a given key */
-        (Key: TKey,): TItem;
+        (Key: TKey): TItem;
     }
 
     /** Drive Object */
@@ -151,19 +151,19 @@ declare namespace Scripting {
         readonly Count: number;
 
         /** Get drive using the drive letter (`C`) or path (`C:\\`) */
-        Item(Key: string,): Drive;
+        Item(Key: string): Drive;
 
         /** Get drive using the drive letter (`C`) or path (`C:\\`) */
-        (Key: string,): Drive;
+        (Key: string): Drive;
     }
 
     /** Script Encoder Object */
     interface Encoder {
         /** Call the Encoder determined by szExt, passing bstrStreamIn and optional arguments */
-        EncodeScriptFile(szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string,): string;
+        EncodeScriptFile(szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string): string;
 
         /** Call the Encoder determined by szExt, passing bstrStreamIn and optional arguments */
-        (szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string,): string;
+        (szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string): string;
     }
 
     /** File object */
@@ -178,7 +178,7 @@ declare namespace Scripting {
          * Copy this file
          * @param boolean [OverWriteFiles=true]
          */
-        Copy(Destination: string, OverWriteFiles?: boolean,): void;
+        Copy(Destination: string, OverWriteFiles?: boolean): void;
 
         /** Date file was created */
         readonly DateCreated: VarDate;
@@ -193,13 +193,13 @@ declare namespace Scripting {
          * Delete this file
          * @param boolean [Force=false] Pass `true` to delete the file even if the read-only attribute is set
          */
-        Delete(Force?: boolean,): void;
+        Delete(Force?: boolean): void;
 
         /** Get drive that contains file */
         readonly Drive: Drive;
 
         /** Move this file */
-        Move(Destination: string,): void;
+        Move(Destination: string): void;
 
         /** Get name of file */
         Name: string;
@@ -209,7 +209,7 @@ declare namespace Scripting {
          * @param Scripting.IOMode [IOMode=1]
          * @param Scripting.Tristate [Format=0]
          */
-        OpenAsTextStream(IOMode?: IOMode, Format?: Tristate,): TextStream;
+        OpenAsTextStream(IOMode?: IOMode, Format?: Tristate): TextStream;
 
         /** Get folder that contains file */
         readonly ParentFolder: Folder;
@@ -236,10 +236,10 @@ declare namespace Scripting {
         readonly Count: number;
 
         /** Get file object using the name and extension of the file */
-        Item(Key: string,): File;
+        Item(Key: string): File;
 
         /** Get file */
-        (Key: string,): File;
+        (Key: string): File;
     }
 
     /** FileSystem Object */
@@ -248,101 +248,101 @@ declare namespace Scripting {
         private 'Scripting.FileSystemObject_typekey': FileSystemObject;
 
         /** Generate a path from an existing path and a name */
-        BuildPath(Path: string, Name: string,): string;
+        BuildPath(Path: string, Name: string): string;
 
         /**
          * Copy a file
          * @param boolean [OverWriteFiles=true]
          */
-        CopyFile(Source: string, Destination: string, OverWriteFiles?: boolean,): void;
+        CopyFile(Source: string, Destination: string, OverWriteFiles?: boolean): void;
 
         /**
          * Copy a folder
          * @param boolean [OverWriteFiles=true]
          */
-        CopyFolder(Source: string, Destination: string, OverWriteFiles?: boolean,): void;
+        CopyFolder(Source: string, Destination: string, OverWriteFiles?: boolean): void;
 
         /** Create a folder */
-        CreateFolder(Path: string,): Folder;
+        CreateFolder(Path: string): Folder;
 
         /**
          * Create a file as a TextStream
          * @param boolean [Overwrite=true]
          * @param boolean [Unicode=false]
          */
-        CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean,): TextStream;
+        CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean): TextStream;
 
         /**
          * Delete a file
          * @param boolean [Force=false] Pass `true` to also delete files with the read-only attribute set
          */
-        DeleteFile(FileSpec: string, Force?: boolean,): void;
+        DeleteFile(FileSpec: string, Force?: boolean): void;
 
         /**
          * Delete a folder
          * @param boolean [Force=false] Pass `true` to also delete folders with the read-only attribute set
          */
-        DeleteFolder(FolderSpec: string, Force?: boolean,): void;
+        DeleteFolder(FolderSpec: string, Force?: boolean): void;
 
         /** Check if a drive or a share exists */
-        DriveExists(DriveSpec: string,): boolean;
+        DriveExists(DriveSpec: string): boolean;
 
         /** Get drives collection */
         readonly Drives: Drives;
 
         /** Check if a file exists */
-        FileExists(FileSpec: string,): boolean;
+        FileExists(FileSpec: string): boolean;
 
         /** Check if a path exists */
-        FolderExists(FolderSpec: string,): boolean;
+        FolderExists(FolderSpec: string): boolean;
 
         /** Return the canonical representation of the path */
-        GetAbsolutePathName(Path: string,): string;
+        GetAbsolutePathName(Path: string): string;
 
         /** Return base name from a path */
-        GetBaseName(Path: string,): string;
+        GetBaseName(Path: string): string;
 
         /** Get drive or UNC share */
-        GetDrive(DriveSpec: string,): Drive;
+        GetDrive(DriveSpec: string): Drive;
 
         /** Return drive from a path */
-        GetDriveName(Path: string,): string;
+        GetDriveName(Path: string): string;
 
         /** Return extension from path */
-        GetExtensionName(Path: string,): string;
+        GetExtensionName(Path: string): string;
 
         /** Get file */
-        GetFile(FilePath: string,): File;
+        GetFile(FilePath: string): File;
 
         /** Return the file name from a path */
-        GetFileName(Path: string,): string;
+        GetFileName(Path: string): string;
 
         /** Retrieve the file version of the specified file into a string */
-        GetFileVersion(FileName: string,): string;
+        GetFileVersion(FileName: string): string;
 
         /** Get folder */
-        GetFolder(FolderPath: string,): Folder;
+        GetFolder(FolderPath: string): Folder;
 
         /** Return path to the parent folder */
-        GetParentFolderName(Path: string,): string;
+        GetParentFolderName(Path: string): string;
 
         /** Get location of various system folders */
-        GetSpecialFolder(SpecialFolder: SpecialFolderConst,): Folder;
+        GetSpecialFolder(SpecialFolder: SpecialFolderConst): Folder;
 
         /**
          * Retrieve the standard input, output or error stream
          * @param boolean [Unicode=false]
          */
-        GetStandardStream(StandardStreamType: StandardStreamTypes, Unicode?: boolean,): TextStream;
+        GetStandardStream(StandardStreamType: StandardStreamTypes, Unicode?: boolean): TextStream;
 
         /** Generate name that can be used to name a temporary file */
         GetTempName(): string;
 
         /** Move a file */
-        MoveFile(Source: string, Destination: string,): void;
+        MoveFile(Source: string, Destination: string): void;
 
         /** Move a folder */
-        MoveFolder(Source: string, Destination: string,): void;
+        MoveFolder(Source: string, Destination: string): void;
 
         /**
          * Open a file as a TextStream
@@ -350,7 +350,7 @@ declare namespace Scripting {
          * @param boolean [Create=false]
          * @param Scripting.Tristate [Format=0] **TristateTrue** opens the file as Unicode; **TristateFalse** opens the file as ASCII;  **TristateUseDefault** opens the file with  the system default
          */
-        OpenTextFile(FileName: string, IOMode?: IOMode, Create?: boolean, Format?: Tristate,): TextStream;
+        OpenTextFile(FileName: string, IOMode?: IOMode, Create?: boolean, Format?: Tristate): TextStream;
     }
 
     /** Folder object */
@@ -365,14 +365,14 @@ declare namespace Scripting {
          * Copy this folder
          * @param boolean [OverWriteFiles=true]
          */
-        Copy(Destination: string, OverWriteFiles?: boolean,): void;
+        Copy(Destination: string, OverWriteFiles?: boolean): void;
 
         /**
          * Create a file as a TextStream
          * @param boolean [Overwrite=true]
          * @param boolean [Unicode=false]
          */
-        CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean,): TextStream;
+        CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean): TextStream;
 
         /** Date folder was created */
         readonly DateCreated: VarDate;
@@ -387,7 +387,7 @@ declare namespace Scripting {
          * Delete this folder
          * @param boolean [Force=false] Pass `true` to delete the folder even if the read-only attribute set
          */
-        Delete(Force?: boolean,): void;
+        Delete(Force?: boolean): void;
 
         /** Get drive that contains folder */
         readonly Drive: Drive;
@@ -399,7 +399,7 @@ declare namespace Scripting {
         readonly IsRootFolder: boolean;
 
         /** Move this folder */
-        Move(Destination: string,): void;
+        Move(Destination: string): void;
 
         /** Get name of folder */
         Name: string;
@@ -429,16 +429,16 @@ declare namespace Scripting {
     /** Collection of subfolders in a folder */
     interface Folders {
         /** Create a new folder */
-        Add(Name: string,): Folder;
+        Add(Name: string): Folder;
 
         /** Number of folders */
         readonly Count: number;
 
         /** Get folder in collection using the folder's name */
-        Item(Key: string,): Folder;
+        Item(Key: string): Folder;
 
         /** Get folder in collection using the folder's name */
-        (Key: string,): Folder;
+        (Key: string): Folder;
     }
 
     /** TextStream object */
@@ -462,7 +462,7 @@ declare namespace Scripting {
         readonly Line: number;
 
         /** Read a specific number of characters into a string */
-        Read(Characters: number,): string;
+        Read(Characters: number): string;
 
         /** Read the entire stream into a string */
         ReadAll(): string;
@@ -471,30 +471,30 @@ declare namespace Scripting {
         ReadLine(): string;
 
         /** Skip a specific number of characters */
-        Skip(Characters: number,): void;
+        Skip(Characters: number): void;
 
         /** Skip a line */
         SkipLine(): void;
 
         /** Write a string to the stream */
-        Write(Text: string,): void;
+        Write(Text: string): void;
 
         /** Write a number of blank lines to the stream */
-        WriteBlankLines(Lines: number,): void;
+        WriteBlankLines(Lines: number): void;
 
         /**
          * Write a string and an end of line to the stream
          * @param string [Text='']
          */
-        WriteLine(Text?: string,): void;
+        WriteLine(Text?: string): void;
     }
 }
 
 interface ActiveXObject {
-    set<TKey = any, TValue = any,>(
+    set<TKey = any, TValue = any>(
         obj: Scripting.Dictionary<TKey, TValue>,
         propertyName: 'Item',
-        parameterTypes: [TKey,],
+        parameterTypes: [TKey],
         newValue: TValue,
     ): void;
 }
@@ -506,5 +506,5 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new<TKey,>(dict: Scripting.Dictionary<TKey>,): Enumerator<TKey>;
+    new<TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
 }

@@ -31,7 +31,7 @@ export default class ATNSimulator {
 
     readonly sharedContextCache: PredictionContextCache;
 
-    constructor(atn: ATN, sharedContextCache: PredictionContextCache,);
+    constructor(atn: ATN, sharedContextCache: PredictionContextCache);
 
-    getCachedContext(context: PredictionContext,): PredictionContext;
+    getCachedContext(context: PredictionContext): PredictionContext;
 }

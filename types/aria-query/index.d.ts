@@ -7,10 +7,10 @@
 // Disable automatic exports.
 export {};
 
-interface MapLike<Key, Value,> {
-    entries: () => Array<[Key, Value,]>;
-    get: (key: Key,) => Value | undefined;
-    has: (key: Key,) => boolean;
+interface MapLike<Key, Value> {
+    entries: () => Array<[Key, Value]>;
+    get: (key: Key) => Value | undefined;
+    has: (key: Key) => boolean;
     keys: () => Key[];
     values: () => Value[];
 }

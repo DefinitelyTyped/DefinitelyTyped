@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import type { ConnectionOptions, } from 'tls';
+import type { ConnectionOptions } from 'tls';
 
 export interface Constants {
     OUTCOME_SUCCESS: 0;
@@ -84,13 +84,13 @@ export const constants: Constants;
 
 export namespace construct {
     class Code {
-        constructor(code: number, originalText: string, codeSystemName: string, displayName?: string,);
+        constructor(code: number, originalText: string, codeSystemName: string, displayName?: string);
 
         toXML(): string;
     }
 
     class EventIdentification {
-        constructor(actionCode: string, datetime: Date, outcome: number, eventID: Code, typeCode?: Code,);
+        constructor(actionCode: string, datetime: Date, outcome: number, eventID: Code, typeCode?: Code);
 
         toXML(): string;
     }
@@ -138,11 +138,11 @@ export namespace construct {
         userRoleCode: string,
     ): string;
 
-    function wrapInSyslog(msg: string,): string;
+    function wrapInSyslog(msg: string): string;
 }
 
 export namespace send {
-    type SendCallback = (err?: Error,) => void;
+    type SendCallback = (err?: Error) => void;
 
     interface CommonConnDetail {
         host: string;
@@ -164,5 +164,5 @@ export namespace send {
 
     type SendConnDetail = UdpConnDetail | TcpConnDetail | TlsConnDetail;
 
-    function sendAuditEvent(msg: string, connDetail: SendConnDetail, callback?: SendCallback | null,): void;
+    function sendAuditEvent(msg: string, connDetail: SendConnDetail, callback?: SendCallback | null): void;
 }

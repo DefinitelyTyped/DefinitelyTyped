@@ -5,7 +5,7 @@
 
 export function generateTestsFromFixtures(
     fixturesPath: string,
-    operation: (input: string,) => any,
+    operation: (input: string) => any,
     snapshotName?: string,
 ): void;
 

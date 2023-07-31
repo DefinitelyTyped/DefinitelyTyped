@@ -31,5 +31,5 @@ export default class BailErrorStrategy extends DefaultErrorStrategy {
      * Make sure we don't attempt to recover inline; if the parser
      * successfully recovers, it won't throw an exception.
      */
-    recoverInline(recognizer: Parser,): Token;
+    recoverInline(recognizer: Parser): Token;
 }

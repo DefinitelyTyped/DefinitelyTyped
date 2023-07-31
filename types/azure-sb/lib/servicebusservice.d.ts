@@ -1,4 +1,4 @@
-import { Azure, } from '../index';
+import { Azure } from '../index';
 
 import ServiceBusServiceBase = require('./servicebusservicebase');
 
@@ -35,7 +35,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         authenticationProvider?: object,
     );
 
-    public receiveQueueMessage(queuePath: string, callback: TypedResultAndResponseCallback<Message>,): void;
+    public receiveQueueMessage(queuePath: string, callback: TypedResultAndResponseCallback<Message>): void;
 
     public receiveQueueMessage(
         queuePath: string,
@@ -56,21 +56,21 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Message>,
     ): void;
 
-    public deleteMessage(message: MessageOrName, callback: ResponseCallback,): void;
+    public deleteMessage(message: MessageOrName, callback: ResponseCallback): void;
 
-    public unlockMessage(message: MessageOrName, callback: ResponseCallback,): void;
+    public unlockMessage(message: MessageOrName, callback: ResponseCallback): void;
 
-    public renewLockForMessage(message: MessageOrName, callback: ResponseCallback,): void;
+    public renewLockForMessage(message: MessageOrName, callback: ResponseCallback): void;
 
-    public sendQueueMessage(queuePath: string, message: MessageOrName, callback: ResponseCallback,): void;
+    public sendQueueMessage(queuePath: string, message: MessageOrName, callback: ResponseCallback): void;
 
-    public sendTopicMessage(topicPath: string, message: MessageOrName, callback: ResponseCallback,): void;
+    public sendTopicMessage(topicPath: string, message: MessageOrName, callback: ResponseCallback): void;
 
     /*
      * Queue Management functions
      */
 
-    public createQueue(queuePath: string, callback: TypedResultAndResponseCallback<Queue>,): void;
+    public createQueue(queuePath: string, callback: TypedResultAndResponseCallback<Queue>): void;
 
     public createQueue(
         queuePath: string,
@@ -78,7 +78,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Queue>,
     ): void;
 
-    public createQueueIfNotExists(queuePath: string, callback: TypedResultAndResponseCallback<boolean>,): void;
+    public createQueueIfNotExists(queuePath: string, callback: TypedResultAndResponseCallback<boolean>): void;
 
     public createQueueIfNotExists(
         queuePath: string,
@@ -86,18 +86,18 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<boolean>,
     ): void;
 
-    public deleteQueue(queuePath: string, callback: ResponseCallback,): void;
+    public deleteQueue(queuePath: string, callback: ResponseCallback): void;
 
-    public getQueue(queuePath: string, callback: TypedResultAndResponseCallback<Queue>,): void;
+    public getQueue(queuePath: string, callback: TypedResultAndResponseCallback<Queue>): void;
 
-    public listQueues(callback: TypedResultAndResponseCallback<Queue[]>,): void;
-    public listQueues(options: ListQueuesOptions, callback: TypedResultAndResponseCallback<Queue[]>,): void;
+    public listQueues(callback: TypedResultAndResponseCallback<Queue[]>): void;
+    public listQueues(options: ListQueuesOptions, callback: TypedResultAndResponseCallback<Queue[]>): void;
 
     /*
      * Topic Management functions
      */
 
-    public createTopic(topicPath: string, callback: TypedResultAndResponseCallback<Topic>,): void;
+    public createTopic(topicPath: string, callback: TypedResultAndResponseCallback<Topic>): void;
 
     public createTopic(
         topicPath: string,
@@ -105,7 +105,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Topic>,
     ): void;
 
-    public createTopicIfNotExists(topicPath: string, callback: TypedResultAndResponseCallback<boolean>,): void;
+    public createTopicIfNotExists(topicPath: string, callback: TypedResultAndResponseCallback<boolean>): void;
 
     public createTopicIfNotExists(
         topicPath: string,
@@ -113,12 +113,12 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<boolean>,
     ): void;
 
-    public deleteTopic(topicPath: string, callback: ResponseCallback,): void;
+    public deleteTopic(topicPath: string, callback: ResponseCallback): void;
 
-    public getTopic(topicPath: string, callback: TypedResultAndResponseCallback<Topic>,): void;
+    public getTopic(topicPath: string, callback: TypedResultAndResponseCallback<Topic>): void;
 
-    public listTopics(callback: TypedResultAndResponseCallback<Topic[]>,): void;
-    public listTopics(options: ListTopicsOptions, callback: TypedResultAndResponseCallback<Topic[]>,): void;
+    public listTopics(callback: TypedResultAndResponseCallback<Topic[]>): void;
+    public listTopics(options: ListTopicsOptions, callback: TypedResultAndResponseCallback<Topic[]>): void;
 
     /*
      * Subscription functions
@@ -137,7 +137,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Subscription>,
     ): void;
 
-    public deleteSubscription(topicPath: string, subscriptionPath: string, callback: ResponseCallback,): void;
+    public deleteSubscription(topicPath: string, subscriptionPath: string, callback: ResponseCallback): void;
 
     public getSubscription(
         topicPath: string,
@@ -145,7 +145,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Subscription>,
     ): void;
 
-    public listSubscriptions(topicPath: string, callback: TypedResultAndResponseCallback<Subscription[]>,): void;
+    public listSubscriptions(topicPath: string, callback: TypedResultAndResponseCallback<Subscription[]>): void;
 
     public listSubscriptions(
         topicPath: string,
@@ -172,7 +172,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: TypedResultAndResponseCallback<Rule>,
     ): void;
 
-    public deleteRule(topicPath: string, subscriptionPath: string, rulePath: string, callback: ResponseCallback,): void;
+    public deleteRule(topicPath: string, subscriptionPath: string, rulePath: string, callback: ResponseCallback): void;
 
     public getRule(
         topicPath: string,
@@ -198,7 +198,7 @@ declare class ServiceBusService extends ServiceBusServiceBase {
      * NotificationHub functions
      */
 
-    public createNotificationHub(hubPath: string, callback: ResultAndResponseCallback,): void;
+    public createNotificationHub(hubPath: string, callback: ResultAndResponseCallback): void;
 
     public createNotificationHub(
         hubPath: string,
@@ -206,13 +206,13 @@ declare class ServiceBusService extends ServiceBusServiceBase {
         callback: ResultAndResponseCallback,
     ): void;
 
-    public getNotificationHub(hubPath: string, callback: ResultAndResponseCallback,): void;
+    public getNotificationHub(hubPath: string, callback: ResultAndResponseCallback): void;
 
-    public listNotificationHubs(callback: ResultAndResponseCallback,): void;
+    public listNotificationHubs(callback: ResultAndResponseCallback): void;
 
-    public listNotificationHubs(options: ListNotificationHubsOptions, callback: ResultAndResponseCallback,): void;
+    public listNotificationHubs(options: ListNotificationHubsOptions, callback: ResultAndResponseCallback): void;
 
-    public deleteNotificationHub(hubPath: string, callback: ResponseCallback,): void;
+    public deleteNotificationHub(hubPath: string, callback: ResponseCallback): void;
 }
 
 export = ServiceBusService;

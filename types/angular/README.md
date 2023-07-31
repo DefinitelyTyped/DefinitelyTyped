@@ -39,7 +39,7 @@ To avoid cluttering the list of suggestions as you type in your IDE, all interfa
 Below is an example of how to use the interfaces:
 
 ```ts
-function MainController($scope: ng.IScope, $http: ng.IHttpService,) {
+function MainController($scope: ng.IScope, $http: ng.IHttpService) {
     // code assistance will now be available for $scope and $http
 }
 ```
@@ -67,8 +67,8 @@ TypeScript allows for static checking. Among other obvious things, that means yo
 Consider the following ordinary code:
 
 ```ts
-function Controller($scope,) {
-    $scope.$broadcast('myEvent',);
+function Controller($scope) {
+    $scope.$broadcast('myEvent');
     $scope.title = 'Yabadabadu';
 }
 ```
@@ -78,8 +78,8 @@ That will not produce any compilation error because the compiler does not know t
 Now consider this:
 
 ```ts
-function Controller($scope: ng.IScope,) {
-    $scope.$broadcast('myEvent',);
+function Controller($scope: ng.IScope) {
+    $scope.$broadcast('myEvent');
     $scope.title = 'Yabadabadu';
 }
 ```
@@ -93,8 +93,8 @@ interface ICustomScope extends ng.IScope {
     title: string;
 }
 
-function Controller($scope: ICustomScope,) {
-    $scope.$broadcast('myEvent',);
+function Controller($scope: ICustomScope) {
+    $scope.$broadcast('myEvent');
     $scope.title = 'Yabadabadu';
 }
 ```

@@ -1,4 +1,4 @@
-import { Point, } from 'arcgis-rest-api';
+import { Point } from 'arcgis-rest-api';
 
 let point: Point;
 

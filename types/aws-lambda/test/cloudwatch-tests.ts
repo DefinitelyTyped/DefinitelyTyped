@@ -1,17 +1,12 @@
 /// <reference types="node" />
 
-import {
-    CloudWatchLogsDecodedData,
-    CloudWatchLogsHandler,
-    CloudWatchLogsLogEvent,
-    ScheduledHandler,
-} from 'aws-lambda';
+import { CloudWatchLogsDecodedData, CloudWatchLogsHandler, CloudWatchLogsLogEvent, ScheduledHandler } from 'aws-lambda';
 
-import { gunzipSync, } from 'zlib';
+import { gunzipSync } from 'zlib';
 
-const logsHandler: CloudWatchLogsHandler = async (event, context, callback,) => {
+const logsHandler: CloudWatchLogsHandler = async (event, context, callback) => {
     const data: CloudWatchLogsDecodedData = JSON.parse(
-        gunzipSync(Buffer.from(event.awslogs.data, 'base64',),).toString(),
+        gunzipSync(Buffer.from(event.awslogs.data, 'base64')).toString(),
     );
 
     str = data.owner;
@@ -27,11 +22,11 @@ const logsHandler: CloudWatchLogsHandler = async (event, context, callback,) => 
     strOrUndefined = logEvent.extractedFields!['example'];
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };
 
 // Technically part of cloudwatch
-const scheduledHandler: ScheduledHandler = async (event, context, callback,) => {
+const scheduledHandler: ScheduledHandler = async (event, context, callback) => {
     str = event.account;
     anyObj = event.detail;
     str = event.id;
@@ -41,9 +36,9 @@ const scheduledHandler: ScheduledHandler = async (event, context, callback,) => 
     str = event.time;
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };
 
-const scheduledHandlerWithDetails: ScheduledHandler<{ status: string }> = async (event, context, callback,) => {
+const scheduledHandlerWithDetails: ScheduledHandler<{ status: string }> = async (event, context, callback) => {
     const eventDetail: { status: string } = event.detail;
 };

@@ -40,12 +40,12 @@ declare namespace begin {
          * If a continuation is provided it will be called (possibly with an error) after the COMMIT
          * statement completes. The transaction object itself will be unusable after calling commit().
          */
-        commit(callback?: (error: Error,) => void,): void;
+        commit(callback?: (error: Error) => void): void;
 
         /**
          * The same as Transaction.commit but issues a ROLLBACK. Again, the transaction will be unusable after calling this method.
          */
-        rollback(callback?: (error: Error,) => void,): void;
+        rollback(callback?: (error: Error) => void): void;
     }
 
     interface TransactionOptions {
@@ -68,7 +68,7 @@ declare namespace begin {
         /**
          * Callback for transaction
          */
-        callback?: ((error: Error, transaction: Transaction,) => void) | undefined;
+        callback?: ((error: Error, transaction: Transaction) => void) | undefined;
         /**
          * Rollback automatically on error, default true
          */
@@ -82,22 +82,22 @@ declare namespace begin {
 declare function begin(
     q: anyDB.Queryable,
     options?: begin.TransactionOptions,
-    callback?: (error: Error, transaction: begin.Transaction,) => void,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
 ): begin.Transaction;
 declare function begin(
     q: anyDB.Queryable,
-    callback?: (error: Error, transaction: begin.Transaction,) => void,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
 ): begin.Transaction;
 declare function begin(
     q: anyDB.Queryable,
     beginStatement?: string,
-    callback?: (error: Error, transaction: begin.Transaction,) => void,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
 ): begin.Transaction;
 declare function begin(
     q: anyDB.Queryable,
     options?: begin.TransactionOptions,
     beginStatement?: string,
-    callback?: (error: Error, transaction: begin.Transaction,) => void,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
 ): begin.Transaction;
 
 export = begin;

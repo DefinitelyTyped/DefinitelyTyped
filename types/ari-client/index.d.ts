@@ -18,7 +18,7 @@ export function connect(
     baseUrl: string,
     user: string,
     pass: string,
-    callback?: (err: Error, client: Client,) => void,
+    callback?: (err: Error, client: Client) => void,
 ): Promise<Client>;
 
 /* This interface is kept for compatibility */
@@ -34,7 +34,7 @@ export interface Client extends Resource {
      *  @param apps - Name or array of names of the applications to be started.
      *  @param [subscribeAll] - Subscribe to all Asterisk events (true/false).
      */
-    start(apps: string | string[], subscribeAll?: boolean,): Promise<void>;
+    start(apps: string | string[], subscribeAll?: boolean): Promise<void>;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
@@ -43,7 +43,7 @@ export interface Client extends Resource {
      *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
      *  @param callback - The callback to be called after applications have started.
      */
-    start(apps: string | string[], subscribeAll: boolean, callback: (err: Error, ...args: any[]) => void,): void;
+    start(apps: string | string[], subscribeAll: boolean, callback: (err: Error, ...args: any[]) => void): void;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
@@ -51,7 +51,7 @@ export interface Client extends Resource {
      *  @param apps - Name or array of names of the applications to be started.
      *  @param callback - The callback to be called after applications have started.
      */
-    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void,): void;
+    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void): void;
 
     /**
      *  Closes the WebSocket connection.
@@ -121,57 +121,57 @@ export interface Client extends Resource {
     /**
      *  Creates a new Application instance.
      */
-    Application(id?: string, objValues?: IndexableObject,): Application;
+    Application(id?: string, objValues?: IndexableObject): Application;
 
     /**
      *  Creates a new Asterisk instance.
      */
-    Asterisk(id?: string, objValues?: IndexableObject,): Asterisk;
+    Asterisk(id?: string, objValues?: IndexableObject): Asterisk;
 
     /**
      *  Creates a new Channel instance.
      */
-    Channel(id?: string, objValues?: IndexableObject,): Channel;
+    Channel(id?: string, objValues?: IndexableObject): Channel;
 
     /**
      *  Creates a new Bridge instance.
      */
-    Bridge(id?: string, objValues?: IndexableObject,): Bridge;
+    Bridge(id?: string, objValues?: IndexableObject): Bridge;
 
     /**
      *  Creates a new DeviceState instance.
      */
-    DeviceState(id?: string, objValues?: IndexableObject,): DeviceState;
+    DeviceState(id?: string, objValues?: IndexableObject): DeviceState;
 
     /**
      *  Creates a new Endpoint instance.
      */
-    Endpoint(id?: string, objValues?: IndexableObject,): Endpoint;
+    Endpoint(id?: string, objValues?: IndexableObject): Endpoint;
 
     /**
      *  Creates a new LiveRecording instance.
      */
-    LiveRecording(id?: string, objValues?: IndexableObject,): LiveRecording;
+    LiveRecording(id?: string, objValues?: IndexableObject): LiveRecording;
 
     /**
      *  Creates a new Mailbox instance.
      */
-    Mailbox(id?: string, objValues?: IndexableObject,): Mailbox;
+    Mailbox(id?: string, objValues?: IndexableObject): Mailbox;
 
     /**
      *  Creates a new Playback instance.
      */
-    Playback(id?: string, objValues?: IndexableObject,): Playback;
+    Playback(id?: string, objValues?: IndexableObject): Playback;
 
     /**
      *  Creates a new Sound instance.
      */
-    Sound(id?: string, objValues?: IndexableObject,): Sound;
+    Sound(id?: string, objValues?: IndexableObject): Sound;
 
     /**
      *  Creates a new StoredRecording instance.
      */
-    StoredRecording(id?: string, objValues?: IndexableObject,): StoredRecording;
+    StoredRecording(id?: string, objValues?: IndexableObject): StoredRecording;
 }
 
 export interface Containers {
@@ -291,7 +291,7 @@ export interface Events {
      */
     eventWebsocket(
         params: { app: string | string[]; subscribeAll?: boolean | undefined },
-        callback: (err: Error, message: Message,) => void,
+        callback: (err: Error, message: Message) => void,
     ): void;
 
     /**
@@ -301,7 +301,7 @@ export interface Events {
      * @param [params.subscribeAll] - Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application specific
      * subscriptions. Default is false.
      */
-    eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean | undefined },): Promise<Message>;
+    eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean | undefined }): Promise<Message>;
 
     /**
      * Generate a user event.
@@ -318,7 +318,7 @@ export interface Events {
             source?: string | string[] | undefined;
             variables?: Containers | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -334,7 +334,7 @@ export interface Events {
         application: string;
         source?: string | string[] | undefined;
         variables?: Containers | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 }
 export interface Message {
     /**
@@ -923,86 +923,86 @@ export interface Resource {
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
     // tslint:disable-next-line:unified-signatures
-    on(type: WebSocketMaxRetriesEventType, listener: (err: Error,) => void,): void;
+    on(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
     // tslint:disable-next-line:unified-signatures
-    on(type: WebSocketReconnectingEventType, listener: (err: Error,) => void,): void;
+    on(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
     // tslint:disable-next-line:unified-signatures
-    on(type: WebSocketConnectedEventType, listener: () => void,): void;
+    on(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
     // tslint:disable-next-line:unified-signatures
-    on(type: PongEventType, listener: () => void,): void;
+    on(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
     // tslint:disable-next-line:unified-signatures
-    on(type: APILoadErrorEventType, listener: (err: Error,) => void,): void;
+    on(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
      */
-    on(event: MessageEventType, callback: (event: Message, instances: Message,) => void,): void;
+    on(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
 
     /**
      * Error event sent when required params are missing.
      */
-    on(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams,) => void,): void;
+    on(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
 
     /**
      * Base type for asynchronous events from Asterisk.
      */
-    on(event: EventEventType, callback: (event: Event, instances: Event,) => void,): void;
+    on(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
 
     /**
      * Detailed information about a contact on an endpoint.
      */
-    on(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo,) => void,): void;
+    on(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
 
     /**
      * Detailed information about a remote peer that communicates with Asterisk.
      */
-    on(event: PeerEventType, callback: (event: Peer, instances: Peer,) => void,): void;
+    on(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
 
     /**
      * Notification that a device state has changed.
      */
     on(
         event: DeviceStateChangedEventType,
-        callback: (event: DeviceStateChanged, devicestate: DeviceState,) => void,
+        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
     ): void;
 
     /**
      * Event showing the start of a media playback operation.
      */
-    on(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback,) => void,): void;
+    on(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
 
     /**
      * Event showing the continuation of a media playback operation from one media URI to the next in the list.
      */
-    on(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback,) => void,): void;
+    on(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback) => void): void;
 
     /**
      * Event showing the completion of a media playback operation.
      */
-    on(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback,) => void,): void;
+    on(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback) => void): void;
 
     /**
      * Event showing the start of a recording operation.
      */
     on(
         event: RecordingStartedEventType,
-        callback: (event: RecordingStarted, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1010,7 +1010,7 @@ export interface Resource {
      */
     on(
         event: RecordingFinishedEventType,
-        callback: (event: RecordingFinished, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1018,7 +1018,7 @@ export interface Resource {
      */
     on(
         event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1026,36 +1026,36 @@ export interface Resource {
      */
     on(
         event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel,) => void,
+        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
     ): void;
 
     /**
      * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
      * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
-    on(event: ApplicationReplacedEventType, callback: (event: Event,) => void,): void;
+    on(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
     /**
      * Notification that a bridge has been created.
      */
-    on(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge,) => void,): void;
+    on(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
 
     /**
      * Notification that a bridge has been destroyed.
      */
-    on(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge,) => void,): void;
+    on(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
 
     /**
      * Notification that one bridge has merged into another.
      */
-    on(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge,) => void,): void;
+    on(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
 
     /**
      * Notification that the source of video in a bridge has changed.
      */
     on(
         event: BridgeVideoSourceChangedEventType,
-        callback: (event: BridgeVideoSourceChanged, bridge: Bridge,) => void,
+        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
     ): void;
 
     /**
@@ -1063,7 +1063,7 @@ export interface Resource {
      */
     on(
         event: BridgeBlindTransferEventType,
-        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer,) => void,
+        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
     ): void;
 
     /**
@@ -1071,25 +1071,25 @@ export interface Resource {
      */
     on(
         event: BridgeAttendedTransferEventType,
-        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer,) => void,
+        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
     ): void;
 
     /**
      * Notification that a channel has been created.
      */
-    on(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel,) => void,): void;
+    on(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has been destroyed.
      */
-    on(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel,) => void,): void;
+    on(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a bridge.
      */
     on(
         event: ChannelEnteredBridgeEventType,
-        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge,) => void,
+        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
     ): void;
 
     /**
@@ -1097,63 +1097,63 @@ export interface Resource {
      */
     on(
         event: ChannelLeftBridgeEventType,
-        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge,) => void,
+        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
     ): void;
 
     /**
      * Notification of a channels state change.
      */
-    on(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel,) => void,): void;
+    on(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel) => void): void;
 
     /**
      * DTMF received on a channel. This event is sent when the DTMF ends. There is no notification about the start of DTMF.
      */
-    on(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel,) => void,): void;
+    on(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel) => void): void;
 
     /**
      * Channel changed location in the dialplan.
      */
-    on(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel,) => void,): void;
+    on(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
 
     /**
      * Channel changed Caller ID.
      */
-    on(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel,) => void,): void;
+    on(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
 
     /**
      * User-generated event with additional user-defined fields in the object.
      */
     on(
         event: ChannelUsereventEventType,
-        callback: (event: ChannelUserevent, instances: ChannelUserevent,) => void,
+        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
     ): void;
 
     /**
      * A hangup was requested on the channel.
      */
-    on(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel,) => void,): void;
+    on(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel) => void): void;
 
     /**
      * Channel variable changed.
      */
-    on(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel,) => void,): void;
+    on(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media hold.
      */
-    on(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel,) => void,): void;
+    on(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media unhold.
      */
-    on(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel,) => void,): void;
+    on(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
 
     /**
      * Talking was detected on the channel.
      */
     on(
         event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel,) => void,
+        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
     ): void;
 
     /**
@@ -1161,133 +1161,133 @@ export interface Resource {
      */
     on(
         event: ChannelTalkingFinishedEventType,
-        callback: (event: ChannelTalkingFinished, channel: Channel,) => void,
+        callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
 
     /**
      * The state of a contact on an endpoint has changed.
      */
-    on(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint,) => void,): void;
+    on(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
 
     /**
      * The state of a peer associated with an endpoint has changed.
      */
-    on(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint,) => void,): void;
+    on(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
 
     /**
      * Endpoint state changed.
      */
-    on(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint,) => void,): void;
+    on(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
 
     /**
      * Dialing state has changed.
      */
-    on(event: DialEventType, callback: (event: Dial, channel: Channel,) => void,): void;
+    on(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has left a Stasis application.
      */
-    on(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel,) => void,): void;
+    on(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a Stasis application.
      */
-    on(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel,) => void,): void;
+    on(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
 
     /**
      * A text message was received from an endpoint.
      */
-    on(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint,) => void,): void;
+    on(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
 
     /**
      * Channel changed Connected Line.
      */
-    on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel,) => void,): void;
+    on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
 
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
     // tslint:disable-next-line:unified-signatures
-    once(type: WebSocketMaxRetriesEventType, listener: (err: Error,) => void,): void;
+    once(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
     // tslint:disable-next-line:unified-signatures
-    once(type: WebSocketReconnectingEventType, listener: (err: Error,) => void,): void;
+    once(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
     // tslint:disable-next-line:unified-signatures
-    once(type: WebSocketConnectedEventType, listener: () => void,): void;
+    once(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
     // tslint:disable-next-line:unified-signatures
-    once(type: PongEventType, listener: () => void,): void;
+    once(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
     // tslint:disable-next-line:unified-signatures
-    once(type: APILoadErrorEventType, listener: (err: Error,) => void,): void;
+    once(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
      */
-    once(event: MessageEventType, callback: (event: Message, instances: Message,) => void,): void;
+    once(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
 
     /**
      * Error event sent when required params are missing.
      */
-    once(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams,) => void,): void;
+    once(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
 
     /**
      * Base type for asynchronous events from Asterisk.
      */
-    once(event: EventEventType, callback: (event: Event, instances: Event,) => void,): void;
+    once(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
 
     /**
      * Detailed information about a contact on an endpoint.
      */
-    once(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo,) => void,): void;
+    once(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
 
     /**
      * Detailed information about a remote peer that communicates with Asterisk.
      */
-    once(event: PeerEventType, callback: (event: Peer, instances: Peer,) => void,): void;
+    once(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
 
     /**
      * Notification that a device state has changed.
      */
     once(
         event: DeviceStateChangedEventType,
-        callback: (event: DeviceStateChanged, devicestate: DeviceState,) => void,
+        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
     ): void;
 
     /**
      * Event showing the start of a media playback operation.
      */
-    once(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback,) => void,): void;
+    once(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
 
     /**
      * Event showing the continuation of a media playback operation from one media URI to the next in the list.
      */
-    once(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback,) => void,): void;
+    once(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback) => void): void;
 
     /**
      * Event showing the completion of a media playback operation.
      */
-    once(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback,) => void,): void;
+    once(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback) => void): void;
 
     /**
      * Event showing the start of a recording operation.
      */
     once(
         event: RecordingStartedEventType,
-        callback: (event: RecordingStarted, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1295,7 +1295,7 @@ export interface Resource {
      */
     once(
         event: RecordingFinishedEventType,
-        callback: (event: RecordingFinished, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1303,7 +1303,7 @@ export interface Resource {
      */
     once(
         event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1311,36 +1311,36 @@ export interface Resource {
      */
     once(
         event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel,) => void,
+        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
     ): void;
 
     /**
      * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
      * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
-    once(event: ApplicationReplacedEventType, callback: (event: Event,) => void,): void;
+    once(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
     /**
      * Notification that a bridge has been created.
      */
-    once(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge,) => void,): void;
+    once(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
 
     /**
      * Notification that a bridge has been destroyed.
      */
-    once(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge,) => void,): void;
+    once(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
 
     /**
      * Notification that one bridge has merged into another.
      */
-    once(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge,) => void,): void;
+    once(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
 
     /**
      * Notification that the source of video in a bridge has changed.
      */
     once(
         event: BridgeVideoSourceChangedEventType,
-        callback: (event: BridgeVideoSourceChanged, bridge: Bridge,) => void,
+        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
     ): void;
 
     /**
@@ -1348,7 +1348,7 @@ export interface Resource {
      */
     once(
         event: BridgeBlindTransferEventType,
-        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer,) => void,
+        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
     ): void;
 
     /**
@@ -1356,25 +1356,25 @@ export interface Resource {
      */
     once(
         event: BridgeAttendedTransferEventType,
-        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer,) => void,
+        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
     ): void;
 
     /**
      * Notification that a channel has been created.
      */
-    once(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel,) => void,): void;
+    once(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has been destroyed.
      */
-    once(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel,) => void,): void;
+    once(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a bridge.
      */
     once(
         event: ChannelEnteredBridgeEventType,
-        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge,) => void,
+        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
     ): void;
 
     /**
@@ -1382,35 +1382,35 @@ export interface Resource {
      */
     once(
         event: ChannelLeftBridgeEventType,
-        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge,) => void,
+        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
     ): void;
 
     /**
      * Notification of a channels state change.
      */
-    once(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel,) => void,): void;
+    once(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel) => void): void;
 
     /**
      * DTMF received on a channel. This event is sent when the DTMF ends. There is no notification about the start of DTMF.
      */
-    once(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel,) => void,): void;
+    once(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel) => void): void;
 
     /**
      * Channel changed location in the dialplan.
      */
-    once(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel,) => void,): void;
+    once(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
 
     /**
      * Channel changed Caller ID.
      */
-    once(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel,) => void,): void;
+    once(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
 
     /**
      * User-generated event with additional user-defined fields in the object.
      */
     once(
         event: ChannelUsereventEventType,
-        callback: (event: ChannelUserevent, instances: ChannelUserevent,) => void,
+        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
     ): void;
 
     /**
@@ -1418,30 +1418,30 @@ export interface Resource {
      */
     once(
         event: ChannelHangupRequestEventType,
-        callback: (event: ChannelHangupRequest, channel: Channel,) => void,
+        callback: (event: ChannelHangupRequest, channel: Channel) => void,
     ): void;
 
     /**
      * Channel variable changed.
      */
-    once(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel,) => void,): void;
+    once(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media hold.
      */
-    once(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel,) => void,): void;
+    once(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media unhold.
      */
-    once(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel,) => void,): void;
+    once(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
 
     /**
      * Talking was detected on the channel.
      */
     once(
         event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel,) => void,
+        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
     ): void;
 
     /**
@@ -1449,7 +1449,7 @@ export interface Resource {
      */
     once(
         event: ChannelTalkingFinishedEventType,
-        callback: (event: ChannelTalkingFinished, channel: Channel,) => void,
+        callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
 
     /**
@@ -1457,43 +1457,43 @@ export interface Resource {
      */
     once(
         event: ContactStatusChangeEventType,
-        callback: (event: ContactStatusChange, endpoint: Endpoint,) => void,
+        callback: (event: ContactStatusChange, endpoint: Endpoint) => void,
     ): void;
 
     /**
      * The state of a peer associated with an endpoint has changed.
      */
-    once(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint,) => void,): void;
+    once(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
 
     /**
      * Endpoint state changed.
      */
     once(
         event: EndpointStateChangeEventType,
-        callback: (event: EndpointStateChange, endpoint: Endpoint,) => void,
+        callback: (event: EndpointStateChange, endpoint: Endpoint) => void,
     ): void;
 
     /**
      * Dialing state has changed.
      */
-    once(event: DialEventType, callback: (event: Dial, channel: Channel,) => void,): void;
+    once(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has left a Stasis application.
      */
-    once(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel,) => void,): void;
+    once(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a Stasis application.
      */
-    once(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel,) => void,): void;
+    once(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
 
     /**
      * A text message was received from an endpoint.
      */
     once(
         event: TextMessageReceivedEventType,
-        callback: (event: TextMessageReceived, endpoint: Endpoint,) => void,
+        callback: (event: TextMessageReceived, endpoint: Endpoint) => void,
     ): void;
 
     /**
@@ -1501,73 +1501,73 @@ export interface Resource {
      */
     once(
         event: ChannelConnectedLineEventType,
-        callback: (event: ChannelConnectedLine, channel: Channel,) => void,
+        callback: (event: ChannelConnectedLine, channel: Channel) => void,
     ): void;
 
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
     // tslint:disable-next-line:unified-signatures
-    addListener(type: WebSocketMaxRetriesEventType, listener: (err: Error,) => void,): void;
+    addListener(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
     // tslint:disable-next-line:unified-signatures
-    addListener(type: WebSocketReconnectingEventType, listener: (err: Error,) => void,): void;
+    addListener(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
     // tslint:disable-next-line:unified-signatures
-    addListener(type: WebSocketConnectedEventType, listener: () => void,): void;
+    addListener(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
     // tslint:disable-next-line:unified-signatures
-    addListener(type: PongEventType, listener: () => void,): void;
+    addListener(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
     // tslint:disable-next-line:unified-signatures
-    addListener(type: APILoadErrorEventType, listener: (err: Error,) => void,): void;
+    addListener(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
      */
-    addListener(event: MessageEventType, callback: (event: Message, instances: Message,) => void,): void;
+    addListener(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
 
     /**
      * Error event sent when required params are missing.
      */
     addListener(
         event: MissingParamsEventType,
-        callback: (event: MissingParams, instances: MissingParams,) => void,
+        callback: (event: MissingParams, instances: MissingParams) => void,
     ): void;
 
     /**
      * Base type for asynchronous events from Asterisk.
      */
-    addListener(event: EventEventType, callback: (event: Event, instances: Event,) => void,): void;
+    addListener(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
 
     /**
      * Detailed information about a contact on an endpoint.
      */
-    addListener(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo,) => void,): void;
+    addListener(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
 
     /**
      * Detailed information about a remote peer that communicates with Asterisk.
      */
-    addListener(event: PeerEventType, callback: (event: Peer, instances: Peer,) => void,): void;
+    addListener(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
 
     /**
      * Notification that a device state has changed.
      */
     addListener(
         event: DeviceStateChangedEventType,
-        callback: (event: DeviceStateChanged, devicestate: DeviceState,) => void,
+        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
     ): void;
 
     /**
@@ -1575,7 +1575,7 @@ export interface Resource {
      */
     addListener(
         event: PlaybackStartedEventType,
-        callback: (event: PlaybackStarted, playback: Playback,) => void,
+        callback: (event: PlaybackStarted, playback: Playback) => void,
     ): void;
 
     /**
@@ -1583,7 +1583,7 @@ export interface Resource {
      */
     addListener(
         event: PlaybackContinuingEventType,
-        callback: (event: PlaybackContinuing, playback: Playback,) => void,
+        callback: (event: PlaybackContinuing, playback: Playback) => void,
     ): void;
 
     /**
@@ -1591,7 +1591,7 @@ export interface Resource {
      */
     addListener(
         event: PlaybackFinishedEventType,
-        callback: (event: PlaybackFinished, playback: Playback,) => void,
+        callback: (event: PlaybackFinished, playback: Playback) => void,
     ): void;
 
     /**
@@ -1599,7 +1599,7 @@ export interface Resource {
      */
     addListener(
         event: RecordingStartedEventType,
-        callback: (event: RecordingStarted, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1607,7 +1607,7 @@ export interface Resource {
      */
     addListener(
         event: RecordingFinishedEventType,
-        callback: (event: RecordingFinished, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1615,7 +1615,7 @@ export interface Resource {
      */
     addListener(
         event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording,) => void,
+        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -1623,36 +1623,36 @@ export interface Resource {
      */
     addListener(
         event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel,) => void,
+        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
     ): void;
 
     /**
      * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
      * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
-    addListener(event: ApplicationReplacedEventType, callback: (event: Event,) => void,): void;
+    addListener(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
     /**
      * Notification that a bridge has been created.
      */
-    addListener(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge,) => void,): void;
+    addListener(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
 
     /**
      * Notification that a bridge has been destroyed.
      */
-    addListener(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge,) => void,): void;
+    addListener(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
 
     /**
      * Notification that one bridge has merged into another.
      */
-    addListener(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge,) => void,): void;
+    addListener(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
 
     /**
      * Notification that the source of video in a bridge has changed.
      */
     addListener(
         event: BridgeVideoSourceChangedEventType,
-        callback: (event: BridgeVideoSourceChanged, bridge: Bridge,) => void,
+        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
     ): void;
 
     /**
@@ -1660,7 +1660,7 @@ export interface Resource {
      */
     addListener(
         event: BridgeBlindTransferEventType,
-        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer,) => void,
+        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
     ): void;
 
     /**
@@ -1668,20 +1668,20 @@ export interface Resource {
      */
     addListener(
         event: BridgeAttendedTransferEventType,
-        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer,) => void,
+        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
     ): void;
 
     /**
      * Notification that a channel has been created.
      */
-    addListener(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel,) => void,): void;
+    addListener(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has been destroyed.
      */
     addListener(
         event: ChannelDestroyedEventType,
-        callback: (event: ChannelDestroyed, channel: Channel,) => void,
+        callback: (event: ChannelDestroyed, channel: Channel) => void,
     ): void;
 
     /**
@@ -1689,7 +1689,7 @@ export interface Resource {
      */
     addListener(
         event: ChannelEnteredBridgeEventType,
-        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge,) => void,
+        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
     ): void;
 
     /**
@@ -1697,7 +1697,7 @@ export interface Resource {
      */
     addListener(
         event: ChannelLeftBridgeEventType,
-        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge,) => void,
+        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
     ): void;
 
     /**
@@ -1705,7 +1705,7 @@ export interface Resource {
      */
     addListener(
         event: ChannelStateChangeEventType,
-        callback: (event: ChannelStateChange, channel: Channel,) => void,
+        callback: (event: ChannelStateChange, channel: Channel) => void,
     ): void;
 
     /**
@@ -1713,25 +1713,25 @@ export interface Resource {
      */
     addListener(
         event: ChannelDtmfReceivedEventType,
-        callback: (event: ChannelDtmfReceived, channel: Channel,) => void,
+        callback: (event: ChannelDtmfReceived, channel: Channel) => void,
     ): void;
 
     /**
      * Channel changed location in the dialplan.
      */
-    addListener(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel,) => void,): void;
+    addListener(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
 
     /**
      * Channel changed Caller ID.
      */
-    addListener(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel,) => void,): void;
+    addListener(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
 
     /**
      * User-generated event with additional user-defined fields in the object.
      */
     addListener(
         event: ChannelUsereventEventType,
-        callback: (event: ChannelUserevent, instances: ChannelUserevent,) => void,
+        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
     ): void;
 
     /**
@@ -1739,30 +1739,30 @@ export interface Resource {
      */
     addListener(
         event: ChannelHangupRequestEventType,
-        callback: (event: ChannelHangupRequest, channel: Channel,) => void,
+        callback: (event: ChannelHangupRequest, channel: Channel) => void,
     ): void;
 
     /**
      * Channel variable changed.
      */
-    addListener(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel,) => void,): void;
+    addListener(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media hold.
      */
-    addListener(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel,) => void,): void;
+    addListener(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
 
     /**
      * A channel initiated a media unhold.
      */
-    addListener(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel,) => void,): void;
+    addListener(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
 
     /**
      * Talking was detected on the channel.
      */
     addListener(
         event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel,) => void,
+        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
     ): void;
 
     /**
@@ -1770,7 +1770,7 @@ export interface Resource {
      */
     addListener(
         event: ChannelTalkingFinishedEventType,
-        callback: (event: ChannelTalkingFinished, channel: Channel,) => void,
+        callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
 
     /**
@@ -1778,7 +1778,7 @@ export interface Resource {
      */
     addListener(
         event: ContactStatusChangeEventType,
-        callback: (event: ContactStatusChange, endpoint: Endpoint,) => void,
+        callback: (event: ContactStatusChange, endpoint: Endpoint) => void,
     ): void;
 
     /**
@@ -1786,7 +1786,7 @@ export interface Resource {
      */
     addListener(
         event: PeerStatusChangeEventType,
-        callback: (event: PeerStatusChange, endpoint: Endpoint,) => void,
+        callback: (event: PeerStatusChange, endpoint: Endpoint) => void,
     ): void;
 
     /**
@@ -1794,30 +1794,30 @@ export interface Resource {
      */
     addListener(
         event: EndpointStateChangeEventType,
-        callback: (event: EndpointStateChange, endpoint: Endpoint,) => void,
+        callback: (event: EndpointStateChange, endpoint: Endpoint) => void,
     ): void;
 
     /**
      * Dialing state has changed.
      */
-    addListener(event: DialEventType, callback: (event: Dial, channel: Channel,) => void,): void;
+    addListener(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has left a Stasis application.
      */
-    addListener(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel,) => void,): void;
+    addListener(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a Stasis application.
      */
-    addListener(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel,) => void,): void;
+    addListener(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
 
     /**
      * A text message was received from an endpoint.
      */
     addListener(
         event: TextMessageReceivedEventType,
-        callback: (event: TextMessageReceived, endpoint: Endpoint,) => void,
+        callback: (event: TextMessageReceived, endpoint: Endpoint) => void,
     ): void;
 
     /**
@@ -1825,7 +1825,7 @@ export interface Resource {
      */
     addListener(
         event: ChannelConnectedLineEventType,
-        callback: (event: ChannelConnectedLine, channel: Channel,) => void,
+        callback: (event: ChannelConnectedLine, channel: Channel) => void,
     ): void;
 
     /**
@@ -1833,19 +1833,19 @@ export interface Resource {
      *  @param event - The event type.
      *  @param handler - The event listener function.
      */
-    removeListener(event: AnyEventType, handler: (...args: any[]) => void,): void;
+    removeListener(event: AnyEventType, handler: (...args: any[]) => void): void;
 
     /**
      *  Removes all listeners, or those of the specified event type.
      *  @param [event] - The event type.
      */
-    removeAllListeners(event?: AnyEventType,): void;
+    removeAllListeners(event?: AnyEventType): void;
 }
 export interface Applications {
     /**
      * List all applications.
      */
-    list(callback: (err: Error, applications: Application[],) => void,): void;
+    list(callback: (err: Error, applications: Application[]) => void): void;
 
     /**
      * List all applications.
@@ -1857,14 +1857,14 @@ export interface Applications {
      *
      * @param params.applicationName - Applications name.
      */
-    get(params: { applicationName: string }, callback: (err: Error, application: Application,) => void,): void;
+    get(params: { applicationName: string }, callback: (err: Error, application: Application) => void): void;
 
     /**
      * Get details of an application.
      *
      * @param params.applicationName - Applications name.
      */
-    get(params: { applicationName: string },): Promise<Application>;
+    get(params: { applicationName: string }): Promise<Application>;
 
     /**
      * Subscribe an application to a event source.
@@ -1875,7 +1875,7 @@ export interface Applications {
      */
     subscribe(
         params: { applicationName: string; eventSource: string | string[] },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -1885,7 +1885,7 @@ export interface Applications {
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
-    subscribe(params: { applicationName: string; eventSource: string | string[] },): Promise<Application>;
+    subscribe(params: { applicationName: string; eventSource: string | string[] }): Promise<Application>;
 
     /**
      * Unsubscribe an application from an event source.
@@ -1896,7 +1896,7 @@ export interface Applications {
      */
     unsubscribe(
         params: { applicationName: string; eventSource: string | string[] },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -1906,7 +1906,7 @@ export interface Applications {
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
-    unsubscribe(params: { applicationName: string; eventSource: string | string[] },): Promise<Application>;
+    unsubscribe(params: { applicationName: string; eventSource: string | string[] }): Promise<Application>;
 
     /**
      * Filter application events types.
@@ -1925,7 +1925,7 @@ export interface Applications {
      */
     filter(
         params: { applicationName: string; filter?: IndexableObject | undefined },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -1943,7 +1943,7 @@ export interface Applications {
      * @param params.applicationName - Applications name.
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
-    filter(params: { applicationName: string; filter?: IndexableObject | undefined },): Promise<Application>;
+    filter(params: { applicationName: string; filter?: IndexableObject | undefined }): Promise<Application>;
 }
 export interface Application extends Resource {
     /**
@@ -1984,7 +1984,7 @@ export interface Application extends Resource {
     /**
      * List all applications.
      */
-    list(callback: (err: Error, applications: Application[],) => void,): void;
+    list(callback: (err: Error, applications: Application[]) => void): void;
 
     /**
      * List all applications.
@@ -1994,7 +1994,7 @@ export interface Application extends Resource {
     /**
      * Get details of an application.
      */
-    get(callback: (err: Error, application: Application,) => void,): void;
+    get(callback: (err: Error, application: Application) => void): void;
 
     /**
      * Get details of an application.
@@ -2009,7 +2009,7 @@ export interface Application extends Resource {
      */
     subscribe(
         params: { eventSource: string | string[] },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -2018,7 +2018,7 @@ export interface Application extends Resource {
      *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
-    subscribe(params: { eventSource: string | string[] },): Promise<Application>;
+    subscribe(params: { eventSource: string | string[] }): Promise<Application>;
 
     /**
      * Unsubscribe an application from an event source.
@@ -2028,7 +2028,7 @@ export interface Application extends Resource {
      */
     unsubscribe(
         params: { eventSource: string | string[] },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -2037,7 +2037,7 @@ export interface Application extends Resource {
      *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
-    unsubscribe(params: { eventSource: string | string[] },): Promise<Application>;
+    unsubscribe(params: { eventSource: string | string[] }): Promise<Application>;
 
     /**
      * Filter application events types.
@@ -2055,7 +2055,7 @@ export interface Application extends Resource {
      */
     filter(
         params: { filter?: IndexableObject | undefined },
-        callback: (err: Error, application: Application,) => void,
+        callback: (err: Error, application: Application) => void,
     ): void;
 
     /**
@@ -2070,7 +2070,7 @@ export interface Application extends Resource {
      * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
      * is specified in both lists.
      */
-    filter(callback: (err: Error, application: Application,) => void,): void;
+    filter(callback: (err: Error, application: Application) => void): void;
 
     /**
      * Filter application events types.
@@ -2086,7 +2086,7 @@ export interface Application extends Resource {
      *
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
-    filter(params?: { filter?: IndexableObject | undefined },): Promise<Application>;
+    filter(params?: { filter?: IndexableObject | undefined }): Promise<Application>;
 }
 export interface Asterisk {
     /**
@@ -2098,7 +2098,7 @@ export interface Asterisk {
      */
     getObject(
         params: { configClass: string; objectType: string; id: string },
-        callback: (err: Error, configtuples: ConfigTuple[],) => void,
+        callback: (err: Error, configtuples: ConfigTuple[]) => void,
     ): void;
 
     /**
@@ -2108,7 +2108,7 @@ export interface Asterisk {
      * @param params.objectType - The type of configuration object to retrieve.
      * @param params.id - The unique identifier of the object to retrieve.
      */
-    getObject(params: { configClass: string; objectType: string; id: string },): Promise<ConfigTuple[]>;
+    getObject(params: { configClass: string; objectType: string; id: string }): Promise<ConfigTuple[]>;
 
     /**
      * Create or update a dynamic configuration object.
@@ -2120,7 +2120,7 @@ export interface Asterisk {
      */
     updateObject(
         params: { configClass: string; objectType: string; id: string; fields?: Containers | undefined },
-        callback: (err: Error, configtuples: ConfigTuple[],) => void,
+        callback: (err: Error, configtuples: ConfigTuple[]) => void,
     ): void;
 
     /**
@@ -2136,7 +2136,7 @@ export interface Asterisk {
         objectType: string;
         id: string;
         fields?: Containers | undefined;
-    },): Promise<ConfigTuple[]>;
+    }): Promise<ConfigTuple[]>;
 
     /**
      * Delete a dynamic configuration object.
@@ -2147,7 +2147,7 @@ export interface Asterisk {
      */
     deleteObject(
         params: { configClass: string; objectType: string; id: string },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -2157,7 +2157,7 @@ export interface Asterisk {
      * @param params.objectType - The type of configuration object to delete.
      * @param params.id - The unique identifier of the object to delete.
      */
-    deleteObject(params: { configClass: string; objectType: string; id: string },): Promise<void>;
+    deleteObject(params: { configClass: string; objectType: string; id: string }): Promise<void>;
 
     /**
      * Gets Asterisk system information.
@@ -2166,25 +2166,25 @@ export interface Asterisk {
      */
     getInfo(
         params: { only?: string | string[] | undefined },
-        callback: (err: Error, asteriskinfo: AsteriskInfo,) => void,
+        callback: (err: Error, asteriskinfo: AsteriskInfo) => void,
     ): void;
 
     /**
      * Gets Asterisk system information.
      */
-    getInfo(callback: (err: Error, asteriskinfo: AsteriskInfo,) => void,): void;
+    getInfo(callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
 
     /**
      * Gets Asterisk system information.
      *
      * @param [params.only] - Filter information returned.
      */
-    getInfo(params?: { only?: string | string[] | undefined },): Promise<AsteriskInfo>;
+    getInfo(params?: { only?: string | string[] | undefined }): Promise<AsteriskInfo>;
 
     /**
      * Response pong message.
      */
-    ping(callback: (err: Error, asteriskping: AsteriskPing,) => void,): void;
+    ping(callback: (err: Error, asteriskping: AsteriskPing) => void): void;
 
     /**
      * Response pong message.
@@ -2194,7 +2194,7 @@ export interface Asterisk {
     /**
      * List Asterisk modules.
      */
-    listModules(callback: (err: Error, modules: Module[],) => void,): void;
+    listModules(callback: (err: Error, modules: Module[]) => void): void;
 
     /**
      * List Asterisk modules.
@@ -2206,61 +2206,61 @@ export interface Asterisk {
      *
      * @param params.moduleName - Modules name.
      */
-    getModule(params: { moduleName: string }, callback: (err: Error, module: Module,) => void,): void;
+    getModule(params: { moduleName: string }, callback: (err: Error, module: Module) => void): void;
 
     /**
      * Get Asterisk module information.
      *
      * @param params.moduleName - Modules name.
      */
-    getModule(params: { moduleName: string },): Promise<Module>;
+    getModule(params: { moduleName: string }): Promise<Module>;
 
     /**
      * Load an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    loadModule(params: { moduleName: string }, callback: (err: Error,) => void,): void;
+    loadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Load an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    loadModule(params: { moduleName: string },): Promise<void>;
+    loadModule(params: { moduleName: string }): Promise<void>;
 
     /**
      * Unload an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    unloadModule(params: { moduleName: string }, callback: (err: Error,) => void,): void;
+    unloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unload an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    unloadModule(params: { moduleName: string },): Promise<void>;
+    unloadModule(params: { moduleName: string }): Promise<void>;
 
     /**
      * Reload an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    reloadModule(params: { moduleName: string }, callback: (err: Error,) => void,): void;
+    reloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Reload an Asterisk module.
      *
      * @param params.moduleName - Modules name.
      */
-    reloadModule(params: { moduleName: string },): Promise<void>;
+    reloadModule(params: { moduleName: string }): Promise<void>;
 
     /**
      * Gets Asterisk log channel information.
      */
-    listLogChannels(callback: (err: Error, logchannels: LogChannel[],) => void,): void;
+    listLogChannels(callback: (err: Error, logchannels: LogChannel[]) => void): void;
 
     /**
      * Gets Asterisk log channel information.
@@ -2273,7 +2273,7 @@ export interface Asterisk {
      * @param params.logChannelName - The log channel to add.
      * @param params.configuration - levels of the log channel.
      */
-    addLog(params: { logChannelName: string; configuration: string }, callback: (err: Error,) => void,): void;
+    addLog(params: { logChannelName: string; configuration: string }, callback: (err: Error) => void): void;
 
     /**
      * Adds a log channel.
@@ -2281,49 +2281,49 @@ export interface Asterisk {
      * @param params.logChannelName - The log channel to add.
      * @param params.configuration - levels of the log channel.
      */
-    addLog(params: { logChannelName: string; configuration: string },): Promise<void>;
+    addLog(params: { logChannelName: string; configuration: string }): Promise<void>;
 
     /**
      * Deletes a log channel.
      *
      * @param params.logChannelName - Log channels name.
      */
-    deleteLog(params: { logChannelName: string }, callback: (err: Error,) => void,): void;
+    deleteLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
 
     /**
      * Deletes a log channel.
      *
      * @param params.logChannelName - Log channels name.
      */
-    deleteLog(params: { logChannelName: string },): Promise<void>;
+    deleteLog(params: { logChannelName: string }): Promise<void>;
 
     /**
      * Rotates a log channel.
      *
      * @param params.logChannelName - Log channels name.
      */
-    rotateLog(params: { logChannelName: string }, callback: (err: Error,) => void,): void;
+    rotateLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
 
     /**
      * Rotates a log channel.
      *
      * @param params.logChannelName - Log channels name.
      */
-    rotateLog(params: { logChannelName: string },): Promise<void>;
+    rotateLog(params: { logChannelName: string }): Promise<void>;
 
     /**
      * Get the value of a global variable.
      *
      * @param params.variable - The variable to get.
      */
-    getGlobalVar(params: { variable: string }, callback: (err: Error, variable: Variable,) => void,): void;
+    getGlobalVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
 
     /**
      * Get the value of a global variable.
      *
      * @param params.variable - The variable to get.
      */
-    getGlobalVar(params: { variable: string },): Promise<Variable>;
+    getGlobalVar(params: { variable: string }): Promise<Variable>;
 
     /**
      * Set the value of a global variable.
@@ -2331,7 +2331,7 @@ export interface Asterisk {
      * @param params.variable - The variable to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setGlobalVar(params: { variable: string; value?: string | undefined }, callback: (err: Error,) => void,): void;
+    setGlobalVar(params: { variable: string; value?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Set the value of a global variable.
@@ -2339,7 +2339,7 @@ export interface Asterisk {
      * @param params.variable - The variable to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setGlobalVar(params: { variable: string; value?: string | undefined },): Promise<void>;
+    setGlobalVar(params: { variable: string; value?: string | undefined }): Promise<void>;
 }
 export interface BuildInfo {
     /**
@@ -2541,7 +2541,7 @@ export interface Bridges {
     /**
      * List all active bridges in Asterisk.
      */
-    list(callback: (err: Error, bridges: Bridge[],) => void,): void;
+    list(callback: (err: Error, bridges: Bridge[]) => void): void;
 
     /**
      * List all active bridges in Asterisk.
@@ -2558,14 +2558,14 @@ export interface Bridges {
      */
     create(
         params: { type?: string | undefined; bridgeId?: string | undefined; name?: string | undefined },
-        callback: (err: Error, bridge: Bridge,) => void,
+        callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
      */
-    create(callback: (err: Error, bridge: Bridge,) => void,): void;
+    create(callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Create a new bridge.
@@ -2589,7 +2589,7 @@ export interface Bridges {
      */
     createWithId(
         params: { type?: string | undefined; bridgeId: string; name?: string | undefined },
-        callback: (err: Error, bridge: Bridge,) => void,
+        callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
     /**
@@ -2600,21 +2600,21 @@ export interface Bridges {
      * @param params.bridgeId - Unique ID to give to the bridge being created.
      * @param [params.name] - Set the name of the bridge.
      */
-    createWithId(params: { type?: string | undefined; bridgeId: string; name?: string | undefined },): Promise<Bridge>;
+    createWithId(params: { type?: string | undefined; bridgeId: string; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Get bridge details.
      *
      * @param params.bridgeId - Bridges id.
      */
-    get(params: { bridgeId: string }, callback: (err: Error, bridge: Bridge,) => void,): void;
+    get(params: { bridgeId: string }, callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Get bridge details.
      *
      * @param params.bridgeId - Bridges id.
      */
-    get(params: { bridgeId: string },): Promise<Bridge>;
+    get(params: { bridgeId: string }): Promise<Bridge>;
 
     /**
      * Shut down a bridge.
@@ -2622,7 +2622,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    destroy(params: { bridgeId: string }, callback: (err: Error,) => void,): void;
+    destroy(params: { bridgeId: string }, callback: (err: Error) => void): void;
 
     /**
      * Shut down a bridge.
@@ -2630,7 +2630,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    destroy(params: { bridgeId: string },): Promise<void>;
+    destroy(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Add a channel to a bridge.
@@ -2649,7 +2649,7 @@ export interface Bridges {
             absorbDTMF?: boolean | undefined;
             mute?: boolean | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -2667,7 +2667,7 @@ export interface Bridges {
         role?: string | undefined;
         absorbDTMF?: boolean | undefined;
         mute?: boolean | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Remove a channel from a bridge.
@@ -2675,7 +2675,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to remove from bridge.
      */
-    removeChannel(params: { bridgeId: string; channel: string | string[] }, callback: (err: Error,) => void,): void;
+    removeChannel(params: { bridgeId: string; channel: string | string[] }, callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from a bridge.
@@ -2683,7 +2683,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to remove from bridge.
      */
-    removeChannel(params: { bridgeId: string; channel: string | string[] },): Promise<void>;
+    removeChannel(params: { bridgeId: string; channel: string | string[] }): Promise<void>;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
@@ -2691,7 +2691,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param params.channelId - Channels id.
      */
-    setVideoSource(params: { bridgeId: string; channelId: string }, callback: (err: Error,) => void,): void;
+    setVideoSource(params: { bridgeId: string; channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
@@ -2699,7 +2699,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param params.channelId - Channels id.
      */
-    setVideoSource(params: { bridgeId: string; channelId: string },): Promise<void>;
+    setVideoSource(params: { bridgeId: string; channelId: string }): Promise<void>;
 
     /**
      * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
@@ -2707,7 +2707,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    clearVideoSource(params: { bridgeId: string }, callback: (err: Error,) => void,): void;
+    clearVideoSource(params: { bridgeId: string }, callback: (err: Error) => void): void;
 
     /**
      * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
@@ -2715,7 +2715,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    clearVideoSource(params: { bridgeId: string },): Promise<void>;
+    clearVideoSource(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
@@ -2723,7 +2723,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { bridgeId: string; mohClass?: string | undefined }, callback: (err: Error,) => void,): void;
+    startMoh(params: { bridgeId: string; mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
@@ -2731,7 +2731,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { bridgeId: string; mohClass?: string | undefined },): Promise<void>;
+    startMoh(params: { bridgeId: string; mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a bridge.
@@ -2739,7 +2739,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    stopMoh(params: { bridgeId: string }, callback: (err: Error,) => void,): void;
+    stopMoh(params: { bridgeId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop playing music on hold to a bridge.
@@ -2747,7 +2747,7 @@ export interface Bridges {
      *
      * @param params.bridgeId - Bridges id.
      */
-    stopMoh(params: { bridgeId: string },): Promise<void>;
+    stopMoh(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Start playback of media on a bridge.
@@ -2770,7 +2770,7 @@ export interface Bridges {
             skipms?: number | undefined;
             playbackId?: string | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -2792,7 +2792,7 @@ export interface Bridges {
         offsetms?: number | undefined;
         skipms?: number | undefined;
         playbackId?: string | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start playback of media on a bridge.
@@ -2815,7 +2815,7 @@ export interface Bridges {
             offsetms?: number | undefined;
             skipms?: number | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -2837,7 +2837,7 @@ export interface Bridges {
         lang?: string | undefined;
         offsetms?: number | undefined;
         skipms?: number | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start a recording.
@@ -2863,7 +2863,7 @@ export interface Bridges {
             beep?: boolean | undefined;
             terminateOn?: string | undefined;
         },
-        callback: (err: Error, liverecording: LiveRecording,) => void,
+        callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -2888,7 +2888,7 @@ export interface Bridges {
         ifExists?: string | undefined;
         beep?: boolean | undefined;
         terminateOn?: string | undefined;
-    },): Promise<LiveRecording>;
+    }): Promise<LiveRecording>;
 }
 export interface Bridge extends Resource {
     /**
@@ -2944,7 +2944,7 @@ export interface Bridge extends Resource {
     /**
      * List all active bridges in Asterisk.
      */
-    list(callback: (err: Error, bridges: Bridge[],) => void,): void;
+    list(callback: (err: Error, bridges: Bridge[]) => void): void;
 
     /**
      * List all active bridges in Asterisk.
@@ -2960,14 +2960,14 @@ export interface Bridge extends Resource {
      */
     create(
         params: { type?: string | undefined; name?: string | undefined },
-        callback: (err: Error, bridge: Bridge,) => void,
+        callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
      */
-    create(callback: (err: Error, bridge: Bridge,) => void,): void;
+    create(callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Create a new bridge.
@@ -2976,7 +2976,7 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param [params.name] - Name to give to the bridge being created.
      */
-    create(params?: { type?: string | undefined; name?: string | undefined },): Promise<Bridge>;
+    create(params?: { type?: string | undefined; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Create a new bridge or updates an existing one.
@@ -2987,14 +2987,14 @@ export interface Bridge extends Resource {
      */
     createWithId(
         params: { type?: string | undefined; name?: string | undefined },
-        callback: (err: Error, bridge: Bridge,) => void,
+        callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
     /**
      * Create a new bridge or updates an existing one.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
      */
-    createWithId(callback: (err: Error, bridge: Bridge,) => void,): void;
+    createWithId(callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Create a new bridge or updates an existing one.
@@ -3003,12 +3003,12 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param [params.name] - Set the name of the bridge.
      */
-    createWithId(params?: { type?: string | undefined; name?: string | undefined },): Promise<Bridge>;
+    createWithId(params?: { type?: string | undefined; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Get bridge details.
      */
-    get(callback: (err: Error, bridge: Bridge,) => void,): void;
+    get(callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Get bridge details.
@@ -3019,7 +3019,7 @@ export interface Bridge extends Resource {
      * Shut down a bridge.
      * If any channels are in this bridge, they will be removed and resume whatever they were doing beforehand.
      */
-    destroy(callback: (err: Error,) => void,): void;
+    destroy(callback: (err: Error) => void): void;
 
     /**
      * Shut down a bridge.
@@ -3042,7 +3042,7 @@ export interface Bridge extends Resource {
             absorbDTMF?: boolean | undefined;
             mute?: boolean | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -3058,41 +3058,41 @@ export interface Bridge extends Resource {
         role?: string | undefined;
         absorbDTMF?: boolean | undefined;
         mute?: boolean | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Remove a channel from a bridge.
      *
      * @param params.channel - Ids of channels to remove from bridge.
      */
-    removeChannel(params: { channel: string | string[] }, callback: (err: Error,) => void,): void;
+    removeChannel(params: { channel: string | string[] }, callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from a bridge.
      *
      * @param params.channel - Ids of channels to remove from bridge.
      */
-    removeChannel(params: { channel: string | string[] },): Promise<void>;
+    removeChannel(params: { channel: string | string[] }): Promise<void>;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
      *
      * @param params.channelId - Channels id.
      */
-    setVideoSource(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    setVideoSource(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
      *
      * @param params.channelId - Channels id.
      */
-    setVideoSource(params: { channelId: string },): Promise<void>;
+    setVideoSource(params: { channelId: string }): Promise<void>;
 
     /**
      * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
      * detection will be used to determine the active video stream.
      */
-    clearVideoSource(callback: (err: Error,) => void,): void;
+    clearVideoSource(callback: (err: Error) => void): void;
 
     /**
      * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
@@ -3105,25 +3105,25 @@ export interface Bridge extends Resource {
      *
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error,) => void,): void;
+    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
      */
-    startMoh(callback: (err: Error,) => void,): void;
+    startMoh(callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
      *
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params?: { mohClass?: string | undefined },): Promise<void>;
+    startMoh(params?: { mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a bridge.
      * This will only stop music on hold being played via POST bridges/{bridgeId}/moh.
      */
-    stopMoh(callback: (err: Error,) => void,): void;
+    stopMoh(callback: (err: Error) => void): void;
 
     /**
      * Stop playing music on hold to a bridge.
@@ -3150,7 +3150,7 @@ export interface Bridge extends Resource {
             skipms?: number | undefined;
             playbackId?: string | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -3170,7 +3170,7 @@ export interface Bridge extends Resource {
         offsetms?: number | undefined;
         skipms?: number | undefined;
         playbackId?: string | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start playback of media on a bridge.
@@ -3191,7 +3191,7 @@ export interface Bridge extends Resource {
             offsetms?: number | undefined;
             skipms?: number | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -3211,7 +3211,7 @@ export interface Bridge extends Resource {
         lang?: string | undefined;
         offsetms?: number | undefined;
         skipms?: number | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start a recording.
@@ -3236,7 +3236,7 @@ export interface Bridge extends Resource {
             terminateOn?: string | undefined;
         },
         recording: LiveRecording,
-        callback: (err: Error, liverecording: LiveRecording,) => void,
+        callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -3268,7 +3268,7 @@ export interface Channels {
     /**
      * List all active channels in Asterisk.
      */
-    list(callback: (err: Error, channels: Channel[],) => void,): void;
+    list(callback: (err: Error, channels: Channel[]) => void): void;
 
     /**
      * List all active channels in Asterisk.
@@ -3314,7 +3314,7 @@ export interface Channels {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -3354,7 +3354,7 @@ export interface Channels {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Create channel.
@@ -3377,7 +3377,7 @@ export interface Channels {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -3399,21 +3399,21 @@ export interface Channels {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Channel details.
      *
      * @param params.channelId - Channels id.
      */
-    get(params: { channelId: string }, callback: (err: Error, channel: Channel,) => void,): void;
+    get(params: { channelId: string }, callback: (err: Error, channel: Channel) => void): void;
 
     /**
      * Channel details.
      *
      * @param params.channelId - Channels id.
      */
-    get(params: { channelId: string },): Promise<Channel>;
+    get(params: { channelId: string }): Promise<Channel>;
 
     /**
      * Create a new channel (originate with id).
@@ -3454,7 +3454,7 @@ export interface Channels {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -3494,7 +3494,7 @@ export interface Channels {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Delete (i.e. hangup) a channel.
@@ -3502,7 +3502,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { channelId: string; reason?: string | undefined }, callback: (err: Error,) => void,): void;
+    hangup(params: { channelId: string; reason?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Delete (i.e. hangup) a channel.
@@ -3510,7 +3510,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { channelId: string; reason?: string | undefined },): Promise<void>;
+    hangup(params: { channelId: string; reason?: string | undefined }): Promise<void>;
 
     /**
      * Exit application; continue execution in the dialplan.
@@ -3529,7 +3529,7 @@ export interface Channels {
             priority?: number | undefined;
             label?: string | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -3547,7 +3547,7 @@ export interface Channels {
         extension?: string | undefined;
         priority?: number | undefined;
         label?: string | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Move the channel from one Stasis application to another.
@@ -3558,7 +3558,7 @@ export interface Channels {
      */
     move(
         params: { channelId: string; app: string; appArgs?: string | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -3568,7 +3568,7 @@ export interface Channels {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { channelId: string; app: string; appArgs?: string | undefined },): Promise<void>;
+    move(params: { channelId: string; app: string; appArgs?: string | undefined }): Promise<void>;
 
     /**
      * Redirect the channel to a different location.
@@ -3576,7 +3576,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
-    redirect(params: { channelId: string; endpoint: string }, callback: (err: Error,) => void,): void;
+    redirect(params: { channelId: string; endpoint: string }, callback: (err: Error) => void): void;
 
     /**
      * Redirect the channel to a different location.
@@ -3584,49 +3584,49 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
-    redirect(params: { channelId: string; endpoint: string },): Promise<void>;
+    redirect(params: { channelId: string; endpoint: string }): Promise<void>;
 
     /**
      * Answer a channel.
      *
      * @param params.channelId - Channels id.
      */
-    answer(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    answer(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Answer a channel.
      *
      * @param params.channelId - Channels id.
      */
-    answer(params: { channelId: string },): Promise<void>;
+    answer(params: { channelId: string }): Promise<void>;
 
     /**
      * Indicate ringing to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    ring(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    ring(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Indicate ringing to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    ring(params: { channelId: string },): Promise<void>;
+    ring(params: { channelId: string }): Promise<void>;
 
     /**
      * Stop ringing indication on a channel if locally generated.
      *
      * @param params.channelId - Channels id.
      */
-    ringStop(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    ringStop(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop ringing indication on a channel if locally generated.
      *
      * @param params.channelId - Channels id.
      */
-    ringStop(params: { channelId: string },): Promise<void>;
+    ringStop(params: { channelId: string }): Promise<void>;
 
     /**
      * Send provided DTMF to a given channel.
@@ -3647,7 +3647,7 @@ export interface Channels {
             duration?: number | undefined;
             after?: number | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -3667,7 +3667,7 @@ export interface Channels {
         between?: number | undefined;
         duration?: number | undefined;
         after?: number | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Mute a channel.
@@ -3675,7 +3675,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error,) => void,): void;
+    mute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Mute a channel.
@@ -3683,7 +3683,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { channelId: string; direction?: string | undefined },): Promise<void>;
+    mute(params: { channelId: string; direction?: string | undefined }): Promise<void>;
 
     /**
      * Unmute a channel.
@@ -3691,7 +3691,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error,) => void,): void;
+    unmute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a channel.
@@ -3699,35 +3699,35 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { channelId: string; direction?: string | undefined },): Promise<void>;
+    unmute(params: { channelId: string; direction?: string | undefined }): Promise<void>;
 
     /**
      * Hold a channel.
      *
      * @param params.channelId - Channels id.
      */
-    hold(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    hold(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Hold a channel.
      *
      * @param params.channelId - Channels id.
      */
-    hold(params: { channelId: string },): Promise<void>;
+    hold(params: { channelId: string }): Promise<void>;
 
     /**
      * Remove a channel from hold.
      *
      * @param params.channelId - Channels id.
      */
-    unhold(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    unhold(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from hold.
      *
      * @param params.channelId - Channels id.
      */
-    unhold(params: { channelId: string },): Promise<void>;
+    unhold(params: { channelId: string }): Promise<void>;
 
     /**
      * Play music on hold to a channel.
@@ -3737,7 +3737,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { channelId: string; mohClass?: string | undefined }, callback: (err: Error,) => void,): void;
+    startMoh(params: { channelId: string; mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
@@ -3747,21 +3747,21 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { channelId: string; mohClass?: string | undefined },): Promise<void>;
+    startMoh(params: { channelId: string; mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    stopMoh(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    stopMoh(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop playing music on hold to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    stopMoh(params: { channelId: string },): Promise<void>;
+    stopMoh(params: { channelId: string }): Promise<void>;
 
     /**
      * Play silence to a channel.
@@ -3769,7 +3769,7 @@ export interface Channels {
      *
      * @param params.channelId - Channels id.
      */
-    startSilence(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    startSilence(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Play silence to a channel.
@@ -3777,21 +3777,21 @@ export interface Channels {
      *
      * @param params.channelId - Channels id.
      */
-    startSilence(params: { channelId: string },): Promise<void>;
+    startSilence(params: { channelId: string }): Promise<void>;
 
     /**
      * Stop playing silence to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    stopSilence(params: { channelId: string }, callback: (err: Error,) => void,): void;
+    stopSilence(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop playing silence to a channel.
      *
      * @param params.channelId - Channels id.
      */
-    stopSilence(params: { channelId: string },): Promise<void>;
+    stopSilence(params: { channelId: string }): Promise<void>;
 
     /**
      * Start playback of media.
@@ -3814,7 +3814,7 @@ export interface Channels {
             skipms?: number | undefined;
             playbackId?: string | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -3836,7 +3836,7 @@ export interface Channels {
         offsetms?: number | undefined;
         skipms?: number | undefined;
         playbackId?: string | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start playback of media and specify the playbackId.
@@ -3859,7 +3859,7 @@ export interface Channels {
             offsetms?: number | undefined;
             skipms?: number | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -3881,7 +3881,7 @@ export interface Channels {
         lang?: string | undefined;
         offsetms?: number | undefined;
         skipms?: number | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start a recording.
@@ -3907,7 +3907,7 @@ export interface Channels {
             beep?: boolean | undefined;
             terminateOn?: string | undefined;
         },
-        callback: (err: Error, liverecording: LiveRecording,) => void,
+        callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -3932,7 +3932,7 @@ export interface Channels {
         ifExists?: string | undefined;
         beep?: boolean | undefined;
         terminateOn?: string | undefined;
-    },): Promise<LiveRecording>;
+    }): Promise<LiveRecording>;
 
     /**
      * Get the value of a channel variable or function.
@@ -3942,7 +3942,7 @@ export interface Channels {
      */
     getChannelVar(
         params: { channelId: string; variable: string },
-        callback: (err: Error, variable: Variable,) => void,
+        callback: (err: Error, variable: Variable) => void,
     ): void;
 
     /**
@@ -3951,7 +3951,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param params.variable - The channel variable or function to get.
      */
-    getChannelVar(params: { channelId: string; variable: string },): Promise<Variable>;
+    getChannelVar(params: { channelId: string; variable: string }): Promise<Variable>;
 
     /**
      * Set the value of a channel variable or function.
@@ -3962,7 +3962,7 @@ export interface Channels {
      */
     setChannelVar(
         params: { channelId: string; variable: string; value?: string | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -3972,7 +3972,7 @@ export interface Channels {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { channelId: string; variable: string; value?: string | undefined },): Promise<void>;
+    setChannelVar(params: { channelId: string; variable: string; value?: string | undefined }): Promise<void>;
 
     /**
      * Start snooping.
@@ -3994,7 +3994,7 @@ export interface Channels {
             appArgs?: string | undefined;
             snoopId?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4015,7 +4015,7 @@ export interface Channels {
         app: string;
         appArgs?: string | undefined;
         snoopId?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Start snooping.
@@ -4037,7 +4037,7 @@ export interface Channels {
             app: string;
             appArgs?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4058,7 +4058,7 @@ export interface Channels {
         whisper?: string | undefined;
         app: string;
         appArgs?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Dial a created channel.
@@ -4069,7 +4069,7 @@ export interface Channels {
      */
     dial(
         params: { channelId: string; caller?: string | undefined; timeout?: number | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -4079,21 +4079,21 @@ export interface Channels {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params: { channelId: string; caller?: string | undefined; timeout?: number | undefined },): Promise<void>;
+    dial(params: { channelId: string; caller?: string | undefined; timeout?: number | undefined }): Promise<void>;
 
     /**
      * RTP stats on a channel.
      *
      * @param params.channelId - Channels id.
      */
-    rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat,) => void,): void;
+    rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
 
     /**
      * RTP stats on a channel.
      *
      * @param params.channelId - Channels id.
      */
-    rtpstatistics(params: { channelId: string },): Promise<RTPstat>;
+    rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
 
     /**
      * Start an External Media session.
@@ -4122,7 +4122,7 @@ export interface Channels {
             format: string;
             direction?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4150,7 +4150,7 @@ export interface Channels {
         connection_type?: string | undefined;
         format: string;
         direction?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 }
 export interface DialplanCEP {
     /**
@@ -4404,7 +4404,7 @@ export interface Channel extends Resource {
     /**
      * List all active channels in Asterisk.
      */
-    list(callback: (err: Error, channels: Channel[],) => void,): void;
+    list(callback: (err: Error, channels: Channel[]) => void): void;
 
     /**
      * List all active channels in Asterisk.
@@ -4448,7 +4448,7 @@ export interface Channel extends Resource {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4486,7 +4486,7 @@ export interface Channel extends Resource {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Create channel.
@@ -4507,7 +4507,7 @@ export interface Channel extends Resource {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4527,12 +4527,12 @@ export interface Channel extends Resource {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Channel details.
      */
-    get(callback: (err: Error, channel: Channel,) => void,): void;
+    get(callback: (err: Error, channel: Channel) => void): void;
 
     /**
      * Channel details.
@@ -4576,7 +4576,7 @@ export interface Channel extends Resource {
             originator?: string | undefined;
             formats?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -4614,26 +4614,26 @@ export interface Channel extends Resource {
         otherChannelId?: string | undefined;
         originator?: string | undefined;
         formats?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Delete (i.e. hangup) a channel.
      *
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { reason?: string | undefined }, callback: (err: Error,) => void,): void;
+    hangup(params: { reason?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Delete (i.e. hangup) a channel.
      */
-    hangup(callback: (err: Error,) => void,): void;
+    hangup(callback: (err: Error) => void): void;
 
     /**
      * Delete (i.e. hangup) a channel.
      *
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params?: { reason?: string | undefined },): Promise<void>;
+    hangup(params?: { reason?: string | undefined }): Promise<void>;
 
     /**
      * Exit application; continue execution in the dialplan.
@@ -4650,13 +4650,13 @@ export interface Channel extends Resource {
             priority?: number | undefined;
             label?: string | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
      * Exit application; continue execution in the dialplan.
      */
-    continueInDialplan(callback: (err: Error,) => void,): void;
+    continueInDialplan(callback: (err: Error) => void): void;
 
     /**
      * Exit application; continue execution in the dialplan.
@@ -4671,7 +4671,7 @@ export interface Channel extends Resource {
         extension?: string | undefined;
         priority?: number | undefined;
         label?: string | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Move the channel from one Stasis application to another.
@@ -4679,7 +4679,7 @@ export interface Channel extends Resource {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { app: string; appArgs?: string | undefined }, callback: (err: Error,) => void,): void;
+    move(params: { app: string; appArgs?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Move the channel from one Stasis application to another.
@@ -4687,26 +4687,26 @@ export interface Channel extends Resource {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { app: string; appArgs?: string | undefined },): Promise<void>;
+    move(params: { app: string; appArgs?: string | undefined }): Promise<void>;
 
     /**
      * Redirect the channel to a different location.
      *
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
-    redirect(params: { endpoint: string }, callback: (err: Error,) => void,): void;
+    redirect(params: { endpoint: string }, callback: (err: Error) => void): void;
 
     /**
      * Redirect the channel to a different location.
      *
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
-    redirect(params: { endpoint: string },): Promise<void>;
+    redirect(params: { endpoint: string }): Promise<void>;
 
     /**
      * Answer a channel.
      */
-    answer(callback: (err: Error,) => void,): void;
+    answer(callback: (err: Error) => void): void;
 
     /**
      * Answer a channel.
@@ -4716,7 +4716,7 @@ export interface Channel extends Resource {
     /**
      * Indicate ringing to a channel.
      */
-    ring(callback: (err: Error,) => void,): void;
+    ring(callback: (err: Error) => void): void;
 
     /**
      * Indicate ringing to a channel.
@@ -4726,7 +4726,7 @@ export interface Channel extends Resource {
     /**
      * Stop ringing indication on a channel if locally generated.
      */
-    ringStop(callback: (err: Error,) => void,): void;
+    ringStop(callback: (err: Error) => void): void;
 
     /**
      * Stop ringing indication on a channel if locally generated.
@@ -4750,13 +4750,13 @@ export interface Channel extends Resource {
             duration?: number | undefined;
             after?: number | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
      * Send provided DTMF to a given channel.
      */
-    sendDTMF(callback: (err: Error,) => void,): void;
+    sendDTMF(callback: (err: Error) => void): void;
 
     /**
      * Send provided DTMF to a given channel.
@@ -4773,50 +4773,50 @@ export interface Channel extends Resource {
         between?: number | undefined;
         duration?: number | undefined;
         after?: number | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 
     /**
      * Mute a channel.
      *
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { direction?: string | undefined }, callback: (err: Error,) => void,): void;
+    mute(params: { direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Mute a channel.
      */
-    mute(callback: (err: Error,) => void,): void;
+    mute(callback: (err: Error) => void): void;
 
     /**
      * Mute a channel.
      *
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params?: { direction?: string | undefined },): Promise<void>;
+    mute(params?: { direction?: string | undefined }): Promise<void>;
 
     /**
      * Unmute a channel.
      *
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { direction?: string | undefined }, callback: (err: Error,) => void,): void;
+    unmute(params: { direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a channel.
      */
-    unmute(callback: (err: Error,) => void,): void;
+    unmute(callback: (err: Error) => void): void;
 
     /**
      * Unmute a channel.
      *
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params?: { direction?: string | undefined },): Promise<void>;
+    unmute(params?: { direction?: string | undefined }): Promise<void>;
 
     /**
      * Hold a channel.
      */
-    hold(callback: (err: Error,) => void,): void;
+    hold(callback: (err: Error) => void): void;
 
     /**
      * Hold a channel.
@@ -4826,7 +4826,7 @@ export interface Channel extends Resource {
     /**
      * Remove a channel from hold.
      */
-    unhold(callback: (err: Error,) => void,): void;
+    unhold(callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from hold.
@@ -4840,14 +4840,14 @@ export interface Channel extends Resource {
      *
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error,) => void,): void;
+    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
      * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
      * must reinitiate music on hold.
      */
-    startMoh(callback: (err: Error,) => void,): void;
+    startMoh(callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
@@ -4856,12 +4856,12 @@ export interface Channel extends Resource {
      *
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params?: { mohClass?: string | undefined },): Promise<void>;
+    startMoh(params?: { mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a channel.
      */
-    stopMoh(callback: (err: Error,) => void,): void;
+    stopMoh(callback: (err: Error) => void): void;
 
     /**
      * Stop playing music on hold to a channel.
@@ -4872,7 +4872,7 @@ export interface Channel extends Resource {
      * Play silence to a channel.
      * Using media operations such as /play on a channel playing silence in this manner will suspend silence without resuming automatically.
      */
-    startSilence(callback: (err: Error,) => void,): void;
+    startSilence(callback: (err: Error) => void): void;
 
     /**
      * Play silence to a channel.
@@ -4883,7 +4883,7 @@ export interface Channel extends Resource {
     /**
      * Stop playing silence to a channel.
      */
-    stopSilence(callback: (err: Error,) => void,): void;
+    stopSilence(callback: (err: Error) => void): void;
 
     /**
      * Stop playing silence to a channel.
@@ -4910,7 +4910,7 @@ export interface Channel extends Resource {
             playbackId?: string | undefined;
         },
         playback: Playback,
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -4954,7 +4954,7 @@ export interface Channel extends Resource {
             offsetms?: number | undefined;
             skipms?: number | undefined;
         },
-        callback: (err: Error, playback: Playback,) => void,
+        callback: (err: Error, playback: Playback) => void,
     ): void;
 
     /**
@@ -4974,7 +4974,7 @@ export interface Channel extends Resource {
         lang?: string | undefined;
         offsetms?: number | undefined;
         skipms?: number | undefined;
-    },): Promise<Playback>;
+    }): Promise<Playback>;
 
     /**
      * Start a recording.
@@ -4999,7 +4999,7 @@ export interface Channel extends Resource {
             terminateOn?: string | undefined;
         },
         recording: LiveRecording,
-        callback: (err: Error, liverecording: LiveRecording,) => void,
+        callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
 
     /**
@@ -5032,14 +5032,14 @@ export interface Channel extends Resource {
      *
      * @param params.variable - The channel variable or function to get.
      */
-    getChannelVar(params: { variable: string }, callback: (err: Error, variable: Variable,) => void,): void;
+    getChannelVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
 
     /**
      * Get the value of a channel variable or function.
      *
      * @param params.variable - The channel variable or function to get.
      */
-    getChannelVar(params: { variable: string },): Promise<Variable>;
+    getChannelVar(params: { variable: string }): Promise<Variable>;
 
     /**
      * Set the value of a channel variable or function.
@@ -5047,7 +5047,7 @@ export interface Channel extends Resource {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { variable: string; value?: string | undefined }, callback: (err: Error,) => void,): void;
+    setChannelVar(params: { variable: string; value?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Set the value of a channel variable or function.
@@ -5055,7 +5055,7 @@ export interface Channel extends Resource {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { variable: string; value?: string | undefined },): Promise<void>;
+    setChannelVar(params: { variable: string; value?: string | undefined }): Promise<void>;
 
     /**
      * Start snooping.
@@ -5076,7 +5076,7 @@ export interface Channel extends Resource {
             snoopId?: string | undefined;
         },
         snoopChannel: Channel,
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -5118,7 +5118,7 @@ export interface Channel extends Resource {
             app: string;
             appArgs?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -5137,7 +5137,7 @@ export interface Channel extends Resource {
         whisper?: string | undefined;
         app: string;
         appArgs?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 
     /**
      * Dial a created channel.
@@ -5145,12 +5145,12 @@ export interface Channel extends Resource {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params: { caller?: string | undefined; timeout?: number | undefined }, callback: (err: Error,) => void,): void;
+    dial(params: { caller?: string | undefined; timeout?: number | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Dial a created channel.
      */
-    dial(callback: (err: Error,) => void,): void;
+    dial(callback: (err: Error) => void): void;
 
     /**
      * Dial a created channel.
@@ -5158,12 +5158,12 @@ export interface Channel extends Resource {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params?: { caller?: string | undefined; timeout?: number | undefined },): Promise<void>;
+    dial(params?: { caller?: string | undefined; timeout?: number | undefined }): Promise<void>;
 
     /**
      * RTP stats on a channel.
      */
-    rtpstatistics(callback: (err: Error, rtpstat: RTPstat,) => void,): void;
+    rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
 
     /**
      * RTP stats on a channel.
@@ -5195,7 +5195,7 @@ export interface Channel extends Resource {
             format: string;
             direction?: string | undefined;
         },
-        callback: (err: Error, channel: Channel,) => void,
+        callback: (err: Error, channel: Channel) => void,
     ): void;
 
     /**
@@ -5221,13 +5221,13 @@ export interface Channel extends Resource {
         connection_type?: string | undefined;
         format: string;
         direction?: string | undefined;
-    },): Promise<Channel>;
+    }): Promise<Channel>;
 }
 export interface DeviceStates {
     /**
      * List all ARI controlled device states.
      */
-    list(callback: (err: Error, devicestates: DeviceState[],) => void,): void;
+    list(callback: (err: Error, devicestates: DeviceState[]) => void): void;
 
     /**
      * List all ARI controlled device states.
@@ -5239,14 +5239,14 @@ export interface DeviceStates {
      *
      * @param params.deviceName - Name of the device.
      */
-    get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState,) => void,): void;
+    get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState) => void): void;
 
     /**
      * Retrieve the current state of a device.
      *
      * @param params.deviceName - Name of the device.
      */
-    get(params: { deviceName: string },): Promise<DeviceState>;
+    get(params: { deviceName: string }): Promise<DeviceState>;
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
@@ -5254,7 +5254,7 @@ export interface DeviceStates {
      * @param params.deviceName - Name of the device.
      * @param params.deviceState - Device state value.
      */
-    update(params: { deviceName: string; deviceState: string }, callback: (err: Error,) => void,): void;
+    update(params: { deviceName: string; deviceState: string }, callback: (err: Error) => void): void;
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
@@ -5262,21 +5262,21 @@ export interface DeviceStates {
      * @param params.deviceName - Name of the device.
      * @param params.deviceState - Device state value.
      */
-    update(params: { deviceName: string; deviceState: string },): Promise<void>;
+    update(params: { deviceName: string; deviceState: string }): Promise<void>;
 
     /**
      * Destroy a device-state controlled by ARI.
      *
      * @param params.deviceName - Name of the device.
      */
-    delete(params: { deviceName: string }, callback: (err: Error,) => void,): void;
+    delete(params: { deviceName: string }, callback: (err: Error) => void): void;
 
     /**
      * Destroy a device-state controlled by ARI.
      *
      * @param params.deviceName - Name of the device.
      */
-    delete(params: { deviceName: string },): Promise<void>;
+    delete(params: { deviceName: string }): Promise<void>;
 }
 export interface DeviceState extends Resource {
     /**
@@ -5292,7 +5292,7 @@ export interface DeviceState extends Resource {
     /**
      * List all ARI controlled device states.
      */
-    list(callback: (err: Error, devicestates: DeviceState[],) => void,): void;
+    list(callback: (err: Error, devicestates: DeviceState[]) => void): void;
 
     /**
      * List all ARI controlled device states.
@@ -5302,7 +5302,7 @@ export interface DeviceState extends Resource {
     /**
      * Retrieve the current state of a device.
      */
-    get(callback: (err: Error, devicestate: DeviceState,) => void,): void;
+    get(callback: (err: Error, devicestate: DeviceState) => void): void;
 
     /**
      * Retrieve the current state of a device.
@@ -5314,19 +5314,19 @@ export interface DeviceState extends Resource {
      *
      * @param params.deviceState - Device state value.
      */
-    update(params: { deviceState: string }, callback: (err: Error,) => void,): void;
+    update(params: { deviceState: string }, callback: (err: Error) => void): void;
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
      *
      * @param params.deviceState - Device state value.
      */
-    update(params: { deviceState: string },): Promise<void>;
+    update(params: { deviceState: string }): Promise<void>;
 
     /**
      * Destroy a device-state controlled by ARI.
      */
-    delete(callback: (err: Error,) => void,): void;
+    delete(callback: (err: Error) => void): void;
 
     /**
      * Destroy a device-state controlled by ARI.
@@ -5337,7 +5337,7 @@ export interface Endpoints {
     /**
      * List all endpoints.
      */
-    list(callback: (err: Error, endpoints: Endpoint[],) => void,): void;
+    list(callback: (err: Error, endpoints: Endpoint[]) => void): void;
 
     /**
      * List all endpoints.
@@ -5355,7 +5355,7 @@ export interface Endpoints {
      */
     sendMessage(
         params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -5376,19 +5376,19 @@ export interface Endpoints {
      *
      * @param [params.tech] - Technology of the endpoints (sip,iax2,...).
      */
-    listByTech(params: { tech: string }, callback: (err: Error, endpoints: Endpoint[],) => void,): void;
+    listByTech(params: { tech: string }, callback: (err: Error, endpoints: Endpoint[]) => void): void;
 
     /**
      * List available endoints for a given endpoint technology.
      */
-    listByTech(callback: (err: Error, endpoints: Endpoint[],) => void,): void;
+    listByTech(callback: (err: Error, endpoints: Endpoint[]) => void): void;
 
     /**
      * List available endoints for a given endpoint technology.
      *
      * @param [params.tech] - Technology of the endpoints (sip,iax2,...).
      */
-    listByTech(params?: { tech: string },): Promise<Endpoint[]>;
+    listByTech(params?: { tech: string }): Promise<Endpoint[]>;
 
     /**
      * Details for an endpoint.
@@ -5396,12 +5396,12 @@ export interface Endpoints {
      * @param [params.tech] - Technology of the endpoint.
      * @param [params.resource] - ID of the endpoint.
      */
-    get(params: { tech: string; resource: string }, callback: (err: Error, endpoint: Endpoint,) => void,): void;
+    get(params: { tech: string; resource: string }, callback: (err: Error, endpoint: Endpoint) => void): void;
 
     /**
      * Details for an endpoint.
      */
-    get(callback: (err: Error, endpoint: Endpoint,) => void,): void;
+    get(callback: (err: Error, endpoint: Endpoint) => void): void;
 
     /**
      * Details for an endpoint.
@@ -5409,7 +5409,7 @@ export interface Endpoints {
      * @param [params.tech] - Technology of the endpoint.
      * @param [params.resource] - ID of the endpoint.
      */
-    get(params?: { tech: string; resource: string },): Promise<Endpoint>;
+    get(params?: { tech: string; resource: string }): Promise<Endpoint>;
 
     /**
      * Send a message to some endpoint in a technology.
@@ -5429,7 +5429,7 @@ export interface Endpoints {
             body?: string | undefined;
             variables?: Containers | undefined;
         },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -5448,7 +5448,7 @@ export interface Endpoints {
         from: string;
         body?: string | undefined;
         variables?: Containers | undefined;
-    },): Promise<void>;
+    }): Promise<void>;
 }
 export interface Endpoint extends Resource {
     /**
@@ -5474,7 +5474,7 @@ export interface Endpoint extends Resource {
     /**
      * List all endpoints.
      */
-    list(callback: (err: Error, endpoints: Endpoint[],) => void,): void;
+    list(callback: (err: Error, endpoints: Endpoint[]) => void): void;
 
     /**
      * List all endpoints.
@@ -5492,7 +5492,7 @@ export interface Endpoint extends Resource {
      */
     sendMessage(
         params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -5511,7 +5511,7 @@ export interface Endpoint extends Resource {
     /**
      * List available endoints for a given endpoint technology.
      */
-    listByTech(callback: (err: Error, endpoints: Endpoint[],) => void,): void;
+    listByTech(callback: (err: Error, endpoints: Endpoint[]) => void): void;
 
     /**
      * List available endoints for a given endpoint technology.
@@ -5521,7 +5521,7 @@ export interface Endpoint extends Resource {
     /**
      * Details for an endpoint.
      */
-    get(callback: (err: Error, endpoint: Endpoint,) => void,): void;
+    get(callback: (err: Error, endpoint: Endpoint) => void): void;
 
     /**
      * Details for an endpoint.
@@ -5538,7 +5538,7 @@ export interface Endpoint extends Resource {
      */
     sendMessageToEndpoint(
         params: { from: string; body?: string | undefined; variables?: Containers | undefined },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -5579,7 +5579,7 @@ export interface Mailboxes {
     /**
      * List all mailboxes.
      */
-    list(callback: (err: Error, mailboxs: Mailbox[],) => void,): void;
+    list(callback: (err: Error, mailboxs: Mailbox[]) => void): void;
 
     /**
      * List all mailboxes.
@@ -5591,14 +5591,14 @@ export interface Mailboxes {
      *
      * @param params.mailboxName - Name of the mailbox.
      */
-    get(params: { mailboxName: string }, callback: (err: Error, mailbox: Mailbox,) => void,): void;
+    get(params: { mailboxName: string }, callback: (err: Error, mailbox: Mailbox) => void): void;
 
     /**
      * Retrieve the current state of a mailbox.
      *
      * @param params.mailboxName - Name of the mailbox.
      */
-    get(params: { mailboxName: string },): Promise<Mailbox>;
+    get(params: { mailboxName: string }): Promise<Mailbox>;
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
@@ -5609,7 +5609,7 @@ export interface Mailboxes {
      */
     update(
         params: { mailboxName: string; oldMessages: number; newMessages: number },
-        callback: (err: Error,) => void,
+        callback: (err: Error) => void,
     ): void;
 
     /**
@@ -5619,21 +5619,21 @@ export interface Mailboxes {
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
      */
-    update(params: { mailboxName: string; oldMessages: number; newMessages: number },): Promise<void>;
+    update(params: { mailboxName: string; oldMessages: number; newMessages: number }): Promise<void>;
 
     /**
      * Destroy a mailbox.
      *
      * @param params.mailboxName - Name of the mailbox.
      */
-    delete(params: { mailboxName: string }, callback: (err: Error,) => void,): void;
+    delete(params: { mailboxName: string }, callback: (err: Error) => void): void;
 
     /**
      * Destroy a mailbox.
      *
      * @param params.mailboxName - Name of the mailbox.
      */
-    delete(params: { mailboxName: string },): Promise<void>;
+    delete(params: { mailboxName: string }): Promise<void>;
 }
 export interface Mailbox extends Resource {
     /**
@@ -5654,7 +5654,7 @@ export interface Mailbox extends Resource {
     /**
      * List all mailboxes.
      */
-    list(callback: (err: Error, mailboxs: Mailbox[],) => void,): void;
+    list(callback: (err: Error, mailboxs: Mailbox[]) => void): void;
 
     /**
      * List all mailboxes.
@@ -5664,7 +5664,7 @@ export interface Mailbox extends Resource {
     /**
      * Retrieve the current state of a mailbox.
      */
-    get(callback: (err: Error, mailbox: Mailbox,) => void,): void;
+    get(callback: (err: Error, mailbox: Mailbox) => void): void;
 
     /**
      * Retrieve the current state of a mailbox.
@@ -5677,7 +5677,7 @@ export interface Mailbox extends Resource {
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
      */
-    update(params: { oldMessages: number; newMessages: number }, callback: (err: Error,) => void,): void;
+    update(params: { oldMessages: number; newMessages: number }, callback: (err: Error) => void): void;
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
@@ -5685,12 +5685,12 @@ export interface Mailbox extends Resource {
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
      */
-    update(params: { oldMessages: number; newMessages: number },): Promise<void>;
+    update(params: { oldMessages: number; newMessages: number }): Promise<void>;
 
     /**
      * Destroy a mailbox.
      */
-    delete(callback: (err: Error,) => void,): void;
+    delete(callback: (err: Error) => void): void;
 
     /**
      * Destroy a mailbox.
@@ -5703,28 +5703,28 @@ export interface Playbacks {
      *
      * @param params.playbackId - Playbacks id.
      */
-    get(params: { playbackId: string }, callback: (err: Error, playback: Playback,) => void,): void;
+    get(params: { playbackId: string }, callback: (err: Error, playback: Playback) => void): void;
 
     /**
      * Get a playbacks details.
      *
      * @param params.playbackId - Playbacks id.
      */
-    get(params: { playbackId: string },): Promise<Playback>;
+    get(params: { playbackId: string }): Promise<Playback>;
 
     /**
      * Stop a playback.
      *
      * @param params.playbackId - Playbacks id.
      */
-    stop(params: { playbackId: string }, callback: (err: Error,) => void,): void;
+    stop(params: { playbackId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a playback.
      *
      * @param params.playbackId - Playbacks id.
      */
-    stop(params: { playbackId: string },): Promise<void>;
+    stop(params: { playbackId: string }): Promise<void>;
 
     /**
      * Control a playback.
@@ -5732,7 +5732,7 @@ export interface Playbacks {
      * @param params.playbackId - Playbacks id.
      * @param params.operation - Operation to perform on the playback.
      */
-    control(params: { playbackId: string; operation: string }, callback: (err: Error,) => void,): void;
+    control(params: { playbackId: string; operation: string }, callback: (err: Error) => void): void;
 
     /**
      * Control a playback.
@@ -5740,7 +5740,7 @@ export interface Playbacks {
      * @param params.playbackId - Playbacks id.
      * @param params.operation - Operation to perform on the playback.
      */
-    control(params: { playbackId: string; operation: string },): Promise<void>;
+    control(params: { playbackId: string; operation: string }): Promise<void>;
 }
 export interface Playback extends Resource {
     /**
@@ -5776,7 +5776,7 @@ export interface Playback extends Resource {
     /**
      * Get a playbacks details.
      */
-    get(callback: (err: Error, playback: Playback,) => void,): void;
+    get(callback: (err: Error, playback: Playback) => void): void;
 
     /**
      * Get a playbacks details.
@@ -5786,7 +5786,7 @@ export interface Playback extends Resource {
     /**
      * Stop a playback.
      */
-    stop(callback: (err: Error,) => void,): void;
+    stop(callback: (err: Error) => void): void;
 
     /**
      * Stop a playback.
@@ -5798,20 +5798,20 @@ export interface Playback extends Resource {
      *
      * @param params.operation - Operation to perform on the playback.
      */
-    control(params: { operation: string }, callback: (err: Error,) => void,): void;
+    control(params: { operation: string }, callback: (err: Error) => void): void;
 
     /**
      * Control a playback.
      *
      * @param params.operation - Operation to perform on the playback.
      */
-    control(params: { operation: string },): Promise<void>;
+    control(params: { operation: string }): Promise<void>;
 }
 export interface Recordings {
     /**
      * List recordings that are complete.
      */
-    listStored(callback: (err: Error, storedrecordings: StoredRecording[],) => void,): void;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
 
     /**
      * List recordings that are complete.
@@ -5825,7 +5825,7 @@ export interface Recordings {
      */
     getStored(
         params: { recordingName: string },
-        callback: (err: Error, storedrecording: StoredRecording,) => void,
+        callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
 
     /**
@@ -5833,35 +5833,35 @@ export interface Recordings {
      *
      * @param params.recordingName - The name of the recording.
      */
-    getStored(params: { recordingName: string },): Promise<StoredRecording>;
+    getStored(params: { recordingName: string }): Promise<StoredRecording>;
 
     /**
      * Delete a stored recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    deleteStored(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    deleteStored(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Delete a stored recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    deleteStored(params: { recordingName: string },): Promise<void>;
+    deleteStored(params: { recordingName: string }): Promise<void>;
 
     /**
      * Get the file associated with the stored recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    getStoredFile(params: { recordingName: string }, callback: (err: Error, binary: Buffer,) => void,): void;
+    getStoredFile(params: { recordingName: string }, callback: (err: Error, binary: Buffer) => void): void;
 
     /**
      * Get the file associated with the stored recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    getStoredFile(params: { recordingName: string },): Promise<Buffer>;
+    getStoredFile(params: { recordingName: string }): Promise<Buffer>;
 
     /**
      * Copy a stored recording.
@@ -5871,7 +5871,7 @@ export interface Recordings {
      */
     copyStored(
         params: { recordingName: string; destinationRecordingName: string },
-        callback: (err: Error, storedrecording: StoredRecording,) => void,
+        callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
 
     /**
@@ -5880,49 +5880,49 @@ export interface Recordings {
      * @param params.recordingName - The name of the recording to copy.
      * @param params.destinationRecordingName - The destination name of the recording.
      */
-    copyStored(params: { recordingName: string; destinationRecordingName: string },): Promise<StoredRecording>;
+    copyStored(params: { recordingName: string; destinationRecordingName: string }): Promise<StoredRecording>;
 
     /**
      * List live recordings.
      *
      * @param params.recordingName - The name of the recording.
      */
-    getLive(params: { recordingName: string }, callback: (err: Error, liverecording: LiveRecording,) => void,): void;
+    getLive(params: { recordingName: string }, callback: (err: Error, liverecording: LiveRecording) => void): void;
 
     /**
      * List live recordings.
      *
      * @param params.recordingName - The name of the recording.
      */
-    getLive(params: { recordingName: string },): Promise<LiveRecording>;
+    getLive(params: { recordingName: string }): Promise<LiveRecording>;
 
     /**
      * Stop a live recording and discard it.
      *
      * @param params.recordingName - The name of the recording.
      */
-    cancel(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    cancel(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and discard it.
      *
      * @param params.recordingName - The name of the recording.
      */
-    cancel(params: { recordingName: string },): Promise<void>;
+    cancel(params: { recordingName: string }): Promise<void>;
 
     /**
      * Stop a live recording and store it.
      *
      * @param params.recordingName - The name of the recording.
      */
-    stop(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    stop(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and store it.
      *
      * @param params.recordingName - The name of the recording.
      */
-    stop(params: { recordingName: string },): Promise<void>;
+    stop(params: { recordingName: string }): Promise<void>;
 
     /**
      * Pause a live recording.
@@ -5930,7 +5930,7 @@ export interface Recordings {
      *
      * @param params.recordingName - The name of the recording.
      */
-    pause(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    pause(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Pause a live recording.
@@ -5938,21 +5938,21 @@ export interface Recordings {
      *
      * @param params.recordingName - The name of the recording.
      */
-    pause(params: { recordingName: string },): Promise<void>;
+    pause(params: { recordingName: string }): Promise<void>;
 
     /**
      * Unpause a live recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    unpause(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    unpause(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unpause a live recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    unpause(params: { recordingName: string },): Promise<void>;
+    unpause(params: { recordingName: string }): Promise<void>;
 
     /**
      * Mute a live recording.
@@ -5960,7 +5960,7 @@ export interface Recordings {
      *
      * @param params.recordingName - The name of the recording.
      */
-    mute(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    mute(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Mute a live recording.
@@ -5968,21 +5968,21 @@ export interface Recordings {
      *
      * @param params.recordingName - The name of the recording.
      */
-    mute(params: { recordingName: string },): Promise<void>;
+    mute(params: { recordingName: string }): Promise<void>;
 
     /**
      * Unmute a live recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    unmute(params: { recordingName: string }, callback: (err: Error,) => void,): void;
+    unmute(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a live recording.
      *
      * @param params.recordingName - The name of the recording.
      */
-    unmute(params: { recordingName: string },): Promise<void>;
+    unmute(params: { recordingName: string }): Promise<void>;
 }
 export interface StoredRecording extends Resource {
     /**
@@ -5998,7 +5998,7 @@ export interface StoredRecording extends Resource {
     /**
      * List recordings that are complete.
      */
-    listStored(callback: (err: Error, storedrecordings: StoredRecording[],) => void,): void;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
 
     /**
      * List recordings that are complete.
@@ -6008,7 +6008,7 @@ export interface StoredRecording extends Resource {
     /**
      * Get a stored recordings details.
      */
-    getStored(callback: (err: Error, storedrecording: StoredRecording,) => void,): void;
+    getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
 
     /**
      * Get a stored recordings details.
@@ -6018,7 +6018,7 @@ export interface StoredRecording extends Resource {
     /**
      * Delete a stored recording.
      */
-    deleteStored(callback: (err: Error,) => void,): void;
+    deleteStored(callback: (err: Error) => void): void;
 
     /**
      * Delete a stored recording.
@@ -6028,7 +6028,7 @@ export interface StoredRecording extends Resource {
     /**
      * Get the file associated with the stored recording.
      */
-    getStoredFile(callback: (err: Error, binary: Buffer,) => void,): void;
+    getStoredFile(callback: (err: Error, binary: Buffer) => void): void;
 
     /**
      * Get the file associated with the stored recording.
@@ -6042,7 +6042,7 @@ export interface StoredRecording extends Resource {
      */
     copyStored(
         params: { destinationRecordingName: string },
-        callback: (err: Error, storedrecording: StoredRecording,) => void,
+        callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
 
     /**
@@ -6050,12 +6050,12 @@ export interface StoredRecording extends Resource {
      *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
-    copyStored(params: { destinationRecordingName: string },): Promise<StoredRecording>;
+    copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
 
     /**
      * List live recordings.
      */
-    getLive(callback: (err: Error, liverecording: LiveRecording,) => void,): void;
+    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
 
     /**
      * List live recordings.
@@ -6065,7 +6065,7 @@ export interface StoredRecording extends Resource {
     /**
      * Stop a live recording and discard it.
      */
-    cancel(callback: (err: Error,) => void,): void;
+    cancel(callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and discard it.
@@ -6075,7 +6075,7 @@ export interface StoredRecording extends Resource {
     /**
      * Stop a live recording and store it.
      */
-    stop(callback: (err: Error,) => void,): void;
+    stop(callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and store it.
@@ -6086,7 +6086,7 @@ export interface StoredRecording extends Resource {
      * Pause a live recording.
      * Pausing a recording suspends silence detection, which will be restarted when the recording is unpaused. Paused time is not included in the accounting for maxDurationSeconds.
      */
-    pause(callback: (err: Error,) => void,): void;
+    pause(callback: (err: Error) => void): void;
 
     /**
      * Pause a live recording.
@@ -6097,7 +6097,7 @@ export interface StoredRecording extends Resource {
     /**
      * Unpause a live recording.
      */
-    unpause(callback: (err: Error,) => void,): void;
+    unpause(callback: (err: Error) => void): void;
 
     /**
      * Unpause a live recording.
@@ -6108,7 +6108,7 @@ export interface StoredRecording extends Resource {
      * Mute a live recording.
      * Muting a recording suspends silence detection, which will be restarted when the recording is unmuted.
      */
-    mute(callback: (err: Error,) => void,): void;
+    mute(callback: (err: Error) => void): void;
 
     /**
      * Mute a live recording.
@@ -6119,7 +6119,7 @@ export interface StoredRecording extends Resource {
     /**
      * Unmute a live recording.
      */
-    unmute(callback: (err: Error,) => void,): void;
+    unmute(callback: (err: Error) => void): void;
 
     /**
      * Unmute a live recording.
@@ -6170,7 +6170,7 @@ export interface LiveRecording extends Resource {
     /**
      * List recordings that are complete.
      */
-    listStored(callback: (err: Error, storedrecordings: StoredRecording[],) => void,): void;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
 
     /**
      * List recordings that are complete.
@@ -6180,7 +6180,7 @@ export interface LiveRecording extends Resource {
     /**
      * Get a stored recordings details.
      */
-    getStored(callback: (err: Error, storedrecording: StoredRecording,) => void,): void;
+    getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
 
     /**
      * Get a stored recordings details.
@@ -6190,7 +6190,7 @@ export interface LiveRecording extends Resource {
     /**
      * Delete a stored recording.
      */
-    deleteStored(callback: (err: Error,) => void,): void;
+    deleteStored(callback: (err: Error) => void): void;
 
     /**
      * Delete a stored recording.
@@ -6200,7 +6200,7 @@ export interface LiveRecording extends Resource {
     /**
      * Get the file associated with the stored recording.
      */
-    getStoredFile(callback: (err: Error, binary: Buffer,) => void,): void;
+    getStoredFile(callback: (err: Error, binary: Buffer) => void): void;
 
     /**
      * Get the file associated with the stored recording.
@@ -6214,7 +6214,7 @@ export interface LiveRecording extends Resource {
      */
     copyStored(
         params: { destinationRecordingName: string },
-        callback: (err: Error, storedrecording: StoredRecording,) => void,
+        callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
 
     /**
@@ -6222,12 +6222,12 @@ export interface LiveRecording extends Resource {
      *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
-    copyStored(params: { destinationRecordingName: string },): Promise<StoredRecording>;
+    copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
 
     /**
      * List live recordings.
      */
-    getLive(callback: (err: Error, liverecording: LiveRecording,) => void,): void;
+    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
 
     /**
      * List live recordings.
@@ -6237,7 +6237,7 @@ export interface LiveRecording extends Resource {
     /**
      * Stop a live recording and discard it.
      */
-    cancel(callback: (err: Error,) => void,): void;
+    cancel(callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and discard it.
@@ -6247,7 +6247,7 @@ export interface LiveRecording extends Resource {
     /**
      * Stop a live recording and store it.
      */
-    stop(callback: (err: Error,) => void,): void;
+    stop(callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and store it.
@@ -6258,7 +6258,7 @@ export interface LiveRecording extends Resource {
      * Pause a live recording.
      * Pausing a recording suspends silence detection, which will be restarted when the recording is unpaused. Paused time is not included in the accounting for maxDurationSeconds.
      */
-    pause(callback: (err: Error,) => void,): void;
+    pause(callback: (err: Error) => void): void;
 
     /**
      * Pause a live recording.
@@ -6269,7 +6269,7 @@ export interface LiveRecording extends Resource {
     /**
      * Unpause a live recording.
      */
-    unpause(callback: (err: Error,) => void,): void;
+    unpause(callback: (err: Error) => void): void;
 
     /**
      * Unpause a live recording.
@@ -6280,7 +6280,7 @@ export interface LiveRecording extends Resource {
      * Mute a live recording.
      * Muting a recording suspends silence detection, which will be restarted when the recording is unmuted.
      */
-    mute(callback: (err: Error,) => void,): void;
+    mute(callback: (err: Error) => void): void;
 
     /**
      * Mute a live recording.
@@ -6291,7 +6291,7 @@ export interface LiveRecording extends Resource {
     /**
      * Unmute a live recording.
      */
-    unmute(callback: (err: Error,) => void,): void;
+    unmute(callback: (err: Error) => void): void;
 
     /**
      * Unmute a live recording.
@@ -6307,13 +6307,13 @@ export interface Sounds {
      */
     list(
         params: { lang?: string | undefined; format?: string | undefined },
-        callback: (err: Error, sounds: Sound[],) => void,
+        callback: (err: Error, sounds: Sound[]) => void,
     ): void;
 
     /**
      * List all sounds.
      */
-    list(callback: (err: Error, sounds: Sound[],) => void,): void;
+    list(callback: (err: Error, sounds: Sound[]) => void): void;
 
     /**
      * List all sounds.
@@ -6321,21 +6321,21 @@ export interface Sounds {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params?: { lang?: string | undefined; format?: string | undefined },): Promise<Sound[]>;
+    list(params?: { lang?: string | undefined; format?: string | undefined }): Promise<Sound[]>;
 
     /**
      * Get a sounds details.
      *
      * @param params.soundId - Sounds id.
      */
-    get(params: { soundId: string }, callback: (err: Error, sound: Sound,) => void,): void;
+    get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
 
     /**
      * Get a sounds details.
      *
      * @param params.soundId - Sounds id.
      */
-    get(params: { soundId: string },): Promise<Sound>;
+    get(params: { soundId: string }): Promise<Sound>;
 }
 export interface FormatLangPair {
     /**
@@ -6372,13 +6372,13 @@ export interface Sound extends Resource {
      */
     list(
         params: { lang?: string | undefined; format?: string | undefined },
-        callback: (err: Error, sounds: Sound[],) => void,
+        callback: (err: Error, sounds: Sound[]) => void,
     ): void;
 
     /**
      * List all sounds.
      */
-    list(callback: (err: Error, sounds: Sound[],) => void,): void;
+    list(callback: (err: Error, sounds: Sound[]) => void): void;
 
     /**
      * List all sounds.
@@ -6386,12 +6386,12 @@ export interface Sound extends Resource {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params?: { lang?: string | undefined; format?: string | undefined },): Promise<Sound[]>;
+    list(params?: { lang?: string | undefined; format?: string | undefined }): Promise<Sound[]>;
 
     /**
      * Get a sounds details.
      */
-    get(callback: (err: Error, sound: Sound,) => void,): void;
+    get(callback: (err: Error, sound: Sound) => void): void;
 
     /**
      * Get a sounds details.

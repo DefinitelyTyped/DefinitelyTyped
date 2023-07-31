@@ -47,7 +47,7 @@ export class AnalyticsCoreAPI {
             limit: number;
             page: number;
         };
-    },): Promise<Report>;
+    }): Promise<Report>;
 
     getCalculatedMetrics(body?: {
         calculatedMetricFilter: any;
@@ -59,7 +59,7 @@ export class AnalyticsCoreAPI {
         page?: number;
         rsids: string[];
         tagNames: any;
-    },): Promise<unknown>;
+    }): Promise<unknown>;
 
     getCalculatedMetricById(
         id: any,
@@ -75,7 +75,7 @@ export class AnalyticsCoreAPI {
         page?: number;
         rsidContains: any;
         rsids: string[];
-    },): Promise<unknown>;
+    }): Promise<unknown>;
 
     getCollectionById(
         rsid: any,
@@ -91,7 +91,7 @@ export class AnalyticsCoreAPI {
         limit?: number;
         locale: any;
         page?: number;
-    },): Promise<unknown>;
+    }): Promise<unknown>;
 
     getDateRangeById(
         dateRangeId: any,
@@ -148,15 +148,15 @@ export class AnalyticsCoreAPI {
         rsids: string[];
         segmentFilter: any;
         tagNames: any;
-    },): Promise<unknown>;
+    }): Promise<unknown>;
 
-    validateSegment(rsid: any, body: any,): Promise<unknown>;
+    validateSegment(rsid: any, body: any): Promise<unknown>;
 
-    getUsers(body?: any,): Promise<unknown>;
+    getUsers(body?: any): Promise<unknown>;
 
     getCurrentUser(): Promise<unknown>;
 
-    getUsageLogs(startDate: any, endDate: any, options?: any,): Promise<unknown>;
+    getUsageLogs(startDate: any, endDate: any, options?: any): Promise<unknown>;
 }
 
 export function init(

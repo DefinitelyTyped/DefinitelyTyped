@@ -4,7 +4,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Disposable, TooltipPlacement, } from '../index';
+import { Disposable, TooltipPlacement } from '../index';
 
 export declare interface ButtonOptions {
     /** (optional)
@@ -94,9 +94,9 @@ export declare interface ButtonOptions {
     callback:
         | string
         | Array<string>
-        | ((data?: any,) => void)
+        | ((data?: any) => void)
         | { [modifier: string]: string }
-        | { [modifier: string]: (data?: any,) => void };
+        | { [modifier: string]: (data?: any) => void };
 
     /** `data` can be passed as the input argument of callback,  If callback is of type
      * - `(data: any) => void)` or
@@ -161,17 +161,17 @@ declare interface ToolBarButtonView {
     group: string;
     enabled: boolean;
 
-    setEnabled(enabled: boolean,): void;
+    setEnabled(enabled: boolean): void;
 
-    setSelected(selected: boolean,): void;
+    setSelected(selected: boolean): void;
 
     getSelected(): boolean;
 
-    _onMouseDown(event: MouseEvent,): void;
+    _onMouseDown(event: MouseEvent): void;
 
-    _onClick(event: MouseEvent,): void;
+    _onClick(event: MouseEvent): void;
 
-    executeCallback(event: MouseEvent,): void;
+    executeCallback(event: MouseEvent): void;
 
     destroy(): void;
 }
@@ -186,10 +186,10 @@ declare interface ToolBarSpacerView {
 
 export declare interface ToolBarManager {
     /** Adds a button. The input to this function is a `ButtonOptions` object */
-    addButton(options: ButtonOptions,): ToolBarButtonView;
+    addButton(options: ButtonOptions): ToolBarButtonView;
 
     /** Adds a spacer. Optionally, you can pass a `SpacerOptions` object */
-    addSpacer(options?: SpacerOptions,): ToolBarSpacerView;
+    addSpacer(options?: SpacerOptions): ToolBarSpacerView;
 
     /** Use the method removeItems to remove the buttons added by your package. This is particular useful in your package deactivate method, but can be used at any time.
      */
@@ -197,7 +197,7 @@ export declare interface ToolBarManager {
 
     /** The onDidDestroy method takes a function that will be called when the tool-bar package is destroyed. This is useful if your package needs to do cleanup when the tool-bar is deactivated but your package continues running.
      */
-    onDidDestroy(callback: () => void,): void;
+    onDidDestroy(callback: () => void): void;
 }
 
 /**
@@ -220,4 +220,4 @@ export declare interface ToolBarManager {
  * }
  * ```
  */
-export type getToolBarManager = (packageName: string,) => ToolBarManager;
+export type getToolBarManager = (packageName: string) => ToolBarManager;

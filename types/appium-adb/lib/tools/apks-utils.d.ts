@@ -36,14 +36,14 @@ interface ApksUtils {
      * @throws If bundletool jar does not exist in PATH or there was an error while
      * executing it
      */
-    execBundletool(args: ReadonlyArray<string>, errorMsg: string,): Promise<string>;
+    execBundletool(args: ReadonlyArray<string>, errorMsg: string): Promise<string>;
 
     /**
      * @param specLocation - The full path to the generated device spec location
      * @returns The same `specLocation` value
      * @throws If it is not possible to retrieve the spec for the current device
      */
-    getDeviceSpec(specLocation: string,): Promise<string>;
+    getDeviceSpec(specLocation: string): Promise<string>;
 
     /**
      * Installs the given .apks package into the device under test
@@ -52,7 +52,7 @@ interface ApksUtils {
      * @param options - Installation options
      * @throws If the .apks bundle cannot be installed
      */
-    installApks(apks: string, options?: InstallApksOptions,): Promise<void>;
+    installApks(apks: string, options?: InstallApksOptions): Promise<void>;
 
     /**
      * Extracts and returns the full path to the master .apk file inside the bundle.
@@ -61,7 +61,7 @@ interface ApksUtils {
      * @returns The full path to the master bundle .apk
      * @throws If there was an error while extracting/finding the file
      */
-    extractBaseApk(apks: string,): Promise<string>;
+    extractBaseApk(apks: string): Promise<string>;
 
     /**
      * Extracts and returns the full path to the .apk, which contains the corresponding
@@ -74,5 +74,5 @@ interface ApksUtils {
      * if language split is not enabled for the bundle.
      * @throws If there was an error while extracting/finding the file
      */
-    extractLanguageApk(apks: string, language?: string | null,): Promise<string>;
+    extractLanguageApk(apks: string, language?: string | null): Promise<string>;
 }

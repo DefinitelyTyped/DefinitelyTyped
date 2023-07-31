@@ -73,7 +73,7 @@ export default class DFAState {
      */
     predicates: PredPrediction;
 
-    constructor(stateNumber: number, configs: ATNConfigSet,);
+    constructor(stateNumber: number, configs: ATNConfigSet);
 
     /**
      * Get the set of all alts mentioned by all ATN configurations in this
@@ -93,7 +93,7 @@ export default class DFAState {
      * we need to know if any other state exists that has this exact set of ATN configurations.
      * The {@link stateNumber} is irrelevant.
      */
-    equals(other: DFAState,): boolean;
+    equals(other: DFAState): boolean;
 
     toString(): string;
 

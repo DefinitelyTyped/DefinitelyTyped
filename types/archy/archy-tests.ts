@@ -14,7 +14,7 @@ var data: archy.Data = {
                     nodes: [
                         {
                             label: 'oh',
-                            nodes: ['hello', 'puny',],
+                            nodes: ['hello', 'puny'],
                         },
                         'human',
                     ],
@@ -25,5 +25,5 @@ var data: archy.Data = {
     ],
 };
 
-var str = archy(data,);
-console.log(str,);
+var str = archy(data);
+console.log(str);

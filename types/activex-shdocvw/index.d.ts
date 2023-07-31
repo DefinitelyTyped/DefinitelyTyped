@@ -261,8 +261,8 @@ declare namespace SHDocVw {
         getErrorUrl(): string;
         getPerErrorDisplay(): number;
         retreatError(): void;
-        setDetailsPaneOpen(fDetailsPaneOpen: number,): void;
-        setPerErrorDisplay(fPerErrorDisplay: number,): void;
+        setDetailsPaneOpen(fDetailsPaneOpen: number): void;
+        setPerErrorDisplay(fPerErrorDisplay: number): void;
     }
 
     /** Internet Explorer Application. */
@@ -280,7 +280,7 @@ declare namespace SHDocVw {
         readonly Busy: boolean;
 
         /** Converts client sizes into window sizes. */
-        ClientToWindow(pcx: number, pcy: number,): void;
+        ClientToWindow(pcx: number, pcy: number): void;
 
         /** Returns the container/parent automation object, if any. */
         readonly Container: any;
@@ -289,7 +289,7 @@ declare namespace SHDocVw {
         readonly Document: any;
 
         /** IOleCommandTarget::Exec */
-        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any,): void;
+        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any): void;
 
         /** Returns file specification of the application, including path. */
         readonly FullName: string;
@@ -298,7 +298,7 @@ declare namespace SHDocVw {
         FullScreen: boolean;
 
         /** Retrieve the Associated value for the property vtValue in the context of the object. */
-        GetProperty(Property: string,): any;
+        GetProperty(Property: string): any;
 
         /** Navigates to the previous item in the history list. */
         GoBack(): void;
@@ -361,10 +361,10 @@ declare namespace SHDocVw {
         readonly Path: string;
 
         /** Associates vtValue with the name szProperty in the context of the object. */
-        PutProperty(Property: string, vtValue: any,): void;
+        PutProperty(Property: string, vtValue: any): void;
 
         /** IOleCommandTarget::QueryStatus */
-        QueryStatusWB(cmdID: OLECMDID,): OLECMDF;
+        QueryStatusWB(cmdID: OLECMDID): OLECMDF;
 
         /** Exits application and closes the open document. */
         Quit(): void;
@@ -374,7 +374,7 @@ declare namespace SHDocVw {
         Refresh(): void;
 
         /** Refresh the currently viewed page. */
-        Refresh2(Level?: RefreshConstants,): void;
+        Refresh2(Level?: RefreshConstants): void;
 
         /** Registers OC as a top-level browser (for target name resolution) */
         RegisterAsBrowser: boolean;
@@ -386,7 +386,7 @@ declare namespace SHDocVw {
         Resizable: boolean;
 
         /** Set BrowserBar to Clsid */
-        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean,): void;
+        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean): void;
 
         /** Controls if any dialog boxes can be shown */
         Silent: boolean;
@@ -437,7 +437,7 @@ declare namespace SHDocVw {
         readonly Busy: boolean;
 
         /** Converts client sizes into window sizes. */
-        ClientToWindow(pcx: number, pcy: number,): void;
+        ClientToWindow(pcx: number, pcy: number): void;
 
         /** Returns the container/parent automation object, if any. */
         readonly Container: any;
@@ -446,7 +446,7 @@ declare namespace SHDocVw {
         readonly Document: any;
 
         /** IOleCommandTarget::Exec */
-        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any,): void;
+        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any): void;
 
         /** Returns file specification of the application, including path. */
         readonly FullName: string;
@@ -455,7 +455,7 @@ declare namespace SHDocVw {
         FullScreen: boolean;
 
         /** Retrieve the Associated value for the property vtValue in the context of the object. */
-        GetProperty(Property: string,): any;
+        GetProperty(Property: string): any;
 
         /** Navigates to the previous item in the history list. */
         GoBack(): void;
@@ -518,10 +518,10 @@ declare namespace SHDocVw {
         readonly Path: string;
 
         /** Associates vtValue with the name szProperty in the context of the object. */
-        PutProperty(Property: string, vtValue: any,): void;
+        PutProperty(Property: string, vtValue: any): void;
 
         /** IOleCommandTarget::QueryStatus */
-        QueryStatusWB(cmdID: OLECMDID,): OLECMDF;
+        QueryStatusWB(cmdID: OLECMDID): OLECMDF;
 
         /** Exits application and closes the open document. */
         Quit(): void;
@@ -531,7 +531,7 @@ declare namespace SHDocVw {
         Refresh(): void;
 
         /** Refresh the currently viewed page. */
-        Refresh2(Level?: RefreshConstants,): void;
+        Refresh2(Level?: RefreshConstants): void;
 
         /** Registers OC as a top-level browser (for target name resolution) */
         RegisterAsBrowser: boolean;
@@ -543,7 +543,7 @@ declare namespace SHDocVw {
         Resizable: boolean;
 
         /** Set BrowserBar to Clsid */
-        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean,): void;
+        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean): void;
 
         /** Controls if any dialog boxes can be shown */
         Silent: boolean;
@@ -594,7 +594,7 @@ declare namespace SHDocVw {
         readonly Busy: boolean;
 
         /** Converts client sizes into window sizes. */
-        ClientToWindow(pcx: number, pcy: number,): void;
+        ClientToWindow(pcx: number, pcy: number): void;
 
         /** Returns the container/parent automation object, if any. */
         readonly Container: any;
@@ -603,7 +603,7 @@ declare namespace SHDocVw {
         readonly Document: any;
 
         /** IOleCommandTarget::Exec */
-        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any,): void;
+        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any): void;
 
         /** Returns file specification of the application, including path. */
         readonly FullName: string;
@@ -612,7 +612,7 @@ declare namespace SHDocVw {
         FullScreen: boolean;
 
         /** Retrieve the Associated value for the property vtValue in the context of the object. */
-        GetProperty(Property: string,): any;
+        GetProperty(Property: string): any;
 
         /** Navigates to the previous item in the history list. */
         GoBack(): void;
@@ -675,10 +675,10 @@ declare namespace SHDocVw {
         readonly Path: string;
 
         /** Associates vtValue with the name szProperty in the context of the object. */
-        PutProperty(Property: string, vtValue: any,): void;
+        PutProperty(Property: string, vtValue: any): void;
 
         /** IOleCommandTarget::QueryStatus */
-        QueryStatusWB(cmdID: OLECMDID,): OLECMDF;
+        QueryStatusWB(cmdID: OLECMDID): OLECMDF;
 
         /** Exits application and closes the open document. */
         Quit(): void;
@@ -688,7 +688,7 @@ declare namespace SHDocVw {
         Refresh(): void;
 
         /** Refresh the currently viewed page. */
-        Refresh2(Level?: RefreshConstants,): void;
+        Refresh2(Level?: RefreshConstants): void;
 
         /** Registers OC as a top-level browser (for target name resolution) */
         RegisterAsBrowser: boolean;
@@ -700,7 +700,7 @@ declare namespace SHDocVw {
         Resizable: boolean;
 
         /** Set BrowserBar to Clsid */
-        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean,): void;
+        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean): void;
 
         /** Controls if any dialog boxes can be shown */
         Silent: boolean;
@@ -755,7 +755,7 @@ declare namespace SHDocVw {
         EnumOptions: number;
 
         /** expands item specified depth */
-        Expand(var_0: any, iDepth: number,): void;
+        Expand(var_0: any, iDepth: number): void;
 
         /** method Export */
         Export(): void;
@@ -765,7 +765,7 @@ declare namespace SHDocVw {
         Import(): void;
 
         /** method InvokeContextMenuCommand */
-        InvokeContextMenuCommand(strCommand: string,): void;
+        InvokeContextMenuCommand(strCommand: string): void;
         Mode: number;
 
         /** method MoveSelectionDown */
@@ -793,10 +793,10 @@ declare namespace SHDocVw {
         SelectedItems(): any;
 
         /** old, use put_Root() instead */
-        SetRoot(bstrFullPath: string,): void;
+        SetRoot(bstrFullPath: string): void;
 
         /** set view type */
-        SetViewType(iType: number,): void;
+        SetViewType(iType: number): void;
 
         /** Query to see if subscriptions are enabled */
         readonly SubscriptionsEnabled: boolean;
@@ -812,57 +812,57 @@ declare namespace SHDocVw {
     class ShellUIHelper {
         private 'SHDocVw.ShellUIHelper_typekey': ShellUIHelper;
         private constructor();
-        AddChannel(URL: string,): void;
-        AddDesktopComponent(URL: string, Type: string, Left?: any, Top?: any, Width?: any, Height?: any,): void;
-        AddFavorite(URL: string, Title?: any,): void;
-        AddSearchProvider(URL: string,): void;
-        AddService(URL: string,): void;
-        AddToFavoritesBar(URL: string, Title: string, Type?: any,): void;
-        AutoCompleteAttach(Reserved?: any,): void;
-        AutoCompleteSaveForm(Form?: any,): void;
-        AutoScan(strSearch: string, strFailureUrl: string, pvarTargetFrame?: any,): void;
+        AddChannel(URL: string): void;
+        AddDesktopComponent(URL: string, Type: string, Left?: any, Top?: any, Width?: any, Height?: any): void;
+        AddFavorite(URL: string, Title?: any): void;
+        AddSearchProvider(URL: string): void;
+        AddService(URL: string): void;
+        AddToFavoritesBar(URL: string, Title: string, Type?: any): void;
+        AutoCompleteAttach(Reserved?: any): void;
+        AutoCompleteSaveForm(Form?: any): void;
+        AutoScan(strSearch: string, strFailureUrl: string, pvarTargetFrame?: any): void;
         BrandImageUri(): string;
         BuildNewTabPage(): void;
         ContentDiscoveryReset(): void;
-        CustomizeClearType(fSet: boolean,): void;
-        CustomizeSettings(fSQM: boolean, fPhishing: boolean, bstrLocale: string,): void;
+        CustomizeClearType(fSet: boolean): void;
+        CustomizeSettings(fSQM: boolean, fPhishing: boolean, bstrLocale: string): void;
         DefaultSearchProvider(): string;
         DiagnoseConnection(): void;
-        EnableSuggestedSites(fEnable: boolean,): void;
+        EnableSuggestedSites(fEnable: boolean): void;
         GetCVListData(): string;
         GetCVListLocalData(): string;
         GetEMIEListData(): string;
         GetEMIEListLocalData(): string;
-        GetExperimentalFlag(bstrFlagString: string,): boolean;
-        GetExperimentalValue(bstrValueString: string,): number;
-        GetNeedIEAutoLaunchFlag(bstrUrl: string,): boolean;
-        HasNeedIEAutoLaunchFlag(bstrUrl: string,): boolean;
-        ImportExportFavorites(fImport: boolean, strImpExpPath: string,): void;
+        GetExperimentalFlag(bstrFlagString: string): boolean;
+        GetExperimentalValue(bstrValueString: string): number;
+        GetNeedIEAutoLaunchFlag(bstrUrl: string): boolean;
+        HasNeedIEAutoLaunchFlag(bstrUrl: string): boolean;
+        ImportExportFavorites(fImport: boolean, strImpExpPath: string): void;
         InPrivateFilteringEnabled(): boolean;
         IsSearchMigrated(): boolean;
-        IsSearchProviderInstalled(URL: string,): number;
-        IsServiceInstalled(URL: string, Verb: string,): number;
-        IsSubscribed(URL: string,): boolean;
+        IsSearchProviderInstalled(URL: string): number;
+        IsServiceInstalled(URL: string, Verb: string): number;
+        IsSubscribed(URL: string): boolean;
         IsSuggestedSitesEnabled(): boolean;
-        LaunchIE(bstrUrl: string, automated: boolean,): void;
-        LaunchInHVSI(bstrUrl: string,): void;
+        LaunchIE(bstrUrl: string, automated: boolean): void;
+        LaunchInHVSI(bstrUrl: string): void;
         msActiveXFilteringEnabled(): boolean;
         msAddSiteMode(): void;
-        msAddTrackingProtectionList(URL: string, bstrFilterName: string,): void;
-        msChangeDefaultBrowser(fChange: boolean,): void;
+        msAddTrackingProtectionList(URL: string, bstrFilterName: string): void;
+        msChangeDefaultBrowser(fChange: boolean): void;
         msClearTile(): void;
         msDiagnoseConnectionUILess(): void;
-        msEnableTileNotificationQueue(fChange: boolean,): void;
-        msEnableTileNotificationQueueForSquare150x150(fChange: boolean,): void;
-        msEnableTileNotificationQueueForSquare310x310(fChange: boolean,): void;
-        msEnableTileNotificationQueueForWide310x150(fChange: boolean,): void;
+        msEnableTileNotificationQueue(fChange: boolean): void;
+        msEnableTileNotificationQueueForSquare150x150(fChange: boolean): void;
+        msEnableTileNotificationQueueForSquare310x310(fChange: boolean): void;
+        msEnableTileNotificationQueueForWide310x150(fChange: boolean): void;
         msIsSiteMode(): boolean;
-        msIsSiteModeFirstRun(fPreserveState: boolean,): any;
+        msIsSiteModeFirstRun(fPreserveState: boolean): any;
         msLaunchInternetOptions(): void;
         msLaunchNetworkClientHelp(): void;
         msPinnedSiteState(): any;
-        msProvisionNetworks(bstrProvisioningXml: string,): any;
-        msRemoveScheduledTileNotification(bstrNotificationId: string,): void;
+        msProvisionNetworks(bstrProvisioningXml: string): any;
+        msRemoveScheduledTileNotification(bstrNotificationId: string): void;
         msReportSafeUrl(): void;
         msScheduledTileNotification(
             bstrNotificationXml: string,
@@ -872,32 +872,32 @@ declare namespace SHDocVw {
             expirationTime?: any,
         ): void;
         msSiteModeActivate(): void;
-        msSiteModeAddButtonStyle(uiButtonID: any, bstrIconURL: string, bstrTooltip: string,): any;
+        msSiteModeAddButtonStyle(uiButtonID: any, bstrIconURL: string, bstrTooltip: string): any;
         msSiteModeAddJumpListItem(
             bstrName: string,
             bstrActionUri: string,
             bstrIconUri: string,
             pvarWindowType?: any,
         ): void;
-        msSiteModeAddThumbBarButton(bstrIconURL: string, bstrTooltip: string,): any;
+        msSiteModeAddThumbBarButton(bstrIconURL: string, bstrTooltip: string): any;
         msSiteModeClearBadge(): void;
         msSiteModeClearIconOverlay(): void;
         msSiteModeClearJumpList(): void;
-        msSiteModeCreateJumpList(bstrHeader: string,): void;
+        msSiteModeCreateJumpList(bstrHeader: string): void;
         msSiteModeRefreshBadge(): void;
-        msSiteModeSetIconOverlay(IconUrl: string, pvarDescription?: any,): void;
-        msSiteModeShowButtonStyle(uiButtonID: any, uiStyleID: any,): void;
+        msSiteModeSetIconOverlay(IconUrl: string, pvarDescription?: any): void;
+        msSiteModeShowButtonStyle(uiButtonID: any, uiStyleID: any): void;
         msSiteModeShowJumpList(): void;
         msSiteModeShowThumbBar(): void;
-        msSiteModeUpdateThumbBarButton(ButtonID: any, fEnabled: boolean, fVisible: boolean,): void;
-        msStartPeriodicBadgeUpdate(pollingUri: string, startTime?: any, uiUpdateRecurrence?: any,): void;
-        msStartPeriodicTileUpdate(pollingUris: any, startTime?: any, uiUpdateRecurrence?: any,): void;
-        msStartPeriodicTileUpdateBatch(pollingUris: any, startTime?: any, uiUpdateRecurrence?: any,): void;
+        msSiteModeUpdateThumbBarButton(ButtonID: any, fEnabled: boolean, fVisible: boolean): void;
+        msStartPeriodicBadgeUpdate(pollingUri: string, startTime?: any, uiUpdateRecurrence?: any): void;
+        msStartPeriodicTileUpdate(pollingUris: any, startTime?: any, uiUpdateRecurrence?: any): void;
+        msStartPeriodicTileUpdateBatch(pollingUris: any, startTime?: any, uiUpdateRecurrence?: any): void;
         msStopPeriodicBadgeUpdate(): void;
         msStopPeriodicTileUpdate(): void;
         msTrackingProtectionEnabled(): boolean;
-        NavigateAndFind(URL: string, strQuery: string, varTargetFrame: any,): void;
-        NavigateToSuggestedSites(bstrRelativeUrl: string,): void;
+        NavigateAndFind(URL: string, strQuery: string, varTargetFrame: any): void;
+        NavigateToSuggestedSites(bstrRelativeUrl: string): void;
         OpenFavoritesPane(): void;
         OpenFavoritesSettings(): void;
         PhishingEnabled(): boolean;
@@ -906,15 +906,15 @@ declare namespace SHDocVw {
         ResetFirstBootMode(): void;
         ResetSafeMode(): void;
         RunOnceHasShown(): boolean;
-        RunOnceRequiredSettingsComplete(fComplete: boolean,): void;
+        RunOnceRequiredSettingsComplete(fComplete: boolean): void;
         RunOnceShown(): void;
         SearchGuideUrl(): string;
-        SetActivitiesVisible(fVisible: boolean,): void;
-        SetExperimentalFlag(bstrFlagString: string, vfFlag: boolean,): void;
-        SetExperimentalValue(bstrValueString: string, dwValue: number,): void;
-        SetNeedIEAutoLaunchFlag(bstrUrl: string, flag: boolean,): void;
-        SetRecentlyClosedVisible(fVisible: boolean,): void;
-        ShowBrowserUI(bstrName: string, pvarIn: any,): any;
+        SetActivitiesVisible(fVisible: boolean): void;
+        SetExperimentalFlag(bstrFlagString: string, vfFlag: boolean): void;
+        SetExperimentalValue(bstrValueString: string, dwValue: number): void;
+        SetNeedIEAutoLaunchFlag(bstrUrl: string, flag: boolean): void;
+        SetRecentlyClosedVisible(fVisible: boolean): void;
+        ShowBrowserUI(bstrName: string, pvarIn: any): any;
         ShowInPrivateHelp(): void;
         ShowTabsHelp(): void;
         SkipRunOnce(): void;
@@ -931,31 +931,31 @@ declare namespace SHDocVw {
         readonly Count: number;
 
         /** Find the window based on the location */
-        FindWindowSW(pvarloc: any, pvarlocRoot: any, swClass: number, pHWND: number, swfwOptions: number,): any;
+        FindWindowSW(pvarloc: any, pvarlocRoot: any, swClass: number, pHWND: number, swfwOptions: number): any;
 
         /** Return the shell window for the given index */
-        Item(index?: any,): any;
+        Item(index?: any): any;
 
         /** Notifies the activation */
-        OnActivated(lCookie: number, fActive: boolean,): void;
+        OnActivated(lCookie: number, fActive: boolean): void;
 
         /** Notifies on creation and frame name set */
-        OnCreated(lCookie: number, punk: any,): void;
+        OnCreated(lCookie: number, punk: any): void;
 
         /** Notifies the new location */
-        OnNavigate(lCookie: number, pvarloc: any,): void;
+        OnNavigate(lCookie: number, pvarloc: any): void;
 
         /** Used by IExplore to register different processes */
-        ProcessAttachDetach(fAttach: boolean,): void;
+        ProcessAttachDetach(fAttach: boolean): void;
 
         /** Register a window with the list */
-        Register(pid: any, HWND: number, swClass: number, plCookie: number,): void;
+        Register(pid: any, HWND: number, swClass: number, plCookie: number): void;
 
         /** Register a pending open with the list */
-        RegisterPending(lThreadId: number, pvarloc: any, pvarlocRoot: any, swClass: number, plCookie: number,): void;
+        RegisterPending(lThreadId: number, pvarloc: any, pvarlocRoot: any, swClass: number, plCookie: number): void;
 
         /** Remove a window from the list */
-        Revoke(lCookie: number,): void;
+        Revoke(lCookie: number): void;
     }
 
     /** WebBrowser Control */
@@ -973,7 +973,7 @@ declare namespace SHDocVw {
         readonly Busy: boolean;
 
         /** Converts client sizes into window sizes. */
-        ClientToWindow(pcx: number, pcy: number,): void;
+        ClientToWindow(pcx: number, pcy: number): void;
 
         /** Returns the container/parent automation object, if any. */
         readonly Container: any;
@@ -982,7 +982,7 @@ declare namespace SHDocVw {
         readonly Document: any;
 
         /** IOleCommandTarget::Exec */
-        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any,): void;
+        ExecWB(cmdID: OLECMDID, cmdexecopt: OLECMDEXECOPT, pvaIn?: any, pvaOut?: any): void;
 
         /** Returns file specification of the application, including path. */
         readonly FullName: string;
@@ -991,7 +991,7 @@ declare namespace SHDocVw {
         FullScreen: boolean;
 
         /** Retrieve the Associated value for the property vtValue in the context of the object. */
-        GetProperty(Property: string,): any;
+        GetProperty(Property: string): any;
 
         /** Navigates to the previous item in the history list. */
         GoBack(): void;
@@ -1054,10 +1054,10 @@ declare namespace SHDocVw {
         readonly Path: string;
 
         /** Associates vtValue with the name szProperty in the context of the object. */
-        PutProperty(Property: string, vtValue: any,): void;
+        PutProperty(Property: string, vtValue: any): void;
 
         /** IOleCommandTarget::QueryStatus */
-        QueryStatusWB(cmdID: OLECMDID,): OLECMDF;
+        QueryStatusWB(cmdID: OLECMDID): OLECMDF;
 
         /** Exits application and closes the open document. */
         Quit(): void;
@@ -1067,7 +1067,7 @@ declare namespace SHDocVw {
         Refresh(): void;
 
         /** Refresh the currently viewed page. */
-        Refresh2(Level?: RefreshConstants,): void;
+        Refresh2(Level?: RefreshConstants): void;
 
         /** Registers OC as a top-level browser (for target name resolution) */
         RegisterAsBrowser: boolean;
@@ -1079,7 +1079,7 @@ declare namespace SHDocVw {
         Resizable: boolean;
 
         /** Set BrowserBar to Clsid */
-        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean,): void;
+        ShowBrowserBar(pvaClsid: string | BrowserBarConstants, pvarShow?: boolean): void;
 
         /** Controls if any dialog boxes can be shown */
         Silent: boolean;
@@ -1172,7 +1172,7 @@ declare namespace SHDocVw {
         Refresh(): void;
 
         /** Refresh the currently viewed page. */
-        Refresh2(Level?: RefreshConstants,): void;
+        Refresh2(Level?: RefreshConstants): void;
 
         /** Stops opening a file. */
         Stop(): void;
@@ -1378,19 +1378,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'BeforeScriptExecute',
-        argNames: ['pDispWindow',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly pDispWindow: any },) => void,
+        argNames: ['pDispWindow'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly pDispWindow: any }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'ClientToHostWindow',
-        argNames: ['CX', 'CY',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { CX: number; CY: number },) => void,
+        argNames: ['CX', 'CY'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { CX: number; CY: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'CommandStateChange',
-        argNames: ['Command', 'Enable',],
+        argNames: ['Command', 'Enable'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly Command: number; readonly Enable: boolean },
@@ -1399,7 +1399,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'DocumentComplete' | 'NavigateComplete2',
-        argNames: ['pDisp', 'URL',],
+        argNames: ['pDisp', 'URL'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly pDisp: any; readonly URL: any },
@@ -1408,7 +1408,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'FileDownload',
-        argNames: ['ActiveDocument', 'Cancel',],
+        argNames: ['ActiveDocument', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly ActiveDocument: boolean; Cancel: boolean },
@@ -1417,7 +1417,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'NavigateError',
-        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel',],
+        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: {
@@ -1432,7 +1432,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'NewProcess',
-        argNames: ['lCauseFlag', 'pWB2', 'Cancel',],
+        argNames: ['lCauseFlag', 'pWB2', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly lCauseFlag: number; readonly pWB2: any; Cancel: boolean },
@@ -1441,13 +1441,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'NewWindow2',
-        argNames: ['ppDisp', 'Cancel',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { ppDisp: any; Cancel: boolean },) => void,
+        argNames: ['ppDisp', 'Cancel'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { ppDisp: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'NewWindow3',
-        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl',],
+        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: {
@@ -1462,43 +1462,43 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnFullScreen',
-        argNames: ['FullScreen',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly FullScreen: boolean },) => void,
+        argNames: ['FullScreen'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly FullScreen: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnMenuBar',
-        argNames: ['MenuBar',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly MenuBar: boolean },) => void,
+        argNames: ['MenuBar'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly MenuBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnStatusBar',
-        argNames: ['StatusBar',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly StatusBar: boolean },) => void,
+        argNames: ['StatusBar'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly StatusBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnTheaterMode',
-        argNames: ['TheaterMode',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly TheaterMode: boolean },) => void,
+        argNames: ['TheaterMode'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly TheaterMode: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnToolBar',
-        argNames: ['ToolBar',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly ToolBar: boolean },) => void,
+        argNames: ['ToolBar'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly ToolBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'OnVisible',
-        argNames: ['Visible',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Visible: boolean },) => void,
+        argNames: ['Visible'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Visible: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'PrintTemplateInstantiation' | 'PrintTemplateTeardown',
-        argNames: ['pDisp',],
+        argNames: ['pDisp'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly pDisp: any },
@@ -1507,13 +1507,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'PrivacyImpactedStateChange',
-        argNames: ['bImpacted',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly bImpacted: boolean },) => void,
+        argNames: ['bImpacted'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly bImpacted: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'ProgressChange',
-        argNames: ['Progress', 'ProgressMax',],
+        argNames: ['Progress', 'ProgressMax'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly Progress: number; readonly ProgressMax: number },
@@ -1522,13 +1522,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'PropertyChange',
-        argNames: ['szProperty',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly szProperty: string },) => void,
+        argNames: ['szProperty'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly szProperty: string }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'RedirectXDomainBlocked',
-        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode',],
+        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: {
@@ -1543,7 +1543,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'SetPhishingFilterStatus',
-        argNames: ['PhishingFilterStatus',],
+        argNames: ['PhishingFilterStatus'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly PhishingFilterStatus: number },
@@ -1552,19 +1552,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'SetSecureLockIcon',
-        argNames: ['SecureLockIcon',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly SecureLockIcon: number },) => void,
+        argNames: ['SecureLockIcon'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly SecureLockIcon: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'StatusTextChange' | 'TitleChange',
-        argNames: ['Text',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Text: string },) => void,
+        argNames: ['Text'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Text: string }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'ThirdPartyUrlBlocked',
-        argNames: ['URL', 'dwCount',],
+        argNames: ['URL', 'dwCount'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly URL: any; readonly dwCount: number },
@@ -1573,7 +1573,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'UpdatePageStatus',
-        argNames: ['pDisp', 'nPage', 'fDone',],
+        argNames: ['pDisp', 'nPage', 'fDone'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly pDisp: any; readonly nPage: any; readonly fDone: any },
@@ -1582,13 +1582,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WebWorkerFinsihed',
-        argNames: ['dwUniqueID',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly dwUniqueID: number },) => void,
+        argNames: ['dwUniqueID'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly dwUniqueID: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WebWorkerStarted',
-        argNames: ['dwUniqueID', 'bstrWorkerLabel',],
+        argNames: ['dwUniqueID', 'bstrWorkerLabel'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly dwUniqueID: number; readonly bstrWorkerLabel: string },
@@ -1597,7 +1597,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowClosing',
-        argNames: ['IsChildWindow', 'Cancel',],
+        argNames: ['IsChildWindow', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly IsChildWindow: boolean; Cancel: boolean },
@@ -1606,37 +1606,37 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowSetHeight',
-        argNames: ['Height',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Height: number },) => void,
+        argNames: ['Height'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Height: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowSetLeft',
-        argNames: ['Left',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Left: number },) => void,
+        argNames: ['Left'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Left: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowSetResizable',
-        argNames: ['Resizable',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Resizable: boolean },) => void,
+        argNames: ['Resizable'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Resizable: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowSetTop',
-        argNames: ['Top',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Top: number },) => void,
+        argNames: ['Top'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Top: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowSetWidth',
-        argNames: ['Width',],
-        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Width: number },) => void,
+        argNames: ['Width'],
+        handler: (this: SHDocVw.InternetExplorer, parameter: { readonly Width: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'WindowStateChanged',
-        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask',],
+        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask'],
         handler: (
             this: SHDocVw.InternetExplorer,
             parameter: { readonly dwWindowStateFlags: number; readonly dwValidFlagsMask: number },
@@ -1654,7 +1654,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'BeforeScriptExecute',
-        argNames: ['pDispWindow',],
+        argNames: ['pDispWindow'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly pDispWindow: any },
@@ -1663,13 +1663,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'ClientToHostWindow',
-        argNames: ['CX', 'CY',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { CX: number; CY: number },) => void,
+        argNames: ['CX', 'CY'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { CX: number; CY: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'CommandStateChange',
-        argNames: ['Command', 'Enable',],
+        argNames: ['Command', 'Enable'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly Command: number; readonly Enable: boolean },
@@ -1678,7 +1678,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'DocumentComplete' | 'NavigateComplete2',
-        argNames: ['pDisp', 'URL',],
+        argNames: ['pDisp', 'URL'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly pDisp: any; readonly URL: any },
@@ -1687,7 +1687,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'FileDownload',
-        argNames: ['ActiveDocument', 'Cancel',],
+        argNames: ['ActiveDocument', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly ActiveDocument: boolean; Cancel: boolean },
@@ -1696,7 +1696,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'NavigateError',
-        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel',],
+        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: {
@@ -1711,7 +1711,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'NewProcess',
-        argNames: ['lCauseFlag', 'pWB2', 'Cancel',],
+        argNames: ['lCauseFlag', 'pWB2', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly lCauseFlag: number; readonly pWB2: any; Cancel: boolean },
@@ -1720,7 +1720,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'NewWindow2',
-        argNames: ['ppDisp', 'Cancel',],
+        argNames: ['ppDisp', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { ppDisp: any; Cancel: boolean },
@@ -1729,37 +1729,37 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'NewWindow3',
-        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl',],
+        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl'],
         handler: (this: SHDocVw.InternetExplorerMedium, parameter: {
             ppDisp: any;
             Cancel: boolean;
             readonly dwFlags: number;
             readonly bstrUrlContext: string;
             readonly bstrUrl: string;
-        },) => void,
+        }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnFullScreen',
-        argNames: ['FullScreen',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly FullScreen: boolean },) => void,
+        argNames: ['FullScreen'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly FullScreen: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnMenuBar',
-        argNames: ['MenuBar',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly MenuBar: boolean },) => void,
+        argNames: ['MenuBar'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly MenuBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnStatusBar',
-        argNames: ['StatusBar',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly StatusBar: boolean },) => void,
+        argNames: ['StatusBar'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly StatusBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnTheaterMode',
-        argNames: ['TheaterMode',],
+        argNames: ['TheaterMode'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly TheaterMode: boolean },
@@ -1768,25 +1768,25 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnToolBar',
-        argNames: ['ToolBar',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly ToolBar: boolean },) => void,
+        argNames: ['ToolBar'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly ToolBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'OnVisible',
-        argNames: ['Visible',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Visible: boolean },) => void,
+        argNames: ['Visible'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Visible: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'PrintTemplateInstantiation' | 'PrintTemplateTeardown',
-        argNames: ['pDisp',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly pDisp: any },) => void,
+        argNames: ['pDisp'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly pDisp: any }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'PrivacyImpactedStateChange',
-        argNames: ['bImpacted',],
+        argNames: ['bImpacted'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly bImpacted: boolean },
@@ -1795,7 +1795,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'ProgressChange',
-        argNames: ['Progress', 'ProgressMax',],
+        argNames: ['Progress', 'ProgressMax'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly Progress: number; readonly ProgressMax: number },
@@ -1804,13 +1804,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'PropertyChange',
-        argNames: ['szProperty',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly szProperty: string },) => void,
+        argNames: ['szProperty'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly szProperty: string }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'RedirectXDomainBlocked',
-        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode',],
+        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: {
@@ -1825,7 +1825,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'SetPhishingFilterStatus',
-        argNames: ['PhishingFilterStatus',],
+        argNames: ['PhishingFilterStatus'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly PhishingFilterStatus: number },
@@ -1834,7 +1834,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'SetSecureLockIcon',
-        argNames: ['SecureLockIcon',],
+        argNames: ['SecureLockIcon'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly SecureLockIcon: number },
@@ -1843,7 +1843,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'StatusTextChange' | 'TitleChange',
-        argNames: ['Text',],
+        argNames: ['Text'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly Text: string },
@@ -1852,7 +1852,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'ThirdPartyUrlBlocked',
-        argNames: ['URL', 'dwCount',],
+        argNames: ['URL', 'dwCount'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly URL: any; readonly dwCount: number },
@@ -1861,7 +1861,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'UpdatePageStatus',
-        argNames: ['pDisp', 'nPage', 'fDone',],
+        argNames: ['pDisp', 'nPage', 'fDone'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly pDisp: any; readonly nPage: any; readonly fDone: any },
@@ -1870,7 +1870,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WebWorkerFinsihed',
-        argNames: ['dwUniqueID',],
+        argNames: ['dwUniqueID'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly dwUniqueID: number },
@@ -1879,7 +1879,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WebWorkerStarted',
-        argNames: ['dwUniqueID', 'bstrWorkerLabel',],
+        argNames: ['dwUniqueID', 'bstrWorkerLabel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly dwUniqueID: number; readonly bstrWorkerLabel: string },
@@ -1888,7 +1888,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowClosing',
-        argNames: ['IsChildWindow', 'Cancel',],
+        argNames: ['IsChildWindow', 'Cancel'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly IsChildWindow: boolean; Cancel: boolean },
@@ -1897,19 +1897,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowSetHeight',
-        argNames: ['Height',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Height: number },) => void,
+        argNames: ['Height'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Height: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowSetLeft',
-        argNames: ['Left',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Left: number },) => void,
+        argNames: ['Left'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Left: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowSetResizable',
-        argNames: ['Resizable',],
+        argNames: ['Resizable'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly Resizable: boolean },
@@ -1918,19 +1918,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowSetTop',
-        argNames: ['Top',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Top: number },) => void,
+        argNames: ['Top'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Top: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowSetWidth',
-        argNames: ['Width',],
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Width: number },) => void,
+        argNames: ['Width'],
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: { readonly Width: number }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'WindowStateChanged',
-        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask',],
+        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask'],
         handler: (
             this: SHDocVw.InternetExplorerMedium,
             parameter: { readonly dwWindowStateFlags: number; readonly dwValidFlagsMask: number },
@@ -1948,19 +1948,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'BeforeScriptExecute',
-        argNames: ['pDispWindow',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly pDispWindow: any },) => void,
+        argNames: ['pDispWindow'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly pDispWindow: any }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'ClientToHostWindow',
-        argNames: ['CX', 'CY',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { CX: number; CY: number },) => void,
+        argNames: ['CX', 'CY'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { CX: number; CY: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'CommandStateChange',
-        argNames: ['Command', 'Enable',],
+        argNames: ['Command', 'Enable'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly Command: number; readonly Enable: boolean },
@@ -1969,7 +1969,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'DocumentComplete' | 'NavigateComplete2',
-        argNames: ['pDisp', 'URL',],
+        argNames: ['pDisp', 'URL'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly pDisp: any; readonly URL: any },
@@ -1978,7 +1978,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'FileDownload',
-        argNames: ['ActiveDocument', 'Cancel',],
+        argNames: ['ActiveDocument', 'Cancel'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly ActiveDocument: boolean; Cancel: boolean },
@@ -1987,7 +1987,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'NavigateError',
-        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel',],
+        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: {
@@ -2002,7 +2002,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'NewProcess',
-        argNames: ['lCauseFlag', 'pWB2', 'Cancel',],
+        argNames: ['lCauseFlag', 'pWB2', 'Cancel'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly lCauseFlag: number; readonly pWB2: any; Cancel: boolean },
@@ -2011,13 +2011,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'NewWindow2',
-        argNames: ['ppDisp', 'Cancel',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { ppDisp: any; Cancel: boolean },) => void,
+        argNames: ['ppDisp', 'Cancel'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { ppDisp: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'NewWindow3',
-        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl',],
+        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: {
@@ -2032,43 +2032,43 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnFullScreen',
-        argNames: ['FullScreen',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly FullScreen: boolean },) => void,
+        argNames: ['FullScreen'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly FullScreen: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnMenuBar',
-        argNames: ['MenuBar',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly MenuBar: boolean },) => void,
+        argNames: ['MenuBar'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly MenuBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnStatusBar',
-        argNames: ['StatusBar',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly StatusBar: boolean },) => void,
+        argNames: ['StatusBar'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly StatusBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnTheaterMode',
-        argNames: ['TheaterMode',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly TheaterMode: boolean },) => void,
+        argNames: ['TheaterMode'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly TheaterMode: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnToolBar',
-        argNames: ['ToolBar',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly ToolBar: boolean },) => void,
+        argNames: ['ToolBar'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly ToolBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'OnVisible',
-        argNames: ['Visible',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Visible: boolean },) => void,
+        argNames: ['Visible'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Visible: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'PrintTemplateInstantiation' | 'PrintTemplateTeardown',
-        argNames: ['pDisp',],
+        argNames: ['pDisp'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly pDisp: any },
@@ -2077,7 +2077,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'PrivacyImpactedStateChange',
-        argNames: ['bImpacted',],
+        argNames: ['bImpacted'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly bImpacted: boolean },
@@ -2086,7 +2086,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'ProgressChange',
-        argNames: ['Progress', 'ProgressMax',],
+        argNames: ['Progress', 'ProgressMax'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly Progress: number; readonly ProgressMax: number },
@@ -2095,25 +2095,25 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'PropertyChange',
-        argNames: ['szProperty',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly szProperty: string },) => void,
+        argNames: ['szProperty'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly szProperty: string }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'RedirectXDomainBlocked',
-        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode',],
+        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode'],
         handler: (this: SHDocVw.ShellBrowserWindow, parameter: {
             readonly pDisp: any;
             readonly StartURL: any;
             readonly RedirectURL: any;
             readonly Frame: any;
             readonly StatusCode: any;
-        },) => void,
+        }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'SetPhishingFilterStatus',
-        argNames: ['PhishingFilterStatus',],
+        argNames: ['PhishingFilterStatus'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly PhishingFilterStatus: number },
@@ -2122,7 +2122,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'SetSecureLockIcon',
-        argNames: ['SecureLockIcon',],
+        argNames: ['SecureLockIcon'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly SecureLockIcon: number },
@@ -2131,13 +2131,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'StatusTextChange' | 'TitleChange',
-        argNames: ['Text',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Text: string },) => void,
+        argNames: ['Text'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Text: string }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'ThirdPartyUrlBlocked',
-        argNames: ['URL', 'dwCount',],
+        argNames: ['URL', 'dwCount'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly URL: any; readonly dwCount: number },
@@ -2146,7 +2146,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'UpdatePageStatus',
-        argNames: ['pDisp', 'nPage', 'fDone',],
+        argNames: ['pDisp', 'nPage', 'fDone'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly pDisp: any; readonly nPage: any; readonly fDone: any },
@@ -2155,13 +2155,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WebWorkerFinsihed',
-        argNames: ['dwUniqueID',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly dwUniqueID: number },) => void,
+        argNames: ['dwUniqueID'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly dwUniqueID: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WebWorkerStarted',
-        argNames: ['dwUniqueID', 'bstrWorkerLabel',],
+        argNames: ['dwUniqueID', 'bstrWorkerLabel'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly dwUniqueID: number; readonly bstrWorkerLabel: string },
@@ -2170,7 +2170,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowClosing',
-        argNames: ['IsChildWindow', 'Cancel',],
+        argNames: ['IsChildWindow', 'Cancel'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly IsChildWindow: boolean; Cancel: boolean },
@@ -2179,37 +2179,37 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowSetHeight',
-        argNames: ['Height',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Height: number },) => void,
+        argNames: ['Height'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Height: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowSetLeft',
-        argNames: ['Left',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Left: number },) => void,
+        argNames: ['Left'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Left: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowSetResizable',
-        argNames: ['Resizable',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Resizable: boolean },) => void,
+        argNames: ['Resizable'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Resizable: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowSetTop',
-        argNames: ['Top',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Top: number },) => void,
+        argNames: ['Top'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Top: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowSetWidth',
-        argNames: ['Width',],
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Width: number },) => void,
+        argNames: ['Width'],
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: { readonly Width: number }) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'WindowStateChanged',
-        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask',],
+        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask'],
         handler: (
             this: SHDocVw.ShellBrowserWindow,
             parameter: { readonly dwWindowStateFlags: number; readonly dwValidFlagsMask: number },
@@ -2227,8 +2227,8 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.ShellWindows,
         event: 'WindowRegistered' | 'WindowRevoked',
-        argNames: ['lCookie',],
-        handler: (this: SHDocVw.ShellWindows, parameter: { readonly lCookie: number },) => void,
+        argNames: ['lCookie'],
+        handler: (this: SHDocVw.ShellWindows, parameter: { readonly lCookie: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
@@ -2242,19 +2242,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'BeforeScriptExecute',
-        argNames: ['pDispWindow',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly pDispWindow: any },) => void,
+        argNames: ['pDispWindow'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly pDispWindow: any }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'ClientToHostWindow',
-        argNames: ['CX', 'CY',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { CX: number; CY: number },) => void,
+        argNames: ['CX', 'CY'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { CX: number; CY: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'CommandStateChange',
-        argNames: ['Command', 'Enable',],
+        argNames: ['Command', 'Enable'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly Command: number; readonly Enable: boolean },
@@ -2263,7 +2263,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'DocumentComplete' | 'NavigateComplete2',
-        argNames: ['pDisp', 'URL',],
+        argNames: ['pDisp', 'URL'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly pDisp: any; readonly URL: any },
@@ -2272,7 +2272,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'FileDownload',
-        argNames: ['ActiveDocument', 'Cancel',],
+        argNames: ['ActiveDocument', 'Cancel'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly ActiveDocument: boolean; Cancel: boolean },
@@ -2281,7 +2281,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'NavigateError',
-        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel',],
+        argNames: ['pDisp', 'URL', 'Frame', 'StatusCode', 'Cancel'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: {
@@ -2296,7 +2296,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'NewProcess',
-        argNames: ['lCauseFlag', 'pWB2', 'Cancel',],
+        argNames: ['lCauseFlag', 'pWB2', 'Cancel'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly lCauseFlag: number; readonly pWB2: any; Cancel: boolean },
@@ -2305,13 +2305,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'NewWindow2',
-        argNames: ['ppDisp', 'Cancel',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { ppDisp: any; Cancel: boolean },) => void,
+        argNames: ['ppDisp', 'Cancel'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { ppDisp: any; Cancel: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'NewWindow3',
-        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl',],
+        argNames: ['ppDisp', 'Cancel', 'dwFlags', 'bstrUrlContext', 'bstrUrl'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: {
@@ -2326,43 +2326,43 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnFullScreen',
-        argNames: ['FullScreen',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly FullScreen: boolean },) => void,
+        argNames: ['FullScreen'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly FullScreen: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnMenuBar',
-        argNames: ['MenuBar',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly MenuBar: boolean },) => void,
+        argNames: ['MenuBar'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly MenuBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnStatusBar',
-        argNames: ['StatusBar',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly StatusBar: boolean },) => void,
+        argNames: ['StatusBar'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly StatusBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnTheaterMode',
-        argNames: ['TheaterMode',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly TheaterMode: boolean },) => void,
+        argNames: ['TheaterMode'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly TheaterMode: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnToolBar',
-        argNames: ['ToolBar',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly ToolBar: boolean },) => void,
+        argNames: ['ToolBar'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly ToolBar: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'OnVisible',
-        argNames: ['Visible',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Visible: boolean },) => void,
+        argNames: ['Visible'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Visible: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'PrintTemplateInstantiation' | 'PrintTemplateTeardown',
-        argNames: ['pDisp',],
+        argNames: ['pDisp'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly pDisp: any },
@@ -2371,13 +2371,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'PrivacyImpactedStateChange',
-        argNames: ['bImpacted',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly bImpacted: boolean },) => void,
+        argNames: ['bImpacted'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly bImpacted: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'ProgressChange',
-        argNames: ['Progress', 'ProgressMax',],
+        argNames: ['Progress', 'ProgressMax'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly Progress: number; readonly ProgressMax: number },
@@ -2386,13 +2386,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'PropertyChange',
-        argNames: ['szProperty',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly szProperty: string },) => void,
+        argNames: ['szProperty'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly szProperty: string }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'RedirectXDomainBlocked',
-        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode',],
+        argNames: ['pDisp', 'StartURL', 'RedirectURL', 'Frame', 'StatusCode'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: {
@@ -2407,7 +2407,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'SetPhishingFilterStatus',
-        argNames: ['PhishingFilterStatus',],
+        argNames: ['PhishingFilterStatus'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly PhishingFilterStatus: number },
@@ -2416,19 +2416,19 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'SetSecureLockIcon',
-        argNames: ['SecureLockIcon',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly SecureLockIcon: number },) => void,
+        argNames: ['SecureLockIcon'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly SecureLockIcon: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'StatusTextChange' | 'TitleChange',
-        argNames: ['Text',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Text: string },) => void,
+        argNames: ['Text'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Text: string }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'ThirdPartyUrlBlocked',
-        argNames: ['URL', 'dwCount',],
+        argNames: ['URL', 'dwCount'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly URL: any; readonly dwCount: number },
@@ -2437,7 +2437,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'UpdatePageStatus',
-        argNames: ['pDisp', 'nPage', 'fDone',],
+        argNames: ['pDisp', 'nPage', 'fDone'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly pDisp: any; readonly nPage: any; readonly fDone: any },
@@ -2446,13 +2446,13 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WebWorkerFinsihed',
-        argNames: ['dwUniqueID',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly dwUniqueID: number },) => void,
+        argNames: ['dwUniqueID'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly dwUniqueID: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WebWorkerStarted',
-        argNames: ['dwUniqueID', 'bstrWorkerLabel',],
+        argNames: ['dwUniqueID', 'bstrWorkerLabel'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly dwUniqueID: number; readonly bstrWorkerLabel: string },
@@ -2461,7 +2461,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowClosing',
-        argNames: ['IsChildWindow', 'Cancel',],
+        argNames: ['IsChildWindow', 'Cancel'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly IsChildWindow: boolean; Cancel: boolean },
@@ -2470,37 +2470,37 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowSetHeight',
-        argNames: ['Height',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Height: number },) => void,
+        argNames: ['Height'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Height: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowSetLeft',
-        argNames: ['Left',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Left: number },) => void,
+        argNames: ['Left'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Left: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowSetResizable',
-        argNames: ['Resizable',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Resizable: boolean },) => void,
+        argNames: ['Resizable'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Resizable: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowSetTop',
-        argNames: ['Top',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Top: number },) => void,
+        argNames: ['Top'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Top: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowSetWidth',
-        argNames: ['Width',],
-        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Width: number },) => void,
+        argNames: ['Width'],
+        handler: (this: SHDocVw.WebBrowser, parameter: { readonly Width: number }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'WindowStateChanged',
-        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask',],
+        argNames: ['dwWindowStateFlags', 'dwValidFlagsMask'],
         handler: (
             this: SHDocVw.WebBrowser,
             parameter: { readonly dwWindowStateFlags: number; readonly dwValidFlagsMask: number },
@@ -2518,7 +2518,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'CommandStateChange',
-        argNames: ['Command', 'Enable',],
+        argNames: ['Command', 'Enable'],
         handler: (
             this: SHDocVw.WebBrowser_V1,
             parameter: { readonly Command: number; readonly Enable: boolean },
@@ -2536,8 +2536,8 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'FrameNavigateComplete' | 'NavigateComplete',
-        argNames: ['URL',],
-        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly URL: string },) => void,
+        argNames: ['URL'],
+        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly URL: string }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser_V1,
@@ -2560,7 +2560,7 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'ProgressChange',
-        argNames: ['Progress', 'ProgressMax',],
+        argNames: ['Progress', 'ProgressMax'],
         handler: (
             this: SHDocVw.WebBrowser_V1,
             parameter: { readonly Progress: number; readonly ProgressMax: number },
@@ -2569,50 +2569,50 @@ interface ActiveXObject {
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'PropertyChange',
-        argNames: ['Property',],
-        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly Property: string },) => void,
+        argNames: ['Property'],
+        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly Property: string }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'Quit',
-        argNames: ['Cancel',],
-        handler: (this: SHDocVw.WebBrowser_V1, parameter: { Cancel: boolean },) => void,
+        argNames: ['Cancel'],
+        handler: (this: SHDocVw.WebBrowser_V1, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'StatusTextChange' | 'TitleChange',
-        argNames: ['Text',],
-        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly Text: string },) => void,
+        argNames: ['Text'],
+        handler: (this: SHDocVw.WebBrowser_V1, parameter: { readonly Text: string }) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorer,
         event: 'DownloadBegin' | 'DownloadComplete' | 'OnQuit',
-        handler: (this: SHDocVw.InternetExplorer, parameter: {},) => void,
+        handler: (this: SHDocVw.InternetExplorer, parameter: {}) => void,
     ): void;
     on(
         obj: SHDocVw.InternetExplorerMedium,
         event: 'DownloadBegin' | 'DownloadComplete' | 'OnQuit',
-        handler: (this: SHDocVw.InternetExplorerMedium, parameter: {},) => void,
+        handler: (this: SHDocVw.InternetExplorerMedium, parameter: {}) => void,
     ): void;
     on(
         obj: SHDocVw.ShellBrowserWindow,
         event: 'DownloadBegin' | 'DownloadComplete' | 'OnQuit',
-        handler: (this: SHDocVw.ShellBrowserWindow, parameter: {},) => void,
+        handler: (this: SHDocVw.ShellBrowserWindow, parameter: {}) => void,
     ): void;
     on(
         obj: SHDocVw.ShellNameSpace,
         event: 'DoubleClick' | 'Initialized' | 'SelectionChange',
-        handler: (this: SHDocVw.ShellNameSpace, parameter: {},) => void,
+        handler: (this: SHDocVw.ShellNameSpace, parameter: {}) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser,
         event: 'DownloadBegin' | 'DownloadComplete' | 'OnQuit',
-        handler: (this: SHDocVw.WebBrowser, parameter: {},) => void,
+        handler: (this: SHDocVw.WebBrowser, parameter: {}) => void,
     ): void;
     on(
         obj: SHDocVw.WebBrowser_V1,
         event: 'DownloadBegin' | 'DownloadComplete' | 'WindowActivate' | 'WindowMove' | 'WindowResize',
-        handler: (this: SHDocVw.WebBrowser_V1, parameter: {},) => void,
+        handler: (this: SHDocVw.WebBrowser_V1, parameter: {}) => void,
     ): void;
 }
 

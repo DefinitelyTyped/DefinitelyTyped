@@ -9,7 +9,7 @@ declare const CsvAsync: {
     /**
      * @param options
      */
-    generate(options?: CsvAsync.CsvGenerateOptions,): Promise<unknown[]>;
+    generate(options?: CsvAsync.CsvGenerateOptions): Promise<unknown[]>;
 
     /**
      * Parses a CSV file into an array of rows.
@@ -17,16 +17,16 @@ declare const CsvAsync: {
      * @param input
      * @param options
      */
-    parse(input: string, options?: CsvAsync.CsvParseOptions,): Promise<unknown[]>;
+    parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown[]>;
 
     /**
      * @param data
      * @param handler
      * @param options
      */
-    transform<T = any, U = any,>(
+    transform<T = any, U = any>(
         data: T[],
-        handler: (record: T, callback: (err?: Error | null, record?: T,) => void, params?: any,) => U,
+        handler: (record: T, callback: (err?: Error | null, record?: T) => void, params?: any) => U,
         options?: CsvAsync.TransformOptions,
     ): Promise<U[]>;
 
@@ -43,17 +43,17 @@ declare const CsvAsync: {
 };
 
 declare namespace CsvAsync {
-    type CastingFunction = (value: string, context: CastingContext,) => any;
+    type CastingFunction = (value: string, context: CastingContext) => any;
 
-    type CastingDateFunction = (value: string, context: CastingContext,) => Date;
+    type CastingDateFunction = (value: string, context: CastingContext) => Date;
 
     type ColumnOption = string | undefined | null | false | { name: string };
 
     type ParseColumnOption = string | undefined | null;
 
-    type Cast<T,> = (value: T, context: CastingContext,) => string;
+    type Cast<T> = (value: T, context: CastingContext) => string;
 
-    type PlainObject<T,> = Record<string, T>;
+    type PlainObject<T> = Record<string, T>;
 
     type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
 
@@ -193,7 +193,7 @@ declare namespace CsvAsync {
          * in the first CSV line. Defaults to null. Affects the result data set
          * in the sense that records will be objects instead of arrays.
          */
-        columns?: ColumnOption[] | boolean | ((record: any,) => ColumnOption[]) | undefined;
+        columns?: ColumnOption[] | boolean | ((record: any) => ColumnOption[]) | undefined;
 
         /**
          * Treat all the characters after this one as a comment.

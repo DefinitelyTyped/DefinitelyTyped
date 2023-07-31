@@ -1,9 +1,9 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /** Provides a registry for commands that you'd like to appear in the context menu. */
 export interface ContextMenuManager {
     /** Add context menu items scoped by CSS selectors. */
-    add(itemsBySelector: { [key: string]: ReadonlyArray<ContextMenuOptions> },): Disposable;
+    add(itemsBySelector: { [key: string]: ReadonlyArray<ContextMenuOptions> }): Disposable;
 }
 
 export type ContextMenuOptions = ContextMenuItemOptions | { type: 'separator' };
@@ -34,13 +34,13 @@ export interface ContextMenuItemOptions {
      *  A function that is called on the item each time a context menu is created
      *  via a right click.
      */
-    created?(event: Event,): void;
+    created?(event: Event): void;
 
     /**
      *  A function that is called to determine whether to display this item on a
      *  given context menu deployment.
      */
-    shouldDisplay?(event: Event,): void;
+    shouldDisplay?(event: Event): void;
 
     /** Place this menu item before the menu items representing the given commands. */
     before?: ReadonlyArray<string> | undefined;

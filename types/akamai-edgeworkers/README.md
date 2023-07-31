@@ -29,9 +29,9 @@ with the following stubs:
 ```typescript
 /// <reference types="akamai-edgeworkers"/>
 
-export function onClientRequest(request: EW.IngressClientRequest,) {}
-export function onOriginRequest(request: EW.IngressOriginRequest,) {}
-export function responseProvider(request: EW.ResponseProviderRequest,) {}
+export function onClientRequest(request: EW.IngressClientRequest) {}
+export function onOriginRequest(request: EW.IngressOriginRequest) {}
+export function responseProvider(request: EW.ResponseProviderRequest) {}
 export function onOriginResponse(
     request: EW.EgressOriginRequest,
     response: EW.EgressOriginResponse,
@@ -63,10 +63,10 @@ you can import them normally:
 ```typescript
 /// <reference types="akamai-edgeworkers"/>
 
-import { Cookies, } from 'cookies';
+import { Cookies } from 'cookies';
 
-function onClientRequest(request: EW.IngressClientRequest,) {
-    const cookie = new Cookies(request.getHeader('cookies',) || undefined,);
+function onClientRequest(request: EW.IngressClientRequest) {
+    const cookie = new Cookies(request.getHeader('cookies') || undefined);
     // ...
 }
 ```

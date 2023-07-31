@@ -1,4 +1,4 @@
-import { Sprite, } from 'athenajs';
+import { Sprite } from 'athenajs';
 
 const sprite: Sprite = new Sprite('mySprite', {
     imageId: 'tiles',
@@ -17,19 +17,19 @@ const sprite: Sprite = new Sprite('mySprite', {
                     y2: 95,
                 },
                 plane: 0,
-            },],
+            }],
             loop: 0,
         },
     },
-},);
+});
 
 sprite.setAnimation('anim1', () => {
     sprite.setAnimation(
         'anim1',
         () => {
-            console.log('the end!',);
+            console.log('the end!');
         },
         0,
         true,
     );
-},);
+});

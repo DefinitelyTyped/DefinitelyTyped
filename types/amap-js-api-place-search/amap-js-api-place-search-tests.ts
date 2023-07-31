@@ -1,7 +1,7 @@
 declare const map: AMap.Map;
 declare const div: HTMLElement;
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number,];
+declare const lnglatTuple: [number, number];
 declare const bounds: AMap.Bounds;
 declare const polygon: AMap.Polygon;
 declare const lang: AMap.Lang;
@@ -9,7 +9,7 @@ declare const lang: AMap.Lang;
 // $ExpectType PlaceSearch
 const placeSearch = new AMap.PlaceSearch();
 // $ExpectType PlaceSearch
-new AMap.PlaceSearch({},);
+new AMap.PlaceSearch({});
 // $ExpectType PlaceSearch
 new AMap.PlaceSearch({
     city: '深圳',
@@ -25,10 +25,10 @@ new AMap.PlaceSearch({
     showCover: true,
     renderStyle: 'newpc',
     autoFitView: true,
-},);
+});
 
 // $ExpectType void
-placeSearch.search('keyword', (status, result,) => {
+placeSearch.search('keyword', (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
@@ -303,60 +303,60 @@ placeSearch.search('keyword', (status, result,) => {
         // $ExpectType string
         result;
     }
-},);
+});
 
 // $ExpectType void
-placeSearch.searchNearBy('keyword', lnglat, 10, (status, result,) => {
+placeSearch.searchNearBy('keyword', lnglat, 10, (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
-},);
+});
 // $ExpectType void
-placeSearch.searchNearBy('keyword', lnglatTuple, 10, () => {},);
+placeSearch.searchNearBy('keyword', lnglatTuple, 10, () => {});
 
 // $ExpectType void
-placeSearch.searchInBounds('keyword', bounds, (status, result,) => {
+placeSearch.searchInBounds('keyword', bounds, (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
-},);
+});
 // $ExpectType void
-placeSearch.searchInBounds('keyword', polygon, () => {},);
+placeSearch.searchInBounds('keyword', polygon, () => {});
 
 // $ExpectType void
-placeSearch.getDetails('id', (status, result,) => {
+placeSearch.getDetails('id', (status, result) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
-},);
+});
 
 // $ExpectType void
-placeSearch.setType('type',);
+placeSearch.setType('type');
 // $ExpectType void
 placeSearch.setType();
 
 // $ExpectType void
-placeSearch.setCityLimit(true,);
+placeSearch.setCityLimit(true);
 // $ExpectType void
 placeSearch.setCityLimit();
 
 // $ExpectType void
-placeSearch.setPageIndex(1,);
+placeSearch.setPageIndex(1);
 // $ExpectType void
 placeSearch.setPageIndex();
 
 // $ExpectType void
-placeSearch.setPageSize(1,);
+placeSearch.setPageSize(1);
 // $ExpectType void
 placeSearch.setPageSize();
 
 // $ExpectType void
-placeSearch.setCity('city',);
+placeSearch.setCity('city');
 // $ExpectType void
 placeSearch.setCity();
 
 // $ExpectType void
-placeSearch.setLang(lang,);
+placeSearch.setLang(lang);
 // $ExpectType void
 placeSearch.setLang();
 
@@ -369,24 +369,24 @@ placeSearch.clear();
 // $ExpectType void
 placeSearch.poiOnAMAP({
     id: 'id',
-},);
+});
 // $ExpectType void
 placeSearch.poiOnAMAP({
     location: lnglat,
     id: 'id',
     name: 'name',
-},);
+});
 
 // $ExpectType void
 placeSearch.detailOnAMAP({
     id: 'id',
-},);
+});
 // $ExpectType void
 placeSearch.detailOnAMAP({
     location: lnglat,
     id: 'id',
     name: 'name',
-},);
+});
 
 // $ExpectType void
 placeSearch.open();
@@ -394,7 +394,7 @@ placeSearch.open();
 // $ExpectType void
 placeSearch.close();
 
-placeSearch.on('complete', (event: AMap.PlaceSearch.EventMap['complete'],) => {
+placeSearch.on('complete', (event: AMap.PlaceSearch.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
@@ -405,9 +405,9 @@ placeSearch.on('complete', (event: AMap.PlaceSearch.EventMap['complete'],) => {
     event.keywordList;
     // $ExpectType CityInfo[] | undefined
     event.cityList;
-},);
+});
 
-placeSearch.on('listElementClick', (event: AMap.PlaceSearch.EventMap['listElementClick'],) => {
+placeSearch.on('listElementClick', (event: AMap.PlaceSearch.EventMap['listElementClick']) => {
     // $ExpectType MouseEvent
     event.event;
     // $ExpectType string
@@ -418,9 +418,9 @@ placeSearch.on('listElementClick', (event: AMap.PlaceSearch.EventMap['listElemen
     event.marker;
     // $ExpectType HTMLLIElement
     event.listElement;
-},);
+});
 
-placeSearch.on('markerClick', (event: AMap.PlaceSearch.EventMap['markerClick'],) => {
+placeSearch.on('markerClick', (event: AMap.PlaceSearch.EventMap['markerClick']) => {
     const markerEvent = event.event;
     // $ExpectType Marker<any>
     markerEvent.target;
@@ -432,4 +432,4 @@ placeSearch.on('markerClick', (event: AMap.PlaceSearch.EventMap['markerClick'],)
     event.marker;
     // $ExpectType HTMLLIElement
     event.listElement;
-},);
+});

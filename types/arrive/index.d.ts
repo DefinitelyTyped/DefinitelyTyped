@@ -14,21 +14,21 @@ interface Options {
 
 type ArriveSignature = (
     element: string,
-    handlerOrOptions: ((this: Element, element: Element,) => void) | Options,
-    handler?: (this: Element, element: Element,) => void,
+    handlerOrOptions: ((this: Element, element: Element) => void) | Options,
+    handler?: (this: Element, element: Element) => void,
 ) => void;
 type UnbindArriveSignature = (
-    elementOrHandler?: string | ((this: Element, element: Element,) => void),
-    handler?: (this: Element, element: Element,) => void,
+    elementOrHandler?: string | ((this: Element, element: Element) => void),
+    handler?: (this: Element, element: Element) => void,
 ) => void;
 type LeaveSignature = (
     element: string,
-    handlerOrOptions: ((this: Element, element: Element,) => void) | Options,
-    handler?: (this: Element,) => void,
+    handlerOrOptions: ((this: Element, element: Element) => void) | Options,
+    handler?: (this: Element) => void,
 ) => void;
 type UnbindLeaveSignature = (
-    elementOrHandler?: string | ((this: Element, element: Element,) => void),
-    handler?: (this: Element, element: Element,) => void,
+    elementOrHandler?: string | ((this: Element, element: Element) => void),
+    handler?: (this: Element, element: Element) => void,
 ) => void;
 
 declare global {

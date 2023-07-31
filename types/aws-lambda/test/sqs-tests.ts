@@ -1,8 +1,8 @@
-import { SQSEvent, SQSHandler, } from 'aws-lambda';
+import { SQSEvent, SQSHandler } from 'aws-lambda';
 
 // TODO: Update test to read all event properties, like the user will.
 
-const handler: SQSHandler = async (event, context, callback,) => {
+const handler: SQSHandler = async (event, context, callback) => {
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
     strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
@@ -10,17 +10,17 @@ const handler: SQSHandler = async (event, context, callback,) => {
     str = event.Records[0].messageAttributes.testAttr.dataType;
 
     callback();
-    callback(new Error(),);
+    callback(new Error());
 };
 
-const handlerWithResponse: SQSHandler = (event, context, callback,) => {
+const handlerWithResponse: SQSHandler = (event, context, callback) => {
     callback(null, {
         batchItemFailures: [
             {
                 itemIdentifier: event.Records[0].messageId,
             },
         ],
-    },);
+    });
 };
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs

@@ -8,7 +8,7 @@
  * web application (PWA) to the home screen of your mobile
  * iOS device.
  */
-declare function AddToHomeScreen(settings?: AddToHomeScreen.Settings,): void;
+declare function AddToHomeScreen(settings?: AddToHomeScreen.Settings): void;
 
 declare namespace AddToHomeScreen {
     interface Settings {

@@ -45,11 +45,11 @@ export class ExtractPdfOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef,): void;
+    setInput(sourceFileRef: FileRef): void;
     /**
      * Sets the options for Extract PDF operation
      */
-    setOptions(options: ExtractPdfOptions,): void;
+    setOptions(options: ExtractPdfOptions): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -57,8 +57,8 @@ export class ExtractPdfOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<any>;
+    execute(context: ExecutionContext): Promise<any>;
     validate(): void;
 }
-import { ExecutionContext, FileRef, PdfFormat, } from '../pdfservices-sdk';
-import { ExtractPdfOptions, } from './option/extractpdf/extract-pdf-options';
+import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
+import { ExtractPdfOptions } from './option/extractpdf/extract-pdf-options';

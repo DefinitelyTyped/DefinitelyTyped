@@ -22,7 +22,7 @@ declare module 'angular' {
             toggleAll(): void;
 
             // enable fullscreen to a specific element
-            enable(element: Element | HTMLElement,): void;
+            enable(element: Element | HTMLElement): void;
 
             // disable fullscreen
             cancel(): void;

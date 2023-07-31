@@ -40,7 +40,7 @@ export default class RecognitionException extends Error {
      */
     offendingState: -1;
 
-    constructor(params: RecognitionExceptionOpts,);
+    constructor(params: RecognitionExceptionOpts);
 
     /**
      * Gets the set of input symbols which could potentially follow the

@@ -15,19 +15,19 @@ export class BerReader {
     _size: number;
     _offset: number;
 
-    constructor(data: Buffer,);
+    constructor(data: Buffer);
 
     peek(): number | null;
     readBoolean(): boolean | null;
-    readByte(peek: boolean,): number | null;
+    readByte(peek: boolean): number | null;
     readEnumeration(): number | null;
     readInt(): number | null;
-    readLength(offset?: number,): number | null;
-    readOID(tag?: number,): string | null;
-    readSequence(tag?: number,): number | null;
-    readString(tag?: number,): string | null;
-    readString(tag: number, retbuf: boolean,): Buffer | null;
-    _readTag(tag?: number,): number | null;
+    readLength(offset?: number): number | null;
+    readOID(tag?: number): string | null;
+    readSequence(tag?: number): number | null;
+    readString(tag?: number): string | null;
+    readString(tag: number, retbuf: boolean): Buffer | null;
+    _readTag(tag?: number): number | null;
 }
 
 export class BerWriter {
@@ -36,21 +36,21 @@ export class BerWriter {
     readonly _size: number;
     _offset: number;
 
-    constructor(options?: { size: number; growthFactor: number },);
+    constructor(options?: { size: number; growthFactor: number });
 
     endSequence(): void;
-    startSequence(tag?: number,): void;
-    writeBoolean(b: boolean, tag?: number,): void;
-    writeBuffer(buf: Buffer, tag: number,): void;
-    writeByte(b: number,): void;
-    writeEnumeration(i: number, tag?: number,): void;
-    writeInt(i: number, tag?: number,): void;
-    writeLength(len: number,): void;
+    startSequence(tag?: number): void;
+    writeBoolean(b: boolean, tag?: number): void;
+    writeBuffer(buf: Buffer, tag: number): void;
+    writeByte(b: number): void;
+    writeEnumeration(i: number, tag?: number): void;
+    writeInt(i: number, tag?: number): void;
+    writeLength(len: number): void;
     writeNull(): void;
-    writeOID(s: string, tag: number,): void;
-    writeString(s: string, tag?: number,): void;
-    writeStringArray(strings: ReadonlyArray<string>,): void;
-    _ensure(length: number,): void;
+    writeOID(s: string, tag: number): void;
+    writeString(s: string, tag?: number): void;
+    writeStringArray(strings: ReadonlyArray<string>): void;
+    _ensure(length: number): void;
 }
 
 export namespace Ber {

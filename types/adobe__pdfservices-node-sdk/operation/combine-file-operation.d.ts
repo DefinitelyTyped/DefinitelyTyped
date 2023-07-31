@@ -41,7 +41,7 @@ export class CombineFilesOperation {
      * provided, all pages of the PDF will be added in the combined PDF.
      * <p>
      */
-    addInput(sourceFileRef: FileRef, pageRanges?: PageRanges,): void;
+    addInput(sourceFileRef: FileRef, pageRanges?: PageRanges): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -49,9 +49,9 @@ export class CombineFilesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext,): Promise<FileRef>;
-    validate(context: any,): void;
+    execute(context: ExecutionContext): Promise<FileRef>;
+    validate(context: any): void;
     getIncludeRanges(): any[];
     getSourceFileRefs(): any[];
 }
-import { ExecutionContext, FileRef, PageRanges, } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';

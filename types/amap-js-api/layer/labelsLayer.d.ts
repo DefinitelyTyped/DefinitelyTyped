@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace LabelsLayer {
-        interface EventMap<I = LabelsLayer,> {
+        interface EventMap<I = LabelsLayer> {
             click: Event<'click', LabelsLayerEvent<I>>;
             mouseover: Event<'mouseover', LabelsLayerEvent<I>>;
             mouseout: Event<'mouseout', LabelsLayerEvent<I>>;
@@ -14,8 +14,8 @@ declare namespace AMap {
             data: {
                 id: number;
                 name: string;
-                position: [number, number,] | [string, string,];
-                zooms: [number, number,];
+                position: [number, number] | [string, string];
+                zooms: [number, number];
                 rank?: number | undefined;
                 txt?: string | undefined;
             };
@@ -26,7 +26,7 @@ declare namespace AMap {
                 text: LabelMarker.TextOptions;
             };
         }
-        interface LabelsLayerEvent<I,> {
+        interface LabelsLayerEvent<I> {
             data: EventData;
             target: I;
             pixel: Pixel;
@@ -45,7 +45,7 @@ declare namespace AMap {
              * 图层的透明度
              */
             opacity?: number | undefined;
-            zooms?: [number, number,] | undefined;
+            zooms?: [number, number] | undefined;
         }
     }
 
@@ -54,17 +54,17 @@ declare namespace AMap {
          * 标注图层
          * @param options 选项
          */
-        constructor(options?: LabelsLayer.Options,);
+        constructor(options?: LabelsLayer.Options);
         /**
          * 图层中添加LabelMarker
          * @param labelMarker 标注对象
          */
-        add(labelMarker: LabelMarker | LabelMarker[],): void;
+        add(labelMarker: LabelMarker | LabelMarker[]): void;
         /**
          * 图层中移除LabelMarker
          * @param labelMarker 标注对象
          */
-        remove(labelMarker: LabelMarker,): void;
+        remove(labelMarker: LabelMarker): void;
         /**
          * 清空图层
          */
@@ -77,9 +77,9 @@ declare namespace AMap {
          * @param once 触发一次
          * @param unshift 更改事件顺序
          */
-        on<C = this,>(
+        on<C = this>(
             eventName: string,
-            handler: (this: C, event: any,) => void,
+            handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
             unshift?: boolean,
@@ -90,9 +90,9 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        off<C = this,>(
+        off<C = this>(
             eventName: string,
-            handler: ((this: C, event: any,) => void) | 'mv',
+            handler: ((this: C, event: any) => void) | 'mv',
             context?: C,
         ): any; // should be void
     }

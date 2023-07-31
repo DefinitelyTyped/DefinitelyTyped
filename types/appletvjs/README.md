@@ -17,5 +17,5 @@ All non global objects have interfaces in the AppleTVJS type definition file are
 To use them simple provide the namespace like so:
 
 ```ts
-var keyboard: AppleTVJS.Keyboard = textfield.getFeature('Keyboard',);
+var keyboard: AppleTVJS.Keyboard = textfield.getFeature('Keyboard');
 ```

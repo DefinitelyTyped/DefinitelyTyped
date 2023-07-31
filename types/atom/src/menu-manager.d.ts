@@ -1,9 +1,9 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /** Provides a registry for menu items that you'd like to appear in the application menu. */
 export interface MenuManager {
     /** Adds the given items to the application menu. */
-    add(items: ReadonlyArray<MenuOptions>,): Disposable;
+    add(items: ReadonlyArray<MenuOptions>): Disposable;
 
     /** Refreshes the currently visible menu. */
     update(): void;

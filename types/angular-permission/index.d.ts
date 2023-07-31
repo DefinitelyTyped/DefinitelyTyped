@@ -60,7 +60,7 @@ declare module 'angular' {
              *
              * @param permissionName {String} Name of defined permission
              */
-            removePermissionDefinition(permissionName: string,): void;
+            removePermissionDefinition(permissionName: string): void;
 
             /**
              * Checks if permission exists
@@ -69,7 +69,7 @@ declare module 'angular' {
              * @param permissionName {String} Name of defined permission
              * @returns {Boolean}
              */
-            hasPermissionDefinition(permissionName: string,): boolean;
+            hasPermissionDefinition(permissionName: string): boolean;
 
             /**
              * Returns permission by it's name
@@ -77,7 +77,7 @@ declare module 'angular' {
              *
              * @returns {permission.Permission} Permissions definition object
              */
-            getPermissionDefinition(permissionName: string,): Permission;
+            getPermissionDefinition(permissionName: string): Permission;
 
             /**
              * Returns all permissions
@@ -122,7 +122,7 @@ declare module 'angular' {
              * @param roleName {String} Name of role
              * @returns {Boolean}
              */
-            hasRoleDefinition(roleName: string,): boolean;
+            hasRoleDefinition(roleName: string): boolean;
 
             /**
              * Returns role definition object by it's name
@@ -130,7 +130,7 @@ declare module 'angular' {
              *
              * @returns {permission.Role} Role definition object
              */
-            getRoleDefinition(roleName: string,): Role;
+            getRoleDefinition(roleName: string): Role;
 
             /**
              * Removes all role definitions
@@ -144,7 +144,7 @@ declare module 'angular' {
              *
              * @param roleName {String} Name of defined permission
              */
-            removeRoleDefinition(roleName: string,): void;
+            removeRoleDefinition(roleName: string): void;
 
             /**
              * Returns all role definitions

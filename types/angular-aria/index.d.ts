@@ -31,14 +31,14 @@ declare module 'angular' {
          * $ariaProvider (https://docs.angularjs.org/api/ngAria/provider/$ariaProvider).
          */
         interface IAriaProvider {
-            config(config: IAriaProviderOptions,): void;
+            config(config: IAriaProviderOptions): void;
         }
 
         /**
          * $aria service (https://docs.angularjs.org/api/ngAria/service/$aria).
          */
         interface IAriaService {
-            config(attribute: IAriaAttribute,): boolean;
+            config(attribute: IAriaAttribute): boolean;
         }
     }
 }

@@ -9,9 +9,9 @@ export default class DFASerializer {
     readonly literalNames: string[];
     readonly symbolicNames: string[];
 
-    constructor(dfa: DFA, literalNames?: string[], symbolicNames?: string[],);
+    constructor(dfa: DFA, literalNames?: string[], symbolicNames?: string[]);
 
     toString(): string | null;
-    getEdgeLabel(i: number,): string;
-    getStateString(s: DFAState,): string;
+    getEdgeLabel(i: number): string;
+    getStateString(s: DFAState): string;
 }

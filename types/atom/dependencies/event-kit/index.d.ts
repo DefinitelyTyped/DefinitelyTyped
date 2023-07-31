@@ -1,10 +1,10 @@
 /** A handle to a resource that can be disposed. */
 export class Disposable implements DisposableLike {
     /** Ensure that Object correctly implements the Disposable contract. */
-    static isDisposable(object: object,): boolean;
+    static isDisposable(object: object): boolean;
 
     /** Construct a Disposable. */
-    constructor(disposableAction?: () => void,);
+    constructor(disposableAction?: () => void);
 
     /** A callback which will be called within dispose(). */
     disposalAction?(): void;
@@ -38,10 +38,10 @@ export class CompositeDisposable implements DisposableLike {
     add(...disposables: DisposableLike[]): void;
 
     /** Remove a previously added disposable. */
-    remove(disposable: DisposableLike,): void;
+    remove(disposable: DisposableLike): void;
 
     /** Alias to CompositeDisposable::remove. */
-    delete(disposable: DisposableLike,): void;
+    delete(disposable: DisposableLike): void;
 
     /**
      *  Clear all disposables. They will not be disposed by the next call to
@@ -55,7 +55,7 @@ export class CompositeDisposable implements DisposableLike {
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
 // tslint:disable-next-line:no-any
-export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {},> implements DisposableLike {
+export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}> implements DisposableLike {
     /** Construct an emitter. */
     constructor();
 
@@ -67,25 +67,25 @@ export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissio
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof OptionalEmissions,>(eventName: T, handler: (value?: OptionalEmissions[T],) => void,): Disposable;
+    on<T extends keyof OptionalEmissions>(eventName: T, handler: (value?: OptionalEmissions[T]) => void): Disposable;
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof RequiredEmissions,>(eventName: T, handler: (value: RequiredEmissions[T],) => void,): Disposable;
+    on<T extends keyof RequiredEmissions>(eventName: T, handler: (value: RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof OptionalEmissions,>(
+    once<T extends keyof OptionalEmissions>(
         eventName: T,
-        handler: (value?: OptionalEmissions[T],) => void,
+        handler: (value?: OptionalEmissions[T]) => void,
     ): Disposable;
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof RequiredEmissions,>(
+    once<T extends keyof RequiredEmissions>(
         eventName: T,
-        handler: (value: RequiredEmissions[T],) => void,
+        handler: (value: RequiredEmissions[T]) => void,
     ): Disposable;
 
     /**
@@ -93,25 +93,25 @@ export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissio
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof OptionalEmissions,>(
+    preempt<T extends keyof OptionalEmissions>(
         eventName: T,
-        handler: (value?: OptionalEmissions[T],) => void,
+        handler: (value?: OptionalEmissions[T]) => void,
     ): Disposable;
     /**
      *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
-    preempt<T extends keyof RequiredEmissions,>(
+    preempt<T extends keyof RequiredEmissions>(
         eventName: T,
-        handler: (value: RequiredEmissions[T],) => void,
+        handler: (value: RequiredEmissions[T]) => void,
     ): Disposable;
 
     // Event Emission
     /** Invoke the handlers registered via ::on for the given event name. */
-    emit<T extends keyof OptionalEmissions,>(eventName: T, value?: OptionalEmissions[T],): void;
+    emit<T extends keyof OptionalEmissions>(eventName: T, value?: OptionalEmissions[T]): void;
     /** Invoke the handlers registered via ::on for the given event name. */
-    emit<T extends keyof RequiredEmissions,>(eventName: T, value: RequiredEmissions[T],): void;
+    emit<T extends keyof RequiredEmissions>(eventName: T, value: RequiredEmissions[T]): void;
 }
 
 export interface DisposableLike {

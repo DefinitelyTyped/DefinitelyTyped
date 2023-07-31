@@ -27,7 +27,7 @@ export interface DocOptions {
     colorize?: boolean | undefined;
     filters?: Record<string, string> | {
         [keys: string]: {
-            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[],) => void;
+            postFilter: (parsedFiles: ParsedFile[], parsedFilenames: string[]) => void;
         };
     } | undefined;
     languages?: Record<string, string> | {
@@ -37,7 +37,7 @@ export interface DocOptions {
         };
     } | undefined;
     parsers?: Record<string, string> | {
-        parse: (content: string, source: string, messages: string,) => {
+        parse: (content: string, source: string, messages: string) => {
             name: string;
             title: string;
             description: string;

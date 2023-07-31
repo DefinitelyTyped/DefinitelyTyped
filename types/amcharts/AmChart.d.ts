@@ -12,7 +12,7 @@ export default class AmChart {
     /**
      * used when constructing a chart with a theme
      */
-    constructor(theme?: any,);
+    constructor(theme?: any);
     /**
      * Specifies, if class names should be added to chart elements.
      */
@@ -281,7 +281,7 @@ export default class AmChart {
      * @param legend - The legend.
      * @param legendDivId - Id of the legend div (optional).
      */
-    addLegend(legend: AmLegend, legendDivId?: string,): void;
+    addLegend(legend: AmLegend, legendDivId?: string): void;
     /**
      * Adds a legend to the chart.
      * By default, you don't need to create div for your legend,
@@ -291,7 +291,7 @@ export default class AmChart {
      * @param legend - The legend.
      * @param legendDiv - Legend div (optional).
      */
-    addLegend(legend: AmLegend, legendDiv: HTMLElement,): void;
+    addLegend(legend: AmLegend, legendDiv: HTMLElement): void;
 
     /**
      * Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap.
@@ -301,7 +301,7 @@ export default class AmChart {
      * text - text of a title size - font size color - title color alpha - title opacity bold -
      * boolean value indicating if title should be bold.
      */
-    addTitle(text: string, size: number, color: string, alpha: number, bold: boolean,): void;
+    addTitle(text: string, size: number, color: string, alpha: number, bold: boolean): void;
     /**
      * Clears the chart area, intervals, etc.
      */
@@ -332,7 +332,7 @@ export default class AmChart {
     /**
      * Adds chart to the specified DIV.
      */
-    write(container: string | HTMLDivElement,): void;
+    write(container: string | HTMLDivElement): void;
 
     /**
      * Adds event listener of the type "dataUpdated" or "init" to the object.
@@ -354,5 +354,5 @@ export default class AmChart {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any,): void;
+    removeListener(chart: AmChart, type: string, handler: any): void;
 }

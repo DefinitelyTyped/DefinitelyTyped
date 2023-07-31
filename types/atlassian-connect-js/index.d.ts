@@ -35,7 +35,7 @@ declare namespace AP {
             /**
              * An optional callback function executed when a HTTP status error code is returned.
              */
-            error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any,) => void;
+            error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
             /**
              * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
@@ -47,7 +47,7 @@ declare namespace AP {
                 /**
                  * An optional callback function executed on a 200 success status code.
                  */
-                success?: (response: string,) => void;
+                success?: (response: string) => void;
 
                 /**
                  * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
@@ -58,7 +58,7 @@ declare namespace AP {
                 /**
                  * An optional callback function executed on a 200 success status code.
                  */
-                success?: (response: ArrayBuffer,) => void;
+                success?: (response: ArrayBuffer) => void;
 
                 /**
                  * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
@@ -67,14 +67,14 @@ declare namespace AP {
             }
         );
 
-    function defineGlobal(module: object,): void;
-    function defineModule(name: string, module: object,): void;
+    function defineGlobal(module: object): void;
+    function defineModule(name: string, module: object): void;
 
     /**
      * Get the location of the current page of the host product.
      * @param callback
      */
-    function getLocation(callback: (location: string,) => void,): void;
+    function getLocation(callback: (location: string) => void): void;
 
     /**
      * Resize the iframe to a specified width and height.
@@ -86,7 +86,7 @@ declare namespace AP {
      * @param width the desired width
      * @param height the desired height
      */
-    function resize(width: string, height: string,): void;
+    function resize(width: string, height: string): void;
 
     /**
      * Resize the iframe, so that it takes the entire page. Add-on may define to hide the footer using data-options.
@@ -94,13 +94,13 @@ declare namespace AP {
      * Note that this method is only available for general page modules.
      * @param hideFooter true if the footer is supposed to be hidden
      */
-    function sizeToParent(hideFooter: boolean,): void;
+    function sizeToParent(hideFooter: boolean): void;
 
     /**
      * Hide footer..
      * @param hideFooter true if the footer is supposed to be hidden
      */
-    function hideFooter(hideFooter: boolean,): void;
+    function hideFooter(hideFooter: boolean): void;
 
     /**
      * allows for dynamic rejection of ajax requests before they can be invoked. eg: by checking against a whitelist
@@ -186,7 +186,7 @@ declare namespace AP {
          * AP.confluence.saveMacro({foo: 'bar'});
          * AP.confluence.saveMacro({foo: 'bar'}, "a new macro body");
          */
-        function saveMacro(macroParameters: object, macroBody?: string,): void;
+        function saveMacro(macroParameters: object, macroBody?: string): void;
 
         /**
          * Closes the macro editor, if it is open.
@@ -205,7 +205,7 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        function getMacroData(callback: (data: object,) => void,): void;
+        function getMacroData(callback: (data: object) => void): void;
 
         /**
          * Get the body saved in the saveMacro method.
@@ -215,7 +215,7 @@ declare namespace AP {
          *   alert(body);
          * });
          */
-        function getMacroBody(callback: (body: string,) => void,): void;
+        function getMacroBody(callback: (body: string) => void): void;
 
         /**
          * Provide handlers for property panel control events
@@ -238,7 +238,7 @@ declare namespace AP {
          *   }
          * });
          */
-        function onMacroPropertyPanelEvent(eventBindings: Record<string, () => void>,): void;
+        function onMacroPropertyPanelEvent(eventBindings: Record<string, () => void>): void;
 
         /**
          * Closes the macro property panel, if it is open.
@@ -256,7 +256,7 @@ declare namespace AP {
          *   alert(property);
          * });
          */
-        function getContentProperty(key: string, callback: (property: ContentProperty,) => void,): void;
+        function getContentProperty(key: string, callback: (property: ContentProperty) => void): void;
 
         /**
          * Sets the provided Content Property against the current Content, sending the result to the callback.
@@ -276,7 +276,7 @@ declare namespace AP {
          */
         function setContentProperty(
             contentProperty: ContentProperty,
-            callback: (result: { property: ContentProperty } | { error: string },) => void,
+            callback: (result: { property: ContentProperty } | { error: string }) => void,
         ): void;
 
         /**
@@ -288,7 +288,7 @@ declare namespace AP {
          *   alert(property);
          * });
          */
-        function syncPropertyFromServer(key: string, callback: (property: ContentProperty,) => void,): void;
+        function syncPropertyFromServer(key: string, callback: (property: ContentProperty) => void): void;
     }
 
     /**
@@ -299,14 +299,14 @@ declare namespace AP {
          * Retrieves the current user context as a JWT token containing details such as space key, issue id, etc. Throws an error if add-on does not support JWT authentication
          * @param callback the callback that handles the response
          */
-        function getToken(callback: (token: string,) => void,): void;
+        function getToken(callback: (token: string) => void): void;
         function getToken(): Promise<string>;
 
         /**
          * Retrieves the current user context containing details such as space key, issue id, etc.
          * @param callback the callback that handles the response
          */
-        function getContext(callback: (context: any,) => void,): void;
+        function getContext(callback: (context: any) => void): void;
         function getContext(): Promise<any>;
     }
 
@@ -320,20 +320,20 @@ declare namespace AP {
          * @param value value of cookie
          * @param expires number of days before cookie expires
          */
-        function save(name: string, value: string, expires: number,): void;
+        function save(name: string, value: string, expires: number): void;
 
         /**
          * Get the value of a cookie.
          * @param name name of cookie to read
          * @param callback callback to pass cookie data
          */
-        function read(name: string, callback: (value: string,) => void,): void;
+        function read(name: string, callback: (value: string) => void): void;
 
         /**
          * Remove the given cookie.
          * @param name the name of the cookie to remove
          */
-        function erase(name: string,): void;
+        function erase(name: string): void;
     }
 
     /**
@@ -452,14 +452,14 @@ declare namespace AP {
              * @param event Event to intercept
              * @see InterceptableEvent
              */
-            intercept: (event: InterceptableEvent,) => void;
+            intercept: (event: InterceptableEvent) => void;
 
             /**
              * Used inside an event listener for a `confluence.customcontent.submit` event to submit the content of the macro.
              * @param contentBody can be either content body string, a complete content object or false (cancels submit action)
              * @see InterceptableEvent
              */
-            submitCallback: (contentBody: string | object | false,) => void;
+            submitCallback: (contentBody: string | object | false) => void;
 
             /**
              * Used inside an event listener for a `confluence.customcontent.submitSuccess` event to do something before the user is redirected and/or
@@ -469,7 +469,7 @@ declare namespace AP {
              * @param error The error to display if no redirect is desired
              * @see InterceptableEvent
              */
-            submitSuccessCallback: (doRedirect: boolean, error?: string,) => void;
+            submitSuccessCallback: (doRedirect: boolean, error?: string) => void;
 
             /**
              * Used inside an event listener for a `confluence.customcontent.submitError` event to do something before the error is being shown and/or
@@ -478,7 +478,7 @@ declare namespace AP {
              * @param customError The error to show instead of the default Confluence one
              * @see InterceptableEvent
              */
-            submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string,) => void;
+            submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string) => void;
 
             /**
              * Used inside an event listener for a `confluence.customcontent.cancel` event to do something before the user is redirected and/or
@@ -488,7 +488,7 @@ declare namespace AP {
              * @param error The error to display if no redirect is desired
              * @see InterceptableEvent
              */
-            cancelCallback: (doRedirect: boolean, error?: string,) => void;
+            cancelCallback: (doRedirect: boolean, error?: string) => void;
         }
 
         /**
@@ -584,7 +584,7 @@ declare namespace AP {
              * Query a button for its current state.
              * @param callback function to receive the button state.
              */
-            isEnabled(callback: (enabled: boolean,) => void,): void;
+            isEnabled(callback: (enabled: boolean) => void): void;
 
             /**
              * Toggle the button state between enabled and disabled.
@@ -600,7 +600,7 @@ declare namespace AP {
              * Query a button for its current hidden/visible state.
              * @param callback function to receive the button state.
              */
-            isHidden(callback: (hidden: boolean,) => void,): void;
+            isHidden(callback: (hidden: boolean) => void): void;
 
             /**
              * Sets the button state to hidden
@@ -614,32 +614,32 @@ declare namespace AP {
         }
 
         interface Dialog {
-            on: (name: string, callback: () => void,) => void;
+            on: (name: string, callback: () => void) => void;
         }
 
         /**
          * Creates a dialog for a common dialog, page or web-item module key.
          * @param options configuration object of dialog options.
          */
-        function create(options: DialogOptions,): Dialog;
+        function create(options: DialogOptions): Dialog;
 
         /**
          * Closes the currently open dialog. Optionally pass data to listeners of the `dialog.close` event. This will only close a dialog that has been opened by your add-on.
          * You can register for close events using the `dialog.close` event and the events module.
          * @param data
          */
-        function close(data?: object,): void;
+        function close(data?: object): void;
 
         /**
          * Passes the custom data Object to the specified callback function.
          * @param callback Callback method to be executed with the custom data.
          */
-        function getCustomData(callback: (customData: object,) => void,): void;
+        function getCustomData(callback: (customData: object) => void): void;
 
         /**
          * Returns the button that was requested (either cancel or submit). If the requested button does not exist, an empty Object will be returned instead.
          */
-        function getButton(button: 'cancel' | 'submit',): DialogButton | {};
+        function getButton(button: 'cancel' | 'submit'): DialogButton | {};
 
         /**
          * Stop the dialog from closing when the submit button is clicked
@@ -657,7 +657,7 @@ declare namespace AP {
          * If this property is true then the dialog should close if ESC is pressed.
          * @param callback function to receive the 'closeOnEscape' value.
          */
-        function isCloseOnEscape(callback: (enabled: boolean,) => void,): void;
+        function isCloseOnEscape(callback: (enabled: boolean) => void): void;
     }
 
     /**
@@ -674,7 +674,7 @@ declare namespace AP {
          * @param name The event name to subscribe the listener to
          * @param listener A listener callback to subscribe to the event name
          */
-        function on(name: string, listener: (data: object,) => void,): void;
+        function on(name: string, listener: (data: object) => void): void;
 
         /**
          * Adds a listener for all occurrences of a public event of a particular name.
@@ -686,7 +686,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe to the event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function onPublic(name: string, listener: (data: object,) => void, filter: (toCompare: any,) => boolean,): void;
+        function onPublic(name: string, listener: (data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Adds a listener for one occurrence of an event of a particular name.
@@ -695,7 +695,7 @@ declare namespace AP {
          * @param name The event name to subscribe the listener to
          * @param listener A listener callback to subscribe to the event name
          */
-        function once(name: string, listener: (data: object,) => void,): void;
+        function once(name: string, listener: (data: object) => void): void;
 
         /**
          * Adds a listener for one occurrence of a public event of a particular name.
@@ -709,8 +709,8 @@ declare namespace AP {
          */
         function oncePublic(
             name: string,
-            listener: (data: object,) => void,
-            filter: (toCompare: any,) => boolean,
+            listener: (data: object) => void,
+            filter: (toCompare: any) => boolean,
         ): void;
 
         /**
@@ -719,7 +719,7 @@ declare namespace AP {
          * Listener arguments begin with the event name, followed by any arguments passed to `events.emit`, followed by an object describing the complete event information.
          * @param listener A listener callback to subscribe for any event name
          */
-        function onAny(listener: (name: string, data: object,) => void,): void;
+        function onAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Adds a listener for all occurrences of any event, regardless of name.
@@ -731,8 +731,8 @@ declare namespace AP {
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
         function onAnyPublic(
-            listener: (name: string, data: object,) => void,
-            filter: (toCompare: any,) => boolean,
+            listener: (name: string, data: object) => void,
+            filter: (toCompare: any) => boolean,
         ): void;
 
         /**
@@ -740,38 +740,38 @@ declare namespace AP {
          * @param name The event name to unsubscribe the listener from
          * @param listener The listener callback to unsubscribe from the event name
          */
-        function off(name: string, listener: (data: object,) => void,): void;
+        function off(name: string, listener: (data: object) => void): void;
 
         /**
          * Removes a particular listener for a public event.
          * @param name The event name to unsubscribe the listener from
          * @param listener The listener callback to unsubscribe from the event name
          */
-        function offPublic(name: string, listener: (data: object,) => void,): void;
+        function offPublic(name: string, listener: (data: object) => void): void;
 
         /**
          * Removes all listeners from an event name, or unsubscribes all event-name-specific listeners if no name if given.
          * @param name  The event name to unsubscribe all listeners from
          */
-        function offAll(name: string,): void;
+        function offAll(name: string): void;
 
         /**
          * Removes all listeners from a public event name, or unsubscribes all event-name-specific listeners for public events if no name if given.
          * @param name The event name to unsubscribe all listeners from
          */
-        function offAllPublic(name: string,): void;
+        function offAllPublic(name: string): void;
 
         /**
          * Removes an `any` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAny(listener: (name: string, data: object,) => void,): void;
+        function offAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Removes an `anyPublic` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAnyPublic(listener: (name: string, data: object,) => void,): void;
+        function offAnyPublic(listener: (name: string, data: object) => void): void;
 
         /**
          * Emits an event on this bus, firing listeners by name as well as all 'any' listeners.
@@ -780,7 +780,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[],): void;
+        function emit(name: string, args: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -791,7 +791,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[],): void;
+        function emitPublic(name: string, args: string[]): void;
     }
 
     /**
@@ -857,7 +857,7 @@ declare namespace AP {
          * A zero delta will reload the current page. If the delta is out of range, does nothing. This call invoke the popState callback.
          * @param delta Number of places to move in the history
          */
-        function go(delta: number,): void;
+        function go(delta: number): void;
 
         /**
          * Retrieves the current state of the history stack and returns the value. The returned value is the same as what was set with the pushState method.
@@ -871,13 +871,13 @@ declare namespace AP {
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string,): void;
+        function pushState(newState: object, title: string, url: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.
          * @param url URL to update current history value with
          */
-        function replaceState(url: string,): void;
+        function replaceState(url: string): void;
     }
 
     /**
@@ -890,7 +890,7 @@ declare namespace AP {
          * @deprecated This method has been deprecated by Atlassian for security reasons and will always return an empty string as of 2022-07-11.
          * @see {@link https://community.developer.atlassian.com/t/deprecation-of-connect-js-getselectedtext-api-for-security-reasons/54968}
          */
-        function getSelectedText(callback: (selection: string,) => void,): void;
+        function getSelectedText(callback: (selection: string) => void): void;
     }
 
     /**
@@ -916,13 +916,13 @@ declare namespace AP {
              * Validate a workflow configuration before saving
              * @param listener called on validation. Return false to indicate that validation has not passed and the workflow cannot be saved.
              */
-            onSaveValidation(listener: (listener: object,) => void,): void;
+            onSaveValidation(listener: (listener: object) => void): void;
 
             /**
              * Attach a callback function to run when a workflow is saved
              * @param listener called on save.
              */
-            onSave(listener: (listener: object,) => void,): void;
+            onSave(listener: (listener: object) => void): void;
 
             /**
              * Save a workflow configuration if valid.
@@ -969,7 +969,7 @@ declare namespace AP {
             /**
              * Callback that will be invoked when the date (and time) is selected by the user.
              */
-            onSelect: (isoDate: string, date: Date,) => void;
+            onSelect: (isoDate: string, date: Date) => void;
         }
 
         /**
@@ -979,13 +979,13 @@ declare namespace AP {
          */
         function refreshIssuePage(): void;
 
-        function getWorkflowConfiguration(callback: (workflowConfiguration: WorkflowConfiguration,) => void,): void;
+        function getWorkflowConfiguration(callback: (workflowConfiguration: WorkflowConfiguration) => void): void;
 
         /**
          * Returns whether the current user is permitted to edit the dashboard item
          * @param callback the callback that handles the response
          */
-        function isDashboardItemEditable(callback: (editable: boolean,) => void,): void;
+        function isDashboardItemEditable(callback: (editable: boolean) => void): void;
 
         /**
          * Open the quick create issue dialog. The dialog fields may be pre-filled with supplied data. A callback will be invoked when the dialog is closed and will include an array of issues created.
@@ -993,7 +993,7 @@ declare namespace AP {
          * @param params contains data to pre-fill the dialog with
          */
         function openCreateIssueDialog(
-            callback: (issues: object[],) => void,
+            callback: (issues: object[]) => void,
             params: { pid: number; issueType: number; fields: object },
         ): void;
 
@@ -1001,13 +1001,13 @@ declare namespace AP {
          * Set the title of a dashboard item to the given text.
          * @param title the title of the dashboard item. Any HTML is escaped.
          */
-        function setDashboardItemTitle(title: string,): void;
+        function setDashboardItemTitle(title: string): void;
 
         /**
          * Shows a date picker component. A callback will be invoked when the date (and time) is selected by the user.
          * @param options Configuration of the date picker.
          */
-        function openDatePicker(options: Partial<DatePickerOptions>,): void;
+        function openDatePicker(options: Partial<DatePickerOptions>): void;
 
         /**
          * Prepares the JQL Editor dialog in preparation for fast rendering. This method should be called on iframe load if it contains a JQL editor trigger.
@@ -1020,7 +1020,7 @@ declare namespace AP {
          * @param options contains data to pre-fill the dialog with
          */
         function showJQLEditor(
-            callback: (obj: { jql: string },) => void,
+            callback: (obj: { jql: string }) => void,
             options: Partial<{
                 /**
                  * Optionally provide initial JQL to pre-fill the dialog with
@@ -1053,7 +1053,7 @@ declare namespace AP {
          * Returns whether the addon is being shown within a native app on iOS, Android or Mac.
          * @param callback the callback that handles the response
          */
-        function isNativeApp(callback: (isNative: boolean,) => void,): void;
+        function isNativeApp(callback: (isNative: boolean) => void): void;
     }
 
     /**
@@ -1239,7 +1239,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string,) => void,): void;
+        function getLocation(callback: (location: string) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.
@@ -1248,7 +1248,7 @@ declare namespace AP {
          * @param target
          * @param context
          */
-        function go(target: NavigatorTargetJira | NavigatorTargetConfluence, context: Partial<NavigatorContext>,): void;
+        function go(target: NavigatorTargetJira | NavigatorTargetConfluence, context: Partial<NavigatorContext>): void;
 
         /**
          * Triggers a reload of the parent page.
@@ -1265,7 +1265,7 @@ declare namespace AP {
          * @param callback callback to pass the scroll position
          */
         function getPosition(
-            callback: (position: { scrollY: number; scrollX: number; width: number; height: number },) => void,
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
         ): void;
 
         /**
@@ -1275,7 +1275,7 @@ declare namespace AP {
          */
         function setVerticalPosition(
             y: number,
-            callback: (position: { scrollY: number; scrollX: number; width: number; height: number },) => void,
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
         ): void;
     }
 
@@ -1292,13 +1292,13 @@ declare namespace AP {
          * @deprecated Please use a new method AP.user.getCurrentUser() which will simply return the Atlassian Account ID.
          * @param callback the callback that handles the response
          */
-        function getUser(callback: (user: { id: string; key: string; fullName: string },) => void,): void;
+        function getUser(callback: (user: { id: string; key: string; fullName: string }) => void): void;
 
         /**
          * This method retrieves the current user object containing the user's Atlassian Account ID.
          * @param callback the callback that handles the response. A single parameter is passed to the callback. This parameter is an object comprising an attribute "atlassianAccountId".
          */
-        function getCurrentUser(callback: (user: { atlassianAccountId: string },) => void,): void;
+        function getCurrentUser(callback: (user: { atlassianAccountId: string }) => void): void;
 
         /**
          * Retrieve the current user's timezone. If there is no logged in user, the server timezone is returned.
@@ -1308,7 +1308,7 @@ declare namespace AP {
          * You should not present the user's timezone in a way that can be seen by other users viewing the application.
          * @param callback the callback that handles the response
          */
-        function getTimeZone(callback: (timezone: string,) => void,): void;
+        function getTimeZone(callback: (timezone: string) => void): void;
 
         /**
          * Retrieve the user's locale used by the product.
@@ -1318,6 +1318,6 @@ declare namespace AP {
          * You should not present the user's locale in a way that can be seen by other users viewing the application.
          * @param callback the callback that handles the response
          */
-        function getLocale(callback: (locale: string,) => void,): void;
+        function getLocale(callback: (locale: string) => void): void;
     }
 }

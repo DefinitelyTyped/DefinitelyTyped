@@ -10,24 +10,24 @@ import events = require('events');
 
 declare namespace async_writer {
     interface EventFunction {
-        (event: string, callback: Function,): void;
+        (event: string, callback: Function): void;
     }
 
     class StringWriter {
-        constructor(events: events.EventEmitter,);
+        constructor(events: events.EventEmitter);
         end(): void;
-        write(what: string,): StringWriter;
+        write(what: string): StringWriter;
         toString(): string;
     }
 
     class BufferedWriter {
-        constructor(wrappedStream: stream.Stream,);
+        constructor(wrappedStream: stream.Stream);
         flush(): void;
-        on(event: string, callback: Function,): BufferedWriter;
-        once(event: string, callback: Function,): BufferedWriter;
+        on(event: string, callback: Function): BufferedWriter;
+        once(event: string, callback: Function): BufferedWriter;
         clear(): void;
         end(): void;
-        write(what: string,): BufferedWriter;
+        write(what: string): BufferedWriter;
     }
 
     interface BeginAsyncOptions {
@@ -39,27 +39,27 @@ declare namespace async_writer {
     class AsyncWriter {
         static enableAsyncStackTrace(): void;
 
-        constructor(writer?: any, global?: { [s: string]: any }, async?: boolean, buffer?: boolean,);
+        constructor(writer?: any, global?: { [s: string]: any }, async?: boolean, buffer?: boolean);
         isAsyncWriter: AsyncWriter;
         sync(): void;
         getAttributes(): { [s: string]: any };
         getAttribute(): any;
-        write(str: string,): AsyncWriter;
+        write(str: string): AsyncWriter;
         getOutput(): string;
-        captureString(func: Function, thisObj: Object,): string;
-        swapWriter(newWriter: StringWriter | BufferedWriter, func: Function, thisObj: Object,): void;
-        createNestedWriter(writer: StringWriter | BufferedWriter,): AsyncWriter;
-        beginAsync(options?: number | BeginAsyncOptions,): AsyncWriter;
-        handleBeginAsync(options: number | BeginAsyncOptions, parent: AsyncWriter,): void;
-        on(event: string, callback: Function,): AsyncWriter;
-        once(event: string, callback: Function,): AsyncWriter;
-        onLast(callback: Function,): AsyncWriter;
-        emit(arg: any,): AsyncWriter;
+        captureString(func: Function, thisObj: Object): string;
+        swapWriter(newWriter: StringWriter | BufferedWriter, func: Function, thisObj: Object): void;
+        createNestedWriter(writer: StringWriter | BufferedWriter): AsyncWriter;
+        beginAsync(options?: number | BeginAsyncOptions): AsyncWriter;
+        handleBeginAsync(options: number | BeginAsyncOptions, parent: AsyncWriter): void;
+        on(event: string, callback: Function): AsyncWriter;
+        once(event: string, callback: Function): AsyncWriter;
+        onLast(callback: Function): AsyncWriter;
+        emit(arg: any): AsyncWriter;
         removeListener(): AsyncWriter;
-        pipe(stream: stream.Stream,): AsyncWriter;
-        error(e: Error,): void;
-        end(data?: any,): AsyncWriter;
-        handleEnd(isAsync: boolean,): void;
+        pipe(stream: stream.Stream): AsyncWriter;
+        error(e: Error): void;
+        end(data?: any): AsyncWriter;
+        handleEnd(isAsync: boolean): void;
         _finish(): void;
         flush(): void;
     }
@@ -69,7 +69,7 @@ declare namespace async_writer {
         buffer?: boolean | undefined;
     }
 
-    function create(writer?: any, options?: AsyncWriterOptions,): AsyncWriter;
+    function create(writer?: any, options?: AsyncWriterOptions): AsyncWriter;
     function enableAsyncStackTrace(): void;
 }
 

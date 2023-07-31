@@ -1,4 +1,4 @@
-import { Disposable, } from '../index';
+import { Disposable } from '../index';
 
 /** Run a node script in a separate process. */
 export class Task {
@@ -10,7 +10,7 @@ export class Task {
     static once(taskPath: string, ...args: any[]): Task;
 
     /** Creates a task. You should probably use .once */
-    constructor(taskPath: string,);
+    constructor(taskPath: string);
 
     // NOTE: this is actually the best we can do here with the REST parameter
     // for this appearing in the beginning of the parameter list, which isn't
@@ -29,11 +29,11 @@ export class Task {
      *  message to the child process fails.
      */
     // tslint:disable-next-line:no-any
-    send(message: string | number | boolean | object | null | any[],): void;
+    send(message: string | number | boolean | object | null | any[]): void;
 
     /** Call a function when an event is emitted by the child process. */
     // tslint:disable-next-line:no-any
-    on(eventName: string, callback: (param: any,) => void,): Disposable;
+    on(eventName: string, callback: (param: any) => void): Disposable;
 
     /**
      *  Forcefully stop the running task.

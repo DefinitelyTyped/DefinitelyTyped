@@ -132,7 +132,7 @@ declare namespace AMap {
          * 公交路线查询
          * @param options 选项
          */
-        constructor(options?: LineSearch.Options,);
+        constructor(options?: LineSearch.Options);
         /**
          * 根据给定的公交线路id进行公交站点详情检索
          * @param id 公交线路的唯一标识
@@ -140,7 +140,7 @@ declare namespace AMap {
          */
         searchById(
             id: string,
-            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult,) => void,
+            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void,
         ): void;
         /**
          * 根据给定公交线路名称进行公交线路详情查询
@@ -149,22 +149,22 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult,) => void,
+            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void,
         ): void;
         /**
          * 设置查询结果页码
          * @param pageIndex 页码，默认值：1
          */
-        setPageIndex(pageIndex?: number,): void;
+        setPageIndex(pageIndex?: number): void;
         /**
          * 设置单页显示结果条数
          * @param pageSize 条数，默认值：20
          */
-        setPageSize(pageSize?: number,): void;
+        setPageSize(pageSize?: number): void;
         /**
          * 设置查询城市
          * @param city 城市，默认值：“全国”，可选值：cityname（中文或中文全拼）、citycode、adcode
          */
-        setCity(city?: string,): void;
+        setCity(city?: string): void;
     }
 }

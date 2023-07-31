@@ -22,6 +22,6 @@ declare namespace AMap {
     function convertFrom(
         lnglat: LocationValue | LocationValue[],
         type: convertFrom.Type | null,
-        callback: (status: convertFrom.SearchStatus, result: string | convertFrom.Result,) => void,
+        callback: (status: convertFrom.SearchStatus, result: string | convertFrom.Result) => void,
     ): void;
 }

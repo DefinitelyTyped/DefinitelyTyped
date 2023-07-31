@@ -9,7 +9,7 @@ declare namespace AV {
         last: Buffer | null;
 
         copy(): BufferList;
-        append(buffer: Buffer,): void;
+        append(buffer: Buffer): void;
         advance(): boolean;
         rewind(): boolean;
         reset(): void;

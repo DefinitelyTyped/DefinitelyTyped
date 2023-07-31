@@ -18,13 +18,13 @@ export = reorder;
  * const arr = reorder([9,8,7,6], [3,2,1,0]) // [6,7,8,9]
  * const arr2 = reorder([3,3, 2,2, 1,1], [2,1,0]) // [1,1, 2,2, 3,3]
  */
-declare function reorder<TArr extends MutableArrayLike<unknown>,>(
+declare function reorder<TArr extends MutableArrayLike<unknown>>(
     array: TArr,
     index: MutableArrayLike<number>,
     stride?: number,
 ): TArr;
 
-interface MutableArrayLike<T,> {
+interface MutableArrayLike<T> {
     length: number;
     [n: number]: T;
 }

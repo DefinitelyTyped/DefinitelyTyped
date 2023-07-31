@@ -24,6 +24,6 @@ declare namespace AMap {
          * 二维地图显示视口，用于定义二维地图静态显示属性
          * @param options 选项
          */
-        constructor(options?: View2D.Options,);
+        constructor(options?: View2D.Options);
     }
 }

@@ -1,6 +1,6 @@
-import { HttpResponse, } from './http_response';
-import { Request, } from './request';
-export class Response<D, E,> {
+import { HttpResponse } from './http_response';
+import { Request } from './request';
+export class Response<D, E> {
     /**
      * Whether more pages of data can be returned by further requests.
      */
@@ -8,7 +8,7 @@ export class Response<D, E,> {
     /**
      * Creates a new request for the next page of response data, calling the callback with the page data if a callback is provided.
      */
-    nextPage(callback?: (err: E, data: D,) => void,): Request<D, E> | void;
+    nextPage(callback?: (err: E, data: D) => void): Request<D, E> | void;
     /**
      * The de-serialized response data from the service.
      * Can be null if an error occurred.

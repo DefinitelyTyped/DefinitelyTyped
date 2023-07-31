@@ -1,4 +1,4 @@
-import { AmCharts, } from 'amcharts';
+import { AmCharts } from 'amcharts';
 
 const theme = AmCharts.themes.light;
 
@@ -48,34 +48,34 @@ const chart = AmCharts.makeChart('chartdiv', {
             ],
         },
     ],
-},);
+});
 
 chart.export.capture(null, () => {
-    chart.export.toJPG(null, data => console.log(data,),);
-    chart.export.toPNG(null, data => console.log(data,),);
-    chart.export.toSVG(null, data => console.log(data,),);
-    chart.export.toPDF(null, data => console.log(data,),);
-    chart.export.toJSON(null, data => console.log(data,),);
-    chart.export.toCSV(null, data => console.log(data,),);
-    chart.export.toXLSX(null, data => console.log(data,),);
-    chart.export.toBlob(null, data => console.log(data,),);
-    chart.export.toCanvas(null, data => console.log(data,),);
-    chart.export.toArray(null, data => console.log(data,),);
-    chart.export.toImage(null, data => console.log(data,),);
-},);
+    chart.export.toJPG(null, data => console.log(data));
+    chart.export.toPNG(null, data => console.log(data));
+    chart.export.toSVG(null, data => console.log(data));
+    chart.export.toPDF(null, data => console.log(data));
+    chart.export.toJSON(null, data => console.log(data));
+    chart.export.toCSV(null, data => console.log(data));
+    chart.export.toXLSX(null, data => console.log(data));
+    chart.export.toBlob(null, data => console.log(data));
+    chart.export.toCanvas(null, data => console.log(data));
+    chart.export.toArray(null, data => console.log(data));
+    chart.export.toImage(null, data => console.log(data));
+});
 
 // Object based API.
-const amAngularGauge = new AmCharts.AmAngularGauge(theme,);
+const amAngularGauge = new AmCharts.AmAngularGauge(theme);
 const amBalloon = new AmCharts.AmBalloon();
-const amChart = new AmCharts.AmChart(theme,);
-const amCoordinateChart = new AmCharts.AmCoordinateChart(theme,);
+const amChart = new AmCharts.AmChart(theme);
+const amCoordinateChart = new AmCharts.AmCoordinateChart(theme);
 const amGraph = new AmCharts.AmGraph();
 const amLegend = new AmCharts.AmLegend();
-const amPieChart = new AmCharts.AmPieChart(theme,);
-const amRadarChart = new AmCharts.AmRadarChart(theme,);
-const amRectangularChart = new AmCharts.AmRectangularChart(theme,);
-const amSerialChart = new AmCharts.AmSerialChart(theme,);
-const amXYChart = new AmCharts.AmXYChart(theme,);
+const amPieChart = new AmCharts.AmPieChart(theme);
+const amRadarChart = new AmCharts.AmRadarChart(theme);
+const amRectangularChart = new AmCharts.AmRectangularChart(theme);
+const amSerialChart = new AmCharts.AmSerialChart(theme);
+const amXYChart = new AmCharts.AmXYChart(theme);
 const axisBase = new AmCharts.AxisBase();
 const categoryBase = new AmCharts.CategoryAxis();
 const chartCursor = new AmCharts.ChartCursor();

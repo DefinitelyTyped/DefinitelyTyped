@@ -145,16 +145,16 @@ export default class AmRectangularChart extends AmCoordinateChart {
     /**
      * Adds a ChartCursor object to a chart
      */
-    addChartCursor(cursor: ChartCursor,): void;
+    addChartCursor(cursor: ChartCursor): void;
     /**
      * Adds a ChartScrollbar to a chart
      */
-    addChartScrollbar(scrollbar: ChartScrollbar,): void;
+    addChartScrollbar(scrollbar: ChartScrollbar): void;
     /**
      * Adds a TrendLine to a chart.
      * You should call chart.validateNow() after this method is called in order the trend line to be visible.
      */
-    addTrendLine(trendLine: TrendLine,): void;
+    addTrendLine(trendLine: TrendLine): void;
     /**
      * Removes cursor from the chart
      */
@@ -167,5 +167,5 @@ export default class AmRectangularChart extends AmCoordinateChart {
      * Removes a trend line from a chart.
      * You should call chart.validateNow() in order the changes to be visible.
      */
-    removeTrendLine(trendLine: TrendLine,): void;
+    removeTrendLine(trendLine: TrendLine): void;
 }

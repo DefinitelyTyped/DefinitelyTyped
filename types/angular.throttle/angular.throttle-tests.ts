@@ -1,5 +1,5 @@
-var throttledFn = angular.throttle(function(someArg: any,) {
+var throttledFn = angular.throttle(function(someArg: any) {
     return someArg;
-}, 100,);
+}, 100);
 
-var result = throttledFn(10,);
+var result = throttledFn(10);

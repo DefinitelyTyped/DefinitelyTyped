@@ -1,7 +1,7 @@
-import { EventBridgeEvent, EventBridgeHandler, Handler, } from 'aws-lambda';
+import { EventBridgeEvent, EventBridgeHandler, Handler } from 'aws-lambda';
 
-const voidHandler: EventBridgeHandler<string, { message: string }, void> = async (event, context, callback,) => {
-    const { message, } = event.detail;
+const voidHandler: EventBridgeHandler<string, { message: string }, void> = async (event, context, callback) => {
+    const { message } = event.detail;
 
     const detailType = event['detail-type'];
 };
@@ -10,16 +10,16 @@ const notVoidHandler: EventBridgeHandler<
     'com.acme.customEvent1' | 'com.acme.customEvent2',
     { message: string },
     { sentence: string; receivedMessage: string }
-> = async (event, context, callback,) => {
-    const { message, } = event.detail;
+> = async (event, context, callback) => {
+    const { message } = event.detail;
 
     switch (event['detail-type']) {
         case 'com.acme.customEvent1':
-            return { sentence: 'A great custom event 1', receivedMessage: message, };
+            return { sentence: 'A great custom event 1', receivedMessage: message };
         case 'com.acme.customEvent2':
-            return { sentence: 'A great custom event 2', receivedMessage: message, };
+            return { sentence: 'A great custom event 2', receivedMessage: message };
         default:
-            throw new Error('Unexpected: ' + event['detail-type'],);
+            throw new Error('Unexpected: ' + event['detail-type']);
     }
 };
 

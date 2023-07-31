@@ -4,8 +4,8 @@ import * as angularTooltips from 'angular-tooltips';
 angular
     .module('test.angular-tooltips', [
         angularTooltips,
-    ],)
-    .config((tooltipsConfProvider: angularTooltips.TooltipsConfProvider,) => {
+    ])
+    .config((tooltipsConfProvider: angularTooltips.TooltipsConfProvider) => {
         tooltipsConfProvider.configure({
             side: 'left',
             showTrigger: 'click',
@@ -17,5 +17,5 @@ angular
             speed: 'slow',
             tooltipTemplateUrlCache: true,
             show: false,
-        },);
-    },);
+        });
+    });

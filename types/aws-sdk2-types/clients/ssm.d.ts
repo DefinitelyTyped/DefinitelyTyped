@@ -1,1810 +1,1810 @@
-import { ConfigBase as Config, } from '../lib/config-base';
-import { AWSError, } from '../lib/error';
-import { Request, } from '../lib/request';
-import { Response, } from '../lib/response';
-import { Service, } from '../lib/service';
-import { WaiterConfiguration, } from '../lib/service';
-import { ServiceConfigurationOptions, } from '../lib/service';
+import { ConfigBase as Config } from '../lib/config-base';
+import { AWSError } from '../lib/error';
+import { Request } from '../lib/request';
+import { Response } from '../lib/response';
+import { Service } from '../lib/service';
+import { WaiterConfiguration } from '../lib/service';
+import { ServiceConfigurationOptions } from '../lib/service';
 interface Blob {}
 declare class SSM extends Service {
     /**
      * Constructs a service object. This object has one method for each API operation.
      */
-    constructor(options?: SSM.Types.ClientConfiguration,);
+    constructor(options?: SSM.Types.ClientConfiguration);
     config: Config & SSM.Types.ClientConfiguration;
     /**
      * Adds or overwrites one or more tags for the specified resource. Tags are metadata that you can assign to your automations, documents, managed nodes, maintenance windows, Parameter Store parameters, and patch baselines. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value, both of which you define. For example, you could define a set of tags for your account's managed nodes that helps you track each node's owner and stack level. For example:    Key=Owner,Value=DbAdmin     Key=Owner,Value=SysAdmin     Key=Owner,Value=Dev     Key=Stack,Value=Production     Key=Stack,Value=Pre-Production     Key=Stack,Value=Test    Most resources can have a maximum of 50 tags. Automations can have a maximum of 5 tags. We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent set of tag keys makes it easier for you to manage your resources. You can search and filter the resources based on the tags you add. Tags don't have any semantic meaning to and are interpreted strictly as a string of characters. For more information about using tags with Amazon Elastic Compute Cloud (Amazon EC2) instances, see Tagging your Amazon EC2 resources in the Amazon EC2 User Guide.
      */
     addTagsToResource(
         params: SSM.Types.AddTagsToResourceRequest,
-        callback?: (err: AWSError, data: SSM.Types.AddTagsToResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.AddTagsToResourceResult) => void,
     ): Request<SSM.Types.AddTagsToResourceResult, AWSError>;
     /**
      * Adds or overwrites one or more tags for the specified resource. Tags are metadata that you can assign to your automations, documents, managed nodes, maintenance windows, Parameter Store parameters, and patch baselines. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value, both of which you define. For example, you could define a set of tags for your account's managed nodes that helps you track each node's owner and stack level. For example:    Key=Owner,Value=DbAdmin     Key=Owner,Value=SysAdmin     Key=Owner,Value=Dev     Key=Stack,Value=Production     Key=Stack,Value=Pre-Production     Key=Stack,Value=Test    Most resources can have a maximum of 50 tags. Automations can have a maximum of 5 tags. We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent set of tag keys makes it easier for you to manage your resources. You can search and filter the resources based on the tags you add. Tags don't have any semantic meaning to and are interpreted strictly as a string of characters. For more information about using tags with Amazon Elastic Compute Cloud (Amazon EC2) instances, see Tagging your Amazon EC2 resources in the Amazon EC2 User Guide.
      */
     addTagsToResource(
-        callback?: (err: AWSError, data: SSM.Types.AddTagsToResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.AddTagsToResourceResult) => void,
     ): Request<SSM.Types.AddTagsToResourceResult, AWSError>;
     /**
      * Associates a related item to a Systems Manager OpsCenter OpsItem. For example, you can associate an Incident Manager incident or analysis with an OpsItem. Incident Manager and OpsCenter are capabilities of Amazon Web Services Systems Manager.
      */
     associateOpsItemRelatedItem(
         params: SSM.Types.AssociateOpsItemRelatedItemRequest,
-        callback?: (err: AWSError, data: SSM.Types.AssociateOpsItemRelatedItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.AssociateOpsItemRelatedItemResponse) => void,
     ): Request<SSM.Types.AssociateOpsItemRelatedItemResponse, AWSError>;
     /**
      * Associates a related item to a Systems Manager OpsCenter OpsItem. For example, you can associate an Incident Manager incident or analysis with an OpsItem. Incident Manager and OpsCenter are capabilities of Amazon Web Services Systems Manager.
      */
     associateOpsItemRelatedItem(
-        callback?: (err: AWSError, data: SSM.Types.AssociateOpsItemRelatedItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.AssociateOpsItemRelatedItemResponse) => void,
     ): Request<SSM.Types.AssociateOpsItemRelatedItemResponse, AWSError>;
     /**
      * Attempts to cancel the command specified by the Command ID. There is no guarantee that the command will be terminated and the underlying process stopped.
      */
     cancelCommand(
         params: SSM.Types.CancelCommandRequest,
-        callback?: (err: AWSError, data: SSM.Types.CancelCommandResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CancelCommandResult) => void,
     ): Request<SSM.Types.CancelCommandResult, AWSError>;
     /**
      * Attempts to cancel the command specified by the Command ID. There is no guarantee that the command will be terminated and the underlying process stopped.
      */
     cancelCommand(
-        callback?: (err: AWSError, data: SSM.Types.CancelCommandResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CancelCommandResult) => void,
     ): Request<SSM.Types.CancelCommandResult, AWSError>;
     /**
      * Stops a maintenance window execution that is already in progress and cancels any tasks in the window that haven't already starting running. Tasks already in progress will continue to completion.
      */
     cancelMaintenanceWindowExecution(
         params: SSM.Types.CancelMaintenanceWindowExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.CancelMaintenanceWindowExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CancelMaintenanceWindowExecutionResult) => void,
     ): Request<SSM.Types.CancelMaintenanceWindowExecutionResult, AWSError>;
     /**
      * Stops a maintenance window execution that is already in progress and cancels any tasks in the window that haven't already starting running. Tasks already in progress will continue to completion.
      */
     cancelMaintenanceWindowExecution(
-        callback?: (err: AWSError, data: SSM.Types.CancelMaintenanceWindowExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CancelMaintenanceWindowExecutionResult) => void,
     ): Request<SSM.Types.CancelMaintenanceWindowExecutionResult, AWSError>;
     /**
      * Generates an activation code and activation ID you can use to register your on-premises servers, edge devices, or virtual machine (VM) with Amazon Web Services Systems Manager. Registering these machines with Systems Manager makes it possible to manage them using Systems Manager capabilities. You use the activation code and ID when installing SSM Agent on machines in your hybrid environment. For more information about requirements for managing on-premises machines using Systems Manager, see Setting up Amazon Web Services Systems Manager for hybrid environments in the Amazon Web Services Systems Manager User Guide.   Amazon Elastic Compute Cloud (Amazon EC2) instances, edge devices, and on-premises servers and VMs that are configured for Systems Manager are all called managed nodes.
      */
     createActivation(
         params: SSM.Types.CreateActivationRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateActivationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateActivationResult) => void,
     ): Request<SSM.Types.CreateActivationResult, AWSError>;
     /**
      * Generates an activation code and activation ID you can use to register your on-premises servers, edge devices, or virtual machine (VM) with Amazon Web Services Systems Manager. Registering these machines with Systems Manager makes it possible to manage them using Systems Manager capabilities. You use the activation code and ID when installing SSM Agent on machines in your hybrid environment. For more information about requirements for managing on-premises machines using Systems Manager, see Setting up Amazon Web Services Systems Manager for hybrid environments in the Amazon Web Services Systems Manager User Guide.   Amazon Elastic Compute Cloud (Amazon EC2) instances, edge devices, and on-premises servers and VMs that are configured for Systems Manager are all called managed nodes.
      */
     createActivation(
-        callback?: (err: AWSError, data: SSM.Types.CreateActivationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateActivationResult) => void,
     ): Request<SSM.Types.CreateActivationResult, AWSError>;
     /**
      * A State Manager association defines the state that you want to maintain on your managed nodes. For example, an association can specify that anti-virus software must be installed and running on your managed nodes, or that certain ports must be closed. For static targets, the association specifies a schedule for when the configuration is reapplied. For dynamic targets, such as an Amazon Web Services resource group or an Amazon Web Services autoscaling group, State Manager, a capability of Amazon Web Services Systems Manager applies the configuration when new managed nodes are added to the group. The association also specifies actions to take when applying the configuration. For example, an association for anti-virus software might run once a day. If the software isn't installed, then State Manager installs it. If the software is installed, but the service isn't running, then the association might instruct State Manager to start the service.
      */
     createAssociation(
         params: SSM.Types.CreateAssociationRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateAssociationResult) => void,
     ): Request<SSM.Types.CreateAssociationResult, AWSError>;
     /**
      * A State Manager association defines the state that you want to maintain on your managed nodes. For example, an association can specify that anti-virus software must be installed and running on your managed nodes, or that certain ports must be closed. For static targets, the association specifies a schedule for when the configuration is reapplied. For dynamic targets, such as an Amazon Web Services resource group or an Amazon Web Services autoscaling group, State Manager, a capability of Amazon Web Services Systems Manager applies the configuration when new managed nodes are added to the group. The association also specifies actions to take when applying the configuration. For example, an association for anti-virus software might run once a day. If the software isn't installed, then State Manager installs it. If the software is installed, but the service isn't running, then the association might instruct State Manager to start the service.
      */
     createAssociation(
-        callback?: (err: AWSError, data: SSM.Types.CreateAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateAssociationResult) => void,
     ): Request<SSM.Types.CreateAssociationResult, AWSError>;
     /**
      * Associates the specified Amazon Web Services Systems Manager document (SSM document) with the specified managed nodes or targets. When you associate a document with one or more managed nodes using IDs or tags, Amazon Web Services Systems Manager Agent (SSM Agent) running on the managed node processes the document and configures the node as specified. If you associate a document with a managed node that already has an associated document, the system returns the AssociationAlreadyExists exception.
      */
     createAssociationBatch(
         params: SSM.Types.CreateAssociationBatchRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateAssociationBatchResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateAssociationBatchResult) => void,
     ): Request<SSM.Types.CreateAssociationBatchResult, AWSError>;
     /**
      * Associates the specified Amazon Web Services Systems Manager document (SSM document) with the specified managed nodes or targets. When you associate a document with one or more managed nodes using IDs or tags, Amazon Web Services Systems Manager Agent (SSM Agent) running on the managed node processes the document and configures the node as specified. If you associate a document with a managed node that already has an associated document, the system returns the AssociationAlreadyExists exception.
      */
     createAssociationBatch(
-        callback?: (err: AWSError, data: SSM.Types.CreateAssociationBatchResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateAssociationBatchResult) => void,
     ): Request<SSM.Types.CreateAssociationBatchResult, AWSError>;
     /**
      * Creates a Amazon Web Services Systems Manager (SSM document). An SSM document defines the actions that Systems Manager performs on your managed nodes. For more information about SSM documents, including information about supported schemas, features, and syntax, see Amazon Web Services Systems Manager Documents in the Amazon Web Services Systems Manager User Guide.
      */
     createDocument(
         params: SSM.Types.CreateDocumentRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateDocumentResult) => void,
     ): Request<SSM.Types.CreateDocumentResult, AWSError>;
     /**
      * Creates a Amazon Web Services Systems Manager (SSM document). An SSM document defines the actions that Systems Manager performs on your managed nodes. For more information about SSM documents, including information about supported schemas, features, and syntax, see Amazon Web Services Systems Manager Documents in the Amazon Web Services Systems Manager User Guide.
      */
     createDocument(
-        callback?: (err: AWSError, data: SSM.Types.CreateDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateDocumentResult) => void,
     ): Request<SSM.Types.CreateDocumentResult, AWSError>;
     /**
      * Creates a new maintenance window.  The value you specify for Duration determines the specific end time for the maintenance window based on the time it begins. No maintenance window tasks are permitted to start after the resulting endtime minus the number of hours you specify for Cutoff. For example, if the maintenance window starts at 3 PM, the duration is three hours, and the value you specify for Cutoff is one hour, no maintenance window tasks can start after 5 PM.
      */
     createMaintenanceWindow(
         params: SSM.Types.CreateMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateMaintenanceWindowResult) => void,
     ): Request<SSM.Types.CreateMaintenanceWindowResult, AWSError>;
     /**
      * Creates a new maintenance window.  The value you specify for Duration determines the specific end time for the maintenance window based on the time it begins. No maintenance window tasks are permitted to start after the resulting endtime minus the number of hours you specify for Cutoff. For example, if the maintenance window starts at 3 PM, the duration is three hours, and the value you specify for Cutoff is one hour, no maintenance window tasks can start after 5 PM.
      */
     createMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.CreateMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateMaintenanceWindowResult) => void,
     ): Request<SSM.Types.CreateMaintenanceWindowResult, AWSError>;
     /**
      * Creates a new OpsItem. You must have permission in Identity and Access Management (IAM) to create a new OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see Amazon Web Services Systems Manager OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     createOpsItem(
         params: SSM.Types.CreateOpsItemRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateOpsItemResponse) => void,
     ): Request<SSM.Types.CreateOpsItemResponse, AWSError>;
     /**
      * Creates a new OpsItem. You must have permission in Identity and Access Management (IAM) to create a new OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see Amazon Web Services Systems Manager OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     createOpsItem(
-        callback?: (err: AWSError, data: SSM.Types.CreateOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateOpsItemResponse) => void,
     ): Request<SSM.Types.CreateOpsItemResponse, AWSError>;
     /**
      * If you create a new application in Application Manager, Amazon Web Services Systems Manager calls this API operation to specify information about the new application, including the application type.
      */
     createOpsMetadata(
         params: SSM.Types.CreateOpsMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateOpsMetadataResult) => void,
     ): Request<SSM.Types.CreateOpsMetadataResult, AWSError>;
     /**
      * If you create a new application in Application Manager, Amazon Web Services Systems Manager calls this API operation to specify information about the new application, including the application type.
      */
     createOpsMetadata(
-        callback?: (err: AWSError, data: SSM.Types.CreateOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateOpsMetadataResult) => void,
     ): Request<SSM.Types.CreateOpsMetadataResult, AWSError>;
     /**
      * Creates a patch baseline.  For information about valid key-value pairs in PatchFilters for each supported operating system type, see PatchFilter.
      */
     createPatchBaseline(
         params: SSM.Types.CreatePatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreatePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreatePatchBaselineResult) => void,
     ): Request<SSM.Types.CreatePatchBaselineResult, AWSError>;
     /**
      * Creates a patch baseline.  For information about valid key-value pairs in PatchFilters for each supported operating system type, see PatchFilter.
      */
     createPatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.CreatePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreatePatchBaselineResult) => void,
     ): Request<SSM.Types.CreatePatchBaselineResult, AWSError>;
     /**
      * A resource data sync helps you view data from multiple sources in a single location. Amazon Web Services Systems Manager offers two types of resource data sync: SyncToDestination and SyncFromSource. You can configure Systems Manager Inventory to use the SyncToDestination type to synchronize Inventory data from multiple Amazon Web Services Regions to a single Amazon Simple Storage Service (Amazon S3) bucket. For more information, see Configuring resource data sync for Inventory in the Amazon Web Services Systems Manager User Guide. You can configure Systems Manager Explorer to use the SyncFromSource type to synchronize operational work items (OpsItems) and operational data (OpsData) from multiple Amazon Web Services Regions to a single Amazon S3 bucket. This type can synchronize OpsItems and OpsData from multiple Amazon Web Services accounts and Amazon Web Services Regions or EntireOrganization by using Organizations. For more information, see Setting up Systems Manager Explorer to display data from multiple accounts and Regions in the Amazon Web Services Systems Manager User Guide. A resource data sync is an asynchronous operation that returns immediately. After a successful initial sync is completed, the system continuously syncs data. To check the status of a sync, use the ListResourceDataSync.  By default, data isn't encrypted in Amazon S3. We strongly recommend that you enable encryption in Amazon S3 to ensure secure data storage. We also recommend that you secure access to the Amazon S3 bucket by creating a restrictive bucket policy.
      */
     createResourceDataSync(
         params: SSM.Types.CreateResourceDataSyncRequest,
-        callback?: (err: AWSError, data: SSM.Types.CreateResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateResourceDataSyncResult) => void,
     ): Request<SSM.Types.CreateResourceDataSyncResult, AWSError>;
     /**
      * A resource data sync helps you view data from multiple sources in a single location. Amazon Web Services Systems Manager offers two types of resource data sync: SyncToDestination and SyncFromSource. You can configure Systems Manager Inventory to use the SyncToDestination type to synchronize Inventory data from multiple Amazon Web Services Regions to a single Amazon Simple Storage Service (Amazon S3) bucket. For more information, see Configuring resource data sync for Inventory in the Amazon Web Services Systems Manager User Guide. You can configure Systems Manager Explorer to use the SyncFromSource type to synchronize operational work items (OpsItems) and operational data (OpsData) from multiple Amazon Web Services Regions to a single Amazon S3 bucket. This type can synchronize OpsItems and OpsData from multiple Amazon Web Services accounts and Amazon Web Services Regions or EntireOrganization by using Organizations. For more information, see Setting up Systems Manager Explorer to display data from multiple accounts and Regions in the Amazon Web Services Systems Manager User Guide. A resource data sync is an asynchronous operation that returns immediately. After a successful initial sync is completed, the system continuously syncs data. To check the status of a sync, use the ListResourceDataSync.  By default, data isn't encrypted in Amazon S3. We strongly recommend that you enable encryption in Amazon S3 to ensure secure data storage. We also recommend that you secure access to the Amazon S3 bucket by creating a restrictive bucket policy.
      */
     createResourceDataSync(
-        callback?: (err: AWSError, data: SSM.Types.CreateResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.CreateResourceDataSyncResult) => void,
     ): Request<SSM.Types.CreateResourceDataSyncResult, AWSError>;
     /**
      * Deletes an activation. You aren't required to delete an activation. If you delete an activation, you can no longer use it to register additional managed nodes. Deleting an activation doesn't de-register managed nodes. You must manually de-register managed nodes.
      */
     deleteActivation(
         params: SSM.Types.DeleteActivationRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteActivationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteActivationResult) => void,
     ): Request<SSM.Types.DeleteActivationResult, AWSError>;
     /**
      * Deletes an activation. You aren't required to delete an activation. If you delete an activation, you can no longer use it to register additional managed nodes. Deleting an activation doesn't de-register managed nodes. You must manually de-register managed nodes.
      */
     deleteActivation(
-        callback?: (err: AWSError, data: SSM.Types.DeleteActivationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteActivationResult) => void,
     ): Request<SSM.Types.DeleteActivationResult, AWSError>;
     /**
      * Disassociates the specified Amazon Web Services Systems Manager document (SSM document) from the specified managed node. If you created the association by using the Targets parameter, then you must delete the association by using the association ID. When you disassociate a document from a managed node, it doesn't change the configuration of the node. To change the configuration state of a managed node after you disassociate a document, you must create a new document with the desired configuration and associate it with the node.
      */
     deleteAssociation(
         params: SSM.Types.DeleteAssociationRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteAssociationResult) => void,
     ): Request<SSM.Types.DeleteAssociationResult, AWSError>;
     /**
      * Disassociates the specified Amazon Web Services Systems Manager document (SSM document) from the specified managed node. If you created the association by using the Targets parameter, then you must delete the association by using the association ID. When you disassociate a document from a managed node, it doesn't change the configuration of the node. To change the configuration state of a managed node after you disassociate a document, you must create a new document with the desired configuration and associate it with the node.
      */
     deleteAssociation(
-        callback?: (err: AWSError, data: SSM.Types.DeleteAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteAssociationResult) => void,
     ): Request<SSM.Types.DeleteAssociationResult, AWSError>;
     /**
      * Deletes the Amazon Web Services Systems Manager document (SSM document) and all managed node associations to the document. Before you delete the document, we recommend that you use DeleteAssociation to disassociate all managed nodes that are associated with the document.
      */
     deleteDocument(
         params: SSM.Types.DeleteDocumentRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteDocumentResult) => void,
     ): Request<SSM.Types.DeleteDocumentResult, AWSError>;
     /**
      * Deletes the Amazon Web Services Systems Manager document (SSM document) and all managed node associations to the document. Before you delete the document, we recommend that you use DeleteAssociation to disassociate all managed nodes that are associated with the document.
      */
     deleteDocument(
-        callback?: (err: AWSError, data: SSM.Types.DeleteDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteDocumentResult) => void,
     ): Request<SSM.Types.DeleteDocumentResult, AWSError>;
     /**
      * Delete a custom inventory type or the data associated with a custom Inventory type. Deleting a custom inventory type is also referred to as deleting a custom inventory schema.
      */
     deleteInventory(
         params: SSM.Types.DeleteInventoryRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteInventoryResult) => void,
     ): Request<SSM.Types.DeleteInventoryResult, AWSError>;
     /**
      * Delete a custom inventory type or the data associated with a custom Inventory type. Deleting a custom inventory type is also referred to as deleting a custom inventory schema.
      */
     deleteInventory(
-        callback?: (err: AWSError, data: SSM.Types.DeleteInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteInventoryResult) => void,
     ): Request<SSM.Types.DeleteInventoryResult, AWSError>;
     /**
      * Deletes a maintenance window.
      */
     deleteMaintenanceWindow(
         params: SSM.Types.DeleteMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeleteMaintenanceWindowResult, AWSError>;
     /**
      * Deletes a maintenance window.
      */
     deleteMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.DeleteMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeleteMaintenanceWindowResult, AWSError>;
     /**
      * Delete OpsMetadata related to an application.
      */
     deleteOpsMetadata(
         params: SSM.Types.DeleteOpsMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteOpsMetadataResult) => void,
     ): Request<SSM.Types.DeleteOpsMetadataResult, AWSError>;
     /**
      * Delete OpsMetadata related to an application.
      */
     deleteOpsMetadata(
-        callback?: (err: AWSError, data: SSM.Types.DeleteOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteOpsMetadataResult) => void,
     ): Request<SSM.Types.DeleteOpsMetadataResult, AWSError>;
     /**
      * Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.
      */
     deleteParameter(
         params: SSM.Types.DeleteParameterRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteParameterResult) => void,
     ): Request<SSM.Types.DeleteParameterResult, AWSError>;
     /**
      * Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.
      */
     deleteParameter(
-        callback?: (err: AWSError, data: SSM.Types.DeleteParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteParameterResult) => void,
     ): Request<SSM.Types.DeleteParameterResult, AWSError>;
     /**
      * Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.
      */
     deleteParameters(
         params: SSM.Types.DeleteParametersRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteParametersResult) => void,
     ): Request<SSM.Types.DeleteParametersResult, AWSError>;
     /**
      * Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.
      */
     deleteParameters(
-        callback?: (err: AWSError, data: SSM.Types.DeleteParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteParametersResult) => void,
     ): Request<SSM.Types.DeleteParametersResult, AWSError>;
     /**
      * Deletes a patch baseline.
      */
     deletePatchBaseline(
         params: SSM.Types.DeletePatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeletePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeletePatchBaselineResult) => void,
     ): Request<SSM.Types.DeletePatchBaselineResult, AWSError>;
     /**
      * Deletes a patch baseline.
      */
     deletePatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.DeletePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeletePatchBaselineResult) => void,
     ): Request<SSM.Types.DeletePatchBaselineResult, AWSError>;
     /**
      * Deletes a resource data sync configuration. After the configuration is deleted, changes to data on managed nodes are no longer synced to or from the target. Deleting a sync configuration doesn't delete data.
      */
     deleteResourceDataSync(
         params: SSM.Types.DeleteResourceDataSyncRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteResourceDataSyncResult) => void,
     ): Request<SSM.Types.DeleteResourceDataSyncResult, AWSError>;
     /**
      * Deletes a resource data sync configuration. After the configuration is deleted, changes to data on managed nodes are no longer synced to or from the target. Deleting a sync configuration doesn't delete data.
      */
     deleteResourceDataSync(
-        callback?: (err: AWSError, data: SSM.Types.DeleteResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteResourceDataSyncResult) => void,
     ): Request<SSM.Types.DeleteResourceDataSyncResult, AWSError>;
     /**
      * Deletes a Systems Manager resource policy. A resource policy helps you to define the IAM entity (for example, an Amazon Web Services account) that can manage your Systems Manager resources. Currently, OpsItemGroup is the only resource that supports Systems Manager resource policies. The resource policy for OpsItemGroup enables Amazon Web Services accounts to view and interact with OpsCenter operational work items (OpsItems).
      */
     deleteResourcePolicy(
         params: SSM.Types.DeleteResourcePolicyRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeleteResourcePolicyResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteResourcePolicyResponse) => void,
     ): Request<SSM.Types.DeleteResourcePolicyResponse, AWSError>;
     /**
      * Deletes a Systems Manager resource policy. A resource policy helps you to define the IAM entity (for example, an Amazon Web Services account) that can manage your Systems Manager resources. Currently, OpsItemGroup is the only resource that supports Systems Manager resource policies. The resource policy for OpsItemGroup enables Amazon Web Services accounts to view and interact with OpsCenter operational work items (OpsItems).
      */
     deleteResourcePolicy(
-        callback?: (err: AWSError, data: SSM.Types.DeleteResourcePolicyResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeleteResourcePolicyResponse) => void,
     ): Request<SSM.Types.DeleteResourcePolicyResponse, AWSError>;
     /**
      * Removes the server or virtual machine from the list of registered servers. You can reregister the node again at any time. If you don't plan to use Run Command on the server, we suggest uninstalling SSM Agent first.
      */
     deregisterManagedInstance(
         params: SSM.Types.DeregisterManagedInstanceRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeregisterManagedInstanceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterManagedInstanceResult) => void,
     ): Request<SSM.Types.DeregisterManagedInstanceResult, AWSError>;
     /**
      * Removes the server or virtual machine from the list of registered servers. You can reregister the node again at any time. If you don't plan to use Run Command on the server, we suggest uninstalling SSM Agent first.
      */
     deregisterManagedInstance(
-        callback?: (err: AWSError, data: SSM.Types.DeregisterManagedInstanceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterManagedInstanceResult) => void,
     ): Request<SSM.Types.DeregisterManagedInstanceResult, AWSError>;
     /**
      * Removes a patch group from a patch baseline.
      */
     deregisterPatchBaselineForPatchGroup(
         params: SSM.Types.DeregisterPatchBaselineForPatchGroupRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeregisterPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.DeregisterPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Removes a patch group from a patch baseline.
      */
     deregisterPatchBaselineForPatchGroup(
-        callback?: (err: AWSError, data: SSM.Types.DeregisterPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.DeregisterPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Removes a target from a maintenance window.
      */
     deregisterTargetFromMaintenanceWindow(
         params: SSM.Types.DeregisterTargetFromMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeregisterTargetFromMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterTargetFromMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeregisterTargetFromMaintenanceWindowResult, AWSError>;
     /**
      * Removes a target from a maintenance window.
      */
     deregisterTargetFromMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.DeregisterTargetFromMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterTargetFromMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeregisterTargetFromMaintenanceWindowResult, AWSError>;
     /**
      * Removes a task from a maintenance window.
      */
     deregisterTaskFromMaintenanceWindow(
         params: SSM.Types.DeregisterTaskFromMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.DeregisterTaskFromMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterTaskFromMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeregisterTaskFromMaintenanceWindowResult, AWSError>;
     /**
      * Removes a task from a maintenance window.
      */
     deregisterTaskFromMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.DeregisterTaskFromMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DeregisterTaskFromMaintenanceWindowResult) => void,
     ): Request<SSM.Types.DeregisterTaskFromMaintenanceWindowResult, AWSError>;
     /**
      * Describes details about the activation, such as the date and time the activation was created, its expiration date, the Identity and Access Management (IAM) role assigned to the managed nodes in the activation, and the number of nodes registered by using this activation.
      */
     describeActivations(
         params: SSM.Types.DescribeActivationsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeActivationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeActivationsResult) => void,
     ): Request<SSM.Types.DescribeActivationsResult, AWSError>;
     /**
      * Describes details about the activation, such as the date and time the activation was created, its expiration date, the Identity and Access Management (IAM) role assigned to the managed nodes in the activation, and the number of nodes registered by using this activation.
      */
     describeActivations(
-        callback?: (err: AWSError, data: SSM.Types.DescribeActivationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeActivationsResult) => void,
     ): Request<SSM.Types.DescribeActivationsResult, AWSError>;
     /**
      * Describes the association for the specified target or managed node. If you created the association by using the Targets parameter, then you must retrieve the association by using the association ID.
      */
     describeAssociation(
         params: SSM.Types.DescribeAssociationRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationResult) => void,
     ): Request<SSM.Types.DescribeAssociationResult, AWSError>;
     /**
      * Describes the association for the specified target or managed node. If you created the association by using the Targets parameter, then you must retrieve the association by using the association ID.
      */
     describeAssociation(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationResult) => void,
     ): Request<SSM.Types.DescribeAssociationResult, AWSError>;
     /**
      * Views information about a specific execution of a specific association.
      */
     describeAssociationExecutionTargets(
         params: SSM.Types.DescribeAssociationExecutionTargetsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionTargetsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionTargetsResult) => void,
     ): Request<SSM.Types.DescribeAssociationExecutionTargetsResult, AWSError>;
     /**
      * Views information about a specific execution of a specific association.
      */
     describeAssociationExecutionTargets(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionTargetsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionTargetsResult) => void,
     ): Request<SSM.Types.DescribeAssociationExecutionTargetsResult, AWSError>;
     /**
      * Views all executions for a specific association ID.
      */
     describeAssociationExecutions(
         params: SSM.Types.DescribeAssociationExecutionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAssociationExecutionsResult, AWSError>;
     /**
      * Views all executions for a specific association ID.
      */
     describeAssociationExecutions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAssociationExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAssociationExecutionsResult, AWSError>;
     /**
      * Provides details about all active and terminated Automation executions.
      */
     describeAutomationExecutions(
         params: SSM.Types.DescribeAutomationExecutionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAutomationExecutionsResult, AWSError>;
     /**
      * Provides details about all active and terminated Automation executions.
      */
     describeAutomationExecutions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAutomationExecutionsResult, AWSError>;
     /**
      * Information about all active and terminated step executions in an Automation workflow.
      */
     describeAutomationStepExecutions(
         params: SSM.Types.DescribeAutomationStepExecutionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationStepExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationStepExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAutomationStepExecutionsResult, AWSError>;
     /**
      * Information about all active and terminated step executions in an Automation workflow.
      */
     describeAutomationStepExecutions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationStepExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAutomationStepExecutionsResult) => void,
     ): Request<SSM.Types.DescribeAutomationStepExecutionsResult, AWSError>;
     /**
      * Lists all patches eligible to be included in a patch baseline.
      */
     describeAvailablePatches(
         params: SSM.Types.DescribeAvailablePatchesRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeAvailablePatchesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAvailablePatchesResult) => void,
     ): Request<SSM.Types.DescribeAvailablePatchesResult, AWSError>;
     /**
      * Lists all patches eligible to be included in a patch baseline.
      */
     describeAvailablePatches(
-        callback?: (err: AWSError, data: SSM.Types.DescribeAvailablePatchesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeAvailablePatchesResult) => void,
     ): Request<SSM.Types.DescribeAvailablePatchesResult, AWSError>;
     /**
      * Describes the specified Amazon Web Services Systems Manager document (SSM document).
      */
     describeDocument(
         params: SSM.Types.DescribeDocumentRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentResult) => void,
     ): Request<SSM.Types.DescribeDocumentResult, AWSError>;
     /**
      * Describes the specified Amazon Web Services Systems Manager document (SSM document).
      */
     describeDocument(
-        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentResult) => void,
     ): Request<SSM.Types.DescribeDocumentResult, AWSError>;
     /**
      * Describes the permissions for a Amazon Web Services Systems Manager document (SSM document). If you created the document, you are the owner. If a document is shared, it can either be shared privately (by specifying a user's Amazon Web Services account ID) or publicly (All).
      */
     describeDocumentPermission(
         params: SSM.Types.DescribeDocumentPermissionRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentPermissionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentPermissionResponse) => void,
     ): Request<SSM.Types.DescribeDocumentPermissionResponse, AWSError>;
     /**
      * Describes the permissions for a Amazon Web Services Systems Manager document (SSM document). If you created the document, you are the owner. If a document is shared, it can either be shared privately (by specifying a user's Amazon Web Services account ID) or publicly (All).
      */
     describeDocumentPermission(
-        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentPermissionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeDocumentPermissionResponse) => void,
     ): Request<SSM.Types.DescribeDocumentPermissionResponse, AWSError>;
     /**
      * All associations for the managed node(s).
      */
     describeEffectiveInstanceAssociations(
         params: SSM.Types.DescribeEffectiveInstanceAssociationsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeEffectiveInstanceAssociationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeEffectiveInstanceAssociationsResult) => void,
     ): Request<SSM.Types.DescribeEffectiveInstanceAssociationsResult, AWSError>;
     /**
      * All associations for the managed node(s).
      */
     describeEffectiveInstanceAssociations(
-        callback?: (err: AWSError, data: SSM.Types.DescribeEffectiveInstanceAssociationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeEffectiveInstanceAssociationsResult) => void,
     ): Request<SSM.Types.DescribeEffectiveInstanceAssociationsResult, AWSError>;
     /**
      * Retrieves the current effective patches (the patch and the approval state) for the specified patch baseline. Applies to patch baselines for Windows only.
      */
     describeEffectivePatchesForPatchBaseline(
         params: SSM.Types.DescribeEffectivePatchesForPatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeEffectivePatchesForPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeEffectivePatchesForPatchBaselineResult) => void,
     ): Request<SSM.Types.DescribeEffectivePatchesForPatchBaselineResult, AWSError>;
     /**
      * Retrieves the current effective patches (the patch and the approval state) for the specified patch baseline. Applies to patch baselines for Windows only.
      */
     describeEffectivePatchesForPatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.DescribeEffectivePatchesForPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeEffectivePatchesForPatchBaselineResult) => void,
     ): Request<SSM.Types.DescribeEffectivePatchesForPatchBaselineResult, AWSError>;
     /**
      * The status of the associations for the managed node(s).
      */
     describeInstanceAssociationsStatus(
         params: SSM.Types.DescribeInstanceAssociationsStatusRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceAssociationsStatusResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceAssociationsStatusResult) => void,
     ): Request<SSM.Types.DescribeInstanceAssociationsStatusResult, AWSError>;
     /**
      * The status of the associations for the managed node(s).
      */
     describeInstanceAssociationsStatus(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceAssociationsStatusResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceAssociationsStatusResult) => void,
     ): Request<SSM.Types.DescribeInstanceAssociationsStatusResult, AWSError>;
     /**
      * Describes one or more of your managed nodes, including information about the operating system platform, the version of SSM Agent installed on the managed node, node status, and so on. If you specify one or more managed node IDs, it returns information for those managed nodes. If you don't specify node IDs, it returns information for all your managed nodes. If you specify a node ID that isn't valid or a node that you don't own, you receive an error.  The IamRole field for this API operation is the Identity and Access Management (IAM) role assigned to on-premises managed nodes. This call doesn't return the IAM role for EC2 instances.
      */
     describeInstanceInformation(
         params: SSM.Types.DescribeInstanceInformationRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceInformationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceInformationResult) => void,
     ): Request<SSM.Types.DescribeInstanceInformationResult, AWSError>;
     /**
      * Describes one or more of your managed nodes, including information about the operating system platform, the version of SSM Agent installed on the managed node, node status, and so on. If you specify one or more managed node IDs, it returns information for those managed nodes. If you don't specify node IDs, it returns information for all your managed nodes. If you specify a node ID that isn't valid or a node that you don't own, you receive an error.  The IamRole field for this API operation is the Identity and Access Management (IAM) role assigned to on-premises managed nodes. This call doesn't return the IAM role for EC2 instances.
      */
     describeInstanceInformation(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceInformationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstanceInformationResult) => void,
     ): Request<SSM.Types.DescribeInstanceInformationResult, AWSError>;
     /**
      * Retrieves the high-level patch state of one or more managed nodes.
      */
     describeInstancePatchStates(
         params: SSM.Types.DescribeInstancePatchStatesRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchStatesResult, AWSError>;
     /**
      * Retrieves the high-level patch state of one or more managed nodes.
      */
     describeInstancePatchStates(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchStatesResult, AWSError>;
     /**
      * Retrieves the high-level patch state for the managed nodes in the specified patch group.
      */
     describeInstancePatchStatesForPatchGroup(
         params: SSM.Types.DescribeInstancePatchStatesForPatchGroupRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesForPatchGroupResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchStatesForPatchGroupResult, AWSError>;
     /**
      * Retrieves the high-level patch state for the managed nodes in the specified patch group.
      */
     describeInstancePatchStatesForPatchGroup(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchStatesForPatchGroupResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchStatesForPatchGroupResult, AWSError>;
     /**
      * Retrieves information about the patches on the specified managed node and their state relative to the patch baseline being used for the node.
      */
     describeInstancePatches(
         params: SSM.Types.DescribeInstancePatchesRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchesResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchesResult, AWSError>;
     /**
      * Retrieves information about the patches on the specified managed node and their state relative to the patch baseline being used for the node.
      */
     describeInstancePatches(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInstancePatchesResult) => void,
     ): Request<SSM.Types.DescribeInstancePatchesResult, AWSError>;
     /**
      * Describes a specific delete inventory operation.
      */
     describeInventoryDeletions(
         params: SSM.Types.DescribeInventoryDeletionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeInventoryDeletionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInventoryDeletionsResult) => void,
     ): Request<SSM.Types.DescribeInventoryDeletionsResult, AWSError>;
     /**
      * Describes a specific delete inventory operation.
      */
     describeInventoryDeletions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeInventoryDeletionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeInventoryDeletionsResult) => void,
     ): Request<SSM.Types.DescribeInventoryDeletionsResult, AWSError>;
     /**
      * Retrieves the individual task executions (one per target) for a particular task run as part of a maintenance window execution.
      */
     describeMaintenanceWindowExecutionTaskInvocations(
         params: SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult, AWSError>;
     /**
      * Retrieves the individual task executions (one per target) for a particular task run as part of a maintenance window execution.
      */
     describeMaintenanceWindowExecutionTaskInvocations(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionTaskInvocationsResult, AWSError>;
     /**
      * For a given maintenance window execution, lists the tasks that were run.
      */
     describeMaintenanceWindowExecutionTasks(
         params: SSM.Types.DescribeMaintenanceWindowExecutionTasksRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTasksResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTasksResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionTasksResult, AWSError>;
     /**
      * For a given maintenance window execution, lists the tasks that were run.
      */
     describeMaintenanceWindowExecutionTasks(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTasksResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionTasksResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionTasksResult, AWSError>;
     /**
      * Lists the executions of a maintenance window. This includes information about when the maintenance window was scheduled to be active, and information about tasks registered and run with the maintenance window.
      */
     describeMaintenanceWindowExecutions(
         params: SSM.Types.DescribeMaintenanceWindowExecutionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionsResult, AWSError>;
     /**
      * Lists the executions of a maintenance window. This includes information about when the maintenance window was scheduled to be active, and information about tasks registered and run with the maintenance window.
      */
     describeMaintenanceWindowExecutions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowExecutionsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowExecutionsResult, AWSError>;
     /**
      * Retrieves information about upcoming executions of a maintenance window.
      */
     describeMaintenanceWindowSchedule(
         params: SSM.Types.DescribeMaintenanceWindowScheduleRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowScheduleResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowScheduleResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowScheduleResult, AWSError>;
     /**
      * Retrieves information about upcoming executions of a maintenance window.
      */
     describeMaintenanceWindowSchedule(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowScheduleResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowScheduleResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowScheduleResult, AWSError>;
     /**
      * Lists the targets registered with the maintenance window.
      */
     describeMaintenanceWindowTargets(
         params: SSM.Types.DescribeMaintenanceWindowTargetsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTargetsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTargetsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowTargetsResult, AWSError>;
     /**
      * Lists the targets registered with the maintenance window.
      */
     describeMaintenanceWindowTargets(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTargetsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTargetsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowTargetsResult, AWSError>;
     /**
      * Lists the tasks in a maintenance window.  For maintenance window tasks without a specified target, you can't supply values for --max-errors and --max-concurrency. Instead, the system inserts a placeholder value of 1, which may be reported in the response to this command. These values don't affect the running of your task and can be ignored.
      */
     describeMaintenanceWindowTasks(
         params: SSM.Types.DescribeMaintenanceWindowTasksRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTasksResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTasksResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowTasksResult, AWSError>;
     /**
      * Lists the tasks in a maintenance window.  For maintenance window tasks without a specified target, you can't supply values for --max-errors and --max-concurrency. Instead, the system inserts a placeholder value of 1, which may be reported in the response to this command. These values don't affect the running of your task and can be ignored.
      */
     describeMaintenanceWindowTasks(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTasksResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowTasksResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowTasksResult, AWSError>;
     /**
      * Retrieves the maintenance windows in an Amazon Web Services account.
      */
     describeMaintenanceWindows(
         params: SSM.Types.DescribeMaintenanceWindowsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowsResult, AWSError>;
     /**
      * Retrieves the maintenance windows in an Amazon Web Services account.
      */
     describeMaintenanceWindows(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowsResult, AWSError>;
     /**
      * Retrieves information about the maintenance window targets or tasks that a managed node is associated with.
      */
     describeMaintenanceWindowsForTarget(
         params: SSM.Types.DescribeMaintenanceWindowsForTargetRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsForTargetResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsForTargetResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowsForTargetResult, AWSError>;
     /**
      * Retrieves information about the maintenance window targets or tasks that a managed node is associated with.
      */
     describeMaintenanceWindowsForTarget(
-        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsForTargetResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeMaintenanceWindowsForTargetResult) => void,
     ): Request<SSM.Types.DescribeMaintenanceWindowsForTargetResult, AWSError>;
     /**
      * Query a set of OpsItems. You must have permission in Identity and Access Management (IAM) to query a list of OpsItems. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     describeOpsItems(
         params: SSM.Types.DescribeOpsItemsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeOpsItemsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeOpsItemsResponse) => void,
     ): Request<SSM.Types.DescribeOpsItemsResponse, AWSError>;
     /**
      * Query a set of OpsItems. You must have permission in Identity and Access Management (IAM) to query a list of OpsItems. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     describeOpsItems(
-        callback?: (err: AWSError, data: SSM.Types.DescribeOpsItemsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeOpsItemsResponse) => void,
     ): Request<SSM.Types.DescribeOpsItemsResponse, AWSError>;
     /**
      * Get information about a parameter. Request results are returned on a best-effort basis. If you specify MaxResults in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of MaxResults. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a NextToken. You can specify the NextToken in a subsequent call to get the next set of results.  If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, DescribeParameters retrieves whatever the original key alias was referencing.
      */
     describeParameters(
         params: SSM.Types.DescribeParametersRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeParametersResult) => void,
     ): Request<SSM.Types.DescribeParametersResult, AWSError>;
     /**
      * Get information about a parameter. Request results are returned on a best-effort basis. If you specify MaxResults in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of MaxResults. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a NextToken. You can specify the NextToken in a subsequent call to get the next set of results.  If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, DescribeParameters retrieves whatever the original key alias was referencing.
      */
     describeParameters(
-        callback?: (err: AWSError, data: SSM.Types.DescribeParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeParametersResult) => void,
     ): Request<SSM.Types.DescribeParametersResult, AWSError>;
     /**
      * Lists the patch baselines in your Amazon Web Services account.
      */
     describePatchBaselines(
         params: SSM.Types.DescribePatchBaselinesRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchBaselinesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchBaselinesResult) => void,
     ): Request<SSM.Types.DescribePatchBaselinesResult, AWSError>;
     /**
      * Lists the patch baselines in your Amazon Web Services account.
      */
     describePatchBaselines(
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchBaselinesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchBaselinesResult) => void,
     ): Request<SSM.Types.DescribePatchBaselinesResult, AWSError>;
     /**
      * Returns high-level aggregated patch compliance state information for a patch group.
      */
     describePatchGroupState(
         params: SSM.Types.DescribePatchGroupStateRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupStateResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupStateResult) => void,
     ): Request<SSM.Types.DescribePatchGroupStateResult, AWSError>;
     /**
      * Returns high-level aggregated patch compliance state information for a patch group.
      */
     describePatchGroupState(
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupStateResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupStateResult) => void,
     ): Request<SSM.Types.DescribePatchGroupStateResult, AWSError>;
     /**
      * Lists all patch groups that have been registered with patch baselines.
      */
     describePatchGroups(
         params: SSM.Types.DescribePatchGroupsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupsResult) => void,
     ): Request<SSM.Types.DescribePatchGroupsResult, AWSError>;
     /**
      * Lists all patch groups that have been registered with patch baselines.
      */
     describePatchGroups(
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchGroupsResult) => void,
     ): Request<SSM.Types.DescribePatchGroupsResult, AWSError>;
     /**
      * Lists the properties of available patches organized by product, product family, classification, severity, and other properties of available patches. You can use the reported properties in the filters you specify in requests for operations such as CreatePatchBaseline, UpdatePatchBaseline, DescribeAvailablePatches, and DescribePatchBaselines. The following section lists the properties that can be used in filters for each major operating system type:  AMAZON_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   AMAZON_LINUX_2  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   CENTOS  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   DEBIAN  Valid properties: PRODUCT | PRIORITY   MACOS  Valid properties: PRODUCT | CLASSIFICATION   ORACLE_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   REDHAT_ENTERPRISE_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   SUSE  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   UBUNTU  Valid properties: PRODUCT | PRIORITY   WINDOWS  Valid properties: PRODUCT | PRODUCT_FAMILY | CLASSIFICATION | MSRC_SEVERITY
      */
     describePatchProperties(
         params: SSM.Types.DescribePatchPropertiesRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchPropertiesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchPropertiesResult) => void,
     ): Request<SSM.Types.DescribePatchPropertiesResult, AWSError>;
     /**
      * Lists the properties of available patches organized by product, product family, classification, severity, and other properties of available patches. You can use the reported properties in the filters you specify in requests for operations such as CreatePatchBaseline, UpdatePatchBaseline, DescribeAvailablePatches, and DescribePatchBaselines. The following section lists the properties that can be used in filters for each major operating system type:  AMAZON_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   AMAZON_LINUX_2  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   CENTOS  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   DEBIAN  Valid properties: PRODUCT | PRIORITY   MACOS  Valid properties: PRODUCT | CLASSIFICATION   ORACLE_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   REDHAT_ENTERPRISE_LINUX  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   SUSE  Valid properties: PRODUCT | CLASSIFICATION | SEVERITY   UBUNTU  Valid properties: PRODUCT | PRIORITY   WINDOWS  Valid properties: PRODUCT | PRODUCT_FAMILY | CLASSIFICATION | MSRC_SEVERITY
      */
     describePatchProperties(
-        callback?: (err: AWSError, data: SSM.Types.DescribePatchPropertiesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribePatchPropertiesResult) => void,
     ): Request<SSM.Types.DescribePatchPropertiesResult, AWSError>;
     /**
      * Retrieves a list of all active sessions (both connected and disconnected) or terminated sessions from the past 30 days.
      */
     describeSessions(
         params: SSM.Types.DescribeSessionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.DescribeSessionsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeSessionsResponse) => void,
     ): Request<SSM.Types.DescribeSessionsResponse, AWSError>;
     /**
      * Retrieves a list of all active sessions (both connected and disconnected) or terminated sessions from the past 30 days.
      */
     describeSessions(
-        callback?: (err: AWSError, data: SSM.Types.DescribeSessionsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DescribeSessionsResponse) => void,
     ): Request<SSM.Types.DescribeSessionsResponse, AWSError>;
     /**
      * Deletes the association between an OpsItem and a related item. For example, this API operation can delete an Incident Manager incident from an OpsItem. Incident Manager is a capability of Amazon Web Services Systems Manager.
      */
     disassociateOpsItemRelatedItem(
         params: SSM.Types.DisassociateOpsItemRelatedItemRequest,
-        callback?: (err: AWSError, data: SSM.Types.DisassociateOpsItemRelatedItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DisassociateOpsItemRelatedItemResponse) => void,
     ): Request<SSM.Types.DisassociateOpsItemRelatedItemResponse, AWSError>;
     /**
      * Deletes the association between an OpsItem and a related item. For example, this API operation can delete an Incident Manager incident from an OpsItem. Incident Manager is a capability of Amazon Web Services Systems Manager.
      */
     disassociateOpsItemRelatedItem(
-        callback?: (err: AWSError, data: SSM.Types.DisassociateOpsItemRelatedItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.DisassociateOpsItemRelatedItemResponse) => void,
     ): Request<SSM.Types.DisassociateOpsItemRelatedItemResponse, AWSError>;
     /**
      * Get detailed information about a particular Automation execution.
      */
     getAutomationExecution(
         params: SSM.Types.GetAutomationExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetAutomationExecutionResult) => void,
     ): Request<SSM.Types.GetAutomationExecutionResult, AWSError>;
     /**
      * Get detailed information about a particular Automation execution.
      */
     getAutomationExecution(
-        callback?: (err: AWSError, data: SSM.Types.GetAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetAutomationExecutionResult) => void,
     ): Request<SSM.Types.GetAutomationExecutionResult, AWSError>;
     /**
      * Gets the state of a Amazon Web Services Systems Manager change calendar at the current time or a specified time. If you specify a time, GetCalendarState returns the state of the calendar at that specific time, and returns the next time that the change calendar state will transition. If you don't specify a time, GetCalendarState uses the current time. Change Calendar entries have two possible states: OPEN or CLOSED. If you specify more than one calendar in a request, the command returns the status of OPEN only if all calendars in the request are open. If one or more calendars in the request are closed, the status returned is CLOSED. For more information about Change Calendar, a capability of Amazon Web Services Systems Manager, see Amazon Web Services Systems Manager Change Calendar in the Amazon Web Services Systems Manager User Guide.
      */
     getCalendarState(
         params: SSM.Types.GetCalendarStateRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetCalendarStateResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCalendarStateResponse) => void,
     ): Request<SSM.Types.GetCalendarStateResponse, AWSError>;
     /**
      * Gets the state of a Amazon Web Services Systems Manager change calendar at the current time or a specified time. If you specify a time, GetCalendarState returns the state of the calendar at that specific time, and returns the next time that the change calendar state will transition. If you don't specify a time, GetCalendarState uses the current time. Change Calendar entries have two possible states: OPEN or CLOSED. If you specify more than one calendar in a request, the command returns the status of OPEN only if all calendars in the request are open. If one or more calendars in the request are closed, the status returned is CLOSED. For more information about Change Calendar, a capability of Amazon Web Services Systems Manager, see Amazon Web Services Systems Manager Change Calendar in the Amazon Web Services Systems Manager User Guide.
      */
     getCalendarState(
-        callback?: (err: AWSError, data: SSM.Types.GetCalendarStateResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCalendarStateResponse) => void,
     ): Request<SSM.Types.GetCalendarStateResponse, AWSError>;
     /**
      * Returns detailed information about command execution for an invocation or plugin.  GetCommandInvocation only gives the execution status of a plugin in a document. To get the command execution status on a specific managed node, use ListCommandInvocations. To get the command execution status across managed nodes, use ListCommands.
      */
     getCommandInvocation(
         params: SSM.Types.GetCommandInvocationRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
     /**
      * Returns detailed information about command execution for an invocation or plugin.  GetCommandInvocation only gives the execution status of a plugin in a document. To get the command execution status on a specific managed node, use ListCommandInvocations. To get the command execution status across managed nodes, use ListCommands.
      */
     getCommandInvocation(
-        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
     /**
      * Retrieves the Session Manager connection status for a managed node to determine whether it is running and ready to receive Session Manager connections.
      */
     getConnectionStatus(
         params: SSM.Types.GetConnectionStatusRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetConnectionStatusResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetConnectionStatusResponse) => void,
     ): Request<SSM.Types.GetConnectionStatusResponse, AWSError>;
     /**
      * Retrieves the Session Manager connection status for a managed node to determine whether it is running and ready to receive Session Manager connections.
      */
     getConnectionStatus(
-        callback?: (err: AWSError, data: SSM.Types.GetConnectionStatusResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetConnectionStatusResponse) => void,
     ): Request<SSM.Types.GetConnectionStatusResponse, AWSError>;
     /**
      * Retrieves the default patch baseline. Amazon Web Services Systems Manager supports creating multiple default patch baselines. For example, you can create a default patch baseline for each operating system. If you don't specify an operating system value, the default patch baseline for Windows is returned.
      */
     getDefaultPatchBaseline(
         params: SSM.Types.GetDefaultPatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetDefaultPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDefaultPatchBaselineResult) => void,
     ): Request<SSM.Types.GetDefaultPatchBaselineResult, AWSError>;
     /**
      * Retrieves the default patch baseline. Amazon Web Services Systems Manager supports creating multiple default patch baselines. For example, you can create a default patch baseline for each operating system. If you don't specify an operating system value, the default patch baseline for Windows is returned.
      */
     getDefaultPatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.GetDefaultPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDefaultPatchBaselineResult) => void,
     ): Request<SSM.Types.GetDefaultPatchBaselineResult, AWSError>;
     /**
      * Retrieves the current snapshot for the patch baseline the managed node uses. This API is primarily used by the AWS-RunPatchBaseline Systems Manager document (SSM document).  If you run the command locally, such as with the Command Line Interface (CLI), the system attempts to use your local Amazon Web Services credentials and the operation fails. To avoid this, you can run the command in the Amazon Web Services Systems Manager console. Use Run Command, a capability of Amazon Web Services Systems Manager, with an SSM document that enables you to target a managed node with a script or command. For example, run the command using the AWS-RunShellScript document or the AWS-RunPowerShellScript document.
      */
     getDeployablePatchSnapshotForInstance(
         params: SSM.Types.GetDeployablePatchSnapshotForInstanceRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetDeployablePatchSnapshotForInstanceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDeployablePatchSnapshotForInstanceResult) => void,
     ): Request<SSM.Types.GetDeployablePatchSnapshotForInstanceResult, AWSError>;
     /**
      * Retrieves the current snapshot for the patch baseline the managed node uses. This API is primarily used by the AWS-RunPatchBaseline Systems Manager document (SSM document).  If you run the command locally, such as with the Command Line Interface (CLI), the system attempts to use your local Amazon Web Services credentials and the operation fails. To avoid this, you can run the command in the Amazon Web Services Systems Manager console. Use Run Command, a capability of Amazon Web Services Systems Manager, with an SSM document that enables you to target a managed node with a script or command. For example, run the command using the AWS-RunShellScript document or the AWS-RunPowerShellScript document.
      */
     getDeployablePatchSnapshotForInstance(
-        callback?: (err: AWSError, data: SSM.Types.GetDeployablePatchSnapshotForInstanceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDeployablePatchSnapshotForInstanceResult) => void,
     ): Request<SSM.Types.GetDeployablePatchSnapshotForInstanceResult, AWSError>;
     /**
      * Gets the contents of the specified Amazon Web Services Systems Manager document (SSM document).
      */
     getDocument(
         params: SSM.Types.GetDocumentRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDocumentResult) => void,
     ): Request<SSM.Types.GetDocumentResult, AWSError>;
     /**
      * Gets the contents of the specified Amazon Web Services Systems Manager document (SSM document).
      */
     getDocument(
-        callback?: (err: AWSError, data: SSM.Types.GetDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetDocumentResult) => void,
     ): Request<SSM.Types.GetDocumentResult, AWSError>;
     /**
      * Query inventory information. This includes managed node status, such as Stopped or Terminated.
      */
     getInventory(
         params: SSM.Types.GetInventoryRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetInventoryResult) => void,
     ): Request<SSM.Types.GetInventoryResult, AWSError>;
     /**
      * Query inventory information. This includes managed node status, such as Stopped or Terminated.
      */
     getInventory(
-        callback?: (err: AWSError, data: SSM.Types.GetInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetInventoryResult) => void,
     ): Request<SSM.Types.GetInventoryResult, AWSError>;
     /**
      * Return a list of inventory type names for the account, or return a list of attribute names for a specific Inventory item type.
      */
     getInventorySchema(
         params: SSM.Types.GetInventorySchemaRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetInventorySchemaResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetInventorySchemaResult) => void,
     ): Request<SSM.Types.GetInventorySchemaResult, AWSError>;
     /**
      * Return a list of inventory type names for the account, or return a list of attribute names for a specific Inventory item type.
      */
     getInventorySchema(
-        callback?: (err: AWSError, data: SSM.Types.GetInventorySchemaResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetInventorySchemaResult) => void,
     ): Request<SSM.Types.GetInventorySchemaResult, AWSError>;
     /**
      * Retrieves a maintenance window.
      */
     getMaintenanceWindow(
         params: SSM.Types.GetMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowResult, AWSError>;
     /**
      * Retrieves a maintenance window.
      */
     getMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowResult, AWSError>;
     /**
      * Retrieves details about a specific a maintenance window execution.
      */
     getMaintenanceWindowExecution(
         params: SSM.Types.GetMaintenanceWindowExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionResult, AWSError>;
     /**
      * Retrieves details about a specific a maintenance window execution.
      */
     getMaintenanceWindowExecution(
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionResult, AWSError>;
     /**
      * Retrieves the details about a specific task run as part of a maintenance window execution.
      */
     getMaintenanceWindowExecutionTask(
         params: SSM.Types.GetMaintenanceWindowExecutionTaskRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionTaskResult, AWSError>;
     /**
      * Retrieves the details about a specific task run as part of a maintenance window execution.
      */
     getMaintenanceWindowExecutionTask(
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionTaskResult, AWSError>;
     /**
      * Retrieves information about a specific task running on a specific target.
      */
     getMaintenanceWindowExecutionTaskInvocation(
         params: SSM.Types.GetMaintenanceWindowExecutionTaskInvocationRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult, AWSError>;
     /**
      * Retrieves information about a specific task running on a specific target.
      */
     getMaintenanceWindowExecutionTaskInvocation(
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowExecutionTaskInvocationResult, AWSError>;
     /**
      * Retrieves the details of a maintenance window task.  For maintenance window tasks without a specified target, you can't supply values for --max-errors and --max-concurrency. Instead, the system inserts a placeholder value of 1, which may be reported in the response to this command. These values don't affect the running of your task and can be ignored.  To retrieve a list of tasks in a maintenance window, instead use the DescribeMaintenanceWindowTasks command.
      */
     getMaintenanceWindowTask(
         params: SSM.Types.GetMaintenanceWindowTaskRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowTaskResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowTaskResult, AWSError>;
     /**
      * Retrieves the details of a maintenance window task.  For maintenance window tasks without a specified target, you can't supply values for --max-errors and --max-concurrency. Instead, the system inserts a placeholder value of 1, which may be reported in the response to this command. These values don't affect the running of your task and can be ignored.  To retrieve a list of tasks in a maintenance window, instead use the DescribeMaintenanceWindowTasks command.
      */
     getMaintenanceWindowTask(
-        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetMaintenanceWindowTaskResult) => void,
     ): Request<SSM.Types.GetMaintenanceWindowTaskResult, AWSError>;
     /**
      * Get information about an OpsItem by using the ID. You must have permission in Identity and Access Management (IAM) to view information about an OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     getOpsItem(
         params: SSM.Types.GetOpsItemRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsItemResponse) => void,
     ): Request<SSM.Types.GetOpsItemResponse, AWSError>;
     /**
      * Get information about an OpsItem by using the ID. You must have permission in Identity and Access Management (IAM) to view information about an OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     getOpsItem(
-        callback?: (err: AWSError, data: SSM.Types.GetOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsItemResponse) => void,
     ): Request<SSM.Types.GetOpsItemResponse, AWSError>;
     /**
      * View operational metadata related to an application in Application Manager.
      */
     getOpsMetadata(
         params: SSM.Types.GetOpsMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsMetadataResult) => void,
     ): Request<SSM.Types.GetOpsMetadataResult, AWSError>;
     /**
      * View operational metadata related to an application in Application Manager.
      */
     getOpsMetadata(
-        callback?: (err: AWSError, data: SSM.Types.GetOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsMetadataResult) => void,
     ): Request<SSM.Types.GetOpsMetadataResult, AWSError>;
     /**
      * View a summary of operations metadata (OpsData) based on specified filters and aggregators. OpsData can include information about Amazon Web Services Systems Manager OpsCenter operational workitems (OpsItems) as well as information about any Amazon Web Services resource or service configured to report OpsData to Amazon Web Services Systems Manager Explorer.
      */
     getOpsSummary(
         params: SSM.Types.GetOpsSummaryRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetOpsSummaryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsSummaryResult) => void,
     ): Request<SSM.Types.GetOpsSummaryResult, AWSError>;
     /**
      * View a summary of operations metadata (OpsData) based on specified filters and aggregators. OpsData can include information about Amazon Web Services Systems Manager OpsCenter operational workitems (OpsItems) as well as information about any Amazon Web Services resource or service configured to report OpsData to Amazon Web Services Systems Manager Explorer.
      */
     getOpsSummary(
-        callback?: (err: AWSError, data: SSM.Types.GetOpsSummaryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetOpsSummaryResult) => void,
     ): Request<SSM.Types.GetOpsSummaryResult, AWSError>;
     /**
      * Get information about a single parameter by specifying the parameter name.  To get information about more than one parameter at a time, use the GetParameters operation.
      */
     getParameter(
         params: SSM.Types.GetParameterRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParameterResult) => void,
     ): Request<SSM.Types.GetParameterResult, AWSError>;
     /**
      * Get information about a single parameter by specifying the parameter name.  To get information about more than one parameter at a time, use the GetParameters operation.
      */
     getParameter(
-        callback?: (err: AWSError, data: SSM.Types.GetParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParameterResult) => void,
     ): Request<SSM.Types.GetParameterResult, AWSError>;
     /**
      * Retrieves the history of all changes to a parameter.  If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, GetParameterHistory retrieves whatever the original key alias was referencing.
      */
     getParameterHistory(
         params: SSM.Types.GetParameterHistoryRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetParameterHistoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParameterHistoryResult) => void,
     ): Request<SSM.Types.GetParameterHistoryResult, AWSError>;
     /**
      * Retrieves the history of all changes to a parameter.  If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, GetParameterHistory retrieves whatever the original key alias was referencing.
      */
     getParameterHistory(
-        callback?: (err: AWSError, data: SSM.Types.GetParameterHistoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParameterHistoryResult) => void,
     ): Request<SSM.Types.GetParameterHistoryResult, AWSError>;
     /**
      * Get information about one or more parameters by specifying multiple parameter names.  To get information about a single parameter, you can use the GetParameter operation instead.
      */
     getParameters(
         params: SSM.Types.GetParametersRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParametersResult) => void,
     ): Request<SSM.Types.GetParametersResult, AWSError>;
     /**
      * Get information about one or more parameters by specifying multiple parameter names.  To get information about a single parameter, you can use the GetParameter operation instead.
      */
     getParameters(
-        callback?: (err: AWSError, data: SSM.Types.GetParametersResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParametersResult) => void,
     ): Request<SSM.Types.GetParametersResult, AWSError>;
     /**
      * Retrieve information about one or more parameters in a specific hierarchy.  Request results are returned on a best-effort basis. If you specify MaxResults in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of MaxResults. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a NextToken. You can specify the NextToken in a subsequent call to get the next set of results.
      */
     getParametersByPath(
         params: SSM.Types.GetParametersByPathRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetParametersByPathResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParametersByPathResult) => void,
     ): Request<SSM.Types.GetParametersByPathResult, AWSError>;
     /**
      * Retrieve information about one or more parameters in a specific hierarchy.  Request results are returned on a best-effort basis. If you specify MaxResults in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of MaxResults. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a NextToken. You can specify the NextToken in a subsequent call to get the next set of results.
      */
     getParametersByPath(
-        callback?: (err: AWSError, data: SSM.Types.GetParametersByPathResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetParametersByPathResult) => void,
     ): Request<SSM.Types.GetParametersByPathResult, AWSError>;
     /**
      * Retrieves information about a patch baseline.
      */
     getPatchBaseline(
         params: SSM.Types.GetPatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineResult) => void,
     ): Request<SSM.Types.GetPatchBaselineResult, AWSError>;
     /**
      * Retrieves information about a patch baseline.
      */
     getPatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineResult) => void,
     ): Request<SSM.Types.GetPatchBaselineResult, AWSError>;
     /**
      * Retrieves the patch baseline that should be used for the specified patch group.
      */
     getPatchBaselineForPatchGroup(
         params: SSM.Types.GetPatchBaselineForPatchGroupRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.GetPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Retrieves the patch baseline that should be used for the specified patch group.
      */
     getPatchBaselineForPatchGroup(
-        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.GetPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Returns an array of the Policy object.
      */
     getResourcePolicies(
         params: SSM.Types.GetResourcePoliciesRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetResourcePoliciesResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetResourcePoliciesResponse) => void,
     ): Request<SSM.Types.GetResourcePoliciesResponse, AWSError>;
     /**
      * Returns an array of the Policy object.
      */
     getResourcePolicies(
-        callback?: (err: AWSError, data: SSM.Types.GetResourcePoliciesResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetResourcePoliciesResponse) => void,
     ): Request<SSM.Types.GetResourcePoliciesResponse, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of false. This means the user can't use this feature unless they change the setting to true and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the UpdateServiceSetting API operation to change the default setting. Or use the ResetServiceSetting to change the value back to the original value defined by the Amazon Web Services service team. Query the current service setting for the Amazon Web Services account.
      */
     getServiceSetting(
         params: SSM.Types.GetServiceSettingRequest,
-        callback?: (err: AWSError, data: SSM.Types.GetServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetServiceSettingResult) => void,
     ): Request<SSM.Types.GetServiceSettingResult, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of false. This means the user can't use this feature unless they change the setting to true and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the UpdateServiceSetting API operation to change the default setting. Or use the ResetServiceSetting to change the value back to the original value defined by the Amazon Web Services service team. Query the current service setting for the Amazon Web Services account.
      */
     getServiceSetting(
-        callback?: (err: AWSError, data: SSM.Types.GetServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetServiceSettingResult) => void,
     ): Request<SSM.Types.GetServiceSettingResult, AWSError>;
     /**
      * A parameter label is a user-defined alias to help you manage different versions of a parameter. When you modify a parameter, Amazon Web Services Systems Manager automatically saves a new version and increments the version number by one. A label can help you remember the purpose of a parameter when there are multiple versions.  Parameter labels have the following requirements and restrictions.   A version of a parameter can have a maximum of 10 labels.   You can't attach the same label to different versions of the same parameter. For example, if version 1 has the label Production, then you can't attach Production to version 2.   You can move a label from one version of a parameter to another.   You can't create a label when you create a new parameter. You must attach a label to a specific version of a parameter.   If you no longer want to use a parameter label, then you can either delete it or move it to a different version of a parameter.   A label can have a maximum of 100 characters.   Labels can contain letters (case sensitive), numbers, periods (.), hyphens (-), or underscores (_).   Labels can't begin with a number, "aws" or "ssm" (not case sensitive). If a label fails to meet these requirements, then the label isn't associated with a parameter and the system displays it in the list of InvalidLabels.
      */
     labelParameterVersion(
         params: SSM.Types.LabelParameterVersionRequest,
-        callback?: (err: AWSError, data: SSM.Types.LabelParameterVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.LabelParameterVersionResult) => void,
     ): Request<SSM.Types.LabelParameterVersionResult, AWSError>;
     /**
      * A parameter label is a user-defined alias to help you manage different versions of a parameter. When you modify a parameter, Amazon Web Services Systems Manager automatically saves a new version and increments the version number by one. A label can help you remember the purpose of a parameter when there are multiple versions.  Parameter labels have the following requirements and restrictions.   A version of a parameter can have a maximum of 10 labels.   You can't attach the same label to different versions of the same parameter. For example, if version 1 has the label Production, then you can't attach Production to version 2.   You can move a label from one version of a parameter to another.   You can't create a label when you create a new parameter. You must attach a label to a specific version of a parameter.   If you no longer want to use a parameter label, then you can either delete it or move it to a different version of a parameter.   A label can have a maximum of 100 characters.   Labels can contain letters (case sensitive), numbers, periods (.), hyphens (-), or underscores (_).   Labels can't begin with a number, "aws" or "ssm" (not case sensitive). If a label fails to meet these requirements, then the label isn't associated with a parameter and the system displays it in the list of InvalidLabels.
      */
     labelParameterVersion(
-        callback?: (err: AWSError, data: SSM.Types.LabelParameterVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.LabelParameterVersionResult) => void,
     ): Request<SSM.Types.LabelParameterVersionResult, AWSError>;
     /**
      * Retrieves all versions of an association for a specific association ID.
      */
     listAssociationVersions(
         params: SSM.Types.ListAssociationVersionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListAssociationVersionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListAssociationVersionsResult) => void,
     ): Request<SSM.Types.ListAssociationVersionsResult, AWSError>;
     /**
      * Retrieves all versions of an association for a specific association ID.
      */
     listAssociationVersions(
-        callback?: (err: AWSError, data: SSM.Types.ListAssociationVersionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListAssociationVersionsResult) => void,
     ): Request<SSM.Types.ListAssociationVersionsResult, AWSError>;
     /**
      * Returns all State Manager associations in the current Amazon Web Services account and Amazon Web Services Region. You can limit the results to a specific State Manager association document or managed node by specifying a filter. State Manager is a capability of Amazon Web Services Systems Manager.
      */
     listAssociations(
         params: SSM.Types.ListAssociationsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListAssociationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListAssociationsResult) => void,
     ): Request<SSM.Types.ListAssociationsResult, AWSError>;
     /**
      * Returns all State Manager associations in the current Amazon Web Services account and Amazon Web Services Region. You can limit the results to a specific State Manager association document or managed node by specifying a filter. State Manager is a capability of Amazon Web Services Systems Manager.
      */
     listAssociations(
-        callback?: (err: AWSError, data: SSM.Types.ListAssociationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListAssociationsResult) => void,
     ): Request<SSM.Types.ListAssociationsResult, AWSError>;
     /**
      * An invocation is copy of a command sent to a specific managed node. A command can apply to one or more managed nodes. A command invocation applies to one managed node. For example, if a user runs SendCommand against three managed nodes, then a command invocation is created for each requested managed node ID. ListCommandInvocations provide status about command execution.
      */
     listCommandInvocations(
         params: SSM.Types.ListCommandInvocationsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListCommandInvocationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListCommandInvocationsResult) => void,
     ): Request<SSM.Types.ListCommandInvocationsResult, AWSError>;
     /**
      * An invocation is copy of a command sent to a specific managed node. A command can apply to one or more managed nodes. A command invocation applies to one managed node. For example, if a user runs SendCommand against three managed nodes, then a command invocation is created for each requested managed node ID. ListCommandInvocations provide status about command execution.
      */
     listCommandInvocations(
-        callback?: (err: AWSError, data: SSM.Types.ListCommandInvocationsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListCommandInvocationsResult) => void,
     ): Request<SSM.Types.ListCommandInvocationsResult, AWSError>;
     /**
      * Lists the commands requested by users of the Amazon Web Services account.
      */
     listCommands(
         params: SSM.Types.ListCommandsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListCommandsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListCommandsResult) => void,
     ): Request<SSM.Types.ListCommandsResult, AWSError>;
     /**
      * Lists the commands requested by users of the Amazon Web Services account.
      */
     listCommands(
-        callback?: (err: AWSError, data: SSM.Types.ListCommandsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListCommandsResult) => void,
     ): Request<SSM.Types.ListCommandsResult, AWSError>;
     /**
      * For a specified resource ID, this API operation returns a list of compliance statuses for different resource types. Currently, you can only specify one resource ID per call. List results depend on the criteria specified in the filter.
      */
     listComplianceItems(
         params: SSM.Types.ListComplianceItemsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListComplianceItemsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListComplianceItemsResult) => void,
     ): Request<SSM.Types.ListComplianceItemsResult, AWSError>;
     /**
      * For a specified resource ID, this API operation returns a list of compliance statuses for different resource types. Currently, you can only specify one resource ID per call. List results depend on the criteria specified in the filter.
      */
     listComplianceItems(
-        callback?: (err: AWSError, data: SSM.Types.ListComplianceItemsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListComplianceItemsResult) => void,
     ): Request<SSM.Types.ListComplianceItemsResult, AWSError>;
     /**
      * Returns a summary count of compliant and non-compliant resources for a compliance type. For example, this call can return State Manager associations, patches, or custom compliance types according to the filter criteria that you specify.
      */
     listComplianceSummaries(
         params: SSM.Types.ListComplianceSummariesRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListComplianceSummariesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListComplianceSummariesResult) => void,
     ): Request<SSM.Types.ListComplianceSummariesResult, AWSError>;
     /**
      * Returns a summary count of compliant and non-compliant resources for a compliance type. For example, this call can return State Manager associations, patches, or custom compliance types according to the filter criteria that you specify.
      */
     listComplianceSummaries(
-        callback?: (err: AWSError, data: SSM.Types.ListComplianceSummariesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListComplianceSummariesResult) => void,
     ): Request<SSM.Types.ListComplianceSummariesResult, AWSError>;
     /**
      * Information about approval reviews for a version of a change template in Change Manager.
      */
     listDocumentMetadataHistory(
         params: SSM.Types.ListDocumentMetadataHistoryRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentMetadataHistoryResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentMetadataHistoryResponse) => void,
     ): Request<SSM.Types.ListDocumentMetadataHistoryResponse, AWSError>;
     /**
      * Information about approval reviews for a version of a change template in Change Manager.
      */
     listDocumentMetadataHistory(
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentMetadataHistoryResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentMetadataHistoryResponse) => void,
     ): Request<SSM.Types.ListDocumentMetadataHistoryResponse, AWSError>;
     /**
      * List all versions for a document.
      */
     listDocumentVersions(
         params: SSM.Types.ListDocumentVersionsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentVersionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentVersionsResult) => void,
     ): Request<SSM.Types.ListDocumentVersionsResult, AWSError>;
     /**
      * List all versions for a document.
      */
     listDocumentVersions(
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentVersionsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentVersionsResult) => void,
     ): Request<SSM.Types.ListDocumentVersionsResult, AWSError>;
     /**
      * Returns all Systems Manager (SSM) documents in the current Amazon Web Services account and Amazon Web Services Region. You can limit the results of this request by using a filter.
      */
     listDocuments(
         params: SSM.Types.ListDocumentsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentsResult) => void,
     ): Request<SSM.Types.ListDocumentsResult, AWSError>;
     /**
      * Returns all Systems Manager (SSM) documents in the current Amazon Web Services account and Amazon Web Services Region. You can limit the results of this request by using a filter.
      */
     listDocuments(
-        callback?: (err: AWSError, data: SSM.Types.ListDocumentsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListDocumentsResult) => void,
     ): Request<SSM.Types.ListDocumentsResult, AWSError>;
     /**
      * A list of inventory items returned by the request.
      */
     listInventoryEntries(
         params: SSM.Types.ListInventoryEntriesRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListInventoryEntriesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListInventoryEntriesResult) => void,
     ): Request<SSM.Types.ListInventoryEntriesResult, AWSError>;
     /**
      * A list of inventory items returned by the request.
      */
     listInventoryEntries(
-        callback?: (err: AWSError, data: SSM.Types.ListInventoryEntriesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListInventoryEntriesResult) => void,
     ): Request<SSM.Types.ListInventoryEntriesResult, AWSError>;
     /**
      * Returns a list of all OpsItem events in the current Amazon Web Services Region and Amazon Web Services account. You can limit the results to events associated with specific OpsItems by specifying a filter.
      */
     listOpsItemEvents(
         params: SSM.Types.ListOpsItemEventsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListOpsItemEventsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsItemEventsResponse) => void,
     ): Request<SSM.Types.ListOpsItemEventsResponse, AWSError>;
     /**
      * Returns a list of all OpsItem events in the current Amazon Web Services Region and Amazon Web Services account. You can limit the results to events associated with specific OpsItems by specifying a filter.
      */
     listOpsItemEvents(
-        callback?: (err: AWSError, data: SSM.Types.ListOpsItemEventsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsItemEventsResponse) => void,
     ): Request<SSM.Types.ListOpsItemEventsResponse, AWSError>;
     /**
      * Lists all related-item resources associated with a Systems Manager OpsCenter OpsItem. OpsCenter is a capability of Amazon Web Services Systems Manager.
      */
     listOpsItemRelatedItems(
         params: SSM.Types.ListOpsItemRelatedItemsRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListOpsItemRelatedItemsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsItemRelatedItemsResponse) => void,
     ): Request<SSM.Types.ListOpsItemRelatedItemsResponse, AWSError>;
     /**
      * Lists all related-item resources associated with a Systems Manager OpsCenter OpsItem. OpsCenter is a capability of Amazon Web Services Systems Manager.
      */
     listOpsItemRelatedItems(
-        callback?: (err: AWSError, data: SSM.Types.ListOpsItemRelatedItemsResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsItemRelatedItemsResponse) => void,
     ): Request<SSM.Types.ListOpsItemRelatedItemsResponse, AWSError>;
     /**
      * Amazon Web Services Systems Manager calls this API operation when displaying all Application Manager OpsMetadata objects or blobs.
      */
     listOpsMetadata(
         params: SSM.Types.ListOpsMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsMetadataResult) => void,
     ): Request<SSM.Types.ListOpsMetadataResult, AWSError>;
     /**
      * Amazon Web Services Systems Manager calls this API operation when displaying all Application Manager OpsMetadata objects or blobs.
      */
     listOpsMetadata(
-        callback?: (err: AWSError, data: SSM.Types.ListOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListOpsMetadataResult) => void,
     ): Request<SSM.Types.ListOpsMetadataResult, AWSError>;
     /**
      * Returns a resource-level summary count. The summary includes information about compliant and non-compliant statuses and detailed compliance-item severity counts, according to the filter criteria you specify.
      */
     listResourceComplianceSummaries(
         params: SSM.Types.ListResourceComplianceSummariesRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListResourceComplianceSummariesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListResourceComplianceSummariesResult) => void,
     ): Request<SSM.Types.ListResourceComplianceSummariesResult, AWSError>;
     /**
      * Returns a resource-level summary count. The summary includes information about compliant and non-compliant statuses and detailed compliance-item severity counts, according to the filter criteria you specify.
      */
     listResourceComplianceSummaries(
-        callback?: (err: AWSError, data: SSM.Types.ListResourceComplianceSummariesResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListResourceComplianceSummariesResult) => void,
     ): Request<SSM.Types.ListResourceComplianceSummariesResult, AWSError>;
     /**
      * Lists your resource data sync configurations. Includes information about the last time a sync attempted to start, the last sync status, and the last time a sync successfully completed. The number of sync configurations might be too large to return using a single call to ListResourceDataSync. You can limit the number of sync configurations returned by using the MaxResults parameter. To determine whether there are more sync configurations to list, check the value of NextToken in the output. If there are more sync configurations to list, you can request them by specifying the NextToken returned in the call to the parameter of a subsequent call.
      */
     listResourceDataSync(
         params: SSM.Types.ListResourceDataSyncRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListResourceDataSyncResult) => void,
     ): Request<SSM.Types.ListResourceDataSyncResult, AWSError>;
     /**
      * Lists your resource data sync configurations. Includes information about the last time a sync attempted to start, the last sync status, and the last time a sync successfully completed. The number of sync configurations might be too large to return using a single call to ListResourceDataSync. You can limit the number of sync configurations returned by using the MaxResults parameter. To determine whether there are more sync configurations to list, check the value of NextToken in the output. If there are more sync configurations to list, you can request them by specifying the NextToken returned in the call to the parameter of a subsequent call.
      */
     listResourceDataSync(
-        callback?: (err: AWSError, data: SSM.Types.ListResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListResourceDataSyncResult) => void,
     ): Request<SSM.Types.ListResourceDataSyncResult, AWSError>;
     /**
      * Returns a list of the tags assigned to the specified resource. For information about the ID format for each supported resource type, see AddTagsToResource.
      */
     listTagsForResource(
         params: SSM.Types.ListTagsForResourceRequest,
-        callback?: (err: AWSError, data: SSM.Types.ListTagsForResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListTagsForResourceResult) => void,
     ): Request<SSM.Types.ListTagsForResourceResult, AWSError>;
     /**
      * Returns a list of the tags assigned to the specified resource. For information about the ID format for each supported resource type, see AddTagsToResource.
      */
     listTagsForResource(
-        callback?: (err: AWSError, data: SSM.Types.ListTagsForResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ListTagsForResourceResult) => void,
     ): Request<SSM.Types.ListTagsForResourceResult, AWSError>;
     /**
      * Shares a Amazon Web Services Systems Manager document (SSM document)publicly or privately. If you share a document privately, you must specify the Amazon Web Services user account IDs for those people who can use the document. If you share a document publicly, you must specify All as the account ID.
      */
     modifyDocumentPermission(
         params: SSM.Types.ModifyDocumentPermissionRequest,
-        callback?: (err: AWSError, data: SSM.Types.ModifyDocumentPermissionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ModifyDocumentPermissionResponse) => void,
     ): Request<SSM.Types.ModifyDocumentPermissionResponse, AWSError>;
     /**
      * Shares a Amazon Web Services Systems Manager document (SSM document)publicly or privately. If you share a document privately, you must specify the Amazon Web Services user account IDs for those people who can use the document. If you share a document publicly, you must specify All as the account ID.
      */
     modifyDocumentPermission(
-        callback?: (err: AWSError, data: SSM.Types.ModifyDocumentPermissionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ModifyDocumentPermissionResponse) => void,
     ): Request<SSM.Types.ModifyDocumentPermissionResponse, AWSError>;
     /**
      * Registers a compliance type and other compliance details on a designated resource. This operation lets you register custom compliance details with a resource. This call overwrites existing compliance information on the resource, so you must provide a full list of compliance items each time that you send the request. ComplianceType can be one of the following:   ExecutionId: The execution ID when the patch, association, or custom compliance item was applied.   ExecutionType: Specify patch, association, or Custom:string.   ExecutionTime. The time the patch, association, or custom compliance item was applied to the managed node.   Id: The patch, association, or custom compliance ID.   Title: A title.   Status: The status of the compliance item. For example, approved for patches, or Failed for associations.   Severity: A patch severity. For example, Critical.   DocumentName: An SSM document name. For example, AWS-RunPatchBaseline.   DocumentVersion: An SSM document version number. For example, 4.   Classification: A patch classification. For example, security updates.   PatchBaselineId: A patch baseline ID.   PatchSeverity: A patch severity. For example, Critical.   PatchState: A patch state. For example, InstancesWithFailedPatches.   PatchGroup: The name of a patch group.   InstalledTime: The time the association, patch, or custom compliance item was applied to the resource. Specify the time by using the following format: yyyy-MM-dd'T'HH:mm:ss'Z'
      */
     putComplianceItems(
         params: SSM.Types.PutComplianceItemsRequest,
-        callback?: (err: AWSError, data: SSM.Types.PutComplianceItemsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutComplianceItemsResult) => void,
     ): Request<SSM.Types.PutComplianceItemsResult, AWSError>;
     /**
      * Registers a compliance type and other compliance details on a designated resource. This operation lets you register custom compliance details with a resource. This call overwrites existing compliance information on the resource, so you must provide a full list of compliance items each time that you send the request. ComplianceType can be one of the following:   ExecutionId: The execution ID when the patch, association, or custom compliance item was applied.   ExecutionType: Specify patch, association, or Custom:string.   ExecutionTime. The time the patch, association, or custom compliance item was applied to the managed node.   Id: The patch, association, or custom compliance ID.   Title: A title.   Status: The status of the compliance item. For example, approved for patches, or Failed for associations.   Severity: A patch severity. For example, Critical.   DocumentName: An SSM document name. For example, AWS-RunPatchBaseline.   DocumentVersion: An SSM document version number. For example, 4.   Classification: A patch classification. For example, security updates.   PatchBaselineId: A patch baseline ID.   PatchSeverity: A patch severity. For example, Critical.   PatchState: A patch state. For example, InstancesWithFailedPatches.   PatchGroup: The name of a patch group.   InstalledTime: The time the association, patch, or custom compliance item was applied to the resource. Specify the time by using the following format: yyyy-MM-dd'T'HH:mm:ss'Z'
      */
     putComplianceItems(
-        callback?: (err: AWSError, data: SSM.Types.PutComplianceItemsResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutComplianceItemsResult) => void,
     ): Request<SSM.Types.PutComplianceItemsResult, AWSError>;
     /**
      * Bulk update custom inventory items on one or more managed nodes. The request adds an inventory item, if it doesn't already exist, or updates an inventory item, if it does exist.
      */
     putInventory(
         params: SSM.Types.PutInventoryRequest,
-        callback?: (err: AWSError, data: SSM.Types.PutInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutInventoryResult) => void,
     ): Request<SSM.Types.PutInventoryResult, AWSError>;
     /**
      * Bulk update custom inventory items on one or more managed nodes. The request adds an inventory item, if it doesn't already exist, or updates an inventory item, if it does exist.
      */
     putInventory(
-        callback?: (err: AWSError, data: SSM.Types.PutInventoryResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutInventoryResult) => void,
     ): Request<SSM.Types.PutInventoryResult, AWSError>;
     /**
      * Add a parameter to the system.
      */
     putParameter(
         params: SSM.Types.PutParameterRequest,
-        callback?: (err: AWSError, data: SSM.Types.PutParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutParameterResult) => void,
     ): Request<SSM.Types.PutParameterResult, AWSError>;
     /**
      * Add a parameter to the system.
      */
     putParameter(
-        callback?: (err: AWSError, data: SSM.Types.PutParameterResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutParameterResult) => void,
     ): Request<SSM.Types.PutParameterResult, AWSError>;
     /**
      * Creates or updates a Systems Manager resource policy. A resource policy helps you to define the IAM entity (for example, an Amazon Web Services account) that can manage your Systems Manager resources. Currently, OpsItemGroup is the only resource that supports Systems Manager resource policies. The resource policy for OpsItemGroup enables Amazon Web Services accounts to view and interact with OpsCenter operational work items (OpsItems).
      */
     putResourcePolicy(
         params: SSM.Types.PutResourcePolicyRequest,
-        callback?: (err: AWSError, data: SSM.Types.PutResourcePolicyResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutResourcePolicyResponse) => void,
     ): Request<SSM.Types.PutResourcePolicyResponse, AWSError>;
     /**
      * Creates or updates a Systems Manager resource policy. A resource policy helps you to define the IAM entity (for example, an Amazon Web Services account) that can manage your Systems Manager resources. Currently, OpsItemGroup is the only resource that supports Systems Manager resource policies. The resource policy for OpsItemGroup enables Amazon Web Services accounts to view and interact with OpsCenter operational work items (OpsItems).
      */
     putResourcePolicy(
-        callback?: (err: AWSError, data: SSM.Types.PutResourcePolicyResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.PutResourcePolicyResponse) => void,
     ): Request<SSM.Types.PutResourcePolicyResponse, AWSError>;
     /**
      * Defines the default patch baseline for the relevant operating system. To reset the Amazon Web Services-predefined patch baseline as the default, specify the full patch baseline Amazon Resource Name (ARN) as the baseline ID value. For example, for CentOS, specify arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0574b43a65ea646ed instead of pb-0574b43a65ea646ed.
      */
     registerDefaultPatchBaseline(
         params: SSM.Types.RegisterDefaultPatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.RegisterDefaultPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterDefaultPatchBaselineResult) => void,
     ): Request<SSM.Types.RegisterDefaultPatchBaselineResult, AWSError>;
     /**
      * Defines the default patch baseline for the relevant operating system. To reset the Amazon Web Services-predefined patch baseline as the default, specify the full patch baseline Amazon Resource Name (ARN) as the baseline ID value. For example, for CentOS, specify arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0574b43a65ea646ed instead of pb-0574b43a65ea646ed.
      */
     registerDefaultPatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.RegisterDefaultPatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterDefaultPatchBaselineResult) => void,
     ): Request<SSM.Types.RegisterDefaultPatchBaselineResult, AWSError>;
     /**
      * Registers a patch baseline for a patch group.
      */
     registerPatchBaselineForPatchGroup(
         params: SSM.Types.RegisterPatchBaselineForPatchGroupRequest,
-        callback?: (err: AWSError, data: SSM.Types.RegisterPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.RegisterPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Registers a patch baseline for a patch group.
      */
     registerPatchBaselineForPatchGroup(
-        callback?: (err: AWSError, data: SSM.Types.RegisterPatchBaselineForPatchGroupResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterPatchBaselineForPatchGroupResult) => void,
     ): Request<SSM.Types.RegisterPatchBaselineForPatchGroupResult, AWSError>;
     /**
      * Registers a target with a maintenance window.
      */
     registerTargetWithMaintenanceWindow(
         params: SSM.Types.RegisterTargetWithMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.RegisterTargetWithMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterTargetWithMaintenanceWindowResult) => void,
     ): Request<SSM.Types.RegisterTargetWithMaintenanceWindowResult, AWSError>;
     /**
      * Registers a target with a maintenance window.
      */
     registerTargetWithMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.RegisterTargetWithMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterTargetWithMaintenanceWindowResult) => void,
     ): Request<SSM.Types.RegisterTargetWithMaintenanceWindowResult, AWSError>;
     /**
      * Adds a new task to a maintenance window.
      */
     registerTaskWithMaintenanceWindow(
         params: SSM.Types.RegisterTaskWithMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.RegisterTaskWithMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterTaskWithMaintenanceWindowResult) => void,
     ): Request<SSM.Types.RegisterTaskWithMaintenanceWindowResult, AWSError>;
     /**
      * Adds a new task to a maintenance window.
      */
     registerTaskWithMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.RegisterTaskWithMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RegisterTaskWithMaintenanceWindowResult) => void,
     ): Request<SSM.Types.RegisterTaskWithMaintenanceWindowResult, AWSError>;
     /**
      * Removes tag keys from the specified resource.
      */
     removeTagsFromResource(
         params: SSM.Types.RemoveTagsFromResourceRequest,
-        callback?: (err: AWSError, data: SSM.Types.RemoveTagsFromResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RemoveTagsFromResourceResult) => void,
     ): Request<SSM.Types.RemoveTagsFromResourceResult, AWSError>;
     /**
      * Removes tag keys from the specified resource.
      */
     removeTagsFromResource(
-        callback?: (err: AWSError, data: SSM.Types.RemoveTagsFromResourceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.RemoveTagsFromResourceResult) => void,
     ): Request<SSM.Types.RemoveTagsFromResourceResult, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the GetServiceSetting API operation to view the current value. Use the UpdateServiceSetting API operation to change the default setting.  Reset the service setting for the account to the default value as provisioned by the Amazon Web Services service team.
      */
     resetServiceSetting(
         params: SSM.Types.ResetServiceSettingRequest,
-        callback?: (err: AWSError, data: SSM.Types.ResetServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ResetServiceSettingResult) => void,
     ): Request<SSM.Types.ResetServiceSettingResult, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the GetServiceSetting API operation to view the current value. Use the UpdateServiceSetting API operation to change the default setting.  Reset the service setting for the account to the default value as provisioned by the Amazon Web Services service team.
      */
     resetServiceSetting(
-        callback?: (err: AWSError, data: SSM.Types.ResetServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ResetServiceSettingResult) => void,
     ): Request<SSM.Types.ResetServiceSettingResult, AWSError>;
     /**
      * Reconnects a session to a managed node after it has been disconnected. Connections can be resumed for disconnected sessions, but not terminated sessions.  This command is primarily for use by client machines to automatically reconnect during intermittent network issues. It isn't intended for any other use.
      */
     resumeSession(
         params: SSM.Types.ResumeSessionRequest,
-        callback?: (err: AWSError, data: SSM.Types.ResumeSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ResumeSessionResponse) => void,
     ): Request<SSM.Types.ResumeSessionResponse, AWSError>;
     /**
      * Reconnects a session to a managed node after it has been disconnected. Connections can be resumed for disconnected sessions, but not terminated sessions.  This command is primarily for use by client machines to automatically reconnect during intermittent network issues. It isn't intended for any other use.
      */
     resumeSession(
-        callback?: (err: AWSError, data: SSM.Types.ResumeSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.ResumeSessionResponse) => void,
     ): Request<SSM.Types.ResumeSessionResponse, AWSError>;
     /**
      * Sends a signal to an Automation execution to change the current behavior or status of the execution.
      */
     sendAutomationSignal(
         params: SSM.Types.SendAutomationSignalRequest,
-        callback?: (err: AWSError, data: SSM.Types.SendAutomationSignalResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.SendAutomationSignalResult) => void,
     ): Request<SSM.Types.SendAutomationSignalResult, AWSError>;
     /**
      * Sends a signal to an Automation execution to change the current behavior or status of the execution.
      */
     sendAutomationSignal(
-        callback?: (err: AWSError, data: SSM.Types.SendAutomationSignalResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.SendAutomationSignalResult) => void,
     ): Request<SSM.Types.SendAutomationSignalResult, AWSError>;
     /**
      * Runs commands on one or more managed nodes.
      */
     sendCommand(
         params: SSM.Types.SendCommandRequest,
-        callback?: (err: AWSError, data: SSM.Types.SendCommandResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.SendCommandResult) => void,
     ): Request<SSM.Types.SendCommandResult, AWSError>;
     /**
      * Runs commands on one or more managed nodes.
      */
     sendCommand(
-        callback?: (err: AWSError, data: SSM.Types.SendCommandResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.SendCommandResult) => void,
     ): Request<SSM.Types.SendCommandResult, AWSError>;
     /**
      * Runs an association immediately and only one time. This operation can be helpful when troubleshooting associations.
      */
     startAssociationsOnce(
         params: SSM.Types.StartAssociationsOnceRequest,
-        callback?: (err: AWSError, data: SSM.Types.StartAssociationsOnceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartAssociationsOnceResult) => void,
     ): Request<SSM.Types.StartAssociationsOnceResult, AWSError>;
     /**
      * Runs an association immediately and only one time. This operation can be helpful when troubleshooting associations.
      */
     startAssociationsOnce(
-        callback?: (err: AWSError, data: SSM.Types.StartAssociationsOnceResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartAssociationsOnceResult) => void,
     ): Request<SSM.Types.StartAssociationsOnceResult, AWSError>;
     /**
      * Initiates execution of an Automation runbook.
      */
     startAutomationExecution(
         params: SSM.Types.StartAutomationExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.StartAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartAutomationExecutionResult) => void,
     ): Request<SSM.Types.StartAutomationExecutionResult, AWSError>;
     /**
      * Initiates execution of an Automation runbook.
      */
     startAutomationExecution(
-        callback?: (err: AWSError, data: SSM.Types.StartAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartAutomationExecutionResult) => void,
     ): Request<SSM.Types.StartAutomationExecutionResult, AWSError>;
     /**
      * Creates a change request for Change Manager. The Automation runbooks specified in the change request run only after all required approvals for the change request have been received.
      */
     startChangeRequestExecution(
         params: SSM.Types.StartChangeRequestExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.StartChangeRequestExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartChangeRequestExecutionResult) => void,
     ): Request<SSM.Types.StartChangeRequestExecutionResult, AWSError>;
     /**
      * Creates a change request for Change Manager. The Automation runbooks specified in the change request run only after all required approvals for the change request have been received.
      */
     startChangeRequestExecution(
-        callback?: (err: AWSError, data: SSM.Types.StartChangeRequestExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartChangeRequestExecutionResult) => void,
     ): Request<SSM.Types.StartChangeRequestExecutionResult, AWSError>;
     /**
      * Initiates a connection to a target (for example, a managed node) for a Session Manager session. Returns a URL and token that can be used to open a WebSocket connection for sending input and receiving outputs.  Amazon Web Services CLI usage: start-session is an interactive command that requires the Session Manager plugin to be installed on the client machine making the call. For information, see Install the Session Manager plugin for the Amazon Web Services CLI in the Amazon Web Services Systems Manager User Guide. Amazon Web Services Tools for PowerShell usage: Start-SSMSession isn't currently supported by Amazon Web Services Tools for PowerShell on Windows local machines.
      */
     startSession(
         params: SSM.Types.StartSessionRequest,
-        callback?: (err: AWSError, data: SSM.Types.StartSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartSessionResponse) => void,
     ): Request<SSM.Types.StartSessionResponse, AWSError>;
     /**
      * Initiates a connection to a target (for example, a managed node) for a Session Manager session. Returns a URL and token that can be used to open a WebSocket connection for sending input and receiving outputs.  Amazon Web Services CLI usage: start-session is an interactive command that requires the Session Manager plugin to be installed on the client machine making the call. For information, see Install the Session Manager plugin for the Amazon Web Services CLI in the Amazon Web Services Systems Manager User Guide. Amazon Web Services Tools for PowerShell usage: Start-SSMSession isn't currently supported by Amazon Web Services Tools for PowerShell on Windows local machines.
      */
     startSession(
-        callback?: (err: AWSError, data: SSM.Types.StartSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StartSessionResponse) => void,
     ): Request<SSM.Types.StartSessionResponse, AWSError>;
     /**
      * Stop an Automation that is currently running.
      */
     stopAutomationExecution(
         params: SSM.Types.StopAutomationExecutionRequest,
-        callback?: (err: AWSError, data: SSM.Types.StopAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StopAutomationExecutionResult) => void,
     ): Request<SSM.Types.StopAutomationExecutionResult, AWSError>;
     /**
      * Stop an Automation that is currently running.
      */
     stopAutomationExecution(
-        callback?: (err: AWSError, data: SSM.Types.StopAutomationExecutionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.StopAutomationExecutionResult) => void,
     ): Request<SSM.Types.StopAutomationExecutionResult, AWSError>;
     /**
      * Permanently ends a session and closes the data connection between the Session Manager client and SSM Agent on the managed node. A terminated session can't be resumed.
      */
     terminateSession(
         params: SSM.Types.TerminateSessionRequest,
-        callback?: (err: AWSError, data: SSM.Types.TerminateSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.TerminateSessionResponse) => void,
     ): Request<SSM.Types.TerminateSessionResponse, AWSError>;
     /**
      * Permanently ends a session and closes the data connection between the Session Manager client and SSM Agent on the managed node. A terminated session can't be resumed.
      */
     terminateSession(
-        callback?: (err: AWSError, data: SSM.Types.TerminateSessionResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.TerminateSessionResponse) => void,
     ): Request<SSM.Types.TerminateSessionResponse, AWSError>;
     /**
      * Remove a label or labels from a parameter.
      */
     unlabelParameterVersion(
         params: SSM.Types.UnlabelParameterVersionRequest,
-        callback?: (err: AWSError, data: SSM.Types.UnlabelParameterVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UnlabelParameterVersionResult) => void,
     ): Request<SSM.Types.UnlabelParameterVersionResult, AWSError>;
     /**
      * Remove a label or labels from a parameter.
      */
     unlabelParameterVersion(
-        callback?: (err: AWSError, data: SSM.Types.UnlabelParameterVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UnlabelParameterVersionResult) => void,
     ): Request<SSM.Types.UnlabelParameterVersionResult, AWSError>;
     /**
      * Updates an association. You can update the association name and version, the document version, schedule, parameters, and Amazon Simple Storage Service (Amazon S3) output. When you call UpdateAssociation, the system removes all optional parameters from the request and overwrites the association with null values for those parameters. This is by design. You must specify all optional parameters in the call, even if you are not changing the parameters. This includes the Name parameter. Before calling this API action, we recommend that you call the DescribeAssociation API operation and make a note of all optional parameters required for your UpdateAssociation call. In order to call this API operation, your Identity and Access Management (IAM) user account, group, or role must be configured with permission to call the DescribeAssociation API operation. If you don't have permission to call DescribeAssociation, then you receive the following error: An error occurred (AccessDeniedException) when calling the UpdateAssociation operation: User: &lt;user_arn&gt; isn't authorized to perform: ssm:DescribeAssociation on resource: &lt;resource_arn&gt;   When you update an association, the association immediately runs against the specified targets. You can add the ApplyOnlyAtCronInterval parameter to run the association during the next schedule run.
      */
     updateAssociation(
         params: SSM.Types.UpdateAssociationRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationResult) => void,
     ): Request<SSM.Types.UpdateAssociationResult, AWSError>;
     /**
      * Updates an association. You can update the association name and version, the document version, schedule, parameters, and Amazon Simple Storage Service (Amazon S3) output. When you call UpdateAssociation, the system removes all optional parameters from the request and overwrites the association with null values for those parameters. This is by design. You must specify all optional parameters in the call, even if you are not changing the parameters. This includes the Name parameter. Before calling this API action, we recommend that you call the DescribeAssociation API operation and make a note of all optional parameters required for your UpdateAssociation call. In order to call this API operation, your Identity and Access Management (IAM) user account, group, or role must be configured with permission to call the DescribeAssociation API operation. If you don't have permission to call DescribeAssociation, then you receive the following error: An error occurred (AccessDeniedException) when calling the UpdateAssociation operation: User: &lt;user_arn&gt; isn't authorized to perform: ssm:DescribeAssociation on resource: &lt;resource_arn&gt;   When you update an association, the association immediately runs against the specified targets. You can add the ApplyOnlyAtCronInterval parameter to run the association during the next schedule run.
      */
     updateAssociation(
-        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationResult) => void,
     ): Request<SSM.Types.UpdateAssociationResult, AWSError>;
     /**
      * Updates the status of the Amazon Web Services Systems Manager document (SSM document) associated with the specified managed node.  UpdateAssociationStatus is primarily used by the Amazon Web Services Systems Manager Agent (SSM Agent) to report status updates about your associations and is only used for associations created with the InstanceId legacy parameter.
      */
     updateAssociationStatus(
         params: SSM.Types.UpdateAssociationStatusRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationStatusResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationStatusResult) => void,
     ): Request<SSM.Types.UpdateAssociationStatusResult, AWSError>;
     /**
      * Updates the status of the Amazon Web Services Systems Manager document (SSM document) associated with the specified managed node.  UpdateAssociationStatus is primarily used by the Amazon Web Services Systems Manager Agent (SSM Agent) to report status updates about your associations and is only used for associations created with the InstanceId legacy parameter.
      */
     updateAssociationStatus(
-        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationStatusResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateAssociationStatusResult) => void,
     ): Request<SSM.Types.UpdateAssociationStatusResult, AWSError>;
     /**
      * Updates one or more values for an SSM document.
      */
     updateDocument(
         params: SSM.Types.UpdateDocumentRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentResult) => void,
     ): Request<SSM.Types.UpdateDocumentResult, AWSError>;
     /**
      * Updates one or more values for an SSM document.
      */
     updateDocument(
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentResult) => void,
     ): Request<SSM.Types.UpdateDocumentResult, AWSError>;
     /**
      * Set the default version of a document.   If you change a document version for a State Manager association, Systems Manager immediately runs the association unless you previously specifed the apply-only-at-cron-interval parameter.
      */
     updateDocumentDefaultVersion(
         params: SSM.Types.UpdateDocumentDefaultVersionRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentDefaultVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentDefaultVersionResult) => void,
     ): Request<SSM.Types.UpdateDocumentDefaultVersionResult, AWSError>;
     /**
      * Set the default version of a document.   If you change a document version for a State Manager association, Systems Manager immediately runs the association unless you previously specifed the apply-only-at-cron-interval parameter.
      */
     updateDocumentDefaultVersion(
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentDefaultVersionResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentDefaultVersionResult) => void,
     ): Request<SSM.Types.UpdateDocumentDefaultVersionResult, AWSError>;
     /**
      * Updates information related to approval reviews for a specific version of a change template in Change Manager.
      */
     updateDocumentMetadata(
         params: SSM.Types.UpdateDocumentMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentMetadataResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentMetadataResponse) => void,
     ): Request<SSM.Types.UpdateDocumentMetadataResponse, AWSError>;
     /**
      * Updates information related to approval reviews for a specific version of a change template in Change Manager.
      */
     updateDocumentMetadata(
-        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentMetadataResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateDocumentMetadataResponse) => void,
     ): Request<SSM.Types.UpdateDocumentMetadataResponse, AWSError>;
     /**
      * Updates an existing maintenance window. Only specified parameters are modified.  The value you specify for Duration determines the specific end time for the maintenance window based on the time it begins. No maintenance window tasks are permitted to start after the resulting endtime minus the number of hours you specify for Cutoff. For example, if the maintenance window starts at 3 PM, the duration is three hours, and the value you specify for Cutoff is one hour, no maintenance window tasks can start after 5 PM.
      */
     updateMaintenanceWindow(
         params: SSM.Types.UpdateMaintenanceWindowRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowResult, AWSError>;
     /**
      * Updates an existing maintenance window. Only specified parameters are modified.  The value you specify for Duration determines the specific end time for the maintenance window based on the time it begins. No maintenance window tasks are permitted to start after the resulting endtime minus the number of hours you specify for Cutoff. For example, if the maintenance window starts at 3 PM, the duration is three hours, and the value you specify for Cutoff is one hour, no maintenance window tasks can start after 5 PM.
      */
     updateMaintenanceWindow(
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowResult, AWSError>;
     /**
      * Modifies the target of an existing maintenance window. You can change the following:   Name   Description   Owner   IDs for an ID target   Tags for a Tag target   From any supported tag type to another. The three supported tag types are ID target, Tag target, and resource group. For more information, see Target.    If a parameter is null, then the corresponding field isn't modified.
      */
     updateMaintenanceWindowTarget(
         params: SSM.Types.UpdateMaintenanceWindowTargetRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTargetResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTargetResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowTargetResult, AWSError>;
     /**
      * Modifies the target of an existing maintenance window. You can change the following:   Name   Description   Owner   IDs for an ID target   Tags for a Tag target   From any supported tag type to another. The three supported tag types are ID target, Tag target, and resource group. For more information, see Target.    If a parameter is null, then the corresponding field isn't modified.
      */
     updateMaintenanceWindowTarget(
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTargetResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTargetResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowTargetResult, AWSError>;
     /**
      * Modifies a task assigned to a maintenance window. You can't change the task type, but you can change the following values:    TaskARN. For example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to AWS-RunShellScript.    ServiceRoleArn     TaskInvocationParameters     Priority     MaxConcurrency     MaxErrors     One or more targets must be specified for maintenance window Run Command-type tasks. Depending on the task, targets are optional for other maintenance window task types (Automation, Lambda, and Step Functions). For more information about running tasks that don't specify targets, see Registering maintenance window tasks without targets in the Amazon Web Services Systems Manager User Guide.  If the value for a parameter in UpdateMaintenanceWindowTask is null, then the corresponding field isn't modified. If you set Replace to true, then all fields required by the RegisterTaskWithMaintenanceWindow operation are required for this request. Optional fields that aren't specified are set to null.  When you update a maintenance window task that has options specified in TaskInvocationParameters, you must provide again all the TaskInvocationParameters values that you want to retain. The values you don't specify again are removed. For example, suppose that when you registered a Run Command task, you specified TaskInvocationParameters values for Comment, NotificationConfig, and OutputS3BucketName. If you update the maintenance window task and specify only a different OutputS3BucketName value, the values for Comment and NotificationConfig are removed.
      */
     updateMaintenanceWindowTask(
         params: SSM.Types.UpdateMaintenanceWindowTaskRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTaskResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowTaskResult, AWSError>;
     /**
      * Modifies a task assigned to a maintenance window. You can't change the task type, but you can change the following values:    TaskARN. For example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to AWS-RunShellScript.    ServiceRoleArn     TaskInvocationParameters     Priority     MaxConcurrency     MaxErrors     One or more targets must be specified for maintenance window Run Command-type tasks. Depending on the task, targets are optional for other maintenance window task types (Automation, Lambda, and Step Functions). For more information about running tasks that don't specify targets, see Registering maintenance window tasks without targets in the Amazon Web Services Systems Manager User Guide.  If the value for a parameter in UpdateMaintenanceWindowTask is null, then the corresponding field isn't modified. If you set Replace to true, then all fields required by the RegisterTaskWithMaintenanceWindow operation are required for this request. Optional fields that aren't specified are set to null.  When you update a maintenance window task that has options specified in TaskInvocationParameters, you must provide again all the TaskInvocationParameters values that you want to retain. The values you don't specify again are removed. For example, suppose that when you registered a Run Command task, you specified TaskInvocationParameters values for Comment, NotificationConfig, and OutputS3BucketName. If you update the maintenance window task and specify only a different OutputS3BucketName value, the values for Comment and NotificationConfig are removed.
      */
     updateMaintenanceWindowTask(
-        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTaskResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateMaintenanceWindowTaskResult) => void,
     ): Request<SSM.Types.UpdateMaintenanceWindowTaskResult, AWSError>;
     /**
      * Changes the Identity and Access Management (IAM) role that is assigned to the on-premises server, edge device, or virtual machines (VM). IAM roles are first assigned to these hybrid nodes during the activation process. For more information, see CreateActivation.
      */
     updateManagedInstanceRole(
         params: SSM.Types.UpdateManagedInstanceRoleRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateManagedInstanceRoleResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateManagedInstanceRoleResult) => void,
     ): Request<SSM.Types.UpdateManagedInstanceRoleResult, AWSError>;
     /**
      * Changes the Identity and Access Management (IAM) role that is assigned to the on-premises server, edge device, or virtual machines (VM). IAM roles are first assigned to these hybrid nodes during the activation process. For more information, see CreateActivation.
      */
     updateManagedInstanceRole(
-        callback?: (err: AWSError, data: SSM.Types.UpdateManagedInstanceRoleResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateManagedInstanceRoleResult) => void,
     ): Request<SSM.Types.UpdateManagedInstanceRoleResult, AWSError>;
     /**
      * Edit or change an OpsItem. You must have permission in Identity and Access Management (IAM) to update an OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     updateOpsItem(
         params: SSM.Types.UpdateOpsItemRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateOpsItemResponse) => void,
     ): Request<SSM.Types.UpdateOpsItemResponse, AWSError>;
     /**
      * Edit or change an OpsItem. You must have permission in Identity and Access Management (IAM) to update an OpsItem. For more information, see Getting started with OpsCenter in the Amazon Web Services Systems Manager User Guide. Operations engineers and IT professionals use Amazon Web Services Systems Manager OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their Amazon Web Services resources. For more information, see OpsCenter in the Amazon Web Services Systems Manager User Guide.
      */
     updateOpsItem(
-        callback?: (err: AWSError, data: SSM.Types.UpdateOpsItemResponse,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateOpsItemResponse) => void,
     ): Request<SSM.Types.UpdateOpsItemResponse, AWSError>;
     /**
      * Amazon Web Services Systems Manager calls this API operation when you edit OpsMetadata in Application Manager.
      */
     updateOpsMetadata(
         params: SSM.Types.UpdateOpsMetadataRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateOpsMetadataResult) => void,
     ): Request<SSM.Types.UpdateOpsMetadataResult, AWSError>;
     /**
      * Amazon Web Services Systems Manager calls this API operation when you edit OpsMetadata in Application Manager.
      */
     updateOpsMetadata(
-        callback?: (err: AWSError, data: SSM.Types.UpdateOpsMetadataResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateOpsMetadataResult) => void,
     ): Request<SSM.Types.UpdateOpsMetadataResult, AWSError>;
     /**
      * Modifies an existing patch baseline. Fields not specified in the request are left unchanged.  For information about valid key-value pairs in PatchFilters for each supported operating system type, see PatchFilter.
      */
     updatePatchBaseline(
         params: SSM.Types.UpdatePatchBaselineRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdatePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdatePatchBaselineResult) => void,
     ): Request<SSM.Types.UpdatePatchBaselineResult, AWSError>;
     /**
      * Modifies an existing patch baseline. Fields not specified in the request are left unchanged.  For information about valid key-value pairs in PatchFilters for each supported operating system type, see PatchFilter.
      */
     updatePatchBaseline(
-        callback?: (err: AWSError, data: SSM.Types.UpdatePatchBaselineResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdatePatchBaselineResult) => void,
     ): Request<SSM.Types.UpdatePatchBaselineResult, AWSError>;
     /**
      * Update a resource data sync. After you create a resource data sync for a Region, you can't change the account options for that sync. For example, if you create a sync in the us-east-2 (Ohio) Region and you choose the Include only the current account option, you can't edit that sync later and choose the Include all accounts from my Organizations configuration option. Instead, you must delete the first resource data sync, and create a new one.  This API operation only supports a resource data sync that was created with a SyncFromSource SyncType.
      */
     updateResourceDataSync(
         params: SSM.Types.UpdateResourceDataSyncRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateResourceDataSyncResult) => void,
     ): Request<SSM.Types.UpdateResourceDataSyncResult, AWSError>;
     /**
      * Update a resource data sync. After you create a resource data sync for a Region, you can't change the account options for that sync. For example, if you create a sync in the us-east-2 (Ohio) Region and you choose the Include only the current account option, you can't edit that sync later and choose the Include all accounts from my Organizations configuration option. Instead, you must delete the first resource data sync, and create a new one.  This API operation only supports a resource data sync that was created with a SyncFromSource SyncType.
      */
     updateResourceDataSync(
-        callback?: (err: AWSError, data: SSM.Types.UpdateResourceDataSyncResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateResourceDataSyncResult) => void,
     ): Request<SSM.Types.UpdateResourceDataSyncResult, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the GetServiceSetting API operation to view the current value. Or, use the ResetServiceSetting to change the value back to the original value defined by the Amazon Web Services service team. Update the service setting for the account.
      */
     updateServiceSetting(
         params: SSM.Types.UpdateServiceSettingRequest,
-        callback?: (err: AWSError, data: SSM.Types.UpdateServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateServiceSettingResult) => void,
     ): Request<SSM.Types.UpdateServiceSettingResult, AWSError>;
     /**
      *  ServiceSetting is an account-level setting for an Amazon Web Services service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an Amazon Web Services service charges money to the account based on feature or service usage, then the Amazon Web Services service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature. Services map a SettingId object to a setting value. Amazon Web Services services teams define the default value for a SettingId. You can't create a new SettingId, but you can overwrite the default value if you have the ssm:UpdateServiceSetting permission for the setting. Use the GetServiceSetting API operation to view the current value. Or, use the ResetServiceSetting to change the value back to the original value defined by the Amazon Web Services service team. Update the service setting for the account.
      */
     updateServiceSetting(
-        callback?: (err: AWSError, data: SSM.Types.UpdateServiceSettingResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.UpdateServiceSettingResult) => void,
     ): Request<SSM.Types.UpdateServiceSettingResult, AWSError>;
     /**
      * Waits for the commandExecuted state by periodically calling the underlying SSM.getCommandInvocationoperation every 5 seconds (at most 20 times).
@@ -1812,14 +1812,14 @@ declare class SSM extends Service {
     waitFor(
         state: 'commandExecuted',
         params: SSM.Types.GetCommandInvocationRequest & { $waiter?: WaiterConfiguration },
-        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
     /**
      * Waits for the commandExecuted state by periodically calling the underlying SSM.getCommandInvocationoperation every 5 seconds (at most 20 times).
      */
     waitFor(
         state: 'commandExecuted',
-        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult,) => void,
+        callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
 }
 declare namespace SSM {

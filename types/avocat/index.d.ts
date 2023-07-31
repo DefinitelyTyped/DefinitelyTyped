@@ -3,8 +3,8 @@
 // Definitions by: Tim Costa <https://github.com/timcosta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Boom, } from '@hapi/boom';
-import { ResponseObject, } from '@hapi/hapi';
+import { Boom } from '@hapi/boom';
+import { ResponseObject } from '@hapi/hapi';
 
 export interface Options {
     return?: boolean | undefined;
@@ -16,4 +16,4 @@ export interface Options {
 // 2. options.return = true - this will either return false or a Boom type
 // Due to scenario 2 and that behavior changes based on options, a return
 // type of any is the only way I see this working
-export function rethrow(err: ResponseObject | Boom, options?: Options,): any;
+export function rethrow(err: ResponseObject | Boom, options?: Options): any;

@@ -90,13 +90,13 @@ declare module 'angular' {
                 handles?: string[] | undefined;
 
                 // optional callback fired when drag is started
-                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is resized
-                resize?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                resize?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is finished dragging
-                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
             } | undefined;
 
             // options to pass to draggable handler
@@ -114,13 +114,13 @@ declare module 'angular' {
                 handle?: string | undefined;
 
                 // optional callback fired when drag is started
-                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is moved,
-                drag?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                drag?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is finished dragging
-                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any,): void;
+                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
             } | undefined;
         }
 

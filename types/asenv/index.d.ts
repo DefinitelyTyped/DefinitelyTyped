@@ -13,6 +13,6 @@ export function isProduction(): boolean;
 
 export function isTest(): boolean;
 
-export function setEnv(env: string,): void;
+export function setEnv(env: string): void;
 
-export function unlessProduction(handle: () => any,): any;
+export function unlessProduction(handle: () => any): any;

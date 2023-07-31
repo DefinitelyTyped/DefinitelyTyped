@@ -1,7 +1,7 @@
 // This file holds the types that don't belong to a specific file.
 // Please don't import types from this file directly as its content might change in other versions.
 
-import { AtomEnvironment, DecorationOptions, MarkerLayer, Pane, Point, TextEditor, } from '../index';
+import { AtomEnvironment, DecorationOptions, MarkerLayer, Pane, Point, TextEditor } from '../index';
 
 export interface PixelPosition {
     left: number;
@@ -14,7 +14,7 @@ export interface PixelPosition {
  *  intent to stop propagation so event bubbling can be properly simulated for
  *  detached elements.
  */
-export interface CommandEvent<CurrentTarget extends EventTarget = EventTarget,> extends CustomEvent {
+export interface CommandEvent<CurrentTarget extends EventTarget = EventTarget> extends CustomEvent {
     keyBindingAborted: boolean;
     propagationStopped: boolean;
 
@@ -162,9 +162,9 @@ export interface TextInsertionOptions extends TextEditOptions {
 }
 
 /** An interface which all custom test runners should implement. */
-export type TestRunner = (params: TestRunnerParams,) => Promise<number>;
+export type TestRunner = (params: TestRunnerParams) => Promise<number>;
 
-export interface CancellablePromise<T,> extends Promise<T> {
+export interface CancellablePromise<T> extends Promise<T> {
     cancel(): void;
 }
 
@@ -245,7 +245,7 @@ export interface TestRunnerParams {
      *  No atom global will be explicitly assigned, but you can assign one in your
      *  runner if desired.
      */
-    buildAtomEnvironment(options: BuildEnvironmentOptions,): AtomEnvironment;
+    buildAtomEnvironment(options: BuildEnvironmentOptions): AtomEnvironment;
 
     /**
      *  A function that builds a default instance of the application delegate, suitable

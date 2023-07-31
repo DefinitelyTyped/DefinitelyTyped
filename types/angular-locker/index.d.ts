@@ -11,7 +11,7 @@ import * as angular from 'angular';
 declare module 'angular' {
     export namespace locker {
         interface ILockerServicePutFunction {
-            (current: any,): any;
+            (current: any): any;
         }
 
         interface ILockerService {
@@ -21,7 +21,7 @@ declare module 'angular' {
              * @param  key    The key to add
              * @param  value  The value to add
              */
-            add(key: string, value: any,): boolean;
+            add(key: string, value: any): boolean;
             /**
              * Return all items in storage within the current namespace/driver
              */
@@ -40,13 +40,13 @@ declare module 'angular' {
              * @param  key  The key to get
              * @param         def  The default value if it does not exist
              */
-            get(key: string | Array<string>, defaultValue?: any,): any;
+            get(key: string | Array<string>, defaultValue?: any): any;
             /**
              * Determine whether the item exists in storage
              *
              * @param  key  -  The key to remove
              */
-            has(key: string,): boolean;
+            has(key: string): boolean;
             /**
              * Get the storage keys as an array
              */
@@ -56,20 +56,20 @@ declare module 'angular' {
              *
              * @param  keyValuePairs    Key value object
              */
-            put(keyValuePairs: Object,): ILockerService | boolean;
+            put(keyValuePairs: Object): ILockerService | boolean;
             /**
              * Add a new item to storage (even if it already exists)
              *
              * @param  putFunction    The default to pass to function if doesn't already exist
              */
-            put(putFunction: Function,): ILockerService | boolean;
+            put(putFunction: Function): ILockerService | boolean;
             /**
              * Add a new item to storage (even if it already exists)
              *
              * @param  key    The key to add
              * @param  value  The value to add
              */
-            put(key: string, value: any,): ILockerService | boolean;
+            put(key: string, value: any): ILockerService | boolean;
             /**
              * Add a new item to storage (even if it already exists)
              *
@@ -77,26 +77,26 @@ declare module 'angular' {
              * @param  putFunction    The default to pass to function if doesn't already exist
              * @param  value  The value to add
              */
-            put(key: string, putFunction: ILockerServicePutFunction, value: any,): ILockerService | boolean;
+            put(key: string, putFunction: ILockerServicePutFunction, value: any): ILockerService | boolean;
             /**
              * Remove specified item(s) from storage
              *
              * @param  key  The key to remove
              */
-            forget(key: string,): ILockerService;
+            forget(key: string): ILockerService;
             /**
              * Remove specified item(s) from storage
              *
              * @param  keys  The array of keys to remove
              */
-            forget(keys: Array<string>,): ILockerService;
+            forget(keys: Array<string>): ILockerService;
             /**
              * Retrieve the specified item from storage and then remove it
              *
              * @param  key  The key to pull from storage
              * @param   def  The default value if it does not exist
              */
-            pull(key: string | Array<string>, defaultValue?: any,): any;
+            pull(key: string | Array<string>, defaultValue?: any): any;
             /**
              * Bind a storage key to a $scope property
              *
@@ -104,13 +104,13 @@ declare module 'angular' {
              * @param  key     The key in storage to bind to
              * @param   def     The default value to initially bind
              */
-            bind(scope: IScope, property: string, defaultPropertyValue?: any,): ILockerService;
+            bind(scope: IScope, property: string, defaultPropertyValue?: any): ILockerService;
             /**
              * Set the storage driver on a new instance to enable overriding defaults
              *
              * @param  driver  The driver to switch to
              */
-            driver(localStorageType: string,): ILockerService;
+            driver(localStorageType: string): ILockerService;
             /**
              * Empty the current storage driver completely. careful now.
              */
@@ -124,13 +124,13 @@ declare module 'angular' {
              *
              * @param  options  The config options to instantiate with
              */
-            instance(lockerSettings: ILockerSettings,): ILockerService;
+            instance(lockerSettings: ILockerSettings): ILockerService;
             /**
              * Set the namespace on a new instance to enable overriding defaults
              *
              * @param  namespace  The namespace to switch to
              */
-            'namespace'(name: string,): ILockerService;
+            'namespace'(name: string): ILockerService;
             /**
              * Check browser support
              *
@@ -138,14 +138,14 @@ declare module 'angular' {
              *
              * @param  driver  The driver to check support with
              */
-            supported(driver: string,): boolean;
+            supported(driver: string): boolean;
             /**
              * Unbind a storage key from a $scope property
              *
              * @param  $scope  The angular $scope object
              * @param  key     The key to remove from bindings
              */
-            unbind(scope: IScope, property: string,): ILockerService;
+            unbind(scope: IScope, property: string): ILockerService;
         }
 
         interface ILockerSettings {
@@ -162,7 +162,7 @@ declare module 'angular' {
              *
              * @param  lockerSettings  The defaults to override
              */
-            defaults(lockerSettings: ILockerSettings,): void;
+            defaults(lockerSettings: ILockerSettings): void;
         }
     }
 }

@@ -22,7 +22,7 @@ declare module 'angular' {
              * @param {String} delimiter - The delimiter to use to separate the namespace and the keys.
              * @returns {INamespacedStoreService}
              */
-            getNamespacedStore(namespace: string, storage?: string, delimiter?: string,): INamespacedStoreService;
+            getNamespacedStore(namespace: string, storage?: string, delimiter?: string): INamespacedStoreService;
         }
 
         interface INamespacedStoreService {
@@ -32,7 +32,7 @@ declare module 'angular' {
              * @param {String} name - The key name for the location of the value
              * @param value - The value to store
              */
-            set(name: string, value: any,): void;
+            set(name: string, value: any): void;
 
             /**
              * Returns the saved value with they key name.
@@ -40,14 +40,14 @@ declare module 'angular' {
              * @param {String} name - The key name for the location of the value
              * @returns The saved value; if you saved an object, you get an object
              */
-            get(name: string,): any;
+            get(name: string): any;
 
             /**
              * Deletes the saved value with the key name
              *
              * @param {String} name - The key name for the location of the value to remove
              */
-            remove(name: string,): void;
+            remove(name: string): void;
         }
 
         interface IStoreProvider {
@@ -56,7 +56,7 @@ declare module 'angular' {
              *
              * @param {String} storage - The storage name
              */
-            setStore(storage: string,): void;
+            setStore(storage: string): void;
         }
     }
 }

@@ -13,10 +13,10 @@ declare function binarySearch(
     val: number,
 ): number;
 
-declare function binarySearch<T,>(
+declare function binarySearch<T>(
     arr: ReadonlyArray<T>,
     val: T,
-    fn?: null | ((itm: T, val: T, m: any, arr: ReadonlyArray<T>,) => number),
+    fn?: null | ((itm: T, val: T, m: any, arr: ReadonlyArray<T>) => number),
     ths?: any,
     bgn?: number,
     end?: number,

@@ -1806,7 +1806,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: PpMouseActivation,): ActionSetting;
+        Item(Index: PpMouseActivation): ActionSetting;
         readonly Parent: any;
     }
 
@@ -1828,12 +1828,12 @@ declare namespace PowerPoint {
     class AddIns {
         private 'PowerPoint.AddIns_typekey': AddIns;
         private constructor();
-        Add(FileName: string,): AddIn;
+        Add(FileName: string): AddIn;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: any,): AddIn;
+        Item(Index: any): AddIn;
         readonly Parent: any;
-        Remove(Index: any,): void;
+        Remove(Index: any): void;
     }
 
     class Adjustments {
@@ -1842,7 +1842,7 @@ declare namespace PowerPoint {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
-        Item(Index: number,): number;
+        Item(Index: number): number;
         readonly Parent: any;
     }
 
@@ -1871,10 +1871,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        Add(Type: MsoAnimType, Index?: number,): AnimationBehavior;
+        Add(Type: MsoAnimType, Index?: number): AnimationBehavior;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): AnimationBehavior;
+        Item(Index: number): AnimationBehavior;
         readonly Parent: any;
     }
 
@@ -1894,10 +1894,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        Add(Index?: number,): AnimationPoint;
+        Add(Index?: number): AnimationPoint;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): AnimationPoint;
+        Item(Index: number): AnimationPoint;
         readonly Parent: any;
         Smooth: Office.MsoTriState;
     }
@@ -1951,24 +1951,24 @@ declare namespace PowerPoint {
         DisplayGridLines: Office.MsoTriState;
         FeatureInstall: Office.MsoFeatureInstall;
         readonly FileConverters: FileConverters;
-        FileDialog(Type: Office.MsoFileDialogType,): Office.FileDialog;
+        FileDialog(Type: Office.MsoFileDialogType): Office.FileDialog;
         readonly FileFind: Office.IFind;
         readonly FileSearch: Office.FileSearch;
         FileValidation: Office.MsoFileValidationMode;
 
         /** @param boolean [Persist=false] */
-        GetOptionFlag(Option: number, Persist?: boolean,): boolean;
+        GetOptionFlag(Option: number, Persist?: boolean): boolean;
         Height: number;
 
         /**
          * @param string [HelpFile='vbapp10.chm']
          * @param number [ContextID=0]
          */
-        Help(HelpFile?: string, ContextID?: number,): void;
+        Help(HelpFile?: string, ContextID?: number): void;
         readonly IsSandboxed: boolean;
         readonly LanguageSettings: Office.LanguageSettings;
-        LaunchPublishSlidesDialog(SlideLibraryUrl: string,): void;
-        LaunchSendToPPTDialog(SlideUrls: any,): void;
+        LaunchPublishSlidesDialog(SlideLibraryUrl: string): void;
+        LaunchSendToPPTDialog(SlideUrls: any): void;
         Left: number;
         readonly Marker: any;
         readonly MsoDebugOptions: Office.MsoDebugOptions;
@@ -1977,7 +1977,7 @@ declare namespace PowerPoint {
         readonly OperatingSystem: string;
         readonly Options: Options;
         readonly Path: string;
-        PPFileDialog(Type: PpFileDialogType,): any;
+        PPFileDialog(Type: PpFileDialogType): any;
         readonly Presentations: Presentations;
         readonly ProductCode: string;
         readonly ProtectedViewWindows: ProtectedViewWindows;
@@ -1986,8 +1986,8 @@ declare namespace PowerPoint {
         Run(MacroName: string, ...safeArrayOfParams: any[]): any;
 
         /** @param boolean [Persist=false] */
-        SetOptionFlag(Option: number, State: boolean, Persist?: boolean,): void;
-        SetPerfMarker(Marker: number,): void;
+        SetOptionFlag(Option: number, State: boolean, Persist?: boolean): void;
+        SetPerfMarker(Marker: number): void;
         ShowStartupDialog: Office.MsoTriState;
         ShowWindowsInTaskbar: Office.MsoTriState;
         readonly SlideShowWindows: SlideShowWindows;
@@ -2016,7 +2016,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(BorderType: PpBorderType,): LineFormat;
+        Item(BorderType: PpBorderType): LineFormat;
         readonly Parent: any;
     }
 
@@ -2028,7 +2028,7 @@ declare namespace PowerPoint {
         End(): void;
         readonly IsBroadcasting: boolean;
         readonly Parent: any;
-        Start(serverUrl: string,): void;
+        Start(serverUrl: string): void;
     }
 
     class BulletFormat {
@@ -2039,7 +2039,7 @@ declare namespace PowerPoint {
         readonly Font: Font;
         readonly Number: number;
         readonly Parent: any;
-        Picture(Picture: string,): void;
+        Picture(Picture: string): void;
         RelativeSize: number;
         StartValue: number;
         Style: PpNumberedBulletStyle;
@@ -2060,23 +2060,23 @@ declare namespace PowerPoint {
         AutomaticLength(): void;
         Border: Office.MsoTriState;
         readonly Creator: number;
-        CustomDrop(Drop: number,): void;
-        CustomLength(Length: number,): void;
+        CustomDrop(Drop: number): void;
+        CustomLength(Length: number): void;
         readonly Drop: number;
         readonly DropType: Office.MsoCalloutDropType;
         Gap: number;
         readonly Length: number;
         readonly Parent: any;
-        PresetDrop(DropType: Office.MsoCalloutDropType,): void;
+        PresetDrop(DropType: Office.MsoCalloutDropType): void;
         Type: Office.MsoCalloutType;
     }
 
     class CanvasShapes {
         private 'PowerPoint.CanvasShapes_typekey': CanvasShapes;
         private constructor();
-        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number,): Shape;
-        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number,): Shape;
-        AddCurve(SafeArrayOfPoints: any,): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
         AddLabel(
             Orientation: Office.MsoTextOrientation,
             Left: number,
@@ -2084,7 +2084,7 @@ declare namespace PowerPoint {
             Width: number,
             Height: number,
         ): Shape;
-        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number,): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Width=-1]
@@ -2099,8 +2099,8 @@ declare namespace PowerPoint {
             Width?: number,
             Height?: number,
         ): Shape;
-        AddPolyline(SafeArrayOfPoints: any,): Shape;
-        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number,): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddTextbox(
             Orientation: Office.MsoTextOrientation,
             Left: number,
@@ -2120,12 +2120,12 @@ declare namespace PowerPoint {
         ): Shape;
         readonly Application: any;
         readonly Background: Shape;
-        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number,): FreeformBuilder;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
         readonly Count: number;
         readonly Creator: number;
-        Item(Index: any,): Shape;
+        Item(Index: any): Shape;
         readonly Parent: any;
-        Range(Index: any,): ShapeRange;
+        Range(Index: any): ShapeRange;
         SelectAll(): void;
     }
 
@@ -2134,12 +2134,12 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Borders: Borders;
-        Merge(MergeTo: Cell,): void;
+        Merge(MergeTo: Cell): void;
         readonly Parent: any;
         Select(): void;
         readonly Selected: boolean;
         readonly Shape: Shape;
-        Split(NumRows: number, NumColumns: number,): void;
+        Split(NumRows: number, NumColumns: number): void;
     }
 
     class CellRange {
@@ -2148,7 +2148,7 @@ declare namespace PowerPoint {
         readonly Application: Application;
         readonly Borders: Borders;
         readonly Count: number;
-        Item(Index: number,): Cell;
+        Item(Index: number): Cell;
         readonly Parent: any;
     }
 
@@ -2157,11 +2157,11 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
-        _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any,): void;
+        _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
         AlternativeText: string;
         readonly Application: Application;
-        ApplyChartTemplate(FileName: string,): void;
-        ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any,): void;
+        ApplyChartTemplate(FileName: string): void;
+        ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any): void;
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
         ApplyDataLabels(
@@ -2176,21 +2176,21 @@ declare namespace PowerPoint {
             ShowBubbleSize?: any,
             Separator?: any,
         ): void;
-        ApplyLayout(Layout: number, ChartType?: any,): void;
+        ApplyLayout(Layout: number, ChartType?: any): void;
         readonly Area3DGroup: ChartGroup;
-        AreaGroups(Index?: any,): any;
-        AutoFormat(Gallery: number, Format?: any,): void;
+        AreaGroups(Index?: any): any;
+        AutoFormat(Gallery: number, Format?: any): void;
         AutoScaling: boolean;
 
         /** @param PowerPoint.XlAxisGroup [AxisGroup=1] */
-        Axes(Type: any, AxisGroup?: XlAxisGroup,): any;
+        Axes(Type: any, AxisGroup?: XlAxisGroup): any;
         readonly BackWall: Walls;
         readonly Bar3DGroup: ChartGroup;
-        BarGroups(Index?: any,): any;
+        BarGroups(Index?: any): any;
         BarShape: XlBarShape;
         readonly ChartArea: ChartArea;
         readonly ChartData: ChartData;
-        ChartGroups(Index?: any,): any;
+        ChartGroups(Index?: any): any;
         ChartStyle: any;
         readonly ChartTitle: ChartTitle;
         ChartType: Office.XlChartType;
@@ -2209,29 +2209,29 @@ declare namespace PowerPoint {
         ): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: ChartGroup;
-        ColumnGroups(Index?: any,): any;
-        Copy(Before?: any, After?: any,): void;
+        ColumnGroups(Index?: any): any;
+        Copy(Before?: any, After?: any): void;
 
         /**
          * @param PowerPoint.XlPictureAppearance [Appearance=1]
          * @param PowerPoint.XlCopyPictureFormat [Format=-4147]
          * @param PowerPoint.XlPictureAppearance [Size=2]
          */
-        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance,): void;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
         readonly Corners: Corners;
         readonly Creator: number;
         readonly DataTable: DataTable;
         Delete(): void;
         DepthPercent: number;
         DisplayBlanksAs: XlDisplayBlanksAs;
-        DoughnutGroups(Index?: any,): any;
+        DoughnutGroups(Index?: any): any;
         Elevation: number;
-        Export(FileName: string, FilterName?: any, Interactive?: any,): boolean;
+        Export(FileName: string, FilterName?: any, Interactive?: any): boolean;
         readonly Floor: Floor;
         readonly Format: ChartFormat;
         GapDepth: number;
-        GetChartElement(X: number, Y: number, ElementID: number, Arg1: number, Arg2: number,): void;
-        HasAxis(Index1?: any, Index2?: any,): any;
+        GetChartElement(X: number, Y: number, ElementID: number, Arg1: number, Arg2: number): void;
+        HasAxis(Index1?: any, Index2?: any): any;
         HasDataTable: boolean;
         HasLegend: boolean;
         HasPivotFields: boolean;
@@ -2239,27 +2239,27 @@ declare namespace PowerPoint {
         HeightPercent: number;
         readonly Legend: Legend;
         readonly Line3DGroup: ChartGroup;
-        LineGroups(Index?: any,): any;
+        LineGroups(Index?: any): any;
         Name: string;
         readonly Parent: any;
-        Paste(Type?: any,): void;
+        Paste(Type?: any): void;
         Perspective: number;
         readonly Pie3DGroup: ChartGroup;
-        PieGroups(Index?: any,): any;
+        PieGroups(Index?: any): any;
         readonly PlotArea: PlotArea;
         PlotBy: XlRowCol;
         PlotVisibleOnly: boolean;
-        RadarGroups(Index?: any,): any;
+        RadarGroups(Index?: any): any;
         Refresh(): void;
         RightAngleAxes: any;
         Rotation: any;
-        SaveChartTemplate(FileName: string,): void;
-        Select(Replace?: any,): void;
-        SeriesCollection(Index?: any,): any;
-        SetBackgroundPicture(FileName: string,): void;
-        SetDefaultChart(Name: any,): void;
-        SetElement(Element: Office.MsoChartElementType,): void;
-        SetSourceData(Source: string, PlotBy?: any,): void;
+        SaveChartTemplate(FileName: string): void;
+        Select(Replace?: any): void;
+        SeriesCollection(Index?: any): any;
+        SetBackgroundPicture(FileName: string): void;
+        SetDefaultChart(Name: any): void;
+        SetElement(Element: Office.MsoChartElementType): void;
+        SetSourceData(Source: string, PlotBy?: any): void;
         readonly Shapes: Shapes;
         ShowAllFieldButtons: boolean;
         ShowAxisFieldButtons: boolean;
@@ -2273,7 +2273,7 @@ declare namespace PowerPoint {
         Title: string;
         Type: number;
         readonly Walls: Walls;
-        XYGroups(Index?: any,): any;
+        XYGroups(Index?: any): any;
     }
 
     class ChartArea {
@@ -2322,7 +2322,7 @@ declare namespace PowerPoint {
         readonly Creator: number;
         Delete(): any;
         readonly Font: ChartFont;
-        Insert(String: string,): any;
+        Insert(String: string): any;
         readonly Parent: any;
         PhoneticCharacters: string;
         Text: string;
@@ -2360,10 +2360,10 @@ declare namespace PowerPoint {
         readonly GradientDegree: number;
         readonly GradientStyle: Office.MsoGradientStyle;
         readonly GradientVariant: number;
-        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number,): void;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
         readonly Parent: any;
         readonly Pattern: Office.MsoPatternType;
-        Patterned(Pattern: Office.MsoPatternType,): void;
+        Patterned(Pattern: Office.MsoPatternType): void;
         PresetGradient(
             Style: Office.MsoGradientStyle,
             Variant: number,
@@ -2371,14 +2371,14 @@ declare namespace PowerPoint {
         ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
-        PresetTextured(PresetTexture: Office.MsoPresetTexture,): void;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
         Solid(): void;
         readonly TextureName: string;
         readonly TextureType: Office.MsoTextureType;
-        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number,): void;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
         readonly Type: Office.MsoFillType;
-        UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any,): void;
-        UserTextured(TextureFile: string,): void;
+        UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
+        UserTextured(TextureFile: string): void;
         Visible: Office.MsoTriState;
     }
 
@@ -2444,7 +2444,7 @@ declare namespace PowerPoint {
         readonly Parent: any;
         readonly RadarAxisLabels: TickLabels;
         SecondPlotSize: number;
-        SeriesCollection(Index?: any,): any;
+        SeriesCollection(Index?: any): any;
         readonly SeriesLines: SeriesLines;
         ShowNegativeBubbles: boolean;
         SizeRepresents: XlSizeRepresents;
@@ -2463,7 +2463,7 @@ declare namespace PowerPoint {
         AutoScaleFont: any;
         readonly Border: ChartBorder;
         Caption: string;
-        Characters(Start?: any, Length?: any,): ChartCharacters;
+        Characters(Start?: any, Length?: any): ChartCharacters;
         readonly Creator: number;
         Delete(): any;
         readonly Fill: ChartFillFormat;
@@ -2531,7 +2531,7 @@ declare namespace PowerPoint {
         private 'PowerPoint.ColorScheme_typekey': ColorScheme;
         private constructor();
         readonly Application: Application;
-        Colors(SchemeColor: PpColorSchemeIndex,): RGBColor;
+        Colors(SchemeColor: PpColorSchemeIndex): RGBColor;
         readonly Count: number;
         Delete(): void;
         readonly Parent: any;
@@ -2542,10 +2542,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param PowerPoint.ColorScheme [Scheme=0] */
-        Add(Scheme?: ColorScheme,): ColorScheme;
+        Add(Scheme?: ColorScheme): ColorScheme;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): ColorScheme;
+        Item(Index: number): ColorScheme;
         readonly Parent: any;
     }
 
@@ -2565,10 +2565,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [BeforeColumn=-1] */
-        Add(BeforeColumn?: number,): Column;
+        Add(BeforeColumn?: number): Column;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Column;
+        Item(Index: number): Column;
         readonly Parent: any;
     }
 
@@ -2600,10 +2600,10 @@ declare namespace PowerPoint {
     class Comments {
         private 'PowerPoint.Comments_typekey': Comments;
         private constructor();
-        Add(Left: number, Top: number, Author: string, AuthorInitials: string, Text: string,): Comment;
+        Add(Left: number, Top: number, Author: string, AuthorInitials: string, Text: string): Comment;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Comment;
+        Item(Index: number): Comment;
         readonly Parent: any;
     }
 
@@ -2611,13 +2611,13 @@ declare namespace PowerPoint {
         private 'PowerPoint.ConnectorFormat_typekey': ConnectorFormat;
         private constructor();
         readonly Application: any;
-        BeginConnect(ConnectedShape: Shape, ConnectionSite: number,): void;
+        BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
         readonly BeginConnected: Office.MsoTriState;
         readonly BeginConnectedShape: Shape;
         readonly BeginConnectionSite: number;
         BeginDisconnect(): void;
         readonly Creator: number;
-        EndConnect(ConnectedShape: Shape, ConnectionSite: number,): void;
+        EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
         readonly EndConnected: Office.MsoTriState;
         readonly EndConnectedShape: Shape;
         readonly EndConnectionSite: number;
@@ -2642,8 +2642,8 @@ declare namespace PowerPoint {
         Add(): Office.CustomXMLPart;
         readonly Application: Application;
         readonly Count: number;
-        Delete(Id: string,): void;
-        Item(Id: string,): Office.CustomXMLPart;
+        Delete(Id: string): void;
+        Item(Id: string): Office.CustomXMLPart;
         readonly Parent: any;
     }
 
@@ -2665,7 +2665,7 @@ declare namespace PowerPoint {
         readonly Hyperlinks: Hyperlinks;
         readonly Index: number;
         MatchingName: string;
-        MoveTo(toPos: number,): void;
+        MoveTo(toPos: number): void;
         Name: string;
         readonly Parent: any;
         Preserved: Office.MsoTriState;
@@ -2680,14 +2680,14 @@ declare namespace PowerPoint {
     class CustomLayouts {
         private 'PowerPoint.CustomLayouts_typekey': CustomLayouts;
         private constructor();
-        Add(Index: number,): CustomLayout;
+        Add(Index: number): CustomLayout;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: any,): CustomLayout;
+        Item(Index: any): CustomLayout;
         readonly Parent: any;
 
         /** @param number [Index=-1] */
-        Paste(Index?: number,): CustomLayout;
+        Paste(Index?: number): CustomLayout;
     }
 
     class DataTable {
@@ -2739,7 +2739,7 @@ declare namespace PowerPoint {
         Delete(): void;
         readonly HasTitleMaster: Office.MsoTriState;
         readonly Index: number;
-        MoveTo(toPos: number,): void;
+        MoveTo(toPos: number): void;
         Name: string;
         readonly Parent: any;
         Preserved: Office.MsoTriState;
@@ -2752,16 +2752,16 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        Add(designName: string, Index?: number,): Design;
+        Add(designName: string, Index?: number): Design;
         readonly Application: Application;
 
         /** @param number [Index=-1] */
-        Clone(pOriginal: Design, Index?: number,): Design;
+        Clone(pOriginal: Design, Index?: number): Design;
         readonly Count: number;
-        Item(Index: any,): Design;
+        Item(Index: any): Design;
 
         /** @param number [Index=-1] */
-        Load(TemplateName: string, Index?: number,): Design;
+        Load(TemplateName: string, Index?: number): Design;
         readonly Parent: any;
     }
 
@@ -2771,7 +2771,7 @@ declare namespace PowerPoint {
         readonly Application: any;
         AutoFormat: Office.MsoTriState;
         AutoLayout: Office.MsoTriState;
-        Convert(Type: Office.MsoDiagramType,): void;
+        Convert(Type: Office.MsoDiagramType): void;
         readonly Creator: number;
         FitText(): void;
         readonly Nodes: DiagramNodes;
@@ -2788,28 +2788,28 @@ declare namespace PowerPoint {
          * @param Office.MsoRelativeNodePosition [Pos=2]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType,): DiagramNode;
+        AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
         readonly Application: any;
         readonly Children: DiagramNodeChildren;
 
         /** @param Office.MsoRelativeNodePosition [Pos=2] */
-        CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition,): DiagramNode;
+        CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition): DiagramNode;
         readonly Creator: number;
         Delete(): void;
         readonly Diagram: Diagram;
         Layout: Office.MsoOrgChartLayoutType;
-        MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition,): void;
+        MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition): void;
         NextNode(): DiagramNode;
         readonly Parent: any;
         PrevNode(): DiagramNode;
-        ReplaceNode(TargetNode: DiagramNode,): void;
+        ReplaceNode(TargetNode: DiagramNode): void;
         readonly Root: DiagramNode;
         readonly Shape: Shape;
 
         /** @param boolean [SwapChildren=true] */
-        SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean,): void;
+        SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
         readonly TextShape: Shape;
-        TransferChildren(ReceivingNode: DiagramNode,): void;
+        TransferChildren(ReceivingNode: DiagramNode): void;
     }
 
     class DiagramNodeChildren {
@@ -2820,12 +2820,12 @@ declare namespace PowerPoint {
          * @param any [Index=-1]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType,): DiagramNode;
+        AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
         readonly FirstChild: DiagramNode;
-        Item(Index: any,): DiagramNode;
+        Item(Index: any): DiagramNode;
         readonly LastChild: DiagramNode;
         readonly Parent: any;
         SelectAll(): void;
@@ -2837,7 +2837,7 @@ declare namespace PowerPoint {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
-        Item(Index: any,): DiagramNode;
+        Item(Index: any): DiagramNode;
         readonly Parent: any;
         SelectAll(): void;
     }
@@ -2852,10 +2852,10 @@ declare namespace PowerPoint {
         BlackAndWhite: Office.MsoTriState;
         readonly Caption: string;
         Close(): void;
-        ExpandSection(sectionIndex: number, Expand: boolean,): void;
+        ExpandSection(sectionIndex: number, Expand: boolean): void;
         FitToPage(): void;
         Height: number;
-        IsSectionExpanded(sectionIndex: number,): boolean;
+        IsSectionExpanded(sectionIndex: number): boolean;
 
         /**
          * @param number [Down=1]
@@ -2863,18 +2863,18 @@ declare namespace PowerPoint {
          * @param number [ToRight=0]
          * @param number [ToLeft=0]
          */
-        LargeScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number,): void;
+        LargeScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
         Left: number;
         NewWindow(): DocumentWindow;
         readonly Panes: Panes;
         readonly Parent: any;
-        PointsToScreenPixelsX(Points: number,): number;
-        PointsToScreenPixelsY(Points: number,): number;
+        PointsToScreenPixelsX(Points: number): number;
+        PointsToScreenPixelsY(Points: number): number;
         readonly Presentation: Presentation;
-        RangeFromPoint(X: number, Y: number,): any;
+        RangeFromPoint(X: number, Y: number): any;
 
         /** @param Office.MsoTriState [Start=-1] */
-        ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: Office.MsoTriState,): void;
+        ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: Office.MsoTriState): void;
         readonly Selection: Selection;
 
         /**
@@ -2883,7 +2883,7 @@ declare namespace PowerPoint {
          * @param number [ToRight=0]
          * @param number [ToLeft=0]
          */
-        SmallScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number,): void;
+        SmallScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
         SplitHorizontal: number;
         SplitVertical: number;
         Top: number;
@@ -2899,9 +2899,9 @@ declare namespace PowerPoint {
         readonly Application: Application;
 
         /** @param PowerPoint.PpArrangeStyle [arrangeStyle=1] */
-        Arrange(arrangeStyle?: PpArrangeStyle,): void;
+        Arrange(arrangeStyle?: PpArrangeStyle): void;
         readonly Count: number;
-        Item(Index: number,): DocumentWindow;
+        Item(Index: number): DocumentWindow;
         readonly Parent: any;
     }
 
@@ -2945,9 +2945,9 @@ declare namespace PowerPoint {
         EffectType: MsoAnimEffect;
         Exit: Office.MsoTriState;
         readonly Index: number;
-        MoveAfter(Effect: Effect,): void;
-        MoveBefore(Effect: Effect,): void;
-        MoveTo(toPos: number,): void;
+        MoveAfter(Effect: Effect): void;
+        MoveBefore(Effect: Effect): void;
+        MoveTo(toPos: number): void;
         Paragraph: number;
         readonly Parent: any;
         Shape: Shape;
@@ -2987,11 +2987,11 @@ declare namespace PowerPoint {
     class ExtraColors {
         private 'PowerPoint.ExtraColors_typekey': ExtraColors;
         private constructor();
-        Add(Type: Office.MsoRGBType,): void;
+        Add(Type: Office.MsoRGBType): void;
         readonly Application: Application;
         Clear(): void;
         readonly Count: number;
-        Item(Index: number,): Office.MsoRGBType;
+        Item(Index: number): Office.MsoRGBType;
         readonly Parent: any;
     }
 
@@ -3016,7 +3016,7 @@ declare namespace PowerPoint {
         private 'PowerPoint.FileConverters_typekey': FileConverters;
         private constructor();
         readonly Count: number;
-        Item(Index: any,): FileConverter;
+        Item(Index: any): FileConverter;
     }
 
     class FillFormat {
@@ -3033,10 +3033,10 @@ declare namespace PowerPoint {
         readonly GradientStops: Office.GradientStops;
         readonly GradientStyle: Office.MsoGradientStyle;
         readonly GradientVariant: number;
-        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number,): void;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
         readonly Parent: any;
         readonly Pattern: Office.MsoPatternType;
-        Patterned(Pattern: Office.MsoPatternType,): void;
+        Patterned(Pattern: Office.MsoPatternType): void;
         readonly PictureEffects: Office.PictureEffects;
         PresetGradient(
             Style: Office.MsoGradientStyle,
@@ -3045,7 +3045,7 @@ declare namespace PowerPoint {
         ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
-        PresetTextured(PresetTexture: Office.MsoPresetTexture,): void;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
         RotateWithObject: Office.MsoTriState;
         Solid(): void;
         TextureAlignment: Office.MsoTextureAlignment;
@@ -3057,10 +3057,10 @@ declare namespace PowerPoint {
         readonly TextureType: Office.MsoTextureType;
         TextureVerticalScale: number;
         Transparency: number;
-        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number,): void;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
         readonly Type: Office.MsoFillType;
-        UserPicture(PictureFile: string,): void;
-        UserTextured(TextureFile: string,): void;
+        UserPicture(PictureFile: string): void;
+        UserTextured(TextureFile: string): void;
         Visible: Office.MsoTriState;
     }
 
@@ -3122,9 +3122,9 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: any,): Font;
+        Item(Index: any): Font;
         readonly Parent: any;
-        Replace(Original: string, Replacement: string,): void;
+        Replace(Original: string, Replacement: string): void;
     }
 
     class FreeformBuilder {
@@ -3179,9 +3179,9 @@ declare namespace PowerPoint {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
-        Item(Index: any,): Shape;
+        Item(Index: any): Shape;
         readonly Parent: any;
-        Range(Index: any,): ShapeRange;
+        Range(Index: any): ShapeRange;
     }
 
     class HeaderFooter {
@@ -3227,7 +3227,7 @@ declare namespace PowerPoint {
         Address: string;
         AddToFavorites(): void;
         readonly Application: Application;
-        CreateNewDocument(FileName: string, EditNow: Office.MsoTriState, Overwrite: Office.MsoTriState,): void;
+        CreateNewDocument(FileName: string, EditNow: Office.MsoTriState, Overwrite: Office.MsoTriState): void;
         Delete(): void;
         EmailSubject: string;
         Follow(): void;
@@ -3244,7 +3244,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Hyperlink;
+        Item(Index: number): Hyperlink;
         readonly Parent: any;
     }
 
@@ -3278,7 +3278,7 @@ declare namespace PowerPoint {
         IncludeInLayout: boolean;
         readonly Interior: Interior;
         Left: number;
-        LegendEntries(Index?: any,): any;
+        LegendEntries(Index?: any): any;
         readonly Name: string;
         readonly Parent: any;
         Position: XlLegendPosition;
@@ -3326,7 +3326,7 @@ declare namespace PowerPoint {
         private 'PowerPoint.Master_typekey': Master;
         private constructor();
         readonly Application: Application;
-        ApplyTheme(themeName: string,): void;
+        ApplyTheme(themeName: string): void;
         readonly Background: ShapeRange;
         BackgroundStyle: Office.MsoBackgroundStyleIndex;
         ColorScheme: ColorScheme;
@@ -3360,9 +3360,9 @@ declare namespace PowerPoint {
     class MediaBookmarks {
         private 'PowerPoint.MediaBookmarks_typekey': MediaBookmarks;
         private constructor();
-        Add(Position: number, Name: string,): MediaBookmark;
+        Add(Position: number, Name: string): MediaBookmark;
         readonly Count: number;
-        Item(Index: number,): MediaBookmark;
+        Item(Index: number): MediaBookmark;
     }
 
     class MediaFormat {
@@ -3399,12 +3399,12 @@ declare namespace PowerPoint {
         ): void;
 
         /** @param PowerPoint.PpResampleMediaProfile [profile=2] */
-        ResampleFromProfile(profile?: PpResampleMediaProfile,): void;
+        ResampleFromProfile(profile?: PpResampleMediaProfile): void;
         readonly ResamplingStatus: PpMediaTaskStatus;
         readonly SampleHeight: number;
         readonly SampleWidth: number;
-        SetDisplayPicture(Position: number,): void;
-        SetDisplayPictureFromFile(FilePath: string,): void;
+        SetDisplayPicture(Position: number): void;
+        SetDisplayPictureFromFile(FilePath: string): void;
         StartPoint: number;
         readonly VideoCompressionType: string;
         readonly VideoFrameRate: number;
@@ -3428,8 +3428,8 @@ declare namespace PowerPoint {
     class MouseTracker {
         private 'PowerPoint.MouseTracker_typekey': MouseTracker;
         private constructor();
-        EndTrack(X: number, Y: number,): void;
-        OnTrack(X: number, Y: number,): void;
+        EndTrack(X: number, Y: number): void;
+        OnTrack(X: number, Y: number): void;
     }
 
     class NamedSlideShow {
@@ -3446,10 +3446,10 @@ declare namespace PowerPoint {
     class NamedSlideShows {
         private 'PowerPoint.NamedSlideShows_typekey': NamedSlideShows;
         private constructor();
-        Add(Name: string, safeArrayOfSlideIDs: any,): NamedSlideShow;
+        Add(Name: string, safeArrayOfSlideIDs: any): NamedSlideShow;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: any,): NamedSlideShow;
+        Item(Index: any): NamedSlideShow;
         readonly Parent: any;
     }
 
@@ -3458,7 +3458,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): string;
+        Item(Index: number): string;
         readonly Parent: any;
     }
 
@@ -3482,7 +3482,7 @@ declare namespace PowerPoint {
         readonly Application: Application;
 
         /** @param number [Index=0] */
-        DoVerb(Index?: number,): void;
+        DoVerb(Index?: number): void;
         FollowColors: PpFollowColors;
         readonly Object: any;
         readonly ObjectVerbs: ObjectVerbs;
@@ -3526,7 +3526,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Pane;
+        Item(Index: number): Pane;
         readonly Parent: any;
     }
 
@@ -3563,8 +3563,8 @@ declare namespace PowerPoint {
         CropLeft: number;
         CropRight: number;
         CropTop: number;
-        IncrementBrightness(Increment: number,): void;
-        IncrementContrast(Increment: number,): void;
+        IncrementBrightness(Increment: number): void;
+        IncrementContrast(Increment: number): void;
         readonly Parent: any;
         TransparencyColor: Office.MsoRGBType;
         TransparentBackground: Office.MsoTriState;
@@ -3585,8 +3585,8 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        FindByName(Index: any,): Shape;
-        Item(Index: number,): Shape;
+        FindByName(Index: any): Shape;
+        Item(Index: number): Shape;
         readonly Parent: any;
     }
 
@@ -3645,7 +3645,7 @@ declare namespace PowerPoint {
     class PowerRex {
         private 'PowerPoint.PowerRex_typekey': PowerRex;
         private constructor();
-        OnAsfEncoderEvent(erorCode: any, bstrErrorDesc: any,): void;
+        OnAsfEncoderEvent(erorCode: any, bstrErrorDesc: any): void;
     }
 
     class Presentation {
@@ -3654,21 +3654,21 @@ declare namespace PowerPoint {
         AcceptAll(): void;
 
         /** @param string [FileName=''] */
-        AddBaseline(FileName?: string,): void;
+        AddBaseline(FileName?: string): void;
         AddTitleMaster(): Master;
         AddToFavorites(): void;
         readonly Application: Application;
-        ApplyTemplate(FileName: string,): void;
-        ApplyTheme(themeName: string,): void;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
         readonly Broadcast: Broadcast;
         readonly BuiltInDocumentProperties: any;
         CanCheckIn(): boolean;
 
         /** @param boolean [SaveChanges=true] */
-        CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: any,): void;
+        CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: any): void;
 
         /** @param boolean [SaveChanges=true] */
-        CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: any, VersionType?: any,): void;
+        CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: any, VersionType?: any): void;
         Close(): void;
         readonly Coauthoring: Coauthoring;
         readonly ColorSchemes: ColorSchemes;
@@ -3676,7 +3676,7 @@ declare namespace PowerPoint {
         readonly Container: any;
         readonly ContentTypeProperties: Office.MetaProperties;
         Convert(): void;
-        Convert2(FileName: string,): void;
+        Convert2(FileName: string): void;
 
         /**
          * @param boolean [UseTimingsAndNarrations=true]
@@ -3699,7 +3699,7 @@ declare namespace PowerPoint {
         readonly CustomXMLParts: Office.CustomXMLParts;
         DefaultLanguageID: Office.MsoLanguageID;
         readonly DefaultShape: Shape;
-        DeleteSection(Index: number,): void;
+        DeleteSection(Index: number): void;
         readonly Designs: Designs;
         DisableSections(): void;
         DisplayComments: Office.MsoTriState;
@@ -3714,7 +3714,7 @@ declare namespace PowerPoint {
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        Export(Path: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number,): void;
+        Export(Path: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
 
         /**
          * @param PowerPoint.PpFixedFormatIntent [Intent=1]
@@ -3787,11 +3787,11 @@ declare namespace PowerPoint {
         readonly InMergeMode: boolean;
         LayoutDirection: PpDirection;
         LockServerFile(): void;
-        MakeIntoTemplate(IsDesignTemplate: Office.MsoTriState,): void;
-        Merge(Path: string,): void;
-        MergeWithBaseline(withPresentation: string, baselinePresentation: string,): void;
+        MakeIntoTemplate(IsDesignTemplate: Office.MsoTriState): void;
+        Merge(Path: string): void;
+        MergeWithBaseline(withPresentation: string, baselinePresentation: string): void;
         readonly Name: string;
-        NewSectionAfter(Index: number, AfterSlide: boolean, sectionTitle: string, newSectionIndex: number,): void;
+        NewSectionAfter(Index: number, AfterSlide: boolean, sectionTitle: string, newSectionIndex: number): void;
         NewWindow(): DocumentWindow;
         NoLineBreakAfter: string;
         NoLineBreakBefore: string;
@@ -3827,16 +3827,16 @@ declare namespace PowerPoint {
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean,): void;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
         readonly ReadOnly: Office.MsoTriState;
         RejectAll(): void;
-        ReloadAs(cp: Office.MsoEncoding,): void;
+        ReloadAs(cp: Office.MsoEncoding): void;
         RemoveBaseline(): void;
-        RemoveDocumentInformation(Type: PpRemoveDocInfoType,): void;
+        RemoveDocumentInformation(Type: PpRemoveDocInfoType): void;
         RemovePersonalInformation: Office.MsoTriState;
 
         /** @param boolean [ShowMessage=true] */
-        ReplyWithChanges(ShowMessage?: boolean,): void;
+        ReplyWithChanges(ShowMessage?: boolean): void;
         readonly Research: Research;
         Save(): void;
 
@@ -3844,32 +3844,32 @@ declare namespace PowerPoint {
          * @param PowerPoint.PpSaveAsFileType [FileFormat=11]
          * @param Office.MsoTriState [EmbedTrueTypeFonts=-2]
          */
-        SaveAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState,): void;
+        SaveAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
 
         /**
          * @param PowerPoint.PpSaveAsFileType [FileFormat=11]
          * @param Office.MsoTriState [EmbedTrueTypeFonts=-2]
          */
-        SaveCopyAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState,): void;
+        SaveCopyAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
         Saved: Office.MsoTriState;
-        sblt(s: string,): void;
+        sblt(s: string): void;
         readonly SectionCount: number;
         readonly SectionProperties: SectionProperties;
-        sectionTitle(Index: number,): string;
+        sectionTitle(Index: number): string;
 
         /**
          * @param string [Recipients='']
          * @param string [Subject='']
          * @param boolean [ShowMessage=false]
          */
-        SendFaxOverInternet(Recipients?: string, Subject?: string, ShowMessage?: boolean,): void;
+        SendFaxOverInternet(Recipients?: string, Subject?: string, ShowMessage?: boolean): void;
 
         /**
          * @param string [Recipients='']
          * @param string [Subject='']
          * @param boolean [ShowMessage=true]
          */
-        SendForReview(Recipients?: string, Subject?: string, ShowMessage?: boolean, IncludeAttachment?: any,): void;
+        SendForReview(Recipients?: string, Subject?: string, ShowMessage?: boolean, IncludeAttachment?: any): void;
         readonly ServerPolicy: Office.ServerPolicy;
         SetPasswordEncryptionOptions(
             PasswordEncryptionProvider: string,
@@ -3877,7 +3877,7 @@ declare namespace PowerPoint {
             PasswordEncryptionKeyLength: number,
             PasswordEncryptionFileProperties: boolean,
         ): void;
-        SetUndoText(Text: string,): void;
+        SetUndoText(Text: string): void;
         readonly SharedWorkspace: Office.SharedWorkspace;
         readonly Signatures: Office.SignatureSet;
         readonly SlideMaster: Master;
@@ -3903,12 +3903,12 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param Office.MsoTriState [WithWindow=-1] */
-        Add(WithWindow?: Office.MsoTriState,): Presentation;
+        Add(WithWindow?: Office.MsoTriState): Presentation;
         readonly Application: Application;
-        CanCheckOut(FileName: string,): boolean;
-        CheckOut(FileName: string,): void;
+        CanCheckOut(FileName: string): boolean;
+        CheckOut(FileName: string): void;
         readonly Count: number;
-        Item(Index: any,): Presentation;
+        Item(Index: any): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
@@ -3987,11 +3987,11 @@ declare namespace PowerPoint {
     class PrintRanges {
         private 'PowerPoint.PrintRanges_typekey': PrintRanges;
         private constructor();
-        Add(Start: number, End: number,): PrintRange;
+        Add(Start: number, End: number): PrintRange;
         readonly Application: Application;
         ClearAll(): void;
         readonly Count: number;
-        Item(Index: number,): PrintRange;
+        Item(Index: number): PrintRange;
         readonly Parent: any;
     }
 
@@ -4016,7 +4016,7 @@ declare namespace PowerPoint {
         Close(): void;
 
         /** @param string [ModifyPassword=''] */
-        Edit(ModifyPassword?: string,): Presentation;
+        Edit(ModifyPassword?: string): Presentation;
         Height: number;
         Left: number;
         readonly Parent: any;
@@ -4033,13 +4033,13 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): ProtectedViewWindow;
+        Item(Index: number): ProtectedViewWindow;
 
         /**
          * @param string [ReadPassword='']
          * @param Office.MsoTriState [OpenAndRepair=0]
          */
-        Open(FileName: string, ReadPassword?: string, OpenAndRepair?: Office.MsoTriState,): ProtectedViewWindow;
+        Open(FileName: string, ReadPassword?: string, OpenAndRepair?: Office.MsoTriState): ProtectedViewWindow;
         readonly Parent: any;
     }
 
@@ -4063,7 +4063,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): PublishObject;
+        Item(Index: number): PublishObject;
         readonly Parent: any;
     }
 
@@ -4088,7 +4088,7 @@ declare namespace PowerPoint {
         private constructor();
         Cancel(): void;
         readonly Count: number;
-        Item(Index: number,): ResampleMediaTask;
+        Item(Index: number): ResampleMediaTask;
         Pause(): void;
         readonly PercentComplete: number;
         Resume(): void;
@@ -4098,7 +4098,7 @@ declare namespace PowerPoint {
         private 'PowerPoint.Research_typekey': Research;
         private constructor();
         readonly Application: Application;
-        IsResearchService(ServiceID: string,): boolean;
+        IsResearchService(ServiceID: string): boolean;
         readonly Parent: any;
 
         /**
@@ -4112,7 +4112,7 @@ declare namespace PowerPoint {
             UseSelection?: boolean,
             LaunchQuery?: boolean,
         ): void;
-        SetLanguagePair(Language1: any, Language2: any,): void;
+        SetLanguagePair(Language1: any, Language2: any): void;
     }
 
     class RGBColor {
@@ -4149,10 +4149,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [BeforeRow=-1] */
-        Add(BeforeRow?: number,): Row;
+        Add(BeforeRow?: number): Row;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Row;
+        Item(Index: number): Row;
         readonly Parent: any;
     }
 
@@ -4179,7 +4179,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): RulerLevel;
+        Item(Index: number): RulerLevel;
         readonly Parent: any;
     }
 
@@ -4199,18 +4199,18 @@ declare namespace PowerPoint {
     class SectionProperties {
         private 'PowerPoint.SectionProperties_typekey': SectionProperties;
         private constructor();
-        AddBeforeSlide(SlideIndex: number, sectionName: string,): number;
-        AddSection(sectionIndex: number, sectionName?: any,): number;
+        AddBeforeSlide(SlideIndex: number, sectionName: string): number;
+        AddSection(sectionIndex: number, sectionName?: any): number;
         readonly Application: Application;
         readonly Count: number;
-        Delete(sectionIndex: number, deleteSlides: boolean,): void;
-        FirstSlide(sectionIndex: number,): number;
-        Move(sectionIndex: number, toPos: number,): void;
-        Name(sectionIndex: number,): string;
+        Delete(sectionIndex: number, deleteSlides: boolean): void;
+        FirstSlide(sectionIndex: number): number;
+        Move(sectionIndex: number, toPos: number): void;
+        Name(sectionIndex: number): string;
         readonly Parent: any;
-        Rename(sectionIndex: number, sectionName: string,): void;
-        SectionID(sectionIndex: number,): string;
-        SlidesCount(sectionIndex: number,): number;
+        Rename(sectionIndex: number, sectionName: string): void;
+        SectionID(sectionIndex: number): string;
+        SlidesCount(sectionIndex: number): number;
     }
 
     class Selection {
@@ -4263,7 +4263,7 @@ declare namespace PowerPoint {
         readonly Application: Application;
 
         /** @param number [Index=-1] */
-        Clone(Effect: Effect, Index?: number,): Effect;
+        Clone(Effect: Effect, Index?: number): Effect;
 
         /**
          * @param Office.MsoRGBType [DimColor=0]
@@ -4275,14 +4275,14 @@ declare namespace PowerPoint {
             DimColor?: Office.MsoRGBType,
             DimSchemeColor?: PpColorSchemeIndex,
         ): Effect;
-        ConvertToAnimateBackground(Effect: Effect, AnimateBackground: Office.MsoTriState,): Effect;
-        ConvertToAnimateInReverse(Effect: Effect, animateInReverse: Office.MsoTriState,): Effect;
-        ConvertToBuildLevel(Effect: Effect, Level: MsoAnimateByLevel,): Effect;
-        ConvertToTextUnitEffect(Effect: Effect, unitEffect: MsoAnimTextUnitEffect,): Effect;
+        ConvertToAnimateBackground(Effect: Effect, AnimateBackground: Office.MsoTriState): Effect;
+        ConvertToAnimateInReverse(Effect: Effect, animateInReverse: Office.MsoTriState): Effect;
+        ConvertToBuildLevel(Effect: Effect, Level: MsoAnimateByLevel): Effect;
+        ConvertToTextUnitEffect(Effect: Effect, unitEffect: MsoAnimTextUnitEffect): Effect;
         readonly Count: number;
-        FindFirstAnimationFor(Shape: Shape,): Effect;
-        FindFirstAnimationForClick(click: number,): Effect;
-        Item(Index: number,): Effect;
+        FindFirstAnimationFor(Shape: Shape): Effect;
+        FindFirstAnimationForClick(click: number): Effect;
+        Item(Index: number): Effect;
         readonly Parent: any;
     }
 
@@ -4291,10 +4291,10 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        Add(Index?: number,): Sequence;
+        Add(Index?: number): Sequence;
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): Sequence;
+        Item(Index: number): Sequence;
         readonly Parent: any;
     }
 
@@ -4327,8 +4327,8 @@ declare namespace PowerPoint {
         Blur: number;
         readonly Creator: number;
         ForeColor: ColorFormat;
-        IncrementOffsetX(Increment: number,): void;
-        IncrementOffsetY(Increment: number,): void;
+        IncrementOffsetX(Increment: number): void;
+        IncrementOffsetY(Increment: number): void;
         Obscured: Office.MsoTriState;
         OffsetX: number;
         OffsetY: number;
@@ -4355,17 +4355,17 @@ declare namespace PowerPoint {
         BackgroundStyle: Office.MsoBackgroundStyleIndex;
         BlackWhiteMode: Office.MsoBlackWhiteMode;
         readonly Callout: CalloutFormat;
-        CanvasCropBottom(Increment: number,): void;
-        CanvasCropLeft(Increment: number,): void;
-        CanvasCropRight(Increment: number,): void;
-        CanvasCropTop(Increment: number,): void;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
         readonly CanvasItems: CanvasShapes;
         readonly Chart: Chart;
         readonly Child: Office.MsoTriState;
         readonly ConnectionSiteCount: number;
         readonly Connector: Office.MsoTriState;
         readonly ConnectorFormat: ConnectorFormat;
-        ConvertTextToSmartArt(Layout: Office.SmartArtLayout,): void;
+        ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
         Copy(): void;
         readonly Creator: number;
         readonly CustomerData: CustomerData;
@@ -4388,7 +4388,7 @@ declare namespace PowerPoint {
             ExportMode?: PpExportMode,
         ): void;
         readonly Fill: FillFormat;
-        Flip(FlipCmd: Office.MsoFlipCmd,): void;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
         readonly Glow: Office.GlowFormat;
         readonly GroupItems: GroupShapes;
         readonly HasChart: Office.MsoTriState;
@@ -4400,9 +4400,9 @@ declare namespace PowerPoint {
         Height: number;
         readonly HorizontalFlip: Office.MsoTriState;
         readonly Id: number;
-        IncrementLeft(Increment: number,): void;
-        IncrementRotation(Increment: number,): void;
-        IncrementTop(Increment: number,): void;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
         Left: number;
         readonly Line: LineFormat;
         readonly LinkFormat: LinkFormat;
@@ -4424,14 +4424,14 @@ declare namespace PowerPoint {
         readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom,): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom,): void;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
         readonly Script: Office.Script;
 
         /** @param Office.MsoTriState [Replace=-1] */
-        Select(Replace?: Office.MsoTriState,): void;
+        Select(Replace?: Office.MsoTriState): void;
         SetShapesDefaultProperties(): void;
         readonly Shadow: ShadowFormat;
         ShapeStyle: Office.MsoShapeStyleIndex;
@@ -4453,7 +4453,7 @@ declare namespace PowerPoint {
         readonly Vertices: any;
         Visible: Office.MsoTriState;
         Width: number;
-        ZOrder(ZOrderCmd: Office.MsoZOrderCmd,): void;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
         readonly ZOrderPosition: number;
     }
 
@@ -4474,7 +4474,7 @@ declare namespace PowerPoint {
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
-        Delete(Index: number,): void;
+        Delete(Index: number): void;
 
         /**
          * @param number [X2=0]
@@ -4493,11 +4493,11 @@ declare namespace PowerPoint {
             X3?: number,
             Y3?: number,
         ): void;
-        Item(Index: any,): ShapeNode;
+        Item(Index: any): ShapeNode;
         readonly Parent: any;
-        SetEditingType(Index: number, EditingType: Office.MsoEditingType,): void;
-        SetPosition(Index: number, X1: number, Y1: number,): void;
-        SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType,): void;
+        SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
+        SetPosition(Index: number, X1: number, Y1: number): void;
+        SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
     }
 
     class ShapeRange {
@@ -4505,7 +4505,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly ActionSettings: ActionSettings;
         readonly Adjustments: Adjustments;
-        Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState,): void;
+        Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState): void;
         AlternativeText: string;
         readonly AnimationSettings: AnimationSettings;
         readonly Application: any;
@@ -4515,17 +4515,17 @@ declare namespace PowerPoint {
         BackgroundStyle: Office.MsoBackgroundStyleIndex;
         BlackWhiteMode: Office.MsoBlackWhiteMode;
         readonly Callout: CalloutFormat;
-        CanvasCropBottom(Increment: number,): void;
-        CanvasCropLeft(Increment: number,): void;
-        CanvasCropRight(Increment: number,): void;
-        CanvasCropTop(Increment: number,): void;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
         readonly CanvasItems: CanvasShapes;
         readonly Chart: Chart;
         readonly Child: Office.MsoTriState;
         readonly ConnectionSiteCount: number;
         readonly Connector: Office.MsoTriState;
         readonly ConnectorFormat: ConnectorFormat;
-        ConvertTextToSmartArt(Layout: Office.SmartArtLayout,): void;
+        ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
         Copy(): void;
         readonly Count: number;
         readonly Creator: number;
@@ -4534,7 +4534,7 @@ declare namespace PowerPoint {
         Delete(): void;
         readonly Diagram: Diagram;
         readonly DiagramNode: DiagramNode;
-        Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState,): void;
+        Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState): void;
         Duplicate(): ShapeRange;
 
         /**
@@ -4550,7 +4550,7 @@ declare namespace PowerPoint {
             ExportMode?: PpExportMode,
         ): void;
         readonly Fill: FillFormat;
-        Flip(FlipCmd: Office.MsoFlipCmd,): void;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
         readonly Glow: Office.GlowFormat;
         Group(): Shape;
         readonly GroupItems: GroupShapes;
@@ -4563,10 +4563,10 @@ declare namespace PowerPoint {
         Height: number;
         readonly HorizontalFlip: Office.MsoTriState;
         readonly Id: number;
-        IncrementLeft(Increment: number,): void;
-        IncrementRotation(Increment: number,): void;
-        IncrementTop(Increment: number,): void;
-        Item(Index: any,): Shape;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Item(Index: any): Shape;
         Left: number;
         readonly Line: LineFormat;
         readonly LinkFormat: LinkFormat;
@@ -4589,14 +4589,14 @@ declare namespace PowerPoint {
         readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom,): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom,): void;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
         readonly Script: Office.Script;
 
         /** @param Office.MsoTriState [Replace=-1] */
-        Select(Replace?: Office.MsoTriState,): void;
+        Select(Replace?: Office.MsoTriState): void;
         SetShapesDefaultProperties(): void;
         readonly Shadow: ShadowFormat;
         ShapeStyle: Office.MsoShapeStyleIndex;
@@ -4618,15 +4618,15 @@ declare namespace PowerPoint {
         readonly Vertices: any;
         Visible: Office.MsoTriState;
         Width: number;
-        ZOrder(ZOrderCmd: Office.MsoZOrderCmd,): void;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
         readonly ZOrderPosition: number;
     }
 
     class Shapes {
         private 'PowerPoint.Shapes_typekey': Shapes;
         private constructor();
-        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number,): Shape;
-        AddCanvas(Left: number, Top: number, Width: number, Height: number,): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param Office.XlChartType [Type=-1]
@@ -4635,7 +4635,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddChart(Type?: Office.XlChartType, Left?: number, Top?: number, Width?: number, Height?: number,): Shape;
+        AddChart(Type?: Office.XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=1.25]
@@ -4643,10 +4643,10 @@ declare namespace PowerPoint {
          * @param number [Width=145.25]
          * @param number [Height=145.25]
          */
-        AddComment(Left?: number, Top?: number, Width?: number, Height?: number,): Shape;
-        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number,): Shape;
-        AddCurve(SafeArrayOfPoints: any,): Shape;
-        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number,): Shape;
+        AddComment(Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddLabel(
             Orientation: Office.MsoTextOrientation,
             Left: number,
@@ -4654,7 +4654,7 @@ declare namespace PowerPoint {
             Width: number,
             Height: number,
         ): Shape;
-        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number,): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Left=0]
@@ -4662,7 +4662,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddMediaObject(FileName: string, Left?: number, Top?: number, Width?: number, Height?: number,): Shape;
+        AddMediaObject(FileName: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param Office.MsoTriState [LinkToFile=0]
@@ -4743,9 +4743,9 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddPlaceholder(Type: PpPlaceholderType, Left?: number, Top?: number, Width?: number, Height?: number,): Shape;
-        AddPolyline(SafeArrayOfPoints: any,): Shape;
-        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number,): Shape;
+        AddPlaceholder(Type: PpPlaceholderType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -4794,11 +4794,11 @@ declare namespace PowerPoint {
         ): Shape;
         AddTitle(): Shape;
         readonly Application: any;
-        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number,): FreeformBuilder;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
         readonly Count: number;
         readonly Creator: number;
         readonly HasTitle: Office.MsoTriState;
-        Item(Index: any,): Shape;
+        Item(Index: any): Shape;
         readonly Parent: any;
         Paste(): ShapeRange;
 
@@ -4819,7 +4819,7 @@ declare namespace PowerPoint {
             Link?: Office.MsoTriState,
         ): ShapeRange;
         readonly Placeholders: Placeholders;
-        Range(Index?: any,): ShapeRange;
+        Range(Index?: any): ShapeRange;
         SelectAll(): void;
         readonly Title: Shape;
     }
@@ -4828,9 +4828,9 @@ declare namespace PowerPoint {
         private 'PowerPoint.Slide_typekey': Slide;
         private constructor();
         readonly Application: Application;
-        ApplyTemplate(FileName: string,): void;
-        ApplyTheme(themeName: string,): void;
-        ApplyThemeColorScheme(themeColorSchemeName: string,): void;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
+        ApplyThemeColorScheme(themeColorSchemeName: string): void;
         readonly Background: ShapeRange;
         BackgroundStyle: Office.MsoBackgroundStyleIndex;
         ColorScheme: ColorScheme;
@@ -4848,15 +4848,15 @@ declare namespace PowerPoint {
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number,): void;
+        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
         FollowMasterBackground: Office.MsoTriState;
         readonly HasNotesPage: Office.MsoTriState;
         readonly HeadersFooters: HeadersFooters;
         readonly Hyperlinks: Hyperlinks;
         Layout: PpSlideLayout;
         readonly Master: Master;
-        MoveTo(toPos: number,): void;
-        MoveToSectionStart(toSection: number,): void;
+        MoveTo(toPos: number): void;
+        MoveToSectionStart(toSection: number): void;
         Name: string;
         readonly NotesPage: SlideRange;
         readonly Parent: any;
@@ -4866,7 +4866,7 @@ declare namespace PowerPoint {
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean,): void;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
         readonly Scripts: Office.Scripts;
         readonly sectionIndex: number;
         readonly SectionNumber: number;
@@ -4885,9 +4885,9 @@ declare namespace PowerPoint {
         private 'PowerPoint.SlideRange_typekey': SlideRange;
         private constructor();
         readonly Application: Application;
-        ApplyTemplate(FileName: string,): void;
-        ApplyTheme(themeName: string,): void;
-        ApplyThemeColorScheme(themeColorSchemeName: string,): void;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
+        ApplyThemeColorScheme(themeColorSchemeName: string): void;
         readonly Background: ShapeRange;
         BackgroundStyle: Office.MsoBackgroundStyleIndex;
         ColorScheme: ColorScheme;
@@ -4906,16 +4906,16 @@ declare namespace PowerPoint {
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number,): void;
+        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
         FollowMasterBackground: Office.MsoTriState;
         readonly HasNotesPage: Office.MsoTriState;
         readonly HeadersFooters: HeadersFooters;
         readonly Hyperlinks: Hyperlinks;
-        Item(Index: any,): Slide;
+        Item(Index: any): Slide;
         Layout: PpSlideLayout;
         readonly Master: Master;
-        MoveTo(toPos: number,): void;
-        MoveToSectionStart(toSection: number,): void;
+        MoveTo(toPos: number): void;
+        MoveToSectionStart(toSection: number): void;
         Name: string;
         readonly NotesPage: SlideRange;
         readonly Parent: any;
@@ -4925,7 +4925,7 @@ declare namespace PowerPoint {
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean,): void;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
         readonly Scripts: Office.Scripts;
         readonly sectionIndex: number;
         readonly SectionNumber: number;
@@ -4943,23 +4943,23 @@ declare namespace PowerPoint {
     class Slides {
         private 'PowerPoint.Slides_typekey': Slides;
         private constructor();
-        Add(Index: number, Layout: PpSlideLayout,): Slide;
-        AddSlide(Index: number, pCustomLayout: CustomLayout,): Slide;
+        Add(Index: number, Layout: PpSlideLayout): Slide;
+        AddSlide(Index: number, pCustomLayout: CustomLayout): Slide;
         readonly Application: Application;
         readonly Count: number;
-        FindBySlideID(SlideID: number,): Slide;
+        FindBySlideID(SlideID: number): Slide;
 
         /**
          * @param number [SlideStart=1]
          * @param number [SlideEnd=-1]
          */
-        InsertFromFile(FileName: string, Index: number, SlideStart?: number, SlideEnd?: number,): number;
-        Item(Index: any,): Slide;
+        InsertFromFile(FileName: string, Index: number, SlideStart?: number, SlideEnd?: number): number;
+        Item(Index: any): Slide;
         readonly Parent: any;
 
         /** @param number [Index=-1] */
-        Paste(Index?: number,): SlideRange;
-        Range(Index?: any,): SlideRange;
+        Paste(Index?: number): SlideRange;
+        Range(Index?: any): SlideRange;
     }
 
     class SlideShowSettings {
@@ -5007,7 +5007,7 @@ declare namespace PowerPoint {
         readonly AdvanceMode: PpSlideShowAdvanceMode;
         readonly Application: Application;
         readonly CurrentShowPosition: number;
-        DrawLine(BeginX: number, BeginY: number, EndX: number, EndY: number,): void;
+        DrawLine(BeginX: number, BeginY: number, EndX: number, EndY: number): void;
         EndNamedShow(): void;
         EraseDrawing(): void;
         Exit(): void;
@@ -5015,12 +5015,12 @@ declare namespace PowerPoint {
         FirstAnimationIsAutomatic(): boolean;
         GetClickCount(): number;
         GetClickIndex(): number;
-        GotoClick(Index: number,): void;
-        GotoNamedShow(SlideShowName: string,): void;
+        GotoClick(Index: number): void;
+        GotoNamedShow(SlideShowName: string): void;
 
         /** @param Office.MsoTriState [ResetSlide=-1] */
-        GotoSlide(Index: number, ResetSlide?: Office.MsoTriState,): void;
-        InstallTracker(pTracker: MouseTracker, Presenter: Office.MsoTriState,): void;
+        GotoSlide(Index: number, ResetSlide?: Office.MsoTriState): void;
+        InstallTracker(pTracker: MouseTracker, Presenter: Office.MsoTriState): void;
         readonly IsNamedShow: Office.MsoTriState;
         Last(): void;
         readonly LastSlideViewed: Slide;
@@ -5031,7 +5031,7 @@ declare namespace PowerPoint {
         readonly MediaControlsWidth: number;
         Next(): void;
         readonly Parent: any;
-        Player(ShapeId: any,): Player;
+        Player(ShapeId: any): Player;
         readonly PointerColor: ColorFormat;
         PointerType: PpSlideShowPointerType;
         readonly PresentationElapsedTime: number;
@@ -5065,7 +5065,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Index: number,): SlideShowWindow;
+        Item(Index: number): SlideShowWindow;
         readonly Parent: any;
     }
 
@@ -5073,7 +5073,7 @@ declare namespace PowerPoint {
         private 'PowerPoint.SoundEffect_typekey': SoundEffect;
         private constructor();
         readonly Application: Application;
-        ImportFromFile(FileName: string,): void;
+        ImportFromFile(FileName: string): void;
         Name: string;
         readonly Parent: any;
         Play(): void;
@@ -5083,8 +5083,8 @@ declare namespace PowerPoint {
     class SoundFormat {
         private 'PowerPoint.SoundFormat_typekey': SoundFormat;
         private constructor();
-        Export(FileName: string,): PpSoundFormatType;
-        Import(FileName: string,): void;
+        Export(FileName: string): PpSoundFormatType;
+        Import(FileName: string): void;
         Play(): void;
         readonly SourceFullName: string;
         readonly Type: PpSoundFormatType;
@@ -5100,9 +5100,9 @@ declare namespace PowerPoint {
          * @param string [StyleID='']
          * @param boolean [SaveFormatting=false]
          */
-        ApplyStyle(StyleID?: string, SaveFormatting?: boolean,): void;
+        ApplyStyle(StyleID?: string, SaveFormatting?: boolean): void;
         readonly Background: TableBackground;
-        Cell(Row: number, Column: number,): Cell;
+        Cell(Row: number, Column: number): Cell;
         readonly Columns: Columns;
         FirstCol: boolean;
         FirstRow: boolean;
@@ -5112,7 +5112,7 @@ declare namespace PowerPoint {
         MergeBorders(): void;
         readonly Parent: any;
         readonly Rows: Rows;
-        ScaleProportionally(scale: number,): void;
+        ScaleProportionally(scale: number): void;
         readonly Style: TableStyle;
         TableDirection: PpDirection;
         Title: string;
@@ -5148,27 +5148,27 @@ declare namespace PowerPoint {
     class TabStops {
         private 'PowerPoint.TabStops_typekey': TabStops;
         private constructor();
-        Add(Type: PpTabStopType, Position: number,): TabStop;
+        Add(Type: PpTabStopType, Position: number): TabStop;
         readonly Application: Application;
         readonly Count: number;
         DefaultSpacing: number;
-        Item(Index: number,): TabStop;
+        Item(Index: number): TabStop;
         readonly Parent: any;
     }
 
     class Tags {
         private 'PowerPoint.Tags_typekey': Tags;
         private constructor();
-        Add(Name: string, Value: string,): void;
-        AddBinary(Name: string, FilePath: string,): void;
+        Add(Name: string, Value: string): void;
+        AddBinary(Name: string, FilePath: string): void;
         readonly Application: Application;
-        BinaryValue(Name: string,): number;
+        BinaryValue(Name: string): number;
         readonly Count: number;
-        Delete(Name: string,): void;
-        Item(Name: string,): string;
-        Name(Index: number,): string;
+        Delete(Name: string): void;
+        Item(Name: string): string;
+        Name(Index: number): string;
         readonly Parent: any;
-        Value(Index: number,): string;
+        Value(Index: number): string;
     }
 
     class TextEffectFormat {
@@ -5250,13 +5250,13 @@ declare namespace PowerPoint {
         readonly BoundLeft: number;
         readonly BoundTop: number;
         readonly BoundWidth: number;
-        ChangeCase(Type: PpChangeCase,): void;
+        ChangeCase(Type: PpChangeCase): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Characters(Start?: number, Length?: number,): TextRange;
+        Characters(Start?: number, Length?: number): TextRange;
         Copy(): void;
         readonly Count: number;
         Cut(): void;
@@ -5277,17 +5277,17 @@ declare namespace PowerPoint {
         IndentLevel: number;
 
         /** @param string [NewText=''] */
-        InsertAfter(NewText?: string,): TextRange;
+        InsertAfter(NewText?: string): TextRange;
 
         /** @param string [NewText=''] */
-        InsertBefore(NewText?: string,): TextRange;
+        InsertBefore(NewText?: string): TextRange;
 
         /** @param Office.MsoTriState [InsertAsField=0] */
-        InsertDateTime(DateTimeFormat: PpDateTimeFormat, InsertAsField?: Office.MsoTriState,): TextRange;
+        InsertDateTime(DateTimeFormat: PpDateTimeFormat, InsertAsField?: Office.MsoTriState): TextRange;
         InsertSlideNumber(): TextRange;
 
         /** @param Office.MsoTriState [Unicode=0] */
-        InsertSymbol(FontName: string, CharNumber: number, Unicode?: Office.MsoTriState,): TextRange;
+        InsertSymbol(FontName: string, CharNumber: number, Unicode?: Office.MsoTriState): TextRange;
         LanguageID: Office.MsoLanguageID;
         readonly Length: number;
 
@@ -5295,7 +5295,7 @@ declare namespace PowerPoint {
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Lines(Start?: number, Length?: number,): TextRange;
+        Lines(Start?: number, Length?: number): TextRange;
         LtrRun(): void;
         readonly ParagraphFormat: ParagraphFormat;
 
@@ -5303,7 +5303,7 @@ declare namespace PowerPoint {
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Paragraphs(Start?: number, Length?: number,): TextRange;
+        Paragraphs(Start?: number, Length?: number): TextRange;
         readonly Parent: any;
         Paste(): TextRange;
 
@@ -5353,14 +5353,14 @@ declare namespace PowerPoint {
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Runs(Start?: number, Length?: number,): TextRange;
+        Runs(Start?: number, Length?: number): TextRange;
         Select(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Sentences(Start?: number, Length?: number,): TextRange;
+        Sentences(Start?: number, Length?: number): TextRange;
         readonly Start: number;
         Text: string;
         TrimText(): TextRange;
@@ -5369,7 +5369,7 @@ declare namespace PowerPoint {
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        Words(Start?: number, Length?: number,): TextRange;
+        Words(Start?: number, Length?: number): TextRange;
     }
 
     class TextStyle {
@@ -5396,7 +5396,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Level: number,): TextStyleLevel;
+        Item(Level: number): TextStyleLevel;
         readonly Parent: any;
     }
 
@@ -5405,7 +5405,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         readonly Count: number;
-        Item(Type: PpTextStyleType,): TextStyle;
+        Item(Type: PpTextStyleType): TextStyle;
         readonly Parent: any;
     }
 
@@ -5426,11 +5426,11 @@ declare namespace PowerPoint {
         readonly ExtrusionColor: ColorFormat;
         ExtrusionColorType: Office.MsoExtrusionColorType;
         FieldOfView: number;
-        IncrementRotationHorizontal(Increment: number,): void;
-        IncrementRotationVertical(Increment: number,): void;
-        IncrementRotationX(Increment: number,): void;
-        IncrementRotationY(Increment: number,): void;
-        IncrementRotationZ(Increment: number,): void;
+        IncrementRotationHorizontal(Increment: number): void;
+        IncrementRotationVertical(Increment: number): void;
+        IncrementRotationX(Increment: number): void;
+        IncrementRotationY(Increment: number): void;
+        IncrementRotationZ(Increment: number): void;
         LightAngle: number;
         readonly Parent: any;
         Perspective: Office.MsoTriState;
@@ -5446,9 +5446,9 @@ declare namespace PowerPoint {
         RotationX: number;
         RotationY: number;
         RotationZ: number;
-        SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection,): void;
-        SetPresetCamera(PresetCamera: Office.MsoPresetCamera,): void;
-        SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat,): void;
+        SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
+        SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
+        SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
         Visible: Office.MsoTriState;
         Z: number;
     }
@@ -5529,7 +5529,7 @@ declare namespace PowerPoint {
         private constructor();
         readonly Application: Application;
         DisplaySlideMiniature: Office.MsoTriState;
-        GotoSlide(Index: number,): void;
+        GotoSlide(Index: number): void;
         readonly MediaControlsHeight: number;
         readonly MediaControlsLeft: number;
         readonly MediaControlsTop: number;
@@ -5554,7 +5554,7 @@ declare namespace PowerPoint {
             IconLabel?: string,
             Link?: Office.MsoTriState,
         ): void;
-        Player(ShapeId: any,): Player;
+        Player(ShapeId: any): Player;
         readonly PrintOptions: PrintOptions;
 
         /**
@@ -5629,7 +5629,7 @@ interface ActiveXObject {
             | 'PresentationPrint'
             | 'PresentationSave'
             | 'SlideShowEnd',
-        argNames: ['Pres',],
+        argNames: ['Pres'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Pres: PowerPoint.Presentation },
@@ -5638,7 +5638,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'ColorSchemeChanged' | 'SlideSelectionChanged',
-        argNames: ['SldRange',],
+        argNames: ['SldRange'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly SldRange: PowerPoint.SlideRange },
@@ -5647,7 +5647,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'PresentationBeforeClose' | 'PresentationBeforeSave',
-        argNames: ['Pres', 'Cancel',],
+        argNames: ['Pres', 'Cancel'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Pres: PowerPoint.Presentation; Cancel: boolean },
@@ -5656,13 +5656,13 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'PresentationNewSlide',
-        argNames: ['Sld',],
-        handler: (this: PowerPoint.Application, parameter: { readonly Sld: PowerPoint.Slide },) => void,
+        argNames: ['Sld'],
+        handler: (this: PowerPoint.Application, parameter: { readonly Sld: PowerPoint.Slide }) => void,
     ): void;
     on(
         obj: PowerPoint.Application,
         event: 'PresentationSync',
-        argNames: ['Pres', 'SyncEventType',],
+        argNames: ['Pres', 'SyncEventType'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Pres: PowerPoint.Presentation; readonly SyncEventType: Office.MsoSyncEventType },
@@ -5671,7 +5671,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'ProtectedViewWindowActivate' | 'ProtectedViewWindowDeactivate' | 'ProtectedViewWindowOpen',
-        argNames: ['ProtViewWindow',],
+        argNames: ['ProtViewWindow'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly ProtViewWindow: PowerPoint.ProtectedViewWindow },
@@ -5680,7 +5680,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'ProtectedViewWindowBeforeClose',
-        argNames: ['ProtViewWindow', 'ProtectedViewCloseReason', 'Cancel',],
+        argNames: ['ProtViewWindow', 'ProtectedViewCloseReason', 'Cancel'],
         handler: (
             this: PowerPoint.Application,
             parameter: {
@@ -5693,7 +5693,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'ProtectedViewWindowBeforeEdit',
-        argNames: ['ProtViewWindow', 'Cancel',],
+        argNames: ['ProtViewWindow', 'Cancel'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly ProtViewWindow: PowerPoint.ProtectedViewWindow; Cancel: boolean },
@@ -5707,13 +5707,13 @@ interface ActiveXObject {
             | 'SlideShowNextSlide'
             | 'SlideShowOnNext'
             | 'SlideShowOnPrevious',
-        argNames: ['Wn',],
-        handler: (this: PowerPoint.Application, parameter: { readonly Wn: PowerPoint.SlideShowWindow },) => void,
+        argNames: ['Wn'],
+        handler: (this: PowerPoint.Application, parameter: { readonly Wn: PowerPoint.SlideShowWindow }) => void,
     ): void;
     on(
         obj: PowerPoint.Application,
         event: 'SlideShowNextClick',
-        argNames: ['Wn', 'nEffect',],
+        argNames: ['Wn', 'nEffect'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Wn: PowerPoint.SlideShowWindow; readonly nEffect: PowerPoint.Effect },
@@ -5722,7 +5722,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'WindowActivate' | 'WindowDeactivate',
-        argNames: ['Pres', 'Wn',],
+        argNames: ['Pres', 'Wn'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Pres: PowerPoint.Presentation; readonly Wn: PowerPoint.DocumentWindow },
@@ -5731,7 +5731,7 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'WindowBeforeDoubleClick' | 'WindowBeforeRightClick',
-        argNames: ['Sel', 'Cancel',],
+        argNames: ['Sel', 'Cancel'],
         handler: (
             this: PowerPoint.Application,
             parameter: { readonly Sel: PowerPoint.Selection; Cancel: boolean },
@@ -5740,13 +5740,13 @@ interface ActiveXObject {
     on(
         obj: PowerPoint.Application,
         event: 'WindowSelectionChange',
-        argNames: ['Sel',],
-        handler: (this: PowerPoint.Application, parameter: { readonly Sel: PowerPoint.Selection },) => void,
+        argNames: ['Sel'],
+        handler: (this: PowerPoint.Application, parameter: { readonly Sel: PowerPoint.Selection }) => void,
     ): void;
     on(
         obj: PowerPoint.OLEControl,
         event: 'GotFocus' | 'LostFocus',
-        handler: (this: PowerPoint.OLEControl, parameter: {},) => void,
+        handler: (this: PowerPoint.OLEControl, parameter: {}) => void,
     ): void;
 }
 
@@ -5755,11 +5755,11 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: PowerPoint.ActionSettings,): Enumerator<PowerPoint.ActionSetting>;
-    new(col: PowerPoint.AddIns,): Enumerator<PowerPoint.AddIn>;
-    new(col: PowerPoint.AnimationBehaviors,): Enumerator<PowerPoint.AnimationBehavior>;
-    new(col: PowerPoint.AnimationPoints,): Enumerator<PowerPoint.AnimationPoint>;
-    new(col: PowerPoint.Borders,): Enumerator<PowerPoint.LineFormat>;
+    new(col: PowerPoint.ActionSettings): Enumerator<PowerPoint.ActionSetting>;
+    new(col: PowerPoint.AddIns): Enumerator<PowerPoint.AddIn>;
+    new(col: PowerPoint.AnimationBehaviors): Enumerator<PowerPoint.AnimationBehavior>;
+    new(col: PowerPoint.AnimationPoints): Enumerator<PowerPoint.AnimationPoint>;
+    new(col: PowerPoint.Borders): Enumerator<PowerPoint.LineFormat>;
     new(
         col:
             | PowerPoint.CanvasShapes
@@ -5768,40 +5768,40 @@ interface EnumeratorConstructor {
             | PowerPoint.ShapeRange
             | PowerPoint.Shapes,
     ): Enumerator<PowerPoint.Shape>;
-    new(col: PowerPoint.CellRange,): Enumerator<PowerPoint.Cell>;
-    new(col: PowerPoint.ColorSchemes,): Enumerator<PowerPoint.ColorScheme>;
-    new(col: PowerPoint.Columns,): Enumerator<PowerPoint.Column>;
-    new(col: PowerPoint.Comments,): Enumerator<PowerPoint.Comment>;
-    new(col: PowerPoint.CustomerData,): Enumerator<Office.CustomXMLPart>;
-    new(col: PowerPoint.CustomLayouts,): Enumerator<PowerPoint.CustomLayout>;
-    new(col: PowerPoint.Designs,): Enumerator<PowerPoint.Design>;
-    new(col: PowerPoint.DiagramNodeChildren | PowerPoint.DiagramNodes,): Enumerator<PowerPoint.DiagramNode>;
-    new(col: PowerPoint.DocumentWindows,): Enumerator<PowerPoint.DocumentWindow>;
-    new(col: PowerPoint.ExtraColors,): Enumerator<Office.MsoRGBType>;
-    new(col: PowerPoint.FileConverters,): Enumerator<PowerPoint.FileConverter>;
-    new(col: PowerPoint.Fonts,): Enumerator<PowerPoint.Font>;
-    new(col: PowerPoint.Hyperlinks,): Enumerator<PowerPoint.Hyperlink>;
-    new(col: PowerPoint.MediaBookmarks,): Enumerator<PowerPoint.MediaBookmark>;
-    new(col: PowerPoint.NamedSlideShows,): Enumerator<PowerPoint.NamedSlideShow>;
-    new(col: PowerPoint.ObjectVerbs | PowerPoint.Tags,): Enumerator<string>;
-    new(col: PowerPoint.Panes,): Enumerator<PowerPoint.Pane>;
-    new(col: PowerPoint.Presentations,): Enumerator<PowerPoint.Presentation>;
-    new(col: PowerPoint.PrintRanges,): Enumerator<PowerPoint.PrintRange>;
-    new(col: PowerPoint.ProtectedViewWindows,): Enumerator<PowerPoint.ProtectedViewWindow>;
-    new(col: PowerPoint.PublishObjects,): Enumerator<PowerPoint.PublishObject>;
-    new(col: PowerPoint.ResampleMediaTasks,): Enumerator<PowerPoint.ResampleMediaTask>;
-    new(col: PowerPoint.Rows,): Enumerator<PowerPoint.Row>;
-    new(col: PowerPoint.RulerLevels,): Enumerator<PowerPoint.RulerLevel>;
-    new(col: PowerPoint.Sequence,): Enumerator<PowerPoint.Effect>;
-    new(col: PowerPoint.Sequences,): Enumerator<PowerPoint.Sequence>;
-    new(col: PowerPoint.ShapeNodes,): Enumerator<PowerPoint.ShapeNode>;
-    new(col: PowerPoint.SlideRange | PowerPoint.Slides,): Enumerator<PowerPoint.Slide>;
-    new(col: PowerPoint.SlideShowWindows,): Enumerator<PowerPoint.SlideShowWindow>;
-    new(col: PowerPoint.TabStops,): Enumerator<PowerPoint.TabStop>;
-    new(col: PowerPoint.TextStyleLevels,): Enumerator<PowerPoint.TextStyleLevel>;
-    new(col: PowerPoint.TextStyles,): Enumerator<PowerPoint.TextStyle>;
+    new(col: PowerPoint.CellRange): Enumerator<PowerPoint.Cell>;
+    new(col: PowerPoint.ColorSchemes): Enumerator<PowerPoint.ColorScheme>;
+    new(col: PowerPoint.Columns): Enumerator<PowerPoint.Column>;
+    new(col: PowerPoint.Comments): Enumerator<PowerPoint.Comment>;
+    new(col: PowerPoint.CustomerData): Enumerator<Office.CustomXMLPart>;
+    new(col: PowerPoint.CustomLayouts): Enumerator<PowerPoint.CustomLayout>;
+    new(col: PowerPoint.Designs): Enumerator<PowerPoint.Design>;
+    new(col: PowerPoint.DiagramNodeChildren | PowerPoint.DiagramNodes): Enumerator<PowerPoint.DiagramNode>;
+    new(col: PowerPoint.DocumentWindows): Enumerator<PowerPoint.DocumentWindow>;
+    new(col: PowerPoint.ExtraColors): Enumerator<Office.MsoRGBType>;
+    new(col: PowerPoint.FileConverters): Enumerator<PowerPoint.FileConverter>;
+    new(col: PowerPoint.Fonts): Enumerator<PowerPoint.Font>;
+    new(col: PowerPoint.Hyperlinks): Enumerator<PowerPoint.Hyperlink>;
+    new(col: PowerPoint.MediaBookmarks): Enumerator<PowerPoint.MediaBookmark>;
+    new(col: PowerPoint.NamedSlideShows): Enumerator<PowerPoint.NamedSlideShow>;
+    new(col: PowerPoint.ObjectVerbs | PowerPoint.Tags): Enumerator<string>;
+    new(col: PowerPoint.Panes): Enumerator<PowerPoint.Pane>;
+    new(col: PowerPoint.Presentations): Enumerator<PowerPoint.Presentation>;
+    new(col: PowerPoint.PrintRanges): Enumerator<PowerPoint.PrintRange>;
+    new(col: PowerPoint.ProtectedViewWindows): Enumerator<PowerPoint.ProtectedViewWindow>;
+    new(col: PowerPoint.PublishObjects): Enumerator<PowerPoint.PublishObject>;
+    new(col: PowerPoint.ResampleMediaTasks): Enumerator<PowerPoint.ResampleMediaTask>;
+    new(col: PowerPoint.Rows): Enumerator<PowerPoint.Row>;
+    new(col: PowerPoint.RulerLevels): Enumerator<PowerPoint.RulerLevel>;
+    new(col: PowerPoint.Sequence): Enumerator<PowerPoint.Effect>;
+    new(col: PowerPoint.Sequences): Enumerator<PowerPoint.Sequence>;
+    new(col: PowerPoint.ShapeNodes): Enumerator<PowerPoint.ShapeNode>;
+    new(col: PowerPoint.SlideRange | PowerPoint.Slides): Enumerator<PowerPoint.Slide>;
+    new(col: PowerPoint.SlideShowWindows): Enumerator<PowerPoint.SlideShowWindow>;
+    new(col: PowerPoint.TabStops): Enumerator<PowerPoint.TabStop>;
+    new(col: PowerPoint.TextStyleLevels): Enumerator<PowerPoint.TextStyleLevel>;
+    new(col: PowerPoint.TextStyles): Enumerator<PowerPoint.TextStyle>;
 }
 
-interface SafeArray<T = any,> {
+interface SafeArray<T = any> {
     _brand: SafeArray<T>;
 }

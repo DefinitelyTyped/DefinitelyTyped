@@ -6,4 +6,4 @@ admin.check().then(result => {
     } else {
         // Do something when admin privileges are NOT present
     }
-},);
+});

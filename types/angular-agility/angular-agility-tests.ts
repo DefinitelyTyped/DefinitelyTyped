@@ -1,7 +1,7 @@
 var validIconStrategy: aa.IValidIconStrategy = <aa.IValidIconStrategy> {};
 validIconStrategy.validIcon = '';
 validIconStrategy.invalidIcon = '';
-validIconStrategy.getContainer(<ng.IAugmentedJQueryStatic> {},);
+validIconStrategy.getContainer(<ng.IAugmentedJQueryStatic> {});
 
 var provider: aa.IFormExtensionsProvider = <aa.IFormExtensionsProvider> {};
 provider.defaultLabelStrategy = '';
@@ -22,13 +22,13 @@ provider.labelStrategies['testLabelStratgey'] = (
     labelText: string,
     isRequired: boolean,
 ): void => {};
-provider.fieldGroupStrategies['testFieldGroupStratgey'] = (element: ng.IAugmentedJQueryStatic,): void => {};
+provider.fieldGroupStrategies['testFieldGroupStratgey'] = (element: ng.IAugmentedJQueryStatic): void => {};
 provider.valMsgPlacementStrategies['testValMsgPlacementStrategy'] = (
     formFieldElement: ng.IAugmentedJQueryStatic,
     formName: string,
     formFieldName: string,
 ): void => {};
-provider.spinnerClickStrategies['testSpinnerClickStratgey'] = (element: ng.IAugmentedJQueryStatic,): void => {};
+provider.spinnerClickStrategies['testSpinnerClickStratgey'] = (element: ng.IAugmentedJQueryStatic): void => {};
 provider.onNavigateAwayStrategies['testOnNavigateAwayStrategy'] = (
     rootFormScope: ng.IScope,
     rootForm: ng.IAugmentedJQueryStatic,
@@ -36,11 +36,11 @@ provider.onNavigateAwayStrategies['testOnNavigateAwayStrategy'] = (
 ) => {};
 
 var defaults: aa.INotifyDefaults = <aa.INotifyDefaults> {};
-defaults.success = (message: string, options: any, notifier: any,): any => {};
-defaults.info = (message: string, options: any, notifier: any,): any => {};
-defaults.warning = (message: string, options: any, notifier: any,): any => {};
-defaults.danger = (message: string, options: any, notifier: any,): any => {};
-defaults.error = (message: string, options: any, notifier: any,): any => {};
+defaults.success = (message: string, options: any, notifier: any): any => {};
+defaults.info = (message: string, options: any, notifier: any): any => {};
+defaults.warning = (message: string, options: any, notifier: any): any => {};
+defaults.danger = (message: string, options: any, notifier: any): any => {};
+defaults.error = (message: string, options: any, notifier: any): any => {};
 
 var configWithoutTemplate: aa.INotifyConfig = {
     name: '',
@@ -73,15 +73,15 @@ var notifyConfigProvider: aa.INotifyConfigProvider = <aa.INotifyConfigProvider> 
 notifyConfigProvider.notifyConfigs = {};
 notifyConfigProvider.defaultTargetContainerName = '';
 notifyConfigProvider.defaultNotifyConfig = '';
-notifyConfigProvider.addOrUpdateNotifyConfig('', configWithTemplate,);
-notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <ng.ISCEService> {},);
+notifyConfigProvider.addOrUpdateNotifyConfig('', configWithTemplate);
+notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <ng.ISCEService> {});
 
 var fullExternalConfig: aa.IExternalFormValidationConfig = {
     validations: '',
     ignore: '',
     globals: '',
     resolve: '',
-    resolveFn: (modelValue: string,): string => {
+    resolveFn: (modelValue: string): string => {
         return '';
     },
 };

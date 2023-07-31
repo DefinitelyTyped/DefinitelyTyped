@@ -25,12 +25,12 @@ declare namespace AMap {
          * 点标记的图标
          * @param options 选项
          */
-        constructor(options?: Icon.Options,);
+        constructor(options?: Icon.Options);
         /**
          * 设置图标图片大小
          * @param size 大小
          */
-        setImageSize(size: SizeValue,): void;
+        setImageSize(size: SizeValue): void;
         /**
          * 获取图标图片大小
          */

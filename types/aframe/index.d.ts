@@ -17,7 +17,7 @@ import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 export type ThreeLib = typeof three;
 export type AnimeLib = typeof anime;
 
-export interface ObjectMap<T = any,> {
+export interface ObjectMap<T = any> {
     [key: string]: T;
 }
 
@@ -41,25 +41,25 @@ export interface ANode extends HTMLElement {
     // attachedCallback
     // attributeChangedCallback
     closestScene(): Scene;
-    closest(selector: string,): ANode;
+    closest(selector: string): ANode;
     // detachedCallback
     hasLoaded: boolean;
-    load(cb?: () => void, childFilter?: (el: Element,) => boolean,): void;
+    load(cb?: () => void, childFilter?: (el: Element) => boolean): void;
     // updateMixins
-    registerMixin(id: string,): void;
-    setAttribute(type: string, newValue: any,): void;
-    unregisterMixin(id: string,): void;
-    removeMixinListener(id: string,): void;
-    attachMixinListener(mixin: HTMLElement,): void;
-    emit(name: string, detail?: any, bubbles?: boolean,): void;
-    emitter(name: string, detail?: any, bubbles?: boolean,): () => void;
+    registerMixin(id: string): void;
+    setAttribute(type: string, newValue: any): void;
+    unregisterMixin(id: string): void;
+    removeMixinListener(id: string): void;
+    attachMixinListener(mixin: HTMLElement): void;
+    emit(name: string, detail?: any, bubbles?: boolean): void;
+    emitter(name: string, detail?: any, bubbles?: boolean): () => void;
 }
 
 export interface Behavior {
     tick(): void;
 }
 
-export interface Component<T extends object = any, S extends System = System,> {
+export interface Component<T extends object = any, S extends System = System> {
     attrName?: string | undefined;
     data: T;
     dependencies?: string[] | undefined;
@@ -72,21 +72,21 @@ export interface Component<T extends object = any, S extends System = System,> {
     system: S | undefined;
     events?: any;
 
-    init(data?: T,): void;
+    init(data?: T): void;
     pause(): void;
     play(): void;
     remove(): void;
-    tick?(time: number, timeDelta: number,): void;
-    tock?(time: number, timeDelta: number, camera: THREE.Camera,): void;
-    update(oldData: T,): void;
+    tick?(time: number, timeDelta: number): void;
+    tock?(time: number, timeDelta: number, camera: THREE.Camera): void;
+    update(oldData: T): void;
     updateSchema?(): void;
 
-    extendSchema(update: Schema,): void;
+    extendSchema(update: Schema): void;
     flushToDOM(): void;
 }
 
-export interface ComponentConstructor<T extends object,> {
-    new(el: Entity, attrValue: string, id: string,): T & Component;
+export interface ComponentConstructor<T extends object> {
+    new(el: Entity, attrValue: string, id: string): T & Component;
     prototype: T & {
         name: string;
         system: System;
@@ -95,7 +95,7 @@ export interface ComponentConstructor<T extends object,> {
     };
 }
 
-export interface ComponentDescriptor<T extends Component = Component,> {
+export interface ComponentDescriptor<T extends Component = Component> {
     Component: ComponentConstructor<T>;
     dependencies: string[] | undefined;
     multiple: boolean | undefined;
@@ -120,7 +120,7 @@ export interface DefaultComponents {
     scale: Component<Coordinate>;
 }
 
-export interface Entity<C = ObjectMap<Component>,> extends ANode {
+export interface Entity<C = ObjectMap<Component>> extends ANode {
     components: C & DefaultComponents;
     hasLoaded: boolean;
     isPlaying: boolean;
@@ -129,36 +129,36 @@ export interface Entity<C = ObjectMap<Component>,> extends ANode {
     sceneEl?: Scene | undefined;
 
     destroy(): void;
-    addState(name: string,): void;
-    flushToDOM(recursive?: boolean,): void;
+    addState(name: string): void;
+    flushToDOM(recursive?: boolean): void;
     /**
      * @deprecated since 0.4.0
      */
-    getComputedAttribute(attr: string,): Component;
-    getDOMAttribute(attr: string,): any;
-    getObject3D(type: string,): THREE.Object3D;
-    getOrCreateObject3D(type: string, construct: any,): THREE.Object3D;
-    is(stateName: string,): boolean;
+    getComputedAttribute(attr: string): Component;
+    getDOMAttribute(attr: string): any;
+    getObject3D(type: string): THREE.Object3D;
+    getOrCreateObject3D(type: string, construct: any): THREE.Object3D;
+    is(stateName: string): boolean;
     pause(): void;
     play(): void;
-    setObject3D(type: string, obj: THREE.Object3D,): void;
-    removeAttribute(attr: string, property?: string,): void;
-    removeObject3D(type: string,): void;
-    removeState(stateName: string,): void;
+    setObject3D(type: string, obj: THREE.Object3D): void;
+    removeAttribute(attr: string, property?: string): void;
+    removeObject3D(type: string): void;
+    removeState(stateName: string): void;
 
     // getAttribute specific usages
-    getAttribute(type: string,): any;
-    getAttribute(type: 'position' | 'rotation' | 'scale',): Coordinate;
+    getAttribute(type: string): any;
+    getAttribute(type: 'position' | 'rotation' | 'scale'): Coordinate;
 
     // setAttribute specific usages
-    setAttribute(attr: string, value: any,): void;
-    setAttribute(attr: string, property: string, componentAttrValue?: any,): void;
-    setAttribute(type: 'position' | 'rotation' | 'scale', value: Coordinate,): void;
+    setAttribute(attr: string, value: any): void;
+    setAttribute(attr: string, property: string, componentAttrValue?: any): void;
+    setAttribute(type: 'position' | 'rotation' | 'scale', value: Coordinate): void;
 
     // addEventListener specific usages
-    addEventListener<K extends keyof EntityEventMap,>(
+    addEventListener<K extends keyof EntityEventMap>(
         type: K,
-        listener: (event: Event & EntityEventMap[K],) => void,
+        listener: (event: Event & EntityEventMap[K]) => void,
         useCapture?: boolean,
     ): void;
     addEventListener(
@@ -168,7 +168,7 @@ export interface Entity<C = ObjectMap<Component>,> extends ANode {
     ): void;
 }
 
-export type DetailEvent<D,> = Event & {
+export type DetailEvent<D> = Event & {
     detail: D;
     target: EventTarget & Entity;
 };
@@ -199,25 +199,25 @@ export interface EntityEventMap {
     schemachanged: DetailEvent<{ componentName: string }>;
 }
 
-export interface Geometry<T = any,> {
+export interface Geometry<T = any> {
     data: T;
     name: string;
     geometry: threeDeprecated.Geometry;
     schema: Schema<any>;
 
-    init(data: any,): void;
+    init(data: any): void;
 }
 
-export interface GeometryConstructor<T extends object = object,> {
+export interface GeometryConstructor<T extends object = object> {
     new(): T & Geometry;
 }
 
-export interface GeometryDescriptor<T extends Geometry = Geometry,> {
+export interface GeometryDescriptor<T extends Geometry = Geometry> {
     Geometry: GeometryConstructor<T>;
     schema: Schema;
 }
 
-export type MultiPropertySchema<T extends object,> = {
+export type MultiPropertySchema<T extends object> = {
     [P in keyof T]: SinglePropertySchema<T[P]> | T[P];
 };
 
@@ -261,14 +261,14 @@ export interface Scene extends Entity {
         listener: EventListenerOrEventListenerObject,
         useCapture?: boolean,
     ): void;
-    addEventListener(type: SceneEvents, listener: EventListener, useCapture?: boolean,): void;
+    addEventListener(type: SceneEvents, listener: EventListener, useCapture?: boolean): void;
 }
 
-export type Schema<T extends object = object,> = SinglePropertySchema<T> | MultiPropertySchema<T>;
+export type Schema<T extends object = object> = SinglePropertySchema<T> | MultiPropertySchema<T>;
 
 export interface SchemaUtils {
-    isSingleProperty(schema: Schema,): boolean;
-    process(schema: Schema,): boolean;
+    isSingleProperty(schema: Schema): boolean;
+    process(schema: Schema): boolean;
 }
 
 export interface Shader {
@@ -279,49 +279,49 @@ export interface Shader {
     vertexShader: string;
     fragmentShader: string;
 
-    init(data?: this['data'],): void;
-    tick?(time: number, timeDelta: number,): void;
-    update(oldData: this['data'],): void;
+    init(data?: this['data']): void;
+    tick?(time: number, timeDelta: number): void;
+    update(oldData: this['data']): void;
 }
 
-export interface ShaderConstructor<T extends object,> {
+export interface ShaderConstructor<T extends object> {
     new(): T;
 }
 
-export interface ShaderDescriptor<T extends Shader = Shader,> {
+export interface ShaderDescriptor<T extends Shader = Shader> {
     Shader: ShaderConstructor<T>;
     schema: Schema;
 }
 
-export interface SinglePropertySchema<T,> {
+export interface SinglePropertySchema<T> {
     type?: PropertyTypes | undefined;
     default?: T | undefined;
-    parse?(value: string,): T;
-    stringify?(value: T,): string;
+    parse?(value: string): T;
+    stringify?(value: T): string;
 }
 
-export interface System<T extends object = any,> {
+export interface System<T extends object = any> {
     data: T;
     schema: Schema<T>;
     el: Entity;
     init(): void;
     pause(): void;
     play(): void;
-    tick?(t: number, dt: number,): void;
+    tick?(t: number, dt: number): void;
 }
 
-export interface SystemConstructor<T extends object = object,> {
-    new(scene: Scene,): T & System;
+export interface SystemConstructor<T extends object = object> {
+    new(scene: Scene): T & System;
 }
 
 export interface Utils {
     coordinates: {
-        isCoordinate(value: string,): boolean;
-        parse(value: string,): Coordinate;
-        stringify(coord: Coordinate,): string;
+        isCoordinate(value: string): boolean;
+        parse(value: string): Coordinate;
+        stringify(coord: Coordinate): string;
     };
     entity: {
-        getComponentProperty(entity: Entity, componentName: string, delimiter?: string,): any;
+        getComponentProperty(entity: Entity, componentName: string, delimiter?: string): any;
         setComponentProperty(
             entity: Entity,
             componentName: string,
@@ -342,14 +342,14 @@ export interface Utils {
         isLandscape(): boolean;
         isBrowserEnvironment(): boolean;
         isNodeEnvironment(): boolean;
-        PolyfillControls(object3D: THREE.Object3D,): void;
+        PolyfillControls(object3D: THREE.Object3D): void;
     };
     styleParser: {
-        parse(value: string,): object;
-        stringify(data: object,): string;
+        parse(value: string): object;
+        stringify(data: object): string;
     };
-    deepEqual(a: any, b: any,): boolean;
-    diff(a: object, b: object,): object;
+    deepEqual(a: any, b: any): boolean;
+    diff(a: object, b: object): object;
     extend(target: object, ...source: object[]): object;
     extendDeep(target: object, ...source: object[]): object;
 
@@ -357,19 +357,19 @@ export interface Utils {
         tickFunction: () => void,
         minimumInterval: number,
         optionalContext?: {},
-    ): (t: number, dt: number,) => void;
+    ): (t: number, dt: number) => void;
     throttleTick(
-        tickFunction: (t: number, dt: number,) => void,
+        tickFunction: (t: number, dt: number) => void,
         minimumInterval: number,
         optionalContext?: {},
-    ): (t: number, dt: number,) => void;
+    ): (t: number, dt: number) => void;
 }
 
 // Definitions
 // used as mixins to register functions to create classes (newable functions) in A-Frame
-export type ComponentDefinition<T extends object = object,> = T & Partial<Component> & ThisType<T & Component>;
-export type GeometryDefinition<T extends object = object, U = any,> = T & Partial<Geometry<U>>;
-export type NodeDefinition<T extends object = object,> = T & Partial<ANode>;
+export type ComponentDefinition<T extends object = object> = T & Partial<Component> & ThisType<T & Component>;
+export type GeometryDefinition<T extends object = object, U = any> = T & Partial<Geometry<U>>;
+export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {
     defaultComponents?: any; // TODO cleanup type
     deprecated?: boolean | undefined;
@@ -379,10 +379,10 @@ export interface PrimitiveDefinition {
 export interface MinimalShaderDefinition {
     schema: Shader['schema'];
 }
-export type ShaderDefinition<T extends object = MinimalShaderDefinition & object,> =
+export type ShaderDefinition<T extends object = MinimalShaderDefinition & object> =
     & T
     & Partial<Shader>;
-export type SystemDefinition<T extends object = object,> = T & Partial<System>;
+export type SystemDefinition<T extends object = object> = T & Partial<System>;
 
 // root export
 export interface AFrame {
@@ -409,21 +409,21 @@ export interface AFrame {
     utils: Utils;
     version: string;
 
-    registerComponent<T extends object,>(
+    registerComponent<T extends object>(
         name: string,
         component: ComponentDefinition<T>,
     ): ComponentConstructor<T>;
-    registerElement(name: string, element: object,): void;
-    registerGeometry<T extends object,>(
+    registerElement(name: string, element: object): void;
+    registerGeometry<T extends object>(
         name: string,
         geometry: GeometryDefinition<T>,
     ): GeometryConstructor<T>;
-    registerPrimitive(name: string, primitive: PrimitiveDefinition,): void;
-    registerShader<T extends MinimalShaderDefinition & object,>(
+    registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
+    registerShader<T extends MinimalShaderDefinition & object>(
         name: string,
         shader: ShaderDefinition<T>,
     ): ShaderConstructor<T>;
-    registerSystem<T extends object,>(
+    registerSystem<T extends object>(
         name: string,
         definition: SystemDefinition<T>,
     ): SystemConstructor<T>;
@@ -485,18 +485,18 @@ declare global {
      * Custom elements augment document methods to return custom HTML
      */
     interface Document {
-        createElement(tagName: string,): Entity;
-        querySelector(selectors: 'a-scene',): Scene;
-        querySelector(selectors: string,): Entity<any>;
-        querySelectorAll(selectors: string,): NodeListOf<Entity<any> | Element>;
+        createElement(tagName: string): Entity;
+        querySelector(selectors: 'a-scene'): Scene;
+        querySelector(selectors: string): Entity<any>;
+        querySelectorAll(selectors: string): NodeListOf<Entity<any> | Element>;
     }
 
     interface HTMLCollection extends HTMLCollectionBase {
         /**
          * Retrieves a select object or an object from an options collection.
          */
-        namedItem(name: string,): Element | Entity | null;
-        item(index: number,): Element | Entity;
+        namedItem(name: string): Element | Entity | null;
+        item(index: number): Element | Entity;
         [index: number]: Element | Entity;
     }
 }

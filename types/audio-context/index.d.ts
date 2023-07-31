@@ -29,6 +29,6 @@ declare namespace getContext {
  * @param options Takes an Options object or just provide a sample rate.
  * @returns the audio context or null if there was an error or not a web browser.
  */
-declare function getContext(options?: getContext.Options | number,): AudioContext | null;
+declare function getContext(options?: getContext.Options | number): AudioContext | null;
 
 export = getContext;

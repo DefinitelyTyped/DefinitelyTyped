@@ -5,4 +5,4 @@
 // TypeScript Version: 2.1
 
 export = _default;
-declare function _default(str: string,): string;
+declare function _default(str: string): string;

@@ -8,7 +8,7 @@ import {
     ConnectContactFlowResult,
 } from 'aws-lambda';
 
-const contactFlowHandler: ConnectContactFlowHandler = async (event, context, callback,) => {
+const contactFlowHandler: ConnectContactFlowHandler = async (event, context, callback) => {
     let endpoint: ConnectContactFlowEndpoint | null;
     let channel: ConnectContactFlowChannel;
     let initiationMethod: ConnectContactFlowInitiationMethod;
@@ -50,7 +50,7 @@ const contactFlowHandler: ConnectContactFlowHandler = async (event, context, cal
         CallerType: str,
     };
 
-    callback(new Error(),);
-    callback(null, result,);
+    callback(new Error());
+    callback(null, result);
     return result;
 };

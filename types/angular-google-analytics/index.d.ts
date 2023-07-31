@@ -57,7 +57,7 @@ declare module 'angular' {
             /**
              * @summary Allows for advanced configuration and definitions in univeral analytics only. This is a no-op when using classic analytics.
              */
-            set: (key: string, value: any, accountName?: string,) => void;
+            set: (key: string, value: any, accountName?: string) => void;
 
             /**
              * @summary Creates a new page view event
@@ -65,7 +65,7 @@ declare module 'angular' {
              * @param  {string} title Page Title
              * @param  {Object}  dimensions Additional dimensions and metrics
              */
-            trackPage: (pageURL: string, title?: string, dimensions?: { [expr: string]: any },) => void;
+            trackPage: (pageURL: string, title?: string, dimensions?: { [expr: string]: any }) => void;
 
             /**
              * @summary Create a new event
@@ -79,13 +79,13 @@ declare module 'angular' {
                 dimensions?: { [expr: string]: any },
             ) => void;
 
-            trackException: (descrption: string, isFatal: boolean,) => void;
+            trackException: (descrption: string, isFatal: boolean) => void;
 
             /**
              * @summary While in offline mode, no calls to the ga function or pushes to the gaq array are made.
              * This will queue all calls for later sending once offline mode is reset to false.
              */
-            offline: (offlineMode: boolean,) => void;
+            offline: (offlineMode: boolean) => void;
         }
         /**
          * @summary Interface for {@link AnalysticsProvider}.
@@ -97,7 +97,7 @@ declare module 'angular' {
              * @param {boolean} val If true, the delay script tag is inserted.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            delayScriptTag(val: boolean,): AnalyticsProvider;
+            delayScriptTag(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Activates the test mode.
@@ -115,21 +115,21 @@ declare module 'angular' {
              * @param {boolean} val If true, the first page view is ignored.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            ignoreFirstPageLoad(val: boolean,): AnalyticsProvider;
+            ignoreFirstPageLoad(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Enable Service Logging.
              * @param {boolean} val If true, log all outbound calls to an in-memory array accessible.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            logAllCalls(val: boolean,): AnalyticsProvider;
+            logAllCalls(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Set Google Analytics Accounts.
              * @param {Object} tracker The account identifier(s).
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setAccount(tracker: string | Object | Array<Object>,): AnalyticsProvider;
+            setAccount(tracker: string | Object | Array<Object>): AnalyticsProvider;
 
             /**
              * @summary Set Cookie Configuration.
@@ -137,55 +137,55 @@ declare module 'angular' {
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              * @deprecated
              */
-            setCookieConfig(config: Object,): AnalyticsProvider;
+            setCookieConfig(config: Object): AnalyticsProvider;
 
             /**
              * @summary Set cross-linked domains.
              * @param {Array<string>} domains The domains.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setCrossLinkDomains(domains: Array<string>,): AnalyticsProvider;
+            setCrossLinkDomains(domains: Array<string>): AnalyticsProvider;
 
             /**
              * @summary Set currency.
              * @param {string} currencyCode The currency code.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setCurrency(currencyCode: string,): AnalyticsProvider;
+            setCurrency(currencyCode: string): AnalyticsProvider;
 
             /**
              * @summary Set Domain Name.
              * @param {string} domain The domain name.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setDomainName(domain: string,): AnalyticsProvider;
+            setDomainName(domain: string): AnalyticsProvider;
 
             /**
              * @summary Enable Experiment (universal analytics only).
              * @param {string} id The experiment identifier.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setExperimentId(id: string,): AnalyticsProvider;
+            setExperimentId(id: string): AnalyticsProvider;
 
             /**
              * @summary Support Hybrid Mobile Applications.
              * @param {boolean} val If true, each account object will disable protocol checking and all injected scripts will use the HTTPS protocol.
              */
-            setHybridMobileSupport(val: boolean,): AnalyticsProvider;
+            setHybridMobileSupport(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Set the default page event name.
              * @param {string} name The default page event name.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setPageEvent(name: string,): AnalyticsProvider;
+            setPageEvent(name: string): AnalyticsProvider;
 
             /**
              * @summary Sets the regex to scrub location before sending to analytics.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              * @param {RegExp} regex The regex.
              */
-            setRemoveRegExp(regex: RegExp,): AnalyticsProvider;
+            setRemoveRegExp(regex: RegExp): AnalyticsProvider;
 
             /**
              * @summary Activate reading custom tracking urls from $routeProvider config (default is false)
@@ -197,56 +197,56 @@ declare module 'angular' {
              * $routeProvider config.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            readFromRoute(useRoute: boolean,): AnalyticsProvider;
+            readFromRoute(useRoute: boolean): AnalyticsProvider;
 
             /**
              * @summary Starts the offline mode.
              * @param {boolean} val If true, the offline mode is started.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            startOffline(val: boolean,): AnalyticsProvider;
+            startOffline(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Track all routes.
              * @param {boolean} val If true, all routes are tracked.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            trackPages(doTrack: boolean,): AnalyticsProvider;
+            trackPages(doTrack: boolean): AnalyticsProvider;
 
             /**
              * @summary Sets the URL prefix.
              * @param {string} prefix The URL prefix.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            trackPrefix(prefix: string,): AnalyticsProvider;
+            trackPrefix(prefix: string): AnalyticsProvider;
 
             /**
              * @summary Track all URL query parameters.
              * @param {boolean} val If true, all URL query parameters are tracked.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            trackUrlParams(val: boolean,): AnalyticsProvider;
+            trackUrlParams(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Use Classic Analytics.
              * @param {boolean} val If true, use classic analytics.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            useAnalytics(val: boolean,): AnalyticsProvider;
+            useAnalytics(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Use Cross Domain Linking.
              * @param {boolean} val If true, the cross-linked domains are registered with Google Analytics.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            useCrossDomainLinker(val: boolean,): AnalyticsProvider;
+            useCrossDomainLinker(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Use Display Features.
              * @param {boolean} val If true, the display features module is loaded with Google Analytics.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            useDisplayFeatures(val: boolean,): AnalyticsProvider;
+            useDisplayFeatures(val: boolean): AnalyticsProvider;
 
             /**
              * @summary Enable enhanced e-commerce module.
@@ -254,14 +254,14 @@ declare module 'angular' {
              * @param {boolean} enhanced If true, the "ec.js" file is used, otherwises, the "ecommerce.js" is used.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            useECommerce(val: boolean, enhanced: boolean,): AnalyticsProvider;
+            useECommerce(val: boolean, enhanced: boolean): AnalyticsProvider;
 
             /**
              * @summary Use Enhanced Link Attribution.
              * @param {boolean} val If true, the enhanced link attribution module is loaded with Google Analytics.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            useEnhancedLinkAttribution(val: boolean,): AnalyticsProvider;
+            useEnhancedLinkAttribution(val: boolean): AnalyticsProvider;
         }
     }
 }

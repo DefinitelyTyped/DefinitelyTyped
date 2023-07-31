@@ -14,7 +14,7 @@ import {
     LexV2SlotValue,
 } from 'aws-lambda';
 
-const handler: LexV2Handler = async (event, context, callback,) => {
+const handler: LexV2Handler = async (event, context, callback) => {
     str = event.messageVersion;
     str = event.invocationSource;
     str = event.inputMode;
@@ -114,8 +114,8 @@ const handler: LexV2Handler = async (event, context, callback,) => {
         key: 'value',
     };
 
-    callback(new Error(),);
-    callback(null, result,);
+    callback(new Error());
+    callback(null, result);
     return result;
 };
 
@@ -132,7 +132,7 @@ const event1: LexV2Event = {
                         shape: 'Scalar',
                         value: {
                             originalValue: '7',
-                            resolvedValues: ['7',],
+                            resolvedValues: ['7'],
                             interpretedValue: '7',
                         },
                     },
@@ -161,7 +161,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7',],
+                        resolvedValues: ['7'],
                         interpretedValue: '7',
                     },
                 },
@@ -185,7 +185,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7',],
+                        resolvedValues: ['7'],
                     },
                 },
             },
@@ -209,7 +209,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7',],
+                        resolvedValues: ['7'],
                         interpretedValue: '7',
                     },
                 },

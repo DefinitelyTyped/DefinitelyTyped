@@ -14,12 +14,12 @@ declare interface ISpinnerService {
      *
      * @param spinner key
      */
-    spin(key: string,): void;
+    spin(key: string): void;
 
     /**
      * Stop selected spinner
      *
      * @param spinner key
      */
-    stop(key: string,): void;
+    stop(key: string): void;
 }

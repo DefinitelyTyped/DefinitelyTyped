@@ -6,7 +6,7 @@ import {
     AppSyncIdentityOIDC,
 } from 'aws-lambda';
 
-const handler: AmplifyGraphQlResolverHandler = async (event, context,) => {
+const handler: AmplifyGraphQlResolverHandler = async (event, context) => {
     str = event.fieldName;
     str = event.typeName;
 
@@ -56,7 +56,7 @@ interface Result {
     result1: string;
 }
 
-const handlerWithArguments: AmplifyGraphQlResolverHandler<CustomArgs, SourceType> = async (event, context,) => {
+const handlerWithArguments: AmplifyGraphQlResolverHandler<CustomArgs, SourceType> = async (event, context) => {
     str = event.arguments.arg1;
     num = event.source.source1;
 };
@@ -68,5 +68,5 @@ const handlerWithArgumentsAndResult: AmplifyGraphQlResolverHandler<CustomArgs, S
     str = event.arguments.arg1;
     num = event.source.source1;
 
-    return { result1: 'result1', };
+    return { result1: 'result1' };
 };

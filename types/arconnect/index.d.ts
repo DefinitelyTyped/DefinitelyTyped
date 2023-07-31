@@ -3,7 +3,7 @@
 // Definitions by: Marton Lederer <https://github.com/martonlederer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { SignatureOptions, } from 'arweave/node/lib/crypto/crypto-interface';
+import { SignatureOptions } from 'arweave/node/lib/crypto/crypto-interface';
 import Transaction from 'arweave/node/lib/transaction';
 
 /**
@@ -12,7 +12,7 @@ import Transaction from 'arweave/node/lib/transaction';
 declare global {
     interface Window {
         arweaveWallet: {
-            connect(permissions: PermissionType[],): Promise<void>;
+            connect(permissions: PermissionType[]): Promise<void>;
             disconnect(): Promise<void>;
             getActiveAddress(): Promise<string>;
             getAllAddresses(): Promise<string[]>;
