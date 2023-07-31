@@ -153,7 +153,7 @@ export interface FailContext extends BaseContext {
     /**
      * Errors that occurred during the release process.
      */
-    errors: AggregateError;
+    errors: AggregateError.default;
 }
 
 export interface Commit {
