@@ -1,6 +1,6 @@
 // Tests for videojs-vtt.js
 
-import { WebVTT, VTTCue, VTTRegion } from 'videojs-vtt.js';
+import { WebVTT, VTTCue, VTTRegion } from 'videojs-vtt.js2/index.js';
 
 var parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
 parser.parse('WEBVTT\n\n');
@@ -9,14 +9,14 @@ parser.parse("<v.loud Mary>That's awesome!");
 parser.flush();
 
 var vtt = 'WEBVTT\n\nID\n00:00.000 --> 00:02.000\nText',
-  parser = new WebVTT.Parser(window, WebVTT.StringDecoder()),
-  cues: Array<VTTCue> = [],
-  regions = [];
+    parser = new WebVTT.Parser(window, WebVTT.StringDecoder()),
+    cues: Array<VTTCue> = [],
+    regions = [];
 parser.oncue = function (cue) {
-  cues.push(cue);
+    cues.push(cue);
 };
 parser.onregion = function (region) {
-  regions.push(region);
+    regions.push(region);
 };
 parser.parse(vtt);
 parser.flush();
