@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
       getContentType(): string;
       getDataAsString(): string;
       getDataAsString(charset: string): string;
-      getName(): string;
+      getName(): string | null;
       isGoogleType(): boolean;
       setBytes(data: Byte[]): Blob;
       setContentType(contentType: string): Blob;
