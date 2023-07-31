@@ -1,6 +1,6 @@
 // Type definitions for remark-hint 1.0
 // Project: https://github.com/sergioramos/remark-hint
-// Definitions by: Neko <https://github.com/Cattttttttt>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.5
 
