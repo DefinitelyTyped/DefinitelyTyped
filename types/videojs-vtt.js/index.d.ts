@@ -10,6 +10,9 @@ interface Decoder {
     decode: DecoderFn;
 }
 
+export function shim(): void;
+export function restore(): void;
+
 interface VttParser {
     buffer: string;
     decoder: Decoder;

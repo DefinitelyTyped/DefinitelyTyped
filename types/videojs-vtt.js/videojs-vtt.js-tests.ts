@@ -1,6 +1,6 @@
 // Tests for videojs-vtt.js
 
-import { WebVTT, VTTCue, VTTRegion } from 'videojs-vtt.js/index.js';
+import { WebVTT, VTTCue, VTTRegion, shim, restore } from 'videojs-vtt.js/index.js';
 
 const json = {};
 const options = {};
@@ -14,6 +14,9 @@ let div: HTMLElement;
 let vtt;
 let element;
 let elements;
+
+shim();
+restore();
 
 parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
 parser.parse('WEBVTT\n\n');
