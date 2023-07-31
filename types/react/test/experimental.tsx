@@ -24,24 +24,24 @@ function suspenseTest() {
 
 // Unsupported `revealOrder` triggers a runtime warning
 // @ts-expect-error
-<React.SuspenseList revealOrder="something">
+<React.unstable_SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="backwards">
+<React.unstable_SuspenseList revealOrder="backwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="forwards">
+<React.unstable_SuspenseList revealOrder="forwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="together">
+<React.unstable_SuspenseList revealOrder="together">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
 function useEvent() {
     // Implicit any
