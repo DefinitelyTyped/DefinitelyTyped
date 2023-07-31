@@ -6,6 +6,10 @@
     "quoteStyle": "alwaysSingle",
     "trailingCommas": "always"
   },
+  "excludes": [
+    // These files are auto-generated and don't need to be formatted
+    "./types/vscode"
+  ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.85.1.wasm",
     "https://plugins.dprint.dev/json-0.17.4.wasm",
