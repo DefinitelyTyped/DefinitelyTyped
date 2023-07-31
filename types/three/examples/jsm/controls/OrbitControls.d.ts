@@ -123,6 +123,12 @@ export class OrbitControls {
     zoomSpeed: number;
 
     /**
+     * Setting this property to `true` allows to zoom to the cursor's position.
+     * @default false
+     */
+    zoomToCursor: boolean;
+
+    /**
      * Enable or disable horizontal and
      * vertical rotation of the camera.
      * Note that it is possible to disable a single axis

@@ -7,6 +7,8 @@ import {
     Scene,
     Camera,
     IUniform,
+    Color,
+    Vector2,
 } from '../../../src/Three.js';
 
 export interface ReflectorShader {
@@ -39,6 +41,8 @@ export class ReflectorForSSRPass<TGeometry extends BufferGeometry = BufferGeomet
     needsUpdate: boolean;
     maxDistance: number;
     opacity: number;
+    color: Color;
+    resolution: Vector2;
 
     get distanceAttenuation(): boolean;
     set distanceAttenuation(val: boolean);

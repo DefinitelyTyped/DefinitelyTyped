@@ -43,19 +43,17 @@ export class SSRPass extends Pass {
     get selects(): Mesh[] | null;
     set selects(val: Mesh[] | null);
     selective: boolean;
-    get isBouncing(): boolean;
-    set isBouncing(val: boolean);
+    get bouncing(): boolean;
+    set bouncing(val: boolean);
 
     blur: boolean;
 
-    get isDistanceAttenuation(): boolean;
-    set isDistanceAttenuation(val: boolean);
-    get isFresnel(): boolean;
-    set isFresnel(val: boolean);
-    get isInfiniteThick(): boolean;
-    set isInfiniteThick(val: boolean);
-
-    thickTolerance: number;
+    get distanceAttenuation(): boolean;
+    set distanceAttenuation(val: boolean);
+    get fresnel(): boolean;
+    set fresnel(val: boolean);
+    get infiniteThick(): boolean;
+    set infiniteThick(val: boolean);
 
     beautyRenderTarget: WebGLRenderTarget;
     prevRenderTarget: WebGLRenderTarget;

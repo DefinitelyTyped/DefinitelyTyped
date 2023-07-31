@@ -10,6 +10,7 @@ import { WebGLCapabilities } from './WebGLCapabilities.js';
 import { WebGLExtensions } from './WebGLExtensions.js';
 import { Material } from '../../materials/Material.js';
 import { Vector4 } from '../../math/Vector4.js';
+import { WebGLRenderTarget } from '../WebGLRenderTarget.js';
 
 export class WebGLColorBuffer {
     constructor();
@@ -52,22 +53,10 @@ export class WebGLState {
         stencil: WebGLStencilBuffer;
     };
 
-    initAttributes(): void;
-    enableAttribute(attribute: number): void;
-    enableAttributeAndDivisor(attribute: number, meshPerAttribute: number): void;
-    disableUnusedAttributes(): void;
-    vertexAttribPointer(
-        index: number,
-        size: number,
-        type: number,
-        normalized: boolean,
-        stride: number,
-        offset: number,
-    ): void;
     enable(id: number): void;
     disable(id: number): void;
     bindFramebuffer(target: number, framebuffer: WebGLFramebuffer | null): void;
-    bindXRFramebuffer(framebuffer: WebGLFramebuffer | null): void;
+    drawBuffers(renderTarget: WebGLRenderTarget | null, framebuffer: WebGLFramebuffer | null): void;
     useProgram(program: any): boolean;
     setBlending(
         blending: Blending,

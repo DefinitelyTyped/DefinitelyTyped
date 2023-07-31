@@ -1,18 +1,13 @@
 import { Camera, Vector3, DirectionalLight, Material, Vector2, Object3D } from '../../../src/Three.js';
 
-export enum CMSMode {
-    practical = 'practical',
-    uniform = 'uniform',
-    logarithmic = 'logarithmic',
-    custom = 'custom',
-}
+export type CSMMode = 'uniform' | 'logarithmic' | 'practical' | 'custom';
 
-export interface CMSParameters {
+export interface CSMParameters {
     camera?: Camera;
     parent?: Object3D;
     cascades?: number;
     maxFar?: number;
-    mode?: CMSMode;
+    mode?: CSMMode;
     shadowMapSize?: number;
     shadowBias?: number;
     lightDirection?: Vector3;
@@ -24,12 +19,12 @@ export interface CMSParameters {
 }
 
 export class CSM {
-    constructor(data: CMSParameters);
+    constructor(data: CSMParameters);
     camera: Camera;
     parent: Object3D;
     cascades: number;
     maxFar: number;
-    mode: CMSMode;
+    mode: CSMMode;
     shadowMapSize: number;
     shadowBias: number;
     lightDirection: Vector3;

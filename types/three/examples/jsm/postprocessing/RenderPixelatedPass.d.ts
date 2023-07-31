@@ -25,4 +25,6 @@ export class RenderPixelatedPass extends Pass {
 
     beautyRenderTarget: WebGLRenderTarget;
     normalRenderTarget: WebGLRenderTarget;
+
+    setPixelSize(pixelSize: number): void;
 }

@@ -5,9 +5,8 @@ import { Path } from './Path.js';
 
 /**
  * This class is used to convert a series of shapes to an array of {@link THREE.Path | Path's},
- * for example an SVG shape to a path (see the example below).
- * @see Example: {@link https://threejs.org/examples/#webgl_geometry_extrude_shapes2 | geometry / extrude / shapes2}
- *  @see {@link https://threejs.org/docs/index.html#api/en/extras/core/ShapePath | Official Documentation}
+ * for example an SVG shape to a path.
+ * @see {@link https://threejs.org/docs/index.html#api/en/extras/core/ShapePath | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/core/ShapePath.js | Source}
  */
 export class ShapePath {
