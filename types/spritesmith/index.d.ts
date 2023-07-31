@@ -3,26 +3,26 @@
 // Definitions by: Zenoo <https://github.com/Zenoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReadableStream } from 'stream/web';
+import { Transform } from 'stream';
 import { BufferFile } from 'vinyl';
 
 declare class Spritesmith {
     constructor(params?: Spritesmith.SpritesmithParams);
     static run(
-        params: Spritesmith.SpritesmithParams & Spritesmith.SpritesmithProcessImagesOptions & {
-            src: Spritesmith.SpritesmithCreateImagesSrc;
-        },
-        callback: (
-            err: Error | null,
-            result: Spritesmith.SpritesmithResult & {
-                image: Buffer;
-            }
-        ) => void): void;
-    createImages(src: Spritesmith.SpritesmithCreateImagesSrc, callback: (err: Error | null, images: Spritesmith.SpritesmithImage[]) => void): void;
+        params: Spritesmith.SpritesmithParams &
+            Spritesmith.SpritesmithProcessImagesOptions & {
+                src: Spritesmith.SpritesmithCreateImagesSrc;
+            },
+        callback: (err: Error | null, result: Spritesmith.SpritesmithResult) => void,
+    ): void;
+    createImages(
+        src: Spritesmith.SpritesmithCreateImagesSrc,
+        callback: (err: Error | null, images: Spritesmith.SpritesmithImage[]) => void,
+    ): void;
     processImages(
         images: Spritesmith.SpritesmithImage[],
-        options?: Spritesmith.SpritesmithProcessImagesOptions
-    ): Spritesmith.SpritesmithResult;
+        options?: Spritesmith.SpritesmithProcessImagesOptions,
+    ): Spritesmith.SpritesmithResult<Transform>;
 }
 
 declare namespace Spritesmith {
@@ -52,8 +52,8 @@ declare namespace Spritesmith {
         };
     }
 
-    interface SpritesmithResult {
-        image: ReadableStream;
+    interface SpritesmithResult<Image extends Buffer | Transform = Buffer> {
+        image: Image;
         coordinates: Record<string, { x: number; y: number; width: number; height: number }>;
         properties: { width: number; height: number };
     }
