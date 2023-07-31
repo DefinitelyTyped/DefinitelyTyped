@@ -241,68 +241,68 @@ declare namespace Flickity {
         /**
          * Triggered when the selected slide is changed.
          */
-        change?: ((index?: number) => void) | undefined;
+        change?: ((index: number) => void) | undefined;
 
         /**
          * Triggered when a slide is selected.
          * select is triggered any time a slide is selected, even on the same slide. change is triggered only when a different slide is selected.
          * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
          */
-        select?: ((index?: number) => void) | undefined;
-        cellSelect?: ((index?: number) => void) | undefined;
+        select?: ((index: number) => void) | undefined;
+        cellSelect?: ((index: number) => void) | undefined;
         /**
          * Triggered when the slider is settled at its end position.
          */
-        settle?: ((index?: number) => void) | undefined;
+        settle?: ((index: number) => void) | undefined;
 
         /**
          * Triggered when the slider moves.
          */
-        scroll?: ((progress?: number) => void) | undefined;
+        scroll?: ((progress: number) => void) | undefined;
 
         /**
          * Triggered when dragging starts and the slider starts moving.
          */
         dragStart?: ((
-            event?: Event,
-            pointer?: Event | Touch) => void) | undefined;
+            event: Event,
+            pointer: Event | Touch) => void) | undefined;
 
         /**
          * Triggered when dragging moves and the slider moves.
          */
         dragMove?: ((
-            event?: Event,
-            pointer?: Event | Touch,
-            moveVector?: { x: number, y: number }) => void) | undefined;
+            event: Event,
+            pointer: Event | Touch,
+            moveVector: { x: number, y: number }) => void) | undefined;
 
         /**
          * Triggered when dragging ends.
          */
         dragEnd?: ((
             event: Event,
-            pointer?: Event | Touch) => void) | undefined;
+            pointer: Event | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer (mouse, touch, pointer) presses down.
          */
         pointerDown?: ((
             event: Event,
-            pointer?: Event | Touch) => void) | undefined;
+            pointer: Event | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer moves.
          */
         pointerMove?: ((
-            event?: Event,
-            pointer?: Event | Touch,
-            moveVector?: { x: number, y: number }) => void) | undefined;
+            event: Event,
+            pointer: Event | Touch,
+            moveVector: { x: number, y: number }) => void) | undefined;
 
         /**
          * Triggered when the user's pointer unpresses.
          */
         pointerUp?: ((
-            event?: Event,
-            pointer?: Event | Touch) => void) | undefined;
+            event: Event,
+            pointer: Event | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
@@ -310,29 +310,29 @@ declare namespace Flickity {
          * Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
          */
         staticClick?: ((
-            event?: Event,
-            pointer?: Event | Touch,
-            cellElement?: Element,
-            cellIndex?: number) => void) | undefined;
+            event: Event,
+            pointer: Event | Touch,
+            cellElement: Element,
+            cellIndex: number) => void) | undefined;
 
         /**
          * Triggered after an image has been loaded with lazyLoad.
          */
         lazyLoad?: ((
-            event?: Event,
-            cellElement?: Element) => void) | undefined;
+            event: Event,
+            cellElement: Element) => void) | undefined;
 
         /**
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
         bgLazyLoad?: ((
-            event?: Event,
-            element?: Element) => void) | undefined;
+            event: Event,
+            element: Element) => void) | undefined;
 
         /**
          * Triggered after entering or exiting fullscreen view.
          */
-        fullscreenChange?: ((isFullscreen?: boolean) => void) | undefined;
+        fullscreenChange?: ((isFullscreen: boolean) => void) | undefined;
 
         /**
          * Triggered when Flickity functionality has been removed completely
