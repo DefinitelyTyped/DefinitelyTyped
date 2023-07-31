@@ -4,7 +4,8 @@
     "indentWidth": 4,
     "lineWidth": 120,
     "quoteStyle": "alwaysSingle",
-    "trailingCommas": "always"
+    "trailingCommas": "always",
+    "useTabs": true
   },
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.85.1.wasm",
