@@ -37,7 +37,7 @@ export namespace WebVTT {
     const Parser: VttParserConstructor;
     function StringDecoder(): Decoder;
     function processCues(window: Window, cues: VTTCue[], overlay: HTMLElement | null): void;
-    function convertCueToDOMTree(window: Window, text: string): HTMLElement | null;
+    function convertCueToDOMTree(window: Window, text: string): HTMLElement;
 }
 
 export const VTTCue: {
