@@ -1,0 +1,14 @@
+{
+  "typescript": {
+    "arrowFunction.useParentheses": "preferNone",
+    "indentWidth": 4,
+    "lineWidth": 120,
+    "quoteStyle": "alwaysSingle",
+    "trailingCommas": "always"
+  },
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.85.1.wasm",
+    "https://plugins.dprint.dev/json-0.17.4.wasm",
+    "https://plugins.dprint.dev/markdown-0.15.3.wasm"
+  ]
+}
