@@ -6,10 +6,16 @@
 
 /// <reference types="cypress" />
 
+export interface HappoScreenshotTarget {
+    name: string;
+    browser: string;
+    viewport: string;
+}
+
 export interface HappoScreenshotOptions {
     component?: string | undefined;
     variant?: string | undefined;
-    targets?: ReadonlyArray<string> | undefined;
+    targets?: ReadonlyArray<string | HappoScreenshotTarget> | undefined;
     responsiveInlinedCanvases?: boolean | undefined;
     transformDOM?: HappoTransformDOMOptions | undefined;
     includeAllElements?: boolean | undefined;
