@@ -365,6 +365,8 @@ declare namespace Pubnub {
         autoNetworkDetection?: boolean | undefined;
         listenToBrowserNetworkEvents?: boolean | undefined;
         useRandomIVs?: boolean | undefined;
+        dedupeOnSubscribe?: boolean | undefined;
+        enableSubscribeBeta?: boolean | undefined;
     };
 
     interface MessageEvent {
