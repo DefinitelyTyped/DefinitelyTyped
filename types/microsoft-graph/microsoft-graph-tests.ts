@@ -460,3 +460,17 @@ const organizationalBrandingProperties: MicrosoftGraph.OrganizationalBrandingPro
     loginPageLayoutConfiguration: {},
     loginPageTextVisibilitySettings: {}
 };
+
+const blobContainerEvidence: MicrosoftGraph.SecurityNamespace.BlobContainerEvidence = {};
+const blobEvidence: MicrosoftGraph.SecurityNamespace.BlobEvidence = {};
+const fileHash: MicrosoftGraph.SecurityNamespace.FileHash = {};
+const containerEvidence: MicrosoftGraph.SecurityNamespace.ContainerEvidence = {};
+const containerImageEvidence: MicrosoftGraph.SecurityNamespace.ContainerImageEvidence = {};
+const kubernetesPodEvidence: MicrosoftGraph.SecurityNamespace.KubernetesPodEvidence = {};
+const kubernetesClusterEvidence: MicrosoftGraph.SecurityNamespace.KubernetesClusterEvidence = {};
+const kubernetesControllerEvidence: MicrosoftGraph.SecurityNamespace.KubernetesControllerEvidence = {};
+const kubernetesNamespaceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesNamespaceEvidence = {};
+const kubernetesServiceAccountEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceAccountEvidence = {};
+const kubernetesSecretEvidence: MicrosoftGraph.SecurityNamespace.KubernetesSecretEvidence = {};
+const kubernetesServiceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceEvidence = {};
+const kubernetesServicePort: MicrosoftGraph.SecurityNamespace.KubernetesServicePort = {};
