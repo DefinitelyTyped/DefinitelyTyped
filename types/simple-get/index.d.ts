@@ -6,8 +6,7 @@
 /// <reference types="node" />
 
 import { ClientRequest, IncomingMessage, RequestOptions } from 'http';
-import * as FormData from 'form-data';
-import { ReadStream } from 'fs';
+import { Readable } from 'stream';
 
 interface SimpleGetOptions extends RequestOptions {
     url: string;
@@ -17,7 +16,7 @@ interface SimpleGetOptions extends RequestOptions {
     maxRedirects?: number;
     body?: string | {
         [key: string]: unknown;
-    } | FormData | ReadStream;
+    } | Readable;
     form?: {
         [key: string]: unknown;
     };

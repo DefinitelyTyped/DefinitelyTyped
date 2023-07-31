@@ -1,8 +1,4 @@
 import get = require('simple-get');
-import FormData = require('form-data');
-const form = new FormData();
-
-form.append('key', 'value');
 
 get('http://example.com', (err, res) => {
     // $ExpectType Error | null
@@ -36,7 +32,9 @@ get.get({
 
 get.post({
     url: 'http://example.com',
-    body: form,
+    body: {
+        value: 123
+    },
     timeout: 2000
 }, (err, res) => {
     // $ExpectType Error | null
