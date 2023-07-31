@@ -10,7 +10,7 @@ export type WithFieldMask<T> = { [K in keyof T]?: WithFieldMask<T[K]> | undefine
  * @param fieldMask
  * @returns new object created by applying field mask on source object or original entity if source is not an object
  */
-export function applyFieldMask<T>(sourceObject: T, fieldMask: string[]): WithFieldMask<T>;
+export function applyFieldMask<T>(sourceObject: T, fieldMask: readonly string[]): WithFieldMask<T>;
 /**
  * Generates field mask that includes all non-function own properties on specified object
  * @param object - object to generate field mask from
