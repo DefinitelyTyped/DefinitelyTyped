@@ -1,4 +1,4 @@
-// Type definitions for js_beautify 1.13
+// Type definitions for js_beautify 1.14
 // Project: https://github.com/beautify-web/js-beautify/
 // Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 //                 Gavin Rehkemper <https://github.com/gavinr/>
@@ -61,6 +61,7 @@ declare namespace js_beautify {
         content_unformatted?: string[] | undefined;
         unformatted_content_delimiter?: string | undefined;
         indent_scripts?: 'normal' | 'keep' | 'separate' | undefined;
+        inline_custom_elements?: boolean | undefined;
     }
 
     interface CSSBeautifyOptions extends CoreBeautifyOptions {
