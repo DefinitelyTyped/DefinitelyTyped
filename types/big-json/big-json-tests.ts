@@ -1,5 +1,4 @@
-import bigJson = require("big-json");
-
+import bigJson = require('big-json');
 import type { Stream } from 'node:stream';
 
 // ----------------------------------------------------------------
