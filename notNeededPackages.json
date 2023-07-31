@@ -4235,6 +4235,10 @@
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
         },
+        "prettier": {
+            "libraryName": "prettier",
+            "asOfVersion": "3.0.0"
+        },
         "prettier-package-json": {
             "libraryName": "prettier-package-json",
             "asOfVersion": "2.3.0"

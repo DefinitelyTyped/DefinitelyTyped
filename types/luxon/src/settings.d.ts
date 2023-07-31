@@ -43,6 +43,11 @@ export class Settings {
     static defaultOutputCalendar: string;
 
     /**
+     * The cutoff year after which a string encoding a year as two digits is interpreted to occur in the current century.
+     */
+    static twoDigitCutoffYear: number;
+
+    /**
      * Whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
      *
      * If setting this to true, be sure to opt-out of Luxon's invalid return types.

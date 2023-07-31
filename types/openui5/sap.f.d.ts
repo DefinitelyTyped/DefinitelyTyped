@@ -39,7 +39,7 @@ declare module "sap/f/library" {
 
   /**
    * @since 1.73
-   * Experimental (since 1.73)
+   * @experimental (since 1.73)
    *
    * Group modes for the {@link sap.f.AvatarGroup} control.
    */
@@ -169,7 +169,7 @@ declare module "sap/f/library" {
 
   /**
    * @since 1.63
-   * Experimental (since 1.63) - that provides only limited functionality. Also, it can be removed in future
+   * @experimental (since 1.63) - that provides only limited functionality. Also, it can be removed in future
    * versions.
    *
    * Interface for controls suitable for the `additionalContent` aggregation of `{@link sap.f.ShellBar}`.
@@ -512,7 +512,7 @@ declare module "sap/f/AvatarGroup" {
 
   /**
    * @since 1.73
-   * Experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
+   * @experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
    * the API might be changed in future.
    *
    * Displays a group of avatars arranged horizontally. It is useful to visually showcase a group of related
@@ -686,7 +686,7 @@ declare module "sap/f/AvatarGroup" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -971,7 +971,7 @@ declare module "sap/f/AvatarGroupItem" {
 
   /**
    * @since 1.73
-   * Experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
+   * @experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
    * the API might be changed in future.
    *
    * Represents a single avatar item displayed in the {@link sap.f.AvatarGroup} control.
@@ -1435,7 +1435,7 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -1586,7 +1586,7 @@ declare module "sap/f/cards/BaseHeader" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.86
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      *
@@ -1594,7 +1594,7 @@ declare module "sap/f/cards/BaseHeader" {
      */
     destroyToolbar(): this;
     /**
-     * Experimental (since 1.89) - this feature is experimental and the API may change.
+     * @experimental (since 1.89) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getDataTimestamp dataTimestamp}.
      *
@@ -1611,7 +1611,7 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getDataTimestamp(): string;
     /**
-     * Experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental (since 1.116) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getStatusVisible statusVisible}.
      *
@@ -1624,7 +1624,7 @@ declare module "sap/f/cards/BaseHeader" {
     getStatusVisible(): boolean;
     /**
      * @since 1.86
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Gets content of aggregation {@link #getToolbar toolbar}.
      *
@@ -1632,7 +1632,7 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getToolbar(): Control;
     /**
-     * Experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental (since 1.116) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getStatusVisible statusVisible}.
      *
@@ -1652,7 +1652,7 @@ declare module "sap/f/cards/BaseHeader" {
     ): this;
     /**
      * @since 1.86
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Sets the aggregated {@link #getToolbar toolbar}.
      *
@@ -1668,7 +1668,7 @@ declare module "sap/f/cards/BaseHeader" {
 
   export interface $BaseHeaderSettings extends $ControlSettings {
     /**
-     * Experimental (since 1.89) - this feature is experimental and the API may change.
+     * @experimental (since 1.89) - this feature is experimental and the API may change.
      *
      * Defines the timestamp of the oldest data in the card. Use this to show to the end user how fresh the
      * information in the card is.
@@ -1680,7 +1680,7 @@ declare module "sap/f/cards/BaseHeader" {
     dataTimestamp?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental (since 1.116) - this feature is experimental and the API may change.
      *
      * Defines the status text visibility.
      */
@@ -1688,7 +1688,7 @@ declare module "sap/f/cards/BaseHeader" {
 
     /**
      * @since 1.86
-     * Experimental (since 1.86)
+     * @experimental (since 1.86)
      *
      * Defines the toolbar.
      */
@@ -1854,7 +1854,7 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -1874,7 +1874,7 @@ declare module "sap/f/cards/Header" {
       }
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -1887,7 +1887,7 @@ declare module "sap/f/cards/Header" {
       mParameters?: object
     ): this;
     /**
-     * Experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental (since 1.81) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
@@ -1899,7 +1899,7 @@ declare module "sap/f/cards/Header" {
      */
     getIconAlt(): string;
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getIconBackgroundColor iconBackgroundColor}.
      *
@@ -1941,7 +1941,7 @@ declare module "sap/f/cards/Header" {
      */
     getIconSrc(): URI;
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getIconVisible iconVisible}.
      *
@@ -1973,7 +1973,7 @@ declare module "sap/f/cards/Header" {
      */
     getSubtitle(): string;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Gets current value of property {@link #getSubtitleMaxLines subtitleMaxLines}.
      *
@@ -1995,7 +1995,7 @@ declare module "sap/f/cards/Header" {
      */
     getTitle(): string;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Gets current value of property {@link #getTitleMaxLines titleMaxLines}.
      *
@@ -2007,7 +2007,7 @@ declare module "sap/f/cards/Header" {
      */
     getTitleMaxLines(): int;
     /**
-     * Experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental (since 1.81) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getIconAlt iconAlt}.
      *
@@ -2026,7 +2026,7 @@ declare module "sap/f/cards/Header" {
       sIconAlt?: string
     ): this;
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getIconBackgroundColor iconBackgroundColor}.
      *
@@ -2096,7 +2096,7 @@ declare module "sap/f/cards/Header" {
       sIconSrc?: URI
     ): this;
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getIconVisible iconVisible}.
      *
@@ -2149,7 +2149,7 @@ declare module "sap/f/cards/Header" {
       sSubtitle?: string
     ): this;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Sets a new value for property {@link #getSubtitleMaxLines subtitleMaxLines}.
      *
@@ -2185,7 +2185,7 @@ declare module "sap/f/cards/Header" {
       sTitle?: string
     ): this;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Sets a new value for property {@link #getTitleMaxLines titleMaxLines}.
      *
@@ -2212,7 +2212,7 @@ declare module "sap/f/cards/Header" {
     title?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Limits the number of lines for the title.
      */
@@ -2224,7 +2224,7 @@ declare module "sap/f/cards/Header" {
     subtitle?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Limits the number of lines for the subtitle.
      */
@@ -2254,14 +2254,14 @@ declare module "sap/f/cards/Header" {
     iconInitials?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental (since 1.81) - this feature is experimental and the API may change.
      *
      * Defines an alt text for the avatar or icon.
      */
     iconAlt?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Defines a background color for the avatar or icon.
      */
@@ -2271,7 +2271,7 @@ declare module "sap/f/cards/Header" {
       | `{${string}}`;
 
     /**
-     * Experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental (since 1.83) - this feature is experimental and the API may change.
      *
      * Defines whether the card icon is visible.
      */
@@ -2292,13 +2292,13 @@ declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
   import RenderManager from "sap/ui/core/RenderManager";
 
   /**
-   * Protected:  DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * PlaceholderBase renderer.
    */
   interface PlaceholderBaseRenderer {
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is reserved for derived classes to add their respective attributes.
      */
@@ -2313,7 +2313,7 @@ declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
       oRm: RenderManager
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is reserved for derived classes to render their respective content.
      */
@@ -2513,7 +2513,7 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -2533,7 +2533,7 @@ declare module "sap/f/cards/NumericHeader" {
       }
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2554,7 +2554,7 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getDetails(): string;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Gets current value of property {@link #getDetailsMaxLines detailsMaxLines}.
      *
@@ -2616,7 +2616,7 @@ declare module "sap/f/cards/NumericHeader" {
       | cards.NumericHeaderSideIndicatorsAlignment
       | keyof typeof cards.NumericHeaderSideIndicatorsAlignment;
     /**
-     * Experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getState state}.
@@ -2647,7 +2647,7 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getSubtitle(): string;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Gets current value of property {@link #getSubtitleMaxLines subtitleMaxLines}.
      *
@@ -2667,7 +2667,7 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getTitle(): string;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Gets current value of property {@link #getTitleMaxLines titleMaxLines}.
      *
@@ -2760,7 +2760,7 @@ declare module "sap/f/cards/NumericHeader" {
       sDetails: string
     ): this;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Sets a new value for property {@link #getDetailsMaxLines detailsMaxLines}.
      *
@@ -2850,7 +2850,7 @@ declare module "sap/f/cards/NumericHeader" {
         | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
     ): this;
     /**
-     * Experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getState state}.
@@ -2902,7 +2902,7 @@ declare module "sap/f/cards/NumericHeader" {
       sSubtitle: string
     ): this;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Sets a new value for property {@link #getSubtitleMaxLines subtitleMaxLines}.
      *
@@ -2936,7 +2936,7 @@ declare module "sap/f/cards/NumericHeader" {
       sTitle: string
     ): this;
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Sets a new value for property {@link #getTitleMaxLines titleMaxLines}.
      *
@@ -2995,7 +2995,7 @@ declare module "sap/f/cards/NumericHeader" {
     title?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Limits the number of lines for the title.
      */
@@ -3007,7 +3007,7 @@ declare module "sap/f/cards/NumericHeader" {
     subtitle?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Limits the number of lines for the subtitle.
      */
@@ -3052,7 +3052,7 @@ declare module "sap/f/cards/NumericHeader" {
       | `{${string}}`;
 
     /**
-     * Experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * The semantic color which represents the state of the main number indicator.
@@ -3068,7 +3068,7 @@ declare module "sap/f/cards/NumericHeader" {
     details?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.101)
+     * @experimental (since 1.101)
      *
      * Limits the number of lines for the details.
      */
@@ -3190,7 +3190,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
      */
     getNumber(): string;
     /**
-     * Experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getState state}.
@@ -3230,7 +3230,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
       sValue: string
     ): this;
     /**
-     * Experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getState state}.
@@ -3290,7 +3290,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
     unit?: string | PropertyBindingInfo;
 
     /**
-     * Experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * The semantic color which represents the state of the side indicator.
@@ -3318,7 +3318,7 @@ declare module "sap/f/dnd/GridDropInfo" {
 
   /**
    * @since 1.68
-   * Experimental (since 1.68) - This class is experimental. The API may change.
+   * @experimental (since 1.68) - This class is experimental. The API may change.
    *
    * Provides enhanced configuration for drop operations inside grid-based controls.
    *
@@ -3715,7 +3715,7 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * @since 1.93
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
      *
@@ -5305,7 +5305,7 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * @since 1.54
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -7058,7 +7058,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      *
@@ -7071,7 +7071,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterEndColumnNavigate afterEndColumnNavigate} to attached listeners.
      *
@@ -7084,7 +7084,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$AfterEndColumnNavigateEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterMidColumnNavigate afterMidColumnNavigate} to attached listeners.
      *
@@ -7097,7 +7097,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$AfterMidColumnNavigateEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beginColumnNavigate beginColumnNavigate} to attached listeners.
      *
@@ -7114,7 +7114,7 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): boolean;
     /**
      * @since 1.76
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
@@ -7127,7 +7127,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$ColumnResizeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:endColumnNavigate endColumnNavigate} to attached listeners.
      *
@@ -7143,7 +7143,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$EndColumnNavigateEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:midColumnNavigate midColumnNavigate} to attached listeners.
      *
@@ -7159,7 +7159,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       mParameters?: FlexibleColumnLayout$MidColumnNavigateEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
      *
@@ -9631,7 +9631,7 @@ declare module "sap/f/GridContainer" {
      */
     destroyLayoutXL(): this;
     /**
-     * Experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Destroys the layoutXS in the aggregation {@link #getLayoutXS layoutXS}.
@@ -9693,7 +9693,7 @@ declare module "sap/f/GridContainer" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
@@ -9706,7 +9706,7 @@ declare module "sap/f/GridContainer" {
       mParameters?: GridContainer$BorderReachedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnsChange columnsChange} to attached listeners.
      *
@@ -9719,7 +9719,7 @@ declare module "sap/f/GridContainer" {
       mParameters?: GridContainer$ColumnsChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      *
@@ -9732,7 +9732,7 @@ declare module "sap/f/GridContainer" {
       mParameters?: GridContainer$LayoutChangeEventParameters
     ): this;
     /**
-     * Experimental (since 1.81) - Behavior might change.
+     * @experimental (since 1.81) - Behavior might change.
      *
      * Focuses the item on the given index. Should be called after successful drop operation.
      *
@@ -9745,7 +9745,7 @@ declare module "sap/f/GridContainer" {
       iIndex: int
     ): void;
     /**
-     * Experimental (since 1.85) - Behavior might change.
+     * @experimental (since 1.85) - Behavior might change.
      *
      * Focuses an item in the given direction - up, down, left or right, from the starting position specified
      * by row and column.
@@ -9779,7 +9779,7 @@ declare module "sap/f/GridContainer" {
      */
     getActiveLayoutSettings(): GridContainerSettings;
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getAllowDenseFill allowDenseFill}.
@@ -9814,7 +9814,7 @@ declare module "sap/f/GridContainer" {
      */
     getContainerQuery(): boolean;
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getInlineBlockLayout inlineBlockLayout}.
@@ -9873,7 +9873,7 @@ declare module "sap/f/GridContainer" {
      */
     getLayoutXL(): GridContainerSettings;
     /**
-     * Experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Gets content of aggregation {@link #getLayoutXS layoutXS}.
@@ -9882,7 +9882,7 @@ declare module "sap/f/GridContainer" {
      */
     getLayoutXS(): GridContainerSettings;
     /**
-     * Experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      *
      * Gets current value of property {@link #getMinHeight minHeight}.
@@ -10001,7 +10001,7 @@ declare module "sap/f/GridContainer" {
       vItem: int | string | Control
     ): Control | null;
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getAllowDenseFill allowDenseFill}.
@@ -10042,7 +10042,7 @@ declare module "sap/f/GridContainer" {
       bContainerQuery?: boolean
     ): this;
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getInlineBlockLayout inlineBlockLayout}.
@@ -10121,7 +10121,7 @@ declare module "sap/f/GridContainer" {
       oLayoutXL: GridContainerSettings
     ): this;
     /**
-     * Experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Sets the aggregated {@link #getLayoutXS layoutXS}.
@@ -10135,7 +10135,7 @@ declare module "sap/f/GridContainer" {
       oLayoutXS: GridContainerSettings
     ): this;
     /**
-     * Experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      *
      * Sets a new value for property {@link #getMinHeight minHeight}.
@@ -10201,7 +10201,7 @@ declare module "sap/f/GridContainer" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      *
      * Defines the minimum height of the grid.
@@ -10224,7 +10224,7 @@ declare module "sap/f/GridContainer" {
     snapToRow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Increases the density when arranging the items. Smaller items will take up all of the available space,
@@ -10235,7 +10235,7 @@ declare module "sap/f/GridContainer" {
     allowDenseFill?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * Makes the grid items act like an inline-block elements. They will be arranged in rows with height equal
@@ -10263,7 +10263,7 @@ declare module "sap/f/GridContainer" {
     layout?: GridContainerSettings;
 
     /**
-     * Experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
@@ -10371,7 +10371,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
 
   /**
    * @since 1.65
-   * Experimental (since 1.65) - This class is experimental. The API may change.
+   * @experimental (since 1.65) - This class is experimental. The API may change.
    *
    * Holds layout data for an item inside a `sap.f.GridContainer`.
    */
@@ -10464,7 +10464,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
      */
     getMinRows(): int;
     /**
-     * Experimental (since 1.65) - this property may soon be removed, use minRows instead
+     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Gets current value of property {@link #getRows rows}.
      *
@@ -10511,7 +10511,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
       iMinRows: int
     ): this;
     /**
-     * Experimental (since 1.65) - this property may soon be removed, use minRows instead
+     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Sets a new value for property {@link #getRows rows}.
      *
@@ -10547,7 +10547,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
     minRows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Experimental (since 1.65) - this property may soon be removed, use minRows instead
+     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Specifies the number of rows, which the item should take.
      */
@@ -10568,7 +10568,7 @@ declare module "sap/f/GridContainerSettings" {
 
   /**
    * @since 1.65
-   * Experimental (since 1.65) - This class is experimental. The API may change.
+   * @experimental (since 1.65) - This class is experimental. The API may change.
    *
    * Holds a set of settings that define the dimensions of `sap.f.GridContainer`.
    *
@@ -11073,7 +11073,7 @@ declare module "sap/f/GridList" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      *
@@ -11086,7 +11086,7 @@ declare module "sap/f/GridList" {
       mParameters?: GridList$BorderReachedEventParameters
     ): this;
     /**
-     * Experimental (since 1.87) - Behavior might change.
+     * @experimental (since 1.87) - Behavior might change.
      *
      * Focuses an item in the given direction - up, down, left or right, from the starting position specified
      * by row and column.
@@ -11120,7 +11120,7 @@ declare module "sap/f/GridList" {
      */
     getCustomLayout(): GridLayoutBase;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Implements IGridConfigurable interface.
      *
@@ -11128,7 +11128,7 @@ declare module "sap/f/GridList" {
      */
     getGridDomRefs(): HTMLElement[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Implements IGridConfigurable interface.
      *
@@ -11608,7 +11608,7 @@ declare module "sap/f/ProductSwitch" {
 
   /**
    * @since 1.72
-   * Experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
    * the API might be changed in future.
    *
    * A layout control that provides specific configuration about how the items should be displayed.
@@ -11754,7 +11754,7 @@ declare module "sap/f/ProductSwitch" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11882,7 +11882,7 @@ declare module "sap/f/ProductSwitchItem" {
 
   /**
    * @since 1.72
-   * Experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
    * the API might be changed in future.
    *
    * A control that is used as a child of `ProductSwitch`
@@ -13027,7 +13027,7 @@ declare module "sap/f/SearchManager" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -13040,7 +13040,7 @@ declare module "sap/f/SearchManager" {
       mParameters?: SearchManager$LiveChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -13053,7 +13053,7 @@ declare module "sap/f/SearchManager" {
       mParameters?: SearchManager$SearchEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -17993,7 +17993,7 @@ declare module "sap/f/ShellBar" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets classes according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -18002,7 +18002,7 @@ declare module "sap/f/ShellBar" {
     _applyContextClassFor(): IBar;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the HTML tag according to the context of the page. Possible contexts are header, footer, and subheader.
      *
@@ -18022,7 +18022,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer,
      * and subheader
@@ -18575,7 +18575,7 @@ declare module "sap/f/ShellBar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      *
@@ -18588,7 +18588,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$AvatarPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:copilotPressed copilotPressed} to attached listeners.
      *
@@ -18601,7 +18601,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$CopilotPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:homeIconPressed homeIconPressed} to attached listeners.
      *
@@ -18614,7 +18614,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$HomeIconPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:menuButtonPressed menuButtonPressed} to attached listeners.
      *
@@ -18627,7 +18627,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$MenuButtonPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navButtonPressed navButtonPressed} to attached listeners.
      *
@@ -18640,7 +18640,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$NavButtonPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:notificationsPressed notificationsPressed} to attached listeners.
      *
@@ -18653,7 +18653,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$NotificationsPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:productSwitcherPressed productSwitcherPressed} to attached listeners.
      *
@@ -18666,7 +18666,7 @@ declare module "sap/f/ShellBar" {
       mParameters?: ShellBar$ProductSwitcherPressedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:searchButtonPressed searchButtonPressed} to attached listeners.
      *
@@ -18688,7 +18688,7 @@ declare module "sap/f/ShellBar" {
     getAdditionalContent(): IShellBar[];
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the available Bar contexts.
      *
@@ -18719,7 +18719,7 @@ declare module "sap/f/ShellBar" {
     getHomeIconTooltip(): string;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the HTML tag of the root DOM Reference.
      *
@@ -18872,7 +18872,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns if the bar is sensitive to the container context. Implementation of the IBar interface
      *
@@ -18936,7 +18936,7 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * @since 1.65
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the HTML tag of the root DOM Reference.
      *
@@ -19597,7 +19597,7 @@ declare module "sap/f/SidePanel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *

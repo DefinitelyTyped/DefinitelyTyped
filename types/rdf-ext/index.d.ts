@@ -14,7 +14,7 @@ import { TermSetFactory } from '@rdfjs/term-set/Factory.js';
 import { PrefixMapFactory } from '@rdfjs/prefix-map/Factory.js';
 import { TraverserFactory } from "@rdfjs/traverser/Factory.js";
 import { ScoreFactory } from "@rdfjs/score/Factory.js";
-import { ClownfaceFactory } from './ClownfaceFactory.js';
+import ClownfaceFactory from './ClownfaceFactory.js';
 import { DataFactoryExt as DataFactory } from './DataFactory.js';
 import { DatasetFactory } from './DatasetFactory.js';
 

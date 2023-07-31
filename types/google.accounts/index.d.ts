@@ -630,7 +630,7 @@ declare namespace google.accounts {
              * The minimum button width, in pixels. The maximum width is 400
              * pixels.
              */
-            width?: string;
+            width?: number;
 
             /**
              * The pre-set locale of the button text. If it's not set, the
