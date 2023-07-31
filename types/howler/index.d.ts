@@ -259,7 +259,7 @@ export class Howl {
     pannerAttr(options: PannerAttributes, id?: number): this;
 }
 
-export class HowlerGlobal {
+export interface HowlerGlobal {
     mute(muted: boolean): this;
     stop(): this;
 
@@ -293,6 +293,9 @@ declare global {
     interface Howl extends _Howl {}
     interface HowlerGlobal extends _HowlerGlobal {}
     var Howl: typeof _Howl;
-    var HowlerGlobal: typeof _HowlerGlobal;
+    var HowlerGlobal: {
+        prototype: _HowlerGlobal;
+        new (): _HowlerGlobal;
+    };
     var Howler: HowlerGlobal;
 }
