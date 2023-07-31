@@ -512,22 +512,22 @@ declare class Flickity {
 
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
-     * @param callback callback funtion to execute when event fires
+     * @param eventName name of event  (@see Flickity.EventBindings class for flickity supported events)
+     * @param callback callback function to execute when event fires
      */
     on<EventName extends Flickity.FlickityEvents>(eventname: EventName, callback: Flickity.EventBindings[EventName]): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
-     * @param callback callback funtion to execute when event fires
+     * @param eventName name of event  (@see Flickity.EventBindings class for flickity supported events)
+     * @param callback callback function to execute when event fires
      */
     off<EventName extends Flickity.FlickityEvents>(eventname: EventName, callback: Flickity.EventBindings[EventName]): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
-     * @param callback callback funtion to execute when event fires
+     * @param eventName name of event  (@see Flickity.EventBindings class for flickity supported events)
+     * @param callback callback function to execute when event fires
      */
     once<EventName extends Flickity.FlickityEvents>(eventname: EventName, callback: Flickity.EventBindings[EventName]): void;
 }
