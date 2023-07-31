@@ -1,4 +1,4 @@
-// Type definitions for pubnub 7.2
+// Type definitions for pubnub 7.3
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
