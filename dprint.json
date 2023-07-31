@@ -4,7 +4,7 @@
     "indentWidth": 4,
     "lineWidth": 120,
     "quoteStyle": "alwaysSingle",
-    "trailingCommas": "onlyMultiline"
+    "trailingCommas": "onlyMultiLine"
   },
   "excludes": [
     // These files are auto-generated and don't need to be formatted
