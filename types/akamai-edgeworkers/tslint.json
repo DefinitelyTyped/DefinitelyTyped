@@ -1,7 +1,7 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "max-line-length": false,
-    "no-empty-interface": false
-  }
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "max-line-length": false,
+        "no-empty-interface": false
+    }
 }

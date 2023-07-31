@@ -1,8 +1,8 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "no-consecutive-blank-lines": false,
-    "no-misused-new": false,
-    "no-var-keyword": false
-  }
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-consecutive-blank-lines": false,
+        "no-misused-new": false,
+        "no-var-keyword": false
+    }
 }

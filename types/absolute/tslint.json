@@ -1,11 +1,11 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "npm-naming": [
-      true,
-      {
-        "mode": "name-only"
-      }
-    ]
-  }
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ]
+    }
 }

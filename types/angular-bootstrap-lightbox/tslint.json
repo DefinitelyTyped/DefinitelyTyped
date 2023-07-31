@@ -1,23 +1,23 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "interface-name": false,
-    "no-padding": false,
-    "no-var-keyword": false,
-    "npm-naming": [
-      true,
-      {
-        "errors": [
-          [
-            "NeedsExportEquals",
-            false
-          ]
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "no-padding": false,
+        "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
         ],
-        "mode": "code"
-      }
-    ],
-    "strict-export-declare-modifiers": false,
-    "typedef-whitespace": false,
-    "whitespace": false
-  }
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
 }
