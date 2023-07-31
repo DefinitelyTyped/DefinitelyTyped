@@ -1,6 +1,6 @@
 // Tests for videojs-vtt.js
 
-import { WebVTT, VTTCue, VTTRegion } from 'videojs-vtt.js2/index.js';
+import { WebVTT, VTTCue, VTTRegion } from 'videojs-vtt.js/index.js';
 
 var parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
 parser.parse('WEBVTT\n\n');
