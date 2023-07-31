@@ -11,6 +11,9 @@
 import { Signale } from 'signale';
 import AggregateError = require('aggregate-error');
 
+/**
+ * EnvCi Interface
+ */
 export interface EnvCi {
     /**
      * Boolean, true if the environment is a CI environment
