@@ -3,7 +3,7 @@
 declare module "sap/ui/ux3/library" {
   /**
    * @deprecated (since 1.38)
-   * Experimental (since 1.2) - API is not yet finished and might change completely
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    *
    * Enumeration of available standard actions for 'sap.ui.ux3.ActionBar'. To be used as parameters for function
    * 'sap.ui.ux3.ActionBar.getSocialAction'.
@@ -57,7 +57,7 @@ declare module "sap/ui/ux3/library" {
   }
   /**
    * @deprecated (since 1.38)
-   * Experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -201,10 +201,10 @@ declare module "sap/ui/ux3/library" {
 declare module "sap/ui/ux3/ShellPersonalization" {
   /**
    * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-   * Experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
-   * experimental work and might change or disappear in future versions.
+   * @experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
+   * @experimental work and might change or disappear in future versions.
    *
-   * Experimental implementation of visual Ux3 Shell personalization / branding.
+   * @experimental implementation of visual Ux3 Shell personalization / branding.
    *
    * DO NOT USE PRODUCTIVELY!!!
    *
@@ -453,7 +453,7 @@ declare module "sap/ui/ux3/ActionBar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -466,7 +466,7 @@ declare module "sap/ui/ux3/ActionBar" {
       mParameters?: ActionBar$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -610,7 +610,7 @@ declare module "sap/ui/ux3/ActionBar" {
       oBusinessAction: ThingAction
     ): int;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM). ActionBar instance is rendered if and only
      * if 'isActive' returns 'true'. This check is called implicitely by the rendere, MUST not be removed.
@@ -1182,7 +1182,7 @@ declare module "sap/ui/ux3/Collection" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:propertyChanged propertyChanged} to attached listeners.
      *
@@ -1195,7 +1195,7 @@ declare module "sap/ui/ux3/Collection" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -1722,7 +1722,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:collectionSelected collectionSelected} to attached listeners.
      *
@@ -1735,7 +1735,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:editCollection editCollection} to attached listeners.
      *
@@ -1748,7 +1748,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelectionChanged itemSelectionChanged} to attached listeners.
      *
@@ -2093,13 +2093,13 @@ declare module "sap/ui/ux3/DataSet" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the FilterArea
      */
     _rerenderFilter(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the Toolbar
      */
@@ -2257,7 +2257,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     clearSelection(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a view switch button
      *
@@ -2327,7 +2327,7 @@ declare module "sap/ui/ux3/DataSet" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -2340,7 +2340,7 @@ declare module "sap/ui/ux3/DataSet" {
       mParameters?: DataSet$SearchEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -2365,7 +2365,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getItems(): DataSetItem[];
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the LeadSelection index
      *
@@ -2391,7 +2391,7 @@ declare module "sap/ui/ux3/DataSet" {
      */
     getSelectedIndices(): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns id of selected Item from given index
      *
@@ -2532,7 +2532,7 @@ declare module "sap/ui/ux3/DataSet" {
       iIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns true if iIndex is selected
      *
@@ -2606,7 +2606,7 @@ declare module "sap/ui/ux3/DataSet" {
       vView: int | string | DataSetView
     ): DataSetView | null;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set the LeadSelection index
      */
@@ -2920,7 +2920,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
@@ -3166,7 +3166,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     destroyTemplate(): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * View finalization: Called when leaving the view
      */
@@ -3296,7 +3296,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      */
     getTemplate(): Control;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Eventhandler for the selection of an Item
      */
@@ -3307,7 +3307,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oEvent: Event
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * View Initialization: Called when selecting the view
      */
@@ -3318,7 +3318,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aItems: any[]
     ): void;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Check if Item `oItem` is selected
      */
@@ -3524,7 +3524,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       oTemplate: Control
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * View update: Called when pagination adds items
      */
@@ -3639,7 +3639,7 @@ declare module "sap/ui/ux3/Exact" {
 
   /**
    * @deprecated (since 1.38)
-   * Experimental (since 1.2) - API is not yet finished and might change completely
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    *
    * A comprehensive UI design approach with graphical and functional elements for searching data, exploring
    * data, and acting on the data ("Explore and Act (Exact) Pattern").
@@ -3853,7 +3853,7 @@ declare module "sap/ui/ux3/Exact" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:refineSearch refineSearch} to attached listeners.
      *
@@ -3866,7 +3866,7 @@ declare module "sap/ui/ux3/Exact" {
       mParameters?: Exact$RefineSearchEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -4056,7 +4056,7 @@ declare module "sap/ui/ux3/ExactArea" {
 
   /**
    * @deprecated (since 1.38)
-   * Experimental (since 1.6) - API is not yet finished and might change completely
+   * @experimental (since 1.6) - API is not yet finished and might change completely
    *
    * Consists of two sections: A tool bar and a content area where arbitrary controls can be added. The ExactArea
    * is intended to be used for the Exact design approach but alternatively also in a stand alone version.
@@ -4484,7 +4484,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:supplyAttributes supplyAttributes} to attached listeners.
      *
@@ -4704,7 +4704,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       sListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.base.ManagedObject.prototype.setProperty
@@ -5143,7 +5143,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -5156,7 +5156,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       mParameters?: ExactBrowser$AttributeSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -5824,7 +5824,7 @@ declare module "sap/ui/ux3/ExactList" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
@@ -6401,7 +6401,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -6692,7 +6692,7 @@ declare module "sap/ui/ux3/Feed" {
 
   /**
    * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
-   * Experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -7166,7 +7166,7 @@ declare module "sap/ui/ux3/Feed" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:chunkAdded chunkAdded} to attached listeners.
      *
@@ -7179,7 +7179,7 @@ declare module "sap/ui/ux3/Feed" {
       mParameters?: Feed$ChunkAddedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filterChange filterChange} to attached listeners.
      *
@@ -7192,7 +7192,7 @@ declare module "sap/ui/ux3/Feed" {
       mParameters?: Feed$FilterChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -7205,7 +7205,7 @@ declare module "sap/ui/ux3/Feed" {
       mParameters?: Feed$SearchEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleLive toggleLive} to attached listeners.
      *
@@ -7218,7 +7218,7 @@ declare module "sap/ui/ux3/Feed" {
       mParameters?: Feed$ToggleLiveEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toolsItemSelected toolsItemSelected} to attached listeners.
      *
@@ -7649,7 +7649,7 @@ declare module "sap/ui/ux3/FeedChunk" {
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
-   * Experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -8352,7 +8352,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionItemSelected actionItemSelected} to attached listeners.
      *
@@ -8365,7 +8365,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: FeedChunk$ActionItemSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:commentAdded commentAdded} to attached listeners.
      *
@@ -8378,7 +8378,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: FeedChunk$CommentAddedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:deleted deleted} to attached listeners.
      *
@@ -8391,7 +8391,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:inspect inspect} to attached listeners.
      *
@@ -8404,7 +8404,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:referenceClicked referenceClicked} to attached listeners.
      *
@@ -8417,7 +8417,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: FeedChunk$ReferenceClickedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:senderClicked senderClicked} to attached listeners.
      *
@@ -8430,7 +8430,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleFavorite toggleFavorite} to attached listeners.
      *
@@ -8443,7 +8443,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: FeedChunk$ToggleFavoriteEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleFlagged toggleFlagged} to attached listeners.
      *
@@ -8456,7 +8456,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       mParameters?: FeedChunk$ToggleFlaggedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleShared toggleShared} to attached listeners.
      *
@@ -9250,7 +9250,7 @@ declare module "sap/ui/ux3/Feeder" {
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
-   * Experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    *
@@ -9382,7 +9382,7 @@ declare module "sap/ui/ux3/Feeder" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:submit submit} to attached listeners.
      *
@@ -9716,7 +9716,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -10453,7 +10453,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:display display} to attached listeners.
      *
@@ -10467,7 +10467,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     ): this;
     /**
      * @since 1.12.2
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -10872,7 +10872,7 @@ declare module "sap/ui/ux3/Notifier" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageSelected messageSelected} to attached listeners.
      *
@@ -11358,7 +11358,7 @@ declare module "sap/ui/ux3/Overlay" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -11374,7 +11374,7 @@ declare module "sap/ui/ux3/Overlay" {
       mParameters?: Overlay$CloseEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -11390,7 +11390,7 @@ declare module "sap/ui/ux3/Overlay" {
       mParameters?: Overlay$ClosedEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -11403,7 +11403,7 @@ declare module "sap/ui/ux3/Overlay" {
       mParameters?: Overlay$OpenEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:openNew openNew} to attached listeners.
      *
@@ -12243,7 +12243,7 @@ declare module "sap/ui/ux3/QuickView" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -12256,7 +12256,7 @@ declare module "sap/ui/ux3/QuickView" {
       mParameters?: QuickView$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -12269,7 +12269,7 @@ declare module "sap/ui/ux3/QuickView" {
       mParameters?: QuickView$FeedSubmitEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -13563,7 +13563,7 @@ declare module "sap/ui/ux3/Shell" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -13576,7 +13576,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:logout logout} to attached listeners.
      *
@@ -13589,7 +13589,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paneBarItemSelected paneBarItemSelected} to attached listeners.
      *
@@ -13603,7 +13603,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * @since 1.12.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:paneClosed paneClosed} to attached listeners.
      *
@@ -13616,7 +13616,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: Shell$PaneClosedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -13629,7 +13629,7 @@ declare module "sap/ui/ux3/Shell" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:worksetItemSelected worksetItemSelected} to attached listeners.
      *
@@ -13948,7 +13948,7 @@ declare module "sap/ui/ux3/Shell" {
       oWorksetItem: NavigationItem
     ): int;
     /**
-     * Experimental method! Do not use!
+     * @experimental method! Do not use!
      *
      * Makes Shell personalization available and injects the given personalization settings. This should be
      * called before the user can do any adaptations per drag&drop or using the personalization dialog. Otherwise
@@ -14083,7 +14083,7 @@ declare module "sap/ui/ux3/Shell" {
       sPaneBarItemId: string
     ): this;
     /**
-     * Experimental method! Do not use!
+     * @experimental method! Do not use!
      */
     openPersonalizationDialog(): void;
     /**
@@ -14387,7 +14387,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * @since 1.7.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Moves the complete Shell away from the right window border by the given number of pixels (left border
      * in RTL case).
@@ -14975,7 +14975,7 @@ declare module "sap/ui/ux3/ThingAction" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -15727,7 +15727,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
@@ -15740,7 +15740,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       mParameters?: ThingInspector$ActionSelectedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -15756,7 +15756,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       mParameters?: ThingInspector$FacetSelectedEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
      *
@@ -16725,7 +16725,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
      *
@@ -17749,7 +17749,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -17765,7 +17765,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -17778,7 +17778,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:enter enter} to attached listeners.
      *
@@ -17791,7 +17791,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: ToolPopup$EnterEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:iconChanged iconChanged} to attached listeners.
      *
@@ -17804,7 +17804,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -17818,7 +17818,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): this;
     /**
      * @since 1.19.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *

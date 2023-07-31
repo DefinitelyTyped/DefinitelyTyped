@@ -33,3 +33,13 @@ cy.happoHideDynamicElements({
     defaultSelectors: ['iframe'],
     replace: true,
 });
+
+// $ExpectType void
+cy.get('foo').happoScreenshot({
+    component: 'Header',
+    targets: ['chrome-desktop', {
+        name: 'dynamic-target',
+        browser: 'chrome',
+        viewport: '100x100',
+    }],
+});

@@ -161,6 +161,7 @@ testmax.showcursor();
 testmax.showmenubar();
 testmax.size();
 testmax.system('windows', 'my_message');
+testmax.message("hidecursor");
 testmax.useslowbutcompletesearching(1);
 
 // Create a new Maxobj
@@ -358,7 +359,8 @@ myMGraphics.show_text('Hello');
 myMGraphics.text_path('Hello');
 const fontExtents = myMGraphics.font_extents();
 post(fontExtents);
-const textMeasure = myMGraphics.text_measure();
+const textMeasure = myMGraphics.text_measure("my-string");
+const [width, height] = textMeasure;
 post(textMeasure);
 const fontlist = myMGraphics.getfontlist();
 post(fontlist);

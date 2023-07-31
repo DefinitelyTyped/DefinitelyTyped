@@ -208,12 +208,6 @@ interface RTCRtpContributingSource {
     readonly voiceActivityFlag?: boolean | undefined;
 }
 
-// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
-interface RTCRtcCapabilities {
-    codecs: RTCRtpCodecCapability[];
-    headerExtensions: RTCRtpHeaderExtensionCapability[];
-}
-
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpsender
 interface RTCRtpSender {
     //readonly track?: MediaStreamTrack;

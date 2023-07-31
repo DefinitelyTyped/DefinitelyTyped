@@ -3,7 +3,7 @@
 declare module "sap/ui/webc/main/library" {
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarColorScheme.
    */
@@ -32,7 +32,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarGroupType.
    */
@@ -49,7 +49,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarShape.
    */
@@ -65,7 +65,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarSize.
    */
@@ -93,7 +93,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Defines background designs.
    */
@@ -113,7 +113,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Defines border designs.
    */
@@ -129,7 +129,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Different Breadcrumbs designs.
    */
@@ -146,7 +146,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Different Breadcrumbs separator styles.
    */
@@ -178,7 +178,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different BusyIndicator sizes.
    */
@@ -198,7 +198,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different Button designs.
    */
@@ -230,7 +230,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different Calendar selection mode.
    */
@@ -250,7 +250,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different Carousel arrows placement.
    */
@@ -266,7 +266,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Different Carousel page indicator styles.
    */
@@ -284,7 +284,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Different filtering types of the ComboBox.
    */
@@ -308,7 +308,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.99.0
-   * Experimental (since 1.99.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Different types of HasPopup.
    */
@@ -336,7 +336,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an avatar and may be slotted in numerous higher-order components
    * such as `ui5-avatar-group`
@@ -347,7 +347,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-breadcrumbs` as options
    */
@@ -357,7 +357,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used as a button inside numerous higher-order components
    */
@@ -367,7 +367,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used as dates inside `ui5-calendar`
    */
@@ -377,7 +377,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-card` as header
    */
@@ -387,7 +387,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used inside a `ui5-color-palette` or `ui5-color-palette-popover`
    */
@@ -397,7 +397,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-combobox`
    */
@@ -407,7 +407,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Different Icon semantic designs.
    */
@@ -447,7 +447,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an icon, usable in numerous higher-order components
    */
@@ -457,7 +457,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an input, usable in numerous higher-order components
    */
@@ -467,7 +467,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent a suggestion item, usable in `ui5-input`
    */
@@ -477,7 +477,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-list` as items
    */
@@ -487,7 +487,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.102.0
-   * Experimental (since 1.102.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.102.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-menu` as items
    */
@@ -497,7 +497,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-multi-combobox` as items
    */
@@ -507,7 +507,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different input types.
    */
@@ -539,7 +539,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-segmented-button` as items
    */
@@ -549,7 +549,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-select` as options
    */
@@ -559,7 +559,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-tabcontainer`
    */
@@ -569,7 +569,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table-row` as cells
    */
@@ -579,7 +579,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table` as columns
    */
@@ -589,7 +589,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table` as rows
    */
@@ -599,7 +599,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent a token and are usable in components such as `ui5-multi-input`
    */
@@ -609,7 +609,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for tree items for the purpose of `ui5-tree`
    */
@@ -619,7 +619,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different link designs.
    */
@@ -639,7 +639,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different list growing modes.
    */
@@ -659,7 +659,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different list item types.
    */
@@ -684,7 +684,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different list modes.
    */
@@ -721,7 +721,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of list items separators.
    */
@@ -741,7 +741,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * MessageStrip designs.
    */
@@ -765,7 +765,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Panel accessible roles.
    */
@@ -788,7 +788,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Popover horizontal align types.
    */
@@ -812,7 +812,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Popover placement types.
    */
@@ -836,7 +836,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Popover vertical align types.
    */
@@ -858,7 +858,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Popup accessible roles.
    */
@@ -878,7 +878,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Priority.
    */
@@ -902,7 +902,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Different SegmentedButton modes.
    */
@@ -918,7 +918,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of SemanticColor.
    */
@@ -946,7 +946,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Switch designs.
    */
@@ -962,7 +962,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Background design for the header and content of TabContainer.
    */
@@ -982,7 +982,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Tab layout of TabContainer.
    */
@@ -998,7 +998,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
    *
    * Table cell popin display.
    */
@@ -1014,7 +1014,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different table growing modes.
    */
@@ -1034,7 +1034,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different table modes.
    */
@@ -1054,7 +1054,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different table row types.
    */
@@ -1070,7 +1070,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.99.0
-   * Experimental (since 1.99.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Tabs overflow mode in TabContainer.
    */
@@ -1086,7 +1086,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Title level.
    */
@@ -1118,7 +1118,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Toast placement.
    */
@@ -1162,7 +1162,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of wrapping.
    */
@@ -1201,7 +1201,7 @@ declare module "sap/ui/webc/main/Avatar" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -1357,7 +1357,7 @@ declare module "sap/ui/webc/main/Avatar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -1820,7 +1820,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2080,7 +2080,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -2093,7 +2093,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       mParameters?: AvatarGroup$ClickEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:overflow overflow} to attached listeners.
      *
@@ -2306,7 +2306,7 @@ declare module "sap/ui/webc/main/Badge" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2562,7 +2562,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Enables users to navigate between items by providing a list of links to previous steps in the
    * user's navigation path. It helps the user to be aware of their location within the application and allows
@@ -2731,7 +2731,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -2987,7 +2987,7 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -3244,7 +3244,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -3655,7 +3655,7 @@ declare module "sap/ui/webc/main/Button" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -3826,7 +3826,7 @@ declare module "sap/ui/webc/main/Button" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -4330,7 +4330,7 @@ declare module "sap/ui/webc/main/Calendar" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -4558,7 +4558,7 @@ declare module "sap/ui/webc/main/Calendar" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectedDatesChange selectedDatesChange} to attached listeners.
      *
@@ -4956,7 +4956,7 @@ declare module "sap/ui/webc/main/CalendarDate" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -5083,7 +5083,7 @@ declare module "sap/ui/webc/main/Card" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -5470,7 +5470,7 @@ declare module "sap/ui/webc/main/CardHeader" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -5654,7 +5654,7 @@ declare module "sap/ui/webc/main/CardHeader" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -5957,7 +5957,7 @@ declare module "sap/ui/webc/main/Carousel" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Carousel allows the user to browse through a set of items. The component is mostly used
    * for showing a gallery of images, but can hold any other HTML element.
@@ -6139,7 +6139,7 @@ declare module "sap/ui/webc/main/Carousel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:navigate navigate} to attached listeners.
      *
@@ -6689,7 +6689,7 @@ declare module "sap/ui/webc/main/CheckBox" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -6864,7 +6864,7 @@ declare module "sap/ui/webc/main/CheckBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -7385,7 +7385,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ColorPalette` provides the users with a range of predefined colors. The
    * colors are fixed and do not change with the theme.
@@ -7537,7 +7537,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -7647,7 +7647,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -7777,7 +7777,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
 
   /**
    * @since 1.97.0
-   * Experimental (since 1.97.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Represents a predefined range of colors for easier selection.
    *
@@ -7936,7 +7936,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -8195,7 +8195,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ColorPicker` allows users to choose any color and provides different
    * input options for selecting colors.
@@ -8332,7 +8332,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -8419,7 +8419,7 @@ declare module "sap/ui/webc/main/ComboBox" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -8755,7 +8755,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -8768,7 +8768,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -8781,7 +8781,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -9389,7 +9389,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.ComboBoxGroupItem` is type of suggestion item, that can be used to split the `sap.ui.webc.main.ComboBox`
    * suggestions into groups.
@@ -9509,7 +9509,7 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.ComboBoxItem` represents the item for a `sap.ui.webc.main.ComboBox`.
    */
@@ -9667,7 +9667,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * A component to be used as custom list item within the `sap.ui.webc.main.List` the same way as the standard
    * `sap.ui.webc.main.StandardListItem`.
@@ -9824,7 +9824,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *
@@ -10100,7 +10100,7 @@ declare module "sap/ui/webc/main/DatePicker" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -10366,7 +10366,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -10382,7 +10382,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       mParameters?: DatePicker$ChangeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -11135,7 +11135,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The DateRangePicker enables the users to enter a localized date range using touch, mouse, keyboard
    * input, or by selecting a date range in the calendar.
@@ -11360,7 +11360,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -11376,7 +11376,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       mParameters?: DateRangePicker$ChangeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -12178,7 +12178,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `DateTimePicker` component alows users to select both date (day, month and year) and time
    * (hours, minutes and seconds) and for the purpose it consists of input field and Date/Time picker.
@@ -12438,7 +12438,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -12454,7 +12454,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       mParameters?: DateTimePicker$ChangeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -13210,7 +13210,7 @@ declare module "sap/ui/webc/main/Dialog" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Dialog` component is used to temporarily display some information in
    * a size-limited window in front of the regular app screen. It is used to prompt the user for an action
@@ -13631,7 +13631,7 @@ declare module "sap/ui/webc/main/Dialog" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -13644,7 +13644,7 @@ declare module "sap/ui/webc/main/Dialog" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -13657,7 +13657,7 @@ declare module "sap/ui/webc/main/Dialog" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -13673,7 +13673,7 @@ declare module "sap/ui/webc/main/Dialog" {
       mParameters?: Dialog$BeforeCloseEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -14426,7 +14426,7 @@ declare module "sap/ui/webc/main/FileUploader" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -14587,7 +14587,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -15081,7 +15081,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.GroupHeaderListItem` is a special list item, used only to separate other list items
    * into logical groups.
@@ -15272,7 +15272,7 @@ declare module "sap/ui/webc/main/Icon" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -15464,7 +15464,7 @@ declare module "sap/ui/webc/main/Icon" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -15963,7 +15963,7 @@ declare module "sap/ui/webc/main/Input" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -16369,7 +16369,7 @@ declare module "sap/ui/webc/main/Input" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -16382,7 +16382,7 @@ declare module "sap/ui/webc/main/Input" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -16395,7 +16395,7 @@ declare module "sap/ui/webc/main/Input" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
      *
@@ -16408,7 +16408,7 @@ declare module "sap/ui/webc/main/Input" {
       mParameters?: Input$SuggestionItemPreviewEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
      *
@@ -17224,7 +17224,7 @@ declare module "sap/ui/webc/main/Label" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -17535,7 +17535,7 @@ declare module "sap/ui/webc/main/Link" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Link` is a hyperlink component that is used to navigate to other apps
    * and web pages, or to trigger actions. It is a clickable text element, visualized in such a way that it
@@ -17693,7 +17693,7 @@ declare module "sap/ui/webc/main/Link" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -18204,7 +18204,7 @@ declare module "sap/ui/webc/main/List" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -18744,7 +18744,7 @@ declare module "sap/ui/webc/main/List" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -18760,7 +18760,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: List$ItemClickEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClose itemClose} to attached listeners.
      *
@@ -18773,7 +18773,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: List$ItemCloseEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
      *
@@ -18786,7 +18786,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: List$ItemDeleteEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemToggle itemToggle} to attached listeners.
      *
@@ -18799,7 +18799,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: List$ItemToggleEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      *
@@ -18812,7 +18812,7 @@ declare module "sap/ui/webc/main/List" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -19603,7 +19603,7 @@ declare module "sap/ui/webc/main/Menu" {
 
   /**
    * @since 1.102.0
-   * Experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -20021,7 +20021,7 @@ declare module "sap/ui/webc/main/Menu" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -20034,7 +20034,7 @@ declare module "sap/ui/webc/main/Menu" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -20047,7 +20047,7 @@ declare module "sap/ui/webc/main/Menu" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -20063,7 +20063,7 @@ declare module "sap/ui/webc/main/Menu" {
       mParameters?: Menu$BeforeCloseEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -20079,7 +20079,7 @@ declare module "sap/ui/webc/main/Menu" {
       mParameters?: Menu$BeforeOpenEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -20405,7 +20405,7 @@ declare module "sap/ui/webc/main/MenuItem" {
 
   /**
    * @since 1.102.0
-   * Experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -20863,7 +20863,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -21008,7 +21008,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -21293,7 +21293,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -21692,7 +21692,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -21705,7 +21705,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -21718,7 +21718,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:openChange openChange} to attached listeners.
      *
@@ -21731,7 +21731,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -22388,7 +22388,7 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.MultiComboBoxGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.MultiComboBox` suggestions into groups.
@@ -22509,7 +22509,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.MultiComboBoxItem` represents the item for a `sap.ui.webc.main.MultiComboBox`.
    */
@@ -22712,7 +22712,7 @@ declare module "sap/ui/webc/main/MultiInput" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: A `sap.ui.webc.main.MultiInput` field allows the user to enter multiple values, which are displayed
    * as `sap.ui.webc.main.Token`.
@@ -23238,7 +23238,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -23251,7 +23251,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -23264,7 +23264,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
      *
@@ -23277,7 +23277,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: MultiInput$SuggestionItemPreviewEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
      *
@@ -23290,7 +23290,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: MultiInput$SuggestionItemSelectEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:tokenDelete tokenDelete} to attached listeners.
      *
@@ -23303,7 +23303,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       mParameters?: MultiInput$TokenDeleteEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:valueHelpTrigger valueHelpTrigger} to attached listeners.
      *
@@ -24237,7 +24237,7 @@ declare module "sap/ui/webc/main/Option" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -24528,7 +24528,7 @@ declare module "sap/ui/webc/main/Panel" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -24727,7 +24727,7 @@ declare module "sap/ui/webc/main/Panel" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggle toggle} to attached listeners.
      *
@@ -25210,7 +25210,7 @@ declare module "sap/ui/webc/main/Popover" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -25621,7 +25621,7 @@ declare module "sap/ui/webc/main/Popover" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -25634,7 +25634,7 @@ declare module "sap/ui/webc/main/Popover" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -25647,7 +25647,7 @@ declare module "sap/ui/webc/main/Popover" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -25663,7 +25663,7 @@ declare module "sap/ui/webc/main/Popover" {
       mParameters?: Popover$BeforeCloseEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -26535,7 +26535,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Shows the progress of a process in a graphical way. To indicate the progress, the inside of
    * the component is filled with a color.
@@ -26866,7 +26866,7 @@ declare module "sap/ui/webc/main/RadioButton" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -27024,7 +27024,7 @@ declare module "sap/ui/webc/main/RadioButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -27532,7 +27532,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Represents a numerical interval and two handles (grips) to select a sub-range within it. The
    * purpose of the component to enable visual selection of sub-ranges within a given interval.
@@ -27767,7 +27767,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -27780,7 +27780,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -28216,7 +28216,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Rating Indicator is used to display a specific number of icons that are used to rate an
    * item. Additionally, it is also used to display the average and overall ratings.
@@ -28370,7 +28370,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -28632,7 +28632,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ResponsivePopover` acts as a Popover on desktop and tablet, while on
    * phone it acts as a Dialog. The component improves tremendously the user experience on mobile.
@@ -29040,7 +29040,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      *
@@ -29053,7 +29053,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
      *
@@ -29066,7 +29066,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
      *
@@ -29082,7 +29082,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mParameters?: ResponsivePopover$BeforeCloseEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -29908,7 +29908,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -30065,7 +30065,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -30088,7 +30088,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      */
     getAccessibleName(): string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * `SegmentedButton` must not be stretched in Form because ResizeHandler is used internally in order to
      * manage the width of the SegmentedButton depending on the container size
@@ -30329,7 +30329,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -30484,7 +30484,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -30924,7 +30924,7 @@ declare module "sap/ui/webc/main/Select" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Select` component is used to create a drop-down list. The items inside
    * the `sap.ui.webc.main.Select` define the available options by using the `sap.ui.webc.main.Option` component.
@@ -31218,7 +31218,7 @@ declare module "sap/ui/webc/main/Select" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -31234,7 +31234,7 @@ declare module "sap/ui/webc/main/Select" {
       mParameters?: Select$ChangeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -31247,7 +31247,7 @@ declare module "sap/ui/webc/main/Select" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -31703,7 +31703,7 @@ declare module "sap/ui/webc/main/Slider" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Slider component represents a numerical range and a handle (grip). The purpose of the component
    * is to enable visual selection of a value in a continuous numerical range by moving an adjustable handle.
@@ -31943,7 +31943,7 @@ declare module "sap/ui/webc/main/Slider" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -31956,7 +31956,7 @@ declare module "sap/ui/webc/main/Slider" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -32352,7 +32352,7 @@ declare module "sap/ui/webc/main/SplitButton" {
 
   /**
    * @since 1.99.0
-   * Experimental (since 1.99.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -32570,7 +32570,7 @@ declare module "sap/ui/webc/main/SplitButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:arrowClick arrowClick} to attached listeners.
      *
@@ -32583,7 +32583,7 @@ declare module "sap/ui/webc/main/SplitButton" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -32886,7 +32886,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.StandardListItem` represents the simplest type of item for a `sap.ui.webc.main.List`.
    *
@@ -33052,7 +33052,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *
@@ -33567,7 +33567,7 @@ declare module "sap/ui/webc/main/StepInput" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -33733,7 +33733,7 @@ declare module "sap/ui/webc/main/StepInput" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -34303,7 +34303,7 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.SuggestionGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.Input` suggestions into groups.
@@ -34425,7 +34425,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.SuggestionItem` represents the suggestion item of the `sap.ui.webc.main.Input`.
    */
@@ -34803,7 +34803,7 @@ declare module "sap/ui/webc/main/Switch" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Switch` component is used for changing between binary states.
    *  The component can display texts, that will be switched, based on the component state, via the `textOn`
@@ -34960,7 +34960,7 @@ declare module "sap/ui/webc/main/Switch" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -35304,7 +35304,7 @@ declare module "sap/ui/webc/main/Tab" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.Tab` represents a selectable item inside a `sap.ui.webc.main.TabContainer`. It
    * defines both the item in the tab strip (top part of the `sap.ui.webc.main.TabContainer`) and the content
@@ -35812,7 +35812,7 @@ declare module "sap/ui/webc/main/TabContainer" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35993,7 +35993,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:tabSelect tabSelect} to attached listeners.
      *
@@ -36578,7 +36578,7 @@ declare module "sap/ui/webc/main/Table" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -36987,7 +36987,7 @@ declare module "sap/ui/webc/main/Table" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      *
@@ -37000,7 +37000,7 @@ declare module "sap/ui/webc/main/Table" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:popinChange popinChange} to attached listeners.
      *
@@ -37013,7 +37013,7 @@ declare module "sap/ui/webc/main/Table" {
       mParameters?: Table$PopinChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rowClick rowClick} to attached listeners.
      *
@@ -37026,7 +37026,7 @@ declare module "sap/ui/webc/main/Table" {
       mParameters?: Table$RowClickEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -37785,7 +37785,7 @@ declare module "sap/ui/webc/main/TableCell" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -37964,7 +37964,7 @@ declare module "sap/ui/webc/main/TableColumn" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38317,7 +38317,7 @@ declare module "sap/ui/webc/main/TableGroupRow" {
 
   /**
    * @since 1.95.0
-   * Experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38450,7 +38450,7 @@ declare module "sap/ui/webc/main/TableRow" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38743,7 +38743,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.TabSeparator` represents a vertical line to separate tabs inside a `sap.ui.webc.main.TabContainer`.
    */
@@ -38844,7 +38844,7 @@ declare module "sap/ui/webc/main/TextArea" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -39058,7 +39058,7 @@ declare module "sap/ui/webc/main/TextArea" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -39071,7 +39071,7 @@ declare module "sap/ui/webc/main/TextArea" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -39747,7 +39747,7 @@ declare module "sap/ui/webc/main/TimePicker" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.TimePicker` component provides an input field with assigned sliders which
    * are opened on user action. The `sap.ui.webc.main.TimePicker` allows users to select a localized time
@@ -39988,7 +39988,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -40001,7 +40001,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       mParameters?: TimePicker$ChangeEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:input input} to attached listeners.
      *
@@ -40423,7 +40423,7 @@ declare module "sap/ui/webc/main/Title" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -40651,7 +40651,7 @@ declare module "sap/ui/webc/main/Toast" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -40959,7 +40959,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -41110,7 +41110,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:click click} to attached listeners.
      *
@@ -41603,7 +41603,7 @@ declare module "sap/ui/webc/main/Token" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -41752,7 +41752,7 @@ declare module "sap/ui/webc/main/Token" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -41967,7 +41967,7 @@ declare module "sap/ui/webc/main/Tree" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Tree` component provides a tree structure for displaying data in a hierarchy.
    *
@@ -42492,7 +42492,7 @@ declare module "sap/ui/webc/main/Tree" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
@@ -42508,7 +42508,7 @@ declare module "sap/ui/webc/main/Tree" {
       mParameters?: Tree$ItemClickEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
      *
@@ -42521,7 +42521,7 @@ declare module "sap/ui/webc/main/Tree" {
       mParameters?: Tree$ItemDeleteEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemMouseout itemMouseout} to attached listeners.
      *
@@ -42534,7 +42534,7 @@ declare module "sap/ui/webc/main/Tree" {
       mParameters?: Tree$ItemMouseoutEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemMouseover itemMouseover} to attached listeners.
      *
@@ -42547,7 +42547,7 @@ declare module "sap/ui/webc/main/Tree" {
       mParameters?: Tree$ItemMouseoverEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemToggle itemToggle} to attached listeners.
      *
@@ -42563,7 +42563,7 @@ declare module "sap/ui/webc/main/Tree" {
       mParameters?: Tree$ItemToggleEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -43122,7 +43122,7 @@ declare module "sap/ui/webc/main/TreeItem" {
 
   /**
    * @since 1.92.0
-   * Experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.TreeItem` represents a node in a tree structure, shown as a `sap.ui.webc.main.List`.
    *
@@ -43286,7 +43286,7 @@ declare module "sap/ui/webc/main/TreeItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *
@@ -43834,7 +43834,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
 
   /**
    * @since 1.115.0
-   * Experimental (since 1.115.0) - This control is experimental and its API might change significantly.
+   * @experimental (since 1.115.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.TreeItemCustom` represents a node in a tree structure, shown as a `sap.ui.webc.main.List`.
    *
@@ -44019,7 +44019,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      *

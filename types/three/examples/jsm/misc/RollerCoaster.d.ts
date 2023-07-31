@@ -1,19 +1,24 @@
-import { BufferGeometry, Curve, Mesh, Vector3 } from '../../../src/Three.js';
+import { BufferGeometry, Mesh, Vector3 } from '../../../src/Three.js';
+
+interface Curve {
+    getPointAt(u: number): Vector3;
+    getTangentAt(u: number): Vector3;
+}
 
 export class RollerCoasterGeometry extends BufferGeometry {
-    constructor(curve: Curve<Vector3>, divisions: number);
+    constructor(curve: Curve, divisions: number);
 }
 
 export class RollerCoasterLiftersGeometry extends BufferGeometry {
-    constructor(curve: Curve<Vector3>, divisions: number);
+    constructor(curve: Curve, divisions: number);
 }
 
 export class RollerCoasterShadowGeometry extends BufferGeometry {
-    constructor(curve: Curve<Vector3>, divisions: number);
+    constructor(curve: Curve, divisions: number);
 }
 
 export class SkyGeometry extends BufferGeometry {
-    constructor(curve: Curve<Vector3>, divisions: number);
+    constructor();
 }
 
 export class TreesGeometry extends BufferGeometry {
