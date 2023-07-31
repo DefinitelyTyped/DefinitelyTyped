@@ -21,6 +21,10 @@ declare global {
 declare namespace Flickity {
     type FlickityEvents =
         /**
+         * Triggered after Flickity has been activated.
+         */
+        "ready" |
+        /**
          * Triggered when a slide is selected.
          * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
          */

@@ -97,6 +97,10 @@ flikty2.destroy();
 flikty2.reloadCells();
 
 // event handlers
+flikty2.on("ready", () => {
+    // do something
+});
+
 flikty2.on("cellSelect", (evt, ele) => {
     // do something
 });
