@@ -6,7 +6,7 @@ import {
     IoTPreProvisioningHookResult,
 } from 'aws-lambda';
 
-const handler: IoTHandler = async (event, context, callback) => {};
+const handler: IoTHandler = async (event, context, callback,) => {};
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/services-iot.html
 
@@ -20,7 +20,7 @@ const eventString: IoTEvent = 'AWS Lambda IoT Event';
 
 const eventNumber: IoTEvent = 100;
 
-const eventArray: IoTEvent<any[]> = [eventObject, eventString, eventNumber];
+const eventArray: IoTEvent<any[]> = [eventObject, eventString, eventNumber,];
 
 // PreProvisioningHook
 // https://docs.aws.amazon.com/iot/latest/developerguide/pre-provisioning-hook.html
@@ -42,6 +42,6 @@ const preProvisioningHookResult: IoTPreProvisioningHookResult = {
         key: 'new value',
     },
 };
-const preProvisioningHookHandler: IoTPreProvisioningHookHandler = async (event, context, callback) => {
+const preProvisioningHookHandler: IoTPreProvisioningHookHandler = async (event, context, callback,) => {
     return preProvisioningHookResult;
 };

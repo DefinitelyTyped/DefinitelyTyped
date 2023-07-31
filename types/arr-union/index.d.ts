@@ -3,6 +3,6 @@
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function union<T>(...arrays: Array<ArrayLike<T>>): T[];
+declare function union<T,>(...arrays: Array<ArrayLike<T>>): T[];
 
 export = union;

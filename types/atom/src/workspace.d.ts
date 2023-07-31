@@ -19,68 +19,68 @@ export interface Workspace {
      *  Invoke the given callback with all current and future text editors in
      *  the workspace.
      */
-    observeTextEditors(callback: (editor: TextEditor) => void): Disposable;
+    observeTextEditors(callback: (editor: TextEditor,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with all current and future panes items in the
      *  workspace.
      */
-    observePaneItems(callback: (item: object) => void): Disposable;
+    observePaneItems(callback: (item: object,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane item changes. */
-    onDidChangeActivePaneItem(callback: (item: object) => void): Disposable;
+    onDidChangeActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane item stops changing. */
-    onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
+    onDidStopChangingActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /**
      *  Invoke the given callback when a text editor becomes the active text editor and
      *  when there is no longer an active text editor.
      */
-    onDidChangeActiveTextEditor(callback: (editor?: TextEditor) => void): Disposable;
+    onDidChangeActiveTextEditor(callback: (editor?: TextEditor,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane item and with all
      *  future active pane items in the workspace.
      */
-    observeActivePaneItem(callback: (item: object) => void): Disposable;
+    observeActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with the current active text editor (if any), with all
      *  future active text editors, and when there is no longer an active text editor.
      */
-    observeActiveTextEditor(callback: (editor?: TextEditor) => void): Disposable;
+    observeActiveTextEditor(callback: (editor?: TextEditor,) => void,): Disposable;
 
     /**
      *  Invoke the given callback whenever an item is opened. Unlike ::onDidAddPaneItem,
      *  observers will be notified for items that are already present in the workspace
      *  when they are reopened.
      */
-    onDidOpen(callback: (event: PaneItemOpenedEvent) => void): Disposable;
+    onDidOpen(callback: (event: PaneItemOpenedEvent,) => void,): Disposable;
 
     /** Invoke the given callback when a pane is added to the workspace. */
-    onDidAddPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onDidAddPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback before a pane is destroyed in the workspace. */
-    onWillDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onWillDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback when a pane is destroyed in the workspace. */
-    onDidDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onDidDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback with all current and future panes in the workspace. */
-    observePanes(callback: (pane: Pane) => void): Disposable;
+    observePanes(callback: (pane: Pane,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane changes. */
-    onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
+    onDidChangeActivePane(callback: (pane: Pane,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane and when the
      *  active pane changes.
      */
-    observeActivePane(callback: (pane: Pane) => void): Disposable;
+    observeActivePane(callback: (pane: Pane,) => void,): Disposable;
 
     /** Invoke the given callback when a pane item is added to the workspace. */
-    onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onDidAddPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
 
     /**
      *  Invoke the given callback when a pane item is about to be destroyed,
@@ -89,13 +89,13 @@ export interface Workspace {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void | Promise<void>,): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
-    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
 
     /** Invoke the given callback when a text editor is added to the workspace. */
-    onDidAddTextEditor(callback: (event: TextEditorObservedEvent) => void): Disposable;
+    onDidAddTextEditor(callback: (event: TextEditorObservedEvent,) => void,): Disposable;
 
     // Opening
     /**
@@ -103,13 +103,13 @@ export interface Workspace {
      *  the existing item for that URI will be activated. If no URI is given, or
      *  no registered opener can open the URI, a new empty TextEditor will be created.
      */
-    open(uri: string, options?: WorkspaceOpenOptions): Promise<object>;
+    open(uri: string, options?: WorkspaceOpenOptions,): Promise<object>;
     /**
      *  Opens the given item in Atom asynchronously. If the item is already open,
      *  the existing item will be activated. If no item is given, a new empty TextEditor
      *  will be created.
      */
-    open<T extends ViewModel = ViewModel>(item: T, options?: WorkspaceOpenOptions): Promise<T>;
+    open<T extends ViewModel = ViewModel,>(item: T, options?: WorkspaceOpenOptions,): Promise<T>;
     /**
      *  Opens the given URI in Atom asynchronously. If the URI is already open,
      *  the existing item for that URI will be activated. If no URI is given, or
@@ -121,24 +121,24 @@ export interface Workspace {
      *  Search the workspace for items matching the given URI and hide them.
      *  Returns a boolean indicating whether any items were found (and hidden).
      */
-    hide(itemOrURI: object | string): boolean;
+    hide(itemOrURI: object | string,): boolean;
 
     /**
      *  Search the workspace for items matching the given URI. If any are found,
      *  hide them. Otherwise, open the URL.
      *  Returns a Promise that resolves when the item is shown or hidden.
      */
-    toggle(itemOrURI: object | string): Promise<void>;
+    toggle(itemOrURI: object | string,): Promise<void>;
 
     /**
      *  Creates a new item that corresponds to the provided URI.
      *  If no URI is given, or no registered opener can open the URI, a new empty TextEditor
      *  will be created.
      */
-    createItemForURI(uri: string): Promise<object | TextEditor>;
+    createItemForURI(uri: string,): Promise<object | TextEditor>;
 
     /** Returns a boolean that is true if object is a TextEditor. */
-    isTextEditor(object: object): object is TextEditor;
+    isTextEditor(object: object,): object is TextEditor;
 
     /**
      *  Asynchronously reopens the last-closed item's URI if it hasn't already
@@ -147,10 +147,10 @@ export interface Workspace {
     reopenItem(): Promise<object | undefined>;
 
     /** Register an opener for a URI. */
-    addOpener(opener: (uri: string, options?: WorkspaceOpenOptions) => ViewModel | undefined): Disposable;
+    addOpener(opener: (uri: string, options?: WorkspaceOpenOptions,) => ViewModel | undefined,): Disposable;
 
     /** Create a new text editor. */
-    buildTextEditor(params: object): TextEditor;
+    buildTextEditor(params: object,): TextEditor;
 
     // Pane Items
     /** Get all pane items in the workspace. */
@@ -182,16 +182,16 @@ export interface Workspace {
     activatePreviousPane(): boolean;
 
     /** Get the first pane container that contains an item with the given URI. */
-    paneContainerForURI(uri: string): Dock | WorkspaceCenter | undefined;
+    paneContainerForURI(uri: string,): Dock | WorkspaceCenter | undefined;
 
     /** Get the first pane container that contains the given item. */
-    paneContainerForItem(item: object): Dock | WorkspaceCenter | undefined;
+    paneContainerForItem(item: object,): Dock | WorkspaceCenter | undefined;
 
     /** Get the first Pane with an item for the given URI. */
-    paneForURI(uri: string): Pane | undefined;
+    paneForURI(uri: string,): Pane | undefined;
 
     /** Get the Pane containing the given item. */
-    paneForItem(item: object): Pane | undefined;
+    paneForItem(item: object,): Pane | undefined;
 
     // Pane Locations
     /** Get the WorkspaceCenter at the center of the editor window. */
@@ -207,70 +207,70 @@ export interface Workspace {
     getBottomDock(): Dock;
 
     /** Returns all Pane containers. */
-    getPaneContainers(): [WorkspaceCenter, Dock, Dock, Dock];
+    getPaneContainers(): [WorkspaceCenter, Dock, Dock, Dock,];
 
     // Panels
     /** Get an Array of all the panel items at the bottom of the editor window. */
     getBottomPanels(): Panel[];
 
     /** Adds a panel item to the bottom of the editor window. */
-    addBottomPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addBottomPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the panel items to the left of the editor window. */
     getLeftPanels(): Panel[];
 
     /** Adds a panel item to the left of the editor window. */
-    addLeftPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addLeftPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the panel items to the right of the editor window. */
     getRightPanels(): Panel[];
 
     /** Adds a panel item to the right of the editor window. */
-    addRightPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addRightPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the panel items at the top of the editor window. */
     getTopPanels(): Panel[];
 
     /** Adds a panel item to the top of the editor window above the tabs. */
-    addTopPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addTopPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the panel items in the header. */
     getHeaderPanels(): Panel[];
 
     /** Adds a panel item to the header. */
-    addHeaderPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addHeaderPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the panel items in the footer. */
     getFooterPanels(): Panel[];
 
     /** Adds a panel item to the footer. */
-    addFooterPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
+    addFooterPanel<T,>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined },): Panel<T>;
 
     /** Get an Array of all the modal panel items. */
     getModalPanels(): Panel[];
 
     /** Adds a panel item as a modal dialog. */
-    addModalPanel<T>(options: {
+    addModalPanel<T,>(options: {
         item: T;
         visible?: boolean | undefined;
         priority?: number | undefined;
         autoFocus?: boolean | FocusableHTMLElement | undefined;
-    }): Panel<T>;
+    },): Panel<T>;
 
     /**
      *  Returns the Panel associated with the given item or null when the item
      *  has no panel.
      */
-    panelForItem<T>(item: T): Panel<T> | null;
+    panelForItem<T,>(item: T,): Panel<T> | null;
 
     // Searching and Replacing
     /** Performs a search across all files in the workspace. */
-    scan(regex: RegExp, iterator: (result: ScandalResult) => void): CancellablePromise<string | null>;
+    scan(regex: RegExp, iterator: (result: ScandalResult,) => void,): CancellablePromise<string | null>;
     /** Performs a search across all files in the workspace. */
     scan(
         regex: RegExp,
         options: WorkspaceScanOptions,
-        iterator: (result: ScandalResult) => void,
+        iterator: (result: ScandalResult,) => void,
     ): CancellablePromise<string | null>;
 
     /** Performs a replace across all the specified files in the project. */
@@ -278,7 +278,7 @@ export interface Workspace {
         regex: RegExp,
         replacementText: string,
         filePaths: ReadonlyArray<string>,
-        iterator: (result: { filePath: string | undefined; replacements: number }) => void,
+        iterator: (result: { filePath: string | undefined; replacements: number },) => void,
     ): Promise<void>;
 }
 
@@ -341,7 +341,7 @@ export interface WorkspaceScanOptions {
     paths?: ReadonlyArray<string> | undefined;
 
     /** A function to be periodically called with the number of paths searched. */
-    onPathsSearched?(pathsSearched: number): void;
+    onPathsSearched?(pathsSearched: number,): void;
 
     /** The number of lines before the matched line to include in the results object. */
     leadingContextLineCount?: number | undefined;
@@ -356,7 +356,7 @@ export interface ScandalResult {
         matchText: string;
         lineText: string;
         lineTextOffset: number;
-        range: [[number, number], [number, number]];
+        range: [[number, number,], [number, number,],];
         leadingContextLines: string[];
         trailingContextLines: string[];
     }>;

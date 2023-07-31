@@ -1,13 +1,13 @@
 export default class BitSet {
     readonly data: boolean[];
 
-    add(value: number): void;
+    add(value: number,): void;
 
-    or(set: BitSet): void;
+    or(set: BitSet,): void;
 
-    remove(value: number): void;
+    remove(value: number,): void;
 
-    has(value: number): boolean;
+    has(value: number,): boolean;
 
     values(): string[];
 
@@ -15,7 +15,7 @@ export default class BitSet {
 
     hashCode(): number;
 
-    equals(other: BitSet): boolean;
+    equals(other: BitSet,): boolean;
 
     toString(): string;
 

@@ -8,7 +8,7 @@
 /// <reference types="firebase"/>
 
 interface AngularFireService {
-    (firebase: Firebase, config?: any): AngularFire;
+    (firebase: Firebase, config?: any,): AngularFire;
 }
 
 /**
@@ -18,14 +18,18 @@ interface AngularFire {
     $asArray(): AngularFireArray;
     $asObject(): AngularFireObject;
     $ref(): Firebase;
-    $push(data: any): ng.IPromise<Firebase>;
-    $set(key: string, data: any): ng.IPromise<Firebase>;
-    $set(data: any): ng.IPromise<Firebase>;
-    $remove(key?: string): ng.IPromise<Firebase>;
-    $update(key: string, data: Object): ng.IPromise<Firebase>;
-    $update(data: any): ng.IPromise<Firebase>;
-    $transaction(updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
-    $transaction(key:string, updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
+    $push(data: any,): ng.IPromise<Firebase>;
+    $set(key: string, data: any,): ng.IPromise<Firebase>;
+    $set(data: any,): ng.IPromise<Firebase>;
+    $remove(key?: string,): ng.IPromise<Firebase>;
+    $update(key: string, data: Object,): ng.IPromise<Firebase>;
+    $update(data: any,): ng.IPromise<Firebase>;
+    $transaction(updateFn: (currentData: any,) => any, applyLocally?: boolean,): ng.IPromise<FirebaseDataSnapshot>;
+    $transaction(
+        key: string,
+        updateFn: (currentData: any,) => any,
+        applyLocally?: boolean,
+    ): ng.IPromise<FirebaseDataSnapshot>;
 }
 
 /**
@@ -62,7 +66,10 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Function} reject
      * @returns a promise which resolves after initial data is downloaded from Firebase
      */
-    $loaded(resolve?: (x: AngularFireObject) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
+    $loaded(
+        resolve?: (x: AngularFireObject,) => ng.IHttpPromise<{}>,
+        reject?: (err: any,) => any,
+    ): ng.IPromise<AngularFireObject>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -76,7 +83,10 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Function} reject
      * @returns a promise which resolves after initial data is downloaded from Firebase
      */
-    $loaded(resolve?: (x: AngularFireObject) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
+    $loaded(
+        resolve?: (x: AngularFireObject,) => ng.IPromise<{}>,
+        reject?: (err: any,) => any,
+    ): ng.IPromise<AngularFireObject>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -90,7 +100,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Function} reject
      * @returns a promise which resolves after initial data is downloaded from Firebase
      */
-    $loaded(resolve?: (x: AngularFireObject) => void, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
+    $loaded(resolve?: (x: AngularFireObject,) => void, reject?: (err: any,) => any,): ng.IPromise<AngularFireObject>;
 
     /**
      * @returns {Firebase} the original Firebase instance used to create this object.
@@ -113,7 +123,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {string} varName
      * @returns a promise which resolves to an unbind method after data is set in scope
      */
-    $bindTo(scope: ng.IScope, varName: string): ng.IPromise<any>;
+    $bindTo(scope: ng.IScope, varName: string,): ng.IPromise<any>;
 
     /**
      * Listeners passed into this method are notified whenever a new change is received
@@ -126,7 +136,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Object} [context]
      * @returns {Function} invoke to stop observing events
      */
-    $watch(callback: Function, context?: any): Function;
+    $watch(callback: Function, context?: any,): Function;
 
     /**
      * Informs $firebase to stop sending events and clears memory being used
@@ -141,8 +151,8 @@ interface AngularFireObjectService {
      * @param {Firebase} ref
      * @returns {FirebaseObject}
      */
-    (firebase: Firebase): AngularFireObject;
-    $extend(ChildClass: Object, methods?: Object): Object;
+    (firebase: Firebase,): AngularFireObject;
+    $extend(ChildClass: Object, methods?: Object,): Object;
 }
 
 /**
@@ -170,7 +180,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param data
      * @returns a promise resolved after data is added
      */
-    $add(newData: any): ng.IPromise<Firebase>;
+    $add(newData: any,): ng.IPromise<Firebase>;
 
     /**
      * Pass either an item in the array or the index of an item and it will be saved back
@@ -186,7 +196,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {int|object} indexOrItem
      * @returns a promise resolved after data is saved
      */
-    $save(recordOrIndex: any): ng.IPromise<Firebase>;
+    $save(recordOrIndex: any,): ng.IPromise<Firebase>;
 
     /**
      * Pass either an existing item in this array or the index of that item and it will
@@ -202,7 +212,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {int|object} indexOrItem
      * @returns a promise which resolves after data is removed
      */
-    $remove(recordOrIndex: any): ng.IPromise<Firebase>;
+    $remove(recordOrIndex: any,): ng.IPromise<Firebase>;
 
     /**
      * Returns the record for a given Firebase key (record.$id). If the record is not found
@@ -211,7 +221,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {string} key
      * @returns {Object|null} a record in this array
      */
-    $getRecord(key: string): AngularFireSimpleObject;
+    $getRecord(key: string,): AngularFireSimpleObject;
 
     /**
      * Given an item in this array or the index of an item in the array, this returns the
@@ -221,7 +231,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {int|object} indexOrItem
      * @returns {null|string}
      */
-    $keyAt(recordOrIndex: any): string;
+    $keyAt(recordOrIndex: any,): string;
 
     /**
      * The inverse of $keyAt, this method takes a Firebase key (record.$id) and returns the
@@ -231,7 +241,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {String} key
      * @returns {int} -1 if not found
      */
-    $indexFor(key: string): number;
+    $indexFor(key: string,): number;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -245,7 +255,10 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Function} [reject]
      * @returns a promise
      */
-    $loaded(resolve?: (x: AngularFireArray) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
+    $loaded(
+        resolve?: (x: AngularFireArray,) => ng.IHttpPromise<{}>,
+        reject?: (err: any,) => any,
+    ): ng.IPromise<AngularFireArray>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -259,7 +272,10 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Function} [reject]
      * @returns a promise
      */
-    $loaded(resolve?: (x: AngularFireArray) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
+    $loaded(
+        resolve?: (x: AngularFireArray,) => ng.IPromise<{}>,
+        reject?: (err: any,) => any,
+    ): ng.IPromise<AngularFireArray>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -273,7 +289,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Function} [reject]
      * @returns a promise
      */
-    $loaded(resolve?: (x: AngularFireArray) => void, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
+    $loaded(resolve?: (x: AngularFireArray,) => void, reject?: (err: any,) => any,): ng.IPromise<AngularFireArray>;
 
     /**
      * @returns {Firebase} the original Firebase ref used to create this object.
@@ -295,7 +311,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Object} [context]
      * @returns {Function} used to stop observing
      */
-    $watch(cb: (event: string, key: string, prevChild: string) => void, context?: any): Function;
+    $watch(cb: (event: string, key: string, prevChild: string,) => void, context?: any,): Function;
 
     /**
      * Informs $firebase to stop sending events and clears memory being used
@@ -304,8 +320,8 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
     $destroy(): void;
 }
 interface AngularFireArrayService {
-    (firebase: Firebase): AngularFireArray;
-    $extend(ChildClass: Object, methods?: Object): Object;
+    (firebase: Firebase,): AngularFireArray;
+    $extend(ChildClass: Object, methods?: Object,): Object;
 }
 
 interface AngularFireSimpleObject {
@@ -315,9 +331,8 @@ interface AngularFireSimpleObject {
     [key: string]: any;
 }
 
-
 interface AngularFireAuthService {
-    (firebase: Firebase): AngularFireAuth;
+    (firebase: Firebase,): AngularFireAuth;
 }
 
 interface AngularFireAuth {
@@ -331,7 +346,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithCustomToken(authToken: string, options?: Object): ng.IPromise<any>;
+    $authWithCustomToken(authToken: string, options?: Object,): ng.IPromise<any>;
 
     /**
      * Authenticates the Firebase reference anonymously.
@@ -340,7 +355,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authAnonymously(options?: Object): ng.IPromise<any>;
+    $authAnonymously(options?: Object,): ng.IPromise<any>;
 
     /**
      * Authenticates the Firebase reference with an email/password user.
@@ -351,7 +366,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithPassword(credentials: FirebaseCredentials, options?: Object): ng.IPromise<any>;
+    $authWithPassword(credentials: FirebaseCredentials, options?: Object,): ng.IPromise<any>;
 
     /**
      * Authenticates the Firebase reference with the OAuth popup flow.
@@ -362,7 +377,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithOAuthPopup(provider: string, options?: Object): ng.IPromise<any>;
+    $authWithOAuthPopup(provider: string, options?: Object,): ng.IPromise<any>;
 
     /**
      * Authenticates the Firebase reference with the OAuth redirect flow.
@@ -373,7 +388,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithOAuthRedirect(provider: string, options?: Object): ng.IPromise<any>;
+    $authWithOAuthRedirect(provider: string, options?: Object,): ng.IPromise<any>;
 
     /**
      * Authenticates the Firebase reference with an OAuth token.
@@ -386,7 +401,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithOAuthToken(provider: string, credentials: Object|string, options?: Object): ng.IPromise<any>;
+    $authWithOAuthToken(provider: string, credentials: Object | string, options?: Object,): ng.IPromise<any>;
 
     /**
      * Synchronously retrieves the current authentication data.
@@ -407,7 +422,7 @@ interface AngularFireAuth {
      * callback.
      * @return {function} A function which can be used to deregister the provided callback.
      */
-    $onAuth(callback: Function, context?: any): Function;
+    $onAuth(callback: Function, context?: any,): Function;
 
     /**
      * Unauthenticates the Firebase reference.
@@ -441,7 +456,7 @@ interface AngularFireAuth {
      * @return {Promise<Object>} A promise fulfilled with the user object, which contains the
      * uid of the created user.
      */
-    $createUser(credentials: FirebaseCredentials): ng.IPromise<any>;
+    $createUser(credentials: FirebaseCredentials,): ng.IPromise<any>;
 
     /**
      * Removes an email/password user.
@@ -449,7 +464,7 @@ interface AngularFireAuth {
      * @param {Object} credentials An object containing the email and password of the user to remove.
      * @return {Promise<>} An empty promise fulfilled once the user is removed.
      */
-    $removeUser(credentials: FirebaseCredentials): ng.IPromise<any>;
+    $removeUser(credentials: FirebaseCredentials,): ng.IPromise<any>;
 
     /**
      * Changes the email for an email/password user.
@@ -458,7 +473,7 @@ interface AngularFireAuth {
      * the user whose email is to change.
      * @return {Promise<>} An empty promise fulfilled once the email change is complete.
      */
-    $changeEmail(credentials: FirebaseChangeEmailCredentials): ng.IPromise<any>;
+    $changeEmail(credentials: FirebaseChangeEmailCredentials,): ng.IPromise<any>;
 
     /**
      * Changes the password for an email/password user.
@@ -467,7 +482,7 @@ interface AngularFireAuth {
      * the user whose password is to change.
      * @return {Promise<>} An empty promise fulfilled once the password change is complete.
      */
-    $changePassword(credentials: FirebaseChangePasswordCredentials): ng.IPromise<any>;
+    $changePassword(credentials: FirebaseChangePasswordCredentials,): ng.IPromise<any>;
 
     /**
      * Sends a password reset email to an email/password user.
@@ -476,5 +491,5 @@ interface AngularFireAuth {
      * password email to.
      * @return {Promise<>} An empty promise fulfilled once the reset password email is sent.
      */
-    $resetPassword(credentials: FirebaseResetPasswordCredentials): ng.IPromise<any>;
+    $resetPassword(credentials: FirebaseResetPasswordCredentials,): ng.IPromise<any>;
 }

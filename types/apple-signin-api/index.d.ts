@@ -35,8 +35,8 @@ declare namespace AppleSignInAPI {
     }
     // https://developer.apple.com/documentation/signinwithapplejs/authi
     interface AuthI {
-        init: (config: ClientConfigI) => void;
-        signIn: (signInConfig?: ClientConfigI) => Promise<SignInResponseI>;
+        init: (config: ClientConfigI,) => void;
+        signIn: (signInConfig?: ClientConfigI,) => Promise<SignInResponseI>;
         renderButton: () => void;
     }
     // https://developer.apple.com/documentation/signinwithapplejs/clientconfigi

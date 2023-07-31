@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Context } from '@azure/functions';
+import { Context, } from '@azure/functions';
 
 /**
  * `console.log` doesn't actually log as you would expect in `node.js` Azure Functions.
@@ -12,6 +12,6 @@ import { Context } from '@azure/functions';
  * This package fixes this with minimal friction, 0 dependencies, and allows you
  * to use `console.log` (and other `console` methods) like normal.
  */
-declare function intercept(context: Context): void;
+declare function intercept(context: Context,): void;
 
 export = intercept;

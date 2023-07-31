@@ -7,20 +7,20 @@ const ossOptions: OSS.Options = {
     region: 'oss-cn-hangzhou',
 };
 
-const client = new OSS(ossOptions);
+const client = new OSS(ossOptions,);
 
-client.copy("newfile.png", "sourcefile.png");
-client.copy("newfile.png", "sourcefile.png", { timeout: 1000 });
-client.copy("newfile.png", "sourcefile.png", "sourceBucket");
-client.copy("newfile.png", "sourcefile.png", "sourceBucket", { timeout: 1000 });
+client.copy('newfile.png', 'sourcefile.png',);
+client.copy('newfile.png', 'sourcefile.png', { timeout: 1000, },);
+client.copy('newfile.png', 'sourcefile.png', 'sourceBucket',);
+client.copy('newfile.png', 'sourcefile.png', 'sourceBucket', { timeout: 1000, },);
 
 const clusterOptions: OSS.ClusterOptions = {
     clusters: [],
 };
 
-const clusterClient = new OSS.ClusterClient(clusterOptions);
+const clusterClient = new OSS.ClusterClient(clusterOptions,);
 
-clusterClient.deleteMulti(["cluster"], {quiet: true});
+clusterClient.deleteMulti(['cluster',], { quiet: true, },);
 
 const imageOptions: OSS.ImageClientOptions = {
     imageHost: 'xxxx',
@@ -29,14 +29,14 @@ const imageOptions: OSS.ImageClientOptions = {
     bucket: 'xxxx',
 };
 
-const imageClient = new OSS.ImageClient(imageOptions);
+const imageClient = new OSS.ImageClient(imageOptions,);
 
 const sts = new OSS.STS({
     accessKeyId: 'access key',
     accessKeySecret: 'access secret',
-});
-sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
-    const {credentials} = token;
+},);
+sts.assumeRole('roleArn', undefined, 3600, 'session name',).then(token => {
+    const { credentials, } = token;
     const stsClient = new OSS({
         accessKeyId: credentials.AccessKeyId,
         accessKeySecret: credentials.AccessKeySecret,
@@ -45,15 +45,15 @@ sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
         region: 'oss-cn-hangzhou',
         refreshSTSTokenInterval: 3000,
         refreshSTSToken: async () => {
-            const {credentials: cred} = await sts.assumeRole('roleArn', undefined, 3600, 'session name');
+            const { credentials: cred, } = await sts.assumeRole('roleArn', undefined, 3600, 'session name',);
             return {
                 accessKeyId: cred.AccessKeyId,
                 accessKeySecret: cred.AccessKeySecret,
-                stsToken: cred.SecurityToken
+                stsToken: cred.SecurityToken,
             };
-        }
-    });
-});
+        },
+    },);
+},);
 
 const userMeta: OSS.UserMeta = {
     uid: 0,

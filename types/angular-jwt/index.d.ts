@@ -10,7 +10,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace jwt {
-
         interface JwtToken {
             iss?: string | undefined;
             sub?: string | undefined;
@@ -23,9 +22,9 @@ declare module 'angular' {
         }
 
         interface IJwtHelper {
-            decodeToken(token: string): JwtToken;
-            getTokenExpirationDate(token: any): Date;
-            isTokenExpired(token: any, offsetSeconds?: number): boolean;
+            decodeToken(token: string,): JwtToken;
+            getTokenExpirationDate(token: any,): Date;
+            isTokenExpired(token: any, offsetSeconds?: number,): boolean;
         }
 
         interface IJwtInterceptor {

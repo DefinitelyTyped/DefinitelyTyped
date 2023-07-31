@@ -1,4 +1,4 @@
-import {Endpoint} from './endpoint';
+import { Endpoint, } from './endpoint';
 /**
  * The low level HTTP request object, encapsulating all HTTP header and body data sent by a service request.
  */
@@ -6,7 +6,7 @@ export class HttpRequest {
     /**
      * Constructs HttpRequest object with provided endpoint and region
      */
-    constructor(endpoint: Endpoint, region: string);
+    constructor(endpoint: Endpoint, region: string,);
     /**
      * The part of the path excluding the query string.
      */
@@ -28,7 +28,7 @@ export class HttpRequest {
      */
     headers: {
         [key: string]: string;
-    }
+    };
     /**
      * The HTTP method of the request.
      */

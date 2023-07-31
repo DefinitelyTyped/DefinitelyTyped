@@ -1,4 +1,3 @@
-
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
  * (c) 2013 Jonathan Park @ Daptiv Solutions Inc
@@ -7,47 +6,47 @@
 
 declare var $routeProvider: ng.route.IRouteProvider;
 if (!$routeProvider.eagerInstantiationEnabled()) {
-    throw new Error("The default of $routeProvider.eagerInstantiationEnabled should be true.");
+    throw new Error('The default of $routeProvider.eagerInstantiationEnabled should be true.',);
 }
 
-$routeProvider.eagerInstantiationEnabled(false);
+$routeProvider.eagerInstantiationEnabled(false,);
 if ($routeProvider.eagerInstantiationEnabled()) {
-    throw new Error("$routeProvider.eagerInstantiationEnabled is expected to be false.");
+    throw new Error('$routeProvider.eagerInstantiationEnabled is expected to be false.',);
 }
 
 $routeProvider
     .when('/projects/:projectId/dashboard', {
         controller: 'I am a string',
-        templateUrl: "So am I",
+        templateUrl: 'So am I',
         caseInsensitiveMatch: true,
-        reloadOnSearch: false
-    })
+        reloadOnSearch: false,
+    },)
     .when('/projects/:projectId/dashboard2', {
-        controller: function () {
-            //Look at me - I'm a function!
+        controller: function() {
+            // Look at me - I'm a function!
         },
-        template: function ($routeParams?: ng.route.IRouteParamsService) {
-            return "I return a string"
-        }
-    })
+        template: function($routeParams?: ng.route.IRouteParamsService,) {
+            return 'I return a string';
+        },
+    },)
     .when('/projects/:projectId/dashboard3', {
         controllerAs: 'I am a string',
-        template: "Yup.  String"
-    })
+        template: 'Yup.  String',
+    },)
     .when('/projects/:projectId/dashboard4', {
         controller: 'I am a string',
-        templateUrl: function ($routeParams?: ng.route.IRouteParamsService) {
-            return "I return a string"
-        }
-    })
+        templateUrl: function($routeParams?: ng.route.IRouteParamsService,) {
+            return 'I return a string';
+        },
+    },)
     .when('/projects/:projectId/dashboard5', {
-        controller: ['$log',function($log:ng.ILogService){
-            $log.info('I am array')
-        }],
-        templateUrl: function ($routeParams?: ng.route.IRouteParamsService) {
-            return "I return a string"
-        }
-    })
+        controller: ['$log', function($log: ng.ILogService,) {
+            $log.info('I am array',);
+        },],
+        templateUrl: function($routeParams?: ng.route.IRouteParamsService,) {
+            return 'I return a string';
+        },
+    },)
     .when('/projects/:projectId/dashboard6', {
         resolve: {
             foo: () => 'foo',
@@ -56,17 +55,18 @@ $routeProvider
         resolveAs: 'baz',
         resolveRedirectTo: [
             '$http',
-            ($http: ng.IHttpService) => $http.get('/is-admin').then(() => '/admin/lounge', () => undefined),
+            ($http: ng.IHttpService,) => $http.get('/is-admin',).then(() => '/admin/lounge', () => undefined,),
         ],
-    })
+    },)
     .when('/projects/:projectId/dashboard7', {
         reloadOnUrl: false,
         resolveRedirectTo: () => (Math.random() < 0.5) ? '/some/route' : undefined,
-    })
-    .otherwise({ redirectTo: '/' })
-    .otherwise({ redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" })
-    .otherwise("/");
-
+    },)
+    .otherwise({ redirectTo: '/', },)
+    .otherwise({
+        redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any,) => '',
+    },)
+    .otherwise('/',);
 
 var current: ng.route.ICurrentRoute;
 current.locals['test-key'] = 'test-value';

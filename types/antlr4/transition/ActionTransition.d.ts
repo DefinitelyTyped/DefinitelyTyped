@@ -7,7 +7,7 @@ export default class ActionTransition extends Transition {
     readonly actionIndex: number;
     readonly isCtxDependent: boolean;
 
-    constructor(target: ATNState, ruleIndex: number, actionIndex: number, isCtxDependent: boolean);
+    constructor(target: ATNState, ruleIndex: number, actionIndex: number, isCtxDependent: boolean,);
 
-    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number): false;
+    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number,): false;
 }

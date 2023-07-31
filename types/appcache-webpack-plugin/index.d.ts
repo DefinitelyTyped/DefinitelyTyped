@@ -11,7 +11,7 @@ import webpack = require('webpack');
  */
 declare class AppCachePlugin extends webpack.Plugin {
     AppCache: AppCachePlugin.AppCache;
-    constructor(options?: AppCachePlugin.Options);
+    constructor(options?: AppCachePlugin.Options,);
 }
 
 declare namespace AppCachePlugin {
@@ -58,7 +58,7 @@ declare namespace AppCachePlugin {
             hash: string,
             comment: string,
         );
-        addAsset(asset: string): void;
+        addAsset(asset: string,): void;
         size(): number;
         getManifestBody(): string;
         source(): string;

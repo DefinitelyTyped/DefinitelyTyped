@@ -17,7 +17,7 @@ interface AndroidManifest {
      * @throws If there was an error while getting the data from the given
      *                 application package.
      */
-    packageAndLaunchActivityFromManifest(appPath: string): Promise<APKInfo>;
+    packageAndLaunchActivityFromManifest(appPath: string,): Promise<APKInfo>;
 
     /**
      * Extract target SDK version from application manifest.
@@ -27,7 +27,7 @@ interface AndroidManifest {
      * @throws If there was an error while getting the data from the given
      *                 application package.
      */
-    targetSdkVersionFromManifest(appPath: string): Promise<number>;
+    targetSdkVersionFromManifest(appPath: string,): Promise<number>;
 
     /**
      * Extract target SDK version from package information.
@@ -37,7 +37,7 @@ interface AndroidManifest {
      *                              _dumpsys package_ command. It may speed up the method execution.
      * @return The version of the target SDK.
      */
-    targetSdkVersionUsingPKG(pkg: string, cmdOutput?: string | null): Promise<number>;
+    targetSdkVersionUsingPKG(pkg: string, cmdOutput?: string | null,): Promise<number>;
 
     /**
      * Create binary representation of package manifest (usually AndroidManifest.xml).
@@ -48,7 +48,7 @@ interface AndroidManifest {
      * @param manifestPackage - The name of the manifest package
      * @param targetPackage - The name of the destination package
      */
-    compileManifest(manifest: string, manifestPackage: string, targetPackage: string): Promise<void>;
+    compileManifest(manifest: string, manifestPackage: string, targetPackage: string,): Promise<void>;
 
     /**
      * Replace/insert the specially precompiled manifest file into the
@@ -63,7 +63,7 @@ interface AndroidManifest {
      * @param dstApk - Full path to the resulting package.
      *                          The file will be overridden if it already exists.
      */
-    insertManifest(manifest: string, srcApk: string, dstApk: string): Promise<void>;
+    insertManifest(manifest: string, srcApk: string, dstApk: string,): Promise<void>;
 
     /**
      * Check whether package manifest contains Internet permissions.
@@ -71,5 +71,5 @@ interface AndroidManifest {
      * @param appPath - The full path to .apk(s) package.
      * @return True if the manifest requires Internet access permission.
      */
-    hasInternetPermissionFromManifest(appPath: string): Promise<boolean>;
+    hasInternetPermissionFromManifest(appPath: string,): Promise<boolean>;
 }

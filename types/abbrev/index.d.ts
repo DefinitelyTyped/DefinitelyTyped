@@ -5,7 +5,7 @@
 
 export = abbrev;
 
-declare function abbrev(words: ReadonlyArray<abbrev.Abbreviable>): { [abbreviation: string]: string };
+declare function abbrev(words: ReadonlyArray<abbrev.Abbreviable>,): { [abbreviation: string]: string };
 declare function abbrev(...words: ReadonlyArray<abbrev.Abbreviable>): { [abbreviation: string]: string };
 
 declare namespace abbrev {
@@ -15,11 +15,11 @@ declare namespace abbrev {
 }
 
 declare global {
-    interface Array<T> {
+    interface Array<T,> {
         abbrev(): { [abbreviation: string]: string };
     }
 
-    interface ReadonlyArray<T> {
+    interface ReadonlyArray<T,> {
         abbrev(): { [abbreviation: string]: string };
     }
 

@@ -11,7 +11,7 @@ declare namespace AMap {
         interface EventMap {
             hide: Event<'hide'>;
             show: Event<'show'>;
-            location: Event<'location', {lnglat: LngLat}>;
+            location: Event<'location', { lnglat: LngLat }>;
             zoomchanged: Event<'zoomin' | 'zoomout'>;
             // internal
             'location-success': Event<'location-success'>; // TODO geolocation.getCurrentPosition
@@ -69,7 +69,7 @@ declare namespace AMap {
     }
 
     class ToolBar extends EventEmitter {
-        constructor(options?: ToolBar.Options);
+        constructor(options?: ToolBar.Options,);
         /**
          * 获取工具条相对于地图容器左上角的偏移量
          */
@@ -78,7 +78,7 @@ declare namespace AMap {
          * 设置工具条相对于地图容器左上角的偏移量
          * @param offset 偏移量
          */
-        setOffset(offset: Pixel): void;
+        setOffset(offset: Pixel,): void;
         /**
          * 隐藏缩放级别等级条
          */

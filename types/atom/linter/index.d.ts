@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Disposable, Point, Range, TextEditor } from '../index';
+import { Disposable, Point, Range, TextEditor, } from '../index';
 
 export interface Config {
     name: string;
@@ -72,10 +72,10 @@ export interface IndieDelegate {
     name: string;
     getMessages(): Message[];
     clearMessages(): void;
-    setMessages(filePath: string, messages: Message[]): void;
-    setAllMessages(messages: Message[]): void;
-    onDidUpdate(callback: () => void): Disposable;
-    onDidDestroy(callback: () => void): Disposable;
+    setMessages(filePath: string, messages: Message[],): void;
+    setAllMessages(messages: Message[],): void;
+    onDidUpdate(callback: () => void,): Disposable;
+    onDidDestroy(callback: () => void,): Disposable;
     dispose(): void;
 }
 
@@ -86,7 +86,7 @@ export interface LinterProvider {
     scope: 'file' | 'project';
     lintsOnChange: boolean;
     grammarScopes: string[];
-    lint(editor: TextEditor): LintResult | Promise<LintResult>;
+    lint(editor: TextEditor,): LintResult | Promise<LintResult>;
 }
 
-export type IndieProvider = (register: (config: Config) => IndieDelegate) => void;
+export type IndieProvider = (register: (config: Config,) => IndieDelegate,) => void;

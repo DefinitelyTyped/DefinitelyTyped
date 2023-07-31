@@ -28,7 +28,7 @@ interface TestSource {
     age: number;
 }
 
-const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event, context) => {
+const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event, context,) => {
     str = event.arguments.id;
     str = event.arguments.query;
 
@@ -75,7 +75,7 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     };
 };
 
-const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = async (events, context) => {
+const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = async (events, context,) => {
     array = events;
     events.forEach(event => {
         str = event.arguments.id;
@@ -116,7 +116,7 @@ const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = asy
         prevResultOrNull = event.prev;
         anyObj = (event.prev as { result: { [key: string]: any } }).result;
         anyObj = event.stash;
-    });
+    },);
 
     return [
         {
@@ -153,7 +153,7 @@ const batchHandlerWithDefinedSourceTypes: AppSyncBatchResolverHandler<TestArgume
         strOrUndefined = event.source ? event.source.firstName : undefined;
         strOrUndefined = event.source ? event.source.lastName : undefined;
         numOrUndefined = event.source ? event.source.age : undefined;
-    });
+    },);
 
     return [
         {

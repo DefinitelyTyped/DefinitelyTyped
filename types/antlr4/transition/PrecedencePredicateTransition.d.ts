@@ -6,9 +6,9 @@ export default class PrecedencePredicateTransition extends AbstractPredicateTran
     readonly serializationType: number;
     readonly precedence: number;
 
-    constructor(target: ATNState, precedence: number);
+    constructor(target: ATNState, precedence: number,);
 
-    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number): false;
+    matches(symbol: number, minVocabSymbol: number, maxVocabSymbol: number,): false;
 
     getPredicate(): PrecedencePredicate;
 }

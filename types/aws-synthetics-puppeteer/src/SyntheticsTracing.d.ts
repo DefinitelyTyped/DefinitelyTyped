@@ -8,7 +8,6 @@ declare module 'SyntheticsTracing' {
      * The primary behavior of this library is to facilitate the creation of traces
      * to aid in the debugging of canary run failures.
      * Traces can be seen in the CloudWatch ServiceLens ServiceMap.
-     *
      */
     class SyntheticsTracing {
         _activeTracing: boolean;
@@ -27,7 +26,7 @@ declare module 'SyntheticsTracing' {
          * already created.  Reset all the this._* variables that should be reset between Lambda invocations.
          */
         reset(): Promise<void>;
-        logAndThrow(message: string, err: any): void;
+        logAndThrow(message: string, err: any,): void;
         /**
          * Configures the AWSXRaySDKClient with plugin AWS::CloudWatchSynthetics::Canary origin.
          * Used for creating new Segments and closing them
@@ -36,17 +35,17 @@ declare module 'SyntheticsTracing' {
          * canaryArn - required
          * canaryRunId - required
          */
-        createXRaySDKClient(canaryName: any, canaryArn: any, canaryRunId: any): Promise<void>;
-        setLogger(logger: AWSXRaySDKClient.Logger): void;
-        setCaptureAWSAllowlist(source: string | object): void;
-        appendCaptureAWSAllowlist(source: string | object): void;
+        createXRaySDKClient(canaryName: any, canaryArn: any, canaryRunId: any,): Promise<void>;
+        setLogger(logger: AWSXRaySDKClient.Logger,): void;
+        setCaptureAWSAllowlist(source: string | object,): void;
+        appendCaptureAWSAllowlist(source: string | object,): void;
         /**
          * Configures the AWS SDK client for the service specified
          * to automatically capture segment information for each call made
          * @param service - An instance of an AWS.Service to wrap.
          * @returns instrumented service that was passed in
          */
-        captureAWSClient<AWSClient>(service: AWSClient): AWSClient;
+        captureAWSClient<AWSClient,>(service: AWSClient,): AWSClient;
         /**
          * Configures the AWS SDK to automatically capture segment information
          * for each call made.
@@ -56,7 +55,7 @@ declare module 'SyntheticsTracing' {
          * @returns awssdk that was passed in
          * @see https://github.com/aws/aws-sdk-js
          */
-        captureAWS<AWS>(awssdk: AWS): AWS;
+        captureAWS<AWS,>(awssdk: AWS,): AWS;
         /**
          * Wraps the http/https.request() and .get() calls to automatically capture information for the segment.
          * Returns an instance of the HTTP or HTTPS module that is patched.
@@ -116,18 +115,17 @@ declare module 'SyntheticsTracing' {
          *
          * returns - AWS.XRay client configured as specified
          */
-        createAWSXRayClient(roleArn?: string, region?: string, endpoint?: string): Promise<any>;
+        createAWSXRayClient(roleArn?: string, region?: string, endpoint?: string,): Promise<any>;
         activeTracing(): boolean;
-        setActiveTracing(activeTracing: boolean): Promise<void>;
+        setActiveTracing(activeTracing: boolean,): Promise<void>;
         /**
          * Configures tracing source properties for canary name, canary arn, and canary run id
          *
          * canaryName: "canary-name",
          * canaryArn: "arn:aws:accountId:region:synthetics:canary:canary-name",
          * canaryRunId: "98203495-6546-2343-230203020102",
-         *
          */
-        configureTracing(canaryName: string, canaryArn: string, canaryRunId: string): void;
+        configureTracing(canaryName: string, canaryArn: string, canaryRunId: string,): void;
         /**
          * Set the AWS X-Ray client configuration for role arn, region, and endpoint.
          * Useful for sending traces to a different account.
@@ -143,9 +141,8 @@ declare module 'SyntheticsTracing' {
          *     (e.g. "https://xray.us-east-1.amazonaws.com/")
          *     If endpoint is not specified, the default endpoint for the region
          *     will be used
-         *
          */
-        setXRayClientConfiguration(roleArn?: string, region?: string, endpoint?: string): Promise<void>;
+        setXRayClientConfiguration(roleArn?: string, region?: string, endpoint?: string,): Promise<void>;
         /**
          * Creates a new Segment and SubSegment that could be used for tracing a request/response
          * Keeps track of subsegments and segments created to be closed later.
@@ -156,7 +153,7 @@ declare module 'SyntheticsTracing' {
          *
          * returns - SubSegment for a call that has a parent Segment with CloudWatch Synthetics canary annotations
          */
-        createSubSegment(name: string): AWSXRaySDKClient.Subsegment;
+        createSubSegment(name: string,): AWSXRaySDKClient.Subsegment;
         /**
          * Closes the subsegment and its parent segment
          * Sends the subsegment and parent segment.
@@ -166,22 +163,22 @@ declare module 'SyntheticsTracing' {
          * Called addError, addErrorFlag, addThrottleFlag, and addFaultFlag
          * before making this call to close the segment.
          */
-        closeSubSegment(subsegment: AWSXRaySDKClient.Subsegment): void;
-        setExecutionError(err: any): void;
+        closeSubSegment(subsegment: AWSXRaySDKClient.Subsegment,): void;
+        setExecutionError(err: any,): void;
         getExecutionError(): any;
-        sendTraceSegment(xRayClient: any, segment: AWSXRaySDKClient.Segment): void;
+        sendTraceSegment(xRayClient: any, segment: AWSXRaySDKClient.Segment,): void;
         /**
          * Returns an Amazon Trace Id (X-AMZN-TRACE-ID) formatted header for an existing segment
          * Sampled is set to true.
          */
-        getAmazonTraceIdHeader(segment: AWSXRaySDKClient.Segment): string;
+        getAmazonTraceIdHeader(segment: AWSXRaySDKClient.Segment,): string;
         /**
          * Returns the open segment matching the traceHeader or null if there is no match
          */
-        getSubSegment(traceHeader: string): AWSXRaySDKClient.Segment;
-        addSegmentById(id: string, segment: AWSXRaySDKClient.Segment): void;
-        removeSegmentById(id: string): boolean;
-        getSegmentById(id: string): AWSXRaySDKClient.Segment;
+        getSubSegment(traceHeader: string,): AWSXRaySDKClient.Segment;
+        addSegmentById(id: string, segment: AWSXRaySDKClient.Segment,): void;
+        removeSegmentById(id: string,): boolean;
+        getSegmentById(id: string,): AWSXRaySDKClient.Segment;
         resetSegments(): void;
     }
     import * as AWSXRaySDKClient from 'aws-xray-sdk-core';

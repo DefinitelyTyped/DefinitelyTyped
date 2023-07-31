@@ -7,10 +7,10 @@
 // Disable automatic exports.
 export {};
 
-interface MapLike<Key, Value> {
-    entries: () => Array<[Key, Value]>;
-    get: (key: Key) => Value | undefined;
-    has: (key: Key) => boolean;
+interface MapLike<Key, Value,> {
+    entries: () => Array<[Key, Value,]>;
+    get: (key: Key,) => Value | undefined;
+    has: (key: Key,) => boolean;
     keys: () => Key[];
     values: () => Value[];
 }
@@ -332,11 +332,11 @@ export interface ARIARoleRelationConcept {
     // https://www.w3.org/TR/html-aria
     constraints?:
         | Array<
-              | 'direct descendant of document'
-              | 'direct descendant of ol, ul or menu'
-              | 'direct descendant of details element with the open attribute defined'
-              | 'descendant of table'
-          >
+            | 'direct descendant of document'
+            | 'direct descendant of ol, ul or menu'
+            | 'direct descendant of details element with the open attribute defined'
+            | 'descendant of table'
+        >
         | undefined;
 }
 

@@ -1,4 +1,4 @@
-import { TeenProcessExecOptions } from 'teen_process';
+import { TeenProcessExecOptions, } from 'teen_process';
 
 export type APP_INSTALL_STATE = typeof APP_INSTALL_STATE[keyof typeof APP_INSTALL_STATE];
 export const APP_INSTALL_STATE: {
@@ -210,7 +210,7 @@ interface ApkUtils {
      * @return True if the package is installed.
      * @throws If there was an error while detecting application state
      */
-    isAppInstalled(pkg: string): Promise<boolean>;
+    isAppInstalled(pkg: string,): Promise<boolean>;
 
     /**
      * Start the particular URI on the device under test.
@@ -218,7 +218,7 @@ interface ApkUtils {
      * @param uri - The name of URI to start.
      * @param pkg - The name of the package to start the URI with.
      */
-    startUri(uri: string, pkg: string, opts?: StartUriOptions): Promise<void>;
+    startUri(uri: string, pkg: string, opts?: StartUriOptions,): Promise<void>;
 
     /**
      * Start the particular package/activity on the device under test.
@@ -227,7 +227,7 @@ interface ApkUtils {
      * @return The output of the corresponding adb command.
      * @throws If there is an error while executing the activity
      */
-    startApp(startAppOptions?: StartAppOptions): Promise<string>;
+    startApp(startAppOptions?: StartAppOptions,): Promise<string>;
 
     /**
      * Helper method to call `adb dumpsys window windows/displays`
@@ -253,7 +253,7 @@ interface ApkUtils {
      * @param waitMs [20000] - Number of milliseconds to wait before timeout occurs.
      * @throws If timeout happens.
      */
-    waitForActivityOrNot(pkg: string, activity: string, waitForStop: boolean, waitMs?: number): Promise<void>;
+    waitForActivityOrNot(pkg: string, activity: string, waitForStop: boolean, waitMs?: number,): Promise<void>;
 
     /**
      * Wait for the given activity to be focused
@@ -264,7 +264,7 @@ interface ApkUtils {
      * @param waitMs [20000] - Number of milliseconds to wait before timeout occurs.
      * @throws If timeout happens.
      */
-    waitForActivity(pkg: string, act: string, waitMs?: number): Promise<void>;
+    waitForActivity(pkg: string, act: string, waitMs?: number,): Promise<void>;
 
     /**
      * Wait for the given activity to be non-focused.
@@ -275,7 +275,7 @@ interface ApkUtils {
      * @param waitMs [20000] - Number of milliseconds to wait before timeout occurs.
      * @throws If timeout happens.
      */
-    waitForNotActivity(pkg: string, act: string, waitMs?: number): Promise<void>;
+    waitForNotActivity(pkg: string, act: string, waitMs?: number,): Promise<void>;
 
     /**
      * Uninstall the given package from the device under test.
@@ -285,7 +285,7 @@ interface ApkUtils {
      * @return True if the package was found on the device and
      *                   successfully uninstalled.
      */
-    uninstallApk(pkg: string, options?: UninstallOptions): Promise<boolean>;
+    uninstallApk(pkg: string, options?: UninstallOptions,): Promise<boolean>;
 
     /**
      * Install the package after it was pushed to the device under test.
@@ -295,7 +295,7 @@ interface ApkUtils {
      *                             for more details on this parameter.
      * @throws If there was a failure during application install.
      */
-    installFromDevicePath(apkPathOnDevice: string, opts?: TeenProcessExecOptions): Promise<void>;
+    installFromDevicePath(apkPathOnDevice: string, opts?: TeenProcessExecOptions,): Promise<void>;
 
     /**
      * Caches the given APK at a remote location to speed up further APK deployments.
@@ -305,7 +305,7 @@ interface ApkUtils {
      * @returns - Full path to the cached apk on the remote file system
      * @throws if there was a failure while caching the app
      */
-    cacheApk(apkPath: string, options?: CachingOptions): Promise<string>;
+    cacheApk(apkPath: string, options?: CachingOptions,): Promise<string>;
 
     /**
      * Install the package from the local file system.
@@ -314,7 +314,7 @@ interface ApkUtils {
      * @param options - The set of installation options.
      * @throws If an unexpected error happens during install.
      */
-    install(appPath: string, options?: InstallOptions): Promise<void>;
+    install(appPath: string, options?: InstallOptions,): Promise<void>;
 
     /**
      * Retrieves the current installation state of the particular application
@@ -324,7 +324,7 @@ interface ApkUtils {
      *                        try to extract it on its own
      * @returns One of `APP_INSTALL_STATE` constants
      */
-    getApplicationInstallState(appPath: string, pkg?: string | null): Promise<APP_INSTALL_STATE>;
+    getApplicationInstallState(appPath: string, pkg?: string | null,): Promise<APP_INSTALL_STATE>;
 
     /**
      * Install the package from the local file system or upgrade it if an older
@@ -390,7 +390,7 @@ interface ApkUtils {
      *
      * @param locale - Names of the device language and the country connected with `-`. e.g. en-US.
      */
-    setDeviceLocale(locale: string): Promise<void>;
+    setDeviceLocale(locale: string,): Promise<void>;
 
     /**
      * Make sure current device locale is expected or not.
@@ -401,7 +401,7 @@ interface ApkUtils {
      *
      * @return If current locale is language and country as arguments, return true.
      */
-    ensureCurrentLocale(language: string, country: string, script?: string | null): Promise<boolean>;
+    ensureCurrentLocale(language: string, country: string, script?: string | null,): Promise<boolean>;
 
     /**
      * Set the locale name of the device under test.
@@ -413,7 +413,7 @@ interface ApkUtils {
      * @param script - Script. The script field is case insensitive but Locale always canonicalizes to title case.
      *                            format: [a-zA-Z]{4}. e.g. Hans in zh-Hans-CN : https://developer.android.com/reference/java/util/Locale.html
      */
-    setDeviceLanguageCountry(language: string, country: string, script?: string | null): Promise<void>;
+    setDeviceLanguageCountry(language: string, country: string, script?: string | null,): Promise<void>;
 
     /**
      * Get the package info from local apk file.
@@ -422,7 +422,7 @@ interface ApkUtils {
      *                           file system.
      * @return The parsed application information.
      */
-    getApkInfo(appPath: string): Promise<AppInfo | {}>;
+    getApkInfo(appPath: string,): Promise<AppInfo | {}>;
 
     /**
      * Get the package info from the installed application.
@@ -430,7 +430,7 @@ interface ApkUtils {
      * @param pkg - The name of the installed package.
      * @return The parsed application information.
      */
-    getPackageInfo(pkg: string): Promise<AppInfo>;
+    getPackageInfo(pkg: string,): Promise<AppInfo>;
 
     /**
      * Fetches base.apk of the given package to the local file system
@@ -440,7 +440,7 @@ interface ApkUtils {
      * @returns Full path to the downloaded file
      * @throws {Error} If there was an error while fetching the .apk
      */
-    pullApk(pkg: string, tmpDir: string): Promise<string>;
+    pullApk(pkg: string, tmpDir: string,): Promise<string>;
 
     /**
      * Activates the given application or launches it if necessary.
@@ -450,5 +450,5 @@ interface ApkUtils {
      * @param appId - Application package identifier
      * @throws {Error} If the app cannot be activated
      */
-    activateApp(appId: string): Promise<void>;
+    activateApp(appId: string,): Promise<void>;
 }

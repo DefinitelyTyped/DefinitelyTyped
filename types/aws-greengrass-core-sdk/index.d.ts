@@ -6,7 +6,7 @@
 // Minimum TypeScript Version: 3.8
 
 /// <reference types="node" />
-import * as StreamManager from "./stream-manager";
+import * as StreamManager from './stream-manager';
 
 export interface PublishParams {
     topic: string;
@@ -18,13 +18,13 @@ export interface IotCallbackData {
     payload: Buffer | Blob | string | ArrayLike<any>;
 }
 
-export type IotCallback = (error: Error | null, data: IotCallbackData | null) => void;
+export type IotCallback = (error: Error | null, data: IotCallbackData | null,) => void;
 
 export class IotData {
     constructor();
-    publish(params: PublishParams, callback: IotCallback): void;
+    publish(params: PublishParams, callback: IotCallback,): void;
 }
 
 export const GreengrassInterfaceVersion: string;
 
-export { StreamManager };
+export { StreamManager, };

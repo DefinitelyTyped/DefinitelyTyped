@@ -10,7 +10,7 @@ import TokensStartState from 'antlr4/state/TokensStartState';
 import Transition from 'antlr4/transition/Transition';
 
 const atnStateInstance = new ATNState();
-const transitionInstance = new Transition(atnStateInstance);
+const transitionInstance = new Transition(atnStateInstance,);
 
 // ATNState
 ATNState.INVALID_TYPE; // $ExpectType 0
@@ -37,10 +37,10 @@ atnStateInstance.epsilonOnlyTransitions; // $ExpectType boolean
 atnStateInstance.transitions; // $ExpectType Transition[]
 atnStateInstance.nextTokenWithinRule; // $ExpectType IntervalSet | null
 atnStateInstance.toString(); // $ExpectType number
-atnStateInstance.equals(atnStateInstance); // $ExpectType boolean
+atnStateInstance.equals(atnStateInstance,); // $ExpectType boolean
 atnStateInstance.isNonGreedyExitState(); // $ExpectType boolean
-atnStateInstance.addTransition(transitionInstance); // $ExpectType void
-atnStateInstance.addTransition(transitionInstance, 0); // $ExpectType void
+atnStateInstance.addTransition(transitionInstance,); // $ExpectType void
+atnStateInstance.addTransition(transitionInstance, 0,); // $ExpectType void
 
 // BasicState
 const basicStateInstance = new BasicState();

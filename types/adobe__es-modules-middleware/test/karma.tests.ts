@@ -2,21 +2,21 @@
 import path = require('path');
 import karma = require('karma');
 
-module.exports = (config: karma.Config) => {
+module.exports = (config: karma.Config,) => {
     config.set({
         // @adobe/es-modules-middleware
         esModulesMiddleware: {
             paths: {
                 '/': __dirname,
-                '/node_modules': path.join(__dirname, 'node_modules'),
+                '/node_modules': path.join(__dirname, 'node_modules',),
             },
         },
 
         // other
         basePath: '.',
-        plugins: ['karma-*', require('@adobe/es-modules-middleware')],
-        frameworks: ['mocha', 'chai', 'sinon', 'web-components'],
-        middleware: ['es-modules'],
+        plugins: ['karma-*', require('@adobe/es-modules-middleware',),],
+        frameworks: ['mocha', 'chai', 'sinon', 'web-components',],
+        middleware: ['es-modules',],
         files: [
             {
                 pattern: '**/*.test.html',
@@ -34,6 +34,6 @@ module.exports = (config: karma.Config) => {
         proxies: {
             '/node_modules/': '/base/node_modules/',
         },
-        reporters: ['mocha'],
-    });
+        reporters: ['mocha',],
+    },);
 };

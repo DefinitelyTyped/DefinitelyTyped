@@ -1,5 +1,4 @@
-type ReferOverlayOptions<O> =
-    O extends AMap.BezierCurve ? AMap.BezierCurve.Options
+type ReferOverlayOptions<O,> = O extends AMap.BezierCurve ? AMap.BezierCurve.Options
     : O extends AMap.Polyline ? AMap.Polyline.Options
     : O extends AMap.Circle ? AMap.Circle.Options
     : O extends AMap.Ellipse ? AMap.Ellipse.Options
@@ -10,22 +9,22 @@ type ReferOverlayOptions<O> =
     : any;
 
 declare namespace AMap {
-    class OverlayGroup<O extends Overlay = Overlay, ExtraData = any> extends Overlay<ExtraData> {
+    class OverlayGroup<O extends Overlay = Overlay, ExtraData = any,> extends Overlay<ExtraData> {
         /**
          * 覆盖物集合
          * @param overlays 覆盖物
          */
-        constructor(overlays?: O | O[]);
+        constructor(overlays?: O | O[],);
         /**
          * 添加单个覆盖物到集合中，不支持添加重复的覆盖物
          * @param overlay 覆盖物
          */
-        addOverlay(overlay: O | O[]): this;
+        addOverlay(overlay: O | O[],): this;
         /**
          *     添加覆盖物数组到集合中，不支持添加重复的覆盖物
          * @param overlay 覆盖物数组
          */
-        addOverlays(overlay: O | O[]): this;
+        addOverlays(overlay: O | O[],): this;
         /**
          * 返回当前集合中所有的覆盖物
          */
@@ -34,17 +33,17 @@ declare namespace AMap {
          * 判断传入的覆盖物实例是否在集合中
          * @param overlay 覆盖物
          */
-        hasOverlay(overlay: O | ((this: null, item: O, index: number, list: O[]) => boolean)): boolean;
+        hasOverlay(overlay: O | ((this: null, item: O, index: number, list: O[],) => boolean),): boolean;
         /**
          * 从集合中删除传入的覆盖物实例
          * @param overlay 覆盖物
          */
-        removeOverlay(overlay: O | O[]): this;
+        removeOverlay(overlay: O | O[],): this;
         /**
          *     从集合中删除传入的覆盖物实例数组
          * @param overlay 覆盖物数组
          */
-        removeOverlays(overlay: O | O[]): this;
+        removeOverlays(overlay: O | O[],): this;
         /**
          * 清空集合
          */
@@ -54,17 +53,17 @@ declare namespace AMap {
          * @param iterator 迭代回调
          * @param context 执行上下文
          */
-        eachOverlay<C = O>(iterator: (this: C, overlay: O, index: number, overlays: O[]) => void, context?: C): this;
+        eachOverlay<C = O,>(iterator: (this: C, overlay: O, index: number, overlays: O[],) => void, context?: C,): this;
         /**
          * 指定集合中里覆盖物的显示地图
          * @param map 地图
          */
-        setMap(map: null | Map): this;
+        setMap(map: null | Map,): this;
         /**
          * 修改覆盖物属性
          * @param options 属性
          */
-        setOptions(options: ReferOverlayOptions<O>): this;
+        setOptions(options: ReferOverlayOptions<O>,): this;
         /**
          * 在地图上显示集合中覆盖物
          */
@@ -77,6 +76,6 @@ declare namespace AMap {
          * 查找集合中的覆盖物
          * @param finder 查找回调
          */
-        getOverlay(finder: ((this: null, item: O, index: number, list: O[]) => boolean) | O): O | null;
+        getOverlay(finder: ((this: null, item: O, index: number, list: O[],) => boolean) | O,): O | null;
     }
 }

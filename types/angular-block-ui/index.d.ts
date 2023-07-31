@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from "angular";
+import * as angular from 'angular';
 
 declare module 'angular' {
     namespace blockUI {
@@ -74,9 +74,8 @@ declare module 'angular' {
              * argument to the start method of the service.
              *
              * @param config the Angular request config object.
-             *
              */
-            requestFilter?(config: IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig,): string | boolean;
 
             /**
              * When the module is started it will inject the main block element
@@ -145,7 +144,7 @@ declare module 'angular' {
              *     If no argument is specified the default text message
              *     from the configuration is used.
              */
-            start(messageOrOptions?: (string | BlockUIConfig)): void;
+            start(messageOrOptions?: string | BlockUIConfig,): void;
 
             /**
              * This will decrease the block count.
@@ -165,7 +164,7 @@ declare module 'angular' {
              * This can be useful whenever you wish to redirect the user
              * to a different location while there are still pending AJAX requests.
              */
-            done(doneCallback: () => void): void;
+            done(doneCallback: () => void,): void;
 
             /**
              * Allows the message shown in the overlay to be updated
@@ -173,7 +172,7 @@ declare module 'angular' {
              *
              * @param message The message to show in the overlay.
              */
-            message(message: string): void;
+            message(message: string,): void;
 
             /**
              * Returns whether currently a block is shown for the instance or not.
@@ -184,7 +183,7 @@ declare module 'angular' {
         }
 
         interface BlockUIInstances {
-            get(id: string): BlockUIService;
+            get(id: string,): BlockUIService;
         }
     }
 }

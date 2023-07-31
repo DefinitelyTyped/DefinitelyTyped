@@ -1,23 +1,23 @@
-import ATNSimulator from './ATNSimulator';
-import DoubleDict from '../utils/DoubleDict';
-import DFAState from '../dfa/DFAState';
-import ATNConfigSet from './ATNConfigSet';
-import PredPrediction from '../dfa/PredPrediction';
-import BitSet from '../misc/BitSet';
-import ATNConfig from './ATNConfig';
-import NoViableAltException from '../error/NoViableAltException';
-import Parser from '../Parser';
-import ATN from './ATN';
-import PredictionContextCache from './PredictionContextCache';
-import DFA from '../dfa/DFA';
 import ParserRuleContext from '../context/ParserRuleContext';
-import TokenStream from '../TokenStream';
-import DecisionState from '../state/DecisionState';
-import ATNState from '../state/ATNState';
 import RuleContext from '../context/RuleContext';
-import Transition from '../transition/Transition';
-import SemanticContext from './SemanticContext';
+import DFA from '../dfa/DFA';
+import DFAState from '../dfa/DFAState';
+import PredPrediction from '../dfa/PredPrediction';
+import NoViableAltException from '../error/NoViableAltException';
+import BitSet from '../misc/BitSet';
 import HashSet from '../misc/HashSet';
+import Parser from '../Parser';
+import ATNState from '../state/ATNState';
+import DecisionState from '../state/DecisionState';
+import TokenStream from '../TokenStream';
+import Transition from '../transition/Transition';
+import DoubleDict from '../utils/DoubleDict';
+import ATN from './ATN';
+import ATNConfig from './ATNConfig';
+import ATNConfigSet from './ATNConfigSet';
+import ATNSimulator from './ATNSimulator';
+import PredictionContextCache from './PredictionContextCache';
+import SemanticContext from './SemanticContext';
 
 export default class ParserATNSimulator extends ATNSimulator {
     parser: Parser;
@@ -46,11 +46,11 @@ export default class ParserATNSimulator extends ATNSimulator {
     dfa_debug: boolean;
     retry_debug: boolean;
 
-    constructor(parser: Parser, atn: ATN, decisionToDFA: DFA[], sharedContextCache: PredictionContextCache);
+    constructor(parser: Parser, atn: ATN, decisionToDFA: DFA[], sharedContextCache: PredictionContextCache,);
 
     reset(): void;
 
-    adaptivePredict(input: TokenStream, decision: number, outerContext: ParserRuleContext): ParserATNSimulator;
+    adaptivePredict(input: TokenStream, decision: number, outerContext: ParserRuleContext,): ParserATNSimulator;
 
     /**
      * Performs ATN simulation to compute a predicted alternative based
@@ -83,7 +83,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      *    conflict
      *    conflict + preds
      */
-    execATN(dfa: DFA, s0: DFAState, input: TokenStream, startIndex: number, outerContext: ParserRuleContext): number;
+    execATN(dfa: DFA, s0: DFAState, input: TokenStream, startIndex: number, outerContext: ParserRuleContext,): number;
 
     /**
      * Get an existing target state for an edge in the DFA. If the target state
@@ -95,7 +95,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      * @return The existing target DFA state for the given input symbol
      * `t`, or `null` if the target state for this edge is not already cached.
      */
-    getExistingTargetState(previousD: DFAState, t: number): DFAState;
+    getExistingTargetState(previousD: DFAState, t: number,): DFAState;
 
     /**
      * Compute a target state for an edge in the DFA, and attempt to add the
@@ -109,9 +109,9 @@ export default class ParserATNSimulator extends ATNSimulator {
      * `t`. If `t` does not lead to a valid DFA state, this method
      * returns {@link ERROR}
      */
-    computeTargetState(dfa: DFA, previousD: DFAState, t: number): DFAState;
+    computeTargetState(dfa: DFA, previousD: DFAState, t: number,): DFAState;
 
-    predicateDFAState(dfaState: DFAState, decisionState: DecisionState): void;
+    predicateDFAState(dfaState: DFAState, decisionState: DecisionState,): void;
 
     execATNWithFullContext(
         dfa: DFA,
@@ -122,7 +122,7 @@ export default class ParserATNSimulator extends ATNSimulator {
         outerContext: ParserRuleContext,
     ): number;
 
-    computeReachSet(closure: ATNConfigSet, t: number, fullCtx: boolean): ATNConfigSet;
+    computeReachSet(closure: ATNConfigSet, t: number, fullCtx: boolean,): ATNConfigSet;
 
     /**
      * Return a configuration set containing only the configurations from
@@ -143,9 +143,9 @@ export default class ParserATNSimulator extends ATNSimulator {
      * rule stop state, otherwise return a new configuration set containing only
      * the configurations from `configs` which are in a rule stop state
      */
-    removeAllConfigsNotInRuleStopState(configs: ATNConfigSet, lookToEndOfRule: boolean): ATNConfigSet;
+    removeAllConfigsNotInRuleStopState(configs: ATNConfigSet, lookToEndOfRule: boolean,): ATNConfigSet;
 
-    computeStartState(p: ATNState, ctx: RuleContext, fullCtx: boolean): ATNConfigSet;
+    computeStartState(p: ATNState, ctx: RuleContext, fullCtx: boolean,): ATNConfigSet;
 
     /**
      * This method transforms the start state computed by
@@ -195,13 +195,13 @@ export default class ParserATNSimulator extends ATNSimulator {
      * for a precedence DFA at a particular precedence level (determined by
      * calling {@link Parser.getPrecedence})
      */
-    applyPrecedenceFilter(configs: ATNConfigSet): ATNConfigSet;
+    applyPrecedenceFilter(configs: ATNConfigSet,): ATNConfigSet;
 
-    getReachableTarget(trans: Transition, ttype: number): ATNState;
+    getReachableTarget(trans: Transition, ttype: number,): ATNState;
 
-    getPredsForAmbigAlts(ambigAlts: BitSet, configs: ATNConfigSet, nalts: number): SemanticContext[];
+    getPredsForAmbigAlts(ambigAlts: BitSet, configs: ATNConfigSet, nalts: number,): SemanticContext[];
 
-    getPredicatePredictions(ambigAlts: BitSet, altToPred: SemanticContext[]): PredPrediction[] | null;
+    getPredicatePredictions(ambigAlts: BitSet, altToPred: SemanticContext[],): PredPrediction[] | null;
 
     /**
      * This method is used to improve the localization of error messages by
@@ -248,7 +248,7 @@ export default class ParserATNSimulator extends ATNSimulator {
         outerContext: ParserRuleContext,
     ): number;
 
-    getAltThatFinishedDecisionEntryRule(configs: ATNConfigSet): number;
+    getAltThatFinishedDecisionEntryRule(configs: ATNConfigSet,): number;
 
     /**
      * Walk the list of configurations and split them according to
@@ -260,7 +260,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      * Assumption: the input stream has been restored to the starting point
      * prediction, which is where predicates need to evaluate.
      */
-    splitAccordingToSemanticValidity(configs: ATNConfigSet, outerContext: ParserRuleContext): ATNConfigSet[];
+    splitAccordingToSemanticValidity(configs: ATNConfigSet, outerContext: ParserRuleContext,): ATNConfigSet[];
 
     /**
      * Look through a list of predicate/alt pairs, returning alts for the
@@ -269,7 +269,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      * then we stop at the first predicate that evaluates to true. This
      * includes pairs with null predicates.
      */
-    evalSemanticContext(predPredictions: PredPrediction[], outerContext: ParserRuleContext, complete: boolean): BitSet;
+    evalSemanticContext(predPredictions: PredPrediction[], outerContext: ParserRuleContext, complete: boolean,): BitSet;
 
     closure(
         config: ATNConfig,
@@ -290,9 +290,9 @@ export default class ParserATNSimulator extends ATNSimulator {
         treatEofAsEpsilon: boolean,
     ): void;
 
-    canDropLoopEntryEdgeInLeftRecursiveRule(config: ATNConfig): boolean;
+    canDropLoopEntryEdgeInLeftRecursiveRule(config: ATNConfig,): boolean;
 
-    getRuleName(index: number): string;
+    getRuleName(index: number,): string;
 
     getEpsilonTarget(
         config: ATNConfig,
@@ -303,7 +303,7 @@ export default class ParserATNSimulator extends ATNSimulator {
         treatEofAsEpsilon: boolean,
     ): ATNConfig | null;
 
-    actionTransition(config: ATNConfig, t: Transition): ATNConfig;
+    actionTransition(config: ATNConfig, t: Transition,): ATNConfig;
 
     precedenceTransition(
         config: ATNConfig,
@@ -321,9 +321,9 @@ export default class ParserATNSimulator extends ATNSimulator {
         fullCtx: boolean,
     ): ATNConfig | null;
 
-    ruleTransition(config: ATNConfig, t: Transition): ATNConfig;
+    ruleTransition(config: ATNConfig, t: Transition,): ATNConfig;
 
-    getConflictingAlts(configs: ATNConfigSet): BitSet;
+    getConflictingAlts(configs: ATNConfigSet,): BitSet;
 
     /**
      * Sam pointed out a problem with the previous definition, v3, of
@@ -361,18 +361,18 @@ export default class ParserATNSimulator extends ATNSimulator {
      * ignore a set of conflicting alts when we have an alternative
      * that we still need to pursue
      */
-    getConflictingAltsOrUniqueAlt(configs: ATNConfigSet): BitSet;
+    getConflictingAltsOrUniqueAlt(configs: ATNConfigSet,): BitSet;
 
-    getTokenName(t: number): string;
+    getTokenName(t: number,): string;
 
-    getLookaheadName(input: TokenStream): string;
+    getLookaheadName(input: TokenStream,): string;
 
     /**
      * Used for debugging in adaptivePredict around execATN but I cut
      * it out for clarity now that alg. works well. We can leave this
      * "dead" code for a bit
      */
-    dumpDeadEndConfigs(nvae: NoViableAltException): void;
+    dumpDeadEndConfigs(nvae: NoViableAltException,): void;
 
     noViableAlt(
         input: TokenStream,
@@ -381,7 +381,7 @@ export default class ParserATNSimulator extends ATNSimulator {
         startIndex: number,
     ): NoViableAltException;
 
-    getUniqueAlt(configs: ATNConfigSet): number;
+    getUniqueAlt(configs: ATNConfigSet,): number;
 
     /**
      * Add an edge to the DFA, if possible. This method calls
@@ -403,7 +403,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      * otherwise this method returns the result of calling {@link addDFAState}
      * on `to`
      */
-    addDFAEdge(dfa: DFA, from_: DFAState, t: number, to: DFAState): DFAState;
+    addDFAEdge(dfa: DFA, from_: DFAState, t: number, to: DFAState,): DFAState;
 
     /**
      * Add state `D` to the DFA if it is not already present, and return
@@ -420,7 +420,7 @@ export default class ParserATNSimulator extends ATNSimulator {
      * state if `D` is already in the DFA, or `D` itself if the state was
      * not already present
      */
-    addDFAState(dfa: DFA, D: DFAState): DFAState;
+    addDFAState(dfa: DFA, D: DFAState,): DFAState;
 
     reportAttemptingFullContext(
         dfa: DFA,

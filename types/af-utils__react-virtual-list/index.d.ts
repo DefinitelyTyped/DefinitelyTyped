@@ -23,7 +23,7 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, 'chil
     className?: string;
     itemData: any;
     component?: string | React.ComponentType<any>;
-    getKey?: (i: number, itemData?: any) => any;
+    getKey?: (i: number, itemData?: any,) => any;
     tabIndex?: number;
     countOffset?: boolean;
 }

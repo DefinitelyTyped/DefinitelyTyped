@@ -19,8 +19,8 @@ export interface XDomainRequest {
     onerror: () => void;
     onload: () => void;
 
-    open(method: string, url: string): void;
-    send(data: string): void;
+    open(method: string, url: string,): void;
+    send(data: string,): void;
     abort(): void;
 }
 
@@ -103,12 +103,12 @@ export interface CognitoAuthOptions {
      * Optional: A function called to launch an Uri.
      * By default it uses window.location in browsers, and the Linking class in react native.
      */
-    LaunchUri?: (url: string) => void;
+    LaunchUri?: (url: string,) => void;
 }
 
 export interface CognitoAuthUserHandler {
-    onSuccess: (authSession: CognitoAuthSession) => void;
-    onFailure: (err: any) => void;
+    onSuccess: (authSession: CognitoAuthSession,) => void;
+    onFailure: (err: any,) => void;
 }
 
 export interface CognitoConstants {
@@ -161,7 +161,7 @@ export class CognitoIdToken {
      * Constructs a new CognitoIdToken object
      * @param IdToken The JWT Id token
      */
-    constructor(IdToken: string);
+    constructor(IdToken: string,);
 
     /**
      * @returns the record's token.
@@ -172,7 +172,7 @@ export class CognitoIdToken {
      * Sets new value for id token.
      * @param idToken The JWT Id token
      */
-    setJwtToken(idToken: string): void;
+    setJwtToken(idToken: string,): void;
 
     /**
      * @returns the token's expiration (exp member).
@@ -190,7 +190,7 @@ export class CognitoRefreshToken {
      * Constructs a new CognitoRefreshToken object
      * @param RefreshToken The JWT refresh token.
      */
-    constructor(RefreshToken: string);
+    constructor(RefreshToken: string,);
 
     /**
      * @returns the record's token.
@@ -201,7 +201,7 @@ export class CognitoRefreshToken {
      * Sets new value for refresh token.
      * @param refreshToken The JWT refresh token.
      */
-    setToken(refreshToken: string): void;
+    setToken(refreshToken: string,): void;
 }
 
 export class CognitoAccessToken {
@@ -209,7 +209,7 @@ export class CognitoAccessToken {
      * Constructs a new CognitoAccessToken object
      * @param AccessToken The JWT access token.
      */
-    constructor(AccessToken: string);
+    constructor(AccessToken: string,);
 
     /**
      * @returns the record's token.
@@ -220,7 +220,7 @@ export class CognitoAccessToken {
      * Sets new value for access token.
      * @param accessToken The JWT access token.
      */
-    setJwtToken(accessToken: string): void;
+    setJwtToken(accessToken: string,): void;
 
     /**
      * @returns the token's expiration (exp member).
@@ -243,7 +243,7 @@ export class CognitoTokenScopes {
      * Constructs a new CognitoTokenScopes object
      * @param TokenScopesArray The token scopes
      */
-    constructor(TokenScopesArray: ReadonlyArray<string>);
+    constructor(TokenScopesArray: ReadonlyArray<string>,);
 
     /**
      * @returns the token scopes.
@@ -254,7 +254,7 @@ export class CognitoTokenScopes {
      * Sets new value for token scopes.
      * @param tokenScopes The token scopes
      */
-    setTokenScopes(tokenScopes: ReadonlyArray<string>): void;
+    setTokenScopes(tokenScopes: ReadonlyArray<string>,): void;
 }
 
 export class CognitoAuthSession {
@@ -262,7 +262,7 @@ export class CognitoAuthSession {
      * Constructs a new CognitoUserSession object
      * @param sessionData The session's tokens, scopes, and state.
      */
-    constructor(sessionData: CognitoSessionData);
+    constructor(sessionData: CognitoSessionData,);
 
     /**
      *  @returns the session's Id token
@@ -273,7 +273,7 @@ export class CognitoAuthSession {
      * Set a new Id token
      * @param IdToken The session's Id token.
      */
-    setIdToken(IdToken: CognitoIdToken): void;
+    setIdToken(IdToken: CognitoIdToken,): void;
 
     /**
      * @returns the session's refresh token
@@ -284,7 +284,7 @@ export class CognitoAuthSession {
      * Set a new Refresh token
      * @param RefreshToken The session's refresh token.
      */
-    setRefreshToken(RefreshToken: CognitoRefreshToken): void;
+    setRefreshToken(RefreshToken: CognitoRefreshToken,): void;
 
     /**
      * @returns the session's access token
@@ -295,7 +295,7 @@ export class CognitoAuthSession {
      * Set a new Access token
      * @param AccessToken The session's access token.
      */
-    setAccessToken(AccessToken: CognitoAccessToken): void;
+    setAccessToken(AccessToken: CognitoAccessToken,): void;
 
     /**
      * @returns the session's token scopes
@@ -306,7 +306,7 @@ export class CognitoAuthSession {
      * Set new token scopes
      * @param tokenScopes The session's token scopes.
      */
-    setTokenScopes(tokenScopes: CognitoTokenScopes): void;
+    setTokenScopes(tokenScopes: CognitoTokenScopes,): void;
 
     /**
      * @returns the session's state
@@ -317,7 +317,7 @@ export class CognitoAuthSession {
      * Set new state
      * @param state The session's state.
      */
-    setState(State: string): void;
+    setState(State: string,): void;
 
     /**
      * Checks to see if the session is still valid based on session expiry information found
@@ -337,7 +337,7 @@ export class CognitoAuth {
      * Constructs a new CognitoAuth object
      * @param options Creation options
      */
-    constructor(options: CognitoAuthOptions);
+    constructor(options: CognitoAuthOptions,);
 
     /**
      * @returns the constants
@@ -365,7 +365,7 @@ export class CognitoAuth {
      * method for setting the current user's name
      * @param Username the user's name
      */
-    setUser(Username: string): void;
+    setUser(Username: string,): void;
 
     /**
      * sets response type to 'code'
@@ -390,7 +390,7 @@ export class CognitoAuth {
     /**
      * @param Username the user's username
      */
-    setUsername(Username: string): void;
+    setUsername(Username: string,): void;
 
     /**
      * @returns the user's state
@@ -400,7 +400,7 @@ export class CognitoAuth {
     /**
      * @param State the user's state
      */
-    setState(State: string): void;
+    setState(State: string,): void;
 
     /**
      * This is used to get a session, either from the session object or from the local storage, or by using a refresh token
@@ -413,19 +413,19 @@ export class CognitoAuth {
      * Parse the http request response and proceed according to different response types.
      * @param httpRequestResponse the http request response
      */
-    parseCognitoWebResponse(httpRequestResponse: string): void;
+    parseCognitoWebResponse(httpRequestResponse: string,): void;
 
     /**
      * Get the query parameter map and proceed according to code response type.
      * @param Query parameter map
      */
-    getCodeQueryParameter(map: ReadonlyMap<string, string>): void;
+    getCodeQueryParameter(map: ReadonlyMap<string, string>,): void;
 
     /**
      * Get the query parameter map and proceed according to token response type.
      * @param Query parameter map
      */
-    getTokenQueryParameter(map: ReadonlyMap<string, string>): void;
+    getTokenQueryParameter(map: ReadonlyMap<string, string>,): void;
 
     /**
      * Get cached tokens and scopes and return a new session using all the cached data.
@@ -450,14 +450,14 @@ export class CognitoAuth {
      * @param set2 the other set
      * @returns boolean value is true if two sets are identical
      */
-    compareSets(set1: ReadonlySet<any>, set2: ReadonlySet<any>): boolean;
+    compareSets(set1: ReadonlySet<any>, set2: ReadonlySet<any>,): boolean;
 
     /**
      * Get the hostname from url.
      * @param url the url string
      * @returns hostname string
      */
-    getHostName(url: string): string;
+    getHostName(url: string,): string;
 
     /**
      * Get http query parameters and return them as a map.
@@ -465,7 +465,7 @@ export class CognitoAuth {
      * @param splitMark query parameters split mark (prefix)
      * @returns map
      */
-    getQueryParameters(url: string, splitMark: string): Map<string, string>;
+    getQueryParameters(url: string, splitMark: string,): Map<string, string>;
 
     /**
      * helper function to generate a random string
@@ -473,7 +473,7 @@ export class CognitoAuth {
      * @param chars a original string
      * @returns a random value.
      */
-    generateRandomString(length: number, chars: string): string;
+    generateRandomString(length: number, chars: string,): string;
 
     /**
      * This is used to clear the session tokens and scopes from local storage
@@ -484,7 +484,7 @@ export class CognitoAuth {
      * This is used to build a user session from tokens retrieved in the authentication result
      * @param refreshToken Successful auth response from server.
      */
-    refreshSession(refreshToken: string): void;
+    refreshSession(refreshToken: string,): void;
 
     /**
      * Make the http POST request.
@@ -498,8 +498,8 @@ export class CognitoAuth {
         header: object,
         body: object,
         url: string,
-        onSuccess: (responseText: string) => void,
-        onFailure: (responseText: string) => void,
+        onSuccess: (responseText: string,) => void,
+        onFailure: (responseText: string,) => void,
     ): void;
 
     /**
@@ -508,31 +508,31 @@ export class CognitoAuth {
      * @param url the url string
      * @returns xhr
      */
-    createCORSRequest(method: string, url: string): XMLHttpRequest | XDomainRequest;
+    createCORSRequest(method: string, url: string,): XMLHttpRequest | XDomainRequest;
 
     /**
      * The http POST request onFailure callback.
      * @param err the error object
      */
-    onFailure(err: any): void;
+    onFailure(err: any,): void;
 
     /**
      * The http POST request onSuccess callback when refreshing tokens.
      * @param jsonData tokens
      */
-    onSuccessRefreshToken(jsonData: string): void;
+    onSuccessRefreshToken(jsonData: string,): void;
 
     /**
      * The http POST request onSuccess callback when exchanging code for tokens.
      * @param jsonData tokens
      */
-    onSuccessExchangeForToken(jsonData: string): void;
+    onSuccessExchangeForToken(jsonData: string,): void;
 
     /**
      * Launch Cognito Auth UI page.
      * @param URL the url to launch
      */
-    launchUri(URL: string): void;
+    launchUri(URL: string,): void;
 
     /**
      * @returns scopes string
@@ -598,20 +598,20 @@ export interface CognitoAuthStorage {
      * Sets the value of the pair identified by key to value, creating a new
      * key/value pair if none existed for key previously.
      */
-    setItem(key: string, value: string): void;
+    setItem(key: string, value: string,): void;
 
     /**
      * Returns the current value associated with the given key, or null or
      * undefined if the given key does not exist in the list associated with
      * the object.
      */
-    getItem(key: string): string | null | undefined;
+    getItem(key: string,): string | null | undefined;
 
     /**
      * Removes the key/value pair with the given key from the list associated
      * with the object, if a key/value pair with the given key exists.
      */
-    removeItem(key: string): void;
+    removeItem(key: string,): void;
 }
 
 export interface CookieStorageOptions {
@@ -641,7 +641,7 @@ export class CookieStorage implements CognitoAuthStorage {
      * Constructs a new CookieStorage object
      * @param data Creation options.
      */
-    constructor(data: CookieStorageOptions);
+    constructor(data: CookieStorageOptions,);
 
     /**
      * This is used to set a specific item in storage
@@ -649,20 +649,20 @@ export class CookieStorage implements CognitoAuthStorage {
      * @param value the value
      * @returns value that was set
      */
-    setItem(key: string, value: unknown): string;
+    setItem(key: string, value: unknown,): string;
 
     /**
      * This is used to get a specific key from storage
      * @param key the key for the item
      * @returns the data item
      */
-    getItem(key: string): string | undefined;
+    getItem(key: string,): string | undefined;
 
     /**
      * This is used to remove an item from storage
      * @param key the key being set
      */
-    removeItem(key: string): void;
+    removeItem(key: string,): void;
 
     /**
      * This is used to clear the storage

@@ -23,11 +23,9 @@
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class ReorderPagesOperation {
     /**
-     *
      * Constructs a {@link ReorderPagesOperation} instance.
      */
     static createNew(): ReorderPagesOperation;
@@ -37,11 +35,11 @@ export class ReorderPagesOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Sets the order of the pages.
      */
-    setPagesOrder(pageRanges: PageRanges): void;
+    setPagesOrder(pageRanges: PageRanges,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -49,9 +47,9 @@ export class ReorderPagesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
     getIncludeRanges(): any[][];
     getSourceFileRefs(): any[];
 }
-import { ExecutionContext, FileRef, PageRanges, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, PdfFormat, } from '../pdfservices-sdk';

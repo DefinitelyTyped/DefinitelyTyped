@@ -19,7 +19,7 @@ export default class DFA {
      */
     precedenceDfa: boolean;
 
-    constructor(atnStartState: ATN, decision: number);
+    constructor(atnStartState: ATN, decision: number,);
 
     /**
      * Get the start state for a specific precedence value.
@@ -28,7 +28,7 @@ export default class DFA {
      * @return The start state corresponding to the specified precedence, or
      * `null` if no start state exists for the specified precedence.
      */
-    getPrecedenceStartState(precedence: number): DFAState | null;
+    getPrecedenceStartState(precedence: number,): DFAState | null;
 
     /**
      * Set the start state for a specific precedence value.
@@ -37,7 +37,7 @@ export default class DFA {
      * @param startState The start state corresponding to the specified
      * precedence.
      */
-    setPrecedenceStartState(precedence: number, startState: DFAState): void;
+    setPrecedenceStartState(precedence: number, startState: DFAState,): void;
 
     /**
      * Sets whether this is a precedence DFA. If the specified value differs
@@ -53,14 +53,14 @@ export default class DFA {
      *
      * @param precedenceDfa `true` if this is a precedence DFA; otherwise, `false`.
      */
-    setPrecedenceDfa(precedenceDfa: boolean): void;
+    setPrecedenceDfa(precedenceDfa: boolean,): void;
 
     /**
      * Return a list of all states in this DFA, ordered by state number.
      */
     sortedStates(): DFAState[];
 
-    toString(literalNames?: string[], symbolicNames?: string[]): string | null;
+    toString(literalNames?: string[], symbolicNames?: string[],): string | null;
 
     toLexerString(): string | null;
 

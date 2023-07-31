@@ -4,49 +4,49 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 interface AqlError extends Error {
-    new(message: string): Error;
+    new(message: string,): Error;
     name: string;
 }
 interface Operation extends Expression {
     new(): Expression;
 }
 interface BinaryOperation extends Operation {
-    new(operator: string, value1: any, value2: any): Operation;
+    new(operator: string, value1: any, value2: any,): Operation;
     toAQL(): string;
     _operator: string;
 }
 interface UnaryOperation extends Expression {
-    new(operator: string, value: any): Expression;
+    new(operator: string, value: any,): Expression;
     toAQL(): string;
     _operator: string;
 }
 interface SimpleReference extends Expression {
-    new(value: string): Expression;
+    new(value: string,): Expression;
     toAQL(): string;
     re: RegExp;
     _value: string;
 }
 interface RawExpression extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
 }
 interface BooleanLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     _value: boolean;
 }
 interface NumberLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     re: RegExp;
 }
 interface IntegerLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     _value: number;
 }
 interface StringLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
 }
 interface ListLiteral extends Expression {
@@ -54,47 +54,47 @@ interface ListLiteral extends Expression {
     toAQL(): string;
 }
 interface ObjectLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     _value: object;
 }
 interface NAryOperation extends Operation {
-    new(operator: string, values: any[]): Operation;
+    new(operator: string, values: any[],): Operation;
     toAQL(): string;
     _operator: string;
     _values: Expression[];
 }
 interface RangeExpression extends Expression {
-    new(start: any, end?: any): Expression;
+    new(start: any, end?: any,): Expression;
     toAQL(): string;
     _start: number;
     _end: number;
     re: RegExp;
 }
 interface PropertyAccess extends Expression {
-    new(obj: any, keys: any[]): Expression;
+    new(obj: any, keys: any[],): Expression;
     toAQL(): string;
     _obj: Expression;
     _keys: Expression[];
 }
 interface TernaryOperation extends Operation {
-    new(operator1: string, operator2: string, value1: Expression, value2: any, value3: any): Operation;
+    new(operator1: string, operator2: string, value1: Expression, value2: any, value3: any,): Operation;
     toAQL(): string;
     _operator1: string;
     _operator2: string;
 }
 interface NullLiteral extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
 }
 interface Keyword extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     _value: string;
     re: RegExp;
 }
 interface Identifier extends Expression {
-    new(value: any): Expression;
+    new(value: any,): Expression;
     toAQL(): string;
     _value: string;
 }
@@ -106,12 +106,12 @@ interface FunctionCall extends Expression {
     _args: any[];
 }
 interface ForExpression extends PartialStatement {
-    new(prev: PartialStatement, varname: any, expr: any): PartialStatement;
+    new(prev: PartialStatement, varname: any, expr: any,): PartialStatement;
     toAQL(): string;
     _varname: Identifier;
 }
 interface FilterExpression extends PartialStatement {
-    new(prev: PartialStatement, expr: any): PartialStatement;
+    new(prev: PartialStatement, expr: any,): PartialStatement;
     toAQL(): string;
 }
 interface Definitions {
@@ -126,19 +126,26 @@ interface LetExpression extends PartialStatement {
     _dfns: Definitions;
 }
 interface CollectExpression extends PartialStatement {
-    new(prev: PartialStatement, dfns: any[], varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
+    new(
+        prev: PartialStatement,
+        dfns: any[],
+        varname: any,
+        intoExpr: any,
+        keepNames: any[],
+        options: any,
+    ): PartialStatement;
     toAQL(): string;
     into(...newVarname: any[]): CollectExpression;
     keep(...x: any[]): any;
     _keep: Identifier[];
-    options(newOpts: any): any;
+    options(newOpts: any,): any;
     _options: ObjectLiteral;
-    withCountInto(newVarname: any): CollectWithCountIntoExpression;
+    withCountInto(newVarname: any,): CollectWithCountIntoExpression;
 }
 interface CollectWithCountIntoExpression extends PartialStatement {
-    new(prev: PartialStatement, dfns: any[], varname: any, options: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any[], varname: any, options: any,): PartialStatement;
     toAQL(): string;
-    options(newOpts: any): any;
+    options(newOpts: any,): any;
 }
 interface SortExpression extends PartialStatement {
     new(prev: PartialStatement, ...args: any[]): PartialStatement;
@@ -147,48 +154,56 @@ interface SortExpression extends PartialStatement {
     _args: Keyword[];
 }
 interface LimitExpression extends PartialStatement {
-    new(prev: PartialStatement, offset: any, count?: any): PartialStatement;
+    new(prev: PartialStatement, offset: any, count?: any,): PartialStatement;
     toAQL(): string;
 }
 interface ReturnExpression extends Expression {
-    new(prev: LetExpression, value: any, distinct: boolean): Expression;
+    new(prev: LetExpression, value: any, distinct: boolean,): Expression;
     toAQL(): string;
     _prev: LetExpression;
     _distinct: boolean;
 }
 interface RemoveExpression extends PartialStatement {
-    new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
-    returnOld(x: any): ReturnExpression;
+    new(prev: PartialStatement, expr: any, collection: any, options: any,): PartialStatement;
+    returnOld(x: any,): ReturnExpression;
     toAQL(): string;
-    options(newOpts: any): RemoveExpression;
+    options(newOpts: any,): RemoveExpression;
 }
 interface UpsertExpression extends PartialStatement {
-    new(prev: PartialStatement, upsertExpr: any, insertExpr: any, replace: boolean, updateOrReplaceExpr: any, collection: any, options: any): PartialStatement;
-    returnNew(x: any): ReturnExpression;
-    returnOld(x: any): ReturnExpression;
+    new(
+        prev: PartialStatement,
+        upsertExpr: any,
+        insertExpr: any,
+        replace: boolean,
+        updateOrReplaceExpr: any,
+        collection: any,
+        options: any,
+    ): PartialStatement;
+    returnNew(x: any,): ReturnExpression;
+    returnOld(x: any,): ReturnExpression;
     toAQL(): string;
     _updateOrReplace: string;
-    options(newOpts: any): UpsertExpression;
+    options(newOpts: any,): UpsertExpression;
 }
 interface InsertExpression extends PartialStatement {
-    new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
-    returnNew(x: any): ReturnExpression;
+    new(prev: PartialStatement, expr: any, collection: any, options: any,): PartialStatement;
+    returnNew(x: any,): ReturnExpression;
     toAQL(): string;
-    options(newOpts: any): InsertExpression;
+    options(newOpts: any,): InsertExpression;
 }
 interface UpdateExpression extends PartialStatement {
-    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
-    returnNew(x: any): ReturnExpression;
-    returnOld(x: any): ReturnExpression;
+    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any,): PartialStatement;
+    returnNew(x: any,): ReturnExpression;
+    returnOld(x: any,): ReturnExpression;
     toAQL(): string;
-    options(newOpts: any): UpdateExpression;
+    options(newOpts: any,): UpdateExpression;
 }
 interface ReplaceExpression extends PartialStatement {
-    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
-    returnNew(x: any): ReturnExpression;
-    returnOld(x: any): ReturnExpression;
+    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any,): PartialStatement;
+    returnNew(x: any,): ReturnExpression;
+    returnOld(x: any,): ReturnExpression;
     toAQL(): string;
-    options(newOpts: any): ReplaceExpression;
+    options(newOpts: any,): ReplaceExpression;
 }
 interface Expression extends PartialStatement {
     /**
@@ -205,10 +220,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').eq('y'): (x == y)
-     *
-     *
      */
-    eq(x: any, y?: any): BinaryOperation;
+    eq(x: any, y?: any,): BinaryOperation;
     /**
      * Inequality
      *
@@ -223,9 +236,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').neq('y'): (x != y)
-     *
      */
-    neq(x: any, y?: any): BinaryOperation;
+    neq(x: any, y?: any,): BinaryOperation;
     /**
      * Greater Than
      *
@@ -240,10 +252,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      *  qb.ref('x').gt('y'): (x > y)
-     *
-     *
      */
-    gt(x: any, y?: any): BinaryOperation;
+    gt(x: any, y?: any,): BinaryOperation;
     /**
      * Greater Than Or Equal To
      *
@@ -258,10 +268,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').gte('y'): (x >= y)
-     *
-     *
      */
-    gte(x: any, y?: any): BinaryOperation;
+    gte(x: any, y?: any,): BinaryOperation;
     /**
      * Less Than
      *
@@ -276,9 +284,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').lt('y'): (x < y)
-     *
      */
-    lt(x: any, y?: any): BinaryOperation;
+    lt(x: any, y?: any,): BinaryOperation;
     /**
      * Less Than Or Equal To
      *
@@ -293,9 +300,8 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').lte('y'): (x <= y)
-     *
      */
-    lte(x: any, y?: any): BinaryOperation;
+    lte(x: any, y?: any,): BinaryOperation;
     /**
      * Contains
      *
@@ -326,7 +332,7 @@ interface Expression extends PartialStatement {
      *
      * qb.not('x') => !(x)
      */
-    not(x?: any): UnaryOperation;
+    not(x?: any,): UnaryOperation;
     /**
      * Negative Value
      *
@@ -342,7 +348,7 @@ interface Expression extends PartialStatement {
      *
      * qb.neg('x') => -(x)
      */
-    neg(x?: any): UnaryOperation;
+    neg(x?: any,): UnaryOperation;
     /**
      * Negated Contains
      *
@@ -499,7 +505,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb(2).to(5): 2..5
-     *
      */
     range(...value: number[]): RangeExpression;
     /**
@@ -515,9 +520,8 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').get('y'): x[y]`
-     *
      */
-    get(value: any): PropertyAccess;
+    get(value: any,): PropertyAccess;
     /**
      * Ternary(if / else)
      *
@@ -533,18 +537,17 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
-     *
      */
-    then(value: any): ThenRet;
+    then(value: any,): ThenRet;
 }
 interface ThenRet {
-    else(y: any): TernaryOperation;
+    else(y: any,): TernaryOperation;
     else_: TernaryOperation;
-    otherwise(y: any): TernaryOperation;
+    otherwise(y: any,): TernaryOperation;
 }
 interface ForRet {
-    in(expr: any): ForExpression;
-    in_: ForRet["in"];
+    in(expr: any,): ForExpression;
+    in_: ForRet['in'];
 }
 /**
  * PartialStatement
@@ -566,9 +569,8 @@ interface PartialStatement {
      * Examples
      *
      * _.for('doc').in('my_collection'): FOR doc IN my_collection
-     *
      */
-    for(varname: any): ForRet;
+    for(varname: any,): ForRet;
     /**
      * FILTER expression
      *
@@ -577,9 +579,8 @@ interface PartialStatement {
      * Examples
      *
      * _.filter(qb.eq('a', 'b')): FILTER a == b
-     *
      */
-    filter(varname: any): FilterExpression;
+    filter(varname: any,): FilterExpression;
     /**
      * LET varname = expression
      *
@@ -592,9 +593,8 @@ interface PartialStatement {
      * LET var1 = expr1, var2 = expr2, …, varn = exprn
      *
      * PartialStatement::let(definitions): PartialStatement
-     *
      */
-    let(varname: {}, expr: any): LetExpression;
+    let(varname: {}, expr: any,): LetExpression;
     /**
      * COLLECT
      *
@@ -625,9 +625,8 @@ interface PartialStatement {
      * CollectExpression::options(options): CollectExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
-    collect(varname: any, expr: any): CollectExpression;
+    collect(varname: any, expr: any,): CollectExpression;
     /**
      * COLLECT
      *
@@ -658,9 +657,8 @@ interface PartialStatement {
      * CollectExpression::options(options): CollectExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
-    collectWithCountInto(varname: any): CollectWithCountIntoExpression;
+    collectWithCountInto(varname: any,): CollectWithCountIntoExpression;
     /**
      * SORT ...args
      *
@@ -669,7 +667,6 @@ interface PartialStatement {
      * Examples
      *
      * _.sort('x', 'DESC', 'y', 'ASC'): SORT x DESC, y ASC
-     *
      */
     sort(...args: any[]): SortExpression;
     /**
@@ -682,9 +679,8 @@ interface PartialStatement {
      * _.limit(20): LIMIT 20
      *
      * _.limit(20, 20): LIMIT 20, 20
-     *
      */
-    limit(offset: any, count?: any): LimitExpression;
+    limit(offset: any, count?: any,): LimitExpression;
     /**
      * RETURN expression
      *
@@ -694,9 +690,8 @@ interface PartialStatement {
      *
      * _.return('x'): RETURN x
      * _.return({x: 'x'}): RETURN {x: x}
-     *
      */
-    return(x: any): ReturnExpression;
+    return(x: any,): ReturnExpression;
     /**
      * RETURN DISTINCT expression
      *
@@ -705,9 +700,8 @@ interface PartialStatement {
      * Examples
      *
      * _.returnDistinct('x'): RETURN DISTINCT x
-     *
      */
-    returnDistinct(x: any): ReturnExpression;
+    returnDistinct(x: any,): ReturnExpression;
     /**
      * REMOVE
      *
@@ -725,9 +719,8 @@ interface PartialStatement {
      * RemoveExpression::options(options): RemoveExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
-    remove(expr: any): RemoveRet;
+    remove(expr: any,): RemoveRet;
     /**
      * UPSERT
      *
@@ -749,9 +742,8 @@ interface PartialStatement {
      * UpsertExpression::options(options): UpsertExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
-    upsert(expr: any): UpsertRet;
+    upsert(expr: any,): UpsertRet;
     /**
      * INSERT
      *
@@ -769,9 +761,8 @@ interface PartialStatement {
      * InsertExpression::returnNew(varname): ReturnExpression
      *
      * _.returnNew('z'): LET z = NEW RETURN z
-     *
      */
-    insert(expr: any): InsertRet;
+    insert(expr: any,): InsertRet;
     /**
      * UPDATE
      *
@@ -799,9 +790,8 @@ interface PartialStatement {
      * UpdateExpression::returnOld(varname): ReturnExpression
      *
      * _.returnOld('z'): LET z = OLD RETURN z
-     *
      */
-    update(expr: any): UpdateRetWithRet;
+    update(expr: any,): UpdateRetWithRet;
     /**
      * REPLACE
      *
@@ -827,85 +817,86 @@ interface PartialStatement {
      * ReplaceExpression::returnNew(varname): ReturnExpression
      *
      * _.returnOld('z'): LET z = OLD RETURN z
-     *
      */
-    replace(expr: any): ReplaceRetWithRet;
+    replace(expr: any,): ReplaceRetWithRet;
 }
 interface RemoveRet {
-    into(collection: any): RemoveExpression;
-    in: RemoveRet["into"];
-    in_: RemoveRet["into"];
+    into(collection: any,): RemoveExpression;
+    in: RemoveRet['into'];
+    in_: RemoveRet['into'];
 }
 interface UpsertRet {
-    insert(insertExpr: any): UpsertRetInsertRet;
+    insert(insertExpr: any,): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
-    update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
-    replace: UpsertRetInsertRet["update"];
+    update(updateOrReplaceExpr: any,): UpsertRetInsertRetUpdateRet;
+    replace: UpsertRetInsertRet['update'];
 }
 interface UpsertRetInsertRetUpdateRet {
-    into(inCollection: any): UpsertExpression;
-    in: UpsertRetInsertRetUpdateRet["into"];
-    in_: UpsertRetInsertRetUpdateRet["into"];
+    into(inCollection: any,): UpsertExpression;
+    in: UpsertRetInsertRetUpdateRet['into'];
+    in_: UpsertRetInsertRetUpdateRet['into'];
 }
 interface InsertRet {
-    into(collection: any): InsertExpression;
-    in: InsertRet["into"];
-    in_: InsertRet["into"];
+    into(collection: any,): InsertExpression;
+    in: InsertRet['into'];
+    in_: InsertRet['into'];
 }
 interface UpdateRetWithRet {
-    into(collection: any): UpdateExpression;
-    in: UpdateRetWithRet["into"];
-    in_: UpdateRetWithRet["into"];
+    into(collection: any,): UpdateExpression;
+    in: UpdateRetWithRet['into'];
+    in_: UpdateRetWithRet['into'];
 }
 interface ReplaceRetWithRet {
-    into(collection: any): ReplaceExpression;
-    in: ReplaceRetWithRet["into"];
-    in_: ReplaceRetWithRet["into"];
+    into(collection: any,): ReplaceExpression;
+    in: ReplaceRetWithRet['into'];
+    in_: ReplaceRetWithRet['into'];
 }
 interface RemoveRet {
-    into(collection: any): RemoveExpression;
-    in: RemoveRet["into"];
-    in_: RemoveRet["into"];
+    into(collection: any,): RemoveExpression;
+    in: RemoveRet['into'];
+    in_: RemoveRet['into'];
 }
 interface UpsertRet {
-    insert(insertExpr: any): UpsertRetInsertRet;
+    insert(insertExpr: any,): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
-    update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
-    replace: UpsertRetInsertRet["update"];
+    update(updateOrReplaceExpr: any,): UpsertRetInsertRetUpdateRet;
+    replace: UpsertRetInsertRet['update'];
 }
 interface UpsertRetInsertRetUpdateRet {
-    into(inCollection: any): UpsertExpression;
-    in: UpsertRetInsertRetUpdateRet["into"];
-    in_: UpsertRetInsertRetUpdateRet["into"];
+    into(inCollection: any,): UpsertExpression;
+    in: UpsertRetInsertRetUpdateRet['into'];
+    in_: UpsertRetInsertRetUpdateRet['into'];
 }
 interface InsertRet {
-    into(collection: any): InsertExpression;
-    in: InsertRet["into"];
-    in_: InsertRet["into"];
+    into(collection: any,): InsertExpression;
+    in: InsertRet['into'];
+    in_: InsertRet['into'];
 }
 interface UpdateRetWithRet {
-    into(collection: any): UpdateExpression;
-    with(collection: any): UpdateRetWithRet;
-    in: UpdateRetWithRet["into"];
-    in_: UpdateRetWithRet["into"];
+    into(collection: any,): UpdateExpression;
+    with(collection: any,): UpdateRetWithRet;
+    in: UpdateRetWithRet['into'];
+    in_: UpdateRetWithRet['into'];
 }
 interface ReplaceRetWithRet {
-    into(collection: any): ReplaceExpression;
-    with(collection: any): ReplaceRetWithRet;
-    in: ReplaceRetWithRet["into"];
-    in_: ReplaceRetWithRet["into"];
+    into(collection: any,): ReplaceExpression;
+    with(collection: any,): ReplaceRetWithRet;
+    in: ReplaceRetWithRet['into'];
+    in_: ReplaceRetWithRet['into'];
 }
 declare function toArray(self: Expression, ...args: any[]): any[];
-declare function isQuotedString(str: string): boolean;
-declare function wrapAQL(expr: Keyword): string;
-declare function isValidNumber(number: number): boolean;
-declare function castNumber(number: any): NumberLiteral;
-declare function castBoolean(bool: any): BooleanLiteral;
-declare function castString(str: any): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
-declare function castObject(obj: any): ObjectLiteral | ListLiteral | Identifier;
-declare function autoCastToken(token: any): Expression | PartialStatement | NullLiteral;
+declare function isQuotedString(str: string,): boolean;
+declare function wrapAQL(expr: Keyword,): string;
+declare function isValidNumber(number: number,): boolean;
+declare function castNumber(number: any,): NumberLiteral;
+declare function castBoolean(bool: any,): BooleanLiteral;
+declare function castString(
+    str: any,
+): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
+declare function castObject(obj: any,): ObjectLiteral | ListLiteral | Identifier;
+declare function autoCastToken(token: any,): Expression | PartialStatement | NullLiteral;
 /**
  * AQLfunctions
  *
@@ -923,9 +914,8 @@ interface AQLfunctions extends Expression {
      *
      * If the value is truthy, it will be converted to the  Boolean true, otherwise it will be converted to the  Boolean false.
      * If the value is already an  Boolean, its own value will be wrapped instead.
-     *
      */
-    bool(value: any): BooleanLiteral;
+    bool(value: any,): BooleanLiteral;
     /**
      * Number
      *
@@ -936,9 +926,8 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Number, it will be converted first.
      * If the value does not represent a finite number, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
-     *
      */
-    num(value: any): NumberLiteral;
+    num(value: any,): NumberLiteral;
     /**
      * Integer
      *
@@ -949,9 +938,8 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Number, it will be converted first.
      * If the value does not represent a finite integer, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
-     *
      */
-    int(value: any): IntegerLiteral;
+    int(value: any,): IntegerLiteral;
     /**
      * String
      *
@@ -970,9 +958,8 @@ interface AQLfunctions extends Expression {
      * "some string" => "some string"
      *
      * '"some string"' => "\"some string\""
-     *
      */
-    str(value: any): StringLiteral;
+    str(value: any,): StringLiteral;
     /**
      * List
      *
@@ -983,9 +970,8 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Array, an Error will be thrown.
      * If the value is already an  List, its own value will be wrapped instead.
      * Any list elements that are not already  values will be converted automatically.
-     *
      */
-    list(value: any[]): ListLiteral;
+    list(value: any[],): ListLiteral;
     /**
      * Object
      *
@@ -1012,9 +998,8 @@ interface AQLfunctions extends Expression {
      * qb.obj({':dynamic': 'props'}): {[dynamic]: props}
      *
      * qb.obj({': invalid': 'key'}): throws an error(invalid is not a well-formed reference)
-     *
      */
-    obj(obj: object): ObjectLiteral;
+    obj(obj: object,): ObjectLiteral;
     /**
      * Simple Reference
      *
@@ -1055,10 +1040,9 @@ interface AQLfunctions extends Expression {
      * foo bar
      *
      * foo[bar]
-     *
      */
-    ref(value: string): SimpleReference;
-    expr(value: any): RawExpression;
+    ref(value: string,): SimpleReference;
+    expr(value: any,): RawExpression;
     /**
      * Ternary(if / else)
      *
@@ -1074,9 +1058,8 @@ interface AQLfunctions extends Expression {
      *
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
-     *
      */
-    if(cond: any, then: any, otherwise: any): Expression | number;
+    if(cond: any, then: any, otherwise: any,): Expression | number;
     /**
      * declare Function Call
      *
@@ -1096,10 +1079,9 @@ interface AQLfunctions extends Expression {
      * qb.RANDOM(): RANDOM()
      *
      * qb.FLOOR(qb.div(5, 2)): FLOOR((5 / 2))
-     *
      */
-    fn(functionName: string): (...arity: any[]) => FunctionCall;
+    fn(functionName: string,): (...arity: any[]) => FunctionCall;
 }
-type QBfunc = (obj: any) => AQLfunctions;
+type QBfunc = (obj: any,) => AQLfunctions;
 declare const QB: AQLfunctions & QBfunc;
 export = QB;

@@ -2,7 +2,7 @@ declare const map: AMap.Map;
 // $ExpectType Geolocation
 new AMap.Geolocation();
 // $ExpectType Geolocation
-new AMap.Geolocation({});
+new AMap.Geolocation({},);
 // $ExpectType Geolocation
 const geolocation = new AMap.Geolocation({
     enableHighAccuracy: true,
@@ -15,7 +15,7 @@ const geolocation = new AMap.Geolocation({
     showButton: true,
     buttonDom: 'button',
     buttonPosition: 'LT',
-    buttonOffset: new AMap.Pixel(10, 10),
+    buttonOffset: new AMap.Pixel(10, 10,),
     showMarker: true,
     markerOptions: {},
     showCircle: true,
@@ -23,14 +23,14 @@ const geolocation = new AMap.Geolocation({
     panToLocation: true,
     zoomToAccuracy: true,
     useNative: false,
-    extensions: 'all'
-});
+    extensions: 'all',
+},);
 
 // $ExpectType boolean
 geolocation.isSupported();
 
 // $ExpectType void
-geolocation.getCurrentPosition((status, result) => {
+geolocation.getCurrentPosition((status, result,) => {
     const statusTemp: 'complete' | 'error' = status;
     if (result.status === 1) {
         // $ExpectType GeolocationResult
@@ -68,15 +68,15 @@ geolocation.getCurrentPosition((status, result) => {
         // $ExpectType string
         result.message;
     }
-});
+},);
 
 const watchId: string | undefined | null = geolocation.watchPosition();
 
 // $ExpectType string | undefined
-geolocation.clearWatch('id');
+geolocation.clearWatch('id',);
 
 // $ExpectType void
-geolocation.getCityInfo((status, result) => {
+geolocation.getCityInfo((status, result,) => {
     const statusTemp: 'complete' | 'error' = status;
     if (result.status === 1) {
         // $ExpectType CityResult
@@ -107,9 +107,9 @@ geolocation.getCityInfo((status, result) => {
         // $ExpectType ErrorStatus
         result;
     }
-});
+},);
 
-geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete']) => {
+geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete'],) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType number | null
@@ -137,9 +137,9 @@ geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete']) => {
     event.roads;
     // $ExpectType 1
     event.status;
-});
+},);
 
-geolocation.on('error', (event: AMap.Geolocation.EventMap['error']) => {
+geolocation.on('error', (event: AMap.Geolocation.EventMap['error'],) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
@@ -148,4 +148,4 @@ geolocation.on('error', (event: AMap.Geolocation.EventMap['error']) => {
     event.message;
     // $ExpectType 0
     event.status;
-});
+},);

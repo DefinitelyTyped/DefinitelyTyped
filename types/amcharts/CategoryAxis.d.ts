@@ -1,4 +1,4 @@
-import AxisBase from "./AxisBase";
+import AxisBase from './AxisBase';
 
 export default class CategoryAxis extends AxisBase {
     /**
@@ -88,19 +88,19 @@ export default class CategoryAxis extends AxisBase {
      * Number returns coordinate of a category. Works only if parseDates is false.
      * If parseDates is true, use dateToCoordinate method.
      */
-    categoryToCoordinate(category: string): void;
+    categoryToCoordinate(category: string,): void;
     /**
      * date - Date object Returns Date of the coordinate, in case parseDates is set to true and
      * equalSpacing is set to false.
      */
-    coordinateToDate(coordinate: number): void;
+    coordinateToDate(coordinate: number,): void;
     /**
      * Number Returns coordinate of the date, in case parseDates is set to true.
      * If parseDates is false, use categoryToCoordinate method.
      */
-    dateToCoordinate(date: Date): void;
+    dateToCoordinate(date: Date,): void;
     /**
      * Number Returns index of the category which is most close to specified coordinate.
      */
-    xToIndex(x: number): void;
+    xToIndex(x: number,): void;
 }

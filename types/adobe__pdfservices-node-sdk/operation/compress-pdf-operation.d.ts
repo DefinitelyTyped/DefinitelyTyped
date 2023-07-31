@@ -1,5 +1,5 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { CompressPDFOptions } from './option/compresspdf/compress-pdf-options';
+import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
+import { CompressPDFOptions, } from './option/compresspdf/compress-pdf-options';
 
 /**
  * An operation that reduces the size of a PDF file.
@@ -22,7 +22,6 @@ import { CompressPDFOptions } from './option/compresspdf/compress-pdf-options';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class CompressPDFOperation {
     /**
@@ -40,20 +39,19 @@ export class CompressPDFOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Sets the options for this operation. See {@link CompressPDFOptions} for how to specify the
      * options for the different compression levels.
      */
-    setOptions(options?: any): void;
+    setOptions(options?: any,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
      * The resulting file may be stored in the system temporary directory (per the os.tempdir(), symlinks are resolved
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
-     *
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }

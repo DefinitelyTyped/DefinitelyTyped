@@ -5,14 +5,14 @@ declare namespace AMap {
             visible?: boolean | undefined;
             opacity?: number | undefined;
             zIndex?: number | undefined;
-            zooms?: [number, number] | undefined;
+            zooms?: [number, number,] | undefined;
         }
     }
 
     class Object3DLayer extends Layer {
-        constructor(options?: Object3DLayer.Options)
-        add(object3d: Object3D): void;
-        remove(object3d: Object3D): void;
+        constructor(options?: Object3DLayer.Options,);
+        add(object3d: Object3D,): void;
+        remove(object3d: Object3D,): void;
         clear(): void;
         reDraw(): void;
 
@@ -22,6 +22,6 @@ declare namespace AMap {
             scale?: number | undefined;
             height?: number | undefined;
             scene?: number | undefined;
-        }): void;
+        },): void;
     }
 }

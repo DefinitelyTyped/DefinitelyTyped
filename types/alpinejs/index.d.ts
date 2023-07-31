@@ -3,13 +3,13 @@
 // Definitions by: Thomas Wirth <https://github.com/wtho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactiveEffect, UnwrapNestedRefs, ReactiveEffectOptions, reactive as VueReactive } from '@vue/reactivity';
+import { reactive as VueReactive, ReactiveEffect, ReactiveEffectOptions, UnwrapNestedRefs, } from '@vue/reactivity';
 
 interface Evaluator {
-    (el: Node, expression: string /*, extras?: unknown */): (resultCallback: (result: unknown) => void) => void;
+    (el: Node, expression: string, /*, extras?: unknown */): (resultCallback: (result: unknown,) => void,) => void;
 }
 
-interface ReactiveEffectRunner<T = any> {
+interface ReactiveEffectRunner<T = any,> {
     (): T;
     effect: ReactiveEffect;
 }
@@ -21,8 +21,8 @@ interface ReactivityEngine {
     raw: Alpine['raw'];
 }
 
-type Walker = (el: Node, callback: (el: Node, skip: () => void) => void) => void;
-export type AttributeTransformer<T = unknown> = (args: { name: string; value: T }) => { name: string; value: T };
+type Walker = (el: Node, callback: (el: Node, skip: () => void,) => void,) => void;
+export type AttributeTransformer<T = unknown,> = (args: { name: string; value: T },) => { name: string; value: T };
 
 interface XDataContext {
     /**
@@ -35,10 +35,10 @@ type XData = XDataContext | string | number | boolean;
 
 export interface DirectiveUtilities {
     Alpine: Alpine;
-    effect: (cb: () => void) => void;
-    cleanup: (cb: () => void) => void;
-    evaluate: (expression: string) => unknown;
-    evaluateLater: (expression: string) => (result: unknown) => void;
+    effect: (cb: () => void,) => void;
+    cleanup: (cb: () => void,) => void;
+    evaluate: (expression: string,) => unknown;
+    evaluateLater: (expression: string,) => (result: unknown,) => void;
 }
 export interface DirectiveParameters {
     value: string;
@@ -48,7 +48,7 @@ export interface DirectiveParameters {
     type: string;
 }
 
-export interface AlpineMagics<T> {
+export interface AlpineMagics<T,> {
     /**
      * Access to current Alpine data.
      */
@@ -71,33 +71,33 @@ export interface AlpineMagics<T> {
      * @param event the event name
      * @param data an event-dependent value associated with the event, the value is then available to the handler using the CustomEvent.detail property
      */
-    $dispatch: (event: string, data?: any) => void;
+    $dispatch: (event: string, data?: any,) => void;
     /**
      * Generate an element's ID and ensure that it won't conflict with other IDs of the same name on the same page.
      *
      * @param name the name of the id
      * @param key suffix on the end of the generated ID, usually helpful for the purpose of identifying id in a loop
      */
-    $id: (name: string, key?: number | string) => string;
+    $id: (name: string, key?: number | string,) => string;
     /**
      * Execute a given expression AFTER Alpine has made its reactive DOM updates.
      *
      * @param callback a callback that will be fired after Alpine finishes updating the DOM
      */
-    $nextTick: (callback?: () => void) => Promise<void>;
+    $nextTick: (callback?: () => void,) => Promise<void>;
     /**
      * Fire the given callback when the value in the property is changed.
      *
      * @param property the component property
      * @param callback a callback that will fire when a given property is changed
      */
-    $watch: <K extends keyof T | string, V extends (K extends keyof T ? T[K] : any)>(
+    $watch: <K extends keyof T | string, V extends (K extends keyof T ? T[K] : any),>(
         property: K,
-        callback: (newValue: V, oldValue: V) => void,
+        callback: (newValue: V, oldValue: V,) => void,
     ) => void;
 }
 
-export type AlpineComponent<T = Record<string, any>> = T & XDataContext & ThisType<T & XDataContext & AlpineMagics<T>>;
+export type AlpineComponent<T = Record<string, any>,> = T & XDataContext & ThisType<T & XDataContext & AlpineMagics<T>>;
 
 export interface Alpine {
     // following TSDoc under MIT was taken from
@@ -123,13 +123,13 @@ export interface Alpine {
      * count.value // -> 1
      * ```
      */
-    reactive<T extends object>(target: T): UnwrapNestedRefs<T>;
+    reactive<T extends object,>(target: T,): UnwrapNestedRefs<T>;
     /**
      * Releases/stops a reactive effect, if it is currently active.
      *
      * @param runner the reactive effect runner to be stopped
      */
-    release(runner: ReactiveEffectRunner): void;
+    release(runner: ReactiveEffectRunner,): void;
     /**
      * As soon as effect is called, it will run the provided callback
      * functionbut actively look for any interactions with reactive
@@ -140,7 +140,7 @@ export interface Alpine {
      *
      * @param callback the function to be run while looking for reactive interactions
      */
-    effect(callback: (() => unknown) | ReactiveEffectRunner, options?: ReactiveEffectOptions): ReactiveEffectRunner;
+    effect(callback: (() => unknown) | ReactiveEffectRunner, options?: ReactiveEffectOptions,): ReactiveEffectRunner;
     /**
      * Returns the raw, original object of a reactive proxy. This is an escape
      * hatch that can be used to temporarily read without incurring proxy
@@ -150,58 +150,64 @@ export interface Alpine {
      *
      * @param observed the reactive, proxied object
      */
-    raw<T>(observed: T): T;
+    raw<T,>(observed: T,): T;
     /**
      * Version of Alpine.js
      */
     version: string;
     flushAndStopDeferringMutations(): void;
-    disableEffectScheduling(callback: () => void): void;
-    setReactivityEngine(engine: ReactivityEngine): void;
-    closestDataStack(node: Node): object[];
-    skipDuringClone<R = unknown>(
-        callback: (el: Node, params: DirectiveParameters, utils: DirectiveUtilities) => R,
-        fallback?: (el: Node, params: DirectiveParameters, utils: DirectiveUtilities) => R,
-    ): (el: Node, params: DirectiveParameters, utils: DirectiveUtilities) => R;
-    addRootSelector(selectorCallback: () => string): void;
-    addInitSelector(selectorCallback: () => string): void;
-    addScopeToNode(node: Node, data: object, referenceNode?: Node): () => void;
+    disableEffectScheduling(callback: () => void,): void;
+    setReactivityEngine(engine: ReactivityEngine,): void;
+    closestDataStack(node: Node,): object[];
+    skipDuringClone<R = unknown,>(
+        callback: (el: Node, params: DirectiveParameters, utils: DirectiveUtilities,) => R,
+        fallback?: (el: Node, params: DirectiveParameters, utils: DirectiveUtilities,) => R,
+    ): (el: Node, params: DirectiveParameters, utils: DirectiveUtilities,) => R;
+    addRootSelector(selectorCallback: () => string,): void;
+    addInitSelector(selectorCallback: () => string,): void;
+    addScopeToNode(node: Node, data: object, referenceNode?: Node,): () => void;
     deferMutations(): void;
-    mapAttributes(callback: AttributeTransformer): void;
+    mapAttributes(callback: AttributeTransformer,): void;
     evaluateLater: Evaluator;
-    setEvaluator(newEvaluator: Evaluator): void;
-    mergeProxies(objects: []): {};
-    mergeProxies<T>(objects: [T]): T;
-    mergeProxies<T, U>(objects: [T, U]): T & U;
-    mergeProxies<T, U, V>(objects: [T, U, V]): T & U & V;
-    mergeProxies<T, U, V, W>(objects: [T, U, V, W]): T & U & V & W;
-    mergeProxies(objects: any[]): any;
-    closestRoot(el: Node, includeInitSelectors?: boolean): Node | undefined;
+    setEvaluator(newEvaluator: Evaluator,): void;
+    mergeProxies(objects: [],): {};
+    mergeProxies<T,>(objects: [T,],): T;
+    mergeProxies<T, U,>(objects: [T, U,],): T & U;
+    mergeProxies<T, U, V,>(objects: [T, U, V,],): T & U & V;
+    mergeProxies<T, U, V, W,>(objects: [T, U, V, W,],): T & U & V & W;
+    mergeProxies(objects: any[],): any;
+    closestRoot(el: Node, includeInitSelectors?: boolean,): Node | undefined;
     /**
      * **INTERNAL: not public API and is subject to change without major release**
      * @internal
      */
-    interceptor<V = unknown>(
-        callback: (initialValue: V, getter: () => V, setter: (value: V) => void, path: string, key: string) => V,
-        mutateObj?: (obj: { initialValue: V, _x_intceptor: true, intialize: (data: V, path: string, key: string) => V}) => void
-    ): (initialValue: V) => V;
+    interceptor<V = unknown,>(
+        callback: (initialValue: V, getter: () => V, setter: (value: V,) => void, path: string, key: string,) => V,
+        mutateObj?: (
+            obj: { initialValue: V; _x_intceptor: true; intialize: (data: V, path: string, key: string,) => V },
+        ) => void,
+    ): (initialValue: V,) => V;
     /**
      * **INTERNAL**
      * @internal
      */
     transition(
         el: Node,
-        setFunction: (el: Node, styles: Record<string, string> | string) => () => void,
-        duringStartAndEnd: { during: Record<string, string> | string, start: Record<string, string> | string, end: Record<string, string> | string },
+        setFunction: (el: Node, styles: Record<string, string> | string,) => () => void,
+        duringStartAndEnd: {
+            during: Record<string, string> | string;
+            start: Record<string, string> | string;
+            end: Record<string, string> | string;
+        },
         before: () => void,
-        after: () => void
+        after: () => void,
     ): void;
     /**
      * INTERNAL
      * @internal
      */
-    setStyles(el: Node, value: Record<string, string> | string): () => void;
-    mutateDom<R = unknown>(callback: () => R): R;
+    setStyles(el: Node, value: Record<string, string> | string,): () => void;
+    mutateDom<R = unknown,>(callback: () => R,): R;
     /**
      * Allows you to register your own custom directives.
      *
@@ -210,15 +216,15 @@ export interface Alpine {
      */
     directive(
         name: string,
-        handler: (el: Node, directive: DirectiveParameters, utilities: DirectiveUtilities) => void,
+        handler: (el: Node, directive: DirectiveParameters, utilities: DirectiveUtilities,) => void,
     ): void;
-    throttle<A extends any[]>(func: (...args: A) => void, limit?: number): (...args: A) => void;
-    debounce<A extends any[], R = unknown>(func: (...args: A) => R, wait?: number): (...args: A) => R;
-    evaluate(el: Node, expression: string, extras?: object): unknown;
-    initTree(el: Node, walker?: Walker): void;
-    nextTick(callback: () => void): void;
-    prefixed(subject?: string): string;
-    prefix(newPrefix: string): void;
+    throttle<A extends any[],>(func: (...args: A) => void, limit?: number,): (...args: A) => void;
+    debounce<A extends any[], R = unknown,>(func: (...args: A) => R, wait?: number,): (...args: A) => R;
+    evaluate(el: Node, expression: string, extras?: object,): unknown;
+    initTree(el: Node, walker?: Walker,): void;
+    nextTick(callback: () => void,): void;
+    prefixed(subject?: string,): string;
+    prefix(newPrefix: string,): void;
     /**
      * Convenience method to prevent consumers of a plugin from having
      * to register multiple different directives and magics themselves,
@@ -226,7 +232,7 @@ export interface Alpine {
      *
      * @param callback plugin installation function
      */
-    plugin(callback: (alpine: Alpine) => void): void;
+    plugin(callback: (alpine: Alpine,) => void,): void;
     /**
      * Registers a global magics helper, which can be referenced in
      * expressions using $[name]. Return a function instead of a value
@@ -238,21 +244,21 @@ export interface Alpine {
      */
     magic(
         name: string,
-        callback: (el: Node, extras: { Alpine: Alpine; interceptor: Alpine['interceptor'] }) => any,
+        callback: (el: Node, extras: { Alpine: Alpine; interceptor: Alpine['interceptor'] },) => any,
     ): void;
     /**
      * Retrieves state in the global store.
      *
      * @param name state key
      */
-    store(name: string): XData;
+    store(name: string,): XData;
     /**
      * Sets state in the global store.
      *
      * @param name state key
      * @param value the initial state value
      */
-    store(name: string, value: XData): void;
+    store(name: string, value: XData,): void;
     /**
      * Initializes Alpine.js, which is required if Alpine is imported
      * into a bundle instead of included from a script tag.
@@ -262,14 +268,14 @@ export interface Alpine {
      * the Alpine.start() call.
      */
     start(): void;
-    clone(oldEl: Node, newEl: Node): void;
+    clone(oldEl: Node, newEl: Node,): void;
     /**
      * Provides a way to reuse x-data contexts within your application.
      *
      * @param name the id of the x-data context
      * @param callback the initializer of the x-data context
      */
-    data(name: string, callback: (...initialStateArgs: unknown[]) => AlpineComponent): void;
+    data(name: string, callback: (...initialStateArgs: unknown[]) => AlpineComponent,): void;
 }
 
 declare const AlpineInstance: Alpine;

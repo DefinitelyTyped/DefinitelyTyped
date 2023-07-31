@@ -7,8 +7,7 @@
 /// <reference types="angular" />
 
 declare namespace angularModal {
-
-    type AngularModalControllerDefinition = (new (...args: any[]) => any) | Function | string; // Possible arguments to IControllerService
+    type AngularModalControllerDefinition = (new(...args: any[]) => any) | Function | string; // Possible arguments to IControllerService
 
     type AngularModalJQuerySelector = string | Element | Element[] | JQuery | Function | any[] | {}; // Possible arguments to IAugmentedJQueryStatic
 
@@ -27,13 +26,13 @@ declare namespace angularModal {
     }
 
     export interface AngularModal {
-        activate(locals?: {}): angular.IPromise<void>;
-        activate<T>(locals: T): angular.IPromise<void>;
+        activate(locals?: {},): angular.IPromise<void>;
+        activate<T,>(locals: T,): angular.IPromise<void>;
         deactivate(): angular.IPromise<void>;
         active(): boolean;
     }
 
     export interface AngularModalFactory {
-        (settings: AngularModalSettingsWithTemplate | AngularModalSettingsWithTemplateUrl): AngularModal;
+        (settings: AngularModalSettingsWithTemplate | AngularModalSettingsWithTemplateUrl,): AngularModal;
     }
 }

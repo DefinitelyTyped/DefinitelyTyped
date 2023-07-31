@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export import ServiceBusService = require("./lib/servicebusservice");
-export import NotificationHubService = require("./lib/notificationhubservice");
-export import WrapService = require("./lib/wrapservice");
+export import ServiceBusService = require('./lib/servicebusservice');
+export import NotificationHubService = require('./lib/notificationhubservice');
+export import WrapService = require('./lib/wrapservice');
 
 export function createServiceBusService(
     namespaceOrConnectionString?: string,
@@ -14,27 +14,27 @@ export function createServiceBusService(
     issuer?: string,
     acsNamespace?: string,
     host?: string,
-    authenticationProvider?: object
+    authenticationProvider?: object,
 ): ServiceBusService;
 
 export function createNotificationHubService(
     hubName: string,
     endpointOrConnectionString?: string,
     sharedAccessKeyName?: string,
-    sharedAccessKeyValue?: string
+    sharedAccessKeyValue?: string,
 ): NotificationHubService;
 
 export function createWrapService(
     acsHost: string,
     issuer?: string,
-    accessKey?: string
+    accessKey?: string,
 ): WrapService;
 
 export namespace Azure.ServiceBus {
     export type Duration = string;
     export type DateString = string;
 
-    export interface Dictionary<T> {
+    export interface Dictionary<T,> {
         [k: string]: T;
     }
 
@@ -43,8 +43,7 @@ export namespace Azure.ServiceBus {
         timeoutIntervalInS?: number | undefined;
     }
 
-    export interface ReceiveSubscriptionMessageOptions
-        extends ReceiveQueueMessageOptions {}
+    export interface ReceiveSubscriptionMessageOptions extends ReceiveQueueMessageOptions {}
 
     interface IBrokerPropertiesResponse {
         readonly DeliveryCount: number;
@@ -155,7 +154,7 @@ export namespace Azure.ServiceBus {
         readonly lastActiveOn?: string | undefined;
         readonly expirationTime?: string | undefined;
         readonly lastUpdate?: string | undefined;
-        platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
+        platform: 'apns' | 'wns' | 'mpns' | 'adm' | 'gcm';
         pushChannel: string;
         readonly expiredPushChannel?: string | undefined;
         tags?: Array<string> | undefined;
@@ -195,23 +194,23 @@ export namespace Azure.ServiceBus {
 
     export namespace Results.Models {
         export enum EntityStatus {
-            Active = "Active",
-            Creating = "Creating",
-            Deleting = "Deleting",
-            Disabled = "Disabled",
-            ReceiveDisabled = "ReceiveDisabled",
-            Renaming = "Renaming",
-            Restoring = "Restoring",
-            SendDisabled = "SendDisabled",
-            Unknown = "Unknown"
+            Active = 'Active',
+            Creating = 'Creating',
+            Deleting = 'Deleting',
+            Disabled = 'Disabled',
+            ReceiveDisabled = 'ReceiveDisabled',
+            Renaming = 'Renaming',
+            Restoring = 'Restoring',
+            SendDisabled = 'SendDisabled',
+            Unknown = 'Unknown',
         }
 
         export enum EntityAvailabilityStatus {
-            Available = "Available",
-            Limited = "Limited",
-            Renaming = "Renaming",
-            Restoring = "Restoring",
-            Unknown = "Unknown"
+            Available = 'Available',
+            Limited = 'Limited',
+            Renaming = 'Renaming',
+            Restoring = 'Restoring',
+            Unknown = 'Unknown',
         }
 
         interface Base {
@@ -250,12 +249,11 @@ export namespace Azure.ServiceBus {
         //   [x: string]: string | Dictionary<string | object>;
         // }
 
-        export const ActiveMessageCount = "d2p1:ActiveMessageCount";
-        export const DeadLetterMessageCount = "d2p1:DeadLetterMessageCount";
-        export const ScheduledMessageCount = "d2p1:ScheduledMessageCount";
-        export const TransferMessageCount = "d2p1:TransferMessageCount";
-        export const TransferDeadLetterMessageCount =
-            "d2p1:TransferDeadLetterMessageCount";
+        export const ActiveMessageCount = 'd2p1:ActiveMessageCount';
+        export const DeadLetterMessageCount = 'd2p1:DeadLetterMessageCount';
+        export const ScheduledMessageCount = 'd2p1:ScheduledMessageCount';
+        export const TransferMessageCount = 'd2p1:TransferMessageCount';
+        export const TransferDeadLetterMessageCount = 'd2p1:TransferDeadLetterMessageCount';
 
         export interface Topic extends ExtendedBase {
             AccessedAt: DateString;
@@ -327,27 +325,28 @@ export namespace Azure.ServiceBus {
      */
     export type ResponseCallback = (
         error: Error | null,
-        response: Response
+        response: Response,
     ) => void;
 
     export type ResultAndResponseCallback = (
         error: Error | null,
         result: boolean | Results.Models.Base | Results.Models.Base[],
-        response: Response
+        response: Response,
     ) => void;
 
-    export type TypedResultAndResponseCallback<T> = (
+    export type TypedResultAndResponseCallback<T,> = (
         error: Error | null,
         result: T,
-        response: Response
+        response: Response,
     ) => void;
 
     /*
      * Options interfaces with all properties as optional
      */
     export type BrokerProperties = Partial<IBrokerProperties>;
-    export type BrokerPropertiesResponse = IBrokerPropertiesResponse &
-        Partial<IBrokerProperties>;
+    export type BrokerPropertiesResponse =
+        & IBrokerPropertiesResponse
+        & Partial<IBrokerProperties>;
     export type CreateQueueOptions = Partial<IQueueOptions>;
     export type CreateTopicOptions = Partial<ICreateTopicOptions>;
     export type CreateTopicIfNotExistsOptions = Partial<

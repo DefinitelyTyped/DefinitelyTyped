@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, SyntheticEvent } from 'react';
+import { Component, ReactNode, SyntheticEvent, } from 'react';
 
 export default class SingleSelect extends Component<Props> {}
 export class StatelessSelect extends Component<StatelessProps> {}
@@ -57,19 +57,21 @@ export interface Props {
      */
     noMatchesFound?: string | undefined;
     /** Handler to be called when the filtered items changes. */
-    onFilterChange?: ((filter: string) => void) | undefined;
+    onFilterChange?: ((filter: string,) => void) | undefined;
     /**
      * Handler to be called when an item is selected. Called with an object that
      * has the item selected as a property on the object.
      */
-    onSelected?: ((item: ItemType) => void) | undefined;
+    onSelected?: ((item: ItemType,) => void) | undefined;
     /**
      * Handler called when the select is opened or closed. Called with an object
      * that has both the event, and the new isOpen state.
      */
-    onOpenChange?: ((
-        change: { event: SyntheticEvent<any>; isOpen: boolean },
-    ) => void) | undefined;
+    onOpenChange?:
+        | ((
+            change: { event: SyntheticEvent<any>; isOpen: boolean },
+        ) => void)
+        | undefined;
     /** Text to be shown within the select when no item is selected. */
     placeholder?: string | undefined;
     /** Where the select dropdown should be displayed relative to the field position. */

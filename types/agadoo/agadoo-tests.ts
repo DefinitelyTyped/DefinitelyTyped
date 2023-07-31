@@ -1,9 +1,9 @@
-import { check } from 'agadoo';
+import { check, } from 'agadoo';
 
 (async () => {
     // $ExpectType Result
-    await check('./some-module.js');
+    await check('./some-module.js',);
 
     // @ts-expect-error
-    await check(123);
+    await check(123,);
 })();

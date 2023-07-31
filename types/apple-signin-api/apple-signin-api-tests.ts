@@ -29,7 +29,7 @@ const signInError: AppleSignInAPI.SignInErrorI = {
 const AuthGood: AppleSignInAPI.AppleID = {
     auth: {
         init: () => undefined,
-        signIn: () => Promise.resolve(signInResponse),
+        signIn: () => Promise.resolve(signInResponse,),
         renderButton: () => {},
     },
 };
@@ -37,11 +37,11 @@ const AuthGood: AppleSignInAPI.AppleID = {
 const AuthBad: AppleSignInAPI.AppleID = {
     auth: {
         init: () => undefined,
-        signIn: () => Promise.reject(signInError),
+        signIn: () => Promise.reject(signInError,),
         renderButton: () => {},
     },
 };
 
 AppleID.auth.init({
     clientId: '',
-});
+},);

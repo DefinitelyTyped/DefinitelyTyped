@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { GraphQLFieldConfig, GraphQLResolveInfo } from 'graphql';
+import { GraphQLFieldConfig, GraphQLResolveInfo, } from 'graphql';
 
-export function fromGlobalId(opaqueID: string): string;
+export function fromGlobalId(opaqueID: string,): string;
 
-export function toGlobalId(type: string, id: string | number): string;
+export function toGlobalId(type: string, id: string | number,): string;
 
-export function isTypeOf(type: string, opaqueID: unknown): boolean;
+export function isTypeOf(type: string, opaqueID: unknown,): boolean;
 
-type FetchFnType = (object: any, context: any, info: GraphQLResolveInfo) => string | number;
+type FetchFnType = (object: any, context: any, info: GraphQLResolveInfo,) => string | number;
 
 export default function globalIdField(
     idFetcher: FetchFnType,

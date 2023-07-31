@@ -4,59 +4,57 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from "angular";
+import * as angular from 'angular';
 
-declare module "angular" {
+declare module 'angular' {
     namespace xeditable {
         interface IEditableOptions {
-
             /**
-              * Theme. Possible values `bs3`, `bs2`, `default`
-              */
+             * Theme. Possible values `bs3`, `bs2`, `default`
+             */
             theme: string;
 
             /**
-              * Icon Set. Possible values `font-awesome`, `default`.
-              */
+             * Icon Set. Possible values `font-awesome`, `default`.
+             */
             icon_set: string;
 
             /**
-              * Whether to show buttons for single editalbe element.
-              * Possible values `right` (default), `no`.
-              */
+             * Whether to show buttons for single editalbe element.
+             * Possible values `right` (default), `no`.
+             */
             buttons: string;
 
             /**
-              * Default value for `blur` attribute of single editable element.
-              * Can be `cancel|submit|ignore`.
-              */
+             * Default value for `blur` attribute of single editable element.
+             * Can be `cancel|submit|ignore`.
+             */
             blurElem: string;
 
             /**
-              * Default value for `blur` attribute of editable form.
-              * Can be `cancel|submit|ignore`.
-              */
+             * Default value for `blur` attribute of editable form.
+             * Can be `cancel|submit|ignore`.
+             */
             blurForm: string;
 
             /**
-              * How input elements get activated. Possible values: `focus|select|none`.
-              */
+             * How input elements get activated. Possible values: `focus|select|none`.
+             */
             activate: string;
 
             /**
-              * Whether to disable x-editable. Can be overloaded on each element.
-            */
+             * Whether to disable x-editable. Can be overloaded on each element.
+             */
             isDisabled: boolean;
 
             /*
-            * Event, on which the edit mode gets activated.
-            * Can be any event.
-            */
+             * Event, on which the edit mode gets activated.
+             * Can be any event.
+             */
             activationEvent: string;
         }
 
         interface IEditableFormController extends angular.IFormController {
-
             /**
              * Shows form with editable controls.
              */
@@ -73,14 +71,14 @@ declare module "angular" {
              *
              * @param name name of field
              */
-            $activate(name: string): void;
+            $activate(name: string,): void;
 
             /**
              * Triggers `oncancel` event and calls `$hide()`.
              */
             $cancel(): void;
 
-            $setWaiting(value: boolean): void;
+            $setWaiting(value: boolean,): void;
 
             /**
              * Shows error message for particular field.
@@ -88,12 +86,11 @@ declare module "angular" {
              * @param name name of field
              * @param msg error message
              */
-            $setError(name: string, msg: string): void;
+            $setError(name: string, msg: string,): void;
 
             $submit(): void;
 
             $save(): void;
-
         }
     }
 }

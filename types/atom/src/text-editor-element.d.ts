@@ -1,4 +1,4 @@
-import { Disposable, PixelPosition, PointLike, TextEditor, TextEditorComponent } from '../index';
+import { Disposable, PixelPosition, PointLike, TextEditor, TextEditorComponent, } from '../index';
 
 /**
  *  Undocumented: Custom HTML elemnent for TextEditor, atom-text-editor
@@ -23,25 +23,25 @@ export interface TextEditorElement extends HTMLElement {
 
     hasFocus(): boolean;
 
-    setScrollTop(scrollTop: number): void;
+    setScrollTop(scrollTop: number,): void;
     getScrollTop(): number;
 
-    setScrollLeft(scrollLeft: number): void;
+    setScrollLeft(scrollLeft: number,): void;
     getScrollLeft(): number;
 
     getScrollHeight(): number;
 
     /** Extended: Converts a buffer position to a pixel position. */
-    pixelPositionForBufferPosition(bufferPosition: PointLike): PixelPosition;
+    pixelPositionForBufferPosition(bufferPosition: PointLike,): PixelPosition;
 
     /** Extended: Converts a screen position to a pixel position. */
-    pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
+    pixelPositionForScreenPosition(screenPosition: PointLike,): PixelPosition;
 
     // Event subscription
-    onDidChangeScrollTop(callback: (scrollTop: number) => void): Disposable;
-    onDidChangeScrollLeft(callback: (scrollLeft: number) => void): Disposable;
+    onDidChangeScrollTop(callback: (scrollTop: number,) => void,): Disposable;
+    onDidChangeScrollLeft(callback: (scrollLeft: number,) => void,): Disposable;
     /** Called when the editor is attached to the DOM. */
-    onDidAttach(callback: () => void): Disposable;
+    onDidAttach(callback: () => void,): Disposable;
     /** Called when the editor is detached from the DOM. */
-    onDidDetach(callback: () => void): Disposable;
+    onDidDetach(callback: () => void,): Disposable;
 }

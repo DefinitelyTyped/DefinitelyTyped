@@ -8,7 +8,7 @@
 
 import * as angular from 'angular';
 
-declare const exportedString: "ui.router";
+declare const exportedString: 'ui.router';
 export default exportedString;
 
 export type IState = angular.ui.IState;
@@ -31,11 +31,11 @@ declare module 'angular' {
             /**
              * String HTML content, or function that returns an HTML string
              */
-            template?: string | { (params: IStateParamsService): string } | undefined;
+            template?: string | { (params: IStateParamsService,): string } | undefined;
             /**
              * String URL path to template file OR Function, returns URL path string
              */
-            templateUrl?: string | { (params: IStateParamsService): string } | undefined;
+            templateUrl?: string | { (params: IStateParamsService,): string } | undefined;
             /**
              * Function, returns HTML content string
              */
@@ -58,7 +58,6 @@ declare module 'angular' {
              * Specifies the parent state of this state
              */
             parent?: string | IState | undefined;
-
 
             resolve?: { [name: string]: any } | undefined;
             /**
@@ -104,26 +103,25 @@ declare module 'angular' {
              * Synchronously or asynchronously redirects Transitions to a different state/params
              */
             redirectTo?: string | Function | IState | undefined;
-
         }
 
         interface IUnfoundState {
-            to: string,
-            toParams: {},
-            options: IStateOptions
+            to: string;
+            toParams: {};
+            options: IStateOptions;
         }
 
         interface IStateProvider extends angular.IServiceProvider {
-            state(name: string, config: IState): IStateProvider;
-            state(config: IState): IStateProvider;
-            decorator(name?: string, decorator?: (state: IState, parent: Function) => any): any;
+            state(name: string, config: IState,): IStateProvider;
+            state(config: IState,): IStateProvider;
+            decorator(name?: string, decorator?: (state: IState, parent: Function,) => any,): any;
         }
 
         interface IUrlMatcher {
-            concat(pattern: string): IUrlMatcher;
-            exec(path: string, search?: any, hash?: string, options?: any): {};
+            concat(pattern: string,): IUrlMatcher;
+            exec(path: string, search?: any, hash?: string, options?: any,): {};
             parameters(): string[];
-            format(values: {}): string;
+            format(values: {},): string;
         }
 
         interface IUrlMatcherFactory {
@@ -134,7 +132,7 @@ declare module 'angular' {
              *
              * @returns {IUrlMatcher} The UrlMatcher.
              */
-            compile(pattern: string): IUrlMatcher;
+            compile(pattern: string,): IUrlMatcher;
             /**
              * Returns true if the specified object is a UrlMatcher, or false otherwise.
              *
@@ -142,7 +140,7 @@ declare module 'angular' {
              *
              * @returns {boolean} Returns true if the object matches the IUrlMatcher interface, by implementing all the same methods.
              */
-            isMatcher(o: any): boolean;
+            isMatcher(o: any,): boolean;
             /**
              * Returns a type definition for the specified name
              *
@@ -150,7 +148,7 @@ declare module 'angular' {
              *
              * @returns {IType} The type definition
              */
-            type(name: string): IType;
+            type(name: string,): IType;
             /**
              * Registers a custom Type object that can be used to generate URLs with typed parameters.
              *
@@ -159,7 +157,7 @@ declare module 'angular' {
              *
              * @returns {IUrlMatcherFactory} Returns $urlMatcherFactoryProvider.
              */
-            type(name: string, definition: IType, inlineAnnotedDefinitionFn?: any[]): IUrlMatcherFactory;
+            type(name: string, definition: IType, inlineAnnotedDefinitionFn?: any[],): IUrlMatcherFactory;
             /**
              * Registers a custom Type object that can be used to generate URLs with typed parameters.
              *
@@ -168,7 +166,7 @@ declare module 'angular' {
              *
              * @returns {IUrlMatcherFactory} Returns $urlMatcherFactoryProvider.
              */
-            type(name: string, definition: IType, definitionFn?: (...args: any[]) => IType): IUrlMatcherFactory;
+            type(name: string, definition: IType, definitionFn?: (...args: any[]) => IType,): IUrlMatcherFactory;
             /**
              * Defines whether URL matching should be case sensitive (the default behavior), or not.
              *
@@ -176,13 +174,13 @@ declare module 'angular' {
              *
              * @returns {boolean} the current value of caseInsensitive
              */
-            caseInsensitive(value?: boolean): boolean;
+            caseInsensitive(value?: boolean,): boolean;
             /**
              * Sets the default behavior when generating or matching URLs with default parameter values
              *
              * @param value {string} A string that defines the default parameter URL squashing behavior. nosquash: When generating an href with a default parameter value, do not squash the parameter value from the URL slash: When generating an href with a default parameter value, squash (remove) the parameter value, and, if the parameter is surrounded by slashes, squash (remove) one slash from the URL any other string, e.g. "~": When generating an href with a default parameter value, squash (remove) the parameter value from the URL and replace it with this string.
              */
-            defaultSquashPolicy(value: string): void;
+            defaultSquashPolicy(value: string,): void;
             /**
              * Defines whether URLs should match trailing slashes, or not (the default behavior).
              *
@@ -190,24 +188,24 @@ declare module 'angular' {
              *
              * @returns {boolean} the current value of strictMode
              */
-            strictMode(value?: boolean): boolean;
+            strictMode(value?: boolean,): boolean;
         }
 
         interface IUrlRouterProvider extends angular.IServiceProvider {
-            when(whenPath: RegExp, handler: Function): IUrlRouterProvider;
-            when(whenPath: RegExp, handler: any[]): IUrlRouterProvider;
-            when(whenPath: RegExp, toPath: string): IUrlRouterProvider;
-            when(whenPath: IUrlMatcher, hanlder: Function): IUrlRouterProvider;
-            when(whenPath: IUrlMatcher, handler: any[]): IUrlRouterProvider;
-            when(whenPath: IUrlMatcher, toPath: string): IUrlRouterProvider;
-            when(whenPath: string, handler: Function): IUrlRouterProvider;
-            when(whenPath: string, handler: any[]): IUrlRouterProvider;
-            when(whenPath: string, toPath: string): IUrlRouterProvider;
-            otherwise(handler: Function): IUrlRouterProvider;
-            otherwise(handler: any[]): IUrlRouterProvider;
-            otherwise(path: string): IUrlRouterProvider;
-            rule(handler: Function): IUrlRouterProvider;
-            rule(handler: any[]): IUrlRouterProvider;
+            when(whenPath: RegExp, handler: Function,): IUrlRouterProvider;
+            when(whenPath: RegExp, handler: any[],): IUrlRouterProvider;
+            when(whenPath: RegExp, toPath: string,): IUrlRouterProvider;
+            when(whenPath: IUrlMatcher, hanlder: Function,): IUrlRouterProvider;
+            when(whenPath: IUrlMatcher, handler: any[],): IUrlRouterProvider;
+            when(whenPath: IUrlMatcher, toPath: string,): IUrlRouterProvider;
+            when(whenPath: string, handler: Function,): IUrlRouterProvider;
+            when(whenPath: string, handler: any[],): IUrlRouterProvider;
+            when(whenPath: string, toPath: string,): IUrlRouterProvider;
+            otherwise(handler: Function,): IUrlRouterProvider;
+            otherwise(handler: any[],): IUrlRouterProvider;
+            otherwise(path: string,): IUrlRouterProvider;
+            rule(handler: Function,): IUrlRouterProvider;
+            rule(handler: any[],): IUrlRouterProvider;
             /**
              * Disables (or enables) deferring location change interception.
              *
@@ -215,7 +213,7 @@ declare module 'angular' {
              *
              * @param {boolean} defer Indicates whether to defer location change interception. Passing no parameter is equivalent to true.
              */
-            deferIntercept(defer?: boolean): void;
+            deferIntercept(defer?: boolean,): void;
         }
 
         interface IStateOptions {
@@ -236,7 +234,7 @@ declare module 'angular' {
              */
             notify?: boolean | undefined;
             /**
-         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+             * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
              */
             reload?: boolean | string | IState | undefined;
         }
@@ -263,25 +261,25 @@ declare module 'angular' {
              *
              * @param options Options object.
              */
-            go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-            go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-            transitionTo(state: string, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
-            transitionTo(state: IState, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
-            transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-            transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-            includes(state: string, params?: {}): boolean;
-            includes(state: string, params?: {}, options?: any): boolean;
-            is(state: string, params?: {}): boolean;
-            is(state: IState, params?: {}): boolean;
-            href(state: IState, params?: {}, options?: IHrefOptions): string;
-            href(state: string, params?: {}, options?: IHrefOptions): string;
-            get(state: string | IState, context?: string | IState): IState;
+            go(to: string, params?: {}, options?: IStateOptions,): angular.IPromise<any>;
+            go(to: IState, params?: {}, options?: IStateOptions,): angular.IPromise<any>;
+            transitionTo(state: string, params?: {}, updateLocation?: boolean,): angular.IPromise<any>;
+            transitionTo(state: IState, params?: {}, updateLocation?: boolean,): angular.IPromise<any>;
+            transitionTo(state: string, params?: {}, options?: IStateOptions,): angular.IPromise<any>;
+            transitionTo(state: IState, params?: {}, options?: IStateOptions,): angular.IPromise<any>;
+            includes(state: string, params?: {},): boolean;
+            includes(state: string, params?: {}, options?: any,): boolean;
+            is(state: string, params?: {},): boolean;
+            is(state: IState, params?: {},): boolean;
+            href(state: IState, params?: {}, options?: IHrefOptions,): string;
+            href(state: string, params?: {}, options?: IHrefOptions,): string;
+            get(state: string | IState, context?: string | IState,): IState;
             get(): IState[];
             /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
             current: IState;
             /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
             params: IStateParamsService;
-            reload(reloadState?: string | IState): angular.IPromise<any>;
+            reload(reloadState?: string | IState,): angular.IPromise<any>;
 
             /** Currently pending transition. A promise that'll resolve or reject. */
             transition: angular.IPromise<{}>;
@@ -294,7 +292,7 @@ declare module 'angular' {
                 /**
                  * Currently resolved "resolve" values from the current state
                  */
-                globals: { [key: string]: any; };
+                globals: { [key: string]: any };
             };
         }
 
@@ -311,13 +309,12 @@ declare module 'angular' {
              * $locationChangeSuccess event, perform some custom logic (route protection,
              * auth, config, redirection, etc) and then finally proceed with the transition
              * by calling $urlRouter.sync().
-             *
              */
             sync(): void;
             listen(): Function;
-            href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): string;
-            update(read?: boolean): void;
-            push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): void;
+            href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions,): string;
+            update(read?: boolean,): void;
+            push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions,): void;
         }
 
         interface IUiViewScrollProvider {
@@ -337,7 +334,7 @@ declare module 'angular' {
              *
              * @returns {any} Returns a custom representation of the URL parameter value.
              */
-            decode(val: string, key: string): any;
+            decode(val: string, key: string,): any;
             /**
              * Encodes a custom/native type value to a string that can be embedded in a URL. Note that the return value does not need to be URL-safe (i.e. passed through encodeURIComponent()), it only needs to be a representation of val that has been coerced to a string.
              *
@@ -346,7 +343,7 @@ declare module 'angular' {
              *
              * @returns {string} Returns a string representation of val that can be encoded in a URL.
              */
-            encode(val: any, key: string): string;
+            encode(val: any, key: string,): string;
             /**
              * Determines whether two decoded values are equivalent.
              *
@@ -355,7 +352,7 @@ declare module 'angular' {
              *
              * @returns {boolean} Returns true if the values are equivalent/equal, otherwise false.
              */
-            equals?(a: any, b: any): boolean;
+            equals?(a: any, b: any,): boolean;
             /**
              * Detects whether a value is of a particular type. Accepts a native (decoded) value and determines whether it matches the current Type object.
              *
@@ -364,12 +361,11 @@ declare module 'angular' {
              *
              * @returns {boolean} Returns true if the value matches the type, otherwise false.
              */
-            is(val: any, key: string): boolean;
+            is(val: any, key: string,): boolean;
             /**
              * The regular expression pattern used to match values of this type when coming from a substring of a URL.
              */
             pattern?: RegExp | undefined;
         }
     }
-
 }

@@ -16,7 +16,6 @@ export = moduleName;
 
 declare module 'angular' {
     export namespace ui.bootstrap {
-
         interface IAccordionConfig {
             /**
              * Controls whether expanding an item will cause the other items to close.
@@ -43,9 +42,9 @@ declare module 'angular' {
             timezone?: string | undefined;
         }
 
-        type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
+        type DatepickerCallback<T,> = (args: IDatepickerCellArgs,) => T;
 
-        type DatepickerMode = "day" | "month" | "year";
+        type DatepickerMode = 'day' | 'month' | 'year';
 
         interface IDatepickerCellArgs {
             date: Date;
@@ -209,7 +208,6 @@ declare module 'angular' {
         }
 
         interface IDatepickerPopupConfig extends IDatepickerConfig {
-
             /**
              * A list of alternate formats acceptable for manual entry.
              *
@@ -333,19 +331,19 @@ declare module 'angular' {
              * @param {IModalSettings} options
              * @returns {IModalInstanceService}
              */
-            open(options: IModalSettings): IModalInstanceService;
+            open(options: IModalSettings,): IModalInstanceService;
         }
 
         interface IModalInstanceService {
             /**
              * A method that can be used to close a modal, passing a result. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              */
-            close(result?: any): void;
+            close(result?: any,): void;
 
             /**
              * A method that can be used to dismiss a modal, passing a reason. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              */
-            dismiss(reason?: any): void;
+            dismiss(reason?: any,): void;
 
             /**
              * A promise that is resolved when a modal is closed and rejected when a modal is dismissed.
@@ -371,7 +369,7 @@ declare module 'angular' {
         /**
          * @deprecated use IModalInstanceService instead.
          */
-        interface IModalServiceInstance extends IModalInstanceService { }
+        interface IModalServiceInstance extends IModalInstanceService {}
 
         interface IModalScope extends angular.IScope {
             /**
@@ -379,14 +377,14 @@ declare module 'angular' {
              *
              * @returns true if the modal was closed; otherwise false
              */
-            $dismiss(reason?: any): boolean;
+            $dismiss(reason?: any,): boolean;
 
             /**
              * Close the dialog resolving the promise to the given value. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              *
              * @returns true if the modal was closed; otherwise false
              */
-            $close(result?: any): boolean;
+            $close(result?: any,): boolean;
         }
 
         interface IModalSettings {
@@ -524,22 +522,22 @@ declare module 'angular' {
             /**
              * Opens a new modal instance.
              */
-            open(modalInstance: IModalInstanceService, modal: any): void;
+            open(modalInstance: IModalInstanceService, modal: any,): void;
 
             /**
              * Closes a modal instance with an optional result.
              */
-            close(modalInstance: IModalInstanceService, result?: any): void;
+            close(modalInstance: IModalInstanceService, result?: any,): void;
 
             /**
              * Dismisses a modal instance with an optional reason.
              */
-            dismiss(modalInstance: IModalInstanceService, reason?: any): void;
+            dismiss(modalInstance: IModalInstanceService, reason?: any,): void;
 
             /**
              * Dismiss all open modal instances with an optional reason that will be passed to each instance.
              */
-            dismissAll(reason?: any): void;
+            dismissAll(reason?: any,): void;
 
             /**
              * Gets the topmost modal instance that is open.
@@ -551,7 +549,6 @@ declare module 'angular' {
             key: IModalInstanceService;
             value: any;
         }
-
 
         interface IPaginationConfig {
             /**
@@ -681,7 +678,6 @@ declare module 'angular' {
             nextText?: string | undefined;
         }
 
-
         interface IPositionCoordinates {
             width?: number | undefined;
             height?: number | undefined;
@@ -693,14 +689,13 @@ declare module 'angular' {
             /**
              * Provides a read-only equivalent of jQuery's position function.
              */
-            position(element: JQuery): IPositionCoordinates;
+            position(element: JQuery,): IPositionCoordinates;
 
             /**
              * Provides a read-only equivalent of jQuery's offset function.
              */
-            offset(element: JQuery): IPositionCoordinates;
+            offset(element: JQuery,): IPositionCoordinates;
         }
-
 
         interface IProgressConfig {
             /**
@@ -717,7 +712,6 @@ declare module 'angular' {
              */
             max?: number | undefined;
         }
-
 
         interface IRatingConfig {
             /**
@@ -748,7 +742,6 @@ declare module 'angular' {
              */
             titles?: Array<string> | undefined;
         }
-
 
         interface ITimepickerConfig {
             /**
@@ -829,7 +822,6 @@ declare module 'angular' {
             templateUrl?: string | undefined;
         }
 
-
         interface ITooltipOptions {
             /**
              * Where to place it? Defaults to 'top', but also accepts 'right', 'bottom', or 'left'.
@@ -885,14 +877,13 @@ declare module 'angular' {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */
-            options(value: ITooltipOptions): void;
+            options(value: ITooltipOptions,): void;
 
             /**
              * Extends the default trigger mappings with mappings of your own. E.g. `{ 'openTrigger': 'closeTrigger' }`.
              */
-            setTriggers(triggers: Object): void;
+            setTriggers(triggers: Object,): void;
         }
-
 
         /**
          * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
@@ -920,7 +911,11 @@ declare module 'angular' {
              *
              * @return A promise that is resolved when the transition finishes.
              */
-            (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
+            (
+                element: angular.IAugmentedJQuery,
+                trigger: any,
+                options?: ITransitionServiceOptions,
+            ): angular.IPromise<angular.IAugmentedJQuery>;
         }
 
         interface ITransitionServiceOptions {

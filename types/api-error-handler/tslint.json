@@ -1,10 +1,10 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-padding": false,
-        "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "prefer-const": false,
-        "space-before-function-paren": false
-    }
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "rules": {
+    "no-padding": false,
+    "no-var-keyword": false,
+    "only-arrow-functions": false,
+    "prefer-const": false,
+    "space-before-function-paren": false
+  }
 }

@@ -6,7 +6,7 @@
  * units.
  */
 export default class InputStream {
-    constructor(data: string, decodeToUnicodeCodePoints?: boolean);
+    constructor(data: string, decodeToUnicodeCodePoints?: boolean,);
 
     /**
      * Reset the stream so that it's in the same state it was
@@ -17,9 +17,9 @@ export default class InputStream {
 
     consume(): void;
 
-    LA(offset: number): number;
+    LA(offset: number,): number;
 
-    LT(offset: number): number;
+    LT(offset: number,): number;
 
     /**
      * noop: we have entire buffer
@@ -29,11 +29,11 @@ export default class InputStream {
     /**
      * noop: we have entire buffer
      */
-    release(marker: number): void;
+    release(marker: number,): void;
 
-    seek(_index: number): void;
+    seek(_index: number,): void;
 
-    getText(start: number, stop: number): string;
+    getText(start: number, stop: number,): string;
 
     toString(): string;
 

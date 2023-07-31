@@ -35,7 +35,7 @@ export = nextFn;
  * //   blank-volcano
  * //   rhenish-periodical
  */
-declare function nextFn(): [string, string];
+declare function nextFn(): [string, string,];
 
 declare namespace nextFn {
     const next: typeof nextFn;
@@ -62,7 +62,7 @@ declare namespace nextFn {
      * adjNoun.seed(456);
      * // -> false
      */
-    function seed(newSeed: number): boolean;
+    function seed(newSeed: number,): boolean;
     /**
      * Provide a prime to adjust how adjectives are chosen.
      *
@@ -86,7 +86,7 @@ declare namespace nextFn {
      * adjNoun.adjPrime(5);
      * // -> false
      */
-    function adjPrime(newPrime: number): boolean;
+    function adjPrime(newPrime: number,): boolean;
     /**
      * Provide a prime to adjust how nouns are chosen.
      *
@@ -110,5 +110,5 @@ declare namespace nextFn {
      * adjNoun.nounPrime(5);
      * // -> false
      */
-    function nounPrime(newPrime: number): boolean;
+    function nounPrime(newPrime: number,): boolean;
 }

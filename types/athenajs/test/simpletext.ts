@@ -1,4 +1,4 @@
-import { SimpleText } from 'athenajs';
+import { SimpleText, } from 'athenajs';
 
 const myText: SimpleText = new SimpleText('MyText', {
     text: 'yop',
@@ -9,9 +9,9 @@ const myText: SimpleText = new SimpleText('MyText', {
     fontStyle: 'italic',
     fontWeight: '300',
     align: 'center',
-    color: 'white'
-});
+    color: 'white',
+},);
 
-myText.setSize(100, 200);
-myText.setText('Hi!');
-myText.setColor('rgba(0,0,0,.4');
+myText.setSize(100, 200,);
+myText.setText('Hi!',);
+myText.setColor('rgba(0,0,0,.4',);

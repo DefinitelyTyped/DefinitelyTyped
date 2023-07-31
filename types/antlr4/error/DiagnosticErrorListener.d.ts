@@ -26,9 +26,9 @@ import ErrorListener from './ErrorListener';
 export default class DiagnosticErrorListener extends ErrorListener {
     readonly exactOnly: boolean;
 
-    constructor(exactOnly: boolean);
+    constructor(exactOnly: boolean,);
 
-    getDecisionDescription(recognizer: Parser, dfa: DFA): string;
+    getDecisionDescription(recognizer: Parser, dfa: DFA,): string;
 
     /**
      * Computes the set of conflicting or ambiguous alternatives from a
@@ -41,5 +41,5 @@ export default class DiagnosticErrorListener extends ErrorListener {
      * @return `reportedAlts` if it is not `null`, otherwise
      * returns the set of alternatives represented in `configs`.
      */
-    getConflictingAlts(reportedAlts: BitSet, configs: ATNConfigSet): BitSet;
+    getConflictingAlts(reportedAlts: BitSet, configs: ATNConfigSet,): BitSet;
 }

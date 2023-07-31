@@ -17,5 +17,5 @@ export interface ClipboardService {
      * copies text to a clipboard
      * @param text the text to be copied to the clipboard
      */
-    copyText(text: string): void;
+    copyText(text: string,): void;
 }

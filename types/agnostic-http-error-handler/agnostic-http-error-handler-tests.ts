@@ -1,5 +1,5 @@
 import errorHandler = require('agnostic-http-error-handler');
-import { Request, Response } from 'express';
+import { Request, Response, } from 'express';
 
 /* $ExpectType {
   express: (err: Error, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: any) => void;
@@ -8,5 +8,5 @@ import { Request, Response } from 'express';
 } */
 errorHandler(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (err: Error, _responsePayload, req: Request, _res: Response) => {},
+    (err: Error, _responsePayload, req: Request, _res: Response,) => {},
 );

@@ -6,7 +6,7 @@ export default class PredictionContext {
     static readonly globalNodeCount: 1;
     static readonly id: number;
 
-    constructor(cachedHashCode: number);
+    constructor(cachedHashCode: number,);
 
     /**
      * Stores the computed hash code of this {@link PredictionContext}.
@@ -17,5 +17,5 @@ export default class PredictionContext {
 
     hashCode(): number;
 
-    updateHashCode(hash: HashCode): void;
+    updateHashCode(hash: HashCode,): void;
 }

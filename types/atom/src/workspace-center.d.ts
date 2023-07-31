@@ -1,4 +1,4 @@
-import { Disposable, Pane, PaneItemObservedEvent, TextEditor, TextEditorObservedEvent } from '../index';
+import { Disposable, Pane, PaneItemObservedEvent, TextEditor, TextEditorObservedEvent, } from '../index';
 
 // https://github.com/atom/atom/blob/master/src/workspace-center.js
 /** The central container for the editor window capable of holding items. */
@@ -8,49 +8,49 @@ export interface WorkspaceCenter {
      *  Invoke the given callback with all current and future text editors in the
      *  workspace center.
      */
-    observeTextEditors(callback: (editor: TextEditor) => void): Disposable;
+    observeTextEditors(callback: (editor: TextEditor,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with all current and future panes items in the
      *  workspace center.
      */
-    observePaneItems(callback: (item: object) => void): Disposable;
+    observePaneItems(callback: (item: object,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane item changes. */
-    onDidChangeActivePaneItem(callback: (item: object) => void): Disposable;
+    onDidChangeActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane item stops changing. */
-    onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
+    onDidStopChangingActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane item and with all future
      *  active pane items in the workspace center.
      */
-    observeActivePaneItem(callback: (item: object) => void): Disposable;
+    observeActivePaneItem(callback: (item: object,) => void,): Disposable;
 
     /** Invoke the given callback when a pane is added to the workspace center. */
-    onDidAddPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onDidAddPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback before a pane is destroyed in the workspace center. */
-    onWillDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onWillDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback when a pane is destroyed in the workspace center. */
-    onDidDestroyPane(callback: (event: { pane: Pane }) => void): Disposable;
+    onDidDestroyPane(callback: (event: { pane: Pane },) => void,): Disposable;
 
     /** Invoke the given callback with all current and future panes in the workspace center. */
-    observePanes(callback: (pane: Pane) => void): Disposable;
+    observePanes(callback: (pane: Pane,) => void,): Disposable;
 
     /** Invoke the given callback when the active pane changes. */
-    onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
+    onDidChangeActivePane(callback: (pane: Pane,) => void,): Disposable;
 
     /**
      *  Invoke the given callback with the current active pane and when the active pane
      *  changes.
      */
-    observeActivePane(callback: (pane: Pane) => void): Disposable;
+    observeActivePane(callback: (pane: Pane,) => void,): Disposable;
 
     /** Invoke the given callback when a pane item is added to the workspace center. */
-    onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onDidAddPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
 
     /**
      *  Invoke the given callback when a pane item is about to be destroyed, before the user
@@ -59,13 +59,13 @@ export interface WorkspaceCenter {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void | Promise<void>,): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
-    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+    onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent,) => void,): Disposable;
 
     /** Invoke the given callback when a text editor is added to the workspace center. */
-    onDidAddTextEditor(callback: (event: TextEditorObservedEvent) => void): Disposable;
+    onDidAddTextEditor(callback: (event: TextEditorObservedEvent,) => void,): Disposable;
 
     // Pane Items
     /** Get all pane items in the workspace center. */
@@ -97,10 +97,10 @@ export interface WorkspaceCenter {
     activatePreviousPane(): void;
 
     /** Retrieve the Pane associated with the given URI. */
-    paneForURI(uri: string): Pane | undefined;
+    paneForURI(uri: string,): Pane | undefined;
 
     /** Retrieve the Pane associated with the given item. */
-    paneForItem(item: object): Pane | undefined;
+    paneForItem(item: object,): Pane | undefined;
 
     /** Destroy (close) the active pane. */
     destroyActivePane(): void;

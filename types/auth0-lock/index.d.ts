@@ -15,65 +15,68 @@ interface Auth0LockAdditionalSignUpFieldOption {
     label: string;
 }
 
-type Auth0LockAdditionalSignUpFieldOptionsCallback =
-    (error: auth0.Auth0Error, options: Auth0LockAdditionalSignUpFieldOption[]) => void;
+type Auth0LockAdditionalSignUpFieldOptionsCallback = (
+    error: auth0.Auth0Error,
+    options: Auth0LockAdditionalSignUpFieldOption[],
+) => void;
 
-type Auth0LockAdditionalSignUpFieldOptionsFunction =
-    (callback: Auth0LockAdditionalSignUpFieldOptionsCallback) => void;
+type Auth0LockAdditionalSignUpFieldOptionsFunction = (callback: Auth0LockAdditionalSignUpFieldOptionsCallback,) => void;
 
-type Auth0LockAdditionalSignUpFieldPrefillCallback =
-    (error: auth0.Auth0Error, prefill: string) => void;
+type Auth0LockAdditionalSignUpFieldPrefillCallback = (error: auth0.Auth0Error, prefill: string,) => void;
 
-type Auth0LockAdditionalSignUpFieldPrefillFunction =
-    (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
+type Auth0LockAdditionalSignUpFieldPrefillFunction = (callback: Auth0LockAdditionalSignUpFieldPrefillCallback,) => void;
 
 interface Auth0LockAdditionalTextSignUpField {
-    type?: "text" | undefined;
+    type?: 'text' | undefined;
     icon?: string | undefined;
     name: string;
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction | undefined;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction | undefined;
-    validator?: ((input: string) => { valid: boolean; hint?: string | undefined }) | undefined;
-    storage?: "root" | undefined;
+    validator?: ((input: string,) => { valid: boolean; hint?: string | undefined }) | undefined;
+    storage?: 'root' | undefined;
 }
 
 interface Auth0LockAdditionalSelectSignUpField {
-    type?: "select" | undefined;
+    type?: 'select' | undefined;
     icon?: string | undefined;
     name: string;
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction | undefined;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction | undefined;
-    validator?: ((input: string) => { valid: boolean; hint?: string | undefined }) | undefined;
-    storage?: "root" | undefined;
+    validator?: ((input: string,) => { valid: boolean; hint?: string | undefined }) | undefined;
+    storage?: 'root' | undefined;
 }
 
 interface Auth0LockAdditionalCheckboxSignUpField {
-    type?: "checkbox" | undefined;
+    type?: 'checkbox' | undefined;
     icon?: string | undefined;
     name: string;
     placeholder: string;
-    prefill: "true" | "false";
-    validator?: ((input: string) => { valid: boolean, hint?: string | undefined }) | undefined;
-    storage?: "root" | undefined;
+    prefill: 'true' | 'false';
+    validator?: ((input: string,) => { valid: boolean; hint?: string | undefined }) | undefined;
+    storage?: 'root' | undefined;
 }
 
 interface Auth0LockAdditionalHiddenSignUpField {
-    type?: "hidden" | undefined;
+    type?: 'hidden' | undefined;
     name: string;
     value: string;
-    storage?: "root" | undefined;
+    storage?: 'root' | undefined;
 }
 
-type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField |Auth0LockAdditionalHiddenSignUpField;
+type Auth0LockAdditionalSignUpField =
+    | Auth0LockAdditionalSelectSignUpField
+    | Auth0LockAdditionalTextSignUpField
+    | Auth0LockAdditionalCheckboxSignUpField
+    | Auth0LockAdditionalHiddenSignUpField;
 
-type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
-type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
+type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string,) => void;
+type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string,) => void;
 
 interface Auth0LockAvatarOptions {
-    url: (email: string, callback: Auth0LockAvatarUrlCallback) => void;
-    displayName: (email: string, callback: Auth0LockAvatarDisplayNameCallback) => void;
+    url: (email: string, callback: Auth0LockAvatarUrlCallback,) => void;
+    displayName: (email: string, callback: Auth0LockAvatarDisplayNameCallback,) => void;
 }
 
 interface Auth0LockThemeButton {
@@ -149,7 +152,7 @@ interface Auth0LockConstructorOptions {
     flashMessage?: Auth0LockFlashMessageOptions | undefined;
     forgotPasswordLink?: string | undefined;
     hashCleanup?: boolean | undefined;
-    initialScreen?: "login" | "signUp" | "forgotPassword" | undefined;
+    initialScreen?: 'login' | 'signUp' | 'forgotPassword' | undefined;
     language?: string | undefined;
     languageBaseUrl?: string | undefined;
     languageDictionary?: any;
@@ -158,12 +161,12 @@ interface Auth0LockConstructorOptions {
     mustAcceptTerms?: boolean | undefined;
     oidcConformant?: boolean | undefined;
     popupOptions?: Auth0LockPopupOptions | undefined;
-    prefill?: { email?: string | undefined, username?: string | undefined} | undefined;
+    prefill?: { email?: string | undefined; username?: string | undefined } | undefined;
     rememberLastLogin?: boolean | undefined;
     scrollGlobalMessagesIntoView?: boolean | undefined;
     showTerms?: boolean | undefined;
     signupLink?: string | undefined;
-    socialButtonStyle?: "big" | "small" | undefined;
+    socialButtonStyle?: 'big' | 'small' | undefined;
     theme?: Auth0LockThemeOptions | undefined;
     usernameStyle?: string | undefined;
     _enableImpersonation?: boolean | undefined;
@@ -171,7 +174,7 @@ interface Auth0LockConstructorOptions {
 }
 
 interface Auth0LockFlashMessageOptions {
-    type: "success" | "error" | "info";
+    type: 'success' | 'error' | 'info';
     text: string;
 }
 
@@ -181,7 +184,7 @@ interface Auth0LockShowOptions {
     allowLogin?: boolean | undefined;
     allowSignUp?: boolean | undefined;
     auth?: Auth0LockAuthOptions | undefined;
-    initialScreen?: "login" | "signUp" | "forgotPassword" | undefined;
+    initialScreen?: 'login' | 'signUp' | 'forgotPassword' | undefined;
     flashMessage?: Auth0LockFlashMessageOptions | undefined;
     rememberLastLogin?: boolean | undefined;
     languageDictionary?: any;
@@ -217,30 +220,33 @@ interface AuthResult {
 
 interface Auth0LockCore {
     // deprecated
-    getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
-    getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
-    checkSession(options: Auth0LockAuthParamsOptions, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
+    getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile,) => void,): void;
+    getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile,) => void,): void;
+    checkSession(
+        options: Auth0LockAuthParamsOptions,
+        callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined,) => void,
+    ): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
-    resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
-    show(options?: Auth0LockShowOptions): void;
+    resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult,) => void,): void;
+    show(options?: Auth0LockShowOptions,): void;
     hide(): void;
-    logout(query: any): void;
+    logout(query: any,): void;
 
-    on(event: "show" | "hide", callback: () => void): void;
-    on(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
-    on(event: "authenticated", callback: (authResult: AuthResult) => void): void;
-    on(event: string, callback: (...args: any[]) => void): void;
+    on(event: 'show' | 'hide', callback: () => void,): void;
+    on(event: 'unrecoverable_error' | 'authorization_error', callback: (error: auth0.Auth0Error,) => void,): void;
+    on(event: 'authenticated', callback: (authResult: AuthResult,) => void,): void;
+    on(event: string, callback: (...args: any[]) => void,): void;
 
     // though not documented, these methods are inherited from EventEmitter
     // https://github.com/browserify/events/blob/48e3d18659caf72d94d319871106f089bb40002d/events.js#L321
-    off(event: "show" | "hide", callback: () => void): void;
-    off(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
-    off(event: "authenticated", callback: (authResult: AuthResult) => void): void;
-    off(event: string, callback: (...args: any[]) => void): void;
+    off(event: 'show' | 'hide', callback: () => void,): void;
+    off(event: 'unrecoverable_error' | 'authorization_error', callback: (error: auth0.Auth0Error,) => void,): void;
+    off(event: 'authenticated', callback: (authResult: AuthResult,) => void,): void;
+    off(event: string, callback: (...args: any[]) => void,): void;
 }
 
 interface Auth0LockStatic extends Auth0LockCore {
-    new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
+    new(clientId: string, domain: string, options?: Auth0LockConstructorOptions,): Auth0LockStatic;
 }
 
 // additional options for passwordless mode
@@ -249,10 +255,14 @@ interface Auth0LockPasswordlessConstructorOptions extends Auth0LockConstructorOp
 }
 
 interface Auth0LockPasswordlessStatic extends Auth0LockCore {
-    new (clientId: string, domain: string, options?: Auth0LockPasswordlessConstructorOptions): Auth0LockPasswordlessStatic;
+    new(
+        clientId: string,
+        domain: string,
+        options?: Auth0LockPasswordlessConstructorOptions,
+    ): Auth0LockPasswordlessStatic;
 }
 
-declare module "auth0-lock" {
+declare module 'auth0-lock' {
     export default Auth0Lock;
     export const Auth0Lock: Auth0LockStatic;
     export const Auth0LockPasswordless: Auth0LockPasswordlessStatic;

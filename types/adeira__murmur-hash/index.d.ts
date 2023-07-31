@@ -3,4 +3,4 @@
 // Definitions by: Martin Zlámal <https://github.com/mrtnzlml>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function murmurHash(str: string): string;
+export default function murmurHash(str: string,): string;

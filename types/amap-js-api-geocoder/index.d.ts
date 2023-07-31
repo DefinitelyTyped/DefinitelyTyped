@@ -332,7 +332,7 @@ declare namespace AMap {
          * 地理编码与逆地理编码
          * @param options 选项
          */
-        constructor(options?: Geocoder.Options);
+        constructor(options?: Geocoder.Options,);
         /**
          * 根据给定的地址描述进行解析
          * @param address 地址描述
@@ -340,13 +340,13 @@ declare namespace AMap {
          */
         getLocation(
             address: string | string[],
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.GeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.GeocodeResult | string,) => void,
         ): void;
         /**
          * 设置地址描述所在城市
          * @param city 城市
          */
-        setCity(city?: string): void;
+        setCity(city?: string,): void;
         /**
          * 根据给定坐标进行解析
          * @param location 坐标
@@ -354,7 +354,7 @@ declare namespace AMap {
          */
         getAddress(
             location: LocationValue,
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.ReGeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.ReGeocodeResult | string,) => void,
         ): void;
         /**
          * 根据给定坐标进行解析
@@ -363,11 +363,11 @@ declare namespace AMap {
          */
         getAddress(
             locations: LocationValue[],
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.BatchReGeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.BatchReGeocodeResult | string,) => void,
         ): void;
 
         // internal
-        setLang(lang?: Lang): void;
+        setLang(lang?: Lang,): void;
         getLang(): Lang | undefined;
     }
 }

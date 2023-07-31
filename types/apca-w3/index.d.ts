@@ -5,7 +5,6 @@
 // Minimum TypeScript Version: 4.0
 
 /**
- *
  * @param txtY
  * The linear Y (luminance) of the text color. Must be between 0.0-1.1.
  *
@@ -18,10 +17,9 @@
  *
  * @returns Lc (lightness contrast) as a numeric value within ± 127
  */
-export function APCAcontrast(txtY: number, bgY: number, places?: number): number | string;
+export function APCAcontrast(txtY: number, bgY: number, places?: number,): number | string;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0-255)
  * of a color
@@ -29,10 +27,9 @@ export function APCAcontrast(txtY: number, bgY: number, places?: number): number
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function sRGBtoY(rgb: [r: number, g: number, b: number]): number;
+export function sRGBtoY(rgb: [r: number, g: number, b: number,],): number;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0.0-1.0)
  * of a color in the p3 display color space
@@ -40,10 +37,9 @@ export function sRGBtoY(rgb: [r: number, g: number, b: number]): number;
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function displayP3toY(rgb: [r: number, g: number, b: number]): number;
+export function displayP3toY(rgb: [r: number, g: number, b: number,],): number;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0-255)
  * of a color
@@ -51,10 +47,9 @@ export function displayP3toY(rgb: [r: number, g: number, b: number]): number;
  * @returns
  * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function adobeRGBtoY(rgb?: [r: number, g: number, b: number]): number;
+export function adobeRGBtoY(rgb?: [r: number, g: number, b: number,],): number;
 
 /**
- *
  * @param [rgbaFG]
  * The foreground color expressed as a tuple of red, green, blue, and alpha
  * components. r, g, and b are expressed as 0-255, a is expressed as 0.0-1.0.
@@ -71,10 +66,10 @@ export function adobeRGBtoY(rgb?: [r: number, g: number, b: number]): number;
  * Defaults to `true`.
  */
 export function alphaBlend(
-    rgbaFG?: [r: number, g: number, b: number, a: number],
-    rgbBG?: [r: number, g: number, b: number],
+    rgbaFG?: [r: number, g: number, b: number, a: number,],
+    rgbBG?: [r: number, g: number, b: number,],
     isInt?: boolean,
-): [r: number, g: number, b: number];
+): [r: number, g: number, b: number,];
 
 /**
  * Calculate the APCA contrast for named or hex colors.
@@ -100,8 +95,8 @@ export function alphaBlend(
  * @returns Lc (lightness contrast) as a numeric value within ± 127
  */
 export function calcAPCA(
-    textColor: number | string | [r: number, g: number, b: number, a?: number],
-    bgColor: number | string | [r: number, g: number, b: number],
+    textColor: number | string | [r: number, g: number, b: number, a?: number,],
+    bgColor: number | string | [r: number, g: number, b: number,],
     places?: number,
     isInt?: boolean,
 ): number | string;

@@ -6,7 +6,7 @@ export class DocumentMergeOptions {
     /**
      * Creates a new {@link DocumentMergeOptions} instance
      */
-    constructor(jsonDataForMerge: any, outputFormat: string, fragments?: any);
+    constructor(jsonDataForMerge: any, outputFormat: string, fragments?: any,);
     outputFormat: string;
     jsonDataForMerge: any;
     fragments: any;

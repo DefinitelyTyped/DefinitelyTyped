@@ -1,5 +1,5 @@
-import drawTriangle = require("a-big-triangle");
+import drawTriangle = require('a-big-triangle');
 
 const gl = new WebGLRenderingContext();
 
-drawTriangle(gl); // $ExpectType void
+drawTriangle(gl,); // $ExpectType void

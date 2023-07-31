@@ -1,7 +1,7 @@
-import AmSerialChart from "./AmSerialChart";
-import StockGraph from "./StockGraph";
-import StockLegend from "./StockLegend";
-import ValueAxis from "./ValueAxis";
+import AmSerialChart from './AmSerialChart';
+import StockGraph from './StockGraph';
+import StockLegend from './StockLegend';
+import ValueAxis from './ValueAxis';
 
 /**
  * StockPanel class creates stock panels (charts). AmStockChart can have multiple Stock panels.
@@ -77,9 +77,9 @@ export default class StockPanel extends AmSerialChart {
     /**
      * Adds a graph to the panel.
      */
-    addStockGraph(graph: StockGraph): void;
+    addStockGraph(graph: StockGraph,): void;
     /**
      * Removes graph from the panel.
      */
-    removeStockGraph(graph: StockGraph): void;
+    removeStockGraph(graph: StockGraph,): void;
 }

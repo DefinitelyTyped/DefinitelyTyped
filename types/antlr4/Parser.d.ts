@@ -1,12 +1,12 @@
 import ATN from './atn/ATN';
 import CommonTokenFactory from './CommonTokenFactory';
 import CommonTokenStream from './CommonTokenStream';
-import Recognizer from './Recognizer';
-import Token from './Token';
-import ParseTreeListener from './tree/ParseTreeListener';
 import ParserRuleContext from './context/ParserRuleContext';
 import ErrorStrategy from './error/ErrorStrategy';
 import RecognitionException from './error/RecognitionException';
+import Recognizer from './Recognizer';
+import Token from './Token';
+import ParseTreeListener from './tree/ParseTreeListener';
 
 export default class Parser extends Recognizer {
     /**
@@ -15,7 +15,7 @@ export default class Parser extends Recognizer {
      */
     buildParseTrees: boolean;
 
-    constructor(input: CommonTokenStream);
+    constructor(input: CommonTokenStream,);
 
     _errHandler: ErrorStrategy;
 
@@ -83,7 +83,7 @@ export default class Parser extends Recognizer {
      * @param listener the listener to add
      * @throws {string} if `listener` is `null`
      */
-    addParseListener(listener: ParseTreeListener): void;
+    addParseListener(listener: ParseTreeListener,): void;
 
     /**
      * Remove `listener` from the list of parse listeners.
@@ -93,7 +93,7 @@ export default class Parser extends Recognizer {
      *
      * @param listener the listener to remove
      */
-    removeParseListener(listener: ParseTreeListener): void;
+    removeParseListener(listener: ParseTreeListener,): void;
 
     removeParseListeners(): void;
 
@@ -113,7 +113,7 @@ export default class Parser extends Recognizer {
     /**
      * Tell our token source and error strategy about a new way to create tokens.
      */
-    setTokenFactory(factory: CommonTokenFactory): void;
+    setTokenFactory(factory: CommonTokenFactory,): void;
 
     /**
      * The ATN with bypass alternatives is expensive to create so we create it lazily.
@@ -128,14 +128,14 @@ export default class Parser extends Recognizer {
     /**
      * Calls setTokenStream
      */
-    setInputStream(input: CommonTokenStream): void;
+    setInputStream(input: CommonTokenStream,): void;
 
     getTokenStream(): CommonTokenStream;
 
     /**
      * Set the token stream and reset the parser.
      */
-    setTokenStream(stream: CommonTokenStream): void;
+    setTokenStream(stream: CommonTokenStream,): void;
 
     /**
      * Match needs to return the current input symbol, which gets put
@@ -143,7 +143,7 @@ export default class Parser extends Recognizer {
      */
     getCurrentToken(): ReturnType<CommonTokenStream['LT']>;
 
-    notifyErrorListeners(msg: string, offendingToken: Token, err?: RecognitionException): void;
+    notifyErrorListeners(msg: string, offendingToken: Token, err?: RecognitionException,): void;
 
     /**
      * Consume and return the current symbol.
@@ -169,7 +169,7 @@ export default class Parser extends Recognizer {
      * Always called by generated parsers upon entry to a rule.
      * Access field {@link _ctx} get the current context.
      */
-    enterRule(localCtx: ParserRuleContext, state: number, ruleIndex?: number): void;
+    enterRule(localCtx: ParserRuleContext, state: number, ruleIndex?: number,): void;
 
     exitRule(): void;
 
@@ -190,13 +190,13 @@ export default class Parser extends Recognizer {
         precedence: number,
     ): void;
 
-    pushNewRecursionContext(localCtx: ParserRuleContext, state: number, ruleIndex?: number): void;
+    pushNewRecursionContext(localCtx: ParserRuleContext, state: number, ruleIndex?: number,): void;
 
-    unrollRecursionContexts(parentCtx: ParserRuleContext): void;
+    unrollRecursionContexts(parentCtx: ParserRuleContext,): void;
 
-    getInvokingContext(ruleIndex: number): ParserRuleContext;
+    getInvokingContext(ruleIndex: number,): ParserRuleContext;
 
-    inContext(context: ParserRuleContext): boolean;
+    inContext(context: ParserRuleContext,): boolean;
 
     /**
      * Checks whether or not `symbol` can follow the current state in the
@@ -210,7 +210,7 @@ export default class Parser extends Recognizer {
      * @return `true` if `symbol` can follow the current state in
      * the ATN, otherwise `false`.
      */
-    isExpectedToken(symbol: Token): boolean;
+    isExpectedToken(symbol: Token,): boolean;
 
     /**
      * Computes the set of input symbols which could follow the current parser
@@ -223,7 +223,7 @@ export default class Parser extends Recognizer {
 
     getExpectedTokensWithinCurrentRule(): Token[];
 
-    getRuleIndex(ruleName: string): number;
+    getRuleIndex(ruleName: string,): number;
 
     /**
      * Return list of the rule names in your parser instance
@@ -233,7 +233,7 @@ export default class Parser extends Recognizer {
      *
      * this is very useful for error messages.
      */
-    getRuleInvocationStack(p?: ParserRuleContext): string[];
+    getRuleInvocationStack(p?: ParserRuleContext,): string[];
 
     /**
      * For debugging and other purposes.
@@ -251,5 +251,5 @@ export default class Parser extends Recognizer {
      * During a parse is sometimes useful to listen in on the rule entry and exit
      * events as well as token matches. this is for quick and dirty debugging.
      */
-    setTrace(trace: boolean): void;
+    setTrace(trace: boolean,): void;
 }

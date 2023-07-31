@@ -30,22 +30,21 @@
 export class DocumentMergeOperation {
     /**
      * Constructs a {@link DocumentMergeOperation} instance.
-     *
      */
-    static createNew(options: DocumentMergeOptions): DocumentMergeOperation;
+    static createNew(options: DocumentMergeOptions,): DocumentMergeOperation;
     static get SupportedSourceFormat(): {
         /**
          * Represents "application/vnd.openxmlformats-officedocument.wordprocessingml.document" media type
          */
         docx: string;
     };
-    constructor(options: DocumentMergeOptions);
+    constructor(options: DocumentMergeOptions,);
     documentTemplate: any;
     options: any;
     /**
      * Sets the input DOCX based document template.
      */
-    setInput(documentTemplate: FileRef): void;
+    setInput(documentTemplate: FileRef,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -53,8 +52,8 @@ export class DocumentMergeOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { DocumentMergeOptions } from './option/documentmerge/document-merge-options';
+import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
+import { DocumentMergeOptions, } from './option/documentmerge/document-merge-options';

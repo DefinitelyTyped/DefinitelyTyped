@@ -14,7 +14,7 @@ declare module 'Synthetics' {
      * on a continuous and scheduled basis. (Managed UI Canaries)
      */
     class Synthetics {
-        constructor(verboseLogging?: boolean);
+        constructor(verboseLogging?: boolean,);
         ARN_SERVICE_NAME: string;
         USER_AGENT_SERVICE_NAME_PREFIX: string;
         _canaryArn: string;
@@ -51,10 +51,10 @@ declare module 'Synthetics' {
          */
         setRequestResponseLogHelper(): RequestResponseLogHelper;
         getRequestResponseLogHelper(): RequestResponseLogHelper;
-        setLogLevel(logLevel: number): void;
+        setLogLevel(logLevel: number,): void;
         getLogLevel(): number;
         getStepErrors(): any[];
-        addUserAgent(page: localPuppeteer.Page, userAgentString: string): Promise<void>;
+        addUserAgent(page: localPuppeteer.Page, userAgentString: string,): Promise<void>;
         /**
          * On Lambda warm starts, we might have the same NodeJS process running with this same instantiated class
          * already created. Reset all the this._* variables that should be reset between Lambda invocations.
@@ -68,8 +68,8 @@ declare module 'Synthetics' {
             canaryName: string,
             canaryId?: string,
         ): string;
-        setEventAndContext(event: any, context: any): Promise<void>;
-        setVerboseLogging(verboseLogging: boolean): void;
+        setEventAndContext(event: any, context: any,): Promise<void>;
+        setVerboseLogging(verboseLogging: boolean,): void;
         getCanaryName(): string;
         getCanaryId(): string;
         getCanaryArn(): string;
@@ -85,9 +85,9 @@ declare module 'Synthetics' {
          *  Takes screenshot of current page and uploads it to S3
          *  @returns fileName and page url of screenshot
          */
-        takeScreenshot(stepName: string, suffix?: string): Promise<ScreenshotResult>;
-        getScreenshotResult(stepName: string): ScreenshotResult[];
-        addReport(report: any): void;
+        takeScreenshot(stepName: string, suffix?: string,): Promise<ScreenshotResult>;
+        getScreenshotResult(stepName: string,): ScreenshotResult[];
+        addReport(report: any,): void;
         /**
          * Executes the provided step, wrapping it with start/pass/fail logging, start/pass/fail screenshots, and pass/fail and duration metrics.
          * The executeStep function also does the following:
@@ -104,7 +104,7 @@ declare module 'Synthetics' {
          * * Finally, returns what the functionToExecute returned or re-throws what functionToExecute threw.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeStep<Return = void>(
+        executeStep<Return = void,>(
             stepName: string,
             functionToExecute: () => Promise<Return>,
             stepConfig?: any,
@@ -120,19 +120,19 @@ declare module 'Synthetics' {
         /**
          * Log step start with current url, take step start screen shot
          */
-        startStep(stepName: string, stepConfiguration: any, canaryStepResult: any): Promise<void>;
+        startStep(stepName: string, stepConfiguration: any, canaryStepResult: any,): Promise<void>;
         /**
          * Log step succeeded with current url, take step succeeded screen shot
          * @param stepName
          */
-        succeedStep(stepName: string, stepConfiguration: any): Promise<void>;
+        succeedStep(stepName: string, stepConfiguration: any,): Promise<void>;
         /**
          * Log step failed with current url and exception, take step failed screen shot
          * @param stepName
          * @param error
          */
-        failStep(stepName: string, error: any, stepConfiguration: any): Promise<void>;
-        getHttpRequestOptions(requestOptions: any): any;
+        failStep(stepName: string, error: any, stepConfiguration: any,): Promise<void>;
+        getHttpRequestOptions(requestOptions: any,): any;
         /**
          * Execute HTTP step using provided request configuration with start/succeed/fail logging and metrics
          *
@@ -150,7 +150,12 @@ declare module 'Synthetics' {
          * @param callback Function is invoked with response <http.IncomingMessage> received from http call.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeHttpStep(stepName: string | null, requestOptions?: any, callback?: any, stepConfig?: any): Promise<void>;
+        executeHttpStep(
+            stepName: string | null,
+            requestOptions?: any,
+            callback?: any,
+            stepConfig?: any,
+        ): Promise<void>;
         completeHttpStep(
             stepName: string,
             stepId: string,
@@ -161,10 +166,10 @@ declare module 'Synthetics' {
             canaryStepResult: any,
             stepConfiguration: any,
         ): Promise<void>;
-        setupPageEvents(page: any): Promise<void>;
-        addExecutionError(errorMessage: any, ex: any): void;
+        setupPageEvents(page: any,): Promise<void>;
+        addExecutionError(errorMessage: any, ex: any,): void;
         writeHar(): Promise<void>;
-        setHarContent(harContent: any): void;
+        setHarContent(harContent: any,): void;
         close(): Promise<void>;
         isLambdaExecutionEnv(): boolean;
         getDefaultLaunchOptions(): Promise<{
@@ -179,8 +184,8 @@ declare module 'Synthetics' {
             }>;
             headless: boolean;
         }>;
-        getLaunchOptions(options: any): Promise<any>;
-        launch(options?: {}): Promise<void>;
+        getLaunchOptions(options: any,): Promise<any>;
+        launch(options?: {},): Promise<void>;
         publishResult(
             result: any,
             startTime: Date,
@@ -188,7 +193,7 @@ declare module 'Synthetics' {
             stepName: string,
             stepConfiguration: any,
         ): Promise<boolean>;
-        uploadArtifacts(artifacts: any): Promise<void>;
+        uploadArtifacts(artifacts: any,): Promise<void>;
         beforeCanary(): Promise<void>;
         beforeScript(): Promise<void>;
         createExecutionReport(
@@ -210,7 +215,7 @@ declare module 'Synthetics' {
             setupTime?: number,
             launchTime?: number,
         ): Promise<string>;
-        getErrorString(error: Error | string): string;
+        getErrorString(error: Error | string,): string;
         getReturnValue(
             canaryStatus: any,
             canaryError: any,
@@ -226,6 +231,6 @@ declare module 'Synthetics' {
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
     import * as SyntheticsMetricEmitter_1 from 'SyntheticsMetricEmitter';
     import SyntheticsMetricEmitter = SyntheticsMetricEmitter_1.SyntheticsMetricEmitter;
-    import { SyntheticsReport, RequestsResult, ScreenshotResult } from 'SyntheticsReport';
-    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
+    import { RequestsResult, ScreenshotResult, SyntheticsReport, } from 'SyntheticsReport';
+    import { SyntheticsConfiguration, } from 'SyntheticsConfiguration';
 }

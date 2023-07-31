@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import flatMapImpl = require("./implementation");
+import flatMapImpl = require('./implementation');
 
 interface FlatMap {
-    <A, B, T extends object | undefined = undefined>(
+    <A, B, T extends object | undefined = undefined,>(
         xs: ReadonlyArray<A>,
-        fn: (this: T, x: A, index: number, array: A[]) => ReadonlyArray<B>,
-        thisArg?: T
+        fn: (this: T, x: A, index: number, array: A[],) => ReadonlyArray<B>,
+        thisArg?: T,
     ): B[];
     getPolyfill(): typeof flatMapImpl;
     implementation: typeof flatMapImpl;

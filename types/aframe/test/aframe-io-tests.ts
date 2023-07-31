@@ -1,4 +1,4 @@
-import { Component, Coordinate, Entity, Scene, THREE, ANode } from 'aframe';
+import { ANode, Component, Coordinate, Entity, Scene, THREE, } from 'aframe';
 
 /**
  * These tests are examples from https://aframe.io pulled directly from the sample gallery.
@@ -22,10 +22,10 @@ import { Component, Coordinate, Entity, Scene, THREE, ANode } from 'aframe';
  */
 AFRAME.registerComponent('set-image', {
     schema: {
-        on: { type: 'string' },
-        target: { type: 'selector' },
-        src: { type: 'string' },
-        dur: { type: 'number', default: 300 }
+        on: { type: 'string', },
+        target: { type: 'selector', },
+        src: { type: 'string', },
+        dur: { type: 'number', default: 300, },
     },
 
     init: function() {
@@ -36,13 +36,13 @@ AFRAME.registerComponent('set-image', {
 
         el.addEventListener(data.on, function() {
             // Fade out image.
-            data.target.emit('set-image-fade');
+            data.target.emit('set-image-fade',);
             // Wait for fade to complete.
             setTimeout(function() {
                 // Set image.
-                data.target.setAttribute('material', 'src', data.src);
-            }, data.dur);
-        });
+                data.target.setAttribute('material', 'src', data.src,);
+            }, data.dur,);
+        },);
     },
 
     /**
@@ -65,10 +65,10 @@ AFRAME.registerComponent('set-image', {
             dir: 'alternate',
             dur: data.dur,
             from: '#FFF',
-            to: '#000'
-        });
-    }
-});
+            to: '#000',
+        },);
+    },
+},);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 360 video example
@@ -79,25 +79,25 @@ AFRAME.registerComponent('arrow-key-rotation', {
     directionY: 0,
 
     schema: {
-        enabled: { default: true },
-        dx: { default: 2.0 },
-        dy: { default: 2.0 }
+        enabled: { default: true, },
+        dx: { default: 2.0, },
+        dy: { default: 2.0, },
     },
     init: function() {
-        this.onKeyDown = this.onKeyDown.bind(this);
-        this.onKeyUp = this.onKeyUp.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this,);
+        this.onKeyUp = this.onKeyUp.bind(this,);
         this.directionX = 0;
         this.directionY = 0;
     },
     play: function() {
-        window.addEventListener('keydown', this.onKeyDown);
-        window.addEventListener('keyup', this.onKeyUp);
+        window.addEventListener('keydown', this.onKeyDown,);
+        window.addEventListener('keyup', this.onKeyUp,);
     },
     pause: function() {
-        window.removeEventListener('keydown', this.onKeyDown);
-        window.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('keydown', this.onKeyDown,);
+        window.removeEventListener('keyup', this.onKeyUp,);
     },
-    onKeyDown: function(evt: KeyboardEvent) {
+    onKeyDown: function(evt: KeyboardEvent,) {
         switch (evt.keyCode) {
             case 37:
                 this.directionX = 1;
@@ -113,7 +113,7 @@ AFRAME.registerComponent('arrow-key-rotation', {
                 break;
         }
     },
-    onKeyUp: function(evt: KeyboardEvent) {
+    onKeyUp: function(evt: KeyboardEvent,) {
         switch (evt.keyCode) {
             case 37:
                 this.directionX = 0;
@@ -133,59 +133,59 @@ AFRAME.registerComponent('arrow-key-rotation', {
         if (!this.data.enabled) {
             return;
         }
-        var rotation = this.el.getAttribute('rotation');
+        var rotation = this.el.getAttribute('rotation',);
         if (!rotation) {
             return;
         }
         if (this.directionX || this.directionY) {
             rotation.x += this.data.dx * this.directionY;
             rotation.y += this.data.dy * this.directionX;
-            this.el.setAttribute('rotation', rotation);
+            this.el.setAttribute('rotation', rotation,);
         }
-    }
-});
+    },
+},);
 
 AFRAME.registerComponent('hide-once-playing', {
-    schema: { type: 'selector' },
+    schema: { type: 'selector', },
     init: function() {
-        this.onPlaying = this.onPlaying.bind(this);
-        this.onPause = this.onPause.bind(this);
+        this.onPlaying = this.onPlaying.bind(this,);
+        this.onPause = this.onPause.bind(this,);
     },
     play: function() {
         if (this.data) {
-            this.data.addEventListener('playing', this.onPlaying);
-            this.data.addEventListener('pause', this.onPause);
+            this.data.addEventListener('playing', this.onPlaying,);
+            this.data.addEventListener('pause', this.onPause,);
         }
     },
     pause: function() {
         if (this.data) {
-            this.data.removeEventListener('playing', this.onPlaying);
-            this.data.removeEventListener('pause', this.onPause);
+            this.data.removeEventListener('playing', this.onPlaying,);
+            this.data.removeEventListener('pause', this.onPause,);
         }
     },
     onPlaying: function() {
-        this.el.setAttribute('visible', false);
+        this.el.setAttribute('visible', false,);
     },
     onPause: function() {
-        this.el.setAttribute('visible', true);
-    }
-});
+        this.el.setAttribute('visible', true,);
+    },
+},);
 
 AFRAME.registerComponent('play-on-vrdisplayactivate-or-enter-vr', {
     init: function() {
-        this.playVideo = this.playVideo.bind(this);
-        this.playVideoNextTick = this.playVideoNextTick.bind(this);
+        this.playVideo = this.playVideo.bind(this,);
+        this.playVideoNextTick = this.playVideoNextTick.bind(this,);
     },
     play: function() {
-        window.addEventListener('vrdisplayactivate', this.playVideo);
-        this.el.sceneEl!.addEventListener('enter-vr', this.playVideoNextTick);
+        window.addEventListener('vrdisplayactivate', this.playVideo,);
+        this.el.sceneEl!.addEventListener('enter-vr', this.playVideoNextTick,);
     },
     pause: function() {
-        this.el.sceneEl!.removeEventListener('enter-vr', this.playVideoNextTick);
-        window.removeEventListener('vrdisplayactivate', this.playVideo);
+        this.el.sceneEl!.removeEventListener('enter-vr', this.playVideoNextTick,);
+        window.removeEventListener('vrdisplayactivate', this.playVideo,);
     },
     playVideoNextTick: function() {
-        setTimeout(this.playVideo);
+        setTimeout(this.playVideo,);
     },
     playVideo: function() {
         // TODO improve type
@@ -194,18 +194,18 @@ AFRAME.registerComponent('play-on-vrdisplayactivate-or-enter-vr', {
             return;
         }
         video.play();
-    }
-});
+    },
+},);
 
 AFRAME.registerComponent('play-on-window-click', {
     init: function() {
-        this.onClick = this.onClick.bind(this);
+        this.onClick = this.onClick.bind(this,);
     },
     play: function() {
-        window.addEventListener('click', this.onClick);
+        window.addEventListener('click', this.onClick,);
     },
     pause: function() {
-        window.removeEventListener('click', this.onClick);
+        window.removeEventListener('click', this.onClick,);
     },
     onClick: function() {
         var video = (this.el as Entity<any>).components.material.material.map.image;
@@ -213,18 +213,18 @@ AFRAME.registerComponent('play-on-window-click', {
             return;
         }
         video.play();
-    }
-});
+    },
+},);
 
 AFRAME.registerComponent('toggle-play-on-window-click', {
     init: function() {
-        this.onClick = this.onClick.bind(this);
+        this.onClick = this.onClick.bind(this,);
     },
     play: function() {
-        window.addEventListener('click', this.onClick);
+        window.addEventListener('click', this.onClick,);
     },
     pause: function() {
-        window.removeEventListener('click', this.onClick);
+        window.removeEventListener('click', this.onClick,);
     },
     onClick: function() {
         var video = (this.el as Entity<any>).components.material.material.map.image;
@@ -232,8 +232,8 @@ AFRAME.registerComponent('toggle-play-on-window-click', {
             return;
         }
         video.paused ? video.play() : video.pause();
-    }
-});
+    },
+},);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Animation
@@ -241,15 +241,15 @@ AFRAME.registerComponent('toggle-play-on-window-click', {
 
 interface Appender extends HTMLElement {
     // append is part of living standard HTML
-    append(n: Node): void;
+    append(n: Node,): void;
 }
-let scene = document.querySelector('a-scene') as Scene & Appender;
-let sky = document.querySelector('a-sky');
-let objectContainer = document.querySelector('#object-container');
+let scene = document.querySelector('a-scene',) as Scene & Appender;
+let sky = document.querySelector('a-sky',);
+let objectContainer = document.querySelector('#object-container',);
 
 // random num generator
-function getRandomNumber(x: number, y: number) {
-    return Math.floor(Math.random() * x + y);
+function getRandomNumber(x: number, y: number,) {
+    return Math.floor(Math.random() * x + y,);
 }
 
 // get random hex color
@@ -257,16 +257,16 @@ function getRandomColor() {
     let letters = '0123456789abcdef';
     let randomColor = '';
     for (let i = 0; i < 6; i++) {
-        randomColor += letters[Math.floor(Math.random() * 16)];
+        randomColor += letters[Math.floor(Math.random() * 16,)];
     }
     return randomColor;
 }
 
 // set sky values
-sky.setAttribute('color', `#${getRandomColor()}`);
+sky.setAttribute('color', `#${getRandomColor()}`,);
 sky.setAttribute(
     'animation__color',
-    `property: color; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true; to: #${getRandomColor()}`
+    `property: color; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true; to: #${getRandomColor()}`,
 );
 
 // change this value for more or less rings
@@ -275,61 +275,61 @@ let totalRingElements = 10;
 function generateAllElements() {
     for (let a = 0; a < totalRingElements; a++) {
         // element params
-        let totalCircleElements = getRandomNumber(10, 3);
-        let elementScale = getRandomNumber(3, 1);
-        let scaleDuration = getRandomNumber(3000, 1000);
+        let totalCircleElements = getRandomNumber(10, 3,);
+        let elementScale = getRandomNumber(3, 1,);
+        let scaleDuration = getRandomNumber(3000, 1000,);
 
         // path params
-        let pathValOne = getRandomNumber(21, -10);
-        let pathValTwo = getRandomNumber(11, -20);
-        let pathDuration = getRandomNumber(6000, 5000);
+        let pathValOne = getRandomNumber(21, -10,);
+        let pathValTwo = getRandomNumber(11, -20,);
+        let pathDuration = getRandomNumber(6000, 5000,);
 
         for (let i = 1; i <= totalCircleElements; i++) {
             let currentRotation = (360 / totalCircleElements) * i;
-            let rotateContainer = document.createElement('a-entity');
-            rotateContainer.setAttribute('rotation', `0 0 ${currentRotation}`);
+            let rotateContainer = document.createElement('a-entity',);
+            rotateContainer.setAttribute('rotation', `0 0 ${currentRotation}`,);
 
             // generate circle element and set params
-            let circleElementContainer = document.createElement('a-entity');
-            circleElementContainer.setAttribute('position', `0 1 0`);
-            let circleElement = document.createElement('a-entity');
-            circleElement.setAttribute('class', `circleElement`);
-            circleElement.setAttribute('scale', `${elementScale} ${elementScale} ${elementScale}`);
+            let circleElementContainer = document.createElement('a-entity',);
+            circleElementContainer.setAttribute('position', `0 1 0`,);
+            let circleElement = document.createElement('a-entity',);
+            circleElement.setAttribute('class', `circleElement`,);
+            circleElement.setAttribute('scale', `${elementScale} ${elementScale} ${elementScale}`,);
             circleElement.setAttribute(
                 'material',
-                `color:#${getRandomColor()}; metalness: 0; roughness: 0`
+                `color:#${getRandomColor()}; metalness: 0; roughness: 0`,
             );
-            circleElement.setAttribute('geometry', `primitive: sphere; radius: 1.5`);
+            circleElement.setAttribute('geometry', `primitive: sphere; radius: 1.5`,);
             circleElement.setAttribute(
                 'animation__yoyo',
-                `property: scale; dir: alternate; dur: ${scaleDuration}; easing: easeInOutSine; loop: true; to: 0 0 0`
+                `property: scale; dir: alternate; dur: ${scaleDuration}; easing: easeInOutSine; loop: true; to: 0 0 0`,
             );
-            circleElementContainer.appendChild(circleElement);
-            rotateContainer.appendChild(circleElementContainer);
+            circleElementContainer.appendChild(circleElement,);
+            rotateContainer.appendChild(circleElementContainer,);
 
             // generate path and apply it
-            let track1: Appender = document.createElement('a-curve') as any;
-            track1.setAttribute('class', `track${a}`);
-            scene.append(track1);
-            let point1 = document.createElement('a-curve-point');
-            point1.setAttribute('position', '0 0 0');
-            track1.append(point1);
-            let point2 = document.createElement('a-curve-point');
-            point2.setAttribute('position', `${pathValOne} ${pathValTwo} ${pathValOne}`);
-            track1.append(point2);
-            let point3 = document.createElement('a-curve-point');
-            point3.setAttribute('position', `${pathValTwo} ${pathValOne} ${pathValTwo}`);
-            track1.append(point3);
-            let point4 = document.createElement('a-curve-point');
-            point4.setAttribute('position', '0 0 0');
-            track1.append(point4);
+            let track1: Appender = document.createElement('a-curve',) as any;
+            track1.setAttribute('class', `track${a}`,);
+            scene.append(track1,);
+            let point1 = document.createElement('a-curve-point',);
+            point1.setAttribute('position', '0 0 0',);
+            track1.append(point1,);
+            let point2 = document.createElement('a-curve-point',);
+            point2.setAttribute('position', `${pathValOne} ${pathValTwo} ${pathValOne}`,);
+            track1.append(point2,);
+            let point3 = document.createElement('a-curve-point',);
+            point3.setAttribute('position', `${pathValTwo} ${pathValOne} ${pathValTwo}`,);
+            track1.append(point3,);
+            let point4 = document.createElement('a-curve-point',);
+            point4.setAttribute('position', '0 0 0',);
+            track1.append(point4,);
             circleElement.setAttribute(
                 `alongpath`,
-                `curve: .track${a}; dur: ${pathDuration}; loop: true`
+                `curve: .track${a}; dur: ${pathDuration}; loop: true`,
             );
 
             // append element to main container
-            objectContainer.appendChild(rotateContainer);
+            objectContainer.appendChild(rotateContainer,);
         }
     }
 }
@@ -342,12 +342,12 @@ function generateAllElements() {
  */
 AFRAME.registerComponent('audioanalyser-levels-scale', {
     schema: {
-        analyserEl: { type: 'selector' },
-        max: { default: 20 },
-        multiplier: { default: 100 }
+        analyserEl: { type: 'selector', },
+        max: { default: 20, },
+        multiplier: { default: 100, },
     },
 
-    tick: function(time) {
+    tick: function(time,) {
         var analyserEl;
         var children;
         var data = this.data;
@@ -363,20 +363,20 @@ AFRAME.registerComponent('audioanalyser-levels-scale', {
         for (var i = 0; i < children.length; i++) {
             (children[i] as ANode).setAttribute('scale', {
                 x: 1,
-                y: Math.min(data.max, Math.max(levels[i] * data.multiplier, 0.05)),
-                z: 1
-            });
+                y: Math.min(data.max, Math.max(levels[i] * data.multiplier, 0.05,),),
+                z: 1,
+            },);
         }
-    }
-});
+    },
+},);
 
 AFRAME.registerComponent('audioanalyser-volume-bind', {
     schema: {
-        analyserEl: { type: 'selector' },
-        component: { type: 'string' },
-        property: { type: 'string' },
-        max: { type: 'number' },
-        multiplier: { type: 'number' }
+        analyserEl: { type: 'selector', },
+        component: { type: 'string', },
+        property: { type: 'string', },
+        max: { type: 'number', },
+        multiplier: { type: 'number', },
     },
 
     tick: function() {
@@ -390,15 +390,15 @@ AFRAME.registerComponent('audioanalyser-volume-bind', {
             return;
         }
 
-        value = Math.min(data.max, analyserComponent.volume * data.multiplier);
-        el.setAttribute(data.component, data.property, value);
-    }
-});
+        value = Math.min(data.max, analyserComponent.volume * data.multiplier,);
+        el.setAttribute(data.component, data.property, value,);
+    },
+},);
 
 AFRAME.registerComponent('audioanalyser-volume-scale', {
     schema: {
-        analyserEl: { type: 'selector' },
-        multiplier: { type: 'number', default: 1 }
+        analyserEl: { type: 'selector', },
+        multiplier: { type: 'number', default: 1, },
     },
 
     tick: function() {
@@ -416,10 +416,10 @@ AFRAME.registerComponent('audioanalyser-volume-scale', {
         el.setAttribute('scale', {
             x: volume,
             y: volume,
-            z: volume
-        });
-    }
-});
+            z: volume,
+        },);
+    },
+},);
 
 var perlin = ImprovedNoise();
 
@@ -437,15 +437,15 @@ interface AnalyserComponent extends Component {
  * Adapted from https://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/
  */
 AFRAME.registerComponent('audioanalyser-waveform', {
-    dependencies: ['audioanalyser'],
+    dependencies: ['audioanalyser',],
 
     schema: {
-        maxHeight: { default: 0.2 },
-        multiplier: { default: 0.01 },
-        radius: { default: 1 }
+        maxHeight: { default: 0.2, },
+        multiplier: { default: 0.01, },
+        radius: { default: 1, },
     },
 
-    init: function(this: any /* TODO improve types */) {
+    init: function(this: any, /* TODO improve types */) {
         this.colors = [];
         this.geometry;
         this.levels = [];
@@ -453,7 +453,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
         this.rings = [];
     },
 
-    update: function(this: any /* TODO improve types */) {
+    update: function(this: any, /* TODO improve types */) {
         var data = this.data;
         var el = this.el;
         var i;
@@ -464,11 +464,11 @@ AFRAME.registerComponent('audioanalyser-waveform', {
 
         // Create ring geometries.
         loopShape = new THREE.Shape();
-        loopShape.absarc(0, 0, data.radius, 0, Math.PI * 2, false);
+        loopShape.absarc(0, 0, data.radius, 0, Math.PI * 2, false,);
         this.geometry.dynamic = true;
 
         // Create container object.
-        el.setObject3D('waveformContainer', new THREE.Object3D());
+        el.setObject3D('waveformContainer', new THREE.Object3D(),);
 
         // Create rings.
         scale = 1;
@@ -479,22 +479,22 @@ AFRAME.registerComponent('audioanalyser-waveform', {
                 opacity: 0.7,
                 blending: THREE.AdditiveBlending,
                 depthTest: true,
-                transparent: true
-            });
-            lineMesh = new THREE.Line(this.geometry, material);
+                transparent: true,
+            },);
+            lineMesh = new THREE.Line(this.geometry, material,);
 
             scale *= 1.05;
             lineMesh.scale.x = scale;
             lineMesh.scale.y = scale;
-            el.getObject3D('waveformContainer').add(lineMesh);
+            el.getObject3D('waveformContainer',).add(lineMesh,);
 
-            this.rings.push(lineMesh);
-            this.levels.push(0);
-            this.colors.push(0);
+            this.rings.push(lineMesh,);
+            this.levels.push(0,);
+            this.colors.push(0,);
         }
     },
 
-    tick: function(this: any /* TODO improve types */) {
+    tick: function(this: any, /* TODO improve types */) {
         var VOL_SENS;
         var analyserComponent: AnalyserComponent;
         var colors = this.colors;
@@ -509,41 +509,41 @@ AFRAME.registerComponent('audioanalyser-waveform', {
         }
 
         VOL_SENS = 2;
-        levels.push((analyserComponent.volume / 256) * VOL_SENS); // 256 is max level.
-        levels.shift(1);
+        levels.push((analyserComponent.volume / 256) * VOL_SENS,); // 256 is max level.
+        levels.shift(1,);
 
         // Add a new color onto the list.
         this.noisePos += 0.005;
-        colors.push(Math.abs(perlin.noise(this.noisePos, 0, 0)));
-        colors.shift(1);
+        colors.push(Math.abs(perlin.noise(this.noisePos, 0, 0,),),);
+        colors.shift(1,);
 
         // Write current waveform into all rings.
-        this.geometry.vertices.forEach(function(vertex: { z: number }, index: number) {
+        this.geometry.vertices.forEach(function(vertex: { z: number }, index: number,) {
             vertex.z = Math.min(
                 analyserComponent.waveform[index] * data.multiplier,
-                data.maxHeight
+                data.maxHeight,
             );
-        });
+        },);
 
         // Link up last segment.
         this.geometry.vertices[this.geometry.vertices.length - 1].z = this.geometry.vertices[0].z;
         this.geometry.verticesNeedUpdate = true;
 
-        rings.forEach(function transformRing(ring: THREE.Line, index: number) {
+        rings.forEach(function transformRing(ring: THREE.Line, index: number,) {
             var normLevel;
             normLevel = levels[RINGCOUNT - index - 1] + 0.01; // Avoid scaling by 0.
             const lineMaterial = ring.material as THREE.LineBasicMaterial;
-            lineMaterial.color.setHSL(colors[index], 1, normLevel);
+            lineMaterial.color.setHSL(colors[index], 1, normLevel,);
             lineMaterial.linewidth = normLevel * 3;
             lineMaterial.opacity = normLevel;
             ring.scale.z = normLevel;
-        });
+        },);
     },
 
     remove: function() {
-        this.el.removeObject3D('waveformContainer');
-    }
-});
+        this.el.removeObject3D('waveformContainer',);
+    },
+},);
 
 /**
  * http://mrl.nyu.edu/~perlin/noise/
@@ -805,25 +805,25 @@ function ImprovedNoise() {
         215,
         61,
         156,
-        180
+        180,
     ];
     for (var i = 0; i < 256; i++) {
         p[256 + i] = p[i];
     }
-    function fade(t: number) {
+    function fade(t: number,) {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
-    function lerp(t: number, a: number, b: number) {
+    function lerp(t: number, a: number, b: number,) {
         return a + t * (b - a);
     }
-    function grad(hash: number, x: number, y: number, z: number) {
+    function grad(hash: number, x: number, y: number, z: number,) {
         var h = hash & 15;
         var u = h < 8 ? x : y,
             v = h < 4 ? y : h === 12 || h === 14 ? x : z;
         return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
     }
     return {
-        noise: function(x: number, y: number, z: number) {
+        noise: function(x: number, y: number, z: number,) {
             var floorX = ~~x,
                 floorY = ~~y,
                 floorZ = ~~z;
@@ -836,9 +836,9 @@ function ImprovedNoise() {
             var xMinus1 = x - 1,
                 yMinus1 = y - 1,
                 zMinus1 = z - 1;
-            var u = fade(x),
-                v = fade(y),
-                w = fade(z);
+            var u = fade(x,),
+                v = fade(y,),
+                w = fade(z,);
             var A = p[X] + Y,
                 AA = p[A] + Z,
                 AB = p[A + 1] + Z,
@@ -849,26 +849,26 @@ function ImprovedNoise() {
                 w,
                 lerp(
                     v,
-                    lerp(u, grad(p[AA], x, y, z), grad(p[BA], xMinus1, y, z)),
-                    lerp(u, grad(p[AB], x, yMinus1, z), grad(p[BB], xMinus1, yMinus1, z))
+                    lerp(u, grad(p[AA], x, y, z,), grad(p[BA], xMinus1, y, z,),),
+                    lerp(u, grad(p[AB], x, yMinus1, z,), grad(p[BB], xMinus1, yMinus1, z,),),
                 ),
                 lerp(
                     v,
-                    lerp(u, grad(p[AA + 1], x, y, zMinus1), grad(p[BA + 1], xMinus1, y, z - 1)),
+                    lerp(u, grad(p[AA + 1], x, y, zMinus1,), grad(p[BA + 1], xMinus1, y, z - 1,),),
                     lerp(
                         u,
-                        grad(p[AB + 1], x, yMinus1, zMinus1),
-                        grad(p[BB + 1], xMinus1, yMinus1, zMinus1)
-                    )
-                )
+                        grad(p[AB + 1], x, yMinus1, zMinus1,),
+                        grad(p[BB + 1], xMinus1, yMinus1, zMinus1,),
+                    ),
+                ),
             );
-        }
+        },
     };
 }
 
 AFRAME.registerComponent('color-on-beat', {
     schema: {
-        analyserEl: { type: 'selector' }
+        analyserEl: { type: 'selector', },
     },
 
     init: function() {
@@ -879,27 +879,27 @@ AFRAME.registerComponent('color-on-beat', {
             el.setAttribute(
                 'material',
                 'color',
-                '#' + new THREE.Color(Math.random(), Math.random(), Math.random()).getHexString()
+                '#' + new THREE.Color(Math.random(), Math.random(), Math.random(),).getHexString(),
             );
-        });
-    }
-});
+        },);
+    },
+},);
 
 AFRAME.registerComponent('remove-on-event', {
     schema: {
-        el: { type: 'selector' },
-        event: { type: 'string' }
+        el: { type: 'selector', },
+        event: { type: 'string', },
     },
 
     init: function() {
-        this._removeEntity = this._removeEntity.bind(this);
+        this._removeEntity = this._removeEntity.bind(this,);
     },
 
     update: function() {
         var data = this.data;
         var el = data.el || this.el;
         this.removeEventListener();
-        el.addEventListener(data.event, this._removeEntity);
+        el.addEventListener(data.event, this._removeEntity,);
     },
 
     remove: function() {
@@ -909,76 +909,76 @@ AFRAME.registerComponent('remove-on-event', {
     removeEventListener: function() {
         var data = this.data;
         var el = this.el;
-        el.removeEventListener(data.event, this._removeEntity);
+        el.removeEventListener(data.event, this._removeEntity,);
     },
 
     _removeEntity: function() {
         var el = this.el;
         if ((el as any).parentEl) {
-            (el as any).parentEl.removeChild(el);
+            (el as any).parentEl.removeChild(el,);
         }
         if (el.parentNode) {
-            el.parentNode.removeChild(el);
+            el.parentNode.removeChild(el,);
         }
-    }
-});
+    },
+},);
 
 /**
  * Create expanding ring on audioanalyser beat.
  */
 AFRAME.registerComponent('ring-on-beat', {
     schema: {
-        analyserEl: { type: 'selector' }
+        analyserEl: { type: 'selector', },
     },
 
-    init: function(this: any) {
+    init: function(this: any,) {
         var analyserEl = this.data.analyserEl || this.el;
         var el = this.el;
         var rings: Entity[] = (this.rings = []);
 
         analyserEl.addEventListener('audioanalyser-beat', function() {
-            var ringEl = document.createElement('a-ring');
-            ringEl.setAttribute('material', 'opacity', '0.6');
-            ringEl.setAttribute('position', '0 0.1 0');
-            ringEl.setAttribute('rotation', '-90 0 0');
-            el.appendChild(ringEl);
+            var ringEl = document.createElement('a-ring',);
+            ringEl.setAttribute('material', 'opacity', '0.6',);
+            ringEl.setAttribute('position', '0 0.1 0',);
+            ringEl.setAttribute('rotation', '-90 0 0',);
+            el.appendChild(ringEl,);
 
             ringEl.addEventListener('loaded', function() {
-                rings.push(ringEl);
+                rings.push(ringEl,);
                 setTimeout(function() {
-                    el.removeChild(ringEl);
-                    rings.splice(rings.indexOf(ringEl), 1);
-                }, 2000);
-            });
-        });
+                    el.removeChild(ringEl,);
+                    rings.splice(rings.indexOf(ringEl,), 1,);
+                }, 2000,);
+            },);
+        },);
     },
 
     /**
      * Expand ring radii.
      */
-    tick: function(this: any) {
-        this.rings.forEach(function(ringEl: Entity) {
-            var scale = ringEl.getComputedAttribute('scale') as Component & Coordinate;
+    tick: function(this: any,) {
+        this.rings.forEach(function(ringEl: Entity,) {
+            var scale = ringEl.getComputedAttribute('scale',) as Component & Coordinate;
             ringEl.setAttribute('scale', {
                 x: scale.x * 1.06 + 0.05,
                 y: scale.y * 1.06 + 0.05,
-                z: scale.z
-            });
-        });
-    }
-});
+                z: scale.z,
+            },);
+        },);
+    },
+},);
 
 /*
  * Change color at different levels of scale.
  */
 AFRAME.registerComponent('scale-y-color', {
     schema: {
-        from: { type: 'vec3', default: { x: 0, y: 0, z: 0 } },
-        to: { type: 'vec3', default: { x: 255, y: 255, z: 255 } },
-        maxScale: { default: 20 }
+        from: { type: 'vec3', default: { x: 0, y: 0, z: 0, }, },
+        to: { type: 'vec3', default: { x: 255, y: 255, z: 255, }, },
+        maxScale: { default: 20, },
     },
 
-    tick: function(this: any, time: number) {
+    tick: function(this: any, time: number,) {
         var data = this.data;
         var el = this.el;
 
@@ -987,26 +987,26 @@ AFRAME.registerComponent('scale-y-color', {
         }
         this.time = time;
 
-        var scaleY = el.getComputedAttribute('scale').y;
+        var scaleY = el.getComputedAttribute('scale',).y;
         var percentage = scaleY / data.maxScale;
         el.setAttribute(
             'material',
             'color',
-            '#' +
-                rgbToHex(
+            '#'
+                + rgbToHex(
                     (data.to.x - data.from.x) * percentage,
                     (data.to.y - data.from.y) * percentage,
-                    (data.to.z - data.from.z) * percentage
-                )
+                    (data.to.z - data.from.z) * percentage,
+                ),
         );
-    }
-});
+    },
+},);
 
-function rgbToHex(r: number, g: number, b: number) {
+function rgbToHex(r: number, g: number, b: number,) {
     var bin = (r << 16) | (g << 8) | b;
-    return (function(h) {
-        return new Array(7 - h.length).join('0') + h;
-    })(bin.toString(16).toUpperCase());
+    return (function(h,) {
+        return new Array(7 - h.length,).join('0',) + h;
+    })(bin.toString(16,).toUpperCase(),);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1018,18 +1018,18 @@ AFRAME.registerComponent('random-material', {
         this.el.setAttribute('material', {
             color: this.getRandomColor(),
             metalness: Math.random(),
-            roughness: Math.random()
-        });
+            roughness: Math.random(),
+        },);
     },
     getRandomColor: function() {
-        var letters = '0123456789ABCDEF'.split('');
+        var letters = '0123456789ABCDEF'.split('',);
         var color = '#';
         for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+            color += letters[Math.floor(Math.random() * 16,)];
         }
         return color;
-    }
-});
+    },
+},);
 
 AFRAME.registerComponent('random-torus-knot', {
     init: function() {
@@ -1037,8 +1037,8 @@ AFRAME.registerComponent('random-torus-knot', {
             primitive: 'torusKnot',
             radius: Math.random() * 10,
             radiusTubular: Math.random() * 0.75,
-            p: Math.round(Math.random() * 10),
-            q: Math.round(Math.random() * 10)
-        });
-    }
-});
+            p: Math.round(Math.random() * 10,),
+            q: Math.round(Math.random() * 10,),
+        },);
+    },
+},);

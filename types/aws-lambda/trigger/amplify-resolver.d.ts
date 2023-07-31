@@ -1,12 +1,12 @@
-import { Handler } from '../handler';
-import { AppSyncIdentity, AppSyncResolverEventHeaders } from './appsync-resolver';
+import { Handler, } from '../handler';
+import { AppSyncIdentity, AppSyncResolverEventHeaders, } from './appsync-resolver';
 
 /**
  * An AWS Amplify GraphQL resolver event. It differs slightly from a native ('direct') AppSync resolver event.
  *
  * @see https://docs.amplify.aws/cli/graphql/custom-business-logic/#structure-of-the-function-event
  */
-export interface AmplifyGraphQlResolverEvent<TArguments = Record<string, any>, TSource = Record<string, any>> {
+export interface AmplifyGraphQlResolverEvent<TArguments = Record<string, any>, TSource = Record<string, any>,> {
     /** The name of the parent object type (data model) of the field being resolved. */
     typeName: string;
     /** The field within the given type to resolve. */

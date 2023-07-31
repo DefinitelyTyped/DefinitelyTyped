@@ -1,9 +1,9 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
-        "no-padding": false,
-        "space-within-parens": false
-    }
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "rules": {
+    "interface-over-type-literal": false,
+    "no-consecutive-blank-lines": false,
+    "no-padding": false,
+    "space-within-parens": false
+  }
 }

@@ -14,20 +14,20 @@ declare module 'HttpRequestCapturer' {
         _tracing: any;
         _syntheticsConfiguration: SyntheticsConfiguration;
         reset(): void;
-        configure(requestsResult: any, tracing: any, syntheticsConfiguration: any): void;
+        configure(requestsResult: any, tracing: any, syntheticsConfiguration: any,): void;
         startCapture(): void;
-        captureHTTPsGlobal(module: any): void;
+        captureHTTPsGlobal(module: any,): void;
         getRequestsResult(): any;
         getStepHttpMapping(): {};
         getHttpRequests(): any[];
-        addRequest(stepId: any, request: any): void;
-        setExecutionError(err: any): void;
+        addRequest(stepId: any, request: any,): void;
+        setExecutionError(err: any,): void;
         getExecutionError(): any;
-        isLibraryGeneratedRequest(requestOptions: any): boolean;
-        enableCapture(module: any): void;
-        addHelperHeaders(stepId: any, requestOptions: any, body: any, stepConfig: any): void;
-        getHttpTimings(timings: any): HttpTimingsResult;
+        isLibraryGeneratedRequest(requestOptions: any,): boolean;
+        enableCapture(module: any,): void;
+        addHelperHeaders(stepId: any, requestOptions: any, body: any, stepConfig: any,): void;
+        getHttpTimings(timings: any,): HttpTimingsResult;
     }
-    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
-    import { HttpTimingsResult } from 'HttpRequestsReport';
+    import { SyntheticsConfiguration, } from 'SyntheticsConfiguration';
+    import { HttpTimingsResult, } from 'HttpRequestsReport';
 }

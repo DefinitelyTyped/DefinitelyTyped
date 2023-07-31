@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AsyncLock {
-    type AsyncLockDoneCallback<T> = (err?: Error | null, ret?: T) => void;
+    type AsyncLockDoneCallback<T,> = (err?: Error | null, ret?: T,) => void;
 
     interface AsyncLockOptions {
         /**
@@ -91,7 +91,7 @@ declare class AsyncLock {
     static readonly DEFAULT_MAX_EXECUTION_TIME: 0;
     static readonly DEFAULT_MAX_PENDING: 1000;
 
-    constructor(options?: AsyncLock.AsyncLockOptions);
+    constructor(options?: AsyncLock.AsyncLockOptions,);
 
     /**
      * Lock on asynchronous code.
@@ -114,9 +114,9 @@ declare class AsyncLock {
      *     // lock released
      * });
      */
-    acquire<T>(
+    acquire<T,>(
         key: string | string[],
-        fn: (() => T | PromiseLike<T>) | ((done: AsyncLock.AsyncLockDoneCallback<T>) => any),
+        fn: (() => T | PromiseLike<T>) | ((done: AsyncLock.AsyncLockDoneCallback<T>,) => any),
         opts?: AsyncLock.AsyncLockOptions,
     ): Promise<T>;
     /**
@@ -143,9 +143,9 @@ declare class AsyncLock {
      *     opts
      * );
      */
-    acquire<T>(
+    acquire<T,>(
         key: string | string[],
-        fn: (done: AsyncLock.AsyncLockDoneCallback<T>) => any,
+        fn: (done: AsyncLock.AsyncLockDoneCallback<T>,) => any,
         cb: AsyncLock.AsyncLockDoneCallback<T>,
         opts?: AsyncLock.AsyncLockOptions,
     ): void;
@@ -153,7 +153,7 @@ declare class AsyncLock {
     /**
      * Whether there is any running or pending async function.
      */
-    isBusy(key?: string): boolean;
+    isBusy(key?: string,): boolean;
 }
 
 export = AsyncLock;

@@ -7,12 +7,12 @@
 import * as React from 'react';
 
 export interface MulePreviewDiffUrlProps {
-    readonly contentUrls: readonly [string?, string?];
+    readonly contentUrls: readonly [string?, string?,];
     readonly contentRoot: string;
 }
 
 export interface MulePreviewDiffContentProps {
-    readonly contentStrings: readonly [string?, string?];
+    readonly contentStrings: readonly [string?, string?,];
     readonly contentRoot: string;
 }
 

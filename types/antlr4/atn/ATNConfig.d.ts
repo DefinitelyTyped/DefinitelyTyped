@@ -42,24 +42,24 @@ export default class ATNConfig {
      * the tree of semantic predicates encountered before reaching
      * an ATN state
      */
-    constructor(params?: ATNConfig, config?: ATNConfigConfig);
+    constructor(params?: ATNConfig, config?: ATNConfigConfig,);
 
-    checkContext(state: ATNState, config: ATNConfig): void;
+    checkContext(state: ATNState, config: ATNConfig,): void;
 
     hashCode(): number;
 
-    updateHashCode(hash: HashCode): void;
+    updateHashCode(hash: HashCode,): void;
 
     /**
      * An ATN configuration is equal to another if both have
      * the same state, they predict the same alternative, and
      * syntactic/semantic contexts are the same
      */
-    equals(other: ATNConfig): any;
+    equals(other: ATNConfig,): any;
 
     hashCodeForConfigSet(): number;
 
-    equalsForConfigSet(other: ATNConfig): boolean;
+    equalsForConfigSet(other: ATNConfig,): boolean;
 
     toString(): string;
 }

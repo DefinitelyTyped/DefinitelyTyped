@@ -1,4 +1,4 @@
-import Guide from "./Guide";
+import Guide from './Guide';
 
 /**
  * AxisBase is the base class for ValueAxis and CategoryAxis. It can not be instantiated explicitly.
@@ -140,9 +140,9 @@ export default class AxisBase {
     /**
      * Adds guide to the axis.
      */
-    addGuide(guide: Guide): void;
+    addGuide(guide: Guide,): void;
     /**
      * Removes guide from the axis.
      */
-    removeGuide(guide: Guide): void;
+    removeGuide(guide: Guide,): void;
 }

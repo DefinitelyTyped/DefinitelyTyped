@@ -1,4 +1,4 @@
-import { EventBridgeEvent, EventBridgeHandler } from './eventbridge';
+import { EventBridgeEvent, EventBridgeHandler, } from './eventbridge';
 
 export type CodeBuildCloudWatchStateHandler = EventBridgeHandler<
     'CodeBuild Build State Change',
@@ -98,6 +98,7 @@ export interface CodeBuildStateEventDetail {
 }
 
 export interface CodeBuildCloudWatchStateEvent
-    extends EventBridgeEvent<'CodeBuild Build State Change', CodeBuildStateEventDetail> {
+    extends EventBridgeEvent<'CodeBuild Build State Change', CodeBuildStateEventDetail>
+{
     source: 'aws.codebuild';
 }

@@ -4,13 +4,13 @@ declare namespace AMap {
          * 地物对象的经纬度矩形范围。
          * @param coords 由西南角，东北角经纬度组成的数组，分别是[西南角经度， 西南角纬度，东北角经度，东北角纬度]
          */
-        constructor(coords?: [number, number, number, number]);
+        constructor(coords?: [number, number, number, number,],);
         /**
          * 地物对象的经纬度矩形范围。
          * @param southWest 西南角经纬度
          * @param northEast 东北角经纬度
          */
-        constructor(southWest: LocationValue, northEast: LocationValue);
+        constructor(southWest: LocationValue, northEast: LocationValue,);
         /**
          * 地物对象的经纬度矩形范围。
          * @param southWestLng 西南角经度
@@ -18,12 +18,12 @@ declare namespace AMap {
          * @param northEastLng 东北角经度
          * @param northEastLat 东北角纬度
          */
-        constructor(southWestLng: number, southWestLat: number, northEastLng: number, northEastLat: number);
+        constructor(southWestLng: number, southWestLat: number, northEastLng: number, northEastLat: number,);
         /**
          * 指定点坐标是否在矩形范围内
          * @param point 制定坐标
          */
-        contains(point: LocationValue): boolean;
+        contains(point: LocationValue,): boolean;
         /**
          * 获取当前Bounds的中心点经纬度坐标
          */

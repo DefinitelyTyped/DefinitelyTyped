@@ -30,7 +30,7 @@ declare namespace AMap {
         HIGHWAY = 6,
         FEE_HIGHWAY = 7,
         FEE_TRAFFIC = 8,
-        TRAFFIC_HIGHWAY = 9
+        TRAFFIC_HIGHWAY = 9,
     }
     namespace Driving {
         interface EventMap {
@@ -326,7 +326,7 @@ declare namespace AMap {
          * 驾车路线规划服务
          * @param options 自定义选项
          */
-        constructor(options?: Driving.Options);
+        constructor(options?: Driving.Options,);
         /**
          * 以名称关键字查询驾车路线规划
          * @param points 途经点数组
@@ -334,7 +334,7 @@ declare namespace AMap {
          */
         search(
             points: Driving.SearchPoint[],
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt,) => void,
         ): void;
         /**
          * 根据起点、终点坐标查询驾车路线规划
@@ -345,7 +345,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase,) => void,
         ): void;
         /**
          * 根据起点、终点坐标和途径点查询驾车路线规划
@@ -358,23 +358,23 @@ declare namespace AMap {
             origin: LocationValue,
             destination: LocationValue,
             opts?: Driving.SearchOptions,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase,) => void,
         ): void;
         /**
          * 设置驾车路线规划策略
          * @param policy 路线规划策略
          */
-        setPolicy(policy?: DrivingPolicy): void;
+        setPolicy(policy?: DrivingPolicy,): void;
         /**
          * 设置避让区域，最大支持三个避让区域，避让道路和避让区域不能同时使用
          * @param path 避让区域
          */
-        setAvoidPolygons(path: LocationValue[][]): void;
+        setAvoidPolygons(path: LocationValue[][],): void;
         /**
          * 设置避让道路名称，只支持一条避让道路，避让道路和避让区域不能同时使用
          * @param road 道路名称
          */
-        setAvoidRoad(road: string): void;
+        setAvoidRoad(road: string,): void;
         /**
          * 清除避让道路
          */
@@ -399,14 +399,21 @@ declare namespace AMap {
          * 唤起高德地图客户端驾车路径规划
          * @param obj 唤起参数
          */
-        searchOnAMAP(obj: { origin: LocationValue, originName?: string | undefined, destination: LocationValue, destinationName?: string | undefined }): void;
+        searchOnAMAP(
+            obj: {
+                origin: LocationValue;
+                originName?: string | undefined;
+                destination: LocationValue;
+                destinationName?: string | undefined;
+            },
+        ): void;
         /**
          * 设置车牌的汉字首字符和首字后的号码，
          * 设置后路线规划的结果将考虑该车牌在当前时间的限行路段
          * @param province 省份缩写
          * @param number 车牌号码
          */
-        setProvinceAndNumber(province: string, number: string): void;
+        setProvinceAndNumber(province: string, number: string,): void;
 
         // internal
         open(): void;

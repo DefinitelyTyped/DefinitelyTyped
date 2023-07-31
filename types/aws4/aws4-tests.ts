@@ -1,30 +1,30 @@
-import { sign, RequestSigner } from "aws4";
+import { RequestSigner, sign, } from 'aws4';
 
 // $ExpectType Request
-sign("");
+sign('',);
 // $ExpectType Request
-sign("", {});
+sign('', {},);
 // $ExpectType Request
-sign({});
+sign({},);
 // $ExpectType Request
-sign({}, {});
+sign({}, {},);
 
 // $ExpectType RequestSigner
-new RequestSigner("");
+new RequestSigner('',);
 // $ExpectType RequestSigner
-new RequestSigner("", {});
+new RequestSigner('', {},);
 // $ExpectType RequestSigner
-new RequestSigner({});
+new RequestSigner({},);
 // $ExpectType RequestSigner
-new RequestSigner({}, {});
+new RequestSigner({}, {},);
 
-import aws4 = require("aws4");
+import aws4 = require('aws4');
 
 // $ExpectType RequestSigner
-const requestSigner = new aws4.RequestSigner({});
+const requestSigner = new aws4.RequestSigner({},);
 
 // $ExpectType [string, string]
-requestSigner.matchHost("");
+requestSigner.matchHost('',);
 // $ExpectType boolean
 requestSigner.isSingleRegion();
 // $ExpectType string

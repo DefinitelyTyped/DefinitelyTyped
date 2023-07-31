@@ -1,5 +1,5 @@
-import AmChart from "./AmChart";
-import AmGraph from "./AmGraph";
+import AmChart from './AmChart';
+import AmGraph from './AmGraph';
 
 /**
  * ChartCursor is a class which displays a cursor which follows the mouse.
@@ -109,7 +109,7 @@ export default class ChartCursor {
     /**
      * You can force cursor to appear at specified cateogry or date.
      */
-    showCursorAt(category: string | Date): void;
+    showCursorAt(category: string | Date,): void;
     /**
      * Adds event listener.
      * @param type One of "changed", "draw", "moved", "onHideCursor", "onShowCursor", "panning",
@@ -145,5 +145,5 @@ export default class ChartCursor {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any): void;
+    removeListener(chart: AmChart, type: string, handler: any,): void;
 }

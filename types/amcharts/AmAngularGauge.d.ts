@@ -1,11 +1,11 @@
-import AmBalloon from "./AmBalloon";
-import AmChart from "./AmChart";
-import AmLegend from "./AmLegend";
-import ExportSettings from "./ExportSettings";
-import GaugeArrow from "./GaugeArrow";
-import GaugeAxis from "./GaugeAxis";
-import Label from "./Label";
-import Title from "./Title";
+import AmBalloon from './AmBalloon';
+import AmChart from './AmChart';
+import AmLegend from './AmLegend';
+import ExportSettings from './ExportSettings';
+import GaugeArrow from './GaugeArrow';
+import GaugeAxis from './GaugeAxis';
+import Label from './Label';
+import Title from './Title';
 
 /**
  * AmAngularGauge Extension for AmChart to create gauge charts.
@@ -61,12 +61,12 @@ export default class AmAngularGauge extends AmChart {
      * }
      * @default []
      */
-    allLabels: [Label];
+    allLabels: [Label,];
 
     /**
      * Array of arrows.
      */
-    arrows: [GaugeArrow];
+    arrows: [GaugeArrow,];
 
     /**
      * If you set it to true the chart will automatically monitor changes of display style of chart’s container
@@ -95,7 +95,7 @@ export default class AmAngularGauge extends AmChart {
      * Array of axes.
      * @default [GaugeAxis]
      */
-    axes: [GaugeAxis];
+    axes: [GaugeAxis,];
 
     /**
      * Opacity of background. Set it to >0 value if you want backgroundColor to work.
@@ -176,7 +176,7 @@ export default class AmAngularGauge extends AmChart {
      * Important: if you are using date/time-based category axis, the data points needs to come pre-ordered
      * in ascending order. Data with incorrect order might result in visual and functional glitches on the chart.
      */
-    dataProvider: [object];
+    dataProvider: [object,];
 
     /**
      * Decimal separator.
@@ -295,7 +295,7 @@ export default class AmAngularGauge extends AmChart {
      * Example: listeners = [{"event":"dataUpdated", "method":handleEvent}];
      * @default [Object]
      */
-    listeners: [object];
+    listeners: [object,];
 
     /**
      * Bottom spacing between chart and container.
@@ -386,7 +386,7 @@ export default class AmAngularGauge extends AmChart {
      *     {"number": 1e+24, "prefix": "Y"}
      * ]
      */
-    prefixesOfBigNumbers: [{ number: number; prefix: string }];
+    prefixesOfBigNumbers: [{ number: number; prefix: string },];
 
     /**
      * Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc.
@@ -403,7 +403,7 @@ export default class AmAngularGauge extends AmChart {
      *     {"number": 1e-3, "prefix": "m"}
      * ]
      */
-    prefixesOfSmallNumbers: [{ number: number; prefix: string }];
+    prefixesOfSmallNumbers: [{ number: number; prefix: string },];
 
     /**
      * If processTimeout is > 0, 1000 data items will be parsed at a time,
@@ -474,7 +474,7 @@ export default class AmAngularGauge extends AmChart {
      * Array of Title objects.
      * @default []
      */
-    titles: [Title];
+    titles: [Title,];
 
     /**
      * If you set it to 200 (milliseconds) or so, the chart will fire clickGraphItem or clickSlice (AmSlicedChart)
@@ -505,12 +505,12 @@ export default class AmAngularGauge extends AmChart {
     /**
      * Adds arrow to the chart.
      */
-    addArrow(arrow: GaugeArrow): void;
+    addArrow(arrow: GaugeArrow,): void;
 
     /**
      * Adds axis to angular gauge.
      */
-    addAxis(axis: GaugeAxis): void;
+    addAxis(axis: GaugeAxis,): void;
 
     /**
      * Adds a label on a chart. You can use it for labeling axes, adding chart title,
@@ -536,7 +536,7 @@ export default class AmAngularGauge extends AmChart {
      * you can create div anywhere you want and pass id or reference to your div as a second parameter.
      * NOTE: This method will not work on StockPanel.
      */
-    addLegend(legend: AmLegend, legendDivId?: string): void;
+    addLegend(legend: AmLegend, legendDivId?: string,): void;
     /**
      * Adds a legend to the chart.
      * By default, you don't need to create div for your legend,
@@ -546,7 +546,7 @@ export default class AmAngularGauge extends AmChart {
      * @param legend - The legend.
      * @param legendDiv - Legend div (optional).
      */
-    addLegend(legend: AmLegend, legendDiv: HTMLElement): void;
+    addLegend(legend: AmLegend, legendDiv: HTMLElement,): void;
 
     /**
      * Adds event listener to the object.
@@ -567,7 +567,7 @@ export default class AmAngularGauge extends AmChart {
      * You can add any number of titles - each of them will be placed in a new line.
      * To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method.
      */
-    addTitle(text: string, size: number, color: string, alpha: number, bold: boolean): void;
+    addTitle(text: string, size: number, color: string, alpha: number, bold: boolean,): void;
 
     /**
      * Clears the chart area, intervals, etc.
@@ -587,17 +587,17 @@ export default class AmAngularGauge extends AmChart {
     /**
      * This method allows to create charts with a single config.
      */
-    makeChart(container: string, config: any, delay: number): AmChart;
+    makeChart(container: string, config: any, delay: number,): AmChart;
 
     /**
      * Removes arrow from the chart.
      */
-    removeArrow(arrow: GaugeArrow): void;
+    removeArrow(arrow: GaugeArrow,): void;
 
     /**
      * Removes axis from the chart.
      */
-    removeAxis(axis: GaugeAxis): void;
+    removeAxis(axis: GaugeAxis,): void;
 
     /**
      * Removes chart's legend.
@@ -607,7 +607,7 @@ export default class AmAngularGauge extends AmChart {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any): void;
+    removeListener(chart: AmChart, type: string, handler: any,): void;
 
     /**
      * This method should be called after data in your data provider changed or a new array was set to dataProvider.
@@ -625,5 +625,5 @@ export default class AmAngularGauge extends AmChart {
     /**
      * Adds chart to the specified DIV.
      */
-    write(container: string | HTMLDivElement): void;
+    write(container: string | HTMLDivElement,): void;
 }

@@ -1,18 +1,18 @@
-import { Configuration } from 'webpack';
+import { Configuration, } from 'webpack';
 import AssetsPlugin = require('assets-webpack-plugin');
 
 const config: Configuration = {
     plugins: [
         new AssetsPlugin(),
         new AssetsPlugin({
-            filename: 'assets.json'
-        }),
+            filename: 'assets.json',
+        },),
         new AssetsPlugin({
             entrypoints: true,
             filename: 'assets.json',
             fullPath: false,
-            fileTypes: ['css'],
-            includeManifest: ['manifest'],
+            fileTypes: ['css',],
+            includeManifest: ['manifest',],
             includeAllFileTypes: false,
             includeAuxiliaryAssets: true,
             includeDynamicImportedAssets: true,
@@ -22,15 +22,15 @@ const config: Configuration = {
             manifestFirst: true,
             path: '/foo/bar',
             prettyPrint: true,
-            processOutput: (assets) => (
-                'window.assets = ' + JSON.stringify(assets)
+            processOutput: assets => (
+                'window.assets = ' + JSON.stringify(assets,)
             ),
             removeFullPathAutoPrefix: true,
             update: true,
             useCompilerPath: true,
             metadata: {
-                meta: 'data'
+                meta: 'data',
             },
-        })
-    ]
+        },),
+    ],
 };

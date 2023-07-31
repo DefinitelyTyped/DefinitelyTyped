@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { Marker, PointCompatible, RangeCompatible } from './text-buffer';
+import { Disposable, } from '../../../index';
+import { Marker, PointCompatible, RangeCompatible, } from './text-buffer';
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
@@ -21,7 +21,7 @@ export interface MarkerLayer {
 
     // Querying
     /** Get an existing marker by its id. */
-    getMarker(id: number): Marker | undefined;
+    getMarker(id: number,): Marker | undefined;
 
     /** Get all existing markers on the marker layer. */
     getMarkers(): Marker[];
@@ -30,7 +30,7 @@ export interface MarkerLayer {
     getMarkerCount(): number;
 
     /** Find markers in the layer conforming to the given parameters. */
-    findMarkers(params: FindMarkerOptions): Marker[];
+    findMarkers(params: FindMarkerOptions,): Marker[];
 
     /** Get the role of the marker layer e.g. "atom.selection". */
     getRole(): string | undefined;
@@ -60,16 +60,16 @@ export interface MarkerLayer {
      *  Subscribe to be notified asynchronously whenever markers are created,
      *  updated, or destroyed on this layer.
      */
-    onDidUpdate(callback: () => void): Disposable;
+    onDidUpdate(callback: () => void,): Disposable;
 
     /**
      *  Subscribe to be notified synchronously whenever markers are created on
      *  this layer.
      */
-    onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
+    onDidCreateMarker(callback: (marker: Marker,) => void,): Disposable;
 
     /** Subscribe to be notified synchronously when this layer is destroyed. */
-    onDidDestroy(callback: () => void): Disposable;
+    onDidDestroy(callback: () => void,): Disposable;
 }
 
 export interface FindMarkerOptions {

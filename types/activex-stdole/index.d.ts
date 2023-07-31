@@ -79,14 +79,30 @@ declare namespace stdole {
         readonly Handle: number;
         readonly Height: number;
         readonly hPal: number;
-        Render(hdc: number, x: number, y: number, cx: number, cy: number, xSrc: number, ySrc: number, cxSrc: number, cySrc: number, prcWBounds: undefined): void;
+        Render(
+            hdc: number,
+            x: number,
+            y: number,
+            cx: number,
+            cy: number,
+            xSrc: number,
+            ySrc: number,
+            cxSrc: number,
+            cySrc: number,
+            prcWBounds: undefined,
+        ): void;
         readonly Type: number;
         readonly Width: number;
     }
 }
 
 interface ActiveXObject {
-    on(obj: stdole.StdFont, event: 'FontChanged', argNames: ['PropertyName'], handler: (this: stdole.StdFont, parameter: {readonly PropertyName: string}) => void): void;
+    on(
+        obj: stdole.StdFont,
+        event: 'FontChanged',
+        argNames: ['PropertyName',],
+        handler: (this: stdole.StdFont, parameter: { readonly PropertyName: string },) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {

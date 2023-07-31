@@ -17,7 +17,7 @@ declare module 'angular' {
         }
 
         interface OAuthProvider {
-            configure(params: OAuthConfig): OAuthConfig;
+            configure(params: OAuthConfig,): OAuthConfig;
         }
 
         interface Data {
@@ -27,9 +27,9 @@ declare module 'angular' {
 
         interface OAuth {
             isAuthenticated(): boolean;
-            getAccessToken(data: Data, options?: any): IPromise<string>;
-            getRefreshToken(data?: Data, options?: any): IPromise<string>;
-            revokeToken(data?: Data, options?: any): IPromise<string>;
+            getAccessToken(data: Data, options?: any,): IPromise<string>;
+            getRefreshToken(data?: Data, options?: any,): IPromise<string>;
+            revokeToken(data?: Data, options?: any,): IPromise<string>;
         }
 
         interface OAuthTokenConfig {
@@ -42,7 +42,7 @@ declare module 'angular' {
         }
 
         interface OAuthTokenProvider {
-            configure(params: OAuthTokenConfig): OAuthTokenConfig;
+            configure(params: OAuthTokenConfig,): OAuthTokenConfig;
         }
     }
 }

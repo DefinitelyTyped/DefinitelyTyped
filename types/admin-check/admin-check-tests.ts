@@ -1,4 +1,4 @@
-import admin = require("admin-check");
+import admin = require('admin-check');
 
 admin.check().then(result => {
     if (result) {
@@ -6,4 +6,4 @@ admin.check().then(result => {
     } else {
         // Do something when admin privileges are NOT present
     }
-});
+},);

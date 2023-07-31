@@ -38,58 +38,58 @@ const locations = [
 createTrie<Item>();
 
 // @ts-expect-error
-createTrie<Item>(locations);
+createTrie<Item>(locations,);
 
 // @ts-expect-error
-createTrie<Item>(locations, 'invalidKey');
+createTrie<Item>(locations, 'invalidKey',);
 
 // @ts-expect-error
-createTrie<Item>(locations, 'name', {splitRegex: '12'});
+createTrie<Item>(locations, 'name', { splitRegex: '12', },);
 
 // @ts-expect-error
-createTrie<Item>(locations, 'name', {comparator: 12});
+createTrie<Item>(locations, 'name', { comparator: 12, },);
 
 // $ExpectType Trie<Item>
-createTrie<Item>(locations, 'name', {});
+createTrie<Item>(locations, 'name', {},);
 
 // $ExpectType Trie<Item>
-createTrie<Item>(locations, 'name', {splitRegex: /12/});
+createTrie<Item>(locations, 'name', { splitRegex: /12/, },);
 
 // $ExpectType Trie<Item>
-createTrie<Item>(locations, 'name', {comparator: () => 1});
+createTrie<Item>(locations, 'name', { comparator: () => 1, },);
 
 // $ExpectType Trie<Item>
-createTrie<Item>(locations, 'name', {splitRegex: /12/, comparator: () => 1});
+createTrie<Item>(locations, 'name', { splitRegex: /12/, comparator: () => 1, },);
 
 // $ExpectType Trie<Item>
-const trie = createTrie<Item>(locations, 'name');
+const trie = createTrie<Item>(locations, 'name',);
 
 // @ts-expect-error
 trie.getMatches();
 
 // @ts-expect-error
-trie.getMatches(123);
+trie.getMatches(123,);
 
 // @ts-expect-error
-trie.getMatches('richmond', 123);
+trie.getMatches('richmond', 123,);
 
 // @ts-expect-error
-trie.getMatches('richmond', {splitRegex: 12});
+trie.getMatches('richmond', { splitRegex: 12, },);
 
 // @ts-expect-error
-trie.getMatches('richmond', {limit: '12'});
+trie.getMatches('richmond', { limit: '12', },);
 
 // $ExpectType Item[]
-trie.getMatches('richmond');
+trie.getMatches('richmond',);
 
 // $ExpectType Item[]
-trie.getMatches('richmond', {});
+trie.getMatches('richmond', {},);
 
 // $ExpectType Item[]
-trie.getMatches('richmond', {limit: 2});
+trie.getMatches('richmond', { limit: 2, },);
 
 // $ExpectType Item[]
-trie.getMatches('richmond', {splitRegex: /2/});
+trie.getMatches('richmond', { splitRegex: /2/, },);
 
 // $ExpectType Item[]
-trie.getMatches('richmond', {limit: 2, splitRegex: /2/});
+trie.getMatches('richmond', { limit: 2, splitRegex: /2/, },);

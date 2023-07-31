@@ -7,6 +7,6 @@ export interface Settings {
     readonly nesting?: boolean | undefined;
     readonly sessionTimeout?: number | undefined;
     readonly debug?: boolean | undefined;
-    readonly attributesParser?: ((json: string) => any) | undefined;
-    readonly attributesEncoder?: ((obj: any) => string) | undefined;
+    readonly attributesParser?: ((json: string,) => any) | undefined;
+    readonly attributesEncoder?: ((obj: any,) => string) | undefined;
 }

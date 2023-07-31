@@ -18,4 +18,4 @@ export interface Result {
  *
  * const { shaken } = await check('./some-module.js');
  */
-export function check(input: string): Promise<Result>;
+export function check(input: string,): Promise<Result>;

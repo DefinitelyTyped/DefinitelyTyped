@@ -4,11 +4,11 @@ export default class Interval {
     readonly start: number;
     readonly stop: number;
 
-    constructor(start: number, stop: number);
+    constructor(start: number, stop: number,);
 
     clone(): Interval;
 
-    contains(item: number): boolean;
+    contains(item: number,): boolean;
 
     toString(): string;
 

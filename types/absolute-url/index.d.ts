@@ -3,7 +3,7 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler, Request } from "express";
+import { Request, RequestHandler, } from 'express';
 
 declare module 'express-serve-static-core' {
     interface Request {
@@ -13,7 +13,7 @@ declare module 'express-serve-static-core' {
 
 interface AbsoluteUrl {
     (): RequestHandler;
-    attach(req: Request): void;
+    attach(req: Request,): void;
 }
 
 declare const middleware: AbsoluteUrl;

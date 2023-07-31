@@ -3,6 +3,6 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function createABigTriangle(gl: WebGLRenderingContext): void;
+declare function createABigTriangle(gl: WebGLRenderingContext,): void;
 
 export = createABigTriangle;

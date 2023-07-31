@@ -1,4 +1,4 @@
-import GaugeAxis from "./GaugeAxis";
+import GaugeAxis from './GaugeAxis';
 
 export default class GaugeArrow {
     /**
@@ -88,5 +88,5 @@ export default class GaugeArrow {
      * Sets value for the arrow.
      * Arrow will animate to this value if you do it after chart is written to it's container.
      */
-    setValue(value: number): void;
+    setValue(value: number,): void;
 }

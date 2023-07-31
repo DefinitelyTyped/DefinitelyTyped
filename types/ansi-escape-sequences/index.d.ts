@@ -4,11 +4,39 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export type Style = 'reset'|'bold'|'italic'|'underline'|'fontDefault'|'font2'|
-    'font3'|'font4'|'font5'|'font6'|'imageNegative'|'imagePositive'|'black'|
-    'red'|'green'|'yellow'|'blue'|'magenta'|'cyan'|'white'|'grey'|'gray'|
-    'bg-black'|'bg-red'|'bg-green'|'bg-yellow'|'bg-blue'|'bg-magenta'|'bg-cyan'|
-    'bg-white'|'bg-grey'|'bg-gray';
+export type Style =
+    | 'reset'
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'fontDefault'
+    | 'font2'
+    | 'font3'
+    | 'font4'
+    | 'font5'
+    | 'font6'
+    | 'imageNegative'
+    | 'imagePositive'
+    | 'black'
+    | 'red'
+    | 'green'
+    | 'yellow'
+    | 'blue'
+    | 'magenta'
+    | 'cyan'
+    | 'white'
+    | 'grey'
+    | 'gray'
+    | 'bg-black'
+    | 'bg-red'
+    | 'bg-green'
+    | 'bg-yellow'
+    | 'bg-blue'
+    | 'bg-magenta'
+    | 'bg-cyan'
+    | 'bg-white'
+    | 'bg-grey'
+    | 'bg-gray';
 
 /**
  * Various formatting styles (aka Select Graphic Rendition codes).
@@ -16,7 +44,7 @@ export type Style = 'reset'|'bold'|'italic'|'underline'|'fontDefault'|'font2'|
  * @example
  * console.log(ansi.style.red + 'this is red' + ansi.style.reset)
  */
-export const style: {[K in Style]: string};
+export const style: { [K in Style]: string };
 
 /**
  * Returns an ansi sequence setting one or more effects.
@@ -30,7 +58,7 @@ export const style: {[K in Style]: string};
  * > ansi.styles([ 'green', 'underline' ])
  * '\u001b[32;4m'
  */
-export function styles(styles: Style|ReadonlyArray<Style>): string;
+export function styles(styles: Style | ReadonlyArray<Style>,): string;
 
 /**
  * A convenience function, applying the provided styles to the input string and
@@ -55,7 +83,9 @@ export function styles(styles: Style|ReadonlyArray<Style>): string;
  * '\u001b[32;1mwhat?\u001b[0m'
  */
 export function format(
-    str: string, styles?: Style|ReadonlyArray<Style>): string;
+    str: string,
+    styles?: Style | ReadonlyArray<Style>,
+): string;
 
 /**
  * cursor-related sequences
@@ -66,46 +96,46 @@ export namespace cursor {
      * of the screen, this has no effect.
      * @param lines default=1
      */
-    function up(lines?: number): string;
+    function up(lines?: number,): string;
 
     /**
      * Moves the cursor `lines` cells down. If the cursor is already at the edge
      * of the screen, this has no effect.
      * @param lines default=1
      */
-    function down(lines?: number): string;
+    function down(lines?: number,): string;
 
     /**
      * Moves the cursor `lines` cells forward. If the cursor is already at the
      * edge of the screen, this has no effect.
      * @param lines default=1
      */
-    function forward(lines?: number): string;
+    function forward(lines?: number,): string;
 
     /**
      * Moves the cursor `lines` cells back. If the cursor is already at the edge
      * of the screen, this has no effect.
      * @param lines default=1
      */
-    function back(lines?: number): string;
+    function back(lines?: number,): string;
 
     /**
      * Moves cursor to beginning of the line n lines down.
      * @param lines default=1
      */
-    function nextLine(lines?: number): string;
+    function nextLine(lines?: number,): string;
 
     /**
      * Moves cursor to beginning of the line n lines up.
      * @param lines default=1
      */
-    function previousLine(lines?: number): string;
+    function previousLine(lines?: number,): string;
 
     /**
      * Moves the cursor to column n.
      * @param n column number
      */
-    function horizontalAbsolute(n: number): string;
+    function horizontalAbsolute(n: number,): string;
 
     /**
      * Moves the cursor to row n, column m. The values are 1-based, and default
@@ -114,7 +144,7 @@ export namespace cursor {
      * @param n row number, default=1
      * @param m column number, default=1
      */
-    function position(n?: number, m?: number): string;
+    function position(n?: number, m?: number,): string;
 
     /**
      * Hides the cursor
@@ -137,12 +167,12 @@ export namespace erase {
      * If n is 2, clear entire screen. If n is 3, clear entire screen and delete
      * all lines saved in the scrollback buffer (some terminals only).
      */
-    function display(n?: 0|1|2|3): string;
+    function display(n?: 0 | 1 | 2 | 3,): string;
 
     /**
      * Erases part of the line. If n is zero (or missing), clear from cursor to
      * the end of the line. If n is one, clear from cursor to beginning of the
      * line. If n is two, clear entire line. Cursor position does not change.
      */
-    function inLine(n?: 0|1|2): string;
+    function inLine(n?: 0 | 1 | 2,): string;
 }

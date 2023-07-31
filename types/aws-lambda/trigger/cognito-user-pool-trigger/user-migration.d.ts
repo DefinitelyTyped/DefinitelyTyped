@@ -1,5 +1,5 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler, } from '../../handler';
+import { BaseTriggerEvent, StringMap, } from './_common';
 
 export type UserStatus =
     | 'UNCONFIRMED'
@@ -10,7 +10,7 @@ export type UserStatus =
     | 'RESET_REQUIRED'
     | 'FORCE_CHANGE_PASSWORD';
 
-export interface BaseUserMigrationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
+export interface BaseUserMigrationTriggerEvent<T extends string,> extends BaseTriggerEvent<T> {
     request: {
         password: string;
         validationData?: StringMap | undefined;

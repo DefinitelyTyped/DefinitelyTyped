@@ -95,13 +95,13 @@ export default class AmBalloon {
      * Defines a square within which the balloon should appear.
      * Bounds are set by chart class, you don't need to call this method yourself.
      */
-    setBounds(left: number, top: number, right: number, bottom: number): void;
+    setBounds(left: number, top: number, right: number, bottom: number,): void;
     /**
      * Sets coordinates the balloon should point to.
      */
-    setPosition(x: number, y: number): void;
+    setPosition(x: number, y: number,): void;
     /**
      * Specifies the text which should be displayed.
      */
-    show(value: string): void;
+    show(value: string,): void;
 }

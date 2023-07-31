@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, } from 'react';
 
 export default class Layer extends Component<Props> {}
 
@@ -34,11 +34,13 @@ export interface Props {
      * Layered element in the requested position would cause Layer to be rendered outside of the
      * boundariesElement (usually viewport).
      */
-    onFlippedChange?: ((
-        flipped: boolean,
-        actualPosition: CSSPositionType,
-        originalPosition: CSSPositionType,
-    ) => void) | undefined;
+    onFlippedChange?:
+        | ((
+            flipped: boolean,
+            actualPosition: CSSPositionType,
+            originalPosition: CSSPositionType,
+        ) => void)
+        | undefined;
     /**
      * Position of a layer relative to its target. The position attribute takes two positional arguments in
      * the format position="edge edge-position", where edge specifies what edge to align the layer to, and

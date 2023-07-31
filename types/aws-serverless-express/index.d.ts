@@ -8,8 +8,8 @@
 // TypeScript Version: 3.5
 
 /// <reference types="node"/>
-import * as http from 'http';
 import * as lambda from 'aws-lambda';
+import * as http from 'http';
 
 export interface Response {
     statusCode: number;
@@ -22,9 +22,9 @@ export interface ProxyResult {
 }
 
 export function createServer(
-    requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => void,
+    requestListener: (request: http.IncomingMessage, response: http.ServerResponse,) => void,
     serverListenCallback?: () => any,
-    binaryMimeTypes?: string[]
+    binaryMimeTypes?: string[],
 ): http.Server;
 
 export function proxy(
@@ -45,5 +45,5 @@ export function proxy(
     event: lambda.APIGatewayProxyEvent,
     context: lambda.Context,
     resolutionMode: 'CALLBACK',
-    callback?: (error: any, response: Response) => void
+    callback?: (error: any, response: Response,) => void,
 ): ProxyResult;

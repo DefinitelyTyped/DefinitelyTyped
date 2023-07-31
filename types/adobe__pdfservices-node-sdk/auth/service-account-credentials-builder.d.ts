@@ -1,29 +1,29 @@
-import { ServiceAccountCredentials } from './service-account-credentials';
+import { ServiceAccountCredentials, } from './service-account-credentials';
 export class ServiceAccountCredentialsBuilder {
     /**
      * Set Client ID (API Key)
      */
-    withClientId(clientId: string): ServiceAccountCredentialsBuilder;
+    withClientId(clientId: string,): ServiceAccountCredentialsBuilder;
     clientId: any;
     /**
      * Set Client Secret
      */
-    withClientSecret(clientSecret: string): ServiceAccountCredentialsBuilder;
+    withClientSecret(clientSecret: string,): ServiceAccountCredentialsBuilder;
     clientSecret: any;
     /**
      * Set private key
      */
-    withPrivateKey(privateKey: string): ServiceAccountCredentialsBuilder;
+    withPrivateKey(privateKey: string,): ServiceAccountCredentialsBuilder;
     privateKey: string;
     /**
      * Set Organization Id (format: org_ident@AdobeOrg) that has been configured for access to PDF Services API
      */
-    withOrganizationId(organizationId: string): ServiceAccountCredentialsBuilder;
+    withOrganizationId(organizationId: string,): ServiceAccountCredentialsBuilder;
     organizationId: any;
     /**
      * Set Account Id (format: id@techacct.adobe.com)
      */
-    withAccountId(accountId: string): ServiceAccountCredentialsBuilder;
+    withAccountId(accountId: string,): ServiceAccountCredentialsBuilder;
     accountId: any;
     /**
      * Sets Service Account Credentials using the JSON credentials file path. All the keys in the JSON
@@ -46,7 +46,7 @@ export class ServiceAccountCredentialsBuilder {
      * private_key_file is the path of private key file. It will be looked up in the classpath and the
      * directory of JSON credentials file.
      */
-    fromFile(credentialsFilePath: string): ServiceAccountCredentialsBuilder;
+    fromFile(credentialsFilePath: string,): ServiceAccountCredentialsBuilder;
     imsBaseUri: any;
     claim: any;
     opsCreateUri: any;

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from "http";
+import { IncomingMessage, } from 'http';
 
 declare namespace accepts {
     interface Accepts {
@@ -16,7 +16,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         charset(): string[];
-        charset(charsets: string[]): string | false;
+        charset(charsets: string[],): string | false;
         charset(...charsets: string[]): string | false;
 
         /**
@@ -25,7 +25,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         charsets(): string[];
-        charsets(charsets: string[]): string | false;
+        charsets(charsets: string[],): string | false;
         charsets(...charsets: string[]): string | false;
 
         /**
@@ -34,7 +34,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         encoding(): string[];
-        encoding(encodings: string[]): string | false;
+        encoding(encodings: string[],): string | false;
         encoding(...encodings: string[]): string | false;
 
         /**
@@ -43,7 +43,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         encodings(): string[];
-        encodings(encodings: string[]): string | false;
+        encodings(encodings: string[],): string | false;
         encodings(...encodings: string[]): string | false;
 
         /**
@@ -52,7 +52,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         language(): string[];
-        language(languages: string[]): string | false;
+        language(languages: string[],): string | false;
         language(...languages: string[]): string | false;
 
         /**
@@ -61,7 +61,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         languages(): string[];
-        languages(languages: string[]): string | false;
+        languages(languages: string[],): string | false;
         languages(...languages: string[]): string | false;
 
         /**
@@ -70,7 +70,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         lang(): string[];
-        lang(languages: string[]): string | false;
+        lang(languages: string[],): string | false;
         lang(...languages: string[]): string | false;
 
         /**
@@ -79,7 +79,7 @@ declare namespace accepts {
          * (most preferred first).
          */
         langs(): string[];
-        langs(languages: string[]): string | false;
+        langs(languages: string[],): string | false;
         langs(...languages: string[]): string | false;
 
         /**
@@ -88,13 +88,13 @@ declare namespace accepts {
          *
          * The `types` array can contain full MIME types or file extensions. Any value that is not a full MIME types is passed to `require('mime-types').lookup`.
          */
-        type(types: string[]): string[] | string | false;
+        type(types: string[],): string[] | string | false;
         type(...types: string[]): string[] | string | false;
-        types(types: string[]): string[] | string | false;
+        types(types: string[],): string[] | string | false;
         types(...types: string[]): string[] | string | false;
     }
 }
 
-declare function accepts(req: IncomingMessage): accepts.Accepts;
+declare function accepts(req: IncomingMessage,): accepts.Accepts;
 
 export = accepts;

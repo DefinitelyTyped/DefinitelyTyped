@@ -23,7 +23,6 @@
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class ReplacePagesOperation {
     /**
@@ -41,7 +40,7 @@ export class ReplacePagesOperation {
     /**
      * Sets a base input file.
      */
-    setBaseInput(baseSourceFileRef: FileRef): void;
+    setBaseInput(baseSourceFileRef: FileRef,): void;
     /**
      * Adds the pages of the input PDF file for replacing the page of the base PDF file.
      * <p>
@@ -50,7 +49,7 @@ export class ReplacePagesOperation {
      * If <code>pageRanges</code> is not provided, the specified page of the base PDF file will be replaced
      * by all the pages of the input PDF file.
      */
-    addPagesForReplace(basePageToReplace: number, inputFile: FileRef, pageRanges?: PageRanges): void;
+    addPagesForReplace(basePageToReplace: number, inputFile: FileRef, pageRanges?: PageRanges,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -58,7 +57,7 @@ export class ReplacePagesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, } from '../pdfservices-sdk';

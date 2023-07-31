@@ -10,7 +10,7 @@ import * as ng from 'angular';
 
 declare module 'angular' {
     export namespace ui {
-        interface IScrollDatasource<T> {
+        interface IScrollDatasource<T,> {
             /**
              * The datasource object implements methods and properties to be used by the directive to access the data
              *
@@ -25,7 +25,7 @@ declare module 'angular' {
              * Important: Make sure to respect the index and count parameters of the request. The array passed to the
              * success method should have exactly count elements unless it hit eof/bof
              */
-            get(index: number, count: number, success: (results: Array<T>) => any): void;
+            get(index: number, count: number, success: (results: Array<T>,) => any,): void;
         }
 
         interface IScrollAdapter {
@@ -49,7 +49,7 @@ declare module 'angular' {
              * calling this method reinitializes and reloads the scroller content.
              * @param startIndex is an integer indicating what item index the scroller will use to start the load process.
              */
-            reload(startIndex?: number): void;
+            reload(startIndex?: number,): void;
             /**
              * Replaces the item in the buffer at the given index with the new items.
              *
@@ -61,7 +61,7 @@ declare module 'angular' {
              * be deleted, otherwise the items in the array replace the item. If the newItem array contains the old item,
              * the old item stays in place.
              */
-            applyUpdates(index: number, newItems: any[]): void;
+            applyUpdates(index: number, newItems: any[],): void;
             /**
              * Replaces the item in the buffer at the given index with the new items.
              *
@@ -73,19 +73,19 @@ declare module 'angular' {
              * unaffected, unless some updates were made to the item in the updater function. This can be thought of as
              * in place update.
              */
-            applyUpdates(updater: (item: any, scope: ng.IRepeatScope) => any): void;
+            applyUpdates(updater: (item: any, scope: ng.IRepeatScope,) => any,): void;
             /**
              * Adds new items after the last item in the buffer
              *
              * @param newItems provides an array of items to be appended.
              */
-            append(newItems: any[]): void;
+            append(newItems: any[],): void;
             /**
              * Adds new items before the first item in the buffer
              *
              * @param newItems provides an array of items to be prepended.
              */
-            prepend(newItems: any[]): void;
+            prepend(newItems: any[],): void;
         }
     }
 }

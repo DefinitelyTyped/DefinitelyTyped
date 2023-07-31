@@ -34,14 +34,14 @@ declare module 'angular' {
         }
 
         export interface FeatureFlagsProvider {
-            setInitialFlags(flags: ReadonlyArray<FlagData>): void;
+            setInitialFlags(flags: ReadonlyArray<FlagData>,): void;
         }
 
         export interface FeatureFlagsService {
             set(
                 flagsPromise:
                     | ng.IPromise<ReadonlyArray<FlagData>>
-                    | ng.IHttpPromise<ReadonlyArray<FlagData>>
+                    | ng.IHttpPromise<ReadonlyArray<FlagData>>,
             ): void;
         }
     }

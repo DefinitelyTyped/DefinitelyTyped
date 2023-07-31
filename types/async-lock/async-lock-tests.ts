@@ -12,9 +12,9 @@ lock.acquire<number>(
     'key',
     done => {
         done; // $ExpectType AsyncLockDoneCallback<number>
-        done(undefined, 1);
+        done(undefined, 1,);
     },
-    (err, ret) => {
+    (err, ret,) => {
         err; // $ExpectType Error | null | undefined
         ret; // $ExpectType number | undefined
     },
@@ -22,23 +22,23 @@ lock.acquire<number>(
 
 // $ExpectType Promise<number>
 lock.acquire<number>('key', done => {
-    done(undefined, 1);
-});
-lock.acquire('key', () => 1); // $ExpectType Promise<number>
-lock.acquire('key', () => Promise.resolve(1)); // $ExpectType Promise<number>
-lock.acquire(['key1', 'key2'], () => 1); // $ExpectType Promise<number>
+    done(undefined, 1,);
+},);
+lock.acquire('key', () => 1,); // $ExpectType Promise<number>
+lock.acquire('key', () => Promise.resolve(1,),); // $ExpectType Promise<number>
+lock.acquire(['key1', 'key2',], () => 1,); // $ExpectType Promise<number>
 
 lock.isBusy(); // $ExpectType boolean
-lock.isBusy('key'); // $ExpectType boolean
+lock.isBusy('key',); // $ExpectType boolean
 
-new AsyncLock({ timeout: 5000 });
-new AsyncLock({ maxPending: 5000 });
-new AsyncLock({ maxOccupationTime: 5000 });
-new AsyncLock({ maxExecutionTime: 5000 });
-new AsyncLock({ domainReentrant: true });
-new AsyncLock({ skipQueue: true });
-new AsyncLock({ Promise: null });
-new AsyncLock({ timeout: undefined });
+new AsyncLock({ timeout: 5000, },);
+new AsyncLock({ maxPending: 5000, },);
+new AsyncLock({ maxOccupationTime: 5000, },);
+new AsyncLock({ maxExecutionTime: 5000, },);
+new AsyncLock({ domainReentrant: true, },);
+new AsyncLock({ skipQueue: true, },);
+new AsyncLock({ Promise: null, },);
+new AsyncLock({ timeout: undefined, },);
 
 AsyncLock.DEFAULT_TIMEOUT; // $ExpectType 0
 AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType 0

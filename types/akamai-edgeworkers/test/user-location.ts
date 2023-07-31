@@ -1,4 +1,4 @@
-function onClientRequest(request: EW.IngressClientRequest) {
+function onClientRequest(request: EW.IngressClientRequest,) {
     const userLocation = request.userLocation;
 
     const latitude: string | undefined = userLocation!.latitude;
@@ -16,14 +16,14 @@ function onClientRequest(request: EW.IngressClientRequest) {
     const fips: string[] | undefined = userLocation!.fips;
 }
 
-export function onOriginRequest(request: EW.IngressOriginRequest) {
+export function onOriginRequest(request: EW.IngressOriginRequest,) {
     const userLocation = request.userLocation;
 }
 
-export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {
+export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse,) {
     const userLocation = request.userLocation;
 }
 
-export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {
+export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse,) {
     const userLocation = request.userLocation;
 }

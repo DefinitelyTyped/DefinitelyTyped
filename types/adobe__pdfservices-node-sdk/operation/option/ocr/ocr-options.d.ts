@@ -172,7 +172,7 @@ export class OCROptions {
      * Returns a builder for {@link OCROptions}.
      */
     static get Builder(): any;
-    constructor(builder: any);
+    constructor(builder: any,);
     ocrType: any;
     ocrLang: any;
     validate(): any;

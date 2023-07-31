@@ -9,7 +9,7 @@
 declare namespace AMap {
     namespace ArrivalRange {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
+            error: Event<'error', { info: string }>;
         }
         interface SearchOptions {
             /**
@@ -59,8 +59,8 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             time: number,
-            callback: (status: ArrivalRange.SearchStatus, result: string | ArrivalRange.SearchResult) => void,
-            opts?: ArrivalRange.SearchOptions
+            callback: (status: ArrivalRange.SearchStatus, result: string | ArrivalRange.SearchResult,) => void,
+            opts?: ArrivalRange.SearchOptions,
         ): void;
     }
 }

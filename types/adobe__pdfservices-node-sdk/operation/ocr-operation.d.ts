@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
 
 /**
  * Convert a PDF file into a searchable PDF file. Allows specifying locale({OCROptions.OCRSupportedLocale}) and
@@ -22,7 +22,6 @@ import { ExecutionContext, FileRef } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class OCROperation {
     /**
@@ -40,12 +39,12 @@ export class OCROperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Sets the options for this operation. See {@link OCROptions} for how to specify the options for the different locales and
      * ocr types.
      */
-    setOptions(options?: any): void;
+    setOptions(options?: any,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -53,6 +52,6 @@ export class OCROperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }

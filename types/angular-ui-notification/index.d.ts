@@ -25,7 +25,7 @@ declare module 'angular' {
             positionY?: YPosition | undefined;
             replaceMessage?: boolean | undefined;
             templateUrl?: string | undefined;
-            onClose?: ((element: any) => any) | undefined;
+            onClose?: ((element: any,) => any) | undefined;
             closeOnClick?: boolean | undefined;
             maxCount?: number | undefined;
         }
@@ -43,25 +43,25 @@ declare module 'angular' {
         }
 
         interface INotificationScope {
-            kill(isHard: boolean): void;
+            kill(isHard: boolean,): void;
         }
 
         interface INotificationProvider {
-            setOptions(options: IGlobalMessageOptions): void;
+            setOptions(options: IGlobalMessageOptions,): void;
         }
 
         type Message = string | IMessageOptions;
 
         interface INotificationService {
-            primary(message: Message): IPromise<INotificationScope>;
-            info(message: Message): IPromise<INotificationScope>;
-            success(message: Message): IPromise<INotificationScope>;
-            warning(message: Message): IPromise<INotificationScope>;
-            error(message: Message): IPromise<INotificationScope>;
+            primary(message: Message,): IPromise<INotificationScope>;
+            info(message: Message,): IPromise<INotificationScope>;
+            success(message: Message,): IPromise<INotificationScope>;
+            warning(message: Message,): IPromise<INotificationScope>;
+            error(message: Message,): IPromise<INotificationScope>;
 
             clearAll(): void;
 
-            (message: Message, type?: MessageType): IPromise<INotificationScope>;
+            (message: Message, type?: MessageType,): IPromise<INotificationScope>;
         }
     }
 }

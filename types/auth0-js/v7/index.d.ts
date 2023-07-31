@@ -11,9 +11,9 @@ interface Window {
 
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-    new (options: Auth0ClientOptions): Auth0Static;
-    changePassword(options: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
-    decodeJwt(jwt: string): any;
+    new(options: Auth0ClientOptions,): Auth0Static;
+    changePassword(options: any, callback?: (error?: Auth0Error, valid?: any,) => void,): void;
+    decodeJwt(jwt: string,): any;
     login(
         options: any,
         callback: (
@@ -54,21 +54,21 @@ interface Auth0Static {
             state?: string,
         ) => any,
     ): void;
-    logout(query: string): void;
-    getConnections(callback?: (error?: Auth0Error, valid?: any) => void): void;
+    logout(query: string,): void;
+    getConnections(callback?: (error?: Auth0Error, valid?: any,) => void,): void;
     refreshToken(
         refreshToken: string,
-        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any,
+        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken,) => any,
     ): void;
     getDelegationToken(
         options: any,
-        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any,
+        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken,) => any,
     ): void;
-    getProfile(id_token: string, callback?: (error?: Auth0Error, valid?: any) => void): Auth0UserProfile;
-    getSSOData(withActiveDirectories: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
-    parseHash(hash: string): Auth0DecodedHash;
-    signup(options: Auth0SignupOptions, callback: (error?: Auth0Error, valid?: any) => void): void;
-    validateUser(options: any, callback: (error?: Auth0Error, valid?: any) => any): void;
+    getProfile(id_token: string, callback?: (error?: Auth0Error, valid?: any,) => void,): Auth0UserProfile;
+    getSSOData(withActiveDirectories: any, callback?: (error?: Auth0Error, valid?: any,) => void,): void;
+    parseHash(hash: string,): Auth0DecodedHash;
+    signup(options: Auth0SignupOptions, callback: (error?: Auth0Error, valid?: any,) => void,): void;
+    validateUser(options: any, callback: (error?: Auth0Error, valid?: any,) => any,): void;
 }
 
 /** Represents constructor options for the Auth0 client. */
@@ -172,6 +172,6 @@ interface Auth0DelegationToken {
 
 declare const Auth0: Auth0Static;
 
-declare module "auth0-js" {
+declare module 'auth0-js' {
     export = Auth0;
 }

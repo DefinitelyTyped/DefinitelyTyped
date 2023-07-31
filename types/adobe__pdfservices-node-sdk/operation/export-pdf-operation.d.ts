@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, } from '../pdfservices-sdk';
 
 /**
  * An operation which exports a source PDF file to a supported format specified by
@@ -27,7 +27,6 @@ import { ExecutionContext, FileRef } from '../pdfservices-sdk';
  *
  * </code>
  * </pre>
- *
  */
 export class ExportPDFOperation {
     static get SupportedExportFormats(): {
@@ -98,7 +97,7 @@ export class ExportPDFOperation {
          * Represents "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" media type
          */
         XLSX: any;
-    }): ExportPDFOperation;
+    },): ExportPDFOperation;
     static getTargetFormats(): {
         /**
          * Represents "application/msword" media type.
@@ -129,13 +128,13 @@ export class ExportPDFOperation {
          */
         XLSX: any;
     };
-    constructor(targetFormat: any);
+    constructor(targetFormat: any,);
     targetFormat: any;
     sourceFileRef: any;
     /**
      * Sets an input PDF file (media type "application/pdf").
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -143,6 +142,6 @@ export class ExportPDFOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }

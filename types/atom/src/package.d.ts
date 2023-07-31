@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable, } from '../index';
 
 /**
  *  Loads and activates a package's main module and resources such as stylesheets,
@@ -13,7 +13,7 @@ export interface Package {
 
     // Event Subscription
     /** Invoke the given callback when all packages have been activated. */
-    onDidDeactivate(callback: () => void): Disposable;
+    onDidDeactivate(callback: () => void,): Disposable;
 
     // Native Module Compatibility
     /**

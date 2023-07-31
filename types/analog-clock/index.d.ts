@@ -9,7 +9,7 @@ export class AnalogClock extends HTMLElement {
 
     connectedCallback(): void; // Lifecycle method called when the element is connected to the DOM
     disconnectedCallback(): void; // Lifecycle method called when the element is disconnected from the DOM
-    attributeChangedCallback(attr: string, oldVal: string, newVal: string): void; // Called when an observed attribute changes
+    attributeChangedCallback(attr: string, oldVal: string, newVal: string,): void; // Called when an observed attribute changes
 
     // Getters and setters for time, offset, and dark mode properties
     time: number | undefined;

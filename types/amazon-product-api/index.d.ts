@@ -3,16 +3,14 @@
 // Definitions by: Matti Lehtinen <https://github.com/MattiLehtinen>, Alex Leon <https://github.com/alien35>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 interface ICredentials {
-    awsId: string,
-    awsSecret: string,
-    awsTag: string
+    awsId: string;
+    awsSecret: string;
+    awsTag: string;
 }
 
 interface IAmazonProductQueryCallback {
-    (err: string, results: Object[]): void;
+    (err: string, results: Object[],): void;
 }
 
 interface IItemSearchOptions {
@@ -43,9 +41,9 @@ interface IBrowseNodeLookupOptions {
 }
 
 interface IAmazonProductClient {
-    itemSearch(query: IItemSearchOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]>;
-    itemLookup(query: IItemLookupOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]>;
-    browseNodeLookup(query: IBrowseNodeLookupOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]>;
+    itemSearch(query: IItemSearchOptions, callback?: IAmazonProductQueryCallback,): Promise<Object[]>;
+    itemLookup(query: IItemLookupOptions, callback?: IAmazonProductQueryCallback,): Promise<Object[]>;
+    browseNodeLookup(query: IBrowseNodeLookupOptions, callback?: IAmazonProductQueryCallback,): Promise<Object[]>;
 }
 
-export declare function createClient(credentials: ICredentials): IAmazonProductClient;
+export declare function createClient(credentials: ICredentials,): IAmazonProductClient;

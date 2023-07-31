@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace Overlay {
-        interface EventMap<I> {
+        interface EventMap<I,> {
             touchstart: MapsEvent<'touchstart', I>;
             touchmove: MapsEvent<'touchmove', I>;
             touchend: MapsEvent<'touchend', I>;
@@ -12,7 +12,7 @@ declare namespace AMap {
             mousedown: MapsEvent<'mousedown', I>;
             mouseup: MapsEvent<'mouseup', I>;
         }
-        interface Options<ExtraData = any> {
+        interface Options<ExtraData = any,> {
             /**
              * 所属地图
              */
@@ -39,8 +39,8 @@ declare namespace AMap {
             draggable?: boolean | undefined;
         }
     }
-    abstract class Overlay<ExtraData = any> extends EventEmitter {
-        constructor(options?: Overlay.Options);
+    abstract class Overlay<ExtraData = any,> extends EventEmitter {
+        constructor(options?: Overlay.Options,);
         /**
          * 显示覆盖物
          */
@@ -57,19 +57,19 @@ declare namespace AMap {
          * 设置所属地图
          * @param map 地图
          */
-        setMap(map: Map | null): void;
+        setMap(map: Map | null,): void;
         /**
          * 设置自定义数据
          * @param extData 自定义数据
          */
-        setExtData(extData: ExtraData): void;
+        setExtData(extData: ExtraData,): void;
         /**
          * 获取自定义数据
          */
         getExtData(): ExtraData | {};
 
         // internal
-        setHeight(height?: number | string): void;
+        setHeight(height?: number | string,): void;
         getHeight(): number | string;
     }
 }

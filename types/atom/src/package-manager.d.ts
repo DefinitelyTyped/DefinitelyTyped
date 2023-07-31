@@ -1,28 +1,28 @@
-import { Disposable, Package } from '../index';
+import { Disposable, Package, } from '../index';
 
 /** Package manager for coordinating the lifecycle of Atom packages. */
 export interface PackageManager {
     // Event Subscription
     /** Invoke the given callback when all packages have been loaded. */
-    onDidLoadInitialPackages(callback: () => void): Disposable;
+    onDidLoadInitialPackages(callback: () => void,): Disposable;
 
     /** Invoke the given callback when all packages have been activated. */
-    onDidActivateInitialPackages(callback: () => void): Disposable;
+    onDidActivateInitialPackages(callback: () => void,): Disposable;
 
     /** Invoke the given callback when a package is activated. */
-    onDidActivatePackage(callback: (package: Package) => void): Disposable;
+    onDidActivatePackage(callback: (package: Package,) => void,): Disposable;
 
     /** Invoke the given callback when a package is deactivated. */
-    onDidDeactivatePackage(callback: (package: Package) => void): Disposable;
+    onDidDeactivatePackage(callback: (package: Package,) => void,): Disposable;
 
     /** Invoke the given callback when a package is loaded. */
-    onDidLoadPackage(callback: (package: Package) => void): Disposable;
+    onDidLoadPackage(callback: (package: Package,) => void,): Disposable;
 
     /** Invoke the given callback when a package is unloaded. */
-    onDidUnloadPackage(callback: (package: Package) => void): Disposable;
+    onDidUnloadPackage(callback: (package: Package,) => void,): Disposable;
 
     /** Undocumented: invoke the given callback when an activation hook is triggered */
-    onDidTriggerActivationHook(hook: string, callback: () => void): Disposable;
+    onDidTriggerActivationHook(hook: string, callback: () => void,): Disposable;
 
     // Package System Data
     /** Get the path to the apm command. */
@@ -33,30 +33,30 @@ export interface PackageManager {
 
     // General Package Data
     /** Resolve the given package name to a path on disk. */
-    resolvePackagePath(name: string): string | undefined;
+    resolvePackagePath(name: string,): string | undefined;
 
     /** Is the package with the given name bundled with Atom? */
-    isBundledPackage(name: string): boolean;
+    isBundledPackage(name: string,): boolean;
 
     // Enabling and Disabling Packages
     /** Enable the package with the given name. */
-    enablePackage(name: string): Package | undefined;
+    enablePackage(name: string,): Package | undefined;
 
     /** Disable the package with the given name. */
-    disablePackage(name: string): Package | undefined;
+    disablePackage(name: string,): Package | undefined;
 
     /** Is the package with the given name disabled? */
-    isPackageDisabled(name: string): boolean;
+    isPackageDisabled(name: string,): boolean;
 
     // Accessing Active Packages
     /** Get an Array of all the active Packages. */
     getActivePackages(): Package[];
 
     /** Get the active Package with the given name. */
-    getActivePackage(name: string): Package | undefined;
+    getActivePackage(name: string,): Package | undefined;
 
     /** Is the Package with the given name active? */
-    isPackageActive(name: string): boolean;
+    isPackageActive(name: string,): boolean;
 
     /** Returns a boolean indicating whether package activation has occurred. */
     hasActivatedInitialPackages(): boolean;
@@ -66,10 +66,10 @@ export interface PackageManager {
     getLoadedPackages(): Package[];
 
     /** Get the loaded Package with the given name. */
-    getLoadedPackage(name: string): Package | undefined;
+    getLoadedPackage(name: string,): Package | undefined;
 
     /** Is the package with the given name loaded? */
-    isPackageLoaded(name: string): boolean;
+    isPackageLoaded(name: string,): boolean;
 
     /** Returns a boolean indicating whether package loading has occurred. */
     hasLoadedInitialPackages(): boolean;
@@ -85,13 +85,13 @@ export interface PackageManager {
     getAvailablePackageMetadata(): string[];
 
     /** Activate a single package by name or path. */
-    activatePackage(nameOrPath: string): Promise<Package>;
+    activatePackage(nameOrPath: string,): Promise<Package>;
 
     /** Deactivate a single package by name or path. */
-    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean): Promise<void>;
+    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean,): Promise<void>;
 
     /** Triggers the given package activation hook. */
-    triggerActivationHook(hook: string): void;
+    triggerActivationHook(hook: string,): void;
 
     /** Trigger all queued activation hooks immediately. */
     triggerDeferredActivationHooks(): void;

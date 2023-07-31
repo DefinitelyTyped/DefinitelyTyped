@@ -28,8 +28,8 @@ export namespace Azure.ServiceBus.Results {
     }
 
     export interface SubscriptionResult {
-        serialize(resource: SubscriptionProperties): string;
+        serialize(resource: SubscriptionProperties,): string;
 
-        parse(xml: object): object | object[];
+        parse(xml: object,): object | object[];
     }
 }

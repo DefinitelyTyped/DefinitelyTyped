@@ -33,13 +33,13 @@ export interface StatusBar {
      *  Add a tile to the left side of the status bar. Lower priority tiles are placed
      *  further to the left.
      */
-    addLeftTile(options: AddTileOptions): Tile;
+    addLeftTile(options: AddTileOptions,): Tile;
 
     /**
      *  Add a tile to the right side of the status bar. Lower priority tiles are placed
      *  further to the right.
      */
-    addRightTile(options: AddTileOptions): Tile;
+    addRightTile(options: AddTileOptions,): Tile;
 
     /** Retrieve all of the tiles on the left side of the status bar. */
     getLeftTiles(): Tile[];

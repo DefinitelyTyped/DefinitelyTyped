@@ -15,7 +15,7 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        alert(message: string, fn?: Function, cssClass?: string): IAlertifyStatic;
+        alert(message: string, fn?: Function, cssClass?: string,): IAlertifyStatic;
 
         /**
          * Create a confirm dialog box
@@ -25,7 +25,7 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        confirm(message: string, fn?: Function, cssClass?: string): IAlertifyStatic;
+        confirm(message: string, fn?: Function, cssClass?: string,): IAlertifyStatic;
 
         /**
          * Extend the log method to create custom methods
@@ -33,7 +33,7 @@ declare namespace alertify {
          * @return function for logging
          * @since 0.0.1
          */
-        extend(type: string): (message: string, wait?: number) => IAlertifyStatic;
+        extend(type: string,): (message: string, wait?: number,) => IAlertifyStatic;
 
         /**
          * Initialize Alertify and create the 2 main elements.
@@ -51,7 +51,7 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        log(message: string, type?: string, wait?: number): IAlertifyStatic;
+        log(message: string, type?: string, wait?: number,): IAlertifyStatic;
 
         /**
          * Create a prompt dialog box
@@ -62,7 +62,7 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        prompt(message: string, fn?: Function, placeholder?: string, cssClass?: string): IAlertifyStatic;
+        prompt(message: string, fn?: Function, placeholder?: string, cssClass?: string,): IAlertifyStatic;
 
         /**
          * Shorthand for log messages
@@ -70,7 +70,7 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        success(message: string): IAlertifyStatic;
+        success(message: string,): IAlertifyStatic;
 
         /**
          * Shorthand for log messages
@@ -78,14 +78,14 @@ declare namespace alertify {
          * @return alertify (ie this)
          * @since 0.0.1
          */
-        error(message: string): IAlertifyStatic;
+        error(message: string,): IAlertifyStatic;
 
         /**
          * Used to set alertify properties
          * @param Properties
          * @since 0.2.11
          */
-        set(args: IProperties): void;
+        set(args: IProperties,): void;
 
         /**
          * The labels used for dialog buttons

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import Ajv from "ajv";
+import Ajv from 'ajv';
 
-declare function ajvMergePatch(ajv: Ajv): void;
+declare function ajvMergePatch(ajv: Ajv,): void;
 
 export = ajvMergePatch;

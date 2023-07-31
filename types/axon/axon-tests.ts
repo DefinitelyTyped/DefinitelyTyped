@@ -1,5 +1,5 @@
 import * as axon from 'axon';
-import { Socket as NetSocket } from 'net';
+import { Socket as NetSocket, } from 'net';
 
 const PubEmitterSocket = axon.PubEmitterSocket;
 const PubSocket = axon.PubSocket;
@@ -17,49 +17,49 @@ const socket = new Socket();
 const subSocket = new SubSocket();
 
 // $ExpectType PubSocket
-pubSocket.send('anything');
+pubSocket.send('anything',);
 
 // $ExpectType PubSocket
-pubSocket.send('anything', {w: 100, h: 200});
+pubSocket.send('anything', { w: 100, h: 200, },);
 
 // $ExpectType PubSocket
-pubEmitterSocket.send('anything');
+pubEmitterSocket.send('anything',);
 
 // $ExpectType PubSocket
-pubEmitterSocket.send('anything', {w: 100, h: 200});
+pubEmitterSocket.send('anything', { w: 100, h: 200, },);
 
 // $ExpectType Socket
-pubEmitterSocket.bind(3000);
+pubEmitterSocket.bind(3000,);
 
 // @ts-expect-error
-pubEmitterSocket.bind({a, b, c});
+pubEmitterSocket.bind({ a, b, c, },);
 
 // @ts-expect-error
 pubEmitterSocket.bind();
 
 // $ExpectType Socket
-pubEmitterSocket.connect(3000);
+pubEmitterSocket.connect(3000,);
 
 // @ts-expect-error
-pubEmitterSocket.connect({a, b, c});
+pubEmitterSocket.connect({ a, b, c, },);
 
 // @ts-expect-error
 pubEmitterSocket.connect();
 
 // $ExpectType (args: Buffer | Buffer[]) => void
-repSocket.onmessage(netSocket);
+repSocket.onmessage(netSocket,);
 
 // @ts-expect-error
 repSocket.onmessage();
 
 // @ts-expect-error
-repSocket.onmessage('');
+repSocket.onmessage('',);
 
 // @ts-expect-error
-repSocket.onmessage(1);
+repSocket.onmessage(1,);
 
 // @ts-expect-error
-repSocket.onmessage({});
+repSocket.onmessage({},);
 
 // $ExpectType string
 reqSocket.id();
@@ -68,106 +68,106 @@ reqSocket.id();
 reqSocket.onmessage();
 
 // $ExpectType void
-reqSocket.send('anything');
+reqSocket.send('anything',);
 
 // $ExpectType void
-reqSocket.send('anything', {w: 100, h: 200});
+reqSocket.send('anything', { w: 100, h: 200, },);
 
 // $ExpectType Socket
-socket.set('name', 'aaa');
+socket.set('name', 'aaa',);
 
 // @ts-expect-error
-socket.set(1, 'aaa');
+socket.set(1, 'aaa',);
 
 // @ts-expect-error
-socket.set({}, 'aaa');
+socket.set({}, 'aaa',);
 
 // @ts-expect-error
-socket.set('name');
+socket.set('name',);
 
 // $ExpectType any
-socket.get('name');
+socket.get('name',);
 
 // @ts-expect-error
-socket.get(1);
+socket.get(1,);
 
 // @ts-expect-error
-socket.get({});
+socket.get({},);
 
 // $ExpectType Socket
-socket.enable('name');
+socket.enable('name',);
 
 // @ts-expect-error
-socket.enable(1);
+socket.enable(1,);
 
 // @ts-expect-error
-socket.enable({});
+socket.enable({},);
 
 // $ExpectType Socket
-socket.disable('name');
+socket.disable('name',);
 
 // @ts-expect-error
-socket.disable(1);
+socket.disable(1,);
 
 // @ts-expect-error
-socket.disable({});
+socket.disable({},);
 
 // $ExpectType boolean
-socket.enabled('name');
+socket.enabled('name',);
 
 // @ts-expect-error
-socket.enabled(1);
+socket.enabled(1,);
 
 // @ts-expect-error
-socket.enabled({});
+socket.enabled({},);
 
 // $ExpectType boolean
-socket.disabled('name');
+socket.disabled('name',);
 
 // @ts-expect-error
-socket.disabled(1);
+socket.disabled(1,);
 
 // @ts-expect-error
-socket.disabled({});
+socket.disabled({},);
 
 // $ExpectType boolean
 subSocket.hasSubscriptions();
 
 // $ExpectType boolean
-subSocket.matches('name');
+subSocket.matches('name',);
 
 // @ts-expect-error
-subSocket.matches(1);
+subSocket.matches(1,);
 
 // @ts-expect-error
-subSocket.matches({});
+subSocket.matches({},);
 
 // $ExpectType RegExp
-subSocket.subscribe(/some regex/);
+subSocket.subscribe(/some regex/,);
 
 // $ExpectType RegExp
-subSocket.subscribe('some string');
+subSocket.subscribe('some string',);
 
 // @ts-expect-error
-subSocket.subscribe(1);
+subSocket.subscribe(1,);
 
 // @ts-expect-error
-subSocket.subscribe({});
+subSocket.subscribe({},);
 
 // @ts-expect-error
 subSocket.subscribe();
 
 // $ExpectType void
-subSocket.unsubscribe(/some regex/);
+subSocket.unsubscribe(/some regex/,);
 
 // $ExpectType void
-subSocket.unsubscribe('some string');
+subSocket.unsubscribe('some string',);
 
 // @ts-expect-error
-subSocket.unsubscribe(1);
+subSocket.unsubscribe(1,);
 
 // @ts-expect-error
-subSocket.unsubscribe({});
+subSocket.unsubscribe({},);
 
 // @ts-expect-error
 subSocket.unsubscribe();

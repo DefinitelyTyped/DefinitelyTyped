@@ -17,7 +17,7 @@ declare namespace IWshRuntimeLibrary {
         YesNoCancel,
         YesNo,
         RetryCancel,
-        CancelTryagainContinue
+        CancelTryagainContinue,
     }
 
     const enum EventType {
@@ -26,7 +26,7 @@ declare namespace IWshRuntimeLibrary {
         Error = 1,
         Information = 3,
         Success = 0,
-        Warning = 2
+        Warning = 2,
     }
 
     const enum IconType {
@@ -98,17 +98,17 @@ declare namespace IWshRuntimeLibrary {
         /**
          * Sends a string to an output stream.
          */
-        Write(s: string): void;
+        Write(s: string,): void;
 
         /**
          * Sends a specified number of blank lines (newline characters) to an output stream.
          */
-        WriteBlankLines(intLines: number): void;
+        WriteBlankLines(intLines: number,): void;
 
         /**
          * Sends a string followed by a newline character to an output stream.
          */
-        WriteLine(s: string): void;
+        WriteLine(s: string,): void;
     }
 
     class TextStreamReader extends TextStreamBase {
@@ -120,7 +120,7 @@ declare namespace IWshRuntimeLibrary {
          * Does not return until the ENTER key is pressed.
          * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
          */
-        Read(characters: number): string;
+        Read(characters: number,): string;
 
         /**
          * Returns all characters from an input stream.
@@ -140,7 +140,7 @@ declare namespace IWshRuntimeLibrary {
          * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
          * @param characters Positive number of characters to skip forward. (Backward skipping is not supported.)
          */
-        Skip(characters: number): void;
+        Skip(characters: number,): void;
 
         /**
          * Skips the next line when reading from an input text stream.
@@ -162,18 +162,18 @@ declare namespace IWshRuntimeLibrary {
     /** Generic Collection Object */
     interface WshCollection {
         Count(): number;
-        Item(Index: any): any;
+        Item(Index: any,): any;
         readonly length: number;
-        (Index: any): any;
+        (Index: any,): any;
     }
 
     /** Environment Variables Collection Object */
     interface WshEnvironment {
         Count(): number;
-        Item(Name: string): string;
+        Item(Name: string,): string;
         readonly Length: number;
-        Remove(Name: string): void;
-        (Name: string): string;
+        Remove(Name: string,): void;
+        (Name: string,): string;
     }
 
     /** WSHExec object */
@@ -202,7 +202,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a remote printer using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        AddPrinterConnection(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        AddPrinterConnection(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
 
         /**
          * @param string Path to printer connection
@@ -211,7 +217,7 @@ declare namespace IWshRuntimeLibrary {
          *
          * Unlike the **AddPrinterConnection** method, this method allows you to create a printer connection without directing it to a specific port, such as LPT1.
          */
-        AddWindowsPrinterConnection(PrinterName: string, DriverName?: string, Port?: string): void;
+        AddWindowsPrinterConnection(PrinterName: string, DriverName?: string, Port?: string,): void;
         readonly ComputerName: string;
         EnumNetworkDrives(): WshCollection;
         EnumPrinterConnections(): WshCollection;
@@ -224,7 +230,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a network drive using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        MapNetworkDrive(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        MapNetworkDrive(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
         readonly Organization: string;
 
         /**
@@ -234,7 +246,7 @@ declare namespace IWshRuntimeLibrary {
          * @param Force [false] Remove the connections even if the resource is in use
          * @param UpdateProfile [false] Remove the mapping from the user's profile
          */
-        RemoveNetworkDrive(Name: string, Force?: boolean, UpdateProfile?: boolean): void;
+        RemoveNetworkDrive(Name: string, Force?: boolean, UpdateProfile?: boolean,): void;
 
         /**
          * Removes a shared network printer connection from your computer system
@@ -246,8 +258,8 @@ declare namespace IWshRuntimeLibrary {
          * _Name_ must be the printer's local name. If the printer was connected using the **AddWindowsPrinterConnection** method or was added manually (using the Add Printer wizard),
          * then _Name_ must be the printer's UNC name.
          */
-        RemovePrinterConnection(Name: string, Force?: true, UpdateProfile?: true): void;
-        SetDefaultPrinter(Name: string): void;
+        RemovePrinterConnection(Name: string, Force?: true, UpdateProfile?: true,): void;
+        SetDefaultPrinter(Name: string,): void;
         readonly Site: string;
         readonly UserDomain: string;
         readonly UserName: string;
@@ -277,7 +289,7 @@ declare namespace IWshRuntimeLibrary {
          * * The window is brought to the foreground but is not given keyboard focus.
          * * A Command Prompt window (`cmd.exe`) is brought to the foreground and is given keyboard focus.
          */
-        AppActivate(App: string | number, Wait?: any): boolean;
+        AppActivate(App: string | number, Wait?: any,): boolean;
 
         /**
          * Creates a shortcut
@@ -285,7 +297,7 @@ declare namespace IWshRuntimeLibrary {
          *
          * The shortcut object exists in memory until you save it to disk with the **Save** method.
          */
-        CreateShortcut(PathLink: string): WshShortcut | WshURLShortcut;
+        CreateShortcut(PathLink: string,): WshShortcut | WshURLShortcut;
         CurrentDirectory: string;
 
         /**
@@ -296,14 +308,19 @@ declare namespace IWshRuntimeLibrary {
          *
          * will return an empty string, unless there is an environment variable named `System`
          */
-        Environment: WshEnvironment & ((Type: 'System' | 'User' | 'Process' | 'Volatile') => WshEnvironment);
-        Exec(Command: string): WshExec;
-        ExpandEnvironmentStrings(Src: string): string;
+        Environment: WshEnvironment & ((Type: 'System' | 'User' | 'Process' | 'Volatile',) => WshEnvironment);
+        Exec(Command: string,): WshExec;
+        ExpandEnvironmentStrings(Src: string,): string;
 
         /** @param string [Target=''] Name of the computer system where the event should be logged; default is the local computer system */
-        LogEvent(Type: EventType, Message: string, Target?: string): boolean;
-        Popup(Text: string, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
-        RegDelete(Name: string): void;
+        LogEvent(Type: EventType, Message: string, Target?: string,): boolean;
+        Popup(
+            Text: string,
+            SecondsToWait?: number,
+            Title?: string,
+            Type?: ButtonType | IconType | PopupType,
+        ): PopupSelection;
+        RegDelete(Name: string,): void;
 
         /**
          * Returns the value of a key or value-name from the registry
@@ -317,7 +334,7 @@ declare namespace IWshRuntimeLibrary {
          * * **REG_EXPAND_SZ** -- an expandable string
          * * **REG_MULTI_SZ** -- an array of srings, as a COM SafeArray
          */
-        RegRead(Name: string): string | number | SafeArray<string> | SafeArray<number>;
+        RegRead(Name: string,): string | number | SafeArray<string> | SafeArray<number>;
 
         /**
          * Creates a new key, adds another value-name to an existing key and assigns it a value, or changes the value of an existing value-name
@@ -327,7 +344,7 @@ declare namespace IWshRuntimeLibrary {
          * `REG_DWORD | REG_BINARY` will be converted to `integer`
          * @param Type
          */
-        RegWrite(Name: string, Value: any, Type?: 'REG_SZ' | 'REG_DWORD' | 'REG_BINARY' | 'REG_EXPAND_SZ'): void;
+        RegWrite(Name: string, Value: any, Type?: 'REG_SZ' | 'REG_DWORD' | 'REG_BINARY' | 'REG_EXPAND_SZ',): void;
 
         /**
          * Runs a program in a new process.
@@ -357,8 +374,8 @@ declare namespace IWshRuntimeLibrary {
          * when restoring a minimized window.
          * * **10** -- Sets the show-state based on the state of the program that started the application.
          */
-        Run(Command: string, WindowStyle?: WindowStyle, WaitOnReturn?: boolean): number;
-        SendKeys(Keys: string, Wait?: boolean): void;
+        Run(Command: string, WindowStyle?: WindowStyle, WaitOnReturn?: boolean,): number;
+        SendKeys(Keys: string, Wait?: boolean,): void;
         readonly SpecialFolders: WshCollection;
     }
 
@@ -371,7 +388,7 @@ declare namespace IWshRuntimeLibrary {
         readonly FullName: string;
         Hotkey: string;
         IconLocation: string;
-        Load(PathLink: string): void;
+        Load(PathLink: string,): void;
         readonly RelativePath: string;
         Save(): void;
         TargetPath: string;
@@ -393,7 +410,7 @@ declare namespace IWshRuntimeLibrary {
         private 'IWshRuntimeLibrary.WshURLShortcut_typekey': WshURLShortcut;
         private constructor();
         readonly FullName: string;
-        Load(PathLink: string): void;
+        Load(PathLink: string,): void;
         Save(): void;
         TargetPath: string;
     }
@@ -402,7 +419,7 @@ declare namespace WSHControllerLibrary {
     class WSHController {
         private 'WSHControllerLibrary.WSHController_typekey': WSHController;
         private constructor();
-        CreateScript(Command: string, Server?: any): any;
+        CreateScript(Command: string, Server?: any,): any;
     }
 }
 
@@ -412,16 +429,16 @@ declare namespace ScriptSigner {
         private constructor();
 
         /** @param Store [Store='my'] */
-        Sign(FileExtension: string, Text: string, Certificate: string, Store?: string): string;
+        Sign(FileExtension: string, Text: string, Certificate: string, Store?: string,): string;
 
         /** @param Store [Store='my'] */
-        SignFile(FileName: string, Certificate: string, Store?: string): void;
+        SignFile(FileName: string, Certificate: string, Store?: string,): void;
 
         /** @param ShowUI [ShowUI=false] */
-        Verify(FileExtension: string, Text: string, ShowUI?: boolean): boolean;
+        Verify(FileExtension: string, Text: string, ShowUI?: boolean,): boolean;
 
         /** @param ShowUI [ShowUI=false] */
-        VerifyFile(FileName: string, ShowUI?: boolean): boolean;
+        VerifyFile(FileName: string, ShowUI?: boolean,): boolean;
     }
 }
 
@@ -433,5 +450,10 @@ interface ActiveXObjectNameMap {
 }
 
 interface ActiveXObject {
-    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
+    set(
+        obj: IWshRuntimeLibrary.WshEnvironment,
+        propertyName: 'Item',
+        parameterTypes: [string,],
+        newValue: string,
+    ): void;
 }

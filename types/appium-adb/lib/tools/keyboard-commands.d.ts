@@ -18,7 +18,7 @@ interface KeyboardCommands {
      * @returns `false` if the keyboard was already hidden
      * @throws If the keyboard cannot be hidden.
      */
-    hideKeyboard(timeoutMs?: number): Promise<boolean>;
+    hideKeyboard(timeoutMs?: number,): Promise<boolean>;
 
     /**
      * Retrieve the state of the software keyboard on the device under test.

@@ -4,21 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-///<reference types="angular" />
+/// <reference types="angular" />
 
 import * as ng from 'angular';
 
 declare module 'angular' {
     export namespace cgNotify {
-
         interface INotifyService {
-
             /**
              * The notify function can either be passed a string or an object.
              * This function will return an object with a close() method and a message property.
              * @param message
              */
-            (message: string): INotify;
+            (message: string,): INotify;
 
             /**
              * When passing an object, the object parameters can be:
@@ -65,8 +63,7 @@ declare module 'angular' {
                  * Optional. Element that contains each notification. Defaults to document.body.
                  */
                 container?: any;
-            }): INotify;
-
+            },): INotify;
 
             /**
              * Call config to set the default configuration options for angular-notify.
@@ -108,7 +105,7 @@ declare module 'angular' {
                  * The maximum number of total notifications that can be visible at one time. Older notifications will be closed when the maximum is reached.
                  */
                 maximumOpen?: number | undefined;
-            }): void;
+            },): void;
 
             /**
              * Closes all currently open notifications.

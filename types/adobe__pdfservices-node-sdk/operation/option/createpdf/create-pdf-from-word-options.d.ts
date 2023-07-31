@@ -160,7 +160,7 @@ export class CreatePDFFromWordOptions {
      * Returns a builder for {@link CreatePDFFromWordOptions}.
      */
     static get Builder(): any;
-    constructor(builder: any);
+    constructor(builder: any,);
     documentLanguage: any;
     createTaggedPDF: any;
     validate(): any;

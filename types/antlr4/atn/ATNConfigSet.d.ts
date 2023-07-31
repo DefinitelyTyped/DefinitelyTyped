@@ -1,10 +1,10 @@
 import BitSet from '../misc/BitSet';
 import HashCode from '../misc/HashCode';
 import HashSet from '../misc/HashSet';
+import DoubleDict from '../utils/DoubleDict';
 import ATNConfig from './ATNConfig';
 import ATNSimulator from './ATNSimulator';
 import SemanticContext from './SemanticContext';
-import DoubleDict from '../utils/DoubleDict';
 
 /**
  * Specialized `Set<{@link ATNConfig}>` that can track
@@ -51,7 +51,7 @@ export default class ATNConfigSet {
     dipsIntoOuterContext: boolean;
     cachedHashCode: number;
 
-    constructor(fullCtx: boolean);
+    constructor(fullCtx: boolean,);
 
     /**
      * Adding a new config means merging contexts with existing configs for
@@ -62,31 +62,31 @@ export default class ATNConfigSet {
      * This method updates {@link dipsIntoOuterContext} and
      * {@link hasSemanticContext} when necessary.
      */
-    add(config: ATNConfig, mergeCache?: DoubleDict): boolean;
+    add(config: ATNConfig, mergeCache?: DoubleDict,): boolean;
 
     getStates(): HashSet;
 
     getPredicates(): SemanticContext[];
 
-    optimizeConfigs(interpreter: ATNSimulator): void;
+    optimizeConfigs(interpreter: ATNSimulator,): void;
 
-    addAll(coll: ATNConfig[]): boolean;
+    addAll(coll: ATNConfig[],): boolean;
 
-    equals(other: ATNConfigSet): boolean;
+    equals(other: ATNConfigSet,): boolean;
 
     hashCode(): number;
 
-    updateHashCode(hash: HashCode): void;
+    updateHashCode(hash: HashCode,): void;
 
     isEmpty(): boolean;
 
-    contains(item: any): boolean;
+    contains(item: any,): boolean;
 
-    containsFast(item: any): boolean;
+    containsFast(item: any,): boolean;
 
     clear(): void;
 
-    setReadonly(readOnly: boolean): void;
+    setReadonly(readOnly: boolean,): void;
 
     toString(): string;
 

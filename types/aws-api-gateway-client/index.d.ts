@@ -36,12 +36,12 @@ export interface ApiGatewayClient {
             queryParams?: { [key: string]: string | number | boolean };
             timeout?: number;
         },
-        body?: string
+        body?: string,
     ): Promise<Response>;
 }
 
 export const apigClientFactory: {
-    newClient(apiGatewayClientConfig: ApiGatewayClientConfig): ApiGatewayClient;
+    newClient(apiGatewayClientConfig: ApiGatewayClientConfig,): ApiGatewayClient;
 };
 
 export default apigClientFactory;

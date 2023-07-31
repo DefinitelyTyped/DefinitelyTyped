@@ -9,11 +9,20 @@ export = AngularTooltips;
 
 declare namespace AngularTooltips {
     interface TooltipsConfProvider {
-        configure(options: TooltipsConfProviderOptions): void;
+        configure(options: TooltipsConfProviderOptions,): void;
     }
 
     interface TooltipsConfProviderOptions {
-        side?: 'left' | 'right' | 'top' | 'bottom' | 'top left' | 'top right' | 'bottom left' | 'bottom right' | undefined;
+        side?:
+            | 'left'
+            | 'right'
+            | 'top'
+            | 'bottom'
+            | 'top left'
+            | 'top right'
+            | 'bottom left'
+            | 'bottom right'
+            | undefined;
         showTrigger?: string | undefined;
         hideTrigger?: string | undefined;
         class?: string | undefined;

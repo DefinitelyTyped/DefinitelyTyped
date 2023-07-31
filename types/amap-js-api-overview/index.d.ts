@@ -14,7 +14,7 @@ declare namespace AMap {
             open: Event<'open'>;
             close: Event<'close'>;
         }
-        interface Options<L extends TileLayer = TileLayer> {
+        interface Options<L extends TileLayer = TileLayer,> {
             /**
              * 鹰眼窗体中需显示的切片图层
              */
@@ -33,8 +33,8 @@ declare namespace AMap {
     /**
      * 地图鹰眼插件
      */
-    class OverView<L extends TileLayer = TileLayer> extends EventEmitter {
-        constructor(options?: OverView.Options<L>);
+    class OverView<L extends TileLayer = TileLayer,> extends EventEmitter {
+        constructor(options?: OverView.Options<L>,);
         /**
          * 显示鹰眼窗体
          */
@@ -55,7 +55,7 @@ declare namespace AMap {
          * 设置鹰眼中需显示的切片图层
          * @param tileLayer 切片图层
          */
-        setTileLayer(tileLayer: L): void;
+        setTileLayer(tileLayer: L,): void;
         /**
          * 获取窗体中显示的切片图层
          */

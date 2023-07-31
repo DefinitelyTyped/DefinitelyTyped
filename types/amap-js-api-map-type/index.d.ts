@@ -31,7 +31,7 @@ declare namespace AMap {
     }
 
     class MapType extends EventEmitter {
-        constructor(options?: MapType.Options);
+        constructor(options?: MapType.Options,);
         show(): void;
         hide(): void;
     }

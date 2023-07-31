@@ -1,5 +1,5 @@
-import AmChart from "./AmChart";
-import Slice from "./Slice";
+import AmChart from './AmChart';
+import Slice from './Slice';
 
 /**
  * AmPieChart class creates pie/donut chart.
@@ -274,23 +274,23 @@ export default class AmPieChart extends AmChart {
     /**
      * You can trigger the click on a slice from outside. index - the number of a slice or Slice object.
      */
-    clickSlice(index: number): void;
+    clickSlice(index: number,): void;
     /**
      * Hides slice. index - the number of a slice or Slice object.
      */
-    hideSlice(index: number): void;
+    hideSlice(index: number,): void;
     /**
      * You can simulate roll-out of a slice from outside. index - the number of a slice or Slice object.
      */
-    rollOutSlice(index: number): void;
+    rollOutSlice(index: number,): void;
     /**
      * You can simulate roll-over a slice from outside. index - the number of a slice or Slice object.
      */
-    rollOverSlice(index: number): void;
+    rollOverSlice(index: number,): void;
     /**
      * Shows slice. index - the number of a slice or Slice object.
      */
-    showSlice(index: number): void;
+    showSlice(index: number,): void;
     /**
      * Adds event listener of the type "clickSlice" or "pullInSlice" or "pullOutSlice" to the object.
      * @param type Always "clickSlice" or "pullInSlice" or "pullOutSlice".

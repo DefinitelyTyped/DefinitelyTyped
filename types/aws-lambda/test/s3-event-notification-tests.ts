@@ -28,7 +28,7 @@ declare let eventBridgeEventSource: 'aws.s3';
 
 const S3ObjectAccessTierChangedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectAccessTierChangedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Access Tier Changed' = event['detail-type'];
     const detail: S3ObjectAccessTierChangedNotificationEventDetail = event.detail;
@@ -41,7 +41,7 @@ const S3ObjectAccessTierChangedNotificationEventHandler: S3NotificationEventBrid
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -62,14 +62,14 @@ const S3ObjectAccessTierChangedNotificationEventHandler: S3NotificationEventBrid
     exampleEvent.detail['destination-access-tier'] = 'DEEP_ARCHIVE_ACCESS';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectACLUpdatedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectACLUpdatedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object ACL Updated' = event['detail-type'];
     const detail: S3ObjectACLUpdatedNotificationEventDetail = event.detail;
@@ -82,7 +82,7 @@ const S3ObjectACLUpdatedNotificationEventHandler: S3NotificationEventBridgeHandl
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -100,14 +100,14 @@ const S3ObjectACLUpdatedNotificationEventHandler: S3NotificationEventBridgeHandl
     };
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectCreatedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectCreatedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Created' = event['detail-type'];
     const detail: S3ObjectCreatedNotificationEventDetail = event.detail;
@@ -120,7 +120,7 @@ const S3ObjectCreatedNotificationEventHandler: S3NotificationEventBridgeHandler<
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -145,14 +145,14 @@ const S3ObjectCreatedNotificationEventHandler: S3NotificationEventBridgeHandler<
     exampleEvent.detail.reason = 'CompleteMultipartUpload';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectDeletedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectDeletedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Deleted' = event['detail-type'];
     const detail: S3ObjectDeletedNotificationEventDetail = event.detail;
@@ -165,7 +165,7 @@ const S3ObjectDeletedNotificationEventHandler: S3NotificationEventBridgeHandler<
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -194,7 +194,7 @@ const S3ObjectDeletedNotificationEventHandler: S3NotificationEventBridgeHandler<
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -215,14 +215,14 @@ const S3ObjectDeletedNotificationEventHandler: S3NotificationEventBridgeHandler<
     lifecycleExpirationExampleEvent2.detail['deletion-type'] = 'Permanently Deleted';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectRestoreCompletedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectRestoreCompletedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Restore Completed' = event['detail-type'];
     const detail: S3ObjectRestoreCompletedNotificationEventDetail = event.detail;
@@ -235,7 +235,7 @@ const S3ObjectRestoreCompletedNotificationEventHandler: S3NotificationEventBridg
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -264,14 +264,14 @@ const S3ObjectRestoreCompletedNotificationEventHandler: S3NotificationEventBridg
     exampleEvent.detail['source-storage-class'] = 'REDUCED_REDUNDANCY';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectRestoreExpiredNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectRestoreExpiredNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Restore Expired' = event['detail-type'];
     const detail: S3ObjectRestoreExpiredNotificationEventDetail = event.detail;
@@ -284,7 +284,7 @@ const S3ObjectRestoreExpiredNotificationEventHandler: S3NotificationEventBridgeH
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -301,14 +301,14 @@ const S3ObjectRestoreExpiredNotificationEventHandler: S3NotificationEventBridgeH
     };
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectRestoreInitiatedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectRestoreInitiatedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Restore Initiated' = event['detail-type'];
     const detail: S3ObjectRestoreInitiatedNotificationEventDetail = event.detail;
@@ -321,7 +321,7 @@ const S3ObjectRestoreInitiatedNotificationEventHandler: S3NotificationEventBridg
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -350,14 +350,14 @@ const S3ObjectRestoreInitiatedNotificationEventHandler: S3NotificationEventBridg
     exampleEvent.detail['source-storage-class'] = 'REDUCED_REDUNDANCY';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectStorageClassChangedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectStorageClassChangedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Storage Class Changed' = event['detail-type'];
     const detail: S3ObjectStorageClassChangedNotificationEventDetail = event.detail;
@@ -370,7 +370,7 @@ const S3ObjectStorageClassChangedNotificationEventHandler: S3NotificationEventBr
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -398,14 +398,14 @@ const S3ObjectStorageClassChangedNotificationEventHandler: S3NotificationEventBr
     exampleEvent.detail['destination-storage-class'] = 'REDUCED_REDUNDANCY';
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectTagsAddedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectTagsAddedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Tags Added' = event['detail-type'];
     const detail: S3ObjectTagsAddedNotificationEventDetail = event.detail;
@@ -418,7 +418,7 @@ const S3ObjectTagsAddedNotificationEventHandler: S3NotificationEventBridgeHandle
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -436,14 +436,14 @@ const S3ObjectTagsAddedNotificationEventHandler: S3NotificationEventBridgeHandle
     };
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const S3ObjectTagsDeletedNotificationEventHandler: S3NotificationEventBridgeHandler<
     S3ObjectTagsDeletedNotificationEvent
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     eventBridgeEventSource = event.source;
     const detailType: 'Object Tags Deleted' = event['detail-type'];
     const detail: S3ObjectTagsDeletedNotificationEventDetail = event.detail;
@@ -456,7 +456,7 @@ const S3ObjectTagsDeletedNotificationEventHandler: S3NotificationEventBridgeHand
         account: '123456789012',
         time: '2021-11-12T00:00:00Z',
         region: 'ca-central-1',
-        resources: ['arn:aws:s3:::example-bucket'],
+        resources: ['arn:aws:s3:::example-bucket',],
         detail: {
             version: '0',
             bucket: {
@@ -474,7 +474,7 @@ const S3ObjectTagsDeletedNotificationEventHandler: S3NotificationEventBridgeHand
     };
 
     const result: undefined = undefined;
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };

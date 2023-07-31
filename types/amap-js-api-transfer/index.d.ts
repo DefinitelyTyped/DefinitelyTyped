@@ -32,7 +32,7 @@ declare namespace AMap {
         /**
          * 不乘地铁模式
          */
-        NO_SUBWAY = 5
+        NO_SUBWAY = 5,
     }
 
     namespace Transfer {
@@ -533,7 +533,7 @@ declare namespace AMap {
          * 公交换乘服务
          * @param options 构造函数选项
          */
-        constructor(options: Transfer.Options);
+        constructor(options: Transfer.Options,);
         /**
          * 根据起点和终点坐标，进行公交换乘查询
          * @param origin 起点坐标
@@ -543,7 +543,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultBase) => void
+            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultBase,) => void,
         ): void;
         /**
          * 根据起点和终点坐标，进行公交换乘查询
@@ -551,30 +551,30 @@ declare namespace AMap {
          * @param callback 路径回调
          */
         search(
-            path: [Transfer.SearchPoint, Transfer.SearchPoint],
-            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultExt) => void
+            path: [Transfer.SearchPoint, Transfer.SearchPoint,],
+            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultExt,) => void,
         ): void;
         /**
          * 设置公交换乘策略
          * @param policy 公交换乘策略
          */
-        setPolicy(policy?: TransferPolicy): void;
+        setPolicy(policy?: TransferPolicy,): void;
         /**
          * 设置公交换乘查询的城市
          * @param city  城市名称、城市区号、电话区号
          */
-        setCity(city?: string): void;
+        setCity(city?: string,): void;
         /**
          * 设置公交换乘查询的城市
          * @param city  城市名称、城市区号、电话区号
          */
-        setCityd(city?: string): void;
+        setCityd(city?: string,): void;
         /**
          * 设置公交路径规划出发时间
          * @param time 时间
          * @param date 日期
          */
-        leaveAt(time?: string, date?: string): void;
+        leaveAt(time?: string, date?: string,): void;
         /**
          * 清除结果显示
          */
@@ -587,20 +587,20 @@ declare namespace AMap {
             /**
              * 起点坐标
              */
-            origin: LocationValue,
+            origin: LocationValue;
             /**
              * 起点名称
              */
-            originName?: string | undefined,
+            originName?: string | undefined;
             /**
              * 终点坐标
              */
-            destination: LocationValue,
+            destination: LocationValue;
             /**
              * 终点名称
              */
-            destinationName?: string | undefined
-        }): void;
+            destinationName?: string | undefined;
+        },): void;
 
         // internal
         open(): void;

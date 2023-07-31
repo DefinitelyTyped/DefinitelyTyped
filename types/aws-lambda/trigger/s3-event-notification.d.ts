@@ -1,5 +1,5 @@
-import { EventBridgeEvent } from './eventbridge';
-import { Handler } from '../handler';
+import { Handler, } from '../handler';
+import { EventBridgeEvent, } from './eventbridge';
 
 export interface S3ObjectAccessTierChangedNotificationEventDetail {
     version: '0';
@@ -211,52 +211,62 @@ export interface S3ObjectTagsDeletedNotificationEventDetail {
 }
 
 export interface S3ObjectAccessTierChangedNotificationEvent
-    extends EventBridgeEvent<'Object Access Tier Changed', S3ObjectAccessTierChangedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Access Tier Changed', S3ObjectAccessTierChangedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectACLUpdatedNotificationEvent
-    extends EventBridgeEvent<'Object ACL Updated', S3ObjectACLUpdatedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object ACL Updated', S3ObjectACLUpdatedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectCreatedNotificationEvent
-    extends EventBridgeEvent<'Object Created', S3ObjectCreatedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Created', S3ObjectCreatedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectDeletedNotificationEvent
-    extends EventBridgeEvent<'Object Deleted', S3ObjectDeletedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Deleted', S3ObjectDeletedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectRestoreCompletedNotificationEvent
-    extends EventBridgeEvent<'Object Restore Completed', S3ObjectRestoreCompletedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Restore Completed', S3ObjectRestoreCompletedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectRestoreExpiredNotificationEvent
-    extends EventBridgeEvent<'Object Restore Expired', S3ObjectRestoreExpiredNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Restore Expired', S3ObjectRestoreExpiredNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectRestoreInitiatedNotificationEvent
-    extends EventBridgeEvent<'Object Restore Initiated', S3ObjectRestoreInitiatedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Restore Initiated', S3ObjectRestoreInitiatedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectStorageClassChangedNotificationEvent
-    extends EventBridgeEvent<'Object Storage Class Changed', S3ObjectStorageClassChangedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Storage Class Changed', S3ObjectStorageClassChangedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectTagsAddedNotificationEvent
-    extends EventBridgeEvent<'Object Tags Added', S3ObjectTagsAddedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Tags Added', S3ObjectTagsAddedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
 export interface S3ObjectTagsDeletedNotificationEvent
-    extends EventBridgeEvent<'Object Tags Deleted', S3ObjectTagsDeletedNotificationEventDetail> {
+    extends EventBridgeEvent<'Object Tags Deleted', S3ObjectTagsDeletedNotificationEventDetail>
+{
     source: 'aws.s3';
 }
 
@@ -272,7 +282,7 @@ export type S3NotificationEvent =
     | S3ObjectTagsAddedNotificationEvent
     | S3ObjectTagsDeletedNotificationEvent;
 
-export type S3NotificationEventBridgeHandler<EventType extends S3NotificationEvent = S3NotificationEvent> = Handler<
+export type S3NotificationEventBridgeHandler<EventType extends S3NotificationEvent = S3NotificationEvent,> = Handler<
     EventBridgeEvent<EventType['detail-type'], EventType['detail']> & {
         source: 'aws.s3';
     },

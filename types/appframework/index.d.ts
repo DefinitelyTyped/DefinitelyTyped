@@ -10,11 +10,11 @@ interface appFrameworkStatic {
      * @param {String|Element|Object|Array} selector
      * @param {String|Element|Object} [context]
      */
-    (selector: string, context?: any): appFrameworkCollection;
-    (collection: appFrameworkCollection): appFrameworkCollection;
-    (element: HTMLElement): appFrameworkCollection;
-    (htmlString: string): appFrameworkCollection;
-    (object: any): appFrameworkCollection;
+    (selector: string, context?: any,): appFrameworkCollection;
+    (collection: appFrameworkCollection,): appFrameworkCollection;
+    (element: HTMLElement,): appFrameworkCollection;
+    (htmlString: string,): appFrameworkCollection;
+    (object: any,): appFrameworkCollection;
 
     /**
      * Checks to see if the parameter is a $afm object
@@ -27,7 +27,7 @@ interface appFrameworkStatic {
      * @return {Boolean}
      * @title $.is$(param)
      */
-    is$(obj: any): boolean;
+    is$(obj: any,): boolean;
 
     /**
      * Map takes in elements and executes a callback function on each and returns a collection
@@ -40,7 +40,7 @@ interface appFrameworkStatic {
      * @return {Object} appframework object with elements in it
      * @title $.map(elements,callback)
      */
-    map(collection: any[], fn: (item: any, index: number) => any): any[];
+    map(collection: any[], fn: (item: any, index: number,) => any,): any[];
 
     /**
      * Iterates through elements and executes a callback.  Returns if false
@@ -53,8 +53,8 @@ interface appFrameworkStatic {
      * @return {Array} elements
      * @title $.each(elements,callback)
      */
-    each(collection: any[], fn: (index: number, item: any) => any): void;
-    each(collection: any, fn: (key: string, value: any) => any): void;
+    each(collection: any[], fn: (index: number, item: any,) => any,): void;
+    each(collection: any, fn: (key: string, value: any,) => any,): void;
 
     /**
      * Extends an object with additional arguments
@@ -82,7 +82,7 @@ interface appFrameworkStatic {
      * @example $.isArray([1]);
      * @title $.isArray(param)
      */
-    isArray(object: any): boolean;
+    isArray(object: any,): boolean;
 
     /**
      * Checks to see if the parameter is a function
@@ -95,7 +95,7 @@ interface appFrameworkStatic {
      * @return {Boolean}
      * @title $.isFunction(param)
      */
-    isFunction(object: any): boolean;
+    isFunction(object: any,): boolean;
 
     /**
      * Checks to see if the parameter is a object
@@ -108,7 +108,7 @@ interface appFrameworkStatic {
      * @return {Boolean}
      * @title $.isObject(param)
      */
-    isObject(object: any): boolean;
+    isObject(object: any,): boolean;
 
     /**
      * Prototype for afm object.  Also extens $.fn
@@ -130,7 +130,7 @@ interface appFrameworkStatic {
      * @param {Object} options
      * @title $.jsonP(options)
      */
-    jsonP(options: appFrameworkAjaxSettings): {};
+    jsonP(options: appFrameworkAjaxSettings,): {};
 
     /**
      * Execute an Ajax call with the given options
@@ -158,7 +158,7 @@ interface appFrameworkStatic {
      * @param {Object} options
      * @title $.ajax(options)
      */
-    ajax(options: appFrameworkAjaxSettings): XMLHttpRequest;
+    ajax(options: appFrameworkAjaxSettings,): XMLHttpRequest;
 
     /**
      * Shorthand call to an Ajax GET request
@@ -170,7 +170,7 @@ interface appFrameworkStatic {
      * @param {Function} success
      * @title $.get(url,success)
      */
-    get(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void): XMLHttpRequest;
+    get(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest,) => void,): XMLHttpRequest;
 
     /**
      * Shorthand call to an Ajax POST request
@@ -184,8 +184,17 @@ interface appFrameworkStatic {
      * @param {String} [dataType]
      * @title $.post(url,[data],success,[dataType])
      */
-    post(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void, dataType?: string): XMLHttpRequest;
-    post(url: string, data: any, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void, dataType?: string): XMLHttpRequest;
+    post(
+        url: string,
+        fn: (data: any, status?: string, xhr?: XMLHttpRequest,) => void,
+        dataType?: string,
+    ): XMLHttpRequest;
+    post(
+        url: string,
+        data: any,
+        fn: (data: any, status?: string, xhr?: XMLHttpRequest,) => void,
+        dataType?: string,
+    ): XMLHttpRequest;
 
     /**
      * Shorthand call to an Ajax request that expects a JSON response
@@ -198,8 +207,8 @@ interface appFrameworkStatic {
      * @param {Function} [success]
      * @title $.getJSON(url,data,success)
      */
-    getJSON(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void): XMLHttpRequest;
-    getJSON(url: string, data: any, fn: (data: any, status: string, xhr: XMLHttpRequest) => void ): XMLHttpRequest;
+    getJSON(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest,) => void,): XMLHttpRequest;
+    getJSON(url: string, data: any, fn: (data: any, status: string, xhr: XMLHttpRequest,) => void,): XMLHttpRequest;
 
     /**
      * Converts an object into a key/value par with an optional prefix.  Used for converting objects to a query string
@@ -216,7 +225,7 @@ interface appFrameworkStatic {
      * @return {String} Key/value pair representation
      * @title $.param(object,[prefix];
      */
-    param(object: any, prefix?: string): string;
+    param(object: any, prefix?: string,): string;
 
     /**
      * Used for backwards compatibility.  Uses native JSON.parse function
@@ -228,7 +237,7 @@ interface appFrameworkStatic {
      * @return {Object}
      * @title $.parseJSON(string)
      */
-    parseJSON(str: string): any;
+    parseJSON(str: string,): any;
 
     /**
      * Helper function to convert XML into  the DOM node representation
@@ -240,7 +249,7 @@ interface appFrameworkStatic {
      * @return {Object} DOM nodes
      * @title $.parseXML(string)
      */
-    parseXML(str: string): any;
+    parseXML(str: string,): any;
 
     /**
      * Utility function to create a psuedo GUID
@@ -258,8 +267,8 @@ interface appFrameworkStatic {
      ```
      @returns matrix with postion
      */
-    getCssMatrix(node: HTMLElement): appFrameworkCssMatrix;
-    getCssMatrix(elem: appFrameworkCollection): appFrameworkCssMatrix;
+    getCssMatrix(node: HTMLElement,): appFrameworkCssMatrix;
+    getCssMatrix(elem: appFrameworkCollection,): appFrameworkCssMatrix;
 
     /**
      * $.create - a faster alertnative to $("<div id='main'>this is some text</div>");
@@ -272,7 +281,7 @@ interface appFrameworkStatic {
      * @return {Object} Returns an appframework object
      * @title $.create(type,[params])
      */
-    create(type: string, params?: any): appFrameworkCollection;
+    create(type: string, params?: any,): appFrameworkCollection;
 
     /**
      * $.query  - a faster alertnative to $("div");
@@ -284,7 +293,7 @@ interface appFrameworkStatic {
      * @return {Object} Returns an appframework object
      * @title $.query(selector,[context])
      */
-    query(selector: string, context?: any): appFrameworkCollection;
+    query(selector: string, context?: any,): appFrameworkCollection;
 
     /**
      * Creates a custom event to be used internally.
@@ -293,7 +302,7 @@ interface appFrameworkStatic {
      * @return {event} a custom event that can then be dispatched
      * @title $.Event(type,props);
      */
-    Event(type: string, props: any): any;
+    Event(type: string, props: any,): any;
 
     /* The following are for events on objects */
     /**
@@ -306,7 +315,7 @@ interface appFrameworkStatic {
      * @param {Function} function to execute
      * @title $.bind(object,event,function);
      */
-    bind(object: any, event: string, fn: Function): void;
+    bind(object: any, event: string, fn: Function,): void;
 
     /**
      * Trigger an event to an object instead of a DOM Node
@@ -318,7 +327,7 @@ interface appFrameworkStatic {
      * @param {Array} arguments
      * @title $.trigger(object,event,argments);
      */
-    trigger(object: any, event: string, args?: any[]): void;
+    trigger(object: any, event: string, args?: any[],): void;
 
     /**
      * Unbind an event to an object instead of a DOM Node
@@ -330,7 +339,7 @@ interface appFrameworkStatic {
      * @param {Function} function to execute
      * @title $.unbind(object,event,function);
      */
-    unbind(object: any, event: string, fn: Function): void;
+    unbind(object: any, event: string, fn: Function,): void;
 
     /**
      * Creates a proxy function so you can change the 'this' context in the function
@@ -351,7 +360,7 @@ interface appFrameworkStatic {
      * @param {Object} Context
      * @title $.proxy(callback,context);
      */
-    proxy(callback: Function, context: any): void;
+    proxy(callback: Function, context: any,): void;
 
     /**
      * Function to clean up node content to prevent memory leaks
@@ -363,7 +372,7 @@ interface appFrameworkStatic {
      * @param {bool} Kill nodes
      * @title $.cleanUpContent(node,itself,kill)
      */
-    cleanUpContent(node: HTMLElement, itself?: boolean, kill?: boolean): void;
+    cleanUpContent(node: HTMLElement, itself?: boolean, kill?: boolean,): void;
 
     /**
      * This adds a command to execute in the JS stack, but is faster then setTimeout
@@ -374,7 +383,7 @@ interface appFrameworkStatic {
      * @param {Object} context
      * @param {Array} arguments
      */
-    asap(callback: Function, context?: any, args?: any[]): void;
+    asap(callback: Function, context?: any, args?: any[],): void;
 
     /**
      * this function executes javascript in HTML.
@@ -384,8 +393,8 @@ interface appFrameworkStatic {
      * @param {String|DOM} content
      * @title $.parseJS(content);
      */
-    parseJS(content: string): void;
-    parseJS(content: HTMLElement): void;
+    parseJS(content: string,): void;
+    parseJS(content: HTMLElement,): void;
 
     /**
      * Helper function to parse the user agent.  Sets the following
@@ -431,15 +440,23 @@ interface appFrameworkStatic {
         cssPrefix: string;
         cssTransformStart: string;
         cssTransformEnd: string;
-    }
+    };
 }
 
 interface appFrameworkCollection {
-    reduce(callbackfn: (previousValue: appFrameworkCollection, currentValue: appFrameworkCollection, currentIndex: number, array: appFrameworkCollection[]) => appFrameworkCollection, initialValue?: appFrameworkCollection): appFrameworkCollection;
+    reduce(
+        callbackfn: (
+            previousValue: appFrameworkCollection,
+            currentValue: appFrameworkCollection,
+            currentIndex: number,
+            array: appFrameworkCollection[],
+        ) => appFrameworkCollection,
+        initialValue?: appFrameworkCollection,
+    ): appFrameworkCollection;
     push(...items: appFrameworkCollection[]): number;
-    indexOf(searchElement: appFrameworkCollection, fromIndex?: number): number;
+    indexOf(searchElement: appFrameworkCollection, fromIndex?: number,): number;
     concat(...items: appFrameworkCollection[]): appFrameworkCollection[];
-    slice(start: number, end?: number): appFrameworkCollection[];
+    slice(start: number, end?: number,): appFrameworkCollection[];
     length: number;
 
     /**
@@ -452,7 +469,7 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().map(function)
      */
-    map(fn: (index: number, item: any) => any): appFrameworkCollection;
+    map(fn: (index: number, item: any,) => any,): appFrameworkCollection;
     /**
      * Iterates through all elements and applys a callback function
      ```
@@ -463,8 +480,8 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().each(function)
      */
-    each(fn: (index: number, item: any) => any): appFrameworkCollection;
-    forEach(fn: (item: any, index: number) => any): void;
+    each(fn: (index: number, item: any,) => any,): appFrameworkCollection;
+    forEach(fn: (item: any, index: number,) => any,): void;
 
     /**
      * This is executed when DOMContentLoaded happens, or after if you've registered for it.
@@ -476,7 +493,7 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().ready(function)
      */
-    ready(fn: Function): appFrameworkStatic;
+    ready(fn: Function,): appFrameworkStatic;
 
     /**
      * Searches through the collection and reduces them to elements that match the selector
@@ -491,7 +508,7 @@ interface appFrameworkCollection {
      * @title $().find(selector)
 
      */
-    find(selector: string): appFrameworkCollection;
+    find(selector: string,): appFrameworkCollection;
 
     /**
      * Gets or sets the innerHTML for the collection.
@@ -508,8 +525,8 @@ interface appFrameworkCollection {
      * @title $().html([html])
      */
     html(): string;
-    html(html: string): appFrameworkCollection;
-    html(html: string, cleanup: boolean): appFrameworkCollection;
+    html(html: string,): appFrameworkCollection;
+    html(html: string, cleanup: boolean,): appFrameworkCollection;
 
     /**
      * Gets or sets the innerText for the collection.
@@ -524,7 +541,7 @@ interface appFrameworkCollection {
      * @title $().text([text])
      */
     text(): string;
-    text(text: string): appFrameworkCollection;
+    text(text: string,): appFrameworkCollection;
 
     /**
      * Gets or sets a css property for the collection
@@ -540,9 +557,9 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().css(attribute,[value])
      */
-    css(property: string): any;
-    css(property: string, value: any): appFrameworkCollection;
-    css(properties: any): appFrameworkCollection;
+    css(property: string,): any;
+    css(property: string, value: any,): appFrameworkCollection;
+    css(properties: any,): appFrameworkCollection;
 
     /**
      * Performs a css vendor specific transform:translate operation on the collection.
@@ -554,7 +571,7 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().vendorCss(value)
      */
-    vendorCss(transform: string): appFrameworkCollection;
+    vendorCss(transform: string,): appFrameworkCollection;
 
     /**
      * Gets the computed style of CSS values
@@ -566,7 +583,7 @@ interface appFrameworkCollection {
      * @return {Int|String|Float|} css vlaue
      * @title $().computedStyle()
      */
-    computedStyle(css: string): appFrameworkCollection;
+    computedStyle(css: string,): appFrameworkCollection;
 
     /**
      * Sets the innerHTML of all elements to an empty string
@@ -614,7 +631,7 @@ interface appFrameworkCollection {
      * @return {Object} an appframework object
      * @title $().toggle([show])
      */
-    toggle(show?: boolean): appFrameworkCollection;
+    toggle(show?: boolean,): appFrameworkCollection;
 
     /**
      * Gets or sets an elements value
@@ -629,7 +646,7 @@ interface appFrameworkCollection {
      * @title $().val([value])
      */
     val(): string;
-    val(value: string): appFrameworkCollection;
+    val(value: string,): appFrameworkCollection;
 
     /**
      * Gets or sets an attribute on an element
@@ -645,10 +662,10 @@ interface appFrameworkCollection {
      * @return {String|Object|Array|Function} If used as a getter, return the attribute value.  If a setter, return an appframework object
      * @title $().attr(attribute,[value])
      */
-    attr(attribute: string): any;
-    attr(attributeHash: Object): appFrameworkCollection;
-    attr(attribute: string, value: string): appFrameworkCollection;
-    attr(attribute: string, value: any): appFrameworkCollection;
+    attr(attribute: string,): any;
+    attr(attributeHash: Object,): appFrameworkCollection;
+    attr(attribute: string, value: string,): appFrameworkCollection;
+    attr(attribute: string, value: any,): appFrameworkCollection;
 
     /**
      * Removes an attribute on the elements
@@ -660,7 +677,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().removeAttr(attribute)
      */
-    removeAttr(attribute: string): appFrameworkCollection;
+    removeAttr(attribute: string,): appFrameworkCollection;
 
     /**
      * Gets or sets a property on an element
@@ -676,10 +693,10 @@ interface appFrameworkCollection {
      * @return {String|Object|Array|Function} If used as a getter, return the property value.  If a setter, return an appframework object
      * @title $().prop(property,[value])
      */
-    prop(attribute: string): any;
-    prop(attributeHash: Object): appFrameworkCollection;
-    prop(attribute: string, value: string): appFrameworkCollection;
-    prop(attribute: string, value: any): appFrameworkCollection;
+    prop(attribute: string,): any;
+    prop(attributeHash: Object,): appFrameworkCollection;
+    prop(attribute: string, value: string,): appFrameworkCollection;
+    prop(attribute: string, value: any,): appFrameworkCollection;
 
     /**
      * Removes a property on the elements
@@ -691,7 +708,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().removeProp(attribute)
      */
-    removeProp(attribute: string): appFrameworkCollection;
+    removeProp(attribute: string,): appFrameworkCollection;
 
     /**
      * Removes elements based off a selector
@@ -709,10 +726,10 @@ interface appFrameworkCollection {
      * @title $().remove(selector)
      */
     remove(): appFrameworkCollection;
-    remove(selector: string): appFrameworkCollection;
-    remove(element: HTMLElement): appFrameworkCollection;
-    remove(elements: any[]): appFrameworkCollection;
-    remove(elements: appFrameworkCollection): appFrameworkCollection;
+    remove(selector: string,): appFrameworkCollection;
+    remove(element: HTMLElement,): appFrameworkCollection;
+    remove(elements: any[],): appFrameworkCollection;
+    remove(elements: appFrameworkCollection,): appFrameworkCollection;
 
     /**
      * Adds a css class to elements.
@@ -724,7 +741,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().addClass(name)
      */
-    addClass(className: string): appFrameworkCollection;
+    addClass(className: string,): appFrameworkCollection;
 
     /**
      * Removes a css class from elements.
@@ -737,7 +754,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().removeClass(name)
      */
-    removeClass(className: string): appFrameworkCollection;
+    removeClass(className: string,): appFrameworkCollection;
 
     /**
     * Adds or removes a css class to elements.
@@ -750,7 +767,7 @@ interface appFrameworkCollection {
     * @return {Object} appframework object
     * @title $().toggleClass(name)
     */
-    toggleClass(name: string, state?: boolean): appFrameworkCollection;
+    toggleClass(name: string, state?: boolean,): appFrameworkCollection;
 
     /**
      * Replaces a css class on elements.
@@ -763,7 +780,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().replaceClass(old, new)
      */
-    replaceClass(oldClassName: string, newClassName: string): appFrameworkCollection;
+    replaceClass(oldClassName: string, newClassName: string,): appFrameworkCollection;
 
     /**
      * Checks to see if an element has a class.
@@ -777,7 +794,7 @@ interface appFrameworkCollection {
      * @return {Boolean}
      * @title $().hasClass(name,[element])
      */
-    hasClass(className: string, element: HTMLElement): boolean;
+    hasClass(className: string, element: HTMLElement,): boolean;
 
     /**
      * Appends to the elements
@@ -794,7 +811,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().append(element,[insert])
      */
-    append(content: any): appFrameworkCollection;
+    append(content: any,): appFrameworkCollection;
 
     /**
      * Appends the current collection to the selector
@@ -806,7 +823,7 @@ interface appFrameworkCollection {
      * @param {Boolean} [insert] insert or append
      * @title $().appendTo(element,[insert])
      */
-    appendTo(target: any): appFrameworkCollection;
+    appendTo(target: any,): appFrameworkCollection;
 
     /**
      * Prepends the current collection to the selector
@@ -817,7 +834,7 @@ interface appFrameworkCollection {
      * @param {String|Object} Selector to prepent to
      * @title $().prependTo(element)
      */
-    prependTo(target: any): appFrameworkCollection;
+    prependTo(target: any,): appFrameworkCollection;
 
     /**
      * Prepends to the elements
@@ -831,7 +848,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().prepend(element)
      */
-    prepend(content: any): appFrameworkCollection;
+    prepend(content: any,): appFrameworkCollection;
 
     /**
      * Inserts collection before the target (adjacent)
@@ -842,7 +859,7 @@ interface appFrameworkCollection {
      * @param {String|Object} Target
      * @title $().insertBefore(target);
      */
-    insertBefore(target: any): appFrameworkCollection;
+    insertBefore(target: any,): appFrameworkCollection;
 
     /**
      * Inserts collection after the target (adjacent)
@@ -852,7 +869,7 @@ interface appFrameworkCollection {
      * @param {String|Object} target
      * @title $().insertAfter(target);
      */
-    insertAfter(target: any): void;
+    insertAfter(target: any,): void;
 
     /**
      * Returns the raw DOM element.
@@ -866,7 +883,7 @@ interface appFrameworkCollection {
      * @title $().get([index])
      */
     get(): HTMLElement[];
-    get(index: number): HTMLElement;
+    get(index: number,): HTMLElement;
 
     /**
      * Returns the offset of the element, including traversing up the tree
@@ -918,7 +935,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object with unique parents
      * @title $().parent(selector)
      */
-    parent(selector?: any): appFrameworkCollection;
+    parent(selector?: any,): appFrameworkCollection;
 
     /**
      * Returns the parents of the elements based off the selector (traversing up until html document)
@@ -932,7 +949,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object with unique parents
      * @title $().parents(selector)
      */
-    parents(selector?: any): appFrameworkCollection;
+    parents(selector?: any,): appFrameworkCollection;
 
     /**
      * Returns the child nodes of the elements based off the selector
@@ -946,7 +963,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object with unique children
      * @title $().children(selector)
      */
-    children(selector?: any): appFrameworkCollection;
+    children(selector?: any,): appFrameworkCollection;
 
     /**
      * Returns the siblings of the element based off the selector
@@ -960,7 +977,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object with unique siblings
      * @title $().siblings(selector)
      */
-    siblings(selector?: any): appFrameworkCollection;
+    siblings(selector?: any,): appFrameworkCollection;
 
     /**
      * Returns the closest element based off the selector and optional context
@@ -975,7 +992,7 @@ interface appFrameworkCollection {
      * @return {Object} Returns an appframework object with the closest element based off the selector
      * @title $().closest(selector,[context]);
      */
-    closest(selector?: any): appFrameworkCollection;
+    closest(selector?: any,): appFrameworkCollection;
 
     /**
      * Filters elements based off the selector
@@ -989,7 +1006,7 @@ interface appFrameworkCollection {
      * @return {Object} Returns an appframework object after the filter was run
      * @title $().filter(selector);
      */
-    filter(selector?: any): appFrameworkCollection;
+    filter(selector?: any,): appFrameworkCollection;
 
     /**
      * Basically the reverse of filter.  Return all elements that do NOT match the selector
@@ -1003,7 +1020,7 @@ interface appFrameworkCollection {
      * @return {Object} Returns an appframework object after the filter was run
      * @title $().not(selector);
      */
-    not(selector?: any): appFrameworkCollection;
+    not(selector?: any,): appFrameworkCollection;
 
     /**
      * Gets or set data-* attribute parameters on elements (when a string)
@@ -1019,9 +1036,9 @@ interface appFrameworkCollection {
      * @return {String|Object} returns the value or appframework object
      * @title $().data(key,[value]);
      */
-    data(attribute: string): any;
-    data(attribute: string, value: string): appFrameworkCollection;
-    data(attribute: string, value: any): appFrameworkCollection;
+    data(attribute: string,): any;
+    data(attribute: string, value: string,): appFrameworkCollection;
+    data(attribute: string, value: any,): appFrameworkCollection;
 
     /**
      * Rolls back the appframework elements when filters were applied
@@ -1046,7 +1063,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object of cloned nodes
      * @title $().clone();
      */
-    clone(deep?: boolean): appFrameworkCollection;
+    clone(deep?: boolean,): appFrameworkCollection;
 
     /**
      * Returns the number of elements in the collection
@@ -1079,7 +1096,7 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().eq(index)
      */
-    eq(index: number): appFrameworkCollection;
+    eq(index: number,): appFrameworkCollection;
 
     /**
      * Returns the index of the selected element in the collection
@@ -1091,7 +1108,7 @@ interface appFrameworkCollection {
      * @title $().index(elem)
      */
     index(): number;
-    index(selector: any): number;
+    index(selector: any,): number;
 
     /**
      * Returns boolean if the object is a type of the selector
@@ -1102,7 +1119,7 @@ interface appFrameworkCollection {
      * @return boolean
      * @title $().is(selector)
      */
-    is(selector: any): number;
+    is(selector: any,): number;
 
     /**
      * Binds an event to each element in the collection and executes the callback
@@ -1115,8 +1132,8 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().bind(event,callback)
      */
-    bind(eventHash: Object): appFrameworkCollection;
-    bind(eventName: string, fn: (e: Event) => any): appFrameworkCollection;
+    bind(eventHash: Object,): appFrameworkCollection;
+    bind(eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Unbinds an event to each element in the collection.  If a callback is passed in, we remove just that one, otherwise we remove all callbacks for those events
@@ -1130,9 +1147,9 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().unbind(event,[callback]);
      */
-    unbind(eventHash: {}): appFrameworkCollection;
-    unbind(eventName?: string): appFrameworkCollection;
-    unbind(eventName: string, fn?: (e: Event) => any): appFrameworkCollection;
+    unbind(eventHash: {},): appFrameworkCollection;
+    unbind(eventName?: string,): appFrameworkCollection;
+    unbind(eventName: string, fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Binds an event to each element in the collection that will only execute once.  When it executes, we remove the event listener then right away so it no longer happens
@@ -1145,8 +1162,8 @@ interface appFrameworkCollection {
      * @return appframework object
      * @title $().one(event,callback);
      */
-    one(eventHash: {}): appFrameworkCollection;
-    one(eventName: string, fn: (e: Event) => any): appFrameworkCollection;
+    one(eventHash: {},): appFrameworkCollection;
+    one(eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Delegate an event based off the selector.  The event will be registered at the parent level, but executes on the selector.
@@ -1160,8 +1177,8 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().delegate(selector,event,callback)
      */
-    delegate(selector: any, eventHash: {}): appFrameworkCollection;
-    delegate(selector: any, eventName: string, fn: (e: Event) => any): appFrameworkCollection;
+    delegate(selector: any, eventHash: {},): appFrameworkCollection;
+    delegate(selector: any, eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Unbinds events that were registered through delegate.  It acts upon the selector and event.  If a callback is specified, it will remove that one, otherwise it removes all of them.
@@ -1176,8 +1193,8 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().undelegate(selector,event,[callback]);
      */
-    undelegate(selector: any, eventHash: {}): appFrameworkCollection;
-    undelegate(selector: any, eventName: string, fn: (e: Event) => any): appFrameworkCollection;
+    undelegate(selector: any, eventHash: {},): appFrameworkCollection;
+    undelegate(selector: any, eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Similar to delegate, but the function parameter order is easier to understand.
@@ -1192,9 +1209,9 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().on(event,selector,callback);
      */
-    on(eventHash: {}, selector?: any): appFrameworkCollection;
-    on(eventName: string, fn: (e: Event) => any): appFrameworkCollection;
-    on(eventName: string, selector: string, fn: (e: Event) => any): appFrameworkCollection;
+    on(eventHash: {}, selector?: any,): appFrameworkCollection;
+    on(eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
+    on(eventName: string, selector: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      * Removes event listeners for .on()
@@ -1210,9 +1227,9 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().off(event,selector,[callback])
      */
-    off(eventHash: {}, selector?: any): appFrameworkCollection;
-    off(eventName: string, fn: (e: Event) => any): appFrameworkCollection;
-    off(eventName: string, selector: string, fn: (e: Event) => any): appFrameworkCollection;
+    off(eventHash: {}, selector?: any,): appFrameworkCollection;
+    off(eventName: string, fn: (e: Event,) => any,): appFrameworkCollection;
+    off(eventName: string, selector: string, fn: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      This triggers an event to be dispatched.  Usefull for emulating events, etc.
@@ -1225,76 +1242,76 @@ interface appFrameworkCollection {
      * @return {Object} appframework object
      * @title $().trigger(event,data);
      */
-    trigger(eventName: string, data?: any): appFrameworkCollection;
-    trigger(eventHash: {}, data?: any): appFrameworkCollection;
+    trigger(eventName: string, data?: any,): appFrameworkCollection;
+    trigger(eventHash: {}, data?: any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().click instead of $().bind("click")
      */
-    click(fn?: (e: Event) => any): appFrameworkCollection;
+    click(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().keydown instead of $().bind("keydown")
      */
-    keydown(fn?: (e: Event) => any): appFrameworkCollection;
+    keydown(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().keyup instead of $().bind("keyup")
      */
-    keyup(fn?: (e: Event) => any): appFrameworkCollection;
+    keyup(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().keypress instead of $().bind("keypress")
      */
-    keypress(fn?: (e: Event) => any): appFrameworkCollection;
+    keypress(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().submit instead of $().bind("submit")
      */
-    submit(fn?: (e: Event) => any): appFrameworkCollection;
+    submit(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().load instead of $().bind("load")
      */
-    load(fn?: (e: Event) => any): appFrameworkCollection;
+    load(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().resize instead of $().bind("resize")
      */
-    resize(fn?: (e: Event) => any): appFrameworkCollection;
+    resize(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().change instead of $().bind("change")
      */
-    change(fn?: (e: Event) => any): appFrameworkCollection;
+    change(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().select instead of $().bind("select")
      */
-    select(fn?: (e: Event) => any): appFrameworkCollection;
+    select(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().error instead of $().bind("error")
      */
-    error(fn?: (e: Event) => any): appFrameworkCollection;
+    error(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().focus instead of $().bind("focus")
      */
-    focus(fn?: (e: Event) => any): appFrameworkCollection;
+    focus(fn?: (e: Event,) => any,): appFrameworkCollection;
 
     /**
      custom events since people want to do $().blur instead of $().bind("blur")
      */
-    blur(fn?: (e: Event) => any): appFrameworkCollection;
+    blur(fn?: (e: Event,) => any,): appFrameworkCollection;
 }
 
 interface appFrameworkAjaxSettings {
     type?: string | undefined;
-    beforeSend?: ((xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings) => boolean) | undefined;
-    success?: ((data: any, status: string, xhr: XMLHttpRequest) => void) | undefined;
-    error?: ((xhr: XMLHttpRequest, errorType: string, error: Error) => void) | undefined;
-    complete?: ((xhr: XMLHttpRequest, status: string) => void) | undefined;
+    beforeSend?: ((xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings,) => boolean) | undefined;
+    success?: ((data: any, status: string, xhr: XMLHttpRequest,) => void) | undefined;
+    error?: ((xhr: XMLHttpRequest, errorType: string, error: Error,) => void) | undefined;
+    complete?: ((xhr: XMLHttpRequest, status: string,) => void) | undefined;
     timeout?: number | undefined;
     url?: string | undefined;
     contentType?: string | undefined;
@@ -1314,5 +1331,5 @@ interface appFrameworkCssMatrix {
     f: number;
 }
 
-declare var af: (fn: ($: appFrameworkStatic) => void) => void;
+declare var af: (fn: ($: appFrameworkStatic,) => void,) => void;
 declare var $: appFrameworkStatic;

@@ -1,67 +1,67 @@
-import { HotkeysProvider, Hotkey } from 'angular-hotkeys';
-import { module } from 'angular';
+import { module, } from 'angular';
+import { Hotkey, HotkeysProvider, } from 'angular-hotkeys';
 
-module('myApp', ['cfp.hotkeys'])
-    .config((hotkeysProvider: HotkeysProvider) => {
+module('myApp', ['cfp.hotkeys',],)
+    .config((hotkeysProvider: HotkeysProvider,) => {
         hotkeysProvider.includeCheatSheet = false;
         const somehotKeyObj: Hotkey = {
             combo: '',
-            callback: () => { }
+            callback: () => {},
         };
-    });
+    },);
 
 function someInjectionService(
     scope: ng.IScope,
     hotkeyProvider: ng.hotkeys.HotkeysProvider,
-    hotkeyObj: ng.hotkeys.Hotkey
+    hotkeyObj: ng.hotkeys.Hotkey,
 ) {
-    hotkeyProvider.add("mod+s", "saves a file", (event: Event, hotkey: ng.hotkeys.Hotkey) => { });
-    hotkeyProvider.add(["mod+s"], "saves a file", (event: Event, hotkey: ng.hotkeys.Hotkey) => { });
-    hotkeyProvider.add(hotkeyObj);
-    hotkeyProvider.bindTo(scope);
-    hotkeyProvider.del("mod+s");
-    hotkeyProvider.del(["mod+s"]);
-    hotkeyProvider.get("mod+s");
-    hotkeyProvider.get(["mod+s"]);
+    hotkeyProvider.add('mod+s', 'saves a file', (event: Event, hotkey: ng.hotkeys.Hotkey,) => {},);
+    hotkeyProvider.add(['mod+s',], 'saves a file', (event: Event, hotkey: ng.hotkeys.Hotkey,) => {},);
+    hotkeyProvider.add(hotkeyObj,);
+    hotkeyProvider.bindTo(scope,);
+    hotkeyProvider.del('mod+s',);
+    hotkeyProvider.del(['mod+s',],);
+    hotkeyProvider.get('mod+s',);
+    hotkeyProvider.get(['mod+s',],);
     hotkeyProvider.toggleCheatSheet();
 
-    hotkeyProvider.add(hotkeyObj.combo, hotkeyObj.description, hotkeyObj.callback);
+    hotkeyProvider.add(hotkeyObj.combo, hotkeyObj.description, hotkeyObj.callback,);
 
-    hotkeyProvider.bindTo(scope)
-        .add(hotkeyObj)
-        .add(hotkeyObj)
+    hotkeyProvider.bindTo(scope,)
+        .add(hotkeyObj,)
+        .add(hotkeyObj,)
         .add({
             combo: 'w',
             description: 'blah blah',
-            callback: () => { }
-        })
+            callback: () => {},
+        },)
         .add({
-            combo: ['w', 'mod+w'],
+            combo: ['w', 'mod+w',],
             description: 'blah blah',
-            callback: () => { }
-        });
+            callback: () => {},
+        },);
 
     hotkeyProvider.add({
         combo: 'ctrl+w',
         description: 'Description goes here',
-        callback: (event, hotkey) => {
+        callback: (event, hotkey,) => {
             event.preventDefault();
-        }
-    });
+        },
+    },);
 
     hotkeyProvider.add({
         combo: 'ctrl+x',
-        callback: (event, hotkey) => {
+        callback: (event, hotkey,) => {
             //
-        }
-    });
+        },
+    },);
 
     hotkeyProvider.add({
         combo: 'ctrl+w',
         description: 'Description goes here',
-        allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
-        callback(event, hotkey) {
+        allowIn: ['INPUT', 'SELECT', 'TEXTAREA',],
+        callback(event, hotkey,) {
             event.preventDefault();
-        }
-    });
+        },
+    },);
 }

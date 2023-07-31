@@ -1,4 +1,4 @@
-import { BitmapText } from 'athenajs';
+import { BitmapText, } from 'athenajs';
 
 const bitmap: BitmapText = new BitmapText('myBitmap', {
     size: 'big',
@@ -12,7 +12,7 @@ const bitmap: BitmapText = new BitmapText('myBitmap', {
     startY: 36,
     charWidth: 18,
     charHeight: 18,
-    imageId: 'font'
-});
+    imageId: 'font',
+},);
 
 bitmap.center();

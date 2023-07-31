@@ -5,18 +5,16 @@ export class PageRanges {
     _ranges: any[];
     /**
      * Adds a single page. Page index starts from 1.
-     *
      */
-    addSinglePage(page: number): void;
+    addSinglePage(page: number,): void;
     /**
-     *
      * Adds a page range. Page indexes start from 1.
      */
-    addPageRange(start: number, end: number): void;
+    addPageRange(start: number, end: number,): void;
     /**
      * Adds a page range from the specified start page index to the last page. Page index starts from 1.
      */
-    addAllFrom(start: number): void;
+    addAllFrom(start: number,): void;
     /**
      * Adds a page range representing all pages.
      */

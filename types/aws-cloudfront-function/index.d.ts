@@ -5,7 +5,7 @@
 
 declare namespace AWSCloudFrontFunction {
     interface Event {
-        version: "1.0";
+        version: '1.0';
         context: Context;
         viewer: Viewer;
         request: Request;
@@ -15,7 +15,7 @@ declare namespace AWSCloudFrontFunction {
     interface Context {
         distributionDomainName: string;
         distributionId: string;
-        eventType: "viewer-request" | "viewer-response";
+        eventType: 'viewer-request' | 'viewer-response';
         requestId: string;
     }
 

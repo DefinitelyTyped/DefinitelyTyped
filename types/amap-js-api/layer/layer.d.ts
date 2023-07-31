@@ -16,12 +16,12 @@ declare namespace AMap {
         /**
          * 获取图层缩放范围
          */
-        getZooms(): [number, number];
+        getZooms(): [number, number,];
         /**
          * 设置透明度
          * @param alpha 透明度
          */
-        setOpacity(alpha: number): void;
+        setOpacity(alpha: number,): void;
         /**
          * 设置透明度
          */
@@ -38,7 +38,7 @@ declare namespace AMap {
          * 设置图层所属地图
          * @param map map对象
          */
-        setMap(map?: Map | null): void;
+        setMap(map?: Map | null,): void;
         /**
          * 获取图层所属地图
          */
@@ -47,7 +47,7 @@ declare namespace AMap {
          * 设置图层的层级
          * @param index 层级
          */
-        setzIndex(index: number): void;
+        setzIndex(index: number,): void;
         /**
          * 获取图层的层级
          */

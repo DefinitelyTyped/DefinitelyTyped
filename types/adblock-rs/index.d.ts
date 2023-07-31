@@ -27,24 +27,24 @@ export interface ParseOptions {
 }
 
 export class Engine {
-    constructor(rules: FilterSet, debug: boolean);
-    addResource(resource: ResourceType): null;
-    check(url: string, source_url: string, request_type: string, debug?: boolean): boolean;
+    constructor(rules: FilterSet, debug: boolean,);
+    addResource(resource: ResourceType,): null;
+    check(url: string, source_url: string, request_type: string, debug?: boolean,): boolean;
     clearTags(): null;
-    deserialize(serialized_handle: ArrayBuffer): null;
-    enableTag(tag: string): null;
-    getResource(name: string): ResourceType;
+    deserialize(serialized_handle: ArrayBuffer,): null;
+    enableTag(tag: string,): null;
+    getResource(name: string,): ResourceType;
     serializeCompressed(): ArrayBuffer;
     serializeRaw(): ArrayBuffer;
-    tagExists(tag: string): boolean;
-    useResources(resources: ResourceType[]): null;
+    tagExists(tag: string,): boolean;
+    useResources(resources: ResourceType[],): null;
 }
 
 export class FilterSet {
-    constructor(debug: boolean);
-    addFilter(filter: string, opts?: ParseOptions): null;
-    addFilters(rules: string[], opts?: ParseOptions): FilterListMetadata;
-    intoContentBlocking(): [unknown, string[]] | null; // FIXME
+    constructor(debug: boolean,);
+    addFilter(filter: string, opts?: ParseOptions,): null;
+    addFilters(rules: string[], opts?: ParseOptions,): FilterListMetadata;
+    intoContentBlocking(): [unknown, string[],] | null; // FIXME
 }
 
 export const FilterFormat: {

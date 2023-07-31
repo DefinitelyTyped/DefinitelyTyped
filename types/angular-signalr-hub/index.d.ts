@@ -7,7 +7,7 @@
 /// <reference types="signalr" />
 /// <reference types="angular" />
 
-declare module "angular-signalr-hub" {
+declare module 'angular-signalr-hub' {
     let _: string;
     export = _;
 }
@@ -17,7 +17,7 @@ declare namespace ngSignalr {
         /**
          * Creates a new Hub connection
          */
-        new (hubName: string, options: HubOptions): Hub
+        new(hubName: string, options: HubOptions,): Hub;
     }
 
     class Hub {
@@ -25,7 +25,7 @@ declare namespace ngSignalr {
         connection: SignalR.Connection;
         proxy: SignalR.Hub.Proxy;
 
-        on(event: string, fn: (...args: any[]) => void): void;
+        on(event: string, fn: (...args: any[]) => void,): void;
         invoke(method: string, ...args: any[]): JQueryDeferred<any>;
         disconnect(): void;
         connect(): JQueryPromise<any>;
@@ -55,7 +55,7 @@ declare namespace ngSignalr {
         /**
          * Function to handle hub connection errors
          */
-        errorHandler?: ((error: string) => void) | undefined;
+        errorHandler?: ((error: string,) => void) | undefined;
 
         /**
          * Enable/disable logging
@@ -75,6 +75,6 @@ declare namespace ngSignalr {
         /**
          * Function to handle hub connection state changed event
          */
-        stateChanged?: ((state: SignalR.StateChanged) => void) | undefined;
+        stateChanged?: ((state: SignalR.StateChanged,) => void) | undefined;
     }
 }

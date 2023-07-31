@@ -97,13 +97,17 @@ declare namespace ADOX {
          *
          * @param ConnectString Connection string
          */
-        Create(ConnectString: string): void;
+        Create(ConnectString: string,): void;
 
         /**
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification
          */
-        GetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): string;
-        GetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum): string;
+        GetObjectOwner(
+            ObjectName: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): string;
+        GetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum,): string;
         readonly Groups: Groups;
         readonly Procedures: Procedures;
 
@@ -111,8 +115,13 @@ declare namespace ADOX {
          * @param UserName Specifies the name of the **User** or **Group** to own the object
          * @param ObjectTypeId Specifies the GUID for a provider object type that is not defined by the OLE DB specification
          */
-        SetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, UserName: string, ObjectTypeId: any): void;
-        SetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum, UserName: string): void;
+        SetObjectOwner(
+            ObjectName: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            UserName: string,
+            ObjectTypeId: any,
+        ): void;
+        SetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum, UserName: string,): void;
         readonly Tables: Tables;
         readonly Users: Users;
         readonly Views: Views;
@@ -138,12 +147,12 @@ declare namespace ADOX {
          * @param Type [Type=202]
          * @param DefinedSize [DefinedSize=0]
          */
-        Append(Item: Column | string, Type?: ADODB.DataTypeEnum, DefinedSize?: number): void;
+        Append(Item: Column | string, Type?: ADODB.DataTypeEnum, DefinedSize?: number,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Column;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Column;
         Refresh(): void;
-        (Item: string | number): Column;
+        (Item: string | number,): Column;
     }
 
     class Group {
@@ -154,8 +163,12 @@ declare namespace ADOX {
          * @param Name Specifies the name of the object for which to set permissions. Pass `null` if you want to get the permissions for the object container.
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): RightsEnum;
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum): RightsEnum;
+        GetPermissions(
+            Name: string | null,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): RightsEnum;
+        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum,): RightsEnum;
         Name: string;
         ParentCatalog: Catalog;
         readonly Properties: ADODB.Properties;
@@ -165,18 +178,31 @@ declare namespace ADOX {
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, Action: ActionEnum, Rights: RightsEnum, Inherit: InheritTypeEnum, ObjectTypeId: any): void;
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum, Action: ActionEnum, Rights: RightsEnum, Inherit?: InheritTypeEnum): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit: InheritTypeEnum,
+            ObjectTypeId: any,
+        ): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit?: InheritTypeEnum,
+        ): void;
         readonly Users: Users;
     }
 
     interface Groups {
-        Append(Item: Group | string): void;
+        Append(Item: Group | string,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Group;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Group;
         Refresh(): void;
-        (Item: string | number): Group;
+        (Item: string | number,): Group;
     }
 
     class Index {
@@ -192,12 +218,12 @@ declare namespace ADOX {
     }
 
     interface Indexes {
-        Append(Item: Index | string, Columns?: string | SafeArray<string>): void; // is this actually two overloads, one with [Index] and one with [string,string | SafeArray<string>]?
+        Append(Item: Index | string, Columns?: string | SafeArray<string>,): void; // is this actually two overloads, one with [Index] and one with [string,string | SafeArray<string>]?
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Index;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Index;
         Refresh(): void;
-        (Item: string | number): Index;
+        (Item: string | number,): Index;
     }
 
     class Key {
@@ -217,12 +243,18 @@ declare namespace ADOX {
          * @param RelatedTable [RelatedTable='']
          * @param RelatedColumn [RelatedColumn='']
          */
-        Append(Item: Key | string, Type?: KeyTypeEnum, Column?: string | SafeArray<string>, RelatedTable?: string, RelatedColumn?: string): void;
+        Append(
+            Item: Key | string,
+            Type?: KeyTypeEnum,
+            Column?: string | SafeArray<string>,
+            RelatedTable?: string,
+            RelatedColumn?: string,
+        ): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Key;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Key;
         Refresh(): void;
-        (Item: string | number): Key;
+        (Item: string | number,): Key;
     }
 
     class Procedure {
@@ -235,12 +267,12 @@ declare namespace ADOX {
     }
 
     interface Procedures {
-        Append(Name: string, Command: ADODB.Command): void;
+        Append(Name: string, Command: ADODB.Command,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Procedure;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Procedure;
         Refresh(): void;
-        (Item: string | number): Procedure;
+        (Item: string | number,): Procedure;
     }
 
     class Table {
@@ -258,25 +290,29 @@ declare namespace ADOX {
     }
 
     interface Tables {
-        Append(Item: Table | string): void;
+        Append(Item: Table | string,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): Table;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): Table;
         Refresh(): void;
-        (Item: string | number): Table;
+        (Item: string | number,): Table;
     }
 
     class User {
         private constructor();
         private 'ADOX.User_typekey': User;
-        ChangePassword(OldPassword: string, NewPassword: string): void;
+        ChangePassword(OldPassword: string, NewPassword: string,): void;
 
         /**
          * @param Name Specifies the name of the object for which to set permissions. Pass `null` if you want to get the permissions for the object container.
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): RightsEnum;
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum): RightsEnum;
+        GetPermissions(
+            Name: string | null,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): RightsEnum;
+        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum,): RightsEnum;
         readonly Groups: Groups;
         Name: string;
         ParentCatalog: Catalog;
@@ -287,18 +323,31 @@ declare namespace ADOX {
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, Action: ActionEnum, Rights: RightsEnum, Inherit: InheritTypeEnum, ObjectTypeId: any): void;
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum, Action: ActionEnum, Rights: RightsEnum, Inherit?: InheritTypeEnum): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit: InheritTypeEnum,
+            ObjectTypeId: any,
+        ): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit?: InheritTypeEnum,
+        ): void;
     }
 
     interface Users {
         /** @param Password [Password=''] */
-        Append(Item: User | string, Password?: string): void;
+        Append(Item: User | string, Password?: string,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): User;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): User;
         Refresh(): void;
-        (Item: string | number): User;
+        (Item: string | number,): User;
     }
 
     class View {
@@ -311,12 +360,12 @@ declare namespace ADOX {
     }
 
     interface Views {
-        Append(Name: string, Command: ADODB.Command): void;
+        Append(Name: string, Command: ADODB.Command,): void;
         readonly Count: number;
-        Delete(Item: string | number): void;
-        Item(Item: string | number): View;
+        Delete(Item: string | number,): void;
+        Item(Item: string | number,): View;
         Refresh(): void;
-        (Item: string | number): View;
+        (Item: string | number,): View;
     }
 }
 

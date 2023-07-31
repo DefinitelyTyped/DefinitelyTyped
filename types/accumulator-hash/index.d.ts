@@ -29,9 +29,9 @@ declare class RollingHash {
      * @param init Can be supplied to initialise the state buffer. If it is not supplied, a random `init`
      * buffer is generated.
      */
-    constructor(init?: ArrayLike<number>);
+    constructor(init?: ArrayLike<number>,);
     /**
      * Hash some data.
      */
-    hash(data: Buffer | Uint8Array): Buffer | Uint8Array;
+    hash(data: Buffer | Uint8Array,): Buffer | Uint8Array;
 }

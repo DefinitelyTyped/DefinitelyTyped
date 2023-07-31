@@ -3,17 +3,17 @@ const arena = new Arena();
 
 const makeRequests = async () => {
     // Channel request
-    const channel = await arena.channel('arena-influences').get();
+    const channel = await arena.channel('arena-influences',).get();
     // Block request
-    const block = await arena.block(3088).get();
+    const block = await arena.block(3088,).get();
     // User request
-    const user = await arena.user(16).get();
+    const user = await arena.user(16,).get();
     // Search request
-    const search = await arena.search('fruit').all();
+    const search = await arena.search('fruit',).all();
     // Group request
-    const group = await arena.group('are-na-team').get();
+    const group = await arena.group('are-na-team',).get();
 
-    return { channel, block, user, search, group };
+    return { channel, block, user, search, group, };
 };
 
-Promise.resolve(makeRequests()).then(_ => {});
+Promise.resolve(makeRequests(),).then(_ => {},);

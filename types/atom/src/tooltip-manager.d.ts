@@ -1,4 +1,4 @@
-import { Disposable, Tooltip } from '../index';
+import { Disposable, Tooltip, } from '../index';
 
 export type TooltipPlacement =
     | 'top'
@@ -18,25 +18,25 @@ export interface TooltipManager {
         target: HTMLElement | JQueryCompatible,
         options:
             | {
-                  item?: object | undefined;
-              }
+                item?: object | undefined;
+            }
             | ({
-                  title?: string | (() => string) | undefined;
-                  html?: boolean | undefined;
-                  keyBindingCommand?: string | undefined;
-                  keyBindingTarget?: HTMLElement | undefined;
-              } & {
-                  class?: string | undefined;
-                  placement?: TooltipPlacement | (() => TooltipPlacement) | undefined;
-                  trigger?: 'click' | 'hover' | 'focus' | 'manual' | undefined;
-                  delay?: { show: number; hide: number } | undefined;
-              }),
+                title?: string | (() => string) | undefined;
+                html?: boolean | undefined;
+                keyBindingCommand?: string | undefined;
+                keyBindingTarget?: HTMLElement | undefined;
+            } & {
+                class?: string | undefined;
+                placement?: TooltipPlacement | (() => TooltipPlacement) | undefined;
+                trigger?: 'click' | 'hover' | 'focus' | 'manual' | undefined;
+                delay?: { show: number; hide: number } | undefined;
+            }),
     ): Disposable;
 
     /** Find the tooltips that have been applied to the given element. */
-    findTooltips(target: HTMLElement): Tooltip[];
+    findTooltips(target: HTMLElement,): Tooltip[];
 }
 
-export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+export interface JQueryCompatible<Element extends Node = HTMLElement,> extends Iterable<Element> {
     jquery: string;
 }

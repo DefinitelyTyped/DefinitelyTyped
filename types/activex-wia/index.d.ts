@@ -204,26 +204,33 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowAcquireImage(DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean,
-            CancelError?: boolean): ImageFile | null;
+        ShowAcquireImage(
+            DeviceType?: WiaDeviceType,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            FormatID?: string,
+            AlwaysSelectDevice?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): ImageFile | null;
 
         /** Launches the Windows Scanner and Camera Wizard and returns Nothing. Future versions may return a collection of ImageFile objects. */
-        ShowAcquisitionWizard(Device: Device): null;
+        ShowAcquisitionWizard(Device: Device,): null;
 
         /**
          * Displays the properties dialog box for the specified Device
          * @param boolean [CancelError=false]
          */
-        ShowDeviceProperties(Device: Device, CancelError?: boolean): void;
+        ShowDeviceProperties(Device: Device, CancelError?: boolean,): void;
 
         /**
          * Displays the properties dialog box for the specified Item
          * @param boolean [CancelError=false]
          */
-        ShowItemProperties(Item: Item, CancelError?: boolean): void;
+        ShowItemProperties(Item: Item, CancelError?: boolean,): void;
 
         /** Launches the Photo Printing Wizard with the absolute path of a specific file or Vector of absolute paths to files */
-        ShowPhotoPrintingWizard(Files: string | Vector<string>): void;
+        ShowPhotoPrintingWizard(Files: string | Vector<string>,): void;
 
         /**
          * Displays a dialog box that enables the user to select a hardware device for image acquisition. Returns the selected Device object on success,
@@ -232,7 +239,11 @@ declare namespace WIA {
          * @param boolean [AlwaysSelectDevice=false]
          * @param boolean [CancelError=false]
          */
-        ShowSelectDevice(DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean): Device | null;
+        ShowSelectDevice(
+            DeviceType?: WiaDeviceType,
+            AlwaysSelectDevice?: boolean,
+            CancelError?: boolean,
+        ): Device | null;
 
         /**
          * Displays a dialog box that enables the user to select an item for transfer from a hardware device for image acquisition. Returns the selection as an
@@ -243,14 +254,21 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowSelectItems(Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean): Items | null;
+        ShowSelectItems(
+            Device: Device,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            SingleSelect?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): Items | null;
 
         /**
          * Displays a progress dialog box while transferring the specified Item to the local machine. See Item.Transfer for additional information.
          * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
          * @param boolean [CancelError=false]
          */
-        ShowTransfer(Item: Item, FormatID?: string, CancelError?: boolean): ImageFile;
+        ShowTransfer(Item: Item, FormatID?: string, CancelError?: boolean,): ImageFile;
     }
 
     /** The Device object represents an active connection to an imaging device. */
@@ -271,10 +289,10 @@ declare namespace WIA {
          * Issues the command specified by CommandID to the imaging device. CommandIDs are device dependent. Valid CommandIDs for this Device are contained in
          * the Commands collection.
          */
-        ExecuteCommand(CommandID: string): Item;
+        ExecuteCommand(CommandID: string,): Item;
 
         /** Returns the Item object specified by ItemID if it exists */
-        GetItem(ItemID: string): Item;
+        GetItem(ItemID: string,): Item;
 
         /** A collection of all items for this imaging device */
         readonly Items: Items;
@@ -310,10 +328,10 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Returns the specified item in the collection by position */
-        Item(Index: number): DeviceCommand;
+        Item(Index: number,): DeviceCommand;
 
         /** Returns the specified item in the collection by position */
-        (Index: number): DeviceCommand;
+        (Index: number,): DeviceCommand;
     }
 
     /** The DeviceEvent object describes an EventID that can be used when calling RegisterEvent or RegisterPersistentEvent on a DeviceManager object. */
@@ -343,10 +361,10 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Returns the specified item in the collection by position */
-        Item(Index: number): DeviceEvent;
+        Item(Index: number,): DeviceEvent;
 
         /** Returns the specified item in the collection by position */
-        (Index: number): DeviceEvent;
+        (Index: number,): DeviceEvent;
     }
 
     /**
@@ -379,10 +397,10 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Returns the specified item in the collection either by position or Device ID */
-        Item(Index: number | string): DeviceInfo;
+        Item(Index: number | string,): DeviceInfo;
 
         /** Returns the specified item in the collection either by position or Device ID */
-        (Index: number | string): DeviceInfo;
+        (Index: number | string,): DeviceInfo;
     }
 
     /**
@@ -401,28 +419,42 @@ declare namespace WIA {
          * device. Otherwise, OnEvent will only be called if the event specified occurs on the device specified.
          * @param string [DeviceID='*']
          */
-        RegisterEvent(EventID: string, DeviceID?: string): void;
+        RegisterEvent(EventID: string, DeviceID?: string,): void;
 
         /**
          * Registers the specified Command to launch when the specified EventID for the specified DeviceID occurs. Command can be either a ClassID or the full
          * path name and the appropriate command-line arguments needed to invoke the application.
          * @param string [DeviceID='*']
          */
-        RegisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        RegisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
 
         /**
          * Unregisters the specified EventID for the specified DeviceID. UnregisterEvent should only be called for EventID and DeviceID for which you called
          * RegisterEvent.
          * @param string [DeviceID='*']
          */
-        UnregisterEvent(EventID: string, DeviceID?: string): void;
+        UnregisterEvent(EventID: string, DeviceID?: string,): void;
 
         /**
          * Unregisters the specified Command for the specified EventID for the specified DeviceID. UnregisterPersistentEvent should only be called for the
          * Command, Name, Description, Icon, EventID and DeviceID for which you called RegisterPersistentEvent.
          * @param string [DeviceID='*']
          */
-        UnregisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        UnregisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
     }
 
     /**
@@ -473,10 +505,10 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Returns the specified item in the collection either by position or name */
-        Item(Index: number | string): FilterInfo;
+        Item(Index: number | string,): FilterInfo;
 
         /** Returns the specified item in the collection either by position or name */
-        (Index: number | string): FilterInfo;
+        (Index: number | string,): FilterInfo;
     }
 
     /** The Filters object is a collection of the Filters that will be applied to an ImageFile when you call the Apply method on the ImageProcess object. */
@@ -485,19 +517,19 @@ declare namespace WIA {
          * Appends/Inserts a new Filter of the specified FilterID into a Filter collection
          * @param number [Index=0]
          */
-        Add(FilterID: string, Index?: number): void;
+        Add(FilterID: string, Index?: number,): void;
 
         /** Returns the number of members in the collection */
         readonly Count: number;
 
         /** Returns the specified item in the collection by position or FilterID */
-        Item(Index: number): Filter;
+        Item(Index: number,): Filter;
 
         /** Removes the designated filter */
-        Remove(Index: number): void;
+        Remove(Index: number,): void;
 
         /** Returns the specified item in the collection by position or FilterID */
-        (Index: number): Filter;
+        (Index: number,): Filter;
     }
 
     /**
@@ -509,10 +541,10 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Returns the specified item in the collection by position */
-        Item(Index: number): string;
+        Item(Index: number,): string;
 
         /** Returns the specified item in the collection by position */
-        (Index: number): string;
+        (Index: number,): string;
     }
 
     /**
@@ -560,7 +592,7 @@ declare namespace WIA {
         readonly IsIndexedPixelFormat: boolean;
 
         /** Loads the ImageFile object with the specified File */
-        LoadFile(Filename: string): void;
+        LoadFile(Filename: string,): void;
 
         /** Returns the depth of the pixels of the image in bits per pixel */
         readonly PixelDepth: number;
@@ -569,7 +601,7 @@ declare namespace WIA {
         readonly Properties: Properties;
 
         /** Save the ImageFile object to the specified File */
-        SaveFile(Filename: string): void;
+        SaveFile(Filename: string,): void;
 
         /** Returns the Vertical pixels per inch of the image */
         readonly VerticalResolution: number;
@@ -584,7 +616,7 @@ declare namespace WIA {
         private 'WIA.ImageProcess_typekey': ImageProcess;
 
         /** Takes the specified ImageFile and returns the new ImageFile with all the filters applied on success */
-        Apply(Source: ImageFile): ImageFile;
+        Apply(Source: ImageFile,): ImageFile;
 
         /** A collection of all available filters */
         readonly FilterInfos: FilterInfos;
@@ -605,7 +637,7 @@ declare namespace WIA {
         readonly Commands: DeviceCommands;
 
         /** Issues the command specified by CommandID. CommandIDs are device dependent. Valid CommandIDs for this Item are contained in the Commands collection. */
-        ExecuteCommand(CommandID: string): Item;
+        ExecuteCommand(CommandID: string,): Item;
 
         /** A collection of all supported format types for this item */
         readonly Formats: Formats;
@@ -624,25 +656,25 @@ declare namespace WIA {
          * device. Future versions may return a collection of ImageFile objects.
          * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
          */
-        Transfer(FormatID?: string): ImageFile;
+        Transfer(FormatID?: string,): ImageFile;
     }
 
     /** The Items object contains a collection of Item objects. See the Items property on the Device or Item object for details on accessing the Items object. */
     interface Items {
         /** Adds a new Item with the specified Name and Flags. The Flags value is created by using the OR operation with members of the WiaItemFlags enumeration. */
-        Add(Name: string, Flags: number): void;
+        Add(Name: string, Flags: number,): void;
 
         /** Returns the number of members in the collection */
         readonly Count: number;
 
         /** Returns the specified item in the collection by position */
-        Item(Index: number): Item;
+        Item(Index: number,): Item;
 
         /** Removes the designated Item */
-        Remove(Index: number): void;
+        Remove(Index: number,): void;
 
         /** Returns the specified item in the collection by position */
-        (Index: number): Item;
+        (Index: number,): Item;
     }
 
     /**
@@ -654,13 +686,13 @@ declare namespace WIA {
         readonly Count: number;
 
         /** Indicates whether the specified Property exists in the collection */
-        Exists(Index: number | string): boolean;
+        Exists(Index: number | string,): boolean;
 
         /** Returns the specified item in the collection either by position or name. */
-        Item(Index: number | string): Property;
+        Item(Index: number | string,): Property;
 
         /** Returns the specified item in the collection either by position or name. */
-        (Index: number | string): Property;
+        (Index: number | string,): Property;
     }
 
     /**
@@ -730,13 +762,13 @@ declare namespace WIA {
      * The Vector object is a collection of values of the same type. It is used throughout the library in many different ways. The Vector object may be
      * created using "WIA.Vector" in a call to CreateObject.
      */
-    interface Vector<TItem = any> {
+    interface Vector<TItem = any,> {
         /**
          * If Index is not zero, Inserts a new element into the Vector collection before the specified Index. If Index is zero, Appends a new element to the
          * Vector collection.
          * @param number [Index=0]
          */
-        Add(Value: TItem, Index?: number): void;
+        Add(Value: TItem, Index?: number,): void;
 
         /** Returns/Sets the Vector of Bytes as an array of bytes */
         BinaryData: SafeArray;
@@ -756,10 +788,10 @@ declare namespace WIA {
          * @param number [Width=0]
          * @param number [Height=0]
          */
-        ImageFile(Width?: number, Height?: number): ImageFile;
+        ImageFile(Width?: number, Height?: number,): ImageFile;
 
         /** Returns the specified item in the vector by position */
-        Item(Index: number): TItem;
+        Item(Index: number,): TItem;
 
         /**
          * If the Vector of Bytes contains an image file, then Width and Height are ignored. Otherwise a Vector of Bytes must be RGB data and a Vector of Longs
@@ -767,10 +799,10 @@ declare namespace WIA {
          * @param number [Width=0]
          * @param number [Height=0]
          */
-        Picture(Width?: number, Height?: number): any;
+        Picture(Width?: number, Height?: number,): any;
 
         /** Removes the designated element and returns it if successful */
-        Remove(Index: number): TItem | null;
+        Remove(Index: number,): TItem | null;
 
         /**
          * Stores the string Value into the Vector of Bytes including the NULL terminator. Value may be truncated unless Resizable is True. The string will be
@@ -778,23 +810,30 @@ declare namespace WIA {
          * @param boolean [Resizable=true]
          * @param boolean [Unicode=true]
          */
-        SetFromString(Value: string, Resizable?: boolean, Unicode?: boolean): void;
+        SetFromString(Value: string, Resizable?: boolean, Unicode?: boolean,): void;
 
         /**
          * Returns a Vector of Bytes as a String
          * @param boolean [Unicode=true]
          */
-        String(Unicode?: boolean): string;
+        String(Unicode?: boolean,): string;
 
         /** Returns the specified item in the vector by position */
-        (Index: number): TItem;
+        (Index: number,): TItem;
     }
 }
 
 interface ActiveXObject {
-    on(obj: WIA.DeviceManager, event: 'OnEvent', argNames: ['EventID', 'DeviceID', 'ItemID'], handler: (
-        this: WIA.DeviceManager, parameter: { readonly EventID: string, readonly DeviceID: string, readonly ItemID: string }) => void): void;
-    set<TItem>(obj: WIA.Vector<TItem>, propertyName: 'Item', parameterTypes: [number], newValue: TItem): void;
+    on(
+        obj: WIA.DeviceManager,
+        event: 'OnEvent',
+        argNames: ['EventID', 'DeviceID', 'ItemID',],
+        handler: (
+            this: WIA.DeviceManager,
+            parameter: { readonly EventID: string; readonly DeviceID: string; readonly ItemID: string },
+        ) => void,
+    ): void;
+    set<TItem,>(obj: WIA.Vector<TItem>, propertyName: 'Item', parameterTypes: [number,], newValue: TItem,): void;
 }
 
 interface ActiveXObjectNameMap {

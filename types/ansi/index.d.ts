@@ -9,32 +9,31 @@
  *
  *   - http://en.wikipedia.org/wiki/ANSI_escape_code
  *   - http://www.termsys.demon.co.uk/vtansi.htm
- *
  */
 
 /// <reference types="node" />
-import { Stream } from "stream";
+import { Stream, } from 'stream';
 
 interface CursorOptions {
     enabled: boolean;
     buffering: boolean;
 }
 
-declare function ansi(stream: Stream, options?: CursorOptions): ansi.Cursor;
+declare function ansi(stream: Stream, options?: CursorOptions,): ansi.Cursor;
 
 declare namespace ansi {
     class Cursor {
         bg: Colorer;
         fg: Colorer;
 
-        constructor(stream: Stream, options?: CursorOptions);
+        constructor(stream: Stream, options?: CursorOptions,);
 
         /**
          * Helper function that calls `write()` on the underlying Stream.
          * Returns `this` instead of the write() return value to keep
          * the chaining going.
          */
-        write(data: string): Cursor;
+        write(data: string,): Cursor;
 
         /**
          * Buffer `write()` calls into memory.
@@ -58,7 +57,7 @@ declare namespace ansi {
         /**
          * Moves cursor to specific position
          */
-        goto(x?: number, y?: number): Cursor;
+        goto(x?: number, y?: number,): Cursor;
 
         /**
          * Resets all ANSI formatting on the stream.
@@ -69,13 +68,13 @@ declare namespace ansi {
          * Sets the foreground color with the given RGB values.
          * The closest match out of the 216 colors is picked.
          */
-        rgb(r: number, g: number, b: number): Cursor;
+        rgb(r: number, g: number, b: number,): Cursor;
 
         /**
          * Accepts CSS color codes for use with ANSI escape codes.
          * For example: `#FF000` would be bright red.
          */
-        hex(color: string): Cursor;
+        hex(color: string,): Cursor;
 
         up(): Cursor;
         down(): Cursor;
@@ -126,12 +125,12 @@ declare namespace ansi {
      * The `Colorer` class manages both the background and foreground colors.
      */
     class Colorer {
-        constructor(cursor: Cursor, base: string);
+        constructor(cursor: Cursor, base: string,);
 
         /**
          * Write an ANSI color code, ensuring that the same code doesn't get rewritten.
          */
-        _setColorCode(code: string): Colorer;
+        _setColorCode(code: string,): Colorer;
 
         /**
          * Resets the color.
@@ -142,13 +141,13 @@ declare namespace ansi {
          * Sets the foreground color with the given RGB values.
          * The closest match out of the 216 colors is picked.
          */
-        rgb(r: number, g: number, b: number): Cursor;
+        rgb(r: number, g: number, b: number,): Cursor;
 
         /**
          * Accepts CSS color codes for use with ANSI escape codes.
          * For example: `#FF000` would be bright red.
          */
-        hex(color: string): Cursor;
+        hex(color: string,): Cursor;
 
         white(): Cursor;
         black(): Cursor;
@@ -174,7 +173,7 @@ declare namespace ansi {
     }
 
     interface Colorer {
-        [key: string]: (...anything: any[]) => (Cursor | Colorer);
+        [key: string]: (...anything: any[]) => Cursor | Colorer;
     }
 }
 

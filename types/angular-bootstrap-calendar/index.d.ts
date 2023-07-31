@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as moment from 'moment';
 import * as angular from 'angular';
+import * as moment from 'moment';
 
 declare module 'angular' {
-        export namespace bootstrap.calendar {
+    export namespace bootstrap.calendar {
         interface IEventAction {
             /**
              * The label of the action
@@ -22,7 +22,7 @@ declare module 'angular' {
              * The action that occurs when it's clicked
              * @param args - the IEvent whose action was clicked
              */
-            onClick: (args: any) => void;
+            onClick: (args: any,) => void;
         }
 
         interface IEventColor {
@@ -107,7 +107,7 @@ declare module 'angular' {
             displayEventEndTimes: boolean;
             showTimesOnWeekView: boolean;
             displayAllMonthEvents: boolean;
-            i18nStrings: { weekNumber: string; };
+            i18nStrings: { weekNumber: string };
             templates: {
                 calendarDayView: string;
                 calendarHourList: string;
@@ -155,27 +155,27 @@ declare module 'angular' {
 
         namespace events {
             interface IOnEventClick {
-                (calendarEvent: IEvent): void;
+                (calendarEvent: IEvent,): void;
             }
 
             interface IOnEventTimesChanged {
-                (calendarEvent: IEvent, calendarNewEventStart: Date, calendarNewEventEnd: Date): void;
+                (calendarEvent: IEvent, calendarNewEventStart: Date, calendarNewEventEnd: Date,): void;
             }
 
             interface IOnEditEventClick {
-                (calendarEvent: IEvent): void;
+                (calendarEvent: IEvent,): void;
             }
 
             interface IOnDeleteEventClick {
-                (calendarEvent: IEvent): void;
+                (calendarEvent: IEvent,): void;
             }
 
             interface IOnTimespanClick {
-                (calendarDate: Date, calendarCell: ICalendarCell): void;
+                (calendarDate: Date, calendarCell: ICalendarCell,): void;
             }
 
             interface IOnViewChangeClick {
-                (calendarDate: Date, calendarNextView: string): boolean;
+                (calendarDate: Date, calendarNextView: string,): boolean;
             }
         }
     }

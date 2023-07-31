@@ -10,11 +10,11 @@ export = AnalyticsNode.Analytics;
 declare namespace AnalyticsNode {
     type Identity =
         | {
-              userId: string | number;
-          }
+            userId: string | number;
+        }
         | {
-              anonymousId: string | number;
-          };
+            anonymousId: string | number;
+        };
 
     type Message = Identity & {
         type: string;
@@ -55,7 +55,7 @@ declare namespace AnalyticsNode {
                 enable?: boolean | undefined;
                 timeout?: number | string | undefined;
                 flushed?: boolean | undefined;
-                errorHandler?: (err: Error) => void;
+                errorHandler?: (err: Error,) => void;
             },
         );
 
@@ -68,7 +68,7 @@ declare namespace AnalyticsNode {
                 context?: any;
                 integrations?: Integrations | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* The track method lets you record the actions your users perform. */
@@ -80,7 +80,7 @@ declare namespace AnalyticsNode {
                 context?: any;
                 integrations?: Integrations | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* The page method lets you record page views on your website, along with
@@ -95,7 +95,7 @@ declare namespace AnalyticsNode {
                 integrations?: Integrations | undefined;
                 messageId?: string | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* The screen method lets you record whenever a user sees a screen,
@@ -109,7 +109,7 @@ declare namespace AnalyticsNode {
                 context?: any;
                 integrations?: Integrations | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* alias is how you associate one identity with another. */
@@ -118,7 +118,7 @@ declare namespace AnalyticsNode {
                 previousId: string | number;
                 integrations?: Integrations | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* Group calls can be used to associate individual users with shared
@@ -131,10 +131,12 @@ declare namespace AnalyticsNode {
                 timestamp?: Date | undefined;
                 integrations?: Integrations | undefined;
             },
-            callback?: (err: Error) => void,
+            callback?: (err: Error,) => void,
         ): Analytics;
 
         /* Flush batched calls to make sure nothing is left in the queue */
-        flush(callback?: (err: Error, data: Data) => void): Promise<{ batch: any; timestamp: string; sentAt: string }>;
+        flush(
+            callback?: (err: Error, data: Data,) => void,
+        ): Promise<{ batch: any; timestamp: string; sentAt: string }>;
     }
 }

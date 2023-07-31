@@ -9,18 +9,35 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventLambdaAuthorizerContext,
     APIGatewayEventRequestContext,
+    APIGatewayEventRequestContextIAMAuthorizer,
+    APIGatewayEventRequestContextJWTAuthorizer,
+    APIGatewayEventRequestContextLambdaAuthorizer,
+    APIGatewayEventRequestContextV2,
+    APIGatewayEventRequestContextV2WithAuthorizer,
     APIGatewayEventRequestContextWithAuthorizer,
+    APIGatewayIAMAuthorizerWithContextResult,
     APIGatewayProxyEvent,
-    APIGatewayProxyHandler,
-    APIGatewayProxyWebsocketHandlerV2,
-    APIGatewayProxyResult,
     APIGatewayProxyEventV2,
+    APIGatewayProxyEventV2WithLambdaAuthorizer,
+    APIGatewayProxyHandler,
     APIGatewayProxyHandlerV2,
+    APIGatewayProxyHandlerV2WithIAMAuthorizer,
+    APIGatewayProxyHandlerV2WithJWTAuthorizer,
+    APIGatewayProxyHandlerV2WithLambdaAuthorizer,
+    APIGatewayProxyResult,
     APIGatewayProxyResultV2,
+    APIGatewayProxyStructuredResultV2,
+    APIGatewayProxyWebsocketHandlerV2,
     APIGatewayProxyWithLambdaAuthorizerEventRequestContext,
     APIGatewayProxyWithLambdaAuthorizerHandler,
     APIGatewayRequestAuthorizerHandler,
     APIGatewayRequestAuthorizerWithContextHandler,
+    APIGatewayRequestIAMAuthorizerHandlerV2,
+    APIGatewayRequestIAMAuthorizerV2WithContextHandler,
+    APIGatewayRequestSimpleAuthorizerHandlerV2,
+    APIGatewayRequestSimpleAuthorizerHandlerV2WithContext,
+    APIGatewaySimpleAuthorizerResult,
+    APIGatewaySimpleAuthorizerWithContextResult,
     APIGatewayTokenAuthorizerHandler,
     APIGatewayTokenAuthorizerWithContextHandler,
     AuthResponseContext,
@@ -31,23 +48,6 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
-    APIGatewayProxyStructuredResultV2,
-    APIGatewayProxyHandlerV2WithLambdaAuthorizer,
-    APIGatewayEventRequestContextLambdaAuthorizer,
-    APIGatewayEventRequestContextV2,
-    APIGatewayProxyEventV2WithLambdaAuthorizer,
-    APIGatewayEventRequestContextV2WithAuthorizer,
-    APIGatewayProxyHandlerV2WithJWTAuthorizer,
-    APIGatewayEventRequestContextJWTAuthorizer,
-    APIGatewayRequestSimpleAuthorizerHandlerV2,
-    APIGatewaySimpleAuthorizerResult,
-    APIGatewayRequestSimpleAuthorizerHandlerV2WithContext,
-    APIGatewaySimpleAuthorizerWithContextResult,
-    APIGatewayRequestIAMAuthorizerHandlerV2,
-    APIGatewayRequestIAMAuthorizerV2WithContextHandler,
-    APIGatewayIAMAuthorizerWithContextResult,
-    APIGatewayProxyHandlerV2WithIAMAuthorizer,
-    APIGatewayEventRequestContextIAMAuthorizer,
 } from 'aws-lambda';
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -87,7 +87,7 @@ type ProbablyInvalidCustomProxyHandler = APIGatewayProxyWithLambdaAuthorizerHand
     };
 }>;
 
-let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
+let proxyHandler: APIGatewayProxyHandler = async (event, context, callback,) => {
     strOrNull = event.body;
     const headers = event.headers; // $ExpectType APIGatewayProxyEventHeaders
     strOrUndefined = event.headers['example'];
@@ -163,12 +163,12 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
 
     const result = createProxyResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback,) => {
     str = event.version;
     strOrUndefined = event.body;
     str = event.headers['example']!;
@@ -205,12 +205,12 @@ const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback
 
     const result = createProxyResultV2();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event, context, callback) => {
+const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event, context, callback,) => {
     strOrUndefined = event.body;
     bool = event.isBase64Encoded;
     strOrUndefined = event.stageVariables ? event.stageVariables['example'] : undefined;
@@ -231,8 +231,8 @@ const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event,
 
     const result = createProxyResultV2();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -276,15 +276,15 @@ const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandl
 
     const result = createProxyResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
 
     return result;
 };
 
 const proxyHandlerV2WithLambdaAuthorizer: APIGatewayProxyHandlerV2WithLambdaAuthorizer<
     CustomAuthorizerContext
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     // standard fields...
     strOrUndefined = event.body;
     strOrUndefined = event.headers['example'];
@@ -312,8 +312,8 @@ const proxyHandlerV2WithLambdaAuthorizer: APIGatewayProxyHandlerV2WithLambdaAuth
 
     const result = createProxyResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
 
     return result;
 };
@@ -353,8 +353,8 @@ const proxyHandlerv2WithJKTAuthorizer: APIGatewayProxyHandlerV2WithJWTAuthorizer
 
     const result = createProxyResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
 
     return result;
 };
@@ -395,8 +395,8 @@ const proxyHandlerv2WithIAMAuthorizer: APIGatewayProxyHandlerV2WithIAMAuthorizer
 
     const result = createProxyResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
 
     return result;
 };
@@ -414,7 +414,7 @@ function createProxyResult(): APIGatewayProxyResult {
             [str]: num,
         },
         multiValueHeaders: {
-            [str]: [str, bool, num],
+            [str]: [str, bool, num,],
         },
         isBase64Encoded: true,
         body: str,
@@ -440,11 +440,11 @@ function createProxyResultV2(): APIGatewayProxyResultV2 {
     return result;
 }
 
-const proxyHandlerV2ForStringResult: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+const proxyHandlerV2ForStringResult: APIGatewayProxyHandlerV2 = async (event, context, callback,) => {
     const result = createProxyStringResultV2();
 
-    callback(new Error());
-    callback(undefined, result);
+    callback(new Error(),);
+    callback(undefined, result,);
     return result;
 };
 
@@ -457,11 +457,11 @@ interface Response {
     example: string;
 }
 
-const proxyHandlerV2ForObjectResult: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+const proxyHandlerV2ForObjectResult: APIGatewayProxyHandlerV2<Response> = async (event, context, callback,) => {
     const result = createProxyStringResultV2();
 
-    callback(new Error());
-    callback(undefined, result);
+    callback(new Error(),);
+    callback(undefined, result,);
     return result;
 };
 
@@ -473,30 +473,30 @@ function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
 }
 
 // @ts-expect-error
-const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback,) => {
     const result = {
         wrongExample: 'wrong example',
     };
 
-    callback(new Error());
+    callback(new Error(),);
     // @ts-expect-error
-    callback(undefined, result);
+    callback(undefined, result,);
     return result;
 };
 
 // @ts-expect-error
-const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback,) => {
     const result = {
         wrongExample: 'wrong example',
     };
 
-    callback(new Error());
+    callback(new Error(),);
     // @ts-expect-error
-    callback(undefined, result);
+    callback(undefined, result,);
     return result;
 };
 
-const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
+const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback,) => {
     if (event.type === 'TOKEN') {
         str = event.methodArn;
         str = event.authorizationToken;
@@ -511,12 +511,12 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
     // Can convert down to existing type
     result = createAuthorizerResultWithCustomContext();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const simpleRequestAuthorizerV2: APIGatewayRequestSimpleAuthorizerHandlerV2 = async (event, context, callback) => {
+const simpleRequestAuthorizerV2: APIGatewayRequestSimpleAuthorizerHandlerV2 = async (event, context, callback,) => {
     str = event.version;
     str = event.type;
     str = event.routeArn;
@@ -535,14 +535,14 @@ const simpleRequestAuthorizerV2: APIGatewayRequestSimpleAuthorizerHandlerV2 = as
         isAuthorized: true,
     };
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const simpleRequestAuthorizerV2WithContext: APIGatewayRequestSimpleAuthorizerHandlerV2WithContext<
     CustomAuthorizerContext
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     str = event.version;
     str = event.type;
     str = event.routeArn;
@@ -570,12 +570,12 @@ const simpleRequestAuthorizerV2WithContext: APIGatewayRequestSimpleAuthorizerHan
         },
     };
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const iamRequestAuthorizerV2: APIGatewayRequestIAMAuthorizerHandlerV2 = async (event, context, callback) => {
+const iamRequestAuthorizerV2: APIGatewayRequestIAMAuthorizerHandlerV2 = async (event, context, callback,) => {
     str = event.version;
     str = event.type;
     str = event.routeArn;
@@ -592,14 +592,14 @@ const iamRequestAuthorizerV2: APIGatewayRequestIAMAuthorizerHandlerV2 = async (e
 
     const result: APIGatewayAuthorizerResult = createAuthorizerResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const iamRequestAuthorizerV2WithContext: APIGatewayRequestIAMAuthorizerV2WithContextHandler<
     CustomAuthorizerContext
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     str = event.version;
     str = event.type;
     str = event.routeArn;
@@ -616,8 +616,8 @@ const iamRequestAuthorizerV2WithContext: APIGatewayRequestIAMAuthorizerV2WithCon
 
     const result = createIAMAuthorizerResultWithCustomContext();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -643,12 +643,12 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
     // @ts-expect-error
     result = createAuthorizerResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context, callback) => {
+const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context, callback,) => {
     event.type; // $ExpectType "TOKEN"
 
     str = event.type;
@@ -660,8 +660,8 @@ const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context,
 
     const result = createAuthorizerResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -681,12 +681,12 @@ const tokenAuthorizerWithCustomContext: APIGatewayTokenAuthorizerWithContextHand
 
     const result = createAuthorizerResultWithCustomContext();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, context, callback) => {
+const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, context, callback,) => {
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
@@ -710,14 +710,14 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
 
     const result = createAuthorizerResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
 const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContextHandler<
     CustomAuthorizerContext
-> = async (event, context, callback) => {
+> = async (event, context, callback,) => {
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
@@ -727,12 +727,12 @@ const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContext
 
     const result = createAuthorizerResultWithCustomContext();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
-const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, callback) => {
+const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, callback,) => {
     str = event.type;
     str = event.methodArn;
     strOrUndefined = event.authorizationToken;
@@ -752,8 +752,8 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
 
     const result = createAuthorizerResult();
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -765,31 +765,31 @@ function createPolicyDocument(): PolicyDocument {
     };
 
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123 };
+    statement = { Effect: str, Action: str, Principal: 123, };
 
     // Bad Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Resource: 123 };
+    statement = { Effect: str, Action: str, Resource: 123, };
 
     // Bad Resource with valid Principal
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123 };
+    statement = { Effect: str, Action: str, Principal: { Service: str, }, Resource: 123, };
 
     // Bad principal with valid Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123, Resource: str };
+    statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
 
     // No Effect
     // @ts-expect-error
-    statement = { Action: str, Principal: str };
+    statement = { Action: str, Principal: str, };
 
     statement = {
         Sid: str,
-        Action: [str, str],
+        Action: [str, str,],
         Effect: str,
-        Resource: [str, str],
+        Resource: [str, str,],
         Condition: {
-            condition1: { key: 'value' },
+            condition1: { key: 'value', },
             condition2: [
                 {
                     key1: 'value',
@@ -800,19 +800,19 @@ function createPolicyDocument(): PolicyDocument {
                 },
             ],
         },
-        Principal: [str, str],
-        NotPrincipal: [str, str],
+        Principal: [str, str,],
+        NotPrincipal: [str, str,],
     };
 
-    statement = { Action: str, Principal: str, Effect: str };
+    statement = { Action: str, Principal: str, Effect: str, };
 
-    statement = { Action: str, NotPrincipal: { Service: str }, Effect: str };
+    statement = { Action: str, NotPrincipal: { Service: str, }, Effect: str, };
 
-    statement = { Effect: str, NotAction: str, NotResource: str };
+    statement = { Effect: str, NotAction: str, NotResource: str, };
 
-    let policyDocument: PolicyDocument = { Version: str, Statement: [statement] };
+    let policyDocument: PolicyDocument = { Version: str, Statement: [statement,], };
 
-    policyDocument = { Version: str, Statement: [statement, statement] };
+    policyDocument = { Version: str, Statement: [statement, statement,], };
 
     return policyDocument;
 }
@@ -841,12 +841,12 @@ function createAuthorizerResultWithCustomContext(): APIGatewayAuthorizerWithCont
         principalId: str,
         policyDocument: createPolicyDocument(),
         context: {
-            valid: [str, num, bool, null, undefined][num],
+            valid: [str, num, bool, null, undefined,][num],
             str,
             num,
             bool,
-            numOrNull: [num, null][num],
-            numOrUndefined: [num, undefined][num],
+            numOrNull: [num, null,][num],
+            numOrUndefined: [num, undefined,][num],
             und: undefined,
         },
     };
@@ -854,7 +854,9 @@ function createAuthorizerResultWithCustomContext(): APIGatewayAuthorizerWithCont
     return result;
 }
 
-function createIAMAuthorizerResultWithCustomContext(): APIGatewayIAMAuthorizerWithContextResult<CustomAuthorizerContext> {
+function createIAMAuthorizerResultWithCustomContext(): APIGatewayIAMAuthorizerWithContextResult<
+    CustomAuthorizerContext
+> {
     let result: APIGatewayIAMAuthorizerWithContextResult<CustomAuthorizerContext>;
 
     // Requires context
@@ -878,12 +880,12 @@ function createIAMAuthorizerResultWithCustomContext(): APIGatewayIAMAuthorizerWi
         principalId: str,
         policyDocument: createPolicyDocument(),
         context: {
-            valid: [str, num, bool, null, undefined][num],
+            valid: [str, num, bool, null, undefined,][num],
             str,
             num,
             bool,
-            numOrNull: [num, null][num],
-            numOrUndefined: [num, undefined][num],
+            numOrNull: [num, null,][num],
+            numOrUndefined: [num, undefined,][num],
             und: undefined,
         },
     };
@@ -898,7 +900,7 @@ function createAuthorizerResult(): APIGatewayAuthorizerResult {
         stringKey: str,
         numberKey: num,
         booleanKey: bool,
-        [str]: [str, num, bool][num], // string | number | bool
+        [str]: [str, num, bool,][num], // string | number | bool
     };
 
     let result: CustomAuthorizerResult = {
@@ -917,6 +919,6 @@ function createAuthorizerResult(): APIGatewayAuthorizerResult {
 }
 
 // Test old names
-const oldNameProxyHandler: ProxyHandler = (event: APIGatewayEvent, context: Context, cb: ProxyCallback) => {};
+const oldNameProxyHandler: ProxyHandler = (event: APIGatewayEvent, context: Context, cb: ProxyCallback,) => {};
 
 proxyHandler = oldNameProxyHandler;

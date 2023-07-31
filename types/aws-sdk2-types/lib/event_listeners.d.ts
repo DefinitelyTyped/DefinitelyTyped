@@ -9,9 +9,9 @@ export namespace EventListeners {
         /**
          * Removes an event listener from all requests.
          */
-        export function removeListener(eventName: string, eventListener: Function): void;
+        export function removeListener(eventName: string, eventListener: Function,): void;
         /**
-         * A request listener that reads data from the HTTP connection in order to build the response data. Handles the 'httpData' Request event. 
+         * A request listener that reads data from the HTTP connection in order to build the response data. Handles the 'httpData' Request event.
          * Remove this handler if you are overriding the 'httpData' event and do not want extra data processing and buffering overhead.
          */
         export function HTTP_DATA(): void;
@@ -30,6 +30,6 @@ export namespace EventListeners {
         /**
          * A request listener that validates whether the region is set for a request. Handles the 'validate' Request event.
          */
-        export function VALIDATE_REGION():void;
+        export function VALIDATE_REGION(): void;
     }
 }

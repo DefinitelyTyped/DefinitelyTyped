@@ -1,8 +1,8 @@
-import align from "align-text";
+import align from 'align-text';
 
-function centerAlign(len: number, longest: number) {
-    return Math.floor((longest - len) / 2);
+function centerAlign(len: number, longest: number,) {
+    return Math.floor((longest - len) / 2,);
 }
 
-const text = ["abc", "abc", "abc"];
-align(text, centerAlign);
+const text = ['abc', 'abc', 'abc',];
+align(text, centerAlign,);

@@ -25,23 +25,23 @@ const proc = appdmg({
             },
         ],
     },
-});
+},);
 
 proc.on('progress', info => {
     if (info.type === 'step-begin') {
-        process.stdout.write(`${info.title}... `);
+        process.stdout.write(`${info.title}... `,);
     }
 
     if (info.type === 'step-end') {
-        process.stdout.write(`${info.status}\n`);
+        process.stdout.write(`${info.status}\n`,);
     }
-});
+},);
 
 proc.on('finish', () => {
-    console.log('Installer was created successfully!');
-});
+    console.log('Installer was created successfully!',);
+},);
 
 proc.on('error', err => {
-    console.error('Installer could not be created', err);
-    process.exit(1);
-});
+    console.error('Installer could not be created', err,);
+    process.exit(1,);
+},);

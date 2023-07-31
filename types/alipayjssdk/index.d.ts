@@ -16,7 +16,6 @@
  * - 移除了`OPTION.success`和`OPTION.fail`，请使用`Promise`的`then`、`catch`代替
  * - 部分接口移除了`OPTION`简略入参
  *
- *
  * ### 安装使用
  *  ```js
  *      <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
@@ -38,8 +37,8 @@ declare namespace AlipayJSSDK {
     type IObjArray = IAnyObject[];
 
     /** 接口调用结束的回调 */
-    type CompleteCallBack = (obj: unknown) => void;
-    type OnOffCallBack = (obj: unknown) => void;
+    type CompleteCallBack = (obj: unknown,) => void;
+    type OnOffCallBack = (obj: unknown,) => void;
 
     /** 网络状态信息 */
     interface NetworkTypeResult {
@@ -98,7 +97,7 @@ declare namespace AlipayJSSDK {
             headers?: IStringObject;
 
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
 
         /**
          * [ap.sendSocketMessage(OPTION)](https://myjsapi.alipay.com/alipayjsapi/network/webSocket/sendSocketMessage.html)
@@ -109,7 +108,7 @@ declare namespace AlipayJSSDK {
             /** 请求的参数 */
             data?: string | ArrayBuffer;
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
 
         /**
          * [ap.onSocketOpen()](https://myjsapi.alipay.com/alipayjsapi/network/webSocket/onSocketOpen.html)
@@ -137,7 +136,7 @@ declare namespace AlipayJSSDK {
          *
          * 监听 WebSocket 关闭事件。
          */
-        onSocketClose(callBack?: OnOffCallBack): Promise<unknown>;
+        onSocketClose(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offSocketClose()](https://myjsapi.alipay.com/alipayjsapi/network/webSocket/offSocketClose.html)
@@ -188,7 +187,7 @@ declare namespace AlipayJSSDK {
             /** 要写入的数据，每个 key/value 的组合为一个数据项 */
             data: IAnyObject;
             complete?: CompleteCallBack;
-        }): Promise<{}>;
+        },): Promise<{}>;
 
         /**
          * [ap.getSessionData(OPTION | keys | key)](https://myjsapi.alipay.com/alipayjsapi/data/session/getSessionData.html)
@@ -199,9 +198,9 @@ declare namespace AlipayJSSDK {
         getSessionData(
             optios:
                 | {
-                      keys: string[];
-                      complete?: CompleteCallBack;
-                  }
+                    keys: string[];
+                    complete?: CompleteCallBack;
+                }
                 | string[]
                 | string,
         ): Promise<{
@@ -218,7 +217,7 @@ declare namespace AlipayJSSDK {
          * @param queryString 可不填，默认解析window.location.search
          * @returns 默认{}, queryString 解析结果。可配合 ap.pushWindow 等的 data 参数一起使用
          */
-        parseQueryString(queryString?: string): IAnyObject;
+        parseQueryString(queryString?: string,): IAnyObject;
 
         /**
          * =============================== 媒体 ========================================================
@@ -237,12 +236,12 @@ declare namespace AlipayJSSDK {
         chooseImage(
             option:
                 | {
-                      /** 最大可选照片数，默认1张，上限9张 */
-                      count?: number;
-                      /** 相册选取或者拍照，默认 ['camera', 'album'] */
-                      sourceType?: Array<'camera' | 'album'>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 最大可选照片数，默认1张，上限9张 */
+                    count?: number;
+                    /** 相册选取或者拍照，默认 ['camera', 'album'] */
+                    sourceType?: Array<'camera' | 'album'>;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 图片文件路径 */
@@ -266,12 +265,12 @@ declare namespace AlipayJSSDK {
         previewImage(
             option:
                 | {
-                      /** 要预览的图片链接列表 */
-                      urls: string[];
-                      /** 当前显示图片索引，默认 0 */
-                      current?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要预览的图片链接列表 */
+                    urls: string[];
+                    /** 当前显示图片索引，默认 0 */
+                    current?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string[],
         ): Promise<{}>;
 
@@ -289,14 +288,14 @@ declare namespace AlipayJSSDK {
         chooseVideo(
             option?:
                 | {
-                      /** 最大录制时长，单位秒，默认60s */
-                      maxDuration?: number;
-                      /** 相册选取或者拍照，默认 ['camera','album'] */
-                      sourceType?: Array<'camera' | 'album'>;
-                      /** 前置或者后置摄像头，默认前后都有，即：[‘front’, ‘back’] */
-                      camera?: string[];
-                      complete?: CompleteCallBack;
-                  }
+                    /** 最大录制时长，单位秒，默认60s */
+                    maxDuration?: number;
+                    /** 相册选取或者拍照，默认 ['camera','album'] */
+                    sourceType?: Array<'camera' | 'album'>;
+                    /** 前置或者后置摄像头，默认前后都有，即：[‘front’, ‘back’] */
+                    camera?: string[];
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 视频文件路径 */
@@ -327,20 +326,20 @@ declare namespace AlipayJSSDK {
         playBackgroundAudio(
             option:
                 | {
-                      /** 音乐链接地址 */
-                      url: string;
-                      /** 音乐标题 */
-                      title?: string;
-                      /** 演唱者 */
-                      singer?: string;
-                      /** 音乐描述 */
-                      describe?: string;
-                      /** logo URL */
-                      logo?: string;
-                      /** 封面 URL */
-                      cover?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 音乐链接地址 */
+                    url: string;
+                    /** 音乐标题 */
+                    title?: string;
+                    /** 演唱者 */
+                    singer?: string;
+                    /** 音乐描述 */
+                    describe?: string;
+                    /** logo URL */
+                    logo?: string;
+                    /** 封面 URL */
+                    cover?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string[],
         ): Promise<unknown>;
 
@@ -363,10 +362,10 @@ declare namespace AlipayJSSDK {
         seekBackgroundAudio(
             option:
                 | {
-                      /** 音乐位置，单位秒 */
-                      position: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 音乐位置，单位秒 */
+                    position: number;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<unknown>;
 
@@ -404,41 +403,41 @@ declare namespace AlipayJSSDK {
          *
          * 监听音乐播放事件。
          */
-        onBackgroundAudioPlay(callBack?: OnOffCallBack): Promise<unknown>;
+        onBackgroundAudioPlay(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offBackgroundAudioPlay()](https://myjsapi.alipay.com/alipayjsapi/media/audio/offBackgroundAudioPlay.html)
          *
          * 移除音乐播放事件的监听。
          */
-        offBackgroundAudioPlay(callBack?: OnOffCallBack): Promise<unknown>;
+        offBackgroundAudioPlay(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onBackgroundAudioPause()](https://myjsapi.alipay.com/alipayjsapi/media/audio/onBackgroundAudioPause.html)
          *
          * 监听音乐暂停事件。
          */
-        onBackgroundAudioPause(callBack?: OnOffCallBack): Promise<unknown>;
+        onBackgroundAudioPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offBackgroundAudioPause()](https://myjsapi.alipay.com/alipayjsapi/media/audio/offBackgroundAudioPause.html)
          *
          * 移除音乐暂停事件的监听。
          */
-        offBackgroundAudioPause(callBack?: OnOffCallBack): Promise<unknown>;
+        offBackgroundAudioPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onBackgroundAudioStop()](https://myjsapi.alipay.com/alipayjsapi/media/audio/onBackgroundAudioStop.html)
          *
          * 监听音乐停止事件。
          */
-        onBackgroundAudioStop(callBack?: OnOffCallBack): Promise<unknown>;
+        onBackgroundAudioStop(callBack?: OnOffCallBack,): Promise<unknown>;
         /**
          * [ap.offBackgroundAudioStop()](https://myjsapi.alipay.com/alipayjsapi/media/audio/offBackgroundAudioStop.html)
          *
          * 移除音乐停止事件的监听。
          */
-        offBackgroundAudioStop(callBack?: OnOffCallBack): Promise<unknown>;
+        offBackgroundAudioStop(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * =============================== 位置 ========================================================
@@ -457,7 +456,6 @@ declare namespace AlipayJSSDK {
          * | 14 | 定位超时 |
          * | 15 | 网络错误 |
          * | 16 | GPS未打开或用户未授权 |
-         *
          */
         getLocation(option?: {
             /** 钱包经纬度定位缓存过期时间，单位秒。默认 30s。使用缓存会加快定位速度，缓存过期会重新定位 */
@@ -469,7 +467,7 @@ declare namespace AlipayJSSDK {
             /** 自定义业务类型  */
             bizType?: string;
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             longitude: string; // 经度
             latitude: string; // 纬度
             accuracy: number; // 精度，单位米
@@ -511,7 +509,7 @@ declare namespace AlipayJSSDK {
             /** 缩放比例，范围3~19，默认为15 */
             scale?: number;
             complete?: CompleteCallBack;
-        }): Promise<{}>;
+        },): Promise<{}>;
 
         /**
          * ===============================  设备功能 ========================================================
@@ -531,14 +529,14 @@ declare namespace AlipayJSSDK {
          *
          * 3G切换到4G时系统不会发出网络切换通知。 4G切到3G时，会先从4G跳到2G，然后再从2G跳3G，因此会通知两次
          */
-        onNetworkChange(callBack?: OnOffCallBack): Promise<NetworkTypeResult>;
+        onNetworkChange(callBack?: OnOffCallBack,): Promise<NetworkTypeResult>;
 
         /**
          * [ap.offNetworkChange()](https://myjsapi.alipay.com/alipayjsapi/device/network/offNetworkChange.html)
          *
          * 移除网络环境发生变化事件的监听。
          */
-        offNetworkChange(callBack?: OnOffCallBack): Promise<unknown>;
+        offNetworkChange(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.scan(OPTION | type)](https://myjsapi.alipay.com/alipayjsapi/device/scan/scan.html)
@@ -554,7 +552,7 @@ declare namespace AlipayJSSDK {
             /** 扫描目标类型，支持 qr / bar，相应扫码选框会不同，默认 qr */
             type: 'qr' | 'bar';
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** 扫码所得数据 */
             code: string;
         }>;
@@ -659,7 +657,7 @@ declare namespace AlipayJSSDK {
             /** 上报设备的间隔，单位为ms，默认为0ms，意思是找到新设备立即上报，否则根据传入的间隔上报 */
             interval?: number;
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
 
         /**
          * [ap.stopBluetoothDevicesDiscovery()](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/stopBluetoothDevicesDiscovery.html)
@@ -686,7 +684,7 @@ declare namespace AlipayJSSDK {
             /** 蓝牙设备主 service 的 uuid 列表 */
             services: string[];
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** service 的 uuid 对应的(如果有传入 services)设备列表 */
             devices: BluetoothDeviceInfo[];
         }>;
@@ -705,7 +703,7 @@ declare namespace AlipayJSSDK {
             /** 蓝牙设备主 service 的 uuid 列表，如果services 为空，则返回所有的已经连接的设备 */
             services: string[];
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** service 的 uuid 对应的(如果有传入 services)设备列表 */
             devices: BluetoothDeviceInfo[];
         }>;
@@ -722,10 +720,10 @@ declare namespace AlipayJSSDK {
         connectBLEDevice(
             option:
                 | {
-                      /** 蓝牙设备 id */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -741,10 +739,10 @@ declare namespace AlipayJSSDK {
         disconnectBLEDevice(
             option:
                 | {
-                      /** 蓝牙设备 id */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -769,7 +767,7 @@ declare namespace AlipayJSSDK {
             /** 蓝牙设备特征值对应的值，16进制字符串,限制在20字节内。写入的二进制数据需要进行 hex 编码。 */
             value: string;
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
 
         /**
          * [ap.readBLECharacteristicValue(OPTION)](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/readBLECharacteristicValue.html)
@@ -788,7 +786,7 @@ declare namespace AlipayJSSDK {
             /** 蓝牙特征值的 uuid */
             characteristicId: string;
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** 设备特征值信息 */
             characteristic: {
                 /** 蓝牙设备特征值的 value */
@@ -821,7 +819,7 @@ declare namespace AlipayJSSDK {
             /** 是否启用notify或indicate */
             state?: string;
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
 
         /**
          * [ap.getBLEDeviceServices(OPTION | deviceId)](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/getBLEDeviceServices.html)
@@ -835,10 +833,10 @@ declare namespace AlipayJSSDK {
         getBLEDeviceServices(
             option:
                 | {
-                      /** 蓝牙设备 id，参考 device 对象 */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id，参考 device 对象 */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** service 对象 */
@@ -862,12 +860,12 @@ declare namespace AlipayJSSDK {
         getBLEDeviceCharacteristics(
             option:
                 | {
-                      /** 蓝牙设备 id，参考 device 对象 */
-                      deviceId: string;
-                      /** 蓝牙特征值对应 service 的 uuid */
-                      serviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id，参考 device 对象 */
+                    deviceId: string;
+                    /** 蓝牙特征值对应 service 的 uuid */
+                    serviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 设备特征值列表 */
@@ -897,7 +895,7 @@ declare namespace AlipayJSSDK {
          *
          * 搜索到新的蓝牙设备时触发此事件。
          */
-        onBluetoothDeviceFound(callBack?: OnOffCallBack): Promise<{
+        onBluetoothDeviceFound(callBack?: OnOffCallBack,): Promise<{
             /** 新搜索到的设备列表 */
             devices: BluetoothDeviceInfo;
         }>;
@@ -907,14 +905,14 @@ declare namespace AlipayJSSDK {
          *
          * 移除寻找到新的蓝牙设备事件的监听。
          */
-        offBluetoothDeviceFound(callBack?: OnOffCallBack): Promise<unknown>;
+        offBluetoothDeviceFound(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onBLECharacteristicValueChange()](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/onBLECharacteristicValueChange.html)
          *
          * 监听低功耗蓝牙设备的特征值变化的事件。
          */
-        onBLECharacteristicValueChange(callBack?: OnOffCallBack): Promise<{
+        onBLECharacteristicValueChange(callBack?: OnOffCallBack,): Promise<{
             /** 蓝牙设备 id，参考 device 对象 */
             deviceId: string;
             /** 特征值所属 service 的 uuid */
@@ -931,14 +929,14 @@ declare namespace AlipayJSSDK {
          *
          * 移除低功耗蓝牙设备的特征值变化事件的监听。
          */
-        offBLECharacteristicValueChange(callBack?: OnOffCallBack): Promise<unknown>;
+        offBLECharacteristicValueChange(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onBLEConnectionStateChanged()](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/onBLEConnectionStateChanged.html)
          *
          * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
          */
-        onBLEConnectionStateChanged(callBack?: OnOffCallBack): Promise<{
+        onBLEConnectionStateChanged(callBack?: OnOffCallBack,): Promise<{
             /** 蓝牙设备 id，参考 device 对象 */
             deviceId: string;
             /** 连接目前的状态 */
@@ -951,14 +949,14 @@ declare namespace AlipayJSSDK {
          *
          * 移除低功耗蓝牙连接的错误事件的监听。
          */
-        offBLEConnectionStateChanged(callBack?: OnOffCallBack): Promise<unknown>;
+        offBLEConnectionStateChanged(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onBluetoothAdapterStateChange()](https://myjsapi.alipay.com/alipayjsapi/device/bluetooth/onBluetoothAdapterStateChange.html)
          *
          * 监听本机蓝牙状态变化的事件。
          */
-        onBluetoothAdapterStateChange(callBack?: OnOffCallBack): Promise<{
+        onBluetoothAdapterStateChange(callBack?: OnOffCallBack,): Promise<{
             /** 蓝牙模块是否可用 */
             available: boolean;
             /** 蓝牙模块是否处于搜索状态 */
@@ -970,14 +968,14 @@ declare namespace AlipayJSSDK {
          *
          * 移除本机蓝牙状态变化的事件的监听。
          */
-        offBluetoothAdapterStateChange(callBack?: OnOffCallBack): Promise<unknown>;
+        offBluetoothAdapterStateChange(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onCompassChange()](https://myjsapi.alipay.com/alipayjsapi/device/compass/onCompassChange.html)
          *
          * 监听罗盘数据变化的事件。
          */
-        onCompassChange(callBack?: OnOffCallBack): Promise<{
+        onCompassChange(callBack?: OnOffCallBack,): Promise<{
             /** 方向度数 */
             direction: number;
         }>;
@@ -987,14 +985,14 @@ declare namespace AlipayJSSDK {
          *
          * 移除罗盘数据变化事件的监听。
          */
-        offCompassChange(callBack?: OnOffCallBack): Promise<unknown>;
+        offCompassChange(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onAccelerometerChange()](https://myjsapi.alipay.com/alipayjsapi/device/accelerometer/onAccelerometerChange.html)
          *
          * 监听重力感应变化
          */
-        onAccelerometerChange(callBack?: OnOffCallBack): Promise<{
+        onAccelerometerChange(callBack?: OnOffCallBack,): Promise<{
             /** x轴 */
             x: number;
             /** y轴 */
@@ -1009,7 +1007,7 @@ declare namespace AlipayJSSDK {
          *
          * 移除重力感应变化事件的监听
          */
-        offAccelerometerChange(callBack?: OnOffCallBack): Promise<unknown>;
+        offAccelerometerChange(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * ===============================  窗口 ========================================================
@@ -1023,12 +1021,12 @@ declare namespace AlipayJSSDK {
         pushWindow(
             option:
                 | {
-                      /** 要打开的页面url */
-                      url: string;
-                      /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要打开的页面url */
+                    url: string;
+                    /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1040,10 +1038,10 @@ declare namespace AlipayJSSDK {
         popWindow(
             option?:
                 | {
-                      /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | Record<string, string>,
         ): Promise<unknown>;
 
@@ -1055,16 +1053,16 @@ declare namespace AlipayJSSDK {
         popTo(
             option:
                 | {
-                      /** 目标页面的完整 URL */
-                      url?: string;
-                      /** 目标页面的 URL 匹配表达式（ URL 如果包含 urlPattern，匹配成功） */
-                      urlPattern?: string;
-                      /** 目标页面在会话页面栈中的索引；如果小于零，则将与当前页面的 index 相加 */
-                      index?: number;
-                      /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 目标页面的完整 URL */
+                    url?: string;
+                    /** 目标页面的 URL 匹配表达式（ URL 如果包含 urlPattern，匹配成功） */
+                    urlPattern?: string;
+                    /** 目标页面在会话页面栈中的索引；如果小于零，则将与当前页面的 index 相加 */
+                    index?: number;
+                    /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | number
                 | string,
         ): Promise<unknown>;
@@ -1077,12 +1075,12 @@ declare namespace AlipayJSSDK {
         redirectTo(
             option:
                 | {
-                      /** 要打开的页面url */
-                      url: string;
-                      /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要打开的页面url */
+                    url: string;
+                    /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1096,7 +1094,7 @@ declare namespace AlipayJSSDK {
          *
          *  此外，如果这个页面是通过 popWindow/popTo 到达，且传递了 data 参数，此页可以获取到 data。
          */
-        onResume(callBack?: OnOffCallBack): Promise<{
+        onResume(callBack?: OnOffCallBack,): Promise<{
             /** 通过 popWindow/popTo 传递的 data 参数 */
             data: IAnyObject;
         }>;
@@ -1106,7 +1104,7 @@ declare namespace AlipayJSSDK {
          *
          * 移除 resume 事件的监听。
          */
-        offResume(callBack?: OnOffCallBack): Promise<unknown>;
+        offResume(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onPause()](https://myjsapi.alipay.com/alipayjsapi/navigation/event/onPause.html)
@@ -1116,14 +1114,14 @@ declare namespace AlipayJSSDK {
          *  - 被压入后台和锁屏，触发 appPause 的同时会触发此事件
          *  - 通过 pushWindow 打开下个页面，当前页面触发 pagePause 的同时会触发此事件。
          */
-        onPause(callBack?: OnOffCallBack): Promise<unknown>;
+        onPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offPause()](https://myjsapi.alipay.com/alipayjsapi/navigation/event/offPause.html)
          *
          * 移除 pause 事件的监听。
          */
-        offPause(callBack?: OnOffCallBack): Promise<unknown>;
+        offPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onPageResume()](https://myjsapi.alipay.com/alipayjsapi/navigation/event/onPageResume.html)
@@ -1132,7 +1130,7 @@ declare namespace AlipayJSSDK {
          *
          *  如果这个页面通过 popWindow/popTo 到达时传递了 data 参数，此页可以获取到 data。
          */
-        onPageResume(callBack?: OnOffCallBack): Promise<{
+        onPageResume(callBack?: OnOffCallBack,): Promise<{
             /** 通过 popWindow/popTo 传递的 data 参数 */
             data: IAnyObject;
         }>;
@@ -1142,49 +1140,49 @@ declare namespace AlipayJSSDK {
          *
          * 移除 pageResume 事件的监听。
          */
-        offPageResume(callBack?: OnOffCallBack): Promise<unknown>;
+        offPageResume(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onPagePause()](https://myjsapi.alipay.com/alipayjsapi/navigation/event/onPagePause.html)
          *
          * 当一个页面不可见时(仅指 pushWindow 到下个页面)，会触发此事件。
          */
-        onPagePause(callBack?: OnOffCallBack): Promise<unknown>;
+        onPagePause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offPagePause()](https://myjsapi.alipay.com/alipayjsapi/navigation/event/offPagePause.html)
          *
          * 移除 pagePause 事件的监听。
          */
-        offPagePause(callBack?: OnOffCallBack): Promise<unknown>;
+        offPagePause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onAppPause()](https://myjsapi.alipay.com/alipayjsapi/navigation/appevent/onAppPause.html)
          *
          * 监听应用压后台事件。
          */
-        onAppPause(callBack?: OnOffCallBack): Promise<unknown>;
+        onAppPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offAppPause()](https://myjsapi.alipay.com/alipayjsapi/navigation/appevent/offAppPause.html)
          *
          * 移除应用压后台事件的监听。
          */
-        offAppPause(callBack?: OnOffCallBack): Promise<unknown>;
+        offAppPause(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.onAppResume()](https://myjsapi.alipay.com/alipayjsapi/navigation/appevent/onAppResume.html)
          *
          * 监听应用从后台唤起事件。
          */
-        onAppResume(callBack?: OnOffCallBack): Promise<unknown>;
+        onAppResume(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offAppResume()](https://myjsapi.alipay.com/alipayjsapi/navigation/appevent/offAppResume.html)
          *
          * 移除应用从后台唤起事件的监听。
          */
-        offAppResume(callBack?: OnOffCallBack): Promise<unknown>;
+        offAppResume(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * ===============================  窗口 ========================================================
@@ -1200,14 +1198,14 @@ declare namespace AlipayJSSDK {
         alert(
             option:
                 | {
-                      /** alert框的标题 */
-                      title?: string;
-                      /** alert框的内容 */
-                      content: string;
-                      /** 按钮文字，默认’确定’ */
-                      buttonText?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** alert框的标题 */
+                    title?: string;
+                    /** alert框的内容 */
+                    content: string;
+                    /** 按钮文字，默认’确定’ */
+                    buttonText?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1221,16 +1219,16 @@ declare namespace AlipayJSSDK {
         confirm(
             option:
                 | {
-                      /** confirm框的标题 */
-                      title?: string;
-                      /** confirm框的内容 */
-                      content: string;
-                      /** 确定按钮文字，默认’确定’ */
-                      confirmButtonText?: string;
-                      /** 取消按钮文字，默认’取消’ */
-                      cancelButtonText?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** confirm框的标题 */
+                    title?: string;
+                    /** confirm框的内容 */
+                    content: string;
+                    /** 确定按钮文字，默认’确定’ */
+                    confirmButtonText?: string;
+                    /** 取消按钮文字，默认’取消’ */
+                    cancelButtonText?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 用户选择结果。点击 confirmButton 为 true，点击cancelButton 为 false */
@@ -1245,14 +1243,14 @@ declare namespace AlipayJSSDK {
         showToast(
             option:
                 | {
-                      /** 文字内容 */
-                      content: string;
-                      /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-                      type?: 'none' | 'success' | 'fail' | 'exception';
-                      /** 显示时长，单位为 ms，默认 2000 */
-                      duration?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 文字内容 */
+                    content: string;
+                    /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
+                    type?: 'none' | 'success' | 'fail' | 'exception';
+                    /** 显示时长，单位为 ms，默认 2000 */
+                    duration?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1271,12 +1269,12 @@ declare namespace AlipayJSSDK {
         showLoading(
             option:
                 | {
-                      /** loading 的文字提示 */
-                      content?: string;
-                      /** 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 ap.hideLoading 则不会显示 */
-                      delay?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** loading 的文字提示 */
+                    content?: string;
+                    /** 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 ap.hideLoading 则不会显示 */
+                    delay?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1300,7 +1298,7 @@ declare namespace AlipayJSSDK {
             /** 取消按钮文案，默认为「取消」 */
             cancelButtonText?: string;
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** 被点击的按钮的索引，从0开始。点击取消或蒙层时返回 -1 */
             index: number;
         }>;
@@ -1310,14 +1308,14 @@ declare namespace AlipayJSSDK {
          *
          * 监听导航栏标题点击事件。在点击文字时才触发，点击导航栏其他空白地方不会触发
          */
-        onTitleClick(callBack?: OnOffCallBack): Promise<unknown>;
+        onTitleClick(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.offTitleClick()](https://myjsapi.alipay.com/alipayjsapi/ui/navigationbar/offTitleClick.html)
          *
          * 移除导航栏标题点击事件的监听。
          */
-        offTitleClick(callBack?: OnOffCallBack): Promise<unknown>;
+        offTitleClick(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.setNavigationBar(OPTION | title)](https://myjsapi.alipay.com/alipayjsapi/ui/navigationbar/setNavigationBar.html)
@@ -1327,18 +1325,18 @@ declare namespace AlipayJSSDK {
         setNavigationBar(
             option:
                 | {
-                      /** 导航栏标题 */
-                      title?: string;
-                      /** 图片链接地址，必须 https，请使用一张3x高清图，尺寸450*90。若设置了 image，则 title 参数失效 */
-                      image?: string;
-                      /** 导航栏背景色，支持16进制颜色值 */
-                      backgroundColor?: string;
-                      /** 导航栏底部边框颜色，支持16进制颜色值。若设置了 backgroundColor，borderBottomColor 会不生效，默认会和 backgroundColor 颜色一样 */
-                      borderBottomColor?: string;
-                      /** 是否重置导航栏为支付宝默认配色，默认 false。 */
-                      reset?: boolean;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 导航栏标题 */
+                    title?: string;
+                    /** 图片链接地址，必须 https，请使用一张3x高清图，尺寸450*90。若设置了 image，则 title 参数失效 */
+                    image?: string;
+                    /** 导航栏背景色，支持16进制颜色值 */
+                    backgroundColor?: string;
+                    /** 导航栏底部边框颜色，支持16进制颜色值。若设置了 backgroundColor，borderBottomColor 会不生效，默认会和 backgroundColor 颜色一样 */
+                    borderBottomColor?: string;
+                    /** 是否重置导航栏为支付宝默认配色，默认 false。 */
+                    reset?: boolean;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1362,7 +1360,7 @@ declare namespace AlipayJSSDK {
          */
         setOptionButton(option: {
             /** 监听 optionButton 点击事件 */
-            onClick?: (index: number) => void;
+            onClick?: (index: number,) => void;
             /** 重置到系统默认按钮，默认为 false。当为 true 时，忽略其他参数 */
             reset?: boolean;
             /** 是否阻止默认的分享功能，指定 iconType 的情况下点击时，会弹分享面板，`preventDefault: true` 会阻止默认分享面板弹出 */
@@ -1381,7 +1379,7 @@ declare namespace AlipayJSSDK {
                 badge?: string | number;
             }>;
             complete?: CompleteCallBack;
-        }): Promise<unknown>;
+        },): Promise<unknown>;
         /**
          * [ap.showOptionButton()](https://myjsapi.alipay.com/alipayjsapi/ui/navigationbar/showOptionButton.html)
          *
@@ -1412,7 +1410,7 @@ declare namespace AlipayJSSDK {
                 }>
                 | string[];
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** 被点击的菜单项的索引，从0开始 */
             index: number;
         }>;
@@ -1425,9 +1423,9 @@ declare namespace AlipayJSSDK {
         allowPullDownRefresh(
             option:
                 | {
-                      allow: boolean;
-                      complete?: CompleteCallBack;
-                  }
+                    allow: boolean;
+                    complete?: CompleteCallBack;
+                }
                 | boolean,
         ): Promise<unknown>;
 
@@ -1436,7 +1434,7 @@ declare namespace AlipayJSSDK {
          *
          * 监听页面下拉事件。
          */
-        onPullDownRefresh(callBack?: OnOffCallBack): Promise<{
+        onPullDownRefresh(callBack?: OnOffCallBack,): Promise<{
             /** 是否可刷新。可通过ap.allowPullDownRefresh()设置此返回值 */
             refreshAvailable: boolean;
         }>;
@@ -1446,7 +1444,7 @@ declare namespace AlipayJSSDK {
          *
          * 移除页面下拉刷新事件的监听。
          */
-        offPullDownRefresh(callBack?: OnOffCallBack): Promise<unknown>;
+        offPullDownRefresh(callBack?: OnOffCallBack,): Promise<unknown>;
 
         /**
          * [ap.choosePhoneContact()](https://myjsapi.alipay.com/alipayjsapi/ui/contact/choosePhoneContact.html)
@@ -1482,10 +1480,10 @@ declare namespace AlipayJSSDK {
         chooseAlipayContact(
             option?:
                 | {
-                      /** 单次最多选择联系人个数，默认 1，最大 10 */
-                      count?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 单次最多选择联系人个数，默认 1，最大 10 */
+                    count?: number;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 选中的支付宝联系人数组 */
@@ -1532,7 +1530,7 @@ declare namespace AlipayJSSDK {
                 spell: string;
             }>;
             complete?: CompleteCallBack;
-        }): Promise<{
+        },): Promise<{
             /** 城市名 */
             city: string;
             /** 行政区划代码 */
@@ -1551,16 +1549,16 @@ declare namespace AlipayJSSDK {
         datePicker(
             option?:
                 | {
-                      /** 返回的日期格式，默认 yyyy-MM-dd。支持 HH:mm:ss, yyyy-MM-dd, yyyy-MM-dd HH:mm:ss 三种格式 */
-                      formate?: string;
-                      /** 初始选择的日期时间，默认当前时间 */
-                      currentDate?: string;
-                      /** 最小日期时间 */
-                      startDate?: string;
-                      /** 最大日期时间 */
-                      endDate?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 返回的日期格式，默认 yyyy-MM-dd。支持 HH:mm:ss, yyyy-MM-dd, yyyy-MM-dd HH:mm:ss 三种格式 */
+                    formate?: string;
+                    /** 初始选择的日期时间，默认当前时间 */
+                    currentDate?: string;
+                    /** 最小日期时间 */
+                    startDate?: string;
+                    /** 最大日期时间 */
+                    endDate?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 选择的日期时间 */
@@ -1581,20 +1579,20 @@ declare namespace AlipayJSSDK {
         tradePay(
             option:
                 | {
-                      /** 交易号，多个交易号请用英文分号`;`分隔 */
-                      tradeNO?: string;
-                      /** 商户id */
-                      partnerID?: string;
-                      /** 交易类型，默认为 ‘trade’ */
-                      bizType?: string;
-                      /** 交易子类型 */
-                      bizSubType?: string;
-                      /** 支付额外的参数，格式为JSON字符串 */
-                      bizContext?: string;
-                      /** 完整的支付参数拼接成的字符串，从服务端获取。需要入驻蚂蚁金服开放平台 */
-                      orderStr?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 交易号，多个交易号请用英文分号`;`分隔 */
+                    tradeNO?: string;
+                    /** 商户id */
+                    partnerID?: string;
+                    /** 交易类型，默认为 ‘trade’ */
+                    bizType?: string;
+                    /** 交易子类型 */
+                    bizSubType?: string;
+                    /** 支付额外的参数，格式为JSON字符串 */
+                    bizContext?: string;
+                    /** 完整的支付参数拼接成的字符串，从服务端获取。需要入驻蚂蚁金服开放平台 */
+                    orderStr?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /**

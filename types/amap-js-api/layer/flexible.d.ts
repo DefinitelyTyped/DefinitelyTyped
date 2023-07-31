@@ -14,8 +14,8 @@ declare namespace AMap {
                     x: number,
                     y: number,
                     z: number,
-                    success: (tile: HTMLImageElement | HTMLCanvasElement) => void,
-                    fail: () => void
+                    success: (tile: HTMLImageElement | HTMLCanvasElement,) => void,
+                    fail: () => void,
                 ): void;
                 /**
                  * 内存中缓存的切片的数量上限
@@ -32,7 +32,7 @@ declare namespace AMap {
              * 灵活切片图层
              * @param options 图层选项
              */
-            constructor(options?: Flexible.Options);
+            constructor(options?: Flexible.Options,);
         }
     }
 }

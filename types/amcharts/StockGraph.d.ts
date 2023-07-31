@@ -1,4 +1,4 @@
-import AmGraph from "./AmGraph";
+import AmGraph from './AmGraph';
 
 export default class StockGraph extends AmGraph {
     /**

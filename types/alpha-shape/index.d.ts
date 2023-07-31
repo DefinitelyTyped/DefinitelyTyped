@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
-* Constructing alpha shapes for point sets.
-*/
+ * Constructing alpha shapes for point sets.
+ */
 
 export = alpha_shape;
 
-declare function alpha_shape(alpha: number, points: number[][]): number[][];
+declare function alpha_shape(alpha: number, points: number[][],): number[][];

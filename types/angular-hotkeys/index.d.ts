@@ -57,31 +57,38 @@ declare module 'angular' {
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
              */
-            add(combo: string | string[], description?: string, callback?: (event: Event, hotkey: Hotkey) => void, action?: string, allowIn?: string[], persistent?: boolean): Hotkey;
+            add(
+                combo: string | string[],
+                description?: string,
+                callback?: (event: Event, hotkey: Hotkey,) => void,
+                action?: string,
+                allowIn?: string[],
+                persistent?: boolean,
+            ): Hotkey;
 
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
              */
-            add(hotkeyObj: Hotkey): Hotkey;
+            add(hotkeyObj: Hotkey,): Hotkey;
 
             /**
              * Binds the hotkey to a particular scope.
              * Useful if the scope is destroyed, we can automatically destroy the hotkey binding.
              * @param scope The scope to bind to
              */
-            bindTo(scope: IScope): HotkeysProviderChained;
+            bindTo(scope: IScope,): HotkeysProviderChained;
 
             /**
              * Removes and unbinds a hotkey
              * @param combo The keyboard combo (shortcut) or the HotKey object
              */
-            del(combo: string | string[] | Hotkey): void;
+            del(combo: string | string[] | Hotkey,): void;
 
             /**
              * Returns the Hotkey object
              * @param combo The keyboard combo (shortcut)
              */
-            get(combo: string | string[]): Hotkey;
+            get(combo: string | string[],): Hotkey;
 
             /**
              * Toggles the help menu element's visiblity
@@ -97,9 +104,13 @@ declare module 'angular' {
         }
 
         interface HotkeysProviderChained {
-            add(combo: string | string[], description: string, callback: (event: Event, hotkeys: Hotkey) => void): HotkeysProviderChained;
+            add(
+                combo: string | string[],
+                description: string,
+                callback: (event: Event, hotkeys: Hotkey,) => void,
+            ): HotkeysProviderChained;
 
-            add(hotkeyObj: Hotkey): HotkeysProviderChained;
+            add(hotkeyObj: Hotkey,): HotkeysProviderChained;
         }
 
         interface Hotkey {
@@ -115,7 +126,7 @@ declare module 'angular' {
             /**
              * The function to execute when the key(s) are pressed. Passes along two arguments, event and hotkey
              */
-            callback(event: Event, hotkey: Hotkey): void;
+            callback(event: Event, hotkey: Hotkey,): void;
             /**
              * The type of event to listen for, such as keypress, keydown or keyup.
              * Usage of this parameter is discouraged as the underlying library will pick the most suitable option automatically.

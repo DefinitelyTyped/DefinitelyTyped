@@ -11,7 +11,17 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     namespace aria {
-        type IAriaAttribute = 'ariaHidden'|'ariaChecked'|'ariaReadonly'|'ariaDisabled'|'ariaRequired'|'ariaInvalid'|'ariaValue'|'tabindex'|'bindKeydown'|'bindRoleForClick';
+        type IAriaAttribute =
+            | 'ariaHidden'
+            | 'ariaChecked'
+            | 'ariaReadonly'
+            | 'ariaDisabled'
+            | 'ariaRequired'
+            | 'ariaInvalid'
+            | 'ariaValue'
+            | 'tabindex'
+            | 'bindKeydown'
+            | 'bindRoleForClick';
 
         type IAriaProviderOptions = {
             [key in IAriaAttribute]?: boolean;
@@ -21,14 +31,14 @@ declare module 'angular' {
          * $ariaProvider (https://docs.angularjs.org/api/ngAria/provider/$ariaProvider).
          */
         interface IAriaProvider {
-            config(config: IAriaProviderOptions): void;
+            config(config: IAriaProviderOptions,): void;
         }
 
         /**
          * $aria service (https://docs.angularjs.org/api/ngAria/service/$aria).
          */
         interface IAriaService {
-            config(attribute: IAriaAttribute): boolean;
+            config(attribute: IAriaAttribute,): boolean;
         }
     }
 }

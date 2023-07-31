@@ -1,8 +1,8 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "no-string-throw": false,
-        "no-unnecessary-class": false
-    }
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "rules": {
+    "ban-types": false,
+    "no-string-throw": false,
+    "no-unnecessary-class": false
+  }
 }

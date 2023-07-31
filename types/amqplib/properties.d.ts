@@ -191,24 +191,24 @@ export interface MessageProperties {
 }
 
 export interface MessagePropertyHeaders {
-    "x-first-death-exchange"?: string | undefined;
-    "x-first-death-queue"?: string | undefined;
-    "x-first-death-reason"?: string | undefined;
-    "x-death"?: XDeath[] | undefined;
+    'x-first-death-exchange'?: string | undefined;
+    'x-first-death-queue'?: string | undefined;
+    'x-first-death-reason'?: string | undefined;
+    'x-death'?: XDeath[] | undefined;
     [key: string]: any;
 }
 
 export interface XDeath {
     count: number;
-    reason: "rejected" | "expired" | "maxlen";
+    reason: 'rejected' | 'expired' | 'maxlen';
     queue: string;
     time: {
-        "!": "timestamp";
+        '!': 'timestamp';
         value: number;
     };
     exchange: string;
-    "original-expiration"?: any;
-    "routing-keys": string[];
+    'original-expiration'?: any;
+    'routing-keys': string[];
 }
 
 export interface ServerProperties {

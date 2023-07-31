@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { OutgoingHttpHeaders, RequestOptions } from 'http';
+import { OutgoingHttpHeaders, RequestOptions, } from 'http';
 
 export interface Request extends RequestOptions {
     /** Defaults to {@link RequestSigner.createHost}() if possible. */
@@ -52,7 +52,7 @@ export interface Credentials {
 }
 
 export class RequestSigner {
-    constructor(requestOptions: string | Request, credentials?: Credentials);
+    constructor(requestOptions: string | Request, credentials?: Credentials,);
 
     request: Request;
     credentials: Credentials;
@@ -92,7 +92,7 @@ export class RequestSigner {
      * Extract the service code and region code from a Host name.
      * @returns two element string tuple with values [service, region].
      */
-    matchHost(host: string): [string, string];
+    matchHost(host: string,): [string, string,];
 
     /**
      * https://docs.aws.amazon.com/general/latest/gr/rande.html
@@ -220,4 +220,4 @@ export class RequestSigner {
  * Calculates and populates any necessary AWS headers and/or request options on
  * `requestOptions`. Returns `requestOptions` as a convenience for chaining.
  */
-export function sign(requestOptions: string | Request, credentials?: Credentials): Request;
+export function sign(requestOptions: string | Request, credentials?: Credentials,): Request;

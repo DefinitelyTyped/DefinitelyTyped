@@ -22,39 +22,39 @@ declare namespace android {
         versionCode: string;
     }
     type VersionCode =
-        | "BASE"
-        | "BASE_1_1"
-        | "CUPCAKE"
-        | "DONUT"
-        | "ECLAIR"
-        | "ECLAIR_0_1"
-        | "ECLAIR_MR1"
-        | "FROYO"
-        | "GINGERBREAD"
-        | "GINGERBREAD_MR1"
-        | "HONEYCOMB"
-        | "HONEYCOMB_MR1"
-        | "HONEYCOMB_MR2"
-        | "ICE_CREAM_SANDWICH"
-        | "ICE_CREAM_SANDWICH_MR1"
-        | "JELLY_BEAN"
-        | "JELLY_BEAN_MR1"
-        | "JELLY_BEAN_MR2"
-        | "KITKAT"
-        | "KITKAT_WATCH"
-        | "LOLLIPOP"
-        | "LOLLIPOP_MR1"
-        | "M"
-        | "N"
-        | "N_MR1"
-        | "O"
-        | "O_MR1"
-        | "P"
-        | "Q"
-        | "R"
-        | "S"
-        | "S_V2"
-        | "TIRAMISU";
+        | 'BASE'
+        | 'BASE_1_1'
+        | 'CUPCAKE'
+        | 'DONUT'
+        | 'ECLAIR'
+        | 'ECLAIR_0_1'
+        | 'ECLAIR_MR1'
+        | 'FROYO'
+        | 'GINGERBREAD'
+        | 'GINGERBREAD_MR1'
+        | 'HONEYCOMB'
+        | 'HONEYCOMB_MR1'
+        | 'HONEYCOMB_MR2'
+        | 'ICE_CREAM_SANDWICH'
+        | 'ICE_CREAM_SANDWICH_MR1'
+        | 'JELLY_BEAN'
+        | 'JELLY_BEAN_MR1'
+        | 'JELLY_BEAN_MR2'
+        | 'KITKAT'
+        | 'KITKAT_WATCH'
+        | 'LOLLIPOP'
+        | 'LOLLIPOP_MR1'
+        | 'M'
+        | 'N'
+        | 'N_MR1'
+        | 'O'
+        | 'O_MR1'
+        | 'P'
+        | 'Q'
+        | 'R'
+        | 'S'
+        | 'S_V2'
+        | 'TIRAMISU';
 
     type MapVersionSupport = {
         [K in VersionCode]: AndroidVersion;
@@ -71,9 +71,9 @@ declare const android: {
     get: (
         arg:
             | {
-                  toString(): string;
-              }
-            | ((version: android.AndroidVersion) => boolean),
+                toString(): string;
+            }
+            | ((version: android.AndroidVersion,) => boolean),
     ) => android.AndroidVersion | null;
     /**
      *  Retrieve all Android versions that meet the criteria of the argument.
@@ -83,9 +83,9 @@ declare const android: {
     getAll: (
         arg:
             | {
-                  toString(): string;
-              }
-            | ((version: android.AndroidVersion) => boolean),
+                toString(): string;
+            }
+            | ((version: android.AndroidVersion,) => boolean),
     ) => android.AndroidVersion[] | null;
 } & android.MapVersionSupport;
 

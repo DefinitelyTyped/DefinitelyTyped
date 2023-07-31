@@ -9,9 +9,9 @@ setInterval(() => {
     diff.write(`\
 This is a demo
 The time is: ${new Date()}
-That is all`);
-}, 500);
+That is all`,);
+}, 500,);
 
-diff.pipe(process.stdout);
+diff.pipe(process.stdout,);
 diff.clear(); // $ExpectType void
 diff.reset(); // $ExpectType void

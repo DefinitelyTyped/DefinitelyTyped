@@ -7,7 +7,7 @@ import Token from '../Token';
 export default class LL1Analyzer {
     static readonly HIT_PRED: typeof Token.INVALID_TYPE;
 
-    constructor(atn: ATNState);
+    constructor(atn: ATNState,);
 
     /**
      * Calculates the SLL(1) expected lookahead set for each outgoing transition
@@ -19,7 +19,7 @@ export default class LL1Analyzer {
      * @param s the ATN state
      * @return the expected symbols for each outgoing transition of `s`.
      */
-    getDecisionLookahead(s: ATNState): Array<IntervalSet | null> | null;
+    getDecisionLookahead(s: ATNState,): Array<IntervalSet | null> | null;
 
     /**
      * Compute set of tokens that can follow `s` in the ATN in the
@@ -38,5 +38,5 @@ export default class LL1Analyzer {
      *
      * @return The set of tokens that can follow `s` in the ATN in the specified `ctx`.
      */
-    LOOK(s: ATNState, stopState: ATNState | BlockEndState, ctx: RuleContext): IntervalSet;
+    LOOK(s: ATNState, stopState: ATNState | BlockEndState, ctx: RuleContext,): IntervalSet;
 }

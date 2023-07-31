@@ -1,8 +1,8 @@
 import * as ascii2mathml from 'ascii2mathml';
 
-const fn = ascii2mathml({}); // $ExpectType ascii2mathml
-fn(''); // $ExpectType string
-ascii2mathml('', {}); // $ExpectType string
+const fn = ascii2mathml({},); // $ExpectType ascii2mathml
+fn('',); // $ExpectType string
+ascii2mathml('', {},); // $ExpectType string
 
 // $ExpectType string
 ascii2mathml('', {
@@ -13,5 +13,5 @@ ascii2mathml('', {
     dir: 'ltr',
     bare: false,
     standalone: false,
-    annotate: false
-});
+    annotate: false,
+},);

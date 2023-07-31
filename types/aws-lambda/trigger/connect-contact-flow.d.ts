@@ -1,4 +1,4 @@
-import { Callback, Handler } from '../handler';
+import { Callback, Handler, } from '../handler';
 
 export type ConnectContactFlowHandler = Handler<ConnectContactFlowEvent, ConnectContactFlowResult>;
 export type ConnectContactFlowCallback = Callback<ConnectContactFlowResult>;

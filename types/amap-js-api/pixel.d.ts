@@ -6,7 +6,7 @@ declare namespace AMap {
          * @param y 纵轴坐标
          * @param round 是否四舍五入
          */
-        constructor(x: number, y: number, round?: boolean);
+        constructor(x: number, y: number, round?: boolean,);
         /**
          * 获得X方向像素坐标
          */
@@ -19,18 +19,18 @@ declare namespace AMap {
          * 当前像素坐标与传入像素坐标是否相等
          * @param point 目标像素坐标
          */
-        equals(point: Pixel): boolean;
+        equals(point: Pixel,): boolean;
         /**
          * 以字符串形式返回像素坐标对象
          */
         toString(): string;
 
         // internal
-        add(offset: {x: number; y: number}, round?: boolean): Pixel;
+        add(offset: { x: number; y: number }, round?: boolean,): Pixel;
         round(): Pixel;
         floor(): Pixel;
         length(): number;
         direction(): null | number;
-        toFixed(decimals?: number): this;
+        toFixed(decimals?: number,): this;
     }
 }

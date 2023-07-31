@@ -14,7 +14,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace loadingBar {
-
         interface ILoadingBarProvider {
             /**
              * Turn the spinner on or off
@@ -64,7 +63,7 @@ declare module 'angular' {
              * Set the percentage completed
              * @param {number} n - number between 0 and 1
              */
-            set(n: number): void;
+            set(n: number,): void;
 
             /**
              * Get the percentage completed
@@ -90,5 +89,4 @@ declare module 'angular' {
          */
         ignoreLoadingBar?: boolean | undefined;
     }
-
 }

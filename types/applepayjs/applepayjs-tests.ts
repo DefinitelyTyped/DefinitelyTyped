@@ -1,8 +1,8 @@
 // Copyright (c) Martin Costello, 2017. All rights reserved.
 // Licensed under the Apache 2.0 license. See the LICENSE file in the project root for full license information.
 
-declare function describe(desc: string, fn: () => void): void;
-declare function it(desc: string, fn: () => void): void;
+declare function describe(desc: string, fn: () => void,): void;
+declare function it(desc: string, fn: () => void,): void;
 
 describe('ApplePaySession', () => {
     it('the constants are defined', () => {
@@ -25,23 +25,23 @@ describe('ApplePaySession', () => {
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            supportedNetworks: ['masterCard', 'visa'],
-            merchantCapabilities: ['supports3DS'],
+            supportedNetworks: ['masterCard', 'visa',],
+            merchantCapabilities: ['supports3DS',],
             total: {
                 label: 'My Store',
                 amount: '9.99',
             },
         };
 
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
     it('can create a new instance with a recurring payment', () => {
         const version = 14;
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit'],
-            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit',],
+            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover',],
             lineItems: [
                 {
                     label: '7 Day Trial',
@@ -82,7 +82,7 @@ describe('ApplePaySession', () => {
             },
         };
 
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
 
     it('can create a new instance with a multi merchant payment request', () => {
@@ -90,8 +90,8 @@ describe('ApplePaySession', () => {
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit'],
-            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit',],
+            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover',],
             lineItems: [
                 {
                     label: 'Hotel: Ocean View Suite',
@@ -126,15 +126,15 @@ describe('ApplePaySession', () => {
                 amount: '6.00',
             },
         };
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
     it('can create a new instance with an automatic reload payment request', () => {
         const version = 14;
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit'],
-            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit',],
+            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover',],
             lineItems: [
                 {
                     label: 'Automatic Reload',
@@ -162,15 +162,15 @@ describe('ApplePaySession', () => {
                 amount: '15.00',
             },
         };
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
     it('can create a new instance with a deferred payment request', () => {
         const version = 14;
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit'],
-            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit',],
+            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover',],
             lineItems: [
                 {
                     label: 'Pay for Later',
@@ -184,14 +184,14 @@ describe('ApplePaySession', () => {
                 amount: '1.99',
             },
         };
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
     it('can create a new instance with a deferred payment request with a deferred billing agreement', () => {
         const version = 14;
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit'],
+            merchantCapabilities: ['supports3DS', 'supportsDebit', 'supportsCredit',],
             shippingMethods: [
                 {
                     label: 'Free Standard Shipping',
@@ -235,9 +235,9 @@ describe('ApplePaySession', () => {
                 },
             ],
             shippingType: 'shipping',
-            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
-            requiredBillingContactFields: ['postalAddress', 'name', 'phoneticName'],
-            requiredShippingContactFields: ['postalAddress', 'name', 'phone', 'email'],
+            supportedNetworks: ['visa', 'masterCard', 'amex', 'discover',],
+            requiredBillingContactFields: ['postalAddress', 'name', 'phoneticName',],
+            requiredShippingContactFields: ['postalAddress', 'name', 'phone', 'email',],
             lineItems: [
                 {
                     label: 'Sales Tax',
@@ -254,43 +254,43 @@ describe('ApplePaySession', () => {
                 type: 'final',
             },
         };
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
     });
     it('can call static methods', () => {
         const merchantIdentifier = 'MyMerchantId';
 
         const canMakePayments: boolean = ApplePaySession.canMakePayments();
-        const supported: boolean = ApplePaySession.supportsVersion(2);
+        const supported: boolean = ApplePaySession.supportsVersion(2,);
 
-        ApplePaySession.canMakePaymentsWithActiveCard(merchantIdentifier).then((status: boolean) => {
-            console.log(`Can make payments with active card: ${status}.`);
-        });
+        ApplePaySession.canMakePaymentsWithActiveCard(merchantIdentifier,).then((status: boolean,) => {
+            console.log(`Can make payments with active card: ${status}.`,);
+        },);
 
-        ApplePaySession.openPaymentSetup(merchantIdentifier).then(success => {
-            console.log(`Apple Pay setup: ${success}.`);
-        });
+        ApplePaySession.openPaymentSetup(merchantIdentifier,).then(success => {
+            console.log(`Apple Pay setup: ${success}.`,);
+        },);
     });
     it('can call instance methods', () => {
         const version = 3;
         const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: 'US',
             currencyCode: 'USD',
-            supportedNetworks: ['masterCard', 'visa'],
-            merchantCapabilities: ['supports3DS', 'supportsCredit', 'supportsDebit'],
+            supportedNetworks: ['masterCard', 'visa',],
+            merchantCapabilities: ['supports3DS', 'supportsCredit', 'supportsDebit',],
             total: {
                 label: 'My Store',
                 amount: '9.99',
             },
         };
 
-        const session = new ApplePaySession(version, paymentRequest);
+        const session = new ApplePaySession(version, paymentRequest,);
 
         session.abort();
         session.completeMerchantValidation({
             foo: 'bar',
-        });
+        },);
 
-        session.completePayment(ApplePaySession.STATUS_SUCCESS);
+        session.completePayment(ApplePaySession.STATUS_SUCCESS,);
 
         const authorizationResult: ApplePayJS.ApplePayPaymentAuthorizationResult = {
             status: ApplePaySession.STATUS_FAILURE,
@@ -303,7 +303,7 @@ describe('ApplePaySession', () => {
             ],
         };
 
-        session.completePayment(authorizationResult);
+        session.completePayment(authorizationResult,);
 
         const total: ApplePayJS.ApplePayLineItem = {
             label: 'Subtotal',
@@ -344,13 +344,13 @@ describe('ApplePaySession', () => {
             },
         ];
 
-        session.completePaymentMethodSelection(total, lineItems);
+        session.completePaymentMethodSelection(total, lineItems,);
 
         const paymentUpdate = {
             newTotal: total,
         };
 
-        session.completePaymentMethodSelection(paymentUpdate);
+        session.completePaymentMethodSelection(paymentUpdate,);
 
         session.completeShippingContactSelection(
             ApplePaySession.STATUS_INVALID_SHIPPING_POSTAL_ADDRESS,
@@ -363,50 +363,50 @@ describe('ApplePaySession', () => {
             newTotal: total,
         };
 
-        session.completeShippingContactSelection(contactUpdate);
+        session.completeShippingContactSelection(contactUpdate,);
 
-        session.completeShippingMethodSelection(ApplePaySession.STATUS_SUCCESS, total, lineItems);
+        session.completeShippingMethodSelection(ApplePaySession.STATUS_SUCCESS, total, lineItems,);
 
         const shippingUpdate = {
             newTotal: total,
         };
 
-        session.completeShippingMethodSelection(shippingUpdate);
+        session.completeShippingMethodSelection(shippingUpdate,);
 
-        session.oncancel = (event: ApplePayJS.Event): void => {
+        session.oncancel = (event: ApplePayJS.Event,): void => {
             event.cancelBubble = true;
         };
 
-        session.onpaymentauthorized = (event: ApplePayJS.ApplePayPaymentAuthorizedEvent) => {
+        session.onpaymentauthorized = (event: ApplePayJS.ApplePayPaymentAuthorizedEvent,) => {
             if (event.payment) {
-                console.log('Payment data:', JSON.stringify(event.payment));
+                console.log('Payment data:', JSON.stringify(event.payment,),);
             }
         };
 
-        session.onpaymentmethodselected = (event: ApplePayJS.ApplePayPaymentMethodSelectedEvent) => {
+        session.onpaymentmethodselected = (event: ApplePayJS.ApplePayPaymentMethodSelectedEvent,) => {
             if (event.paymentMethod) {
-                console.log('Payment method:', JSON.stringify(event.paymentMethod));
+                console.log('Payment method:', JSON.stringify(event.paymentMethod,),);
             }
             if (event.paymentMethod.billingContact) {
-                console.log('Billing contact:', JSON.stringify(event.paymentMethod.billingContact));
+                console.log('Billing contact:', JSON.stringify(event.paymentMethod.billingContact,),);
             }
         };
 
-        session.onshippingcontactselected = (event: ApplePayJS.ApplePayShippingContactSelectedEvent) => {
+        session.onshippingcontactselected = (event: ApplePayJS.ApplePayShippingContactSelectedEvent,) => {
             if (event.shippingContact) {
-                console.log('Shipping contact:', JSON.stringify(event.shippingContact));
+                console.log('Shipping contact:', JSON.stringify(event.shippingContact,),);
             }
         };
 
-        session.onshippingmethodselected = (event: ApplePayJS.ApplePayShippingMethodSelectedEvent) => {
+        session.onshippingmethodselected = (event: ApplePayJS.ApplePayShippingMethodSelectedEvent,) => {
             if (event.shippingMethod) {
-                console.log('Shipping method:', JSON.stringify(event.shippingMethod));
+                console.log('Shipping method:', JSON.stringify(event.shippingMethod,),);
             }
         };
 
-        session.onvalidatemerchant = (event: ApplePayJS.ApplePayValidateMerchantEvent) => {
+        session.onvalidatemerchant = (event: ApplePayJS.ApplePayValidateMerchantEvent,) => {
             if (event.validationURL) {
-                console.log(`The validation URL is '${event.validationURL}'.`);
+                console.log(`The validation URL is '${event.validationURL}'.`,);
             }
         };
     });
@@ -417,8 +417,8 @@ describe('ApplePayPaymentRequest', () => {
             applicationData: 'ApplicationData',
             countryCode: 'GB',
             currencyCode: 'GBP',
-            merchantCapabilities: ['supports3DS', 'supportsCredit', 'supportsDebit'],
-            supportedNetworks: ['amex', 'discover', 'jcb', 'masterCard', 'privateLabel', 'visa'],
+            merchantCapabilities: ['supports3DS', 'supportsCredit', 'supportsDebit',],
+            supportedNetworks: ['amex', 'discover', 'jcb', 'masterCard', 'privateLabel', 'visa',],
             total: {
                 label: 'Apple',
                 type: 'final',
@@ -431,7 +431,7 @@ describe('ApplePayPaymentRequest', () => {
             familyName: 'Patel',
             givenName: 'Ravi',
             phoneNumber: '(408) 555-5555',
-            addressLines: ['1 Infinite Loop'],
+            addressLines: ['1 Infinite Loop',],
             locality: 'Cupertino',
             subLocality: '',
             administrativeArea: 'CA',
@@ -458,9 +458,9 @@ describe('ApplePayPaymentRequest', () => {
             },
         ];
 
-        paymentRequest.requiredBillingContactFields = ['postalAddress', 'name'];
+        paymentRequest.requiredBillingContactFields = ['postalAddress', 'name',];
 
-        paymentRequest.requiredShippingContactFields = ['postalAddress', 'name', 'phone', 'name'];
+        paymentRequest.requiredShippingContactFields = ['postalAddress', 'name', 'phone', 'name',];
 
         paymentRequest.shippingContact = {
             emailAddress: 'ravipatel@example.com',
@@ -469,7 +469,7 @@ describe('ApplePayPaymentRequest', () => {
             phoneNumber: '(408) 555-5555',
             phoneticFamilyName: 'Patel',
             phoneticGivenName: 'Ravi',
-            addressLines: ['1 Infinite Loop'],
+            addressLines: ['1 Infinite Loop',],
             locality: 'Cupertino',
             subLocality: '',
             administrativeArea: 'CA',
@@ -501,16 +501,20 @@ describe('ApplePayPaymentRequest', () => {
 
 describe('ApplePayError', () => {
     it('can create a new instance', () => {
-        new ApplePayError('shippingContactInvalid');
-        new ApplePayError('shippingContactInvalid', 'emailAddress');
-        new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+        new ApplePayError('shippingContactInvalid',);
+        new ApplePayError('shippingContactInvalid', 'emailAddress',);
+        new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message',);
     });
 });
 
 describe('ApplePayJS.ApplePayError', () => {
     it('can be used as a type', () => {
-        const a: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid');
-        const b: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress');
-        const c: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+        const a: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid',);
+        const b: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress',);
+        const c: ApplePayJS.ApplePayError = new ApplePayError(
+            'shippingContactInvalid',
+            'emailAddress',
+            'some message',
+        );
     });
 });

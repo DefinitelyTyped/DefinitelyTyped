@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from "angular";
+import * as angular from 'angular';
 
 export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
 export type IWebSocketProvider = angular.websocket.IWebSocketProvider;
@@ -13,7 +13,7 @@ export type IWebSocketMessageHandler = angular.websocket.IWebSocketMessageHandle
 export type IWebSocketQueueItem = angular.websocket.IWebSocketQueueItem;
 export type IWebSocket = angular.websocket.IWebSocket;
 
-declare module "angular" {
+declare module 'angular' {
     namespace websocket {
         /**
          * Options available to be specified for IWebSocketProvider.
@@ -24,7 +24,7 @@ declare module "angular" {
             useApplyAsync?: boolean | undefined;
             initialTimeout?: number | undefined;
             maxTimeout?: number | undefined;
-            binaryType?: "blob" | "arraybuffer" | undefined;
+            binaryType?: 'blob' | 'arraybuffer' | undefined;
             reconnectIfNotNormalClose?: boolean | undefined;
         }
 
@@ -34,9 +34,11 @@ declare module "angular" {
          * @param url url to connect to
          * @return websocket instance
          */
-        type IWebSocketProvider =
-            (url: string, protocols?: string | string[] | IWebSocketConfigOptions,
-                options?: IWebSocketConfigOptions) => IWebSocket;
+        type IWebSocketProvider = (
+            url: string,
+            protocols?: string | string[] | IWebSocketConfigOptions,
+            options?: IWebSocketConfigOptions,
+        ) => IWebSocket;
 
         /** Options available to be specified for IWebSocket.onMessage */
         interface IWebSocketMessageOptions {
@@ -52,7 +54,7 @@ declare module "angular" {
 
         /** Type corresponding to onMessage callbacks stored in $Websocket#onMessageCallbacks instance. */
         interface IWebSocketMessageHandler {
-            fn: (evt: MessageEvent) => void;
+            fn: (evt: MessageEvent,) => void;
             pattern?: string | RegExp | undefined;
             autoApply: boolean;
         }
@@ -71,7 +73,7 @@ declare module "angular" {
              * @param event event object
              * @returns this instance, for method chaining
              */
-            onOpen(callback: (event: Event) => void): IWebSocket;
+            onOpen(callback: (event: Event,) => void,): IWebSocket;
 
             /**
              * Adds a callback to be executed each time a socket connection is closed for
@@ -80,7 +82,7 @@ declare module "angular" {
              * @param event event object
              * @returns this instance, for method chaining
              */
-            onClose(callback: (event: CloseEvent) => void): IWebSocket;
+            onClose(callback: (event: CloseEvent,) => void,): IWebSocket;
 
             /**
              * Adds a callback to be executed each time a socket connection is closed for
@@ -89,7 +91,7 @@ declare module "angular" {
              * @param event event object
              * @returns this instance, for method chaining
              */
-            onError(callback: (event: Event) => void): IWebSocket;
+            onError(callback: (event: Event,) => void,): IWebSocket;
 
             /**
              * Adds a callback to be executed each time a socket connection has an error for
@@ -98,7 +100,7 @@ declare module "angular" {
              * @param event event object
              * @returns this instance, for method chaining
              */
-            onMessage(callback: (event: MessageEvent) => void, options?: IWebSocketMessageOptions): IWebSocket;
+            onMessage(callback: (event: MessageEvent,) => void, options?: IWebSocketMessageOptions,): IWebSocket;
 
             /**
              * Closes the underlying socket, as long as no data is still being sent from the client.
@@ -106,14 +108,14 @@ declare module "angular" {
              * @param force if `true`, force close even if data is still being sent
              * @returns this instance, for method chaining
              */
-            close(force?: boolean): IWebSocket;
+            close(force?: boolean,): IWebSocket;
 
             /**
              * Adds data to a queue, and attempts to send if the socket is ready.
              *
              * @param data data to send, if this is an object, it will be stringified before sending
              */
-            send(data: string | {}): IPromise<any>;
+            send(data: string | {},): IPromise<any>;
 
             /**
              * WebSocket instance.
@@ -128,7 +130,7 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when the socket is opened.
              */
-            onOpenCallbacks: Array<((evt: Event) => void)>;
+            onOpenCallbacks: Array<((evt: Event,) => void)>;
 
             /**
              * List of callbacks to be executed when a message is received from the socket.
@@ -138,12 +140,12 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when an error is received from the socket.
              */
-            onErrorCallbacks: Array<((evt: Event) => void)>;
+            onErrorCallbacks: Array<((evt: Event,) => void)>;
 
             /**
              * List of callbacks to be executed when the socket is closed.
              */
-            onCloseCallbacks: Array<((evt: CloseEvent) => void)>;
+            onCloseCallbacks: Array<((evt: CloseEvent,) => void)>;
 
             /**
              * Returns either the readyState value from the underlying WebSocket instance

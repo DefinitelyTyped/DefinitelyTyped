@@ -15,9 +15,9 @@ declare namespace appdmg {
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {
-        on(event: 'progress', listener: (info: Progress) => void): this;
-        on(event: 'finish', listener: () => void): this;
-        on(event: 'error', listener: (err: any) => void): this;
+        on(event: 'progress', listener: (info: Progress,) => void,): this;
+        on(event: 'finish', listener: () => void,): this;
+        on(event: 'error', listener: (err: any,) => void,): this;
     }
 
     interface SpecificationOptions {
@@ -66,6 +66,6 @@ declare namespace appdmg {
     }
 }
 
-declare function appdmg(options?: appdmg.Options): appdmg.EventEmitter;
+declare function appdmg(options?: appdmg.Options,): appdmg.EventEmitter;
 
 export = appdmg;

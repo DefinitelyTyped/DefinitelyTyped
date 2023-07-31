@@ -15,13 +15,13 @@
 //
 
 // Module dependencies.
-import { Azure as Az } from 'azure-sb';
+import { Azure as Az, } from 'azure-sb';
 import Dictionary = Az.ServiceBus.Dictionary;
 
 export namespace Azure.ServiceBus.Results {
     export interface QueueResponse {
         body: any;
-        headers: Dictionary<string>
+        headers: Dictionary<string>;
     }
 
     export interface QueueMessageResponse {
@@ -33,8 +33,8 @@ export namespace Azure.ServiceBus.Results {
     }
 
     export interface QueueMessageResult {
-        parse(responseObject: object): QueueMessageResponse;
+        parse(responseObject: object,): QueueMessageResponse;
 
-        isRFC1123(value: string | any): boolean;
+        isRFC1123(value: string | any,): boolean;
     }
 }

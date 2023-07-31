@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = addZero;
-declare function addZero(value: string | number, digits?: number): string;
+declare function addZero(value: string | number, digits?: number,): string;

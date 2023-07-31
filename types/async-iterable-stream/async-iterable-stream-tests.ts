@@ -4,7 +4,7 @@ import AsyncIterableStream = require('async-iterable-stream');
 
 class DummyAsyncIterator {
     async next() {
-        return { done: true, value: 'dummy' };
+        return { done: true, value: 'dummy', };
     }
 
     return() {
@@ -28,7 +28,7 @@ const asyncIterableStream = new DummyAsyncIterableStream();
     for await (const data of asyncIterableStream) {
         // $ExpectType string
         data;
-        console.log(data);
+        console.log(data,);
     }
 })();
 
@@ -39,7 +39,7 @@ const asyncIterableStream = new DummyAsyncIterableStream();
 })();
 
 (async () => {
-    const asyncIterable = asyncIterableStream.createAsyncIterable(20);
+    const asyncIterable = asyncIterableStream.createAsyncIterable(20,);
     for await (const data of asyncIterable) {
         // $ExpectType string
         data;

@@ -1,4 +1,4 @@
-import { PasswordProtectOptions } from './password-protect-options';
+import { PasswordProtectOptions, } from './password-protect-options';
 
 /**
  * Document Permissions for {@link ProtectPDFOperation}
@@ -18,6 +18,6 @@ export class Permissions {
     /**
      * Adds a document [Permission]{@link PasswordProtectOptions.Permission} in the permissions set.
      */
-    addPermission(permission: any): void;
-    validate(permission: any): void;
+    addPermission(permission: any,): void;
+    validate(permission: any,): void;
 }

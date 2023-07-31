@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 declare class Message {
-    constructor(args: Buffer | Buffer[]);
+    constructor(args: Buffer | Buffer[],);
 
     inspect(): string;
 

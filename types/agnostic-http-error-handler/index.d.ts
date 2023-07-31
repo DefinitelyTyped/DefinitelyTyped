@@ -6,12 +6,12 @@
 
 type Falsy = false | 0 | '' | null | undefined;
 
-interface Data<T> {
-    pipe: (res: T) => any;
+interface Data<T,> {
+    pipe: (res: T,) => any;
 }
 
-declare function errorHandler<Err, Req, Res, P, T>(
-    preErrorHandler: (err: Err, responsePayload: P, req: Req, res: Res) => T,
+declare function errorHandler<Err, Req, Res, P, T,>(
+    preErrorHandler: (err: Err, responsePayload: P, req: Req, res: Res,) => T,
 ): {
     express: (
         err: Err,

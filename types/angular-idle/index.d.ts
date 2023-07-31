@@ -10,26 +10,23 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace idle {
-
         /**
          * Used to configure the Title service.
          */
         interface ITitleProvider extends IServiceProvider {
-
             /**
              * Enables or disables the Title functionality.
              *
              * @param enabled Boolean, default is true.
              */
-            enabled(enabled: boolean): void;
+            enabled(enabled: boolean,): void;
         }
 
         interface ITitleService {
-
             /**
              * Allows the title functionality to be enabled or disabled on the fly.
              */
-            setEnabled(enabled: boolean): void;
+            setEnabled(enabled: boolean,): void;
 
             /**
              * Returns whether or not the title functionality has been enabled.
@@ -41,7 +38,7 @@ declare module 'angular' {
              *
              * Tracking the original title is important when restoring the title after displaying, for example, the idle warning message.
              */
-            original(val: string): void;
+            original(val: string,): void;
 
             /**
              * Returns the "original" title value that has been previously set.
@@ -53,7 +50,7 @@ declare module 'angular' {
             /**
              * Changes the actual title of the document.
              */
-            value(val: string): void;
+            value(val: string,): void;
 
             /**
              * Returns the current document title.
@@ -64,7 +61,7 @@ declare module 'angular' {
              * If overwrite is false or unspecified, updates the "original" title with the current document title
              * if it has not already been stored. If overwrite is true, the current document title is stored regardless.
              */
-            store(overwrite?: boolean): void;
+            store(overwrite?: boolean,): void;
 
             /**
              * Sets the title to the original value (if it was stored or set previously).
@@ -74,7 +71,7 @@ declare module 'angular' {
             /**
              * Sets the text to use as the message displayed when the user is idle.
              */
-            idleMessage(val: string): void;
+            idleMessage(val: string,): void;
 
             /**
              * Gets the text to use as the message displayed when the user is idle.
@@ -84,7 +81,7 @@ declare module 'angular' {
             /**
              * Sets the text to use as the message displayed when the user is timed out.
              */
-            timedOutMessage(val: string): void;
+            timedOutMessage(val: string,): void;
 
             /**
              * Gets the text to use as the message displayed when the user is timed out.
@@ -95,7 +92,7 @@ declare module 'angular' {
              * Stores the original title if it hasn't been already, determines the number minutes, seconds,
              * and total seconds from countdown, and displays the idleMessage with the aforementioned values interpolated.
              */
-            setAsIdle(countdown: number): void;
+            setAsIdle(countdown: number,): void;
 
             /**
              * Stores the original title if it hasn't been already, and displays the timedOutMessage.
@@ -107,7 +104,6 @@ declare module 'angular' {
          * Used to configure the Keepalive service.
          */
         interface IKeepAliveProvider extends IServiceProvider {
-
             /**
              * If configured, options will be used to issue a request using $http.
              * If the value is null, no HTTP request will be issued.
@@ -116,7 +112,7 @@ declare module 'angular' {
              *
              * @param value May be string or IRequestConfig, default is null.
              */
-            http(value: string | IRequestConfig): void;
+            http(value: string | IRequestConfig,): void;
 
             /**
              * This specifies how often the keepalive event is triggered and the
@@ -124,7 +120,7 @@ declare module 'angular' {
              *
              * @param seconds Integer, default is 10 minutes. Must be greater than 0.
              */
-            interval(seconds: number): void;
+            interval(seconds: number,): void;
         }
 
         /**
@@ -134,7 +130,6 @@ declare module 'angular' {
          * Idle.watch() is called. This can be disabled by configuring the IdleProvider.
          */
         interface IKeepAliveService {
-
             /**
              * Starts pinging periodically until stop() is called.
              */
@@ -154,7 +149,7 @@ declare module 'angular' {
              * Changes the interval value at runtime.
              * You will need to restart the pinging process by calling start() manually for the changes to be reflected.
              */
-            setInterval(seconds: number): void;
+            setInterval(seconds: number,): void;
         }
 
         /**
@@ -167,7 +162,7 @@ declare module 'angular' {
              *
              * @param events string, default 'mousemove keydown DOMMouseScroll mousewheel mousedown'
              */
-            interrupt(events: string): void;
+            interrupt(events: string,): void;
 
             /**
              * The idle timeout duration in seconds. After this amount of time passes without the user
@@ -176,7 +171,7 @@ declare module 'angular' {
              *
              * @param seconds integer, default is 20min
              */
-            idle(seconds: number): void;
+            idle(seconds: number,): void;
 
             /**
              * The amount of time the user has to respond (in seconds) before they have been considered
@@ -184,7 +179,7 @@ declare module 'angular' {
              *
              * @param seconds integer, default is 30s
              */
-            timeout(seconds: number): void;
+            timeout(seconds: number,): void;
 
             /**
              * When true or idle, user activity will automatically interrupt the warning countdown
@@ -194,14 +189,14 @@ declare module 'angular' {
              *
              * @param enabled boolean or string, possible values: off/false, idle/true, or notIdle
              */
-            autoResume(enabled: boolean | string): void;
+            autoResume(enabled: boolean | string,): void;
 
             /**
              * When true, the Keepalive service is automatically stopped and started as needed.
              *
              * @param enabled boolean, default is true
              */
-            keepalive(enabled: boolean): void;
+            keepalive(enabled: boolean,): void;
         }
 
         /**
@@ -226,13 +221,13 @@ declare module 'angular' {
              * Updates the idle value (see IdleProvider.idle()) and
              * restarts the watch if its running.
              */
-            setIdle(idle: number): void;
+            setIdle(idle: number,): void;
 
             /**
              * Updates the timeout value (see IdleProvider.timeout()) and
              * restarts the watch if its running.
              */
-            setTimeout(timeout: number): void;
+            setTimeout(timeout: number,): void;
 
             /**
              * Whether user has timed out (meaning idleDuration + timeout has passed without any activity)

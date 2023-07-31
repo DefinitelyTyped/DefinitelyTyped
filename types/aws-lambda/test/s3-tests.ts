@@ -1,12 +1,12 @@
-import { Callback, Context, S3BatchEvent, S3BatchResult, S3CreateEvent, S3EventRecord, S3Handler } from 'aws-lambda';
+import { Callback, Context, S3BatchEvent, S3BatchResult, S3CreateEvent, S3EventRecord, S3Handler, } from 'aws-lambda';
 
 // TODO: Update test to read event properties, like the user will
-let handler: S3Handler = async (event, context, callback) => {
-    callback(new Error());
+let handler: S3Handler = async (event, context, callback,) => {
+    callback(new Error(),);
 };
 
 // Test old event name
-handler = (event: S3CreateEvent, context: Context, cb: Callback<void>) => {};
+handler = (event: S3CreateEvent, context: Context, cb: Callback<void>,) => {};
 
 const record: S3EventRecord = {
     eventVersion: '2.1',
@@ -51,7 +51,7 @@ const record: S3EventRecord = {
 };
 
 const event: S3CreateEvent = {
-    Records: [record],
+    Records: [record,],
 };
 
 /**
@@ -61,7 +61,7 @@ const event: S3CreateEvent = {
 const batchEvent: S3BatchEvent = {
     invocationSchemaVersion: '1.0',
     invocationId: 'foo_invocation_id',
-    job: { id: 'foo_job_id' },
+    job: { id: 'foo_job_id', },
     tasks: [
         {
             taskId: '11111',

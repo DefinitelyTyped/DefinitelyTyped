@@ -8,7 +8,15 @@ export = AVS;
 
 declare namespace AVS {
     enum EventTypes {
-        RECORD_STOP, RECORD_START, ERROR, TOKEN_INVALID, LOG, LOGIN, LOGOUT, TOKEN_SET, REFRESH_TOKEN_SET
+        RECORD_STOP,
+        RECORD_START,
+        ERROR,
+        TOKEN_INVALID,
+        LOG,
+        LOGIN,
+        LOGOUT,
+        TOKEN_SET,
+        REFRESH_TOKEN_SET,
     }
 
     interface AVSParams {
@@ -25,36 +33,44 @@ declare namespace AVS {
     }
 
     class Player {
-        on(eventType: Player.EventTypes, callback?: () => void): void;
+        on(eventType: Player.EventTypes, callback?: () => void,): void;
     }
 
     namespace Player {
         enum EventTypes {
-            LOG, ERROR, PLAY, REPLAY, PAUSE, STOP, ENQUEUE, DEQUE
+            LOG,
+            ERROR,
+            PLAY,
+            REPLAY,
+            PAUSE,
+            STOP,
+            ENQUEUE,
+            DEQUE,
         }
     }
 }
 
 declare class AVS {
     player: AVS.Player;
-    constructor(params: AVS.AVSParams);
+    constructor(params: AVS.AVSParams,);
 
-    on(eventType: AVS.EventTypes, callback?: () => void): void;
+    on(eventType: AVS.EventTypes, callback?: () => void,): void;
     refreshToken(): Promise<AVS.TokenResponse>;
     requestMic(): Promise<any>;
     startRecording(): Promise<void>;
     stopRecording(): Promise<DataView | undefined>;
-    sendAudio(dataView: DataView): Promise<{
-        xhr: any, response: {
-            httpVersion: string,
-            statusCode: string,
-            statusMessage: string,
-            method: string,
-            url: string,
-            headers: string,
-            body: string,
-            boundary: string,
-            multipart: string
-        }
+    sendAudio(dataView: DataView,): Promise<{
+        xhr: any;
+        response: {
+            httpVersion: string;
+            statusCode: string;
+            statusMessage: string;
+            method: string;
+            url: string;
+            headers: string;
+            body: string;
+            boundary: string;
+            multipart: string;
+        };
     }>;
 }

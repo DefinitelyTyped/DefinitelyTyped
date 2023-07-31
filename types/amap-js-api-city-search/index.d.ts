@@ -53,7 +53,9 @@ declare namespace AMap {
          * 自动获取用户IP，回调返回当前用户所在城市
          * @param callback 查询回调
          */
-        getLocalCity(callback: (status: CitySearch.SearchStatus, result: CitySearch.SearchResult | string) => void): void;
+        getLocalCity(
+            callback: (status: CitySearch.SearchStatus, result: CitySearch.SearchResult | string,) => void,
+        ): void;
         /**
          * 根据输入IP地址返回对应城市信息
          * @param ip IP
@@ -61,7 +63,7 @@ declare namespace AMap {
          */
         getCityByIp(
             ip: string,
-            callback: (status: CitySearch.SearchStatus, result: CitySearch.SearchResult | string) => void
+            callback: (status: CitySearch.SearchStatus, result: CitySearch.SearchResult | string,) => void,
         ): void;
     }
 }

@@ -2,7 +2,7 @@
  * ServiceApiError is thrown when an underlying service API call results in an error.
  */
 export class ServiceApiError extends Error {
-    constructor(message: any, requestTrackingId: any, statusCode: any, errorCode: any);
+    constructor(message: any, requestTrackingId: any, statusCode: any, errorCode: any,);
     requestTrackingId: any;
     statusCode: any;
     errorCode: any;

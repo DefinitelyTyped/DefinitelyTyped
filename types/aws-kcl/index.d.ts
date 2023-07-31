@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
+import * as fs from 'fs';
 
 export = KCLProcess;
 
@@ -20,7 +20,7 @@ declare function KCLProcess(
 declare namespace KCLProcess {
     type Callback = () => void;
 
-    type CheckpointCallback = (error: string | undefined, checkpointedSequenceNumber: string) => void;
+    type CheckpointCallback = (error: string | undefined, checkpointedSequenceNumber: string,) => void;
 
     interface Checkpointer {
         /**
@@ -28,7 +28,7 @@ declare namespace KCLProcess {
          * @param sequenceNumber        Sequence number of the record to checkpoint;
          * @param callback              Function that is invoked after the checkpoint operation completes.
          */
-        checkpoint(sequenceNumber: string, callback: CheckpointCallback): void;
+        checkpoint(sequenceNumber: string, callback: CheckpointCallback,): void;
 
         /**
          * Checkpoints at the checkpoint will be at the end of the most
@@ -36,7 +36,7 @@ declare namespace KCLProcess {
          * @param callback              Function that is invoked after the checkpoint
          *                              operation completes.
          */
-        checkpoint(callback: CheckpointCallback): void;
+        checkpoint(callback: CheckpointCallback,): void;
     }
 
     interface InitializeInput {
@@ -73,7 +73,7 @@ declare namespace KCLProcess {
          * @param completeCallback - The callback that must be invoked
          *          once the initialization operation is complete.
          */
-        initialize(initializeInput: InitializeInput, completeCallback: Callback): void;
+        initialize(initializeInput: InitializeInput, completeCallback: Callback,): void;
 
         /**
          * Called by KCL with a list of records to be processed and checkpointed.
@@ -91,7 +91,7 @@ declare namespace KCLProcess {
          *             once all records are processed and checkpoint (optional) is
          *             complete.
          */
-        processRecords(processRecordsInput: ProcessRecordsInput, completeCallback: Callback): void;
+        processRecords(processRecordsInput: ProcessRecordsInput, completeCallback: Callback,): void;
 
         /**
          * Called by the KCL to indicate that this record processor should shut down.
@@ -103,7 +103,7 @@ declare namespace KCLProcess {
          * @param completeCallback  The callback must be invoked once lease
          *             lost operations are completed.
          */
-        leaseLost(leaseLostInput: LeaseLossInput, completeCallback: Callback): void;
+        leaseLost(leaseLostInput: LeaseLossInput, completeCallback: Callback,): void;
         /**
          * Called by the KCL to indicate that this record processor should shutdown.
          * After the shard ended operation is complete, there will not be any more calls to
@@ -115,7 +115,7 @@ declare namespace KCLProcess {
          * @param completeCallback      The callback must be invoked once shard
          *               ended operations are completed.
          */
-        shardEnded(shardEndedInput: ShardEndedInput, completeCallback: Callback): void;
+        shardEnded(shardEndedInput: ShardEndedInput, completeCallback: Callback,): void;
     }
 
     interface KCLInput {
@@ -130,7 +130,7 @@ declare namespace KCLProcess {
             outputFile?: fs.WriteStream,
             errorFile?: fs.WriteStream,
         );
-        checkpoint(sequenceNumber: string): void;
+        checkpoint(sequenceNumber: string,): void;
         run(): void;
     }
 }

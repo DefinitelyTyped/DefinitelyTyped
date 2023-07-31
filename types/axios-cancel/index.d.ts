@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { AxiosStatic } from "axios";
+import { AxiosStatic, } from 'axios';
 
 declare module 'axios' {
     interface AxiosRequestConfig {
         requestId?: string | undefined;
     }
     interface AxiosStatic {
-        cancel: (requestId: string) => void;
+        cancel: (requestId: string,) => void;
         cancelAll: () => void;
     }
 }
@@ -24,6 +24,6 @@ interface AxiosCancelOptions {
     debug: boolean;
 }
 
-declare function axiosCancel(axiosStatic: AxiosStatic, options?: AxiosCancelOptions): void;
+declare function axiosCancel(axiosStatic: AxiosStatic, options?: AxiosCancelOptions,): void;
 
 export default axiosCancel;

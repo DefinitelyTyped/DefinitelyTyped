@@ -38,7 +38,7 @@ declare namespace AMap {
      * 比例尺插件
      */
     class Scale extends EventEmitter {
-        constructor(options?: Scale.Options);
+        constructor(options?: Scale.Options,);
         /**
          * 控件停靠位置
          */

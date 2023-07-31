@@ -110,7 +110,7 @@ declare module 'angular' {
              * The default behavior is to move the focus to the viewport of the notification's related browsing context.
              * If you don't want that behaviour, call preventDefault() on the event object.
              */
-            onClick?: ((event: MouseEvent) => void) | undefined;
+            onClick?: ((event: MouseEvent,) => void) | undefined;
 
             /**
              * The onerror property of the Notification interface specifies an event listener to receive error events.
@@ -134,15 +134,15 @@ declare module 'angular' {
             /**
              * Set the default app-wide configuration for desktopNotification
              */
-            config(options: IDesktopNotificationOptions): void;
+            config(options: IDesktopNotificationOptions,): void;
         }
 
         // tslint:disable-next-line interface-name
         interface IDesktopNotificationService {
             permissions: {
-                default: 'default',
-                denied: 'denied',
-                granted: 'granted',
+                default: 'default';
+                denied: 'denied';
+                granted: 'granted';
             };
 
             /**
@@ -168,7 +168,7 @@ declare module 'angular' {
              * This method will display the notification using the parameter values.
              * See all available options here at https://developer.mozilla.org/en-US/docs/Web/API/notification#Instance_properties
              */
-            show(title: string, options?: NotificationOptions | AugmentedNotificationOptions): void;
+            show(title: string, options?: NotificationOptions | AugmentedNotificationOptions,): void;
         }
     }
 }

@@ -1,28 +1,28 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "busboy": [
-                "busboy/v0"
-            ]
-        },
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [
+      "es6"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "paths": {
+      "busboy": [
+        "busboy/v0"
+      ]
     },
-    "files": [
-        "index.d.ts",
-        "async-busboy-tests.ts"
-    ]
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+    "index.d.ts",
+    "async-busboy-tests.ts"
+  ]
 }

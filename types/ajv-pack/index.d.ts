@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Ajv, ValidateFunction } from 'ajv';
+import { Ajv, ValidateFunction, } from 'ajv';
 
 declare namespace AjvPack {
     interface AjvPack {
@@ -15,14 +15,14 @@ declare namespace AjvPack {
          * @param data data to validate
          * @return validation result
          */
-        validate(this: Ajv, schema: object, data: any): boolean;
+        validate(this: Ajv, schema: object, data: any,): boolean;
 
         /**
          * compile the schema and require the module
          * @param  schema JSON-schema
          * @return validation function
          */
-        compile(this: Ajv, schema: object): ValidateFunction;
+        compile(this: Ajv, schema: object,): ValidateFunction;
 
         /**
          * add schema to the instance
@@ -37,9 +37,9 @@ declare namespace AjvPack {
         addKeyword: Ajv['addKeyword'];
     }
 
-    function instance(ajv: Ajv): AjvPack;
+    function instance(ajv: Ajv,): AjvPack;
 }
 
-declare function AjvPack(ajv: Ajv, validate: ValidateFunction): string;
+declare function AjvPack(ajv: Ajv, validate: ValidateFunction,): string;
 
 export = AjvPack;

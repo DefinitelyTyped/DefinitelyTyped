@@ -16,7 +16,7 @@ import {
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
 
-const handler: LexHandler = async (event, context, callback) => {
+const handler: LexHandler = async (event, context, callback,) => {
     lexEvent = event;
 
     let result: LexResult;
@@ -33,8 +33,8 @@ const handler: LexHandler = async (event, context, callback) => {
         },
     };
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -48,7 +48,7 @@ lexEvent = {
         },
         slotDetails: {
             slot1: {
-                resolutions: [{ value: 'value1' }],
+                resolutions: [{ value: 'value1', },],
                 originalValue: 'originalValue',
             },
         },
@@ -124,7 +124,7 @@ str = lexDialogActionElicitSlot.intentName;
 
 declare let lexSlotDetail: LexSlotDetail;
 lexSlotDetail = {
-    resolutions: [{ value: 'value1' }],
+    resolutions: [{ value: 'value1', },],
     originalValue: 'originalValue',
 };
 
@@ -139,12 +139,12 @@ lexSlotDetail.resolutions[5];
 lexSlotDetail = {
     // @ts-expect-error
     resolutions: [
-        { value: 'value0' },
-        { value: 'value1' },
-        { value: 'value2' },
-        { value: 'value3' },
-        { value: 'value4' },
-        { value: 'value5' },
+        { value: 'value0', },
+        { value: 'value1', },
+        { value: 'value2', },
+        { value: 'value3', },
+        { value: 'value4', },
+        { value: 'value5', },
     ],
     originalValue: 'originalValue',
 };

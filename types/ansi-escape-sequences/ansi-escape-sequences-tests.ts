@@ -6,29 +6,29 @@ ansi.style.red;
 ansi.style.invalidStyle;
 
 // $ExpectType string
-ansi.styles('green');
+ansi.styles('green',);
 // $ExpectType string
-ansi.styles(['green', 'underline']);
+ansi.styles(['green', 'underline',],);
 // @ts-expect-error
-ansi.styles('invalidStyle');
+ansi.styles('invalidStyle',);
 // @ts-expect-error
-ansi.styles(['invalidStyle']);
+ansi.styles(['invalidStyle',],);
 
 // $ExpectType string
-ansi.format('what?', 'green');
+ansi.format('what?', 'green',);
 // $ExpectType string
-ansi.format('what?', ['green', 'bold']);
+ansi.format('what?', ['green', 'bold',],);
 // $ExpectType string
-ansi.format('[green bold]{what?}');
+ansi.format('[green bold]{what?}',);
 // @ts-expect-error
-ansi.styles('what?', 'invalidStyle');
+ansi.styles('what?', 'invalidStyle',);
 // @ts-expect-error
-ansi.styles('what?', ['invalidStyle']);
+ansi.styles('what?', ['invalidStyle',],);
 
 // $ExpectType string
 ansi.cursor.up();
 // $ExpectType string
-ansi.cursor.up(1);
+ansi.cursor.up(1,);
 
 // $ExpectType string
 ansi.cursor.hide;
@@ -38,13 +38,13 @@ ansi.cursor.show;
 // $ExpectType string
 ansi.erase.display();
 // $ExpectType string
-ansi.erase.display(3);
+ansi.erase.display(3,);
 // @ts-expect-error
-ansi.erase.display(4);
+ansi.erase.display(4,);
 
 // $ExpectType string
 ansi.erase.inLine();
 // $ExpectType string
-ansi.erase.inLine(2);
+ansi.erase.inLine(2,);
 // @ts-expect-error
-ansi.erase.inLine(3);
+ansi.erase.inLine(3,);

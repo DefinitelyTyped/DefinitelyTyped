@@ -1,6 +1,6 @@
-import { ALBHandler, ALBResult } from 'aws-lambda';
+import { ALBHandler, ALBResult, } from 'aws-lambda';
 
-const handler: ALBHandler = async (event, context, callback) => {
+const handler: ALBHandler = async (event, context, callback,) => {
     str = event.httpMethod;
     str = event.path;
     strOrUndefined = event.queryStringParameters![str];
@@ -21,12 +21,12 @@ const handler: ALBHandler = async (event, context, callback) => {
     result = {
         statusCode: num,
         statusDescription: str,
-        headers: { [str]: boolOrNumOrStr },
-        multiValueHeaders: { [str]: [boolOrNumOrStr] },
+        headers: { [str]: boolOrNumOrStr, },
+        multiValueHeaders: { [str]: [boolOrNumOrStr,], },
         body: str,
         isBase64Encoded: bool,
     };
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };

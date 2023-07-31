@@ -10,7 +10,7 @@ declare let header: SelfManagedKafkaRecordHeader;
 declare let key: string;
 declare let value: number[];
 
-const handler: SelfManagedKafkaHandler = (_event, context, callback) => {
+const handler: SelfManagedKafkaHandler = (_event, context, callback,) => {
     const event: SelfManagedKafkaEvent = _event;
     str = event.eventSource;
     str = event.bootstrapServers;
@@ -25,9 +25,9 @@ const handler: SelfManagedKafkaHandler = (_event, context, callback) => {
     str = record.value;
     headers = record.headers;
     header = headers[0];
-    key = Object.keys(header)[0];
+    key = Object.keys(header,)[0];
     value = header[key];
 
     callback();
-    callback(new Error());
+    callback(new Error(),);
 };

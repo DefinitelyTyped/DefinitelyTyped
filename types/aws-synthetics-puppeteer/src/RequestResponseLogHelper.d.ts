@@ -18,17 +18,17 @@ declare module 'RequestResponseLogHelper' {
             remoteAddress: boolean;
             headers: boolean;
         };
-        withLogRequestUrl(logRequestUrl: any): RequestResponseLogHelper;
-        withLogRequestResourceType(logRequestResourceType: any): RequestResponseLogHelper;
-        withLogRequestMethod(logRequestMethod: any): RequestResponseLogHelper;
-        withLogRequestHeaders(logRequestHeaders: any): RequestResponseLogHelper;
-        withLogRequestPostData(logRequestPostData: any): RequestResponseLogHelper;
-        withLogResponseStatus(logResponseStatus: any): RequestResponseLogHelper;
-        withLogResponseStatusText(logResponseStatusText: any): RequestResponseLogHelper;
-        withLogResponseUrl(logResponseUrl: any): RequestResponseLogHelper;
-        withLogResponseRemoteAddress(logResponseRemoteAddress: any): RequestResponseLogHelper;
-        withLogResponseHeaders(logResponseHeaders: any): RequestResponseLogHelper;
-        getLogRequestString(request: any): string;
-        getLogResponseString(response: any): string;
+        withLogRequestUrl(logRequestUrl: any,): RequestResponseLogHelper;
+        withLogRequestResourceType(logRequestResourceType: any,): RequestResponseLogHelper;
+        withLogRequestMethod(logRequestMethod: any,): RequestResponseLogHelper;
+        withLogRequestHeaders(logRequestHeaders: any,): RequestResponseLogHelper;
+        withLogRequestPostData(logRequestPostData: any,): RequestResponseLogHelper;
+        withLogResponseStatus(logResponseStatus: any,): RequestResponseLogHelper;
+        withLogResponseStatusText(logResponseStatusText: any,): RequestResponseLogHelper;
+        withLogResponseUrl(logResponseUrl: any,): RequestResponseLogHelper;
+        withLogResponseRemoteAddress(logResponseRemoteAddress: any,): RequestResponseLogHelper;
+        withLogResponseHeaders(logResponseHeaders: any,): RequestResponseLogHelper;
+        getLogRequestString(request: any,): string;
+        getLogResponseString(response: any,): string;
     }
 }

@@ -1,4 +1,4 @@
-import { Point, PointCompatible, PointLike } from './text-buffer';
+import { Point, PointCompatible, PointLike, } from './text-buffer';
 
 /** Represents a region in a buffer in row/column coordinates. */
 export class Range {
@@ -11,13 +11,13 @@ export class Range {
 
     // Construction
     /** Convert any range-compatible object to a Range. */
-    static fromObject(object: RangeCompatible, copy?: boolean): Range;
+    static fromObject(object: RangeCompatible, copy?: boolean,): Range;
 
     /** Construct a Range object. */
-    constructor(pointA?: PointCompatible, pointB?: PointCompatible);
+    constructor(pointA?: PointCompatible, pointB?: PointCompatible,);
 
     /** Call this with the result of Range::serialize to construct a new Range. */
-    static deserialize(array: object): Range;
+    static deserialize(array: object,): Range;
 
     /** Returns a new range with the same start and end positions. */
     copy(): Range;
@@ -54,19 +54,19 @@ export class Range {
 
     // NOTE: this function doesn't actually take a range-compatible parameter.
     /** Returns a new range that contains this range and the given range. */
-    union(other: RangeLike): Range;
+    union(other: RangeLike,): Range;
 
     /**
      *  Build and return a new range by translating this range's start and end
      *  points by the given delta(s).
      */
-    translate(startDelta: PointCompatible, endDelta?: PointCompatible): Range;
+    translate(startDelta: PointCompatible, endDelta?: PointCompatible,): Range;
 
     /**
      *  Build and return a new range by traversing this range's start and end
      *  points by the given delta.
      */
-    traverse(delta: PointCompatible): Range;
+    traverse(delta: PointCompatible,): Range;
 
     // Comparison
     /**
@@ -75,42 +75,42 @@ export class Range {
      *  Returns 0 if this range is equivalent to the argument.
      *  Returns 1 if this range starts after the argument or is contained by it.
      */
-    compare(otherRange: RangeCompatible): number;
+    compare(otherRange: RangeCompatible,): number;
 
     /**
      *  Returns a Boolean indicating whether this range has the same start and
      *  end points as the given Range.
      */
-    isEqual(otherRange: RangeCompatible): boolean;
+    isEqual(otherRange: RangeCompatible,): boolean;
 
     // NOTE: this function doesn't actually take a range-compatible parameter.
     /**
      *  Returns a Boolean indicating whether this range starts and ends on the
      *  same row as the argument.
      */
-    coversSameRows(otherRange: RangeLike): boolean;
+    coversSameRows(otherRange: RangeLike,): boolean;
 
     // NOTE: this function doesn't actually take a range-compatible parameter.
     /** Determines whether this range intersects with the argument. */
-    intersectsWith(otherRange: RangeLike, exclusive?: boolean): boolean;
+    intersectsWith(otherRange: RangeLike, exclusive?: boolean,): boolean;
 
     /** Returns a boolean indicating whether this range contains the given range. */
-    containsRange(otherRange: RangeCompatible, exclusive?: boolean): boolean;
+    containsRange(otherRange: RangeCompatible, exclusive?: boolean,): boolean;
 
     /** Returns a boolean indicating whether this range contains the given point. */
-    containsPoint(point: PointCompatible, exclusive?: boolean): boolean;
+    containsPoint(point: PointCompatible, exclusive?: boolean,): boolean;
 
     /**
      *  Returns a boolean indicating whether this range intersects the given
      *  row number.
      */
-    intersectsRow(row: number): boolean;
+    intersectsRow(row: number,): boolean;
 
     /**
      *  Returns a boolean indicating whether this range intersects the row range
      *  indicated by the given startRow and endRow numbers.
      */
-    intersectsRowRange(startRow: number, endRow: number): boolean;
+    intersectsRowRange(startRow: number, endRow: number,): boolean;
 
     // Conversion
     /** Returns a string representation of the range. */
@@ -120,10 +120,10 @@ export class Range {
 /** The types usable when constructing a range via the Range::fromObject method. */
 export type RangeCompatible =
     | RangeLike
-    | [PointLike, PointLike]
-    | [PointLike, [number, number]]
-    | [[number, number], PointLike]
-    | [[number, number], [number, number]];
+    | [PointLike, PointLike,]
+    | [PointLike, [number, number,],]
+    | [[number, number,], PointLike,]
+    | [[number, number,], [number, number,],];
 
 /** The interface that should be implemented for all "range-compatible" objects. */
 export interface RangeLike {

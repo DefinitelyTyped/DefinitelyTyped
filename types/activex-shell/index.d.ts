@@ -195,7 +195,7 @@ declare namespace Shell32 {
         SHIFT = 1,
         CTRL = 2,
         ALT = 4,
-        Extended = 8
+        Extended = 8,
     }
 
     // eslint-disable-next-line no-const-enum
@@ -207,7 +207,7 @@ declare namespace Shell32 {
         Minimized = 2,
 
         /** Activates the window and displays it as a maximized window. */
-        Maximized = 3
+        Maximized = 3,
     }
 
     /** Constants for Folder2.OfflineStatus */
@@ -286,7 +286,7 @@ declare namespace Shell32 {
         SFVVO_DOUBLECLICKINWEBVIEW = 0x00000080,
 
         /** The **Active Desktop – View as Web Page** option is enabled. */
-        SFVVO_DESKTOPHTML = 0x00000200
+        SFVVO_DESKTOPHTML = 0x00000200,
     }
 
     // eslint-disable-next-line no-const-enum
@@ -296,7 +296,7 @@ declare namespace Shell32 {
         EditMode = 3,
         DeselectAllButThis = 4,
         ScrollIntoView = 8,
-        Focus = 16
+        Focus = 16,
     }
 
     // eslint-disable-next-line no-const-enum
@@ -326,7 +326,7 @@ declare namespace Shell32 {
         NoLinkInfo = 64,
 
         /** Call the Windows Installer. */
-        InvokeMSI = 128
+        InvokeMSI = 128,
     }
 
     // eslint-disable-next-line no-const-enum
@@ -513,7 +513,7 @@ declare namespace Shell32 {
         SetFocus(): void;
 
         /** method SetSearchParameters */
-        SetSearchParameters(pbstrSearchID: string, bNavToResults: boolean, pvarScope?: any, pvarQueryFile?: any): void;
+        SetSearchParameters(pbstrSearchID: string, bNavToResults: boolean, pvarScope?: any, pvarQueryFile?: any,): void;
     }
 
     /** Definition of interface Folder version 3 */
@@ -525,7 +525,7 @@ declare namespace Shell32 {
         readonly Application: any;
 
         /** Copy Items to this folder. */
-        CopyHere(vItem: string | ShellFolderItem | FolderItems3, vOptions?: FileOperationFlag): void;
+        CopyHere(vItem: string | ShellFolderItem | FolderItems3, vOptions?: FileOperationFlag,): void;
 
         /** Call this after the WebView barricade is dismissed by the user */
         DismissedWebViewBarricade(): void;
@@ -536,7 +536,7 @@ declare namespace Shell32 {
          * @param iColumn An integer value that specifies the information to be retrieved. The information available for an item depends on the folder in which it is displayed. This value
          * corresponds to the zero-based column number that is displayed in a Shell view.
          */
-        GetDetailsOf(vItem: ShellFolderItem, iColumn: number): string;
+        GetDetailsOf(vItem: ShellFolderItem, iColumn: number,): string;
 
         /** Should the WebView barricade be shown? */
         readonly HaveToShowWebViewBarricade: boolean;
@@ -545,10 +545,10 @@ declare namespace Shell32 {
         Items(): FolderItems3;
 
         /** Move Items to this folder. */
-        MoveHere(vItem: string | ShellFolderItem | FolderItems3, vOptions?: FileOperationFlag): void;
+        MoveHere(vItem: string | ShellFolderItem | FolderItems3, vOptions?: FileOperationFlag,): void;
 
         /** Create a new sub folder in this folder. */
-        NewFolder(bName: string): void;
+        NewFolder(bName: string,): void;
 
         /** Offline status of the server? */
         readonly OfflineStatus: OfflineFolderStatus;
@@ -557,7 +557,7 @@ declare namespace Shell32 {
         readonly ParentFolder: Folder3;
 
         /** Parse the name to get an item. */
-        ParseName(bName: string): ShellFolderItem | null;
+        ParseName(bName: string,): ShellFolderItem | null;
 
         /** Folder's FolderItem interface */
         readonly Self: ShellFolderItem;
@@ -584,17 +584,17 @@ declare namespace Shell32 {
         readonly Count: number;
 
         /** Set a wildcard filter to apply to the items returned */
-        Filter(grfFlags: ShellFolderEnumerationFlags, bstrFileSpec: string): void;
+        Filter(grfFlags: ShellFolderEnumerationFlags, bstrFileSpec: string,): void;
 
         /**
          * Executes a verb on a collection of `FolderItem` objects
          * @param vVerb String that corresponds to the command to be executed. If no verb is specified, the default verb is executed.
          * @param vArgs String with one or more arguments to the command specified by vVerb. The format of this string depends on the particular verb.
          */
-        InvokeVerbEx(vVerb?: string, vArgs?: string): void;
+        InvokeVerbEx(vVerb?: string, vArgs?: string,): void;
 
         /** Return the figure for the given index */
-        Item(index?: any): ShellFolderItem;
+        Item(index?: any,): ShellFolderItem;
 
         /** Get the list of verbs common to all the items */
         readonly Verbs: FolderItemVerbs;
@@ -621,7 +621,7 @@ declare namespace Shell32 {
         readonly Count: number;
 
         /** Return the specified verb */
-        Item(index?: any): FolderItemVerb;
+        Item(index?: any,): FolderItemVerb;
     }
 
     /** Shell Object Type Information */
@@ -630,16 +630,21 @@ declare namespace Shell32 {
         private constructor();
 
         /** Add an object to the Recent Docuements */
-        AddToRecent(varFile: string | null, bstrCategory?: string): void;
+        AddToRecent(varFile: string | null, bstrCategory?: string,): void;
 
         /** Get Application object */
         readonly Application: any;
 
         /** Browse the name space for a Folder */
-        BrowseForFolder(Hwnd: number, Title: string, Options: number | BrowseInfoFlags, RootFolder?: string | ShellSpecialFolderConstants): Folder3;
+        BrowseForFolder(
+            Hwnd: number,
+            Title: string,
+            Options: number | BrowseInfoFlags,
+            RootFolder?: string | ShellSpecialFolderConstants,
+        ): Folder3;
 
         /** Determine if the current user can start/stop the named service. */
-        CanStartStopService(ServiceName: string): boolean;
+        CanStartStopService(ServiceName: string,): boolean;
 
         /** Cascade Windows */
         CascadeWindows(): void;
@@ -652,13 +657,13 @@ declare namespace Shell32 {
          *
          *     `control.exe /name Microsoft.Personalization`
          */
-        ControlPanelItem(bstrDir: string): void;
+        ControlPanelItem(bstrDir: string,): void;
 
         /** Eject the pc */
         EjectPC(): void;
 
         /** Explore a folder */
-        Explore(vDir: string | ShellSpecialFolderConstants): void;
+        Explore(vDir: string | ShellSpecialFolderConstants,): void;
 
         /**
          * Return explorer policy value
@@ -666,7 +671,7 @@ declare namespace Shell32 {
          * The specified value name must be within the **HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer** subkey.
          * If the value name does not exist then the method returns null.
          */
-        ExplorerPolicy(bstrPolicyName: string): any;
+        ExplorerPolicy(bstrPolicyName: string,): any;
 
         /** Bring up the file run dialog box */
         FileRun(): void;
@@ -678,10 +683,10 @@ declare namespace Shell32 {
         FindFiles(): void;
 
         /** Find a Printer in the Directory Service */
-        FindPrinter(Name?: string, location?: string, model?: string): void;
+        FindPrinter(Name?: string, location?: string, model?: string,): void;
 
         /** Return shell global setting */
-        GetSetting(lSetting: number | SettingKey): boolean;
+        GetSetting(lSetting: number | SettingKey,): boolean;
 
         /**
          * `DirectoryServiceAvailable` -- Returns **true** if the directory service is available
@@ -692,7 +697,9 @@ declare namespace Shell32 {
          *
          * `IsOS_Professional` -- Returns **true** if the operating system is Windows XP Professional Edition (_Windows XP only_)
          */
-        GetSystemInformation(Name: 'DirectoryServiceAvailable' | 'IsOS_DomainMember' | 'IsOS_Personal' | 'IsOS_Professional'): boolean;
+        GetSystemInformation(
+            Name: 'DirectoryServiceAvailable' | 'IsOS_DomainMember' | 'IsOS_Personal' | 'IsOS_Professional',
+        ): boolean;
 
         /**
          * `DoubleClickTime` -- The double-click time, in milliseconds
@@ -706,25 +713,32 @@ declare namespace Shell32 {
          *
          * `ProcessorSpeed` -- The processor speed, in megahertz (MHz)
          */
-        GetSystemInformation(Name: 'DoubleClickTime' | 'PhysicalMemoryInstalled' | 'ProcessorArchitecture' | 'ProcessorLevel' | 'ProcessorSpeed'): number;
+        GetSystemInformation(
+            Name:
+                | 'DoubleClickTime'
+                | 'PhysicalMemoryInstalled'
+                | 'ProcessorArchitecture'
+                | 'ProcessorLevel'
+                | 'ProcessorSpeed',
+        ): number;
 
         /** Display shell help */
         Help(): void;
 
         /** get restriction settings */
-        IsRestricted(Group: string, Restriction: string): number;
+        IsRestricted(Group: string, Restriction: string,): number;
 
         /** Determine if a service is running by name. */
-        IsServiceRunning(ServiceName: string): any;
+        IsServiceRunning(ServiceName: string,): any;
 
         /** Minimize all windows */
         MinimizeAll(): void;
 
         /** Get special folder from ShellSpecialFolderConstants */
-        NameSpace(vDir: string | ShellSpecialFolderConstants): Folder3 | null;
+        NameSpace(vDir: string | ShellSpecialFolderConstants,): Folder3 | null;
 
         /** Open a folder */
-        Open(vDir: string | ShellSpecialFolderConstants): void;
+        Open(vDir: string | ShellSpecialFolderConstants,): void;
 
         /** Get Parent object */
         readonly Parent: any;
@@ -741,7 +755,7 @@ declare namespace Shell32 {
          * The method returns `false` if the service has already been started. Before calling this method, you can call
          * [Shell.IsServiceRunning](https://msdn.microsoft.com/en-us/library/windows/desktop/gg537742.aspx) to ascertain the status of the service.
          */
-        ServiceStart(ServiceName: string, Persistent?: boolean): boolean;
+        ServiceStart(ServiceName: string, Persistent?: boolean,): boolean;
 
         /**
          * Stop a service by name, and optionally disable autostart.
@@ -749,7 +763,7 @@ declare namespace Shell32 {
          * The method returns `false` if the service has already been stopped. Before calling this method, you can call
          * [Shell.IsServiceRunning](https://msdn.microsoft.com/en-us/library/windows/desktop/gg537742.aspx) to ascertain the status of the service.
          */
-        ServiceStop(ServiceName: string, Persistent?: boolean): boolean;
+        ServiceStop(ServiceName: string, Persistent?: boolean,): boolean;
 
         /** Displays the **Date and Time Properties** dialog box. */
         SetTime(): void;
@@ -763,10 +777,10 @@ declare namespace Shell32 {
          * performed.
          * @param [vShow] A recommendation as to how the application window should be displayed initially. The application can ignore this recommendation.
          */
-        ShellExecute(File: string, vArgs?: string, vDir?: string, vOperation?: string, vShow?: ShellExecuteShow): void;
+        ShellExecute(File: string, vArgs?: string, vDir?: string, vOperation?: string, vShow?: ShellExecuteShow,): void;
 
         /** Show/Hide browser bar. */
-        ShowBrowserBar(bstrClsid: ExplorerBarCLSID, bShow: boolean): any;
+        ShowBrowserBar(bstrClsid: ExplorerBarCLSID, bShow: boolean,): any;
 
         /** Exit Windows */
         ShutdownWindows(): void;
@@ -811,7 +825,7 @@ declare namespace Shell32 {
         readonly Application: any;
 
         /** Access an extended property */
-        ExtendedProperty(bstrPropName: string): any;
+        ExtendedProperty(bstrPropName: string,): any;
 
         /** If item is a folder return folder object */
         readonly GetFolder: Folder3 | null;
@@ -824,14 +838,14 @@ declare namespace Shell32 {
          * Must be one of the values returned by the item's `FolderItemVerb.Name` property.
          * If no verb is specified, the default verb will be invoked.
          */
-        InvokeVerb(vVerb?: string): void;
+        InvokeVerb(vVerb?: string,): void;
 
         /**
          * Extended version of InvokeVerb
          * @param vVerb String that corresponds to the command to be executed. If no verb is specified, the default verb is executed.
          * @param vArgs String with one or more arguments to the command specified by vVerb. The format of this string depends on the particular verb.
          */
-        InvokeVerbEx(vVerb?: string, vArgs?: string): void;
+        InvokeVerbEx(vVerb?: string, vArgs?: string,): void;
 
         /** Indicates if the item can be hosted inside a browser or Windows Explorer frame. */
         readonly IsBrowsable: boolean;
@@ -879,7 +893,7 @@ declare namespace Shell32 {
         CurrentViewMode: number;
 
         /** Filter View */
-        FilterView(bstrFilterText: string): void;
+        FilterView(bstrFilterText: string,): void;
 
         /** The currently focused item in the folder */
         readonly FocusedItem: ShellFolderItem;
@@ -897,16 +911,16 @@ declare namespace Shell32 {
         IconSize: number;
 
         /** Show items menu and return command selected */
-        PopupItemMenu(pfi: ShellFolderItem, vx?: any, vy?: any): string;
+        PopupItemMenu(pfi: ShellFolderItem, vx?: any, vy?: any,): string;
 
         /** The collection of Selected Items in folder */
         SelectedItems(): FolderItems3;
 
         /** Select the item */
-        SelectItem(pvfi: ShellFolderItem, dwFlags: ShellFolderViewSelectItem): void;
+        SelectItem(pvfi: ShellFolderItem, dwFlags: ShellFolderViewSelectItem,): void;
 
         /** Select Item relative to the Current Item */
-        SelectItemRelative(iRelative: number): void;
+        SelectItemRelative(iRelative: number,): void;
 
         /** Get Sorting Columns */
         SortColumns: string;
@@ -930,7 +944,7 @@ declare namespace Shell32 {
         private constructor();
 
         /** Set the ShellFolderView object to monitor events of. */
-        SetFolderView(pdisp: ShellFolderView): void;
+        SetFolderView(pdisp: ShellFolderView,): void;
     }
 
     /** Shell Link object */
@@ -945,7 +959,7 @@ declare namespace Shell32 {
         Description: string;
 
         /** Get the IconLocation for the link */
-        GetIconLocation(pbs: string): number;
+        GetIconLocation(pbs: string,): number;
 
         /** Hotkey for the link */
         Hotkey: number;
@@ -954,20 +968,20 @@ declare namespace Shell32 {
         Path: string;
 
         /** Tell the link to resolve itself */
-        Resolve(fFlags: ShellLinkResolveFlags): void;
+        Resolve(fFlags: ShellLinkResolveFlags,): void;
 
         /**
          * Tell the link to save the changes
          * @param sFile The fully qualified path of the file where the new link information is to be saved. If no file is specified, the current file is used.
          */
-        Save(vWhere?: string): void;
+        Save(vWhere?: string,): void;
 
         /**
          * Set the IconLocation for the link
          * @param sPath The fully qualified path of the file that contains the icon.
          * @param iIcon The index of the icon in the file specified by _sPath_.
          */
-        SetIconLocation(sPath: string, iIcon: number): void;
+        SetIconLocation(sPath: string, iIcon: number,): void;
 
         /** Get the Show Command for the link */
         ShowCommand: LinkShowWindowState;
@@ -987,7 +1001,7 @@ declare namespace Shell32 {
          * Retrieves an InternetExplorer object that represents the Shell window.
          * @param index Default is 0
          */
-        Item(index?: number): SHDocVw.InternetExplorer;
+        Item(index?: number,): SHDocVw.InternetExplorer;
 
         /** Contains the number of items in the collection. */
         readonly Count: number;
@@ -996,11 +1010,18 @@ declare namespace Shell32 {
 
 interface ActiveXObject {
     on(
-        obj: Shell32.ShellFolderView, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked', handler: (
-            this: Shell32.ShellFolderView, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderView,
+        event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
+        handler: (
+            this: Shell32.ShellFolderView,
+            parameter: {},
+        ) => void,
+    ): void;
     on(
-        obj: Shell32.ShellFolderViewOC, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
-        handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderViewOC,
+        event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
+        handler: (this: Shell32.ShellFolderViewOC, parameter: {},) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
@@ -1009,7 +1030,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: Shell32.FolderItems3): Enumerator<Shell32.ShellFolderItem>;
-    new(col: Shell32.FolderItemVerbs): Enumerator<Shell32.FolderItemVerb>;
-    new(col: Shell32.ShellWindows): Enumerator<SHDocVw.InternetExplorer>;
+    new(col: Shell32.FolderItems3,): Enumerator<Shell32.ShellFolderItem>;
+    new(col: Shell32.FolderItemVerbs,): Enumerator<Shell32.FolderItemVerb>;
+    new(col: Shell32.ShellWindows,): Enumerator<SHDocVw.InternetExplorer>;
 }

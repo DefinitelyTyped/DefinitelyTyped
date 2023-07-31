@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PdfFormat, } from '../pdfservices-sdk';
 
 /**
  * An operation that converts a PDF file into a linearized (also known as “web optimized”) PDF file.
@@ -22,7 +22,6 @@ import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class LinearizePDFOperation {
     /**
@@ -34,7 +33,7 @@ export class LinearizePDFOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -42,6 +41,6 @@ export class LinearizePDFOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }

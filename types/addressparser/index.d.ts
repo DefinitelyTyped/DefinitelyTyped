@@ -18,7 +18,7 @@
  *
  * @param str Address field
  */
-declare function addressparser(str: string): addressparser.EmailAddress[];
+declare function addressparser(str: string,): addressparser.EmailAddress[];
 
 declare namespace addressparser {
     /**

@@ -3,8 +3,8 @@
 // Definitions by: Tyler Krupicka <https://github.com/tylerkrupicka>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Result, RunOptions, Spec } from "axe-core";
-import { WebDriver } from "selenium-webdriver";
+import { Result, RunOptions, Spec, } from 'axe-core';
+import { WebDriver, } from 'selenium-webdriver';
 
 export interface AxeAnalysis {
     inapplicable: Result[];
@@ -15,8 +15,8 @@ export interface AxeAnalysis {
     violations: Result[];
 }
 
-export type DeprecatedAnalyzeCallback = (results: AxeAnalysis) => void;
-export type AnalyzeCallback = (err: Error | null, results: AxeAnalysis) => void;
+export type DeprecatedAnalyzeCallback = (results: AxeAnalysis,) => void;
+export type AnalyzeCallback = (err: Error | null, results: AxeAnalysis,) => void;
 
 export interface AxeBuilder {
     /**
@@ -24,14 +24,14 @@ export interface AxeBuilder {
      *
      * @param selector   CSS selector of the element to include.
      */
-    include(selector: string): this;
+    include(selector: string,): this;
 
     /**
      * Excludes a selector from analysis.
      *
      * @param selector   CSS selector of the element to exclude.
      */
-    exclude(selector: string): this;
+    exclude(selector: string,): this;
 
     /**
      * Options to directly pass to `axe.run`.
@@ -40,7 +40,7 @@ export interface AxeBuilder {
      * @remarks Will override any other configured options, including calls to `withRules` and `withTags`.
      * @see https://github.com/dequelabs/axe-core/issues/937
      */
-    options(options: RunOptions): this;
+    options(options: RunOptions,): this;
 
     /**
      * Limits analysis to only the specified rules.
@@ -48,7 +48,7 @@ export interface AxeBuilder {
      * @param rules   Array of rule IDs, or a single rule ID as a string.
      * @remarks Cannot be used with `withTags`.
      */
-    withRules(rules: string | string[]): this;
+    withRules(rules: string | string[],): this;
 
     /**
      * Limist analysis to only the specified tags.
@@ -56,28 +56,28 @@ export interface AxeBuilder {
      * @param rules   Array of tags, or a single tag as a string.
      * @remarks Cannot be used with `withRules`.
      */
-    withTags(tags: string | string[]): this;
+    withTags(tags: string | string[],): this;
 
     /**
      * Set the list of rules to skip when running an analysis
      *
      * @param rules   Array of rule IDs, or a single rule ID as a string.
      */
-    disableRules(rules: string | string[]): this;
+    disableRules(rules: string | string[],): this;
 
     /**
      * Configures aXe before running analyze.
      *
      * @param config   aXe Configuration spec to use in analysis.
      */
-    configure(config: Spec): this;
+    configure(config: Spec,): this;
 
     /**
      * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
-        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback
+        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback,
     ): Promise<AxeAnalysis>;
 }
 
@@ -90,6 +90,6 @@ export interface BuilderOptions {
 }
 
 export const AxeBuilder: {
-    (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
-    new (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
+    (driver: WebDriver, source?: string, builderOptions?: BuilderOptions,): AxeBuilder;
+    new(driver: WebDriver, source?: string, builderOptions?: BuilderOptions,): AxeBuilder;
 };

@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, } from '../pdfservices-sdk';
 
 /**
  * An operation to delete pages in a PDF file.
@@ -24,18 +24,16 @@ import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class PageActions {
     pageActions: any[];
-    withRotateAction(pageRanges: any, angle: any): PageActions;
-    withDeleteAction(pageRanges: any): PageActions;
+    withRotateAction(pageRanges: any, angle: any,): PageActions;
+    withDeleteAction(pageRanges: any,): PageActions;
 }
 
 export class DeletePagesOperation {
     /**
      * Constructs a {@link DeletePagesOperation} instance.
-     *
      */
     static createNew(): DeletePagesOperation;
     static get SupportedSourceFormat(): {
@@ -49,12 +47,11 @@ export class DeletePagesOperation {
     /**
      * Sets an input file.
      */
-    setInput(sourceFileRef: FileRef): void;
+    setInput(sourceFileRef: FileRef,): void;
     /**
      * Specifies the pages to delete from the input PDF file.
-     *
      */
-    setPageRanges(pageRanges: PageRanges): void;
+    setPageRanges(pageRanges: PageRanges,): void;
     /**
      * Executes this operation using the supplied context and returns a Promise which resolves to the operation result.
      *
@@ -62,6 +59,6 @@ export class DeletePagesOperation {
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
      */
-    execute(context: ExecutionContext): Promise<FileRef>;
-    validate(context: any): void;
+    execute(context: ExecutionContext,): Promise<FileRef>;
+    validate(context: any,): void;
 }

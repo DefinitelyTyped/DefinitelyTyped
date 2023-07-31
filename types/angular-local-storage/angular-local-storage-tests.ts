@@ -1,11 +1,11 @@
 interface TestScope {
-    submit(key: string, value: string): boolean;
-    getItem(key: string): string;
-    removeItem(key: string): boolean;
+    submit(key: string, value: string,): boolean;
+    getItem(key: string,): string;
+    removeItem(key: string,): boolean;
     clearNumbers(): boolean;
     clearAll(): boolean;
     unbind?: (() => void) | undefined;
-    update(val: string): void;
+    update(val: string,): void;
 }
 
 class TestController implements TestScope {
@@ -28,11 +28,11 @@ class TestController implements TestScope {
         const lsKeys = this.localStorageService.keys();
 
         // bind
-        this.localStorageService.set('property', 'oldValue');
-        this.unbind = this.localStorageService.bind(this.$scope, 'property');
+        this.localStorageService.set('property', 'oldValue',);
+        this.unbind = this.localStorageService.bind(this.$scope, 'property',);
 
         // deriveKey
-        console.log(this.localStorageService.deriveKey('property')); // ls.property
+        console.log(this.localStorageService.deriveKey('property',),); // ls.property
 
         // length
         const lsLength: number = this.localStorageService.length();
@@ -42,35 +42,35 @@ class TestController implements TestScope {
         this.unbind && this.unbind();
     }
 
-    submit(key: string, value: any) {
-        return this.localStorageService.set(key, value);
+    submit(key: string, value: any,) {
+        return this.localStorageService.set(key, value,);
     }
-    getItem(key: string) {
-        return this.localStorageService.get(key);
+    getItem(key: string,) {
+        return this.localStorageService.get(key,);
     }
-    removeItem(key: string) {
-        return this.localStorageService.remove(key);
+    removeItem(key: string,) {
+        return this.localStorageService.remove(key,);
     }
     clearNumbers() {
-        return this.localStorageService.clearAll(/^\d+$/);
+        return this.localStorageService.clearAll(/^\d+$/,);
     }
     clearAll() {
         return this.localStorageService.clearAll();
     }
-    update(val: string) {
-        this.localStorageService.set('property', val);
+    update(val: string,) {
+        this.localStorageService.set('property', val,);
     }
 }
 
-TestController.$inject = ['localStorageService', '$scope'];
+TestController.$inject = ['localStorageService', '$scope',];
 
-const app = angular.module('angular-local-storage-tests', ['LocalStorageModule']);
-app.config((localStorageServiceProvider: ng.local.storage.ILocalStorageServiceProvider) => {
+const app = angular.module('angular-local-storage-tests', ['LocalStorageModule',],);
+app.config((localStorageServiceProvider: ng.local.storage.ILocalStorageServiceProvider,) => {
     localStorageServiceProvider
-        .setPrefix('myApp')
-        .setStorageType('sessionStorage')
-        .setDefaultToCookie(false)
-        .setNotify(true, true);
-});
+        .setPrefix('myApp',)
+        .setStorageType('sessionStorage',)
+        .setDefaultToCookie(false,)
+        .setNotify(true, true,);
+},);
 
-app.controller('TestController', TestController);
+app.controller('TestController', TestController,);

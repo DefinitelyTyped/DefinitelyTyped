@@ -1,5 +1,5 @@
-import BitSet from '../misc/BitSet';
 import AltDict from '../misc/AltDict';
+import BitSet from '../misc/BitSet';
 import ATNConfigSet from './ATNConfigSet';
 
 export default PredictionMode;
@@ -149,7 +149,7 @@ declare namespace PredictionMode {
      * the configurations to strip out all of the predicates so that a standard
      * {@link ATNConfigSet} will merge everything ignoring predicates.
      */
-    function hasSLLConflictTerminatingPrediction(mode: number, configs: ATNConfigSet): boolean;
+    function hasSLLConflictTerminatingPrediction(mode: number, configs: ATNConfigSet,): boolean;
 
     /**
      * Checks if any configuration in `configs` is in a
@@ -161,7 +161,7 @@ declare namespace PredictionMode {
      * @return `true` if any configuration in `configs` is in a
      * {@link RuleStopState}, otherwise `false`
      */
-    function hasConfigInRuleStopState(configs: ATNConfigSet): boolean;
+    function hasConfigInRuleStopState(configs: ATNConfigSet,): boolean;
 
     /**
      * Checks if all configurations in `configs` are in a
@@ -173,7 +173,7 @@ declare namespace PredictionMode {
      * @return `true` if all configurations in `configs` are in a
      * {@link RuleStopState}, otherwise `false`
      */
-    function allConfigsInRuleStopStates(configs: ATNConfigSet): boolean;
+    function allConfigsInRuleStopStates(configs: ATNConfigSet,): boolean;
 
     /**
      * Full LL prediction termination.
@@ -308,7 +308,7 @@ declare namespace PredictionMode {
      * we need exact ambiguity detection when the sets look like
      * `A={{1,2}}` or `{{1,2},{1,2}}`, etc...
      */
-    function resolvesToJustOneViableAlt(altsets: BitSet[]): number;
+    function resolvesToJustOneViableAlt(altsets: BitSet[],): number;
 
     /**
      * Determines if every alternative subset in `altsets` contains more
@@ -318,7 +318,7 @@ declare namespace PredictionMode {
      * @return `true` if every {@link BitSet} in `altsets` has
      * {@link BitSet.cardinality} > 1, otherwise `false`
      */
-    function allSubsetsConflict(altsets: BitSet[]): boolean;
+    function allSubsetsConflict(altsets: BitSet[],): boolean;
 
     /**
      * Determines if any single alternative subset in `altsets` contains
@@ -328,7 +328,7 @@ declare namespace PredictionMode {
      * @return `true` if `altsets` contains a {@link BitSet} with
      * {@link BitSet.cardinality} 1, otherwise `false`
      */
-    function hasNonConflictingAltSet(altsets: BitSet[]): boolean;
+    function hasNonConflictingAltSet(altsets: BitSet[],): boolean;
 
     /**
      * Determines if any single alternative subset in `altsets` contains
@@ -338,7 +338,7 @@ declare namespace PredictionMode {
      * @return `true` if `altsets` contains a {@link BitSet} with
      * {@link BitSet.cardinality cardinality} > 1, otherwise `false`
      */
-    function hasConflictingAltSet(altsets: BitSet[]): boolean;
+    function hasConflictingAltSet(altsets: BitSet[],): boolean;
 
     /**
      * Determines if every alternative subset in `altsets` is equivalent.
@@ -347,7 +347,7 @@ declare namespace PredictionMode {
      * @return `true` if every member of `altsets` is equal to the
      * others, otherwise `false`
      */
-    function allSubsetsEqual(altsets: BitSet[]): boolean;
+    function allSubsetsEqual(altsets: BitSet[],): boolean;
 
     /**
      * Returns the unique alternative predicted by all alternative subsets in
@@ -356,7 +356,7 @@ declare namespace PredictionMode {
      *
      * @param altsets a collection of alternative subsets
      */
-    function getUniqueAlt(altsets: BitSet[]): number;
+    function getUniqueAlt(altsets: BitSet[],): number;
 
     /**
      * Gets the complete set of represented alternatives for a collection of
@@ -366,7 +366,7 @@ declare namespace PredictionMode {
      * @param altsets a collection of alternative subsets
      * @return the set of represented alternatives in `altsets`
      */
-    function getAlts(altsets: BitSet[]): BitSet;
+    function getAlts(altsets: BitSet[],): BitSet;
 
     /**
      * This function gets the conflicting alt subsets from a configuration set.
@@ -375,7 +375,7 @@ declare namespace PredictionMode {
      * map[c] U= c.{@link ATNConfig//alt alt} // map hash/equals uses s and x, not
      * alt and not pred
      */
-    function getConflictingAltSubsets(configs: ATNConfigSet): BitSet[];
+    function getConflictingAltSubsets(configs: ATNConfigSet,): BitSet[];
 
     /**
      * Get a map from state to alt subset from a configuration set. For each
@@ -383,9 +383,9 @@ declare namespace PredictionMode {
      *
      * map[c.{@link ATNConfig.state}] U= c.{@link ATNConfig.alt}
      */
-    function getStateToAltMap(configs: ATNConfigSet): AltDict;
+    function getStateToAltMap(configs: ATNConfigSet,): AltDict;
 
-    function hasStateAssociatedWithOneAlt(configs: ATNConfigSet): boolean;
+    function hasStateAssociatedWithOneAlt(configs: ATNConfigSet,): boolean;
 
-    function getSingleViableAlt(altsets: BitSet[]): number;
+    function getSingleViableAlt(altsets: BitSet[],): number;
 }

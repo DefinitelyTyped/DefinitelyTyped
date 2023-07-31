@@ -1,4 +1,4 @@
-import AmChart from "./AmChart";
+import AmChart from './AmChart';
 
 export default class PeriodSelector {
     /**
@@ -84,5 +84,5 @@ export default class PeriodSelector {
     /**
      * Removes event listener from chart object.
      */
-    removeListener(chart: AmChart, type: string, handler: any): void;
+    removeListener(chart: AmChart, type: string, handler: any,): void;
 }

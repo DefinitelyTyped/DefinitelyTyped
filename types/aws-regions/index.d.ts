@@ -27,8 +27,8 @@ interface LookupOptionsName {
 type LookupOptions = LookupOptionsCode | LookupOptionsName;
 
 interface AwsRegions {
-    list: (options?: ListOptions) => AwsRegionInfo[];
-    lookup: (options: LookupOptions) => AwsRegionInfo;
+    list: (options?: ListOptions,) => AwsRegionInfo[];
+    lookup: (options: LookupOptions,) => AwsRegionInfo;
 }
 
 declare const awsRegions: AwsRegions;

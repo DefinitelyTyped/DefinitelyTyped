@@ -1,10 +1,9 @@
-import { Behavior, InputManager as IM, AudioManager as AM, Sprite, Drawable } from 'athenajs';
+import { AudioManager as AM, Behavior, Drawable, InputManager as IM, Sprite, } from 'athenajs';
 import Shape from './shape';
 
 /**
  * Simple Behavior for the tetris shape that moves the shape on cursor key press
  * and when timer is reached
- *
  *
  * @see {Behavior}
  */
@@ -19,8 +18,8 @@ class ShapeBehavior extends Behavior {
     timerEnabled: boolean;
     startTime: number;
 
-    constructor(sprite: Shape, options?: any) {
-        super(sprite as Drawable, options);
+    constructor(sprite: Shape, options?: any,) {
+        super(sprite as Drawable, options,);
 
         // current behavior state: moving right, left, top, bottom
         this.state = 0;
@@ -50,9 +49,8 @@ class ShapeBehavior extends Behavior {
      *
      * If they quickly release the key and quickly press it, we have to
      * react though
-     *
      */
-    ready(state: number, timestamp: number): boolean {
+    ready(state: number, timestamp: number,): boolean {
         // if the player pressed a different key
         // we react immediately but have to wait a long_delay
         // before repeating the key if they keep pressing it
@@ -76,9 +74,8 @@ class ShapeBehavior extends Behavior {
 
     /**
      * Checks tetris timer
-     *
      */
-    timer(timestamp: number): boolean {
+    timer(timestamp: number,): boolean {
         const sprite = this.sprite;
         if (!this.startTime) {
             this.startTime = timestamp;
@@ -92,10 +89,10 @@ class ShapeBehavior extends Behavior {
         return false;
     }
 
-    checkKeyDelay(key: number, timestamp: number, x: number, y: number): void {
+    checkKeyDelay(key: number, timestamp: number, x: number, y: number,): void {
         const sprite = this.sprite as Shape;
-        if (this.ready(key, timestamp)) {
-            sprite.snapTile(x, y) && AM.play('move');
+        if (this.ready(key, timestamp,)) {
+            sprite.snapTile(x, y,) && AM.play('move',);
         }
     }
 
@@ -104,35 +101,35 @@ class ShapeBehavior extends Behavior {
      * and updates its position when cursor keys are pressed or
      * the timer happened
      */
-    onUpdate(timestamp: number) {
+    onUpdate(timestamp: number,) {
         const sprite = this.sprite as Shape;
 
         // debug: stop the timer when t key is pressed
-        if (IM.isKeyDown(84)) {
+        if (IM.isKeyDown(84,)) {
             this.timerEnabled = !this.timerEnabled;
             return;
         }
 
         // first check timer
-        if (this.timerEnabled && this.timer(timestamp)) {
+        if (this.timerEnabled && this.timer(timestamp,)) {
             // timer reached: move the sprite down
-            sprite.snapTile(0, 1);
+            sprite.snapTile(0, 1,);
             return;
         }
 
         // Then checks cursor keys
-        if (IM.isKeyDown('DOWN')) {
-            this.checkKeyDelay(1, timestamp, 0, 1);
-        } else if (IM.isKeyDown('LEFT')) {
-            this.checkKeyDelay(2, timestamp, -1, 0);
-        } else if (IM.isKeyDown('RIGHT')) {
-            this.checkKeyDelay(3, timestamp, 1, 0);
-        } else if ((IM.isKeyDown('UP') || IM.isKeyDown('SPACE')) && (timestamp - this.lastRotation > 150)) {
+        if (IM.isKeyDown('DOWN',)) {
+            this.checkKeyDelay(1, timestamp, 0, 1,);
+        } else if (IM.isKeyDown('LEFT',)) {
+            this.checkKeyDelay(2, timestamp, -1, 0,);
+        } else if (IM.isKeyDown('RIGHT',)) {
+            this.checkKeyDelay(3, timestamp, 1, 0,);
+        } else if ((IM.isKeyDown('UP',) || IM.isKeyDown('SPACE',)) && (timestamp - this.lastRotation > 150)) {
             this.lastRotation = timestamp;
             sprite.nextRotation();
         } else if (this.state) {
             // key released
-            this.ready(0, timestamp);
+            this.ready(0, timestamp,);
         }
     }
 }

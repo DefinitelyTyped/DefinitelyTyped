@@ -6,7 +6,7 @@ declare module 'SyntheticsLink' {
      * An instance of SyntheticsLink can be added to broken link checker report using addLink(instanceOfSyntheticsLink).
      */
     class SyntheticsLink {
-        constructor(url: string);
+        constructor(url: string,);
         linkNum: number;
         url: string;
         text: string;
@@ -17,15 +17,15 @@ declare module 'SyntheticsLink' {
         };
         failureReason: string;
         screenshots: any[];
-        withLinkNum(linkNum: number): SyntheticsLink;
-        withUrl(url: string): SyntheticsLink;
-        withText(text: string): SyntheticsLink;
-        withParentUrl(parentUrl: any): SyntheticsLink;
-        withStatusCode(statusCode: any): SyntheticsLink;
-        withStatusText(statusText: any): SyntheticsLink;
-        withFailureReason(failureReason: any): SyntheticsLink;
-        withScreenshotResult(screenshotResults: any): SyntheticsLink;
-        addScreenshotResult(screenshotResult: any): void;
+        withLinkNum(linkNum: number,): SyntheticsLink;
+        withUrl(url: string,): SyntheticsLink;
+        withText(text: string,): SyntheticsLink;
+        withParentUrl(parentUrl: any,): SyntheticsLink;
+        withStatusCode(statusCode: any,): SyntheticsLink;
+        withStatusText(statusText: any,): SyntheticsLink;
+        withFailureReason(failureReason: any,): SyntheticsLink;
+        withScreenshotResult(screenshotResults: any,): SyntheticsLink;
+        addScreenshotResult(screenshotResult: any,): void;
         getLinkNum(): number;
         getUrl(): string;
         getText(): string;

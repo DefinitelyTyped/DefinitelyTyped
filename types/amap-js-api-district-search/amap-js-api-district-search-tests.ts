@@ -1,17 +1,17 @@
 // $ExpectType DistrictSearch
 new AMap.DistrictSearch();
 // $ExpectType DistrictSearch
-new AMap.DistrictSearch({});
+new AMap.DistrictSearch({},);
 // $ExpectType DistrictSearch
 const districtSearch = new AMap.DistrictSearch({
     level: 'city',
     showbiz: true,
     extensions: 'all',
-    subdistrict: 1
-});
+    subdistrict: 1,
+},);
 
 // $ExpectType void
-districtSearch.search('keyword', (status, result) => {
+districtSearch.search('keyword', (status, result,) => {
     const temp: 'error' | 'complete' | 'no_data' = status;
     // $ExpectType string | SearchResult
     result;
@@ -41,31 +41,31 @@ districtSearch.search('keyword', (status, result) => {
         // $ExpectType string
         result;
     }
-});
+},);
 
 declare const level: 'country' | 'province' | 'city' | 'district' | 'biz_area';
 // $ExpectType void
-districtSearch.setLevel(level);
+districtSearch.setLevel(level,);
 districtSearch.setLevel();
 
 // $ExpectType void
-districtSearch.setSubdistrict(3);
+districtSearch.setSubdistrict(3,);
 
 // @ts-expect-error
-districtSearch.setSubdistrict(4);
+districtSearch.setSubdistrict(4,);
 
-districtSearch.on('complete', (event: AMap.DistrictSearch.EventMap['complete']) => {
+districtSearch.on('complete', (event: AMap.DistrictSearch.EventMap['complete'],) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
     event.info;
     // $ExpectType District[]
     event.districtList;
-});
+},);
 
-districtSearch.on('error', (event: AMap.DistrictSearch.EventMap['error']) => {
+districtSearch.on('error', (event: AMap.DistrictSearch.EventMap['error'],) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
-});
+},);

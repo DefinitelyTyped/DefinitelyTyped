@@ -5,5 +5,5 @@ export default class ATNDeserializationOptions {
     verifyATN: boolean | null;
     generateRuleBypassTransitions: boolean;
 
-    constructor(copyFrom?: ATNDeserializationOptions);
+    constructor(copyFrom?: ATNDeserializationOptions,);
 }

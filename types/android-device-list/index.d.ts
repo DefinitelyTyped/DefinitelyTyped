@@ -16,22 +16,22 @@ export function brandList(): string[];
 /**
  * Returns a device list with matching retail brand.
  */
-export function getDevicesByBrand(brand: string, options?: Options): Device[];
+export function getDevicesByBrand(brand: string, options?: Options,): Device[];
 
 /**
  * Returns a device list with matching marketing name.
  */
-export function getDevicesByName(name: string, options?: Options): Device[];
+export function getDevicesByName(name: string, options?: Options,): Device[];
 
 /**
  * Returns a device list with matching build.os.DEVICE.
  */
-export function getDevicesByDeviceId(deviceId: string, options?: Options): Device[];
+export function getDevicesByDeviceId(deviceId: string, options?: Options,): Device[];
 
 /**
  * Returns a device list with matching build.os.MODEL.
  */
-export function getDevicesByModel(model: string, Options?: Options): Device[];
+export function getDevicesByModel(model: string, Options?: Options,): Device[];
 
 export interface Options {
     /**

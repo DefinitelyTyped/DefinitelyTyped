@@ -15,7 +15,7 @@ declare module 'BrokenLinkCheckerReport' {
          * @param syntheticsLink
          * @param isBrokenLink (optional)- If not passed, defaults to consider link as broken if status code is not available or status code >= 400
          */
-        addLink(syntheticsLink: SyntheticsLink, isBrokenLink?: boolean): void;
+        addLink(syntheticsLink: SyntheticsLink, isBrokenLink?: boolean,): void;
         getLinks(): Record<string, SyntheticsLink>;
         getTotalBrokenLinks(): number;
         getTotalLinksChecked(): number;

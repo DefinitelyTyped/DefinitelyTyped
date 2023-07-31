@@ -1,20 +1,20 @@
 import {
-    LexV2Event,
-    LexV2Result,
-    LexV2Handler,
-    LexV2Interpretation,
+    LexV2ActiveContext,
     LexV2Bot,
+    LexV2DialogAction,
+    LexV2Event,
+    LexV2Handler,
     LexV2Intent,
-    LexV2Slot,
-    LexV2SlotValue,
+    LexV2Interpretation,
+    LexV2Result,
     LexV2SentimentResponse,
     LexV2SentimentScore,
     LexV2SessionState,
-    LexV2ActiveContext,
-    LexV2DialogAction,
+    LexV2Slot,
+    LexV2SlotValue,
 } from 'aws-lambda';
 
-const handler: LexV2Handler = async (event, context, callback) => {
+const handler: LexV2Handler = async (event, context, callback,) => {
     str = event.messageVersion;
     str = event.invocationSource;
     str = event.inputMode;
@@ -114,8 +114,8 @@ const handler: LexV2Handler = async (event, context, callback) => {
         key: 'value',
     };
 
-    callback(new Error());
-    callback(null, result);
+    callback(new Error(),);
+    callback(null, result,);
     return result;
 };
 
@@ -132,7 +132,7 @@ const event1: LexV2Event = {
                         shape: 'Scalar',
                         value: {
                             originalValue: '7',
-                            resolvedValues: ['7'],
+                            resolvedValues: ['7',],
                             interpretedValue: '7',
                         },
                     },
@@ -161,7 +161,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7'],
+                        resolvedValues: ['7',],
                         interpretedValue: '7',
                     },
                 },
@@ -185,7 +185,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7'],
+                        resolvedValues: ['7',],
                     },
                 },
             },
@@ -209,7 +209,7 @@ const event1: LexV2Event = {
                     shape: 'Scalar',
                     value: {
                         originalValue: '7',
-                        resolvedValues: ['7'],
+                        resolvedValues: ['7',],
                         interpretedValue: '7',
                     },
                 },

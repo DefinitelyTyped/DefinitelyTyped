@@ -1,7 +1,7 @@
-import { SemVer } from 'semver';
-import { SubProcess, TeenProcessExecOptions } from 'teen_process';
+import { SemVer, } from 'semver';
+import { SubProcess, TeenProcessExecOptions, } from 'teen_process';
 
-export { DEFAULT_ADB_EXEC_TIMEOUT } from '../helpers';
+export { DEFAULT_ADB_EXEC_TIMEOUT, } from '../helpers';
 
 export interface ConnectedDevicesOptions {
     /**
@@ -138,7 +138,7 @@ export type BinaryName = 'aapt' | 'aapt2' | 'adb' | 'apkanalyzer' | 'apksigner.j
  *                 of known locations or Android SDK is not installed on the
  *                 local file system.
  */
-export function getAndroidBinaryPath(binaryName: string): Promise<string>;
+export function getAndroidBinaryPath(binaryName: string,): Promise<string>;
 
 declare const systemCallMethods: SystemCalls;
 export default systemCallMethods;
@@ -155,7 +155,7 @@ interface SystemCalls {
      * @param binaryName - The name of the binary.
      * @return Full path to the given binary including current SDK root.
      */
-    getSdkBinaryPath(binaryName: string): Promise<string>;
+    getSdkBinaryPath(binaryName: string,): Promise<string>;
 
     /**
      * Retrieve full binary name for the current operating system.
@@ -164,7 +164,7 @@ interface SystemCalls {
      * @return Formatted binary name depending on the current platform,
      *                  for example, 'android.bat' on Windows.
      */
-    getBinaryNameForOS(binaryName: string): string;
+    getBinaryNameForOS(binaryName: string,): string;
 
     /**
      * Retrieve full path to the given binary.
@@ -178,7 +178,7 @@ interface SystemCalls {
      *                 of known locations or Android SDK is not installed on the
      *                 local file system.
      */
-    getBinaryFromSdkRoot(binaryName: BinaryName): Promise<string>;
+    getBinaryFromSdkRoot(binaryName: BinaryName,): Promise<string>;
 
     /**
      * Retrieve full path to a binary file using the standard system lookup tool.
@@ -188,7 +188,7 @@ interface SystemCalls {
      *                  output.
      * @throws If lookup tool returns non-zero return code.
      */
-    getBinaryFromPath(binaryName: string): Promise<string>;
+    getBinaryFromPath(binaryName: string,): Promise<string>;
 
     /**
      * Retrieve the list of devices visible to adb.
@@ -197,8 +197,8 @@ interface SystemCalls {
      *                          no devices are connected.
      * @throws If there was an error while listing devices.
      */
-    getConnectedDevices(opts: ConnectedDevicesOptions & { verbose: true }): Promise<VerboseDevice[]>;
-    getConnectedDevices(opts?: ConnectedDevicesOptions): Promise<Device[]>;
+    getConnectedDevices(opts: ConnectedDevicesOptions & { verbose: true },): Promise<VerboseDevice[]>;
+    getConnectedDevices(opts?: ConnectedDevicesOptions,): Promise<Device[]>;
 
     /**
      * Retrieve the list of devices visible to adb within the given timeout.
@@ -208,7 +208,7 @@ interface SystemCalls {
      * @return The list of connected devices.
      * @throws If no connected devices can be detected within the given timeout.
      */
-    getDevicesWithRetry(timeoutMs?: number): Promise<Device[]>;
+    getDevicesWithRetry(timeoutMs?: number,): Promise<Device[]>;
 
     /**
      * Kick current connection from host/device side and make it reconnect
@@ -220,7 +220,7 @@ interface SystemCalls {
      * @throws If either ADB version is too old and does not support this
      * command or there was a failure during reconnect.
      */
-    reconnect(target?: 'offline' | 'device' | 'null'): Promise<void>;
+    reconnect(target?: 'offline' | 'device' | 'null',): Promise<void>;
 
     /**
      * Restart adb server, unless _this.suppressKillServer_ property is true.
@@ -245,7 +245,7 @@ interface SystemCalls {
      *
      * @param cmd - The array of rest command line parameters.
      */
-    adbExecEmu(cmd: ReadonlyArray<string>): Promise<void>;
+    adbExecEmu(cmd: ReadonlyArray<string>,): Promise<void>;
 
     /**
      * Execute the given adb command.
@@ -258,8 +258,8 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions & { outputFormat: 'full' }): Promise<ExecResult>;
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions): Promise<string>;
+    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions & { outputFormat: 'full' },): Promise<ExecResult>;
+    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions,): Promise<string>;
 
     /**
      * Execute the given command using _adb shell_ prefix.
@@ -270,9 +270,9 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    shell(cmd: string | ReadonlyArray<string>, opts?: ShellExecOptions): Promise<string>;
+    shell(cmd: string | ReadonlyArray<string>, opts?: ShellExecOptions,): Promise<string>;
 
-    createSubProcess(args?: ReadonlyArray<string>): SubProcess;
+    createSubProcess(args?: ReadonlyArray<string>,): SubProcess;
 
     /**
      * Retrieve the current adb port.
@@ -296,7 +296,7 @@ interface SystemCalls {
      * @return Either the current emulator port or
      *                          _false_ if port number cannot be parsed.
      */
-    getPortFromEmulatorString(emStr: string): number | false;
+    getPortFromEmulatorString(emStr: string,): number | false;
 
     /**
      * Retrieve the list of currently connected emulators.
@@ -310,21 +310,21 @@ interface SystemCalls {
      *
      * @param emPort - The emulator port to be set.
      */
-    setEmulatorPort(emPort: number): void;
+    setEmulatorPort(emPort: number,): void;
 
     /**
      * Set the identifier of the current device (_this.curDeviceId_).
      *
      * @param - The device identifier.
      */
-    setDeviceId(deviceId: string): void;
+    setDeviceId(deviceId: string,): void;
 
     /**
      * Set the the current device object.
      *
      * @param deviceObj - The device object to be set.
      */
-    setDevice(deviceObj: Device): void;
+    setDevice(deviceObj: Device,): void;
 
     /**
      * Get the object for the currently running emulator.
@@ -332,7 +332,7 @@ interface SystemCalls {
      * @param avdName - Emulator name.
      * @return Currently running emulator or _null_.
      */
-    getRunningAVD(avdName: string): Promise<Device | null>;
+    getRunningAVD(avdName: string,): Promise<Device | null>;
 
     /**
      * Get the object for the currently running emulator.
@@ -344,7 +344,7 @@ interface SystemCalls {
      * @return Currently running emulator or _null_.
      * @throws If no device has been detected within the timeout.
      */
-    getRunningAVDWithRetry(avdName: string, timeoutMs?: number): Promise<Device | null>;
+    getRunningAVDWithRetry(avdName: string, timeoutMs?: number,): Promise<Device | null>;
 
     /**
      * Shutdown all running emulators by killing their processes.
@@ -364,7 +364,7 @@ interface SystemCalls {
      * @return - True if the emulator was killed, false otherwise.
      * @throws if there was a failure by killing the emulator
      */
-    killEmulator(avdName?: string | null, timeout?: number): Promise<boolean>;
+    killEmulator(avdName?: string | null, timeout?: number,): Promise<boolean>;
 
     /**
      * Start an emulator with given parameters and wait until it is full started.
@@ -374,7 +374,7 @@ interface SystemCalls {
      * @returns Emulator subprocess instance
      * @throws If the emulator fails to start within the given timeout.
      */
-    launchAVD(avdName: string, opts?: AvdLaunchOptions): Promise<SubProcess>;
+    launchAVD(avdName: string, opts?: AvdLaunchOptions,): Promise<SubProcess>;
 
     /**
      * Get the adb version. The result of this method is cached.
@@ -390,7 +390,7 @@ interface SystemCalls {
      * @param timeoutMs [20000] - The maximum number of milliseconds to wait.
      * @throws If the emulator is not ready within the given timeout.
      */
-    waitForEmulatorReady(timeoutMs?: number): Promise<void>;
+    waitForEmulatorReady(timeoutMs?: number,): Promise<void>;
 
     /**
      * Check if the current device is ready to accept further commands (booting completed).
@@ -398,7 +398,7 @@ interface SystemCalls {
      * @param appDeviceReadyTimeout [30] - The maximum number of seconds to wait.
      * @throws If the device is not ready within the given timeout.
      */
-    waitForDevice(appDeviceReadyTimeout?: number): Promise<void>;
+    waitForDevice(appDeviceReadyTimeout?: number,): Promise<void>;
 
     /**
      * Reboot the current device and wait until it is completed.
@@ -406,13 +406,13 @@ interface SystemCalls {
      * @param retries [DEFAULT_ADB_REBOOT_RETRIES] - The maximum number of reboot retries.
      * @throws If the device failed to reboot and number of retries is exceeded.
      */
-    reboot(retries?: number): Promise<void>;
+    reboot(retries?: number,): Promise<void>;
 
     /**
      * Switch adb server root privileges.
      * @param isElevated - Should we elevate to to root or unroot? (default true)
      */
-    changeUserPrivileges(isElevated: boolean): Promise<RootResult>;
+    changeUserPrivileges(isElevated: boolean,): Promise<RootResult>;
 
     /**
      * Switch adb server to root mode.
@@ -439,7 +439,7 @@ interface SystemCalls {
      * @param remotePath - The remote path to verify.
      * @return True if the given path exists on the device.
      */
-    fileExists(remotePath: string): Promise<boolean>;
+    fileExists(remotePath: string,): Promise<boolean>;
 
     /**
      * Get the output of _ls_ command on the device under test.
@@ -450,7 +450,7 @@ interface SystemCalls {
      *                          An empty array is returned of the given _remotePath_
      *                          does not exist.
      */
-    ls(remotePath: string, opts?: ReadonlyArray<string>): Promise<string[]>;
+    ls(remotePath: string, opts?: ReadonlyArray<string>,): Promise<string[]>;
 
     /**
      * Get the size of the particular file located on the device under test.
@@ -459,7 +459,7 @@ interface SystemCalls {
      * @return File size in bytes.
      * @throws If there was an error while getting the size of the given file.
      */
-    fileSize(remotePath: string): Promise<number>;
+    fileSize(remotePath: string,): Promise<number>;
 
     /**
      * Installs the given certificate on a rooted real device or
@@ -475,7 +475,7 @@ interface SystemCalls {
      * @throws If openssl tool is not available on the destination system
      * or if there was an error while installing the certificate
      */
-    installMitmCertificate(cert: Buffer | string): Promise<void>;
+    installMitmCertificate(cert: Buffer | string,): Promise<void>;
 
     /**
      * Verifies if the given root certificate is already installed on the device.
@@ -486,5 +486,5 @@ interface SystemCalls {
      * or if there was an error while checking the certificate
      * @returns true if the given certificate is already installed
      */
-    isMitmCertificateInstalled(cert: Buffer | string): Promise<boolean>;
+    isMitmCertificateInstalled(cert: Buffer | string,): Promise<boolean>;
 }

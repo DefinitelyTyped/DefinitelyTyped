@@ -3,19 +3,19 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from '../common/api-gateway';
-import { Callback, Handler } from '../handler';
-import { APIGatewayEventRequestContextV2 } from './api-gateway-proxy';
+import { Callback, Handler, } from '../handler';
+import { APIGatewayEventRequestContextV2, } from './api-gateway-proxy';
 
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext,> =
     Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
 export type APIGatewayAuthorizerCallback = Callback<APIGatewayAuthorizerResult>;
-export type APIGatewayAuthorizerWithContextCallback<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+export type APIGatewayAuthorizerWithContextCallback<TAuthorizerContext extends APIGatewayAuthorizerResultContext,> =
     Callback<APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
 export type APIGatewayTokenAuthorizerHandler = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext,> =
     Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
 export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
@@ -99,7 +99,7 @@ export interface APIGatewayAuthorizerResult {
 }
 
 // Separate type so the context property is required, without pulling complex type magic.
-export interface APIGatewayAuthorizerWithContextResult<TAuthorizerContext extends APIGatewayAuthorizerResultContext> {
+export interface APIGatewayAuthorizerWithContextResult<TAuthorizerContext extends APIGatewayAuthorizerResultContext,> {
     principalId: string;
     policyDocument: PolicyDocument;
     context: TAuthorizerContext;
@@ -142,8 +142,9 @@ export interface APIGatewaySimpleAuthorizerResult {
     isAuthorized: boolean;
 }
 
-export interface APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext>
-    extends APIGatewaySimpleAuthorizerResult {
+export interface APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext,>
+    extends APIGatewaySimpleAuthorizerResult
+{
     context: TAuthorizerContext;
 }
 
@@ -152,7 +153,7 @@ export type APIGatewayRequestSimpleAuthorizerHandlerV2 = Handler<
     APIGatewaySimpleAuthorizerResult
 >;
 
-export type APIGatewayRequestSimpleAuthorizerHandlerV2WithContext<TAuthorizerContext> = Handler<
+export type APIGatewayRequestSimpleAuthorizerHandlerV2WithContext<TAuthorizerContext,> = Handler<
     APIGatewayRequestAuthorizerEventV2,
     APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext>
 >;
@@ -235,7 +236,9 @@ export interface MaybeStatementResource {
     NotResource?: string | string[] | undefined;
 }
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
-export type StatementResource = MaybeStatementPrincipal &
-    ({ Resource: string | string[] } | { NotResource: string | string[] });
-export type StatementPrincipal = MaybeStatementResource &
-    ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
+export type StatementResource =
+    & MaybeStatementPrincipal
+    & ({ Resource: string | string[] } | { NotResource: string | string[] });
+export type StatementPrincipal =
+    & MaybeStatementResource
+    & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });

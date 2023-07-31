@@ -51,7 +51,7 @@ export interface HeapDiffResult {
     change: HeapChange;
 }
 
-export function on(event: 'stats', callback: (stats: GcStats) => void): void;
+export function on(event: 'stats', callback: (stats: GcStats,) => void,): void;
 
 export class HeapDiff {
     end(): HeapDiffResult;

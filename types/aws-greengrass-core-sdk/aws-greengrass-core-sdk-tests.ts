@@ -1,4 +1,4 @@
-import { IotData, PublishParams } from 'aws-greengrass-core-sdk';
+import { IotData, PublishParams, } from 'aws-greengrass-core-sdk';
 import {
     ClientException,
     ConnectFailedException,
@@ -37,9 +37,12 @@ import {
     UnknownOperationException,
     UpdateFailedException,
     UpdateNotAllowedException,
-    ValidationException
+    ValidationException,
 } from 'aws-greengrass-core-sdk/stream-manager';
-import { deserializeJsonBytesToObj, validateAndSerializeToJsonBytes } from 'aws-greengrass-core-sdk/stream-manager/util';
+import {
+    deserializeJsonBytesToObj,
+    validateAndSerializeToJsonBytes,
+} from 'aws-greengrass-core-sdk/stream-manager/util';
 
 const client = new IotData();
 
@@ -49,12 +52,12 @@ client.publish(
         payload: 'bar',
         queueFullPolicy: 'BestEffort',
     },
-    (error, data) => {
+    (error, data,) => {
         if (error) {
-            console.log(error);
+            console.log(error,);
         }
         if (data) {
-            console.log(data.payload);
+            console.log(data.payload,);
         }
     },
 );
@@ -81,22 +84,22 @@ const errors: Error[] = [
     new ValidationException(),
 ];
 
-errors.forEach(console.log);
+errors.forEach(console.log,);
 
 // Util
-const bytes = validateAndSerializeToJsonBytes({ foo: "bar" });
-const deserialized = deserializeJsonBytesToObj(bytes, EventType);
+const bytes = validateAndSerializeToJsonBytes({ foo: 'bar', },);
+const deserialized = deserializeJsonBytesToObj(bytes, EventType,);
 deserialized.asMap();
 
 // Client
 // All properties defined
 let smClient = new StreamManagerClient({
     port: 123,
-    host: "hostname",
+    host: 'hostname',
     onConnectCb: () => {
         return true;
     },
-    onErrorCb: (err: Error) => {
+    onErrorCb: (err: Error,) => {
         return err;
     },
     logger: {
@@ -105,97 +108,98 @@ let smClient = new StreamManagerClient({
         info: () => undefined,
         debug: () => undefined,
     },
-});
+},);
 
 // All properties undefined
-smClient = new StreamManagerClient({});
+smClient = new StreamManagerClient({},);
 
 // $ExpectType Promise<number>
-smClient.appendMessage("streamName", Buffer.from("hello"));
+smClient.appendMessage('streamName', Buffer.from('hello',),);
 
 const streamDefinition = new MessageStreamDefinition()
-    .withName("name")
-    .withMaxSize(123)
-    .withFlushOnWrite(true)
-    .withPersistence(Persistence.File)
-    .withStrategyOnFull(StrategyOnFull.OverwriteOldestData)
-    .withStreamSegmentSize(123)
-    .withTimeToLiveMillis(123)
-    .withExportDefinition(new ExportDefinition()
-        .withHttp([
-            new HTTPConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(false)
-                .withExportFormat(ExportFormat.RAW_NOT_BATCHED)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-                .withUri("uri")
-        ])
-        .withIotAnalytics([
-            new IoTAnalyticsConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withIotChannel("channel")
-                .withIotMsgIdPrefix("prefix")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withIotSitewise([
-            new IoTSiteWiseConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(100)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withKinesis([
-            new KinesisConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withKinesisStreamName("stream-name")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withS3TaskExecutor([
-            new S3ExportTaskExecutorConfig()
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withSizeThresholdForMultipartUploadBytes(100)
-                .withStatusConfig(
-                    new StatusConfig()
-                        .withStatusLevel(StatusLevel.ERROR)
-                        .withStatusStreamName("status-stream")
-                )
-        ])
+    .withName('name',)
+    .withMaxSize(123,)
+    .withFlushOnWrite(true,)
+    .withPersistence(Persistence.File,)
+    .withStrategyOnFull(StrategyOnFull.OverwriteOldestData,)
+    .withStreamSegmentSize(123,)
+    .withTimeToLiveMillis(123,)
+    .withExportDefinition(
+        new ExportDefinition()
+            .withHttp([
+                new HTTPConfig()
+                    .withBatchIntervalMillis(123,)
+                    .withBatchSize(10,)
+                    .withDisabled(false,)
+                    .withExportFormat(ExportFormat.RAW_NOT_BATCHED,)
+                    .withIdentifier('id',)
+                    .withPriority(0,)
+                    .withStartSequenceNumber(0,)
+                    .withUri('uri',),
+            ],)
+            .withIotAnalytics([
+                new IoTAnalyticsConfig()
+                    .withBatchIntervalMillis(123,)
+                    .withBatchSize(10,)
+                    .withDisabled(true,)
+                    .withIdentifier('id',)
+                    .withIotChannel('channel',)
+                    .withIotMsgIdPrefix('prefix',)
+                    .withPriority(0,)
+                    .withStartSequenceNumber(0,),
+            ],)
+            .withIotSitewise([
+                new IoTSiteWiseConfig()
+                    .withBatchIntervalMillis(123,)
+                    .withBatchSize(100,)
+                    .withDisabled(true,)
+                    .withIdentifier('id',)
+                    .withPriority(0,)
+                    .withStartSequenceNumber(0,),
+            ],)
+            .withKinesis([
+                new KinesisConfig()
+                    .withBatchIntervalMillis(123,)
+                    .withBatchSize(10,)
+                    .withDisabled(true,)
+                    .withIdentifier('id',)
+                    .withKinesisStreamName('stream-name',)
+                    .withPriority(0,)
+                    .withStartSequenceNumber(0,),
+            ],)
+            .withS3TaskExecutor([
+                new S3ExportTaskExecutorConfig()
+                    .withDisabled(true,)
+                    .withIdentifier('id',)
+                    .withPriority(0,)
+                    .withSizeThresholdForMultipartUploadBytes(100,)
+                    .withStatusConfig(
+                        new StatusConfig()
+                            .withStatusLevel(StatusLevel.ERROR,)
+                            .withStatusStreamName('status-stream',),
+                    ),
+            ],),
     );
 // $ExpectType Promise<void>
-smClient.createMessageStream(streamDefinition);
+smClient.createMessageStream(streamDefinition,);
 // $ExpectType Promise<void>
-smClient.updateMessageStream(streamDefinition);
+smClient.updateMessageStream(streamDefinition,);
 // $ExpectType Promise<void>
-smClient.deleteMessageStream("stream-name");
+smClient.deleteMessageStream('stream-name',);
 // $ExpectType Promise<Message[]>
 smClient.readMessages(
-    "stream-name",
+    'stream-name',
     new ReadMessagesOptions()
-        .withDesiredStartSequenceNumber(0)
-        .withMaxMessageCount(10)
-        .withMinMessageCount(10)
-        .withReadTimeoutMillis(1000)
+        .withDesiredStartSequenceNumber(0,)
+        .withMaxMessageCount(10,)
+        .withMinMessageCount(10,)
+        .withReadTimeoutMillis(1000,),
 );
 
 // $ExpectType Promise<string[]>
 smClient.listStreams();
 // $ExpectType Promise<MessageStreamInfo>
-smClient.describeMessageStream("stream-name");
+smClient.describeMessageStream('stream-name',);
 
 smClient.onConnected(() => undefined);
 smClient.onError(() => undefined);
@@ -203,20 +207,21 @@ smClient.close();
 
 // Data
 new MessageStreamInfo()
-    .withDefinition(streamDefinition)
+    .withDefinition(streamDefinition,)
     .withExportStatuses([
         new MessageStreamInfo._exportStatuses()
-            .withErrorMessage("message")
-            .withExportConfigIdentifier("id")
-            .withExportedBytesFromStream(123)
-            .withExportedMessagesCount(1)
-            .withLastExportTime(123)
-            .withLastExportedSequenceNumber(0)
-    ])
-    .withStorageStatus(new MessageStreamInfo._storageStatus()
-        .withNewestSequenceNumber(0)
-        .withOldestSequenceNumber(0)
-        .withTotalBytes(10)
+            .withErrorMessage('message',)
+            .withExportConfigIdentifier('id',)
+            .withExportedBytesFromStream(123,)
+            .withExportedMessagesCount(1,)
+            .withLastExportTime(123,)
+            .withLastExportedSequenceNumber(0,),
+    ],)
+    .withStorageStatus(
+        new MessageStreamInfo._storageStatus()
+            .withNewestSequenceNumber(0,)
+            .withOldestSequenceNumber(0,)
+            .withTotalBytes(10,),
     );
 
 Status.Success;
@@ -232,32 +237,32 @@ StatusLevel.DEBUG;
 StatusLevel.TRACE;
 
 const s3ExportTaskDefinition = new S3ExportTaskDefinition()
-    .withBucket("bucket")
-    .withInputUrl("input")
-    .withKey("key")
+    .withBucket('bucket',)
+    .withInputUrl('input',)
+    .withKey('key',)
     .withUserMetadata({
-        key: "value",
-    });
+        key: 'value',
+    },);
 
 new Message()
-    .withIngestTime(123)
-    .withPayload(Buffer.from("payload"))
-    .withSequenceNumber(0)
-    .withStreamName("name");
+    .withIngestTime(123,)
+    .withPayload(Buffer.from('payload',),)
+    .withSequenceNumber(0,)
+    .withStreamName('name',);
 
 const statusContext = new StatusContext()
-    .withExportIdentifier("id")
-    .withS3ExportTaskDefinition(s3ExportTaskDefinition)
-    .withSequenceNumber(0)
-    .withStreamName("stream-name");
+    .withExportIdentifier('id',)
+    .withS3ExportTaskDefinition(s3ExportTaskDefinition,)
+    .withSequenceNumber(0,)
+    .withStreamName('stream-name',);
 
 new StatusMessage()
-    .withEventType(EventType.S3Task)
-    .withMessage("message")
-    .withStatus(Status.Canceled)
-    .withStatusContext(statusContext)
-    .withStatusLevel(StatusLevel.WARN)
-    .withTimestampEpochMs(123);
+    .withEventType(EventType.S3Task,)
+    .withMessage('message',)
+    .withStatus(Status.Canceled,)
+    .withStatusContext(statusContext,)
+    .withStatusLevel(StatusLevel.WARN,)
+    .withTimestampEpochMs(123,);
 
 StrategyOnFull.OverwriteOldestData;
 StrategyOnFull.RejectNewData;

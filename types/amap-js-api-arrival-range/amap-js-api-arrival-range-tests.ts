@@ -1,11 +1,11 @@
 declare const lnglat: AMap.LngLat;
-declare const lnglatTuple: [number, number];
+declare const lnglatTuple: [number, number,];
 
 // $ExpectType ArrivalRange
 const arrivalRange = new AMap.ArrivalRange();
 
 // $ExpectType void
-arrivalRange.search(lnglat, 10, (status, result) => {
+arrivalRange.search(lnglat, 10, (status, result,) => {
     const tempStatus: 'complete' | 'error' | 'no_data' = status;
     if (typeof result !== 'string') {
         // $ExpectType SearchResult
@@ -22,21 +22,21 @@ arrivalRange.search(lnglat, 10, (status, result) => {
         // $ExpectType string
         result;
     }
-});
+},);
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { });
+arrivalRange.search(lnglatTuple, 10, () => {},);
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { }, {});
+arrivalRange.search(lnglatTuple, 10, () => {}, {},);
 // $ExpectType void
-arrivalRange.search(lnglat, 10, () => { }, {
+arrivalRange.search(lnglat, 10, () => {}, {
     policy: 'BUS',
     resultType: 'polygon',
-    destination: lnglat
-});
+    destination: lnglat,
+},);
 
-arrivalRange.on('error', (event: AMap.ArrivalRange.EventMap['error']) => {
+arrivalRange.on('error', (event: AMap.ArrivalRange.EventMap['error'],) => {
     // $ExpectType string
     event.info;
     // $ExpectType "error"
     event.type;
-});
+},);

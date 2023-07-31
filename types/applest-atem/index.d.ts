@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { PNG } from 'pngjs';
+import { EventEmitter, } from 'events';
+import { PNG, } from 'pngjs';
 
 declare namespace ATEM {
     /** 0-indexed, so ME1 = 0, ..., ME4 = 3 */
@@ -164,10 +164,10 @@ declare namespace ATEM {
     }
 
     class FileUploader {
-        constructor(atem: ATEM);
-        uploadFromPNGFile(path: string): void;
-        uploadFromPNGBuffer(pngBuffer: Buffer, bankIndex?: number, frameIndex?: number): PNG;
-        convertPNGToYUV422(width: number, height: number, data: number[]): Buffer;
+        constructor(atem: ATEM,);
+        uploadFromPNGFile(path: string,): void;
+        uploadFromPNGBuffer(pngBuffer: Buffer, bankIndex?: number, frameIndex?: number,): PNG;
+        convertPNGToYUV422(width: number, height: number, data: number[],): Buffer;
     }
 
     enum Model {
@@ -212,14 +212,14 @@ declare namespace ATEM {
 }
 
 declare class ATEM {
-    constructor(options?: ATEM.Options);
+    constructor(options?: ATEM.Options,);
 
     /**
      * @param address - the IP address or hostname
      * @param port - optional: the port, if a custom one is used. Defaults to 9910
      * @param localPort - optional: a custom local port
      */
-    connect(address: string, port?: number, localPort?: number): void;
+    connect(address: string, port?: number, localPort?: number,): void;
 
     /** the current state of the vision mixer */
     state: ATEM.State;
@@ -236,93 +236,93 @@ declare class ATEM {
     //
 
     /** Route the specified input channel to the program bus for that Mix Effect (the LIVE output) */
-    changeProgramInput(channel: ATEM.VisionChannelNumber, me?: ATEM.MixEffect): void;
+    changeProgramInput(channel: ATEM.VisionChannelNumber, me?: ATEM.MixEffect,): void;
 
     /** Route the specified input channel to the preview bus for that Mix Effect */
-    changePreviewInput(channel: ATEM.VisionChannelNumber, me?: ATEM.MixEffect): void;
+    changePreviewInput(channel: ATEM.VisionChannelNumber, me?: ATEM.MixEffect,): void;
 
     /** Changes the input channel that routes to the specified aux bus */
-    changeAuxInput(aux: number, input: ATEM.VisionChannelNumber): void;
+    changeAuxInput(aux: number, input: ATEM.VisionChannelNumber,): void;
 
     /** equivilant of pressing AUTO on the mixer */
-    autoTransition(me?: ATEM.MixEffect): void;
+    autoTransition(me?: ATEM.MixEffect,): void;
 
     /** equivilant of pressing CUT on the mixer */
-    cutTransition(me?: ATEM.MixEffect): void;
+    cutTransition(me?: ATEM.MixEffect,): void;
 
     /** equivilant of pressing FTB on the mixer */
-    fadeToBlack(me?: ATEM.MixEffect): void;
+    fadeToBlack(me?: ATEM.MixEffect,): void;
 
     //
     // transitions
     //
 
     /** equivilant to moving the T-bar on the mixer */
-    changeTransitionPosition(position: number, me?: ATEM.MixEffect): void;
+    changeTransitionPosition(position: number, me?: ATEM.MixEffect,): void;
     /** equivilant of pressing PREV TRNS on the mixer */
-    changeTransitionPreview(me?: ATEM.MixEffect): void;
+    changeTransitionPreview(me?: ATEM.MixEffect,): void;
 
-    changeTransitionType(type: ATEM.TransitionStyle, me?: ATEM.MixEffect): void;
+    changeTransitionType(type: ATEM.TransitionStyle, me?: ATEM.MixEffect,): void;
 
     //
     // USK
     //
 
     /** equivilant of pressing ON AIR on the mixer (for that USK) */
-    changeUpstreamKeyState(uskNum: number, onAir: boolean, me?: ATEM.MixEffect): void;
+    changeUpstreamKeyState(uskNum: number, onAir: boolean, me?: ATEM.MixEffect,): void;
 
     /** if true: the next transition will fade the BKGD */
-    changeUpstreamKeyNextBackground(nextTransFadesBkgd: boolean, me?: ATEM.MixEffect): void;
+    changeUpstreamKeyNextBackground(nextTransFadesBkgd: boolean, me?: ATEM.MixEffect,): void;
 
     /** if true: the next transition will fade this USK */
-    changeUpstreamKeyNextState(uskNum: number, nextTransFadesUSK: boolean, me?: ATEM.MixEffect): void;
+    changeUpstreamKeyNextState(uskNum: number, nextTransFadesUSK: boolean, me?: ATEM.MixEffect,): void;
 
     //
     // DSK
     //
 
     /** equivilant of pressing ON AIR on the mixer (for that DSK) */
-    changeDownstreamKeyOn(dskNum: number, onAir: boolean): void;
+    changeDownstreamKeyOn(dskNum: number, onAir: boolean,): void;
 
     /** equivilant of pressing TIE on the mixer */
-    changeDownstreamKeyTie(dskNum: number, tie: boolean): void;
+    changeDownstreamKeyTie(dskNum: number, tie: boolean,): void;
 
     /** fades in the DSK */
-    autoDownstreamKey(dskNum: number): void;
+    autoDownstreamKey(dskNum: number,): void;
 
     //
     // audio
     //
 
-    changeAudioMasterGain(gain: number): void;
-    changeAudioChannelGain(channel: ATEM.AudioChannelNumber, gain: number): void;
-    changeAudioChannelState(channel: ATEM.AudioChannelNumber, status: boolean): void;
-    sendAudioLevelNumber(enable?: boolean): void;
+    changeAudioMasterGain(gain: number,): void;
+    changeAudioChannelGain(channel: ATEM.AudioChannelNumber, gain: number,): void;
+    changeAudioChannelState(channel: ATEM.AudioChannelNumber, status: boolean,): void;
+    sendAudioLevelNumber(enable?: boolean,): void;
 
     //
     // macros
     //
 
-    startRecordMacro(macroId: number, name?: string, description?: string): void;
+    startRecordMacro(macroId: number, name?: string, description?: string,): void;
     stopRecordMacro(): void;
-    runMacro(macroId: number): void;
-    deleteMacro(macroId: number): void;
+    runMacro(macroId: number,): void;
+    deleteMacro(macroId: number,): void;
 
     //
     // Media Player
     //
 
-    lockMediaPool(bankIndex: number, frameIndex: number): void;
-    unlockMediaPool(bankIndex: number): void;
+    lockMediaPool(bankIndex: number, frameIndex: number,): void;
+    unlockMediaPool(bankIndex: number,): void;
 
     /** @deprecated use `ATEM.FileUploader` */
-    fileSendNotice(id: [unknown, unknown], bankIndex: number, frameIndex: number, size: number, mode?: number): void;
+    fileSendNotice(id: [unknown, unknown,], bankIndex: number, frameIndex: number, size: number, mode?: number,): void;
 
     /** @deprecated use `ATEM.FileUploader` */
-    sendFileData(id: [unknown, unknown], buffer: Buffer): void;
+    sendFileData(id: [unknown, unknown,], buffer: Buffer,): void;
 
     /** @deprecated use `ATEM.FileUploader` */
-    sendFileDescription(id: [unknown, unknown], name: string, hash: Buffer): void;
+    sendFileDescription(id: [unknown, unknown,], name: string, hash: Buffer,): void;
 
     //
     // event listeners
@@ -330,16 +330,16 @@ declare class ATEM {
 
     on: {
         /** called when a state packet is received from the ATEM */
-        (event: 'stateChanged', callback: (error?: Error, state?: ATEM.State) => void): void;
+        (event: 'stateChanged', callback: (error?: Error, state?: ATEM.State,) => void,): void;
 
         /** called when a ping packet is received from the ATEM at an interval of one second */
-        (event: 'ping', callback: () => void): void;
+        (event: 'ping', callback: () => void,): void;
 
         /** called when the first ping packet is received from the ATEM. */
-        (event: 'connect', callback: (error: null) => void): void;
+        (event: 'connect', callback: (error: null,) => void,): void;
 
         /** called when we detect that we cannot communicate to the ATEM within `RECONNECT_INTERVAL` seconds */
-        (event: 'disconnect', callback: (error: null, state: null) => void): void;
+        (event: 'disconnect', callback: (error: null, state: null,) => void,): void;
     };
     once: ATEM['on'];
 }

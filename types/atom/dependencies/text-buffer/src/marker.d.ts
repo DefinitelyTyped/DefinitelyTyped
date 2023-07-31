@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { Point, PointCompatible, Range, RangeCompatible } from './text-buffer';
+import { Disposable, } from '../../../index';
+import { Point, PointCompatible, Range, RangeCompatible, } from './text-buffer';
 
 /**
  *  Represents a buffer annotation that remains logically stationary even as
@@ -14,17 +14,17 @@ export interface Marker {
      *  Creates and returns a new Marker with the same properties as this
      *  marker.
      */
-    copy(options?: CopyMarkerOptions): Marker;
+    copy(options?: CopyMarkerOptions,): Marker;
 
     /** Destroys the marker, causing it to emit the "destroyed" event. */
     destroy(): void;
 
     // Event Subscription
     /** Invoke the given callback when the marker is destroyed. */
-    onDidDestroy(callback: () => void): Disposable;
+    onDidDestroy(callback: () => void,): Disposable;
 
     /** Invoke the given callback when the state of the marker changes. */
-    onDidChange(callback: (event: MarkerChangedEvent) => void): Disposable;
+    onDidChange(callback: (event: MarkerChangedEvent,) => void,): Disposable;
 
     // Marker Details
     /** Returns the current range of the marker. The range is immutable. */
@@ -74,19 +74,22 @@ export interface Marker {
      *  Sets the range of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
-    setRange(range: RangeCompatible, params?: { reversed?: boolean | undefined; exclusive?: boolean | undefined }): boolean;
+    setRange(
+        range: RangeCompatible,
+        params?: { reversed?: boolean | undefined; exclusive?: boolean | undefined },
+    ): boolean;
 
     /**
      *  Sets the head position of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
-    setHeadPosition(position: PointCompatible): boolean;
+    setHeadPosition(position: PointCompatible,): boolean;
 
     /**
      *  Sets the tail position of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
-    setTailPosition(position: PointCompatible): boolean;
+    setTailPosition(position: PointCompatible,): boolean;
 
     /**
      *  Removes the marker's tail.
@@ -105,7 +108,7 @@ export interface Marker {
      *  Returns a boolean indicating whether this marker is equivalent to
      *  another marker, meaning they have the same range and options.
      */
-    isEqual(other: Marker): boolean;
+    isEqual(other: Marker,): boolean;
 
     /**
      *  Compares this marker to another based on their ranges.
@@ -113,7 +116,7 @@ export interface Marker {
      *  Returns "0" if this marker is equivalent to the argument.
      *  Returns "1" if this marker follows the argument.
      */
-    compare(other: Marker): number;
+    compare(other: Marker,): number;
 }
 
 export interface CopyMarkerOptions {

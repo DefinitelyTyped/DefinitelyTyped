@@ -4,9 +4,9 @@ import HashCode from 'antlr4/misc/HashCode';
 
 // LexerAction
 class NewLexerAction extends LexerAction {}
-const newLexerActionInstance = new NewLexerAction(LexerActionType.CUSTOM);
+const newLexerActionInstance = new NewLexerAction(LexerActionType.CUSTOM,);
 newLexerActionInstance.actionType; // $ExpectType LexerActionType
 newLexerActionInstance.isPositionDependent; // $ExpectType boolean
 newLexerActionInstance.hashCode(); // $ExpectType number
-newLexerActionInstance.updateHashCode(new HashCode()); // $ExpectType void
-newLexerActionInstance.equals(newLexerActionInstance); // $ExpectType boolean
+newLexerActionInstance.updateHashCode(new HashCode(),); // $ExpectType void
+newLexerActionInstance.equals(newLexerActionInstance,); // $ExpectType boolean

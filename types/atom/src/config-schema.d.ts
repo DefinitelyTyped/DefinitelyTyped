@@ -1,4 +1,4 @@
-import { FileEncoding, Invisibles } from '../index';
+import { FileEncoding, Invisibles, } from '../index';
 
 // NOTE: the config schema with these defaults can be found here:
 //   https://github.com/atom/atom/blob/v1.40.0/src/config-schema.js

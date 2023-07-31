@@ -1,6 +1,6 @@
 import BufferedTokenStream from './BufferedTokenStream';
-import Token from './Token';
 import Lexer from './Lexer';
+import Token from './Token';
 
 /**
  * This class extends {@link BufferedTokenStream} with functionality to filter
@@ -20,9 +20,9 @@ import Lexer from './Lexer';
  * channel.
  */
 export default class CommonTokenStream extends BufferedTokenStream {
-    constructor(lexer: Lexer, channel?: number);
+    constructor(lexer: Lexer, channel?: number,);
 
-    adjustSeekIndex(i: number): number;
+    adjustSeekIndex(i: number,): number;
 
     getNumberOfOnChannelTokens(): number;
 }

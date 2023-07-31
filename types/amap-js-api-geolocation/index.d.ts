@@ -164,7 +164,7 @@ declare namespace AMap {
             /**
              * 中心点
              */
-            center: [number, number];
+            center: [number, number,];
             /**
              * 城市
              */
@@ -206,7 +206,7 @@ declare namespace AMap {
          * 定位服务
          * @param options 选项
          */
-        constructor(options?: Geolocation.Options);
+        constructor(options?: Geolocation.Options,);
         /**
          * 是否支持浏览器定位
          */
@@ -215,7 +215,12 @@ declare namespace AMap {
          * 获取用户当前的精确位置信息
          * @param callback 回调
          */
-        getCurrentPosition(callback: (status: Geolocation.SearchStatus, result: Geolocation.GeolocationResult | Geolocation.ErrorStatus) => void): void;
+        getCurrentPosition(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.GeolocationResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
         /**
          * 使用浏览器定位接口监控当前位置，移动端有效
          */
@@ -224,11 +229,16 @@ declare namespace AMap {
          * 取消对当前位置的监控
          * @param wathcId 监控id
          */
-        clearWatch(wathcId: string): string | undefined;
+        clearWatch(wathcId: string,): string | undefined;
         /**
          * 进行IP城市查询
          * @param callback 回调
          */
-        getCityInfo(callback: (status: Geolocation.SearchStatus, result: Geolocation.CityResult | Geolocation.ErrorStatus) => void): void;
+        getCityInfo(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.CityResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
     }
 }

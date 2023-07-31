@@ -30,7 +30,7 @@ declare namespace angular {
     interface Instruction {
         component: ComponentInstruction;
         child: Instruction;
-        auxInstruction: {[key: string]: Instruction};
+        auxInstruction: { [key: string]: Instruction };
 
         urlPath(): string;
 
@@ -51,7 +51,7 @@ declare namespace angular {
          * Returns a new instruction that shares the state of the existing instruction, but with
          * the given child {@link Instruction} replacing the existing child.
          */
-        replaceChild(child: Instruction): Instruction;
+        replaceChild(child: Instruction,): Instruction;
 
         /**
          * If the final URL for the instruction is ``
@@ -80,20 +80,20 @@ declare namespace angular {
          * Called by the Router to instantiate a new component during the commit phase of a navigation.
          * This method in turn is responsible for calling the `routerOnActivate` hook of its child.
          */
-        activate(nextInstruction: ComponentInstruction): IPromise<any>;
+        activate(nextInstruction: ComponentInstruction,): IPromise<any>;
 
         /**
          * Called by the {@link Router} during the commit phase of a navigation when an outlet
          * reuses a component between different routes.
          * This method in turn is responsible for calling the `routerOnReuse` hook of its child.
          */
-        reuse(nextInstruction: ComponentInstruction): IPromise<any>;
+        reuse(nextInstruction: ComponentInstruction,): IPromise<any>;
 
         /**
          * Called by the {@link Router} when an outlet disposes of a component's contents.
          * This method in turn is responsible for calling the `routerOnDeactivate` hook of its child.
          */
-        deactivate(nextInstruction: ComponentInstruction): IPromise<any>;
+        deactivate(nextInstruction: ComponentInstruction,): IPromise<any>;
 
         /**
          * Called by the {@link Router} during recognition phase of a navigation.
@@ -103,7 +103,7 @@ declare namespace angular {
          * This method delegates to the child component's `routerCanDeactivate` hook if it exists,
          * and otherwise resolves to true.
          */
-        routerCanDeactivate(nextInstruction: ComponentInstruction): IPromise<boolean>;
+        routerCanDeactivate(nextInstruction: ComponentInstruction,): IPromise<boolean>;
 
         /**
          * Called by the {@link Router} during recognition phase of a navigation.
@@ -115,25 +115,25 @@ declare namespace angular {
          * Otherwise, this method delegates to the child component's `routerCanReuse` hook if it exists,
          * or resolves to true if the hook is not present.
          */
-        routerCanReuse(nextInstruction: ComponentInstruction): IPromise<boolean>;
+        routerCanReuse(nextInstruction: ComponentInstruction,): IPromise<boolean>;
     }
 
     interface RouteRegistry {
         /**
          * Given a component and a configuration object, add the route to this registry
          */
-        config(parentComponent: any, config: RouteDefinition): void;
+        config(parentComponent: any, config: RouteDefinition,): void;
 
         /**
          * Reads the annotations of a component and configures the registry based on them
          */
-        configFromComponent(component: any): void;
+        configFromComponent(component: any,): void;
 
         /**
          * Given a URL and a parent component, return the most specific instruction for navigating
          * the application into the state specified by the url
          */
-        recognize(url: string, ancestorInstructions: Instruction[]): IPromise<Instruction>;
+        recognize(url: string, ancestorInstructions: Instruction[],): IPromise<Instruction>;
 
         /**
          * Given a normalized list with component names and params like: `['user', {id: 3 }]`
@@ -142,11 +142,11 @@ declare namespace angular {
          * If the optional param `_aux` is `true`, then we generate starting at an auxiliary
          * route boundary.
          */
-        generate(linkParams: any[], ancestorInstructions: Instruction[], _aux?: boolean): Instruction;
+        generate(linkParams: any[], ancestorInstructions: Instruction[], _aux?: boolean,): Instruction;
 
-        hasRoute(name: string, parentComponent: any): boolean;
+        hasRoute(name: string, parentComponent: any,): boolean;
 
-        generateDefault(componentCursor: any): Instruction;
+        generateDefault(componentCursor: any,): Instruction;
     }
 
     /**
@@ -178,33 +178,33 @@ declare namespace angular {
          * Constructs a child router. You probably don't need to use this unless you're writing a reusable
          * component.
          */
-        childRouter(hostComponent: any): Router;
+        childRouter(hostComponent: any,): Router;
 
         /**
          * Constructs a child router. You probably don't need to use this unless you're writing a reusable
          * component.
          */
-        auxRouter(hostComponent: any): Router;
+        auxRouter(hostComponent: any,): Router;
 
         /**
          * Register an outlet to be notified of primary route changes.
          *
          * You probably don't need to use this unless you're writing a reusable component.
          */
-        registerPrimaryOutlet(outlet: RouterOutlet): IPromise<boolean>;
+        registerPrimaryOutlet(outlet: RouterOutlet,): IPromise<boolean>;
 
         /**
          * Register an outlet to notified of auxiliary route changes.
          *
          * You probably don't need to use this unless you're writing a reusable component.
          */
-        registerAuxOutlet(outlet: RouterOutlet): IPromise<boolean>;
+        registerAuxOutlet(outlet: RouterOutlet,): IPromise<boolean>;
 
         /**
          * Given an instruction, returns `true` if the instruction is currently active,
          * otherwise `false`.
          */
-        isRouteActive(instruction: Instruction): boolean;
+        isRouteActive(instruction: Instruction,): boolean;
 
         /**
          * Dynamically update the routing configuration and trigger a navigation.
@@ -218,7 +218,7 @@ declare namespace angular {
          * ]);
          * ```
          */
-        config(definitions: RouteDefinition[]): IPromise<any>;
+        config(definitions: RouteDefinition[],): IPromise<any>;
 
         /**
          * Navigate based on the provided Route Link DSL. It's preferred to navigate with this method
@@ -232,7 +232,7 @@ declare namespace angular {
          * ```
          * See the {@link RouterLink} directive for more.
          */
-        navigate(linkParams: any[]): IPromise<any>;
+        navigate(linkParams: any[],): IPromise<any>;
 
         /**
          * Navigate to a URL. Returns a promise that resolves when navigation is complete.
@@ -241,34 +241,33 @@ declare namespace angular {
          * If the given URL begins with a `/`, router will navigate absolutely.
          * If the given URL does not begin with `/`, the router will navigate relative to this component.
          */
-        navigateByUrl(url: string, _skipLocationChange?: boolean): IPromise<any>;
+        navigateByUrl(url: string, _skipLocationChange?: boolean,): IPromise<any>;
 
         /**
          * Navigate via the provided instruction. Returns a promise that resolves when navigation is
          * complete.
          */
-        navigateByInstruction(instruction: Instruction,
-                              _skipLocationChange?: boolean): IPromise<any>;
+        navigateByInstruction(instruction: Instruction, _skipLocationChange?: boolean,): IPromise<any>;
 
         /**
          * Updates this router and all descendant routers according to the given instruction
          */
-        commit(instruction: Instruction, _skipLocationChange?: boolean): IPromise<any>;
+        commit(instruction: Instruction, _skipLocationChange?: boolean,): IPromise<any>;
 
         /**
          * Subscribe to URL updates from the router
          */
-        subscribe(onNext: (value: any) => void): {};
+        subscribe(onNext: (value: any,) => void,): {};
 
         /**
          * Removes the contents of this router's outlet and all descendant outlets
          */
-        deactivate(instruction: Instruction): IPromise<any>;
+        deactivate(instruction: Instruction,): IPromise<any>;
 
         /**
          * Given a URL, returns an instruction representing the component graph
          */
-        recognize(url: string): IPromise<Instruction>;
+        recognize(url: string,): IPromise<Instruction>;
 
         /**
          * Navigates to either the last URL successfully navigated to, or the last URL requested if the
@@ -279,7 +278,7 @@ declare namespace angular {
         /**
          * Generate an `Instruction` based on the provided Route Link DSL.
          */
-        generate(linkParams: any[]): Instruction;
+        generate(linkParams: any[],): Instruction;
     }
 
     /**
@@ -287,8 +286,8 @@ declare namespace angular {
      * You can inject RouteData into the constructor of a component to use it.
      */
     interface RouteData {
-        data: {[key: string]: any};
-        get(key: string): any;
+        data: { [key: string]: any };
+        get(key: string,): any;
     }
 
     /**
@@ -313,7 +312,7 @@ declare namespace angular {
         componentType: any;
         terminal: boolean;
         specificity: number;
-        params: {[key: string]: any};
+        params: { [key: string]: any };
     }
 
     /**
@@ -335,7 +334,7 @@ declare namespace angular {
      * {@example router/ts/on_activate/on_activate_example.ts region='routerOnActivate'}
      */
     interface OnActivate {
-        $routerOnActivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+        $routerOnActivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction,): any;
     }
 
     /**
@@ -358,7 +357,7 @@ declare namespace angular {
      * {@example router/ts/can_deactivate/can_deactivate_example.ts region='routerCanDeactivate'}
      */
     interface CanDeactivate {
-        $routerCanDeactivate(next?: ComponentInstruction, prev?: ComponentInstruction): boolean | IPromise<boolean>;
+        $routerCanDeactivate(next?: ComponentInstruction, prev?: ComponentInstruction,): boolean | IPromise<boolean>;
     }
 
     /**
@@ -377,7 +376,7 @@ declare namespace angular {
      * {@example router/ts/on_deactivate/on_deactivate_example.ts region='routerOnDeactivate'}
      */
     interface OnDeactivate {
-        $routerOnDeactivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+        $routerOnDeactivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction,): any;
     }
 
     /**
@@ -401,7 +400,10 @@ declare namespace angular {
      * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
      */
     interface CanReuse {
-        $routerCanReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): boolean | IPromise<boolean>;
+        $routerCanReuse(
+            next?: angular.ComponentInstruction,
+            prev?: angular.ComponentInstruction,
+        ): boolean | IPromise<boolean>;
     }
 
     /**
@@ -420,7 +422,7 @@ declare namespace angular {
      * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
      */
     interface OnReuse {
-        $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+        $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction,): any;
     }
 
     /**
@@ -470,7 +472,7 @@ declare namespace angular {
     // Supplement IComponentOptions from angular.d.ts with router-specific
     // fields.
     interface IComponentOptions {
-      $canActivate?: (...args: any[]) => boolean | angular.IPromise<boolean>;
-      $routeConfig?: RouteDefinition[];
+        $canActivate?: (...args: any[]) => boolean | angular.IPromise<boolean>;
+        $routeConfig?: RouteDefinition[];
     }
 }

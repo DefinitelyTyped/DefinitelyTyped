@@ -1,5 +1,5 @@
 import asyncBusboy = require('async-busboy');
-import { IncomingMessage } from 'http';
+import { IncomingMessage, } from 'http';
 
 // test type exports
 type Options = asyncBusboy.Options;
@@ -10,33 +10,33 @@ type FileReadStream = asyncBusboy.FileReadStream;
 
 declare const req: IncomingMessage;
 
-const resultPromise = asyncBusboy(req); // $ExpectType Promise<Result>
-asyncBusboy(req, {}); // $ExpectType Promise<Result>
-asyncBusboy(req, { headers: { 'content-type': 'foo' } }); // $ExpectType Promise<Result>
-asyncBusboy(req, { highWaterMark: 10 }); // $ExpectType Promise<Result>
+const resultPromise = asyncBusboy(req,); // $ExpectType Promise<Result>
+asyncBusboy(req, {},); // $ExpectType Promise<Result>
+asyncBusboy(req, { headers: { 'content-type': 'foo', }, },); // $ExpectType Promise<Result>
+asyncBusboy(req, { highWaterMark: 10, },); // $ExpectType Promise<Result>
 
 const onFileResultPromise = asyncBusboy(req, {
-    onFile: (fieldname, file, filename, encoding, mimetype) => {
+    onFile: (fieldname, file, filename, encoding, mimetype,) => {
         fieldname; // $ExpectType string
         file; // $ExpectType Readable
         filename; // $ExpectType string
         encoding; // $ExpectType string
         mimetype; // $ExpectType string
     },
-});
+},);
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 let assignableToOnFileResult: Promise<OnFileResult> = onFileResultPromise;
 // @ts-expect-error
 let assignableToResult: Promise<Result> = onFileResultPromise;
 assignableToOnFileResult = assignableToResult; // make sure that OnFileResult is supertype of Result
 
-const onFileResultPromise2 = asyncBusboy(req, { headers: {}, onFile: () => {} });
+const onFileResultPromise2 = asyncBusboy(req, { headers: {}, onFile: () => {}, },);
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 assignableToOnFileResult = onFileResultPromise2;
 // @ts-expect-error
 assignableToResult = onFileResultPromise2;
 
-const onFileResultPromise3 = asyncBusboy(req, { highWaterMark: 10, onFile: () => {} });
+const onFileResultPromise3 = asyncBusboy(req, { highWaterMark: 10, onFile: () => {}, },);
 // can't assert via ExpectType because TS4.1 detects OnFileResult as Pick<Result, "fields">
 assignableToOnFileResult = onFileResultPromise3;
 // @ts-expect-error

@@ -15,17 +15,17 @@ declare module 'SyntheticsReport' {
         executionError: any;
         customerScript: CanaryResult;
         configuration: {};
-        withStartTime(startTime: any): SyntheticsReport;
-        withEndTime(endTime: any): SyntheticsReport;
-        withCanaryName(canaryName: any): SyntheticsReport;
-        withTimeSpentInReset(timeSpentInResetInMs: any): SyntheticsReport;
-        withTimeSpentInLaunch(timeSpentInLaunchInMs: any): SyntheticsReport;
-        withTimeSpentInSetUp(timeSpentInSetUpInMs: any): SyntheticsReport;
-        withCanaryResult(canaryResult: any): SyntheticsReport;
-        withExecutionStatus(status: any): SyntheticsReport;
-        withExecutionError(error: any): SyntheticsReport;
-        addReport(report: any): void;
-        addStep(stepResult: any): void;
+        withStartTime(startTime: any,): SyntheticsReport;
+        withEndTime(endTime: any,): SyntheticsReport;
+        withCanaryName(canaryName: any,): SyntheticsReport;
+        withTimeSpentInReset(timeSpentInResetInMs: any,): SyntheticsReport;
+        withTimeSpentInLaunch(timeSpentInLaunchInMs: any,): SyntheticsReport;
+        withTimeSpentInSetUp(timeSpentInSetUpInMs: any,): SyntheticsReport;
+        withCanaryResult(canaryResult: any,): SyntheticsReport;
+        withExecutionStatus(status: any,): SyntheticsReport;
+        withExecutionError(error: any,): SyntheticsReport;
+        addReport(report: any,): void;
+        addStep(stepResult: any,): void;
         getStartTime(): any;
         getEndTime(): any;
         getCanaryName(): any;
@@ -34,7 +34,7 @@ declare module 'SyntheticsReport' {
         getTimeSpentInSetUp(): any;
         getCanaryResult(): CanaryResult;
         getReports(): any[];
-        withConfiguration(configuration: any): void;
+        withConfiguration(configuration: any,): void;
         getConfiguration(): {};
         reset(): void;
     }
@@ -47,15 +47,15 @@ declare module 'SyntheticsReport' {
         requests: RequestsResult;
         steps: any[];
         reports: any[];
-        withStartTime(startTime: any): CanaryResult;
-        withEndTime(endTime: any): CanaryResult;
-        withCanaryStatus(status: any): CanaryResult;
-        withFailureReason(failureReason: any): CanaryResult;
-        withStepsResult(stepResult: any): CanaryResult;
-        withMetricsPublished(metricsPublished: any): CanaryResult;
-        withRequestsResult(requestsResult: any): CanaryResult;
-        addReport(report: any): void;
-        addStep(stepResult: any): CanaryResult;
+        withStartTime(startTime: any,): CanaryResult;
+        withEndTime(endTime: any,): CanaryResult;
+        withCanaryStatus(status: any,): CanaryResult;
+        withFailureReason(failureReason: any,): CanaryResult;
+        withStepsResult(stepResult: any,): CanaryResult;
+        withMetricsPublished(metricsPublished: any,): CanaryResult;
+        withRequestsResult(requestsResult: any,): CanaryResult;
+        addReport(report: any,): void;
+        addStep(stepResult: any,): CanaryResult;
         getStartTime(): any;
         getEndTime(): any;
         getStatus(): string;
@@ -66,16 +66,16 @@ declare module 'SyntheticsReport' {
     }
     export class HttpStepResult extends CanaryStepResult {
         httpRequestNum: any;
-        withHttpRequestNum(httpRequestNum: any): HttpStepResult;
+        withHttpRequestNum(httpRequestNum: any,): HttpStepResult;
         getHttpRequestNum(): any;
     }
     export class StepResult extends CanaryStepResult {
         sourceUrl: any;
         destinationUrl: any;
         screenshots: any[];
-        withSourceUrl(sourceUrl: any): StepResult;
-        withDestinationUrl(destinationUrl: any): StepResult;
-        withScreenshotResult(screenshots: any): StepResult;
+        withSourceUrl(sourceUrl: any,): StepResult;
+        withDestinationUrl(destinationUrl: any,): StepResult;
+        withScreenshotResult(screenshots: any,): StepResult;
         getSourceUrl(): any;
         getDestinationUrl(): any;
         getScreenshots(): any[];
@@ -102,9 +102,9 @@ declare module 'SyntheticsReport' {
         fileName: any;
         pageUrl: any;
         error: any;
-        withFileName(fileName: any): ScreenshotResult;
-        withPageUrl(pageUrl: any): ScreenshotResult;
-        withError(error: any): ScreenshotResult;
+        withFileName(fileName: any,): ScreenshotResult;
+        withPageUrl(pageUrl: any,): ScreenshotResult;
+        withError(error: any,): ScreenshotResult;
         getFileName(): any;
         getPageUrl(): any;
         getError(): any;
@@ -118,7 +118,7 @@ declare module 'SyntheticsReport' {
         export const PASSED: string;
         export const FAILED: string;
         const NO_RESULT_1: string;
-        export { NO_RESULT_1 as NO_RESULT };
+        export { NO_RESULT_1 as NO_RESULT, };
     }
     class CanaryStepResult {
         stepNum: any;
@@ -128,13 +128,13 @@ declare module 'SyntheticsReport' {
         status: any;
         failureReason: any;
         metricsPublished: boolean;
-        withStepNum(stepNum: any): CanaryStepResult;
-        withStepName(stepName: any): CanaryStepResult;
-        withStartTime(startTime: any): CanaryStepResult;
-        withEndTime(endTime: any): CanaryStepResult;
-        withStepStatus(stepStatus: any): CanaryStepResult;
-        withFailureReason(failureReason: any): CanaryStepResult;
-        withMetricsPublished(metricsPublished: any): CanaryStepResult;
+        withStepNum(stepNum: any,): CanaryStepResult;
+        withStepName(stepName: any,): CanaryStepResult;
+        withStartTime(startTime: any,): CanaryStepResult;
+        withEndTime(endTime: any,): CanaryStepResult;
+        withStepStatus(stepStatus: any,): CanaryStepResult;
+        withFailureReason(failureReason: any,): CanaryStepResult;
+        withMetricsPublished(metricsPublished: any,): CanaryStepResult;
         getStepNum(): any;
         getStepName(): any;
         getStartTime(): any;

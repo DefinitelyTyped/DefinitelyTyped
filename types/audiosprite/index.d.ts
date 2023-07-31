@@ -6,12 +6,16 @@
 export as namespace audiosprite;
 export = audiosprite;
 
-declare function audiosprite(files: string[], callback: (error: Error, obj: audiosprite.Result) => void): void;
-declare function audiosprite(files: string[], option: audiosprite.Option, callback: (error: Error, obj: audiosprite.Result) => void): void;
+declare function audiosprite(files: string[], callback: (error: Error, obj: audiosprite.Result,) => void,): void;
+declare function audiosprite(
+    files: string[],
+    option: audiosprite.Option,
+    callback: (error: Error, obj: audiosprite.Result,) => void,
+): void;
 
 declare namespace audiosprite {
-    type ExportType = "jukebox" | "howler" | "createjs" | null;
-    type LogLevel = "debug" | "info" | "notice" | "warning" | "error";
+    type ExportType = 'jukebox' | 'howler' | 'createjs' | null;
+    type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error';
     type VBR = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
     type VBR_Vorbis = VBR | 10;
     type Channels = 1 | 2;
@@ -49,7 +53,7 @@ declare namespace audiosprite {
                 start: number;
                 end: number;
                 loop: boolean;
-            }
+            };
         };
         autoplay?: string | undefined;
     }

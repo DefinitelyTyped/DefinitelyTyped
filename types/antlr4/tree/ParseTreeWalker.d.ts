@@ -14,7 +14,7 @@ export default class ParseTreeWalker {
      * @param listener The listener used by the walker to process grammar rules
      * @param t The parse tree to be walked on
      */
-    walk(listener: ParseTreeListener, t: ParseTree): void;
+    walk(listener: ParseTreeListener, t: ParseTree,): void;
 
     /**
      * Enters a grammar rule by first triggering the generic event {@link ParseTreeListener.enterEveryRule}
@@ -23,7 +23,7 @@ export default class ParseTreeWalker {
      * @param listener The listener responding to the trigger events
      * @param r The grammar rule containing the rule context
      */
-    enterRule(listener: ParseTreeListener, r: RuleNode): void;
+    enterRule(listener: ParseTreeListener, r: RuleNode,): void;
 
     /**
      * Exits a grammar rule by first triggering the event specific to the given parse tree node
@@ -32,5 +32,5 @@ export default class ParseTreeWalker {
      * @param listener The listener responding to the trigger events
      * @param r The grammar rule containing the rule context
      */
-    exitRule(listener: ParseTreeListener, r: RuleNode): void;
+    exitRule(listener: ParseTreeListener, r: RuleNode,): void;
 }

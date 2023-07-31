@@ -1,4 +1,4 @@
-import StockGraph from "./StockGraph";
+import StockGraph from './StockGraph';
 
 /**
  * StockEvent is object which holds information about event(bullet).

@@ -16,28 +16,26 @@ declare namespace Httpi {
     }
 
     export interface HttpiFactory {
+        (config: HttpiPayload,): ng.IHttpPromise<{}>;
 
-        (config: HttpiPayload): ng.IHttpPromise<{}>;
-
-        resource(url: string): HttpiResource;
+        resource(url: string,): HttpiResource;
     }
 
     export class HttpiResource {
+        constructor(http: ng.IHttpService, url: string,);
 
-        constructor(http: ng.IHttpService, url: string);
+        delete<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        delete<T>(config: HttpiPayload): ng.IHttpPromise<T>;
+        get<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        get<T>(config: HttpiPayload): ng.IHttpPromise<T>;
+        head<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        head<T>(config: HttpiPayload): ng.IHttpPromise<T>;
+        jsonp<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        jsonp<T>(config: HttpiPayload): ng.IHttpPromise<T>;
+        post<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        post<T>(config: HttpiPayload): ng.IHttpPromise<T>;
+        put<T,>(config: HttpiPayload,): ng.IHttpPromise<T>;
 
-        put<T>(config: HttpiPayload): ng.IHttpPromise<T>;
-
-        setKeepTrailingSlash(newKeepTrailingSlash: boolean): HttpiResource;
+        setKeepTrailingSlash(newKeepTrailingSlash: boolean,): HttpiResource;
     }
 }

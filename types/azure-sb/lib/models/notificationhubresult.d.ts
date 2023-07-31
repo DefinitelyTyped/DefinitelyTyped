@@ -14,12 +14,12 @@
 // limitations under the License.
 //
 
-import { Azure as Az } from 'azure-sb';
+import { Azure as Az, } from 'azure-sb';
 
 export namespace Azure.ServiceBus.Results {
     export interface NotificationHubResult {
-        serialize(resource: Az.ServiceBus.CreateNotificationHubOptions): string;
+        serialize(resource: Az.ServiceBus.CreateNotificationHubOptions,): string;
 
-        parse(xml: object): object | object[];
+        parse(xml: object,): object | object[];
     }
 }

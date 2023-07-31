@@ -1,12 +1,12 @@
-import { Handler } from '../handler';
+import { Handler, } from '../handler';
 
-export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
+export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null,> = Handler<
     AppSyncResolverEvent<TArguments, TSource>,
     TResult
 >;
 
 // https:docs.aws.amazon.com/appsync/latest/devguide/tutorial-lambda-resolvers.html#advanced-use-case-batching
-export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
+export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<string, any> | null,> = Handler<
     Array<AppSyncResolverEvent<TArguments, TSource>>,
     TResult[]
 >;
@@ -14,14 +14,14 @@ export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<st
 /**
  * @deprecated Use {@link AppSyncAuthorizerHandler}
  */
-export type AppSyncAuthorizerHander<TResolverContext = undefined> = AppSyncAuthorizerHandler<TResolverContext>;
+export type AppSyncAuthorizerHander<TResolverContext = undefined,> = AppSyncAuthorizerHandler<TResolverContext>;
 
 /**
  * See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
  *
  * @param TResolverContext type of the resolverContext object that you can return from the handler
  */
-export type AppSyncAuthorizerHandler<TResolverContext = undefined> = Handler<
+export type AppSyncAuthorizerHandler<TResolverContext = undefined,> = Handler<
     AppSyncAuthorizerEvent,
     AppSyncAuthorizerResult<TResolverContext>
 >;
@@ -46,7 +46,7 @@ export type AppSyncIdentity =
  */
 // Maintainer's note: Some of these properties are shared with the Amplify resolver.
 // It may be worth checking if changes here may be applicable there too.
-export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
+export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null,> {
     arguments: TArguments;
     identity?: AppSyncIdentity;
     source: TSource;
@@ -77,7 +77,7 @@ export interface AppSyncAuthorizerEvent {
     };
 }
 
-export interface AppSyncAuthorizerResult<TResolverContext = undefined> {
+export interface AppSyncAuthorizerResult<TResolverContext = undefined,> {
     isAuthorized: boolean;
     resolverContext?: TResolverContext;
     deniedFields?: string[];

@@ -1,8 +1,8 @@
-import InputStream from '../InputStream';
 import RuleContext from '../context/RuleContext';
+import InputStream from '../InputStream';
+import IntervalSet from '../misc/IntervalSet';
 import Recognizer from '../Recognizer';
 import Token from '../Token';
-import IntervalSet from '../misc/IntervalSet';
 
 export interface RecognitionExceptionOpts {
     message: string;
@@ -40,7 +40,7 @@ export default class RecognitionException extends Error {
      */
     offendingState: -1;
 
-    constructor(params: RecognitionExceptionOpts);
+    constructor(params: RecognitionExceptionOpts,);
 
     /**
      * Gets the set of input symbols which could potentially follow the

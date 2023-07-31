@@ -5,19 +5,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, } from 'axios';
 
 // Module
-declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
+declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions,): AxiosTokenProvider.TokenProvider;
 declare namespace AxiosTokenProvider {
-    function tokenCache<T>(getToken: () => Promise<T>, options: TokenCacheOptions<T>): TokenCache<T>;
+    function tokenCache<T,>(getToken: () => Promise<T>, options: TokenCacheOptions<T>,): TokenCache<T>;
 
     // Interfaces
-    interface InterceptorOptions<T = unknown> {
+    interface InterceptorOptions<T = unknown,> {
         token?: string | undefined;
         getToken?: (() => T | Promise<T>) | undefined;
         header?: string | undefined;
-        headerFormatter?: ((token: T) => string) | undefined;
+        headerFormatter?: ((token: T,) => string) | undefined;
     }
 
     interface Token {
@@ -25,14 +25,14 @@ declare namespace AxiosTokenProvider {
         expires_in: number;
     }
 
-    type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
+    type TokenProvider = (config: AxiosRequestConfig,) => Promise<AxiosRequestConfig>;
 
-    interface TokenCacheOptions<T = unknown> {
-        getMaxAge?: (() => number) | ((el: T) => number) | undefined;
+    interface TokenCacheOptions<T = unknown,> {
+        getMaxAge?: (() => number) | ((el: T,) => number) | undefined;
         maxAge?: number | undefined;
     }
 
-    interface TokenCache<T = string> {
+    interface TokenCache<T = string,> {
         (): Promise<T>;
         reset(): void;
     }

@@ -16,7 +16,7 @@ export default class CommonTokenFactory extends TokenFactory {
      */
     static readonly DEFAULT: CommonTokenFactory;
 
-    constructor(copyText: boolean);
+    constructor(copyText: boolean,);
 
     create(
         source: Token['source'] | undefined,
@@ -29,5 +29,5 @@ export default class CommonTokenFactory extends TokenFactory {
         column: number,
     ): CommonToken;
 
-    createThin(type: number, text: string): CommonToken;
+    createThin(type: number, text: string,): CommonToken;
 }

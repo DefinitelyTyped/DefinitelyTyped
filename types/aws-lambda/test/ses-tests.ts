@@ -1,15 +1,15 @@
-import { SESHandler, SESEvent, SESEventRecord } from 'aws-lambda';
-import { SESMail, SESReceipt } from 'aws-lambda/trigger/ses';
+import { SESEvent, SESEventRecord, SESHandler, } from 'aws-lambda';
+import { SESMail, SESReceipt, } from 'aws-lambda/trigger/ses';
 
 // From https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-lambda-event.html#receiving-email-action-lambda-event-lambdaaction
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type Omit<T, K extends keyof T,> = Pick<T, Exclude<keyof T, K>>;
 
 const sesEventMail: SESMail = {
     timestamp: '2019-08-05T21:30:02.028Z',
     source: 'prvs=144d0cba7=sender@example.com',
     messageId: 'EXAMPLE7c191be45-e9aedb9a-02f9-4d12-a87d-dd0099a07f8a-000000',
-    destination: ['recipient@example.com'],
+    destination: ['recipient@example.com',],
     headersTruncated: false,
     headers: [
         {
@@ -131,20 +131,20 @@ const sesEventMail: SESMail = {
     ],
     commonHeaders: {
         returnPath: 'prvs=144d0cba7=sender@example.com',
-        from: ['"Doe, John" <sender@example.com>'],
+        from: ['"Doe, John" <sender@example.com>',],
         date: 'Mon, 5 Aug 2019 21:29:57 +0000',
-        to: ['"recipient@example.com" <recipient@example.com>'],
-        bcc: ['"otherrecipient@example.com" <otherrecipient@example.com>'],
+        to: ['"recipient@example.com" <recipient@example.com>',],
+        bcc: ['"otherrecipient@example.com" <otherrecipient@example.com>',],
         messageId: '<F8098FDD-49A3-442D-9935-F6112B195BDA@example.com>',
         subject: 'This is a test',
-        replyTo: ['"Doe, John" <sender@example.com>'],
+        replyTo: ['"Doe, John" <sender@example.com>',],
     },
 };
 
 const receiptCommon: Omit<SESReceipt, 'action'> = {
     timestamp: '2019-08-05T21:30:02.028Z',
     processingTimeMillis: 1205,
-    recipients: ['recipient@example.com'],
+    recipients: ['recipient@example.com',],
     spamVerdict: {
         status: 'PASS',
     },
@@ -287,9 +287,9 @@ const sesWorkMailEvent: SESEvent = {
 
 // From https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-lambda-example-functions.html
 
-const handler: SESHandler = (event, context, callback) => {
+const handler: SESHandler = (event, context, callback,) => {
     const record: SESEventRecord = event.Records[num];
 
     callback();
-    callback(new Error());
+    callback(new Error(),);
 };

@@ -5,10 +5,10 @@ import ParserATNSimulator from './ParserATNSimulator';
 import PredictionMode from './PredictionMode';
 
 declare namespace atn {
-    export { ATN };
-    export { ATNDeserializer };
-    export { LexerATNSimulator };
-    export { ParserATNSimulator };
-    export { PredictionMode };
+    export { ATN, };
+    export { ATNDeserializer, };
+    export { LexerATNSimulator, };
+    export { ParserATNSimulator, };
+    export { PredictionMode, };
 }
 export default atn;

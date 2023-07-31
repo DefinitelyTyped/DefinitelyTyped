@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, Context, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, } from 'aws-lambda';
 import * as express from 'express';
 
 export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
@@ -108,32 +108,32 @@ export interface HttpResponse {
  * Defines an HttpHandler that works with architect.
  */
 export interface HttpHandler {
-    (req: HttpRequest): Promise<HttpResponse | undefined>;
+    (req: HttpRequest,): Promise<HttpResponse | undefined>;
 }
 
-export type LambdaHandler = (event: APIGatewayProxyEvent, context: Context) => Promise<APIGatewayProxyResult>;
+export type LambdaHandler = (event: APIGatewayProxyEvent, context: Context,) => Promise<APIGatewayProxyResult>;
 export type HttpAsync = (...fns: HttpHandler[]) => LambdaHandler;
-export type HttpExpress = (app: express.Application) => LambdaHandler;
+export type HttpExpress = (app: express.Application,) => LambdaHandler;
 export interface HttpSession {
-    read(req: HttpRequest): Promise<SessionData>;
-    write(sess: SessionData): Promise<string>;
+    read(req: HttpRequest,): Promise<SessionData>;
+    write(sess: SessionData,): Promise<string>;
 }
 export interface HttpProxyOptions {
     spa: boolean;
     alias: Record<string, string>;
 }
 
-export type HttpProxy = (options: HttpProxyOptions) => HttpHandler;
+export type HttpProxy = (options: HttpProxyOptions,) => HttpHandler;
 
 export interface StaticOptions {
     stagePath: string;
 }
 
 export interface Helpers {
-    bodyParser: (req: HttpRequest) => Record<string, any>;
-    interpolate: (req: HttpRequest) => HttpRequest;
-    static: (asset: string, options?: StaticOptions) => string;
-    url: (url: string) => string;
+    bodyParser: (req: HttpRequest,) => Record<string, any>;
+    interpolate: (req: HttpRequest,) => HttpRequest;
+    static: (asset: string, options?: StaticOptions,) => string;
+    url: (url: string,) => string;
 }
 
 export interface ArcHttp {

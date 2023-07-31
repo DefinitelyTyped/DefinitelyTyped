@@ -43,7 +43,7 @@ export default class ATNState {
     nextTokenWithinRule: IntervalSet | null;
 
     toString(): number;
-    equals(other: ATNState): boolean;
+    equals(other: ATNState,): boolean;
     isNonGreedyExitState(): boolean;
-    addTransition(trans: Transition, index?: number): void;
+    addTransition(trans: Transition, index?: number,): void;
 }

@@ -1,4 +1,4 @@
-import { Decoration, DecorationOptions, DisplayMarker, Disposable } from '../index';
+import { Decoration, DecorationOptions, DisplayMarker, Disposable, } from '../index';
 
 /** Represents a gutter within a TextEditor. */
 export interface Gutter {
@@ -8,10 +8,10 @@ export interface Gutter {
 
     // Event Subscription
     /** Calls your callback when the gutter's visibility changes. */
-    onDidChangeVisible(callback: (gutter: Gutter) => void): Disposable;
+    onDidChangeVisible(callback: (gutter: Gutter,) => void,): Disposable;
 
     /** Calls your callback when the gutter is destroyed. */
-    onDidDestroy(callback: () => void): Disposable;
+    onDidDestroy(callback: () => void,): Disposable;
 
     // Visibility
     /** Hide the gutter. */
@@ -28,7 +28,7 @@ export interface Gutter {
      *  invalidated, or is destroyed, the decoration will be updated to reflect
      *  the marker's state.
      */
-    decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions): Decoration;
+    decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions,): Decoration;
 }
 
 export interface GutterOptions {
@@ -63,20 +63,20 @@ export interface GutterOptions {
      * line number element. Should return a String that will be used to label the
      * corresponding line.
      */
-    labelFn?: ((lineData: LineDataExtended) => string) | undefined;
+    labelFn?: ((lineData: LineDataExtended,) => string) | undefined;
 
     /**
      * Function to be called when a mousedown event is received by a line-number
      * element within this type: 'line-number' Gutter. If unspecified, the default
      * behavior is to select the clicked buffer row.
      */
-    onMouseDown?: ((lineData: LineData) => void) | undefined;
+    onMouseDown?: ((lineData: LineData,) => void) | undefined;
 
     /**
      * Function to be called when a mousemove event occurs on a line-number
      * element within within this type: 'line-number' Gutter.
      */
-    onMouseMove?: ((lineData: LineData) => void) | undefined;
+    onMouseMove?: ((lineData: LineData,) => void) | undefined;
 }
 
 export interface LineData {

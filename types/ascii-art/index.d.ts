@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type StyleType = (text: string, style?: string, close?: boolean) => Art;
-export type FontType = ((text: string, font?: string, styleOrCallback?: string | Cb, callback?: Cb) => Art);
-export type ImageType = (options: object, callback?: Cb) => Art;
-export type TableType = (options: object, callback?: Cb) => Art;
-export type ArtworkType = (options: object, callback?: Cb) => Art;
+export type StyleType = (text: string, style?: string, close?: boolean,) => Art;
+export type FontType = (text: string, font?: string, styleOrCallback?: string | Cb, callback?: Cb,) => Art;
+export type ImageType = (options: object, callback?: Cb,) => Art;
+export type TableType = (options: object, callback?: Cb,) => Art;
+export type ArtworkType = (options: object, callback?: Cb,) => Art;
 export type LinesType = (...options: any[]) => Art;
 export type OverlayType = (...options: any[]) => Art;
 export type JoinType = (...options: any[]) => Art;
@@ -37,7 +37,7 @@ export interface Art {
     join: JoinType;
     working: boolean;
 
-    toPromise: (() => Promise<string>);
+    toPromise: () => Promise<string>;
 }
 
-export type Cb = (result: string) => void;
+export type Cb = (result: string,) => void;

@@ -32,12 +32,12 @@ declare namespace AMap {
              * WMS图层
              * @param options 图层选项
              */
-            constructor(options: WMS.Options);
+            constructor(options: WMS.Options,);
             /**
              * 设置wms服务地址
              * @param url 服务地址
              */
-            setUrl(url: string): void;
+            setUrl(url: string,): void;
             /**
              * 返回wms服务地址
              */
@@ -46,7 +46,7 @@ declare namespace AMap {
              * 设置OGC标准的WMS getMap接口的参数
              * @param params 接口参数
              */
-            setParams(params: WMS.Params): void;
+            setParams(params: WMS.Params,): void;
             /**
              * 返回OGC标准的WMS getMap接口的参数
              */

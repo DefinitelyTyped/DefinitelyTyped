@@ -1,4 +1,4 @@
-import { DecorationPropsChangedEvent, DisplayMarker, Disposable } from '../index';
+import { DecorationPropsChangedEvent, DisplayMarker, Disposable, } from '../index';
 
 /**
  *  Represents a decoration that follows a DisplayMarker. A decoration is basically
@@ -19,10 +19,10 @@ export interface Decoration {
 
     // Event Subscription
     /** When the Decoration is updated via Decoration::setProperties. */
-    onDidChangeProperties(callback: (event: DecorationPropsChangedEvent) => void): Disposable;
+    onDidChangeProperties(callback: (event: DecorationPropsChangedEvent,) => void,): Disposable;
 
     /** Invoke the given callback when the Decoration is destroyed. */
-    onDidDestroy(callback: () => void): Disposable;
+    onDidDestroy(callback: () => void,): Disposable;
 
     // Decoration Details
     /** An id unique across all Decoration objects. */
@@ -37,7 +37,7 @@ export interface Decoration {
      *  be an array of decoration types, with isType returning true if the decoration's
      *  type matches any in the array.
      */
-    isType(type: string | string[]): boolean;
+    isType(type: string | string[],): boolean;
 
     // Properties
     /** Returns the Decoration's properties. */
@@ -47,7 +47,7 @@ export interface Decoration {
      *  Update the marker with new Properties. Allows you to change the decoration's
      *  class.
      */
-    setProperties(newProperties: DecorationOptions): void;
+    setProperties(newProperties: DecorationOptions,): void;
 }
 
 export interface SharedDecorationOptions {

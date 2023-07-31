@@ -5,21 +5,21 @@
 
 declare namespace AMap {
     type EventCallback = (...args: any[]) => void;
-    type GenericEventCallback<T> = (res: T) => void;
+    type GenericEventCallback<T,> = (res: T,) => void;
 
     /**
      * 加载插件
      * @param pluginNames
      * @param ready
      */
-    function plugin(pluginNames: string[], ready?: () => void): void;
+    function plugin(pluginNames: string[], ready?: () => void,): void;
 
     /**
      * 加载服务
      * @param serviceName
      * @param ready
      */
-    function service(serviceName: string, ready?: () => void): void;
+    function service(serviceName: string, ready?: () => void,): void;
 
     namespace event {
         /**
@@ -29,7 +29,12 @@ declare namespace AMap {
          * @param handler：事件功能函数（必填）
          * @param context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
          */
-        function addDomListener(instance: any, eventName: string, handler: EventCallback, context?: any): EventListener;
+        function addDomListener(
+            instance: any,
+            eventName: string,
+            handler: EventCallback,
+            context?: any,
+        ): EventListener;
 
         /**
          * 注册对象事件：给对象注册事件，并返回eventListener。运行AMap.event.removeListener(eventListener)可以删除该事件的监听器。
@@ -38,22 +43,27 @@ declare namespace AMap {
          * @param handler：事件功能函数（必填）
          * @param context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
          */
-        function addListener(instance: any, eventName: string, handler: EventCallback, context?: any): EventListener;
+        function addListener(instance: any, eventName: string, handler: EventCallback, context?: any,): EventListener;
 
         /**
          * 类似于addListener，但处理程序会在处理完第一个事件后将自已移除。
          */
-        function addListenerOnce(instance: any, eventName: string, handler: EventCallback, context?: any): EventListener;
+        function addListenerOnce(
+            instance: any,
+            eventName: string,
+            handler: EventCallback,
+            context?: any,
+        ): EventListener;
 
         /**
          * 删除由上述 event.addDomListener 和 event.addListener 传回的指定侦听器。
          */
-        function removeListener(listener: EventListener): void;
+        function removeListener(listener: EventListener,): void;
 
         /**
          * 触发非DOM事件：触发非DOM事件eventName，extArgs将扩展到事件监听函数（handler）接受到的event参数中。如:在extArgs内写入{m:10,p:2}，eventName监听函数（handler）可以接收到包含m,p两个key值的event对象。
          */
-        function trigger(instance: any, eventName: string, extArgs: any): void;
+        function trigger(instance: any, eventName: string, extArgs: any,): void;
     }
 
     /**
@@ -67,12 +77,12 @@ declare namespace AMap {
     }
 
     abstract class EventBindable {
-        on(eventName: string, callback: EventCallback): void;
-        off(eventName: string, callback: EventCallback): void;
+        on(eventName: string, callback: EventCallback,): void;
+        off(eventName: string, callback: EventCallback,): void;
     }
 
-  /* --------------------------- 基础类 --------------------------- */
-  /* 参考地址:http://lbs.amap.com/api/javascript-api/reference/core */
+    /* --------------------------- 基础类 --------------------------- */
+    /* 参考地址:http://lbs.amap.com/api/javascript-api/reference/core */
 
     /**
      * 像素坐标，确定地图上的一个像素点。
@@ -81,7 +91,7 @@ declare namespace AMap {
         /**
          * 构造一个像素坐标对象。
          */
-        constructor(x: number, y: number);
+        constructor(x: number, y: number,);
         /**
          * 获得X方向像素坐标
          */
@@ -95,7 +105,7 @@ declare namespace AMap {
         /**
          * 当前像素坐标与传入像素坐标是否相等
          */
-        equals(point: Pixel): boolean;
+        equals(point: Pixel,): boolean;
 
         /**
          * 以字符串形式返回像素坐标对象
@@ -112,7 +122,7 @@ declare namespace AMap {
          * @param width 宽度，单位：像素
          * @param height 高度，单位：像素
          */
-        constructor(width: number, height: number);
+        constructor(width: number, height: number,);
 
         /**
          * 获得宽度
@@ -139,7 +149,7 @@ declare namespace AMap {
          * @param lng 经度
          * @param lat 纬度
          */
-        constructor(lng: number, lat: number);
+        constructor(lng: number, lat: number,);
 
         /**
          * 当前经纬度坐标值经度移动w，纬度移动s，得到新的坐标。
@@ -147,14 +157,14 @@ declare namespace AMap {
          * @param w 经度，向右移为正值，单位：米
          * @param s 纬度，向上移为正值，单位：米
          */
-        offset(w: number, s: number): LngLat;
+        offset(w: number, s: number,): LngLat;
 
         /**
          * 计算当前经纬度和传入经纬度或者经纬度数组连线之间的地面距离，单位为米
          *
          * @param lnglat 传入的经纬度
          */
-        distance(lnglat: LngLat | [number, number]): number;
+        distance(lnglat: LngLat | [number, number,],): number;
 
         /**
          * 获取经度值
@@ -171,7 +181,7 @@ declare namespace AMap {
          *
          * @param lnglat 传入坐标对象
          */
-        equals(lnglat: LngLat): boolean;
+        equals(lnglat: LngLat,): boolean;
 
         /**
          * LngLat对象以字符串的形式返回
@@ -188,13 +198,13 @@ declare namespace AMap {
          * @param southWest 西南角经纬度坐标
          * @param northEast 东北角经纬度坐标
          */
-        constructor(southWest: LngLat, northEast: LngLat);
+        constructor(southWest: LngLat, northEast: LngLat,);
 
         /**
          * 判断指定点坐标是否在矩形范围内
          * @param point 指定点
          */
-        contains(point: LngLat): boolean;
+        contains(point: LngLat,): boolean;
 
         /**
          * 获取当前Bounds的中心点经纬度坐标
@@ -222,7 +232,7 @@ declare namespace AMap {
         tileSize: number;
         tileUrl: string;
         errorUrl: string;
-        getTileUrl: (x: number, y: number, z: number) => string;
+        getTileUrl: (x: number, y: number, z: number,) => string;
         zIndex: number;
         opacity: number;
         zooms: number[];
@@ -230,40 +240,40 @@ declare namespace AMap {
     }
 
     abstract class Layer extends EventBindable {
-        setOpacity(alpha: number): void;
+        setOpacity(alpha: number,): void;
         show(): void;
         hide(): void;
         getTiles(): string[];
         reload(): void;
         setTileUrl(): void;
         getZooms(): number[];
-        setzIndex(index: number): void;
-        setMap(map: Map): void;
+        setzIndex(index: number,): void;
+        setMap(map: Map,): void;
     }
 
     class TileLayer extends Layer {
         constructor(tileOpt?: {
-            map: Map,
-            tileSize?: number | undefined,
-            tileUrl?: string | undefined,
-            errorUrl?: string | undefined,
-            getTileUrl?: ((x: number, y: number, z: number) => string) | undefined,
-            zIndex?: number | undefined,
-            opacity?: number | undefined,
-            zooms?: number[] | undefined,
-            detectRetina?: boolean | undefined
-        });
+            map: Map;
+            tileSize?: number | undefined;
+            tileUrl?: string | undefined;
+            errorUrl?: string | undefined;
+            getTileUrl?: ((x: number, y: number, z: number,) => string) | undefined;
+            zIndex?: number | undefined;
+            opacity?: number | undefined;
+            zooms?: number[] | undefined;
+            detectRetina?: boolean | undefined;
+        },);
     }
 
     namespace TileLayer {
         abstract class MapTypeLayer extends Layer {
             constructor(options?: {
-                map: Map,
-                zIndex?: number | undefined,
-                opacity?: number | undefined,
-                zooms?: number[] | undefined,
-                detectRetina?: boolean | undefined
-            });
+                map: Map;
+                zIndex?: number | undefined;
+                opacity?: number | undefined;
+                zooms?: number[] | undefined;
+                detectRetina?: boolean | undefined;
+            },);
         }
 
         class Satellite extends MapTypeLayer {
@@ -274,14 +284,14 @@ declare namespace AMap {
 
         class Traffic extends MapTypeLayer {
             constructor(options?: {
-                map: Map,
-                zIndex?: number | undefined,
-                opacity?: number | undefined,
-                zooms?: number[] | undefined,
-                detectRetina?: boolean | undefined,
-                autoRefresh?: boolean | undefined,
-                interval?: number | undefined
-            });
+                map: Map;
+                zIndex?: number | undefined;
+                opacity?: number | undefined;
+                zooms?: number[] | undefined;
+                detectRetina?: boolean | undefined;
+                autoRefresh?: boolean | undefined;
+                interval?: number | undefined;
+            },);
 
             interval: number;
             autoRefresh: boolean;
@@ -290,18 +300,18 @@ declare namespace AMap {
 
     class IndoorMap {
         constructor(opts: {
-            zIndex?: number | undefined,
-            opacity?: number | undefined,
-            cursor?: string | undefined,
-            hideFloorBar?: boolean | undefined,
-            alwaysShow?: boolean | undefined
-        });
+            zIndex?: number | undefined;
+            opacity?: number | undefined;
+            cursor?: string | undefined;
+            hideFloorBar?: boolean | undefined;
+            alwaysShow?: boolean | undefined;
+        },);
 
-        showIndoorMap(indoorid: string, floor: number, shopid: string): void;
+        showIndoorMap(indoorid: string, floor: number, shopid: string,): void;
 
-        showFloor(floor: number, noMove: boolean): void;
+        showFloor(floor: number, noMove: boolean,): void;
 
-        setMap(map: Map): void;
+        setMap(map: Map,): void;
 
         show(): void;
 
@@ -313,7 +323,7 @@ declare namespace AMap {
 
         hideFloorBar(): void;
 
-        setOpacity(alpha: number): void;
+        setOpacity(alpha: number,): void;
 
         getOpacity(): number;
 
@@ -357,11 +367,11 @@ declare namespace AMap {
 
     class View2D {
         constructor(opt: {
-            center?: LngLat | undefined,
-            rotation?: number | undefined,
-            zoom?: number | undefined,
-            crs?: 'EPSG3857'|'EPSG3395'|'EPSG4326' | undefined
-        });
+            center?: LngLat | undefined;
+            rotation?: number | undefined;
+            zoom?: number | undefined;
+            crs?: 'EPSG3857' | 'EPSG3395' | 'EPSG4326' | undefined;
+        },);
 
         /**
          * To silence lint error, this class has to be exists.
@@ -370,7 +380,7 @@ declare namespace AMap {
     }
 
     class Map extends EventBindable {
-        constructor(mapDiv: string, opts?: MapOptions);
+        constructor(mapDiv: string, opts?: MapOptions,);
 
         getZoom(): number;
 
@@ -378,12 +388,14 @@ declare namespace AMap {
 
         getCenter(): LngLat;
 
-        getCity(callback: (result: {
-            provice: string,
-            city: string,
-            citycode: string,
-            district: string
-        }) => void): void;
+        getCity(
+            callback: (result: {
+                provice: string;
+                city: string;
+                citycode: string;
+                district: string;
+            },) => void,
+        ): void;
 
         getBounds(): Bounds;
         getlabelzIndex(): number;
@@ -393,56 +405,56 @@ declare namespace AMap {
         getRotation(): number;
         getStatus(): any;
         getDefaultCursor(): string;
-        getResolution(point: LngLat): number;
-        getScale(dpi: number): number;
-        setZoom(level: number): void;
-        setlabelzIndex(index: number): void;
-        setLayers(layers: TileLayer[]): void;
-        add(overlayers: any[]): void;
-        remove(overlayers: any[]): void;
-        getAllOverlays(type: string): Marker[] | Circle[] | Polygon[] | Polyline[];
-        setCenter(position: LngLat): void;
-        setZoomAndCenter(zoomLevel: number, center: LngLat): void;
-        setCity(city: string, callback: () => void): void;
-        setBounds(bound: Bounds): void;
-        setLimitBounds(bound: Bounds): void;
+        getResolution(point: LngLat,): number;
+        getScale(dpi: number,): number;
+        setZoom(level: number,): void;
+        setlabelzIndex(index: number,): void;
+        setLayers(layers: TileLayer[],): void;
+        add(overlayers: any[],): void;
+        remove(overlayers: any[],): void;
+        getAllOverlays(type: string,): Marker[] | Circle[] | Polygon[] | Polyline[];
+        setCenter(position: LngLat,): void;
+        setZoomAndCenter(zoomLevel: number, center: LngLat,): void;
+        setCity(city: string, callback: () => void,): void;
+        setBounds(bound: Bounds,): void;
+        setLimitBounds(bound: Bounds,): void;
         clearLimitBounds(): void;
-        setLang(lang: string): void;
-        setRotation(rotation: number): void;
-        setStatus(status: any): void;
-        setDefaultCursor(cursor: string): void;
+        setLang(lang: string,): void;
+        setRotation(rotation: number,): void;
+        setStatus(status: any,): void;
+        setDefaultCursor(cursor: string,): void;
         zoomIn(): void;
         zoomOut(): void;
-        panTo(position: LngLat): void;
-        panBy(x: number, y: number): void;
-        setFitView(overlayList?: any[]): void;
+        panTo(position: LngLat,): void;
+        panBy(x: number, y: number,): void;
+        setFitView(overlayList?: any[],): void;
         clearMap(): void;
         destroy(): void;
-        plugin(name: string| string[], callback: () => void): void;
-        addControl(obj: any): void;
-        removeControl(obj: any): void;
+        plugin(name: string | string[], callback: () => void,): void;
+        addControl(obj: any,): void;
+        removeControl(obj: any,): void;
         clearInfoWindow(): void;
-        pixelToLngLat(pixel: Pixel, level: number): LngLat;
-        lnglatToPixel(lnglat: LngLat, level: number): Pixel;
-        containerToLngLat(pixel: Pixel, level: number): LngLat;
-        lngLatToContainer(lnglat: LngLat, level: number): Pixel;
-        setMapStyle(style: string): void;
+        pixelToLngLat(pixel: Pixel, level: number,): LngLat;
+        lnglatToPixel(lnglat: LngLat, level: number,): Pixel;
+        containerToLngLat(pixel: Pixel, level: number,): LngLat;
+        lngLatToContainer(lnglat: LngLat, level: number,): Pixel;
+        setMapStyle(style: string,): void;
         getMapStyle(): string;
-        setFeatures(features: string[]): void;
+        setFeatures(features: string[],): void;
         getFeatures(): string[];
-        setDefaultLayer(layer: TileLayer): void;
+        setDefaultLayer(layer: TileLayer,): void;
     }
 
     class Icon {
         constructor(options?: {
-            size?: Size | undefined,
-            imageOffset?: Pixel | undefined,
-            image?: string | undefined,
-            imageSize?: Size | undefined
-        });
+            size?: Size | undefined;
+            imageOffset?: Pixel | undefined;
+            image?: string | undefined;
+            imageSize?: Size | undefined;
+        },);
 
         getImageSize(): Size;
-        setImageSize(size: Size): void;
+        setImageSize(size: Size,): void;
     }
 
     /**
@@ -451,14 +463,13 @@ declare namespace AMap {
     class MarkerShape {
         constructor(options: {
             /**
-             *
              * 可点击区域组成元素数组，存放图形的像素坐标等信息，该数组元素由type决定：
              * - circle:coords格式为 [x1, y1, r]，x1，y1为圆心像素坐标，r为圆半径
              * - poly: coords格式为 [x1, y1, x2, y2 … xn, yn]，各x，y表示多边形边界像素坐标
              * - rect: coords格式为 [x1, y1, x2, y2]，x1，y1为矩形左上角像素坐标，x2，y2为矩形右下角像素坐标
              * Markshape的像素坐标是指相对于marker的左上角的像素坐标偏移量
              */
-            coords?: number[] | undefined,
+            coords?: number[] | undefined;
 
             /**
              * 可点击区域类型，可选值：
@@ -466,8 +477,8 @@ declare namespace AMap {
              * - poly:多边形
              * - rect:矩形
              */
-            type?: string | undefined
-        });
+            type?: string | undefined;
+        },);
 
         /**
          * To silence lint error, this class has to be exists.
@@ -479,8 +490,8 @@ declare namespace AMap {
         map?: Map | undefined;
         position?: LngLat | undefined;
         offset?: Pixel | undefined;
-        icon?: string|Icon | undefined;
-        content?: string| HTMLElement | undefined;
+        icon?: string | Icon | undefined;
+        content?: string | HTMLElement | undefined;
         topWhenClick?: boolean | undefined;
         topWhenMouseOver?: boolean | undefined;
         draggable?: boolean | undefined;
@@ -496,202 +507,202 @@ declare namespace AMap {
         clickable?: boolean | undefined;
         shape?: MarkerShape | undefined;
         extData?: any;
-        label?: { content: string, offset: Pixel } | undefined;
+        label?: { content: string; offset: Pixel } | undefined;
     }
 
     /**
      * 点标记。
      */
     class Marker extends EventBindable {
-        constructor(options?: MarkerOptions);
+        constructor(options?: MarkerOptions,);
 
         markOnAMAP(obj: {
-            name: string,
-            position: LngLat
-        }): void;
+            name: string;
+            position: LngLat;
+        },): void;
 
         getOffset(): Pixel;
-        setOffset(offset: Pixel): void;
+        setOffset(offset: Pixel,): void;
 
-        setAnimation(animate: string): void;
+        setAnimation(animate: string,): void;
         getAnimation(): string;
 
-        setClickable(clickable: boolean): void;
+        setClickable(clickable: boolean,): void;
         getClickable(): boolean;
 
         getPosition(): LngLat;
-        setPosition(lnglat: LngLat): void;
+        setPosition(lnglat: LngLat,): void;
 
-        setAngle(angle: number): void;
+        setAngle(angle: number,): void;
         getAngle(): number;
 
         setLabel(label: {
-            content?: string | undefined,
-            offset?: Pixel | undefined
-        }): void;
+            content?: string | undefined;
+            offset?: Pixel | undefined;
+        },): void;
         getLabel(): {
-            content?: string | undefined,
-            offset?: Pixel | undefined
+            content?: string | undefined;
+            offset?: Pixel | undefined;
         };
 
-        setzIndex(index: number): void;
+        setzIndex(index: number,): void;
 
-        getIcon(): string|Icon;
-        setIcon(content: string|Icon): void;
+        getIcon(): string | Icon;
+        setIcon(content: string | Icon,): void;
 
-        setDraggable(draggable: boolean): void;
+        setDraggable(draggable: boolean,): void;
         getDraggable(): boolean;
 
         hide(): void;
         show(): void;
 
-        setCursor(cursor: string): void;
+        setCursor(cursor: string,): void;
 
-        setContent(content: string| HTMLElement): void;
+        setContent(content: string | HTMLElement,): void;
         getContent(): string;
 
-        moveAlong(lnglatlist: LngLat[], speed?: number, f?: (k: number) => number, circlable?: boolean): void;
-        moveTo(lnglat: LngLat, speed?: number, f?: (k: number) => number): void;
+        moveAlong(lnglatlist: LngLat[], speed?: number, f?: (k: number,) => number, circlable?: boolean,): void;
+        moveTo(lnglat: LngLat, speed?: number, f?: (k: number,) => number,): void;
         stopMove(): void;
-        setMap(map: Map): void;
+        setMap(map: Map,): void;
         getMap(): Map;
-        setTitle(title: string): void;
+        setTitle(title: string,): void;
         getTitle(): string;
-        setTop(isTop: boolean): void;
+        setTop(isTop: boolean,): void;
         getTop(): boolean;
-        setShadow(icon: Icon): void;
+        setShadow(icon: Icon,): void;
         getShadow(): Icon;
-        setShape(shape: MarkerShape): void;
+        setShape(shape: MarkerShape,): void;
         getShape(): MarkerShape;
-        setExtData(ext: any): void;
+        setExtData(ext: any,): void;
         getExtData(): any;
     }
 
     interface MarkerClustererOptions {
-      gridSize?: number | undefined;
-      minClusterSize?: number | undefined;
-      maxZoom?: number | undefined;
-      averageCenter?: boolean | undefined;
-      styles?: any[] | undefined;
-      renderCluserMarker?: ((obj: any) => void) | undefined;
-      zoomOnClick?: boolean | undefined;
+        gridSize?: number | undefined;
+        minClusterSize?: number | undefined;
+        maxZoom?: number | undefined;
+        averageCenter?: boolean | undefined;
+        styles?: any[] | undefined;
+        renderCluserMarker?: ((obj: any,) => void) | undefined;
+        zoomOnClick?: boolean | undefined;
     }
 
     /**
      * 用于地图上加载大量点标记，提高地图的绘制和显示性能。
      */
     class MarkerClusterer extends EventBindable {
-      constructor(map: Map, markers: Marker[], opt?: MarkerClustererOptions);
+        constructor(map: Map, markers: Marker[], opt?: MarkerClustererOptions,);
 
-      /**
-       * 添加一个需进行聚合的点标记
-       * @param marker
-       */
-      addMarker(marker: Marker): void;
+        /**
+         * 添加一个需进行聚合的点标记
+         * @param marker
+         */
+        addMarker(marker: Marker,): void;
 
-      /**
-       * 删除一个聚合的点标记
-       * @param marker 点标记
-       */
-      removeMarker(marker: Marker): void;
+        /**
+         * 删除一个聚合的点标记
+         * @param marker 点标记
+         */
+        removeMarker(marker: Marker,): void;
 
-      /**
-       * 获取聚合点的总数量
-       */
-      getClustersCount(): number;
+        /**
+         * 获取聚合点的总数量
+         */
+        getClustersCount(): number;
 
-      /**
-       * 获取聚合网格的像素大小
-       */
-      getGridSize(): number;
+        /**
+         * 获取聚合网格的像素大小
+         */
+        getGridSize(): number;
 
-      /**
-       * 获取地图中点标记的最大聚合级别
-       */
-      getMaxZoom(): number;
+        /**
+         * 获取地图中点标记的最大聚合级别
+         */
+        getMaxZoom(): number;
 
-      /**
-       * 获取单个聚合的最小数量
-       */
-      getMinClusterSize(): number;
+        /**
+         * 获取单个聚合的最小数量
+         */
+        getMinClusterSize(): number;
 
-      /**
-       * 获取聚合的样式风格集合
-       */
-      getStyles(): any[];
+        /**
+         * 获取聚合的样式风格集合
+         */
+        getStyles(): any[];
 
-      /**
-       * 设置聚合网格的像素大小
-       * @param size
-       */
-      setGridSize(size: number): void;
+        /**
+         * 设置聚合网格的像素大小
+         * @param size
+         */
+        setGridSize(size: number,): void;
 
-      /**
-       * 设置地图中点标记的最大聚合级别
-       * @param zoom
-       */
-      setMaxZoom(zoom: number): void;
+        /**
+         * 设置地图中点标记的最大聚合级别
+         * @param zoom
+         */
+        setMaxZoom(zoom: number,): void;
 
-      /**
-       * 设置单个聚合的最小数量
-       * @param size
-       */
-      setMinClusterSize(size: number): void;
+        /**
+         * 设置单个聚合的最小数量
+         * @param size
+         */
+        setMinClusterSize(size: number,): void;
 
-      /**
-       * 设置聚合的样式风格
-       * @param styles
-       */
-      setStyles(styles: any[]): void;
+        /**
+         * 设置聚合的样式风格
+         * @param styles
+         */
+        setStyles(styles: any[],): void;
 
-      /**
-       * 从地图上彻底清除所有聚合点标记
-       */
-      clearMarkers(): void;
+        /**
+         * 从地图上彻底清除所有聚合点标记
+         */
+        clearMarkers(): void;
 
-      /**
-       * 设置将进行点聚合的地图对象
-       * @param map
-       */
-      setMap(map: Map): void;
+        /**
+         * 设置将进行点聚合的地图对象
+         * @param map
+         */
+        setMap(map: Map,): void;
 
-      /**
-       * 设置将进行点聚合显示的点标记集合
-       * @param markers
-       */
-      setMarkers(markers: Marker[]): void;
+        /**
+         * 设置将进行点聚合显示的点标记集合
+         * @param markers
+         */
+        setMarkers(markers: Marker[],): void;
 
-      /**
-       * 获取该点聚合的地图对象
-       */
-      getMap(): Map;
+        /**
+         * 获取该点聚合的地图对象
+         */
+        getMap(): Map;
 
-      /**
-       * 获取该点聚合中的点标记集合
-       */
-      getMarkers(): Marker[];
+        /**
+         * 获取该点聚合中的点标记集合
+         */
+        getMarkers(): Marker[];
 
-      /**
-       * 添加一组需进行聚合的点标记
-       */
-      addMarkers(markers: Marker[]): void;
+        /**
+         * 添加一组需进行聚合的点标记
+         */
+        addMarkers(markers: Marker[],): void;
 
-      /**
-       * 删除一组聚合的点标记
-       * @param markers
-       */
-      removeMarkers(markers: Marker[]): void;
+        /**
+         * 删除一组聚合的点标记
+         * @param markers
+         */
+        removeMarkers(markers: Marker[],): void;
 
-      /**
-       * 获取单个聚合点位置是否是聚合内所有标记的平均中心
-       */
-      isAverageCenter(): boolean;
+        /**
+         * 获取单个聚合点位置是否是聚合内所有标记的平均中心
+         */
+        isAverageCenter(): boolean;
 
-      /**
-       * 设置单个聚合点位置是否是聚合内所有标记的平均中心
-       * @param averageCenter
-       */
-      setAverageCenter(averageCenter: boolean): void;
+        /**
+         * 设置单个聚合点位置是否是聚合内所有标记的平均中心
+         * @param averageCenter
+         */
+        setAverageCenter(averageCenter: boolean,): void;
     }
 
     interface CircleOptions {
@@ -709,26 +720,26 @@ declare namespace AMap {
     }
 
     class Circle {
-        constructor(options?: CircleOptions);
-        setCenter(lnglat: LngLat): void;
+        constructor(options?: CircleOptions,);
+        setCenter(lnglat: LngLat,): void;
         getCenter(): LngLat;
         getBounds(): Bounds;
-        setRadius(radius: number): void;
+        setRadius(radius: number,): void;
         getRadius(): number;
-        setOptions(circleopt: CircleOptions): void;
+        setOptions(circleopt: CircleOptions,): void;
         getOptions(): CircleOptions;
         hide(): void;
         show(): void;
-        setMap(map: Map): void;
-        setExtData(ext: any): void;
+        setMap(map: Map,): void;
+        setExtData(ext: any,): void;
         getExtData(): any;
-        contains(point: LngLat): boolean;
+        contains(point: LngLat,): boolean;
     }
 
     interface PolygonOptions {
         map?: Map | undefined;
         zIndex?: number | undefined;
-        path?: LngLat[]|LngLat[][] | undefined;
+        path?: LngLat[] | LngLat[][] | undefined;
         strokeColor?: string | undefined;
         strokeOpacity?: number | undefined;
         strokeWeight?: number | undefined;
@@ -740,20 +751,20 @@ declare namespace AMap {
     }
 
     class Polygon extends EventBindable {
-        constructor(options?: PolygonOptions);
+        constructor(options?: PolygonOptions,);
 
-        setPath(path: LngLat[]|LngLat[][]): void;
-        getPath(): LngLat[]|LngLat[][];
-        setOptions(opt: PolygonOptions): void;
+        setPath(path: LngLat[] | LngLat[][],): void;
+        getPath(): LngLat[] | LngLat[][];
+        setOptions(opt: PolygonOptions,): void;
         getOptions(): PolygonOptions;
         getBounds(): Bounds;
         getArea(): number;
         hide(): void;
         show(): void;
-        setMap(map: Map): void;
-        setExtData(ext: any): void;
+        setMap(map: Map,): void;
+        setExtData(ext: any,): void;
         getExtData(): any;
-        contains(point: LngLat): boolean;
+        contains(point: LngLat,): boolean;
     }
 
     interface PolylineOptions {
@@ -772,12 +783,12 @@ declare namespace AMap {
     }
 
     class Polyline extends EventBindable {
-        constructor(options?: PolylineOptions);
+        constructor(options?: PolylineOptions,);
 
-        setPath(path: LngLat[]): void;
+        setPath(path: LngLat[],): void;
         getPath(): LngLat[];
 
-        setOptions(opt: PolylineOptions): void;
+        setOptions(opt: PolylineOptions,): void;
         getOptions(): PolylineOptions;
 
         getLength(): number;
@@ -785,8 +796,8 @@ declare namespace AMap {
         hide(): void;
         show(): void;
 
-        setMap(map: Map): void;
-        setExtData(ext: any): void;
+        setMap(map: Map,): void;
+        setExtData(ext: any,): void;
         getExtData(): any;
     }
 
@@ -800,7 +811,7 @@ declare namespace AMap {
             defaultType?: number | undefined;
             showTraffic?: boolean | undefined;
             showRoad?: boolean | undefined;
-        });
+        },);
 
         show(): void;
         hide(): void;
@@ -808,14 +819,14 @@ declare namespace AMap {
 
     class OverView extends EventBindable implements MapControl {
         constructor(options?: {
-            tileLayer?: TileLayer[] | undefined,
-            isOpen?: boolean | undefined,
-            visible?: boolean | undefined
-        });
+            tileLayer?: TileLayer[] | undefined;
+            isOpen?: boolean | undefined;
+            visible?: boolean | undefined;
+        },);
 
         open(): void;
         close(): void;
-        setTileLayer(layer: TileLayer): void;
+        setTileLayer(layer: TileLayer,): void;
         getTileLayer(): TileLayer;
         show(): void;
         hide(): void;
@@ -831,20 +842,20 @@ declare namespace AMap {
 
     class ToolBar extends EventBindable implements MapControl {
         constructor(options?: {
-            offset?: Pixel | undefined,
-            position?: string | undefined,
-            ruler?: boolean | undefined,
-            noIpLocate?: boolean | undefined,
-            locate?: boolean | undefined,
-            liteStyle?: boolean | undefined,
-            direction?: boolean | undefined,
-            autoPosition?: boolean | undefined,
-            locationMarker?: Marker | undefined,
-            useNative?: boolean | undefined
-        });
+            offset?: Pixel | undefined;
+            position?: string | undefined;
+            ruler?: boolean | undefined;
+            noIpLocate?: boolean | undefined;
+            locate?: boolean | undefined;
+            liteStyle?: boolean | undefined;
+            direction?: boolean | undefined;
+            autoPosition?: boolean | undefined;
+            locationMarker?: Marker | undefined;
+            useNative?: boolean | undefined;
+        },);
 
         getOffset(): Pixel;
-        setOffset(offset: Pixel): void;
+        setOffset(offset: Pixel,): void;
         hideRuler(): void;
         showRuler(): void;
         hideDirection(): void;
@@ -852,84 +863,84 @@ declare namespace AMap {
         hideLocation(): void;
         showLocation(): void;
         doLocation(): void;
-        getLocation(): { lng: number, lat: number };
+        getLocation(): { lng: number; lat: number };
         show(): void;
         hide(): void;
     }
 
     class InfoWindow extends EventBindable {
         constructor(options?: {
-            isCustom?: boolean | undefined,
-            autoMove?: boolean | undefined,
-            closeWhenClickMap?: boolean | undefined,
-            content?: string | HTMLElement | undefined,
-            size?: Size | undefined,
-            offset?: Pixel | undefined,
-            position?: LngLat | undefined,
-            showShadow?: boolean | undefined
-        });
+            isCustom?: boolean | undefined;
+            autoMove?: boolean | undefined;
+            closeWhenClickMap?: boolean | undefined;
+            content?: string | HTMLElement | undefined;
+            size?: Size | undefined;
+            offset?: Pixel | undefined;
+            position?: LngLat | undefined;
+            showShadow?: boolean | undefined;
+        },);
 
-        open(map: Map, pos: LngLat): void;
+        open(map: Map, pos: LngLat,): void;
         close(): void;
         getIsOpen(): boolean;
-        setPosition(lnglat: LngLat): void;
+        setPosition(lnglat: LngLat,): void;
         getPosition(): LngLat;
-        setSize(size: Size): void;
+        setSize(size: Size,): void;
         getSize(): Size;
         getContent(): string;
-        setContent(content: string|HTMLElement): void;
+        setContent(content: string | HTMLElement,): void;
     }
 
     class AdvancedInfoWindow extends EventBindable {
         constructor(options?: {
-            autoMove?: boolean | undefined,
-            closeWhenClickMap?: boolean | undefined,
-            content?: string|HTMLElement | undefined,
-            offset?: Pixel | undefined,
-            position?: LngLat | undefined,
-            panel?: string|HTMLElement | undefined,
-            searchRadius?: number | undefined,
-            placeSearch?: boolean | undefined,
-            driving?: boolean | undefined,
-            walking?: boolean | undefined,
-            transit?: boolean | undefined,
-            asOrigin?: boolean | undefined,
-            asDestination?: boolean | undefined
-        });
+            autoMove?: boolean | undefined;
+            closeWhenClickMap?: boolean | undefined;
+            content?: string | HTMLElement | undefined;
+            offset?: Pixel | undefined;
+            position?: LngLat | undefined;
+            panel?: string | HTMLElement | undefined;
+            searchRadius?: number | undefined;
+            placeSearch?: boolean | undefined;
+            driving?: boolean | undefined;
+            walking?: boolean | undefined;
+            transit?: boolean | undefined;
+            asOrigin?: boolean | undefined;
+            asDestination?: boolean | undefined;
+        },);
 
-        open(map: Map, pos: LngLat): void;
+        open(map: Map, pos: LngLat,): void;
         close(): void;
         getIsOpen(): boolean;
-        setPosition(lnglat: LngLat): void;
+        setPosition(lnglat: LngLat,): void;
         getPosition(): LngLat;
-        setContent(content: string|HTMLElement): void;
+        setContent(content: string | HTMLElement,): void;
         getContent(): string;
     }
 
     class Geolocation extends EventBindable {
         constructor(options: {
-            enableHighAccuracy?: boolean | undefined,
-            timeout?: number | undefined,
-            noIpLocate?: boolean | undefined,
-            maximumAge?: number | undefined,
-            convert?: boolean | undefined,
-            showButton?: boolean | undefined,
-            buttonDom?: string|HTMLElement | undefined,
-            buttonPosition?: string | undefined,
-            buttonOffset?: Pixel | undefined,
-            showMarker?: boolean | undefined,
-            markerOptions?: MarkerOptions | undefined,
-            showCircle?: boolean | undefined,
-            circleOptions?: CircleOptions | undefined,
-            panToLocation?: boolean | undefined,
-            zoomToAccuracy?: boolean | undefined,
-            useNative?: boolean | undefined
-        });
+            enableHighAccuracy?: boolean | undefined;
+            timeout?: number | undefined;
+            noIpLocate?: boolean | undefined;
+            maximumAge?: number | undefined;
+            convert?: boolean | undefined;
+            showButton?: boolean | undefined;
+            buttonDom?: string | HTMLElement | undefined;
+            buttonPosition?: string | undefined;
+            buttonOffset?: Pixel | undefined;
+            showMarker?: boolean | undefined;
+            markerOptions?: MarkerOptions | undefined;
+            showCircle?: boolean | undefined;
+            circleOptions?: CircleOptions | undefined;
+            panToLocation?: boolean | undefined;
+            zoomToAccuracy?: boolean | undefined;
+            useNative?: boolean | undefined;
+        },);
 
         isSupported(): boolean;
         getCurrentPosition(): void;
         watchPosition(): number;
-        clearWatch(watchId: number): number;
+        clearWatch(watchId: number,): number;
     }
 
     interface GeolocationResult {
@@ -1024,31 +1035,38 @@ declare namespace AMap {
 
     class Geocoder {
         constructor(opts?: {
-            city?: string | undefined,
-            radius?: number | undefined,
-            batch?: boolean | undefined,
-            extensions?: string | undefined
-        });
+            city?: string | undefined;
+            radius?: number | undefined;
+            batch?: boolean | undefined;
+            extensions?: string | undefined;
+        },);
 
-        getLocation(address: string, callback?: (status?: string, result?: string | GeocodeResult) => void): void;
+        getLocation(address: string, callback?: (status?: string, result?: string | GeocodeResult,) => void,): void;
 
-        setCity(city: string): void;
+        setCity(city: string,): void;
 
-        getAddress(location: LngLat|LngLat[], callback: (status?: string, result?: string | ReGeocodeResult) => void): void;
+        getAddress(
+            location: LngLat | LngLat[],
+            callback: (status?: string, result?: string | ReGeocodeResult,) => void,
+        ): void;
     }
 
     /**
      * 坐标转换结果
      */
     interface ConvertorResult {
-      info: string;
-      locations: LngLat[];
+        info: string;
+        locations: LngLat[];
     }
 
     /**
      * 坐标转换
      */
-    function convertFrom(lnglat: LngLat | LngLat[] | [number, number], type: string, result: (status: string, result: ConvertorResult) => void): void;
+    function convertFrom(
+        lnglat: LngLat | LngLat[] | [number, number,],
+        type: string,
+        result: (status: string, result: ConvertorResult,) => void,
+    ): void;
 
     interface Poi {
         id: string;
@@ -1080,15 +1098,15 @@ declare namespace AMap {
     }
 
     class CitySearch extends EventBindable {
-        getLocalCity(callback: (status: string, result: string | CitySearchResult) => void): void;
-        getCityByIp(ip: string, callback: (status: string, result: string | CitySearchResult) => void): void;
+        getLocalCity(callback: (status: string, result: string | CitySearchResult,) => void,): void;
+        getCityByIp(ip: string, callback: (status: string, result: string | CitySearchResult,) => void,): void;
     }
 
     enum DrivingPolicy {
         LEAST_TIME,
         LEAST_FEE,
         LEAST_DISTANCE,
-        REAL_TRAFFIC
+        REAL_TRAFFIC,
     }
 
     interface ViaCity {
@@ -1139,7 +1157,7 @@ declare namespace AMap {
     interface DrivingResult {
         info: string;
         origin: LngLat;
-        destination: LngLat|Poi;
+        destination: LngLat | Poi;
         start: Poi;
         waypoints: Poi;
         taxi_cost: number;
@@ -1148,37 +1166,40 @@ declare namespace AMap {
 
     class Driving extends EventBindable {
         constructor(options?: {
-            policy?: DrivingPolicy | undefined,
-            extensions?: string | undefined,
-            map?: Map | undefined,
-            panel?: string|HTMLElement | undefined,
-            hideMarkers?: boolean | undefined,
-            showTraffic?: boolean | undefined
-        });
+            policy?: DrivingPolicy | undefined;
+            extensions?: string | undefined;
+            map?: Map | undefined;
+            panel?: string | HTMLElement | undefined;
+            hideMarkers?: boolean | undefined;
+            showTraffic?: boolean | undefined;
+        },);
 
         search(origin: LngLat, destination: LngLat, opts?: {
-            waypoints: LngLat[]
-        }, callback?: (status: string, result: string|DrivingResult) => void): void;
+            waypoints: LngLat[];
+        }, callback?: (status: string, result: string | DrivingResult,) => void,): void;
 
-        search(point: Array<{
-            keyword: string,
-            city: string
-        }>, callback: (status: string, result: string|DrivingResult) => void): void;
+        search(
+            point: Array<{
+                keyword: string;
+                city: string;
+            }>,
+            callback: (status: string, result: string | DrivingResult,) => void,
+        ): void;
 
-        setPolicy(policy: DrivingPolicy): void;
-        setAvoidPolygons(path: LngLat[][]): void;
-        setAvoidRoad(road: string): void;
+        setPolicy(policy: DrivingPolicy,): void;
+        setAvoidPolygons(path: LngLat[][],): void;
+        setAvoidRoad(road: string,): void;
         clearAvoidRoad(): void;
         clearAvoidPolygons(): void;
         getAvlidPolygons(): LngLat[][];
         getAvoidRoad(): string;
         clear(): void;
         searchOnAMAP(obj: {
-            origin?: LngLat | undefined,
-            originName?: string | undefined,
-            destination?: LngLat | undefined,
-            destinationName?: string | undefined
-        }): void;
+            origin?: LngLat | undefined;
+            originName?: string | undefined;
+            destination?: LngLat | undefined;
+            destinationName?: string | undefined;
+        },): void;
     }
 
     // 天气插件
@@ -1224,14 +1245,14 @@ declare namespace AMap {
          * @param district 支持城市名称/区域编码（如：“杭州市”/“330100”）
          * @param callback 当请求成功时ErrorStatus为null，当请求不成功时ErrorStatus为Obj
          */
-        getLive(district: string, callback: (errorStatus: any, result: WeatherLiveResult) => void): void;
+        getLive(district: string, callback: (errorStatus: any, result: WeatherLiveResult,) => void,): void;
 
         /**
          * 查询四天预报天气，包括查询当天天气信息
          * @param district 支持城市名称/区域编码（如：“杭州市”/“330100”）
          * @param callback 当请求成功时ErrorStatus为null，当请求不成功时ErrorStatus为Obj
          */
-        getForecast(district: string, callback: (errorStatus: any, result: WeatherForecastResult) => void): void;
+        getForecast(district: string, callback: (errorStatus: any, result: WeatherForecastResult,) => void,): void;
     }
 
     interface Tip {
@@ -1248,14 +1269,14 @@ declare namespace AMap {
 
     class Autocomplete {
         constructor(opts: {
-            type?: string | undefined,
-            city?: string | undefined,
-            datatype?: string | undefined,
-            citylimit?: boolean | undefined,
-            input?: string | undefined
-        });
+            type?: string | undefined;
+            city?: string | undefined;
+            datatype?: string | undefined;
+            citylimit?: boolean | undefined;
+            input?: string | undefined;
+        },);
 
-        search(keyword: string, callback: (status: string, result: string | AutocompleteResult) => void): void;
+        search(keyword: string, callback: (status: string, result: string | AutocompleteResult,) => void,): void;
     }
 
     interface SelectChangeEvent {
@@ -1329,35 +1350,44 @@ declare namespace AMap {
 
     class PlaceSearch {
         constructor(opts: {
-            city?: string | undefined,
-            citylimit?: boolean | undefined,
-            children?: number | undefined,
-            type?: string | undefined,
-            lang?: string | undefined,
-            pageSize?: number | undefined,
-            pageIndex?: number | undefined,
-            extensions?: string | undefined,
-            map?: Map | undefined,
-            panel?: string|HTMLElement | undefined,
-            showCover?: boolean | undefined,
-            renderStyle?: string | undefined,
-            autoFitView?: boolean | undefined
-        });
+            city?: string | undefined;
+            citylimit?: boolean | undefined;
+            children?: number | undefined;
+            type?: string | undefined;
+            lang?: string | undefined;
+            pageSize?: number | undefined;
+            pageIndex?: number | undefined;
+            extensions?: string | undefined;
+            map?: Map | undefined;
+            panel?: string | HTMLElement | undefined;
+            showCover?: boolean | undefined;
+            renderStyle?: string | undefined;
+            autoFitView?: boolean | undefined;
+        },);
 
-        search(keyword: string, callback: (status: string, result: string | SearchResult) => void): void;
-        searchNearBy(keyword: string, center: LngLat, radius: number, callback: (status: string, result: string|SearchResult) => void): void;
-        searchInBounds(keyword: string, bounds: Bounds|Polygon, callback: (status: string, result: string|SearchResult) => void): void;
-        getDetails(POIID: string, callback: (status: string, result: string|SearchResult) => void): void;
-        setType(type: string): void;
-        setCityLimit(p: boolean): void;
-        setPageIndex(pageIndex: number): void;
-        setPageSize(setPageSize: number): void;
-        setCity(city: string): void;
-        setLang(lang: string): string;
+        search(keyword: string, callback: (status: string, result: string | SearchResult,) => void,): void;
+        searchNearBy(
+            keyword: string,
+            center: LngLat,
+            radius: number,
+            callback: (status: string, result: string | SearchResult,) => void,
+        ): void;
+        searchInBounds(
+            keyword: string,
+            bounds: Bounds | Polygon,
+            callback: (status: string, result: string | SearchResult,) => void,
+        ): void;
+        getDetails(POIID: string, callback: (status: string, result: string | SearchResult,) => void,): void;
+        setType(type: string,): void;
+        setCityLimit(p: boolean,): void;
+        setPageIndex(pageIndex: number,): void;
+        setPageSize(setPageSize: number,): void;
+        setCity(city: string,): void;
+        setLang(lang: string,): string;
         getLang(): string;
         clear(): void;
-        poiOnAMAP(obj: any): void;
-        detailOnAMAP(obj: any): void;
+        poiOnAMAP(obj: any,): void;
+        detailOnAMAP(obj: any,): void;
     }
 
     interface DistrictSearchOptions {
@@ -1383,10 +1413,14 @@ declare namespace AMap {
     }
 
     class DistrictSearch {
-        constructor(opts: DistrictSearchOptions);
+        constructor(opts: DistrictSearchOptions,);
 
-        search(keywords: string, callback?: (status: string, result: string| DistrictSearchResult) => void, opts?: DistrictSearchOptions): void;
-        setLevel(level: string): void;
-        setSubdistrict(district: number): void;
+        search(
+            keywords: string,
+            callback?: (status: string, result: string | DistrictSearchResult,) => void,
+            opts?: DistrictSearchOptions,
+        ): void;
+        setLevel(level: string,): void;
+        setSubdistrict(district: number,): void;
     }
-  }
+}

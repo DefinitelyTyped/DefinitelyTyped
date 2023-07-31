@@ -12,5 +12,5 @@ export default class FailedPredicateException extends RecognitionException {
     readonly predicateIndex: number;
     readonly predicate: string;
 
-    constructor(recognizer: Parser, predicate: string, message: string);
+    constructor(recognizer: Parser, predicate: string, message: string,);
 }
