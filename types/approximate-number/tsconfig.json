@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "ES6",
+        "module": "Node16",
         "lib": [
             "es6"
         ],
@@ -18,5 +18,6 @@
     },
     "files": [
         "index.d.ts",
+        "approximate-number-tests.ts"
     ]
 }
