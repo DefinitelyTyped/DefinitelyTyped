@@ -67,25 +67,32 @@ declare namespace Cloudflare {
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
+    type DnsRecordByType<RecordType extends RecordTypes> = RecordType extends 'MX' | 'URI'
+        ? DnsRecordWithPriority
+        : RecordType extends 'SRV'
+        ? SrvDnsRecord
+        : RecordType extends Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>
+        ? DnsRecordWithoutPriority
+        : DnsRecord;
 
     interface DNSRecords {
         edit(zone_id: string, id: string, record: DnsRecord): ResponseObjectPromise;
-        browse(
+        browse<RecordType extends RecordTypes = any>(
             zone_id: string,
-            options?: DnsRecordsBrowseOptions,
-        ): ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>;
+            options?: DnsRecordsBrowseOptions<RecordType>,
+        ): Promise<DnsRecordsBrowseResponse<RecordType>>;
         export(zone_id: string): ResponseObjectPromise;
         del(zone_id: string, id: string): ResponseObjectPromise;
         read(zone_id: string, id: string): ResponseObjectPromise;
         add(zone_id: string, record: DnsRecord): ResponseObjectPromise;
     }
 
-    interface DnsRecordsBrowseOptions {
+    interface DnsRecordsBrowseOptions<RecordType extends RecordTypes> {
         page?: number;
         per_page?: number;
         name?: string;
         content?: string;
-        type?: RecordTypes;
+        type?: RecordType;
         order?: 'type' | 'name' | 'content' | 'ttl' | 'proxied';
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
@@ -96,8 +103,8 @@ declare namespace Cloudflare {
         // TODO: support nested filters (for example tag.absent)
     }
 
-    interface DnsRecordsBrowseResponse {
-        result: DnsRecord[];
+    interface DnsRecordsBrowseResponse<RecordType extends RecordTypes> {
+        result: Array<DnsRecordByType<RecordType>>;
         result_info: {
             page: number;
             per_page: number;

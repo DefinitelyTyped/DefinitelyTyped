@@ -49,34 +49,32 @@ cf.dnsRecords.add('123', {
     },
 });
 
-// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
+// $ExpectType Promise<DnsRecordsBrowseResponse<any>>
 cf.dnsRecords.browse('123', {});
 
-// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
+// $ExpectType Promise<DnsRecordsBrowseResponse<any>>
 cf.dnsRecords.browse('123');
 
-// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"CNAME">>
 cf.dnsRecords.browse('123', {
     type: 'CNAME',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"MX">>
 cf.dnsRecords.browse('123', {
     type: 'MX',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"SRV">>
 cf.dnsRecords.browse('123', {
     type: 'SRV',
     name: 'irrelevant',
     content: 'irrelevant',
 });
-
-// invalid options
 
 cf.dnsRecords.browse('123', {
     // @ts-expect-error
