@@ -884,6 +884,22 @@ function testMock() {
     mock.verify();
 }
 
+function testMockStatic() {
+    const mock = sinon.mock();
+
+    mock.atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
+function testMockStaticNamed() {
+    const mock = sinon.mock('namedMock');
+
+    mock.atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
 function testAddBehavior() {
     sinon.addBehavior('returnsNum', (fake, n) => {
         fake.returns(n);

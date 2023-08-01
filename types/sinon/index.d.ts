@@ -775,7 +775,7 @@ declare namespace Sinon {
     }
 
     interface SinonMockStatic {
-        (): SinonExpectation;
+        (name?: string): SinonExpectation;
         /**
          * Creates a mock for the provided object.
          * Does not change the object, but returns a mock object to set expectations on the object’s methods.
