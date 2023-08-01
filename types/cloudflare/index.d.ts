@@ -6,25 +6,25 @@
 
 declare namespace Cloudflare {
     type RecordTypes =
-        | "A"
-        | "AAAA"
-        | "CNAME"
-        | "HTTPS"
-        | "TXT"
-        | "SRV"
-        | "LOC"
-        | "MX"
-        | "NS"
-        | "SPF"
-        | "CERT"
-        | "DNSKEY"
-        | "DS"
-        | "NAPTR"
-        | "SMIMEA"
-        | "SSHFP"
-        | "SVCB"
-        | "TLSA"
-        | "URI read only";
+        | 'A'
+        | 'AAAA'
+        | 'CNAME'
+        | 'HTTPS'
+        | 'TXT'
+        | 'SRV'
+        | 'LOC'
+        | 'MX'
+        | 'NS'
+        | 'SPF'
+        | 'CERT'
+        | 'DNSKEY'
+        | 'DS'
+        | 'NAPTR'
+        | 'SMIMEA'
+        | 'SSHFP'
+        | 'SVCB'
+        | 'TLSA'
+        | 'URI read only';
 
     type ResponseObjectPromise = Promise<object>;
 
@@ -54,34 +54,30 @@ declare namespace Cloudflare {
     interface SrvDnsRecord {
         type: 'SRV';
         data: {
-          name: string;
-          service: string;
-          proto: string;
-          ttl: number;
-          proxied?: boolean | undefined;
-          priority: number;
-          weight: number;
-          port: number;
-          target: string;
+            name: string;
+            service: string;
+            proto: string;
+            ttl: number;
+            proxied?: boolean | undefined;
+            priority: number;
+            weight: number;
+            port: number;
+            target: string;
         };
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
 
     interface DNSRecords {
-        edit(
+        edit(zone_id: string, id: string, record: DnsRecord): ResponseObjectPromise;
+        browse(
             zone_id: string,
-            id: string,
-            record: DnsRecord,
-        ): ResponseObjectPromise;
-        browse(zone_id: string, options?: DnsRecordsBrowseOptions): ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>;
+            options?: DnsRecordsBrowseOptions,
+        ): ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>;
         export(zone_id: string): ResponseObjectPromise;
         del(zone_id: string, id: string): ResponseObjectPromise;
         read(zone_id: string, id: string): ResponseObjectPromise;
-        add(
-            zone_id: string,
-            record: DnsRecord,
-        ): ResponseObjectPromise;
+        add(zone_id: string, record: DnsRecord): ResponseObjectPromise;
     }
 
     interface DnsRecordsBrowseOptions {
@@ -94,7 +90,7 @@ declare namespace Cloudflare {
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
         tag?: string;
-        tag_match ?: 'any' | 'all';
+        tag_match?: 'any' | 'all';
         search?: string;
         comment?: string;
     }
@@ -218,7 +214,7 @@ declare namespace Cloudflare {
             name: string;
             action: { id: string };
             jump_start?: boolean | undefined;
-            type?: "full" | "partial" | undefined;
+            type?: 'full' | 'partial' | undefined;
         }): ResponseObjectPromise;
         edit(
             id: string,
@@ -226,7 +222,7 @@ declare namespace Cloudflare {
                 name: string;
                 action: { id: string };
                 jump_start?: boolean | undefined;
-                type?: "full" | "partial" | undefined;
+                type?: 'full' | 'partial' | undefined;
             },
         ): ResponseObjectPromise;
         read(id: string): ResponseObjectPromise;
@@ -235,7 +231,8 @@ declare namespace Cloudflare {
             params: {
                 files?:
                     | string[]
-                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } } | undefined;
+                    | { url: string; headers: { Origin: string; 'CF-IPCountry': string; 'CF-Device-Type': string } }
+                    | undefined;
                 tags?: string[] | undefined;
                 hosts?: string[] | undefined;
                 prefixes?: string[] | undefined;
