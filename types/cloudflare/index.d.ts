@@ -74,7 +74,7 @@ declare namespace Cloudflare {
             id: string,
             record: DnsRecord,
         ): ResponseObjectPromise;
-        browse(zone_id: string): ResponseObjectPromise;
+        browse(zone_id: string, options?: DnsRecordsBrowseOptions): ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>;
         export(zone_id: string): ResponseObjectPromise;
         del(zone_id: string, id: string): ResponseObjectPromise;
         read(zone_id: string, id: string): ResponseObjectPromise;
@@ -82,6 +82,40 @@ declare namespace Cloudflare {
             zone_id: string,
             record: DnsRecord,
         ): ResponseObjectPromise;
+    }
+
+    interface DnsRecordsBrowseOptions {
+        page?: number;
+        per_page?: number;
+        name?: string;
+        content?: string;
+        type?: RecordTypes;
+        order?: 'type' | 'name' | 'content' | 'ttl' | 'proxied';
+        direction?: 'asc' | 'desc';
+        match?: 'any' | 'all';
+        tag?: string;
+        tag_match ?: 'any' | 'all';
+        search?: string;
+        comment?: string;
+    }
+
+    interface DnsRecordsBrowseResponse {
+        result: DnsRecord[];
+        result_info: {
+            page: number;
+            per_page: number;
+            total_pages: number;
+            count: number;
+            total_count: number;
+        };
+        success: boolean;
+        errors: ResponseMessageObject[];
+        messages: ResponseMessageObject[];
+    }
+
+    interface ResponseMessageObject {
+        code: number;
+        message: string;
     }
 
     interface EnterpriseZoneWorkerScripts {
