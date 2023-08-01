@@ -1,5 +1,7 @@
+/// <reference types="jest" />
+
 declare namespace matchers {
-    interface TestingLibraryMatchers<E, R> extends Record<string, any> {
+    interface TestingLibraryMatchers<E, R> {
         /**
          * @deprecated
          * since v1.9.0
@@ -657,7 +659,11 @@ declare namespace matchers {
          */
         toHaveErrorMessage(text?: string | RegExp | E): R;
     }
+
+    // Needs to extend Record<string, any> to be accepted by expect.extend()
+    // as it requires a string index signature.
+    interface TestingLibraryMatchersExport extends Record<string, jest.CustomMatcher>, TestingLibraryMatchers<any, jest.CustomMatcherResult> {}
 }
 
-declare const matchers: matchers.TestingLibraryMatchers<any, void>;
+declare const matchers: matchers.TestingLibraryMatchersExport;
 export = matchers;

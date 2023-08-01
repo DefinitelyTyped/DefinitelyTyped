@@ -100,3 +100,6 @@ expect(element).not.toHaveAccessibleName();
 expect(element).not.toBePartiallyChecked();
 expect(element).not.toHaveErrorMessage();
 expect(element).not.toHaveErrorMessage('Pikachu!');
+
+// @ts-expect-error
+expect(element).nonExistentProperty();
