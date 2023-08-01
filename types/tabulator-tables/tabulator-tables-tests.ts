@@ -169,7 +169,7 @@ colDef.formatterParams = {
 };
 // Custom Formatter
 colDef.formatter = (cell: CellComponent, formatterParams: {}, onRendered) => {
-    onRendered = () => {};
+    onRendered = () => { };
     return '';
 };
 
@@ -530,7 +530,7 @@ colDef.editorParams = { search: true };
 table.getHtml('all', true, { columnCalcs: true });
 
 table.download('pdf', 'data.pdf', {
-    documentProcessing: doc => {},
+    documentProcessing: doc => { },
 });
 
 table.download('pdf', 'data.pdf', {
@@ -668,9 +668,9 @@ table.restoreRedraw();
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
 
-table.addColumn({} as ColumnDefinition).then(() => {});
+table.addColumn({} as ColumnDefinition).then(() => { });
 
-table.deleteColumn('name').then(() => {});
+table.deleteColumn('name').then(() => { });
 
 table
     .updateColumnDefinition('age', { title: 'Updated Title', frozen: true })
@@ -693,8 +693,8 @@ table.download('xlsx', 'data.xlsx', {
 });
 
 table = new Tabulator('#example-table', {
-    scrollVertical: () => {},
-    scrollHorizontal: () => {},
+    scrollVertical: () => { },
+    scrollHorizontal: () => { },
 });
 
 // 4.6 updates
@@ -773,8 +773,8 @@ table = new Tabulator('#example-table', {
     printRowRange: () => {
         return [];
     },
-    rowFormatterPrint: row => {},
-    rowFormatterHtmlOutput: row => {},
+    rowFormatterPrint: row => { },
+    rowFormatterHtmlOutput: row => { },
     headerFilterLiveFilterDelay: 600,
     columns: [
         {
@@ -804,7 +804,7 @@ columns.forEach(col => col.getDefinition());
 // 4.7 updates
 
 table = new Tabulator('#example-table', {
-    movableRowsElementDrop: (e, element, row) => {},
+    movableRowsElementDrop: (e, element, row) => { },
     downloadRowRange: 'selected',
     layout: 'fitDataTable',
     validationMode: 'highlight',
@@ -918,7 +918,7 @@ table = new Tabulator('#example-table', {
     dataTreeFilter: false,
     dataTreeSort: false,
     groupUpdateOnCellEdit: true,
-    dataChanged: data => {},
+    dataChanged: data => { },
 });
 
 table.setGroupValues([['male', 'female', 'smizmar']]);
@@ -984,7 +984,7 @@ colDef.formatterParams = {
     urlSuffix: '.png',
 };
 
-table.refreshFilters();
+table.refreshFilter();
 table.clearHistory();
 
 colDef.maxWidth = 300;
@@ -994,7 +994,7 @@ colDef.maxWidth = false;
 Tabulator.defaultOptions.movableRows = true;
 Tabulator.extendModule('format', 'formatters', {});
 
-class CustomRenderer extends Renderer {}
+class CustomRenderer extends Renderer { }
 
 table = new Tabulator('#test', {
     renderVertical: 'virtual',
@@ -1030,23 +1030,23 @@ table = new Tabulator('#test', {
     debugEventsInternal: false,
 });
 
-const dataProcessedEvent = () => {};
+const dataProcessedEvent = () => { };
 
 table.on('dataLoading', dataProcessedEvent);
-table.on('dataLoaded', () => {});
-table.on('dataLoadError', () => {});
-table.on('dataProcessing', () => {});
-table.on('dataProcessed', () => {});
-table.on('rowMoving', () => {});
-table.on('rowMoveCancelled', row => {});
-table.on('rowSelectionChanged', (selectedData, selectedRows) => {});
+table.on('dataLoaded', () => { });
+table.on('dataLoadError', () => { });
+table.on('dataProcessing', () => { });
+table.on('dataProcessed', () => { });
+table.on('rowMoving', () => { });
+table.on('rowMoveCancelled', row => { });
+table.on('rowSelectionChanged', (selectedData, selectedRows) => { });
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
-table.off('rowMoving', () => {});
-table.on('cellClick', () => {});
-table.on('scrollHorizontal', (left, leftDir) => {});
-table.on('scrollVertical', (top, topDir) => {});
-table.on('pageSizeChanged', pageSize => {});
+table.off('rowMoving', () => { });
+table.on('cellClick', () => { });
+table.on('scrollHorizontal', (left, leftDir) => { });
+table.on('scrollVertical', (top, topDir) => { });
+table.on('pageSizeChanged', pageSize => { });
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 
@@ -1058,7 +1058,7 @@ class CustomModule extends Module {
         super(table);
     }
 
-    initialize() {}
+    initialize() { }
 }
 
 CustomModule.moduleName = 'custom';
@@ -1224,20 +1224,20 @@ table = new Tabulator('#test', {
             dblClickPopup: 'Im a Popup',
             headerDblClickPopup: 'Im a Popup',
             headerWordWrap: true,
-            headerMouseUp: (e, column) => {},
+            headerMouseUp: (e, column) => { },
         },
     ],
 });
 
-table.on('cellMouseDown', (e, cell) => {});
+table.on('cellMouseDown', (e, cell) => { });
 
 // Testing popup event and menu event
-table.on('popupClosed', component => {});
-table.on('popupOpen', component => {});
-table.on('menuOpened', component => {});
-table.on('menuClosed', component => {});
-table.on('TooltipOpened', component => {});
-table.on('TooltipClosed', component => {});
+table.on('popupClosed', component => { });
+table.on('popupOpen', component => { });
+table.on('menuOpened', component => { });
+table.on('menuClosed', component => { });
+table.on('TooltipOpened', component => { });
+table.on('TooltipClosed', component => { });
 
 column.popup('test', 'bottom');
 
