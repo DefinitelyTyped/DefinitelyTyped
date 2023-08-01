@@ -1,4 +1,4 @@
-// Type definitions for bip38 2.0
+// Type definitions for bip38 3.1
 // Project: https://github.com/bitcoinjs/bip38, http://cryptocoinjs.com/modules/currency/bip38
 // Definitions by: Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,24 +18,92 @@ export interface ScryptParams {
     p: number;
 }
 
-export function decrypt(string: string, passphrase: string,
-                        progressCallback?: (status: ProgressStatus) => void,
-                        scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decrypt(
+    string: string,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): { privateKey: Buffer; compressed: boolean };
 
-export function decryptECMult(buffer: Buffer, passphrase: string,
-                              progressCallback?: (status: ProgressStatus) => void,
-                              scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decryptECMult(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): { privateKey: Buffer; compressed: boolean };
 
-export function decryptRaw(buffer: Buffer, passphrase: string,
-                           progressCallback?: (status: ProgressStatus) => void,
-                           scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decryptRaw(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): { privateKey: Buffer; compressed: boolean };
 
-export function encrypt(buffer: Buffer, compressed: boolean, passphrase: string,
-                        progressCallback?: (status: ProgressStatus) => void,
-                        scryptParams?: ScryptParams): string;
+export function encrypt(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): string;
 
-export function encryptRaw(buffer: Buffer, compressed: boolean, passphrase: string,
-                           progressCallback?: (status: ProgressStatus) => void,
-                           scryptParams?: ScryptParams): Buffer;
+export function encryptRaw(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): Buffer;
+
+export function decryptAsync(
+    string: string,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<{
+    privateKey: Buffer;
+    compressed: boolean;
+}>;
+
+export function decryptECMultAsync(
+    string: string,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<{
+    privateKey: Buffer;
+    compressed: boolean;
+}>;
+
+export function decryptRawAsync(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<{
+    privateKey: Buffer;
+    compressed: boolean;
+}>;
+
+export function encryptAsync(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<string>;
+
+export function encryptRawAsync(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<Buffer>;
 
 export function verify(string: string): boolean;
