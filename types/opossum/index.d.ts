@@ -1,4 +1,4 @@
-// Type definitions for opossum 6.2
+// Type definitions for opossum 6.3
 // Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
