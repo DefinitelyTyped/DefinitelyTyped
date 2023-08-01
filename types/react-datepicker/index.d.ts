@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.15
+// Type definitions for react-datepicker 4.16
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Greg Smith <https://github.com/smrq>
@@ -158,6 +158,8 @@ export interface ReactDatePickerProps<
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     renderMonthContent?(monthIndex: number, shortMonthText: string, fullMonthText: string): React.ReactNode;
+    renderQuarterContent: (quarter: string, shortQuarter?: string): React.ReactNode;
+    renderYearContent: (year: number): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
     scrollableYearDropdown?: boolean | undefined;
