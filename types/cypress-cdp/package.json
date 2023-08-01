@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "cypress": "9.7.0",
+        "devtools-protocol": "0.0.1173815"
+    }
+}
