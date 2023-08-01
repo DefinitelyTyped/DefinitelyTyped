@@ -152,7 +152,7 @@ const topLogger: Modifier<'topLogger'> = {
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
     renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
-    renderQuarterContent={(quarter: string, shortQuarter?: string) => <div />}
+    renderQuarterContent={(quarter, shortQuarter) => <div />}
     renderYearContent={(year) => <div />}
     required
     scrollableMonthYearDropdown
