@@ -18,26 +18,55 @@ export interface ScryptParams {
     p: number;
 }
 
+export interface DecryptResult {
+    privateKey: Buffer;
+    compressed: boolean;
+}
+
 export function decrypt(
     string: string,
     passphrase: string,
     progressCallback?: (status: ProgressStatus) => void,
     scryptParams?: ScryptParams,
-): { privateKey: Buffer; compressed: boolean };
+): DecryptResult;
 
-export function decryptECMult(
-    buffer: Buffer,
+export function decryptAsync(
+    string: string,
     passphrase: string,
     progressCallback?: (status: ProgressStatus) => void,
     scryptParams?: ScryptParams,
-): { privateKey: Buffer; compressed: boolean };
+    promiseInterval?: number,
+): Promise<DecryptResult>;
 
 export function decryptRaw(
     buffer: Buffer,
     passphrase: string,
     progressCallback?: (status: ProgressStatus) => void,
     scryptParams?: ScryptParams,
-): { privateKey: Buffer; compressed: boolean };
+): DecryptResult;
+
+export function decryptRawAsync(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<DecryptResult>;
+
+export function decryptECMult(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): DecryptResult;
+
+export function decryptECMultAsync(
+    string: string,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+    promiseInterval?: number,
+): Promise<DecryptResult>;
 
 export function encrypt(
     buffer: Buffer,
@@ -47,47 +76,6 @@ export function encrypt(
     scryptParams?: ScryptParams,
 ): string;
 
-export function encryptRaw(
-    buffer: Buffer,
-    compressed: boolean,
-    passphrase: string,
-    progressCallback?: (status: ProgressStatus) => void,
-    scryptParams?: ScryptParams,
-): Buffer;
-
-export function decryptAsync(
-    string: string,
-    passphrase: string,
-    progressCallback?: (status: ProgressStatus) => void,
-    scryptParams?: ScryptParams,
-    promiseInterval?: number,
-): Promise<{
-    privateKey: Buffer;
-    compressed: boolean;
-}>;
-
-export function decryptECMultAsync(
-    string: string,
-    passphrase: string,
-    progressCallback?: (status: ProgressStatus) => void,
-    scryptParams?: ScryptParams,
-    promiseInterval?: number,
-): Promise<{
-    privateKey: Buffer;
-    compressed: boolean;
-}>;
-
-export function decryptRawAsync(
-    buffer: Buffer,
-    passphrase: string,
-    progressCallback?: (status: ProgressStatus) => void,
-    scryptParams?: ScryptParams,
-    promiseInterval?: number,
-): Promise<{
-    privateKey: Buffer;
-    compressed: boolean;
-}>;
-
 export function encryptAsync(
     buffer: Buffer,
     compressed: boolean,
@@ -96,6 +84,14 @@ export function encryptAsync(
     scryptParams?: ScryptParams,
     promiseInterval?: number,
 ): Promise<string>;
+
+export function encryptRaw(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams,
+): Buffer;
 
 export function encryptRawAsync(
     buffer: Buffer,
