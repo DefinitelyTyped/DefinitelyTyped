@@ -4,7 +4,7 @@
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 //                 James Ebert <https://github.com/JamesKebert>
-//                 Berend Sliedrecht <https://github.com/blu3beri>
+//                 Berend Sliedrecht <https://github.com/berendsliedrecht>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Buffer } from 'buffer/';
