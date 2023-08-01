@@ -60,7 +60,7 @@ export class LDKeyPair {
         verified: boolean;
     };
 
-    signer(): { sign: () => void };
+    signer(): { sign: ({data}: {data: Uint8Array}) => Promise<string | Uint8Array> };
 
-    verifier(): { verify: () => void };
+    verifier(): { verify: ({data, signature}: {data: Uint8Array, signature: Uint8Array}) => Promise<boolean> };
 }
