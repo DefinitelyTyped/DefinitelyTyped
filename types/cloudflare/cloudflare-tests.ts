@@ -49,27 +49,27 @@ cf.dnsRecords.add('123', {
     },
 });
 
-// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<any>>
+// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
 cf.dnsRecords.browse('123', {});
 
-// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<any>>
+// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
 cf.dnsRecords.browse('123');
 
-// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"CNAME">>
+// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
 cf.dnsRecords.browse('123', {
     type: 'CNAME',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"MX">>
+// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
 cf.dnsRecords.browse('123', {
     type: 'MX',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"SRV">>
+// $ExpectType ResponseObjectPromise | Promise<DnsRecordsBrowseResponse>
 cf.dnsRecords.browse('123', {
     type: 'SRV',
     name: 'irrelevant',
