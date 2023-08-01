@@ -49,6 +49,41 @@ cf.dnsRecords.add("123", {
     }
 });
 
+
+// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<any>>
+cf.dnsRecords.browse("123", {});
+
+// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<any>>
+cf.dnsRecords.browse("123");
+
+// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"CNAME">>
+cf.dnsRecords.browse("123", {
+    type: "CNAME",
+    name: "irrelevant",
+    content: "irrelevant",
+});
+
+// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"MX">>
+cf.dnsRecords.browse("123", {
+    type: "MX",
+    name: "irrelevant",
+    content: "irrelevant",
+});
+
+// $ExpectType Promise<object> || ResponseObjectPromise || Promise<DnsRecordsBrowseResponse<"SRV">>
+cf.dnsRecords.browse("123", {
+    type: "SRV",
+    name: "irrelevant",
+    content: "irrelevant",
+});
+
+// invalid options
+
+cf.dnsRecords.browse("123", {
+    // @ts-expect-error
+    invalid: "invalid",
+});
+
 cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'key_name', 'value');
 // @ts-expect-error
 cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'value');
