@@ -1,5 +1,5 @@
-import { NodeTypeOption } from '../core/constants';
-import UniformNode from '../core/UniformNode';
+import { NodeTypeOption } from '../core/constants.js';
+import UniformNode from '../core/UniformNode.js';
 
 export default class BufferNode extends UniformNode {
     isBufferNode: true;

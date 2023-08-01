@@ -10,9 +10,9 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     ColorRepresentation,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { Pass, FullScreenQuad } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export enum SSAOPassOUTPUT {
     Default,
@@ -49,7 +49,7 @@ export class SSAOPass extends Pass {
     fsQuad: FullScreenQuad;
     originalClearColor: Color;
 
-    static OUTPUT: SSAOPassOUTPUT;
+    static OUTPUT: typeof SSAOPassOUTPUT;
 
     dipose(): void;
     generateSampleKernel(): Vector3[];

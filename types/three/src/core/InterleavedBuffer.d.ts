@@ -1,5 +1,6 @@
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
-import { Usage } from '../constants';
+import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
+import { Usage } from '../constants.js';
+import { TypedArray } from './BufferAttribute.js';
 
 /**
  * **"Interleaved"** means that multiple attributes, possibly of different types, (e.g., _position, normal, uv, color_) are packed into a single array buffer.
@@ -14,12 +15,12 @@ export class InterleavedBuffer {
      * @param array A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.
      * @param stride The number of typed-array elements per vertex. Expects a `Integer`
      */
-    constructor(array: ArrayLike<number>, stride: number);
+    constructor(array: TypedArray, stride: number);
 
     /**
      * A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.
      */
-    array: ArrayLike<number>;
+    array: TypedArray;
 
     /**
      * The number of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} elements per vertex.

@@ -1,5 +1,5 @@
-import { Vector } from './../../math/Vector2';
-import { Vector3 } from './../../math/Vector3';
+import { Vector } from './../../math/Vector2.js';
+import { Vector3 } from './../../math/Vector3.js';
 
 /**
  * An abstract base class for creating a {@link Curve} object that contains methods for interpolation

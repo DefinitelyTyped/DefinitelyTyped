@@ -1,5 +1,5 @@
-import FogNode from './FogNode';
-import Node from '../core/Node';
+import FogNode from './FogNode.js';
+import Node from '../core/Node.js';
 
 export default class FogRangeNode extends FogNode {
     isFogRangeNode: true;

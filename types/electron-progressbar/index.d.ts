@@ -11,6 +11,7 @@ declare class ProgressBar {
     getOptions(): ProgressBarOptions;
 
     on(eventName: 'ready' | 'progress' | 'completed' | 'aborted', listener: () => void): this;
+    on(eventName: 'progress' | 'completed' | 'aborted', listener: (value: number) => void): this;
 
     setCompleted(): void;
 

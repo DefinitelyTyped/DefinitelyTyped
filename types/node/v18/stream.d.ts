@@ -22,6 +22,9 @@ declare module 'stream' {
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     import * as streamWeb from 'node:stream/web';
+
+    type ComposeFnParam = (source: any) => void;
+
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -29,6 +32,7 @@ declare module 'stream' {
                 end?: boolean | undefined;
             }
         ): T;
+        compose<T extends NodeJS.ReadableStream>(stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>, options?: { signal: AbortSignal }): T;
     }
     namespace internal {
         class Stream extends internal {
@@ -1097,6 +1101,20 @@ declare module 'stream' {
          * @param stream a stream to attach a signal to
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+        /**
+         * Returns the default highWaterMark used by streams.
+         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * @since v18.17.0
+         * @param objectMode
+         */
+        function getDefaultHighWaterMark(objectMode: boolean): number;
+        /**
+         * Sets the default highWaterMark used by streams.
+         * @since v18.17.0
+         * @param objectMode
+         * @param value highWaterMark value
+         */
+        function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
         interface FinishedOptions extends Abortable {
             error?: boolean | undefined;
             readable?: boolean | undefined;

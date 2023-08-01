@@ -1,4 +1,4 @@
-import Node from '../../../nodes/core/Node';
+import Node from '../../../nodes/core/Node.js';
 
 export interface SlotNodeParameters<TNode extends Node = Node> {
     node?: TNode;

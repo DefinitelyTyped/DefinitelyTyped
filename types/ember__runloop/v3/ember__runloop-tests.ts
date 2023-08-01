@@ -237,4 +237,8 @@ function testBackburner() {
   const debugInfo: DebugInfo = run.backburner.getDebugInfo();
   const queueItems: QueueItem[] = debugInfo.timers;
   const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
+
+  function noop() {}
+  run.backburner.on('end', noop);
+  run.backburner.off('end', noop);
 }

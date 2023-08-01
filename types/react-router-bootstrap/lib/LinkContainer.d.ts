@@ -5,13 +5,21 @@ interface LinkContainerProps {
     children: ReactNode;
     onClick?: MouseEventHandler<HTMLElement>;
     replace?: boolean;
-    to: string | { pathname: string };
+    to: To;
     state?: object;
     className?: string;
     activeClassName?: string;
     style?: CSSProperties;
     activeStyle?: CSSProperties;
     isActive?: ((match: any, location: any) => boolean) | boolean;
+}
+
+type To = string | Partial<Path>;
+
+interface Path {
+  pathname: string;
+  search: string;
+  hash: string;
 }
 
 type LinkContainer = ComponentClass<LinkContainerProps>;

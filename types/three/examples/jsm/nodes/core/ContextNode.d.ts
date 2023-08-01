@@ -1,5 +1,5 @@
-import Node from './Node';
-import { NodeBuilderContext } from './NodeBuilder';
+import Node from './Node.js';
+import { NodeBuilderContext } from './NodeBuilder.js';
 
 export default class ContextNode extends Node {
     isContextNode: true;

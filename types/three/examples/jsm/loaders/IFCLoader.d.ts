@@ -7,7 +7,7 @@ import {
     Object3D,
     Mesh,
     BufferAttribute,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 declare class IFCLoader extends Loader {
     ifcManager: IFCManager;

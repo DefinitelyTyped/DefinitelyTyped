@@ -1,5 +1,5 @@
-import { ColorSpace, DisplayP3ColorSpace, LinearSRGBColorSpace, SRGBColorSpace } from '../constants';
-import { Color } from './Color';
+import { ColorSpace, DisplayP3ColorSpace, LinearSRGBColorSpace, SRGBColorSpace } from '../constants.js';
+import { Color } from './Color.js';
 
 export function SRGBToLinear(c: number): number;
 

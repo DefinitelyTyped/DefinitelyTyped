@@ -1,6 +1,6 @@
-import { Camera, Material, Object3D, Renderer } from '../../../../src/Three';
+import { Camera, Material, Object3D, Renderer } from '../../../../src/Three.js';
 
-import Node from './Node';
+import Node from './Node.js';
 
 export default class NodeFrame {
     time: number;
