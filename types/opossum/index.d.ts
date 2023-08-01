@@ -1,4 +1,4 @@
-// Type definitions for opossum 6.2
+// Type definitions for opossum 8.1
 // Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
@@ -229,6 +229,13 @@ declare namespace CircuitBreaker {
          * @default false
          */
         cache?: boolean | undefined;
+
+        /**
+         * Whether to enable the periodic snapshots that are emitted by the Status class.
+         * Passing false will result in snapshots not being emitted
+         * @default true
+         */
+        enableSnapshots?: boolean | undefined;
     }
 
     interface Status extends EventEmitter {

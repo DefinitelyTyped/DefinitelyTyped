@@ -81,6 +81,7 @@ const options: CircuitBreaker.Options = {
     errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
     resetTimeout: 30000, // After 30 seconds, try again.
 };
+options.enableSnapshots; // $ExpectType boolean | undefined
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker
