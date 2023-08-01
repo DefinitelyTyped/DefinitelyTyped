@@ -8,7 +8,7 @@ import {
     Texture,
     Vector2,
     Wrapping,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 export interface MaterialCreatorOptions {
     /**

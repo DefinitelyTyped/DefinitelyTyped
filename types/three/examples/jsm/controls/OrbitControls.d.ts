@@ -1,4 +1,4 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
+import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
 
 /**
  * Orbit controls allow the camera to orbit around a target.
@@ -121,6 +121,12 @@ export class OrbitControls {
      * @default 1
      */
     zoomSpeed: number;
+
+    /**
+     * Setting this property to `true` allows to zoom to the cursor's position.
+     * @default false
+     */
+    zoomToCursor: boolean;
 
     /**
      * Enable or disable horizontal and

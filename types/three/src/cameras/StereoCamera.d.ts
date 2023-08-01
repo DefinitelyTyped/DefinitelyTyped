@@ -1,5 +1,5 @@
-import { PerspectiveCamera } from './PerspectiveCamera';
-import { Camera } from './Camera';
+import { PerspectiveCamera } from './PerspectiveCamera.js';
+import { Camera } from './Camera.js';
 
 /**
  * Dual {@link PerspectiveCamera | PerspectiveCamera}s used for effects such as

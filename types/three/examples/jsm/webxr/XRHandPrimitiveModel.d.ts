@@ -1,6 +1,6 @@
-import { Group, Texture } from '../../../src/Three';
+import { Group, Texture } from '../../../src/Three.js';
 
-import { XRHandModel, XRHandModelHandedness } from './XRHandModelFactory';
+import { XRHandModel, XRHandModelHandedness } from './XRHandModelFactory.js';
 
 export interface XRHandPrimitiveModelOptions {
     primitive?: 'sphere' | 'box' | undefined;

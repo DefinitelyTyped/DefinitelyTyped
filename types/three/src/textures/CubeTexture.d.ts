@@ -1,4 +1,4 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Wrapping,
     PixelFormat,
@@ -7,7 +7,7 @@ import {
     MinificationTextureFilter,
     CubeTextureMapping,
     ColorSpace,
-} from '../constants';
+} from '../constants.js';
 
 /**
  * Creates a cube texture made up of six images.

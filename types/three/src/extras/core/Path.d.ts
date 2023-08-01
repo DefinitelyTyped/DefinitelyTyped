@@ -1,5 +1,5 @@
-import { Vector2 } from './../../math/Vector2';
-import { CurvePath } from './CurvePath';
+import { Vector2 } from './../../math/Vector2.js';
+import { CurvePath } from './CurvePath.js';
 
 /**
  * A 2D {@link Path} representation.

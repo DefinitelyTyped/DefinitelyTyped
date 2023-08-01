@@ -83,7 +83,13 @@ declare namespace React {
                */
               deprecatedLegacyContext?: any,
           ) => ReactNode)
-        | (new (props: P) => Component<any, any>);
+        | (new (
+              props: P,
+              /**
+               * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods
+               */
+              deprecatedLegacyContext?: any,
+          ) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -2402,6 +2408,7 @@ declare namespace React {
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
+        content?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2591,6 +2598,9 @@ declare namespace React {
     //   - "string"
     //   - union of string literals
     interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        // React-specific Attributes
+        suppressHydrationWarning?: boolean | undefined;
+
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string | undefined;

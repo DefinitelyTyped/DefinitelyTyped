@@ -1,6 +1,6 @@
-import { Loader, LoadingManager } from '../../../src/Three';
+import { Loader, LoadingManager } from '../../../src/Three.js';
 
-import { Collada } from './ColladaLoader';
+import { Collada } from './ColladaLoader.js';
 
 export class KMZLoader extends Loader {
     constructor(manager?: LoadingManager);

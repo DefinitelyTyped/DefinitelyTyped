@@ -1,5 +1,5 @@
-import { LineSegments } from '../objects/LineSegments';
-import { ColorRepresentation } from '../math/Color';
+import { LineSegments } from '../objects/LineSegments.js';
+import { ColorRepresentation } from '../math/Color.js';
 
 /**
  * The {@link PolarGridHelper} is an object to define polar grids

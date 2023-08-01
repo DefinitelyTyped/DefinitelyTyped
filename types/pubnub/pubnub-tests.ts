@@ -13,7 +13,9 @@ const config: Pubnub.PubnubConfig = {
     authKey: '',
     useRandomIVs: false,
     subscribeRequestTimeout: 60,
-    uuid: 'myUUID'
+    uuid: 'myUUID',
+    dedupeOnSubscribe: false,
+    enableSubscribeBeta: false
 };
 
 // userId should work

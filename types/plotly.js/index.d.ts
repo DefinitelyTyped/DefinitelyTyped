@@ -232,6 +232,7 @@ export interface Mapbox {
     pitch: number;
     layers: Array<Partial<MapboxLayers>>;
     uirevision: number | string;
+    uid: string;
 }
 
 export interface SliderChangeEvent {
@@ -313,6 +314,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
     ): void;
     removeAllListeners: (handler: string) => void;
     data: Data[];
+    layout: Layout;
 }
 
 export interface ToImgopts {
@@ -338,6 +340,7 @@ export interface PolarLayout {
     angularaxis: Partial<LayoutAxis>;
     gridshape: 'circular' | 'linear';
     uirevision: string | number;
+    uid: string;
 }
 
 export interface PlotlyDataLayoutConfig {
@@ -513,6 +516,7 @@ export interface Layout {
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
     uirevision: number | string;
+    uid: string;
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
@@ -532,6 +536,7 @@ export interface Legend extends Label {
     tracegroupgap: number;
     traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
     uirevision: number | string;
+    uid: string;
     valign: 'top' | 'middle' | 'bottom';
     x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
@@ -872,6 +877,29 @@ export interface ShapeLine {
     dash: Dash;
 }
 
+export interface ShapeLabel {
+  font: Partial<Font>;
+  padding: number;
+  text: string;
+  textangle: 'auto' | number;
+  textposition:
+    | 'top left'
+    | 'top center'
+    | 'top right'
+    | 'middle left'
+    | 'middle center'
+    | 'middle right'
+    | 'bottom left'
+    | 'bottom center'
+    | 'bottom right'
+    | 'start'
+    | 'middle'
+    | 'end';
+  texttemplate: string;
+  xanchor: 'auto' | 'left' | 'center' | 'right';
+  yanchor: 'top' | 'middle' | 'bottom';
+}
+
 export interface Shape {
     visible: boolean;
     layer: 'below' | 'above';
@@ -892,6 +920,7 @@ export interface Shape {
     templateitemname: string;
     opacity: number;
     line: Partial<ShapeLine>;
+    label: Partial<ShapeLabel>;
 }
 
 export interface Margin {
@@ -910,6 +939,7 @@ export interface ModeBar {
     orientation: 'v' | 'h';
     remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     uirevision: number | string;
+    uid: string;
 }
 
 export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
@@ -1314,11 +1344,19 @@ export interface PlotData {
         | 'auto'
         | 'none';
     textfont: Partial<Font>;
+    textangle: 'auto' | number;
+    insidetextanchor: 'end' | 'middle' | 'start';
+    constraintext: 'inside' | 'outside' | 'both' | 'none';
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
     fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
     parents: string[];
     name: string;
     stackgroup: string;
@@ -1393,6 +1431,8 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    uirevision: string | number;
+    uid: string;
 }
 
 /**
