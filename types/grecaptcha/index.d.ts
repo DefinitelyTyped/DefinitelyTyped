@@ -10,6 +10,7 @@
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha & {
   enterprise: ReCaptchaV2.ReCaptcha;
+  getPageId(): string;
 };
 
 declare namespace ReCaptchaV2 {

@@ -42,6 +42,8 @@ const enterpriseId5: number = grecaptcha.enterprise.render(document.getElementBy
 const response1: string = grecaptcha.getResponse(id1);
 const enterpriseResponse1: string = grecaptcha.enterprise.getResponse(id1);
 
+const pageId: string = grecaptcha.getPageId();
+
 // reset takes a number
 grecaptcha.reset(id1);
 grecaptcha.enterprise.reset(id1);
