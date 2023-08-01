@@ -93,6 +93,7 @@ declare namespace Cloudflare {
         tag_match?: 'any' | 'all';
         search?: string;
         comment?: string;
+        // TODO: support nested filters (for example tag.absent)
     }
 
     interface DnsRecordsBrowseResponse {
