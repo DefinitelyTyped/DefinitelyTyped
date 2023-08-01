@@ -66,7 +66,7 @@ const topLogger: Modifier<'topLogger'> = {
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
-    includeDateIntervals={[{ startf: new Date(), end: new Date() }]}
+    includeDateIntervals={[{ start: new Date(), end: new Date() }]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
