@@ -66,7 +66,7 @@ const topLogger: Modifier<'topLogger'> = {
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
-    includeDateIntervals={[{ start: new Date(), end: new Date() }]}
+    includeDateIntervals={[{ startf: new Date(), end: new Date() }]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
@@ -152,6 +152,8 @@ const topLogger: Modifier<'topLogger'> = {
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
     renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
+    renderQuarterContent={(quarter: string, shortQuarter?: string) => <div />}
+    renderYearContent={(year) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
