@@ -24,7 +24,7 @@ declare namespace Cloudflare {
         | 'SSHFP'
         | 'SVCB'
         | 'TLSA'
-        | 'URI read only';
+        | 'URI';
 
     type ResponseObjectPromise = Promise<object>;
 
