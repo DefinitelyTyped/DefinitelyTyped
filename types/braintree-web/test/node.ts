@@ -69,8 +69,8 @@ braintree.client.create(
                         nonce: existingNonce,
                         bin: testBin,
                     })
-                    .then(payload => {})
-                    .catch((err: braintree.BraintreeError) => {});
+                    .then(payload => { })
+                    .catch((err: braintree.BraintreeError) => { });
             });
 
         braintree.hostedFields.create(
@@ -601,7 +601,7 @@ braintree.client.create(
 );
 
 const existingNonce = 'fake-valid-nonce';
-const submitNonceToServer: (nonce: string) => void = (nonce: string) => {};
+const submitNonceToServer: (nonce: string) => void = (nonce: string) => { };
 
 braintree.client.create(
     {
@@ -641,7 +641,7 @@ braintree.client.create(
 braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
-        amount: 123.45, // $ExpectType number
+        amount: '123.45', // $ExpectType string
         bin: '1234',
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
