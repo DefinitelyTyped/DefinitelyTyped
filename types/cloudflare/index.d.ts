@@ -80,7 +80,7 @@ declare namespace Cloudflare {
         browse<RecordType extends RecordTypes = any>(
             zone_id: string,
             options?: DnsRecordsBrowseOptions<RecordType>,
-        ): Promise<DnsRecordsBrowseResponse<RecordType> | null>;
+        ): Promise<DnsRecordsBrowseResponse<RecordType>>;
         export(zone_id: string): ResponseObjectPromise;
         del(zone_id: string, id: string): ResponseObjectPromise;
         read(zone_id: string, id: string): ResponseObjectPromise;
@@ -104,7 +104,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordsBrowseResponse<RecordType extends RecordTypes> {
-        result: Array<DnsRecordByType<RecordType>>;
+        result: Array<DnsRecordByType<RecordType>> | null;
         result_info: {
             page: number;
             per_page: number;

@@ -49,27 +49,27 @@ cf.dnsRecords.add('123', {
     },
 });
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<any> | null>
+// $ExpectType Promise<DnsRecordsBrowseResponse<any>>
 cf.dnsRecords.browse('123', {});
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<any> | null>
+// $ExpectType Promise<DnsRecordsBrowseResponse<any>>
 cf.dnsRecords.browse('123');
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<"CNAME"> | null>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"CNAME">>
 cf.dnsRecords.browse('123', {
     type: 'CNAME',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<"MX"> | null>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"MX">>
 cf.dnsRecords.browse('123', {
     type: 'MX',
     name: 'irrelevant',
     content: 'irrelevant',
 });
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<"SRV"> | null>
+// $ExpectType Promise<DnsRecordsBrowseResponse<"SRV">>
 cf.dnsRecords.browse('123', {
     type: 'SRV',
     name: 'irrelevant',
