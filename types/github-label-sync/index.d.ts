@@ -11,6 +11,7 @@ export interface BasicLabel {
 
 export interface LabelInfo extends BasicLabel {
     aliases?: string[] | undefined;
+    delete?: boolean | undefined;
 }
 
 export interface OptionsBase {
