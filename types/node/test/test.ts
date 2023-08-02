@@ -690,6 +690,16 @@ class TestReporter extends Transform {
             case 'test:stdout':
                 callback(null, `${event.data.message}/${event.data.file}`);
                 break;
+            case 'test:enqueue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:dequeue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:watch:drained':
+                // event doesn't have any data
+                callback(null);
+                break;
             default:
                 callback(null);
         }
