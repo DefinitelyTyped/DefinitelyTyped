@@ -707,6 +707,9 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType Runnable
     ctx.runnable();
 
+    // $ExpectType number
+    ctx.runnable().currentRetry();
+
     // $ExpectType Context
     ctx.runnable(runnable);
 
