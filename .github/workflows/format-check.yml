@@ -4,7 +4,7 @@ jobs:
       steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-node@v3
-        - run: dirty=$(npx dprint check | grep "Found * not formatted file*.") >> "$GITHUB_STEP_SUMMARY"
+        - run: $(npx dprint check | grep "Found * not formatted file*.") >> "$GITHUB_STEP_SUMMARY"
 
 name: Format Check
 
