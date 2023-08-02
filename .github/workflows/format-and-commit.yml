@@ -1,0 +1,21 @@
+jobs:
+    dprint-fmt:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+        - run: npx dprint fmt
+        - uses: stefanzweifel/git-auto-commit-action@v4.16.0
+          with:
+              # TODO: What to use for these?
+              commit_author: TypeScript Bot <actions@github.com> 
+              commit_message: "chore: npx dprint fmt"
+              commit_user_email: typescript-bot@microsoft.com
+              commit_user_name: "typescript-bot"
+  
+name: Format And Commit
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
