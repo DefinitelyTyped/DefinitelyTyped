@@ -568,6 +568,13 @@ function testGetManifest() {
         name: 'manifest version 3',
         version: '3.0.0',
         background: { service_worker: 'bg-sw.js', type: 'module' },
+        content_scripts: [
+            {
+                matches: ["https://github.com/*"],
+                js: ["cs.js"],
+                world: "MAIN"
+            }
+        ],
         content_security_policy: {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
