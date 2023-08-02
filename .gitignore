@@ -40,7 +40,8 @@ npm-debug.log
 # Visual Studio Code
 .settings/launch.json
 .vs
-.vscode
+.vscode/*
+!.vscode/settings.json
 .history
 
 # yarn
