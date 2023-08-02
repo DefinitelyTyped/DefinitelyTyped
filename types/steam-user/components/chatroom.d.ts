@@ -335,7 +335,7 @@ declare class SteamChatRoomClient extends EventEmitter {
 }
 
 //#region "Events"
-interface ChatEvents {
+export interface ChatEvents {
     friendMessage: [message: IncomingFriendMessage];
     friendMessageEcho: [message: IncomingFriendMessage];
     friendTyping: [message: IncomingFriendMessage];
@@ -352,7 +352,7 @@ interface ChatEvents {
 //#endregion "Events"
 
 //#region "Response Interfaces"
-interface ChatMessage {
+export interface ChatMessage {
     sender: SteamID;
     server_timestamp: Date;
     ordinal: number;
@@ -361,7 +361,7 @@ interface ChatMessage {
     deleted: boolean;
 }
 
-interface FriendMessage {
+export interface FriendMessage {
     sender: SteamID;
     server_timestamp: Date;
     ordinal: number;
@@ -369,27 +369,27 @@ interface FriendMessage {
     message_bbcode_parsed: null | Array<string | Record<string, any>>;
 }
 
-interface ActiveFriendMessageSession {
+export interface ActiveFriendMessageSession {
     steamid_friend: SteamID;
     time_last_message: Date;
     time_last_view: Date;
     unread_message_count: number;
 }
 
-interface Ban {
+export interface Ban {
     steamid: SteamID;
     steamid_actor: SteamID;
     time_banned: Date;
     ban_reason: ''; // always empty, SteamUI doesn't support ban reasons
 }
 
-interface SentMessage {
+export interface SentMessage {
     modified_message: string;
     server_timestamp: Date;
     ordinal: number;
 }
 
-interface GroupInviteLinks {
+export interface GroupInviteLinks {
     invite_code: string;
     invite_url: string;
     steamid_creator: SteamID;
@@ -397,7 +397,7 @@ interface GroupInviteLinks {
     chat_id: string;
 }
 
-interface InviteLinkInfo {
+export interface InviteLinkInfo {
     invite_code: string;
     steamid_sender: SteamID;
     time_expires: Date | null;
@@ -408,7 +408,7 @@ interface InviteLinkInfo {
 //#endregion "Response Interfaces"
 
 //#region "Interfaces"
-interface ModifiedMessage {
+export interface ModifiedMessage {
     chat_group_id: string;
     chat_id: string;
     messages: {
@@ -418,17 +418,17 @@ interface ModifiedMessage {
     };
 }
 
-interface MessageToDelete1 {
+export interface MessageToDelete1 {
     server_timestamp: Date;
     ordinal?: number;
 }
 
-interface MessageToDelete2 {
+export interface MessageToDelete2 {
     timestamp: Date;
     ordinal?: number;
 }
 
-interface GetMessageHistoryOptions {
+export interface GetMessageHistoryOptions {
     maxCount?: number;
     wantBbcode?: boolean;
     startTime?: Date | number;
@@ -437,19 +437,19 @@ interface GetMessageHistoryOptions {
     lastOrdinal?: number;
 }
 
-interface ServerMessage {
+export interface ServerMessage {
     message: SteamUser.EChatRoomServerMessage;
     string_param?: string;
     steamid_param?: SteamID;
 }
 
-interface ChatMentions {
+export interface ChatMentions {
     mention_all: boolean;
     mention_here: boolean;
     mention_steamids: SteamID[];
 }
 
-interface IncomingChatMessage {
+export interface IncomingChatMessage {
     chat_group_id: string;
     chat_id: string;
     steamid_sender: SteamID;
@@ -462,7 +462,7 @@ interface IncomingChatMessage {
     chat_name: string;
 }
 
-interface IncomingFriendMessage {
+export interface IncomingFriendMessage {
     steamid_friend: SteamID;
     chat_entry_type: SteamUser.EChatEntryType;
     from_limited_account: boolean;
@@ -475,7 +475,7 @@ interface IncomingFriendMessage {
     low_priority: boolean;
 }
 
-interface UserChatRoomState {
+export interface UserChatRoomState {
     chat_id: string;
     time_joined: Date;
     time_last_ack: Date | null;
@@ -486,7 +486,7 @@ interface UserChatRoomState {
     time_first_unread: Date;
 }
 
-interface UserChatRoomGroupState {
+export interface UserChatRoomGroupState {
     chat_group_id: string;
     time_joined: Date;
     user_chat_room_state: UserChatRoomState[];
@@ -496,7 +496,7 @@ interface UserChatRoomGroupState {
     unread_indicator_muted: boolean;
 }
 
-interface ChatRoleActions {
+export interface ChatRoleActions {
     role_id: string;
     can_create_rename_delete_channel: boolean;
     can_kick: boolean;
@@ -511,13 +511,13 @@ interface ChatRoleActions {
     can_set_watching_broadcast: boolean;
 }
 
-interface ChatRole {
+export interface ChatRole {
     role_id: string;
     name: string;
     ordinal: number;
 }
 
-interface ChatRoomGroupHeaderState {
+export interface ChatRoomGroupHeaderState {
     chat_group_id: string;
     chat_name: string;
     clanid: SteamID | null;
@@ -532,7 +532,7 @@ interface ChatRoomGroupHeaderState {
     watching_broadcast_steamid?: SteamID | null; // not sure if optional or null
 }
 
-interface ChatRoomMember {
+export interface ChatRoomMember {
     steamid: SteamID;
     state: SteamUser.EChatRoomJoinState;
     rank: SteamUser.EChatRoomGroupRank;
@@ -540,7 +540,7 @@ interface ChatRoomMember {
     role_ids: string[];
 }
 
-interface ChatRoomGroupState {
+export interface ChatRoomGroupState {
     members: ChatRoomMember[];
     chat_rooms: ChatRoomState[];
     kicked: ChatRoomMember[];
@@ -548,7 +548,7 @@ interface ChatRoomGroupState {
     header_state: ChatRoomGroupHeaderState;
 }
 
-interface ChatRoomState {
+export interface ChatRoomState {
     chat_id: string;
     chat_name: string;
     voice_allowed: boolean;
@@ -559,7 +559,7 @@ interface ChatRoomState {
     steamid_last_message: SteamID;
 }
 
-interface ChatRoomGroupSummary {
+export interface ChatRoomGroupSummary {
     chat_rooms: ChatRoomState[];
     top_members: SteamID[];
     chat_group_id: string;
@@ -575,28 +575,28 @@ interface ChatRoomGroupSummary {
     chat_group_avatar_url: string | null;
 }
 
-interface ChatRoomGroup {
+export interface ChatRoomGroup {
     group_summary: ChatRoomGroupSummary;
 }
 
-interface groupSelfStateChangeDetails {
+export interface groupSelfStateChangeDetails {
     chat_group_id: string;
     user_action: SteamUser.EChatRoomMemberStateChange;
     user_chat_group_state: UserChatRoomGroupState;
     group_summary: ChatRoomGroupSummary;
 }
 
-interface groupMemberStateChangeDetails {
+export interface groupMemberStateChangeDetails {
     chat_group_id: string;
     member: ChatRoomMember;
     change: SteamUser.EChatRoomMemberStateChange;
 }
-interface groupHeaderStateChangeDetails {
+export interface groupHeaderStateChangeDetails {
     chat_group_id: string;
     header_state: ChatRoomGroupHeaderState;
 }
 
-interface groupRoomsStateChangeDetails {
+export interface groupRoomsStateChangeDetails {
     chat_group_id: string;
     default_chat_id: string;
     chat_rooms: ChatRoomState[];
