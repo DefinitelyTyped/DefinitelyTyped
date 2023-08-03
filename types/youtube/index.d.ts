@@ -623,6 +623,11 @@ declare namespace YT
          * with exposed API methods. This currently only occurs for closed captioning.
          */
         onApiChange?: PlayerEventHandler<PlayerEvent> | undefined;
+        
+        /**
+         * Event fired when the Volume changes.
+         */
+        onVolumeChange?: PlayerEventHandler<PlayerEvent> | undefined;
     }
 
     /**
