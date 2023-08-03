@@ -523,12 +523,12 @@ declare namespace AP {
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number | undefined;
+            width?: number | string | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number | undefined;
+            height?: number | string | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.

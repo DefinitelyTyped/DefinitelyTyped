@@ -63,7 +63,21 @@ editComponent.cancelCallback(false); // $ExpectType void
 editComponent.cancelCallback(false, 'error'); // $ExpectType void
 
 AP.dialog.create({ key: 'key', size: 'small', customData: { data: 1 } }); // $ExpectType Dialog
+// $ExpectType Dialog
+AP.dialog.create({
+    key: 'my-module-key',
+    width: '500px',
+    height: '200px',
+    chrome: true,
+    buttons: [
+        {
+            text: 'my button',
+            identifier: 'my_unique_identifier',
+        },
+    ],
+});
 AP.dialog.close(); // $ExpectType void
+AP.dialog.close({ foo: 'bar' }); // $ExpectType void
 AP.dialog.getCustomData(data => console.log(data)); // $ExpectType void
 AP.dialog.getButton('submit'); // $ExpectType {} | DialogButton
 AP.dialog.disableCloseOnSubmit(); // $ExpectType void
