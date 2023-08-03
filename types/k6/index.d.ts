@@ -1,4 +1,4 @@
-// Type definitions for k6 0.45
+// Type definitions for k6 0.46
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
 //                 Mihail Stoykov <https://github.com/MStoykov>
