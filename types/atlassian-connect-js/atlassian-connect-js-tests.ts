@@ -83,7 +83,9 @@ AP.events.offAll('name'); // $ExpectType void
 AP.events.offAllPublic('name'); // $ExpectType void
 AP.events.offAny((name, data) => console.log(name, data)); // $ExpectType void
 AP.events.offAnyPublic((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.emit('name'); // $ExpectType void
 AP.events.emit('name', ['data']); // $ExpectType void
+AP.events.emitPublic('name'); // $ExpectType void
 AP.events.emitPublic('name', ['data']); // $ExpectType void
 
 const flag = AP.flag.create({ title: 'title', body: 'body', type: 'info', actions: { test: 'text' } }); // $ExpectType Flag

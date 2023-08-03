@@ -774,7 +774,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[]): void;
+        function emit(name: string, args?: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -785,7 +785,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[]): void;
+        function emitPublic(name: string, args?: string[]): void;
     }
 
     /**
