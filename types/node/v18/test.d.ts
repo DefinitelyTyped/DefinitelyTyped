@@ -737,7 +737,7 @@ interface TestFail {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
         /**
          * The error thrown by the test.
          */
@@ -776,7 +776,7 @@ interface TestPass {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
     };
     /**
      * The test name.
@@ -898,5 +898,5 @@ declare module 'node:test/reporters' {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, tap, Spec as spec };
+    export { dot, tap, Spec as spec, TestEvent };
 }
