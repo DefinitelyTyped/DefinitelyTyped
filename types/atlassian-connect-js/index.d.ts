@@ -203,7 +203,8 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        function getMacroData(callback: (data: object) => void): void;
+        // eslint-disable-next-line no-unnecessary-generics
+        function getMacroData<T extends object>(callback: (data: T) => void): void;
 
         /**
          * Get the body saved in the saveMacro method.

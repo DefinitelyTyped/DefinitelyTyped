@@ -24,6 +24,7 @@ AP.confluence.saveMacro({ foo: 'bar' }); // $ExpectType void
 AP.confluence.closeMacroEditor(); // $ExpectType void
 AP.confluence.getMacroBody(body => console.log(body)); // $ExpectType void
 AP.confluence.getMacroData(data => console.log(data)); // $ExpectType void
+AP.confluence.getMacroData<{ foo: string; bar: number }>(({ foo, bar }) => console.log(foo, bar)); // $ExpectType void
 AP.confluence.onMacroPropertyPanelEvent({ '{event-type}.{control-key}.{macro-key}.macro.property-panel': () => null }); // $ExpectType void
 AP.confluence.closeMacroPropertyPanel(); // $ExpectType void
 AP.confluence.getContentProperty('propertyKey', property => console.log(property)); // $ExpectType void
