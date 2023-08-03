@@ -1233,6 +1233,19 @@ declare namespace AP {
              */
             absoluteUrl: string;
         }
+
+        interface NavigatorLocationContext {
+            /**
+             * The type of the page.
+             */
+            target: NavigatorTargetJira | NavigatorTargetConfluence;
+
+            /**
+             * Specific information that identifies the page.
+             */
+            context: Partial<NavigatorContext>;
+        }
+
         /**
          * Returns the context of the current page within the host application.
          *
@@ -1247,7 +1260,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string) => void): void;
+        function getLocation(callback: (location: NavigatorLocationContext) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.

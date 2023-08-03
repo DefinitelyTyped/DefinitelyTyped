@@ -110,6 +110,8 @@ AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
 AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
+AP.navigator.getLocation(location => console.log(location.target)); // $ExpectType void
+AP.navigator.getLocation(location => console.log(location.context)); // $ExpectType void
 AP.navigator.go('contentview', {}); // $ExpectType void
 AP.navigator.go('issue', {}); // $ExpectType void
 // $ExpectType void
