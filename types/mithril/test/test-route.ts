@@ -123,6 +123,12 @@ m.route(document.body, '/', {
     // Can use other component types for routes
     test8: Component4,
     test9: component5,
+    // Can skip a route without property doesn't exist error
+    test10: {
+        onmatch(args, path) {
+            return m.route.SKIP;
+        }
+    }
 });
 
 m.route.prefix = '/app';

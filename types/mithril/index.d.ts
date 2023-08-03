@@ -108,6 +108,8 @@ declare namespace Mithril {
         param(name: string): string;
         /** Gets all route parameters. */
         param(): any;
+        /** Special value to SKIP current route */
+        SKIP: any;
     }
 
     interface RequestOptions<T> {
