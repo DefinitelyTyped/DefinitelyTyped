@@ -865,7 +865,7 @@ declare namespace AP {
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string): void;
+        function pushState(newState: any, title?: string, url?: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.

@@ -95,6 +95,8 @@ AP.history.back(); // $ExpectType void
 AP.history.forward(); // $ExpectType void
 AP.history.go(-2); // $ExpectType void
 AP.history.getState(); // $ExpectType string
+AP.history.pushState(1); // $ExpectType void
+AP.history.pushState('page2'); // $ExpectType void
 AP.history.pushState({ state: 'state' }, 'title', 'https://example.com'); // $ExpectType void
 AP.history.replaceState('https://example.com'); // $ExpectType void
 
