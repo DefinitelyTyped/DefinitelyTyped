@@ -41,7 +41,7 @@ npm-debug.log
 .settings/launch.json
 .vs
 .vscode/*
-!.vscode/settings.json
+!./.vscode/settings.json
 .history
 
 # yarn
