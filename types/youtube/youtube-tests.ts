@@ -63,6 +63,9 @@ const players: YT.Player[] = [
             onApiChange(event: YT.PlayerEvent) {
                 const targetPlayer: YT.Player = event.target;
             },
+             onVolumeChange(event: YT.PlayerEvent) {
+                const targetPlayer: YT.Player = event.target;
+            },
         }
     }),
 ];
