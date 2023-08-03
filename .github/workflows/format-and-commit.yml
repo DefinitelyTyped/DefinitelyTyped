@@ -1,3 +1,6 @@
+concurrency:
+  group: ${{ github.ref }}
+
 jobs:
     dprint-fmt:
       runs-on: ubuntu-latest
