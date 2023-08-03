@@ -130,6 +130,15 @@ module.exports = {
         'prefer-declare-function': 'error',
         'redundant-undefined': 'error',
         'trim-file': 'error',
+        '@typescript-eslint/ban-ts-comment': [
+            'error',
+            {
+                'ts-expect-error': false, // Used in tests.
+                'ts-ignore': 'allow-with-description',
+                'ts-nocheck': true,
+                'ts-check': false,
+            }
+        ],
     },
     settings: {
         jsdoc: {
