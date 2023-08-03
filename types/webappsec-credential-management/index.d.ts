@@ -277,6 +277,18 @@ declare class FederatedCredential extends SiteBoundCredential {
      */
     readonly protocol: string | null;
 }
+interface OTPCredentialData extends SiteBoundCredentialData {  
+    code?: string;
+    }
+    
+declare class OTPCredential extends SiteBoundCredential {
+    constructor(data: OTPCredentialData);
+
+    readonly type: `otp`;
+
+    readonly code: string | null;
+}
+
 
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
@@ -294,12 +306,15 @@ interface CredentialRequestOptions {
      */
     federated?: FederatedCredentialRequestOptions | undefined;
 
+    otp?: OTPCredentialRequestOptions | undefined;
+
     /**
      * If {@code true}, the user agent will only attempt to provide a Credential
      * without user interaction. Defaults to {@code false}.
      *
      * @deprecated Use {@link mediation} instead.
      */
+    
     unmediated?: boolean | undefined;
 
     /**
@@ -368,6 +383,12 @@ interface FederatedCredentialRequestOptions {
     protocols?: string[] | undefined;
 }
 
+interface OTPCredentialRequestOptions {  
+otp: OTPOptions;
+}
+interface OTPOptions {
+    transport: string[];
+}
 // Type definitions for webauthn
 // Spec: https://w3c.github.io/webauthn/
 interface txAuthGenericArg {
