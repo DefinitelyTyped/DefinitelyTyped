@@ -24,6 +24,7 @@ AP.confluence.saveMacro({ foo: 'bar' }); // $ExpectType void
 AP.confluence.closeMacroEditor(); // $ExpectType void
 AP.confluence.getMacroBody(body => console.log(body)); // $ExpectType void
 AP.confluence.getMacroData(data => console.log(data)); // $ExpectType void
+AP.confluence.getMacroData<{ foo: string; bar: number }>(({ foo, bar }) => console.log(foo, bar)); // $ExpectType void
 AP.confluence.onMacroPropertyPanelEvent({ '{event-type}.{control-key}.{macro-key}.macro.property-panel': () => null }); // $ExpectType void
 AP.confluence.closeMacroPropertyPanel(); // $ExpectType void
 AP.confluence.getContentProperty('propertyKey', property => console.log(property)); // $ExpectType void
@@ -62,7 +63,21 @@ editComponent.cancelCallback(false); // $ExpectType void
 editComponent.cancelCallback(false, 'error'); // $ExpectType void
 
 AP.dialog.create({ key: 'key', size: 'small', customData: { data: 1 } }); // $ExpectType Dialog
+// $ExpectType Dialog
+AP.dialog.create({
+    key: 'my-module-key',
+    width: '500px',
+    height: '200px',
+    chrome: true,
+    buttons: [
+        {
+            text: 'my button',
+            identifier: 'my_unique_identifier',
+        },
+    ],
+});
 AP.dialog.close(); // $ExpectType void
+AP.dialog.close({ foo: 'bar' }); // $ExpectType void
 AP.dialog.getCustomData(data => console.log(data)); // $ExpectType void
 AP.dialog.getButton('submit'); // $ExpectType {} | DialogButton
 AP.dialog.disableCloseOnSubmit(); // $ExpectType void
@@ -83,7 +98,9 @@ AP.events.offAll('name'); // $ExpectType void
 AP.events.offAllPublic('name'); // $ExpectType void
 AP.events.offAny((name, data) => console.log(name, data)); // $ExpectType void
 AP.events.offAnyPublic((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.emit('name'); // $ExpectType void
 AP.events.emit('name', ['data']); // $ExpectType void
+AP.events.emitPublic('name'); // $ExpectType void
 AP.events.emitPublic('name', ['data']); // $ExpectType void
 
 const flag = AP.flag.create({ title: 'title', body: 'body', type: 'info', actions: { test: 'text' } }); // $ExpectType Flag
@@ -93,6 +110,8 @@ AP.history.back(); // $ExpectType void
 AP.history.forward(); // $ExpectType void
 AP.history.go(-2); // $ExpectType void
 AP.history.getState(); // $ExpectType string
+AP.history.pushState(1); // $ExpectType void
+AP.history.pushState('page2'); // $ExpectType void
 AP.history.pushState({ state: 'state' }, 'title', 'https://example.com'); // $ExpectType void
 AP.history.replaceState('https://example.com'); // $ExpectType void
 
@@ -110,6 +129,8 @@ AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
 AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
+AP.navigator.getLocation(location => console.log(location.target)); // $ExpectType void
+AP.navigator.getLocation(location => console.log(location.context)); // $ExpectType void
 AP.navigator.go('contentview', {}); // $ExpectType void
 AP.navigator.go('issue', {}); // $ExpectType void
 // $ExpectType void
