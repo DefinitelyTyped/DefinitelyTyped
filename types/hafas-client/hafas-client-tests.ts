@@ -82,7 +82,7 @@ client.locations("", { results: 1 })
     .then(locations => { /* ... */ })
     .catch(() => { /* ... */ });
 
-client.journeys("", "", { results: 1, subStops: true, age: 65 })
+client.journeys("", "", { results: 1, subStops: true, age: 65, routingMode: 'REALTIME' })
     .then(journeys => {
         if (journeys.journeys && journeys.journeys[0].legs.length > 0) {
             if (journeys.journeys[0].legs[0].prognosedArrival === 'prognosed') { /* ... */ }
