@@ -376,3 +376,27 @@ function mockAuthenticatorAssertionResponse() {
     };
     sampleResponse.userHandle === undefined;
 }
+
+function webOTPAutofill() {
+    if ('OTPCredential' in window) {
+        const ac = new AbortController();
+        const reqOpt = {
+            otp: [`sms`],
+            signal: ac.signal,
+        }
+        window.navigator['credentials'].get(reqOpt).then((credential) => {
+            
+            if (!credential) {
+                return;
+            }
+            if (credential.type === 'otp') {
+                console.log("Received code is " + credential.code);
+            } else {
+                console.log("Incorrect type");
+            }
+        })
+    }else{
+        console.log("webOTP not supported by browser");
+    }
+    
+}
