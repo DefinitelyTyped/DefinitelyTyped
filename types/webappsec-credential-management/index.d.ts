@@ -396,7 +396,7 @@ interface OTPCredentialRequestOptions {
     /**
      * An array of OTP identifiers.
      * @see {@link https://wicg.github.io/web-otp}
-     */    
+     */
     otp: string[];
 }
 
