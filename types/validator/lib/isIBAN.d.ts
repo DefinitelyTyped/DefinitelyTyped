@@ -79,7 +79,7 @@ export const locales: Array<
     | 'XK'
 >;
 
-interface IsIbanOptions {
+export interface IsIbanOptions {
     /**
      * @default undefined
      */
@@ -93,4 +93,4 @@ interface IsIbanOptions {
 /**
  * Check if a string is a IBAN (International Bank Account Number).
  */
-export default function isIBAN(str: string, options?: IsIbanOptions | undefined): boolean;
+export default function isIBAN(str: string, options?: IsIbanOptions): boolean;
