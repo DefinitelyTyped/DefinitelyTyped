@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.9
+// Type definitions for validator.js 13.11
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -14,6 +14,7 @@
 //                 Matteo Nista <https://github.com/Mattewn99>
 //                 Roman Babiak <https://github.com/Almost-Infinity>
 //                 Daniel Freire <https://github.com/dcfreire>
+//                 Edilson Silva <https://github.com/edilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
