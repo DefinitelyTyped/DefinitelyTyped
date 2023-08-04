@@ -1218,7 +1218,7 @@ interface TestFail {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
         /**
          * The error thrown by the test.
          */
@@ -1257,7 +1257,7 @@ interface TestPass {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
     };
     /**
      * The test name.
@@ -1332,6 +1332,34 @@ interface TestStdout {
      */
     message: string;
 }
+interface TestEnqueue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestDequeue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
 
 /**
  * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
@@ -1360,7 +1388,10 @@ declare module 'node:test/reporters' {
         | { type: 'test:plan', data: TestPlan }
         | { type: 'test:start', data: TestStart }
         | { type: 'test:stderr', data: TestStderr }
-        | { type: 'test:stdout', data: TestStdout };
+        | { type: 'test:stdout', data: TestStdout }
+        | { type: 'test:enqueue', data: TestEnqueue }
+        | { type: 'test:dequeue', data: TestDequeue }
+        | { type: 'test:watch:drained' };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
@@ -1379,5 +1410,5 @@ declare module 'node:test/reporters' {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, tap, Spec as spec };
+    export { dot, tap, Spec as spec, TestEvent };
 }
