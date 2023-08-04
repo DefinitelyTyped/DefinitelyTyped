@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import lynx = require('lynx');
 import Stream = require('node:stream');
 
