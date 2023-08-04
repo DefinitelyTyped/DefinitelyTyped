@@ -1017,6 +1017,10 @@ management.getLogs(
     logs => console.log(logs),
 );
 
+// Log streams
+management.getLogStreams().then(logStreams => console.log(logStreams));
+management.getLogStreams((err, logStreams) => console.log(logStreams));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });
@@ -1280,7 +1284,12 @@ management.organizations.getByName({ name: '' }).then((organization: auth0.Organ
 /**
  * Create an Organization using a callback
  */
-management.organizations.create({ name: 'test_organization' }, (err, organization: auth0.Organization) => {
+management.organizations.create({
+    name: 'test_organization', display_name: 'Test Organization', enabled_connections: [{
+        connection_id: 'connection-id',
+        assign_membership_on_login: true,
+    }]
+}, (err, organization: auth0.Organization) => {
     console.log({ organization });
 });
 

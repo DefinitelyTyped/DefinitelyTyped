@@ -3,6 +3,8 @@ import Datepicker from './Datepicker';
 export interface DateRangePickerOptions {
     inputs?: HTMLElement[];
     allowOneSidedRange?: boolean;
+    language?: string;
+    format?: string;
 }
 export default class DateRangePicker {
     constructor(element: HTMLElement, options?: DateRangePickerOptions);

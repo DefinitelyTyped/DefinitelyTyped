@@ -1,6 +1,7 @@
 import express = require('express');
 import serveStatic = require('serve-static');
 import http = require('http');
+import { HttpError } from 'http-errors';
 var app = express();
 
 app.use(serveStatic('/1'));
@@ -41,7 +42,7 @@ serveStatic('/does-not-assume-express', {
 });
 
 http.createServer((req, res) => {
-    serveStatic('/works-with-node-server')(req, res, () => {});
+    serveStatic('/works-with-node-server')(req, res, (err?: HttpError) => {});
 });
 
 app.use(serveStatic('/infers-express-response-when-passed-to-express-use', {

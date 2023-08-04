@@ -1,4 +1,8 @@
-import { SecretsManagerRotationHandler, SecretsManagerRotationEvent, SecretsManagerRotationEventStep } from 'aws-lambda';
+import {
+    SecretsManagerRotationHandler,
+    SecretsManagerRotationEvent,
+    SecretsManagerRotationEventStep,
+} from 'aws-lambda';
 
 const createSecretEvent: SecretsManagerRotationEvent = {
     Step: 'createSecret',

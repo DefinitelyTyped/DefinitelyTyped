@@ -395,7 +395,6 @@ declare namespace mapboxgl {
          * the padding offsets.
          *
          * @name showPadding
-         * @type {boolean}
          * @instance
          * @memberof Map
          */

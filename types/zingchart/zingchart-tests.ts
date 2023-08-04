@@ -73,7 +73,7 @@ const chartConfig: zc.graphset[] = [
     }, {
         type: 'line',
         x: '15%',
-        y: '5%',
+        y: '25%',
         timeZone: 1,
         zoomSnap: true,
         labels: [

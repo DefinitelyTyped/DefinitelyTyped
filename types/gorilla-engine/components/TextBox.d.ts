@@ -6,7 +6,7 @@ declare namespace GorillaEngine.UI {
         placeHolderColor: string;
         highlightTextColor: string;
         highlightColor: string;
-        cartColor: string;
+        caretColor: string;
         maxLength: number;
         passwordCharacter: string;
         multiLine: boolean;
@@ -16,7 +16,9 @@ declare namespace GorillaEngine.UI {
         maxValue: number;
     }
 
-    interface TextBox extends TextBoxProps {}
+    interface TextBox extends TextBoxProps {
+      grabKeyboardFocus(): void;
+    }
 
     class TextBox extends Component {
         constructor(props: Partial<TextBoxProps>);

@@ -466,7 +466,7 @@ interface QUnitStatic extends QUnitAssert {
     * run does not match the expected count, the test will fail.
     *
     * @param amount Number of assertions in this test.
-    * @depricated since version 1.16
+    * @deprecated since version 1.16
     */
     expect(amount: number): any;
     
@@ -757,7 +757,7 @@ declare function asyncTest(name: string, test: (assert: QUnitAssert) => any): an
 * run does not match the expected count, the test will fail.
 *
 * @param amount Number of assertions in this test.
-* @depricated since version 1.16
+* @deprecated since version 1.16
 */
 declare function expect(amount: number): any;
 

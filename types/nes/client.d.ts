@@ -1,9 +1,3 @@
-// Type definitions for nes 7.0.0
-// Project: https://github.com/hapijs/nes
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Client {
     constructor(url: string, options?: Client.ClientOptions);
     onError: (err: any) => void;

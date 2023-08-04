@@ -161,6 +161,7 @@ interface Auth0LockConstructorOptions {
     prefill?: { email?: string | undefined, username?: string | undefined} | undefined;
     rememberLastLogin?: boolean | undefined;
     scrollGlobalMessagesIntoView?: boolean | undefined;
+    showTerms?: boolean | undefined;
     signupLink?: string | undefined;
     socialButtonStyle?: "big" | "small" | undefined;
     theme?: Auth0LockThemeOptions | undefined;

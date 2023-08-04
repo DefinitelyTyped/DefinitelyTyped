@@ -259,7 +259,6 @@ function simple(prefix: string) {
  * A DocumentDB stored procedure that bulk deletes documents for a given query.<br/>
  * Note: You may need to execute this sproc multiple times (depending whether the sproc is able to delete every document within the execution timeout limit).
  *
- * @function
  * @param {string} query - A query that provides the documents to be deleted (e.g. "SELECT * FROM c WHERE c.founded_year = 2008")
  * @returns {Object.<number, boolean>} Returns an object with the two properties:<br/>
  *   deleted - contains a count of documents deleted<br/>
@@ -367,7 +366,6 @@ function bulkDeleteSproc(query: string) {
  * @example <caption>Set the property "message" to "Hello World" and the "messageDate" to the current date in the document where id = "bar".</caption>
  * updateSproc("bar", {$set: {message: "Hello World"}, $currentDate: {messageDate: ""}});
  *
- * @function
  * @param {string} id - The id for your document.
  * @param {object} update - the modifications to apply.
  * @returns {object} the updated document.

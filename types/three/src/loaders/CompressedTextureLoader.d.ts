@@ -1,6 +1,6 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { CompressedTexture } from './../textures/CompressedTexture';
+import { Loader } from './Loader.js';
+import { LoadingManager } from './LoadingManager.js';
+import { CompressedTexture } from './../textures/CompressedTexture.js';
 
 export class CompressedTextureLoader extends Loader {
     constructor(manager?: LoadingManager);

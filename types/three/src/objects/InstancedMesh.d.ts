@@ -1,11 +1,11 @@
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Material } from './../materials/Material';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute';
-import { Mesh } from './Mesh';
-import { Matrix4 } from './../math/Matrix4';
-import { Color } from './../math/Color';
-import { Box3, Sphere } from '../Three';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Material } from './../materials/Material.js';
+import { BufferAttribute } from './../core/BufferAttribute.js';
+import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute.js';
+import { Mesh } from './Mesh.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Color } from './../math/Color.js';
+import { Box3, Sphere } from '../Three.js';
 
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
@@ -39,23 +39,19 @@ export class InstancedMesh<
      */
     readonly isInstancedMesh: true;
 
-    /////////////////////////////////////////////////
-    // FUTURE - r151
-    /////////////////////////////////////////////////
-    // /**
-    //  * This bounding box encloses all instances of the {@link InstancedMesh},, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
-    //  * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
-    //  * @defaultValue `null`
-    //  */
-    // boundingBox: Box3 | null;
+    /**
+     * This bounding box encloses all instances of the {@link InstancedMesh},, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
+     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * @defaultValue `null`
+     */
+    boundingBox: Box3 | null;
 
-    // /**
-    //  * This bounding sphere encloses all instances of the {@link InstancedMesh}, which can be calculated with {@link computeBoundingSphere | .computeBoundingSphere()}.
-    //  * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
-    //  * @defaultValue `null`
-    //  */
-    // boundingSphere: Sphere | null;
-    /////////////////////////////////////////////////
+    /**
+     * This bounding sphere encloses all instances of the {@link InstancedMesh}, which can be calculated with {@link computeBoundingSphere | .computeBoundingSphere()}.
+     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * @defaultValue `null`
+     */
+    boundingSphere: Sphere | null;
 
     /**
      * The number of instances.
@@ -80,21 +76,17 @@ export class InstancedMesh<
      */
     instanceMatrix: InstancedBufferAttribute;
 
-    /////////////////////////////////////////////////
-    // FUTURE - r151
-    /////////////////////////////////////////////////
-    // /**
-    //  * Computes bounding box of the all instances, updating {@link boundingBox | .boundingBox} attribute.
-    //  * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
-    //  */
-    // computeBoundingBox(): void;
+    /**
+     * Computes bounding box of the all instances, updating {@link boundingBox | .boundingBox} attribute.
+     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     */
+    computeBoundingBox(): void;
 
-    // /**
-    //  * Computes bounding sphere of the all instances, updating {@link boundingSphere | .boundingSphere} attribute.
-    //  * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
-    //  */
-    // computeBoundingSphere(): void;
-    /////////////////////////////////////////////////
+    /**
+     * Computes bounding sphere of the all instances, updating {@link boundingSphere | .boundingSphere} attribute.
+     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     */
+    computeBoundingSphere(): void;
 
     /**
      * Get the color of the defined instance.

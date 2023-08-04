@@ -14,3 +14,7 @@ interface ViewTransition {
     updateCallbackDone: Promise<void>;
     skipTransition(): void;
 }
+
+interface CSSStyleDeclaration {
+  viewTransitionName: string;
+}

@@ -4,10 +4,6 @@ import * as Constants from "./Constants";
 import { SubPathItems } from "./collections/SubPathItems";
 import { SolidColor } from "./objects/SolidColor";
 /**
- * @ignore
- */
-export declare function PSPathItem(id: number, docId: number): PathItem;
-/**
  * A path or drawing object, such as the outline of a shape or a straight or curved line,
  * which contains sub paths defining its geometry.
  *

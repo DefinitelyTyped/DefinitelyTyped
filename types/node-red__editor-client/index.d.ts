@@ -666,22 +666,14 @@ declare namespace editorClient {
          * @param prefix - the input prefix of the parent property
          */
         editConfig(name: string, type: string, id: string, prefix: string): void;
-        editSubflow(subflow: object): void;
-        editGroup(group: object): void;
-        editJavaScript(options: object): void;
-        editExpression(options: object): void;
-        editJSON(options: object): void;
-        editMarkdown(options: object): void;
-        editText(options: {
-            value?: string | undefined;
-            complete: (value: string, cursor: { row: number; column: number }) => void;
-            title?: string | undefined;
-            width: string;
-            mode?: string | undefined;
-            cursor?: { row: number; column: number } | undefined;
-            onclose?: (() => void) | undefined;
-        }): void;
-        editBuffer(options: object): void;
+        editSubflow(subflow: object, defaultTab?: any): void;
+        editGroup(group: object, defaultTab?: any): void;
+        editJavaScript(options: JavaScriptTypeEditorShowOptions): void;
+        editExpression(options: ExpressionTypeEditorShowOptions): void;
+        editJSON(options: JSONTypeEditorShowOptions): void;
+        editMarkdown(options: MarkdownTypeEditorShowOptions): void;
+        editText(options: TextTypeEditorShowOptions): void;
+        editBuffer(options: BufferTypeEditorShowOptions): void;
         buildEditForm(container: JQuery, formId: string, type: string, ns: string, node: unknown): JQuery;
         /**
          * Validate a node
@@ -711,14 +703,14 @@ declare namespace editorClient {
          * @param type - the type to display
          * @param options - options for the editor
          */
-        showTypeEditor(type: string, options: object): void;
+        showTypeEditor(type: string, options: TypeEditorShowOptions): void;
 
         /**
          * Register a type editor.
          * @param type - the type name
          * @param definition - the editor definition
          */
-        registerTypeEditor(type: string, definition: object): void;
+        registerTypeEditor(type: string, definition: TypeEditorDefinition): void;
 
         /**
          * Create a editor ui component
@@ -734,6 +726,73 @@ declare namespace editorClient {
             value?: string | undefined;
             globals?: object | undefined;
         }): AceAjax.Editor;
+    }
+
+    interface TypeEditorDefinition {
+        show(options: any): void;
+        buildToolbar?: (container: JQuery, editor: AceAjax.Editor) => void;
+    }
+
+    interface TypeEditorShowOptions {
+        title?: string;
+        parent?: JQuery;
+        onclose?: () => void;
+    }
+
+    interface JavaScriptTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: any;
+        width: number | 'Infinite';
+        stateId: string;
+        mode: string;
+        focus: boolean;
+        cancel: () => void;
+        complete: (value: any, cursor?: any) => void;
+        extraLibs: any[];
+    }
+
+    interface ExpressionTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        stateId: string;
+        focus: boolean;
+        complete: (value: any) => void;
+    }
+
+    interface JSONTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        stateId?: string;
+        focus?: boolean;
+        complete?: (value: any) => void;
+        title?: string;
+        requireValid?: boolean;
+        readOnly?: boolean;
+        toolbarButtons?: TrayButton[];
+    }
+
+    interface MarkdownTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: string;
+        width?: number | 'Infinite';
+        stateId: string;
+        focus?: boolean;
+        cancel?: () => void;
+        complete?: (value: string, cursor?: any) => void;
+        title?: string;
+        header?: JQuery;
+    }
+
+    interface TextTypeEditorShowOptions extends TypeEditorShowOptions {
+        mode: string;
+        value: string;
+        stateId: string;
+        width: number | 'Infinite';
+        focus: boolean;
+        complete?: (value: string, cursor?: any) => void;
+    }
+
+    interface BufferTypeEditorShowOptions extends TypeEditorShowOptions {
+        value: any;
+        stateId: string;
+        focus: boolean;
+        complete: (value: any) => void;
     }
 
     interface EventLog {
@@ -796,7 +855,7 @@ declare namespace editorClient {
         loadLibraryFolder(library: string, type: string, root: string, done: (items: object[]) => void): void;
     }
 
-    type NotificationType = 'warning' | 'compact' | 'success' | 'warning' | 'error';
+    type NotificationType = 'warning' | 'compact' | 'success' | 'error';
 
     interface Notifications {
         init(): void;
@@ -935,10 +994,40 @@ declare namespace editorClient {
 
     interface Tray {
         init(): void;
-        show(options?: object): void;
+        show(options?: TrayShowOptions): void;
         hide(): void;
         resize(): void;
         close(done?: () => void): void;
+    }
+
+    interface TrayShowOptions {
+        buttons?: TrayButton[];
+
+        close?: () => void;
+        open?: (tray: any, done?: () => void) => void;
+        resize?: (options: TrayResizeOptions) => void;
+        show?: () => void;
+
+        title?: string;
+
+        maximized?: boolean;
+        width?: number;
+
+        overlay?: boolean;
+
+        focusElement?: any;
+    }
+
+    interface TrayResizeOptions {
+        width: number;
+        height?: number;
+    }
+
+    interface TrayButton {
+        class?: string;
+        click?: (event: any) => void;
+        id?: string;
+        text?: string;
     }
 
     interface TypeSearch {
@@ -1591,7 +1680,7 @@ declare namespace editorClient {
         /** An icon to display in the type menu */
         icon?: string | undefined;
         /** If the type has a fixed set of values, this is an array of string options for the value. For example, ["true","false"] for the boolean type. */
-        options?: string[] | undefined;
+        options?: string[] | Array<{ value: string; label: string }> | undefined;
         /** Set to false if there is no value associated with the type. */
         hasValue?: boolean | undefined;
         /** A function to validate the value for the type. */

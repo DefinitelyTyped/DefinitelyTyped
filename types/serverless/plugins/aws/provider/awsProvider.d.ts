@@ -516,6 +516,26 @@ declare namespace Aws {
         startingPosition?: 'LATEST' | 'TRIM_HORIZON' | undefined;
     }
 
+    interface KafkaAccessConfiguration {
+        saslPlainAuth?: string | undefined;
+        saslScram256Auth?: string | undefined;
+        saslScram512Auth?: string | undefined;
+        clientCertificateTlsAuth?: string | undefined;
+        serverRootCaCertificate?: string | undefined;
+        vpcSubnet?: string[] | undefined;
+        vpcSecurityGroup?: string | undefined;
+    }
+
+    interface Kafka {
+        accessConfigurations: KafkaAccessConfiguration;
+        bootstrapServers: string[];
+        topic: string;
+        batchSize?: number | undefined;
+        maximumBatchingWindow?: number | undefined;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+        enabled?: boolean | undefined;
+    }
+
     interface AlexaSkill {
         appId: string;
         enabled?: boolean | undefined;
@@ -644,6 +664,7 @@ declare namespace Aws {
         cloudFront?: CloudFront | undefined;
         activemq?: ActiveMq | undefined;
         rabbitmq?: RabbitMq | undefined;
+        kafka?: Kafka | undefined;
     }
 
     interface FileSystemConfig {

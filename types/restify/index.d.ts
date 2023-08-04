@@ -813,7 +813,7 @@ export interface Response extends http.ServerResponse {
      * @param    code the status code
      * @param    url to redirect to
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(code: number, url: string, next: Next): void;
 
@@ -823,7 +823,7 @@ export interface Response extends http.ServerResponse {
      * `next` is mandatory, to complete the response and trigger audit logger.
      * @param    url to redirect to or options object to configure a redirect or
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(opts: string | RedirectOptions, next: Next): void;
 

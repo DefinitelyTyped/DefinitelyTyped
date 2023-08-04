@@ -23,6 +23,18 @@ execution.vu.tags['mytag3'] = true;
 // @ts-expect-error
 execution.vu.tags['mytag4'] = [1, 2, 3];
 
+execution.vu.metrics.tags['mytag'] = 'value1';
+execution.vu.metrics.tags['mytag2'] = 2;
+execution.vu.metrics.tags['mytag3'] = true;
+// @ts-expect-error
+execution.vu.metrics.tags['mytag4'] = [1, 2, 3];
+
+execution.vu.metrics.metadata['mytag'] = 'value1';
+execution.vu.metrics.metadata['mytag2'] = 2;
+execution.vu.metrics.metadata['mytag3'] = true;
+// @ts-expect-error
+execution.vu.metrics.metadata['mytag4'] = [1, 2, 3];
+
 execution.test.abort(); // $ExpectType void
 execution.test.abort('this is the reason'); // $ExpectType void
 // @ts-expect-error

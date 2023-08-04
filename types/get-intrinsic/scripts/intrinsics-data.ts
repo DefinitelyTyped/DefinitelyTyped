@@ -16,13 +16,13 @@ const generator = function* () {};
 const asyncFn = async function () {};
 const asyncGen = async function* () {};
 
-const generatorFunction = generator ? /** @type {GeneratorFunctionConstructor} */ generator.constructor : undefined;
+const generatorFunction = generator ? generator.constructor : undefined;
 const generatorFunctionPrototype = generatorFunction ? generatorFunction.prototype : undefined;
 const generatorPrototype = generatorFunctionPrototype ? generatorFunctionPrototype.prototype : undefined;
 
-const asyncFunction = asyncFn ? /** @type {FunctionConstructor} */ asyncFn.constructor : undefined;
+const asyncFunction = asyncFn ? asyncFn.constructor : undefined;
 
-const asyncGenFunction = asyncGen ? /** @type {AsyncGeneratorFunctionConstructor} */ asyncGen.constructor : undefined;
+const asyncGenFunction = asyncGen ? asyncGen.constructor : undefined;
 const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype : undefined;
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 

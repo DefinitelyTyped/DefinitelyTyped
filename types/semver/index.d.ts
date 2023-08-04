@@ -1,4 +1,4 @@
-// Type definitions for semver 7.3
+// Type definitions for semver 7.5
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>

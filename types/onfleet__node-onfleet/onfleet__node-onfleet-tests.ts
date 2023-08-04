@@ -41,6 +41,9 @@ async function testTasks(onfleet: Onfleet) {
     task.trackingViewed;
     task.completionDetails.notes;
     task.completionDetails.success;
+    task.completionDetails.photoUploadId;
+    task.completionDetails.photoUploadIds;
+    task.completionDetails.signatureUploadId;
     const result = await onfleet.tasks.get({ from: 1455072025000 });
     for (const resultTask of result.tasks) {
         resultTask.pickupTask;

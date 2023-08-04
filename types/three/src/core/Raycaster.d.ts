@@ -1,9 +1,9 @@
-import { Vector3 } from './../math/Vector3';
-import { Object3D } from './Object3D';
-import { Vector2 } from './../math/Vector2';
-import { Ray } from './../math/Ray';
-import { Camera } from './../cameras/Camera';
-import { Layers } from './Layers';
+import { Vector3 } from './../math/Vector3.js';
+import { Object3D } from './Object3D.js';
+import { Vector2 } from './../math/Vector2.js';
+import { Ray } from './../math/Ray.js';
+import { Camera } from './../cameras/Camera.js';
+import { Layers } from './Layers.js';
 
 export interface Face {
     a: number;
@@ -27,7 +27,8 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     /** The intersected object */
     object: TIntersected;
     uv?: Vector2 | undefined;
-    uv2?: Vector2 | undefined;
+    uv1?: Vector2 | undefined;
+    normal?: Vector3;
     /** The index number of the instance where the ray intersects the {@link THREE.InstancedMesh | InstancedMesh } */
     instanceId?: number | undefined;
 }

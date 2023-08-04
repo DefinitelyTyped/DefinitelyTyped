@@ -3,10 +3,16 @@ import MapboxDraw, {
     DrawFeature,
     DrawMode,
     DrawUpdateEvent,
+    Lib,
     MapboxDrawOptions,
+    constants,
+    lib,
 } from '@mapbox/mapbox-gl-draw';
 
 const draw = new MapboxDraw({});
+
+// @ts-expect-error
+const feature: DrawFeature = {};
 
 // $ExpectType string[]
 draw.add({
@@ -59,6 +65,9 @@ if (draw.getMode() === 'some_custom_mode') {
 // $ExpectType "direct_select"
 draw.modes.DIRECT_SELECT;
 
+// $ExpectType "simple_select"
+constants.modes.SIMPLE_SELECT;
+
 // $ExpectType DrawCustomMode<any, any>
 MapboxDraw.modes.direct_select;
 
@@ -100,6 +109,79 @@ const customMode: CustomMode = {
 
         // $ExpectType number
         this.customMethod();
+
+        // $ExpectType void
+        this.updateUIClasses({ mouse: constants.cursors.ADD });
+
+        // $ExpectType void
+        this.changeMode(constants.modes.SIMPLE_SELECT);
+
+        // $ExpectType boolean
+        lib.CommonSelectors.isVertex(e);
+
+        // $ExpectType number
+        lib.constrainFeatureMovement([feature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
+
+        // $ExpectType GeoJSON
+        lib.createMidPoint('1', feature, feature);
+
+        // $ExpectType GeoJSON[]
+        lib.createSupplementaryPoints(feature, { midpoints: false });
+
+        // $ExpectType GeoJSON
+        lib.createVertex('1', [e.lngLat.lng, e.lngLat.lat], '0', true);
+
+        // $ExpectType number
+        lib.euclideanDistance({ x: 10, y: 20 }, { x: 100, y: 200 });
+
+        // lib.doubleClickZoom.disable(this);
+        // lib.doubleClickZoom.enable(this);
+        // lib.getFeatureAtAndSetCursors(e, this);
+
+        // $ExpectType boolean
+        lib.isClick({}, { point: { x: 10, y: 20 }, time: 200 });
+
+        // $ExpectType boolean
+        lib.isEventAtCoordinates(e, [[10, 180]]);
+
+        // $ExpectType boolean
+        lib.isTap({ point: { x: 5, y: 10 }, time: 50 }, { point: { x: 10, y: 20 }, time: 200 });
+
+        // $ExpectType Position[]
+        lib.mapEventToBoundingBox(e);
+
+        // TODO: add tests to ModeHandler
+
+        // $ExpectType void
+        lib.moveFeatures([feature], { lng: 12, lat: 13 });
+
+        // $ExpectType DrawFeature[]
+        lib.sortFeatures([feature]);
+
+        // $ExpectType boolean
+        lib.stringSetsAreEqual([{ id: 'Feature1' }, { id: 'Feature2' }], [{ id: 'Feature1' }, { id: 'Feature2' }]);
+
+        // $ExpectType StringSet
+        lib.StringSet(['1', 2]);
+
+        const FabricDrawingManagerStyles: Lib['theme'] = [
+            {
+                id: 'gl-draw-polygon-fill-inactive',
+                type: 'fill',
+            },
+        ];
+
+        const FabricDrawingManagerStylesError: Lib['theme'] = [
+            {
+                // @ts-expect-error
+                id: 'xxx',
+                // @ts-expect-error
+                type: 'any-other-type',
+            },
+        ];
+
+        // $ExpectType any[]
+        lib.toDenseArray(['', undefined, 1]);
     },
 
     toDisplayFeatures(state, geojson, display) {},
@@ -120,9 +202,6 @@ const options: MapboxDrawOptions = {
 };
 
 const drawWithCustomMode = new MapboxDraw(options);
-
-// @ts-expect-error
-const feature: DrawFeature = {};
 
 // $ExpectType void
 feature.changed();

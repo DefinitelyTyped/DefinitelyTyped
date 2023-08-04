@@ -52,7 +52,7 @@ export type ClientRegistration = {
    */
   grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
   /**
-   * JWE `alg` algorithm with which an id_token is to be encrypted
+   * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
    */
   id_token_encrypted_response_alg: string;
   /**
@@ -212,7 +212,7 @@ export interface RegistrationProperties {
    */
   grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
   /**
-   * JWE `alg` algorithm with which an id_token is to be encrypted
+   * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
    */
   id_token_encrypted_response_alg: string;
   /**

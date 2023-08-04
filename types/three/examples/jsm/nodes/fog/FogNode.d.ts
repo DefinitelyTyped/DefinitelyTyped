@@ -1,4 +1,4 @@
-import Node from '../core/Node';
+import Node from '../core/Node.js';
 
 export default class FogNode extends Node {
     isFogNode: true;
@@ -6,5 +6,5 @@ export default class FogNode extends Node {
     factorNode: Node;
 
     constructor(colorNode: Node, factorNode: Node);
-    mix(outputNode: Node): Node;
+    mixAssign(outputNode: Node): Node;
 }

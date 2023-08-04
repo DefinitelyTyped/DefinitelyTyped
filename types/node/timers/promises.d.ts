@@ -1,6 +1,6 @@
 /**
  * The `timers/promises` API provides an alternative set of timer functions
- * that return `Promise` objects. The API is accessible via`require('timers/promises')`.
+ * that return `Promise` objects. The API is accessible via`require('node:timers/promises')`.
  *
  * ```js
  * import {
@@ -44,6 +44,8 @@ declare module 'timers/promises' {
     function setImmediate<T = void>(value?: T, options?: TimerOptions): Promise<T>;
     /**
      * Returns an async iterator that generates values in an interval of `delay` ms.
+     * If `ref` is `true`, you need to call `next()` of async iterator explicitly
+     * or implicitly to keep the event loop alive.
      *
      * ```js
      * import {
@@ -62,7 +64,6 @@ declare module 'timers/promises' {
      * @since v15.9.0
      */
     function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
-
     interface Scheduler {
         /**
          * ```js
@@ -85,7 +86,6 @@ declare module 'timers/promises' {
          */
         yield: () => Promise<void>;
     }
-
     const scheduler: Scheduler;
 }
 declare module 'node:timers/promises' {

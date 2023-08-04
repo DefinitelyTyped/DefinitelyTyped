@@ -1,12 +1,28 @@
-import { Material, ShaderMaterial } from '../../../../src/Three';
-import NodeBuilder from '../core/NodeBuilder';
-import Node from '../core/Node';
-import { LightingModelNode } from '../lighting/LightingContextNode';
+import { Material, ShaderMaterial } from '../../../../src/Three.js';
+import NodeBuilder from '../core/NodeBuilder.js';
+import Node from '../core/Node.js';
+import { LightingModelNode } from '../lighting/LightingContextNode.js';
 
 export default class NodeMaterial extends ShaderMaterial {
     isNodeMaterial: true;
-    lights: true;
+
     type: string;
+
+    lights: true;
+    normals: true;
+
+    lightsNode: Node | null;
+    envNode: Node | null;
+
+    colorNode: Node | null;
+    normalNode: Node | null;
+    opacityNode: Node | null;
+    backdropNode: Node | null;
+    backdropAlphaNode: Node | null;
+    alphaTestNode: Node | null;
+
+    positionNode: Node | null;
+
     constructor();
 
     build(builder: NodeBuilder): void;

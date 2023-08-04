@@ -568,6 +568,13 @@ function testGetManifest() {
         name: 'manifest version 3',
         version: '3.0.0',
         background: { service_worker: 'bg-sw.js', type: 'module' },
+        content_scripts: [
+            {
+                matches: ["https://github.com/*"],
+                js: ["cs.js"],
+                world: "MAIN"
+            }
+        ],
         content_security_policy: {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
@@ -826,6 +833,30 @@ chrome.runtime.onInstalled.addListener((details) => {
     // @ts-expect-error
     details.reason = 'not-real-reason';
 })
+
+function testRuntimeOnMessageAddListener() {
+    // @ts-expect-error
+    chrome.runtime.onMessage.addListener();
+    // @ts-expect-error
+    chrome.runtime.onMessage.addListener((_1, _2, _3, _4) => {});
+
+    chrome.runtime.onMessage.addListener((_, sender) => {
+        console.log(
+            sender.documentId,
+            sender.documentLifecycle,
+            sender.frameId,
+            sender.id,
+            sender.nativeApplication,
+            sender.origin,
+            sender.tab,
+            sender.tlsChannelId,
+            sender.url,
+        );
+
+        // @ts-expect-error
+        console.log(sender.documentLifecycle === 'invalid_value');
+    });
+}
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
@@ -1550,6 +1581,9 @@ function testTabsSendMessage() {
     chrome.tabs.sendMessage(3, "Hello World!", console.log);
     chrome.tabs.sendMessage(4, "Hello World!", {}).then(() => { });
     chrome.tabs.sendMessage(5, "Hello World!", {}, console.log);
+    chrome.tabs.sendMessage(6, "Hello World!", {frameId: 1}, console.log);
+    chrome.tabs.sendMessage(7, "Hello World!", {documentId: 'id'}, console.log);
+    chrome.tabs.sendMessage(8, "Hello World!", {documentId: 'id', frameId: 0}, console.log);
     chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
     chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
     // @ts-expect-error
@@ -2018,4 +2052,39 @@ async function testSessionsForPromise() {
     await chrome.sessions.getRecentlyClosed(myMax);
     await chrome.sessions.restore();
     await chrome.sessions.restore('myString');
+}
+
+// Test for chrome.sidePanel API
+function testSidePanelAPI() {
+    let getPanelOptions: chrome.sidePanel.GetPanelOptions = {
+        tabId: 123,
+    };
+
+    chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
+        console.log(options.enabled);
+        console.log(options.path);
+        console.log(options.tabId);
+    });
+
+    chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
+        console.log(behavior.openPanelOnActionClick);
+    });
+
+    let setPanelOptions: chrome.sidePanel.PanelOptions = {
+        enabled: true,
+        path: 'path/to/sidePanel.html',
+        tabId: 123,
+    };
+
+    chrome.sidePanel.setOptions(setPanelOptions, () => {
+        console.log('Options set successfully.');
+    });
+
+    let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
+        openPanelOnActionClick: true,
+    };
+
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
+        console.log('Behavior set successfully.');
+    });
 }

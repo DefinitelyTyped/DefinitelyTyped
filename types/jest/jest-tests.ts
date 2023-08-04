@@ -459,6 +459,12 @@ replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
 // $ExpectType void
 jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
 
+// @ts-expect-error: nullish target object
+jest.replaceProperty(null, 'invalid', 1);
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(true, 'valueOf', () => 'false');
+// @ts-expect-error: primitive cannot have properties replaced
+jest.replaceProperty(123, 'toFixed', () => '123');
 // @ts-expect-error: property does not exist
 jest.replaceProperty(replaceObjectA, 'invalid', 1);
 // @ts-expect-error: wrong type of the value
@@ -1284,6 +1290,8 @@ describe('', () => {
         expect({}).toHaveProperty(['property'], {});
         expect({}).toHaveProperty(['property', 'deep']);
         expect({}).toHaveProperty(['property', 'deep'], {});
+        expect({}).toHaveProperty(['property', 'deep'] as const);
+        expect({}).toHaveProperty(['property', 'deep'] as const, {});
 
         expect(jest.fn()).toHaveReturned();
 
@@ -1426,6 +1434,9 @@ describe('', () => {
         expect({}).toBe(expect.arrayContaining(['a', 'b']));
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
+        expect({}).toBe(expect.arrayContaining(['a', 'b'] as const));
+        expect(['abc']).toBe(expect.arrayContaining(['a', 'b'] as const));
+
         expect.objectContaining({});
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
@@ -1447,6 +1458,7 @@ describe('', () => {
         expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
         expect({ bar: 'baz' }).toEqual(expect.not.objectContaining({ foo: 'bar' }));
         expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha'] as const));
 
         /* Miscellaneous */
 
@@ -1593,6 +1605,9 @@ expect(7).toBe(jasmine.any(Number));
 
 expect({}).toBe(jasmine.arrayContaining(['a', 'b']));
 expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b']));
+
+expect({}).toBe(jasmine.arrayContaining(['a', 'b'] as const));
+expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b'] as const));
 
 jasmine.arrayContaining([]);
 new (jasmine.arrayContaining([]))([]);

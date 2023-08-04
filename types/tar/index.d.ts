@@ -396,10 +396,10 @@ export interface ReadEntry extends MiniPass, HeaderProperties {
 
 export interface CreateOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
@@ -491,10 +491,10 @@ export interface CreateOptions {
 
 export interface ExtractOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
@@ -709,10 +709,10 @@ export interface ReplaceOptions {
     sync?: boolean | undefined;
 
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.

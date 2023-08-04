@@ -38,7 +38,6 @@ export interface IPerfLoggingPrefs {
  */
 export class Options extends webdriver.Capabilities {
   /**
-   * @constructor
    */
   constructor();
 

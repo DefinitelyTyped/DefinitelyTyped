@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/sharp": "^0.31.0"
+    }
+}

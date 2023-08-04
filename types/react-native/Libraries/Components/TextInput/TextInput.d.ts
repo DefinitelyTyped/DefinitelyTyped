@@ -12,21 +12,21 @@ import {
   NativeTouchEvent,
   TargetedEvent,
 } from '../../Types/CoreEventTypes';
-import {EventEmitter} from '../../vendor/emitter/EventEmitter';
+import EventEmitter from '../../vendor/emitter/EventEmitter';
 import {AccessibilityProps} from '../View/ViewAccessibility';
 import {ViewProps} from '../View/ViewPropTypes';
 
 export type KeyboardType =
   | 'default'
-  | 'email-address'
-  | 'numeric'
-  | 'phone-pad'
   | 'number-pad'
-  | 'decimal-pad';
+  | 'decimal-pad'
+  | 'numeric'
+  | 'email-address'
+  | 'phone-pad'
+  | 'url';
 export type KeyboardTypeIOS =
   | 'ascii-capable'
   | 'numbers-and-punctuation'
-  | 'url'
   | 'name-phone-pad'
   | 'twitter'
   | 'web-search';
@@ -114,6 +114,7 @@ export interface DocumentSelectionState extends EventEmitter {
  */
 export interface TextInputIOSProps {
   /**
+   * enum('never', 'while-editing', 'unless-editing', 'always')
    * When the clear button should appear on the right side of the text view
    */
   clearButtonMode?:
@@ -262,6 +263,16 @@ export interface TextInputIOSProps {
    * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
    */
   scrollEnabled?: boolean | undefined;
+
+  /**
+   * Set line break strategy on iOS.
+   */
+  lineBreakStrategyIOS?:
+    | 'none'
+    | 'standard'
+    | 'hangul-word'
+    | 'push-out'
+    | undefined;
 }
 
 /**
@@ -579,6 +590,8 @@ export interface TextInputProps
   editable?: boolean | undefined;
 
   /**
+   * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad',
+   * 'decimal-pad', 'twitter', 'web-search', 'visible-password')
    * Determines which keyboard to open, e.g.numeric.
    * The following values work across platforms: - default - numeric - email-address - phone-pad
    * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
@@ -717,6 +730,7 @@ export interface TextInputProps
   placeholderTextColor?: ColorValue | undefined;
 
   /**
+   * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
    * Determines how the return key should look.
    */
   returnKeyType?: ReturnKeyTypeOptions | undefined;

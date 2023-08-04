@@ -159,7 +159,7 @@ declare module 'url' {
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: UrlObject | string): string;
@@ -192,7 +192,7 @@ declare module 'url' {
      * resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param from The Base URL being resolved against.
      * @param to The HREF URL being resolved.
      */
@@ -712,6 +712,7 @@ declare module 'url' {
      */
     class URLSearchParams implements Iterable<[string, string]> {
         constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        readonly size: number;
         /**
          * Append a new name-value pair to the query string.
          */

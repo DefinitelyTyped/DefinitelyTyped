@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 18.0
+// Type definitions for React (react-dom) 18.2
 // Project: https://reactjs.org
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>

@@ -3,6 +3,7 @@
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 //                 Juan Arroyave <http://jarroyave.co>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 David Gabison <https://github.com/pulsovi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as vfs from "vinyl-fs";
@@ -47,9 +48,9 @@ declare namespace GulpClient {
         /**
          * Takes a path string, an array of path strings, a glob string or an array of glob strings as globs to watch on the filesystem.
          * Also optionally takes options to configure the watcher and a fn to execute when a file changes.
-         * @globs A path string, an array of path strings, a glob string or an array of glob strings that indicate which files to watch for changes.
-         * @opts Options that are passed to chokidar.
-         * @fn Once async completion is signalled, if another run is queued, it will be executed.
+         * @param globs A path string, an array of path strings, a glob string or an array of glob strings that indicate which files to watch for changes.
+         * @param opts Options that are passed to chokidar.
+         * @param fn Once async completion is signalled, if another run is queued, it will be executed.
          */
         watch: WatchMethod;
     }
@@ -66,6 +67,15 @@ declare namespace GulpClient {
          * @default true
          */
         queue?: boolean | undefined;
+        /**
+         * An event name or array of event names to listen for. Useful if you only need to watch specific events.
+         * @example
+         *   gulp.watch is imported from glob-watcher (see https://github.com/gulpjs/gulp/blob/v4.0.2/index.js lines 6, 28 and 48)
+         *   gulp use glob-watcher@^5.0.3 (see https://github.com/gulpjs/gulp/blob/v4.0.2/package.json#L33)
+         *   glob-watcher declare publicly options.events (see https://github.com/gulpjs/glob-watcher/blob/v5.0.3/README.md?plain=1#L101)
+         * @default ['add','change','unlink']
+         */
+        events?: string | string[];
     }
 
     interface WatchMethod {

@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.37
+// Type definitions for eslint 8.44
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -152,7 +152,11 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
+    getAncestors(node: ESTree.Node): ESTree.Node[];
+
     getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
+
+    getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
     getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
@@ -209,6 +213,15 @@ export class SourceCode {
     getCommentsAfter(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
     getCommentsInside(node: ESTree.Node): ESTree.Comment[];
+
+    getScope(node: ESTree.Node): Scope.Scope;
+
+    isSpaceBetween(
+        first: ESTree.Node|AST.Token,
+        second: ESTree.Node|AST.Token
+    ): boolean;
+
+    markVariableAsUsed(name: string, refNode?: ESTree.Node): boolean;
 }
 
 export namespace SourceCode {
@@ -430,9 +443,16 @@ export namespace SourceCode {
 //#endregion
 
 export namespace Rule {
+    /**
+     * TODO: Old style rules are planned to be removed in v9, remove this type then (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
+     * @deprecated Use `RuleModule` instead.
+     */
+    type OldStyleRule = RuleModule["create"];
+
     interface RuleModule {
         create(context: RuleContext): RuleListener;
         meta?: RuleMetaData | undefined;
+        schema?: RuleMetaData["schema"];
     }
 
     type NodeTypes = ESTree.Node["type"];
@@ -653,6 +673,7 @@ export namespace Rule {
         /**
          * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         * TODO: schema is potentially planned to be no longer be optional in v9 (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
 
@@ -684,19 +705,27 @@ export namespace Rule {
         parserPath: string;
         parserOptions: Linter.ParserOptions;
         parserServices: SourceCode.ParserServices;
+        cwd: string;
+        filename: string;
+        physicalFilename: string;
+        sourceCode: SourceCode;
 
         getAncestors(): ESTree.Node[];
 
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
+        /** @deprecated Use property `filename` directly instead */
         getFilename(): string;
 
+        /** @deprecated Use property `physicalFilename` directly instead */
         getPhysicalFilename(): string;
 
+        /** @deprecated Use property `cwd` directly instead */
         getCwd(): string;
 
         getScope(): Scope.Scope;
 
+        /** @deprecated Use property `sourceCode` directly instead */
         getSourceCode(): SourceCode;
 
         markVariableAsUsed(name: string): boolean;
@@ -762,13 +791,13 @@ export class Linter {
 
     version: string;
 
-    constructor(options?: { cwd?: string | undefined });
+    constructor(options?: { cwd?: string | undefined, configType?: 'flat' });
 
-    verify(code: SourceCode | string, config: Linter.Config, filename?: string): Linter.LintMessage[];
-    verify(code: SourceCode | string, config: Linter.Config, options: Linter.LintOptions): Linter.LintMessage[];
+    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.LintMessage[];
+    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], options: Linter.LintOptions): Linter.LintMessage[];
 
-    verifyAndFix(code: string, config: Linter.Config, filename?: string): Linter.FixReport;
-    verifyAndFix(code: string, config: Linter.Config, options: Linter.FixOptions): Linter.FixReport;
+    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.FixReport;
+    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], options: Linter.FixOptions): Linter.FixReport;
 
     getSourceCode(): SourceCode;
 
@@ -825,7 +854,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | "latest" | undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | "latest" | undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -915,19 +944,22 @@ export namespace Linter {
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
+
+    type FlatConfigFileSpec = string | ((filePath: string) => boolean);
+
     interface FlatConfig {
       /**
        * An array of glob patterns indicating the files that the configuration
        * object should apply to. If not specified, the configuration object applies
        * to all files
        */
-      files?: string | string[];
+      files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
       /**
        * An array of glob patterns indicating the files that the configuration
        * object should not apply to. If not specified, the configuration object
        * applies to all files matched by files
        */
-      ignores?: string | string[];
+      ignores?: FlatConfigFileSpec[];
       /**
        * An object containing settings related to how JavaScript is configured for
        * linting.
@@ -1035,10 +1067,10 @@ export namespace ESLint {
     }
 
     interface Plugin {
-        configs?: Record<string, ConfigData> | undefined;
+        configs?: Record<string, ConfigData | Linter.FlatConfig | Linter.FlatConfig[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
-        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+        rules?: Record<string, Rule.OldStyleRule | Rule.RuleModule> | undefined;
     }
 
     interface Options {

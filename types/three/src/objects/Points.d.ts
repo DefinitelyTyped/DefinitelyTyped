@@ -1,8 +1,9 @@
-import { Material } from './../materials/Material';
-import { Raycaster } from './../core/Raycaster';
-import { Object3D } from './../core/Object3D';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Intersection } from '../core/Raycaster';
+import { Material } from '../materials/Material.js';
+import { Object3D } from '../core/Object3D.js';
+import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { GLBufferAttribute } from '../core/GLBufferAttribute.js';
 
 /**
  * A class for displaying {@link Points}
@@ -12,7 +13,7 @@ import { Intersection } from '../core/Raycaster';
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/objects/Points.js | Source}
  */
 export class Points<
-    TGeometry extends BufferGeometry = BufferGeometry,
+    TGeometry extends BufferGeometry<NormalOrGLBufferAttributes> = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
 > extends Object3D {
     /**

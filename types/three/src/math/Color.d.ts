@@ -1,10 +1,11 @@
-import { ColorSpace } from '../constants';
-import { ColorRepresentation } from '../utils';
+import { ColorSpace } from '../constants.js';
+import { Matrix3 } from './Matrix3.js';
+import { Vector3 } from './Vector3.js';
 
-import { BufferAttribute } from './../core/BufferAttribute';
-import { InterleavedBufferAttribute } from './../core/InterleavedBufferAttribute';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
 
-export { SRGBToLinear } from './ColorManagement';
+export { SRGBToLinear } from './ColorManagement.js';
 
 declare const _colorKeywords: {
     aliceblue: 0xf0f8ff;
@@ -157,7 +158,7 @@ declare const _colorKeywords: {
     yellowgreen: 0x9acd32;
 };
 
-export type ColorKeyword = keyof typeof _colorKeywords;
+export type ColorRepresentation = Color | string | number;
 
 export interface HSL {
     h: number;
@@ -203,7 +204,15 @@ export class Color {
      */
     b: number;
 
-    set(color: ColorRepresentation): Color;
+    set(color: ColorRepresentation): this;
+    set(r: number, g: number, b: number): this;
+
+    /**
+     * Sets this color's {@link r}, {@link g} and {@link b} components from the x, y, and z components of the specified
+     * {@link Vector3 | vector}.
+     */
+    setFromVector3(vector: Vector3): this;
+
     setScalar(scalar: number): Color;
     setHex(hex: number, colorSpace?: ColorSpace): Color;
 
@@ -236,7 +245,7 @@ export class Color {
      * Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
      * @param style Color name in X11 format.
      */
-    setColorName(style: ColorKeyword, colorSpace?: ColorSpace): Color;
+    setColorName(style: string, colorSpace?: ColorSpace): Color;
 
     /**
      * Clones this color.
@@ -296,6 +305,12 @@ export class Color {
     add(color: Color): this;
     addColors(color1: Color, color2: Color): this;
     addScalar(s: number): this;
+
+    /**
+     * Applies the transform {@link Matrix3 | m} to this color's RGB components.
+     */
+    applyMatrix3(m: Matrix3): this;
+
     sub(color: Color): this;
     multiply(color: Color): this;
     multiplyScalar(s: number): this;
@@ -326,6 +341,12 @@ export class Color {
      * @return The provided array-like.
      */
     toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
+
+    /**
+     * This method defines the serialization result of Color.
+     * @return The color as a hexadecimal value.
+     */
+    toJSON(): number;
 
     fromBufferAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, index: number): this;
 

@@ -99,7 +99,7 @@ export interface AxisLimitLine {
 export interface Axis {
     enabled?: boolean | undefined;
     drawLabels?: boolean | undefined;
-    drawAxisLines?: boolean | undefined;
+    drawAxisLine?: boolean | undefined;
     drawGridLines?: boolean | undefined;
 
     textColor?: Color | undefined;

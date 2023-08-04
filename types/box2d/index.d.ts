@@ -727,7 +727,7 @@ declare namespace Box2D.Common.Math {
 
         /**
         * Advance the sweep forward, yielding a new initial state.
-        * @t The new initial time.
+        * @param t The new initial time.
         **/
         public Advance(t: number): void;
 
@@ -1375,7 +1375,7 @@ declare namespace Box2D.Collision {
         * Query an AABB for overlapping proxies. The callback is called for each proxy that overlaps the supplied AABB. The callback should match function signature fuction callback(proxy:b2DynamicTreeNode):Boolean and should return false to trigger premature termination.
         * @param callback Called for each proxy that overlaps the supplied AABB.
         *    param proxy Proxy overlapping the supplied AABB.
-        * @aabb Proxies are query for overlap on this AABB.
+        * @param aabb Proxies are query for overlap on this AABB.
         **/
         public Query(callback: (proxy: b2DynamicTreeNode) => boolean, aabb: b2AABB): void;
 

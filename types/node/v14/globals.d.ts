@@ -245,7 +245,7 @@ declare class Buffer extends Uint8Array {
      *    If parameter is omitted, buffer will be filled with zeros.
      * @param encoding encoding used for call to buf.fill while initalizing
      */
-    static alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+    static alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
      * of the newly created Buffer are unknown and may contain sensitive data.
@@ -528,7 +528,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

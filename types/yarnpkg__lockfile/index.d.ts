@@ -22,7 +22,7 @@ export function parse(
   fileLoc?: string,
 ): {
   type: 'success' | 'merge' | 'conflict';
-  object: any;
+  object: LockFileObject;
 };
 
 export function stringify(

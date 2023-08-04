@@ -40,7 +40,7 @@ export interface OptionsDebug {
     debugEventsInternal?: boolean;
 
     /** Disable component function warnings */
-    debugInvalidComponentFunc?: boolean;
+    debugInvalidComponentFuncs?: boolean;
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;
@@ -1799,11 +1799,15 @@ export interface NumberParams extends SharedEditorParams {
     max?: number | undefined;
     step?: number | undefined;
     verticalNavigation?: 'editor' | 'table' | undefined;
+    /** When the editor is loaded select its text content */
+    selectContents?: boolean | undefined;
 }
 
 export interface InputParams extends SharedEditorParams {
     /** Changes input type to 'search' and shows an 'X' clear button to clear the cell value easily. */
     search?: boolean | undefined;
+    /** When the editor is loaded select its text content */
+    selectContents?: boolean | undefined;
 }
 
 export interface TextAreaParams extends SharedEditorParams {
@@ -1811,6 +1815,8 @@ export interface TextAreaParams extends SharedEditorParams {
 
     /** Allow submission of the value of the editor when the shift and enter keys are pressed together. */
     shiftEnterSubmit?: boolean;
+    /** When the editor is loaded select its text content */
+    selectContents?: boolean | undefined;
 }
 
 export interface CheckboxParams extends SharedEditorParams {
@@ -2877,7 +2883,7 @@ declare class Tabulator {
     setGroupValues: (data: GroupValuesArg) => void;
 
     /** You can now trigger a refresh of the current filters using the refreshFilter function. This function will cause the current filters to be run again and applied to the table data. */
-    refreshFilters: () => void;
+    refreshFilter: () => void;
 
     /** The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;

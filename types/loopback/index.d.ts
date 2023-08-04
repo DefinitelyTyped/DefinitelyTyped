@@ -274,14 +274,12 @@ declare namespace l {
        * var app = loopback();
        * ```
        *
-       * @property {string} version Version of LoopBack framework.  Static read-only property.
-       * @property {string} mime
-       * @property {boolean} isBrowser True if running in a browser environment; false otherwise.  Static read-only property.
-       * @property {boolean} isServer True if running in a server environment; false otherwise.  Static read-only property.
-       * @property {Registry} registry The global `Registry` object.
-       * @property {string} faviconFile Path to a default favicon shipped with LoopBack.
+       * version Version of LoopBack framework.  Static read-only property.
+       * isBrowser True if running in a browser environment; false otherwise.  Static read-only property.
+       * isServer True if running in a server environment; false otherwise.  Static read-only property.
+       * registry The global `Registry` object.
+       * faviconFile Path to a default favicon shipped with LoopBack.
        * Use as follows: `app.use(require('serve-favicon')(loopback.faviconFile));`
-       * @class loopback
        * @header loopback
        */
       class loopback {
@@ -309,8 +307,8 @@ declare namespace l {
              * Alter an existing Model class.
              * @param {Model} ModelCtor The model constructor to alter.
              * @options {any} config Additional configuration to apply
-             * @property {any} dataSource Attach the model to a dataSource.
-             * @property {any} [relations] Model relations to add/update
+             * dataSource Attach the model to a dataSource.
+             * [relations] Model relations to add/update
              * @header loopback.configureModel(ModelCtor, config
              */
 
@@ -320,8 +318,8 @@ declare namespace l {
              * Create a data source with passing the provided options to the connector
              * @param {string} name Optional name.
              * @options {any} options Data Source options
-             * @property {any} connector LoopBack connector.
-             * @property {*} [*] Other&nbsp;connector properties.
+             * connector LoopBack connector.
+             * [*] Other&nbsp;connector properties.
              * See the relevant connector documentation
              */
 
@@ -461,7 +459,6 @@ declare namespace l {
 
       /**
        * Define and reference `Models` and `anys`
-       * @clas
        */
 
       class Registry {
@@ -471,8 +468,8 @@ declare namespace l {
              * Alter an existing Model class.
              * @param {Model} ModelCtor The model constructor to alter.
              * @options {any} config Additional configuration to apply
-             * @property {any} dataSource Attach the model to a dataSource.
-             * @property {any} [relations] Model relations to add/update
+             * dataSource Attach the model to a dataSource.
+             * [relations] Model relations to add/update
              * @header loopback.configureModel(ModelCtor, config
              */
             configureModel(ModelCtor: Model, config: {dataSource: any, relations?: any}): void;
@@ -481,8 +478,8 @@ declare namespace l {
              * Create a data source with passing the provided options to the connector
              * @param {string} name Optional name.
              * @options {any} options Data Source options
-             * @property {any} connector LoopBack connector.
-             * @property {*} [*] Other&nbsp;connector properties.
+             * connector LoopBack connector.
+             * [*] Other&nbsp;connector properties.
              *   See the relevant connector documentation
              */
             createDataSource(name: string, options: {connector: any, properties?: any}): void;
@@ -605,9 +602,7 @@ declare namespace l {
       /**
        * Access context represents the context for a request to access protected
        * resource
-       * @class
        * @options {Context} context The context object
-       * @constructor
        */
       class AccessContext {
             /** context The context object */
@@ -644,14 +639,14 @@ declare namespace l {
       /**
        * Context
        * @interface
-       * @property {Principal[]} principals An Array of principals
-       * @property {() => void} model The model class
-       * @property {string} modelName The model name
-       * @property {string} modelId The model id
-       * @property {string} property The model property/method/relation name
-       * @property {string} method The model method to be invoked
-       * @property {string} accessType The access type
-       * @property {AccessToken} accessToken The access toke
+       * principals An Array of principals
+       * model The model class
+       * modelName The model name
+       * modelId The model id
+       * property The model property/method/relation name
+       * method The model method to be invoked
+       * accessType The access type
+       * accessToken The access toke
        * @returns {AccessContext}
        */
 
@@ -688,8 +683,6 @@ declare namespace l {
        * @param {string} accessType The access type
        * @param {string} permission The requested permission
        * @returns {AccessRequest}
-       * @class
-       * @constructor
        */
       class AccessRequest {
             constructor(model: string, property: string, accessType: string, permission: string);
@@ -720,7 +713,6 @@ declare namespace l {
        * @param {*} id The princiapl id
        * @param {string} [name] The principal name
        * @returns {Principal}
-       * @class
        */
       class Principal {
             constructor(type: string, id: any, name: string);
@@ -735,10 +727,10 @@ declare namespace l {
 
       /**
        * @interface
-       * @property {string} path HTTP path (relative to the model) at which the method is exposed.
-       * @property {'get' | 'post' | 'patch' | 'put' | 'del' | 'all'} verb HTTP method (verb) at which the method is available.
-       * @property {number} status    Default HTTP status set when the callback is called without an error.
-       * @property {number} errorStatus    Default HTTP status set when the callback is called with an error.
+       * path HTTP path (relative to the model) at which the method is exposed.
+       * verb HTTP method (verb) at which the method is available.
+       * status    Default HTTP status set when the callback is called without an error.
+       * errorStatus    Default HTTP status set when the callback is called with an error.
        */
       interface RemoteHttpOptions {
             /**
@@ -776,12 +768,12 @@ declare namespace l {
 
       /**
        * @interface
-       * @property {RemoteMethodArgument[]} accepts Defines arguments that the remote method accepts
-       * @property {string|string[]} description Text description of the method
-       * @property {RemoteHttpOptions} http The HTTP options for the remote method
-       * @property {boolean} isStatic Whether the method is static (eg. `MyModel.myMethod`)
-       * @property {string | string[]} notes Additional notes, used by API documentation generators like Swagger.
-       * @property {RemoteMethodArgument} returns Describes the remote method's callback arguments
+       * accepts Defines arguments that the remote method accepts
+       * description Text description of the method
+       * http The HTTP options for the remote method
+       * isStatic Whether the method is static (eg. `MyModel.myMethod`)
+       * notes Additional notes, used by API documentation generators like Swagger.
+       * returns Describes the remote method's callback arguments
       */
       interface RemoteMethodOptions {
             /**
@@ -835,13 +827,12 @@ declare namespace l {
 
       /**
        * @interface
-       * @property {string} arg    Argument name
-       * @property {string | string[]} description A text description of the argument.
-       * @property {any} http http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value.
-       * @property {boolean} required    True if argument is required; false otherwise.
-       * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
-       * @property {"any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String"} type
-       * @property {string} default Default value that will be used to populate loopback-explorer input fields and swagger documentation
+       * arg    Argument name
+       * description A text description of the argument.
+       * http http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value.
+       * required    True if argument is required; false otherwise.
+       * root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
+       * default Default value that will be used to populate loopback-explorer input fields and swagger documentation
        */
       interface RemoteMethodArgument {
             /**
@@ -984,7 +975,7 @@ declare namespace l {
              * @param {*} modelId The model ID.
              * @param {any} sharedMethod The method in question.
              * @param {any} ctx The remote invocation context.
-             * @callback {() => void} callback The callback function.
+             * callback The callback function.
              * @param {string|Error} err The error object.
              * @param {boolean} allowed True if the request is allowed; false otherwise
              */
@@ -1008,7 +999,7 @@ declare namespace l {
 
             /**
              * Get the `Application` object to which the Model is attached
-             * @callback {() => void} callback Callback function called with `(err, app)` arguments.
+             * callback Callback function called with `(err, app)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Application} app Attached application object.
              * @end
@@ -1024,7 +1015,7 @@ declare namespace l {
              * @param {string} paramName The argument name that the remote method accepts.
              * @param {string} getterName The getter name.
              * @param {boolean} hooks Whether to inherit before/after hooks.
-             * @callback {() => void} filterCallback The Optional filter function.
+             * filterCallback The Optional filter function.
              * @param {any} SharedMethod object. See [here](apidocs.strongloop.com/strong-remoting/#sharedmethod).
              * @param {any} RelationDefinition object which includes relation `type`, `ModelConstructor` of `modelFrom`, `modelTo`, `keyFrom`, `keyTo` and more relation definitions
              */
@@ -1080,8 +1071,8 @@ declare namespace l {
        * @param {string} name The SharedClass name
        * @param {() => void} constructor The constructor the SharedClass represents
        * @param {any} options Additional options.
-       * @property {() => void } ctor The constructor
-       * @property {any} http The HTTP settings
+       * ctor The constructor
+       * http The HTTP settings
        */
       class SharedClass {
             /** The SharedClass name */
@@ -1181,7 +1172,6 @@ declare namespace l {
        *    console.log(obj) // => the changed model
        * });
        * ```
-       * @class PersistedModel
        */
       class PersistedModel extends Model {
             /**
@@ -1207,7 +1197,7 @@ declare namespace l {
              * to reduce the number of results returned.
              * @param  {number} since Return only changes since this checkpoint.
              * @param  {any}   filter   Include only changes that match this filter, the same as for [#persistedmodel-find](find()).
-             * @callback {() => void} callback Callback function called with `(err, changes)` arguments.
+             * callback Callback function called with `(err, changes)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} changes An Array of [Change](#change) objects
              */
@@ -1218,7 +1208,7 @@ declare namespace l {
              * to reduce the number of results returned.
              * @param  {number} since Return only changes since this checkpoint.
              * @param  {any}   filter   Include only changes that match this filter, the same as for [#persistedmodel-find](find()).
-             * @callback {() => void} callback Callback function called with `(err, changes)` arguments.
+             * callback Callback function called with `(err, changes)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} changes An Array of [Change](#change) objects
              */
@@ -1243,7 +1233,7 @@ declare namespace l {
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
-             * @callback {() => void} callback Callback function called with `(err, count)` arguments.  Required.
+             * callback Callback function called with `(err, count)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} count number of instances updated
              */
@@ -1257,7 +1247,7 @@ declare namespace l {
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
-             * @callback {() => void} callback Callback function called with `(err, count)` arguments.  Required.
+             * callback Callback function called with `(err, count)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} count number of instances updated
              */
@@ -1266,7 +1256,7 @@ declare namespace l {
             /**
              * Create new instance of Model, and save to database
              * @param {any}|[{any}] data Optional data argument.  Can be either a single model instance or an Array of instances
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} models Model instances or null
              */
@@ -1319,7 +1309,7 @@ declare namespace l {
 
             /**
              * Get the current checkpoint ID
-             * @callback {() => void} callback Callback function called with `(err, currentCheckpointId)` arguments.  Required.
+             * callback Callback function called with `(err, currentCheckpointId)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} currentCheckpointId Current checkpoint ID
              */
@@ -1340,7 +1330,7 @@ declare namespace l {
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods)
              *
-             * @callback {() => void} callback Optional callback function called with `(err, info)` arguments.
+             * callback Optional callback function called with `(err, info)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) destroyed
@@ -1363,7 +1353,7 @@ declare namespace l {
             /**
              * Destroy model instance with the specified ID.
              * @param {*} id The ID value of model instance to delete.
-             * @callback {() => void} callback Callback function called with `(err)` arguments.  Required.
+             * callback Callback function called with `(err)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object)
              */
             static destroyById(id: any, callback: CallbackWithoutResult): void;
@@ -1379,7 +1369,7 @@ declare namespace l {
              * See [Change.diff()](#change-diff) for details
              * @param  {number}  since  Find deltas since this checkpoint.
              * @param  {Array}  remoteChanges  An Array of change objects.
-             * @callback {() => void} callback Callback function called with `(err, result)` arguments.  Required.
+             * callback Callback function called with `(err, result)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} result any with `deltas` and `conflicts` properties; see [Change.diff()](#change-diff) for details
              */
@@ -1401,7 +1391,7 @@ declare namespace l {
             /**
              * Check whether a model instance exists in database
              * @param {id} id Identifier of object (primary key value)
-             * @callback {() => void} callback Callback function called with `(err, exists)` arguments.  Required.
+             * callback Callback function called with `(err, exists)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {boolean} exists True if the instance with the specified ID exists; false otherwise
              */
@@ -1417,23 +1407,23 @@ declare namespace l {
              * Find all model instances that match `filter` specification.
              * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {number} limit Maximum number of instances to return.
+             * limit Maximum number of instances to return.
              * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * { where: { key: val, key2: {gt: 'val2'}, ...} }
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries)
-             * @callback {() => void} callback Callback function called with `(err, returned-instances)` arguments.    Required.
+             * callback Callback function called with `(err, returned-instances)` arguments.    Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} models Model instances matching the filter, or null if none found
              */
@@ -1453,17 +1443,17 @@ declare namespace l {
              * Find all model instances that match `filter` specification.
              * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {number} limit Maximum number of instances to return.
+             * limit Maximum number of instances to return.
              * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * { where: { key: val, key2: {gt: 'val2'}, ...} }
              * ```
@@ -1484,7 +1474,7 @@ declare namespace l {
             /**
              * Find object by ID with an optional filter for include/fields
              * @param {*} id Primary key value
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * callback Callback function called with `(err, instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the specified ID or null if no instance matches
              */
@@ -1497,11 +1487,11 @@ declare namespace l {
              * Find object by ID with an optional filter for include/fields
              * @param {*} id Primary key value
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * callback Callback function called with `(err, instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the specified ID or null if no instance matches
              */
@@ -1518,9 +1508,9 @@ declare namespace l {
              * Find object by ID with an optional filter for include/fields
              * @param {*} id Primary key value
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
              */
             static findById<T = any>(
@@ -1535,7 +1525,7 @@ declare namespace l {
              * Find one model instance that matches `filter` specification.
              * Same as `find`, but limited to one result;
              * Returns object, not collection
-             * @callback {() => void} callback Callback function called with `(err, returned-instance)` arguments.  Required.
+             * callback Callback function called with `(err, returned-instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} model First model instance that matches the filter or null if none found
              */
@@ -1548,21 +1538,21 @@ declare namespace l {
              * Same as `find`, but limited to one result;
              * Returns object, not collection
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * {where: { key: val, key2: {gt: 'val2'}, ...} }
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries)
-             * @callback {() => void} callback Callback function called with `(err, returned-instance)` arguments.  Required.
+             * callback Callback function called with `(err, returned-instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} model First model instance that matches the filter or null if none found
              */
@@ -1582,15 +1572,15 @@ declare namespace l {
              * Same as `find`, but limited to one result;
              * Returns object, not collection
              * @options {any} [filter] Optional Filter JSON object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * {where: { key: val, key2: {gt: 'val2'}, ...} }
              * ```
@@ -1615,7 +1605,7 @@ declare namespace l {
              * locate an existing object that matches the `data` argument
              *
              * @param {any} data Data to insert if object matching the `where` filter is not found.
-             * @callback {() => void} callback Callback function called with `cb(err, instance, created)` arguments.  Required.
+             * callback Callback function called with `cb(err, instance, created)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the `where` filter, if found.
              * @param {boolean} created True if the instance matching the `where` filter was created
@@ -1633,24 +1623,24 @@ declare namespace l {
              * locate an existing object that matches the `data` argument
              *
              * @options {any} [filter] Optional Filter object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {number} limit Maximum number of instances to return.
+             * limit Maximum number of instances to return.
              * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * {where: {key: val, key2: {gt: val2}, ...}}
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries).
              * @param {any} data Data to insert if object matching the `where` filter is not found.
-             * @callback {() => void} callback Callback function called with `cb(err, instance, created)` arguments.  Required.
+             * callback Callback function called with `cb(err, instance, created)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the `where` filter, if found.
              * @param {boolean} created True if the instance matching the `where` filter was created
@@ -1676,17 +1666,17 @@ declare namespace l {
              * locate an existing object that matches the `data` argument
              *
              * @options {any} [filter] Optional Filter object; see below.
-             * @property {string|any|Array} fields Identify fields to include in return result.
+             * fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
-             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * include  See PersistedModel.include documentation.
              * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
-             * @property {number} limit Maximum number of instances to return.
+             * limit Maximum number of instances to return.
              * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
-             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * order Sort order: either "ASC" for ascending or "DESC" for descending.
              * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
-             * @property {number} skip number of results to skip.
+             * skip number of results to skip.
              * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
-             * @property {any} where Where clause, like
+             * where Where clause, like
              * ```
              * {where: {key: val, key2: {gt: val2}, ...}}
              * ```
@@ -1720,7 +1710,7 @@ declare namespace l {
 
             /**
              * Get the source identifier for this model or dataSource
-             * @callback {() => void} callback Callback function called with `(err, id)` arguments.
+             * callback Callback function called with `(err, id)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {string} sourceId Source identifier for the model or dataSource
              */
@@ -1741,7 +1731,6 @@ declare namespace l {
             /**
              * Specify that a change to the model with the given ID has occurred
              * @param {*} id The ID of the model that has changed.
-             * @callback {() => void} callback
              * @param {Error} er
              */
             static rectifyChange(id: any, callback: CallbackWithoutResult): void;
@@ -1758,7 +1747,7 @@ declare namespace l {
              * Performs validation before replacing
              * @param {*} id The ID value of model instance to replace.
              * @param {any} data Data to replace.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * callback Callback function called with `(err, instance)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
@@ -1775,8 +1764,8 @@ declare namespace l {
              * @param {*} id The ID value of model instance to replace.
              * @param {any} data Data to replace.
              * @options {any} [options] Options for replace
-             * @property {boolean} validate Perform validation before saving.  Default is true.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * validate Perform validation before saving.  Default is true.
+             * callback Callback function called with `(err, instance)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
@@ -1796,7 +1785,7 @@ declare namespace l {
              * @param {*} id The ID value of model instance to replace.
              * @param {any} data Data to replace.
              * @options {any} [options] Options for replace
-             * @property {boolean} validate Perform validation before saving.  Default is true.
+             * validate Perform validation before saving.  Default is true.
              */
             static replaceById<T = any>(
                   id: any,
@@ -1811,7 +1800,7 @@ declare namespace l {
              * such that parameter `data.id` matches `id` of model instance; otherwise,
              * insert a new record.
              * @param {any} data The model instance data.
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Replaced model instance.
              */
@@ -1826,8 +1815,8 @@ declare namespace l {
              * insert a new record.
              * @param {any} data The model instance data.
              * @options {any} [options] Options for replaceOrCreate
-             * @property {boolean} validate Perform validation before saving.  Default is true.
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * validate Perform validation before saving.  Default is true.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Replaced model instance.
              */
@@ -1845,7 +1834,7 @@ declare namespace l {
              * insert a new record.
              * @param {any} data The model instance data.
              * @options {any} [options] Options for replaceOrCreate
-             * @property {boolean} validate Perform validation before saving.  Default is true.
+             * validate Perform validation before saving.  Default is true.
              */
             static replaceOrCreate<T = any>(
                   data: any,
@@ -1860,7 +1849,7 @@ declare namespace l {
              * @param  {Model} targetModel  Target this model class
              * @param  {any} [options]
              * @param {any} [options.filter] Replicate models that match this filter
-             * @callback {() => void} [callback] Callback function called with `(err, conflicts)` arguments.
+             * [callback] Callback function called with `(err, conflicts)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Conflict[]} conflicts A list of changes that could not be replicated due to conflicts.
              * @param {any} checkpoints The new checkpoints to use as the "since"
@@ -1876,7 +1865,7 @@ declare namespace l {
 
             /**
              * Update multiple instances that match the where clause.
-             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * callback Callback function called with `(err, info)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) updated.
@@ -1905,7 +1894,7 @@ declare namespace l {
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
              * @param {any} data any containing data to replace matching instances, if any.
              *
-             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * callback Callback function called with `(err, info)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) updated.
@@ -1935,7 +1924,7 @@ declare namespace l {
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
              * @param {any} data any containing data to replace matching instances, if any.
              *
-             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * callback Callback function called with `(err, info)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) updated.
@@ -1974,7 +1963,7 @@ declare namespace l {
             /**
              * Update or insert a model instance
              * @param {any} data The model instance data to insert.
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
@@ -1986,7 +1975,7 @@ declare namespace l {
             /**
              * Update or insert a model instance
              * @param {any} data The model instance data to insert.
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
@@ -2006,7 +1995,7 @@ declare namespace l {
              * <br/>see
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
              * @param {any} data The model instance data to insert.
-             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * callback Callback function called with `cb(err, obj)` signature.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
@@ -2065,7 +2054,7 @@ declare namespace l {
 
             /**
              * Reload object from persistence.  Requires `id` member of `object` to be able to call `find`.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * callback Callback function called with `(err, instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance
              */
@@ -2080,7 +2069,7 @@ declare namespace l {
              * Replace attributes for a model instance and persist it into the datasource.
              * Performs validation before replacing
              * @param {any} data Data to replace.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * callback Callback function called with `(err, instance)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
@@ -2094,8 +2083,8 @@ declare namespace l {
              * Performs validation before replacing
              * @param {any} data Data to replace.
              * @options {any} [options] Options for replace
-             * @property {boolean} validate Perform validation before saving.  Default is true.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * validate Perform validation before saving.  Default is true.
+             * callback Callback function called with `(err, instance)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
@@ -2112,7 +2101,7 @@ declare namespace l {
              * Performs validation before replacing
              * @param {any} data Data to replace.
              * @options {any} [options] Options for replace
-             * @property {boolean} validate Perform validation before saving.  Default is true.
+             * validate Perform validation before saving.  Default is true.
              */
             replaceAttributes<T = any>(
                   data: any,
@@ -2124,7 +2113,7 @@ declare namespace l {
             /**
              * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
              * Triggers: validate, save, update, or create.
-             * @callback {() => void} callback Optional callback function called with `(err, obj)` arguments.
+             * callback Optional callback function called with `(err, obj)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance saved or created
              */
@@ -2136,10 +2125,10 @@ declare namespace l {
              * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
              * Triggers: validate, save, update, or create.
              * @options {any} [options] See below.
-             * @property {boolean} validate Perform validation before saving.  Default is true.
-             * @property {boolean} throws If true, throw a validation error; WARNING: This can crash Node.
+             * validate Perform validation before saving.  Default is true.
+             * throws If true, throw a validation error; WARNING: This can crash Node.
              * If false, report the error via callback.  Default is false.
-             * @callback {() => void} callback Optional callback function called with `(err, obj)` arguments.
+             * callback Optional callback function called with `(err, obj)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance saved or created
              */
@@ -2155,8 +2144,8 @@ declare namespace l {
              * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
              * Triggers: validate, save, update, or create.
              * @options {any} [options] See below.
-             * @property {boolean} validate Perform validation before saving.  Default is true.
-             * @property {boolean} throws If true, throw a validation error; WARNING: This can crash Node.
+             * validate Perform validation before saving.  Default is true.
+             * throws If true, throw a validation error; WARNING: This can crash Node.
              * If false, report the error via callback.  Default is false.
              */
             save<T = any>(
@@ -2179,7 +2168,7 @@ declare namespace l {
              * Equivalent to `updateAttributes({name: 'value'}, cb)
              * @param {string} name Name of property.
              * @param {any} value Value of property.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * callback Callback function called with `(err, instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
@@ -2204,7 +2193,7 @@ declare namespace l {
              * Update set of attributes.  Performs validation before updating
              * Triggers: `validation`, `save` and `update` hooks
              * @param {any} data Data to update.
-             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * callback Callback function called with `(err, instance)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
@@ -2341,14 +2330,14 @@ declare namespace l {
        * ```
        *
        * @options {any} [options] Each option Array is used to add additional keys to find an `accessToken` for a `request`.
-       * @property {Array} [cookies] Array of cookie names.
-       * @property {Array} [headers] Array of header names.
-       * @property {Array} [params] Array of param names.
-       * @property {boolean} [searchDefaultTokenKeys] Use the default search locations for Token in request
-       * @property {boolean} [enableDoublecheck] Execute middleware although an instance mounted earlier in the chain didn't find a token
-       * @property {boolean} [overwriteExistingToken] only has effect in combination with `enableDoublecheck`. If truthy, will allow to overwrite an existing accessToken.
-       * @property {() => void|string} [model] AccessToken model name or class to use.
-       * @property {string} [currentUserLiteral] string literal for the current user.
+       * [cookies] Array of cookie names.
+       * [headers] Array of header names.
+       * [params] Array of param names.
+       * [searchDefaultTokenKeys] Use the default search locations for Token in request
+       * [enableDoublecheck] Execute middleware although an instance mounted earlier in the chain didn't find a token
+       * [overwriteExistingToken] only has effect in combination with `enableDoublecheck`. If truthy, will allow to overwrite an existing accessToken.
+       * [model] AccessToken model name or class to use.
+       * [currentUserLiteral] string literal for the current user.
        * @header loopback.token([options])
        */
       function token(
@@ -2375,14 +2364,12 @@ declare namespace l {
        * **Default ACLs*
        *  - DENY EVERYONE `*`
        *  - ALLOW EVERYONE creat
-       * @property {string} id Generated token ID.
-       * @property {number} ttl Time to live in seconds, 2 weeks by default.
-       * @property {Date} created When the token was created.
-       * @property {any} settings Extends the `Model.settings` object.
-       * @property {number} settings.accessTokenIdLength Length of the base64-encoded string access token. Default value is 64.
+       * id Generated token ID.
+       * ttl Time to live in seconds, 2 weeks by default.
+       * created When the token was created.
+       * settings Extends the `Model.settings` object.
+       * settings.accessTokenIdLength Length of the base64-encoded string access token. Default value is 64.
        * Increase the length for a more secure access token
-       * @class AccessToken
-       * @inherits {PersistedModel}
        */
       class AccessToken extends PersistedModel {
             /** Generated token ID */
@@ -2399,7 +2386,6 @@ declare namespace l {
 
             /**
              * Create a cryptographically random access token id
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {string} toke
              */
@@ -2409,7 +2395,6 @@ declare namespace l {
              * Find a token for the given `any`
              * @param {any} req
              * @param {any} [options] Options for finding the token
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {AccessToken} toke
              */
@@ -2418,7 +2403,6 @@ declare namespace l {
             /**
              * Validate the token.
              *
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {boolean} isValid
              */
@@ -2445,21 +2429,19 @@ declare namespace l {
        * to access (read/write/execute)
        * the protected resource
        * @header ACL
-       * @property {string} model Name of the model.
-       * @property {string} property Name of the property, method, scope, or relation.
-       * @property {string} accessType Type of access being granted: one of READ, WRITE, or EXECUTE.
-       * @property {string} permission Type of permission granted. One of
+       * model Name of the model.
+       * property Name of the property, method, scope, or relation.
+       * accessType Type of access being granted: one of READ, WRITE, or EXECUTE.
+       * permission Type of permission granted. One of
        *  - ALARM: Generate an alarm, in a system-dependent way, the access specified in the permissions component of the ACL entry.
        *  - ALLOW: Explicitly grants access to the resource.
        *  - AUDIT: Log, in a system-dependent way, the access specified in the permissions component of the ACL entry.
        *  - DENY: Explicitly denies access to the resource.
-       * @property {string} principalType Type of the principal; one of: Application, Use, Role.
-       * @property {string} principalId ID of the principal - such as appId, userId or roleId.
-       * @property {any} settings Extends the `Model.settings` object.
-       * @property {string} settings.defaultPermission Default permission setting: ALLOW, DENY, ALARM, or AUDIT. Default is ALLOW.
+       * principalType Type of the principal; one of: Application, Use, Role.
+       * principalId ID of the principal - such as appId, userId or roleId.
+       * settings Extends the `Model.settings` object.
+       * settings.defaultPermission Default permission setting: ALLOW, DENY, ALARM, or AUDIT. Default is ALLOW.
        * Set to DENY to prohibit all API access by default
-       * @class ACL
-       * @inherits PersistedMode
        */
       class ACL extends PersistedModel {
             /** model Name of the model. */
@@ -2491,11 +2473,11 @@ declare namespace l {
             /**
              * Check if the request has the permission to access.
              * @options {any} context See below.
-             * @property {any[]} principals An Array of principals.
-             * @property {string|Model} model The model name or model class.
-             * @property {*} id The model instance ID.
-             * @property {string} property The property/method/relation name.
-             * @property {string} accessType The access type:
+             * principals An Array of principals.
+             * model The model name or model class.
+             * id The model instance ID.
+             * property The property/method/relation name.
+             * accessType The access type:
              *   READ, REPLICATE, WRITE, or EXECUTE.
              * @param {() => void} callback Callback functio
              */
@@ -2507,7 +2489,7 @@ declare namespace l {
              * @param {string} model The model name
              * @param {*} modelId The model id
              * @param {string} method The method name
-             * @callback {() => void} callback Callback function
+             * callback Callback function
              * @param {string|Error} err The error object
              * @param {boolean} allowed is the request allow
              */
@@ -2520,7 +2502,7 @@ declare namespace l {
              * @param {string} model The model name.
              * @param {string} property The property/method/relation name.
              * @param {string} accessType The access type.
-             * @callback {() => void} callback Callback function.
+             * callback Callback function.
              * @param {string|Error} err The error object
              * @param {AccessRequest} result The access permissio
              */
@@ -2561,44 +2543,40 @@ declare namespace l {
 
       /**
        * Manage client applications and organize their users
-       * @property {string} id  Generated ID.
-       * @property {string} name Name; required.
-       * @property {string} description Text description
-       * @property {string} icon string Icon image URL.
-       * @property {string} owner User ID of the developer who registers the application.
-       * @property {string} email E-mail address
-       * @property {boolean} emailVerified Whether the e-mail is verified.
-       * @property {string} url OAuth 2.0  application URL.
-       * @property {string}[]} callbackUrls The OAuth 2.0 code/token callback URL.
-       * @property {string} status Status of the application; Either `production`, `sandbox` (default), or `disabled`.
-       * @property {Date} created Date Application object was created.  Default: current date.
-       * @property {Date} modified Date Application object was modified.  Default: current date
-       * @property {any} pushSettings.apns APNS configuration, see the options
+       * id  Generated ID.
+       * name Name; required.
+       * description Text description
+       * icon string Icon image URL.
+       * owner User ID of the developer who registers the application.
+       * email E-mail address
+       * emailVerified Whether the e-mail is verified.
+       * url OAuth 2.0  application URL.
+       * []} callbackUrls The OAuth 2.0 code/token callback URL.
+       * status Status of the application; Either `production`, `sandbox` (default), or `disabled`.
+       * created Date Application object was created.  Default: current date.
+       * modified Date Application object was modified.  Default: current date
+       * pushSettings.apns APNS configuration, see the options
        *   below and also
        *   github.com/argon/node-apn/blob/master/doc/apn.markdown
-       * @property {boolean} pushSettings.apns.production Whether to use production Apple Push Notification Service (APNS) servers to send push notifications.
+       * pushSettings.apns.production Whether to use production Apple Push Notification Service (APNS) servers to send push notifications.
        * If true, uses `gateway.push.apple.com:2195` and `feedback.push.apple.com:2196`.
        * If false, uses `gateway.sandbox.push.apple.com:2195` and `feedback.sandbox.push.apple.com:2196`
-       * @property {string} pushSettings.apns.certData The certificate data loaded from the cert.pem file (APNS).
-       * @property {string} pushSettings.apns.keyData The key data loaded from the key.pem file (APNS).
-       * @property {string} pushSettings.apns.pushOptions.gateway (APNS).
-       * @property {number} pushSettings.apns.pushOptions.port (APNS).
-       * @property {string} pushSettings.apns.feedbackOptions.gateway  (APNS).
-       * @property {number} pushSettings.apns.feedbackOptions.port (APNS).
-       * @property {boolean} pushSettings.apns.feedbackOptions.batchFeedback (APNS).
-       * @property {number} pushSettings.apns.feedbackOptions.interval (APNS).
-       * @property {string} pushSettings.gcm.serverApiKey: Google Cloud Messaging API key
-       * @property {boolean} authenticationEnabled
-       * @property {boolean} anonymousAllowed
-       * @property {Array} authenticationSchemes List of authentication schemes
+       * pushSettings.apns.certData The certificate data loaded from the cert.pem file (APNS).
+       * pushSettings.apns.keyData The key data loaded from the key.pem file (APNS).
+       * pushSettings.apns.pushOptions.gateway (APNS).
+       * pushSettings.apns.pushOptions.port (APNS).
+       * pushSettings.apns.feedbackOptions.gateway  (APNS).
+       * pushSettings.apns.feedbackOptions.port (APNS).
+       * pushSettings.apns.feedbackOptions.batchFeedback (APNS).
+       * pushSettings.apns.feedbackOptions.interval (APNS).
+       * pushSettings.gcm.serverApiKey: Google Cloud Messaging API key
+       * authenticationSchemes List of authentication schemes
        *  (see below).
-       * @property {string} authenticationSchemes.scheme Scheme name.
+       * authenticationSchemes.scheme Scheme name.
        *   Supported values: `local`, `facebook`, `google`,
        *   `twitter`, `linkedin`, `github`.
-       * @property {any} authenticationSchemes.credential
+       * authenticationSchemes.credential
        *   Scheme-specific credentials
-       * @class Application
-       * @inherits {PersistedModel}
        */
       class Application extends PersistedModel {
             /** Generated ID. */
@@ -2682,7 +2660,6 @@ declare namespace l {
              * Authenticate the application id and key
              * @param {Any} appId
              * @param {string} key
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {string} matched The matching key; one of:
              * - clientKey
@@ -2706,7 +2683,6 @@ declare namespace l {
 
             /**
              * Reset keys for the application instance
-             * @callback {() => void} callback
              * @param {Error} err
              */
 
@@ -2715,7 +2691,6 @@ declare namespace l {
             /**
              * Reset keys for a given application by the appId
              * @param {Any} appId
-             * @callback {() => void} callback
              * @param {Error} err
              */
 
@@ -2725,19 +2700,17 @@ declare namespace l {
       /**
        * Change list entry.
        *
-       * @property {string} id Hash of the modelName and ID.
-       * @property {string} rev The current model revision.
-       * @property {string} prev The previous model revision.
-       * @property {number} checkpoint The current checkpoint at time of the change.
-       * @property {string} modelName Model name.
-       * @property {string} modelId Model ID.
-       * @property {any} settings Extends the `Model.settings` object.
-       * @property {string} settings.hashAlgorithm Algorithm used to create cryptographic hash, used as argument
+       * id Hash of the modelName and ID.
+       * rev The current model revision.
+       * prev The previous model revision.
+       * checkpoint The current checkpoint at time of the change.
+       * modelName Model name.
+       * modelId Model ID.
+       * settings Extends the `Model.settings` object.
+       * settings.hashAlgorithm Algorithm used to create cryptographic hash, used as argument
        * to [crypto.createHash](nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm).  Default is sha1.
-       * @property {boolean} settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
+       * settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
        * However, if this setting is true, then errors will not throw exceptions.
-       * @class Change
-       * @inherits {PersistedModel}
        */
       class Change extends PersistedModel {
             /** Hash of the modelName and ID. */
@@ -2798,7 +2771,6 @@ declare namespace l {
              * @param  {string}   modelName
              * @param  {number}   since         Compare changes after this checkpoint
              * @param  {Change[]} remoteChanges A set of changes to compare
-             * @callback  {() => void} callback
              * @param {Error} err
              * @param {any} result See above.
              */
@@ -2808,7 +2780,6 @@ declare namespace l {
              * Find or create a change for the given model
              * @param  {string}   modelName
              * @param  {string}   modelId
-             * @callback  {() => void} callback
              * @param {Error} err
              * @param {Change} change
              * @end
@@ -2844,7 +2815,6 @@ declare namespace l {
              * Track the recent change of the given modelIds
              * @param  {string}   modelName
              * @param  {Array}    modelIds
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {Array} changes Changes that were tracke
              */
@@ -2865,7 +2835,6 @@ declare namespace l {
 
             /**
              * Get a change's current revision based on current data.
-             * @callback  {() => void} callback
              * @param {Error} err
              * @param {string} rev The current revisio
              */
@@ -2891,7 +2860,6 @@ declare namespace l {
 
             /**
              * Update (or create) the change with the current revision
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {Change} chang
              */
@@ -2914,9 +2882,8 @@ declare namespace l {
        * @param {*} modelId
        * @param {PersistedModel} SourceModel
        * @param {PersistedModel} TargetModel
-       * @property {ModelClass} source The source model instance
-       * @property {ModelClass} target The target model instance
-       * @class Change.Conflic
+       * source The source model instance
+       * target The target model instance
        */
       class Conflict {
             source: any;
@@ -2925,7 +2892,6 @@ declare namespace l {
 
             /**
              * Get the conflicting changes
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {Change} sourceChange
              * @param {Change} targetChang
@@ -2934,7 +2900,6 @@ declare namespace l {
 
             /**
              * Fetch the conflicting models
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {PersistedModel} source
              * @param {PersistedModel} targe
@@ -2948,7 +2913,6 @@ declare namespace l {
              * and appear as if the source change was based on the target, they will be
              * replicated normally as part of the next replicate() call
              * This is effectively resolving the conflict using the source version
-             * @callback {() => void} callback
              * @param {Error} err
              */
             resolve(callback: (err: Error) => void): void;
@@ -2957,21 +2921,18 @@ declare namespace l {
              * Resolve the conflict using the supplied instance data
              * @param {any} data The set of changes to apply on the model
              * instance. Use `null` value to delete the source instance instead.
-             * @callback {() => void} callback
              * @param {Error} err
              */
             resolveManually(data: any, callback: (err: Error) => void): void;
 
             /**
              * Resolve the conflict using the instance data in the source model
-             * @callback {() => void} callback
              * @param {Error} err
              */
             resolveUsingSource(callback: (err: Error) => void): void;
 
             /**
              * Resolve the conflict using the instance data in the target model
-             * @callback {() => void} callback
              * @param {Error} err
              */
             resolveUsingTarget(callback: (err: Error) => void): void;
@@ -2996,7 +2957,6 @@ declare namespace l {
              * - `Change.DELETE`: Source and or target model was deleted.
              * - `Change.UNKNOWN`: the conflict type is uknown or due to an erro
              *
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {string} type The conflict type
              */
@@ -3005,13 +2965,11 @@ declare namespace l {
 
       /**
        * Email model.  Extends LoopBack base [Model](#model-new-model).
-       * @property {string} to Email addressee.  Required.
-       * @property {string} from Email sender address.  Required.
-       * @property {string} subject Email subject string.  Required.
-       * @property {string} text Text body of email.
-       * @property {string} html HTML body of email
-       * @class Email
-       * @inherits {Model}
+       * to Email addressee.  Required.
+       * from Email sender address.  Required.
+       * subject Email subject string.  Required.
+       * text Text body of email.
+       * html HTML body of email
        */
       class Email extends Model {
             /** Email addressee.  Required. */
@@ -3061,7 +3019,6 @@ declare namespace l {
 
       /**
        * Data model for key-value databases.
-       * @class
        */
       class KeyValueModel {
             /**
@@ -3192,15 +3149,13 @@ declare namespace l {
 
       /**
        * The Role model
-       * @class Role
-       * @inherits {PersistedModel}
        * @header Role objec
        */
       class Role extends PersistedModel {
             /**
              * List roles for a given principal.
              * @param {any} context The security context.
-             * @callback {() => void} callback Callback function.
+             * callback Callback function.
              * @param {Error} err Error object.
              * @param {string[]} roles An Array of role IDs
              */
@@ -3218,7 +3173,7 @@ declare namespace l {
              * Check if a given principal is in the specified role.
              * @param {string} role The role name.
              * @param {any} context The context object.
-             * @callback {() => void} callback Callback function.
+             * callback Callback function.
              * @param {Error} err Error object.
              * @param {boolean} isInRole True if the principal is in the specified role.
              */
@@ -3245,11 +3200,9 @@ declare namespace l {
 
       /**
        * The `RoleMapping` model extends from the built in `loopback.Model` type.
-       * @property {string} id Generated ID.
-       * @property {string} name Name of the role.
-       * @property {string} Description Text description.
-       * @class RoleMapping
-       * @inherits {PersistedModel}
+       * id Generated ID.
+       * name Name of the role.
+       * Description Text description.
        */
       class RoleMapping extends PersistedModel {
             /** Generated ID. */
@@ -3263,7 +3216,6 @@ declare namespace l {
 
             /**
              * Get the application principal
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {Application} application
              */
@@ -3271,7 +3223,6 @@ declare namespace l {
 
             /**
              * Get the child role principal
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {User} childUser
              */
@@ -3279,7 +3230,6 @@ declare namespace l {
 
             /**
              * Get the user principal
-             * @callback {() => void} callback
              * @param {Error} err
              * @param {User} user
              */
@@ -3291,7 +3241,6 @@ declare namespace l {
        * For a protected resource, does the client application have the authorization
        * from the resource owner (user or system)
        * Scope has many resource access entrie
-       * @class scope
        */
       class Scope {
             /**
@@ -3300,7 +3249,6 @@ declare namespace l {
              * @param {string} model The model name
              * @param {string} property The property/method/relation name
              * @param {string} accessType The access type
-             * @callback {() => void} callback
              * @param {string|Error} err The error object
              * @param {AccessRequest} result The access permission
              */
@@ -3319,30 +3267,28 @@ declare namespace l {
        * - ALLOW OWNER `findById`
        * - ALLOW OWNER `updateAttributes`
        *
-       * @property {string} username Must be unique.
-       * @property {string} password Hidden from remote clients.
-       * @property {string} email Must be valid email.
-       * @property {boolean} emailVerified Set when a user's email has been verified via `confirm()`.
-       * @property {string} verificationToken Set when `verify()` is called.
-       * @property {string} realm The namespace the user belongs to. See [Partitioning users with realms](docs.strongloop.com/display/public/LB/Partitioning+users+with+realms) for details.
-       * @property {Date} created The property is not used by LoopBack, you are free to use it for your own purposes.
-       * @property {Date} lastUpdated The property is not used by LoopBack, you are free to use it for your own purposes.
-       * @property {string} status The property is not used by LoopBack, you are free to use it for your own purposes.
-       * @property {any} settings Extends the `Model.settings` object.
-       * @property {boolean} settings.emailVerificationRequired Require the email verification
+       * username Must be unique.
+       * password Hidden from remote clients.
+       * email Must be valid email.
+       * emailVerified Set when a user's email has been verified via `confirm()`.
+       * verificationToken Set when `verify()` is called.
+       * realm The namespace the user belongs to. See [Partitioning users with realms](docs.strongloop.com/display/public/LB/Partitioning+users+with+realms) for details.
+       * created The property is not used by LoopBack, you are free to use it for your own purposes.
+       * lastUpdated The property is not used by LoopBack, you are free to use it for your own purposes.
+       * status The property is not used by LoopBack, you are free to use it for your own purposes.
+       * settings Extends the `Model.settings` object.
+       * settings.emailVerificationRequired Require the email verification
        * process before allowing a login.
-       * @property {number} settings.ttl Default time to live (in seconds) for the `AccessToken` created by `User.login() / user.createAccessToken()`.
+       * settings.ttl Default time to live (in seconds) for the `AccessToken` created by `User.login() / user.createAccessToken()`.
        * Default is `1209600` (2 weeks)
-       * @property {number} settings.maxTTL The max value a user can request a token to be alive / valid for.
+       * settings.maxTTL The max value a user can request a token to be alive / valid for.
        * Default is `31556926` (1 year)
-       * @property {boolean} settings.realmRequired Require a realm when logging in a user.
-       * @property {string} settings.realmDelimiter When set a realm is required.
-       * @property {number} settings.resetPasswordTokenTTL Time to live for password reset `AccessToken`. Default is `900` (15 minutes).
-       * @property {number} settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
-       * @property {boolean} settings.caseSensitiveEmail Enable case sensitive email.
+       * settings.realmRequired Require a realm when logging in a user.
+       * settings.realmDelimiter When set a realm is required.
+       * settings.resetPasswordTokenTTL Time to live for password reset `AccessToken`. Default is `900` (15 minutes).
+       * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
+       * settings.caseSensitiveEmail Enable case sensitive email.
        *
-       * @class User
-       * @inherits {PersistedModel}
        */
       class User extends PersistedModel {
             /** Must be unique. */
@@ -3403,7 +3349,6 @@ declare namespace l {
              * @param {Any} userId
              * @param {string} token The validation token
              * @param {string} redirect URL to redirect the user to once confirmed
-             * @callback {() => void} callback
              * @param {Error} er
              */
             static confirm(userId: any, token: string, redirect: string, callback?: (err: Error) => void): Promise<void> | void;
@@ -3431,7 +3376,7 @@ declare namespace l {
              * @param {any} credentials username/password or email/password
              * @param {string[]|string} [include] Optionally set it to "user" to include
              * the user info
-             * @callback {() => void} callback Callback function
+             * callback Callback function
              * @param {Error} err Error object
              * @param {AccessToken} token Access token if login is successfu
              */
@@ -3447,7 +3392,6 @@ declare namespace l {
              * ```
              *
              * @param {string} accessTokenID
-             * @callback {() => void} callback
              * @param {Error} er
              */
             static logout(accessTokenID: string, callback?: (err: Error) => void): Promise<void> | void;
@@ -3465,8 +3409,7 @@ declare namespace l {
              * Create a short lived acess token for temporary login. Allows users
              * to change passwords if forgotten
              * @options {any} options
-             * @prop {string} email The user's email address
-             * @callback {() => void} callback
+             * email The user's email address
              * @param {Error} er
              */
             static resetPassword(options: {}, callback?: (err: Error) => void): Promise<void> | void;
@@ -3476,7 +3419,7 @@ declare namespace l {
              * customize how access tokens are generate
              * @param {number} ttl The requested ttl
              * @param {any} [options] The options for access token, such as scope, appId
-             * @callback {() => void} cb The callback function
+             * cb The callback function
              * @param {string|Error} err The error string or object
              * @param {AccessToken} token The generated access token object
              */
@@ -3485,7 +3428,7 @@ declare namespace l {
             /**
              * Compare the given `password` with the users hashed password
              * @param {string} password The plain text password
-             * @callback {() => void} callback Callback function
+             * callback Callback function
              * @param {Error} err Error object
              * @param {boolean} isMatch Returns true if the given `password` matches recor
              */
@@ -3506,17 +3449,17 @@ declare namespace l {
              * ```
              *
              * @options {any} options
-             * @property {string} type Must be 'email'.
-             * @property {string} to Email address to which verification email is sent.
-             * @property {string} from Sender email addresss, for example
+             * type Must be 'email'.
+             * to Email address to which verification email is sent.
+             * from Sender email addresss, for example
              *   `'noreply@myapp.com'`.
-             * @property {string} subject Subject line text.
-             * @property {string} text Text of email.
-             * @property {string} template Name of template that displays verification
+             * subject Subject line text.
+             * text Text of email.
+             * template Name of template that displays verification
              *  page, for example, `'verify.ejs'.
-             * @property {string} redirect Page to which user will be redirected after
+             * redirect Page to which user will be redirected after
              *  they verify their email, for example `'/'` for root URI.
-             * @property {() => void} generateVerificationToken A function to be used to
+             * generateVerificationToken A function to be used to
              *  generate the verification token. It must accept the user object and a
              *  callback function. This function should NOT add the token to the user
              *  object, instead simply execute the callback with the token! User saving

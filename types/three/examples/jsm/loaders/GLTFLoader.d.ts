@@ -16,10 +16,11 @@ import {
     TextureLoader,
     FileLoader,
     ImageBitmapLoader,
-} from '../../../src/Three';
+    Skeleton,
+} from '../../../src/Three.js';
 
-import { DRACOLoader } from './DRACOLoader';
-import { KTX2Loader } from './KTX2Loader';
+import { DRACOLoader } from './DRACOLoader.js';
+import { KTX2Loader } from './KTX2Loader.js';
 
 export interface GLTF {
     animations: AnimationClip[];
@@ -131,10 +132,7 @@ export class GLTFParser {
     ) => Promise<BufferGeometry[]>;
     loadMesh: (meshIndex: number) => Promise<Group | Mesh | SkinnedMesh>;
     loadCamera: (cameraIndex: number) => Promise<Camera>;
-    loadSkin: (skinIndex: number) => Promise<{
-        joints: number[];
-        inverseBindMatrices?: BufferAttribute | InterleavedBufferAttribute | undefined;
-    }>;
+    loadSkin: (skinIndex: number) => Promise<Skeleton>;
     loadAnimation: (animationIndex: number) => Promise<AnimationClip>;
     loadNode: (nodeIndex: number) => Promise<Object3D>;
     loadScene: () => Promise<Group>;

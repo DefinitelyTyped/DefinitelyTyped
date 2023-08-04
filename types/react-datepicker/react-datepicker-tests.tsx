@@ -2,18 +2,13 @@ import * as React from 'react';
 import DatePicker, {
     CalendarContainer,
     registerLocale,
-    setDefaultLocale,
-    getDefaultLocale,
     ReactDatePickerProps,
     ReactDatePickerCustomHeaderProps,
 } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
-import { format } from 'date-fns';
 import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
-setDefaultLocale('en-GB');
-const defaultLocale = getDefaultLocale();
 
 const topLogger: Modifier<'topLogger'> = {
     name: 'topLogger',
@@ -25,8 +20,6 @@ const topLogger: Modifier<'topLogger'> = {
         }
     },
 };
-
-const DATE_FNS_FORMAT = 'EEEEE';
 
 <DatePicker
     adjustDateOnChange
@@ -62,18 +55,18 @@ const DATE_FNS_FORMAT = 'EEEEE';
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
-    excludeDateIntervals={[{start: new Date(), end: new Date()}]}
+    excludeDateIntervals={[{ start: new Date(), end: new Date() }]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
     filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={(day, locale) => format(day, DATE_FNS_FORMAT, { locale })}
+    formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
-    includeDateIntervals={[{start: new Date(), end: new Date()}]}
+    includeDateIntervals={[{ start: new Date(), end: new Date() }]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
@@ -158,6 +151,7 @@ const DATE_FNS_FORMAT = 'EEEEE';
         nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
+    renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
@@ -189,6 +183,7 @@ const DATE_FNS_FORMAT = 'EEEEE';
     timeInputLabel=""
     timeIntervals={1}
     title=""
+    showIcon
     todayButton={<div />}
     useShortMonthInDropdown
     useWeekdaysShort

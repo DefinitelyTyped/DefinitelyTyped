@@ -14,14 +14,14 @@ export interface OAuth2LoginProps {
     onSuccess: (data: Record<string, any>) => void;
     onFailure: (err: Error) => void;
     buttonText?: string;
-    children?: React.ReactChildren;
+    children?: React.ReactNode;
     popupWidth?: number;
     popupHeight?: number;
     className?: string;
     render?: (props: {
         className: string,
         buttonText: string,
-        children: React.ReactChildren,
+        children: React.ReactNode,
         onClick: () => void
     }) => void;
     isCrossOrigin?: boolean;

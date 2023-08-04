@@ -69,6 +69,11 @@ declare namespace OO.ui {
              */
             inputPosition?: 'inline' | 'outline' | 'none';
 
+            /**
+             * Placeholder text for the input box
+             */
+            placeholder?: string;
+
             /** Allow editing of the tags by clicking them */
             allowEditTags?: boolean;
 

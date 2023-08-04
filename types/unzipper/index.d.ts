@@ -91,6 +91,7 @@ export interface File {
     compressionMethod: number;
     lastModifiedTime: number;
     lastModifiedDate: number;
+    lastModifiedDateTime: Date;
     crc32: number;
     compressedSize: number;
     uncompressedSize: number;

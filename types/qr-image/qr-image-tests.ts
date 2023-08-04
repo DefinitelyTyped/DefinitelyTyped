@@ -26,3 +26,6 @@ qr.image('Customize PNG', {
         }
     },
 }).pipe(fs.createWriteStream('custom.png'));
+
+// $ExpectType SvgObject
+const res = qr.svgObject('test data');

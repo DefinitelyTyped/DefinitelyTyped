@@ -9,6 +9,7 @@ import {
     NewmanRunExecutionItem,
     NewmanRunFailure,
     NewmanRunSummary,
+    NewmanRunTimings,
 } from 'newman';
 import { Collection, CollectionDefinition, VariableScope, VariableScopeDefinition } from 'postman-collection';
 import * as http from 'http';
@@ -39,6 +40,7 @@ run(
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun
+        summary.run.timings; // $ExpectType NewmanRunTimings
         summary.run.executions; // $ExpectType NewmanRunExecution[]
         summary.run.failures; // $ExpectType NewmanRunFailure[]
         summary.run.failures[0].source; // $ExpectType NewmanRunExecutionItem | undefined

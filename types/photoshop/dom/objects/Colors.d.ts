@@ -1,6 +1,10 @@
 /**
  * Defines a CMYK color, used in [[SolidColor]] object.
  *
+ *  ***Fixes in Photoshop 24.2:***
+ * - *Getter now will return number instead of `undefined`*
+ * - *Value used in setter is now respected when passed to Photoshop*
+ *
  * @targetfolder colors
  * @minVersion 23.0
  */
@@ -33,10 +37,6 @@ export declare class CMYKColor {
      * The yellow color value, as percentage.
      * @default 0
      * @range 0.0..100.0
-     *
-     *  ***Fixes in Photoshop 24.2:***
-     * - *Getter now will return number instead of `undefined`*
-     * - *Value used in setter is now respected when passed to Photoshop*
      *
      * @minVersion 23.0
      */
@@ -188,12 +188,11 @@ export declare class RGBColor {
     get red(): number;
     set red(r: number);
     /**
-     * The hexadecimal representation of the color in uppercase.
+     * The hexadecimal representation of the color.
      *
-     * Getter returns uppercase value without `#`. E.g. `FF9801`
+     * Ex. returns *FF9801*, but accepts *#ff9801* or *FF9801*.
      *
-     * Setter accepts uppercase and lowercase value with and without `#`. E.g. `#ff9801` or `FF9801`.
-     *
+     * @default "FFFFFF"
      * @minVersion 23.0
      */
     get hexValue(): string;

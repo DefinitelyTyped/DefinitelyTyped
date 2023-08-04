@@ -2256,6 +2256,7 @@
 
     const instance = new OO.ui.MenuTagMultiselectWidget({
         inputPosition: 'outline',
+        placeholder: 'I am placeholder text!',
         options: [
             { data: 'option1', label: 'Option 1', icon: 'tag' },
             { data: 'option2', label: 'Option 2' },
@@ -3388,6 +3389,10 @@
     instance.clearItems(); // $ExpectType StackLayout
 
     instance.setItem(new OO.ui.Layout()); // $ExpectType StackLayout
+
+    instance.setContinuous(true); // $ExpectType void
+
+    instance.isContinuous(); // $ExpectType boolean
 
     instance.on('set', item => {
         item; // $ExpectType Layout | null

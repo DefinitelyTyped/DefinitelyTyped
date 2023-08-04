@@ -113,6 +113,106 @@ describe('React dom test utils', () => {
         ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
     });
 
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
+        const dom = ReactDOM.render(
+            React.createElement('input', { type: 'text' }),
+            element
+        ) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v17.0.2/packages/react-dom/src/test-utils/ReactTestUtils.js#L616-L702
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
+
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
+    });
+
     it('renderIntoDocument', () => {
         const element = React.createElement('input', { type: 'text' });
         ReactTestUtils.renderIntoDocument(element);

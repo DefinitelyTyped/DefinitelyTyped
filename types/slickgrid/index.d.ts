@@ -43,8 +43,6 @@ declare namespace Slick {
     /**
     * An event object for passing data to event handlers and letting them control propagation.
     * <p>This is pretty much identical to how W3C and jQuery implement events.</p>
-    * @class EventData
-    * @constructor
     **/
     export class EventData {
 
@@ -141,7 +139,6 @@ declare namespace Slick {
 
         /**
         * A structure containing a range of cells.
-        * @constructor
         * @param fromRow {Integer} Starting row.
         * @param fromCell {Integer} Starting cell.
         * @param toRow {Integer} Optional. Ending row. Defaults to <code>fromRow</code>.
@@ -226,8 +223,6 @@ declare namespace Slick {
 
         /**
         * Grouping level, starting with 0.
-        * @property level
-        * @type {Number}
         */
         public level: number;
 
@@ -268,23 +263,17 @@ declare namespace Slick {
 
         /**
         * Rows that are part of the group.
-        * @property rows
-        * @type {Array}
         */
         public rows: T[];
 
         /**
         * Sub-groups that are part of the group.
-        * @property groups
-        * @type {Array}
         */
         public groups: Group<T>[];
 
         /**
         * A unique key used to identify the group.  This key can be used in calls to DataView
         * collapseGroup() or expandGroup().
-        * @property groupingKey
-        * @type {Object}
         */
         public groupingKey: any;
 
@@ -379,9 +368,7 @@ declare namespace Slick {
 
     /**
     * A global singleton editor lock.
-    * @class GlobalEditorLock
     * @static
-    * @constructor
     **/
     export var GlobalEditorLock: EditorLock<Slick.SlickData>;
 
@@ -922,7 +909,7 @@ declare namespace Slick {
 
         /**
         * Unregisters a current selection model and registers a new one. See the definition of SelectionModel for more information.
-        * @selectionModel A SelectionModel.
+        * @param selectionModel A SelectionModel.
         **/
         public setSelectionModel(selectionModel: SelectionModel<T, any>): void;        // todo: don't know the type of the event data type
 

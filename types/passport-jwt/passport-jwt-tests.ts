@@ -44,6 +44,7 @@ opts.jwtFromRequest = (req: Request) => {
 };
 opts.secretOrKey = new Buffer('secret');
 opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer('secret'));
+opts.audience = ['example1.org', 'example2.org']
 
 class UserModel {}
 

@@ -1508,7 +1508,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
  *
  * The generic corresponds to the data type of range elements.
  *
- * @parm range An optional array of range values to initialize the scale with.
+ * @param range An optional array of range values to initialize the scale with.
  */
 export function scaleOrdinal<Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<string, Range>;
 /**
@@ -1521,7 +1521,7 @@ export function scaleOrdinal<Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<
  * The first generic corresponds to the data type of domain elements.
  * The second generic corresponds to the data type of range elements.
  *
- * @parm range An optional array of range values to initialize the scale with.
+ * @param range An optional array of range values to initialize the scale with.
  */
 export function scaleOrdinal<Domain extends { toString(): string }, Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<Domain, Range>;
 

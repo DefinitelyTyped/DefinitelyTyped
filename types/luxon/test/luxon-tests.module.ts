@@ -143,7 +143,8 @@ dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
-dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number>
+// tslint:disable-next-line max-line-length
+dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number> || Record<"year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond", number>
 // @ts-expect-error
 dt.toObject().locale;
 dt.toObject({ includeConfig: true }); // $ExpectType _ToObjectOutput<true>
@@ -317,6 +318,11 @@ Settings.defaultZone = ianaZone;
 Settings.defaultZone = 'America/Los_Angeles';
 Settings.defaultZone = Settings.defaultZone;
 Settings.defaultZone; // $ExpectType Zone
+
+Settings.twoDigitCutoffYear;
+Settings.twoDigitCutoffYear = 42;
+// @ts-expect-error
+Settings.twoDigitCutoffYear = '123';
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/

@@ -95,7 +95,6 @@ export function sendRequest(
  * [json]: https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
  * [w3c]: https://w3c.github.io/webdriver/webdriver-spec.html
  *
- * @implements {cmd.Executor}
  */
 export class Executor {
   /**

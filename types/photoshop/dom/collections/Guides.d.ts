@@ -11,7 +11,7 @@ import * as Constants from "../Constants";
  * app.activeDocument.guides.add(Constants.Direction.HORIZONTAL, 20);
  * ```
  */
-export declare class Guides {
+export declare class Guides extends Array<Guide> {
     /**
      * @ignore
      */
@@ -60,7 +60,7 @@ export declare class Guides {
      *
      * @param direction Indicates whether the guide is vertical or horizontal
      * @param coordinate Position of the guide measured from the ruler origin in pixels.
-     * The value can be a decimal number.
+     * The value can be a decimal.
      *
      * Note: the user can move the ruler origin which will affect the position value of the guides.
      * @minVersion 23.0

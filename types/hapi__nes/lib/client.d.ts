@@ -1,11 +1,3 @@
-// Type definitions for @hapi/nes 11.0
-// Project: https://github.com/hapijs/nes
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Rodrigo Saboya <https://github.com/saboya>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare class Client {
     constructor(url: string, options?: Client.ClientOptions);
     onError: (err: any) => void;

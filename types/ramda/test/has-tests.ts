@@ -9,7 +9,6 @@ import * as R from 'ramda';
 
 () => {
     R.has(R.__, { x: 0, y: 0 })('x'); // true;
-    R.has(R.__)({ x: 0, y: 0 }, 'x'); // true;
 };
 
 // R.has() can be used as a type guard
@@ -19,7 +18,6 @@ import * as R from 'ramda';
     () => {
         if (R.has('name', foo)) console.log(foo.name);
         if (R.has('name')(foo)) console.log(foo.name);
-        if (R.has(R.__)(foo, 'name')) console.log(foo.name);
     };
 
     () => {
@@ -35,25 +33,4 @@ import * as R from 'ramda';
             const bar = foo;
         }
     };
-};
-
-// The key argument needs to be compatible to string
-() => {
-    // @ts-expect-error
-    R.has(4, {});
-    // @ts-expect-error
-    R.has(4);
-    // @ts-expect-error
-    R.has(R.__, {})(4);
-    // @ts-expect-error
-    R.has(R.__)({}, 4);
-
-    // @ts-expect-error
-    R.has(null, {});
-    // @ts-expect-error
-    R.has(null);
-    // @ts-expect-error
-    R.has(R.__, {})(null);
-    // @ts-expect-error
-    R.has(R.__)({}, null);
 };

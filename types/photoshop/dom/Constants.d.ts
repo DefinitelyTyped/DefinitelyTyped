@@ -1,8 +1,25 @@
 /**
+ * To use any constant, import the `constants` object from the photoshop module first.
+ *
+ * ```javascript
+ * const {app, constants} = require("photoshop");
+ *
+ * await app.activeDocument.resizeImage(
+ *     800, 600, 100,
+ *     constants.InterpolationMethod.AUTOMATIC
+ * );
+ * ```
+ */
+/**
  * The method to use for bitmap interpolation.
  *
- * Pass to [[PreferencesGeneral.imageInterpolation]],
- * [[Layer.scale]](), [[Layer.skew]](), [[Layer.rotate]]()
+ * Pass to
+ * - [[PreferencesGeneral.imageInterpolation]]
+ * - [[Layer.scale]]()
+ * - [[Layer.skew]]()
+ * - [[Layer.rotate]]()
+ * - [[Selection.resizeBoundary]]()
+ * - [[Selection.rotateBoundary]]()
  *
  * @minVersion 24.0
  */
@@ -337,7 +354,7 @@ export declare enum BlendMode {
     PASSTHROUGH = "passThrough"
 }
 /**
- * The way color should be blended in a fill or stroke operation.
+ * The kind of blending used in a fill or stroke operation.
  * Pass to [[PathItem.fillPath]]()
  * @minVersion 23.3
  */
@@ -369,6 +386,64 @@ export declare enum ColorBlendMode {
     SCREEN = "screen",
     SOFTLIGHT = "softLight",
     VIVIDLIGHT = "vividLight"
+}
+/**
+ * The kind of blending used in a [[Document.calculations]] operation.
+ * @minVersion 24.5
+ */
+export declare enum CalculationsBlendMode {
+    NORMAL = "normal",
+    DARKEN = "darken",
+    MULTIPLY = "multiply",
+    COLORBURN = "colorBurn",
+    LINEARBURN = "linearBurn",
+    DARKERCOLOR = "darkerColor",
+    LIGHTEN = "lighten",
+    SCREEN = "screen",
+    COLORDODGE = "colorDodge",
+    LINEARDODGE = "linearDodge",
+    LIGHTERCOLOR = "lighterColor",
+    OVERLAY = "overlay",
+    SOFTLIGHT = "softLight",
+    HARDLIGHT = "hardLight",
+    VIVIDLIGHT = "vividLight",
+    LINEARLIGHT = "linearLight",
+    PINLIGHT = "pinLight",
+    HARDMIX = "hardMix",
+    ADD = "add",
+    SUBTRACT = "subtract",
+    DIFFERENCE = "difference",
+    EXCLUSION = "exclusion",
+    DIVIDE = "blendDivide"
+}
+/**
+ * The kind of blending used in a [[Layer.applyImage]] operation.
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageBlendMode {
+    NORMAL = "normal",
+    DARKEN = "darken",
+    MULTIPLY = "multiply",
+    COLORBURN = "colorBurn",
+    LINEARBURN = "linearBurn",
+    DARKERCOLOR = "darkerColor",
+    LIGHTEN = "lighten",
+    SCREEN = "screen",
+    COLORDODGE = "colorDodge",
+    LINEARDODGE = "linearDodge",
+    LIGHTERCOLOR = "lighterColor",
+    OVERLAY = "overlay",
+    SOFTLIGHT = "softLight",
+    HARDLIGHT = "hardLight",
+    VIVIDLIGHT = "vividLight",
+    LINEARLIGHT = "linearLight",
+    PINLIGHT = "pinLight",
+    HARDMIX = "hardMix",
+    ADD = "add",
+    SUBTRACT = "subtract",
+    DIFFERENCE = "difference",
+    EXCLUSION = "exclusion",
+    DIVIDE = "blendDivide"
 }
 /**
  * Color mode of an open document. See also [[Document.mode]] and [[Document.changeMode]]
@@ -693,7 +768,7 @@ export declare enum PathKind {
 }
 /**
  * The selection behavior when a selection already exists.
- * Used in [[PathItem.makeSelection]]()
+ * Used in [[PathItem.makeSelection]](), [[Selection.saveTo]]() and [[Selection.load]]()
  * @minVersion 23.3
  */
 export declare enum SelectionType {
@@ -1174,6 +1249,50 @@ export declare enum TypeInterfaceFeatures {
     DEFAULT = "defaultTextInterface",
     EASTASIAN = "advancedAsianInterface",
     MIDDLEEASTERN = "middleEasternInterface"
+}
+/**
+ * The result of [[Document.calculations]] can go into a new document,
+ *  a new channel in the active document, or a new selection in the active document.
+ * @minVersion 24.5
+ */
+export declare enum CalculationsResult {
+    NEWDOCUMENT = "document",
+    NEWCHANNEL = "channel",
+    SELECTION = "selection"
+}
+/**
+ * Special channels used in [[Document.calculations]].
+ * @minVersion 24.5
+ */
+export declare enum CalculationsChannel {
+    TRANSPARENCY = "transparencyEnum",
+    SELECTION = "selection",
+    GRAY = "gray"
+}
+/**
+ * Special channels used in [[Layer.applyImage]].
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageChannel {
+    TRANSPARENCY = "transparencyEnum",
+    SELECTION = "selection",
+    RGB = "RGB",
+    CMYK = "CMYK",
+    LAB = "lab"
+}
+/**
+ * Use merged layers as a source in [Document.calculations]].
+ * @minVersion 24.5
+ */
+export declare enum CalculationsLayer {
+    MERGED = "merged"
+}
+/**
+ * Use merged layers as a source in [[Layer.applyImage]].
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageLayer {
+    MERGED = "merged"
 }
 /**
  * Method to use to smooth edges by softening the color transition between edge pixels

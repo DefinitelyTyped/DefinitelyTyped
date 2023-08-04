@@ -1,12 +1,12 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { Object3D } from './../core/Object3D';
-import { Texture } from './../textures/Texture';
-import { Material } from './../materials/Material';
-import { AnimationClip } from './../animation/AnimationClip';
-import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Source } from '../textures/Source';
+import { Loader } from './Loader.js';
+import { LoadingManager } from './LoadingManager.js';
+import { Object3D } from '../core/Object3D.js';
+import { Texture } from '../textures/Texture.js';
+import { Material } from '../materials/Material.js';
+import { AnimationClip } from '../animation/AnimationClip.js';
+import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Source } from '../textures/Source.js';
 
 export class ObjectLoader extends Loader {
     constructor(manager?: LoadingManager);
@@ -26,12 +26,12 @@ export class ObjectLoader extends Loader {
     parse<T extends Object3D>(json: any, onLoad?: (object: Object3D) => void): T;
     // tslint:disable-next-line:no-unnecessary-generics
     parseAsync<T extends Object3D>(json: any): Promise<T>;
-    parseGeometries(json: any): { [key: string]: InstancedBufferGeometry | BufferGeometry }; // Array of BufferGeometry or Geometry or Geometry2.
-    parseMaterials(json: any, textures: { [key: string]: Texture }): Material[]; // Array of Classes that inherits from Matrial.
+    parseGeometries(json: any): { [key: string]: InstancedBufferGeometry | BufferGeometry };
+    parseMaterials(json: any, textures: { [key: string]: Texture }): { [key: string]: Material };
     parseAnimations(json: any): AnimationClip[];
     parseImages(json: any, onLoad?: () => void): { [key: string]: Source };
     parseImagesAsync(json: any): Promise<{ [key: string]: Source }>;
-    parseTextures(json: any, images: any): Texture[];
+    parseTextures(json: any, images: { [key: string]: Source }): { [key: string]: Texture };
     parseObject<T extends Object3D>(
         data: any,
         geometries: any[],

@@ -1,4 +1,4 @@
-import { Object3D, Scene, Camera } from '../../../src/Three';
+import { Object3D, Scene, Camera } from '../../../src/Three.js';
 
 export class CSS3DObject extends Object3D {
     constructor(element: HTMLElement);
@@ -12,9 +12,9 @@ export class CSS3DSprite extends CSS3DObject {
     constructor(element: HTMLElement);
 }
 
-export type CSS3DParameters = {
+export interface CSS3DParameters {
     element?: HTMLElement;
-};
+}
 
 export class CSS3DRenderer {
     constructor(parameters?: CSS3DParameters);

@@ -1,4 +1,4 @@
-export default function adyen() {
+export default function adyen () {
   const adyen = window.recurly.Adyen();
 
   // @ts-expect-error

@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry';
+import { BufferGeometry } from './../core/BufferGeometry.js';
 
 /**
  * A class for generating a two-dimensional ring geometry.

@@ -72,6 +72,8 @@ function testSandbox() {
 
     sb.replace(replaceMe, 'prop', 10);
     sb.replace(replaceMe, 'method', sb.spy());
+    const fake = sb.replace(replaceMe, 'method', sb.fake.returns(2));
+    fake.callCount;
     sb.replaceGetter(replaceMe, 'getter', () => 14);
     sb.replaceSetter(replaceMe, 'setter', v => {});
 
@@ -663,6 +665,10 @@ function testSpy() {
     fnSpy('a', 1); // $ExpectType boolean
     fnSpy.args; // $ExpectType [string, number][] || [arg: string, arg2: number][]
     fnSpy.returnValues; // $ExpectType boolean[]
+    fnSpy.withArgs('a').returned(true);
+    fnSpy.calledOnceWith('a');
+    // @ts-expect-error
+    fnSpy.calledOnceWithExactly('a');
 
     spy(1, 2);
     spy(true);
@@ -731,7 +737,7 @@ function testSpy() {
 
 function testStub() {
     const obj = class {
-        foo(arg: string): number {
+        foo(arg: string, arg2: number): number {
             return 1;
         }
         promiseFunc() {
@@ -824,17 +830,20 @@ function testStub() {
     stub2.returns(5);
     // @ts-expect-error
     stub2.returns('foo');
-    stub2.callsFake((arg: string) => 1);
+    stub2.callsFake((arg: string, arg2: number) => 1);
     // @ts-expect-error
     stub2.callsFake((arg: number) => 1);
+    // @ts-expect-error
+    stub2.callsFake((arg: string, arg2: string) => 1);
     // @ts-expect-error
     stub2.callsFake((arg: string) => 'a');
     stub2.onCall(1).returns(2);
     // @ts-expect-error
-    stub2.withArgs('a', 2).returns('true');
+    stub2.withArgs('a', 2, 3).returns(1);
+    stub2.withArgs('a', 2).returns(1);
     stub2.withArgs('a').returns(1);
     // @ts-expect-error
-    stub2.withArgs('a').returns('a');
+    stub2.withArgs('a', 2).returns('a');
 
     const stub3 = sinon.stub(instance, 'fooDeep').named('namedStubDeep');
     stub3.calledWith({ s: sinon.match.string });
@@ -871,6 +880,22 @@ function testMock() {
     const mock = sinon.mock(obj);
 
     mock.expects('method').atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
+function testMockStatic() {
+    const mock = sinon.mock();
+
+    mock.atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
+function testMockStaticNamed() {
+    const mock = sinon.mock('namedMock');
+
+    mock.atLeast(2).atMost(5);
     mock.restore();
     mock.verify();
 }

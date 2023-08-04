@@ -60,6 +60,7 @@ naver.maps.Event.once(map, 'init', function () {
 
 /**
  * Marker Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-Marker.html
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-5-marker-html-icon.example.html
  */
 const htmlMarker = new naver.maps.Marker({
@@ -70,6 +71,7 @@ const htmlMarker = new naver.maps.Marker({
         size: new naver.maps.Size(22, 35),
         anchor: new naver.maps.Point(11, 35),
     },
+    animation: naver.maps.Animation.BOUNCE
 });
 const imageMarker = new naver.maps.Marker({
     position: new naver.maps.LatLng(37.3849483, 127.1229117),
@@ -101,6 +103,9 @@ const symbolIconMarker = new naver.maps.Marker({
         strokeWeight: 3,
     },
 });
+
+htmlMarker.setAnimation(null);
+const getAnimation = htmlMarker.getAnimation();
 
 /**
  * InfoWindow Example

@@ -1172,7 +1172,7 @@ declare namespace fin {
         /**
          * Gives focus to the external window.
          * @return {Promise.<void>}
-         * @emits ExternalWindow#focused
+         * @fires ExternalWindow#focused
          * @experimental
          */
         focus(): Promise<void>;
@@ -1335,7 +1335,6 @@ declare namespace fin {
 
         /**
          * Sets the external window's size and position.
-         * @property { Bounds } bounds
          * @return {Promise.<void>}
          * @experimental
          */
@@ -1647,7 +1646,7 @@ declare namespace fin {
          * @return {Promise.<void>}
          * @function focus
          * @memberof View
-         * @emits focused
+         * @fires focused
          * @instance
          * @tutorial View.focus
          * @experimental

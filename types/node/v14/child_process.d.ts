@@ -154,6 +154,15 @@ declare module 'child_process' {
 
     interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
         argv0?: string | undefined;
+        /**
+         * Can be set to 'pipe', 'inherit', 'overlapped', or 'ignore', or an array of these strings.
+         * If passed as an array, the first element is used for `stdin`, the second for
+         * `stdout`, and the third for `stderr`. A fourth element can be used to
+         * specify the `stdio` behavior beyond the standard streams. See
+         * {@link ChildProcess.stdio} for more information.
+         *
+         * @default 'pipe'
+         */
         stdio?: StdioOptions | undefined;
         shell?: boolean | string | undefined;
         windowsVerbatimArguments?: boolean | undefined;
@@ -338,7 +347,10 @@ declare module 'child_process' {
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
-    type ExecFileException = ExecException & NodeJS.ErrnoException;
+    type ExecFileException =
+        & Omit<ExecException, 'code'>
+        & Omit<NodeJS.ErrnoException, 'code'>
+        & { code?: string | number | undefined | null };
 
     function execFile(file: string): ChildProcess;
     function execFile(file: string, options: (BaseEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;
@@ -431,6 +443,15 @@ declare module 'child_process' {
         execPath?: string | undefined;
         execArgv?: string[] | undefined;
         silent?: boolean | undefined;
+        /**
+         * Can be set to 'pipe', 'inherit', 'overlapped', or 'ignore', or an array of these strings.
+         * If passed as an array, the first element is used for `stdin`, the second for
+         * `stdout`, and the third for `stderr`. A fourth element can be used to
+         * specify the `stdio` behavior beyond the standard streams. See
+         * {@link ChildProcess.stdio} for more information.
+         *
+         * @default 'pipe'
+         */
         stdio?: StdioOptions | undefined;
         detached?: boolean | undefined;
         windowsVerbatimArguments?: boolean | undefined;
@@ -469,6 +490,15 @@ declare module 'child_process' {
 
     interface ExecSyncOptions extends CommonOptions {
         input?: string | Uint8Array | undefined;
+        /**
+         * Can be set to 'pipe', 'inherit', 'overlapped', or 'ignore', or an array of these strings.
+         * If passed as an array, the first element is used for `stdin`, the second for
+         * `stdout`, and the third for `stderr`. A fourth element can be used to
+         * specify the `stdio` behavior beyond the standard streams. See
+         * {@link ChildProcess.stdio} for more information.
+         *
+         * @default 'pipe'
+         */
         stdio?: StdioOptions | undefined;
         shell?: string | undefined;
         killSignal?: NodeJS.Signals | number | undefined;
@@ -488,6 +518,15 @@ declare module 'child_process' {
 
     interface ExecFileSyncOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
+        /**
+         * Can be set to 'pipe', 'inherit', 'overlapped', or 'ignore', or an array of these strings.
+         * If passed as an array, the first element is used for `stdin`, the second for
+         * `stdout`, and the third for `stderr`. A fourth element can be used to
+         * specify the `stdio` behavior beyond the standard streams. See
+         * {@link ChildProcess.stdio} for more information.
+         *
+         * @default 'pipe'
+         */
         stdio?: StdioOptions | undefined;
         killSignal?: NodeJS.Signals | number | undefined;
         maxBuffer?: number | undefined;

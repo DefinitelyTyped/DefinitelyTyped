@@ -1,20 +1,13 @@
 import { init, create, database, config, up, down, status, MigrationFunction } from 'migrate-mongo';
-import { Db, Callback, MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 
 const upPromisified: MigrationFunction = async (db: Db, client: MongoClient): Promise<void> => {
     await db.collection('albums').updateOne({ artist: 'The Beatles' }, { $set: { blacklisted: true } });
     await db.collection('albums').updateOne({ artist: 'The Doors' }, { $set: { stars: 5 } });
 };
-const upCallback: MigrationFunction = (db: Db, client: MongoClient, callback: Callback) => {
-    db.collection('albums').updateOne({ artist: 'The Beatles' }, { $set: { blacklisted: true } }, callback);
-};
-
 const downPromisified: MigrationFunction = async (db: Db, client: MongoClient): Promise<void> => {
     await db.collection('albums').updateOne({ artist: 'The Doors' }, { $set: { stars: 0 } });
     await db.collection('albums').updateOne({ artist: 'The Beatles' }, { $set: { blacklisted: false } });
-};
-const downCallback: MigrationFunction = (db: Db, client: MongoClient, callback: Callback) => {
-    db.collection('albums').updateOne({ artist: 'The Beatles' }, { $set: { blacklisted: false } }, callback);
 };
 const customMongoConnectionSetting: Partial<config.Config> = {
     mongodb: {

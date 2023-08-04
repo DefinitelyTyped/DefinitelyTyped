@@ -14,6 +14,12 @@ app.use(rateLimit({
 }));
 
 app.use(rateLimit({
+    driver: 'redis',
+    db: redisClient,
+    namespace: 'limit:middleware1',
+}));
+
+app.use(rateLimit({
     driver: 'memory',
     db: new Map()
 }));
@@ -21,6 +27,7 @@ app.use(rateLimit({
 app.use(rateLimit({
     driver: 'memory',
     db: new Map(),
+    namespace: 'limit:middleware2',
     blacklist: async (context) => Promise.resolve(true),
     whitelist: (context) => false
 }));

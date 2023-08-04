@@ -1987,7 +1987,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -9006,7 +9006,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a

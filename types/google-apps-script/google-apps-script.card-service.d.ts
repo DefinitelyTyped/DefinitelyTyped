@@ -1,11 +1,3 @@
-// Type definitions for Google Apps Script 2021-01-24
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 Safal Pillai <https://github.com/malienist>
-//                 Oleg Valter <https://github.com/Oaphi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.conference-data.d.ts" />
 /// <reference path="google-apps-script.gmail.d.ts" />

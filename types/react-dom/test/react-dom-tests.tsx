@@ -103,6 +103,107 @@ describe('React dom test utils', () => {
         ReactTestUtils.Simulate.keyDown(node, { key: 'Enter', keyCode: 13, which: 13 });
     });
 
+    it('Simulate all event types', () => {
+        const element = document.createElement('div');
+        const dom = ReactDOM.render(
+            React.createElement('input', { type: 'text' }),
+            element
+        ) as Element;
+        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        // @see: https://github.com/facebook/react/blob/v18.2.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L620
+        const simulatedEventTypes = [
+            'blur',
+            'cancel',
+            'click',
+            'close',
+            'contextMenu',
+            'copy',
+            'cut',
+            'auxClick',
+            'doubleClick',
+            'dragEnd',
+            'dragStart',
+            'drop',
+            'focus',
+            'input',
+            'invalid',
+            'keyDown',
+            'keyPress',
+            'keyUp',
+            'mouseDown',
+            'mouseUp',
+            'paste',
+            'pause',
+            'play',
+            'pointerCancel',
+            'pointerDown',
+            'pointerUp',
+            'rateChange',
+            'reset',
+            'resize',
+            'seeked',
+            'submit',
+            'touchCancel',
+            'touchEnd',
+            'touchStart',
+            'volumeChange',
+            'drag',
+            'dragEnter',
+            'dragExit',
+            'dragLeave',
+            'dragOver',
+            'mouseMove',
+            'mouseOut',
+            'mouseOver',
+            'pointerMove',
+            'pointerOut',
+            'pointerOver',
+            'scroll',
+            'toggle',
+            'touchMove',
+            'wheel',
+            'abort',
+            'animationEnd',
+            'animationIteration',
+            'animationStart',
+            'canPlay',
+            'canPlayThrough',
+            'durationChange',
+            'emptied',
+            'encrypted',
+            'ended',
+            'error',
+            'gotPointerCapture',
+            'load',
+            'loadedData',
+            'loadedMetadata',
+            'loadStart',
+            'lostPointerCapture',
+            'playing',
+            'progress',
+            'seeking',
+            'stalled',
+            'suspend',
+            'timeUpdate',
+            'transitionEnd',
+            'waiting',
+            'mouseEnter',
+            'mouseLeave',
+            'pointerEnter',
+            'pointerLeave',
+            'change',
+            'select',
+            'beforeInput',
+            'compositionEnd',
+            'compositionStart',
+            'compositionUpdate',
+          ] as const;
+
+          simulatedEventTypes.forEach((eventType) => {
+            ReactTestUtils.Simulate[eventType](node);
+          });
+    });
+
     it('renderIntoDocument', () => {
         const element = React.createElement('input', { type: 'text' });
         ReactTestUtils.renderIntoDocument(element);
@@ -251,8 +352,9 @@ function createRoot() {
 function hydrateRoot() {
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
         identifierPrefix: 'react-18-app',
-        onRecoverableError: error => {
+        onRecoverableError: (error, errorInfo) => {
             console.error(error);
+            console.info(errorInfo.componentStack);
         },
     });
     hydrateable.render(<div>render update</div>);
@@ -266,7 +368,7 @@ function hydrateRoot() {
 }
 
 /**
- * source:
+ * source: https://react.dev/reference/react-dom/server/renderToPipeableStream
  */
 function pipeableStreamDocumentedExample() {
     function App() {
@@ -280,16 +382,18 @@ function pipeableStreamDocumentedExample() {
     }
 
     let didError = false;
-    const res: Response = {} as any;
-    const stream = ReactDOMServer.renderToPipeableStream(<App />, {
+    const response: Response = {} as any;
+    const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
+        bootstrapScripts: ['/main.js'],
         onShellReady() {
-            res.statusCode = didError ? 500 : 200;
-            res.setHeader('Content-type', 'text/html');
-            stream.pipe(res);
+            response.statusCode = didError ? 500 : 200;
+            response.setHeader('content-type', 'text/html');
+            pipe(response);
         },
         onShellError(error) {
-            res.statusCode = 500;
-            res.send('<!doctype html><p>Loading...</p><script src="clientrender.js"></script>');
+            response.statusCode = 500;
+            response.setHeader('content-type', 'text/html');
+            response.send('<h1>Something went wrong</h1>');
         },
         onAllReady() {},
         onError(err) {
@@ -297,6 +401,16 @@ function pipeableStreamDocumentedExample() {
             console.error(err);
         },
     });
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort();
+    }, 1000);
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort("timeout");
+    }, 1000);
 }
 
 /**

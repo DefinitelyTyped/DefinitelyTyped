@@ -1251,829 +1251,691 @@ declare enum EnumDWT_MouseShape {
 }
 
 /**
- * @class
  */
 // properties (get/set) / sync functions
 interface WebTwain {
     /**
      * Returns or sets whether multi-page selection is supported.
-     * @type {bool}
      */
     AllowMultiSelect: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether allowing the plugin to send authentication request. The default value of this property is TRUE.
-     * @type {bool}
      */
     AllowPluginAuthentication: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether the async mode is activated. With this mode, Dynamic Web TWAIN is able to upload/download files via HTTP/FTP asynchronously. The default value is false.
-     * @type {bool}
      */
     AsyncMode: boolean;
 
     /**
      * Returns or sets the background color of the main control. It is a value specifying the 24-bit RGB value.
-     * @type {int}
      */
     BackgroundColor: number;
 
     /**
      * Returns or sets the fill color of the selected area of an image when it is cut, erased or rotated. It is a value specifying the 24-bit RGB value.
-     * @type {int}
      */
     BackgroundFillColor: number;
 
     /**
      * [Deprecated.] Returns the number of barcode detected in an image.
-     * @type {int}
      */
     BarcodeCount: number;
 
     /**
      * Returns or sets the pixel bit depths for the current value of PixelType property. This is a runtime property.
-     * @type {short}
      */
     BitDepth: number;
 
     /**
      * Returns the current deviation of the pixels in the image.
-     * @type {float}
      */
     BlankImageCurrentStdDev: number;
 
     /**
      * Returns or sets the standard deviation of the pixels in the image.
-     * @type {float}
      */
     BlankImageMaxStdDev: number;
 
     /**
      * Returns or sets the dividing line between black and white. The default value is 128.
-     * @type {int}
      */
     BlankImageThreshold: number;
 
     /**
      * [Deprecated.] Returns or sets the border style.
-     * @type {EnumDWT_BorderStyle}
      */
     BorderStyle: EnumDWT_BorderStyle;
 
     /**
      * Returns or sets the brightness values available within the Source. This is a runtime property.
-     * @type {float}
      */
     Brightness: number;
 
     /**
      * [Deprecated.] Sets or returns whether brokerprocess is enabled for scanning.
-     * @type {int}
      */
     BrokerProcessType: number;
 
     /**
      * Sets or returns how much physical memory is allowed for storing images currently loaded in Dynamic Web TWAIN. Once the limit is reached, images will be cached on the hard disk.
-     * @type {int}
      */
     BufferMemoryLimit: number;
 
     /**
      * Specifies the capabiltiy to be negotiated. This is a runtime property.
-     * @type {EnumDWT_Cap}
      */
     Capability: EnumDWT_Cap;
 
     /**
      * Sets or returns the index (0-based) of a list to indicate the Current Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
-     * @type {int}
      */
     CapCurrentIndex: number;
 
     /**
      * Sets or returns the current value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
-     * @type {double}
      */
     CapCurrentValue: number;
 
     /**
      * Returns the index (0-based) of a list to indicate the Default Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime, read-only property.
-     * @type {int}
      */
     CapDefaultIndex: number;
 
     /**
      * Returns the default value in a range when the value of the CapType property is TWON_RANGE. This is a runtime, read-only property.
-     * @type {double}
      */
     CapDefaultValue: number;
 
     /**
      * Sets or returns the maximum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
-     * @type {double}
      */
     CapMaxValue: number;
 
     /**
      * Sets or returns the minimum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
-     * @type {double}
      */
     CapMinValue: number;
 
     /**
      * [Deprecated.] Sets or returns how many items are in the list when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION. For String data type, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
-     * @type {int}
      */
     CapNumItems: number;
 
     /**
      * [Deprecated.] Replaced by GetCapItemsString method and SetCapItemsString method.
-     * @type {string}
      */
     CapItemsString: string;
 
     /**
      * Sets or returns the step size in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
-     * @type {double}
      */
     CapStepSize: number;
 
     /**
      * Sets or returns the type of capability container used to exchange capability information between application and source. This is a runtime property.
-     * @type {EnumDWT_CapType}
      */
     CapType: EnumDWT_CapType;
 
     /**
      * Returns or sets the value of the capability specified by Capability property when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
-     * @type {double}
      */
     CapValue: number;
 
     /**
      * Sets or returns the string value for a capability when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
-     * @type {string}
      */
     CapValueString: string;
 
     /**
      * Sets or returns the value type for reading the value of a capability. This is a runtime property.
-     * @type {short}
      */
     CapValueType: number;
 
     /**
      * Returns or sets the contrast values available within the Source. This is a runtime property.
-     * @type {float}
      */
     Contrast: number;
 
     /**
      * Sets or returns the product name string for the application identity.
-     * @type {string}
      */
     ProductName: string;
 
     /**
      * Returns or sets current index of image in buffer. This is a runtime property.
-     * @type {short}
      */
     CurrentImageIndexInBuffer: number;
 
     /**
      * Returns the device name of current source. This is a runtime, read-only property.
-     * @type {string}
      */
     CurrentSourceName: string;
 
     /**
      * Returns the value indicating the data source status. This is a runtime, read-only property.
-     * @type {int}
      */
     DataSourceStatus: number;
 
     /**
      * Returns the device name of default source. This is a runtime, read-only property.
-     * @type {string}
      */
     DefaultSourceName: string;
 
     /**
      * Returns whether the source supports duplex. If so, it further returns the level of duplex the Source supports (one pass or two pass duplex). This is a runtime, read-only property.
-     * @type {int}
      */
     Duplex: number;
 
     /**
      * [Deprecated.] Returns or sets whether the user can zoom image using hot key.
-     * @type {bool}
      */
     EnableInteractiveZoom: boolean;
 
     /**
      * Returns the error code. This is a runtime, read-only property.
-     * @type {int}
      */
     ErrorCode: number;
 
     /**
      * Returns the error string. This is a runtime, read-only property.
-     * @type {string}
      */
     ErrorString: string;
 
     /**
      * Returns or sets whether to resize the image to fit the image to the width or height of the window. To use the property, the view mode should be set to -1 by -1. You can use SetViewMode method to set the view mode.
-     * @type {EnumDWT_FitWindowType}
      */
     FitWindowType: EnumDWT_FitWindowType;
 
     /**
      * Returns or sets the password used to log into the FTP server.
-     * @type {string}
      */
     FTPPassword: string;
 
     /**
      * Returns or sets the port number of the FTP server.
-     * @type {int}
      */
     FTPPort: number;
 
     /**
      * Returns or sets the user name used to log into the FTP server.
-     * @type {string}
      */
     FTPUserName: string;
 
     /**
      * Returns how many images are in buffer. This is a runtime, read-only property.
-     * @type {short}
      */
     HowManyImagesInBuffer: number;
 
     /**
      * Specifies the field name of uploaded image through POST.
-     * @type {string}
      */
     HttpFieldNameOfUploadedImage: string;
 
     /**
      * [Deprecated.] Sets or returns the password used to log into the HTTP server.
-     * @type {string}
      */
     HTTPPassword: string;
 
     /**
      * Returns or sets the port number of the HTTP server.
-     * @type {int}
      */
     HTTPPort: number;
 
     /**
      * Returns the response string from the HTTP server if an error occurs for HTTPUploadThroughPost() method. This is a runtime, read-only property.
-     * @type {string}
      */
     HTTPPostResponseString: string;
 
     /**
      * [Deprecated.] Returns or sets the user name used to log into the HTTP server.
-     * @type {string}
      */
     HTTPUserName: string;
 
     /**
      * Returns or sets whether the feature of disk caching is enabled.
-     * @type {bool}
      */
     IfAllowLocalCache: boolean;
 
     /**
      * Returns or sets whether insert or append new scanned images.
-     * @type {bool}
      */
     IfAppendImage: boolean;
 
     /**
      * Returns or sets whether the Source's Auto-brightness function is enabled. This is a runtime property.
-     * @type {bool}
      */
     IfAutoBright: boolean;
 
     /**
      * Returns or sets whether the data source (scanner) will discard blank images during scanning. The property works only if the device and its driver support discarding blank pages. You can find whether your device supports this capbility from its user manual. Or, you can use the built-in methods of Dynamic Web TWAIN to detect blank images: IsBlankImage, IsBlankImageEx.
-     * @type {bool}
      */
     IfAutoDiscardBlankpages: boolean;
 
     /**
      * Returns or sets whether the Source enable automatic document feeding process. This is a runtime property.
-     * @type {bool}
      */
     IfAutoFeed: boolean;
 
     /**
      * Turns automatic border detection on and off. The property works only if the device and its driver support detecting the border automatically. You can find whether your device supports this capbility from its user manual.
-     * @type {bool}
      */
     IfAutomaticBorderDetection: boolean;
 
     /**
      * Turns automatic skew correction on and off.
-     * @type {bool}
      */
     IfAutomaticDeskew: boolean;
 
     /**
      * Returns or sets whether the Source enables the automatic document scanning process. This is a runtime property.
-     * @type {bool}
      */
     IfAutoScan: boolean;
 
     /**
      * Returns or sets whether close the Data Source User Interface after acquire all images. Default value of this property is FALSE.
-     * @type {bool}
      */
     IfDisableSourceAfterAcquire: boolean;
 
     /**
      * Returns or sets whether the Source supports duplex. If TRUE, the scanner scans both sides of a paper; otherwise, the scanner will scan only one side of the image. This is a runtime property.
-     * @type {bool}
      */
     IfDuplexEnabled: boolean;
 
     /**
      * Returns or sets whether the Automatic Document Feeder (ADF) is enabled. This is a runtime property.
-     * @type {bool}
      */
     IfFeederEnabled: boolean;
 
     /**
      * Returns whether or not there are documents loaded in the Source's feeder when IfFeederEnabled and IfPaperDetectable are TRUE. This is a runtime, read-only property.
-     * @type {bool}
      */
     IfFeederLoaded: boolean;
 
     /**
      * Returns or sets whether to resize the image to fit the size of window when the view mode is set to -1 by -1. You can use SetViewMode method to set the view mode.
-     * @type {bool}
      */
     IfFitWindow: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether the UI (User Interface) of Source runs in modal state. Default value of this property is TRUE.
-     * @type {bool}
      */
     IfModalUI: boolean;
 
     /**
      * Sets or returns whether Dynamic Web TWAIN uses  Graphics Device Interface (GDI) when decoding images.
-     * @type {bool}
      */
     IfOpenImageWithGDIPlus: boolean;
 
     /**
      * Returns the value whether the Source has a paper sensor that can detect documents on the ADF or Flatbed. This is a runtime, read-only property.
-     * @type {bool}
      */
     IfPaperDetectable: boolean;
 
     /**
      * Returns or sets whether FTP passive mode is enabled.
-     * @type {bool}
      */
     IfPASVMode: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether communicate with device in a separate thread. Default value of this property is FALSE.
-     * @type {bool}
      */
     IfScanInNewThread: boolean;
 
     /**
      * Sets or returns whether to show the cancel dialog when uploading images to server.
-     * @type {bool}
      */
     IfShowCancelDialogWhenImageTransfer: boolean;
 
     /**
      * Returns or sets whether to show the file dialog box when saving scanned images or loading images from local folder.
-     * @type {bool}
      */
     IfShowFileDialog: boolean;
 
     /**
      * Returns or sets whether the Source displays a progress indicator during acquisition and transfer, regardless of whether the Source's user interface is active. This is a runtime property.
-     * @type {bool}
      */
     IfShowIndicator: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether the driver of the printer displays the User Interface.
-     * @type {bool}
      */
     IfShowPrintUI: boolean;
 
     /**
      * Returns or sets whether the progress bar will be displayed during the transaction. This is a runtime property.
-     * @type {bool}
      */
     IfShowProgressBar: boolean;
 
     /**
      * Returns or sets whether the Source displays the User Interface.
-     * @type {bool}
      */
     IfShowUI: boolean;
 
     /**
      * Returns or sets whether SSL is used when uploading or downloading images.
-     * @type {bool}
      */
     IfSSL: boolean;
 
     /**
      * Return or sets whether the Source allows to save many images in one TIFF file. The default value is FALSE.
-     * @type {bool}
      */
     IfTiffMultiPage: boolean;
 
     /**
      * Returns whether the Source supports acquisition with the UI (User Interface) disabled. If FALSE, indicates that this Source can only support acquisition with the UI enabled. This is a runtime, read-only property.
-     * @type {bool}
      */
     IfUIControllable: boolean;
 
     /**
      * Sets or returns whether Dynamic Web TWAIN uses the new TWAIN Data Source Manager (TWAINDSM.dll) when acquiring images from TWAIN devices.
-     * @type {bool}
      */
     IfUseTwainDSM: boolean;
 
     /**
      * Specifies whether or not to automatically scroll to the last image or stay on the current image when loading or acquiring images
-     * @type {bool}
      */
     IfAutoScroll: boolean;
 
     /**
      * [Deprecated.] The number of bits in each image pixel (or bit depth). This is a runtime, read-only property.
-     * @type {short}
      */
     ImageBitsPerPixel: number;
 
     /**
      * Returns or sets whether a TWAIN driver or Native Scan of Mac OS X is used for document scanning. This property works for Mac edition only.
-     * @type {int}
      */
     ImageCaptureDriverType: number;
 
     /**
      * [Deprecated.] Returns or sets whether the image enumerator is enabled in Image Editor.
-     * @type {bool}
      */
     ImageEditorIfEnableEnumerator: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether the Image Editor is a modal window.
-     * @type {bool}
      */
     ImageEditorIfModal: boolean;
 
     /**
      * [Deprecated.] Returns or sets whether the Image Editor is read-only.
-     * @type {bool}
      */
     ImageEditorIfReadonly: boolean;
 
     /**
      * [Deprecated.] Returns or sets the title of Image Editor window.
-     * @type {string}
      */
     ImageEditorWindowTitle: string;
 
     /**
      * Returns the document number of the current image. This is a runtime, read-only property.
-     * @type {int}
      */
     ImageLayoutDocumentNumber: number;
 
     /**
      * Returns the value of the bottom-most edge of the current image frame (in Unit). This is a read-only runtime property.
-     * @type {float}
      */
     ImageLayoutFrameBottom: number;
 
     /**
      * Returns the value of the left-most edge of the current image frame (in Unit). This is a runtime, read-only property.
-     * @type {float}
      */
     ImageLayoutFrameLeft: number;
 
     /**
      * Returns the frame number of the current image. This is a runtime, read-only property.
-     * @type {int}
      */
     ImageLayoutFrameNumber: number;
 
     /**
      * Returns the value of the right-most edge of the current image frame (in Unit). This is a runtime, read-only property.
-     * @type {float}
      */
     ImageLayoutFrameRight: number;
 
     /**
      * Returns the value of the top-most edge of the current image frame (in Unit). This is a runtime, read-only property.
-     * @type {float}
      */
     ImageLayoutFrameTop: number;
 
     /**
      * Returns the page number of the current image. This is a runtime, read-only property.
-     * @type {Long}
      */
     ImageLayoutPageNumber: number;
 
     /**
      * [Deprecated.] Returns how tall/long, in pixels, the image is. This is a runtime, read-only property.
-     * @type {int}
      */
     ImageLength: number;
 
     /**
      * Returns or sets the margin between images when multiple images are displayed in Dynamic Web TWAIN.
-     * @type {short}
      */
     ImageMargin: number;
 
     /**
      * Returns the pixel type of the current image. This is a runtime, read-only property. Please note the property is only valid in OnPreTransfer and OnPostTransfer event.
-     * @type {EnumDWT_PixelType}
      */
     ImagePixelType: EnumDWT_PixelType;
 
     /**
      * [Deprecated.] Returns how width, in pixels, the image is. This is a runtime, read-only property.
-     * @type {int}
      */
     ImageWidth: number;
 
     /**
      * [Deprecated.] Returns the X resolution of the current image. X resolution is the number of pixels per Unit in the horizontal direction. This is a runtime, read-only property.
-     * @type {float}
      */
     ImageXResolution: number;
 
     /**
      * [Deprecated.] Returns the Y resolution of the current image. Y resolution is the number of pixels per Unit in the vertical direction. This is a runtime, read-only property.
-     * @type {float}
      */
     ImageYResolution: number;
 
     /**
      * Returns or sets the quality of JPEG files and PDF files using JPEG compression.
-     * @type {short}
      */
     JPEGQuality: number;
 
     /**
      * Returns or sets the log level for debugging.
-     * @type {short}
      */
     LogLevel: number;
 
     /**
      * Return the magnetic data if the scanner support magnetic data recognition.
-     * @type {string}
      */
     MagData: string;
 
     /**
      * Return the magnetic type if the scanner support magnetic data recognition.
-     * @type {short}
      */
     MagType: number;
 
     /**
      * Sets or returns the manufacture string for the application identity.
-     * @type {string}
      */
     Manufacturer: string;
 
     /**
      * Returns or sets the maximum number of images can be held in buffer.
-     * @type {short}
      */
     MaxImagesInBuffer: number;
 
     /**
      * [Deprecated.] Returns or sets how many threads can be used when you upload files through POST.
-     * @type {int}
      */
     MaxInternetTransferThreads: number;
 
     /**
      * Sets or returns the maximum allowed size when Dynamic Web TWAIN uploads a document.
-     * @type {int}
      */
     MaxUploadImageSize: number;
 
     /**
      * Returns or sets the shape of the mouse.
-     * @type {bool}
      */
     MouseShape: boolean;
 
     /**
      * Returns the X co-ordinate of the mouse. This is a runtime property.
-     * @type {int}
      */
     MouseX: number;
 
     /**
      * Returns the Y co-ordinate of the mouse. This is a runtime property.
-     * @type {int}
      */
     MouseY: number;
 
     /**
      * Returns or sets the page size(s) the Source can/should use to acquire image data. This is a runtime property.
-     * @type {short}
      */
     PageSize: number;
 
     /**
      * Returns or sets the name of the person who creates the PDF document.
-     * @type {string}
      */
     PDFAuthor: string;
 
     /**
      * Returns or sets the compression type of PDF files. This is a runtime property.
-     * @type {EnumDWT_PDFCompressionType}
      */
     PDFCompressionType: EnumDWT_PDFCompressionType;
 
     /**
      * Returns or sets the date when the PDF document is created.
-     * @type {string}
      */
     PDFCreationDate: string;
 
     /**
      * Returns or sets the name of the application that created the original document, if the PDF document is converted from another form.
-     * @type {string}
      */
     PDFCreator: string;
 
     /**
      * Returns or sets the keywords associated with the PDF document.
-     * @type {string}
      */
     PDFKeywords: string;
 
     /**
      * Returns or sets the date when the PDF document is last modified.
-     * @type {string}
      */
     PDFModifiedDate: string;
 
     /**
      * Returns or sets the name of the application that converted the PDF document from its native.
-     * @type {string}
      */
     PDFProducer: string;
 
     /**
      * Returns or sets the subject of the PDF document.
-     * @type {string}
      */
     PDFSubject: string;
 
     /**
      * Returns or sets the title of the PDF document.
-     * @type {string}
      */
     PDFTitle: string;
 
     /**
      * Returns or sets the value of the PDF version.
-     * @type {string}
      */
     PDFVersion: string;
 
     /**
      * Returns the number of transfers the Source is ready to supply, upon demand. This is a runtime, read-only property.
-     * @type {short}
      */
     PendingXfers: number;
 
     /**
      * Returns or sets the pixel flavor for acquired images. This is a runtime property.
-     * @type {short}
      */
     PixelFlavor: number;
 
     /**
      * Returns or sets the pixel type of current data source. This is a runtime property. Using this property after calling OpenSource() method and before calling AcquireImage().
-     * @type {EnumDWT_PixelType}
      */
     PixelType: EnumDWT_PixelType;
 
     /**
      * Sets or returns the product family string for the application identity.
-     * @type {string}
      */
     ProductFamily: string;
 
     /**
      * Sets the product key. A product key is generated in Licensing Tool which is intalled with Dynamic Web TWAIN. Each product key corresponds with a license.
-     * @type {string}
      */
     ProductKey: string;
 
     /**
      * [Deprecated.] Returns or sets the name of the proxy server.
-     * @type {string}
      */
     ProxyServer: string;
 
     /**
      * Returns or sets the current resolution for acquired images. This is a runtime property.
-     * @type {float}
      */
     Resolution: number;
 
     /**
      * Returns or sets how many scanned images are selected.
-     * @type {short}
      */
     SelectedImagesCount: number;
 
     /**
      * Returns or sets the border color of the selected image. It is a value specifying the 24-bit RGB value.
-     * @type {int}
      */
     SelectionImageBorderColor: number;
 
     /**
      * Specifies a fixed aspect ratio to be used for selecting an area.
-     * @type {float}
      */
     SelectionRectAspectRatio: number;
 
     /**
      * Returns how many sources are installed in the system. This is a runtime, read-only property.
-     * @type {int}
      */
     SourceCount: number;
 
     /**
      * [Deprecated.] Replaced by GetSourceNameItems method.
-     * @type {string}
      */
     SourceNameItems: string;
 
     /**
      * [Deprecated.]
-     * @type {string}
      */
     GetSourceNames: string;
 
     /**
      * Returns or sets the compression type of TIFF files. This is a runtime property.
-     * @type {EnumDWT_TIFFCompressionType}
      */
     TIFFCompressionType: EnumDWT_TIFFCompressionType;
 
     /**
      * Sets or returns the transfer mode.
-     * @type {EnumDWT_TransferMode}
      */
     TransferMode: EnumDWT_TransferMode;
 
     /**
      * Returns or sets the unit of measure. This is a runtime property.
-     * @type {short}
      */
     Unit: number;
 
     /**
      * Sets or returns the version info string for the application identity.
-     * @type {string}
      */
     VersionInfo: string;
 
     /**
      * Returns and sets the number of images you are willing to transfer per session. This is a runtime property.
-     * @type {short}
      */
     XferCount: number;
 
     /**
      * Returns or sets zoom factor for the image, only valid When the view mode is set to -1 by -1.
-     * @type {float}
      */
     Zoom: number;
 

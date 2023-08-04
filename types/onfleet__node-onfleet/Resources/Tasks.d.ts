@@ -54,6 +54,9 @@ declare namespace Task {
         unavailableAttachments?: any[];
         notes?: string;
         success?: boolean;
+        photoUploadId?: string | null;
+        photoUploadIds?: string[];
+        signatureUploadId?: string | null;
     }
 
     interface OnfleetTask {

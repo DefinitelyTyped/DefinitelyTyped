@@ -49,9 +49,8 @@ export interface RvmLaunchOptions {
     userAppConfigArgs?: object | undefined;
 }
 /**
- * @typedef {object} ApplicationOption
  * @summary Application creation options.
- * @desc This is the options object required by {@link Application.start Application.start}.
+ * @description This is the options object required by {@link Application.start Application.start}.
  *
  * The following options are required:
  * * `uuid` is required in the app manifest as well as by {@link Application.start Application.start}
@@ -65,36 +64,36 @@ export interface RvmLaunchOptions {
  * This object inherits all the properties of the window creation {@link Window~options options} object,
  * which will take priority over those of the same name that may be provided in `mainWindowOptions`.
  *
- * @property {boolean} [disableIabSecureLogging=false]
+ * [disableIabSecureLogging=false]
  * When set to `true` it will disable IAB secure logging for the app.
  *
- * @property {boolean} [fdc3Api=false]
+ * [fdc3Api=false]
  * A flag to enable FDC3 API.  When set to `true` the `fdc3` API object is present for all windows
  *
- * @property {string} [loadErrorMessage="There was an error loading the application."]
+ * [loadErrorMessage="There was an error loading the application."]
  * An error message to display when the application (launched via manifest) fails to load.
  * A dialog box will be launched with the error message just before the runtime exits.
  * Load fails such as failed DNS resolutions or aborted connections as well as cancellations, _e.g.,_ `window.stop()`,
  * will trigger this dialog.
  * Client response codes such as `404 Not Found` are not treated as fails as they are valid server responses.
  *
- * @property {Window~options} [mainWindowOptions]
+ * [mainWindowOptions]
  * The options of the main window of the application.
  * For a description of these options, click the link (in the Type column).
  *
- * @property {string} [name]
+ * [name]
  * The name of the application (and the application's main window).
  *
  * If provided, _must_ match `uuid`.
  *
- * @property {boolean} [nonPersistent=false]
+ * [nonPersistent=false]
  * A flag to configure the application as non-persistent.
  * Runtime exits when there are no persistent apps running.
  *
- * @property {boolean} [plugins=false]
+ * [plugins=false]
  * Enable Flash at the application level.
  *
- * @property {boolean} [spellCheck=false]
+ * [spellCheck=false]
  * Enable spell check at the application level.
  *
  * @property {string} [url="about:blank"]
@@ -185,7 +184,6 @@ export default class ApplicationModule extends Base {
 /**
  * @classdesc An object representing an application. Allows the developer to create,
  * execute, show/close an application as well as listen to <a href="tutorial-Application.EventEmitter.html">application events</a>.
- * @class
  * @hideconstructor
  */
 export declare class Application extends EmitterBase<ApplicationEvents> {
@@ -416,7 +414,7 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     setAppLogUsername(username: string): Promise<void>;
     /**
      * @summary Retrieves information about the system tray.
-     * @desc The only information currently returned is the position and dimensions.
+     * @description The only information currently returned is the position and dimensions.
      * @return {Promise.<TrayInfo>}
      * @tutorial Application.getTrayIconInfo
      */

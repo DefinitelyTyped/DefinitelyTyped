@@ -10,15 +10,25 @@
 // Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
 
-import { DOMWindow } from 'jsdom';
-
 export as namespace DOMPurify;
 export = DOMPurify;
 
 declare const DOMPurify: createDOMPurifyI;
 
+type WindowLike = Pick<
+    typeof globalThis,
+    | 'NodeFilter'
+    | 'Node'
+    | 'Element'
+    | 'HTMLTemplateElement'
+    | 'DocumentFragment'
+    | 'HTMLFormElement'
+    | 'DOMParser'
+    | 'NamedNodeMap'
+>;
+
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window | DOMWindow): DOMPurify.DOMPurifyI;
+    (window?: Window | WindowLike): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {

@@ -5,8 +5,8 @@ import * as R from 'ramda';
         { a: 1, b: 0 },
         { a: 1, b: 1 },
     ];
-    R.findLast(R.propEq('a', 1))(xs); // => {a: 1, b: 1}
-    R.findLast(R.propEq('a', 4))(xs); // => undefined
+    R.findLast(R.propEq(1, 'a'))(xs); // => {a: 1, b: 1}
+    R.findLast(R.propEq(4, 'a'))(xs); // => undefined
 };
 
 () => {

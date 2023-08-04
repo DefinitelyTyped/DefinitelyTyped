@@ -1,15 +1,21 @@
-// Type definitions for @wordpress/edit-post 7.0
+// Type definitions for @wordpress/edit-post 7.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { dispatch, select } from '@wordpress/data';
+import { dispatch, select, StoreDescriptor } from '@wordpress/data';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/edit-post'): typeof import('./store/actions');
     function select(key: 'core/edit-post'): typeof import('./store/selectors');
 }
+
+export interface EditPostStoreDescriptor extends StoreDescriptor {
+    name: 'core/edit-post';
+}
+
+export const store: EditPostStoreDescriptor;
 
 export type MetaboxLocation = 'advanced' | 'normal' | 'side';
 

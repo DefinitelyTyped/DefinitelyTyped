@@ -101,12 +101,12 @@ interface LokiObj {
 declare class LokiEventEmitter {
 
     /**
-     * @prop events - a hashmap, with each property being an array of callbacks
+     * events - a hashmap, with each property being an array of callbacks
      */
     public events: { [eventName: string]: ((...args: any[]) => any)[] };
 
     /**
-     * @prop asyncListeners - boolean determines whether or not the callbacks associated with each event
+     * asyncListeners - boolean determines whether or not the callbacks associated with each event
      * should happen in an async fashion or not
      * Default is false, which means events are synchronous
      */

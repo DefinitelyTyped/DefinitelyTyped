@@ -19,4 +19,6 @@ export interface AbortSignal {
     dispatchEvent: (event: any) => boolean;
 
     onabort: null | ((this: AbortSignal, event: any) => any);
+
+    throwIfAborted(): void;
 }

@@ -1255,6 +1255,7 @@ export interface CreateOrganization {
           }
         | undefined;
     metadata?: any;
+    enabled_connections?: AddOrganizationEnabledConnection[] | undefined;
 }
 
 export interface UpdateOrganization {
@@ -1564,6 +1565,74 @@ export interface UsersLogsQuery {
     sort?: string;
     include_totals?: boolean;
 }
+
+interface LogStreamBase {
+    id: string;
+    name: string;
+    status: "active" | "paused" | "suspended";
+}
+
+interface DatadogLogStream extends LogStreamBase {
+    type: "datadog";
+    sink: {
+        datadogRegion: string;
+        datadogApiKey: string;
+    };
+}
+
+interface EventBridgeLogStream extends LogStreamBase {
+    type: "eventbridge";
+    sink: {
+        awsAccountId: string;
+        awsRegion: string;
+        awsPartnerEventSource: string;
+    };
+}
+
+interface EventGridLogStream extends LogStreamBase {
+    type: "eventgrid";
+    sink: {
+        azureSubscriptionId: string;
+        azureResourceGroup: string;
+        azureRegion: string;
+        azurePartnerTopic: string;
+    };
+}
+
+interface HttpLogStream extends LogStreamBase {
+    type: "http";
+    sink: {
+        httpContentFormat: "JSONLINES" | "JSONARRAY";
+        httpContentType: string;
+        httpEndpoint: string;
+        httpAuthorization: string;
+    };
+}
+
+interface SplunkLogStream extends LogStreamBase {
+    type: "splunk";
+    sink: {
+        splunkDomain: string;
+        splunkToken: string;
+        splunkPort: string;
+        splunkSecure: boolean;
+    };
+}
+
+interface SumoLogStream extends LogStreamBase {
+    type: "sumo";
+    sink: {
+        sumoSourceAddress: string;
+    };
+}
+
+export type LogStream =
+    | DatadogLogStream
+    | EventBridgeLogStream
+    | EventGridLogStream
+    | HttpLogStream
+    | SplunkLogStream
+    | SumoLogStream;
 
 export interface GetDeviceCredentialsParams {
     user_id: string;
@@ -2085,6 +2154,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getLogs(query?: LogsQuery): Promise<Array<LogEvent>>;
     getLogs(cb?: (err: Error, data: Array<LogEvent>) => void): void;
     getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
+
+    // Log streams
+    getLogStreams(): Promise<LogStream[]>;
+    getLogStreams(cb: (err: Error, data: LogStream[]) => void): void;
 
     // Resource Server
     createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;

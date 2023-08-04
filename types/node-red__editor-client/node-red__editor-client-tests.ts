@@ -2,6 +2,7 @@
 
 import editorClient = require('@node-red/editor-client');
 import { NodeMessage } from '@node-red/registry';
+import { TrayResizeOptions } from '@node-red/editor-client/index';
 
 function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
@@ -322,12 +323,22 @@ function widgetTypedInputTests() {
         label: 'label',
         options: ['opt1', 'opt2'],
     };
+    const goodTypeListOptionsDef: editorClient.WidgetTypedInputTypeDefinition = {
+        value: 'mytype',
+        hasValue: false,
+        icon: 'icon',
+        label: 'label',
+        options: [
+            { value: 'val1', label: 'label1' },
+            { value: 'val2', label: 'label2' },
+        ],
+    };
     const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
         // @ts-expect-error
         wrongKey: 'value',
     };
     $('#inputId').typedInput({
-        types: [goodType, wrongType, goodTypeDef, wrongTypeDef],
+        types: [goodType, wrongType, goodTypeDef, wrongTypeDef, goodTypeListOptionsDef],
     });
     $('#inputId').typedInput({
         types: ['msg', 'flow', 'global', 'str', 'num', 'bool', 'json', 'bin', 're', 'date', 'jsonata', 'env'],
@@ -417,4 +428,124 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
 
     // $ExpectType (string | number)[]
     RED.utils.normalisePropertyExpression('a[msg.foo]', msg);
+}
+
+function nodeRedEditorTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.editor.editSubflow({});
+    // $ExpectType void
+    RED.editor.editSubflow({}, {});
+
+    // $ExpectType void
+    RED.editor.editGroup({});
+    // $ExpectType void
+    RED.editor.editGroup({}, {});
+
+    // $ExpectType void
+    RED.editor.editJavaScript({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'any',
+        width: 0,
+        stateId: 'string',
+        mode: 'string',
+        focus: true,
+        cancel: () => {},
+        complete: (value: any, cursor?: any) => {},
+        extraLibs: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editExpression({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editJSON({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+        requireValid: true,
+        readOnly: true,
+        toolbarButtons: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editMarkdown({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'string',
+        width: 'Infinite',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+        header: $('<div/>'),
+    });
+
+    // $ExpectType void
+    RED.editor.editText({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        mode: 'string',
+        value: 'string',
+        stateId: 'string',
+        width: 0,
+        focus: true,
+        complete: (value: string, cursor?: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editBuffer({
+        title: 'string',
+        parent: $('<div/>'),
+        onclose: () => {},
+        value: 'any',
+        stateId: 'string',
+        focus: true,
+        complete: (value: any) => {},
+    });
+}
+
+function nodeRedTrayTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.tray.show();
+
+    // $ExpectType void
+    RED.tray.show({
+        buttons: [
+            {
+                class: 'string',
+                click: (event: any) => {},
+                id: 'string',
+                text: 'string',
+            },
+        ],
+
+        close: () => {},
+        open: (tray: any, done?: () => void) => {},
+        resize: (options: TrayResizeOptions) => {},
+        show: () => {},
+
+        title: 'string',
+
+        maximized: true,
+        width: 0,
+
+        overlay: true,
+
+        focusElement: $('<div/>'),
+    });
 }

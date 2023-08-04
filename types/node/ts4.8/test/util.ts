@@ -299,6 +299,7 @@ access('file/that/does/not/exist', (err) => {
 {
     const controller: AbortController = util.transferableAbortController();
     const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
+    util.aborted(signal, {}).then(() => {});
 }
 
 {

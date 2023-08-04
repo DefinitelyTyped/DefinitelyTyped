@@ -1141,7 +1141,7 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
 }
 
 /**
- * @deprecated. Use bin instead.
+ * @deprecated Use bin instead.
  */
 export function histogram(): HistogramGeneratorNumber<number, number>;
 

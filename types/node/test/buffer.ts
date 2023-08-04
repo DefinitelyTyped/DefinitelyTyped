@@ -135,6 +135,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.alloc(5, 'a');
     const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
     const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
+    const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
 {
@@ -266,6 +267,13 @@ b.fill('a').fill('b');
     const b = new ImportedBuffer('123');
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
+    b.writeUInt8(0, 6);
+}
+
+// NodeJS.BufferEncoding works properly
+{
+    const encoding: NodeJS.BufferEncoding = 'ascii';
+    const b = new ImportedBuffer('123', encoding);
     b.writeUInt8(0, 6);
 }
 
@@ -473,4 +481,10 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     buff.compare(buff); // $ExpectType 0 | 1 | -1
+}
+
+{
+    const u16 = new Uint16Array([0xffff]);
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
 }

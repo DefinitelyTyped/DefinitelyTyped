@@ -1,4 +1,4 @@
-import { marked } from 'marked';
+import { marked, Marked } from 'marked';
 
 const tokenizer = new marked.Tokenizer();
 
@@ -11,6 +11,32 @@ tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
     };
 
     this.lexer.inline(token.text, token.tokens);
+
+    return token;
+};
+
+tokenizer.html = function html(src) {
+    const token: marked.Tokens.HTML = {
+        type: 'html',
+        text: src,
+        raw: src,
+        pre: true,
+        // @ts-expect-error block must be true
+        block: false,
+    };
+
+    return token;
+};
+
+tokenizer.tag = function tag(src) {
+    const token: marked.Tokens.Tag = {
+        type: 'html',
+        text: src,
+        raw: src,
+        pre: true,
+        // @ts-expect-error block must be false
+        block: true,
+    };
 
     return token;
 };
@@ -29,7 +55,6 @@ let options: marked.MarkedOptions = {
     breaks: false,
     pedantic: false,
     sanitize: true,
-    smartLists: true,
     silent: false,
     highlight(code: string, lang: string) {
         return '';
@@ -103,7 +128,7 @@ renderer.checkbox = checked => {
 class ExtendedRenderer extends marked.Renderer {
     code = (code: string, language: string | undefined, isEscaped: boolean): string => super.code(code, language, isEscaped);
     blockquote = (quote: string): string => super.blockquote(quote);
-    html = (html: string): string => super.html(html);
+    html = (html: string, block: boolean): string => super.html(html, block);
     heading = (text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string => super.heading(text, level, raw, slugger);
     hr = (): string => super.hr();
     list = (body: string, ordered: boolean, start: number): string => super.list(body, ordered, start);
@@ -340,3 +365,26 @@ console.log(slugger2.slug('Test Slug'));
 marked.use({ renderer: new Renderer() });
 marked.use({ renderer: new TextRenderer() });
 marked.use({ tokenizer: new Tokenizer() });
+marked.use({
+    hooks: {
+        preprocess(markdown) {
+            return markdown;
+        },
+        postprocess(html) {
+            return html;
+        },
+    }
+});
+
+const markedInstance = new Marked();
+const markedInstanceOptionReturn: Marked = markedInstance
+    .setOptions({ headerIds: false })
+    .setOptions({ headerIds: true });
+console.log(markedInstanceOptionReturn);
+const instanceParsedResult: string = markedInstance.parse('# test');
+console.log(instanceParsedResult);
+
+const markedInstanceWithOptions: Marked = new Marked({ headerIds: true });
+console.log(markedInstanceWithOptions);
+const instanceWithOptionsParsedResult: string = markedInstanceOptionReturn.parse('# test');
+console.log(instanceWithOptionsParsedResult);

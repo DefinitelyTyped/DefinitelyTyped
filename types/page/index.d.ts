@@ -10,12 +10,10 @@ declare namespace PageJS {
         create(options?: Partial<Options>): Static;
         /**
          * Expose Route
-         * @type {Route}
          */
         Route: Route;
         /**
          * Export Context
-         * @type {Context}
          */
         Context: Context;
         /**
@@ -216,12 +214,10 @@ declare namespace PageJS {
     interface RouteOptions {
         /**
          * enable case-sensitive routes
-         * @type {[type]}
          */
         sensitive?: boolean | undefined;
         /**
          * enable strict matching for trailing slashes
-         * @type {[type]}
          */
         strict?: boolean | undefined;
     }

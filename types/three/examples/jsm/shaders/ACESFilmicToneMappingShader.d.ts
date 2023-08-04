@@ -1,4 +1,4 @@
-import { IUniform, Texture } from '../../../src/Three';
+import { IUniform, Texture } from '../../../src/Three.js';
 
 export const ACESFilmicToneMappingShader: {
     uniforms: {

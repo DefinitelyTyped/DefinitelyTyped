@@ -17,6 +17,7 @@ import {
   AccessibilityInfo,
   ActionSheetIOS,
   Alert,
+  Animated,
   AppState,
   AppStateStatus,
   Appearance,
@@ -62,11 +63,9 @@ import {
   PlatformColor,
   Pressable,
   ProgressBarAndroid,
-  ProgressViewIOS,
   PushNotificationIOS,
   RefreshControl,
   RegisteredStyle,
-  RootTagContext,
   ScaledSize,
   ScrollView,
   ScrollViewProps,
@@ -240,6 +239,37 @@ const s = StyleSheet.create({
 });
 const f1: TextStyle = s.shouldWork;
 
+const styleDimensionValueValidPoint: ViewStyle = {
+  width: 1,
+};
+
+const styleDimensionValueValidAuto: ViewStyle = {
+  width: 'auto',
+};
+
+const styleDimensionValueValidPct: ViewStyle = {
+  width: '5%',
+};
+
+const styleDimensionValueValidAnimated: ViewStyle = {
+  width: new Animated.Value(5),
+};
+
+const styleDimensionValueInvalid1: ViewStyle = {
+  // @ts-expect-error
+  width: '5',
+};
+
+const styleDimensionValueInvalid2: ViewStyle = {
+  // @ts-expect-error
+  width: '5px',
+};
+
+const styleDimensionValueInvalid3: ViewStyle = {
+  // @ts-expect-error
+  width: 'A%',
+};
+
 // StyleSheet.compose
 // It creates a new style object by composing two existing styles
 const composeTextStyle: StyleProp<TextStyle> = {
@@ -283,24 +313,49 @@ const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(
   null,
 );
 
-// The following use of the compose method is invalid:
-// @ts-expect-error
-const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle);
+const page = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: '#fff',
+  },
+  text: {
+    fontSize: 30,
+    color: '#000',
+  },
+});
 
-// @ts-expect-error
+const lists = StyleSheet.create({
+  listContainer: {
+    flex: 1,
+    backgroundColor: '#61dafb',
+  },
+  listItem: {
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+  },
+});
+
+const container = StyleSheet.compose(page.container, lists.listContainer);
+<View style={container} />;
+const text = StyleSheet.compose(page.text, lists.listItem);
+<Text style={text} />;
+
+// The following use of the compose method is invalid:
 const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(
+  // @ts-expect-error
   composeTextStyle,
   composeTextStyle,
 );
 
-// @ts-expect-error
 const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose(
+  // @ts-expect-error
   [composeTextStyle],
   null,
 );
 
-// @ts-expect-error
 const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(
+  // @ts-expect-error
   Math.random() < 0.5 ? composeTextStyle : null,
   null,
 );
@@ -359,8 +414,6 @@ class Welcome extends React.Component<ElementProps<View> & {color: string}> {
   }
 
   testFindNodeHandle() {
-    const rootTag = React.useContext(RootTagContext);
-
     if (this.rootViewRef.current != null) {
       const nativeComponentHandle = findNodeHandle(this.rootViewRef.current);
     }
@@ -652,11 +705,6 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
   );
 
   render() {
-    const { ListEmptyComponent } = this.props;
-    const listEmptyComponent: JSX.Element | null | undefined = React.isValidElement(ListEmptyComponent)
-        ? ListEmptyComponent
-        : ListEmptyComponent && <ListEmptyComponent />;
-
     return (
       <FlatList
         ref={list => (this.list = list)}
@@ -679,6 +727,21 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     );
   }
 }
+
+<FlatList
+  data={[1, 2, 3]}
+  renderItem={null}
+  getItemLayout={(
+    data: ArrayLike<number> | null | undefined,
+    index: number,
+  ) => {
+    return {
+      length: data![index] % 2 === 0 ? 10 : 5,
+      offset: 1234,
+      index,
+    };
+  }}
+/>;
 
 export class SectionListTest extends React.Component<
   SectionListProps<string>,
@@ -1119,8 +1182,6 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         <TextInput contextMenuHidden={true} textAlignVertical="top" />
 
         <TextInput textAlign="center" />
-
-        <TextInput inputMode="numeric"/>
       </View>
     );
   }

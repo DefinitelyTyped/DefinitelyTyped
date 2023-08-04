@@ -66,6 +66,8 @@ export interface FsLightboxProps {
     customToolbarButtons?: CustomToolbarButtonProps[] | undefined; // pro feature
 
     // preferences
+    disableBackgroundClose?: boolean | undefined;
+    disableSlideSwiping?: boolean | undefined;
     loadOnlyCurrentSource?: boolean | undefined;
     showThumbsOnMount?: boolean | undefined; // pro feature
     disableThumbs?: boolean | undefined; // pro feature

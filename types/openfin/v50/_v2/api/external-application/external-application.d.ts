@@ -39,7 +39,6 @@ export default class ExternalApplicationModule extends Base {
  * - Processes which have connected to an OpenFin runtime via an adapter
  * - Processes started via `System.launchExternalApplication`
  * - Processes monitored via `System.monitorExternalProcess`
- * @class
  * @hideconstructor
  */
 export declare class ExternalApplication extends EmitterBase<ExternalApplicationEvents> {

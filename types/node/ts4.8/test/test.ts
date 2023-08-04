@@ -1,4 +1,6 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { dot, spec, tap, TestEvent } from 'node:test/reporters';
+import { Transform, TransformOptions, TransformCallback } from 'node:stream';
 
 // run without options
 // $ExpectType TestsStream
@@ -18,6 +20,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    testNamePatterns: ['executed'],
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -52,6 +55,8 @@ test('options with booleans', {
 
 // Test callback mode
 test((t, cb) => {
+    // $ExpectedType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -78,6 +83,8 @@ test(undefined, undefined, t => {
     t.afterEach(() => {});
     // $ExpectType void
     t.beforeEach(() => {});
+    // $ExpectType void
+    t.before(() => {});
 });
 
 // Test the subtest approach.
@@ -94,6 +101,24 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
+
+test.after(() => {});
+test.afterEach(() => {});
+test.before(() => {});
+test.beforeEach(() => {});
+test.describe('describe', () => {});
+test.it('it', () => {});
+// $ExpectType MockTracker
+test.mock;
+// $ExpectType typeof test
+test.test;
+test.test.test('chained self ref', (t) => {
+    // $ExpectType typeof test
+    t.test;
+});
+test.skip('skip', () => {});
+test.todo('todo', () => {});
+test.only('only', () => {});
 
 describe('foo', () => {
     it('it', () => {});
@@ -129,26 +154,99 @@ it('options with booleans', {
     todo: false,
 });
 
-describe.skip('skip shorthand', {
+skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.skip('todo shorthand', {
+skip((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.skip('skip shorthand', {
     concurrency: 1,
-    only: true,
+    skip: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.skip('skip shorthand', {
+    concurrency: 1,
+    skip: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.skip('skip shorthand', {
+    concurrency: 1,
+    skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-describe.todo('skip shorthand', {
+todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+todo((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.todo('todo shorthand', {
+    concurrency: 1,
+    todo: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+only('todo shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.todo('todo shorthand', {
+only((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+test.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.only('only shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.only('only shorthand', {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
@@ -164,7 +262,9 @@ describe(cb => {
 });
 
 // Test callback mode
-it(cb => {
+it((t, cb) => {
+    // $ExpectType TestContext
+    t;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -503,3 +603,75 @@ test('mocks a setter', (t) => {
         call.this;
     }
 });
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot('' as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap('' as any);
+// $ExpectType Spec
+new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
+});
+
+class TestReporter extends Transform {
+    constructor(options: TransformOptions) {
+        super(options);
+    }
+    _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
+        switch (event.type) {
+            case 'test:diagnostic':
+                callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:fail':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/
+                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:pass':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:plan':
+                callback(null, `${event.data.count}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:start':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:stderr':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:stdout':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:enqueue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:dequeue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:watch:drained':
+                // event doesn't have any data
+                callback(null);
+                break;
+            default:
+                callback(null);
+        }
+    }
+}

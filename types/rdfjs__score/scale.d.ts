@@ -1,4 +1,4 @@
-import { ScoreFn, ScoreCb } from '.';
+import { ScoreFn, ScoreCb } from './index.js';
 
 interface ScaleCriteria {
     score: ScoreCb;

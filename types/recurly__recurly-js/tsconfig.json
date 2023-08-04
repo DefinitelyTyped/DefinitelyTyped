@@ -28,6 +28,7 @@
         "test/3d-secure.ts",
         "test/adyen.ts",
         "test/apple-pay.ts",
+        "test/google-pay.ts",
         "test/bank-account.ts",
         "test/configure.ts",
         "test/elements.ts",

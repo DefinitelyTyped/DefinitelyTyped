@@ -43,6 +43,7 @@
         "test/sns-tests.ts",
         "test/sqs-tests.ts",
         "test/msk-tests.ts",
+        "test/self-managed-kafka-tests.ts",
         "test/secretsmanager-tests.ts",
         "test/s3-event-notification-tests.ts",
         "test/amplify-resolver-tests.ts"

@@ -1,8 +1,3 @@
-// Type definitions for Google Apps Script 2019-03-25
-// Project: https://developers.google.com/apps-script/
-// Generator: https://github.com/grant/google-apps-script-dts
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAppsScript {
   namespace Calendar {
     namespace Collection {
@@ -366,6 +361,7 @@ declare namespace GoogleAppsScript {
         end?: Calendar.Schema.EventDateTime | undefined;
         endTimeUnspecified?: boolean | undefined;
         etag?: string | undefined;
+        eventType?: "default" | "outOfOffice" | "focusTime" | "workingLocation";
         extendedProperties?: Calendar.Schema.EventExtendedProperties | undefined;
         gadget?: Calendar.Schema.EventGadget | undefined;
         guestsCanInviteOthers?: boolean | undefined;

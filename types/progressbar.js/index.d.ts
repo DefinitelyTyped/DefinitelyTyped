@@ -103,7 +103,7 @@ declare namespace main {
         /**
          * Width of the stroke.
          * Unit is percentage of SVG canvas' size.
-         * @desc In Line shape, you should control
+         * @description In Line shape, you should control
          * the stroke width by setting container's height.
          * WARNING: IE doesn't support values over 6, see this bug:
          * @see {@link https://github.com/kimmobrunfeldt/progressbar.js/issues/79}

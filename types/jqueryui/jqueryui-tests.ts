@@ -1753,7 +1753,13 @@ function test_tooltip() {
         show: {
             effect: "slideDown",
             delay: 250
-        }
+        },
+        open: function(event, ui) {
+            ui.tooltip.animate({ top: ui.tooltip.position().top + 5 }, 'fast')
+        },
+        close: function(event, ui) {
+            ui.tooltip.animate({ top: ui.tooltip.position().top + 5 }, 'fast')
+        },
     });
     $(document).tooltip({
         items: "img, [data-geo], [title]",

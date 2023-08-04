@@ -2,8 +2,12 @@ import type * as React from 'react';
 import {ScrollView} from '../Components/ScrollView/ScrollView';
 import {View} from '../Components/View/View';
 import {Image} from '../Image/Image';
-import {FlatListProps} from '../Lists/FlatList';
-import {DefaultSectionT, SectionListProps} from '../Lists/SectionList';
+import {FlatListComponent, FlatListProps} from '../Lists/FlatList';
+import {
+  DefaultSectionT,
+  SectionListComponent,
+  SectionListProps,
+} from '../Lists/SectionList';
 import {ColorValue} from '../StyleSheet/StyleSheet';
 import {Text} from '../Text/Text';
 import {NativeSyntheticEvent} from '../Types/CoreEventTypes';
@@ -107,6 +111,17 @@ export namespace Animated {
 
   type ValueListenerCallback = (state: {value: number}) => void;
 
+  type Animation = {
+    start(
+      fromValue: number,
+      onUpdate: (value: number) => void,
+      onEnd: EndCallback | null,
+      previousAnimation: Animation | null,
+      animatedValue: AnimatedValue,
+    ): void;
+    stop(): void;
+  };
+
   /**
    * Standard value for driving animations.  One `Animated.Value` can drive
    * multiple properties in a synchronized fashion, but can only be driven by one
@@ -160,12 +175,27 @@ export namespace Animated {
     stopAnimation(callback?: (value: number) => void): void;
 
     /**
+     * Stops any animation and resets the value to its original.
+     *
+     * See https://reactnative.dev/docs/animatedvalue#resetanimation
+     */
+    resetAnimation(callback?: (value: number) => void): void;
+
+    /**
      * Interpolates the value before updating the property, e.g. mapping 0-1 to
      * 0-10.
      */
     interpolate<OutputT extends number | string>(
       config: InterpolationConfigType,
     ): AnimatedInterpolation<OutputT>;
+
+    /**
+     * Typically only used internally, but could be used by a custom Animation
+     * class.
+     *
+     * See https://reactnative.dev/docs/animatedvalue#animate
+     */
+    animate(animation: Animation, callback?: EndCallback | null): void;
   }
 
   type ValueXYListenerCallback = (value: {x: number; y: number}) => void;
@@ -191,6 +221,8 @@ export namespace Animated {
     flattenOffset(): void;
 
     extractOffset(): void;
+
+    resetAnimation(callback?: (value: {x: number; y: number}) => void): void;
 
     stopAnimation(callback?: (value: {x: number; y: number}) => void): void;
 
@@ -523,7 +555,9 @@ export namespace Animated {
   type NonAnimatedProps = 'key' | 'ref';
 
   type TAugmentRef<T> = T extends React.Ref<infer R>
-    ? React.Ref<R | LegacyRef<R>>
+    ? unknown extends R
+      ? never
+      : React.Ref<R | LegacyRef<R>>
     : never;
 
   export type AnimatedProps<T> = {
@@ -538,7 +572,7 @@ export namespace Animated {
     extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
   export type AnimatedComponentOptions = {
-    collapsable?: boolean;
+    collapsable?: boolean | undefined;
   };
 
   /**
@@ -561,13 +595,18 @@ export namespace Animated {
   /**
    * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
    */
-  export class FlatList<ItemT = any> extends React.Component<
+
+  export class FlatList<ItemT = any> extends FlatListComponent<
+    ItemT,
     AnimatedProps<FlatListProps<ItemT>>
   > {}
+
   export class SectionList<
     ItemT = any,
     SectionT = DefaultSectionT,
-  > extends React.Component<AnimatedProps<SectionListProps<ItemT, SectionT>>> {}
+  > extends SectionListComponent<
+    AnimatedProps<SectionListProps<ItemT, SectionT>>
+  > {}
 }
 
 // We need to alias these views so we can reference them in the Animated

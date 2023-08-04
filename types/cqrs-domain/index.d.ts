@@ -16,7 +16,7 @@ declare namespace Domain {
         /**
          * Sets attributes for the aggregate.
          *
-         * @example:
+         * @example
          *     aggregate.set('firstname', 'Jack');
          *     // or
          *     aggregate.set({
@@ -31,7 +31,7 @@ declare namespace Domain {
          * @param attr The attribute name.
          * @return The result value.
          *
-         * @example:
+         * @example
          *     aggregate.get('firstname'); // returns 'Jack'
          */
         get(attr: string): any;
@@ -42,7 +42,7 @@ declare namespace Domain {
          * @param attr The attribute name.
          * @return The result value.
          *
-         * @example:
+         * @example
          *     aggregate.has('firstname'); // returns true or false
          */
         has(attr: string): boolean;

@@ -34,7 +34,7 @@ declare function getPassword(
 
 declare function setPassword(
     options: keychainTypes.KeyChainBaseOptions,
-    callback: (err: keychainTypes.KeychainError) => void,
+    callback?: (err: keychainTypes.KeychainError) => void,
 ): void;
 
 declare function deletePassword(

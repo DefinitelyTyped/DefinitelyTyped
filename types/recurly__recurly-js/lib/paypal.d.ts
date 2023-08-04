@@ -4,11 +4,26 @@ export type BraintreeConfig = {
   braintree: {
     clientAuthorization: string;
   };
+  display?: {
+    locale?: string;
+    displayName?: string;
+    amount?: string;
+    enableShippingAddress?: boolean;
+    shippingAddressOverride?: any;
+    shippingAddressEditable?: boolean;
+    billingAgreementDescription?: string;
+    landingPageType?: string;
+  };
 };
 
 export type DirectConfig = {
+  gatewayCode?: string;
   display?: {
+    locale?: string;
     displayName?: string;
+    amount?: string;
+    logoImageUrl?: string;
+    headerImageUrl?: string;
   };
 };
 

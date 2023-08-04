@@ -32,7 +32,7 @@ declare module 'angular' {
       /** An object of loaded translation strings.Shouldn't be used directly. */
       strings: {};
       /** The default language, in which you're application is written. This defaults to English and it's generally a bad idea to use anything else: if your language has different pluralization rules you'll end up with incorrect translations. Deprecated
-       * @deprecreated
+       * @deprecated
        */
       baseLanguage: string;
 

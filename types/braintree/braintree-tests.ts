@@ -120,8 +120,16 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     };
     const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
     if (!response) return;
-    const { amount, billing, escrowStatus, gatewayRejectionReason, type, status, id }: Transaction =
-        response.transaction;
+    const {
+        additionalProcessorResponse,
+        amount,
+        billing,
+        escrowStatus,
+        gatewayRejectionReason,
+        type,
+        status,
+        id,
+    }: Transaction = response.transaction;
 
     // Assert overlap between transaction type and static field
     type === Transaction.Type.Credit;

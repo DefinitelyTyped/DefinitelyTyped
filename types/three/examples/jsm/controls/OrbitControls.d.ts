@@ -1,4 +1,4 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
+import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
 
 /**
  * Orbit controls allow the camera to orbit around a target.
@@ -123,6 +123,12 @@ export class OrbitControls {
     zoomSpeed: number;
 
     /**
+     * Setting this property to `true` allows to zoom to the cursor's position.
+     * @default false
+     */
+    zoomToCursor: boolean;
+
+    /**
      * Enable or disable horizontal and
      * vertical rotation of the camera.
      * Note that it is possible to disable a single axis
@@ -214,7 +220,7 @@ export class OrbitControls {
     /**
      * Used internally by the .saveState and .reset methods.
      */
-    zoomO: number;
+    zoom0: number;
 
     /**
      * Update the controls. Must be called after any manual changes
@@ -275,8 +281,4 @@ export class OrbitControls {
     removeEventListener(type: string, listener: (event: any) => void): void;
 
     dispatchEvent(event: { type: string; target: any }): void;
-}
-
-export class MapControls extends OrbitControls {
-    constructor(object: Camera, domElement?: HTMLElement);
 }

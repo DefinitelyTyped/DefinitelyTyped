@@ -1,10 +1,3 @@
-// Type definitions for Google Apps Script 2020-01-02
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 Alexander Kuzmenko <https://github.com/eightalex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 /// <reference path="google-apps-script.charts.d.ts" />
@@ -101,6 +94,32 @@ declare namespace GoogleAppsScript {
      * Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
     enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
+    /**
+     * Represents an image to add to a cell. To add an image to a cell, you must create a new image
+     * value for the image using SpreadsheetApp.newCellImage() and CellImageBuilder. Then you can
+     * use Range.setValue(value) or Range.setValues(values) to add the image value to the cell.
+     */
+    interface CellImage {
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getContentUrl(): string;
+      getUrl(): string | null;
+      toBuilder(): CellImageBuilder;
+    }
+    /**
+     * Builder for CellImage. This builder creates the image value needed to add an image to a cell.
+     */
+    interface CellImageBuilder {
+      build(): CellImage;
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getContentUrl(): string;
+      getUrl(): string | null;
+      setAltTextDescription(description: string): CellImageBuilder;
+      setAltTextTitle(title: string): CellImageBuilder;
+      setSourceUrl(url: string): CellImageBuilder;
+      toBuilder(): CellImageBuilder;
+    }
     /**
      * A representation for a color.
      */
@@ -2009,6 +2028,7 @@ declare namespace GoogleAppsScript {
       getCurrentCell(): Range;
       getSelection(): Selection;
       getUi(): Base.Ui;
+      newCellImage(): CellImageBuilder;
       newColor(): ColorBuilder;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
       newDataSourceSpec(): DataSourceSpecBuilder;

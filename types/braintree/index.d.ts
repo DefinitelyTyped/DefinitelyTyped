@@ -1450,7 +1450,7 @@ declare namespace braintree {
         };
 
         addOns?: AddOn[] | undefined;
-        additionalProccessorResponse: string;
+        additionalProcessorResponse: string;
         amount: string;
         androidPayCard?:
             | {

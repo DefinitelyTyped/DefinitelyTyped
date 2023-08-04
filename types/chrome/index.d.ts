@@ -1051,6 +1051,8 @@ declare namespace chrome.browsingData {
         downloads?: boolean | undefined;
         /** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
         cache?: boolean | undefined;
+        /** Optional. The browser's cacheStorage.  */
+        cacheStorage?: boolean | undefined;
         /** Optional. Websites' appcaches.  */
         appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
@@ -4911,7 +4913,7 @@ declare namespace chrome.input.ime {
          * The auto-capitalize type of the text field.
          * @since Chrome 69.
          */
-        autoCaptialize: AutoCapitalizeType;
+        autoCapitalize: AutoCapitalizeType;
         /**
          * Whether text entered into the text field should be used to improve typing suggestions for the user.
          * @since Chrome 68.
@@ -5904,7 +5906,13 @@ declare namespace chrome.offscreen {
         /** The offscreen document needs to use WebRTC APIs. */
         WEB_RTC = "WEB_RTC",
         /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
-        CLIPBOARD = "CLIPBOARD"
+        CLIPBOARD = "CLIPBOARD",
+        /** Specifies that the offscreen document needs access to localStorage. */
+        LOCAL_STORAGE = "LOCAL_STORAGE",
+        /** Specifies that the offscreen document needs to spawn workers. */
+        WORKERS = "WORKERS",
+        /** Specifies that the offscreen document needs to use navigator.geolocation. */
+        GEOLOCATION = "GEOLOCATION",
     }
 
     /** The parameters describing the offscreen document to create. */
@@ -6811,6 +6819,9 @@ declare namespace chrome.serial.onReceiveError {
     export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
 }
 
+type DocumentLifecycle = 'prerender' | 'active' | 'cached' | 'pending_deletion';
+type FrameType = 'outermost_frame' | 'fenced_frame' | 'sub_frame';
+
 ////////////////////
 // Runtime
 ////////////////////
@@ -6904,6 +6915,16 @@ declare namespace chrome.runtime {
          * @since Chrome 80.
          */
         origin?: string | undefined;
+        /**
+         * The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
+         * @since Chrome 106.
+         */
+        documentLifecycle?: DocumentLifecycle | undefined;
+        /**
+         * A UUID of the document that opened the connection.
+         * @since Chrome 106.
+         */
+        documentId?: string | undefined;
     }
 
     /**
@@ -6957,6 +6978,14 @@ declare namespace chrome.runtime {
     /** Result of the update check. */
     export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
 
+    /** Result of the update check. */
+    export interface RequestUpdateCheckResult {
+      /** The status of the update check. */
+      status: RequestUpdateCheckStatus;
+      /** The version of the available update. */
+      version: string;
+    }
+
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
@@ -7004,6 +7033,7 @@ declare namespace chrome.runtime {
         | 'declarativeContent'
         | 'declarativeNetRequest'
         | 'declarativeNetRequestFeedback'
+        | 'declarativeNetRequestWithHostAccess'
         | 'declarativeWebRequest'
         | 'desktopCapture'
         | 'documentScan'
@@ -7042,6 +7072,7 @@ declare namespace chrome.runtime {
         | 'scripting'
         | 'search'
         | 'sessions'
+        | 'sidePanel'
         | 'signedInDevices'
         | 'storage'
         | 'system.cpu'
@@ -7277,6 +7308,18 @@ declare namespace chrome.runtime {
             type?: 'module'; // If the service worker uses ES modules
         }
         | undefined;
+        content_scripts?: {
+            matches?: string[] | undefined;
+            exclude_matches?: string[] | undefined;
+            css?: string[] | undefined;
+            js?: string[] | undefined;
+            run_at?: string | undefined;
+            all_frames?: boolean | undefined;
+            match_about_blank?: boolean | undefined;
+            include_globs?: string[] | undefined;
+            exclude_globs?: string[] | undefined;
+            world?: "ISOLATED" | "MAIN" | undefined
+        }[] | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
@@ -7341,6 +7384,12 @@ declare namespace chrome.runtime {
      * @since Chrome 25.
      */
     export function reload(): void;
+    /**
+     * Requests an update check for this app/extension.
+     * @since Chrome 109
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     */
+    export function requestUpdateCheck(): Promise<RequestUpdateCheckResult>;
     /**
      * Requests an update check for this app/extension.
      * @since Chrome 25.
@@ -8418,7 +8467,7 @@ declare namespace chrome.system.display {
          * This is only valid for the primary display.
          * If provided, mirroringSourceId must not be provided and other properties may not apply.
          * This is has no effect if not provided.
-         * @see(See `enableUnifiedDesktop` for details).
+         * @see `enableUnifiedDesktop` for details
          * @since Chrome 59
          */
         isUnified?: boolean | undefined;
@@ -8471,7 +8520,7 @@ declare namespace chrome.system.display {
 
         /**
          * If set, updates the display's logical bounds origin along y-axis.
-         * @see[See documentation for boundsOriginX parameter.]
+         * @see boundsOriginX
          */
         boundsOriginY?: number | undefined;
 
@@ -8499,7 +8548,7 @@ declare namespace chrome.system.display {
     export interface DisplayInfoFlags {
         /**
          * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
-         * @see[enableUnifiedDesktop]
+         * @see enableUnifiedDesktop
          * @default false
          */
         singleUnified?: boolean | undefined;
@@ -9195,11 +9244,21 @@ declare namespace chrome.tabs {
          * @since Chrome 41.
          */
         frameId?: number | undefined;
+        /**
+         * Optional. Open a port to a specific document identified by documentId instead of all frames in the tab.
+         * @since Chrome 106.
+         */
+        documentId?: string;
     }
 
     export interface MessageSendOptions {
         /** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
         frameId?: number | undefined;
+        /**
+         * Optional. Send a message to a specific document identified by documentId instead of all frames in the tab.
+         * @since Chrome 106.
+         */
+        documentId?: string;
     }
 
     export interface GroupOptions {
@@ -10655,11 +10714,11 @@ declare namespace chrome.webNavigation {
         /** A UUID of the document loaded. */
         documentId: string;
         /** The lifecycle the document is in. */
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        documentLifecycle: DocumentLifecycle;
         /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
         errorOccurred: boolean;
         /** The type of frame the navigation occurred in. */
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameType: FrameType;
         /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
         parentDocumentId?: string | undefined;
         /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
@@ -10698,11 +10757,11 @@ declare namespace chrome.webNavigation {
         /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
         frameId: number;
         /** The type of frame the navigation occurred in. */
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameType: FrameType;
         /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
         documentId?: string | undefined;
         /** The lifecycle the document is in. */
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        documentLifecycle: DocumentLifecycle;
         /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
         parentDocumentId?: string | undefined;
         /**
@@ -10970,8 +11029,8 @@ declare namespace chrome.webRequest {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
         documentId: string;
-        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
-        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        documentLifecycle: DocumentLifecycle;
+        frameType: FrameType;
         frameId: number;
         initiator?: string | undefined;
         parentDocumentId?: string | undefined;
@@ -12308,4 +12367,40 @@ declare namespace chrome.declarativeNetRequest {
     /** Fired when a rule is matched with a request.
      * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
     export var onRuleMatchedDebug: RuleMatchedDebugEvent;
+}
+
+////////////////////
+// SidePanel
+////////////////////
+/**
+ * Availability: @since Chrome 114. Manifest v3.
+ * https://developer.chrome.com/docs/extensions/reference/sidePanel/
+ * Permissions: "sidePanel"
+ */
+declare namespace chrome.sidePanel {
+    export interface GetPanelOptions {
+        tabId?: number;
+    }
+
+    export interface PanelBehavior {
+        openPanelOnActionClick?: boolean;
+    }
+
+    export interface PanelOptions {
+        enabled?: boolean;
+        path?: string;
+        tabId?: number;
+    }
+
+    export interface SidePanel {
+        default_path: string;
+    }
+
+    export function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
+
+    export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
+
+    export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
+
+    export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
 }
