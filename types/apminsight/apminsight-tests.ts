@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as apminsight from 'apminsight';
 
 apminsight.config();  // $ExpectType void

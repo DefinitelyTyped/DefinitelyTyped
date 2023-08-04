@@ -1,6 +1,6 @@
 // Type definitions for apminsight 3.0
 // Project: https://www.npmjs.com/package/apminsight
-// Definitions by: Site24x7 <https://github.com/site24x7>
+// Definitions by: Selvishree <https://github.com/selvishree0630>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://www.site24x7.com/help/apm/nodejs-agent/nodejs-custom-instrumentation.html
