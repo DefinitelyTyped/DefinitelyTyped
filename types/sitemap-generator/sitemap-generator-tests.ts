@@ -22,18 +22,20 @@ const generator = SitemapGenerator('https://example.com/', {
     wait: () => {},
 });
 
-generator.on('add', () => {});
+generator.on('add', (url: string) => {
+    url.trim();
+});
 generator.on('done', () => {});
-generator.on('ignore', () => {});
+generator.on('ignore', (url: string) => {
+    url.trim();
+});
 generator.on('error', error => {
     error.message;
 });
 // @ts-expect-error
 generator.on('bar', () => {});
 // @ts-expect-error
-generator.on('add', error => {
-    error.message;
-});
+generator.on('add', error => { error.message; });
 
 generator.start();
 generator.stop();
