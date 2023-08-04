@@ -71,7 +71,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions): Promise<CredentialType | null>;
+    get(options?: CredentialRequestOptions | OTPCredentialRequestOptions): Promise<CredentialType | null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -124,7 +124,7 @@ interface CredentialData {
     readonly id: string;
 }
 
-type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential;
+type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential | OTPCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -277,6 +277,7 @@ declare class FederatedCredential extends SiteBoundCredential {
      */
     readonly protocol: string | null;
 }
+
 interface OTPCredentialData extends SiteBoundCredentialData {  
     code?: string;
 }
@@ -286,12 +287,11 @@ declare class OTPCredential extends SiteBoundCredential {
 
     readonly type: `otp`;    
     
-    readonly code: string | null;
-
     /**
      * The credential’s One Time Password Code
      * @see {@link https://wicg.github.io/web-otp}
      */
+    readonly code: string | null;
 }
 
 
@@ -315,7 +315,6 @@ interface CredentialRequestOptions {
      * If set, the user agent will request {@link OTPCredential} objects
      * Defaults to {@code null}.
      */
-
     otp?: OTPCredentialRequestOptions | undefined;
 
     /**
@@ -324,7 +323,6 @@ interface CredentialRequestOptions {
      *
      * @deprecated Use {@link mediation} instead.
      */
-    
     unmediated?: boolean | undefined;
 
     /**
@@ -398,12 +396,9 @@ interface OTPCredentialRequestOptions {
      * An array of OTP identifiers.
      * @see {@link https://wicg.github.io/web-otp}
      */    
-    otp: OTPOptions;
+    otp: string[];
 }
 
-interface OTPOptions {
-    transport: string[];
-}
 
 // Type definitions for webauthn
 // Spec: https://w3c.github.io/webauthn/
