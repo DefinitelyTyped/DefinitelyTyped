@@ -383,9 +383,8 @@ function webOTPAutofill() {
         const reqOpt = {
             otp: [`sms`],
             signal: ac.signal,
-        }
+        };
         window.navigator['credentials'].get(reqOpt).then((credential) => {
-            
             if (!credential) {
                 return;
             }
@@ -394,9 +393,8 @@ function webOTPAutofill() {
             } else {
                 console.log("Incorrect type");
             }
-        })
-    }else{
+        });
+    } else {
         console.log("webOTP not supported by browser");
     }
-    
 }

@@ -278,22 +278,23 @@ declare class FederatedCredential extends SiteBoundCredential {
     readonly protocol: string | null;
 }
 
-interface OTPCredentialData extends SiteBoundCredentialData {  
+/**
+ * @see {@link https://wicg.github.io/web-otp}
+ */
+interface OTPCredentialData extends SiteBoundCredentialData {
     code?: string;
 }
-    
+
 declare class OTPCredential extends SiteBoundCredential {
     constructor(data: OTPCredentialData);
 
-    readonly type: `otp`;    
-    
+    readonly type: `otp`;
+
     /**
      * The credential’s One Time Password Code
-     * @see {@link https://wicg.github.io/web-otp}
      */
     readonly code: string | null;
 }
-
 
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
@@ -391,14 +392,13 @@ interface FederatedCredentialRequestOptions {
     protocols?: string[] | undefined;
 }
 
-interface OTPCredentialRequestOptions {  
+interface OTPCredentialRequestOptions {
     /**
      * An array of OTP identifiers.
      * @see {@link https://wicg.github.io/web-otp}
      */    
     otp: string[];
 }
-
 
 // Type definitions for webauthn
 // Spec: https://w3c.github.io/webauthn/
