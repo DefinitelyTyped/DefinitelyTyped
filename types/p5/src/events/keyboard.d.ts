@@ -35,7 +35,7 @@ declare module '../../index' {
          *   @param [event] optional KeyboardEvent callback
          *   argument.
          */
-        keyPressed(event?: KeyboardEvent): false | void;
+        keyPressed(event?: object): void;
 
         /**
          *   The keyReleased() function is called once every
@@ -47,7 +47,7 @@ declare module '../../index' {
          *   @param [event] optional KeyboardEvent callback
          *   argument.
          */
-        keyReleased(event?: KeyboardEvent): false | void;
+        keyReleased(event?: object): void;
 
         /**
          *   The keyTyped() function is called once every time
@@ -71,7 +71,7 @@ declare module '../../index' {
          *   @param [event] optional KeyboardEvent callback
          *   argument.
          */
-        keyTyped(event?: KeyboardEvent): false | void;
+        keyTyped(event?: object): void;
 
         /**
          *   The keyIsDown() function checks if the key is

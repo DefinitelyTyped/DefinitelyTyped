@@ -261,9 +261,6 @@ declare module '../../index' {
          *   reference for the native canvas API for possible
          *   drawing functions you can call.
          */
-        drawingContext:
-        CanvasRenderingContext2D | 
-        WebGLRenderingContext | 
-        WebGL2RenderingContext;
+        drawingContext: any;
     }
 }

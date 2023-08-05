@@ -100,6 +100,6 @@ declare module './index' {
     type WEBGL = 'webgl';
     type WEBGL2 = 'webgl2';
     type WORD = 'word';
-    type AUDIO = "audio";
-    type VIDEO = "video";
+    type VIDEO = 'video';
+    type AUDIO = 'audio';
 }

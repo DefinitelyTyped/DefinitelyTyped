@@ -3557,7 +3557,7 @@ declare global {
      *   @param [html] inner HTML for element created
      *   @return pointer to p5.Element holding created node
      */
-    function createDiv(html?: string): p5.Div;
+    function createDiv(html?: string): p5.Element;
 
     /**
      *   Creates a <p></p> element in the DOM with given
@@ -3573,7 +3573,7 @@ declare global {
      *   @param [html] inner HTML for element created
      *   @return pointer to p5.Element holding created node
      */
-    function createSpan(html?: string): p5.Span;
+    function createSpan(html?: string): p5.Element;
 
     /**
      *   Creates an <img> element in the DOM with given src
@@ -3619,7 +3619,7 @@ declare global {
      *   could be _blank, _self, _parent, _top.
      *   @return pointer to p5.Element holding created node
      */
-    function createA(href: string, html: string, target?: string): p5.A;
+    function createA(href: string, html: string, target?: string): p5.Element;
 
     /**
      *   Creates a slider <input></input> element in the
@@ -3635,7 +3635,7 @@ declare global {
      *   @return pointer to p5.Element holding the created
      *   node
      */
-    function createSlider(min: number, max: number, value?: number, step?: number): p5.Slider;
+    function createSlider(min: number, max: number, value?: number, step?: number): p5.Element;
 
     /**
      *   Creates a <button></button> element in the DOM.
@@ -3645,7 +3645,7 @@ declare global {
      *   @param [value] value of the button
      *   @return pointer to p5.Element holding created node
      */
-    function createButton(label: string, value?: string): p5.Button;
+    function createButton(label: string, value?: string): p5.Element;
 
     /**
      *   Creates a checkbox <input></input> element in the
@@ -3656,7 +3656,7 @@ declare global {
      *   true, unchecked is false
      *   @return pointer to p5.Element holding created node
      */
-    function createCheckbox(label?: string, value?: boolean): p5.Checkbox;
+    function createCheckbox(label?: string, value?: boolean): p5.Element;
 
     /**
      *   Creates a dropdown menu <select></select> element
@@ -3688,7 +3688,7 @@ declare global {
      *   multiple selections
      *   @return pointer to p5.Element holding created node
      */
-    function createSelect(multiple?: boolean): p5.Select;
+    function createSelect(multiple?: boolean): p5.Element;
 
     /**
      *   Creates a dropdown menu <select></select> element
@@ -3718,7 +3718,7 @@ declare global {
      *   the initial option is disabled.
      *   @param existing DOM select element
      */
-    function createSelect(existing: object): p5.Select;
+    function createSelect(existing: object): p5.Element;
 
     /**
      *   Creates a radio button element in the DOM. It also
@@ -3748,7 +3748,7 @@ declare global {
      *   Element.
      *   @return pointer to p5.Element holding created node
      */
-    function createRadio(containerElement: object, name?: string): p5.Radio;
+    function createRadio(containerElement: object, name?: string): p5.Element;
 
     /**
      *   Creates a radio button element in the DOM. It also
@@ -3775,7 +3775,7 @@ declare global {
      *   Element.
      *   @return pointer to p5.Element holding created node
      */
-    function createRadio(name: string): p5.Radio;
+    function createRadio(name: string): p5.Element;
 
     /**
      *   Creates a radio button element in the DOM. It also
@@ -3800,7 +3800,7 @@ declare global {
      *   whole radio button element.
      *   @return pointer to p5.Element holding created node
      */
-    function createRadio(): p5.Radio;
+    function createRadio(): p5.Element;
 
     /**
      *   Creates a colorPicker element in the DOM for color
@@ -3811,7 +3811,7 @@ declare global {
      *   @param [value] default color of element
      *   @return pointer to p5.Element holding created node
      */
-    function createColorPicker(value?: string | p5.Color): p5.ColorPicker;
+    function createColorPicker(value?: string | p5.Color): p5.Element;
 
     /**
      *   Creates an <input></input> element in the DOM for
@@ -3823,7 +3823,7 @@ declare global {
      *   first.
      *   @return pointer to p5.Element holding created node
      */
-    function createInput(value: string, type?: string): p5.Input;
+    function createInput(value: string, type?: string): p5.Element;
 
     /**
      *   Creates an <input></input> element in the DOM for
@@ -3831,7 +3831,7 @@ declare global {
      *   of the box.
      *   @param [value] default value of the input box
      */
-    function createInput(value?: string): p5.Input;
+    function createInput(value?: string): p5.Element;
 
     /**
      *   Creates an <input></input> element in the DOM of
@@ -3844,7 +3844,7 @@ declare global {
      *   @return pointer to p5.Element holding created DOM
      *   element
      */
-    function createFileInput(callback: (...args: any[]) => any, multiple?: boolean): p5.FileInput;
+    function createFileInput(callback: (...args: any[]) => any, multiple?: boolean): p5.Element;
 
     /**
      *   Creates an HTML5 <video> element in the DOM for
@@ -3915,7 +3915,7 @@ declare global {
      *   stream has loaded
      *   @return capture video p5.Element
      */
-    function createCapture(type: string | p5.TYPE | object, callback?: (...args: any[]) => any): p5.Capture;
+    function createCapture(type: string | p5.TYPE | object, callback?: (...args: any[]) => any): p5.Element;
 
     /**
      *   Creates element with given tag in the DOM with
@@ -6609,7 +6609,7 @@ declare global {
      *   @param value to be added to the Array
      *   @return the array that was appended to
      */
-    function append<T>(array: T[], value: T): T[];
+    function append(array: any[], value: any): any[];
 
     /**
      *   Copies an array (or part of an array) to another

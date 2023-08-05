@@ -11,7 +11,7 @@ declare module '../../index' {
          *   @param value to be added to the Array
          *   @return the array that was appended to
          */
-        append<T>(array: T[], value: T): T[];
+        append(array: any[], value: any): any[];
 
         /**
          *   Copies an array (or part of an array) to another

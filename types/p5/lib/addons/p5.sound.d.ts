@@ -2,7 +2,7 @@
 
 import * as p5 from '../../index';
 
-declare namespace p5sound {
+declare module '../../index' {
     class SoundFile {
         /**
          *   SoundFile object with a path to a file. The
@@ -2865,6 +2865,3 @@ declare namespace p5sound {
         soundOut: object;
     }
 }
-
-
-export = p5sound

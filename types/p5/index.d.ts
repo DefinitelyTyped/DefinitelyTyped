@@ -50,7 +50,6 @@
 /// <reference path="./src/webgl/p5.RendererGL.d.ts" />
 /// <reference path="./src/color/p5.Color.d.ts" />
 /// <reference path="./src/core/p5.Element.d.ts" />
-/// <reference path="./src/core/p5.Other.d.ts" />
 /// <reference path="./src/core/p5.Graphics.d.ts" />
 /// <reference path="./src/image/p5.Image.d.ts" />
 /// <reference path="./src/io/p5.Table.d.ts" />
@@ -88,26 +87,7 @@ declare class p5 {
      *   @param [node] element to attach canvas to
      *   @return a p5 instance
      */
-        constructor(sketch?: (p: object) => void, node?: string | HTMLElement);
-
-        __proto__: typeof p5.prototype;
-
-        static VERSION: string;
-        static instance: p5;
-
-        static disableFriendlyErrors: boolean;
-
-        canvas: HTMLCanvasElement;
-
-        _renderer: p5.Renderer;
-        _curElement: p5.Renderer;
-
-        registerMethod(
-            register: 'init' | 'pre' | 'post' | 'remove',
-            callback: () => void
-        ): void;
-
-        registerPreloadMethod(name: PropertyKey, proto: object): void;
+    constructor(sketch: (...args: any[]) => any, node?: HTMLElement);
 
     /**
      *   Called directly before setup(), the preload()

@@ -118,7 +118,7 @@ declare module '../../index' {
          *   adjustments to accommodate the new window size.
          *   @param [event] optional Event callback argument.
          */
-        windowResized(event?: UIEvent): false | void;
+        windowResized(event?: object): void;
 
         /**
          *   If argument is given, sets the sketch to

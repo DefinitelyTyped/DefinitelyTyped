@@ -260,7 +260,7 @@ declare module '../../index' {
          *   Underlying HTML element. All normal HTML methods
          *   can be called on this.
          */
-        elt: HTMLElement;
+        elt: any;
         width: any;
         height: any;
     }
