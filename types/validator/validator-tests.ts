@@ -49,6 +49,7 @@ import isISO8601Func from 'validator/lib/isISO8601';
 import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
 import isISO4217Func from 'validator/lib/isISO4217';
+import { isISO6346 as isISO6346Func, isFreightContainerID as isFreightContainerIDFunc } from 'validator/lib/isISO6346';
 import isISO6391Func from 'validator/lib/isISO6391';
 import isISRCFunc from 'validator/lib/isISRC';
 import isIMEIFunc from 'validator/lib/isIMEI';
@@ -62,6 +63,7 @@ import isLocaleFunc from 'validator/lib/isLocale';
 import isLowercaseFunc from 'validator/lib/isLowercase';
 import isMACAddressFunc from 'validator/lib/isMACAddress';
 import isMD5Func from 'validator/lib/isMD5';
+import isMailtoURIFunc from 'validator/lib/isMailtoURI';
 import isMimeTypeFunc from 'validator/lib/isMimeType';
 import isMobilePhoneFunc from 'validator/lib/isMobilePhone';
 import isMongoIdFunc from 'validator/lib/isMongoId';
@@ -230,6 +232,11 @@ import isVatFunc from 'validator/lib/isVAT';
     validator.isISO4217; // $ExpectType (str: string) => boolean
     isISO4217Func; // $ExpectType (str: string) => boolean
 
+    validator.isISO6346; // $ExpectType (str: string) => boolean
+    validator.isFreightContainerID; // $ExpectType (str: string) => boolean
+    isISO6346Func; // $ExpectType (str: string) => boolean
+    isFreightContainerIDFunc; // $ExpectType (str: string) => boolean
+
     validator.isISO6391; // $ExpectType (str: string) => boolean
     isISO6391Func; // $ExpectType (str: string) => boolean
 
@@ -268,6 +275,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isMD5 = validator.isMD5;
     _isMD5 = isMD5Func;
+
+    let _isMailtoURI = validator.isMailtoURI;
+    _isMailtoURI = isMailtoURIFunc;
 
     let _isMimeType = validator.isMimeType;
     _isMimeType = isMimeTypeFunc;
@@ -414,6 +424,7 @@ import isISO8601FuncEs from 'validator/es/lib/isISO8601';
 import isISO31661Alpha2FuncEs, { CountryCodes } from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
 import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
+import isIso6346FuncEs from 'validator/es/lib/isISO6346';
 import isISO6391FuncEs from 'validator/es/lib/isISO6391';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
 import isInFuncEs from 'validator/es/lib/isIn';
@@ -426,6 +437,7 @@ import isLocaleFuncEs from 'validator/es/lib/isLocale';
 import isLowercaseFuncEs from 'validator/es/lib/isLowercase';
 import isMACAddressFuncEs from 'validator/es/lib/isMACAddress';
 import isMD5FuncEs from 'validator/es/lib/isMD5';
+import isMailtoURIFuncEs from 'validator/es/lib/isMailtoURI';
 import isMimeTypeFuncEs from 'validator/es/lib/isMimeType';
 import isMobilePhoneFuncEs from 'validator/es/lib/isMobilePhone';
 import isMongoIdFuncEs from 'validator/es/lib/isMongoId';
