@@ -202,7 +202,7 @@
 declare module "vm" {
     
 
-    module vm {
+    namespace vm {
         
         
         

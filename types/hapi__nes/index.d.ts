@@ -42,7 +42,7 @@ declare module '@hapi/hapi' {
     }
 }
 
-declare module nes {
+declare namespace nes {
     interface SocketAuthObject {
         isAuthenticated: boolean;
         credentials: any;

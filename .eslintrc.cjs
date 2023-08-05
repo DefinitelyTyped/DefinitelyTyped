@@ -139,6 +139,7 @@ module.exports = {
                 'ts-check': false,
             }
         ],
+        '@typescript-eslint/prefer-namespace-keyword': 'error',
     },
     settings: {
         jsdoc: {
