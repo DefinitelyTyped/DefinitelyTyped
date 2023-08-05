@@ -1,46 +1,46 @@
 import * as p5 from '../../index';
 declare module '../../index' {
-    class Div extends p5.Element {
+    class Div extends Element {
     }
-    class P extends p5.Element {
+    class P extends Element {
     }
-    class Span extends p5.Element {
+    class Span extends Element {
     }
-    class Img extends p5.Element {
-    }
-
-    class A extends p5.Element {
-    }
-    class Slider extends p5.Element {
-        option()
-        value()
-    }
-    class Button extends p5.Element { }
-    class Checkbox extends p5.Element { }
-    class Select extends p5.Element {
-        option(name: string, value?: string)
-        value()
-        selected(value?)
-        enable(value?: string): Select
-        disable(value?: string): Select
+    class Img extends Element {
     }
 
-    class Radio extends p5.Element {
-        option(value: string, labal?: string)
-        value()
-        remove(value)
-        selected(value?)
-        disable(value: boolean): Radio
+    class A extends Element {
     }
-    class ColorPicker extends p5.Element {
-        value()
-        color(): p5.Color
+    class Slider extends Element {
+        option(): any;
+        value(): any;
     }
-    class Input extends p5.Element {
-        size()
+    class Button extends Element { }
+    class Checkbox extends Element { }
+    class Select extends Element {
+        option(name: string, value?: string): any;
+        value(): any;
+        selected(value?): any;
+        enable(value?: string): Select;
+        disable(value?: string): Select;
     }
-    class FileInput extends p5.Element { }
-    class Capture extends p5.Element {
-        hide()
+
+    class Radio extends Element {
+        option(value: string, labal?: string): any;
+        value(): any;
+        remove(value): any;
+        selected(value?): any;
+        disable(value: boolean): Radio;
+    }
+    class ColorPicker extends Element {
+        value(): any;
+        color(): p5.Color;
+    }
+    class Input extends Element {
+        size(): any;
+    }
+    class FileInput extends Element { }
+    class Capture extends Element {
+        hide(): any;
     }
 }
