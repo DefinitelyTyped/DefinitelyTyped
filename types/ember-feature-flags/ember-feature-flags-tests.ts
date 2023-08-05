@@ -24,6 +24,7 @@ const setup = {
   'new-homepage': false
 };
 features.setup(setup); // $ExpectType void
+features.flags; // $ExpectType string[]
 withFeature('new-homepage'); // $ExpectType void
 enableFeature('new-homepage'); // $ExpectType void
 assertType<boolean>(features.get('someFeature'));
