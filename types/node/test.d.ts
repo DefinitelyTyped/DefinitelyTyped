@@ -76,10 +76,11 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.4.0/lib/test.js)
  */
 declare module 'node:test' {
     import { Readable } from 'node:stream';
+    import { AsyncResource } from 'node:async_hooks';
     /**
      * ```js
      * import { tap } from 'node:test/reporters';
@@ -295,6 +296,23 @@ declare module 'node:test' {
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Whether to run in watch mode or not. Default: false.
+         */
+        watch?: boolean;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
     /**
      * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.`TestsStream` will emit events, in the

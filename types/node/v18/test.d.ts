@@ -3,6 +3,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module 'node:test' {
+    import { AsyncResource } from 'node:async_hooks';
     /**
      * Programmatically start the test runner.
      * @since v18.9.0
@@ -205,6 +206,19 @@ declare module 'node:test' {
          * incremented from the primary's `process.debugPort`.
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
 
     /**
