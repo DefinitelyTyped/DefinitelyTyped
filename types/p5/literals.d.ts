@@ -37,6 +37,7 @@ declare module './index' {
     type FLOAT = 'float';
     type GRAY = 'gray';
     type GRID = 'grid';
+    type HALF_FLOAT = 'half-float';
     type HAND = 'hand';
     type HARD_LIGHT = 'hard-light';
     type HSB = 'hsb';
