@@ -1,0 +1,8 @@
+{
+  "name": "@types/vue3-emoji-picker",
+  "version": "1.0.0",
+  "description": "types for vue3-emoji-picker",
+  "main": "",
+  "types": "index.d.ts",
+  "license": "GPL-3.0"
+}

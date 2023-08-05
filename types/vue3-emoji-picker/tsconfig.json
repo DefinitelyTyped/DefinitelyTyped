@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2015",
+        "baseUrl": "../",
+        "typeRoots": ["../"]
+    }
+}
