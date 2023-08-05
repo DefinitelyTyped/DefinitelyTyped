@@ -170,7 +170,7 @@ MyTelegramBot.setChatTitle(1234, 'Chat Title');
 MyTelegramBot.setChatDescription(1234, 'Chat Description');
 MyTelegramBot.pinChatMessage(1234, 12);
 MyTelegramBot.pinChatMessage(1234, 12, { disable_notification: false });
-MyTelegramBot.unpinChatMessage(1234, 12);
+MyTelegramBot.unpinChatMessage(1234, { message_id: 12 });
 MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
