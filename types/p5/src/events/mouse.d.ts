@@ -14,7 +14,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        mouseMoved(event?: object): void;
+        mouseMoved(event?: MouseEvent): false | void;
 
         /**
          *   The mouseDragged() function is called once every
@@ -29,7 +29,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        mouseDragged(event?: object): void;
+        mouseDragged(event?: DragEvent): false | void;
 
         /**
          *   The mousePressed() function is called once after
@@ -46,7 +46,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        mousePressed(event?: object): void;
+        mousePressed(event?: MouseEvent): false | void;
 
         /**
          *   The mouseReleased() function is called every time
@@ -60,7 +60,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        mouseReleased(event?: object): void;
+        mouseReleased(event?: MouseEvent): false | void;
 
         /**
          *   The mouseClicked() function is called once after a
@@ -79,7 +79,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        mouseClicked(event?: object): void;
+        mouseClicked(event?: MouseEvent): false | void;
 
         /**
          *   The doubleClicked() function is executed every
@@ -94,7 +94,7 @@ declare module '../../index' {
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
-        doubleClicked(event?: object): void;
+        doubleClicked(event?: MouseEvent): false | void;
 
         /**
          *   The function mouseWheel() is executed every time a
@@ -119,7 +119,7 @@ declare module '../../index' {
          *   @param [event] optional WheelEvent callback
          *   argument.
          */
-        mouseWheel(event?: object): void;
+        mouseWheel(event?: WheelEvent): false | void;
 
         /**
          *   The function requestPointerLock() locks the

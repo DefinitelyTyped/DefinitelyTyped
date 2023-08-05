@@ -169,6 +169,6 @@ declare module '../../index' {
          *   @param node ID or pointer to HTML DOM node to
          *   contain sketch in
          */
-        p5(sketch: object, node: string | object): void;
+        p5: typeof p5
     }
 }

@@ -34,6 +34,7 @@ declare module './index' {
     type EXCLUSION = 'exclusion';
     type FALLBACK = 'fallback';
     type FILL = 'fill';
+    type FLOAT = 'float';
     type GRAY = 'gray';
     type GRID = 'grid';
     type HAND = 'hand';
@@ -76,6 +77,7 @@ declare module './index' {
     type REPEAT = 'repeat';
     type REPLACE = 'copy';
     type RGB = 'rgb';
+    type RGBA = 'rgba';
     type RIGHT = 'right';
     type ROUND = 'round';
     type SCREEN = 'screen';
@@ -91,10 +93,11 @@ declare module './index' {
     type TRIANGLE_FAN = 0x0006;
     type TRIANGLE_STRIP = 0x0005;
     type TRIANGLES = 0x0004;
+    type UNSIGNED_BYTE = 'unsigned-byte';
+    type UNSIGNED_INT = 'unsigned-int';
     type VERSION = 'version';
     type WAIT = 'wait';
     type WEBGL = 'webgl';
+    type WEBGL2 = 'webgl2';
     type WORD = 'word';
-    type AUDIO = "audio";
-    type VIDEO = "video";
 }

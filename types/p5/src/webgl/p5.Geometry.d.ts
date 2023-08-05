@@ -14,7 +14,15 @@ declare module '../../index' {
          *   @param [callback] function to call upon object
          *   instantiation.
          */
-        constructor(detailX?: number, detailY?: number, callback?: (...args: any[]) => any);
+        constructor(
+        detailX?: number,
+        detailY?: number,
+        callback?: (this: {
+            detailY: number,
+            detailX: number,
+            vertices: p5.Vector[],
+            uvs: number[]
+        }) => void);
 
         /**
          *   computes faces for geometry objects based on the

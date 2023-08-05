@@ -15,7 +15,7 @@ declare module '../../index' {
          *   @param elt DOM node that is wrapped
          *   @param [pInst] pointer to p5 instance
          */
-        constructor(elt: string, pInst?: p5);
+        constructor(elt: HTMLElement, pInst?: p5);
 
         /**
          *   Attaches the element to the parent specified. A
@@ -104,6 +104,7 @@ declare module '../../index' {
          *   double clicked over the element. if false is
          *   passed instead, the previously firing function
          *   will no longer fire.
+         *   @chainable
          */
         doubleClicked(fxn: ((...args: any[]) => any) | boolean): Element;
 
@@ -259,6 +260,8 @@ declare module '../../index' {
          *   Underlying HTML element. All normal HTML methods
          *   can be called on this.
          */
-        elt: any;
+        elt: HTMLElement;
+        width: any;
+        height: any;
     }
 }

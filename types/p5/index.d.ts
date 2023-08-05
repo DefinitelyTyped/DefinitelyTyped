@@ -1,4 +1,4 @@
-// Type definitions for p5 1.6
+// Type definitions for p5 1.7
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,9 +46,11 @@
 /// <reference path="./src/webgl/loading.d.ts" />
 /// <reference path="./src/webgl/material.d.ts" />
 /// <reference path="./src/webgl/p5.Camera.d.ts" />
+/// <reference path="./src/webgl/p5.RendererGL.Immediate.d.ts" />
 /// <reference path="./src/webgl/p5.RendererGL.d.ts" />
 /// <reference path="./src/color/p5.Color.d.ts" />
 /// <reference path="./src/core/p5.Element.d.ts" />
+/// <reference path="./src/core/p5.Other.d.ts" />
 /// <reference path="./src/core/p5.Graphics.d.ts" />
 /// <reference path="./src/image/p5.Image.d.ts" />
 /// <reference path="./src/io/p5.Table.d.ts" />
@@ -56,6 +58,7 @@
 /// <reference path="./src/io/p5.XML.d.ts" />
 /// <reference path="./src/math/p5.Vector.d.ts" />
 /// <reference path="./src/typography/p5.Font.d.ts" />
+/// <reference path="./src/webgl/p5.Framebuffer.d.ts" />
 /// <reference path="./src/webgl/p5.Geometry.d.ts" />
 /// <reference path="./src/webgl/p5.Shader.d.ts" />
 /// <reference path="./src/core/p5.Renderer.d.ts" />
@@ -85,7 +88,26 @@ declare class p5 {
      *   @param [node] element to attach canvas to
      *   @return a p5 instance
      */
-    constructor(sketch: (...args: any[]) => any, node?: HTMLElement);
+        constructor(sketch?: (p: object) => void, node?: string | HTMLElement);
+
+__proto__: typeof p5.prototype
+
+static VERSION: string
+static instance: p5
+
+static disableFriendlyErrors: boolean
+
+canvas: HTMLCanvasElement
+
+_renderer: p5.Renderer
+_curElement: p5.Renderer
+
+registerMethod(
+    register: 'init' | 'pre' | 'post' | 'remove',
+    callback: () => void
+): void
+
+registerPreloadMethod(name: PropertyKey, proto: object): void
 
     /**
      *   Called directly before setup(), the preload()

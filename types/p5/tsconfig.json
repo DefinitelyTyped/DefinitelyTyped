@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": ["dom", "es5"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -16,6 +16,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/index.ts"
+        "test/index.ts",
+        "test/unaugmented.ts"
     ]
 }

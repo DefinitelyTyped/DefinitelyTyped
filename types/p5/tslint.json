@@ -1,5 +1,5 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dtslint.json",
     "rules": {
         "file-name-casing": false,
         "unified-signatures": false

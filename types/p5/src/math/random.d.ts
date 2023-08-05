@@ -57,7 +57,7 @@ declare module '../../index' {
          *   @param choices the array to choose from
          *   @return the random element from the array
          */
-        random(choices: any[]): any;
+        random<T>(choices: T[]): T;
 
         /**
          *   Returns a random number fitting a Gaussian, or
