@@ -1313,6 +1313,10 @@ declare namespace FBInstant {
          * The currency code for the product
          */
         priceCurrencyCode: string;
+        /**
+         * The numeric price of a product
+         */
+        priceAmount: number;
     }
 
     /**
