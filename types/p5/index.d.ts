@@ -90,24 +90,24 @@ declare class p5 {
      */
         constructor(sketch?: (p: object) => void, node?: string | HTMLElement);
 
-__proto__: typeof p5.prototype
+        __proto__: typeof p5.prototype;
 
-static VERSION: string
-static instance: p5
+        static VERSION: string;
+        static instance: p5;
 
-static disableFriendlyErrors: boolean
+        static disableFriendlyErrors: boolean;
 
-canvas: HTMLCanvasElement
+        canvas: HTMLCanvasElement;
 
-_renderer: p5.Renderer
-_curElement: p5.Renderer
+        _renderer: p5.Renderer;
+        _curElement: p5.Renderer;
 
-registerMethod(
-    register: 'init' | 'pre' | 'post' | 'remove',
-    callback: () => void
-): void
+        registerMethod(
+            register: 'init' | 'pre' | 'post' | 'remove',
+            callback: () => void
+        ): void;
 
-registerPreloadMethod(name: PropertyKey, proto: object): void
+        registerPreloadMethod(name: PropertyKey, proto: object): void;
 
     /**
      *   Called directly before setup(), the preload()
