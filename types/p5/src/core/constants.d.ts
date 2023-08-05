@@ -252,6 +252,7 @@ declare module '../../index' {
         readonly COVER: COVER;
         readonly UNSIGNED_BYTE: UNSIGNED_BYTE;
         readonly UNSIGNED_INT: UNSIGNED_INT;
+        readonly HALF_FLOAT: HALF_FLOAT;
         readonly FLOAT: FLOAT;
         readonly RGBA: RGBA;
     }
