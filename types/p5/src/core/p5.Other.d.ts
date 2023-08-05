@@ -20,7 +20,7 @@ declare module '../../index' {
     class Select extends Element {
         option(name: string, value?: string): any;
         value(): any;
-        selected(value?): any;
+        selected(value?: any): any;
         enable(value?: string): Select;
         disable(value?: string): Select;
     }
@@ -28,13 +28,13 @@ declare module '../../index' {
     class Radio extends Element {
         option(value: string, labal?: string): any;
         value(): any;
-        remove(value): any;
-        selected(value?): any;
+        remove(value: any): any;
+        selected(value?: any): any;
         disable(value: boolean): Radio;
     }
     class ColorPicker extends Element {
         value(): any;
-        color(): p5.Color;
+        color(): Color;
     }
     class Input extends Element {
         size(): any;
