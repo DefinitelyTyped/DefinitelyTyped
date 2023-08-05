@@ -1,6 +1,6 @@
 // Type definitions for gremlin 3.6
 // Project: https://tinkerpop.apache.org/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped> 
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { driver, process, structure };
