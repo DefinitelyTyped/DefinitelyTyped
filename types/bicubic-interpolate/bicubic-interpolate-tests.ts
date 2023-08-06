@@ -36,9 +36,9 @@ const multiGrid: number[][][] = [
     // $ExpectType (x: number, y: number) => number
     const interpolator = createInterpolator(grid, options);
     // $ExpectType number
-    const intVal = interpolator(0.5, 0.5);
+    interpolator(0.5, 0.5);
     // ts-expect-error
-    const intVal2 = interpolator(0.0, 0.0);
+    interpolator(0.0, 0.0);
 }
 
 // Tests for returned GridInterpolator functions and their return values
@@ -46,9 +46,9 @@ const multiGrid: number[][][] = [
     // $ExpectType (x: number, y: number) => number
     const gridInterpolator = createGridInterpolator(grid, options);
     // $ExpectType number
-    const gridIntVal = gridInterpolator(0.5, 0.5);
+    gridInterpolator(0.5, 0.5);
     // ts-expect-error
-    const intVal2 = gridInterpolator(-1.0, -1.0);
+    gridInterpolator(-1.0, -1.0);
 }
 
 // Tests for returned MultiInterpolator functions and their return values
@@ -56,9 +56,9 @@ const multiGrid: number[][][] = [
     // $ExpectType (x: number, y: number) => number[]
     const multiInterpolator = createMultiInterpolator(multiGrid, options);
     // $ExpectType number[]
-    const multiIntVal = multiInterpolator(0.5, 0.5);
+    multiInterpolator(0.5, 0.5);
     // ts-expect-error
-    const intVal2 = multiInterpolator(-1.0, -1.0);
+    multiInterpolator(-1.0, -1.0);
 }
 
 // Tests for returned MultiGridInterpolator functions and their return values
@@ -66,7 +66,7 @@ const multiGrid: number[][][] = [
     // $ExpectType (x: number, y: number) => number[]
     const multiGridInterpolator = createMultiGridInterpolator(multiGrid, options);
     // $ExpectType number[]
-    const multiGridIntVal = multiGridInterpolator(0.5, 0.5);
+    multiGridInterpolator(0.5, 0.5);
     // ts-expect-error
-    const intVal2 = multiGridInterpolator(-1.0, -1.0);
+    multiGridInterpolator(-1.0, -1.0);
 }
