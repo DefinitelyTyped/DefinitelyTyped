@@ -8,6 +8,14 @@ let lexer = moo.compile({
 });
 
 lexer = moo.compile({
+    number: [
+        /\d+\.\d+/,
+        /\d+\./,
+        /\.\d+/,
+    ],
+});
+
+lexer = moo.compile({
     WS: /[ \t]+/,
     comment: /\/\/.*?$/,
     number: /0|[1-9][0-9]*/,
