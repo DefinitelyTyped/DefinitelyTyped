@@ -1,21 +1,18 @@
-// Type definitions for bicubic-interpolate 1.0.4
+// Type definitions for bicubic-interpolate 1.0
 // Project: https://github.com/david-boles/bicubic-interpolate
-// Definitions by: BrUSomania <https://github.com/BrUSomania>
+// Definitions by: Bjarne Undheim Jr. <https://github.com/BrUSomania>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.1.3
-
-export type Interpolator = (x: number, y: number) => number;
-export type MultiInterpolator = (x: number, y: number) => number[];
+// Minimum TypeScript Version: 4.5
 
 export interface Options {
-    extrapolate?: boolean;
-    scaleX?: number;
-    scaleY?: number;
-    translateX?: number;
-    translateY?: number;
+    extrapolate?: boolean | undefined;
+    scaleX?: number | undefined;
+    scaleY?: number | undefined;
+    translateX?: number | undefined;
+    translateY?: number | undefined;
 }
 
-export function createInterpolator(values: number[][], options?: Options): Interpolator;
-export function createGridInterpolator(values: number[][], options?: Options): Interpolator;
-export function createMultiInterpolator(values: number[][][], options?: Options): MultiInterpolator;
-export function createMultiGridInterpolator(values: number[][][], options?: Options): MultiInterpolator;
+export function createInterpolator(grid: number[][], options?: Options): (x: number, y: number) => number;
+export function createGridInterpolator(grid: number[][], options?: Options): (x: number, y: number) => number;
+export function createMultiInterpolator(grid: number[][][], options?: Options): (x: number, y: number) => number[];
+export function createMultiGridInterpolator(grid: number[][][], options?: Options): (x: number, y: number) => number[];
