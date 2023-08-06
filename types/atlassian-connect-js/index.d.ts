@@ -203,7 +203,8 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        function getMacroData(callback: (data: object) => void): void;
+        // eslint-disable-next-line no-unnecessary-generics
+        function getMacroData<T extends object>(callback: (data: T) => void): void;
 
         /**
          * Get the body saved in the saveMacro method.
@@ -522,12 +523,12 @@ declare namespace AP {
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number | undefined;
+            width?: number | string | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number | undefined;
+            height?: number | string | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
@@ -774,7 +775,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[]): void;
+        function emit(name: string, args?: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -785,7 +786,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[]): void;
+        function emitPublic(name: string, args?: string[]): void;
     }
 
     /**
@@ -865,7 +866,7 @@ declare namespace AP {
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string): void;
+        function pushState(newState: any, title?: string, url?: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.
@@ -1233,6 +1234,19 @@ declare namespace AP {
              */
             absoluteUrl: string;
         }
+
+        interface NavigatorLocationContext {
+            /**
+             * The type of the page.
+             */
+            target: NavigatorTargetJira | NavigatorTargetConfluence;
+
+            /**
+             * Specific information that identifies the page.
+             */
+            context: Partial<NavigatorContext>;
+        }
+
         /**
          * Returns the context of the current page within the host application.
          *
@@ -1247,7 +1261,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string) => void): void;
+        function getLocation(callback: (location: NavigatorLocationContext) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.

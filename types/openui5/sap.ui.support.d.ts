@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.116.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -284,9 +284,9 @@ declare module "sap/ui/support/RuleAnalyzer" {
    * 	 -  `sap.ui.support.RuleAnalyzer.addRule` method allows adding a new rule.
    * 	 -  `sap.ui.support.RuleAnalyzer.analyze` starts the analysis of the application.
    * 	 -  Then the result can be accessed with methods `sap.ui.support.RuleAnalyzer.getAnalysisHistory`, `sap.ui.support.RuleAnalyzer.getLastAnalysisHistory`
-   * 			or `sap.ui.support.RuleAnalyzer.getFormattedAnalysisHistory`.
+   *     or `sap.ui.support.RuleAnalyzer.getFormattedAnalysisHistory`.
    *
-   * For more information, see {@link topic:a34eb58aaf124f538a3ead23a6cab04a Support Assistant API}.
+   * For more information, see {@link https://ui5.sap.com/#/topic/a34eb58aaf124f538a3ead23a6cab04a Support Assistant API}.
    */
   interface RuleAnalyzer {
     /**
@@ -298,8 +298,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
      */
     addRule(
       /**
-       * Settings for the new rule. For detailed information about its properties see {@link topic:eaeea19a991d46f29e6d8d8827317d0e
-       * Rule Property Values}
+       * Settings for the new rule. For detailed information about its properties see {@link https://ui5.sap.com/#/topic/eaeea19a991d46f29e6d8d8827317d0e Rule Property Values}
        */
       oRule: RuleConfiguration
     ): string;
@@ -313,7 +312,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
      */
     analyze(
       /**
-       * The execution scope of the analysis (see {@link topic:e15067d976f24b11907f4c262bd749a0 Execution Scope}).
+       * The execution scope of the analysis (see {@link https://ui5.sap.com/#/topic/e15067d976f24b11907f4c262bd749a0 Execution Scope}).
        */
       oExecutionScope?: {
         /**

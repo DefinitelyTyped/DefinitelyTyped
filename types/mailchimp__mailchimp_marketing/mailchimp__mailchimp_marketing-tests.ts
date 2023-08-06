@@ -103,6 +103,15 @@ const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
     required: true,
 };
 
+const createListMemberBody: mailchimp.lists.CreateListMemberEventBody = {
+    name: 'test',
+    properties: {
+        key: 'value'
+    },
+    is_syncing: true,
+    occurred_at: 'YYYY-MM-DD',
+};
+
 // Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.batchListMembers('test', batchListMembersBody, batchListMembersOpts);
 
@@ -132,3 +141,5 @@ mailchimp.lists.getAllLists(getAllListsBody);
 
 // Promise<MergeFieldSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMergeFields('test', getListMergeFieldsBody);
+
+mailchimp.lists.createListMemberEvent('test', 'test', createListMemberBody);

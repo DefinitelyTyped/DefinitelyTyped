@@ -24,7 +24,7 @@ export function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
  * encoding.b64decode(str, 'rawstd')
  * const decodedString = encoding.b64decode(str, 'rawurl', 's')
  */
- export function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
+export function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
 
 /**
  * Base64 encode a string.

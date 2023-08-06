@@ -42,6 +42,83 @@ declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
 
+type MaxMessage =
+    | 'buildcollective'
+    | 'checkpreempt'
+    | 'clean'
+    | 'clearmaxwindow'
+    | 'closefile'
+    | 'crash'
+    | 'db.exportmetadata'
+    | 'db.importmetadata'
+    | 'db.reset'
+    | 'debug'
+    | 'disablevirtualmididestinations'
+    | 'disablevirtualmidisources'
+    | 'enablepathcache'
+    | 'externaleditor'
+    | 'externs'
+    | 'fileformat'
+    | 'fixwidthratio'
+    | 'getarch'
+    | 'getdefaultpatcherheight'
+    | 'getdefaultpatcherwidth'
+    | 'getenablepathcache'
+    | 'geteventinterval'
+    | 'getfixwidthratio'
+    | 'getpollthrottle'
+    | 'getqueuethrottle'
+    | 'getrefreshrate'
+    | 'getruntime'
+    | 'getslop'
+    | 'getsysqelemthrottle'
+    | 'getsystem'
+    | 'getversion'
+    | 'hidecursor'
+    | 'hidemenubar'
+    | 'htmlref'
+    | 'interval'
+    | 'launchbrowser'
+    | 'maxcharheightforsubpixelantialiasing'
+    | 'maxinwmenu'
+    | 'maxwindow'
+    | 'midilist'
+    | 'nativetextrendering'
+    | 'notypeinfo'
+    | 'objectfile'
+    | 'openfile'
+    | 'paths'
+    | 'preempt'
+    | 'pupdate'
+    | 'purgemididevices'
+    | 'quit'
+    | 'refresh'
+    | 'refreshrate'
+    | 'relaunchmax'
+    | 'runtime'
+    | 'sendinterval'
+    | 'sendapppath'
+    | 'setdefaultpatcherheight'
+    | 'setdefaultpatcherwidth'
+    | 'seteventinterval'
+    | 'setmixergbitmode'
+    | 'setmixerlatency'
+    | 'setmixerparallel'
+    | 'setmixerramptime'
+    | 'setmirrortoconsole'
+    | 'setsleep'
+    | 'setpollthrottle'
+    | 'setqueuethrottle'
+    | 'setslop'
+    | 'setsysqelemthrottle'
+    | 'showcursor'
+    | 'showmenubar'
+    | 'size'
+    | 'system'
+    | 'useexternaleditor'
+    | 'useslowbutcompletesearching'
+    | string;
+
 /**
  * The Buffer object in JavaScript is a companion to the buffer~ object you instantiate in Max patchers,
  * and provides the ability to access samples and metadata for the buffer~ object with the associated name.
@@ -236,7 +313,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access: string, typelist: string);
+    constructor(filename: string, access?: 'read' | 'write' | 'readwrite', typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
@@ -309,7 +386,7 @@ declare class File {
      * Reads and returns a string containing up to maximum_count characters or up to the first line break as read from the file,
      *  starting at the current file position. The file position is updated accordingly.
      */
-    readline(maximum_count: number): string;
+    readline(maximum_count?: number): string;
 
     /**
      * Writes the characters contained in the string argument as characters to the file, starting at the current file position.
@@ -857,6 +934,11 @@ declare class Max {
      * Displays the Max Window. If the Max window if not currently open, the window will be displayed. If the window is currently open, it will bring it to the front.
      */
     maxwindow(): void;
+
+    /**
+     * Sends a message to max
+     */
+    message(maxMessage: MaxMessage): void;
 
     /**
      * The word midi, followed by a variable-length message, allows messages to be sent to configure the system MIDI object.
@@ -1782,7 +1864,7 @@ declare class MGraphics {
     /**
      * Returns an array with two values: width and height. This is the measurement of the provided text using the current font and size.
      */
-    text_measure(): number[];
+    text_measure(text: string): [number, number];
 
     /**
      * Returns a Javascript array where each value is the text name of a font installed on your system. You can determine the length of the array by using the variable fontlist.length.

@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.114.0
+// For Library Version: 1.116.0
 
 declare module "sap/base/assert" {
   /**
@@ -419,7 +419,7 @@ declare module "sap/base/i18n/ResourceBundle" {
          */
         enhanceWith?: Configuration[];
         /**
-         * Whether the first bundle should be loaded asynchronously Note: Fallback bundles loaded by {@link #getText}
+         * Whether the first bundle should be loaded asynchronously Note: Fallback bundles loaded by {@link #getText }
          * are always loaded synchronously.
          */
         async?: boolean;
@@ -436,9 +436,9 @@ declare module "sap/base/i18n/ResourceBundle" {
      * A text can contain placeholders that will be replaced with concrete values when `getText` is called.
      * The replacement is triggered by the `aArgs` parameter.
      *
-     * Whenever this parameter is given, then the text and the arguments are additionally run through the {@link
-     * module:sap/base/strings/formatMessage} API to replace placeholders in the text with the corresponding
-     * values from the arguments array. The resulting string is returned by `getText`.
+     * Whenever this parameter is given, then the text and the arguments are additionally run through the {@link module:sap/base/strings/formatMessage }
+     * API to replace placeholders in the text with the corresponding values from the arguments array. The resulting
+     * string is returned by `getText`.
      *
      * As the `formatMessage` API imposes some requirements on the input text (regarding curly braces and single
      * apostrophes), text authors need to be aware of the specifics of the `formatMessage` API. Callers of `getText`,
@@ -609,6 +609,14 @@ declare module "sap/base/Log" {
    */
   interface Log {
     /**
+     * Enumeration of the configurable log levels that a Logger should persist to the log.
+     *
+     * Only if the current LogLevel is higher than the level {@link module:sap/base/Log.Level} of the currently
+     * added log entry, then this very entry is permanently added to the log. Otherwise it is ignored.
+     */
+    Level: typeof Level;
+
+    /**
      * Allows to add a new listener that will be notified for new log entries.
      *
      * The given object must provide method `onLogEntry` and can also be informed about `onDetachFromLog`, `onAttachToLog`
@@ -723,10 +731,10 @@ declare module "sap/base/Log" {
      * Returns a dedicated logger for a component.
      *
      * The logger comes with the same API as the `sap/base/Log` module:
-     * 	`#fatal` - see: {@link module:sap/base/Log.fatal} `#error` - see: {@link module:sap/base/Log.error}
-     * `#warning` - see: {@link module:sap/base/Log.warning} `#info` - see: {@link module:sap/base/Log.info}
-     * `#debug` - see: {@link module:sap/base/Log.debug} `#trace` - see: {@link module:sap/base/Log.trace}
-     * `#setLevel` - see: {@link module:sap/base/Log.setLevel} `#getLevel` - see: {@link module:sap/base/Log.getLevel}
+     * 	`#fatal` - see: {@link module:sap/base/Log.fatal} `#error` - see: {@link module:sap/base/Log.error }
+     * `#warning` - see: {@link module:sap/base/Log.warning} `#info` - see: {@link module:sap/base/Log.info }
+     * `#debug` - see: {@link module:sap/base/Log.debug} `#trace` - see: {@link module:sap/base/Log.trace }
+     * `#setLevel` - see: {@link module:sap/base/Log.setLevel} `#getLevel` - see: {@link module:sap/base/Log.getLevel }
      * `#isLoggable` - see: {@link module:sap/base/Log.isLoggable}
      *
      * @returns A logger with a specified component
@@ -907,7 +915,7 @@ declare module "sap/base/Log" {
    * Only if the current LogLevel is higher than the level {@link module:sap/base/Log.Level} of the currently
    * added log entry, then this very entry is permanently added to the log. Otherwise it is ignored.
    */
-  export enum Level {
+  enum Level {
     /**
      * Trace level to log everything.
      */
@@ -990,10 +998,10 @@ declare module "sap/base/Log" {
 
   /**
    * The logger comes with a subset of the API of the `sap/base/Log` module:
-   * 	`#fatal` - see: {@link module:sap/base/Log.fatal} `#error` - see: {@link module:sap/base/Log.error}
-   * `#warning` - see: {@link module:sap/base/Log.warning} `#info` - see: {@link module:sap/base/Log.info}
-   * `#debug` - see: {@link module:sap/base/Log.debug} `#trace` - see: {@link module:sap/base/Log.trace}
-   * `#setLevel` - see: {@link module:sap/base/Log.setLevel} `#getLevel` - see: {@link module:sap/base/Log.getLevel}
+   * 	`#fatal` - see: {@link module:sap/base/Log.fatal} `#error` - see: {@link module:sap/base/Log.error }
+   * `#warning` - see: {@link module:sap/base/Log.warning} `#info` - see: {@link module:sap/base/Log.info }
+   * `#debug` - see: {@link module:sap/base/Log.debug} `#trace` - see: {@link module:sap/base/Log.trace }
+   * `#setLevel` - see: {@link module:sap/base/Log.setLevel} `#getLevel` - see: {@link module:sap/base/Log.getLevel }
    * `#isLoggable` - see: {@link module:sap/base/Log.isLoggable}
    */
   export interface Logger {
@@ -1264,7 +1272,7 @@ declare module "sap/base/security/encodeURLParameters" {
     /**
      * The map of parameters to encode
      */
-    mParams: Object
+    mParams: Record<string, string | number | boolean>
   ): string;
 }
 
@@ -1723,10 +1731,10 @@ declare module "sap/base/util/deepClone" {
    *
    * Creates a deep clone of the source value.
    *
-   * Only arrays, JavaScript Date objects and objects that pass the {@link module:sap/base/util/isPlainObject
-   * isPlainObject} check will be cloned. For other object types, a `TypeError` will be thrown as there's
-   * no standard way to clone them. Primitive values (boolean, number, string) as well as `null` and `undefined`
-   * will be copied, they have value semantics anyhow.
+   * Only arrays, JavaScript Date objects and objects that pass the {@link module:sap/base/util/isPlainObject isPlainObject }
+   * check will be cloned. For other object types, a `TypeError` will be thrown as there's no standard way
+   * to clone them. Primitive values (boolean, number, string) as well as `null` and `undefined` will be copied,
+   * they have value semantics anyhow.
    *
    * `deepClone` is designed to match the semantics of {@link module:sap/base/util/deepEqual deepEqual}. Any
    * deeply cloned object should be deep-equal to the source. However, not every object that can be handled
@@ -1871,8 +1879,12 @@ declare module "sap/base/util/each" {
     /**
      * function to call for each property name
      */
-    fnCallback: Function
+    fnCallback: (p1: Key, p2: any) => boolean
   ): object | any[];
+  /**
+   * The key that is passed to the callback as the first parameter
+   */
+  export type Key = int | string;
 }
 
 declare module "sap/base/util/extend" {
@@ -2089,7 +2101,7 @@ declare module "sap/base/util/Properties" {
    *
    * Use {@link module:sap/base/util/Properties.create} to create an instance of {@link module:sap/base/util/Properties}.
    *
-   * The {@link #getProperty} method can be used to retrieve a value from the collection, {@link #setProperty}
+   * The {@link #getProperty} method can be used to retrieve a value from the collection, {@link #setProperty }
    * to store or change a value for a key and {@link #getKeys} can be used to retrieve an array of all keys
    * that are currently stored in the collection.
    */
@@ -2123,13 +2135,13 @@ declare module "sap/base/util/Properties" {
         /**
          * A map of additional header key/value pairs to send along with the request (see `headers` option of `jQuery.ajax`)
          */
-        headers?: object;
+        headers?: Record<string, any>;
         /**
          * Whether `null` should be returned for a missing properties file; by default an empty collection is returned
          */
-        returnNullIfMissing?: object;
+        returnNullIfMissing?: boolean;
       }
-    ): Properties | null | Promise<any>;
+    ): Properties | null | Promise<Properties | null>;
     /**
      * Creates and returns a clone of the property collection.
      *
@@ -2199,9 +2211,9 @@ declare module "sap/base/util/UriParameters" {
    * Provides access to the individual parameters of a URL query string.
    *
    * This class parses the query string from a URL and provides access to the values of individual parameters.
-   * There are methods to check whether the query string {@link #has contains a parameter (`has()`)}, to {@link
-   * #get get a single value (`get()`)} for a parameter and to {@link #getAll get a list of all values (`getAll()`)}
-   * for a parameter. Another method allows to {@link #keys iterate over all parameter names (`keys()`)}.
+   * There are methods to check whether the query string {@link #has contains a parameter (`has()`)}, to {@link #get get a single value (`get()`) }
+   * for a parameter and to {@link #getAll get a list of all values (`getAll()`)} for a parameter. Another
+   * method allows to {@link #keys iterate over all parameter names (`keys()`)}.
    *
    * The signature and behavior of those methods is aligned with the corresponding methods of the upcoming
    * Web API `URLSearchParams`.
@@ -2217,15 +2229,15 @@ declare module "sap/base/util/UriParameters" {
    * **Note:** To simplify a future migration from this class to the standard `URLSearchParams` API, consuming
    * code should follow some recommendations:
    * 	 - do not use the constructor, either use {@link #.fromURL UriParameters.fromURL} when the input is
-   * 			a full URL, or use {@link #.fromQuery UriParameters.fromQuery} when the input only contains the query
-   * 			part of an URL (e.g. `location.search`).
+   *     a full URL, or use {@link #.fromQuery UriParameters.fromQuery} when the input only contains the query
+   *     part of an URL (e.g. `location.search`).
    * 	 - do not use the `get` method with the second parameter `bAll`; use the `getAll` method instead
    * 	 - do not access the internal property `mParams` (you never should access internal properties of UI5
-   * 			classes or objects). With the predecessor of this API, access to `mParams` was often used to check whether
-   * 			a parameter is defined at all. Using the new `has` method or checking the result of `get` against `null`
-   * 			serves the same purpose.  Callers using `UriParameters.fromQuery(input)` can be migrated to `new
-   * 			URLSearchParams(input)` once the new API is available in all supported browsers. Callers using `UriParameters.fromURL(input)`
-   * 			can be migrated to `new URL(input).searchParams` then.
+   *     classes or objects). With the predecessor of this API, access to `mParams` was often used to check whether
+   *     a parameter is defined at all. Using the new `has` method or checking the result of `get` against `null`
+   *     serves the same purpose.  Callers using `UriParameters.fromQuery(input)` can be migrated to `new
+   *     URLSearchParams(input)` once the new API is available in all supported browsers. Callers using `UriParameters.fromURL(input)`
+   *     can be migrated to `new URL(input).searchParams` then.
    */
   export default class UriParameters {
     /**
@@ -2338,7 +2350,7 @@ declare module "sap/base/util/values" {
     /**
      * Object to be extracted
      */
-    mObject: object
+    mObject: Object | undefined
   ): any[];
 }
 
@@ -2357,14 +2369,14 @@ declare module "sap/base/util/Version" {
      *
      * The parts of the version number (major, minor, patch, suffix) can be provided in several ways:
      * 	 - Version("1.2.3-SNAPSHOT") - as a dot-separated string. Any non-numerical char or a dot followed by
-     * 			a non-numerical char starts the suffix portion. Any missing major, minor or patch versions will be set
-     * 			to 0.
+     *     a non-numerical char starts the suffix portion. Any missing major, minor or patch versions will be set
+     *     to 0.
      * 	 - Version(1,2,3,"-SNAPSHOT") - as individual parameters. Major, minor and patch must be integer numbers
-     * 			or empty, suffix must be a string not starting with digits.
+     *     or empty, suffix must be a string not starting with digits.
      * 	 - Version([1,2,3,"-SNAPSHOT"]) - as an array with the individual parts. The same type restrictions
-     * 			apply as before.
+     *     apply as before.
      * 	 - Version(otherVersion) - as a Version instance (cast operation). Returns the given instance instead
-     * 			of creating a new one.
+     *     of creating a new one.
      *
      * To keep the code size small, this implementation mainly validates the single string variant. All other
      * variants are only validated to some degree. It is the responsibility of the caller to provide proper
@@ -2502,8 +2514,8 @@ declare module "sap/ui/util/XMLHelper" {
     ): XMLParseErrorInfo;
     /**
      * Parses the specified XML string into an XML document, using the native parsing functionality of the browser.
-     * If an error occurs during parsing, a {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo parse error
-     * info object} is attached as the `parseError` property of the returned document.
+     * If an error occurs during parsing, a {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo parse error info object }
+     * is attached as the `parseError` property of the returned document.
      *
      * @returns the parsed XML document with a `parseError` property as described in {@link #getParseError}.
      * An error occurred if the `errorCode` property of the `parseError` is not 0.
@@ -2602,7 +2614,7 @@ declare module "sap/ui/core/ComponentSupport" {
    * 	 - `lifecycle` {sap.ui.core.ComponentLifecycle} (defaults to `Container`)
    * 	 - `autoPrefixId` {boolean} (defaults to `true`)
    *
-   * See {@link topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
+   * See {@link https://ui5.sap.com/#/topic/82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
    */
   interface ComponentSupport {
     /**
@@ -2636,7 +2648,7 @@ declare module "sap/ui/core/date/CalendarUtils" {
      * Returns an object with the following fields:
      * 	 - `firstDayOfWeek`: specifies the first day of the week starting with `0` (which is Sunday)
      * 	 - `minimalDaysInFirstWeek`: minimal days at the beginning of the year which define the first calendar
-     * 			week
+     *     week
      *
      * @returns The calendar week configuration, or `undefined for an invalid value of sap.ui.core.date.CalendarWeekNumbering`.
      */
@@ -2646,9 +2658,7 @@ declare module "sap/ui/core/date/CalendarUtils" {
        * {@link sap.ui.core.Configuration#getCalendarWeekNumbering}. If this value is `Default` the returned calendar
        * week configuration is derived from the given `oLocale`.
        */
-      sCalendarWeekNumbering?:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering,
+      sCalendarWeekNumbering?: CalendarWeekNumbering,
       /**
        * The locale to use; if not provided, this falls back to the format locale from the Configuration; see
        * {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale}. Is only used when `sCalendarWeekNumbering`
@@ -2852,7 +2862,7 @@ declare module "sap/ui/core/date/UI5Date" {
      */
     getUTCSeconds(): int;
     /**
-     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #getFullYear}
+     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #getFullYear }
      * instead
      *
      * Returns the year of this date instance minus 1900 according to the configured time zone, see `Date.prototype.getYear`.
@@ -3117,7 +3127,7 @@ declare module "sap/ui/core/date/UI5Date" {
       iMilliseconds?: int
     ): int;
     /**
-     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #setFullYear}
+     * @deprecated (since 1.111) - as it is deprecated in the base class JavaScript Date; use {@link #setFullYear }
      * instead
      *
      * Sets the year for this date instance plus 1900 considering the configured time zone, see `Date.prototype.setYear`.
@@ -3259,13 +3269,13 @@ declare module "sap/ui/core/InvisibleRenderer" {
 
   /**
    * @since 1.66.0
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Provides the default renderer for the controls that have set their `visible` property to `false`.
    */
   interface InvisibleRenderer {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible placeholder DOM element.
      *
@@ -3278,7 +3288,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the placeholder DOM element of the provided control.
      *
@@ -3291,7 +3301,7 @@ declare module "sap/ui/core/InvisibleRenderer" {
       oControl: Control
     ): HTMLElement | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Renders an invisible placeholder to identify the location of the invisible control within the DOM tree.
      *
@@ -3532,7 +3542,7 @@ declare module "sap/ui/dom/includeStylesheet" {
    *
    * If `includeStylesheet` is called with an `sId` of an already included stylesheet and:
    * 	 - either `fnLoadCallback` or `fnErrorCallback` is given: the old stylesheet is deleted and a new one
-   * 			is inserted
+   *     is inserted
    * 	 - `vUrl` is different from the existing one's: the old stylesheet is deleted and a new one is inserted
    *
    * 	 - otherwise: no action
@@ -3867,7 +3877,7 @@ declare module "sap/ui/events/PseudoEvents" {
      * to the original {@link jQuery.Event} object and thereby delivered to any jQuery-style listeners registered
      * for that browser event.
      *
-     * Pure JavaScript listeners can evaluate the classification information using the {@link jQuery.Event.prototype.isPseudoType}
+     * Pure JavaScript listeners can evaluate the classification information using the {@link jQuery.Event.prototype.isPseudoType }
      * method.
      *
      * Instead of using the procedure as described above, the SAPUI5 controls and elements should simply implement
@@ -4276,7 +4286,7 @@ declare module "sap/ui/performance/trace/Interaction" {
    * 	 - a click handler is registered on the button, so this is an interaction start (`var notifyStepStart`)
    *
    * 	 - some requests are made and rendering has finished (`var notifyStepEnd`)  All measurement takes
-   * 			place in {@link module:sap/ui/performance/Measurement}.
+   *     place in {@link module:sap/ui/performance/Measurement}.
    */
   interface Interaction {
     /**
@@ -4478,9 +4488,8 @@ declare module "sap/ui/test/opaQunit" {
      */
     expected: int,
     /**
-     * the test function. Expects 3 arguments, in order: {@link sap.ui.test.Opa.config}.arrangements, {@link
-     * sap.ui.test.Opa.config}.actions, {@link sap.ui.test.Opa.config}.assertions. These arguments will be prefilled
-     * by OPA
+     * the test function. Expects 3 arguments, in order: {@link sap.ui.test.Opa.config}.arrangements, {@link sap.ui.test.Opa.config}.actions,
+     * {@link sap.ui.test.Opa.config}.assertions. These arguments will be prefilled by OPA
      */
     callback: Function,
     /**
@@ -4521,9 +4530,8 @@ declare module "sap/ui/test/opaQunit" {
      */
     testName: string,
     /**
-     * the test function. Expects 3 arguments, in order: {@link sap.ui.test.Opa.config}.arrangements, {@link
-     * sap.ui.test.Opa.config}.actions, {@link sap.ui.test.Opa.config}.assertions. These arguments will be prefilled
-     * by OPA
+     * the test function. Expects 3 arguments, in order: {@link sap.ui.test.Opa.config}.arrangements, {@link sap.ui.test.Opa.config}.actions,
+     * {@link sap.ui.test.Opa.config}.assertions. These arguments will be prefilled by OPA
      */
     callback: Function,
     /**
@@ -4547,22 +4555,24 @@ declare module "sap/ui/util/Mobile" {
      * The "options" parameter configures what exactly should be done.
      *
      * It can have the following properties:
-     * 	 - viewport: whether to set the viewport in a way that disables zooming (default: true)
+     * 	 - viewport: whether to set the viewport in a way that disables zooming (default: true). This does not
+     *     work in case there is already a meta tag with name 'viewport'.
      * 	 - statusBar: the iOS status bar color, "default", "black" or "black-translucent" (default: "default")
      *
      * 	 - hideBrowser: whether the browser UI should be hidden as far as possible to make the app feel more
-     * 			native (default: true)
+     *     native (default: true)
      * 	 - preventScroll: whether native scrolling should be disabled in order to prevent the "rubber-band"
-     * 			effect where the whole window is moved (default: true)
+     *     effect where the whole window is moved (default: true)
      * 	 - preventPhoneNumberDetection: whether Safari Mobile should be prevented from transforming any numbers
-     * 			that look like phone numbers into clickable links; this should be left as "true", otherwise it might
-     * 			break controls because Safari actually changes the DOM. This only affects all page content which is created
-     * 			after init() is called.
+     *     that look like phone numbers into clickable links; this should be left as "true", otherwise it might
+     *     break controls because Safari actually changes the DOM. This only affects all page content which is created
+     *     after init() is called and only in case there is not already a meta tag with name 'format-detection'.
+     *
      * 	 - rootId: the ID of the root element that should be made fullscreen; only used when hideBrowser is
-     * 			set (default: the document.body)
+     *     set (default: the document.body)
      * 	 - useFullScreenHeight: a boolean that defines whether the height of the html root element should be
-     * 			set to 100%, which is required for other elements to cover the full height (default: true) homeIcon:
-     * 			deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
+     *     set to 100%, which is required for other elements to cover the full height (default: true) homeIcon:
+     *     deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
      */
     init(
       /**
@@ -4638,7 +4648,7 @@ declare module "sap/ui/util/Mobile" {
      * 	 - phone@2: a 180x180 pixel version for iPhones with high pixel density
      * 	 - tablet@2: a 167x167 pixel version for iPads with high pixel density
      * 	 - precomposed: whether the home icons already have some glare effect (otherwise iOS will add it) (default:
-     * 			false)
+     *     false)
      * 	 - favicon: the ICO file to be used inside the browser and for desktop shortcuts
      *
      * One example is:
@@ -4727,7 +4737,7 @@ declare module "sap/ui/util/Storage" {
    * implementation. By default, data can be persisted inside localStorage or sessionStorage.
    *
    * A typical intended usage of this API is the storage of a string representing the state of a control.
-   * In this case, the data is stored in the browser session, and the methods to be used are {@link #put}
+   * In this case, the data is stored in the browser session, and the methods to be used are {@link #put }
    * and {@link #get}. The method {@link #remove} can be used to delete the previously saved state.
    *
    * The `Storage` class allows a simple scoping by prefixing the keys of all `put/get/remove` operations
@@ -4746,8 +4756,7 @@ declare module "sap/ui/util/Storage" {
     constructor(
       /**
        * The type of native storage implementation that this `Storage` instance should use internally. Alternatively,
-       * this can be a custom implementation of the {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage
-       * Storage Web API).
+       * this can be a custom implementation of the {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage Storage Web API).
        */
       vStorage?: (Type | keyof typeof Type) | Storage,
       /**
@@ -4755,6 +4764,10 @@ declare module "sap/ui/util/Storage" {
        */
       sStorageKeyPrefix?: string
     );
+    /**
+     * Enumeration of the storage types supported by {@link module:sap/ui/util/Storage}.
+     */
+    static Type: typeof Type;
 
     /**
      * Clears the whole storage (Independent of the current Storage instance!).
@@ -4910,7 +4923,7 @@ declare module "sap/ui/util/Storage" {
   /**
    * Enumeration of the storage types supported by {@link module:sap/ui/util/Storage}.
    */
-  export enum Type {
+  enum Type {
     /**
      * Indicates usage of the browser's localStorage feature
      */
@@ -5042,7 +5055,7 @@ declare module "sap/ui/app/Application" {
      */
     static getMetadata(): ComponentMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates and returns the root component. Override this method in your application implementation, if you
      * want to override the default creation by metadata.
@@ -5225,10 +5238,9 @@ declare module "sap/ui/base/DataType" {
    *
    * Represents the type of properties in a `ManagedObject` class.
    *
-   * Each type provides some metadata like its {@link #getName qualified name} or its {@link #getBaseType
-   * base type} in case of a derived type. Array types provide information about the allowed {@link #getComponentType
-   * type of components} in an array, enumeration types inform about the set of their allowed {@link #getEnumValues
-   * keys and values}.
+   * Each type provides some metadata like its {@link #getName qualified name} or its {@link #getBaseType base type }
+   * in case of a derived type. Array types provide information about the allowed {@link #getComponentType type of components }
+   * in an array, enumeration types inform about the set of their allowed {@link #getEnumValues keys and values}.
    *
    * Each type has a method to {@link #isValid check whether a value is valid} for a property of that type.
    *
@@ -5263,8 +5275,8 @@ declare module "sap/ui/base/DataType" {
      * If `mSettings` contains an implementation for `isValid`, then the validity check of the newly created
      * type will first execute the check of the base type and then call the given `isValid` function.
      *
-     * Array types and enumeration types cannot be created with this method. They're created on-the-fly by {@link
-     * #.getType DataType.getType} when such a type is looked up.
+     * Array types and enumeration types cannot be created with this method. They're created on-the-fly by {@link #.getType DataType.getType }
+     * when such a type is looked up.
      *
      * **Note:** The creation of new primitive types is not supported. When a type is created without a base
      * type, it is automatically derived from the primitive type `any`.
@@ -5306,23 +5318,23 @@ declare module "sap/ui/base/DataType" {
     /**
      * Looks up the type with the given name and returns it.
      *
-     * See {@link topic:ac56d92162ed47ff858fdf1ce26c18c4 Defining Control Properties} for a list of the built-in
-     * primitive types and their semantics.
+     * See {@link https://ui5.sap.com/#/topic/ac56d92162ed47ff858fdf1ce26c18c4 Defining Control Properties }
+     * for a list of the built-in primitive types and their semantics.
      *
      * The lookup consists of the following steps:
      * 	 - When a type with the given name is already known, it will be returned
      * 	 - When the name ends with a pair of brackets (`[]`), a type with the name in front of the brackets
-     * 			(`name.slice(0,-2)`) will be looked up and an array type will be created with the looked-up type as its
-     * 			component type. If the component type is `undefined`, `undefined` will be returned
+     *     (`name.slice(0,-2)`) will be looked up and an array type will be created with the looked-up type as its
+     *     component type. If the component type is `undefined`, `undefined` will be returned
      * 	 - When a global property exists with the same name as the type and when the value of that property
-     * 			is an instance of `DataType`, that instance will be returned
+     *     is an instance of `DataType`, that instance will be returned
      * 	 - When a global property exists with the same name as the type and when the value of that property
-     * 			is a plain object (its prototype is `Object`), then an enum type will be created, based on the keys and
-     * 			values in that object. The `parseValue` method of the type will accept any of the keys in the plain object
-     * 			and convert them to the corresponding value; `isValid` will accept any of the values from the plain object's
-     * 			keys. The `defaultValue` will be the value of the first key found in the plain object
+     *     is a plain object (its prototype is `Object`), then an enum type will be created, based on the keys and
+     *     values in that object. The `parseValue` method of the type will accept any of the keys in the plain object
+     *     and convert them to the corresponding value; `isValid` will accept any of the values from the plain object's
+     *     keys. The `defaultValue` will be the value of the first key found in the plain object
      * 	 - When a global property exist with any other, non-falsy value, a warning is logged and the primitive
-     * 			type 'any' is returned
+     *     type 'any' is returned
      * 	 - If no such global property exist, an error is logged and `undefined` is returned
      *
      *  UI Libraries and even components can introduce additional types. This method only checks
@@ -5367,7 +5379,7 @@ declare module "sap/ui/base/DataType" {
      *
      * @returns Object with enum keys and values or `undefined`
      */
-    getEnumValues(): object | undefined;
+    getEnumValues(): Record<string, string> | undefined;
     /**
      * The qualified name of the data type.
      *
@@ -5434,7 +5446,7 @@ declare module "sap/ui/base/DataType" {
     /**
      * Set or unset a normalizer function to be used for values of this data type.
      *
-     * When a normalizer function has been set, it will be applied to values of this type whenever {@link #normalize}
+     * When a normalizer function has been set, it will be applied to values of this type whenever {@link #normalize }
      * is called. `ManagedObject.prototype.setProperty` calls the `normalize` method before setting a new value
      * to a property (normalization is applied on-write, not on-read).
      *
@@ -5455,7 +5467,7 @@ declare module "sap/ui/base/DataType" {
       /**
        * Function to apply for normalizing
        */
-      fnNormalizer: Function
+      fnNormalizer: (p1: any) => any
     ): void;
   }
 }
@@ -5470,11 +5482,13 @@ declare module "sap/ui/base/Event" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * An Event object consisting of an ID, a source and a map of parameters. Implements {@link sap.ui.base.Poolable}
+   * An Event object consisting of an ID, a source and a map of parameters. Implements {@link sap.ui.base.Poolable }
    * and therefore an event object in the event handler will be reset by {@link sap.ui.base.ObjectPool} after
    * the event handler is done.
    */
-  export default class Event extends BaseObject implements Poolable {
+  export default class Event<ParamsType extends Record<string, any> = object>
+    extends BaseObject
+    implements Poolable {
     __implements__sap_ui_base_Poolable: boolean;
     /**
      * Creates an event with the given `sId`, linked to the provided `oSource` and enriched with the `mParameters`.
@@ -5491,7 +5505,7 @@ declare module "sap/ui/base/Event" {
       /**
        * Parameters for this event
        */
-      oParameters: object
+      oParameters: ParamsType
     );
 
     /**
@@ -5540,18 +5554,18 @@ declare module "sap/ui/base/Event" {
      *
      * @returns Value of the named parameter
      */
-    getParameter(
+    getParameter<ParamName extends keyof ParamsType>(
       /**
        * Name of the parameter to return
        */
-      sName: string
-    ): any;
+      sName: ParamName
+    ): ParamsType[ParamName];
     /**
      * Returns an object with all parameter values of the event.
      *
      * @returns All parameters of the event
      */
-    getParameters(): Record<string, any>;
+    getParameters(): ParamsType;
     /**
      * Returns the event provider on which the event was fired.
      *
@@ -5559,7 +5573,7 @@ declare module "sap/ui/base/Event" {
      */
     getSource(): EventProvider;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Init this event with its data.
      *
@@ -5581,7 +5595,7 @@ declare module "sap/ui/base/Event" {
       /**
        * The event parameters
        */
-      oParameters?: object
+      oParameters?: ParamsType
     ): void;
     /**
      * Prevent the default action of this event.
@@ -5591,7 +5605,7 @@ declare module "sap/ui/base/Event" {
      */
     preventDefault(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Reset event data, needed for pooling.
      * See:
@@ -5781,7 +5795,7 @@ declare module "sap/ui/base/EventProvider" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires an {@link sap.ui.base.Event event} with the given settings and notifies all attached event handlers.
      *
@@ -5809,7 +5823,7 @@ declare module "sap/ui/base/EventProvider" {
       bEnableEventBubbling?: boolean
     ): this | boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object.
      *
@@ -5821,7 +5835,7 @@ declare module "sap/ui/base/EventProvider" {
      */
     getEventingParent(): EventProvider | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether there are any registered event handlers for the event with the given identifier.
      *
@@ -5886,8 +5900,6 @@ declare module "sap/ui/base/ManagedObject" {
 
   import Event from "sap/ui/base/Event";
 
-  import Type from "sap/ui/model/Type";
-
   import Binding from "sap/ui/model/Binding";
 
   import Context from "sap/ui/model/Context";
@@ -5905,6 +5917,8 @@ declare module "sap/ui/base/ManagedObject" {
   import Filter from "sap/ui/model/Filter";
 
   import { MetadataOptions as MetadataOptions1 } from "sap/ui/base/Object";
+
+  import Type from "sap/ui/model/Type";
 
   import BindingMode from "sap/ui/model/BindingMode";
 
@@ -5928,8 +5942,8 @@ declare module "sap/ui/base/ManagedObject" {
    * to the same model property as in the source.
    *
    * Details about the declaration of a managed property, the metadata that describes it and the set of methods
-   * that are automatically generated to access it, can be found in the documentation of the {@link sap.ui.base.ManagedObject.extend
-   * extend } method.
+   * that are automatically generated to access it, can be found in the documentation of the {@link sap.ui.base.ManagedObject.extend extend  }
+   * method.
    *
    * Aggregations: Managed aggregations can store one or more references to other ManagedObjects. They are
    * a mean to control the lifecycle of the aggregated objects: one ManagedObject can be aggregated by at
@@ -5950,7 +5964,7 @@ declare module "sap/ui/base/ManagedObject" {
    * and the set of methods that are automatically generated to access it, can be found in the documentation
    * of the {@link sap.ui.base.ManagedObject.extend extend} method.
    *
-   * Aggregations of cardinality 0..n can be bound to a collection in a model by using {@link #bindAggregation}
+   * Aggregations of cardinality 0..n can be bound to a collection in a model by using {@link #bindAggregation }
    * (and unbound again using {@link #unbindAggregation}). For each context in the model collection, a corresponding
    * object will be created in the managed aggregation, either by cloning a template object or by calling
    * a factory function.
@@ -5976,8 +5990,8 @@ declare module "sap/ui/base/ManagedObject" {
    * `insertRefItem`, `removeRefItem`) or to remove all objects from an association (`removeAllRefItems`).
    *
    * Details about the declaration of a managed association, the metadata that describes it and the set of
-   * methods that are automatically generated to access it, can be found in the documentation of the {@link
-   * sap.ui.base.ManagedObject.extend extend} method.
+   * methods that are automatically generated to access it, can be found in the documentation of the {@link sap.ui.base.ManagedObject.extend extend }
+   * method.
    *
    * Associations can't be bound to the model.
    *
@@ -5994,8 +6008,8 @@ declare module "sap/ui/base/ManagedObject" {
    * (e.g. `attachChange`, `detachChange`, `fireChange` for an event named 'change').
    *
    * Details about the declaration of managed events, the metadata that describes the event, and the set of
-   * methods that are automatically generated to access it, can be found in the documentation of the {@link
-   * sap.ui.base.ManagedObject.extend extend} method.
+   * methods that are automatically generated to access it, can be found in the documentation of the {@link sap.ui.base.ManagedObject.extend extend }
+   * method.
    *
    * When a ManagedObject is cloned, all listeners registered for any event in the clone source are also registered
    * to the clone. Later changes are not reflected in any direction (neither from source to clone, nor vice
@@ -6004,7 +6018,7 @@ declare module "sap/ui/base/ManagedObject" {
    * Low Level APIs:: The prototype of ManagedObject provides several generic, low
    * level APIs to manage properties, aggregations, associations, and events. These generic methods are solely
    * intended for implementing higher level, non-generic methods that manage a single managed property etc.
-   * (e.g. a function `setSize(value)` that sets a new value for property 'size'). {@link sap.ui.base.ManagedObject.extend}
+   * (e.g. a function `setSize(value)` that sets a new value for property 'size'). {@link sap.ui.base.ManagedObject.extend }
    * creates default implementations of those higher level APIs for all managed aspects. The implementation
    * of a subclass then can override those default implementations with a more specific implementation, e.g.
    * to implement a side effect when a specific property is set or retrieved. It is therefore important to
@@ -6027,17 +6041,17 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * The possible values for a setting depend on its kind:
      * 	 - for simple properties, the value has to match the documented type of the property (no type conversion
-     * 			occurs)
+     *     occurs)
      * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type
      * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type or a single
-     * 			instance
+     *     instance
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - for 0..n associations, an array of instances of the associated type or of IDs is accepted
      * 	 - for events, either a function (event handler) is accepted or an array of length 2 where the first
-     * 			element is a function and the 2nd element is an object to invoke the method on; or an array of length
-     * 			3, where the first element is an arbitrary payload object, the second one is a function and the 3rd one
-     * 			is an object to invoke the method on; or an array of arrays where each nested array has the 2 or 3 element
-     * 			structure described before (multiple listeners).
+     *     element is a function and the 2nd element is an object to invoke the method on; or an array of length
+     *     3, where the first element is an arbitrary payload object, the second one is a function and the 3rd one
+     *     is an object to invoke the method on; or an array of arrays where each nested array has the 2 or 3 element
+     *     structure described before (multiple listeners).
      *
      * Each subclass should document the name and type of its supported settings in its constructor documentation.
      *
@@ -6080,40 +6094,40 @@ declare module "sap/ui/base/ManagedObject" {
      * Besides the settings documented below, ManagedObject itself supports the following special settings:
      *
      * 	 - `id : sap.ui.core.ID` an ID for the new instance. Some subclasses (Element, Component) require
-     * 			the id to be unique in a specific scope (e.g. an Element Id must be unique across all Elements, a Component
-     * 			id must be unique across all Components). `models : object` a map of {@link sap.ui.model.Model}
-     * 			instances keyed by their model name (alias). Each entry with key k in this object has the same
-     * 			effect as a call `this.setModel(models[k], k);`.
+     *     the id to be unique in a specific scope (e.g. an Element Id must be unique across all Elements, a Component
+     *     id must be unique across all Components). `models : object` a map of {@link sap.ui.model.Model }
+     *     instances keyed by their model name (alias). Each entry with key k in this object has the same
+     *     effect as a call `this.setModel(models[k], k);`.
      * 	 - `bindingContexts : object` a map of {@link sap.ui.model.Context} instances keyed by their
-     * 			model name. Each entry with key k in this object has the same effect as a call `this.setBindingContext(bindingContexts[k],
-     * 			k);`
+     *     model name. Each entry with key k in this object has the same effect as a call `this.setBindingContext(bindingContexts[k],
+     *     k);`
      * 	 - `objectBindings : object` a map of binding paths keyed by the corresponding model name. Each
-     * 			entry with key k in this object has the same effect as a call `this.bindObject(objectBindings[k],
-     * 			k);` `metadataContexts : object` an array of single binding contexts keyed by the corresponding
-     * 			model or context name. The purpose of the `metadataContexts` special setting is to deduce as much information
-     * 			as possible from the binding context of the control in order to be able to predefine certain standard
-     * 			properties like e.g. visible, enabled, tooltip,...
+     *     entry with key k in this object has the same effect as a call `this.bindObject(objectBindings[k],
+     *     k);` `metadataContexts : object` an array of single binding contexts keyed by the corresponding
+     *     model or context name. The purpose of the `metadataContexts` special setting is to deduce as much information
+     *     as possible from the binding context of the control in order to be able to predefine certain standard
+     *     properties like e.g. visible, enabled, tooltip,...
      *
      * The structure is an array of single contexts, where a single context is a map containing the following
      * keys:
      * 	 - `path: string (mandatory)` The path to the corresponding model property or object, e.g. '/Customers/Name'.
-     * 			A path can also be relative, e.g. 'Name'
+     *     A path can also be relative, e.g. 'Name'
      * 	 - `model: string (optional)` The name of the model, in case there is no name then the undefined
-     * 			model is taken
+     *     model is taken
      * 	 - `name: string (optional)` A name for the context to used in templating phase
      * 	 - `kind: string (optional)` The kind of the adapter, either `field` for single properties or
-     * 			`object` for structured contexts. `adapter: string (optional)` The path to an interpretion
-     * 			class that dilivers control relevant data depending on the context, e.g. enabled, visible. If not supplied
-     * 			the OData meta data is interpreted.  The syntax for providing the `metadataContexts` is as follows:
-     * 			`{SINGLE_CONTEXT1},...,{SINGLE_CONTEXTn}` or for simplicity in case there is only one context `{SINGLE_CONTEXT}`.
+     *     `object` for structured contexts. `adapter: string (optional)` The path to an interpretion
+     *     class that dilivers control relevant data depending on the context, e.g. enabled, visible. If not supplied
+     *     the OData meta data is interpreted.  The syntax for providing the `metadataContexts` is as follows:
+     *     `{SINGLE_CONTEXT1},...,{SINGLE_CONTEXTn}` or for simplicity in case there is only one context `{SINGLE_CONTEXT}`.
      *
      * Examples for such metadataContexts are:
      * 	 - `{/Customers/Name}` a single part with an absolute path to the property Name of the Customers
-     * 			entity set in the default model
+     *     entity set in the default model
      * 	 - `{path: 'Customers/Name', model:'json'}` a single part with an absolute path to the property Name
-     * 			of the Customers entity set in a named model
+     *     of the Customers entity set in a named model
      * 	 - `{parts: [{path: 'Customers/Name'},{path: 'editable', model: 'viewModel'}]}` a combination of single
-     * 			binding contexts, one context from the default model and one from the viewModel
+     *     binding contexts, one context from the default model and one from the viewModel
      */
     constructor(
       /**
@@ -6141,17 +6155,17 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * The possible values for a setting depend on its kind:
      * 	 - for simple properties, the value has to match the documented type of the property (no type conversion
-     * 			occurs)
+     *     occurs)
      * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type
      * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type or a single
-     * 			instance
+     *     instance
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - for 0..n associations, an array of instances of the associated type or of IDs is accepted
      * 	 - for events, either a function (event handler) is accepted or an array of length 2 where the first
-     * 			element is a function and the 2nd element is an object to invoke the method on; or an array of length
-     * 			3, where the first element is an arbitrary payload object, the second one is a function and the 3rd one
-     * 			is an object to invoke the method on; or an array of arrays where each nested array has the 2 or 3 element
-     * 			structure described before (multiple listeners).
+     *     element is a function and the 2nd element is an object to invoke the method on; or an array of length
+     *     3, where the first element is an arbitrary payload object, the second one is a function and the 3rd one
+     *     is an object to invoke the method on; or an array of arrays where each nested array has the 2 or 3 element
+     *     structure described before (multiple listeners).
      *
      * Each subclass should document the name and type of its supported settings in its constructor documentation.
      *
@@ -6194,40 +6208,40 @@ declare module "sap/ui/base/ManagedObject" {
      * Besides the settings documented below, ManagedObject itself supports the following special settings:
      *
      * 	 - `id : sap.ui.core.ID` an ID for the new instance. Some subclasses (Element, Component) require
-     * 			the id to be unique in a specific scope (e.g. an Element Id must be unique across all Elements, a Component
-     * 			id must be unique across all Components). `models : object` a map of {@link sap.ui.model.Model}
-     * 			instances keyed by their model name (alias). Each entry with key k in this object has the same
-     * 			effect as a call `this.setModel(models[k], k);`.
+     *     the id to be unique in a specific scope (e.g. an Element Id must be unique across all Elements, a Component
+     *     id must be unique across all Components). `models : object` a map of {@link sap.ui.model.Model }
+     *     instances keyed by their model name (alias). Each entry with key k in this object has the same
+     *     effect as a call `this.setModel(models[k], k);`.
      * 	 - `bindingContexts : object` a map of {@link sap.ui.model.Context} instances keyed by their
-     * 			model name. Each entry with key k in this object has the same effect as a call `this.setBindingContext(bindingContexts[k],
-     * 			k);`
+     *     model name. Each entry with key k in this object has the same effect as a call `this.setBindingContext(bindingContexts[k],
+     *     k);`
      * 	 - `objectBindings : object` a map of binding paths keyed by the corresponding model name. Each
-     * 			entry with key k in this object has the same effect as a call `this.bindObject(objectBindings[k],
-     * 			k);` `metadataContexts : object` an array of single binding contexts keyed by the corresponding
-     * 			model or context name. The purpose of the `metadataContexts` special setting is to deduce as much information
-     * 			as possible from the binding context of the control in order to be able to predefine certain standard
-     * 			properties like e.g. visible, enabled, tooltip,...
+     *     entry with key k in this object has the same effect as a call `this.bindObject(objectBindings[k],
+     *     k);` `metadataContexts : object` an array of single binding contexts keyed by the corresponding
+     *     model or context name. The purpose of the `metadataContexts` special setting is to deduce as much information
+     *     as possible from the binding context of the control in order to be able to predefine certain standard
+     *     properties like e.g. visible, enabled, tooltip,...
      *
      * The structure is an array of single contexts, where a single context is a map containing the following
      * keys:
      * 	 - `path: string (mandatory)` The path to the corresponding model property or object, e.g. '/Customers/Name'.
-     * 			A path can also be relative, e.g. 'Name'
+     *     A path can also be relative, e.g. 'Name'
      * 	 - `model: string (optional)` The name of the model, in case there is no name then the undefined
-     * 			model is taken
+     *     model is taken
      * 	 - `name: string (optional)` A name for the context to used in templating phase
      * 	 - `kind: string (optional)` The kind of the adapter, either `field` for single properties or
-     * 			`object` for structured contexts. `adapter: string (optional)` The path to an interpretion
-     * 			class that dilivers control relevant data depending on the context, e.g. enabled, visible. If not supplied
-     * 			the OData meta data is interpreted.  The syntax for providing the `metadataContexts` is as follows:
-     * 			`{SINGLE_CONTEXT1},...,{SINGLE_CONTEXTn}` or for simplicity in case there is only one context `{SINGLE_CONTEXT}`.
+     *     `object` for structured contexts. `adapter: string (optional)` The path to an interpretion
+     *     class that dilivers control relevant data depending on the context, e.g. enabled, visible. If not supplied
+     *     the OData meta data is interpreted.  The syntax for providing the `metadataContexts` is as follows:
+     *     `{SINGLE_CONTEXT1},...,{SINGLE_CONTEXTn}` or for simplicity in case there is only one context `{SINGLE_CONTEXT}`.
      *
      * Examples for such metadataContexts are:
      * 	 - `{/Customers/Name}` a single part with an absolute path to the property Name of the Customers
-     * 			entity set in the default model
+     *     entity set in the default model
      * 	 - `{path: 'Customers/Name', model:'json'}` a single part with an absolute path to the property Name
-     * 			of the Customers entity set in a named model
+     *     of the Customers entity set in a named model
      * 	 - `{parts: [{path: 'Customers/Name'},{path: 'editable', model: 'viewModel'}]}` a combination of single
-     * 			binding contexts, one context from the default model and one from the viewModel
+     *     binding contexts, one context from the default model and one from the viewModel
      */
     constructor(
       /**
@@ -6266,8 +6280,8 @@ declare module "sap/ui/base/ManagedObject" {
      * in `oClassInfo`.
      *
      * `oClassInfo` can contain the same information that {@link sap.ui.base.Object.extend} already accepts,
-     * plus the following new properties in the 'metadata' object literal (see {@link sap.ui.base.ManagedObject.MetadataOptions
-     * MetadataOptions} for details on each of them):
+     * plus the following new properties in the 'metadata' object literal (see {@link sap.ui.base.ManagedObject.MetadataOptions MetadataOptions }
+     * for details on each of them):
      * 	 - `library : string`
      * 	 - `properties : object`
      * 	 - `defaultProperty : string`
@@ -6338,7 +6352,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds some entity `oObject` to the aggregation identified by `sAggregationName`.
      *
@@ -6370,7 +6384,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds some object with the ID `sId` to the association identified by `sAssociationName` and marks this
      * ManagedObject as changed.
@@ -6407,7 +6421,7 @@ declare module "sap/ui/base/ManagedObject" {
      * 0..n aggregations, the given values are appended; event listeners are registered in addition to existing
      * ones.
      *
-     * For the possible keys and values in `mSettings` see the general documentation in {@link sap.ui.base.ManagedObject}
+     * For the possible keys and values in `mSettings` see the general documentation in {@link sap.ui.base.ManagedObject }
      * or the specific documentation of the constructor of the concrete managed object class.
      *
      * @returns Returns `this` to allow method chaining
@@ -6442,7 +6456,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6463,7 +6477,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6538,7 +6552,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6559,7 +6573,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6586,7 +6600,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6608,7 +6622,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6635,7 +6649,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6657,7 +6671,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -6666,10 +6680,10 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * Bind an aggregation to the model.
      *
-     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel
-     * setModel} or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindList bindList}
-     * method will be called to create a new {@link sap.ui.model.ListBinding ListBinding} with the configured
-     * binding options.
+     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel setModel }
+     * or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindList bindList} method
+     * will be called to create a new {@link sap.ui.model.ListBinding ListBinding} with the configured binding
+     * options.
      *
      * The bound aggregation will use the given template, clone it for each item which exists in the bound list
      * and set the appropriate binding context.
@@ -6678,10 +6692,10 @@ declare module "sap/ui/base/ManagedObject" {
      * in its metadata with `bindable: "bindable"` to get typed `bindSomething` and `unbindSomething`
      * methods for those aggregations.
      *
-     * Also see {@link topic:91f057786f4d1014b6dd926db0e91070 List Binding (Aggregation Binding)} in the documentation.
+     * Also see {@link https://ui5.sap.com/#/topic/91f057786f4d1014b6dd926db0e91070 List Binding (Aggregation Binding) }
+     * in the documentation.
      *
-     * For more information on the `oBindingInfo.key` property and its usage, see {@link topic:7cdff73f308b4b10bdf7d83b7aba72e7
-     * Extended Change Detection}.
+     * For more information on the `oBindingInfo.key` property and its usage, see {@link https://ui5.sap.com/#/topic/7cdff73f308b4b10bdf7d83b7aba72e7 Extended Change Detection}.
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -6717,17 +6731,18 @@ declare module "sap/ui/base/ManagedObject" {
      * and all of its children relatively to the given path. If a relative binding path is used, it will be
      * evaluated anew whenever the parent context changes.
      *
-     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel
-     * setModel} or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindContext
-     * bindContext} method will be called to create a new {@link sap.ui.model.ContextBinding ContextBinding}
-     * with the configured binding options.
+     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel setModel }
+     * or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindContext bindContext }
+     * method will be called to create a new {@link sap.ui.model.ContextBinding ContextBinding} with the configured
+     * binding options.
      *
      * There's no difference between `bindObject` and {@link sap.ui.core.Element#bindElement bindElement}. Method
      * `bindObject` was introduced together with `ManagedObject` to make context bindings also available on
      * `ManagedObject`s. The new name was chosen to reflect that the binding is not necessarily applied to an
      * `Element`, it also could be applied to a component or some other `ManagedObject`.
      *
-     * Also see {@link topic:91f05e8b6f4d1014b6dd926db0e91070 Context Binding} in the documentation.
+     * Also see {@link https://ui5.sap.com/#/topic/91f05e8b6f4d1014b6dd926db0e91070 Context Binding} in the
+     * documentation.
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -6740,10 +6755,10 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * Binds a property to the model.
      *
-     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel
-     * setModel} or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindProperty
-     * bindProperty} method will be called to create a new {@link sap.ui.model.PropertyBinding PropertyBinding}
-     * with the configured binding options.
+     * Whenever the corresponding model becomes available or changes (either via a call to {@link #setModel setModel }
+     * or propagated from a {@link #getParent parent}), its {@link sap.ui.model.Model#bindProperty bindProperty }
+     * method will be called to create a new {@link sap.ui.model.PropertyBinding PropertyBinding} with the configured
+     * binding options.
      *
      * The Setter for the given property will be called by the binding with the value retrieved from the data
      * model. When the binding mode is `OneTime`, the property will be set only once. When it is `OneWay`, the
@@ -6757,9 +6772,9 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * **Composite Binding**
      *  A composite property binding which combines data from multiple model paths can be declared using the
-     * `parts` parameter instead of `path`. The `formatter` function or a {@link sap.ui.model.CompositeType
-     * composite type} then can be used to combine the parts, Properties with a composite binding are also known
-     * as "calculated fields".
+     * `parts` parameter instead of `path`. The `formatter` function or a {@link sap.ui.model.CompositeType composite type }
+     * then can be used to combine the parts, Properties with a composite binding are also known as "calculated
+     * fields".
      *
      * Example:
      * ```javascript
@@ -6795,7 +6810,8 @@ declare module "sap/ui/base/ManagedObject" {
      * When the formatter for a property binding (simple or composite) is called, the managed object will be
      * given as `this` context. For formatters of binding parts in a composite binding, this is not the case.
      *
-     * Also see {@link topic:91f0652b6f4d1014b6dd926db0e91070 Property Binding} in the documentation.
+     * Also see {@link https://ui5.sap.com/#/topic/91f0652b6f4d1014b6dd926db0e91070 Property Binding} in the
+     * documentation.
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -6819,27 +6835,27 @@ declare module "sap/ui/base/ManagedObject" {
      * The `oOptions` configuration object can have the following properties:
      * 	 - The boolean value `cloneChildren` specifies whether associations/aggregations will be cloned
      * 	 - The boolean value `cloneBindings` specifies if bindings will be cloned  Note: In case the configuration
-     * 			`oOptions` is specified, the default values `true` no longer apply, which means in case `cloneChildren`
-     * 			or `cloneBindings` is not specified, then this ia assumed to be `false` and associations/aggregations
-     * 			or bindings are not cloned.
+     *     `oOptions` is specified, the default values `true` no longer apply, which means in case `cloneChildren`
+     *     or `cloneBindings` is not specified, then this ia assumed to be `false` and associations/aggregations
+     *     or bindings are not cloned.
      *
      * For each cloned object, the following settings are cloned based on the metadata of the object and the
      * defined options:
      * 	 - All properties that are not bound. If `cloneBindings` is `false`, also the bound properties will
-     * 			be cloned; in general, values are referenced 1:1, not cloned. For some property types, however, the getters
-     * 			or setters might clone the value (e.g. array types and properties using metadata option `byValue`)
+     *     be cloned; in general, values are referenced 1:1, not cloned. For some property types, however, the getters
+     *     or setters might clone the value (e.g. array types and properties using metadata option `byValue`)
      * 	 - All aggregated objects that are not bound. If `cloneBindings` is `false`, also the ones that are
-     * 			bound will be cloned; they are all cloned recursively using the same `sIdSuffix`
+     *     bound will be cloned; they are all cloned recursively using the same `sIdSuffix`
      * 	 - All associated controls; when an association points to an object inside the cloned object tree, then
-     * 			the cloned association will be modified so that it points to the clone of the target object. When the
-     * 			association points to a managed object outside of the cloned object tree, then its target won't be changed.
+     *     the cloned association will be modified so that it points to the clone of the target object. When the
+     *     association points to a managed object outside of the cloned object tree, then its target won't be changed.
      *
      * 	 - All models set via `setModel()`; used by reference.
      * 	 - All property and aggregation bindings (if `cloneBindings` is `true`); the pure binding information
-     * 			(path, model name) is cloned, but all other information like template control or factory function, data
-     * 			type or formatter function are copied by reference. The bindings themselves are created anew as they
-     * 			are specific for the combination (object, property, model). As a result, any later changes to a binding
-     * 			of the original object are not reflected in the clone, but changes to e.g the type or template etc. are.
+     *     (path, model name) is cloned, but all other information like template control or factory function, data
+     *     type or formatter function are copied by reference. The bindings themselves are created anew as they
+     *     are specific for the combination (object, property, model). As a result, any later changes to a binding
+     *     of the original object are not reflected in the clone, but changes to e.g the type or template etc. are.
      *
      *
      * Each clone is created by first collecting the above mentioned settings and then creating a new instance
@@ -6896,7 +6912,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys (all) the managed object(s) in the aggregation named `sAggregationName` and empties the aggregation.
      * If the aggregation did contain any object, this ManagedObject is marked as changed.
@@ -6928,7 +6944,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$FormatErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6963,7 +6979,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ParseErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6981,7 +6997,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6999,7 +7015,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ManagedObject$ValidationSuccessEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7035,7 +7051,7 @@ declare module "sap/ui/base/ManagedObject" {
       bIncludeBindingTemplates?: boolean
     ): ManagedObject[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -7045,31 +7061,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ManagedObject instance whose property should have received the model update.
-         */
-        element?: ManagedObject;
-        /**
-         * Name of the property for which the binding should have been updated.
-         */
-        property?: string;
-        /**
-         * Data type used in the binding (if any).
-         */
-        type?: Type;
-        /**
-         * New value (model representation) as propagated from the model.
-         */
-        newValue?: any;
-        /**
-         * Old value (external representation) as previously stored in the ManagedObject.
-         */
-        oldValue?: any;
-      }
+      mParameters?: ManagedObject$FormatErrorEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:modelContextChange modelContextChange} to attached listeners.
      *
@@ -7082,7 +7077,7 @@ declare module "sap/ui/base/ManagedObject" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -7092,35 +7087,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ManagedObject instance whose property initiated the model update.
-         */
-        element?: ManagedObject;
-        /**
-         * Name of the property for which the bound model property should have been been updated.
-         */
-        property?: string;
-        /**
-         * Data type used in the binding.
-         */
-        type?: Type;
-        /**
-         * New value (external representation) as parsed by the binding.
-         */
-        newValue?: any;
-        /**
-         * Old value (external representation) as previously stored in the ManagedObject.
-         */
-        oldValue?: any;
-        /**
-         * Localized message describing the parse error
-         */
-        message?: string;
-      }
+      mParameters?: ManagedObject$ParseErrorEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -7130,35 +7100,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ManagedObject instance whose property initiated the model update.
-         */
-        element?: ManagedObject;
-        /**
-         * Name of the property for which the bound model property should have been been updated.
-         */
-        property?: string;
-        /**
-         * Data type used in the binding.
-         */
-        type?: Type;
-        /**
-         * New value (external representation) as parsed and validated by the binding.
-         */
-        newValue?: any;
-        /**
-         * Old value (external representation) as previously stored in the ManagedObject.
-         */
-        oldValue?: any;
-        /**
-         * Localized message describing the validation issues
-         */
-        message?: string;
-      }
+      mParameters?: ManagedObject$ValidationErrorEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -7168,34 +7113,10 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ManagedObject instance whose property initiated the model update.
-         */
-        element?: ManagedObject;
-        /**
-         * Name of the property for which the bound model property has been updated.
-         */
-        property?: string;
-        /**
-         * Data type used in the binding.
-         */
-        type?: Type;
-        /**
-         * New value (external representation) as propagated to the model.
-         *
-         * **Note: **the model might modify (normalize) the value again and this modification will be stored in
-         * the ManagedObject. The 'newValue' parameter of this event contains the value **before** such a normalization.
-         */
-        newValue?: any;
-        /**
-         * Old value (external representation) as previously stored in the ManagedObject.
-         */
-        oldValue?: any;
-      }
+      mParameters?: ManagedObject$ValidationSuccessEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the aggregated object(s) for the named aggregation of this ManagedObject.
      *
@@ -7228,7 +7149,7 @@ declare module "sap/ui/base/ManagedObject" {
       oDefaultForCreation?: ManagedObject | any[]
     ): ManagedObject | ManagedObject[] | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of the association with the given name.
      *
@@ -7283,7 +7204,7 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - `null`
      * 	 - empty string `""`
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
-     * 			is explicitly allowed and refers to the default model.
+     *     is explicitly allowed and refers to the default model.
      *
      * **Note:** A ManagedObject inherits binding contexts from the Core only when it is a descendant of a UIArea.
      *
@@ -7296,7 +7217,7 @@ declare module "sap/ui/base/ManagedObject" {
       sModelName?: string
     ): Context | null | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the binding info for the given property or aggregation.
      *
@@ -7314,7 +7235,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): PropertyBindingInfo | AggregationBindingInfo;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get the binding path for a specific aggregation/property.
      *
@@ -7327,7 +7248,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): string | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent managed object as new eventing parent to enable control event bubbling or `null` if
      * this object hasn't been added to a parent yet.
@@ -7345,7 +7266,7 @@ declare module "sap/ui/base/ManagedObject" {
      * the same ID as an element or another `ManagedObject`.
      *
      * For the same reason, there is no general lookup for `ManagedObject`s via their ID. Only for subclasses
-     * that enforce unique IDs, there might be lookup mechanisms (e.g. {@link sap.ui.core.Core#byId sap.ui.getCore().byId()}
+     * that enforce unique IDs, there might be lookup mechanisms (e.g. {@link sap.ui.core.Core#byId sap.ui.getCore().byId() }
      * for elements).
      *
      * @returns The objects's ID.
@@ -7368,7 +7289,7 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - `null`
      * 	 - empty string `""`
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
-     * 			is explicitly allowed and refers to the default model.
+     *     is explicitly allowed and refers to the default model.
      *
      * @returns oModel or undefined when there is no such model
      */
@@ -7386,7 +7307,7 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - `null`
      * 	 - empty string `""`
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
-     * 			is explicitly allowed and refers to the default model.
+     *     is explicitly allowed and refers to the default model.
      *
      * @returns Context binding for the given model name or `undefined`
      */
@@ -7477,7 +7398,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     getParent(): ManagedObject | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the value for the property with the given `sPropertyName`.
      *
@@ -7502,7 +7423,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     hasModel(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Searches for the provided ManagedObject in the named aggregation and returns its 0-based index if found,
      * or -1 otherwise. Returns -2 if the given named aggregation is of cardinality 0..1 and doesn't reference
@@ -7525,7 +7446,7 @@ declare module "sap/ui/base/ManagedObject" {
       oObject: ManagedObject
     ): int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Inserts managed object `oObject` to the aggregation named `sAggregationName` at position `iIndex`.
      *
@@ -7567,7 +7488,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Marks this object and its aggregated children as 'invalid'.
      *
@@ -7579,8 +7500,8 @@ declare module "sap/ui/base/ManagedObject" {
      * Changing the state via the standard mutators, therefore, does not require an explicit call to `invalidate`.
      * The same applies to changes made via data binding, as it internally uses the standard mutators.
      *
-     * By default, a `ManagedObject` propagates any invalidation to its parent. Controls or UIAreas handle invalidation
-     * on their own by triggering a re-rendering.
+     * By default, a `ManagedObject` propagates any invalidation to its parent, unless the invalidation is suppressed
+     * on the parent. Controls or UIAreas handle invalidation on their own by triggering a re-rendering.
      */
     invalidate(): void;
     /**
@@ -7604,7 +7525,7 @@ declare module "sap/ui/base/ManagedObject" {
     isDestroyed(): boolean;
     /**
      * @since 1.93
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if an object's destruction has been started. During the descruction of an object its ID is still
      * registered, and child objects could be still aggregated. Creating another object with the same ID would
@@ -7614,7 +7535,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isDestroyStarted(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this ManagedObject.
      *
@@ -7622,7 +7543,7 @@ declare module "sap/ui/base/ManagedObject" {
      */
     isInvalidateSuppressed(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the given property value is initial and has not been explicitly set or bound. Even after
      * setting the default value or setting null/undefined (which also causes the default value to be set),
@@ -7637,7 +7558,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is used internally and should only be overridden by a tree managed object which utilizes
      * the tree binding. In this case and if the aggregation is a tree node the overridden method should then
@@ -7654,7 +7575,7 @@ declare module "sap/ui/base/ManagedObject" {
     ): boolean;
     /**
      * @since 1.28
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called, whenever messages for this object exist.
      */
@@ -7669,7 +7590,7 @@ declare module "sap/ui/base/ManagedObject" {
       aMessages: any[]
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which can be called, when an aggregation needs to be refreshed. This method does not make
      * any change on the aggregation, but just calls the `getContexts` method of the binding to trigger fetching
@@ -7686,7 +7607,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName: string
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes an object from the aggregation named `sAggregationName` with cardinality 0..n.
      *
@@ -7722,7 +7643,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes all objects from the 0..n-aggregation named `sAggregationName`.
      *
@@ -7751,7 +7672,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): ManagedObject[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes all the objects in the 0..n-association named `sAssociationName` and returns an array with their
      * IDs. This ManagedObject is marked as changed, if the association contained any objects.
@@ -7773,7 +7694,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): any[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes a `ManagedObject` from the association named `sAssociationName`.
      *
@@ -7808,7 +7729,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): string | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Resets the given property to the default value and also restores the "initial" state (like it has never
      * been set).
@@ -7828,7 +7749,7 @@ declare module "sap/ui/base/ManagedObject" {
       sPropertyName: string
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets a new object in the named 0..1 aggregation of this ManagedObject and marks this ManagedObject as
      * changed.
@@ -7841,8 +7762,8 @@ declare module "sap/ui/base/ManagedObject" {
      * and this ManagedObject is not marked as changed.
      *
      * If the given object is different, the parent of a previously aggregated object is cleared (it must have
-     * been this ManagedObject before), the parent of the given object is set to this ManagedObject and {@link
-     * #invalidate} is called for this object.
+     * been this ManagedObject before), the parent of the given object is set to this ManagedObject and {@link #invalidate }
+     * is called for this object.
      *
      * Note that this method does neither return nor destroy the previously aggregated object. This behavior
      * is inherited by named set methods (see below) in subclasses. To avoid memory leaks, applications therefore
@@ -7874,7 +7795,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressInvalidate?: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the associated object for the given managed association of cardinality '0..1' and marks this ManagedObject
      * as changed.
@@ -7910,7 +7831,7 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - `null`
      * 	 - empty string `""`
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
-     * 			is explicitly allowed and refers to the default model.
+     *     is explicitly allowed and refers to the default model.
      *
      * A value of `null` for `oContext` hides the parent context. The parent context will no longer be propagated
      * to aggregated child controls. A value of `undefined` removes a currently active context or a `null` context
@@ -7969,7 +7890,7 @@ declare module "sap/ui/base/ManagedObject" {
       sName?: string
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the given value for the given property after validating and normalizing it, marks this object as
      * changed.
@@ -8074,7 +7995,7 @@ declare module "sap/ui/base/ManagedObject" {
       bSuppressReset: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generic method which is called whenever an aggregation binding has changed.
      *
@@ -8112,7 +8033,7 @@ declare module "sap/ui/base/ManagedObject" {
       }
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given aggregation name.
      *
@@ -8136,7 +8057,7 @@ declare module "sap/ui/base/ManagedObject" {
       bMultiple: boolean
     ): ManagedObject | any;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given value is of the proper type for the given property name.
      *
@@ -8259,9 +8180,9 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * An object literal whose properties each define a new managed property in the ManagedObject subclass.
      * The value can either be a simple string which then will be assumed to be the type of the new property
-     * or it can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Property
-     * Property} for details): type, visibility, byValue, group, defaultValue, bindable, selector Property names
-     * should use camelCase notation, start with a lowercase letter and only use characters from the set [a-zA-Z0-9_$].
+     * or it can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Property Property }
+     * for details): type, visibility, byValue, group, defaultValue, bindable, selector Property names should
+     * use camelCase notation, start with a lowercase letter and only use characters from the set [a-zA-Z0-9_$].
      * If an aggregation in the literal is preceded by a JSDoc comment (doclet) and if the UI5 plugin and template
      * are used for JSDoc3 generation, the doclet will be used as generic documentation of the aggregation.
      *
@@ -8269,10 +8190,10 @@ declare module "sap/ui/base/ManagedObject" {
      * be added to the prototype of the subclass:
      * 	 - getFoo() - returns the current value of property 'foo'. Internally calls {@link #getProperty}
      * 	 - setFoo(v) - sets 'v' as the new value of property 'foo'. Internally calls {@link #setProperty}
-     * 	 - bindFoo(c) - (only if property was defined to be 'bindable'): convenience function that wraps {@link
-     * 			#bindProperty}
-     * 	 - unbindFoo() - (only if property was defined to be 'bindable'): convenience function that wraps {@link
-     * 			#unbindProperty}  For hidden properties, no methods are generated.
+     * 	 - bindFoo(c) - (only if property was defined to be 'bindable'): convenience function that wraps {@link #bindProperty }
+     *
+     * 	 - unbindFoo() - (only if property was defined to be 'bindable'): convenience function that wraps {@link #unbindProperty }
+     *      For hidden properties, no methods are generated.
      */
     properties?: Record<string, string | MetadataOptions.Property>;
     /**
@@ -8284,44 +8205,44 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * An object literal whose properties each define a new aggregation in the ManagedObject subclass. The value
      * can either be a simple string which then will be assumed to be the type of the new aggregation or it
-     * can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Aggregation
-     * Aggregation} for details): type, multiple, singularName, visibility, bindable, forwarding, selector.
-     * Aggregation names should use camelCase notation, start with a lowercase letter and only use characters
-     * from the set [a-zA-Z0-9_$]. The name for a hidden aggregations might start with an underscore. If an
-     * aggregation in the literal is preceded by a JSDoc comment (doclet) and if the UI5 plugin and template
-     * are used for JSDoc3 generation, the doclet will be used as generic documentation of the aggregation.
+     * can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Aggregation Aggregation }
+     * for details): type, multiple, singularName, visibility, bindable, forwarding, selector. Aggregation names
+     * should use camelCase notation, start with a lowercase letter and only use characters from the set [a-zA-Z0-9_$].
+     * The name for a hidden aggregations might start with an underscore. If an aggregation in the literal is
+     * preceded by a JSDoc comment (doclet) and if the UI5 plugin and template are used for JSDoc3 generation,
+     * the doclet will be used as generic documentation of the aggregation.
      *
      * For each public aggregation 'item' of cardinality 0..1, the following methods will be created by the
      * "extend" method and will be added to the prototype of the subclass:
-     * 	 - getItem() - returns the current value of aggregation 'item'. Internally calls {@link #getAggregation}
-     * 			with a default value of `undefined`
-     * 	 - setItem(o) - sets 'o' as the new aggregated object in aggregation 'item'. Internally calls {@link
-     * 			#setAggregation}
-     * 	 - destroyItem(o) - destroy a currently aggregated object in aggregation 'item' and clears the aggregation.
-     * 			Internally calls {@link #destroyAggregation}
-     * 	 - bindItem(c) - (only if aggregation was defined to be 'bindable'): convenience function that wraps
-     * 			{@link #bindAggregation}
-     * 	 - unbindItem() - (only if aggregation was defined to be 'bindable'): convenience function that wraps
-     * 			{@link #unbindAggregation}  For a public aggregation 'items' of cardinality 0..n, the following
-     * 			methods will be created:
-     * 	 - getItems() - returns an array with the objects contained in aggregation 'items'. Internally calls
-     * 			{@link #getAggregation} with a default value of `[]`
-     * 	 - addItem(o) - adds an object as last element in the aggregation 'items'. Internally calls {@link #addAggregation}
+     * 	 - getItem() - returns the current value of aggregation 'item'. Internally calls {@link #getAggregation }
+     *     with a default value of `undefined`
+     * 	 - setItem(o) - sets 'o' as the new aggregated object in aggregation 'item'. Internally calls {@link #setAggregation }
      *
-     * 	 - insertItem(o,p) - inserts an object into the aggregation 'items'. Internally calls {@link #insertAggregation}
+     * 	 - destroyItem(o) - destroy a currently aggregated object in aggregation 'item' and clears the aggregation.
+     *     Internally calls {@link #destroyAggregation}
+     * 	 - bindItem(c) - (only if aggregation was defined to be 'bindable'): convenience function that wraps
+     *     {@link #bindAggregation}
+     * 	 - unbindItem() - (only if aggregation was defined to be 'bindable'): convenience function that wraps
+     *     {@link #unbindAggregation}  For a public aggregation 'items' of cardinality 0..n, the following
+     *     methods will be created:
+     * 	 - getItems() - returns an array with the objects contained in aggregation 'items'. Internally calls
+     *     {@link #getAggregation} with a default value of `[]`
+     * 	 - addItem(o) - adds an object as last element in the aggregation 'items'. Internally calls {@link #addAggregation }
+     *
+     * 	 - insertItem(o,p) - inserts an object into the aggregation 'items'. Internally calls {@link #insertAggregation }
      *
      * 	 - indexOfItem(o) - returns the position of the given object within the aggregation 'items'. Internally
-     * 			calls {@link #indexOfAggregation}
-     * 	 - removeItem(v) - removes an object from the aggregation 'items'. Internally calls {@link #removeAggregation}
+     *     calls {@link #indexOfAggregation}
+     * 	 - removeItem(v) - removes an object from the aggregation 'items'. Internally calls {@link #removeAggregation }
      *
-     * 	 - removeItems() - removes all objects from the aggregation 'items'. Internally calls {@link #removeAllAggregation}
+     * 	 - removeItems() - removes all objects from the aggregation 'items'. Internally calls {@link #removeAllAggregation }
      *
      * 	 - destroyItems() - destroy all currently aggregated objects in aggregation 'items' and clears the aggregation.
-     * 			Internally calls {@link #destroyAggregation}
+     *     Internally calls {@link #destroyAggregation}
      * 	 - bindItems(c) - (only if aggregation was defined to be 'bindable'): convenience function that wraps
-     * 			{@link #bindAggregation}
+     *     {@link #bindAggregation}
      * 	 - unbindItems() - (only if aggregation was defined to be 'bindable'): convenience function that wraps
-     * 			{@link #unbindAggregation}  For hidden aggregations, no methods are generated.
+     *     {@link #unbindAggregation}  For hidden aggregations, no methods are generated.
      */
     aggregations?: Record<string, string | MetadataOptions.Aggregation>;
     /**
@@ -8342,37 +8263,37 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * An object literal whose properties each define a new association of the ManagedObject subclass. The value
      * can either be a simple string which then will be assumed to be the type of the new association or it
-     * can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Association
-     * Association} for details): type, multiple, singularName, visibility Association names should use camelCase
-     * notation, start with a lowercase letter and only use characters from the set [a-zA-Z0-9_$]. If an association
-     * in the literal is preceded by a JSDoc comment (doclet) and if the UI5 plugin and template are used for
-     * JSDoc3 generation, the doclet will be used as generic documentation of the association.
+     * can be an object literal with the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Association Association }
+     * for details): type, multiple, singularName, visibility Association names should use camelCase notation,
+     * start with a lowercase letter and only use characters from the set [a-zA-Z0-9_$]. If an association in
+     * the literal is preceded by a JSDoc comment (doclet) and if the UI5 plugin and template are used for JSDoc3
+     * generation, the doclet will be used as generic documentation of the association.
      *
      * For each association 'ref' of cardinality 0..1, the following methods will be created by the "extend"
      * method and will be added to the prototype of the subclass:
-     * 	 - getRef() - returns the current value of association 'item'. Internally calls {@link #getAssociation}
-     * 			with a default value of `undefined`
-     * 	 - setRef(o) - sets 'o' as the new associated object in association 'item'. Internally calls {@link
-     * 			#setAssociation}  For a public association 'refs' of cardinality 0..n, the following methods will
-     * 			be created:
+     * 	 - getRef() - returns the current value of association 'item'. Internally calls {@link #getAssociation }
+     *     with a default value of `undefined`
+     * 	 - setRef(o) - sets 'o' as the new associated object in association 'item'. Internally calls {@link #setAssociation }
+     *      For a public association 'refs' of cardinality 0..n, the following methods will be created:
+     *
      * 	 - getRefs() - returns an array with the objects contained in association 'items'. Internally calls
-     * 			{@link #getAssociation} with a default value of `[]`
-     * 	 - addRef(o) - adds an object as last element in the association 'items'. Internally calls {@link #addAssociation}
+     *     {@link #getAssociation} with a default value of `[]`
+     * 	 - addRef(o) - adds an object as last element in the association 'items'. Internally calls {@link #addAssociation }
      *
-     * 	 - removeRef(v) - removes an object from the association 'items'. Internally calls {@link #removeAssociation}
+     * 	 - removeRef(v) - removes an object from the association 'items'. Internally calls {@link #removeAssociation }
      *
-     * 	 - removeAllRefs() - removes all objects from the association 'items'. Internally calls {@link #removeAllAssociation}
-     * 			 For hidden associations, no methods are generated.
+     * 	 - removeAllRefs() - removes all objects from the association 'items'. Internally calls {@link #removeAllAssociation }
+     *      For hidden associations, no methods are generated.
      */
     associations?: Record<string, string | MetadataOptions.Association>;
     /**
      * An object literal whose properties each define a new event of the ManagedObject subclass. In this literal,
      * the property names are used as event names and the values are object literals describing the respective
-     * event which can have the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Event
-     * Event} for details): allowPreventDefault, parameters Event names should use camelCase notation, start
-     * with a lower-case letter and only use characters from the set [a-zA-Z0-9_$]. If an event in the literal
-     * is preceded by a JSDoc comment (doclet) and if the UI5 plugin and template are used for JSDoc3 generation,
-     * the doclet will be used as generic documentation of the event.
+     * event which can have the following properties (see {@link sap.ui.base.ManagedObject.MetadataOptions.Event Event }
+     * for details): allowPreventDefault, parameters Event names should use camelCase notation, start with a
+     * lower-case letter and only use characters from the set [a-zA-Z0-9_$]. If an event in the literal is preceded
+     * by a JSDoc comment (doclet) and if the UI5 plugin and template are used for JSDoc3 generation, the doclet
+     * will be used as generic documentation of the event.
      *
      * For each event 'Some' the following methods will be created by the "extend" method and will be added
      * to the prototype of the subclass:
@@ -8469,8 +8390,8 @@ declare module "sap/ui/base/ManagedObject" {
     useRawValues?: boolean;
     /**
      * Whether the parameters to the formatter function should be passed as the related JavaScript primitive
-     * values. In this case the values of the model are parsed by the {@link sap.ui.model.SimpleType#getModelFormat
-     * model format} of the specified types from the binding parts.
+     * values. In this case the values of the model are parsed by the {@link sap.ui.model.SimpleType#getModelFormat model format }
+     * of the specified types from the binding parts.
      *
      * **Note**: use this flag only when using multiple bindings.
      */
@@ -8527,25 +8448,25 @@ declare module "sap/ui/base/ManagedObject" {
      * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
      * uses a data type.
      */
-    validationSuccess?: (oEvent: Event) => void;
+    validationSuccess?: (oEvent: ManagedObject$ValidationSuccessEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but validating
      * the value failed with an exception.
      */
-    validationError?: (oEvent: Event) => void;
+    validationError?: (oEvent: ManagedObject$ValidationErrorEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but parsing the
      * value failed with an exception.
      */
-    parseError?: (oEvent: Event) => void;
+    parseError?: (oEvent: ManagedObject$ParseErrorEvent) => void;
 
     /**
      * Fired when a new value for a bound property should have been propagated from the model, but formatting
      * the value failed with an exception.
      */
-    formatError?: (oEvent: Event) => void;
+    formatError?: (oEvent: ManagedObject$FormatErrorEvent) => void;
 
     /**
      * Fired when models or contexts are changed on this object (either by calling setModel/setBindingContext
@@ -8553,6 +8474,139 @@ declare module "sap/ui/base/ManagedObject" {
      */
     modelContextChange?: (oEvent: Event) => void;
   }
+
+  export interface ManagedObject$FormatErrorEventParameters {
+    /**
+     * ManagedObject instance whose property should have received the model update.
+     */
+    element?: ManagedObject;
+
+    /**
+     * Name of the property for which the binding should have been updated.
+     */
+    property?: string;
+
+    /**
+     * Data type used in the binding (if any).
+     */
+    type?: Type;
+
+    /**
+     * New value (model representation) as propagated from the model.
+     */
+    newValue?: any;
+
+    /**
+     * Old value (external representation) as previously stored in the ManagedObject.
+     */
+    oldValue?: any;
+  }
+
+  export type ManagedObject$FormatErrorEvent = Event<ManagedObject$FormatErrorEventParameters>;
+
+  export interface ManagedObject$ModelContextChangeEventParameters {}
+
+  export type ManagedObject$ModelContextChangeEvent = Event<ManagedObject$ModelContextChangeEventParameters>;
+
+  export interface ManagedObject$ParseErrorEventParameters {
+    /**
+     * ManagedObject instance whose property initiated the model update.
+     */
+    element?: ManagedObject;
+
+    /**
+     * Name of the property for which the bound model property should have been been updated.
+     */
+    property?: string;
+
+    /**
+     * Data type used in the binding.
+     */
+    type?: Type;
+
+    /**
+     * New value (external representation) as parsed by the binding.
+     */
+    newValue?: any;
+
+    /**
+     * Old value (external representation) as previously stored in the ManagedObject.
+     */
+    oldValue?: any;
+
+    /**
+     * Localized message describing the parse error
+     */
+    message?: string;
+  }
+
+  export type ManagedObject$ParseErrorEvent = Event<ManagedObject$ParseErrorEventParameters>;
+
+  export interface ManagedObject$ValidationErrorEventParameters {
+    /**
+     * ManagedObject instance whose property initiated the model update.
+     */
+    element?: ManagedObject;
+
+    /**
+     * Name of the property for which the bound model property should have been been updated.
+     */
+    property?: string;
+
+    /**
+     * Data type used in the binding.
+     */
+    type?: Type;
+
+    /**
+     * New value (external representation) as parsed and validated by the binding.
+     */
+    newValue?: any;
+
+    /**
+     * Old value (external representation) as previously stored in the ManagedObject.
+     */
+    oldValue?: any;
+
+    /**
+     * Localized message describing the validation issues
+     */
+    message?: string;
+  }
+
+  export type ManagedObject$ValidationErrorEvent = Event<ManagedObject$ValidationErrorEventParameters>;
+
+  export interface ManagedObject$ValidationSuccessEventParameters {
+    /**
+     * ManagedObject instance whose property initiated the model update.
+     */
+    element?: ManagedObject;
+
+    /**
+     * Name of the property for which the bound model property has been updated.
+     */
+    property?: string;
+
+    /**
+     * Data type used in the binding.
+     */
+    type?: Type;
+
+    /**
+     * New value (external representation) as propagated to the model.
+     *
+     * **Note: **the model might modify (normalize) the value again and this modification will be stored in
+     * the ManagedObject. The 'newValue' parameter of this event contains the value **before** such a normalization.
+     */
+    newValue?: any;
+
+    /**
+     * Old value (external representation) as previously stored in the ManagedObject.
+     */
+    oldValue?: any;
+  }
+
+  export type ManagedObject$ValidationSuccessEvent = Event<ManagedObject$ValidationSuccessEventParameters>;
 
   export namespace MetadataOptions {
     /**
@@ -8641,12 +8695,12 @@ declare module "sap/ui/base/ManagedObject" {
         forwardBinding?: boolean;
       };
       /**
-       * Can be set to a valid CSS selector (as accepted by the {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector
-       * Element.prototype.querySelector} method). When set, it locates the DOM element that surrounds the aggregation's
-       * content. It should only be set for aggregations that have a visual representation in the DOM. A DOM element
-       * surrounding the aggregation's rendered content should be available in the DOM, even if the aggregation
-       * is empty or not rendered for some reason. In cases where this is not possible or not intended, `getDomRefForSetting`
-       * can be overridden, see below.
+       * Can be set to a valid CSS selector (as accepted by the {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector Element.prototype.querySelector }
+       * method). When set, it locates the DOM element that surrounds the aggregation's content. It should only
+       * be set for aggregations that have a visual representation in the DOM. A DOM element surrounding the aggregation's
+       * rendered content should be available in the DOM, even if the aggregation is empty or not rendered for
+       * some reason. In cases where this is not possible or not intended, `getDomRefForSetting` can be overridden,
+       * see below.
        *
        * The purpose of the selector is to allow other framework parts like drag and drop or design time tooling
        * to identify those DOM parts of a control or element that represent a specific aggregation without knowing
@@ -8750,8 +8804,8 @@ declare module "sap/ui/base/ManagedObject" {
     };
 
     /**
-     * An object literal describing an event of a class derived from `sap.ui.base.ManagedObject`. See {@link
-     * sap.ui.base.ManagedObject.MetadataOptions MetadataOptions} for details on its usage.
+     * An object literal describing an event of a class derived from `sap.ui.base.ManagedObject`. See {@link sap.ui.base.ManagedObject.MetadataOptions MetadataOptions }
+     * for details on its usage.
      */
     type Event = {
       /**
@@ -8784,13 +8838,13 @@ declare module "sap/ui/base/ManagedObject" {
     };
 
     /**
-     * An object literal describing a property of a class derived from `sap.ui.base.ManagedObject`. See {@link
-     * sap.ui.base.ManagedObject.MetadataOptions MetadataOptions} for details on its usage.
+     * An object literal describing a property of a class derived from `sap.ui.base.ManagedObject`. See {@link sap.ui.base.ManagedObject.MetadataOptions MetadataOptions }
+     * for details on its usage.
      */
     type Property = {
       /**
        * Type of the new property. Must either be one of the built-in types 'string', 'boolean', 'int', 'float',
-       * 'object', 'function' or 'any', or a type created and registered with {@link sap.ui.base.DataType.createType}
+       * 'object', 'function' or 'any', or a type created and registered with {@link sap.ui.base.DataType.createType }
        * or an array type based on one of the previous types (e.g. 'int[]' or 'string[]', but not just 'array').
        */
       type: string;
@@ -8840,9 +8894,9 @@ declare module "sap/ui/base/ManagedObject" {
        */
       bindable?: boolean | "bindable";
       /**
-       * Can be set to a valid CSS selector (as accepted by the {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector
-       * Element.prototype.querySelector} method). When set, it locates the DOM element that represents this property's
-       * value. It should only be set for properties that have a visual text representation in the DOM.
+       * Can be set to a valid CSS selector (as accepted by the {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector Element.prototype.querySelector }
+       * method). When set, it locates the DOM element that represents this property's value. It should only be
+       * set for properties that have a visual text representation in the DOM.
        *
        * The purpose of the selector is to allow other framework parts or design time tooling to identify the
        * DOM parts of a control or element that represent a specific property without knowing the control or element
@@ -8905,15 +8959,15 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
    *
    *
    * 	 - the period of validity of info objects is not defined. They should be referenced only for a short
-   * 			time and not be kept as members of long living objects or closures.
+   *     time and not be kept as members of long living objects or closures.
    */
   export default class ManagedObjectMetadata extends Metadata {
     /**
      * Creates a new metadata object that describes a subclass of ManagedObject.
      *
      * **Note:** Code outside the `sap.ui.base` namespace must not call this constructor directly. Instances
-     * will be created automatically when a new class is defined with one of the {@link sap.ui.base.ManagedObject.extend
-     * SomeClass.extend} methods.
+     * will be created automatically when a new class is defined with one of the {@link sap.ui.base.ManagedObject.extend SomeClass.extend }
+     * methods.
      *
      * **Note**: throughout this class documentation, the described subclass of ManagedObject is referenced
      * as the described class.
@@ -8935,7 +8989,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds information to the given oAggregatedObject about its original API parent (or a subsequent API parent
      * in case of multiple forwarding). MUST be called before an element is forwarded to another internal aggregation
@@ -8960,7 +9014,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Completes the information about the original API parent of the given element. MUST be called after an
      * element is forwarded to another internal aggregation. For every call to ManagedObjectMetadata.addAPIParentInfoBegin(...)
@@ -9094,7 +9148,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllEvents(): Record<string, MetadataOptions1.Event>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) aggregations of the described class, including
      * private aggregations from the ancestor classes.
@@ -9110,7 +9164,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAggregations(): Record<string, MetadataOptions1.Aggregation>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) associations of the described class, including
      * private associations from the ancestor classes.
@@ -9126,7 +9180,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getAllPrivateAssociations(): Record<string, MetadataOptions1.Association>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a map of info objects for all private (hidden) properties of the described class, including private
      * properties from the ancestor classes.
@@ -9251,7 +9305,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      */
     getLibraryName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private aggregation declared by the described class or
      * by any of its ancestors.
@@ -9272,7 +9326,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sAggregationName: string
     ): MetadataOptions1.Aggregation | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private association declared by the described class or
      * by any of its ancestors.
@@ -9290,7 +9344,7 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
       sName: string
     ): MetadataOptions1.Association | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object for the named public or private property declared by the described class or by
      * any of its ancestors.
@@ -9430,6 +9484,8 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
 }
 
 declare module "sap/ui/base/Metadata" {
+  import { MetadataOptions, default as BaseObject } from "sap/ui/base/Object";
+
   /**
    * @since 0.8.6
    *
@@ -9450,7 +9506,12 @@ declare module "sap/ui/base/Metadata" {
       /**
        * Info to construct the class and its metadata from
        */
-      oClassInfo: object
+      oClassInfo: {
+        /**
+         * The metadata object describing the class
+         */
+        metadata?: MetadataOptions;
+      }
     );
 
     /**
@@ -9459,7 +9520,7 @@ declare module "sap/ui/base/Metadata" {
      * methods or some of the returned methods might not really be intended for public use. In general, pure
      * visibility information should not be exposed in runtime metadata but be part of the documentation. Subclasses
      * of `sap.ui.base.Object` might decide to provide runtime metadata describing their public API, but this
-     * then should not be backed by this method. See {@link sap.ui.core.mvc.ControllerMetadata#getAllMethods}
+     * then should not be backed by this method. See {@link sap.ui.core.mvc.ControllerMetadata#getAllMethods }
      * for an example.
      *
      * Returns an array with the names of all public methods declared by the described class and all its ancestors
@@ -9473,7 +9534,7 @@ declare module "sap/ui/base/Metadata" {
      *
      * @returns class described by this metadata
      */
-    getClass(): Function;
+    getClass(): (p1: BaseObject) => void;
     /**
      * Returns the fully qualified name of the described class
      *
@@ -9493,7 +9554,7 @@ declare module "sap/ui/base/Metadata" {
      * methods or some of the returned methods might not really be intended for public use. In general, pure
      * visibility information should not be exposed in runtime metadata but be part of the documentation. Subclasses
      * of `sap.ui.base.Object` might decide to provide runtime metadata describing their public API, but this
-     * then should not be backed by this method. See {@link sap.ui.core.mvc.ControllerMetadata#getAllMethods}
+     * then should not be backed by this method. See {@link sap.ui.core.mvc.ControllerMetadata#getAllMethods }
      * for an example.
      *
      * Returns an array with the names of the public methods declared by the described class, methods of ancestors
@@ -9583,7 +9644,7 @@ declare module "sap/ui/base/Object" {
      * The static info can at least contain the following entries:
      * 	 - baseType: {string} fully qualified name of a base class or empty
      * 	 - publicMethods: {string} an array of method names that will be visible in the interface proxy returned
-     * 			by {@link #getInterface}
+     *     by {@link #getInterface}
      *
      * @returns the created metadata object
      */
@@ -9618,14 +9679,14 @@ declare module "sap/ui/base/Object" {
      *
      * `oClassInfo` might contain three kinds of information:
      * 	 - `metadata:` an (optional) object literal with metadata about the class like implemented interfaces,
-     * 			see {@link sap.ui.base.Object.MetadataOptions MetadataOptions} for details. The information in the object
-     * 			literal will be wrapped by an instance of {@link sap.ui.base.Metadata Metadata}. Subclasses of sap.ui.base.Object
-     * 			can enrich the set of supported metadata (e.g. see {@link sap.ui.core.Element.extend}).
+     *     see {@link sap.ui.base.Object.MetadataOptions MetadataOptions} for details. The information in the object
+     *     literal will be wrapped by an instance of {@link sap.ui.base.Metadata Metadata}. Subclasses of sap.ui.base.Object
+     *     can enrich the set of supported metadata (e.g. see {@link sap.ui.core.Element.extend}).
      *
      *
      * 	 - `constructor:` a function that serves as a constructor function for the new class. If no constructor
-     * 			function is given, the framework creates a default implementation that delegates all its arguments to
-     * 			the constructor function of the base class.
+     *     function is given, the framework creates a default implementation that delegates all its arguments to
+     *     the constructor function of the base class.
      *
      * any-other-name: any other property in the `oClassInfo` is copied into the prototype object
      * of the newly created class. Callers can thereby add methods or properties to all instances of the class.
@@ -9682,7 +9743,7 @@ declare module "sap/ui/base/Object" {
       /**
        * Object which will be checked whether it is an instance of the given type
        */
-      oObject: object,
+      oObject: any,
       /**
        * Type or types to check for
        */
@@ -9708,7 +9769,7 @@ declare module "sap/ui/base/Object" {
     /**
      * Returns the metadata for the class that this object belongs to.
      *
-     * This method is only defined when metadata has been declared by using {@link sap.ui.base.Object.defineClass}
+     * This method is only defined when metadata has been declared by using {@link sap.ui.base.Object.defineClass }
      * or {@link sap.ui.base.Object.extend}.
      *
      * @returns metadata for the class of the object
@@ -9773,9 +9834,9 @@ declare module "sap/ui/base/ObjectPool" {
    * Manages a pool of objects for reuse, all of the same type; the type has to be specified at construction
    * time.
    *
-   * Each pool maintains a list of free objects of the given type. If {@link sap.ui.base.ObjectPool.prototype.borrowObject}
+   * Each pool maintains a list of free objects of the given type. If {@link sap.ui.base.ObjectPool.prototype.borrowObject }
    * is called, an existing free object is taken from the pool. When no free object is available, a new instance
-   * is created by calling the constructor without any arguments. In either case, the {@link sap.ui.base.Poolable#init}
+   * is created by calling the constructor without any arguments. In either case, the {@link sap.ui.base.Poolable#init }
    * method is called on the object to initialize it with the data for the current caller.
    *
    * When the object is no longer needed, it has to be returned to the pool by calling {@link #returnObject}.
@@ -9820,7 +9881,7 @@ declare module "sap/ui/base/ObjectPool" {
       /**
        * Constructor for the class of objects that this pool should manage
        */
-      oObjectClass: Function
+      oObjectClass: (p1: Object) => void
     );
 
     /**
@@ -9863,7 +9924,7 @@ declare module "sap/ui/base/ObjectPool" {
        * optional initialization parameters for the borrowed object
        */
       ...args: any[]
-    ): object;
+    ): Object;
     /**
      * Returns an object to the pool. The object must have been borrowed from this pool beforehand. The reset
      * method is called on the object before it is added to the set of free objects.
@@ -9872,7 +9933,7 @@ declare module "sap/ui/base/ObjectPool" {
       /**
        * The object to return to the pool
        */
-      oObject: object
+      oObject: Object
     ): void;
   }
   /**
@@ -9882,14 +9943,14 @@ declare module "sap/ui/base/ObjectPool" {
    * objects.
    *
    * To be more convenient to use, poolable objects should implement their constructor in a way that it either
-   * can be called with no arguments (used by the pool) or with the same signature as their {@link #init}
+   * can be called with no arguments (used by the pool) or with the same signature as their {@link #init }
    * method (to be used by applications).
    */
   export interface Poolable {
     __implements__sap_ui_base_Poolable: boolean;
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called by the `ObjectPool` when this instance will be activated for a caller.
      *
@@ -9905,7 +9966,7 @@ declare module "sap/ui/base/ObjectPool" {
       ...args: any[]
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Called by the object pool when an instance is returned to the pool.
      *
@@ -9944,8 +10005,7 @@ declare module "sap/ui/core/library" {
    * Expressions inside the `calc()` operator are only roughly checked for validity. Not every value that
    * this type accepts is a valid expression in the sense of the CSS spec. But vice versa, any expression
    * that is valid according to the spec should be accepted by this type. The current implementation is based
-   * on the {@link http://dev.w3.org/csswg/css-values-3/#calc-syntax CSS3 Draft specification from 22 April
-   * 2015}.
+   * on the {@link http://dev.w3.org/csswg/css-values-3/#calc-syntax CSS3 Draft specification from 22 April 2015}.
    *
    * Noteworthy details:
    * 	 - whitespace is mandatory around a '-' or '+' operator and optional otherwise
@@ -9961,56 +10021,56 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.110
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains accessibility information for a control.
    */
   export type AccessibilityInfo = {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The WAI-ARIA role which is implemented by the control.
      */
     role?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A translated text that represents the control type. Might correlate with the role.
      */
     type?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Describes the most relevant control state (e.g. the input's value) - it should be a translated text.
      * **Note:** The type and the enabled/editable state shouldn`t be handled here.
      */
     description?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control can get the focus.
      */
     focusable?: boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is enabled. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     enabled?: boolean | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is editable. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     editable?: boolean | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the control is readonly. If not relevant, it shouldn`t be set or `null` can be provided.
      */
     readonly?: boolean | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A list of elements or controls that are aggregated by the given control (e.g. when the control is a layout).
      * Primitive values in the list will be ignored. **Note:** Children should only be provided when it is helpful
@@ -10425,7 +10485,7 @@ declare module "sap/ui/core/library" {
    * 	 - HSL/RGB values with or without transparency, like `hsla(90,10%,30%,0.5)` or `rgb(0,0,0)`,
    * 	 - CSS color names like `darkblue`, or special values like `inherit` and `transparent`,
    * 	 - an empty string, which has the same effect as setting no color.  For more information about
-   * 			the CSS Level 3 color specification, see {@link https://www.w3.org/TR/css-color-3/#css-system}.
+   *     the CSS Level 3 color specification, see {@link https://www.w3.org/TR/css-color-3/#css-system}.
    */
   export type CSSColor = string;
 
@@ -10453,8 +10513,7 @@ declare module "sap/ui/core/library" {
    * Expressions inside the `calc()` operator are only roughly checked for validity. Not every value that
    * this type accepts might be a valid expression in the sense of the CSS spec. But vice versa, any expression
    * that is valid according to the spec should be accepted by this type. The current implementation is based
-   * on the {@link http://dev.w3.org/csswg/css-values-3/#calc-syntax CSS3 Draft specification from 22 April
-   * 2015}.
+   * on the {@link http://dev.w3.org/csswg/css-values-3/#calc-syntax CSS3 Draft specification from 22 April 2015}.
    *
    * Noteworthy details:
    * 	 - whitespace is mandatory around a '-' or '+' operator and optional otherwise
@@ -10503,37 +10562,37 @@ declare module "sap/ui/core/library" {
 
   /**
    * @since 1.111
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object contains focus information for input controls.
    */
   export type FocusInfo = {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The ID of the focused control.
      */
     id?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The position of the cursor.
      */
     cursorPos?: int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The start position of selection.
      */
     selectionStart?: int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The end position of selection.
      */
     selectionEnd?: int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Prevents scrolling.
      */
@@ -10614,9 +10673,9 @@ declare module "sap/ui/core/library" {
    * When implementing this interface the {@link sap.ui.core.Component.create Component.create} factory's
    * result Promise will resolve once the defined `rootView` is fully processed.
    *
-   * An asynchronous component can also return a Promise in its {@link sap.ui.core.UIComponent#createContent
-   * createContent} function. This Promise will also be chained into the {@link sap.ui.core.Component.create
-   * Component.create} factory's result Promise.
+   * An asynchronous component can also return a Promise in its {@link sap.ui.core.UIComponent#createContent createContent }
+   * function. This Promise will also be chained into the {@link sap.ui.core.Component.create Component.create }
+   * factory's result Promise.
    *
    * See {@link sap.ui.core.UIComponent#createContent} for more details and usage samples.
    */
@@ -10720,7 +10779,17 @@ declare module "sap/ui/core/library" {
       /**
        * An `oncontextmenu` event object or an object with properties left, top, offsetX, offsetY
        */
-      oEvent: jQuery.Event | object,
+      oEvent:
+        | jQuery.Event
+        | {
+            left: float;
+
+            top: float;
+
+            offsetX: float;
+
+            offsetY: float;
+          },
       /**
        * The element which will get the focus back again after the menu was closed
        */
@@ -10899,7 +10968,7 @@ declare module "sap/ui/core/library" {
      *
      * @returns Formatted value or a `Promise` returning the formatted value if resolved
      */
-    getFormFormattedValue?(): string | Promise<any>;
+    getFormFormattedValue?(): string | Promise<string>;
     /**
      * @since 1.86.0
      * @experimental (since 1.86)
@@ -11489,9 +11558,9 @@ declare module "sap/ui/core/CustomStyleClassSupport" {
    * ```
    *
    *
-   * The classes are written to the HTML automatically when using the {@link sap.ui.core.RenderManager Semantic
-   * Rendering API}. To ensure that the classes are written to the HTML with the traditional string-based
-   * rendering, when writing the root tag of the element you must call the function `oRenderManager.writeClasses(oElement);`
+   * The classes are written to the HTML automatically when using the {@link sap.ui.core.RenderManager Semantic Rendering API}.
+   * To ensure that the classes are written to the HTML with the traditional string-based rendering, when
+   * writing the root tag of the element you must call the function `oRenderManager.writeClasses(oElement);`
    * ({@link sap.ui.core.RenderManager#writeClasses}) within the renderer of the control to which the element
    * belongs.
    *
@@ -11500,7 +11569,7 @@ declare module "sap/ui/core/CustomStyleClassSupport" {
    * 	 - `removeStyleClass`: {@link sap.ui.core.Control#removeStyleClass}
    * 	 - `toggleStyleClass`: {@link sap.ui.core.Control#toggleStyleClass}
    * 	 - `hasStyleClass`: {@link sap.ui.core.Control#hasStyleClass}  In addition the clone function of
-   * 			the element is extended to ensure that the custom style classes are also available on the cloned element.
+   *     the element is extended to ensure that the custom style classes are also available on the cloned element.
    *
    * **Note:** This function can only be used within control development. An application cannot add
    * style class support on existing elements by calling this function.
@@ -11739,14 +11808,14 @@ declare module "sap/ui/core/CommandExecution" {
      *
      * A CommandExecution can have three states:
      * 	 - the CommandExecution is visible and enabled. If the configured shortcut is executed, the configured
-     * 			event handler of this CommandExecution is called
+     *     event handler of this CommandExecution is called
      * 	 - the CommandExecution is visible but not enabled. If the configured shortcut is executed, neither
-     * 			the configured event handler of this CommandExecution nor any event handler configured on CommandExecutions
-     * 			in the ancestor chain is called
+     *     the configured event handler of this CommandExecution nor any event handler configured on CommandExecutions
+     *     in the ancestor chain is called
      * 	 - the CommandExecution is not visible. If the configured shortcut is executed, the configured event
-     * 			handler of this CommandExecution is not called, but the event is propagated to its parent, which can
-     * 			then handle the event by a configured CommandExecution or propagate the event to its parent, until no
-     * 			parent exits anymore and the browser can handle the executed shortcut
+     *     handler of this CommandExecution is not called, but the event is propagated to its parent, which can
+     *     then handle the event by a configured CommandExecution or propagate the event to its parent, until no
+     *     parent exits anymore and the browser can handle the executed shortcut
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -11846,7 +11915,7 @@ declare module "sap/ui/core/CommandExecution" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:execute execute} to attached listeners.
      *
@@ -11951,6 +12020,10 @@ declare module "sap/ui/core/CommandExecution" {
      */
     execute?: (oEvent: Event) => void;
   }
+
+  export interface CommandExecution$ExecuteEventParameters {}
+
+  export type CommandExecution$ExecuteEvent = Event<CommandExecution$ExecuteEventParameters>;
 }
 
 declare module "sap/ui/core/Component" {
@@ -11986,8 +12059,8 @@ declare module "sap/ui/core/Component" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor
-     * sap.ui.base.ManagedObject} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor sap.ui.base.ManagedObject }
+     * can be used.
      */
     constructor(
       /**
@@ -12005,8 +12078,8 @@ declare module "sap/ui/core/Component" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor
-     * sap.ui.base.ManagedObject} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor sap.ui.base.ManagedObject }
+     * can be used.
      */
     constructor(
       /**
@@ -12019,6 +12092,12 @@ declare module "sap/ui/core/Component" {
        */
       mSettings?: $ComponentSettings
     );
+    /**
+     * @since 1.67
+     *
+     * Registry of all `Component`s that currently exist.
+     */
+    static registry: registry;
 
     /**
      * @since 1.56.0
@@ -12068,10 +12147,9 @@ declare module "sap/ui/core/Component" {
          */
         id?: ID;
         /**
-         * List of active terminologies. The order of the given active terminologies is significant. The {@link
-         * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
-         * in more detail. Please have a look at this dev-guide chapter for general usage instructions: {@link topic:eba8d25a31ef416ead876e091e67824e
-         * Text Verticalization}.
+         * List of active terminologies. The order of the given active terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle }
+         * API documentation describes the processing behavior in more detail. Please have a look at this dev-guide
+         * chapter for general usage instructions: {@link https://ui5.sap.com/#/topic/eba8d25a31ef416ead876e091e67824e Text Verticalization}.
          */
         activeTerminologies?: string[];
         /**
@@ -12206,10 +12284,10 @@ declare module "sap/ui/core/Component" {
      * as owner ID.
      *
      * **Note**: Ownership for objects is only checked by the framework at the time when they are created. It
-     * is not checked or updated afterwards. And it can only be detected while the {@link sap.ui.core.Component#runAsOwner
-     * Component.runAsOwner} function is executing. Without further action, this is only the case while the
-     * content of a UIComponent is {@link sap.ui.core.UIComponent#createContent constructed} or when a {@link
-     * sap.ui.core.routing.Router Router} creates a new View and its content.
+     * is not checked or updated afterwards. And it can only be detected while the {@link sap.ui.core.Component#runAsOwner Component.runAsOwner }
+     * function is executing. Without further action, this is only the case while the content of a UIComponent
+     * is {@link sap.ui.core.UIComponent#createContent constructed} or when a {@link sap.ui.core.routing.Router Router }
+     * creates a new View and its content.
      *
      * **Note**: This method does not guarantee that the returned owner ID belongs to a Component. Currently,
      * it always does. But future versions of UI5 might introduce a more fine grained ownership concept, e.g.
@@ -12408,7 +12486,7 @@ declare module "sap/ui/core/Component" {
           }
     ): Component | Promise<Component>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Cleans up the Component instance before destruction.
      *
@@ -12421,7 +12499,7 @@ declare module "sap/ui/core/Component" {
     /**
      * @since 1.76
      *
-     * Returns the list of active terminologies. See the {@link sap.ui.core.Component.create Component.create}
+     * Returns the list of active terminologies. See the {@link sap.ui.core.Component.create Component.create }
      * factory API documentation for more detail.
      *
      * @returns List of active terminologies
@@ -12542,9 +12620,9 @@ declare module "sap/ui/core/Component" {
      *
      * The service will be created only once per Component and reused in future calls to the `getService` function.
      *  This function will return a `Promise` which provides the service interface when resolved. If the
-     * `factoryName` could not be found in the {@link sap.ui.core.service.ServiceFactoryRegistry Service Factory
-     * Registry} or the service declaration in the descriptor for components (manifest.json) is missing the
-     * Promise will reject.
+     * `factoryName` could not be found in the {@link sap.ui.core.service.ServiceFactoryRegistry Service Factory Registry }
+     * or the service declaration in the descriptor for components (manifest.json) is missing the Promise will
+     * reject.
      *
      * This is an example of how the `getService` function can be used:
      * ```javascript
@@ -12566,7 +12644,7 @@ declare module "sap/ui/core/Component" {
       sLocalServiceAlias: string
     ): Promise</* was: sap.ui.core.service.Service */ any>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the Component instance after creation.
      *
@@ -12578,7 +12656,7 @@ declare module "sap/ui/core/Component" {
     init(): void;
     /**
      * @since 1.88
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is activated
      */
@@ -12597,7 +12675,7 @@ declare module "sap/ui/core/Component" {
     ): void;
     /**
      * @since 1.88
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called after the component is deactivated
      */
@@ -12674,7 +12752,7 @@ declare module "sap/ui/core/Component" {
    *
    * Registry of all `Component`s that currently exist.
    */
-  export interface registry {
+  interface registry {
     /**
      * Number of existing components.
      */
@@ -12792,15 +12870,15 @@ declare module "sap/ui/core/ComponentContainer" {
     URI,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
-  import UIComponent from "sap/ui/core/UIComponent";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { $ComponentSettings } from "sap/ui/core/Component";
 
+  import UIComponent from "sap/ui/core/UIComponent";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Container that embeds a `sap/ui/core/UIComponent` in a control tree.
@@ -12917,7 +12995,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -12940,7 +13018,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -12971,7 +13049,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -12997,7 +13075,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -13017,7 +13095,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentCreatedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13037,7 +13115,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ComponentContainer$ComponentFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13045,7 +13123,7 @@ declare module "sap/ui/core/ComponentContainer" {
     ): this;
     /**
      * @since 1.50
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentCreated componentCreated} to attached listeners.
      *
@@ -13055,16 +13133,11 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Reference to the created component instance
-         */
-        component?: UIComponent;
-      }
+      mParameters?: ComponentContainer$ComponentCreatedEventParameters
     ): this;
     /**
      * @since 1.60
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:componentFailed componentFailed} to attached listeners.
      *
@@ -13077,12 +13150,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The reason object as returned by the component promise
-         */
-        reason?: object;
-      }
+      mParameters?: ComponentContainer$ComponentFailedEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getAsync async}.
@@ -13202,8 +13270,8 @@ declare module "sap/ui/core/ComponentContainer" {
      * If there's no owning component or if its app descriptor does not contain a usage with the given name,
      * an error will be logged.
      *
-     * See {@link topic:346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components} for more information
-     * about component usages.
+     * See {@link https://ui5.sap.com/#/topic/346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components }
+     * for more information about component usages.
      *
      * This property can only be applied initially.
      *
@@ -13418,8 +13486,8 @@ declare module "sap/ui/core/ComponentContainer" {
      * If there's no owning component or if its app descriptor does not contain a usage with the given name,
      * an error will be logged.
      *
-     * See {@link topic:346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components} for more information
-     * about component usages.
+     * See {@link https://ui5.sap.com/#/topic/346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components }
+     * for more information about component usages.
      *
      * This property can only be applied initially.
      *
@@ -13521,8 +13589,8 @@ declare module "sap/ui/core/ComponentContainer" {
      * If there's no owning component or if its app descriptor does not contain a usage with the given name,
      * an error will be logged.
      *
-     * See {@link topic:346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components} for more information
-     * about component usages.
+     * See {@link https://ui5.sap.com/#/topic/346599f0890d4dfaaa11c6b4ffa96312 Using and Nesting Components }
+     * for more information about component usages.
      *
      * This property can only be applied initially.
      */
@@ -13547,7 +13615,9 @@ declare module "sap/ui/core/ComponentContainer" {
      *
      * Fired when the component instance has been created by the ComponentContainer.
      */
-    componentCreated?: (oEvent: Event) => void;
+    componentCreated?: (
+      oEvent: ComponentContainer$ComponentCreatedEvent
+    ) => void;
 
     /**
      * @since 1.60
@@ -13557,8 +13627,26 @@ declare module "sap/ui/core/ComponentContainer" {
      * By default, the `ComponentContainer` also logs the error that occurred. Since 1.83, this default behavior
      * can be prevented by calling `preventDefault()` on the event object.
      */
-    componentFailed?: (oEvent: Event) => void;
+    componentFailed?: (oEvent: ComponentContainer$ComponentFailedEvent) => void;
   }
+
+  export interface ComponentContainer$ComponentCreatedEventParameters {
+    /**
+     * Reference to the created component instance
+     */
+    component?: UIComponent;
+  }
+
+  export type ComponentContainer$ComponentCreatedEvent = Event<ComponentContainer$ComponentCreatedEventParameters>;
+
+  export interface ComponentContainer$ComponentFailedEventParameters {
+    /**
+     * The reason object as returned by the component promise
+     */
+    reason?: object;
+  }
+
+  export type ComponentContainer$ComponentFailedEvent = Event<ComponentContainer$ComponentFailedEventParameters>;
 }
 
 declare module "sap/ui/core/ComponentMetadata" {
@@ -13738,7 +13826,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getManifestObject(): Manifest;
     /**
      * @since 1.27.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the version of the metadata which could be 1 or 2. 1 is for legacy metadata whereas 2 is for
      * the manifest.
@@ -13781,7 +13869,7 @@ declare module "sap/ui/core/ComponentMetadata" {
     getVersion(): string;
     /**
      * @since 1.33.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the class of this metadata is a component base class or not.
      *
@@ -13826,11 +13914,44 @@ declare module "sap/ui/core/Configuration" {
    * The naming convention for parameters is:
    * 	 - in the URL : sap-ui-PARAMETER-NAME="value"
    * 	 - in the DOM : data-sap-ui-PARAMETER-NAME="value"  where PARAMETER-NAME is the name
-   * 			of the parameter in lower case.
+   *     of the parameter in lower case.
    *
    * Values of boolean parameters are case insensitive where "true" and "x" are interpreted as true.
    */
   interface Configuration {
+    /**
+     * @since 1.50.0
+     *
+     * Enumerable list with available animation modes.
+     *
+     * This enumerable is used to validate the animation mode. Animation modes allow to specify different animation
+     * scenarios or levels. The implementation of the Control (JavaScript or CSS) has to be done differently
+     * for each animation mode.
+     */
+    AnimationMode: typeof AnimationMode;
+
+    /**
+     * @since 1.38.6
+     *
+     * Applies multiple changes to the configuration at once.
+     *
+     * If the changed settings contain localization related settings like `language` or calendarType,
+     * then only a single `localizationChanged` event will be fired. As the framework has to inform all existing
+     * components, elements, models etc. about localization changes, using `applySettings` can significantly
+     * reduce the overhead for multiple changes, esp. when they occur after the UI has been created already.
+     *
+     * The `mSettings` can contain any property `xyz` for which a setter method `setXYZ` exists
+     * in the API of this class. Similarly, values for the {@link sap.ui.core.Configuration.FormatSettings format settings }
+     * API can be provided in a nested object with name `formatSettings`.
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    applySettings(
+      /**
+       * Configuration options to apply
+       */
+      mSettings: object
+    ): this;
     /**
      * Creates a new subclass of class sap.ui.core.Configuration with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
@@ -13855,37 +13976,9 @@ declare module "sap/ui/core/Configuration" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Returns a metadata object for class sap.ui.core.Configuration.
+     * Returns whether the accessibility mode is enabled or not.
      *
-     * @returns Metadata object describing this class
-     */
-    getMetadata(): Metadata;
-    /**
-     * @since 1.38.6
-     *
-     * Applies multiple changes to the configuration at once.
-     *
-     * If the changed settings contain localization related settings like `language` or calendarType,
-     * then only a single `localizationChanged` event will be fired. As the framework has to inform all existing
-     * components, elements, models etc. about localization changes, using `applySettings` can significantly
-     * reduce the overhead for multiple changes, esp. when they occur after the UI has been created already.
-     *
-     * The `mSettings` can contain any property `xyz` for which a setter method `setXYZ` exists
-     * in the API of this class. Similarly, values for the {@link sap.ui.core.Configuration.FormatSettings format
-     * settings} API can be provided in a nested object with name `formatSettings`.
-     *
-     * @returns Returns `this` to allow method chaining
-     */
-    applySettings(
-      /**
-       * Configuration options to apply
-       */
-      mSettings: object
-    ): this;
-    /**
-     * Returns whether the accessibility mode is used or not.
-     *
-     * @returns whether the accessibility mode is used or not
+     * @returns whether the accessibility mode is enabled or not
      */
     getAccessibility(): boolean;
     /**
@@ -13943,6 +14036,8 @@ declare module "sap/ui/core/Configuration" {
      * @since 1.27.0
      *
      * Returns whether the framework automatically adds the ARIA role 'application' to the HTML body or not.
+     *
+     * @returns Wether the ARIA role 'application' should be added to the HTML body or not
      */
     getAutoAriaBodyRole(): boolean;
     /**
@@ -13953,9 +14048,7 @@ declare module "sap/ui/core/Configuration" {
      *
      * @returns The calendar week numbering algorithm
      */
-    getCalendarWeekNumbering():
-      | CalendarWeekNumbering
-      | keyof typeof CalendarWeekNumbering;
+    getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
      * Returns the used compatibility version for the given feature.
      *
@@ -14030,11 +14123,11 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns a string that identifies the current language.
      *
-     * The value returned by this method in most cases corresponds to the exact value that has been configured
+     * The value returned by config method in most cases corresponds to the exact value that has been configured
      * by the user or application or that has been determined from the user agent settings. It has not been
-     * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt
-     * BCP47}, allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters
-     * into account.
+     * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt BCP47},
+     * allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters into
+     * account.
      *
      * The exceptions mentioned above affect languages that have been specified via the URL parameter `sap-language`.
      * That parameter by definition represents an SAP logon language code ('ABAP language'). Most but not all
@@ -14054,8 +14147,8 @@ declare module "sap/ui/core/Configuration" {
      * ```
      *
      *
-     * For a normalized BCP47 tag, call {@link #getLanguageTag} or call {@link #getLocale} to get a {@link sap.ui.core.Locale
-     * Locale} object matching the language.
+     * For a normalized BCP47 tag, call {@link #getLanguageTag} or call {@link #getLocale} to get a {@link sap.ui.core.Locale Locale }
+     * object matching the language.
      *
      * @returns Language string as configured
      */
@@ -14063,7 +14156,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns a BCP47-compliant language tag for the current language.
      *
-     * The return value of this method is especially useful for an HTTP `Accept-Language` header.
+     * The return value of config method is especially useful for an HTTP `Accept-Language` header.
      *
      * Retrieves the modern locale, e.g. sr-Latn (Serbian (Cyrillic)), he (Hebrew), yi (Yiddish)
      *
@@ -14087,6 +14180,12 @@ declare module "sap/ui/core/Configuration" {
      */
     getManifestFirst(): boolean;
     /**
+     * Returns a metadata object for class sap.ui.core.Configuration.
+     *
+     * @returns Metadata object describing this class
+     */
+    getMetadata(): Metadata;
+    /**
      * Returns whether there should be an exception on any duplicate element IDs.
      *
      * @returns whether there should be an exception on any duplicate element IDs
@@ -14099,8 +14198,7 @@ declare module "sap/ui/core/Configuration" {
      */
     getOriginInfo(): boolean;
     /**
-     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
-     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * The name of the root component to start or empty.
      *
@@ -14212,7 +14310,7 @@ declare module "sap/ui/core/Configuration" {
        * the new calendar type. Set it with null to clear the calendar type and the calendar type is calculated
        * based on the format settings and current locale.
        */
-      sCalendarType: (CalendarType | keyof typeof CalendarType) | null
+      sCalendarType: CalendarType | null
     ): this;
     /**
      * @since 1.113.0
@@ -14226,9 +14324,7 @@ declare module "sap/ui/core/Configuration" {
       /**
        * The calendar week numbering algorithm
        */
-      sCalendarWeekNumbering:
-        | CalendarWeekNumbering
-        | keyof typeof CalendarWeekNumbering
+      sCalendarWeekNumbering: CalendarWeekNumbering
     ): this;
     /**
      * Sets a new format locale to be used from now on for retrieving locale specific formatters. Modifying
@@ -14258,16 +14354,16 @@ declare module "sap/ui/core/Configuration" {
      * Sets a new language to be used from now on for language/region dependent functionality (e.g. formatting,
      * data types, translated texts, ...).
      *
-     * When the language can't be interpreted as a BCP47 language (using the relaxed syntax described in {@link
-     * #getLanguage}, an error will be thrown.
+     * When the language can't be interpreted as a BCP47 language (using the relaxed syntax described in {@link #getLanguage},
+     * an error will be thrown.
      *
-     * When the language has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged
-     * localizationChanged} event.
+     * When the language has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged localizationChanged }
+     * event.
      *
      * Restrictions:
      *
      * The framework **does not** guarantee that already created, language dependent objects will be updated
-     * by this call. It therefore remains best practice for applications to switch the language early, e.g.
+     * by config call. It therefore remains best practice for applications to switch the language early, e.g.
      * before any language dependent objects are created. Applications that need to support more dynamic changes
      * of the language should listen to the `localizationChanged` event and adapt all language dependent objects
      * that they use (e.g. by rebuilding their UI).
@@ -14277,7 +14373,7 @@ declare module "sap/ui/core/Configuration" {
      *
      *
      * 	 - date and number data types that are used in property bindings or composite bindings in existing Elements,
-     * 			Controls, UIAreas or Components
+     *     Controls, UIAreas or Components
      * 	 - ResourceModels currently assigned to the Core, a UIArea, Component, Element or Control
      * 	 - Elements or Controls that implement the `onlocalizationChanged` hook (note the lowercase 'l' in onlocalizationChanged)
      *
@@ -14290,17 +14386,15 @@ declare module "sap/ui/core/Configuration" {
      * 	 - the `dir` attribute of the page will be changed to reflect the new mode.
      * 	 - all UIAreas will be invalidated (which results in a rendering of the whole UI5 UI)
      *
-     * This method does not accept SAP language codes for `sLanguage`. Instead, a second parameter `sSAPLogonLanguage`
+     * config method does not accept SAP language codes for `sLanguage`. Instead, a second parameter `sSAPLogonLanguage`
      * can be provided with an SAP language code corresponding to the given language. A given value will be
      * returned by the {@link #getSAPLogonLanguage} method. It is up to the caller to provide a consistent pair
      * of BCP47 language and SAP language code. The SAP language code is only checked to be of length 2 and
      * must consist of letters or digits only.
      *
-     * **Note**: When using this method please take note of and respect the above mentioned restrictions.
+     * **Note**: When using config method please take note of and respect the above mentioned restrictions.
      * See:
      * 	http://scn.sap.com/docs/DOC-14377
-     *
-     * @returns `this` to allow method chaining
      */
     setLanguage(
       /**
@@ -14314,7 +14408,7 @@ declare module "sap/ui/core/Configuration" {
        * `sLanguage` as SAP Logon language.
        */
       sSAPLogonLanguage?: string
-    ): this;
+    ): void;
     /**
      * Sets the character orientation mode to be used from now on.
      *
@@ -14338,8 +14432,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * @since 1.95.0
      *
-     * Sets the security token handlers for an OData V4 model. See chapter {@link topic:9613f1f2d88747cab21896f7216afdac/section_STH
-     * Security Token Handling}.
+     * Sets the security token handlers for an OData V4 model. See chapter {@link https://ui5.sap.com/#/topic/9613f1f2d88747cab21896f7216afdac/section_STH Security Token Handling}.
      * See:
      * 	#getSecurityTokenHandlers
      */
@@ -14350,18 +14443,29 @@ declare module "sap/ui/core/Configuration" {
       aSecurityTokenHandlers: Array<(p1: URI) => Promise<any>>
     ): void;
     /**
+     * Allows setting the theme name
+     *
+     * @returns `this` to allow method chaining
+     */
+    setTheme(
+      /**
+       * the theme name
+       */
+      sTheme: string
+    ): this;
+    /**
      * @since 1.99.0
      *
-     * Sets the timezone such that all date and time based calculations use this timezone.
+     * Sets the timezone such that all date and time based calculations use config timezone.
      *
-     * **Important:** It is strongly recommended to only use this API at the earliest point of time while initializing
-     * a UI5 app. A later adjustment of the time zone should be avoided. It can lead to unexpected data inconsistencies
-     * in a running application, because date objects could still be related to a previously configured time
-     * zone. Instead, the app should be completely restarted with the new time zone. For more information, see
-     * {@link topic:6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
+     * **Important:** It is strongly recommended to only use config API at the earliest point of time while
+     * initializing a UI5 app. A later adjustment of the time zone should be avoided. It can lead to unexpected
+     * data inconsistencies in a running application, because date objects could still be related to a previously
+     * configured time zone. Instead, the app should be completely restarted with the new time zone. For more
+     * information, see {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
      *
-     * When the timezone has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged
-     * localizationChanged} event.
+     * When the timezone has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged localizationChanged }
+     * event.
      *
      * @returns `this` to allow method chaining
      */
@@ -14385,7 +14489,7 @@ declare module "sap/ui/core/Configuration" {
    * scenarios or levels. The implementation of the Control (JavaScript or CSS) has to be done differently
    * for each animation mode.
    */
-  export enum AnimationMode {
+  enum AnimationMode {
     /**
      * `basic` can be used for a reduced, more light-weight set of animations.
      */
@@ -14443,10 +14547,10 @@ declare module "sap/ui/core/Configuration" {
      */
     static getMetadata(): Metadata;
     /**
-     * Adds custom currencies to the existing entries. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3}
+     * Adds custom currencies to the existing entries. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
      * } `
      * See:
-     * 	sap.ui.core.Configuration.FormatSettings#setCustomCurrencies
+     * 	#setCustomCurrencies
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -14454,23 +14558,29 @@ declare module "sap/ui/core/Configuration" {
       /**
        * adds to the currency map
        */
-      mCurrencies: Record<string, object>
+      mCurrencies: object
     ): this;
     /**
      * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
      *
      * @returns the mapping between custom currencies and its digits
      */
-    getCustomCurrencies(): Record<string, object>;
+    getCustomCurrencies(): object;
     /**
      * Returns the currently set date pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting date pattern
      */
-    getDatePattern(): void;
+    getDatePattern(
+      /**
+       * The date style (short, medium, long or full)
+       */
+      sStyle: string
+    ): string;
     /**
      * Returns the locale to be used for formatting.
      *
-     * If no such locale has been defined, this method falls back to the language, see {@link sap.ui.core.Configuration#getLanguage
-     * Configuration.getLanguage()}.
+     * If no such locale has been defined, this method falls back to the language, see {@link sap.ui.core.Configuration#getLanguage Configuration.getLanguage()}.
      *
      * If any user preferences for date, time or number formatting have been set, and if no format locale has
      * been specified, then a special private use subtag is added to the locale, indicating to the framework
@@ -14482,9 +14592,10 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns the currently set customizing data for Islamic calendar support
      *
-     * @returns Returns an array contains the customizing data. For details, please see {@link #setLegacyDateCalendarCustomizing}
+     * @returns Returns an array contains the customizing data. Each element in the array has properties: dateFormat,
+     * islamicMonthStart, gregDate. For details, please see {@link #setLegacyDateCalendarCustomizing}
      */
-    getLegacyDateCalendarCustomizing(): LegacyDateCalendarCustomizing[];
+    getLegacyDateCalendarCustomizing(): object[];
     /**
      * Returns the currently set legacy ABAP date format (its id) or undefined if none has been set.
      *
@@ -14534,8 +14645,15 @@ declare module "sap/ui/core/Configuration" {
     ): string;
     /**
      * Returns the currently set time pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting time pattern
      */
-    getTimePattern(): void;
+    getTimePattern(
+      /**
+       * The time style (short, medium, long or full)
+       */
+      sStyle: string
+    ): string;
     /**
      * @since 1.75.0
      *
@@ -14551,7 +14669,7 @@ declare module "sap/ui/core/Configuration" {
      * for all currencies not contained in the list, otherwise currency digits as defined by the CLDR will be
      * used as a fallback.
      *
-     * Example: To use CLDR, but override single currencies ` { "KWD": {"digits": 3}, "TND" : {"digits": 3}
+     * Example: To use CLDR, but override single currencies ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
      * } `
      *
      * To replace the CLDR currency digits completely ` { "DEFAULT": {"digits": 2}, "ADP": {"digits": 0}, ...
@@ -14567,7 +14685,7 @@ declare module "sap/ui/core/Configuration" {
       /**
        * currency map which is set
        */
-      mCurrencies: Record<string, object>
+      mCurrencies: object
     ): this;
     /**
      * Defines the preferred format pattern for the given date format style.
@@ -14594,7 +14712,8 @@ declare module "sap/ui/core/Configuration" {
       sPattern: string
     ): this;
     /**
-     * @deprecated (since 1.113.0) - Use {@link sap.ui.core.Configuration#setCalendarWeekNumbering} instead.
+     * @deprecated (since 1.113.0) - Use {@link sap.ui.core.Configuration.FormatSettings#setCalendarWeekNumbering }
+     * instead.
      *
      * Defines the day used as the first day of the week.
      *
@@ -14626,7 +14745,20 @@ declare module "sap/ui/core/Configuration" {
       /**
        * contains the customizing data for the support of Islamic calendar.
        */
-      aMappings: LegacyDateCalendarCustomizing[]
+      aMappings: Array<{
+        /**
+         * The date format
+         */
+        dateFormat: string;
+        /**
+         * The Islamic date
+         */
+        islamicMonthStart: string;
+        /**
+         * The corresponding Gregorian date
+         */
+        gregDate: string;
+      }>
     ): this;
     /**
      * Allows to specify one of the legacy ABAP date formats.
@@ -14767,29 +14899,10 @@ declare module "sap/ui/core/Configuration" {
       bTrailingCurrencyCode: boolean
     ): this;
   }
-  /**
-   * The object that contains the information for date calendar customizing
-   */
-  export type LegacyDateCalendarCustomizing = {
-    /**
-     * The IO of the date format. It has value "A" or "B".
-     */
-    dateFormat: "A" | "B";
-    /**
-     * The Islamic date in format "yyyyMMdd".
-     */
-    islamicMonthStart: string;
-    /**
-     * The corresponding Gregorian date in format "yyyyMMdd".
-     */
-    gregDate: string;
-  };
 }
 
 declare module "sap/ui/core/Control" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
-
-  import Event from "sap/ui/base/Event";
 
   import { AccessibilityInfo, BusyIndicatorSize } from "sap/ui/core/library";
 
@@ -14803,35 +14916,36 @@ declare module "sap/ui/core/Control" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * Base Class for Controls.
    *
    * Controls provide the following features:
-   * 	 - **Rendering**: the `RenderManager` only expects instances of class `Control` in its {@link sap.ui.core.RenderManager#renderControl
-   * 			renderControl} method. By convention, each control class has an associated static class that takes care
-   * 			of rendering the control (its 'Renderer').
+   * 	 - **Rendering**: the `RenderManager` only expects instances of class `Control` in its {@link sap.ui.core.RenderManager#renderControl renderControl }
+   *     method. By convention, each control class has an associated static class that takes care of rendering
+   *     the control (its 'Renderer').
    * 	 - **show / hide**: a control can be hidden, although it is still part of the control tree, see property
-   * 			{@link #getVisible visible}
-   * 	 - **local busy indicator**: marks a control visually as 'busy', see properties {@link #getBusy busy}
-   * 			and {@link #getBusyIndicatorDelay busyIndicatorDelay}
+   *     {@link #getVisible visible}
+   * 	 - **local busy indicator**: marks a control visually as 'busy', see properties {@link #getBusy busy }
+   *     and {@link #getBusyIndicatorDelay busyIndicatorDelay}
    * 	 - **field groups**: by assigning the same group ID to a set of editable controls, they form a group
-   * 			which can be validated together. See property {@link #getFieldGroupIds fieldGroupIds} and event {@link
-   * 			#event:validateFieldGroup validateFieldGroup}. The term field was chosen as most often this feature
-   * 			will be used to group editable fields in a form. See the documentation for {@link topic:5b0775397e394b1fb973fa207554003e
-   * 			Field Groups} for more details.
+   *     which can be validated together. See property {@link #getFieldGroupIds fieldGroupIds} and event {@link #event:validateFieldGroup validateFieldGroup}.
+   *     The term field was chosen as most often this feature will be used to group editable fields in
+   *     a form. See the documentation for {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Groups }
+   *     for more details.
    * 	 - **custom style classes**: all controls allow to add custom CSS classes to their rendered DOM without
-   * 			modifying their renderer code. See methods {@link #addStyleClass addStyleClass}, {@link #removeStyleClass
-   * 			removeStyleClass}, {@link #toggleStyleClass toggleStyleClass} and {@link #hasStyleClass hasStyleClass}.
-   *  The necessary implementation is encapsulated in {@link sap.ui.core.CustomStyleClassSupport CustomStyleClassSupport}
+   *     modifying their renderer code. See methods {@link #addStyleClass addStyleClass}, {@link #removeStyleClass removeStyleClass},
+   *     {@link #toggleStyleClass toggleStyleClass} and {@link #hasStyleClass hasStyleClass}.
+   *  The necessary implementation is encapsulated in {@link sap.ui.core.CustomStyleClassSupport CustomStyleClassSupport }
    * and can be applied to selected element classes as well.
-   * 	 - **browser events**: by calling the methods {@link #attachBrowserEvent attachBrowserEvent} and {@link
-   * 			#detachBrowserEvent detachBrowserEvent}, consumers can let the control class take care of registering
-   * 			/ de-registering a given set of event listeners to the control's root DOM node. The framework will adapt
-   * 			the registration whenever the DOM node changes (e.g. before or after rendering or when the control is
-   * 			destroyed).
+   * 	 - **browser events**: by calling the methods {@link #attachBrowserEvent attachBrowserEvent} and {@link #detachBrowserEvent detachBrowserEvent},
+   *     consumers can let the control class take care of registering / de-registering a given set of event listeners
+   *     to the control's root DOM node. The framework will adapt the registration whenever the DOM node changes
+   *     (e.g. before or after rendering or when the control is destroyed).
    *
-   * See section "{@link topic:8dcab0011d274051808f959800cabf9f Developing Controls}" in the documentation
-   * for an introduction to control development.
+   * See section "{@link https://ui5.sap.com/#/topic/8dcab0011d274051808f959800cabf9f Developing Controls}"
+   * in the documentation for an introduction to control development.
    */
   export default class Control extends UI5Element {
     /**
@@ -14899,26 +15013,26 @@ declare module "sap/ui/core/Control" {
      *
      *
      * There are multiple ways how a renderer can be specified:
-     * 	 - As a **plain object**: The object will be used to create a new renderer by using {@link sap.ui.core.Renderer.extend}
-     * 			to extend the renderer of the base class of this control. The new renderer will have the same global
-     * 			name as this control class with the additional suffix 'Renderer'.
+     * 	 - As a **plain object**: The object will be used to create a new renderer by using {@link sap.ui.core.Renderer.extend }
+     *     to extend the renderer of the base class of this control. The new renderer will have the same global
+     *     name as this control class with the additional suffix 'Renderer'.
      *  **Note:** The `Renderer.extend` method expects a plain object (no prototype chain).
      * 	 - As a **function**: The given function will be used as `render` function of a new renderer; the renderer
-     * 			will be created in the same way as described for the plain object case.
+     *     will be created in the same way as described for the plain object case.
      * 	 - As a **ready-made renderer**, e.g. imported from the corresponding renderer module. As renderers
-     * 			are simple objects (not instances of a specific class), some heuristic is used to distinguish renderers
-     * 			from the plain object case above: An object is assumed to be a ready-made renderer when it has
-     * 			a `render` function and either is already exposed under the expected global name or has an `extend` method.
+     *     are simple objects (not instances of a specific class), some heuristic is used to distinguish renderers
+     *     from the plain object case above: An object is assumed to be a ready-made renderer when it has
+     *     a `render` function and either is already exposed under the expected global name or has an `extend` method.
      *
      * 	 - As a **fully qualified name**: The name will be looked up as a global property. If not defined, a
-     * 			module name will be derived from the global name (dots replaced by slashes), the module will be required
-     * 			and provides the renderer, either as AMD export or via the named global property.
+     *     module name will be derived from the global name (dots replaced by slashes), the module will be required
+     *     and provides the renderer, either as AMD export or via the named global property.
      * 	 - **Omitting the `renderer` property** or setting it to `undefined`: The fully qualified name of the
-     * 			renderer will be derived from the fully qualified name of the control by adding the suffix "Renderer".
-     * 			The renderer then is retrieved in the same way as described for the fully qualified name case.
+     *     renderer will be derived from the fully qualified name of the control by adding the suffix "Renderer".
+     *     The renderer then is retrieved in the same way as described for the fully qualified name case.
      *
      * 	 - **`null` or empty string**: The control will have no renderer, a call to `oControl.getMetadata().getRenderer()`
-     * 			will return `undefined`.
+     *     will return `undefined`.
      *
      * If the resulting renderer is incomplete (has no `render` function) or if it cannot be found at all, rendering
      * of the control will be skipped.
@@ -15053,7 +15167,7 @@ declare module "sap/ui/core/Control" {
      * By default, the `RETURN` key without any modifier keys triggers validation, see {@link #triggerValidateFieldGroup}.
      *
      * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
-     * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
+     * or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group} documentation.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15066,7 +15180,7 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
        */
@@ -15085,7 +15199,7 @@ declare module "sap/ui/core/Control" {
      * By default, the `RETURN` key without any modifier keys triggers validation, see {@link #triggerValidateFieldGroup}.
      *
      * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
-     * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
+     * or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group} documentation.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15093,7 +15207,7 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
        */
@@ -15157,14 +15271,14 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Control$ValidateFieldGroupEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validateFieldGroup validateFieldGroup} to attached listeners.
      *
@@ -15174,16 +15288,11 @@ declare module "sap/ui/core/Control" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * field group IDs of the logical field groups to validate
-         */
-        fieldGroupIds?: string[];
-      }
+      mParameters?: Control$ValidateFieldGroupEventParameters
     ): this;
     /**
      * @since 1.37.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function (if available on the concrete control) provides the current accessibility state of the
      * control.
@@ -15266,7 +15375,7 @@ declare module "sap/ui/core/Control" {
      */
     getBusyIndicatorSize(): BusyIndicatorSize | keyof typeof BusyIndicatorSize;
     /**
-     * Returns a list of all child controls with a field group ID. See {@link #checkFieldGroupIds checkFieldGroupIds}
+     * Returns a list of all child controls with a field group ID. See {@link #checkFieldGroupIds checkFieldGroupIds }
      * for a description of the `vFieldGroupIds` parameter. Associated controls are not taken into account.
      *
      * @returns The list of controls with a field group ID
@@ -15278,8 +15387,8 @@ declare module "sap/ui/core/Control" {
       vFieldGroupIds?: string | string[]
     ): Control[];
     /**
-     * Returns a copy of the field group IDs array. Modification of the field group IDs need to call {@link
-     * #setFieldGroupIds setFieldGroupIds} to apply the changes.
+     * Returns a copy of the field group IDs array. Modification of the field group IDs need to call {@link #setFieldGroupIds setFieldGroupIds }
+     * to apply the changes.
      *
      * @returns copy of the field group IDs
      */
@@ -15293,7 +15402,7 @@ declare module "sap/ui/core/Control" {
      */
     getIdForLabel(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a renderer for this control instance.
      *
@@ -15330,7 +15439,7 @@ declare module "sap/ui/core/Control" {
       sStyleClass: string
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Marks this control and its children for a re-rendering, usually because its state has changed and now
      * differs from the rendered DOM.
@@ -15360,7 +15469,7 @@ declare module "sap/ui/core/Control" {
      */
     isBusy(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the control is completed.
      *
@@ -15375,7 +15484,7 @@ declare module "sap/ui/core/Control" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called before the rendering of the control is started.
      *
@@ -15403,7 +15512,7 @@ declare module "sap/ui/core/Control" {
      * 	 - "first": The control is added as the first element to the container.
      * 	 - "last": The control is added as the last element to the container (default).
      * 	 - "only": All existing children of the container are removed (not destroyed!) and the control is added
-     * 			as new child.
+     *     as new child.
      * 	 - index: The control is added at the specified index to the container.
      *
      * @returns Returns `this` to allow method chaining
@@ -15438,7 +15547,7 @@ declare module "sap/ui/core/Control" {
      * async re-rendering.
      *
      * The recommended alternative is to rely on invalidation and standard re-rendering.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Synchronously updates the DOM of this control to reflect the current object state.
      *
@@ -15506,8 +15615,8 @@ declare module "sap/ui/core/Control" {
      * For backward compatibility with older releases, field group IDs are syntactically not limited, but it
      * is suggested to use only valid {@link sap.ui.core.ID}s.
      *
-     * See {@link #attachValidateFieldGroup} or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field
-     * Group} documentation.
+     * See {@link #attachValidateFieldGroup} or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group }
+     * documentation.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -15637,8 +15746,8 @@ declare module "sap/ui/core/Control" {
      * For backward compatibility with older releases, field group IDs are syntactically not limited, but it
      * is suggested to use only valid {@link sap.ui.core.ID}s.
      *
-     * See {@link #attachValidateFieldGroup} or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field
-     * Group} documentation.
+     * See {@link #attachValidateFieldGroup} or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group }
+     * documentation.
      */
     fieldGroupIds?: string[] | PropertyBindingInfo | `{${string}}`;
 
@@ -15649,10 +15758,19 @@ declare module "sap/ui/core/Control" {
      * By default, the `RETURN` key without any modifier keys triggers validation, see {@link #triggerValidateFieldGroup}.
      *
      * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
-     * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
+     * or consult the {@link https://ui5.sap.com/#/topic/5b0775397e394b1fb973fa207554003e Field Group} documentation.
      */
-    validateFieldGroup?: (oEvent: Event) => void;
+    validateFieldGroup?: (oEvent: Control$ValidateFieldGroupEvent) => void;
   }
+
+  export interface Control$ValidateFieldGroupEventParameters {
+    /**
+     * field group IDs of the logical field groups to validate
+     */
+    fieldGroupIds?: string[];
+  }
+
+  export type Control$ValidateFieldGroupEvent = Event<Control$ValidateFieldGroupEventParameters>;
 }
 
 declare module "sap/ui/core/ElementMetadata" {
@@ -15675,8 +15793,8 @@ declare module "sap/ui/core/ElementMetadata" {
      */
     render: (p1: RenderManager, p2: UI5Element) => void;
     /**
-     * The API version of the RenderManager that are used in this renderer. See {@link sap.ui.core.RenderManager
-     * RenderManager} API documentation for detailed information
+     * The API version of the RenderManager that are used in this renderer. See {@link sap.ui.core.RenderManager RenderManager }
+     * API documentation for detailed information
      */
     apiVersion?: 1 | 2 | 4;
   };
@@ -15780,8 +15898,8 @@ declare module "sap/ui/core/Core" {
    * With methods of the Core framework you can {@link #attachInit execute code} after the framework has been
    * initialized. It provides access to the {@link #getConfiguration configuration} and exposes events that
    * an application or a control can register to (e.g. {@link #event:localizationChanged localizationChanged},
-   * {@link #event:parseError parseError}, {@link #event:validationError validationError}, {@link #event:formatError
-   * formatError}, {@link #event:validationSuccess validationSuccess}).
+   * {@link #event:parseError parseError}, {@link #event:validationError validationError}, {@link #event:formatError formatError},
+   * {@link #event:validationSuccess validationSuccess}).
    *
    * Example:
    * ```javascript
@@ -15800,6 +15918,26 @@ declare module "sap/ui/core/Core" {
    * ```
    */
   interface Core {
+    /**
+     * Returns true, if the styles of the current theme are already applied, false otherwise.
+     *
+     * This function must not be used before the init event of the Core. If the styles are not yet applied a
+     * theme changed event will follow when the styles will be applied.
+     */
+    isThemeApplied: undefined;
+
+    /**
+     * Triggers a realignment of controls
+     *
+     * This method should be called after changing the cozy/compact CSS class of a DOM element at runtime, for
+     * example at the `<body>` tag. Controls can listen to the themeChanged event to realign their appearance
+     * after changing the theme. Changing the cozy/compact CSS class should then also be handled as a theme
+     * change. In more simple scenarios where the cozy/compact CSS class is added to a DOM element which contains
+     * only a few controls it might not be necessary to trigger the realigment of all controls placed in the
+     * DOM, for example changing the cozy/compact CSS class at a single control
+     */
+    notifyContentDensityChanged: undefined;
+
     /**
      * Creates a new subclass of class sap.ui.core.Core with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -15933,7 +16071,7 @@ declare module "sap/ui/core/Core" {
      * been initialized already, it will be called immediately.
      *
      * More information about the initialization process and the steps it consists of can be found in the documentation
-     * topic "{@link topic:91f2c9076f4d1014b6dd926db0e91070 Initialization Process}".
+     * topic "{@link https://ui5.sap.com/#/topic/91f2c9076f4d1014b6dd926db0e91070 Initialization Process}".
      */
     attachInit(
       /**
@@ -15947,7 +16085,7 @@ declare module "sap/ui/core/Core" {
      * Registers a given function that is executed after the framework has been initialized.
      *
      * The method is executed only once and only if the framework has not been initialized already. This could
-     * be checked by calling {@link #isInitialized}, but in most cases it is more convenient to use {@link #attachInit}
+     * be checked by calling {@link #isInitialized}, but in most cases it is more convenient to use {@link #attachInit }
      * instead. This guarantees that the given function is executed exactly once, independent of the state of
      * the framework.
      */
@@ -16145,8 +16283,8 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
-     * Returns a list of all controls with a field group ID. See {@link sap.ui.core.Control#checkFieldGroupIds
-     * Control.prototype.checkFieldGroupIds} for a description of the `vFieldGroupIds` parameter.
+     * Returns a list of all controls with a field group ID. See {@link sap.ui.core.Control#checkFieldGroupIds Control.prototype.checkFieldGroupIds }
+     * for a description of the `vFieldGroupIds` parameter.
      *
      * @returns The list of controls with matching field group IDs
      */
@@ -16163,8 +16301,8 @@ declare module "sap/ui/core/Core" {
      *
      * When the element has been created from a declarative source (e.g. XMLView), that source might have used
      * a shorter, non-unique local ID. A search for such a local ID cannot be executed with this method. It
-     * can only be executed on the corresponding scope (e.g. on an XMLView instance), by using the {@link sap.ui.core.mvc.View#byId
-     * View#byId} method of that scope.
+     * can only be executed on the corresponding scope (e.g. on an XMLView instance), by using the {@link sap.ui.core.mvc.View#byId View#byId }
+     * method of that scope.
      *
      * @returns Element with the given ID or `undefined`
      */
@@ -16393,7 +16531,7 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:formatError formatError} to attached listeners.
      *
@@ -16431,7 +16569,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -16469,7 +16607,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationError validationError} to attached listeners.
      *
@@ -16507,7 +16645,7 @@ declare module "sap/ui/core/Core" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:validationSuccess validationSuccess} to attached listeners.
      *
@@ -16681,7 +16819,7 @@ declare module "sap/ui/core/Core" {
     /**
      * Returns a map of library info objects for all currently loaded libraries, keyed by their names.
      *
-     * The structure of the library info objects matches the structure of the info object that the {@link #initLibrary}
+     * The structure of the library info objects matches the structure of the info object that the {@link #initLibrary }
      * method expects. Only property names documented with `initLibrary` should be accessed, any additional
      * properties might change or disappear in future. When a property does not exists, its default value (as
      * documented with `initLibrary`) should be assumed.
@@ -16723,8 +16861,7 @@ declare module "sap/ui/core/Core" {
      */
     getRenderManager(): RenderManager;
     /**
-     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
-     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * Returns the instance of the root component (if exists).
      *
@@ -16742,8 +16879,8 @@ declare module "sap/ui/core/Core" {
      */
     getStaticAreaRef(): Element;
     /**
-     * @deprecated (since 1.29.1) - Require 'sap/ui/core/tmpl/Template' and use {@link sap.ui.core.tmpl.Template.byId
-     * Template.byId} instead.
+     * @deprecated (since 1.29.1) - Require 'sap/ui/core/tmpl/Template' and use {@link sap.ui.core.tmpl.Template.byId Template.byId }
+     * instead.
      *
      * Returns the registered template for the given id, if any.
      *
@@ -16811,27 +16948,27 @@ declare module "sap/ui/core/Core" {
      * While analyzing the `oLibInfo`, the framework takes some additional actions:
      *
      *
-     * 	 - If the info object contains a list of `interfaces`, they will be registered with the {@link sap.ui.base.DataType}
-     * 			class to make them available as aggregation types in managed objects.
+     * 	 - If the info object contains a list of `interfaces`, they will be registered with the {@link sap.ui.base.DataType }
+     *     class to make them available as aggregation types in managed objects.
      *
      *
-     * 	 - If the object contains a list of `controls` or `elements`, {@link sap.ui.lazyRequire lazy stubs}
-     * 			will be created for their constructor as well as for their static `extend` and `getMetadata` methods.
+     * 	 - If the object contains a list of `controls` or `elements`, {@link sap.ui.lazyRequire lazy stubs }
+     *     will be created for their constructor as well as for their static `extend` and `getMetadata` methods.
      *  **Note:** Future versions might abandon the concept of lazy stubs as it requires synchronous XMLHttpRequests
      * which have been deprecated (see {@link http://xhr.spec.whatwg.org}). To be on the safe side, productive
      * applications should always require any modules that they directly depend on.
      *
      *
      * 	 - With the `noLibraryCSS` property, the library can be marked as 'theming-free'. Otherwise, the framework
-     * 			will add a <link> tag to the page's head, pointing to the library's theme-specific stylesheet.
-     * 			The creation of such a <link> tag can be suppressed with the {@link sap.ui.core.Configuration global
-     * 			configuration option} `preloadLibCss`. It can contain a list of library names for which no stylesheet
-     * 			should be included. This is e.g. useful when an application merges the CSS for multiple libraries and
-     * 			already loaded the resulting stylesheet.
+     *     will add a <link> tag to the page's head, pointing to the library's theme-specific stylesheet.
+     *     The creation of such a <link> tag can be suppressed with the {@link sap.ui.core.Configuration global configuration option }
+     *     `preloadLibCss`. It can contain a list of library names for which no stylesheet should be included. This
+     *     is e.g. useful when an application merges the CSS for multiple libraries and already loaded the resulting
+     *     stylesheet.
      *
      *
      * 	 - If a list of library `dependencies` is specified in the info object, those libraries will be loaded
-     * 			synchronously by `initLibrary`.
+     *     synchronously by `initLibrary`.
      *  **Note:** Dependencies between libraries don't have to be modeled as AMD dependencies. Only when enums
      * or types from an additional library are used in the coding of the `library.js` module, the library should
      * be additionally listed in the AMD dependencies.
@@ -16882,7 +17019,7 @@ declare module "sap/ui/core/Core" {
      */
     isMobile(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given DOM element is the root of the static area.
      *
@@ -16894,15 +17031,6 @@ declare module "sap/ui/core/Core" {
        */
       oDomRef: Element
     ): boolean;
-    /**
-     * Returns true, if the styles of the current theme are already applied, false otherwise.
-     *
-     * This function must not be used before the init event of the Core. If the styles are not yet applied a
-     * theme changed event will follow when the styles will be applied.
-     *
-     * @returns whether the styles of the current theme are already applied
-     */
-    isThemeApplied(): boolean;
     /**
      * Loads the given library and its dependencies and makes its content available to the application.
      *
@@ -17002,21 +17130,10 @@ declare module "sap/ui/core/Core" {
      */
     lock(): void;
     /**
-     * Triggers a realignment of controls
-     *
-     * This method should be called after changing the cozy/compact CSS class of a DOM element at runtime, for
-     * example at the `<body>` tag. Controls can listen to the themeChanged event to realign their appearance
-     * after changing the theme. Changing the cozy/compact CSS class should then also be handled as a theme
-     * change. In more simple scenarios where the cozy/compact CSS class is added to a DOM element which contains
-     * only a few controls it might not be necessary to trigger the realigment of all controls placed in the
-     * DOM, for example changing the cozy/compact CSS class at a single control
-     */
-    notifyContentDensityChanged(): void;
-    /**
      * @deprecated (since 1.73) - Plugins never have been meant as a public offering, but were intended for
      * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
      * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
-     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry}
+     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry }
      * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
      * existing plugins in the OpenUI5 repository into account.
      *
@@ -17024,7 +17141,7 @@ declare module "sap/ui/core/Core" {
      *
      * Plugin object need to implement two methods:
      * 	 - `startPlugin(oCore)`: will be invoked, when the Plugin should start (as parameter the reference to
-     * 			the Core will be provided
+     *     the Core will be provided
      * 	 - `stopPlugin()`: will be invoked, when the Plugin should stop
      */
     registerPlugin(
@@ -17219,7 +17336,7 @@ declare module "sap/ui/core/Core" {
      * @deprecated (since 1.73) - Plugins never have been meant as a public offering, but were intended for
      * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
      * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
-     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry}
+     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry }
      * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
      * existing plugins in the OpenUI5 repository into account.
      *
@@ -17290,8 +17407,8 @@ declare module "sap/ui/core/CustomData" {
   /**
    * Contains a single key/value pair of custom data attached to an `Element`.
    *
-   * See method {@link sap.ui.core.Element#data Element.prototype.data} and the chapter {@link topic:91f0c3ee6f4d1014b6dd926db0e91070
-   * Custom Data - Attaching Data Objects to Controls} in the documentation.
+   * See method {@link sap.ui.core.Element#data Element.prototype.data} and the chapter {@link https://ui5.sap.com/#/topic/91f0c3ee6f4d1014b6dd926db0e91070 Custom Data - Attaching Data Objects to Controls }
+   * in the documentation.
    */
   export default class CustomData extends UI5Element {
     /**
@@ -17321,8 +17438,7 @@ declare module "sap/ui/core/CustomData" {
      * Creates a new subclass of `CustomData` with name `sClassName` and enriches it with the information contained
      * in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend
-     * Element.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend Element.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -17577,6 +17693,8 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
   import EventProvider from "sap/ui/base/EventProvider";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Delegate for the navigation between DOM nodes with the keyboard.
@@ -17841,6 +17959,26 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
       bTableList?: boolean
     ): this;
   }
+
+  export interface ItemNavigation$AfterFocusEventParameters {}
+
+  export type ItemNavigation$AfterFocusEvent = Event<ItemNavigation$AfterFocusEventParameters>;
+
+  export interface ItemNavigation$BeforeFocusEventParameters {}
+
+  export type ItemNavigation$BeforeFocusEvent = Event<ItemNavigation$BeforeFocusEventParameters>;
+
+  export interface ItemNavigation$BorderReachedEventParameters {}
+
+  export type ItemNavigation$BorderReachedEvent = Event<ItemNavigation$BorderReachedEventParameters>;
+
+  export interface ItemNavigation$FocusAgainEventParameters {}
+
+  export type ItemNavigation$FocusAgainEvent = Event<ItemNavigation$FocusAgainEventParameters>;
+
+  export interface ItemNavigation$FocusLeaveEventParameters {}
+
+  export type ItemNavigation$FocusLeaveEvent = Event<ItemNavigation$FocusLeaveEventParameters>;
 }
 
 declare module "sap/ui/core/delegate/ScrollEnablement" {
@@ -17851,7 +17989,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Delegate for touch scrolling on mobile devices.
    *
@@ -17863,7 +18001,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
    */
   export default class ScrollEnablement extends BaseObject {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a ScrollEnablement delegate that can be attached to Controls requiring capabilities for scrolling
      * of a certain part of their DOM.
@@ -17913,7 +18051,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.delegate.ScrollEnablement with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -17938,7 +18076,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.delegate.ScrollEnablement.
      *
@@ -17946,7 +18084,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys this Scrolling delegate.
      *
@@ -17954,7 +18092,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     destroy(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates scroll position of a child of a container.
      *
@@ -17968,7 +18106,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): object;
     /**
      * @since 1.9.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for horizontal scrolling.
      *
@@ -17977,7 +18115,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     getHorizontal(): boolean;
     /**
      * @since 1.9.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Get current setting for vertical scrolling.
      *
@@ -17985,7 +18123,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
      */
     getVertical(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Refreshes this Scrolling delegate.
      */
@@ -18030,7 +18168,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnScrollEndCallback: Function
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Scrolls to an element within a container.
      */
@@ -18059,7 +18197,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     /**
      * @since 1.17
      * @deprecated (since 1.42)
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Setter for property `bounce`.
      */
@@ -18071,7 +18209,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.11.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets GrowingList control to scroll container
      */
@@ -18090,7 +18228,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnOverflowChange: Function
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable horizontal scrolling.
      */
@@ -18102,7 +18240,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.16.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets IconTabBar control to scroll container
      */
@@ -18122,7 +18260,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
     ): void;
     /**
      * @since 1.9.2
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set overflow control on top of scroll container.
      */
@@ -18133,7 +18271,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       oControl: Control
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable or disable vertical scrolling.
      */
@@ -18159,12 +18297,12 @@ declare module "sap/ui/core/dnd/DragDropBase" {
    * Provides the base class for all drag-and-drop configurations. This feature enables a native HTML5 drag-and-drop
    * API for the controls, therefore it is limited to browser support. Restrictions:
    * 	 - There is no accessible alternative for drag and drop. Applications which use the drag-and-drop functionality
-   * 			must provide an accessible alternative UI (for example, action buttons or menus) to perform the same
-   * 			operations.
+   *     must provide an accessible alternative UI (for example, action buttons or menus) to perform the same
+   *     operations.
    * 	 - Transparency of the drag ghost element and the cursor during drag-and-drop operations depends on
-   * 			the browser implementation.
+   *     the browser implementation.
    * 	 - Constraining a drag position is not possible, therefore there is no snap-to-grid or snap-to-element
-   * 			feature possible.
+   *     feature possible.
    * 	 - Texts in draggable controls cannot be selected.
    * 	 - The text of input fields in draggable controls can be selected, but not dragged.
    */
@@ -18176,7 +18314,7 @@ declare module "sap/ui/core/dnd/DragDropBase" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	{@link topic:3ddb6cde6a8d416598ac8ced3f5d82d5 Drag and Drop}
+     * 	{@link https://ui5.sap.com/#/topic/3ddb6cde6a8d416598ac8ced3f5d82d5 Drag and Drop}
      */
     constructor(
       /**
@@ -18191,7 +18329,7 @@ declare module "sap/ui/core/dnd/DragDropBase" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      * See:
-     * 	{@link topic:3ddb6cde6a8d416598ac8ced3f5d82d5 Drag and Drop}
+     * 	{@link https://ui5.sap.com/#/topic/3ddb6cde6a8d416598ac8ced3f5d82d5 Drag and Drop}
      */
     constructor(
       /**
@@ -18323,12 +18461,14 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import { DragSession } from "sap/ui/core/dnd/DragAndDrop";
+
   /**
    * @since 1.52
    *
    * Provides the configuration for drag-and-drop operations.
    *
-   * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata}
+   * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata }
    * restrictions.
    */
   export default class DragDropInfo
@@ -18464,7 +18604,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -18484,7 +18624,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -18520,7 +18660,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragDropInfo$DragStartEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18528,7 +18668,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     ): this;
     /**
      * @since 1.56
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -18541,7 +18681,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -18554,7 +18694,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DragDropInfo$DragStartEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getSourceAggregation sourceAggregation}.
@@ -18617,7 +18757,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event) => void;
+    dragStart?: (oEvent: DragDropInfo$DragStartEvent) => void;
 
     /**
      * @since 1.56
@@ -18626,6 +18766,29 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
      */
     dragEnd?: (oEvent: Event) => void;
   }
+
+  export interface DragDropInfo$DragEndEventParameters {}
+
+  export type DragDropInfo$DragEndEvent = Event<DragDropInfo$DragEndEventParameters>;
+
+  export interface DragDropInfo$DragStartEventParameters {
+    /**
+     * The target element that will be dragged
+     */
+    target?: UI5Element;
+
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DragDropInfo$DragStartEvent = Event<DragDropInfo$DragStartEventParameters>;
 }
 
 declare module "sap/ui/core/dnd/DragInfo" {
@@ -18636,18 +18799,22 @@ declare module "sap/ui/core/dnd/DragInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import { DragSession } from "sap/ui/core/dnd/DragAndDrop";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.56
    *
    * Provides the configuration for drag operations.
    *
-   * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata}
+   * **Note:** This configuration might be ignored due to control {@link sap.ui.core.Element.extend metadata }
    * restrictions.
    */
   export default class DragInfo extends DragDropBase implements dnd.IDragInfo {
@@ -18733,7 +18900,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18755,7 +18922,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18780,7 +18947,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18800,7 +18967,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -18819,7 +18986,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragEndEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18836,7 +19003,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DragInfo$DragStartEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18844,7 +19011,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     ): this;
     /**
      * @since 1.56
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
      *
@@ -18854,10 +19021,10 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DragInfo$DragEndEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -18870,7 +19037,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DragInfo$DragStartEventParameters
     ): boolean;
     /**
      * Gets current value of property {@link #getSourceAggregation sourceAggregation}.
@@ -18909,15 +19076,53 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: (oEvent: Event) => void;
+    dragStart?: (oEvent: DragInfo$DragStartEvent) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when a drag operation is being ended.
      */
-    dragEnd?: (oEvent: Event) => void;
+    dragEnd?: (oEvent: DragInfo$DragEndEvent) => void;
   }
+
+  export interface DragInfo$DragEndEventParameters {
+    /**
+     * The target element that is being dragged
+     */
+    target?: UI5Element;
+
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DragInfo$DragEndEvent = Event<DragInfo$DragEndEventParameters>;
+
+  export interface DragInfo$DragStartEventParameters {
+    /**
+     * The target element that will be dragged
+     */
+    target?: UI5Element;
+
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DragInfo$DragStartEvent = Event<DragInfo$DragStartEventParameters>;
 }
 
 declare module "sap/ui/core/dnd/DragAndDrop" {
@@ -18964,25 +19169,25 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sKey: string
     ): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the dragged control, if available within the same UI5 application frame.
      */
     getDragControl(): UI5Element | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * The valid drop target underneath the dragged control.
      */
     getDropControl(): UI5Element | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop configuration corresponding to the drop control.
      */
     getDropInfo(): DropInfo | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the calculated position of the drop action relative to the valid dropped control.
      */
@@ -18990,7 +19195,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       | dnd.RelativeDropPosition
       | keyof typeof dnd.RelativeDropPosition;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the drop indicator.
      *
@@ -18998,7 +19203,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
      */
     getIndicator(): HTMLElement | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the visual configuration of the drop indicator.
      *
@@ -19039,13 +19244,13 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
       sData: string
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set the valid drop control.
      */
     setDropControl(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Defines the visual configuration of the drop indicator for the current `DropInfo`.
      */
@@ -19075,11 +19280,15 @@ declare module "sap/ui/core/dnd/DropInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import { DragSession } from "sap/ui/core/dnd/DragAndDrop";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.56
@@ -19168,7 +19377,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19188,7 +19397,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19215,7 +19424,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19237,7 +19446,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19263,7 +19472,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19284,7 +19493,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -19301,7 +19510,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragEnterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19320,7 +19529,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DragOverEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19337,14 +19546,14 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropInfo$DropEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
      *
@@ -19357,11 +19566,11 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DropInfo$DragEnterEventParameters
     ): boolean;
     /**
      * @since 1.56
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dragOver dragOver} to attached listeners.
      *
@@ -19371,10 +19580,10 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DropInfo$DragOverEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:drop drop} to attached listeners.
      *
@@ -19384,7 +19593,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: DropInfo$DropEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getDropEffect dropEffect}.
@@ -19531,21 +19740,97 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * This event is fired when a dragged element enters a drop target.
      */
-    dragEnter?: (oEvent: Event) => void;
+    dragEnter?: (oEvent: DropInfo$DragEnterEvent) => void;
 
     /**
      * @since 1.56
      *
      * This event is fired when an element is being dragged over a valid drop target.
      */
-    dragOver?: (oEvent: Event) => void;
+    dragOver?: (oEvent: DropInfo$DragOverEvent) => void;
 
     /**
      * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
      * info.
      */
-    drop?: (oEvent: Event) => void;
+    drop?: (oEvent: DropInfo$DropEvent) => void;
   }
+
+  export interface DropInfo$DragEnterEventParameters {
+    /**
+     * The target element on which the dragged element will be dropped
+     */
+    target?: UI5Element;
+
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DropInfo$DragEnterEvent = Event<DropInfo$DragEnterEventParameters>;
+
+  export interface DropInfo$DragOverEventParameters {
+    /**
+     * The target element on which the dragged element will be dropped
+     */
+    target?: UI5Element;
+
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The calculated position of the drop action relative to the `target`.
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DropInfo$DragOverEvent = Event<DropInfo$DragOverEventParameters>;
+
+  export interface DropInfo$DropEventParameters {
+    /**
+     * The UI5 `dragSession` object that exists only during drag and drop
+     */
+    dragSession?: DragSession;
+
+    /**
+     * The element being dragged
+     */
+    draggedControl?: UI5Element;
+
+    /**
+     * The element being dropped
+     */
+    droppedControl?: UI5Element;
+
+    /**
+     * The calculated position of the drop action relative to the `droppedControl`.
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: Event;
+  }
+
+  export type DropInfo$DropEvent = Event<DropInfo$DropEventParameters>;
 }
 
 declare module "sap/ui/core/Element" {
@@ -19620,8 +19905,7 @@ declare module "sap/ui/core/Element" {
      * source needs to be unique only within the declarative source. Declarative views will prefix that ID with
      * their own ID (and some separator) before constructing the element. Programmatically created views (JSViews)
      * can do the same with the {@link sap.ui.core.mvc.View#createId} API. Similarly, UIComponents can prefix
-     * the IDs of elements created in their context with their own ID. Also see {@link sap.ui.core.UIComponent#getAutoPrefixId
-     * UIComponent#getAutoPrefixId}.
+     * the IDs of elements created in their context with their own ID. Also see {@link sap.ui.core.UIComponent#getAutoPrefixId UIComponent#getAutoPrefixId}.
      *
      * Settings: If the optional `mSettings` are given, they must be a JSON-like object (object literal) that
      * defines values for properties, aggregations, associations or events keyed by their name.
@@ -19646,7 +19930,7 @@ declare module "sap/ui/core/Element" {
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - 0..n associations are not supported yet
      * 	 - for events either a function (event handler) is accepted or an array of length 2 where the first
-     * 			element is a function and the 2nd element is an object to invoke the method on.
+     *     element is a function and the 2nd element is an object to invoke the method on.
      *
      * Special aggregation `dependents` is connected to the lifecycle management and databinding, but not rendered
      * automatically and can be used for popups or other dependent controls or elements. This allows the definition
@@ -19675,8 +19959,7 @@ declare module "sap/ui/core/Element" {
      * source needs to be unique only within the declarative source. Declarative views will prefix that ID with
      * their own ID (and some separator) before constructing the element. Programmatically created views (JSViews)
      * can do the same with the {@link sap.ui.core.mvc.View#createId} API. Similarly, UIComponents can prefix
-     * the IDs of elements created in their context with their own ID. Also see {@link sap.ui.core.UIComponent#getAutoPrefixId
-     * UIComponent#getAutoPrefixId}.
+     * the IDs of elements created in their context with their own ID. Also see {@link sap.ui.core.UIComponent#getAutoPrefixId UIComponent#getAutoPrefixId}.
      *
      * Settings: If the optional `mSettings` are given, they must be a JSON-like object (object literal) that
      * defines values for properties, aggregations, associations or events keyed by their name.
@@ -19701,7 +19984,7 @@ declare module "sap/ui/core/Element" {
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - 0..n associations are not supported yet
      * 	 - for events either a function (event handler) is accepted or an array of length 2 where the first
-     * 			element is a function and the 2nd element is an object to invoke the method on.
+     *     element is a function and the 2nd element is an object to invoke the method on.
      *
      * Special aggregation `dependents` is connected to the lifecycle management and databinding, but not rendered
      * automatically and can be used for popups or other dependent controls or elements. This allows the definition
@@ -19722,6 +20005,12 @@ declare module "sap/ui/core/Element" {
        */
       mSettings?: $ElementSettings
     );
+    /**
+     * @since 1.67
+     *
+     * Registry of all `sap.ui.core.Element`s that currently exist.
+     */
+    static registry: registry;
 
     /**
      * @since 1.106
@@ -19773,10 +20062,9 @@ declare module "sap/ui/core/Element" {
      * in `oClassInfo`.
      *
      * `oClassInfo` can contain the same information that {@link sap.ui.base.ManagedObject.extend} already accepts,
-     * plus the `dnd` property in the metadata object literal to configure drag-and-drop behavior (see {@link
-     * sap.ui.core.Element.MetadataOptions MetadataOptions} for details). Objects describing aggregations can
-     * also have a `dnd` property when used for a class extending `Element` (see {@link sap.ui.base.ManagedObject.MetadataOptions.AggregationDnD
-     * AggregationDnD}).
+     * plus the `dnd` property in the metadata object literal to configure drag-and-drop behavior (see {@link sap.ui.core.Element.MetadataOptions MetadataOptions }
+     * for details). Objects describing aggregations can also have a `dnd` property when used for a class extending
+     * `Element` (see {@link sap.ui.base.ManagedObject.MetadataOptions.AggregationDnD AggregationDnD}).
      *
      * Example:
      * ```javascript
@@ -19790,7 +20078,7 @@ declare module "sap/ui/core/Element" {
      *     },
      *     dnd : { draggable: true, droppable: false },
      *     aggregations : {
-     *       items : { type: 'sap.ui.core.Control', multiple : true, dnd : {draggable: false, droppable: true, layout: "Horizontal" } },
+     *       items : { type: 'sap.ui.core.Control', multiple : true, dnd : {draggable: false, droppable: true, layout: "Horizontal"  } },
      *       header : {type : "sap.ui.core.Control", multiple : false, dnd : true },
      *     }
      *   }
@@ -19821,7 +20109,7 @@ declare module "sap/ui/core/Element" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM node that represents this Element wrapped as jQuery object. I.e. the element
      * returned by {@link sap.ui.core.Element#getDomRef} is wrapped and returned.
@@ -19902,8 +20190,8 @@ declare module "sap/ui/core/Element" {
      * an Element is still enabled via `getEnabled`. Additionally there might be other things that delegates
      * need to check depending on the event (e.g. not adding a key twice to an output string etc.).
      *
-     * See {@link topic:bdf3e9818cd84d37a18ee5680e97e1c1 Event Handler Methods} for a general explanation of
-     * event handling in controls.
+     * See {@link https://ui5.sap.com/#/topic/bdf3e9818cd84d37a18ee5680e97e1c1 Event Handler Methods} for a
+     * general explanation of event handling in controls.
      *
      * **Note:** Setting the special `canSkipRendering` property to `true` for the event delegate object itself
      * lets the framework know that the `onBeforeRendering` and `onAfterRendering` event handlers of the delegate
@@ -19924,7 +20212,7 @@ declare module "sap/ui/core/Element" {
       oThis?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Applies the focus info.
      *
@@ -20043,7 +20331,7 @@ declare module "sap/ui/core/Element" {
      * ```
      *  Attaches `myData` (using the key "myKey1" and removes any data that had been attached for key "myKey2".
      * See:
-     * 	See chapter {@link topic:91f0c3ee6f4d1014b6dd926db0e91070 Custom Data - Attaching Data Objects to Controls}
+     * 	See chapter {@link https://ui5.sap.com/#/topic/91f0c3ee6f4d1014b6dd926db0e91070 Custom Data - Attaching Data Objects to Controls}
      *    in the documentation.
      *
      * @returns A map with all custom data, a custom data value for a single specified key or `null` when no
@@ -20113,11 +20401,11 @@ declare module "sap/ui/core/Element" {
      */
     destroyTooltip(): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Allows the parent of a control to enhance the ARIA information during rendering.
      *
-     * This function is called by the RenderManager's {@link sap.ui.core.RenderManager#accessibilityState accessibilityState}
+     * This function is called by the RenderManager's {@link sap.ui.core.RenderManager#accessibilityState accessibilityState }
      * and {@link sap.ui.core.RenderManager#writeAccessibilityState writeAccessibilityState} methods for the
      * parent of the currently rendered control - if the parent implements it.
      *
@@ -20137,7 +20425,7 @@ declare module "sap/ui/core/Element" {
       mAriaProps: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Hook method for cleaning up the element instance before destruction.
      *
@@ -20160,8 +20448,8 @@ declare module "sap/ui/core/Element" {
      * ```
      *
      *
-     * For a more detailed description how to to use the exit hook, see Section {@link topic:d4ac0edbc467483585d0c53a282505a5
-     * exit() Method} in the documentation.
+     * For a more detailed description how to to use the exit hook, see Section {@link https://ui5.sap.com/#/topic/d4ac0edbc467483585d0c53a282505a5 exit() Method }
+     * in the documentation.
      */
     exit(): void;
     /**
@@ -20213,7 +20501,7 @@ declare module "sap/ui/core/Element" {
      */
     getDependents(): UI5Element[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the best suitable DOM Element that represents this UI5 Element. By default the DOM Element with
      * the same ID as this Element is returned. Subclasses should override this method if the lookup via id
@@ -20252,7 +20540,7 @@ declare module "sap/ui/core/Element" {
      * 	 - `null`
      * 	 - empty string `""`
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
-     * 			is explicitly allowed and refers to the default model.
+     *     is explicitly allowed and refers to the default model.
      *
      * @returns Context binding for the given model name or `undefined`
      */
@@ -20263,7 +20551,7 @@ declare module "sap/ui/core/Element" {
       sModelName?: string
     ): ContextBinding | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus or `null` if there's no such element currently.
      *
@@ -20273,7 +20561,7 @@ declare module "sap/ui/core/Element" {
      */
     getFocusDomRef(): Element | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information.
      *
@@ -20375,7 +20663,7 @@ declare module "sap/ui/core/Element" {
       oDragDropConfig: DragDropBase
     ): int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the element instance after creation.
      *
@@ -20448,10 +20736,10 @@ declare module "sap/ui/core/Element" {
      * An element is treated as 'focusable' when all of the following conditions are met:
      * 	 - The element and all of its parents are not 'busy' or 'blocked',
      * 	 - the element is rendered at the top layer on the UI and not covered by any other DOM elements, such
-     * 			as an opened modal popup or the global `BusyIndicator`,
+     *     as an opened modal popup or the global `BusyIndicator`,
      * 	 - the element matches the browser's prerequisites for being focusable: if it's a natively focusable
-     * 			element, for example `input`, `select`, `textarea`, `button`, and so on, no 'tabindex' attribute is needed.
-     * 			Otherwise, 'tabindex' must be set. In any case, the element must be visible in order to be focusable.
+     *     element, for example `input`, `select`, `textarea`, `button`, and so on, no 'tabindex' attribute is needed.
+     *     Otherwise, 'tabindex' must be set. In any case, the element must be visible in order to be focusable.
      *
      *
      * @returns Whether the element can get the focus after calling {@link #focus}
@@ -20558,7 +20846,7 @@ declare module "sap/ui/core/Element" {
       oDelegate: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This triggers immediate rerendering of its parent and thus of itself and its children.
      *
@@ -20617,9 +20905,9 @@ declare module "sap/ui/core/Element" {
   export type MetadataOptions = MetadataOptions1 & {
     /**
      * Defines draggable and droppable configuration of the element. The following boolean properties can be
-     * provided in the given object literal to configure drag-and-drop behavior of the element (see {@link sap.ui.core.Element.MetadataOptions.DnD
-     * DnD} for details): draggable, droppable If the `dnd` property is of type Boolean, then the `draggable`
-     * and `droppable` configuration are both set to this Boolean value.
+     * provided in the given object literal to configure drag-and-drop behavior of the element (see {@link sap.ui.core.Element.MetadataOptions.DnD DnD }
+     * for details): draggable, droppable If the `dnd` property is of type Boolean, then the `draggable` and
+     * `droppable` configuration are both set to this Boolean value.
      */
     dnd?: boolean | MetadataOptions.DnD;
   };
@@ -20629,7 +20917,7 @@ declare module "sap/ui/core/Element" {
    *
    * Registry of all `sap.ui.core.Element`s that currently exist.
    */
-  export interface registry {
+  interface registry {
     /**
      * Number of existing elements.
      */
@@ -21184,7 +21472,7 @@ declare module "sap/ui/core/format/DateFormat" {
    * to the locale settings is used.
    *
    * Documentation links:
-   * 	 - {@link topic:91f2eba36f4d1014b6dd926db0e91070 Date Format}
+   * 	 - {@link https://ui5.sap.com/#/topic/91f2eba36f4d1014b6dd926db0e91070 Date Format}
    * 	 - {@link http://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
    */
   export default class DateFormat {
@@ -21204,9 +21492,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21285,7 +21571,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -21317,9 +21603,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21401,7 +21685,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -21435,9 +21719,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21510,7 +21792,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calendar type which is used to format and parse the date. This value is by default either set in
          * the configuration or calculated based on the current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale-specific texts/settings
@@ -21544,9 +21826,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
          * and `oFormatOptions.minimalDaysInFirstWeek`.
          */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
+        calendarWeekNumbering?: CalendarWeekNumbering;
         /**
          * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -21625,7 +21905,7 @@ declare module "sap/ui/core/format/DateFormat" {
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType;
+        calendarType?: CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -21797,13 +22077,13 @@ declare module "sap/ui/core/format/FileSizeFormat" {
    * The FileSizeFormat is a static class for formatting and parsing numeric file size values according to
    * a set of format options.
    *
-   * Supports the same options as {@link sap.ui.core.format.NumberFormat.getFloatInstance NumberFormat.getFloatInstance}
+   * Supports the same options as {@link sap.ui.core.format.NumberFormat.getFloatInstance NumberFormat.getFloatInstance }
    * For format options which are not specified default values according to the type and locale settings are
    * used.
    *
    * Supported format options (additional to NumberFormat):
    * 	 - binaryFilesize: Whether to use base 2, that means 1 Kibibyte = 1024 Byte, or base 10, that means
-   * 			1 Kilobyte = 1000 Byte
+   *     1 Kilobyte = 1000 Byte
    */
   export default class FileSizeFormat extends BaseObject {
     constructor();
@@ -21834,8 +22114,8 @@ declare module "sap/ui/core/format/FileSizeFormat" {
     /**
      * Get an instance of the FileSizeFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      * @returns instance of the FileSizeFormat
      */
@@ -21857,8 +22137,8 @@ declare module "sap/ui/core/format/FileSizeFormat" {
     /**
      * Get an instance of the FileSizeFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      * @returns instance of the FileSizeFormat
      */
@@ -21973,6 +22253,11 @@ declare module "sap/ui/core/format/NumberFormat" {
    */
   export default class NumberFormat extends BaseObject {
     constructor();
+    /**
+     * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
+     * mode in this object indicates how the least significant returned digits of rounded result is to be calculated.
+     */
+    static RoundingMode: typeof RoundingMode;
 
     /**
      * Creates a new subclass of class sap.ui.core.format.NumberFormat with name `sClassName` and enriches it
@@ -22000,8 +22285,8 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Get a currency instance of the NumberFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      *  This instance has HALF_AWAY_FROM_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
@@ -22077,7 +22362,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * defines a set of custom currencies exclusive to this NumberFormat instance. Custom currencies must not
          * only consist of digits. If custom currencies are defined on the instance, no other currencies can be
          * formatted and parsed by this instance. Globally available custom currencies can be added via the global
-         * configuration. See the above examples. See also {@link sap.ui.core.Configuration.FormatSettings#setCustomCurrencies}
+         * configuration. See the above examples. See also {@link sap.ui.core.Configuration.FormatSettings#setCustomCurrencies }
          * and {@link sap.ui.core.Configuration.FormatSettings#addCustomCurrencies}.
          */
         customCurrencies?: Record<string, object>;
@@ -22161,7 +22446,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * assigned
          * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
          * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         * 			and the number of decimal digits that should be reserved.
+         *     and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
@@ -22223,8 +22508,8 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Get a float instance of the NumberFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      *  This instance has HALF_AWAY_FROM_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
@@ -22335,7 +22620,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * assigned
          * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
          * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         * 			and the number of decimal digits that should be reserved.
+         *     and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
@@ -22380,8 +22665,8 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Get an integer instance of the NumberFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      *  This instance has TOWARDS_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
@@ -22491,7 +22776,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * assigned
          * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
          * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         * 			and the number of decimal digits that should be reserved.
+         *     and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
@@ -22542,8 +22827,8 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Get a percent instance of the NumberFormat, which can be used for formatting.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      *  This instance has HALF_AWAY_FROM_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
@@ -22644,7 +22929,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * assigned
          * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
          * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         * 			and the number of decimal digits that should be reserved.
+         *     and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
@@ -22689,8 +22974,8 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Get a unit instance of the NumberFormat, which can be used for formatting units.
      *
-     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale
-     * formatLocale} will be used.
+     * If no locale is given, the currently configured {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale formatLocale }
+     * will be used.
      *
      *  This instance has HALF_AWAY_FROM_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
@@ -22797,7 +23082,7 @@ declare module "sap/ui/core/format/NumberFormat" {
          * assigned
          * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
          * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         * 			and the number of decimal digits that should be reserved.
+         *     and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
@@ -22889,7 +23174,7 @@ declare module "sap/ui/core/format/NumberFormat" {
      * @returns the parsed value as:
      * 	 - number
      * 	 - array which contains the parsed value and the currency code (symbol) or unit for currency and unit
-     * 			instances
+     *     instances
      * 	 - string when option "parseAsString" is `true`
      * 	 - `NaN` if value cannot be parsed
      * 	 - `null` if value is invalid
@@ -22905,7 +23190,7 @@ declare module "sap/ui/core/format/NumberFormat" {
    * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
    * mode in this object indicates how the least significant returned digits of rounded result is to be calculated.
    */
-  export enum RoundingMode {
+  enum RoundingMode {
     /**
      * Rounding mode to round away from zero
      */
@@ -23164,13 +23449,13 @@ declare module "sap/ui/core/History" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * History handles the history of certain controls (e.g. sap.ui.commons.SearchField).
    */
   export default class History extends BaseObject {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates an instance of the History.
      *
@@ -23189,7 +23474,7 @@ declare module "sap/ui/core/History" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.History with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -23214,7 +23499,7 @@ declare module "sap/ui/core/History" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.History.
      *
@@ -23227,18 +23512,18 @@ declare module "sap/ui/core/History" {
 declare module "sap/ui/core/HTML" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Embeds standard HTML in an SAPUI5 control tree.
    *
    * Security Hint: By default, the HTML content (property 'content') is not sanitized and therefore open
    * to XSS attacks. Applications that want to show user defined input in an HTML control, should either sanitize
-   * the content on their own or activate automatic sanitizing through the {@link #setSanitizeContent sanitizeContent}
+   * the content on their own or activate automatic sanitizing through the {@link #setSanitizeContent sanitizeContent }
    * property.
    *
    * Although this control inherits the `tooltip` aggregation/property and the `hasStyleClass`, `addStyleClass`,
@@ -23332,7 +23617,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
        */
@@ -23356,7 +23641,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
        */
@@ -23374,14 +23659,14 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: HTML$AfterRenderingEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -23391,13 +23676,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Whether the current DOM of the control has been preserved (true) or not (e.g. rendered from content property
-         * or it is an empty HTML control).
-         */
-        isPreservedDOM?: boolean;
-      }
+      mParameters?: HTML$AfterRenderingEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContent content}.
@@ -23410,7 +23689,7 @@ declare module "sap/ui/core/HTML" {
      * Some of these restrictions (there might be others!) are:
      * 	 - the content must be enclosed in tags, pure text is not supported.
      * 	 - if the content contains script tags, they will be executed but they will not appear in the resulting
-     * 			DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
+     *     DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
      *
      * Please consider to consult the jQuery documentation as well.
      *
@@ -23442,11 +23721,11 @@ declare module "sap/ui/core/HTML" {
      *
      * There are two scenarios where this flag is relevant (when set to true):
      * 	 - for the initial rendering: when an HTML control is added to a UIArea for the first time and if the
-     * 			root node of that UIArea contained DOM content with the same id as the HTML control, then that content
-     * 			will be used for rendering instead of any specified string content
+     *     root node of that UIArea contained DOM content with the same id as the HTML control, then that content
+     *     will be used for rendering instead of any specified string content
      * 	 - any follow-up rendering: when an HTML control is rendered for the second or any later time and the
-     * 			preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
-     * 			content
+     *     preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
+     *     content
      *
      * As preserving the existing DOM is the most common use case of the HTML control, the default value is
      * true.
@@ -23461,8 +23740,7 @@ declare module "sap/ui/core/HTML" {
      *
      * Whether to run the HTML sanitizer once the content (HTML markup) is applied or not.
      *
-     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add
-     * URLListValidator API}.
+     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add URLListValidator API}.
      *
      * Default value is `false`.
      *
@@ -23490,7 +23768,7 @@ declare module "sap/ui/core/HTML" {
      * Some of these restrictions (there might be others!) are:
      * 	 - the content must be enclosed in tags, pure text is not supported.
      * 	 - if the content contains script tags, they will be executed but they will not appear in the resulting
-     * 			DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
+     *     DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
      *
      * Please consider to consult the jQuery documentation as well.
      *
@@ -23531,11 +23809,11 @@ declare module "sap/ui/core/HTML" {
      *
      * There are two scenarios where this flag is relevant (when set to true):
      * 	 - for the initial rendering: when an HTML control is added to a UIArea for the first time and if the
-     * 			root node of that UIArea contained DOM content with the same id as the HTML control, then that content
-     * 			will be used for rendering instead of any specified string content
+     *     root node of that UIArea contained DOM content with the same id as the HTML control, then that content
+     *     will be used for rendering instead of any specified string content
      * 	 - any follow-up rendering: when an HTML control is rendered for the second or any later time and the
-     * 			preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
-     * 			content
+     *     preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
+     *     content
      *
      * As preserving the existing DOM is the most common use case of the HTML control, the default value is
      * true.
@@ -23557,8 +23835,7 @@ declare module "sap/ui/core/HTML" {
      *
      * Whether to run the HTML sanitizer once the content (HTML markup) is applied or not.
      *
-     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add
-     * URLListValidator API}.
+     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add URLListValidator API}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -23601,7 +23878,7 @@ declare module "sap/ui/core/HTML" {
      * Some of these restrictions (there might be others!) are:
      * 	 - the content must be enclosed in tags, pure text is not supported.
      * 	 - if the content contains script tags, they will be executed but they will not appear in the resulting
-     * 			DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
+     *     DOM tree. When the contained code tries to find the corresponding script tag, it will fail.
      *
      * Please consider to consult the jQuery documentation as well.
      *
@@ -23620,11 +23897,11 @@ declare module "sap/ui/core/HTML" {
      *
      * There are two scenarios where this flag is relevant (when set to true):
      * 	 - for the initial rendering: when an HTML control is added to a UIArea for the first time and if the
-     * 			root node of that UIArea contained DOM content with the same id as the HTML control, then that content
-     * 			will be used for rendering instead of any specified string content
+     *     root node of that UIArea contained DOM content with the same id as the HTML control, then that content
+     *     will be used for rendering instead of any specified string content
      * 	 - any follow-up rendering: when an HTML control is rendered for the second or any later time and the
-     * 			preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
-     * 			content
+     *     preferDOM flag is set, then the DOM from the first rendering is preserved and not replaced by the string
+     *     content
      *
      * As preserving the existing DOM is the most common use case of the HTML control, the default value is
      * true.
@@ -23634,8 +23911,7 @@ declare module "sap/ui/core/HTML" {
     /**
      * Whether to run the HTML sanitizer once the content (HTML markup) is applied or not.
      *
-     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add
-     * URLListValidator API}.
+     * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add URLListValidator API}.
      */
     sanitizeContent?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -23650,8 +23926,18 @@ declare module "sap/ui/core/HTML" {
      * When the control doesn't have string content and no preserved DOM existed for this control, then this
      * event will fire, but there won't be a DOM node for this control.
      */
-    afterRendering?: (oEvent: Event) => void;
+    afterRendering?: (oEvent: HTML$AfterRenderingEvent) => void;
   }
+
+  export interface HTML$AfterRenderingEventParameters {
+    /**
+     * Whether the current DOM of the control has been preserved (true) or not (e.g. rendered from content property
+     * or it is an empty HTML control).
+     */
+    isPreservedDOM?: boolean;
+  }
+
+  export type HTML$AfterRenderingEvent = Event<HTML$AfterRenderingEventParameters>;
 }
 
 declare module "sap/ui/core/hyphenation/Hyphenation" {
@@ -23660,9 +23946,9 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
     $ManagedObjectSettings,
   } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.60
@@ -23679,15 +23965,14 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
    * It is used internally by controls that support the `wrappingType:{@link sap.m.WrappingType WrappingType.Hyphenated}`
    * property.
    *
-   * As the class is singleton, an instance should be acquired from {@link sap.ui.core.hyphenation.Hyphenation.getInstance
-   * Hyphenation.getInstance}.
+   * As the class is singleton, an instance should be acquired from {@link sap.ui.core.hyphenation.Hyphenation.getInstance Hyphenation.getInstance}.
    *
    * Usage: When to use::
    * 	 - To check if browser-native hyphenation is available for particular language.
    * 	 - To hyphenate texts if browser-native hyphenation is not available.  When not to use::
-   * 	 -  If the use case is covered by controls that support the property `wrappingType:{@link sap.m.WrappingType
-   * 			WrappingType.Hyphenated}`. This functionality is supported by {@link sap.m.Title sap.m.Title}, {@link
-   * 			sap.m.Label sap.m.Label} and {@link sap.m.Text sap.m.Text}.
+   * 	 -  If the use case is covered by controls that support the property `wrappingType:{@link sap.m.WrappingType WrappingType.Hyphenated}`.
+   *     This functionality is supported by {@link sap.m.Title sap.m.Title}, {@link sap.m.Label sap.m.Label} and
+   *     {@link sap.m.Text sap.m.Text}.
    * 	 - If browser-native hyphenation is available
    *
    * Example:
@@ -23701,7 +23986,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
    * ```
    *
    *
-   * For more information, see {@link topic:6322164936f047de941ec522b95d7b70 Hyphenation for Text Controls}.
+   * For more information, see {@link https://ui5.sap.com/#/topic/6322164936f047de941ec522b95d7b70 Hyphenation for Text Controls}.
    *
    * `Caution:` Note that as the hyphenation feature uses third-party and browser-native tools, we are not
    * responsible for any grammatical incorrectness or inconsistencies of the hyphenation. Also, the variety
@@ -23766,7 +24051,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
        * itself
@@ -23787,7 +24072,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
        * itself
@@ -23830,14 +24115,14 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Hyphenation$ErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -23847,12 +24132,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The message of the error.
-         */
-        sErrorMessage?: string;
-      }
+      mParameters?: Hyphenation$ErrorEventParameters
     ): this;
     /**
      * What languages were initialized with {@link sap.ui.core.hyphenation.Hyphenation#initialize Hyphenation#initialize}
@@ -23893,8 +24173,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       sLang?: string
     ): Promise<any>;
     /**
-     * Checks if the given language was initialized with {@link sap.ui.core.hyphenation.Hyphenation#initialize
-     * Hyphenation#initialize}
+     * Checks if the given language was initialized with {@link sap.ui.core.hyphenation.Hyphenation#initialize Hyphenation#initialize}
      *
      * @returns True if the language was initialized
      */
@@ -23923,8 +24202,17 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
     /**
      * Fired if an error with initialization or hyphenation occurs.
      */
-    error?: (oEvent: Event) => void;
+    error?: (oEvent: Hyphenation$ErrorEvent) => void;
   }
+
+  export interface Hyphenation$ErrorEventParameters {
+    /**
+     * The message of the error.
+     */
+    sErrorMessage?: string;
+  }
+
+  export type Hyphenation$ErrorEvent = Event<Hyphenation$ErrorEventParameters>;
 }
 
 declare module "sap/ui/core/Icon" {
@@ -23944,10 +24232,9 @@ declare module "sap/ui/core/Icon" {
    * Icon uses embedded font instead of pixel image. Comparing to image, Icon is easily scalable, color can
    * be altered live and various effects can be added using css.
    *
-   * A set of built in Icons is available in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
-   * Icon Explorer}.
+   * A set of built in Icons is available in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
    *
-   * For further information, see {@link topic:21ea0ea94614480d9a910b2e93431291 Icon and Icon Pool}.
+   * For further information, see {@link https://ui5.sap.com/#/topic/21ea0ea94614480d9a910b2e93431291 Icon and Icon Pool}.
    */
   export default class Icon extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -24087,7 +24374,7 @@ declare module "sap/ui/core/Icon" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -24100,7 +24387,7 @@ declare module "sap/ui/core/Icon" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -24113,8 +24400,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color for Icon in active state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `activeBackgroundColor`
      */
@@ -24124,8 +24410,7 @@ declare module "sap/ui/core/Icon" {
      *
      * This color is shown when icon is pressed/activated by the user.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `activeColor`
      */
@@ -24141,8 +24426,7 @@ declare module "sap/ui/core/Icon" {
      */
     getAlt(): string;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -24150,8 +24434,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color of the Icon in normal state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `backgroundColor`
      */
@@ -24161,8 +24444,7 @@ declare module "sap/ui/core/Icon" {
      *
      * The color of the Icon. If color is not defined here, the Icon inherits the color from its DOM parent.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `color`
      */
@@ -24195,8 +24477,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color for Icon in hover state. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `hoverBackgroundColor`
      */
@@ -24206,8 +24487,7 @@ declare module "sap/ui/core/Icon" {
      *
      * This color is shown when icon is hovered. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * @returns Value of property `hoverColor`
      */
@@ -24296,8 +24576,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color for Icon in active state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24314,8 +24593,7 @@ declare module "sap/ui/core/Icon" {
      *
      * This color is shown when icon is pressed/activated by the user.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24349,8 +24627,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color of the Icon in normal state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24367,8 +24644,7 @@ declare module "sap/ui/core/Icon" {
      *
      * The color of the Icon. If color is not defined here, the Icon inherits the color from its DOM parent.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24422,8 +24698,7 @@ declare module "sap/ui/core/Icon" {
      *
      * Background color for Icon in hover state. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24440,8 +24715,7 @@ declare module "sap/ui/core/Icon" {
      *
      * This color is shown when icon is hovered. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24577,24 +24851,21 @@ declare module "sap/ui/core/Icon" {
     /**
      * The color of the Icon. If color is not defined here, the Icon inherits the color from its DOM parent.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     color?: string | PropertyBindingInfo;
 
     /**
      * This color is shown when icon is hovered. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     hoverColor?: string | PropertyBindingInfo;
 
     /**
      * This color is shown when icon is pressed/activated by the user.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     activeColor?: string | PropertyBindingInfo;
 
@@ -24613,24 +24884,21 @@ declare module "sap/ui/core/Icon" {
     /**
      * Background color of the Icon in normal state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     backgroundColor?: string | PropertyBindingInfo;
 
     /**
      * Background color for Icon in hover state. This property has no visual effect when run on mobile device.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     hoverBackgroundColor?: string | PropertyBindingInfo;
 
     /**
      * Background color for Icon in active state.
      *
-     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
-     * Icon Color}.
+     * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic Icon Color}.
      */
     activeBackgroundColor?: string | PropertyBindingInfo;
 
@@ -24677,6 +24945,10 @@ declare module "sap/ui/core/Icon" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Icon$PressEventParameters {}
+
+  export type Icon$PressEvent = Event<Icon$PressEventParameters>;
 }
 
 declare module "sap/ui/core/IconPool" {
@@ -24691,9 +24963,9 @@ declare module "sap/ui/core/IconPool" {
    * for easier consumption of icons. There are already icons registered in IconPool, please use the Demo
    * App named "Icon Explorer" to find the name of the icon.
    *
-   * In order to use the icon inside an existing control, please call {@link sap.ui.core.IconPool.getIconURI}
+   * In order to use the icon inside an existing control, please call {@link sap.ui.core.IconPool.getIconURI }
    * and assign the URI to the control's property which supports icons. If you want to support both, icons
-   * and standard images in your own control, please use the static method {@link sap.ui.core.IconPool.createControlByURI}
+   * and standard images in your own control, please use the static method {@link sap.ui.core.IconPool.createControlByURI }
    * to either create an Icon in case the first argument is an icon-URL or another control which you define
    * by providing it as the second argument.
    */
@@ -24808,7 +25080,7 @@ declare module "sap/ui/core/IconPool" {
      * The returned info object has the following properties:
      * 	 - `string: name` Name of the icon
      * 	 - `string: collection` Name of the collection that contains the icon or `undefined` in case of the
-     * 			default collection
+     *     default collection
      * 	 - `string: uri` Icon URI that identifies the icon
      * 	 - `string: fontFamily` CSS font family to use for this icon
      * 	 - `string: content` Character sequence that represents the icon in the icon font
@@ -25136,8 +25408,7 @@ declare module "sap/ui/core/InvisibleMessage" {
    * The InvisibleMessage provides a way to programmatically expose dynamic content changes in a way that
    * can be announced by screen readers.
    *
-   * Overview: This class is a singleton. The class instance can be retrieved via the static method {@link
-   * sap.ui.core.InvisibleMessage.getInstance}.
+   * Overview: This class is a singleton. The class instance can be retrieved via the static method {@link sap.ui.core.InvisibleMessage.getInstance}.
    *
    * **Note:** Keep in mind that, according to the ARIA standard, the live regions should be presented and
    * should be empty. Thus, we recommend to instantiate `InvisibleMessage` via `sap.ui.core.InvisibleMessage.getInstance()`
@@ -25598,7 +25869,7 @@ declare module "sap/ui/core/LabelEnablement" {
 
   /**
    * @since 1.28.0
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Helper functionality for enhancement of a `Label` with common label functionality.
    * See:
@@ -25606,7 +25877,7 @@ declare module "sap/ui/core/LabelEnablement" {
    */
   interface LabelEnablement {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function should be called on a label control to enrich its functionality.
      *
@@ -25661,7 +25932,7 @@ declare module "sap/ui/core/LabelEnablement" {
       oElement: UI5Element
     ): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Helper function for the `Label` control to render the HTML 'for' attribute.
      *
@@ -25706,8 +25977,8 @@ declare module "sap/ui/core/LayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor
-     * sap.ui.core.Element} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
      */
     constructor(
       /**
@@ -25722,8 +25993,8 @@ declare module "sap/ui/core/LayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor
-     * sap.ui.core.Element} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
      */
     constructor(
       /**
@@ -26076,7 +26347,7 @@ declare module "sap/ui/core/Locale" {
       /**
        * the locale identifier, in format en-US or en_US.
        */
-      sLocaleId: string
+      sLocale: string
     );
 
     /**
@@ -26114,7 +26385,7 @@ declare module "sap/ui/core/Locale" {
      * The extension always consists of a singleton character (not 'x'), a dash '-' and one or more extension
      * token, each separated again with a dash.
      *
-     * Use {@link #getExtensionSubtags} to get the individual extension tokens as an array.
+     * Use {@link #getExtensions} to get the individual extension tokens as an array.
      *
      * @returns the extension or `null`
      */
@@ -26308,7 +26579,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.46
@@ -26329,7 +26600,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.27.0
@@ -26441,7 +26712,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.46
@@ -26474,7 +26745,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string | string[];
     /**
      * Get date pattern in format "short", "medium", "long" or "full".
@@ -26490,7 +26761,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get datetime pattern in style "short", "medium", "long" or "full".
@@ -26506,7 +26777,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get day periods in width "narrow", "abbreviated" or "wide".
@@ -26522,7 +26793,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone day periods in width "narrow", "abbreviated" or "wide".
@@ -26538,7 +26809,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get day names in width "narrow", "abbreviated" or "wide".
@@ -26554,7 +26825,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone day names in width "narrow", "abbreviated" or "wide".
@@ -26570,7 +26841,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.25.0
@@ -26626,7 +26897,7 @@ declare module "sap/ui/core/LocaleData" {
       /**
        * the type of calendar
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.32.0
@@ -26643,7 +26914,7 @@ declare module "sap/ui/core/LocaleData" {
       /**
        * the type of calendar
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Returns the day that usually is regarded as the first day of a week in the current locale.
@@ -26676,7 +26947,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * Get locale specific language names.
@@ -26734,7 +27005,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone month names in width "narrow", "abbreviated" or "wide".
@@ -26750,7 +27021,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get number symbol "decimal", "group", "plusSign", "minusSign", "percentSign".
@@ -26814,7 +27085,7 @@ declare module "sap/ui/core/LocaleData" {
      *
      * @returns the preferred calendar type
      */
-    getPreferredCalendarType(): CalendarType | keyof typeof CalendarType;
+    getPreferredCalendarType(): CalendarType;
     /**
      * @since 1.34
      *
@@ -26837,7 +27108,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * Get standalone quarter names in width "narrow", "abbreviated" or "wide".
@@ -26853,7 +27124,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): any[];
     /**
      * @since 1.25.0
@@ -27089,7 +27360,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType | keyof typeof CalendarType
+      sCalendarType?: CalendarType
     ): string;
     /**
      * @since 1.54
@@ -27213,9 +27484,9 @@ declare module "sap/ui/core/Manifest" {
          * (optional) A list of active terminologies. If the `mOptions.process` flag is set to `true`, the given
          * terminologies will be respected when replacing placeholders with resource bundle values. To use active
          * terminologies, the `sap.app.i18n` section in the manifest must be defined in object syntax as described
-         * here: {@link topic:eba8d25a31ef416ead876e091e67824e Text Verticalization}. The order of the given active
-         * terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation
-         * describes the processing behavior in more detail.
+         * here: {@link https://ui5.sap.com/#/topic/eba8d25a31ef416ead876e091e67824e Text Verticalization}. The
+         * order of the given active terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle }
+         * API documentation describes the processing behavior in more detail.
          */
         activeTerminologies?: string[];
       }
@@ -27251,7 +27522,7 @@ declare module "sap/ui/core/Manifest" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function to load the manifest by URL
      *
@@ -27287,10 +27558,9 @@ declare module "sap/ui/core/Manifest" {
          */
         processJson?: Function;
         /**
-         * A list of active terminologies. The order of the given active terminologies is significant. The {@link
-         * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
-         * in more detail. Please have a look at this dev-guide chapter for general usage instructions: {@link topic:eba8d25a31ef416ead876e091e67824e
-         * Text Verticalization}.
+         * A list of active terminologies. The order of the given active terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle }
+         * API documentation describes the processing behavior in more detail. Please have a look at this dev-guide
+         * chapter for general usage instructions: {@link https://ui5.sap.com/#/topic/eba8d25a31ef416ead876e091e67824e Text Verticalization}.
          */
         activeTerminologies?: string[];
       }
@@ -27695,13 +27965,13 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Check Messages and update controls with messages
      */
     checkMessages(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Set Messages to check
      */
@@ -27722,6 +27992,8 @@ declare module "sap/ui/core/message/Message" {
   import MessageProcessor from "sap/ui/core/message/MessageProcessor";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Model from "sap/ui/model/Model";
 
   export default class Message extends BaseObject {
     /**
@@ -27995,7 +28267,7 @@ declare module "sap/ui/core/message/Message" {
       /**
        * The Message processor
        */
-      oMessageProcessor: MessageProcessor
+      oMessageProcessor: Model
     ): void;
     /**
      * Set message persistent
@@ -28075,6 +28347,9 @@ declare module "sap/ui/core/message/MessageManager" {
   export default class MessageManager extends EventProvider {
     /**
      * Constructor for a new MessageManager.
+     *
+     * Creating own instances of MessageManager is deprecated. Please require 'sap/ui/core/message/MessageManager'
+     * instead and use the module export directly without using 'new'.
      */
     constructor();
 
@@ -28185,6 +28460,23 @@ declare module "sap/ui/core/message/MessageManager" {
        */
       oObject: ManagedObject
     ): void;
+    /**
+     * @since 1.115
+     *
+     * Update Messages by providing two arrays of old and new messages.
+     *
+     * The old ones will be removed, the new ones will be added.
+     */
+    updateMessages(
+      /**
+       * Array of old messages to be removed
+       */
+      aOldMessages: any[],
+      /**
+       * Array of new messages to be added
+       */
+      aNewMessages: any[]
+    ): void;
   }
 }
 
@@ -28234,7 +28526,7 @@ declare module "sap/ui/core/message/MessageParser" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the registered processor on which the events for message handling can be fired
      *
@@ -28255,7 +28547,7 @@ declare module "sap/ui/core/message/MessageParser" {
       oRequest: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is used by the model to register itself as MessageProcessor for this parser
      *
@@ -28273,9 +28565,11 @@ declare module "sap/ui/core/message/MessageParser" {
 declare module "sap/ui/core/message/MessageProcessor" {
   import EventProvider from "sap/ui/base/EventProvider";
 
+  import Metadata from "sap/ui/base/Metadata";
+
   import Message from "sap/ui/core/message/Message";
 
-  import Metadata from "sap/ui/base/Metadata";
+  import Event from "sap/ui/base/Event";
 
   /**
    * This is an abstract base class for MessageProcessor objects.
@@ -28332,7 +28626,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `MessageProcessor` itself
        */
@@ -28350,7 +28644,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `MessageProcessor` itself
        */
@@ -28360,10 +28654,6 @@ declare module "sap/ui/core/message/MessageProcessor" {
      * Implement in inheriting classes
      */
     checkMessages(): void;
-    /**
-     * Destroys the MessageProcessor Instance
-     */
-    destroy(): void;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:messageChange messageChange} event of this
      * `sap.ui.core.message.MessageProcessor`.
@@ -28376,14 +28666,15 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MessageProcessor$MessageChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @deprecated - 1.115 Use {@link sap.ui.core.messages.MessageManager#updateMessages} instead
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageChange messageChange} to attached listeners.
      *
@@ -28393,16 +28684,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters: {
-        /**
-         * Messages already existing before the `messageChange` event was fired.
-         */
-        oldMessages: Message;
-        /**
-         * New messages added by the trigger of the `messageChange` event.
-         */
-        newMessages: Message;
-      }
+      mParameters: MessageProcessor$MessageChangeEventParameters
     ): this;
     /**
      * Returns the ID of the MessageProcessor instance
@@ -28420,6 +28702,20 @@ declare module "sap/ui/core/message/MessageProcessor" {
       mMessages: Record<string, Message[]>
     ): void;
   }
+
+  export interface MessageProcessor$MessageChangeEventParameters {
+    /**
+     * Messages already existing before the `messageChange` event was fired.
+     */
+    oldMessages?: Message;
+
+    /**
+     * New messages added by the trigger of the `messageChange` event.
+     */
+    newMessages?: Message;
+  }
+
+  export type MessageProcessor$MessageChangeEvent = Event<MessageProcessor$MessageChangeEventParameters>;
 }
 
 declare module "sap/ui/core/mvc/Controller" {
@@ -28511,8 +28807,8 @@ declare module "sap/ui/core/mvc/Controller" {
      *
      * The extension provider module provides the `getControllerExtensions` function which returns either directly
      * an array of objects or a Promise that returns an array of objects when it resolves. These objects are
-     * object literals defining the methods and properties of the controller in a similar way as for {@link
-     * sap.ui.core.mvc.Controller Controller} subclasses.
+     * object literals defining the methods and properties of the controller in a similar way as for {@link sap.ui.core.mvc.Controller Controller }
+     * subclasses.
      *
      * **Example for a callback module definition (sync):**
      * ```javascript
@@ -28654,11 +28950,11 @@ declare module "sap/ui/core/mvc/Controller" {
      * **Destroy behavior**: Different scenarios concerning the destruction of the fragment's content exist,
      * of which some must be addressed by the caller, while others are handled automatically.
      * 	 - The controller instance is destroyed before the fragment content creation has finished: In this case,
-     * 			the controller instance takes care of asynchronously destroying the fragment content
+     *     the controller instance takes care of asynchronously destroying the fragment content
      * 	 - The fragment content is aggregated within a control (e.g. `dependents` aggregation by default): In
-     * 			this case, the content will be destroyed during the regular destroy lifecycle.
+     *     this case, the content will be destroyed during the regular destroy lifecycle.
      * 	 - The fragment content is not aggregated within a control: In this case, ***it must be destroyed manually***
-     * 			in the exit hook of the controller.
+     *     in the exit hook of the controller.
      *
      * @returns A Promise that resolves with the fragment content
      */
@@ -28691,7 +28987,7 @@ declare module "sap/ui/core/mvc/Controller" {
       }
     ): Promise<Control | Control[]>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, after the HTML is placed in the DOM-Tree. It can
      * be used to apply additional changes to the DOM after the Renderer has finished. (Even though this method
@@ -28702,7 +28998,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onAfterRendering(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called every time the View is rendered, before the Renderer is called and the HTML is
      * placed in the DOM-Tree. It can be used to perform clean-up-tasks before re-rendering. (Even though this
@@ -28713,7 +29009,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onBeforeRendering(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon desctuction of the View. The controller should perform its internal destruction
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -28722,7 +29018,7 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     onExit(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is called upon initialization of the View. The controller can perform its internal setup
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -28754,8 +29050,8 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
    * All controller extensions must {@link #.extend extend} from this base class. It provides access to the
    * {@link #getView view} of the extended controller as well as to the view's {@link #byId controls}.
    *
-   * For a more detailed description how to develop controller extensions, see section {@link topic:21515f09c0324218bb705b27407f5d61
-   * Using Controller Extension} in the documentation.
+   * For a more detailed description how to develop controller extensions, see section {@link https://ui5.sap.com/#/topic/21515f09c0324218bb705b27407f5d61 Using Controller Extension }
+   * in the documentation.
    */
   export default class ControllerExtension extends BaseObject {
     constructor();
@@ -28860,8 +29156,7 @@ declare module "sap/ui/core/mvc/HTMLView" {
    * for the HTML of the controls, but is fully replaced.
    *
    * Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views" (view classes written in JavaScript)
-   * instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070
-   * View types}.
+   * instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070 View types}.
    *
    * A view defined/constructed by declarative HTML.
    */
@@ -28869,17 +29164,17 @@ declare module "sap/ui/core/mvc/HTMLView" {
     /**
      * Constructor for a new `HTMLView`.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.HTMLView.create HTMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.HTML HTML}. The factory simplifies asynchronous loading of a view
-     * and future features might be added to the factory only.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.HTMLView.create HTMLView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.HTML HTML}.
+     * The factory simplifies asynchronous loading of a view and future features might be added to the factory
+     * only.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -28890,17 +29185,17 @@ declare module "sap/ui/core/mvc/HTMLView" {
     /**
      * Constructor for a new `HTMLView`.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.HTMLView.create HTMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.HTML HTML}. The factory simplifies asynchronous loading of a view
-     * and future features might be added to the factory only.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.HTMLView.create HTMLView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.HTML HTML}.
+     * The factory simplifies asynchronous loading of a view and future features might be added to the factory
+     * only.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -28998,17 +29293,17 @@ declare module "sap/ui/core/mvc/JSONView" {
     /**
      * Constructor for a new mvc/JSONView.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.JSONView.create JSONView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.JSON JSON}. The factory simplifies asynchronous loading of a view
-     * and future features might be added to the factory only.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.JSONView.create JSONView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.JSON JSON}.
+     * The factory simplifies asynchronous loading of a view and future features might be added to the factory
+     * only.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29019,17 +29314,17 @@ declare module "sap/ui/core/mvc/JSONView" {
     /**
      * Constructor for a new mvc/JSONView.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.JSONView.create JSONView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.JSON JSON}. The factory simplifies asynchronous loading of a view
-     * and future features might be added to the factory only.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.JSONView.create JSONView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.JSON JSON}.
+     * The factory simplifies asynchronous loading of a view and future features might be added to the factory
+     * only.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29138,8 +29433,8 @@ declare module "sap/ui/core/mvc/JSView" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29154,8 +29449,8 @@ declare module "sap/ui/core/mvc/JSView" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29278,8 +29573,8 @@ declare module "sap/ui/core/mvc/TemplateView" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @deprecated (since 1.56.0) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
-   * XML Templating} instead.
+   * @deprecated (since 1.56.0) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b XML Templating }
+   * instead.
    *
    * A view defined in a template.
    */
@@ -29287,16 +29582,15 @@ declare module "sap/ui/core/mvc/TemplateView" {
     /**
      * Constructor for a new mvc/TemplateView.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.templateview} or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template
-     * Template}.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.templateview }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template Template}.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29307,16 +29601,15 @@ declare module "sap/ui/core/mvc/TemplateView" {
     /**
      * Constructor for a new mvc/TemplateView.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.templateview} or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template
-     * Template}.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.templateview }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template Template}.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -29390,16 +29683,17 @@ declare module "sap/ui/core/mvc/View" {
    * and provides lifecycle events.
    *
    * Views form an ID scope for the elements and controls in their content. They can prefix the IDs of elements
-   * either automatically (e.g. XMLView) or programmatically (using {@link #createId}). With method {@link
-   * #byId}, elements or controls can be found with their view-local ID. Also see {@link topic:91f28be26f4d1014b6dd926db0e91070
-   * "Support for Unique IDs"} in the documentation.
+   * either automatically (e.g. XMLView) or programmatically (using {@link #createId}). With method {@link #byId},
+   * elements or controls can be found with their view-local ID. Also see {@link https://ui5.sap.com/#/topic/91f28be26f4d1014b6dd926db0e91070 "Support for Unique IDs" }
+   * in the documentation.
    *
    * View Definition: A view can be defined by {@link sap.ui.core.mvc.View.extend extending} this class and
    * implementing the {@link #createContent} method. The method must return one or many root controls that
    * will be rendered as content of the view.
    *
    * Views that are defined that way are referred to as **typed views**, as each view definition is represented
-   * by its own class (type). See {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed Views} for further information.
+   * by its own class (type). See {@link https://ui5.sap.com/#/topic/e6bb33d076dc4f23be50c082c271b9f0 Typed Views }
+   * for further information.
    *
    * **Example:** Defining a typed view (module 'myapp/views/MainView.js')
    * ```javascript
@@ -29436,8 +29730,7 @@ declare module "sap/ui/core/mvc/View" {
    * ```
    *
    *
-   * View Instantiation: The preferred way of instantiating a typed view is via the generic factory {@link
-   * sap.ui.core.mvc.View.create View.create}.
+   * View Instantiation: The preferred way of instantiating a typed view is via the generic factory {@link sap.ui.core.mvc.View.create View.create}.
    *
    * When the `viewName` starts with prefix `"module:"`, the remainder of the name is assumed to be the name
    * of a module that exports a typed view (a subclass of `View`). The module name must use the same syntax
@@ -29542,7 +29835,7 @@ declare module "sap/ui/core/mvc/View" {
          */
         viewName?: string;
         /**
-         * The view definition. Only supported for XML and HTML views. See also {@link sap.ui.core.mvc.XMLView.create}
+         * The view definition. Only supported for XML and HTML views. See also {@link sap.ui.core.mvc.XMLView.create }
          * and {@link sap.ui.core.mvc.HTMLView.create} (deprecated) for more information.
          */
         definition?: any;
@@ -29552,21 +29845,21 @@ declare module "sap/ui/core/mvc/View" {
          */
         type?: ViewType | keyof typeof ViewType;
         /**
-         * A general purpose data bag, which is under full control of the caller. It can be retrieved with the {@link
-         * sap.ui.core.mvc.View#getViewData} method during the whole lifecycle of the view and controller. In contrast
-         * to data propagated from the parent control (e.g. models, binding contexts), `viewData` can already be
-         * accessed at construction time, e.g. in the `onInit` hook of the controller. Propagated data can only
-         * be accessed after the view has been added to the control hierarchy.
+         * A general purpose data bag, which is under full control of the caller. It can be retrieved with the {@link sap.ui.core.mvc.View#getViewData }
+         * method during the whole lifecycle of the view and controller. In contrast to data propagated from the
+         * parent control (e.g. models, binding contexts), `viewData` can already be accessed at construction time,
+         * e.g. in the `onInit` hook of the controller. Propagated data can only be accessed after the view has
+         * been added to the control hierarchy.
          */
         viewData?: any;
         /**
          * Can hold a map from the specified preprocessor type (e.g. "xml") to an array of preprocessor configurations;
          * each configuration consists of a `preprocessor` property (optional when registered as on-demand preprocessor)
          * and may contain further preprocessor-specific settings. The preprocessor can be either a module name
-         * as string implementation of {@link sap.ui.core.mvc.View.Preprocessor} or a function according to {@link
-         * sap.ui.core.mvc.View.Preprocessor.process}. Do not set properties starting with underscore like `_sProperty`
-         * property, these are reserved for internal purposes. When several preprocessors are provided for one hook,
-         * it has to be made sure that they do not conflict when being processed serially.
+         * as string implementation of {@link sap.ui.core.mvc.View.Preprocessor} or a function according to {@link sap.ui.core.mvc.View.Preprocessor.process}.
+         * Do not set properties starting with underscore like `_sProperty` property, these are reserved for internal
+         * purposes. When several preprocessors are provided for one hook, it has to be made sure that they do not
+         * conflict when being processed serially.
          *
          * **Note**: These preprocessors are only available to this instance. For global or on-demand availability
          * use {@link sap.ui.core.mvc.XMLView.registerPreprocessor}. **Note**: Please note that preprocessors in
@@ -29611,7 +29904,7 @@ declare module "sap/ui/core/mvc/View" {
     static getMetadata(): ElementMetadata;
     /**
      * @since 1.30
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Register a preprocessor for all views of a specific type.
      *
@@ -29620,7 +29913,7 @@ declare module "sap/ui/core/mvc/View" {
      * to or activated at the view instance already, that one is used. When several preprocessors are registered
      * for one hook, it has to be made sure that they do not conflict when being processed serially.
      *
-     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor}
+     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor }
      * or a function with a signature according to {@link sap.ui.core.mvc.View.Preprocessor.process}.
      *
      * **Note**: Preprocessors only work in async views and will be ignored when the view is instantiated in
@@ -29858,8 +30151,7 @@ declare module "sap/ui/core/mvc/View" {
      * Returns an element by its ID in the context of this view.
      *
      * This method expects a view-local ID of an element (the same as e.g. defined in the *.view.xml of an XMLView).
-     * For a search with a global ID (the value returned by `oElement.getId()`) you should rather use {@link
-     * sap.ui.core.Core#byId sap.ui.getCore().byId()}.
+     * For a search with a global ID (the value returned by `oElement.getId()`) you should rather use {@link sap.ui.core.Core#byId sap.ui.getCore().byId()}.
      *
      * @returns Element by its ID or `undefined`
      */
@@ -29875,7 +30167,8 @@ declare module "sap/ui/core/mvc/View" {
      * Overrides the clone method to avoid conflicts between generic cloning of the content aggregation and
      * content creation as defined by the UI5 Model View Controller lifecycle.
      *
-     * For more details see the {@link topic:a575619e25c2487f904bae71764e2350 View Cloning} section in the documentation.
+     * For more details see the {@link https://ui5.sap.com/#/topic/a575619e25c2487f904bae71764e2350 View Cloning }
+     * section in the documentation.
      *
      * @returns Reference to the newly created clone
      */
@@ -29989,7 +30282,7 @@ declare module "sap/ui/core/mvc/View" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterInit afterInit} to attached listeners.
      *
@@ -30002,7 +30295,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -30015,7 +30308,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeExit beforeExit} to attached listeners.
      *
@@ -30028,7 +30321,7 @@ declare module "sap/ui/core/mvc/View" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -30042,7 +30335,7 @@ declare module "sap/ui/core/mvc/View" {
     ): this;
     /**
      * @since 1.88
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by typed views, returning the flag whether to prefix the IDs of controls automatically
      * or not, if the controls are created inside the {@link sap.ui.core.mvc.View#createContent} function. By
@@ -30112,7 +30405,7 @@ declare module "sap/ui/core/mvc/View" {
       sId: string
     ): string | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the info object which is also passed to the preprocessors
      * See:
@@ -30161,7 +30454,7 @@ declare module "sap/ui/core/mvc/View" {
      */
     getWidth(): CSSSize;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if any preprocessors are active for the specified type
      *
@@ -30234,7 +30527,7 @@ declare module "sap/ui/core/mvc/View" {
       vContent: int | string | Control
     ): Control | null;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Executes preprocessors for a type of source
      *
@@ -30442,6 +30735,22 @@ declare module "sap/ui/core/mvc/View" {
     beforeRendering?: (oEvent: Event) => void;
   }
 
+  export interface View$AfterInitEventParameters {}
+
+  export type View$AfterInitEvent = Event<View$AfterInitEventParameters>;
+
+  export interface View$AfterRenderingEventParameters {}
+
+  export type View$AfterRenderingEvent = Event<View$AfterRenderingEventParameters>;
+
+  export interface View$BeforeExitEventParameters {}
+
+  export type View$BeforeExitEvent = Event<View$BeforeExitEventParameters>;
+
+  export interface View$BeforeRenderingEventParameters {}
+
+  export type View$BeforeRenderingEvent = Event<View$BeforeRenderingEventParameters>;
+
   export namespace Preprocessor {
     /**
      * Information about the view that is processed by the preprocessor
@@ -30473,8 +30782,8 @@ declare module "sap/ui/core/mvc/ViewType" {
    *
    * **Note:** Typed views do not rely on a `ViewType`, it must be omitted in the view settings.
    *
-   * See the {@link topic:91f27e3e6f4d1014b6dd926db0e91070 documentation} for more information on the different
-   * view types.
+   * See the {@link https://ui5.sap.com/#/topic/91f27e3e6f4d1014b6dd926db0e91070 documentation} for more information
+   * on the different view types.
    */
   enum ViewType {
     /**
@@ -30533,8 +30842,8 @@ declare module "sap/ui/core/mvc/XMLView" {
    *  The XML view offers special handling for context binding and style classes. You can specify them via
    * the `binding` and `class` attributes on a control's XML node. Please be aware that these attributes are
    * not properties of the respective controls and thus are not supported by a control's constructor. For
-   * more information, see {@link topic:91f05e8b6f4d1014b6dd926db0e91070 Context Binding (Element Binding)}
-   * and {@link topic:b564935324f449209354c7e2f9903f22 Using CSS Style Sheets in XML Views}.
+   * more information, see {@link https://ui5.sap.com/#/topic/91f05e8b6f4d1014b6dd926db0e91070 Context Binding (Element Binding) }
+   * and {@link https://ui5.sap.com/#/topic/b564935324f449209354c7e2f9903f22 Using CSS Style Sheets in XML Views}.
    *
    * **Note:**
    *  When the content aggregation of this control is bound, no HTML markup is allowed in the binding template
@@ -30544,18 +30853,17 @@ declare module "sap/ui/core/mvc/XMLView" {
     /**
      * Constructor for a new `XMLView`.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.XMLView.create XMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.XML XML}. The factory provides more features than the constructor
-     * (e.g. caching and preprocessing) and simplifies asynchronous loading of a view. Future features might
-     * only be available when using the factory.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.XMLView.create XMLView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.XML XML}.
+     * The factory provides more features than the constructor (e.g. caching and preprocessing) and simplifies
+     * asynchronous loading of a view. Future features might only be available when using the factory.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -30566,18 +30874,17 @@ declare module "sap/ui/core/mvc/XMLView" {
     /**
      * Constructor for a new `XMLView`.
      *
-     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
-     * sap.ui.core.mvc.XMLView.create XMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
-     * type {@link sap.ui.core.mvc.ViewType.XML XML}. The factory provides more features than the constructor
-     * (e.g. caching and preprocessing) and simplifies asynchronous loading of a view. Future features might
-     * only be available when using the factory.
+     * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link sap.ui.core.mvc.XMLView.create XMLView.create }
+     * or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.XML XML}.
+     * The factory provides more features than the constructor (e.g. caching and preprocessing) and simplifies
+     * asynchronous loading of a view. Future features might only be available when using the factory.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
-     * sap.ui.core.mvc.View} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor sap.ui.core.mvc.View }
+     * can be used.
      */
     constructor(
       /**
@@ -30595,6 +30902,16 @@ declare module "sap/ui/core/mvc/XMLView" {
      * Flag for feature detection of asynchronous loading/rendering
      */
     static asyncSupport: boolean;
+
+    /**
+     * @since 1.34
+     *
+     * Specifies the available preprocessor types for XMLViews
+     * See:
+     * 	sap.ui.core.mvc.XMLView
+     * 	sap.ui.core.mvc.View.Preprocessor
+     */
+    static PreprocessorType: typeof PreprocessorType;
 
     /**
      * @since 1.56.0
@@ -30700,7 +31017,7 @@ declare module "sap/ui/core/mvc/XMLView" {
      * view instance already, that one is used. When several preprocessors are registered for one hook, it has
      * to be made sure, that they do not conflict when being processed serially.
      *
-     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor}
+     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor }
      * or a function with a signature according to {@link sap.ui.core.mvc.View.Preprocessor.process}.
      *
      * **Note**: Preprocessors work only in async views and will be ignored when the view is instantiated in
@@ -30750,7 +31067,7 @@ declare module "sap/ui/core/mvc/XMLView" {
      * view instance already, that one is used. When several preprocessors are registered for one hook, it has
      * to be made sure, that they do not conflict when being processed serially.
      *
-     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor}
+     * It can be either a module name as string of an implementation of {@link sap.ui.core.mvc.View.Preprocessor }
      * or a function with a signature according to {@link sap.ui.core.mvc.View.Preprocessor.process}.
      *
      * **Note**: Preprocessors work only in async views and will be ignored when the view is instantiated in
@@ -30793,7 +31110,7 @@ declare module "sap/ui/core/mvc/XMLView" {
    * 	sap.ui.core.mvc.XMLView
    * 	sap.ui.core.mvc.View.Preprocessor
    */
-  export enum PreprocessorType {
+  enum PreprocessorType {
     /**
      * This preprocessor receives the control tree produced through the view source
      */
@@ -30901,6 +31218,13 @@ declare module "sap/ui/core/Popup" {
        */
       bAutoClose?: boolean
     );
+    /**
+     * Enumeration providing options for docking of some element to another.
+     *
+     * "Right" and "Left" will stay the same in RTL mode, but "Begin" and "End" will flip to the other side
+     * ("Begin" is "Right" in RTL).
+     */
+    static Dock: typeof Dock;
 
     /**
      * @since 1.75
@@ -30927,7 +31251,7 @@ declare module "sap/ui/core/Popup" {
       bMarkAsSelectable?: boolean
     ): void;
     /**
-     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange}
+     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange }
      * event.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -30944,14 +31268,14 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to a dummy event provider object
        */
       oListener?: object
     ): void;
     /**
-     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange}
+     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange }
      * event.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -30963,15 +31287,15 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to a dummy event provider object
        */
       oListener?: object
     ): void;
     /**
-     * Removes a previously attached event handler `fnFunction` from the static {@link #.blockLayerStateChange
-     * blockLayerStateChange} event.
+     * Removes a previously attached event handler `fnFunction` from the static {@link #.blockLayerStateChange blockLayerStateChange }
+     * event.
      *
      * The event gets triggered in case of modal popups when the first of multiple popups opens and closes.
      */
@@ -30979,7 +31303,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Popup$BlockLayerStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -31253,7 +31577,7 @@ declare module "sap/ui/core/Popup" {
      */
     exit(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -31266,7 +31590,7 @@ declare module "sap/ui/core/Popup" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -31607,7 +31931,7 @@ declare module "sap/ui/core/Popup" {
    * "Right" and "Left" will stay the same in RTL mode, but "Begin" and "End" will flip to the other side
    * ("Begin" is "Right" in RTL).
    */
-  export enum Dock {
+  enum Dock {
     BeginBottom = "begin bottom",
 
     BeginCenter = "begin center",
@@ -31659,6 +31983,30 @@ declare module "sap/ui/core/Popup" {
 
     closed?: (oEvent: Event) => void;
   }
+
+  export interface Popup$BlockLayerStateChangeEventParameters {
+    /**
+     * Indicates whether a blocking layer is currently visible `visible: true` or not `visible: false`
+     */
+    visible?: boolean;
+
+    /**
+     * In case a blocking layer is visible, the `zIndex` property will represent the zIndex at which the blocking
+     * layer is displayed. In case of `visible: false`, `zIndex` represents the zIndex value of the last open
+     * popup.
+     */
+    zIndex?: number;
+  }
+
+  export type Popup$BlockLayerStateChangeEvent = Event<Popup$BlockLayerStateChangeEventParameters>;
+
+  export interface Popup$ClosedEventParameters {}
+
+  export type Popup$ClosedEvent = Event<Popup$ClosedEventParameters>;
+
+  export interface Popup$OpenedEventParameters {}
+
+  export type Popup$OpenedEvent = Event<Popup$OpenedEventParameters>;
 }
 
 declare module "sap/ui/core/Renderer" {
@@ -31682,8 +32030,7 @@ declare module "sap/ui/core/Renderer" {
      * (its global name, in dot-notation), and an optional object literal that contains methods or fields to
      * be added to the new renderer class.
      *
-     * This signature has been designed to resemble the class extension mechanism as provided by {@link sap.ui.base.Object.extend
-     * Object.extend}.
+     * This signature has been designed to resemble the class extension mechanism as provided by {@link sap.ui.base.Object.extend Object.extend}.
      *
      *
      * ```javascript
@@ -31746,10 +32093,10 @@ declare module "sap/ui/core/Renderer" {
      * ```
      *
      *
-     * **Note:** The modern signature no longer requires the `bExport` flag to be set for the enclosing {@link
-     * sap.ui.define} call. The Renderer base class takes care of the necessary global export of the renderer.
-     * This allows non-SAP developers to write a renderer that complies with the documented restriction for
-     * `sap.ui.define` (no use of bExport = true outside sap.ui.core projects).
+     * **Note:** The modern signature no longer requires the `bExport` flag to be set for the enclosing {@link sap.ui.define }
+     * call. The Renderer base class takes care of the necessary global export of the renderer. This allows
+     * non-SAP developers to write a renderer that complies with the documented restriction for `sap.ui.define`
+     * (no use of bExport = true outside sap.ui.core projects).
      *
      * Deprecated Signature:
      *
@@ -31808,7 +32155,7 @@ declare module "sap/ui/core/Renderer" {
       oRendererInfo?: object
     ): object;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the TextAlignment for the provided configuration.
      *
@@ -31845,7 +32192,7 @@ declare module "sap/ui/core/RenderManager" {
    *
    * For the default rendering task of UI5, a shared RenderManager is created and owned by `sap.ui.core.Core`.
    * Controls or other code that want to render controls outside the default rendering task can create a private
-   * instance of RenderManager by calling the {@link sap.ui.core.Core#createRenderManager sap.ui.getCore().createRenderManager()}
+   * instance of RenderManager by calling the {@link sap.ui.core.Core#createRenderManager sap.ui.getCore().createRenderManager() }
    * method. When such a private instance is no longer needed, it should be {@link #destroy destroyed}.
    *
    * Control renderers only have access to a subset of the public and protected instance methods of this class.
@@ -31923,31 +32270,30 @@ declare module "sap/ui/core/RenderManager" {
    * new rendering technology:
    *
    *
-   * 	 - Legacy control renderers must be migrated to the new semantic renderer API: {@link sap.ui.core.RenderManager#openStart
-   * 			openStart}, {@link sap.ui.core.RenderManager#voidStart voidStart}, {@link sap.ui.core.RenderManager#style
-   * 			style}, {@link sap.ui.core.RenderManager#class class}, {@link sap.ui.core.RenderManager#attr attr}, {@link
-   * 			sap.ui.core.RenderManager#openEnd openEnd}, {@link sap.ui.core.RenderManager#voidEnd voidEnd}, {@link
-   * 			sap.ui.core.RenderManager#text text}, {@link sap.ui.core.RenderManager#unsafeHtml unsafeHtml}, {@link
-   * 			sap.ui.core.RenderManager#icon icon}, {@link sap.ui.core.RenderManager#accessibilityState accessibilityState},
-   * 			{@link sap.ui.core.RenderManager#renderControl renderControl}, {@link sap.ui.core.RenderManager#cleanupControlWithoutRendering
-   * 			cleanupControlWithoutRendering}
+   * 	 - Legacy control renderers must be migrated to the new semantic renderer API: {@link sap.ui.core.RenderManager#openStart openStart},
+   *     {@link sap.ui.core.RenderManager#voidStart voidStart}, {@link sap.ui.core.RenderManager#style style},
+   *     {@link sap.ui.core.RenderManager#class class}, {@link sap.ui.core.RenderManager#attr attr}, {@link sap.ui.core.RenderManager#openEnd openEnd},
+   *     {@link sap.ui.core.RenderManager#voidEnd voidEnd}, {@link sap.ui.core.RenderManager#text text}, {@link sap.ui.core.RenderManager#unsafeHtml unsafeHtml},
+   *     {@link sap.ui.core.RenderManager#icon icon}, {@link sap.ui.core.RenderManager#accessibilityState accessibilityState},
+   *     {@link sap.ui.core.RenderManager#renderControl renderControl}, {@link sap.ui.core.RenderManager#cleanupControlWithoutRendering cleanupControlWithoutRendering }
+   *
    * 	 - During the migration, restrictions that are defined in the API documentation of those methods must
-   * 			be taken into account, e.g. tag and attribute names must be set in their canonical form.
+   *     be taken into account, e.g. tag and attribute names must be set in their canonical form.
    * 	 - Fault tolerance of HTML5 markup is not applicable for the new semantic rendering API, e.g. except
-   * 			void tags, all tags must be closed; duplicate attributes within one HTML element must not exist.
+   *     void tags, all tags must be closed; duplicate attributes within one HTML element must not exist.
    * 	 - Existing control DOM structure will not be removed from the DOM tree; therefore all custom events,
-   * 			including the ones that are registered with jQuery, must be de-registered correctly at the `onBeforeRendering`
-   * 			and `exit` hooks.
+   *     including the ones that are registered with jQuery, must be de-registered correctly at the `onBeforeRendering`
+   *     and `exit` hooks.
    * 	 - Classes and attribute names must not be escaped.
    * 	 - Styles should be validated via types (e.g. `sap.ui.core.CSSSize`). But this might not be sufficient
-   * 			in all cases, e.g. validated URL values can contain harmful content; in this case {@link module:sap/base/security/encodeCSS
-   * 			encodeCSS} can be used.
-   * 	 - To allow a more efficient DOM update, second parameter of the {@link sap.ui.core.RenderManager#openStart
-   * 			openStart} or {@link sap.ui.core.RenderManager#voidStart voidStart} methods must be used to identify
-   * 			elements, e.g. use `rm.openStart("div", oControl.getId() + "-suffix");` instead of `rm.openStart("div").attr("id",
-   * 			oControl.getId() + "-suffix");`
+   *     in all cases, e.g. validated URL values can contain harmful content; in this case {@link module:sap/base/security/encodeCSS encodeCSS }
+   *     can be used.
+   * 	 - To allow a more efficient DOM update, second parameter of the {@link sap.ui.core.RenderManager#openStart openStart }
+   *     or {@link sap.ui.core.RenderManager#voidStart voidStart} methods must be used to identify elements, e.g.
+   *     use `rm.openStart("div", oControl.getId() + "-suffix");` instead of `rm.openStart("div").attr("id", oControl.getId()
+   *     + "-suffix");`
    * 	 - Controls that listen to the `focusin` event must double check their focus handling. Since DOM nodes
-   * 			are not removed and only reused, the `focusin` event might not be fired during rerendering.
+   *     are not removed and only reused, the `focusin` event might not be fired during rerendering.
    *
    * Contract for Renderer.apiVersion 4: The `apiVersion 4` marker of the control renderer lets the `RenderManager`
    * know if a control's output is not affected by changes in the parent control. By default, if a property,
@@ -31971,17 +32317,17 @@ declare module "sap/ui/core/RenderManager" {
    *
    * 	 - All the prerequisites of the `apiVersion 2` marker must be fulfilled by the control.
    * 	 - The behavior and rendering logic of the control must not rely on the assumption that it will always
-   * 			be re-rendered at the same time as its parent.
+   *     be re-rendered at the same time as its parent.
    * 	 - The `onBeforeRendering` and `onAfterRendering` hooks of the control must not be used to manipulate
-   * 			or access any elements outside of the control's own DOM structure.
+   *     or access any elements outside of the control's own DOM structure.
    * 	 - The control renderer must maintain a proper rendering encapsulation and render only the properties,
-   * 			aggregations, and associations that are specific to the control. The renderer should not reference or
-   * 			depend on any state of the parent control or any other external element.
+   *     aggregations, and associations that are specific to the control. The renderer should not reference or
+   *     depend on any state of the parent control or any other external element.
    * 	 - If certain aggregations are dependent on the state of the parent control, they must always be rendered
-   * 			together with their parent. To accomplish this, the parent control must use the {@link sap.ui.core.Control#invalidate
-   * 			invalidate} method to signal to the child controls that they need to re-render whenever the dependent
-   * 			state of the parent control changes. This guarantees that the child controls are always in sync with
-   * 			the parent control, regardless of the `apiVersion` definition of their renderer.
+   *     together with their parent. To accomplish this, the parent control must use the {@link sap.ui.core.Control#invalidate invalidate }
+   *     method to signal to the child controls that they need to re-render whenever the dependent state of the
+   *     parent control changes. This guarantees that the child controls are always in sync with the parent control,
+   *     regardless of the `apiVersion` definition of their renderer.
    *
    *
    * **Note:** The rendering can only be skipped if the renderer of each descendant control has the `apiVersion
@@ -31990,7 +32336,7 @@ declare module "sap/ui/core/RenderManager" {
    * property to `true` on the event delegate object can be done to indicate that those delegate handlers
    * are compliant with the `apiVersion:4` prerequisites and still allows for rendering optimization.
    *  The `canSkipRendering` property can also be used for the controls that enhance the accessibility state
-   * of child controls with implementing the {@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}
+   * of child controls with implementing the {@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState }
    * method. In this case, setting the `canSkipRendering` property to `true` lets the `RenderManager` know
    * that the parent control's accessibility enhancement is static and does not interfere with the child control's
    * rendering optimization.
@@ -32009,7 +32355,7 @@ declare module "sap/ui/core/RenderManager" {
     constructor();
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates the ID to be used for the invisible Placeholder DOM element. This method can be used to get direct
      * access to the placeholder DOM element. Also statically available as RenderManager.createInvisiblePlaceholderId()
@@ -32085,11 +32431,11 @@ declare module "sap/ui/core/RenderManager" {
      *
      * The values for the attributes are collected from the following sources (last one wins):
      * 	 - from the properties and associations of the given `oElement`, using a heuristic mapping (described
-     * 			below)
+     *     below)
      * 	 - from the `mProps` parameter, as provided by the caller
      * 	 - from the parent of the given `oElement`, if it has a parent and if the parent implements the method
-     * 			{@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
-     * 			is given, only `mProps` will be taken into account.
+     *     {@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
+     *     is given, only `mProps` will be taken into account.
      *
      * Heuristic Mapping: The following mapping from properties/values to ARIA attributes is used (if the element
      * does have such properties):
@@ -32155,11 +32501,11 @@ declare module "sap/ui/core/RenderManager" {
      *
      * The values for the attributes are collected from the following sources (last one wins):
      * 	 - from the properties and associations of the given `oElement`, using a heuristic mapping (described
-     * 			below)
+     *     below)
      * 	 - from the `mProps` parameter, as provided by the caller
      * 	 - from the parent of the given `oElement`, if it has a parent and if the parent implements the method
-     * 			{@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
-     * 			is given, only `mProps` will be taken into account.
+     *     {@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
+     *     is given, only `mProps` will be taken into account.
      *
      * Heuristic Mapping: The following mapping from properties/values to ARIA attributes is used (if the element
      * does have such properties):
@@ -32213,8 +32559,7 @@ declare module "sap/ui/core/RenderManager" {
       mProps?: object
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#class} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#class} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Adds a class to the class collection if the name is not empty or null. The class collection is flushed
      * if it is written to the buffer using {@link #writeClasses}
@@ -32228,8 +32573,7 @@ declare module "sap/ui/core/RenderManager" {
       sName: string
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#style} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#style} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Adds a style property to the style collection if the value is not empty or null The style collection
      * is flushed if it is written to the buffer using {@link #writeStyle}
@@ -32255,8 +32599,8 @@ declare module "sap/ui/core/RenderManager" {
      * must not be equal to `style` or `class`. Styles and classes must be set via dedicated `class` or `style`
      * methods. To update the DOM correctly, all attribute names have to be used in their canonical form. For
      * HTML elements, {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes attribute names} must
-     * all be set in lowercase. For foreign elements, such as SVG, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
-     * attribute names} can be set in upper camel case (e.g. viewBox).
+     * all be set in lowercase. For foreign elements, such as SVG, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute attribute names }
+     * can be set in upper camel case (e.g. viewBox).
      *
      * HTML entities are not supported by this method, use unicode escaping or the unicode character to implement
      * HTML entities. For further information see {@link https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references}.
@@ -32493,9 +32837,9 @@ declare module "sap/ui/core/RenderManager" {
      * Opens the start tag of an HTML element.
      *
      * This must be followed by `openEnd` and concluded with `close`. To allow a more efficient DOM update,
-     * all tag names have to be used in their canonical form. For HTML elements, {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-     * tag names} must all be set in lowercase. For foreign elements, such as SVG, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Element
-     * tag names} can be set in upper camel case (e.g. linearGradient).
+     * all tag names have to be used in their canonical form. For HTML elements, {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element tag names }
+     * must all be set in lowercase. For foreign elements, such as SVG, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Element tag names }
+     * can be set in upper camel case (e.g. linearGradient).
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -32568,8 +32912,8 @@ declare module "sap/ui/core/RenderManager" {
      *
      * Sets the text content with the given text.
      *
-     * Line breaks are not supported by this method, use CSS {@link https://www.w3.org/TR/CSS2/text.html#white-space-prop
-     * white-space: pre-line} option to implement line breaks.
+     * Line breaks are not supported by this method, use CSS {@link https://www.w3.org/TR/CSS2/text.html#white-space-prop white-space: pre-line }
+     * option to implement line breaks.
      *
      * HTML entities are not supported by this method, use unicode escaping or the unicode character to implement
      * HTML entities. For further information see {@link https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references}.
@@ -32676,8 +33020,7 @@ declare module "sap/ui/core/RenderManager" {
      */
     writeAcceleratorKey(): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#accessibilityState} of the {@link
-     * sap.ui.core.RenderManager Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#accessibilityState} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Collects accessibility related attributes for an `Element` and renders them as part of the currently
      * rendered DOM element.
@@ -32687,11 +33030,11 @@ declare module "sap/ui/core/RenderManager" {
      *
      * The values for the attributes are collected from the following sources (last one wins):
      * 	 - from the properties and associations of the given `oElement`, using a heuristic mapping (described
-     * 			below)
+     *     below)
      * 	 - from the `mProps` parameter, as provided by the caller
      * 	 - from the parent of the given `oElement`, if it has a parent and if the parent implements the method
-     * 			{@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
-     * 			is given, only `mProps` will be taken into account.
+     *     {@link sap.ui.core.Element#enhanceAccessibilityState enhanceAccessibilityState}  If no `oElement`
+     *     is given, only `mProps` will be taken into account.
      *
      * Heuristic Mapping: The following mapping from properties/values to ARIA attributes is used (if the element
      * does have such properties):
@@ -32749,8 +33092,7 @@ declare module "sap/ui/core/RenderManager" {
       mProps?: object
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Writes the attribute and its value into the HTML.
      *
@@ -32769,8 +33111,7 @@ declare module "sap/ui/core/RenderManager" {
       vValue: string | number | boolean
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Writes the attribute and a value into the HTML, the value will be encoded.
      *
@@ -32789,9 +33130,9 @@ declare module "sap/ui/core/RenderManager" {
       vValue: any
     ): this;
     /**
-     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic
-     * Rendering API} the actual writing of classes happens when {@link sap.ui.core.RenderManager#openEnd} or
-     * {@link sap.ui.core.RenderManager#voidEnd} are used.
+     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic Rendering API }
+     * the actual writing of classes happens when {@link sap.ui.core.RenderManager#openEnd} or {@link sap.ui.core.RenderManager#voidEnd }
+     * are used.
      *
      * Writes and flushes the class collection (all CSS classes added by "addClass()" since the last flush).
      * Also writes the custom style classes added by the application with "addStyleClass(...)". Custom classes
@@ -32807,7 +33148,7 @@ declare module "sap/ui/core/RenderManager" {
       oElement?: UI5Element | boolean
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart}
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart }
      * of the {@link sap.ui.core.RenderManager Semantic Rendering API} and pass the desired control data as
      * the second parameter to the new API.
      *
@@ -32822,7 +33163,7 @@ declare module "sap/ui/core/RenderManager" {
       oControl: Control
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart}
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart }
      * of the {@link sap.ui.core.RenderManager Semantic Rendering API} and pass the desired element data as
      * the second parameter to the new API.
      *
@@ -32837,8 +33178,7 @@ declare module "sap/ui/core/RenderManager" {
       oElement: UI5Element
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#text} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#text} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Escape text for HTML and write it to the buffer.
      *
@@ -32858,8 +33198,7 @@ declare module "sap/ui/core/RenderManager" {
       bLineBreaks?: boolean
     ): this;
     /**
-     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#icon} of the {@link sap.ui.core.RenderManager
-     * Semantic Rendering API}.
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#icon} of the {@link sap.ui.core.RenderManager Semantic Rendering API}.
      *
      * Writes either an <img> tag for normal URI or a <span> tag with needed properties for an icon
      * URI.
@@ -32888,9 +33227,9 @@ declare module "sap/ui/core/RenderManager" {
       mAttributes?: object
     ): this;
     /**
-     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic
-     * Rendering API} the actual writing of styles happens when {@link sap.ui.core.RenderManager#openEnd} or
-     * {@link sap.ui.core.RenderManager#voidEnd} are used.
+     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic Rendering API }
+     * the actual writing of styles happens when {@link sap.ui.core.RenderManager#openEnd} or {@link sap.ui.core.RenderManager#voidEnd }
+     * are used.
      *
      * Writes and flushes the style collection
      *
@@ -32923,7 +33262,7 @@ declare module "sap/ui/core/ResizeHandler" {
      */
     static deregister(
       /**
-       * The registration ID of the handler to deregister. The ID was provided by function {@link sap.ui.core.ResizeHandler.register}
+       * The registration ID of the handler to deregister. The ID was provided by function {@link sap.ui.core.ResizeHandler.register }
        * when the handler was registered.
        */
       sId: string
@@ -32963,8 +33302,8 @@ declare module "sap/ui/core/ResizeHandler" {
     /**
      * Registers the given event handler for resize events on the given DOM element or control.
      *
-     * **Note:** This function must not be used before the UI5 framework is initialized. Please use the {@link
-     * sap.ui.core.Core#attachInit init event} of UI5 if you are not sure whether this is the case.
+     * **Note:** This function must not be used before the UI5 framework is initialized. Please use the {@link sap.ui.core.Core#attachInit init event }
+     * of UI5 if you are not sure whether this is the case.
      *
      * The resize handler periodically checks the dimensions of the registered reference. Whenever it detects
      * changes, an event is fired. Be careful when changing dimensions within the event handler which might
@@ -33020,6 +33359,14 @@ declare module "sap/ui/core/routing/Route" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
+  import View from "sap/ui/core/mvc/View";
+
+  import ComponentContainer from "sap/ui/core/ComponentContainer";
+
+  import Control from "sap/ui/core/Control";
+
   /**
    * Configuration object for a route
    */
@@ -33032,17 +33379,17 @@ declare module "sap/ui/core/routing/Route" {
     /**
      * URL pattern where it needs to match again. A pattern may consist of the following:
      * 	 -  hardcoded parts: "pattern" : "product/settings" - this pattern will only match if the hash of the
-     * 			browser is product/settings and no arguments will be passed to the events of the route.
+     *     browser is product/settings and no arguments will be passed to the events of the route.
      *
      * 	 -  mandatory parameters: "pattern" : "product/{id}" - {id} is a mandatory parameter, e. g. the following
-     * 			hashes would match: product/5, product/3. The pattenMatched event will get 5 or 3 passed as id in its
-     * 			arguments.The hash product/ will not match.
+     *     hashes would match: product/5, product/3. The pattenMatched event will get 5 or 3 passed as id in its
+     *     arguments.The hash product/ will not match.
      *
      * 	 -  optional parameters: "pattern" : "product/{id}/detail/:detailId:" - :detailId: is an optional parameter,
-     * 			e. g. the following hashes would match: product/5/detail, product/3/detail/2
+     *     e. g. the following hashes would match: product/5/detail, product/3/detail/2
      *
      * 	 -  query parameters: "pattern" : "product{?query}" // {?query} allows you to pass queries with any
-     * 			parameters, e. g. the following hashes would match: product?first=firstValue, product?first=firstValue&second=secondValue
+     *     parameters, e. g. the following hashes would match: product?first=firstValue, product?first=firstValue&second=secondValue
      *    rest as string parameters: "pattern" : ":all*:" - this pattern will define an optional variable
      * that will pass the whole hash as string to the routing events. It may be used to define a catchall route,
      * e. g. the following hashes would match: foo, product/5/3, product/5/detail/3/foo. You can also combine
@@ -33099,14 +33446,14 @@ declare module "sap/ui/core/routing/Route" {
     targetControl?: string;
     /**
      * **Deprecated since 1.28, use `target.controlAggregation` instead.**
-     *  The name of an aggregation of the targetControl, that contains views. Eg: an {@link sap.m.NavContainer}
+     *  The name of an aggregation of the targetControl, that contains views. Eg: an {@link sap.m.NavContainer }
      * has an aggregation "pages", another Example is the {@link sap.ui.ux3.Shell} it has "content".
      */
     targetAggregation?: string;
     /**
      * **Deprecated since 1.28, use `target.clearControlAggregation` instead.**
      *  Defines a boolean that can be passed to specify if the aggregation should be cleared before adding the
-     * View to it. When using an {@link sap.ui.ux3.Shell} this should be true. For an {@link sap.m.NavContainer}
+     * View to it. When using an {@link sap.ui.ux3.Shell} this should be true. For an {@link sap.m.NavContainer }
      * it should be false
      */
     clearTarget?: boolean;
@@ -33187,7 +33534,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33207,7 +33554,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33232,7 +33579,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
        */
@@ -33252,7 +33599,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
        */
@@ -33278,7 +33625,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33299,7 +33646,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `Route` itself
        */
@@ -33325,7 +33672,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$BeforeMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33344,7 +33691,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$MatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33364,7 +33711,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Route$PatternMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33372,7 +33719,7 @@ declare module "sap/ui/core/routing/Route" {
     ): this;
     /**
      * @since 1.46.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeMatched beforeMatched} to attached listeners.
      *
@@ -33382,7 +33729,7 @@ declare module "sap/ui/core/routing/Route" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Route$BeforeMatchedEventParameters
     ): Router;
     /**
      * Returns the pattern of the route. If there are multiple patterns, the first pattern is returned
@@ -33415,6 +33762,146 @@ declare module "sap/ui/core/routing/Route" {
       sHash: string
     ): boolean;
   }
+
+  export interface Route$BeforeMatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The nested route instance of this route. The event is fired on this route because the pattern in the
+     * nested route is matched with the current URL hash. This parameter can be used to decide whether the current
+     * route is matched because of its nested child route. For more information about nested child route please
+     * refer to the documentation of oConfig.parent in {@link sap.ui.core.routing.Route#constructor}
+     */
+    nestedRoute?: Route;
+  }
+
+  export type Route$BeforeMatchedEvent = Event<Route$BeforeMatchedEventParameters>;
+
+  export interface Route$MatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The nested route instance of this route. The event is fired on this route because the pattern in the
+     * nested route is matched with the current URL hash. This parameter can be used to decide whether the current
+     * route is matched because of its nested child route. For more information about nested child route please
+     * refer to the documentation of oConfig.parent in {@link sap.ui.core.routing.Route#constructor}
+     */
+    nestedRoute?: Route;
+
+    /**
+     * The first View or ComponentContainer instance which is created out of the first target. If multiple targets
+     * are displayed, use oEvent.getParameters.views to get all instances
+     */
+    view?: View | ComponentContainer;
+
+    /**
+     * All View or ComponentContainer instances which are created out of the targets.
+     */
+    views?: Array<View | ComponentContainer>;
+
+    /**
+     * The container control to which the first View or ComponentContainer is added. If multiple targets are
+     * displayed, use oEvent.getParameters.targetControls to get all container controls
+     */
+    targetControl?: Control;
+
+    /**
+     * The container controls to which the View or ComponentContainer instances are added.
+     */
+    targetControls?: Control[];
+  }
+
+  export type Route$MatchedEvent = Event<Route$MatchedEventParameters>;
+
+  export interface Route$PatternMatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The first View or ComponentContainer instance which is created out of the first target. If multiple targets
+     * are displayed, use oEvent.getParameters.views to get all instances
+     */
+    view?: View | ComponentContainer;
+
+    /**
+     * All View or ComponentContainer instances which are created out of the targets.
+     */
+    views?: Array<View | ComponentContainer>;
+
+    /**
+     * The container control to which the first View or ComponentContainer is added. If multiple targets are
+     * displayed, use oEvent.getParameters.targetControls to get all container controls
+     */
+    targetControl?: Control;
+
+    /**
+     * The container controls to which the View or ComponentContainer instances are added.
+     */
+    targetControls?: Control[];
+  }
+
+  export type Route$PatternMatchedEvent = Event<Route$PatternMatchedEventParameters>;
+
+  export interface Route$SwitchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+  }
+
+  export type Route$SwitchedEvent = Event<Route$SwitchedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/Target" {
@@ -33425,6 +33912,8 @@ declare module "sap/ui/core/routing/Target" {
   import View from "sap/ui/core/mvc/View";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Configuration object for a routing Target
@@ -33503,8 +33992,7 @@ declare module "sap/ui/core/routing/Target" {
     usage?: string;
     /**
      * The type of the view that is going to be created. These are the supported types: {@link sap.ui.core.mvc.ViewType}.
-     * You always have to provide a viewType except it's defined in the shared `config` or when using {@link
-     * sap.ui.core.routing.Views#setView}.
+     * You always have to provide a viewType except it's defined in the shared `config` or when using {@link sap.ui.core.routing.Views#setView}.
      */
     viewType?: string;
     /**
@@ -33536,7 +34024,7 @@ declare module "sap/ui/core/routing/Target" {
     controlId?: string;
     /**
      * The name of an aggregation of the controlId, where the created instance from the target will be added.
-     * Eg: a {@link sap.m.NavContainer} has an aggregation 'pages', another Example is the {@link sap.ui.ux3.Shell}
+     * Eg: a {@link sap.m.NavContainer} has an aggregation 'pages', another Example is the {@link sap.ui.ux3.Shell }
      * it has 'content'.
      */
     controlAggregation?: string;
@@ -33696,7 +34184,7 @@ declare module "sap/ui/core/routing/Target" {
     static getMetadata(): Metadata;
     /**
      * @since 1.46.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This function is called between the target view is loaded and the view is added to the container.
      *
@@ -33739,7 +34227,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
        */
@@ -33757,14 +34245,14 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Destroys the target, will be called by {@link sap.m.routing.Targets} don't call this directly.
      *
@@ -33782,7 +34270,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Target$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -33808,7 +34296,7 @@ declare module "sap/ui/core/routing/Target" {
       control: Control;
     }>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -33818,7 +34306,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Target$DisplayEventParameters
     ): this;
     /**
      * Suspends the object which is loaded by the target.
@@ -33831,12 +34319,43 @@ declare module "sap/ui/core/routing/Target" {
      */
     suspend(): Target;
   }
+
+  export interface Target$DisplayEventParameters {
+    /**
+     * The view that got displayed.
+     */
+    view?: object;
+
+    /**
+     * The control that now contains the view in the controlAggregation
+     */
+    control?: object;
+
+    /**
+     * The options object passed to the constructor {@link sap.ui.core.routing.Target#constructor}
+     */
+    config?: object;
+
+    /**
+     * The data passed into the {@link sap.ui.core.routing.Target#display} function
+     */
+    data?: object;
+
+    /**
+     * Whether the target is relevant to the matched route or not
+     */
+    routeRelevant?: object;
+  }
+
+  export type Target$DisplayEvent = Event<Target$DisplayEventParameters>;
 }
 
 declare module "sap/ui/core/routing/HashChanger" {
   import HashChangerBase from "sap/ui/core/routing/HashChangerBase";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Class for manipulating and receiving changes of the browser hash with the hasher framework.
@@ -33883,7 +34402,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hashChanger to a new instance, destroys the old one and copies all its event listeners to the
      * new one
@@ -33895,7 +34414,7 @@ declare module "sap/ui/core/routing/HashChanger" {
       oHashChanger: HashChanger
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Cleans the event registration
      * See:
@@ -33903,7 +34422,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     destroy(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires the hashchanged event, may be extended to modify the hash before fireing the event
      */
@@ -33924,7 +34443,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     getHash(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Defines the events and its parameters which should be used for tracking the hash changes
      *
@@ -33961,25 +34480,25 @@ declare module "sap/ui/core/routing/HashChanger" {
   }
   /**
    * @since 1.82.0
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the event info for the events that are forwarded to {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventInfo = {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the event that is fired by the HashChanger and should be forwarded to the RouterHashChanger
      */
     name: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
      */
     paramMapping?: HashChangerEventParameterMapping;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
      * other routing classes, for example {@link sap.ui.core.routing.History}.
@@ -33989,13 +34508,13 @@ declare module "sap/ui/core/routing/HashChanger" {
 
   /**
    * @since 1.82.0
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object containing the parameter mapping for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
    */
   export type HashChangerEventParameterMapping = {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `newHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34003,7 +34522,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     newHash?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34011,7 +34530,7 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     oldHash?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
@@ -34019,6 +34538,15 @@ declare module "sap/ui/core/routing/HashChanger" {
      */
     fullHash?: string;
   };
+
+  export interface HashChanger$HashSetEventParameters {
+    /**
+     * The relevant hash segment
+     */
+    hash?: string;
+  }
+
+  export type HashChanger$HashSetEvent = Event<HashChanger$HashSetEventParameters>;
 }
 
 declare module "sap/ui/core/routing/HashChangerBase" {
@@ -34028,8 +34556,10 @@ declare module "sap/ui/core/routing/HashChangerBase" {
 
   import { routing } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Base Class for manipulating and receiving changes of hash segment.
    *
@@ -34037,12 +34567,12 @@ declare module "sap/ui/core/routing/HashChangerBase" {
    */
   export default class HashChangerBase extends EventProvider {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.HashChangerBase with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -34067,7 +34597,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.HashChangerBase.
      *
@@ -34075,7 +34605,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -34098,7 +34628,7 @@ declare module "sap/ui/core/routing/HashChangerBase" {
         | keyof typeof routing.HistoryDirection
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -34110,6 +34640,34 @@ declare module "sap/ui/core/routing/HashChangerBase" {
       sHash: string
     ): void;
   }
+
+  export interface HashChangerBase$HashChangedEventParameters {
+    /**
+     * The hash segment before it's changed
+     */
+    oldHash?: string;
+
+    /**
+     * The new hash segment
+     */
+    newHash?: object;
+
+    /**
+     * The full format of the hash if the newHash only contains part of the relevant hash
+     */
+    fullHash?: string;
+  }
+
+  export type HashChangerBase$HashChangedEvent = Event<HashChangerBase$HashChangedEventParameters>;
+
+  export interface HashChangerBase$HashReplacedEventParameters {
+    /**
+     * The relevant hash segment
+     */
+    hash?: string;
+  }
+
+  export type HashChangerBase$HashReplacedEvent = Event<HashChangerBase$HashReplacedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/History" {
@@ -34161,9 +34719,9 @@ declare module "sap/ui/core/routing/History" {
      *
      * The function returns `undefined` when
      * 	 - The current state in browser's history pushState isn't initialized, for example, between a new hash
-     * 			is set or replaced and the "hashChange" event is processed by this class
+     *     is set or replaced and the "hashChange" event is processed by this class
      * 	 - History pushState is already used before UI5 History is initialized, and UI5 can't maintain the hash
-     * 			history by using the browser pushState
+     *     history by using the browser pushState
      *
      * Once the "hashChange" event is processed by this class, this method always returns 0. However, before
      * a "hashChange" event reaches this class, it returns the offset between the new hash and the previous
@@ -34205,6 +34763,12 @@ declare module "sap/ui/core/routing/Router" {
   import View from "sap/ui/core/mvc/View";
 
   import Views from "sap/ui/core/routing/Views";
+
+  import Event from "sap/ui/base/Event";
+
+  import ComponentContainer from "sap/ui/core/ComponentContainer";
+
+  import Control from "sap/ui/core/Control";
 
   export type RouteInfo = {
     /**
@@ -34498,7 +35062,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34517,7 +35081,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34542,7 +35106,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34562,7 +35126,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34585,7 +35149,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34603,7 +35167,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34630,7 +35194,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34652,7 +35216,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34675,7 +35239,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34693,7 +35257,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
        */
@@ -34764,7 +35328,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BeforeRouteMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34783,7 +35347,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$BypassedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34800,7 +35364,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RouteMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34821,7 +35385,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$RoutePatternMatchedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34838,7 +35402,7 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Router$TitleChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -34864,7 +35428,7 @@ declare module "sap/ui/core/routing/Router" {
       oListener: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRouteMatched beforeRouteMatched} to attached listeners.
      *
@@ -34874,10 +35438,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Router$BeforeRouteMatchedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:bypassed bypassed} to attached listeners.
      *
@@ -34889,10 +35453,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Router$BypassedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routeMatched routeMatched} to attached listeners.
      *
@@ -34902,10 +35466,10 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Router$RouteMatchedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:routePatternMatched routePatternMatched} to attached listeners.
      *
@@ -34918,11 +35482,11 @@ declare module "sap/ui/core/routing/Router" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Router$RoutePatternMatchedEventParameters
     ): this;
     /**
      * @deprecated (since 1.28) - use {@link #getViews} instead.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:viewCreated viewCreated} to attached listeners.
      *
@@ -35230,7 +35794,7 @@ declare module "sap/ui/core/routing/Router" {
       bReplace?: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Will trigger routing events + place targets for routes matching the string.
      */
@@ -35282,6 +35846,163 @@ declare module "sap/ui/core/routing/Router" {
      */
     stop(): Router;
   }
+
+  export interface Router$BeforeRouteMatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The nested route instance of this route. The event is fired on this route because the pattern in the
+     * nested route is matched with the current URL hash. This parameter can be used to decide whether the current
+     * route is matched because of its nested child route. For more information about nested child route please
+     * refer to the documentation of oConfig.parent in {@link sap.ui.core.routing.Route#constructor}
+     */
+    nestedRoute?: Route;
+  }
+
+  export type Router$BeforeRouteMatchedEvent = Event<Router$BeforeRouteMatchedEventParameters>;
+
+  export interface Router$BypassedEventParameters {
+    /**
+     * the current URL hash which did not match any route
+     */
+    hash?: string;
+  }
+
+  export type Router$BypassedEvent = Event<Router$BypassedEventParameters>;
+
+  export interface Router$RouteMatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The nested route instance of this route. The event is fired on this route because the pattern in the
+     * nested route is matched with the current URL hash. This parameter can be used to decide whether the current
+     * route is matched because of its nested child route. For more information about nested child route please
+     * refer to the documentation of oConfig.parent in {@link sap.ui.core.routing.Route#constructor}
+     */
+    nestedRoute?: Route;
+
+    /**
+     * The first View or ComponentContainer instance which is created out of the first target. If multiple targets
+     * are displayed, use oEvent.getParameters.views to get all instances
+     */
+    view?: View | ComponentContainer;
+
+    /**
+     * All View or ComponentContainer instances which are created out of the targets.
+     */
+    views?: Array<View | ComponentContainer>;
+
+    /**
+     * The container control to which the first View or ComponentContainer is added. If multiple targets are
+     * displayed, use oEvent.getParameters.targetControls to get all container controls
+     */
+    targetControl?: Control;
+
+    /**
+     * The container controls to which the View or ComponentContainer instances are added.
+     */
+    targetControls?: Control[];
+  }
+
+  export type Router$RouteMatchedEvent = Event<Router$RouteMatchedEventParameters>;
+
+  export interface Router$RoutePatternMatchedEventParameters {
+    /**
+     * The name of the route
+     */
+    name?: string;
+
+    /**
+     * A key-value pair object which contains the arguments defined in the route resolved with the corresponding
+     * information from the current URL hash
+     */
+    arguments?: object;
+
+    /**
+     * The configuration object of the route
+     */
+    config?: object;
+
+    /**
+     * The first View or ComponentContainer instance which is created out of the first target. If multiple targets
+     * are displayed, use oEvent.getParameters.views to get all instances
+     */
+    view?: View | ComponentContainer;
+
+    /**
+     * All View or ComponentContainer instances which are created out of the targets.
+     */
+    views?: Array<View | ComponentContainer>;
+
+    /**
+     * The container control to which the first View or ComponentContainer is added. If multiple targets are
+     * displayed, use oEvent.getParameters.targetControls to get all container controls
+     */
+    targetControl?: Control;
+
+    /**
+     * The container controls to which the View or ComponentContainer instances are added.
+     */
+    targetControls?: Control[];
+  }
+
+  export type Router$RoutePatternMatchedEvent = Event<Router$RoutePatternMatchedEventParameters>;
+
+  export interface Router$TitleChangedEventParameters {
+    /**
+     * The current displayed title
+     */
+    title?: string;
+
+    /**
+     * An array which contains the history of previous titles
+     */
+    history?: any[];
+
+    /**
+     * An array which contains the title history information of the current router and of the router of the
+     * nested components, so the application doesn't need to merge the `nestedHistory` with the `history` parameter
+     * together. If a hierarchical control is used to show the title information (like the sap.m.Breadcrumbs
+     * control), the application can simply use the `nestedHistory` to build up the control and doesn't need
+     * the `history` anymore.
+     */
+    nestedHistory?: any[];
+
+    /**
+     * Whether the titleChanged event is triggered by a nested component
+     */
+    propagated?: boolean;
+  }
+
+  export type Router$TitleChangedEvent = Event<Router$TitleChangedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/RouterHashChanger" {
@@ -35294,7 +36015,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
   import Router from "sap/ui/core/routing/Router";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Class for manipulating and receiving changes of the relevant hash segment which belongs to a router.
    * This Class doesn't change the browser hash directly, but informs its parent RouterHashChanger and finally
@@ -35302,12 +36023,12 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
    */
   export default class RouterHashChanger extends HashChangerBase {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.core.routing.RouterHashChanger with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -35332,7 +36053,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.core.routing.RouterHashChanger.
      *
@@ -35340,7 +36061,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Save the given hash and potentially fires a "hashChanged" event; may be extended to modify the hash before
      * firing the event.
@@ -35361,7 +36082,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bUpdateHashOnly: boolean
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets the current hash
      *
@@ -35369,7 +36090,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     getHash(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -35401,7 +36122,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       bSuppressActiveHashCollect?: boolean
     ): Promise<any> | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Reset the hash if the given router is the active router that is saved in this RouterHashChanger
      *
@@ -35417,7 +36138,7 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
       oRouter: Router
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
      * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
@@ -35461,34 +36182,36 @@ declare module "sap/ui/core/routing/Targets" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.84.0
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Object containing the target info for displaying targets
    */
   export type TargetInfo = {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Defines the name of the target that is going to be displayed
      */
     name: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * A prefix that is used for reserving a dedicated section in the browser hash for the router of this target.
      * This needs to be set only for target that has type "Component"
      */
     prefix?: string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the titleChanged event from this target should be propagated to the parent or not
      */
     propagateTitle?: boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Whether the target is relevant to the current matched route or not. If 'true', then the dynamic target
      * is linked to the route's life cycle. When switching to a different route, then the dynamic target will
@@ -35496,7 +36219,7 @@ declare module "sap/ui/core/routing/Targets" {
      */
     routeRelevant?: boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Since 1.90. Whether the router of the "Component" target ignores the browser hash when it's re-initialized.
      * This parameter only has effect when the target is of type "Component" and its router is currently stopped.
@@ -35575,7 +36298,7 @@ declare module "sap/ui/core/routing/Targets" {
          * The id of the rootView - This should be the id of the view that contains the control with the controlId
          * since the control will be retrieved by calling the {@link sap.ui.core.mvc.View#byId} function of the
          * rootView. If you are using a component and add the routing.targets **do not set this parameter**, since
-         * the component will set the rootView to the view created by the {@link sap.ui.core.UIComponent#createContent}
+         * the component will set the rootView to the view created by the {@link sap.ui.core.UIComponent#createContent }
          * function. If you specify the "parent" property of a target, the control will not be searched in the root
          * view but in the view Created by the parent (see parent documentation).
          */
@@ -35636,8 +36359,7 @@ declare module "sap/ui/core/routing/Targets" {
        */
       sName: string,
       /**
-       * Options of a target. The option names are the same as the ones in "oOptions.targets.anyName" of {@link
-       * #constructor}.
+       * Options of a target. The option names are the same as the ones in "oOptions.targets.anyName" of {@link #constructor}.
        */
       oTargetOptions: $TargetSettings
     ): this;
@@ -35658,7 +36380,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -35676,7 +36398,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -35699,7 +36421,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -35717,7 +36439,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
        */
@@ -35741,7 +36463,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35758,7 +36480,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Targets$TitleChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -35781,8 +36503,8 @@ declare module "sap/ui/core/routing/Targets" {
        */
       oData?: object,
       /**
-       * the name of the target from which the title option is taken for firing the {@link sap.ui.core.routing.Targets#event:titleChanged
-       * titleChanged} event
+       * the name of the target from which the title option is taken for firing the {@link sap.ui.core.routing.Targets#event:titleChanged titleChanged }
+       * event
        */
       sTitleTarget?: string
     ):
@@ -35807,7 +36529,7 @@ declare module "sap/ui/core/routing/Targets" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Targets$DisplayEventParameters
     ): this;
     /**
      * Returns a target by its name (if you pass myTarget: { view: "myView" }) in the config myTarget is the
@@ -35835,6 +36557,54 @@ declare module "sap/ui/core/routing/Targets" {
      */
     getViews(): Views;
   }
+
+  export interface Targets$DisplayEventParameters {
+    /**
+     * The view that got displayed.
+     */
+    view?: object;
+
+    /**
+     * The control that now contains the view in the controlAggregation
+     */
+    control?: object;
+
+    /**
+     * The options object passed to the constructor {@link sap.ui.core.routing.Targets#constructor}
+     */
+    config?: object;
+
+    /**
+     * The name of the target firing the event
+     */
+    name?: object;
+
+    /**
+     * The data passed into the {@link sap.ui.core.routing.Targets#display} function
+     */
+    data?: object;
+
+    /**
+     * Whether the target is relevant to the matched route or not
+     */
+    routeRelevant?: object;
+  }
+
+  export type Targets$DisplayEvent = Event<Targets$DisplayEventParameters>;
+
+  export interface Targets$TitleChangedEventParameters {
+    /**
+     * The current displayed title
+     */
+    title?: string;
+
+    /**
+     * The name of the displayed target
+     */
+    name?: string;
+  }
+
+  export type Targets$TitleChangedEvent = Event<Targets$TitleChangedEventParameters>;
 }
 
 declare module "sap/ui/core/routing/Views" {
@@ -35846,6 +36616,8 @@ declare module "sap/ui/core/routing/Views" {
 
   import View from "sap/ui/core/mvc/View";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.28.1
    */
@@ -35853,7 +36625,7 @@ declare module "sap/ui/core/routing/Views" {
     /**
      * Instantiates a view repository that creates and caches views. If it is destroyed, all the Views it created
      * are destroyed. Usually you do not have to create instances of this class, it is used by the {@link sap.ui.core.routing.Router}.
-     * If you are using {@link sap.ui.core.routing.Targets} without using a {@link sap.ui.core.UIComponent}
+     * If you are using {@link sap.ui.core.routing.Targets} without using a {@link sap.ui.core.UIComponent }
      * you have to create an instance of this class. They will create an instance on their own, or if they are
      * used with a {@link sap.ui.core.UIComponent} they will share the same instance of Views.
      */
@@ -35900,7 +36672,7 @@ declare module "sap/ui/core/routing/Views" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -35910,7 +36682,7 @@ declare module "sap/ui/core/routing/Views" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: Views$CreatedEventParameters
     ): this;
     /**
      * Returns a cached view, for a given name. If it does not exist yet, it will create the view with the provided
@@ -35955,18 +36727,32 @@ declare module "sap/ui/core/routing/Views" {
       oView: View | null | undefined
     ): this;
   }
+
+  export interface Views$CreatedEventParameters {
+    /**
+     * the instance of the created view.
+     */
+    view?: View;
+
+    /**
+     * The view options passed to {@link sap.ui.view}
+     */
+    viewOptions?: object;
+  }
+
+  export type Views$CreatedEvent = Event<Views$CreatedEventParameters>;
 }
 
 declare module "sap/ui/core/ScrollBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
-  import { ScrollBarAction, CSSSize } from "sap/ui/core/library";
+  import { CSSSize, ScrollBarAction } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.56)
@@ -36056,7 +36842,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
        */
@@ -36076,7 +36862,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
        */
@@ -36102,14 +36888,14 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ScrollBar$ScrollEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
@@ -36119,24 +36905,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Actions are: Click on track, button, drag of thumb, or mouse wheel click.
-         */
-        action?: ScrollBarAction | keyof typeof ScrollBarAction;
-        /**
-         * Direction of scrolling: back (up) or forward (down).
-         */
-        forward?: boolean;
-        /**
-         * Current Scroll position either in pixels or in steps.
-         */
-        newScrollPos?: int;
-        /**
-         * Old Scroll position - can be in pixels or in steps.
-         */
-        oldScrollPos?: int;
-      }
+      mParameters?: ScrollBar$ScrollEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getContentSize contentSize}.
@@ -36305,8 +37074,32 @@ declare module "sap/ui/core/ScrollBar" {
     /**
      * Scroll event.
      */
-    scroll?: (oEvent: Event) => void;
+    scroll?: (oEvent: ScrollBar$ScrollEvent) => void;
   }
+
+  export interface ScrollBar$ScrollEventParameters {
+    /**
+     * Actions are: Click on track, button, drag of thumb, or mouse wheel click.
+     */
+    action?: ScrollBarAction | keyof typeof ScrollBarAction;
+
+    /**
+     * Direction of scrolling: back (up) or forward (down).
+     */
+    forward?: boolean;
+
+    /**
+     * Current Scroll position either in pixels or in steps.
+     */
+    newScrollPos?: int;
+
+    /**
+     * Old Scroll position - can be in pixels or in steps.
+     */
+    oldScrollPos?: int;
+  }
+
+  export type ScrollBar$ScrollEvent = Event<ScrollBar$ScrollEventParameters>;
 }
 
 declare module "sap/ui/core/search/OpenSearchProvider" {
@@ -36606,8 +37399,8 @@ declare module "sap/ui/core/SeparatorItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor
-     * sap.ui.core.Item} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor sap.ui.core.Item }
+     * can be used.
      */
     constructor(
       /**
@@ -36622,8 +37415,8 @@ declare module "sap/ui/core/SeparatorItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor
-     * sap.ui.core.Item} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor sap.ui.core.Item }
+     * can be used.
      */
     constructor(
       /**
@@ -36668,6 +37461,21 @@ declare module "sap/ui/core/SeparatorItem" {
   }
 
   export interface $SeparatorItemSettings extends $ItemSettings {}
+}
+
+declare module "sap/ui/core/service/Service" {
+  import Component from "sap/ui/core/Component";
+
+  export type Context = {
+    /**
+     * Object that is in scope (e.g. component instance)
+     */
+    scopeObject: Component;
+    /**
+     * Type of object that is in scope
+     */
+    scopeType: "component";
+  };
 }
 
 declare module "sap/ui/core/support/RuleEngineOpaExtension" {
@@ -36802,8 +37610,7 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
    *
    * It enriches the OPA assertions with the methods described in {@link sap.ui.core.support.RuleEngineOpaAssertions}.
    *
-   * For more information, see {@link topic:cfabbd4dfc054936997d9d00916e1668 Integrating the Support Assistant
-   * in OPA Tests}.
+   * For more information, see {@link https://ui5.sap.com/#/topic/cfabbd4dfc054936997d9d00916e1668 Integrating the Support Assistant in OPA Tests}.
    */
   export default class RuleEngineOpaExtension extends BaseObject {
     constructor();
@@ -36862,16 +37669,16 @@ declare module "sap/ui/core/theming/Parameters" {
      *
      *  The following API variants are available (see also the below examples):
      * 	 -  **(deprecated since 1.92)** If no parameter is given a key-value map containing all parameters is
-     * 			returned
+     *     returned
      * 	 -  **(deprecated since 1.94)** If a `string` is given as first parameter the value is returned as a
-     * 			`string`
+     *     `string`
      * 	 -  **(deprecated since 1.94)** If an `array` is given as first parameter a key-value map containing
-     * 			all parameters from the `array` is returned
+     *     all parameters from the `array` is returned
      * 	 - If an `object` is given as first parameter the result is returned immediately in case all parameters
-     * 			are loaded and available or within the callback in case not all CSS files are already loaded. This is
-     * 			the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
-     * 			The structure of the return value is the same as listed above depending on the type of the name property
-     * 			within the `object`.
+     *     are loaded and available or within the callback in case not all CSS files are already loaded. This is
+     *     the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
+     *     The structure of the return value is the same as listed above depending on the type of the name property
+     *     within the `object`.
      *
      * The returned key-value maps are a copy so changing values in the map does not have any effect
      *
@@ -37632,8 +38439,8 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor
-     * sap.ui.core.tmpl.Template} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor sap.ui.core.tmpl.Template }
+     * can be used.
      */
     constructor(
       /**
@@ -37651,8 +38458,8 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor
-     * sap.ui.core.tmpl.Template} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor sap.ui.core.tmpl.Template }
+     * can be used.
      */
     constructor(
       /**
@@ -37717,8 +38524,8 @@ declare module "sap/ui/core/tmpl/Template" {
 
   /**
    * @since 1.15
-   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0
-   * Typed View} instead.
+   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    *
    * Base Class for Template.
    */
@@ -37761,7 +38568,7 @@ declare module "sap/ui/core/tmpl/Template" {
       mSettings?: $TemplateSettings
     );
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * parses the given path and extracts the model and path
      */
@@ -38132,7 +38939,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for an aggregation to get notified once the property changes to invalidate the
      * control and trigger a re-rendering.
@@ -38146,7 +38953,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a pseudo binding for a property to get notified once the property changes to invalidate the control
      * and trigger a re-rendering.
@@ -38160,7 +38967,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       sPath: string
     ): any;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -38183,7 +38990,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -38202,7 +39009,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -38221,7 +39028,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new control
      *
@@ -38236,7 +39043,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * compiles (creates and registers) a new DOM element
      *
@@ -38293,7 +39100,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:afterRendering afterRendering} to attached listeners.
      *
@@ -38306,7 +39113,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       mParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeRendering beforeRendering} to attached listeners.
      *
@@ -38333,7 +39140,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplate(): ID;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the instance specific renderer for an anonymous template control.
      *
@@ -38341,7 +39148,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     getTemplateRenderer(): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * checks whether the control is inline or not
      *
@@ -38378,7 +39185,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oTemplate: ID | Template
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the instance specific renderer for an anonymous template control.
      *
@@ -38415,6 +39222,14 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      */
     beforeRendering?: (oEvent: Event) => void;
   }
+
+  export interface TemplateControl$AfterRenderingEventParameters {}
+
+  export type TemplateControl$AfterRenderingEvent = Event<TemplateControl$AfterRenderingEventParameters>;
+
+  export interface TemplateControl$BeforeRenderingEventParameters {}
+
+  export type TemplateControl$BeforeRenderingEvent = Event<TemplateControl$BeforeRenderingEventParameters>;
 }
 
 declare module "sap/ui/core/TooltipBase" {
@@ -38563,7 +39378,7 @@ declare module "sap/ui/core/TooltipBase" {
     ): this;
     /**
      * @since 1.11.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -38879,6 +39694,10 @@ declare module "sap/ui/core/TooltipBase" {
      */
     closed?: (oEvent: Event) => void;
   }
+
+  export interface TooltipBase$ClosedEventParameters {}
+
+  export type TooltipBase$ClosedEvent = Event<TooltipBase$ClosedEventParameters>;
 }
 
 declare module "sap/ui/core/UIArea" {
@@ -38902,8 +39721,8 @@ declare module "sap/ui/core/UIArea" {
    * An area in a page that hosts a tree of UI elements.
    *
    * `UIArea`s are fully managed by the UI5 {@link sap.ui.core.Core Core}. They cannot be created by the application
-   * but are implicitly created by the Core when controls are placed via {@link sap.ui.core.Control#placeAt
-   * Control#placeAt} at a new DOM element for which no `UIArea` exists yet.
+   * but are implicitly created by the Core when controls are placed via {@link sap.ui.core.Control#placeAt Control#placeAt }
+   * at a new DOM element for which no `UIArea` exists yet.
    *
    * `UIArea`s are essential for the rendering of controls. Controls get rendered only when they are directly
    * or indirectly contained in the `content` aggregation of a `UIArea`. `Control#placeAt` ensures that there
@@ -38926,6 +39745,12 @@ declare module "sap/ui/core/UIArea" {
    */
   export default class UIArea extends ManagedObject {
     constructor();
+    /**
+     * @since 1.107
+     *
+     * Registry of all `sap.ui.core.Element`s that currently exist.
+     */
+    static registry: registry;
 
     /**
      * @since 1.62
@@ -39012,7 +39837,7 @@ declare module "sap/ui/core/UIArea" {
      */
     destroyDependents(): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Provide getBindingContext, as UIArea can be parent of an element.
      *
@@ -39033,7 +39858,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getDependents(): Control[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the Core's event provider as new eventing parent to enable control event bubbling to the core
      * to ensure compatibility with the core validation events.
@@ -39068,7 +39893,7 @@ declare module "sap/ui/core/UIArea" {
      */
     getRootNode(): Element;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns this UI area. Needed to stop recursive calls from an element to its parent.
      *
@@ -39134,7 +39959,7 @@ declare module "sap/ui/core/UIArea" {
       iIndex: int
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Triggers asynchronous re-rendering of the `UIArea`'s content.
      *
@@ -39143,7 +39968,7 @@ declare module "sap/ui/core/UIArea" {
      */
     invalidate(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the control is still valid (is in the DOM)
      *
@@ -39151,7 +39976,7 @@ declare module "sap/ui/core/UIArea" {
      */
     isActive(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether re-rendering is currently suppressed on this UIArea.
      *
@@ -39251,7 +40076,7 @@ declare module "sap/ui/core/UIArea" {
    *
    * Registry of all `sap.ui.core.Element`s that currently exist.
    */
-  export interface registry {
+  interface registry {
     /**
      * Number of existing UIAreas.
      */
@@ -39528,9 +40353,9 @@ declare module "sap/ui/core/UIComponent" {
      * are not limited to views as return type but may return any control, but only a single control (can be
      * the root of a larger control tree, however).
      *
-     * A `sap.ui.core.UIComponent` subclass can additionally implement the {@link sap.ui.core.IAsyncContentCreation}
+     * A `sap.ui.core.UIComponent` subclass can additionally implement the {@link sap.ui.core.IAsyncContentCreation }
      * interface. When implementing this interface the loading and processing of an asynchronous `rootView`
-     * will be chained into the result Promise of the {@link sap.ui.core.Component.create Component.create}
+     * will be chained into the result Promise of the {@link sap.ui.core.Component.create Component.create }
      * factory. An additional async flag can be omitted. See Sample 1 below.
      *
      * Samples 2 and 3 show how subclasses can overwrite the `createContent` function to run asynchronously.
@@ -39555,10 +40380,10 @@ declare module "sap/ui/core/UIComponent" {
     ): string;
     /**
      * @since 1.15.1
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * A method to be implemented by UIComponents, returning the flag whether to prefix the IDs of controls
-     * automatically or not if the controls are created inside the {@link sap.ui.core.UIComponent#createContent}
+     * automatically or not if the controls are created inside the {@link sap.ui.core.UIComponent#createContent }
      * function. By default this feature is not activated.
      *
      * You can overwrite this function and return `true` to activate the automatic prefixing. In addition the
@@ -39568,7 +40393,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getAutoPrefixId(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the parent in the eventing hierarchy of this object which will be the UIArea of the containing
      * ComponentContainer or null.
@@ -39594,7 +40419,7 @@ declare module "sap/ui/core/UIComponent" {
     ): string | null;
     /**
      * @since 1.44.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the content of {@link sap.ui.core.UIComponent#createContent}. If you specified a `rootView` in
      * your metadata or in the descriptor file (manifest.json), you will get the instance of the root view.
@@ -39645,7 +40470,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     getUIArea(): UIArea;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the component instance after creation.
      *
@@ -39657,7 +40482,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     init(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is completed.
      *
@@ -39667,7 +40492,7 @@ declare module "sap/ui/core/UIComponent" {
      */
     onAfterRendering(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Function is called when the rendering of the ComponentContainer is started.
      *
@@ -39693,10 +40518,10 @@ declare module "sap/ui/core/UIComponent" {
      * For UIComponents implementing the {@link sap.ui.core.IAsyncContentCreation} interface, there are two
      * possible cases:
      * 	 -  The `UIComponent` overwrites the {@link sap.ui.core.UIComponent#createContent} function and returns
-     * 			a Promise. The `rootControlLoaded` function will then return the same Promise.
+     *     a Promise. The `rootControlLoaded` function will then return the same Promise.
      * 	 -  The `UIComponent` defines a root view via its manifest. The root view is then automatically created
-     * 			asynchronously, and the `rootControlLoaded` function returns a Promise which resolves with the fully
-     * 			loaded and processed root view instance.
+     *     asynchronously, and the `rootControlLoaded` function returns a Promise which resolves with the fully
+     *     loaded and processed root view instance.
      *
      * For synchronous root control creation the Promise resolves immediately with the root control instance
      * or null if none was created.
@@ -39779,12 +40604,12 @@ declare module "sap/ui/core/UIComponent" {
    */
   export type RoutingMetadata = {
     /**
-     * An array containing the routes that should be added to the router. See {@link sap.ui.core.routing.Route}
+     * An array containing the routes that should be added to the router. See {@link sap.ui.core.routing.Route }
      * for the allowed properties.
      */
     routes?: $RouteSettings[] | Record<string, $RouteSettings>;
     /**
-     * Since 1.16. An object containing default values used for routes and targets. See {@link sap.ui.core.routing.Router#constructor}
+     * Since 1.16. An object containing default values used for routes and targets. See {@link sap.ui.core.routing.Router#constructor }
      * and {@link sap.ui.core.routing.Targets} for more documentation.
      */
     config?: {
@@ -39804,7 +40629,7 @@ declare module "sap/ui/core/UIComponent" {
        */
       targetsClass?: string | Function;
       /**
-       * By default, the root view will be set to the ID of the view returned by the {@link sap.ui.core.UIComponent#getRootView}
+       * By default, the root view will be set to the ID of the view returned by the {@link sap.ui.core.UIComponent#getRootView }
        * function. You should not set this parameter if you create a view with the UIComponent.
        */
       rootView?: string;
@@ -40164,7 +40989,7 @@ declare module "sap/ui/core/util/ExportCell" {
    * @since 1.22.0
    * @deprecated (since 1.73)
    *
-   * Contains content that can be used to export data. Used in {@link sap.ui.core.util.ExportColumn ExportColumn}
+   * Contains content that can be used to export data. Used in {@link sap.ui.core.util.ExportColumn ExportColumn }
    * / {@link sap.ui.core.util.Export Export}.
    */
   export default class ExportCell extends UI5Element {
@@ -40638,7 +41463,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handles the generation process of the file.
      *
@@ -40652,7 +41477,7 @@ declare module "sap/ui/core/util/ExportType" {
       oExport: Export
     ): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a cell "generator" (inspired by ES6 Generators)
      *
@@ -40660,7 +41485,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     cellGenerator(): Generator;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a column "generator" (inspired by ES6 Generators)
      *
@@ -40668,7 +41493,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     columnGenerator(): Generator;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *  Should be implemented by the individual types!
@@ -40695,7 +41520,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getCharset(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of columns.
      *
@@ -40719,7 +41544,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getMimeType(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the number of rows.
      *
@@ -40727,7 +41552,7 @@ declare module "sap/ui/core/util/ExportType" {
      */
     getRowCount(): int;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a row "generator" (inspired by ES6 Generators)
      *
@@ -40911,7 +41736,7 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Generates the file content.
      *
@@ -41024,11 +41849,7 @@ declare module "sap/ui/core/util/MockServer" {
       /**
        * optional map/JSON-object with initial property values, aggregated objects etc. for the new object
        */
-      mSettings?: $MockServerSettings,
-      /**
-       * scope object for resolving string based type and formatter references in bindings
-       */
-      oScope?: object
+      mSettings?: $MockServerSettings
     );
     /**
      * Creates a mocked server. This helps to mock some back-end calls, e.g. for OData V2/JSON Models or simple
@@ -41049,12 +41870,12 @@ declare module "sap/ui/core/util/MockServer" {
       /**
        * optional map/JSON-object with initial property values, aggregated objects etc. for the new object
        */
-      mSettings?: $MockServerSettings,
-      /**
-       * scope object for resolving string based type and formatter references in bindings
-       */
-      oScope?: object
+      mSettings?: $MockServerSettings
     );
+    /**
+     * Enum for the method.
+     */
+    static HTTPMETHOD: typeof HTTPMETHOD;
 
     /**
      * Global configuration of all mock servers.
@@ -41065,7 +41886,7 @@ declare module "sap/ui/core/util/MockServer" {
        */
       mConfig: {
         /**
-         * If set true, all mock servers will respond automatically. If set false you have to call {@link sap.ui.core.util.MockServer.respond}
+         * If set true, all mock servers will respond automatically. If set false you have to call {@link sap.ui.core.util.MockServer.respond }
          * method for response.
          */
         autoRespond?: boolean;
@@ -41357,7 +42178,7 @@ declare module "sap/ui/core/util/MockServer" {
   /**
    * Enum for the method.
    */
-  export enum HTTPMETHOD {
+  enum HTTPMETHOD {
     DELETE = "DELETE",
 
     GET = "GET",
@@ -41418,7 +42239,7 @@ declare module "sap/ui/core/util/MockServer" {
      * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
      *
      * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
-     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML }
      * or {@link #respond}, using the given `iStatus` and `mHeaders`.
      *
      * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
@@ -41442,7 +42263,7 @@ declare module "sap/ui/core/util/MockServer" {
      * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
      *
      * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
-     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML }
      * or {@link #respond}, using the given `iStatus` and `mHeaders`.
      *
      * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
@@ -41462,7 +42283,7 @@ declare module "sap/ui/core/util/MockServer" {
      * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
      *
      * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
-     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML }
      * or {@link #respond}, using the given `iStatus` and `mHeaders`.
      *
      * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
@@ -41482,7 +42303,7 @@ declare module "sap/ui/core/util/MockServer" {
      * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
      *
      * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
-     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML }
      * or {@link #respond}, using the given `iStatus` and `mHeaders`.
      *
      * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
@@ -41515,7 +42336,7 @@ declare module "sap/ui/core/util/MockServer" {
       /**
        * A valid JSON-string or a JSON-stringifiable object that should be sent as response body
        */
-      vBody?: object | string
+      vBody?: object | string | any[] | number | boolean
     ): void;
     /**
      * Convenience variant of {@link #respond} which simplifies sending an XML response.
@@ -41986,9 +42807,14 @@ declare module "sap/ui/core/ws/ReadyState" {
 }
 
 declare module "sap/ui/core/ws/SapPcpWebSocket" {
-  import WebSocket from "sap/ui/core/ws/WebSocket";
+  import {
+    default as WebSocket,
+    WebSocket$MessageEventParameters,
+  } from "sap/ui/core/ws/WebSocket";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * WebSocket class implementing the pcp-protocol.
@@ -42003,11 +42829,17 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
        */
       sUrl: string,
       /**
-       * array of protocols as strings, a single protocol as a string. Protocol(s) should be selected from {@link
-       * sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS}.
+       * array of protocols as strings, a single protocol as a string. Protocol(s) should be selected from {@link sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS}.
        */
       aProtocols?: any[]
     );
+    /**
+     * Protocol versions.
+     *
+     * One (or more) of these have to be selected to create an SapPcpWebSocket connection (or no protocol at
+     * all).
+     */
+    static SUPPORTED_PROTOCOLS: typeof SUPPORTED_PROTOCOLS;
 
     /**
      * Creates a new subclass of class sap.ui.core.ws.SapPcpWebSocket with name `sClassName` and enriches it
@@ -42039,7 +42871,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -42049,16 +42881,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * Received data from the server.
-         */
-        data?: string;
-        /**
-         * Received pcpFields as a key-value map.
-         */
-        pcpFields?: string;
-      }
+      oParameters?: SapPcpWebSocket$MessageEventParameters
     ): this;
     /**
      * Sends a message and optional pcp-header-fields using the pcp-protocol.
@@ -42084,9 +42907,19 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
    * One (or more) of these have to be selected to create an SapPcpWebSocket connection (or no protocol at
    * all).
    */
-  export enum SUPPORTED_PROTOCOLS {
+  enum SUPPORTED_PROTOCOLS {
     v10 = "v10.pcp.sap.com",
   }
+
+  export interface SapPcpWebSocket$MessageEventParameters
+    extends WebSocket$MessageEventParameters {
+    /**
+     * Received pcpFields as a key-value map.
+     */
+    pcpFields?: string;
+  }
+
+  export type SapPcpWebSocket$MessageEvent = Event<SapPcpWebSocket$MessageEventParameters>;
 }
 
 declare module "sap/ui/core/ws/WebSocket" {
@@ -42097,6 +42930,8 @@ declare module "sap/ui/core/ws/WebSocket" {
   import Metadata from "sap/ui/base/Metadata";
 
   import ReadyState from "sap/ui/core/ws/ReadyState";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Basic WebSocket class.
@@ -42162,7 +42997,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -42180,7 +43015,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -42244,7 +43079,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -42262,7 +43097,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `WebSocket` itself
        */
@@ -42346,7 +43181,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to call, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -42380,7 +43215,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * The function to call, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: WebSocket$MessageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -42404,7 +43239,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -42414,23 +43249,10 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * Close code provided by the server
-         */
-        code?: string;
-        /**
-         * Reason from server for closing the connection
-         */
-        reason?: string;
-        /**
-         * Indicates whether the connection was cleanly closed or not
-         */
-        wasClean?: string;
-      }
+      oParameters?: WebSocket$CloseEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:error error} to attached listeners.
      *
@@ -42443,7 +43265,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       oParameters?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:message message} to attached listeners.
      *
@@ -42453,15 +43275,10 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * Received data from the server
-         */
-        data?: string;
-      }
+      oParameters?: WebSocket$MessageEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -42507,6 +43324,42 @@ declare module "sap/ui/core/ws/WebSocket" {
       sMessage: string
     ): this;
   }
+
+  export interface WebSocket$CloseEventParameters {
+    /**
+     * Close code provided by the server.
+     */
+    code?: string;
+
+    /**
+     * Reason from server for closing the connection.
+     */
+    reason?: string;
+
+    /**
+     * Indicates whether the connection was cleanly closed or not.
+     */
+    wasClean?: string;
+  }
+
+  export type WebSocket$CloseEvent = Event<WebSocket$CloseEventParameters>;
+
+  export interface WebSocket$ErrorEventParameters {}
+
+  export type WebSocket$ErrorEvent = Event<WebSocket$ErrorEventParameters>;
+
+  export interface WebSocket$MessageEventParameters {
+    /**
+     * Received data from the server.
+     */
+    data?: string;
+  }
+
+  export type WebSocket$MessageEvent = Event<WebSocket$MessageEventParameters>;
+
+  export interface WebSocket$OpenEventParameters {}
+
+  export type WebSocket$OpenEvent = Event<WebSocket$OpenEventParameters>;
 }
 
 declare module "sap/ui/core/XMLComposite" {
@@ -42640,9 +43493,9 @@ declare module "sap/ui/core/XMLComposite" {
      * ```
      *
      *
-     * **Note:** {@link topic:b11d853a8e784db6b2d210ef57b0f7d7 Requiring modules in XML} will result in side
-     * effects that might cause the XMLComposite to not work properly. We suggest you require the needed modules
-     * inside the JavaScript coding of the class extending the XMLComposite.
+     * **Note:** {@link https://ui5.sap.com/#/topic/b11d853a8e784db6b2d210ef57b0f7d7 Requiring modules in XML }
+     * will result in side effects that might cause the XMLComposite to not work properly. We suggest you require
+     * the needed modules inside the JavaScript coding of the class extending the XMLComposite.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -42650,7 +43503,7 @@ declare module "sap/ui/core/XMLComposite" {
      * See:
      * 	sap.ui.core.Control
      * 	sap.ui.core.Fragment
-     * 	{@link topic:b83a4dcb7d0e46969027345b8d32fd44 XML Composite Controls}
+     * 	{@link https://ui5.sap.com/#/topic/b83a4dcb7d0e46969027345b8d32fd44 XML Composite Controls}
      */
     constructor();
 
@@ -42684,7 +43537,7 @@ declare module "sap/ui/core/XMLComposite" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an element by its ID in the context of the XMLComposite.
      *
@@ -42699,7 +43552,7 @@ declare module "sap/ui/core/XMLComposite" {
       sId: string
     ): UI5Element | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -42828,11 +43681,89 @@ declare module "sap/ui/Device" {
    * if it is needed, to create the UI5 bootstrap dynamically depending on the capabilities of the browser
    * or device.
    */
-  interface Device {}
+  interface Device {
+    /**
+     * Contains information about the used browser.
+     */
+    browser: typeof browser;
+
+    /**
+     * Event API for screen width changes.
+     *
+     * This API is based on media queries but can also be used if media queries are not natively supported by
+     * the used browser. In this case, the behavior of media queries is simulated by this API.
+     *
+     * There are several predefined {@link sap.ui.Device.media.RANGESETS range sets} available. Each of them
+     * defines a set of intervals for the screen width (from small to large). Whenever the screen width changes
+     * and the current screen width is in a different interval to the one before the change, the registered
+     * event handlers for the range set are called.
+     *
+     * If needed, it is also possible to define a custom set of intervals.
+     *
+     * The following example shows a typical use case:
+     * ```javascript
+     *
+     * function sizeChanged(mParams) {
+     *     switch(mParams.name) {
+     *         case "Phone":
+     *             // Do what is needed for a little screen
+     *             break;
+     *         case "Tablet":
+     *             // Do what is needed for a medium sized screen
+     *             break;
+     *         case "Desktop":
+     *             // Do what is needed for a large screen
+     *     }
+     * }
+     *
+     * // Register an event handler to changes of the screen size
+     * sap.ui.Device.media.attachHandler(sizeChanged, null, sap.ui.Device.media.RANGESETS.SAP_STANDARD);
+     * // Do some initialization work based on the current size
+     * sizeChanged(sap.ui.Device.media.getCurrentRange(sap.ui.Device.media.RANGESETS.SAP_STANDARD));
+     * ```
+     */
+    media: typeof media;
+
+    /**
+     * Common API for orientation change notifications across all platforms.
+     *
+     * For browsers or devices that do not provide native support for orientation change events the API simulates
+     * them based on the ratio of the document's width and height.
+     */
+    orientation: typeof orientation;
+
+    /**
+     * Contains information about the operating system of the Device.
+     */
+    os: typeof os;
+
+    /**
+     * Common API for document window size change notifications across all platforms.
+     */
+    resize: typeof resize;
+
+    /**
+     * Contains information about detected capabilities of the used browser or Device.
+     */
+    support: typeof support;
+
+    /**
+     * Provides a basic categorization of the used device based on various indicators.
+     *
+     * These indicators are, for example, the support of touch events, the used operating system, and the user
+     * agent of the browser.
+     *
+     * **Note:** There is no easy way to precisely determine the used device from the information provided by
+     * the browser. We therefore rely especially on the user agent. In combination with given device capabilities,
+     * it is therefore possible that multiple flags are set to `true`. This is mostly the case for desktop devices
+     * with touch capability, and for mobile devices requesting web pages as desktop pages.
+     */
+    system: typeof system;
+  }
   const Device: Device;
   export default Device;
 
-  export namespace browser {
+  namespace browser {
     /**
      * @since 1.56.0
      *
@@ -42961,7 +43892,7 @@ declare module "sap/ui/Device" {
     }
   }
 
-  export namespace media {
+  namespace media {
     /**
      * Registers the given event handler to change events of the screen width based on the range set with the
      * specified name.
@@ -42973,7 +43904,7 @@ declare module "sap/ui/Device" {
      * about the entered interval:
      * 	 - `mParams.from`: The start value (inclusive) of the entered interval as a number
      * 	 - `mParams.to`: The end value (exclusive) range of the entered interval as a number or undefined for
-     * 			the last interval (infinity)
+     *     the last interval (infinity)
      * 	 - `mParams.unit`: The unit used for the values above, e.g. `"px"`
      * 	 - `mParams.name`: The name of the entered interval, if available
      */
@@ -43018,8 +43949,8 @@ declare module "sap/ui/Device" {
        */
       oListener?: object,
       /**
-       * The name of the range set to listen to. If no name is provided, the {@link sap.ui.Device.media.RANGESETS.SAP_STANDARD
-       * default range set} is used.
+       * The name of the range set to listen to. If no name is provided, the {@link sap.ui.Device.media.RANGESETS.SAP_STANDARD default range set }
+       * is used.
        */
       sName?: string
     ): void;
@@ -43066,7 +43997,7 @@ declare module "sap/ui/Device" {
      * Initializes a screen width media query range set.
      *
      * This initialization step makes the range set ready to be used for one of the other functions in namespace
-     * `sap.ui.Device.media`. The most important {@link sap.ui.Device.media.RANGESETS predefined range sets}
+     * `sap.ui.Device.media`. The most important {@link sap.ui.Device.media.RANGESETS predefined range sets }
      * are initialized automatically.
      *
      * To make a not yet initialized {@link sap.ui.Device.media.RANGESETS predefined range set} ready to be
@@ -43086,12 +44017,12 @@ declare module "sap/ui/Device" {
      * 	 - `"Small"`: For screens smaller than 200 pixels.
      * 	 - `"Medium"`: For screens greater than or equal to 200 pixels and smaller than 400 pixels.
      * 	 - `"Large"`: For screens greater than or equal to 400 pixels.  The range names are optional. If
-     * 			they are specified a CSS class (e.g. `sapUiMedia-MyRangeSet-Small`) is also added to the document root
-     * 			depending on the current active range. This can be suppressed via parameter `bSuppressClasses`.
+     *     they are specified a CSS class (e.g. `sapUiMedia-MyRangeSet-Small`) is also added to the document root
+     *     depending on the current active range. This can be suppressed via parameter `bSuppressClasses`.
      */
     function initRangeSet(
       /**
-       * The name of the range set to be initialized - either a {@link sap.ui.Device.media.RANGESETS predefined}
+       * The name of the range set to be initialized - either a {@link sap.ui.Device.media.RANGESETS predefined }
        * or custom one. The name must be a valid id and consist only of letters and numeric digits.
        */
       sName: string,
@@ -43118,7 +44049,7 @@ declare module "sap/ui/Device" {
       bSuppressClasses?: boolean
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Removes a previously initialized range set and detaches all registered handlers.
      *
@@ -43190,7 +44121,7 @@ declare module "sap/ui/Device" {
        * 	 - `"Tablet"`: For screens greater than or equal to 600 pixels and smaller than 1024 pixels.
        * 	 - `"Desktop"`: For screens greater than or equal to 1024 pixels.
        *
-       * This range set is initialized by default. An initialization via {@link sap.ui.Device.media.initRangeSet}
+       * This range set is initialized by default. An initialization via {@link sap.ui.Device.media.initRangeSet }
        * is not needed.
        *
        * A CSS class is added to the page root (`html` tag) which indicates the current screen width range: `sapUiMedia-Std-NAME_OF_THE_INTERVAL`.
@@ -43215,7 +44146,7 @@ declare module "sap/ui/Device" {
        * 	 - `"Desktop"`: For screens greater than or equal to 1024 pixels and smaller than 1440 pixels.
        * 	 - `"LargeDesktop"`: For screens greater than or equal to 1440 pixels.
        *
-       * This range set is initialized by default. An initialization via {@link sap.ui.Device.media.initRangeSet}
+       * This range set is initialized by default. An initialization via {@link sap.ui.Device.media.initRangeSet }
        * is not needed.
        *
        * A CSS class is added to the page root (`html` tag) which indicates the current screen width range: `sapUiMedia-StdExt-NAME_OF_THE_INTERVAL`.
@@ -43224,7 +44155,7 @@ declare module "sap/ui/Device" {
     }
   }
 
-  export namespace orientation {
+  namespace orientation {
     /**
      * If this flag is set to `true`, the screen is currently in landscape mode (the width is greater than the
      * height).
@@ -43246,7 +44177,7 @@ declare module "sap/ui/Device" {
      * The event handler is called with a single argument: a map `mParams` which provides the following information:
      *
      * 	 - `mParams.landscape`: If this flag is set to `true`, the screen is currently in landscape mode, otherwise
-     * 			in portrait mode.
+     *     in portrait mode.
      */
     function attachHandler(
       /**
@@ -43278,7 +44209,7 @@ declare module "sap/ui/Device" {
     ): void;
   }
 
-  export namespace os {
+  namespace os {
     /**
      * If this flag is set to `true`, an Android operating system is used.
      */
@@ -43365,7 +44296,7 @@ declare module "sap/ui/Device" {
     }
   }
 
-  export namespace resize {
+  namespace resize {
     /**
      * The current height of the document's window in pixels.
      */
@@ -43416,7 +44347,7 @@ declare module "sap/ui/Device" {
     ): void;
   }
 
-  export namespace support {
+  namespace support {
     /**
      * If this flag is set to `true`, the used browser natively supports media queries via JavaScript.
      *
@@ -43455,7 +44386,7 @@ declare module "sap/ui/Device" {
      * If this flag is set to `true`, the used browser supports touch events.
      *
      * **Note:** This flag indicates whether the used browser supports touch events or not. This does not necessarily
-     * mean that the used device has a touchable screen. **Note:** This flag also affects other {@link sap.ui.Device}
+     * mean that the used device has a touchable screen. **Note:** This flag also affects other {@link sap.ui.Device }
      * properties. For more information, see the documentation for {@link sap.ui.Device.browser.mobile} and
      * {@link sap.ui.Device.system.combi} devices.
      */
@@ -43467,7 +44398,7 @@ declare module "sap/ui/Device" {
     export const websocket: boolean;
   }
 
-  export namespace system {
+  namespace system {
     /**
      * If this flag is set to `true`, the device is recognized as a combination of a desktop system and tablet.
      *
@@ -43541,7 +44472,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 
   /**
    * @experimental - This module is only for experimental use!
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for OData entity sets with aggregate semantics.
    *
@@ -43556,7 +44487,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
    */
   export default class AnalyticalBinding extends TreeBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -43624,7 +44555,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.analytics.AnalyticalBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -43649,7 +44580,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.analytics.AnalyticalBinding.
      *
@@ -44077,7 +45008,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       aSorter: Sorter | any[]
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's structure with new analytical information.
      *
@@ -44086,7 +45017,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      * 	 - A column bound to a dimension property has further boolean properties:
      * 	grouped: dimension is used for building groups
      * 	 - inResult: if the column is not visible, but declared to be part of the result, values for the related
-     * 			property are also fetched from the OData service
+     *     property are also fetched from the OData service
      * 	 - visible: if the column is visible, values for the related property are fetched from the OData service
      *
      * 	 - A column bound to a measure property has further boolean properties:
@@ -44098,7 +45029,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      * 	 - A column bound to a hierarchy property has further properties:
      * 	grouped: boolean value; indicates whether the hierarchy is used for building groups
      * 	 - level: integer value; the hierarchy level is mandatory for at least one of those columns that represent
-     * 			the same hierarchy
+     *     the same hierarchy
      *
      * Invoking this function resets the state of the binding and subsequent data requests such as calls to
      * getNodeContexts() trigger OData requests in order to fetch the data that are in line with this analytical
@@ -44124,7 +45055,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
   export default class AnalyticalTreeBindingAdapter {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -44132,7 +45063,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
     constructor();
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Retrieves the currently set number of expanded levels from the Binding (commonly an AnalyticalBinding).
      *
@@ -44146,7 +45077,7 @@ declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
      */
     hasTotaledMeasures(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the number of expanded levels on the TreeBinding (commonly an AnalyticalBinding). This is NOT the
      * same as AnalyticalTreeBindingAdapter#collapse or AnalyticalTreeBindingAdapter#expand. Setting the number
@@ -44254,7 +45185,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
 
   /**
    * @experimental - This module is only for experimental use!
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The OData4Analytics API is purely experimental, not yet functionally complete and not meant for productive
    * usage. At present, its only purpose is to demonstrate how easy analytical extensions of OData4SAP can
@@ -44265,6 +45196,11 @@ declare module "sap/ui/model/analytics/odata4analytics" {
    * Lazy initialization of attributes will cause unexpected values when you access object attributes directly.
    */
   interface odata4analytics {
+    /**
+     * Sort order of a property.
+     */
+    SortOrder: typeof SortOrder;
+
     /**
      * Specify which components of the dimension shall be included in the value set.
      */
@@ -44995,7 +45931,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
      */
     constructor(
       /**
-       * An instance of {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel} or {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceWithWorkaround}
+       * An instance of {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel} or {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceWithWorkaround }
        * for locating the OData service. {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI} is
        * deprecated.
        */
@@ -45003,10 +45939,10 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * Additional parameters for controlling the model construction. Currently supported are:
        * 	 -  sAnnotationJSONDoc - A JSON document providing extra annotations to the elements of the structure
-       * 			of the given service
+       *     of the given service
        * 	 -  modelVersion (deprecated) - Parameter to define which ODataModel version should be used if you use
-       * 			{@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI}; supported values are: 1 (default),
-       * 			2
+       *     {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI}; supported values are: 1 (default),
+       *     2
        */
       mParameter?: object
     );
@@ -45989,7 +46925,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
   /**
    * Sort order of a property.
    */
-  export enum SortOrder {
+  enum SortOrder {
     /**
      * Sort Order: ascending.
      */
@@ -46016,7 +46952,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       );
     }
     /**
-     * @deprecated (since 1.94) - use {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel}
+     * @deprecated (since 1.94) - use {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel }
      * instead
      *
      * Handle to an OData model by the URI pointing to it.
@@ -46045,11 +46981,11 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        *
        *
        * 	 - "CreateLabelsFromTechnicalNames" - If a property has no label text, it gets generated from the property
-       * 			name.
+       *     name.
        *
        *
        * 	 - "IdentifyTextPropertiesByName" -If a dimension property has no text and another property with the
-       * 			same name and an appended "Name", "Text" etc. exists, they are linked via annotation.
+       *     same name and an appended "Name", "Text" etc. exists, they are linked via annotation.
        */
       constructor(
         /**
@@ -46127,7 +47063,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -46142,7 +47078,7 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
       fnFilter: Function
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Private method iterating the registered bindings of this model instance and initiating their check for
      * update
@@ -46179,6 +47115,10 @@ declare module "sap/ui/model/Binding" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import DataState from "sap/ui/model/DataState";
+
+  import Event from "sap/ui/base/Event";
+
   /**
    * The Binding is the object, which holds the necessary information for a data binding, like the binding
    * path and the binding context, and acts like an interface to the model for the control, so it is the event
@@ -46200,7 +47140,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * The context object
        */
-      oContext: Context,
+      oContext?: Context,
       /**
        * Additional, implementation-specific parameters
        */
@@ -46237,9 +47177,9 @@ declare module "sap/ui/model/Binding" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * Attaches event handler `fnFunction` to the {@link #event:AggregatedDataStateChange AggregatedDataStateChange}
+     * Attaches event handler `fnFunction` to the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -46304,7 +47244,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches the `fnFunction` event handler to the {@link #event:DataStateChange DataStateChange} event of
      * thi `sap.ui.model.Binding`.
@@ -46323,7 +47263,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attach multiple events.
      *
@@ -46336,7 +47276,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      *
@@ -46361,16 +47301,16 @@ declare module "sap/ui/model/Binding" {
      */
     destroy(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * Detaches event handler `fnFunction` from the {@link #event:AggregatedDataStateChange AggregatedDataStateChange}
+     * Detaches event handler `fnFunction` from the {@link #event:AggregatedDataStateChange AggregatedDataStateChange }
      * event of this `sap.ui.model.Binding`.
      */
     detachAggregatedDataStateChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Binding$AggregatedDataStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -46383,7 +47323,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * Function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Binding$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -46396,7 +47336,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * Function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Binding$DataReceivedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -46417,7 +47357,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:DataStateChange DataStateChange} event of
      * this `sap.ui.model.Binding`.
@@ -46426,14 +47366,14 @@ declare module "sap/ui/model/Binding" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Binding$DataStateChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detach multiple events.
      *
@@ -46446,7 +47386,7 @@ declare module "sap/ui/model/Binding" {
       oEvents: Record<string, Function>
     ): Binding;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      */
@@ -46461,7 +47401,7 @@ declare module "sap/ui/model/Binding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataReceived dataReceived} to attached listeners.
      *
@@ -46471,15 +47411,10 @@ declare module "sap/ui/model/Binding" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters: {
-        /**
-         * Data received; on error cases it will be undefined
-         */
-        data?: object;
-      }
+      oParameters: Binding$DataReceivedEventParameters
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:dataRequested dataRequested} to attached listeners.
      */
@@ -46496,7 +47431,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Context object
      */
-    getContext(): Context;
+    getContext(): null | undefined | Context;
     /**
      * @since 1.82.0
      *
@@ -46518,7 +47453,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Model to which this binding belongs
      */
-    getModel(): Model;
+    getModel(): null | Model;
     /**
      * Returns the model path to which this binding binds.
      *
@@ -46527,7 +47462,7 @@ declare module "sap/ui/model/Binding" {
      *
      * @returns Binding path
      */
-    getPath(): string;
+    getPath(): null | string;
     /**
      * @since 1.88.0
      *
@@ -46538,7 +47473,7 @@ declare module "sap/ui/model/Binding" {
      */
     getResolvedPath(): string | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. The default implementation
      * calls checkUpdate(true).
@@ -46631,7 +47566,7 @@ declare module "sap/ui/model/Binding" {
      */
     suspend(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the binding should be updated by comparing the current model against a specified model.
      *
@@ -46644,6 +47579,47 @@ declare module "sap/ui/model/Binding" {
       oModel: object
     ): boolean;
   }
+
+  export interface Binding$AggregatedDataStateChangeEventParameters {
+    /**
+     * The `DataState` object of the binding
+     */
+    dataState?: DataState;
+  }
+
+  export type Binding$AggregatedDataStateChangeEvent = Event<Binding$AggregatedDataStateChangeEventParameters>;
+
+  export interface Binding$ChangeEventParameters {
+    /**
+     * A string stating the reason for the data change; some change reasons can be found in {@link sap.ui.model.ChangeReason},
+     * but there may be additional reasons specified by a specific model implementation
+     */
+    reason?: string;
+  }
+
+  export type Binding$ChangeEvent = Event<Binding$ChangeEventParameters>;
+
+  export interface Binding$DataReceivedEventParameters {
+    /**
+     * The data received; is `undefined` in error cases
+     */
+    data?: string;
+  }
+
+  export type Binding$DataReceivedEvent = Event<Binding$DataReceivedEventParameters>;
+
+  export interface Binding$DataRequestedEventParameters {}
+
+  export type Binding$DataRequestedEvent = Event<Binding$DataRequestedEventParameters>;
+
+  export interface Binding$DataStateChangeEventParameters {
+    /**
+     * The `DataState` object of the binding
+     */
+    dataState?: DataState;
+  }
+
+  export type Binding$DataStateChangeEvent = Event<Binding$DataStateChangeEventParameters>;
 }
 
 declare module "sap/ui/model/BindingMode" {
@@ -46807,13 +47783,13 @@ declare module "sap/ui/model/ClientListBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for client models.
    */
   export default class ClientListBinding extends ListBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientListBinding.
      *
@@ -46849,7 +47825,7 @@ declare module "sap/ui/model/ClientListBinding" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientListBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -46874,7 +47850,7 @@ declare module "sap/ui/model/ClientListBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientListBinding.
      *
@@ -46904,15 +47880,15 @@ declare module "sap/ui/model/ClientListBinding" {
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
-     * In case of extended change detection, the context array may have an additional `diff` property, see {@link
-     * topic:7cdff73f308b4b10bdf7d83b7aba72e7 documentation on extended change detection} for details.
+     * In case of extended change detection, the context array may have an additional `diff` property, see {@link https://ui5.sap.com/#/topic/7cdff73f308b4b10bdf7d83b7aba72e7 documentation on extended change detection }
+     * for details.
      *
      * **Note:**The public usage of this method is deprecated, as calls from outside of controls will lead to
-     * unexpected side effects. To avoid this, use {@link sap.ui.model.ListBinding.prototype.getCurrentContexts}
+     * unexpected side effects. To avoid this, use {@link sap.ui.model.ListBinding.prototype.getCurrentContexts }
      * instead.
      *
      * @returns The array of contexts for each row of the bound list
@@ -47033,13 +48009,13 @@ declare module "sap/ui/model/ClientPropertyBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for client models.
    */
   export default class ClientPropertyBinding extends PropertyBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientPropertyBinding.
      *
@@ -47067,7 +48043,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientPropertyBinding with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -47092,7 +48068,7 @@ declare module "sap/ui/model/ClientPropertyBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientPropertyBinding.
      *
@@ -47118,7 +48094,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for client models.
    *
@@ -47131,7 +48107,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
    */
   export default class ClientTreeBinding extends TreeBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new ClientTreeBinding.
      *
@@ -47168,7 +48144,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new subclass of class sap.ui.model.ClientTreeBinding with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
@@ -47193,7 +48169,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns a metadata object for class sap.ui.model.ClientTreeBinding.
      *
@@ -47233,7 +48209,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     getCount(): number | undefined;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -47254,7 +48230,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
       iLength: int
     ): Context[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return root contexts for the tree
      *
@@ -47299,7 +48275,7 @@ declare module "sap/ui/model/ClientTreeBinding" {
 declare module "sap/ui/model/ClientTreeBindingAdapter" {
   export default class ClientTreeBindingAdapter {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -47321,9 +48297,9 @@ declare module "sap/ui/model/CompositeBinding" {
    * Combines multiple property bindings (called 'parts') into a single one.
    *
    * A `CompositeBinding` combines the values from all its binding parts (each an instance of `PropertyBinding`),
-   * either by calling a formatter function or by involving a {@link sap.ui.model.CompositeType composite
-   * type}. When a formatter function is used, the composite binding is automatically limited to `OneWay`
-   * mode. When a type is used, the binding can also operate in `TwoWay` mode.
+   * either by calling a formatter function or by involving a {@link sap.ui.model.CompositeType composite type}.
+   * When a formatter function is used, the composite binding is automatically limited to `OneWay` mode. When
+   * a type is used, the binding can also operate in `TwoWay` mode.
    *
    * Higher layers of the framework derive composite bindings from easy-to-write string representations (the
    * following features require complex binding syntax, e.g. `data-sap-ui-bindingSyntax="complex"`):
@@ -47337,9 +48313,10 @@ declare module "sap/ui/model/CompositeBinding" {
    * "email") and with a generic formatter function that injects the values of the parts into the string literal
    * "{0} <{1}>" accordingly.
    *
-   * Similarly, {@link topic:daf6852a04b44d118963968a1239d2c0 expression bindings} are parsed and converted
-   * into composite bindings, too. The formatter function is created by the framework and executes the calculations
-   * as defined by the expression string, taking the values from the binding parts as input.
+   * Similarly, {@link https://ui5.sap.com/#/topic/daf6852a04b44d118963968a1239d2c0 expression bindings} are
+   * parsed and converted into composite bindings, too. The formatter function is created by the framework
+   * and executes the calculations as defined by the expression string, taking the values from the binding
+   * parts as input.
    *
    * **Note:** A nesting of composite bindings is currently not supported (albeit being helpful).
    */
@@ -47347,7 +48324,7 @@ declare module "sap/ui/model/CompositeBinding" {
     /**
      * Constructor for CompositeBinding.
      * See:
-     * 	{@link topic:a2fe8e763014477e87990ff50657a0d0}
+     * 	{@link https://ui5.sap.com/#/topic/a2fe8e763014477e87990ff50657a0d0}
      */
     constructor();
 
@@ -47381,7 +48358,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -47399,7 +48376,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `change` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -47417,7 +48394,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -47435,7 +48412,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -47450,7 +48427,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `change` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -47465,7 +48442,7 @@ declare module "sap/ui/model/CompositeBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      */
@@ -47486,6 +48463,12 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     getBindings(): any[];
     /**
+     * Returns `null` for the context of this binding instance, as a composite binding has no context.
+     *
+     * @returns `null`
+     */
+    getContext(): null;
+    /**
      * Returns the current external value of the bound target which is formatted via a type or formatter function.
      *
      * @returns The current value of the bound target
@@ -47498,6 +48481,18 @@ declare module "sap/ui/model/CompositeBinding" {
      * @returns The current values of the nested bindings
      */
     getInternalValue(): any[];
+    /**
+     * Returns `null` for the model of this binding instance, as a composite binding has no model.
+     *
+     * @returns `null`
+     */
+    getModel(): null;
+    /**
+     * Returns `null` for the path of this binding instance, as a composite binding has no path.
+     *
+     * @returns `null`
+     */
+    getPath(): null;
     /**
      * Returns the current raw value of the bound target which is an array of the raw (model) values of nested
      * bindings.
@@ -47512,7 +48507,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     getValue(): object;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The method should be called when creating a binding. The default implementation
      * calls checkUpdate(true). Prevent checkUpdate to be triggered while initializing nested bindings, it is
@@ -47521,6 +48516,14 @@ declare module "sap/ui/model/CompositeBinding" {
      * @returns A reference to itself
      */
     initialize(): this;
+    /**
+     * @since 1.79.0
+     *
+     * Returns whether all binding parts are resolved.
+     *
+     * @returns Whether all binding parts are resolved
+     */
+    isResolved(): boolean;
     /**
      * Suspends the binding update. No change events will be fired.
      *
@@ -47600,7 +48603,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     suspend(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Determines if the property bindings in the composite binding should be updated by calling updateRequired
      * on all property bindings with the specified model.
@@ -47659,7 +48662,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns or sets whether the data state is changed. As long as changed was not set to false the data state
      * is dirty and the corresponding binding will fire data state change events.
@@ -47711,7 +48714,7 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     getControlMessages(): Message[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of values for the given property in the inner datastates.
      *
@@ -47784,12 +48787,12 @@ declare module "sap/ui/model/CompositeType" {
    *
    * Subclasses of `CompositeType` may set the following boolean properties in the constructor:
    * 	 - `bParseWithValues`: Whether the {@link #parseValue} method requires the current binding values as
-   * 			a third parameter; defaults to `false`
+   *     a third parameter; defaults to `false`
    * 	 - `bUseInternalValues`: Whether the {@link #formatValue} and {@link #parseValue} methods operate on
-   * 			the internal values; defaults to `false`
+   *     the internal values; defaults to `false`
    * 	 - `bUseRawValues`: Whether the {@link #formatValue} and {@link #parseValue} methods operate on the
-   * 			raw model values; the types of embedded bindings are ignored; defaults to `false`  `bUseRawValues`
-   * 			and `bUseInternalValues` cannot be both `true`.
+   *     raw model values; the types of embedded bindings are ignored; defaults to `false`  `bUseRawValues`
+   *     and `bUseInternalValues` cannot be both `true`.
    */
   export default class CompositeType extends SimpleType {
     /**
@@ -47847,7 +48850,7 @@ declare module "sap/ui/model/CompositeType" {
        */
       aValues: any[],
       /**
-       * The target type; see {@link topic:ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
+       * The target type; see {@link https://ui5.sap.com/#/topic/ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
        */
       sTargetType: string
     ): any;
@@ -47861,8 +48864,7 @@ declare module "sap/ui/model/CompositeType" {
      * @since 1.82.0
      *
      * Gets an array of indices that determine which parts of this type shall not propagate their model messages
-     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
-     * sap.ui.model.Binding#supportsIgnoreMessages}.
+     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link sap.ui.model.Binding#supportsIgnoreMessages}.
      * See:
      * 	sap.ui.model.Binding#supportsIgnoreMessages
      *
@@ -47898,8 +48900,7 @@ declare module "sap/ui/model/CompositeType" {
        */
       vValue: any,
       /**
-       * The source type (the expected type of `vValue`); see {@link topic:ac56d92162ed47ff858fdf1ce26c18c4 Allowed
-       * Property Types}
+       * The source type (the expected type of `vValue`); see {@link https://ui5.sap.com/#/topic/ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
        */
       sSourceType: string,
       /**
@@ -47909,7 +48910,7 @@ declare module "sap/ui/model/CompositeType" {
     ): any[] | any;
     /**
      * @since 1.100.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Processes the types of the parts of this composite type. A concrete composite type may override this
      * method if it needs to derive information from the types of the parts.
@@ -47950,8 +48951,7 @@ declare module "sap/ui/model/Context" {
    * 	 - as the single context associated with a {@link sap.ui.model.ContextBinding},
    * 	 - by calling {@link sap.ui.model.Model#createBindingContext}.
    *
-   * For more information on the concept of data binding and binding contexts, see {@link topic:e2e6f4127fe4450ab3cf1339c42ee832
-   * documentation on binding syntax}.
+   * For more information on the concept of data binding and binding contexts, see {@link https://ui5.sap.com/#/topic/e2e6f4127fe4450ab3cf1339c42ee832 documentation on binding syntax}.
    */
   export default class Context extends BaseObject {
     /**
@@ -48001,8 +49001,8 @@ declare module "sap/ui/model/Context" {
      * @since 1.76.0
      *
      * Returns messages associated with this context, that is messages belonging to the object referred to by
-     * this context or a child object of that object. The messages are sorted by their {@link sap.ui.core.message.Message#getType
-     * type} according to the type's severity in a way that messages with highest severity come first.
+     * this context or a child object of that object. The messages are sorted by their {@link sap.ui.core.message.Message#getType type }
+     * according to the type's severity in a way that messages with highest severity come first.
      * See:
      * 	sap.ui.model.Model#getMessages
      *
@@ -48168,10 +49168,9 @@ declare module "sap/ui/model/DataState" {
    * server; use {@link #isDirty} to read this property `invalidValue` The control value that was rejected
    * by type parsing or validation on user input for a property binding `laundering` Whether the value
    * has been sent to the server but is not yet confirmed `messages` All messages of the data state `modelMessages`
-   * The {@link sap.ui.core.message.Message messages} available for the binding in its {@link sap.ui.model.Binding#getModel
-   * model} `originalValue` The ***original*** value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue
-   * external representation} `value` The value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue
-   * external representation}
+   * The {@link sap.ui.core.message.Message messages} available for the binding in its {@link sap.ui.model.Binding#getModel model }
+   * `originalValue` The ***original*** value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue external representation }
+   * `value` The value of a property binding in {@link sap.ui.model.PropertyBinding#getExternalValue external representation }
    */
   export default class DataState extends BaseObject {
     constructor();
@@ -48206,7 +49205,7 @@ declare module "sap/ui/model/DataState" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns whether the data state is changed, or resets the data state in case the parameter `bNewState`
      * is false; reset data state means that the data state properties are replaced with the changed properties.
@@ -48299,7 +49298,7 @@ declare module "sap/ui/model/DataState" {
      */
     isLaundering(): boolean;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets an array of control state messages.
      *
@@ -48312,7 +49311,7 @@ declare module "sap/ui/model/DataState" {
       aMessages: Message[]
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the dirty value that was rejected by the type validation.
      *
@@ -48325,7 +49324,7 @@ declare module "sap/ui/model/DataState" {
       vInvalidValue: any
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the laundering state of the data state.
      *
@@ -48349,7 +49348,7 @@ declare module "sap/ui/model/DataState" {
       aMessages?: Message[]
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted original value of the data.
      *
@@ -48362,7 +49361,7 @@ declare module "sap/ui/model/DataState" {
       vOriginalValue: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the formatted value of the data state,
      *
@@ -48404,9 +49403,9 @@ declare module "sap/ui/model/Filter" {
      * sensitive or not. Client models filter case insensitive compared to the OData models which filter case
      * sensitive by default. See particular model documentation for details.
      *
-     * The filter operators {@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All
-     * "All"} are only supported in V4 OData models. When creating a filter instance with these filter operators,
-     * the argument `variable` only accepts a string identifier and `condition` needs to be another filter instance.
+     * The filter operators {@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All "All" }
+     * are only supported in V4 OData models. When creating a filter instance with these filter operators, the
+     * argument `variable` only accepts a string identifier and `condition` needs to be another filter instance.
      */
     constructor(
       /**
@@ -48441,18 +49440,17 @@ declare module "sap/ui/model/Filter" {
              */
             value1?: any;
             /**
-             * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT
-             * "BT" between} and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
+             * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT "BT" between }
+             * and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
              */
             value2?: any;
             /**
-             * The variable name used in lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"} and {@link
-             * sap.ui.model.FilterOperator.All "All"})
+             * The variable name used in lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All "All"})
              */
             variable?: string;
             /**
-             * A filter instance which will be used as the condition for lambda operators ({@link sap.ui.model.FilterOperator.Any
-             * "Any"} and {@link sap.ui.model.FilterOperator.All "All"})
+             * A filter instance which will be used as the condition for lambda operators ({@link sap.ui.model.FilterOperator.Any "Any" }
+             * and {@link sap.ui.model.FilterOperator.All "All"})
              */
             condition?: Filter;
             /**
@@ -48484,8 +49482,8 @@ declare module "sap/ui/model/Filter" {
        */
       vValue1?: any,
       /**
-       * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT
-       * "BT" between} and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
+       * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT "BT" between }
+       * and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
        */
       vValue2?: any
     );
@@ -48819,13 +49817,13 @@ declare module "sap/ui/model/json/JSONListBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * List binding implementation for JSON format.
    */
   export default class JSONListBinding extends ClientListBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -48923,7 +49921,7 @@ declare module "sap/ui/model/json/JSONModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Returns a Promise of the current data-loading state. Every currently running {@link sap.ui.model.json.JSONModel#loadData}
+     * Returns a Promise of the current data-loading state. Every currently running {@link sap.ui.model.json.JSONModel#loadData }
      * call is respected by the returned Promise. This also includes a potential loadData call from the JSONModel's
      * constructor in case a URL was given. The data-loaded Promise will resolve once all running requests have
      * finished. Only request, which have been queued up to the point of calling this function will be respected
@@ -49059,18 +50057,18 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Property binding implementation for JSON format.
    */
   export default class JSONPropertyBinding extends ClientPropertyBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
      * This constructor should only be called by subclasses or model implementations, not by application or
-     * control code. Such code should use {@link sap.ui.model.json.JSONModel#bindProperty JSONModel#bindProperty}
+     * control code. Such code should use {@link sap.ui.model.json.JSONModel#bindProperty JSONModel#bindProperty }
      * on the corresponding model instance instead.
      */
     constructor(
@@ -49102,7 +50100,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
   import Filter from "sap/ui/model/Filter";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for JSON format.
    *
@@ -49112,7 +50110,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
    */
   export default class JSONTreeBinding extends ClientTreeBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a new JSONListBinding.
      *
@@ -49169,6 +50167,8 @@ declare module "sap/ui/model/ListBinding" {
   import Metadata from "sap/ui/base/Metadata";
 
   import Message from "sap/ui/core/message/Message";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * ListBinding is a specific binding for lists in the model, which can be used to populate Tables or ItemLists.
@@ -49238,7 +50238,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      *
@@ -49258,7 +50258,7 @@ declare module "sap/ui/model/ListBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "sort")` when
      * a sorter event is fired.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      *
@@ -49277,7 +50277,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      */
@@ -49293,7 +50293,7 @@ declare module "sap/ui/model/ListBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:sort sort} event of this `sap.ui.model.ListBinding`.
      */
@@ -49308,7 +50308,7 @@ declare module "sap/ui/model/ListBinding" {
       oListener?: object
     ): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates delta of specified old data array and new data array.
      *
@@ -49331,11 +50331,11 @@ declare module "sap/ui/model/ListBinding" {
       index: int;
     }>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Enable extended change detection. When extended change detection is enabled, the list binding provides
      * detailed information about changes, for example which entries have been removed or inserted. This can
-     * be utilized by a control for fine-grained update of its elements. Please see {@link sap.ui.model.ListBinding.prototype.getContexts}
+     * be utilized by a control for fine-grained update of its elements. Please see {@link sap.ui.model.ListBinding.prototype.getContexts }
      * for more information.
      *
      * For models that do not have a unique key on each entry by default, a key property or function can be
@@ -49400,15 +50400,15 @@ declare module "sap/ui/model/ListBinding" {
      */
     getAllCurrentContexts(): Context[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an array of binding contexts for the bound target list.
      *
-     * In case of extended change detection, the context array may have an additional `diff` property, see {@link
-     * topic:7cdff73f308b4b10bdf7d83b7aba72e7 documentation on extended change detection} for details.
+     * In case of extended change detection, the context array may have an additional `diff` property, see {@link https://ui5.sap.com/#/topic/7cdff73f308b4b10bdf7d83b7aba72e7 documentation on extended change detection }
+     * for details.
      *
      * **Note:**The public usage of this method is deprecated, as calls from outside of controls will lead to
-     * unexpected side effects. To avoid this, use {@link sap.ui.model.ListBinding.prototype.getCurrentContexts}
+     * unexpected side effects. To avoid this, use {@link sap.ui.model.ListBinding.prototype.getCurrentContexts }
      * instead.
      *
      * @returns The array of contexts for each row of the bound list
@@ -49474,6 +50474,23 @@ declare module "sap/ui/model/ListBinding" {
       sPath: string
     ): any[];
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Returns the string key for the given model context, which is a unique representation of the context's
+     * data. This key is used in extended change detection to compute the difference between current and previous
+     * contexts retrieved via {@link sap.ui.model.ListBinding#getContexts}.
+     *
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
+     *
+     * @returns The key for the given context
+     */
+    getEntryKey(
+      /**
+       * The context for which the key is to be computed
+       */
+      oContext: Context
+    ): string;
+    /**
      * @since 1.96.0
      *
      * Returns the filters set via the constructor or via {@link #filter} for the given {@link sap.ui.model.FilterType}.
@@ -49530,7 +50547,7 @@ declare module "sap/ui/model/ListBinding" {
     isLengthFinal(): boolean;
     /**
      * @since 1.77.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -49540,7 +50557,7 @@ declare module "sap/ui/model/ListBinding" {
      * in its constructor or in its {@link #filter} method; add filters which you want to keep with the "and"
      * conjunction to the resulting filter before calling {@link #filter}.
      *
-     * The implementation of this method is optional for model specific implementations of `sap.ui.model.ListBinding`.
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
      * Check for existence of this function before calling it.
      *
      * @returns A Promise that resolves with a {@link sap.ui.model.Filter} representing the entries with messages;
@@ -49549,7 +50566,7 @@ declare module "sap/ui/model/ListBinding" {
      */
     requestFilterForMessages(
       /**
-       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
+       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message }
        * is considered. If no callback function is given, all messages are considered.
        */
       fnFilter?: (p1: Message) => boolean
@@ -49574,7 +50591,24 @@ declare module "sap/ui/model/ListBinding" {
        */
       aSorters: Sorter | Sorter[]
     ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Update the list and apply sorting and filtering. Called after creation of the list binding on enabling
+     * extended change detection, see {@link sap.ui.model.ListBinding#enableExtendedChangeDetection}.
+     *
+     * The implementation of this method is optional for model-specific implementations of `sap.ui.model.ListBinding`.
+     */
+    update(): void;
   }
+
+  export interface ListBinding$FilterEventParameters {}
+
+  export type ListBinding$FilterEvent = Event<ListBinding$FilterEventParameters>;
+
+  export interface ListBinding$SortEventParameters {}
+
+  export type ListBinding$SortEvent = Event<ListBinding$SortEventParameters>;
 }
 
 declare module "sap/ui/model/message/MessageModel" {
@@ -49741,8 +50775,6 @@ declare module "sap/ui/model/Model" {
 
   import TreeBinding from "sap/ui/model/TreeBinding";
 
-  import ChangeReason from "sap/ui/model/ChangeReason";
-
   import BindingMode from "sap/ui/model/BindingMode";
 
   import Message from "sap/ui/core/message/Message";
@@ -49750,6 +50782,10 @@ declare module "sap/ui/model/Model" {
   import Metadata from "sap/ui/base/Metadata";
 
   import MetaModel from "sap/ui/model/MetaModel";
+
+  import Event from "sap/ui/base/Event";
+
+  import ChangeReason from "sap/ui/model/ChangeReason";
 
   /**
    * This is an abstract base class for model objects.
@@ -49809,7 +50845,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
        */
@@ -49827,7 +50863,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
        */
@@ -49851,7 +50887,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49870,7 +50906,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49894,7 +50930,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49913,7 +50949,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49936,7 +50972,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49954,7 +50990,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49977,7 +51013,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -49995,7 +51031,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
        */
@@ -50148,7 +51184,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$ParseErrorEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -50166,7 +51202,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$PropertyChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -50184,7 +51220,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestCompletedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -50202,7 +51238,7 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -50219,14 +51255,14 @@ declare module "sap/ui/model/Model" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: Model$RequestSentEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:parseError parseError} to attached listeners.
      *
@@ -50237,10 +51273,10 @@ declare module "sap/ui/model/Model" {
        * Parameters to pass along with the event; May contain the following parameters: `errorCode`, `url`, `reason`,
        * `srcText`, `line`, `linePos`, `filePos`
        */
-      oParameters?: object
+      oParameters?: Model$ParseErrorEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:propertyChange propertyChange} to attached listeners.
      *
@@ -50250,27 +51286,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * The reason of the property change
-         */
-        reason?: ChangeReason;
-        /**
-         * The path of the property
-         */
-        path?: string;
-        /**
-         * The context of the property
-         */
-        context?: object;
-        /**
-         * The value of the property
-         */
-        value?: object;
-      }
+      oParameters?: Model$PropertyChangeEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestCompleted requestCompleted} to attached listeners.
      *
@@ -50280,31 +51299,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * The url which was sent to the back end.
-         */
-        url?: string;
-        /**
-         * The type of the request (if available)
-         */
-        type?: string;
-        /**
-         * If the request was synchronous or asynchronous (if available)
-         */
-        async?: boolean;
-        /**
-         * additional information for the request (if available) **deprecated**
-         */
-        info?: string;
-        /**
-         * Additional information for the request (if available)
-         */
-        infoObject?: object;
-      }
+      oParameters?: Model$RequestCompletedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestFailed requestFailed} to attached listeners.
      *
@@ -50314,27 +51312,10 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * A text that describes the failure.
-         */
-        message?: string;
-        /**
-         * HTTP status code returned by the request (if available)
-         */
-        statusCode?: string;
-        /**
-         * The status as a text, details not specified, intended only for diagnosis output
-         */
-        statusText?: string;
-        /**
-         * Response that has been received for the request, as a text string
-         */
-        responseText?: string;
-      }
+      oParameters?: Model$RequestFailedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:requestSent requestSent} to attached listeners.
      *
@@ -50344,28 +51325,7 @@ declare module "sap/ui/model/Model" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * The url which is sent to the back end.
-         */
-        url?: string;
-        /**
-         * The type of the request (if available)
-         */
-        type?: string;
-        /**
-         * If the request is synchronous or asynchronous (if available)
-         */
-        async?: boolean;
-        /**
-         * Additional information for the request (if available) **deprecated**
-         */
-        info?: string;
-        /**
-         * Additional information for the request (if available)
-         */
-        infoObject?: object;
-      }
+      oParameters?: Model$RequestSentEventParameters
     ): this;
     /**
      * Get the default binding mode for the model.
@@ -50377,9 +51337,8 @@ declare module "sap/ui/model/Model" {
      * @since 1.76.0
      *
      * Returns messages of this model associated with the given context, that is messages belonging to the object
-     * referred to by this context or a child object of that object. The messages are sorted by their {@link
-     * sap.ui.core.message.Message#getType type} according to the type's severity in a way that messages with
-     * highest severity come first.
+     * referred to by this context or a child object of that object. The messages are sorted by their {@link sap.ui.core.message.Message#getType type }
+     * according to the type's severity in a way that messages with highest severity come first.
      *
      * @returns The messages associated with this context sorted by severity; empty array in case no messages
      * exist
@@ -50391,7 +51350,7 @@ declare module "sap/ui/model/Model" {
       oContext: Context
     ): Message[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns model messages for which the target matches the given resolved binding path.
      *
@@ -50529,7 +51488,7 @@ declare module "sap/ui/model/Model" {
      */
     setMessages(
       /**
-       * The new messages for the model, mapping a binding path to an array of {@link sap.ui.core.message.Message}
+       * The new messages for the model, mapping a binding path to an array of {@link sap.ui.core.message.Message }
        * objects
        */
       mMessages?: Record<string, Message[]>
@@ -50546,6 +51505,141 @@ declare module "sap/ui/model/Model" {
       iSizeLimit: int
     ): void;
   }
+
+  export interface Model$ParseErrorEventParameters {
+    errorCode?: int;
+
+    url?: string;
+
+    reason?: string;
+
+    srcText?: string;
+
+    line?: int;
+
+    linepos?: int;
+
+    filepos?: int;
+  }
+
+  export type Model$ParseErrorEvent = Event<Model$ParseErrorEventParameters>;
+
+  export interface Model$PropertyChangeEventParameters {
+    /**
+     * The cause of the property value change
+     */
+    reason?: ChangeReason;
+
+    /**
+     * The path of the property
+     */
+    path?: string;
+
+    /**
+     * The binding context (if available)
+     */
+    context?: Context;
+
+    /**
+     * The current value of the property
+     */
+    value?: any;
+  }
+
+  export type Model$PropertyChangeEvent = Event<Model$PropertyChangeEventParameters>;
+
+  export interface Model$RequestCompletedEventParameters {
+    /**
+     * URL which was sent to the back end
+     */
+    url?: string;
+
+    /**
+     * Type of the request (if available)
+     */
+    type?: string;
+
+    /**
+     * Whether the request has been successful or not. In case of errors, consult the optional `errorobject`
+     * parameter.
+     */
+    success?: boolean;
+
+    /**
+     * If the request failed the error if any can be accessed in this property.
+     */
+    errorobject?: object;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Additional information for the request (if available) **deprecated**
+     */
+    info?: string;
+
+    /**
+     * Additional information for the request (if available)
+     */
+    infoObject?: object;
+  }
+
+  export type Model$RequestCompletedEvent = Event<Model$RequestCompletedEventParameters>;
+
+  export interface Model$RequestFailedEventParameters {
+    /**
+     * A text that describes the failure.
+     */
+    message?: string;
+
+    /**
+     * HTTP status code returned by the request (if available)
+     */
+    statusCode?: string;
+
+    /**
+     * The status as a text, details not specified, intended only for diagnosis output
+     */
+    statusText?: string;
+
+    /**
+     * Response that has been received for the request, as a text string
+     */
+    responseText?: string;
+  }
+
+  export type Model$RequestFailedEvent = Event<Model$RequestFailedEventParameters>;
+
+  export interface Model$RequestSentEventParameters {
+    /**
+     * The url which is sent to the back end
+     */
+    url?: string;
+
+    /**
+     * The type of the request (if available)
+     */
+    type?: string;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Additional information for the request (if available) **deprecated**
+     */
+    info?: string;
+
+    /**
+     * Additional information for the request (if available)
+     */
+    infoObject?: object;
+  }
+
+  export type Model$RequestSentEvent = Event<Model$RequestSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataTreeBindingAdapter" {
@@ -50614,8 +51708,8 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      * Note: The root formatter function should not rely on its `this` value because it depends on how the function
      * is called.
      *
-     * Note: A single data binding expression can be given directly to {@link sap.ui.base.ManagedObject#applySettings
-     * applySettings}, no need to call this function first.
+     * Note: A single data binding expression can be given directly to {@link sap.ui.base.ManagedObject#applySettings applySettings},
+     * no need to call this function first.
      *
      * Example:
      * ```javascript
@@ -50639,8 +51733,7 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      * ```
      *
      *
-     * @returns constant value or binding info object for a property as expected by {@link sap.ui.base.ManagedObject#applySettings
-     * applySettings}
+     * @returns constant value or binding info object for a property as expected by {@link sap.ui.base.ManagedObject#applySettings applySettings}
      */
     createPropertySetting(
       /**
@@ -50720,8 +51813,8 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      * 	 - "14.5.11 Expression edm:NavigationPropertyPath"
      * 	 - "14.5.12 Expression edm:Path"
      * 	 - "14.5.13 Expression edm:PropertyPath"  It returns a binding expression for a navigation path
-     * 			in an OData model, starting at an entity. Currently supports navigation properties. Term casts and annotations
-     * 			of navigation properties terminate the navigation path.
+     *     in an OData model, starting at an entity. Currently supports navigation properties. Term casts and annotations
+     *     of navigation properties terminate the navigation path.
      *
      * Examples:
      * ```javascript
@@ -50797,8 +51890,7 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      */
     gotoEntityType(
       /**
-       * a context which must point to the qualified name of an entity type; the context's model must be an {@link
-       * sap.ui.model.odata.ODataMetaModel}
+       * a context which must point to the qualified name of an entity type; the context's model must be an {@link sap.ui.model.odata.ODataMetaModel}
        */
       oContext: Context
     ): string | undefined;
@@ -50836,9 +51928,9 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      * 	 - "14.5.11 Expression edm:NavigationPropertyPath"
      * 	 - "14.5.12 Expression edm:Path"
      * 	 - "14.5.13 Expression edm:PropertyPath"  It returns the information whether the navigation path
-     * 			ends with an association end with multiplicity "*". It throws an error if the navigation path has an
-     * 			association end with multiplicity "*" which is not the last one. Currently supports navigation properties.
-     * 			Term casts and annotations of navigation properties terminate the navigation path.
+     *     ends with an association end with multiplicity "*". It throws an error if the navigation path has an
+     *     association end with multiplicity "*" which is not the last one. Currently supports navigation properties.
+     *     Term casts and annotations of navigation properties terminate the navigation path.
      *
      * Examples:
      * ```javascript
@@ -50940,9 +52032,9 @@ declare module "sap/ui/model/odata/CountMode" {
      *
      * Count is retrieved by a separate request upfront and inline with each data request.
      *
-     * The only purpose of this mode is to reflect the behavior of the {@link sap.ui.model.odata.ODataModel
-     * ODataModel (v1)} before the introduction of the `CountMode`. For compatibility reasons, it is the default
-     * for the `ODataModel` (v1) and shouldn't be used otherwise.
+     * The only purpose of this mode is to reflect the behavior of the {@link sap.ui.model.odata.ODataModel ODataModel (v1) }
+     * before the introduction of the `CountMode`. For compatibility reasons, it is the default for the `ODataModel`
+     * (v1) and shouldn't be used otherwise.
      */
     Both = "Both",
     /**
@@ -51066,6 +52158,8 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
   import ODataMetadata from "sap/ui/model/odata/ODataMetadata";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.66) - please use {@link sap.ui.model.odata.v2.ODataAnnotations} instead.
@@ -51240,7 +52334,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -51270,7 +52364,7 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -51344,6 +52438,14 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       }
     ): boolean;
   }
+
+  export interface ODataAnnotations$FailedEventParameters {}
+
+  export type ODataAnnotations$FailedEvent = Event<ODataAnnotations$FailedEventParameters>;
+
+  export interface ODataAnnotations$LoadedEventParameters {}
+
+  export type ODataAnnotations$LoadedEvent = Event<ODataAnnotations$LoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataContextBinding" {
@@ -51527,7 +52629,7 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list
      *
@@ -51716,6 +52818,8 @@ declare module "sap/ui/model/odata/ODataMetadata" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * Implementation to access OData metadata
    */
@@ -51902,7 +53006,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:failed failed} to attached listeners.
      *
@@ -51932,7 +53036,7 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:loaded loaded} to attached listeners.
      *
@@ -51990,6 +53094,14 @@ declare module "sap/ui/model/odata/ODataMetadata" {
      */
     refresh(): Promise<any>;
   }
+
+  export interface ODataMetadata$FailedEventParameters {}
+
+  export type ODataMetadata$FailedEvent = Event<ODataMetadata$FailedEventParameters>;
+
+  export interface ODataMetadata$LoadedEventParameters {}
+
+  export type ODataMetadata$LoadedEvent = Event<ODataMetadata$LoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataMetaModel" {
@@ -52039,12 +53151,12 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * 	 - `label`;
    * 	 - `schema-version` (since 1.53.0) on schemas;
    * 	 - `creatable`, `deletable`, `deletable-path`, `pageable`, `requires-filter`, `searchable`, `topable`,
-   * 			`updatable` and `updatable-path` on entity sets;
+   *     `updatable` and `updatable-path` on entity sets;
    * 	 - `creatable` (since 1.41.0), `creatable-path` (since 1.41.0) and `filterable` (since 1.39.0) on navigation
-   * 			properties;
+   *     properties;
    * 	 - `aggregation-role` ("dimension" and "measure", both since 1.45.0), `creatable`, `display-format`
-   * 			("UpperCase" and "NonNegative"), `field-control`, `filterable`, `filter-restriction`, `heading`, `precision`,
-   * 			`quickinfo`, `required-in-filter`, `sortable`, `text`, `unit`, `updatable` and `visible` on properties;
+   *     ("UpperCase" and "NonNegative"), `field-control`, `filterable`, `filter-restriction`, `heading`, `precision`,
+   *     `quickinfo`, `required-in-filter`, `sortable`, `text`, `unit`, `updatable` and `visible` on properties;
    *
    * 	 - `semantics`; the following values are supported:
    * 	"bday", "city", "country", "email" (including support for types, for example "email;type=home,pref"),
@@ -52053,7 +53165,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * "tel;type=cell,pref"), "title" and "zip" (mapped to V4 annotation `com.sap.vocabularies.Communication.v1.Contact`);
    *
    * 	 - "class", "dtend", "dtstart", "duration", "fbtype", "location", "status", "transp" and "wholeday"
-   * 			(mapped to V4 annotation `com.sap.vocabularies.Communication.v1.Event`);
+   *     (mapped to V4 annotation `com.sap.vocabularies.Communication.v1.Event`);
    * 	 - "body", "from", "received", "sender" and "subject" (mapped to V4 annotation `com.sap.vocabularies.Communication.v1.Message`);
    *
    * 	 - "completed", "due", "percent-complete" and "priority" (mapped to V4 annotation `com.sap.vocabularies.Communication.v1.Task`);
@@ -52061,7 +53173,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * 	 - "fiscalyear", "fiscalyearperiod" (mapped to the corresponding V4 annotation `com.sap.vocabularies.Common.v1.IsFiscal(Year|YearPeriod)`);
    *
    * 	 - "year", "yearmonth", "yearmonthday", "yearquarter", "yearweek" (mapped to the corresponding V4 annotation
-   * 			`com.sap.vocabularies.Common.v1.IsCalendar(Year|YearMonth|Date|YearQuarter|YearWeek)`);
+   *     `com.sap.vocabularies.Common.v1.IsCalendar(Year|YearMonth|Date|YearQuarter|YearWeek)`);
    * 	 - "url" (mapped to V4 annotation `Org.OData.Core.V1.IsURL"`).   For example:
    * ```javascript
    *
@@ -52091,9 +53203,9 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * never use a qualifier and are only overwritten by the same annotation term without a qualifier.
    *
    * This model is read-only and thus only supports {@link sap.ui.model.BindingMode.OneTime OneTime} binding
-   * mode. No events ({@link sap.ui.model.Model#event:parseError parseError}, {@link sap.ui.model.Model#event:requestCompleted
-   * requestCompleted}, {@link sap.ui.model.Model#event:requestFailed requestFailed}, {@link sap.ui.model.Model#event:requestSent
-   * requestSent}) are fired!
+   * mode. No events ({@link sap.ui.model.Model#event:parseError parseError}, {@link sap.ui.model.Model#event:requestCompleted requestCompleted},
+   * {@link sap.ui.model.Model#event:requestFailed requestFailed}, {@link sap.ui.model.Model#event:requestSent requestSent})
+   * are fired!
    *
    * Within the meta model, the objects are arranged in arrays. `/dataServices/schema`, for example, is an
    * array of schemas where each schema has an `entityType` property with an array of entity types, and so
@@ -52101,21 +53213,21 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * the schema with namespace "MySchema". However, these paths are not stable: If an entity type with lower
    * index is removed from the schema, the path to `Order` changes to `/dataServices/schema/0/entityType/15`.
    *
-   * To avoid problems with changing indexes, {@link sap.ui.model.Model#getObject getObject} and {@link sap.ui.model.Model#getProperty
-   * getProperty} support XPath-like queries for the indexes (since 1.29.1). Each index can be replaced by
-   * a query in square brackets. You can, for example, address the schema using the path `/dataServices/schema/[${namespace}==='MySchema']`
+   * To avoid problems with changing indexes, {@link sap.ui.model.Model#getObject getObject} and {@link sap.ui.model.Model#getProperty getProperty }
+   * support XPath-like queries for the indexes (since 1.29.1). Each index can be replaced by a query in square
+   * brackets. You can, for example, address the schema using the path `/dataServices/schema/[${namespace}==='MySchema']`
    * or the entity using `/dataServices/schema/[${namespace}==='MySchema']/entityType/[${name}==='Order']`.
    *
    * The syntax inside the square brackets is the same as in expression binding. The query is executed for
    * each object in the array until the result is true (truthy) for the first time. This object is then chosen.
    *
-   * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link #loaded loaded}
+   * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link #loaded loaded }
    * has been resolved!
    */
   export default class ODataMetaModel extends MetaModel {
     /**
-     * DO NOT CALL this private constructor for a new `ODataMetaModel`, but rather use {@link sap.ui.model.odata.v2.ODataModel#getMetaModel
-     * getMetaModel} instead!
+     * DO NOT CALL this private constructor for a new `ODataMetaModel`, but rather use {@link sap.ui.model.odata.v2.ODataModel#getMetaModel getMetaModel }
+     * instead!
      */
     constructor(
       /**
@@ -52132,8 +53244,8 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       oDataModel: ODataModel
     );
     /**
-     * DO NOT CALL this private constructor for a new `ODataMetaModel`, but rather use {@link sap.ui.model.odata.v2.ODataModel#getMetaModel
-     * getMetaModel} instead!
+     * DO NOT CALL this private constructor for a new `ODataMetaModel`, but rather use {@link sap.ui.model.odata.v2.ODataModel#getMetaModel getMetaModel }
+     * instead!
      */
     constructor(
       /**
@@ -52199,12 +53311,12 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       /**
        * an entity type as returned by {@link #getODataEntityType getODataEntityType}
        */
-      oEntityType: object,
+      oEntityType: EntityType,
       /**
        * the name of a navigation property within this entity type
        */
       sName: string
-    ): object | null;
+    ): AssociationEnd | null;
     /**
      * Returns the OData association ***set*** end corresponding to the given entity type's navigation property
      * of given name.
@@ -52215,12 +53327,12 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       /**
        * an entity type as returned by {@link #getODataEntityType getODataEntityType}
        */
-      oEntityType: object,
+      oEntityType: EntityType,
       /**
        * the name of a navigation property within this entity type
        */
       sName: string
-    ): object | null;
+    ): AssociationSetEnd | null;
     /**
      * Returns the OData complex type with the given qualified name, either as a path or as an object, as indicated.
      *
@@ -52236,7 +53348,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the complex type is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): ComplexType | string | undefined | null;
     /**
      * Returns the OData default entity container. If there is only a single schema with a single entity container,
      * the entity container does not need to be marked as default explicitly.
@@ -52249,7 +53361,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the entity container is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): EntityContainer | string | undefined | null;
     /**
      * Returns the OData entity set with the given simple name from the default entity container.
      *
@@ -52265,7 +53377,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the entity set is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): EntitySet | string | undefined | null;
     /**
      * Returns the OData entity type with the given qualified name, either as a path or as an object, as indicated.
      *
@@ -52281,7 +53393,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the entity type is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): EntityType | string | undefined | null;
     /**
      * @since 1.29.0
      *
@@ -52300,7 +53412,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the function import is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): FunctionImport | string | undefined | null;
     /**
      * Returns the given OData type's property (not navigation property!) of given name.
      *
@@ -52352,7 +53464,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * a complex type as returned by {@link #getODataComplexType getODataComplexType}, or an entity type as
        * returned by {@link #getODataEntityType getODataEntityType}
        */
-      oType: object,
+      oType: ComplexType | EntityType,
       /**
        * the name of a property within this type (e.g. "Address"), or an array of such names (e.g. `["Address",
        * "Street"]`) in order to drill-down into complex types; **BEWARE** that this array is modified by removing
@@ -52363,7 +53475,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
        * determines whether the property is returned as a path or as an object
        */
       bAsPath?: boolean
-    ): object | string | undefined | null;
+    ): Property | string | undefined | null;
     /**
      * @since 1.29.1
      *
@@ -52378,8 +53490,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      */
     getODataValueLists(
       /**
-       * a model context for a structural property of an entity type or a complex type, as returned by {@link
-       * #getMetaContext getMetaContext}
+       * a model context for a structural property of an entity type or a complex type, as returned by {@link #getMetaContext getMetaContext}
        */
       oPropertyContext: Context
     ): Promise<any>;
@@ -52397,7 +53508,7 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      * @since 1.88.0
      *
      * Requests the currency customizing based on the code list reference given in the entity container's `com.sap.vocabularies.CodeList.v1.CurrencyCodes`
-     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v2.ODataModel#getHeaders}
+     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v2.ODataModel#getHeaders }
      * from this meta model's data model.
      * See:
      * 	{@link #requestUnitsOfMeasure}
@@ -52413,12 +53524,21 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      * annotation is found. It is rejected if the code list URL is not "./$metadata", there is not exactly one
      * code key, or if the customizing cannot be loaded.
      */
-    requestCurrencyCodes(): Promise<any>;
+    requestCurrencyCodes(): Promise<Record<
+      string,
+      {
+        StandardCode: string;
+
+        Text: string;
+
+        UnitSpecificScale: string;
+      }
+    > | null>;
     /**
      * @since 1.88.0
      *
      * Requests the unit customizing based on the code list reference given in the entity container's `com.sap.vocabularies.CodeList.v1.UnitOfMeasure`
-     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v2.ODataModel#getHeaders}
+     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v2.ODataModel#getHeaders }
      * from this meta model's data model.
      * See:
      * 	{@link #requestCurrencyCodes}
@@ -52434,7 +53554,16 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      * annotation is found. It is rejected if the code list URL is not "./$metadata", there is not exactly one
      * code key, or if the customizing cannot be loaded.
      */
-    requestUnitsOfMeasure(): Promise<any>;
+    requestUnitsOfMeasure(): Promise<Record<
+      string,
+      {
+        StandardCode: string;
+
+        Text: string;
+
+        UnitSpecificScale: string;
+      }
+    > | null>;
     /**
      * Legacy syntax not supported by OData meta model!
      */
@@ -52445,6 +53574,543 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       bLegacySyntax: boolean
     ): void;
   }
+  /**
+   * The abstraction of an OData property.
+   */
+  export type AbstractProperty = Annotatable & {
+    /**
+     * The name of the property
+     */
+    name: string;
+    /**
+     * The default value of the property
+     */
+    default?: string;
+    /**
+     * Whether this property can be `null`
+     */
+    nullable?: "false" | "true";
+    /**
+     * Whether this property is read-only
+     */
+    readOnly?: "false" | "true";
+  };
+
+  /**
+   * An OData metadata element which can be annotated. For annotations from SAP or OData vocabularies, it
+   * may contain properties like `com.sap.vocabularies.Common.v1.Label` with the annotation value as an object.
+   * For annotations from the "http://www.sap.com/Protocols/SAPData" namespace, it may contain properties
+   * like `sap:label` with the annotation value as a string. For details on annotation representation, see
+   * {@link sap.ui.model.odata.ODataMetaModel ODataMetaModel} resp. {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2%23loio341823349ed04df1813197f2a0d71db2 OData V2 Model - Meta Model for OData V2}.
+   */
+  export type Annotatable = {
+    /**
+     * The array of extension elements, see {@link sap.ui.model.odata.ODataMetaModel.Extension Extension}
+     */
+    extensions?: Extension[];
+  };
+
+  /**
+   * An object representing one end of an OData association.
+   */
+  export type AssociationEnd = Annotatable & {
+    /**
+     * The qualified name of the entity type at the end of the association
+     */
+    type: string;
+    /**
+     * The multiplicity of the association end
+     */
+    multiplicity: "0" | "0..1" | "*";
+    /**
+     * The name of the association role
+     */
+    role: string;
+  };
+
+  /**
+   * An object representing an OData association set.
+   */
+  export type AssociationSet = Annotatable & {
+    /**
+     * The qualified name of the association set's association; the value is identical to the corresponding
+     * XML attribute value in the service metadata document.
+     */
+    association: string;
+    /**
+     * The two ends of the association set
+     */
+    end: AssociationSetEnd[];
+    /**
+     * The association set's name
+     */
+    name: string;
+  };
+
+  /**
+   * An object representing one end of an OData association set.
+   */
+  export type AssociationSetEnd = Annotatable & {
+    /**
+     * The entity set's name at the end of the association
+     */
+    entitySet: string;
+    /**
+     * The name of the association role
+     */
+    role: string;
+  };
+
+  /**
+   * A property of type `Edm.Binary`, see  `Edm.Binary`.
+   */
+  export type BinaryProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Binary";
+    /**
+     * The maximum size of the binary data
+     */
+    maxLength?: string;
+    /**
+     * Whether the length can vary
+     */
+    fixedLength?: "false" | "true";
+  };
+
+  /**
+   * A property of type `Edm.Boolean`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Boolean}.
+   */
+  export type BooleanProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Boolean";
+  };
+
+  /**
+   * A property of type `Edm.Byte`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Byte}.
+   */
+  export type ByteProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Byte";
+  };
+
+  /**
+   * An object representing an OData complex type.
+   */
+  export type ComplexType = Annotatable & {
+    /**
+     * The path to the complex type
+     */
+    $path: string;
+    /**
+     * The complex type's name
+     */
+    name: string;
+    /**
+     * The complex type's namespace
+     */
+    namespace: string;
+    /**
+     * The complex type's properties
+     */
+    property: Property[];
+  };
+
+  /**
+   * A property of type `Edm.DateTimeOffset`, see the corresponding UI5 type {@link sap.ui.model.odata.type.DateTimeOffset}.
+   */
+  export type DateTimeOffsetProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.DateTimeOffset";
+    /**
+     * The maximum number of fractional seconds
+     */
+    precision?: string;
+  };
+
+  /**
+   * A property of type `Edm.DateTime`, see the corresponding UI5 type {@link sap.ui.model.odata.type.DateTime}.
+   */
+  export type DateTimeProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.DateTime";
+    /**
+     * The maximum number of fractional seconds
+     */
+    precision?: string;
+  };
+
+  /**
+   * A property of type `Edm.Decimal`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Decimal}.
+   */
+  export type DecimalProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Decimal";
+    /**
+     * The maximum number of decimal digits
+     */
+    precision?: string;
+    /**
+     * The maximum number of decimal digits to the right of the decimal point
+     */
+    scale?: string;
+  };
+
+  /**
+   * A property of type `Edm.Double`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Double}.
+   */
+  export type DoubleProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Double";
+  };
+
+  /**
+   * An object representing an OData entity container.
+   */
+  export type EntityContainer = Annotatable & {
+    /**
+     * The path to the entity container
+     */
+    $path: string;
+    /**
+     * The entity container's name
+     */
+    name: string;
+    /**
+     * The entity container's namespace
+     */
+    namespace: string;
+    /**
+     * The association sets in the entity container
+     */
+    associationSet?: AssociationSet[];
+    /**
+     * The entity sets in the entity container
+     */
+    entitySet?: EntitySet[];
+    /**
+     * The function imports in the entity container
+     */
+    functionImport?: FunctionImport[];
+    /**
+     * Whether this is the default entity container
+     */
+    isDefaultEntityContainer?: "false" | "true";
+  };
+
+  /**
+   * An object representing an OData entity type's key.
+   */
+  export type EntityKey = {
+    /**
+     * The references to the properties defining the entity type's key
+     */
+    propertyRef: PropertyRef[];
+  };
+
+  /**
+   * An object representing an OData entity set.
+   */
+  export type EntitySet = Annotatable & {
+    /**
+     * The qualified name of the entity set's entity type
+     */
+    entityType: string;
+    /**
+     * The name of the entity set
+     */
+    name: string;
+  };
+
+  /**
+   * An object representing an OData entity type.
+   */
+  export type EntityType = Annotatable & {
+    /**
+     * The path to the entity type
+     */
+    $path: string;
+    /**
+     * The entity type's key
+     */
+    key: EntityKey;
+    /**
+     * The entity type's name
+     */
+    name: string;
+    /**
+     * The entity type's namespace
+     */
+    namespace: string;
+    /**
+     * The entity type's navigation properties
+     */
+    navigationProperty?: NavigationProperty[];
+    /**
+     * The entity type's properties
+     */
+    property?: Property[];
+  };
+
+  /**
+   * An extension object generated from OData annotations.
+   */
+  export type Extension = {
+    /**
+     * The name of the extension
+     */
+    name: string;
+    /**
+     * The namespace of the extension
+     */
+    namespace: string;
+    /**
+     * The value of the extension
+     */
+    value: string;
+  };
+
+  /**
+   * An object representing an OData function import.
+   */
+  export type FunctionImport = Annotatable & {
+    /**
+     * The entity set of the function import's return value
+     */
+    entitySet?: string;
+    /**
+     * The http method to execute the function import
+     */
+    httpMethod?: "GET" | "POST";
+    /**
+     * The function import's name
+     */
+    name: string;
+    /**
+     * The function import parameters
+     */
+    parameter?: FunctionImportParameter[];
+    /**
+     * The qualified name of the function import's return type; the value is identical to the corresponding
+     * XML attribute value in the service metadata document.
+     */
+    returnType?: string;
+  };
+
+  /**
+   * An object representing an OData function import parameter.
+   */
+  export type FunctionImportParameter = Annotatable & {
+    /**
+     * The function import parameter's name
+     */
+    name: string;
+    /**
+     * The function import parameter's type; the value is identical to the corresponding XML attribute value
+     * in the service metadata document.
+     */
+    type: string;
+    /**
+     * The fixedLength constraint if supported by the function import parameter's type
+     */
+    fixedLength?: "false" | "true";
+    /**
+     * The maxLength constraint if supported by the function import parameter's type
+     */
+    maxLength?: string;
+    /**
+     * The function import parameter's mode
+     */
+    mode?: "In" | "InOut" | "Out";
+    /**
+     * The precision constraint if supported by the function import parameter's type
+     */
+    precision?: string;
+    /**
+     * The scale constraint if supported by the function import parameter's type
+     */
+    scale?: string;
+  };
+
+  /**
+   * A property of type `Edm.Guid`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Guid}.
+   */
+  export type GuidProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Guid";
+  };
+
+  /**
+   * A property of type `Edm.Int16`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Int16}.
+   */
+  export type Int16Property = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Int16";
+  };
+
+  /**
+   * A property of type `Edm.Int32`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Int32}.
+   */
+  export type Int32Property = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Int32";
+  };
+
+  /**
+   * A property of type `Edm.Int64`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Int64}.
+   */
+  export type Int64Property = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Int64";
+  };
+
+  /**
+   * An OData navigation property of an entity type.
+   */
+  export type NavigationProperty = Annotatable & {
+    /**
+     * The name of the navigation property
+     */
+    name: string;
+    /**
+     * The name of the starting point for the navigation; refers to a role defined in the association
+     */
+    fromRole: string;
+    /**
+     * The qualified name of the navigation property's association
+     */
+    relationship: string;
+    /**
+     * The name of the other end of the relationship; refers to a role defined in the association
+     */
+    toRole: string;
+  };
+
+  /**
+   * The alias type for an OData property of an entity type; the alias comprises all supported OData EDM types.
+   */
+  export type Property =
+    | BinaryProperty
+    | BooleanProperty
+    | ByteProperty
+    | DateTimeProperty
+    | DateTimeOffsetProperty
+    | DecimalProperty
+    | DoubleProperty
+    | GuidProperty
+    | Int16Property
+    | Int32Property
+    | Int64Property
+    | SByteProperty
+    | SingleProperty
+    | StreamProperty
+    | StringProperty
+    | TimeProperty;
+
+  /**
+   * An object representing an OData property reference.
+   */
+  export type PropertyRef = {
+    /**
+     * The property name
+     */
+    name: string;
+  };
+
+  /**
+   * A property of type `Edm.SByte`, see the corresponding UI5 type {@link sap.ui.model.odata.type.SByte}.
+   */
+  export type SByteProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.SByte";
+  };
+
+  /**
+   * A property of type `Edm.Single`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Single}.
+   */
+  export type SingleProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Single";
+  };
+
+  /**
+   * A property of type `Edm.Stream`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Stream}.
+   */
+  export type StreamProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Stream";
+    /**
+     * Whether the stream requires a fixed length
+     */
+    fixedLength?: "false" | "true";
+    /**
+     * The maximal length of the stream
+     */
+    maxLength?: string;
+  };
+
+  /**
+   * A property of type `Edm.String`, see the corresponding UI5 type {@link sap.ui.model.odata.type.String}.
+   */
+  export type StringProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.String";
+    /**
+     * Whether the string requires a fixed length
+     */
+    fixedLength?: "false" | "true";
+    /**
+     * The maximal length of the string
+     */
+    maxLength?: string;
+    /**
+     * Whether Unicode characters are used instead of ASCII characters
+     */
+    unicode?: "false" | "true";
+  };
+
+  /**
+   * A property of type `Edm.Time`, see the corresponding UI5 type {@link sap.ui.model.odata.type.Time}.
+   */
+  export type TimeProperty = AbstractProperty & {
+    /**
+     * The type name
+     */
+    type: "Edm.Time";
+    /**
+     * The maximum number of fractional seconds
+     */
+    precision?: string;
+  };
 }
 
 declare module "sap/ui/model/odata/ODataModel" {
@@ -52467,6 +54133,8 @@ declare module "sap/ui/model/odata/ODataModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.48) - please use {@link sap.ui.model.odata.v2.ODataModel} instead.
@@ -52510,7 +54178,7 @@ declare module "sap/ui/model/odata/ODataModel" {
          */
         tokenHandling?: boolean;
         /**
-         * experimental - true when user credentials are to be included in a cross-origin request. Please note that
+         * @experimental - true when user credentials are to be included in a cross-origin request. Please note that
          * this works only if all requests are asynchronous.
          */
         withCredentials?: boolean;
@@ -52595,7 +54263,7 @@ declare module "sap/ui/model/odata/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) to the be parsed for OData annotations, which are then merged into the annotations
      * object which can be retrieved by calling the getServiceAnnotations()-method. If a $metadata url is passed
@@ -52615,7 +54283,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds new xml content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the getServiceAnnotations()-method.
@@ -52993,8 +54661,8 @@ declare module "sap/ui/model/odata/ODataModel" {
      * The optional vProperties parameter can be used as follows:
      *
      * - vProperties could be an array containing the property names which should be included in the new entry.
-     * 			Other properties defined in the entity type are not included. - vProperties could be an object which
-     * 			includes the desired properties and the values which should be used for the created entry.
+     *     Other properties defined in the entity type are not included. - vProperties could be an object which
+     *     includes the desired properties and the values which should be used for the created entry.
      *
      * If vProperties is not specified, all properties in the entity type will be included in the created entry.
      *
@@ -53118,7 +54786,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -53148,7 +54816,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -53166,7 +54834,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -53196,7 +54864,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -53286,8 +54954,8 @@ declare module "sap/ui/model/odata/ODataModel" {
      * V4 annotations from the existing {@link sap.ui.model.odata.ODataAnnotations} directly into the corresponding
      * model element.
      *
-     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded
-     * loaded} has been resolved!
+     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded loaded }
+     * has been resolved!
      *
      * @returns The meta model for this ODataModel
      */
@@ -53530,8 +55198,8 @@ declare module "sap/ui/model/odata/ODataModel" {
      * 	 - by sending a separate `$count` request
      * 	 - by adding parameter `$inlinecount=allpages` to one or all data requests
      * 	 - a combination of the previous two
-     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode}
-     * 			for all enumeration values and more details.
+     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode }
+     *     for all enumeration values and more details.
      *
      * Note that a call to this method does not modify the count mode for existing list bindings, only bindings
      * that are created afterwards will use the new mode when no mode is defined at their creation.
@@ -53748,6 +55416,22 @@ declare module "sap/ui/model/odata/ODataModel" {
       bForceUpdate?: boolean
     ): void;
   }
+
+  export interface ODataModel$AnnotationsFailedEventParameters {}
+
+  export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
+
+  export interface ODataModel$AnnotationsLoadedEventParameters {}
+
+  export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
+
+  export interface ODataModel$MetadataFailedEventParameters {}
+
+  export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
+
+  export interface ODataModel$MetadataLoadedEventParameters {}
+
+  export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/ODataPropertyBinding" {
@@ -53764,7 +55448,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
    */
   export default class ODataPropertyBinding extends PropertyBinding {
     /**
-     * Do **NOT** call this private constructor, but rather use {@link sap.ui.model.odata.v2.ODataModel#bindProperty}
+     * Do **NOT** call this private constructor, but rather use {@link sap.ui.model.odata.v2.ODataModel#bindProperty }
      * instead!
      */
     constructor(
@@ -53807,7 +55491,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the current value of the bound target
      *
@@ -53815,7 +55499,7 @@ declare module "sap/ui/model/odata/ODataPropertyBinding" {
      */
     getValue(): object;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initialize the binding. The message should be called when creating a binding. If metadata is not yet
      * available, do nothing, method will be called again when metadata is loaded.
@@ -53983,11 +55667,11 @@ declare module "sap/ui/model/odata/OperationMode" {
      * the binding will behave exactly like when using the operation mode `Client`. Initially configured filters/sorters
      * will be applied afterwards on the client.
      * 	 - If the `$inlinecount` is higher than the threshold, the binding will behave like in operation mode
-     * 			`Server`. In this case a new data request containing the initially set filters/sorters will be issued.
-     * 			 It is up to the application to chose an appropriate threshold value. Ideally, it should be high
-     * 			enough to fetch all data in the most common scenarios (to avoid a fallback to operation mode `Server`,
-     * 			requiring an additional request), but it also should be low enough to ensure a fast response in case
-     * 			there is much more data than expected.
+     *     `Server`. In this case a new data request containing the initially set filters/sorters will be issued.
+     *      It is up to the application to chose an appropriate threshold value. Ideally, it should be high
+     *     enough to fetch all data in the most common scenarios (to avoid a fallback to operation mode `Server`,
+     *     requiring an additional request), but it also should be low enough to ensure a fast response in case
+     *     there is much more data than expected.
      * 	 - Count mode `None` is not supported together with operation mode `Auto`
      */
     Auto = "Auto",
@@ -54092,10 +55776,9 @@ declare module "sap/ui/model/odata/type/Boolean" {
        */
       bValue: boolean,
       /**
-       * the target type; may be "any", "boolean", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}. If the target type (or its primitive type) is "string", the result is "Yes" or "No"
-       * in the current {@link sap.ui.core.Configuration#getLanguage language}. See {@link sap.ui.model.odata.type}
-       * for more information.
+       * the target type; may be "any", "boolean", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * If the target type (or its primitive type) is "string", the result is "Yes" or "No" in the current {@link sap.ui.core.Configuration#getLanguage language}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): boolean | string;
@@ -54117,7 +55800,7 @@ declare module "sap/ui/model/odata/type/Boolean" {
       vValue: boolean | string,
       /**
        * the source type (the expected type of `vValue`); may be "boolean", "string", or a type with one of these
-       * types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
@@ -54156,7 +55839,13 @@ declare module "sap/ui/model/odata/type/Byte" {
       /**
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getIntegerInstance}
        */
-      oFormatOptions?: object,
+      oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link sap.ui.model.odata.type.Int#parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link sap.ui.model.odata.type.Int#validateValue validateValue} throws an error if any constraint
        * is violated
@@ -54205,7 +55894,7 @@ declare module "sap/ui/model/odata/type/Byte" {
      */
     getName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -54230,14 +55919,13 @@ declare module "sap/ui/model/odata/type/Currency" {
    * @since 1.63.0
    *
    * This class represents the `Currency` composite type with the parts amount, currency, and currency customizing.
-   * The type may only be used for amount and currency parts from a {@link sap.ui.model.odata.v4.ODataModel}
+   * The type may only be used for amount and currency parts from a {@link sap.ui.model.odata.v4.ODataModel }
    * or a {@link sap.ui.model.odata.v2.ODataModel}. The amount part is formatted according to the customizing
-   * for the currency. Use the result of the promise returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestCurrencyCodes}
+   * for the currency. Use the result of the promise returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestCurrencyCodes }
    * for OData V4 or by {@link sap.ui.model.odata.ODataMetaModel#requestCurrencyCodes} for OData V2 as currency
-   * customizing part. See {@link topic:4d1b9d44941f483f9b7f579873d38685 Currency and Unit Customizing in
-   * OData V4} resp. {@link topic:6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency
-   * and Unit Customizing in OData V2} for more information. If no currency customizing is available, UI5's
-   * default formatting applies.
+   * customizing part. See {@link https://ui5.sap.com/#/topic/4d1b9d44941f483f9b7f579873d38685 Currency and Unit Customizing in OData V4 }
+   * resp. {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency and Unit Customizing in OData V2 }
+   * for more information. If no currency customizing is available, UI5's default formatting applies.
    */
   export default class Currency extends Currency1 {
     /**
@@ -54337,8 +56025,8 @@ declare module "sap/ui/model/odata/type/Currency" {
        */
       aValues: any[],
       /**
-       * The target type; must be "string" or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * The target type; must be "string" or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): string;
@@ -54366,8 +56054,8 @@ declare module "sap/ui/model/odata/type/Currency" {
        */
       vValue: string,
       /**
-       * The source type (the expected type of `vValue`); must be "string", or a type with "string" as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * The source type (the expected type of `vValue`); must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sSourceType: string,
       /**
@@ -54479,7 +56167,7 @@ declare module "sap/ui/model/odata/type/Date" {
       vValue: string | Date,
       /**
        * the target type; may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type }
        * for more information.
        */
       sTargetType: string
@@ -54517,8 +56205,8 @@ declare module "sap/ui/model/odata/type/Date" {
       vValue: string | Date,
       /**
        * the source type (the expected type of `vValue`); must be "object" (since 1.69.0), "string", or a type
-       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link
-       * sap.ui.model.odata.type} for more information.
+       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type }
+       * for more information.
        */
       sSourceType: string
     ): string;
@@ -54731,7 +56419,7 @@ declare module "sap/ui/model/odata/type/DateTimeBase" {
       oValue: Date,
       /**
        * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sTargetType: string
@@ -54750,8 +56438,8 @@ declare module "sap/ui/model/odata/type/DateTimeBase" {
       vValue: string | Date,
       /**
        * The source type (the expected type of `vValue`), must be "object" (since 1.69.0), "string", or a type
-       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link
-       * sap.ui.model.odata.type} for more information.
+       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
+       * for more information.
        */
       sSourceType: string
     ): Date | UI5Date | string;
@@ -54869,7 +56557,7 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
       vValue: Date | string,
       /**
        * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sTargetType: string
@@ -54884,7 +56572,7 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
     formatValue(
       /**
        * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sTargetType: string
@@ -54926,8 +56614,8 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
       vValue: Date | string,
       /**
        * The source type (the expected type of `vValue`), must be "string", "object" (since 1.69.0), or a type
-       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link
-       * sap.ui.model.odata.type} for more information.
+       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
+       * for more information.
        */
       sSourceType: string
     ): Date | UI5Date | string;
@@ -54963,8 +56651,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
    * to be provided in the UTC time zone. When using this type with the {@link sap.ui.model.odata.v2.ODataModel},
    * you need to set the parameter `useUndefinedIfUnresolved` for both parts.
    *
-   * For more information and some examples how to use this class, see {@link topic:6c9e61dc157a40c19460660ece8368bc
-   * Dates, Times, Timestamps, and Time Zones}.
+   * For more information and some examples how to use this class, see {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
    */
   export default class DateTimeWithTimezone extends CompositeType {
     /**
@@ -54974,9 +56661,9 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
      */
     constructor(
       /**
-       * Format options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance
-       * DateFormat}. The `strictParsing` format option is set to `true` by default and can be overwritten. Format
-       * options are immutable, that is, they can only be set once on construction.
+       * Format options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance DateFormat}.
+       * The `strictParsing` format option is set to `true` by default and can be overwritten. Format options
+       * are immutable, that is, they can only be set once on construction.
        */
       oFormatOptions?: object,
       /**
@@ -55030,8 +56717,8 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
        */
       aValues: any[],
       /**
-       * The target type, must be "object", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}; see {@link sap.ui.model.odata.type} for more information
+       * The target type, must be "object", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type};
+       * see {@link sap.ui.model.odata.type} for more information
        */
       sTargetType: string
     ): any;
@@ -55043,12 +56730,11 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
     getName(): string;
     /**
      * Gets an array of indices that determine which parts of this type shall not propagate their model messages
-     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
-     * sap.ui.model.Binding#supportsIgnoreMessages}. If the `showTimezone` format option is set to `false`,
-     * the time zone is not shown in the control, and the part for the time zone shall not propagate model messages
-     * to the control. Analogously, if the format option `showDate` and `showTime` are both set to `false`,
-     * the date and time are not shown in the control, and the parts for the date and time shall not propagate
-     * model messages to the control.
+     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link sap.ui.model.Binding#supportsIgnoreMessages}.
+     * If the `showTimezone` format option is set to `false`, the time zone is not shown in the control, and
+     * the part for the time zone shall not propagate model messages to the control. Analogously, if the format
+     * option `showDate` and `showTime` are both set to `false`, the date and time are not shown in the control,
+     * and the parts for the date and time shall not propagate model messages to the control.
      * See:
      * 	sap.ui.model.Binding#supportsIgnoreMessages
      *
@@ -55079,7 +56765,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
       vValue: string | Date,
       /**
        * The source type (the expected type of `vValue`); must be "object", "string", or a type with one of these
-       * types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type}
+       * types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type }
        * for more information
        */
       sSourceType: string,
@@ -55136,6 +56822,11 @@ declare module "sap/ui/model/odata/type/Decimal" {
        * are set to the value of the constraint `scale` unless it is "variable". They can however be overwritten.
        */
       oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `"0"` if the `nullable` constraint is set to `false`;
+         * see {@link #parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
         /**
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
@@ -55226,8 +56917,8 @@ declare module "sap/ui/model/odata/type/Decimal" {
        */
       sValue: string,
       /**
-       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): number | string;
@@ -55240,20 +56931,23 @@ declare module "sap/ui/model/odata/type/Decimal" {
     /**
      * Parses the given value, which is expected to be of the given type, to a decimal in `string` representation.
      *
-     * @returns the parsed value
+     * @returns The parsed value. The empty string and `null` are parsed to:
+     * 	 - `"0"` if the `parseEmptyValueToZero` format option is set to `true` and the `nullable` constraint
+     *     is set to `false`,
+     * 	 - `null` otherwise.
      */
     parseValue(
       /**
-       * the value to be parsed; the empty string and `null` are parsed to `null`
+       * The value to be parsed
        */
-      vValue: string | number,
+      vValue: string | number | null,
       /**
-       * the source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
-       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * The source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
+       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
-    ): string;
+    ): string | null;
     /**
      * Validates whether the given value in model representation is valid and meets the defined constraints.
      */
@@ -55296,6 +56990,11 @@ declare module "sap/ui/model/odata/type/Double" {
        * NumberFormat `groupingEnabled` defaults to `true`.
        */
       oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link #parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
         /**
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
@@ -55354,8 +57053,8 @@ declare module "sap/ui/model/odata/type/Double" {
        */
       vValue: number | string,
       /**
-       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): number | string;
@@ -55370,21 +57069,23 @@ declare module "sap/ui/model/odata/type/Double" {
      *
      * Parses the given value, which is expected to be of the given type, to an Edm.Double in `number` representation.
      *
-     * @returns the parsed value
+     * @returns The parsed value. The empty string and `null` are parsed to:
+     * 	 - `0` if the `parseEmptyValueToZero` format option is set to `true` and the `nullable` constraint is
+     *     set to `false`,
+     * 	 - `null` otherwise.
      */
     parseValue(
       /**
-       * the value to be parsed; the empty string and `null` are parsed to `null`; note that there is no way to
-       * enter `Infinity` or `NaN` values
+       * The value to be parsed; note that there is no way to enter `Infinity` or `NaN` values
        */
-      vValue: string | number,
+      vValue: number | string | null,
       /**
-       * the source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
-       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * The source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
+       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
-    ): number;
+    ): number | null;
     /**
      * @since 1.29.0
      *
@@ -55480,8 +57181,8 @@ declare module "sap/ui/model/odata/type/Guid" {
        */
       sValue: string,
       /**
-       * the target type; may be "any", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): string;
@@ -55502,8 +57203,8 @@ declare module "sap/ui/model/odata/type/Guid" {
        */
       sValue: string,
       /**
-       * the source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sSourceType: string
     ): string;
@@ -55544,7 +57245,13 @@ declare module "sap/ui/model/odata/type/Int" {
       /**
        * type-specific format options; see subtypes
        */
-      oFormatOptions?: object,
+      oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link #parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
        */
@@ -55597,28 +57304,31 @@ declare module "sap/ui/model/odata/type/Int" {
        */
       iValue: number,
       /**
-       * the target type; may be "any", "int", "float", "string", or a type with one of these types as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "int", "float", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): number | string;
     /**
      * Parses the given value, which is expected to be of the given source type, to an Int in number representation.
      *
-     * @returns the parsed value
+     * @returns The parsed value. The empty string and `null` are parsed to:
+     * 	 - `0` if the `parseEmptyValueToZero` format option is set to `true` and the `nullable` constraint is
+     *     set to `false`,
+     * 	 - `null` otherwise.
      */
     parseValue(
       /**
-       * the value to be parsed. The empty string and `null` are parsed to `null`.
+       * The value to be parsed
        */
-      vValue: number | string,
+      vValue: number | string | null,
       /**
-       * the source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
-       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * The source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
+       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
-    ): number;
+    ): number | null;
     /**
      * Validates whether the given value in model representation is valid and meets the defined constraints.
      */
@@ -55654,7 +57364,13 @@ declare module "sap/ui/model/odata/type/Int16" {
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getIntegerInstance}. In contrast
        * to NumberFormat `groupingEnabled` defaults to `true`.
        */
-      oFormatOptions?: object,
+      oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link sap.ui.model.odata.type.Int#parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link sap.ui.model.odata.type.Int#validateValue validateValue} throws an error if any constraint
        * is violated
@@ -55703,7 +57419,7 @@ declare module "sap/ui/model/odata/type/Int16" {
      */
     getName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -55736,7 +57452,13 @@ declare module "sap/ui/model/odata/type/Int32" {
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getIntegerInstance}. In contrast
        * to NumberFormat `groupingEnabled` defaults to `true`.
        */
-      oFormatOptions?: object,
+      oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link sap.ui.model.odata.type.Int#parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link sap.ui.model.odata.type.Int#validateValue validateValue} throws an error if any constraint
        * is violated
@@ -55785,7 +57507,7 @@ declare module "sap/ui/model/odata/type/Int32" {
      */
     getName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -55824,7 +57546,13 @@ declare module "sap/ui/model/odata/type/Int64" {
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getIntegerInstance}. In contrast
        * to NumberFormat `groupingEnabled` defaults to `true`.
        */
-      oFormatOptions: object,
+      oFormatOptions: {
+        /**
+         * Whether the empty string and `null` are parsed to `"0"` if the `nullable` constraint is set to `false`;
+         * see {@link #parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
        */
@@ -55890,8 +57618,8 @@ declare module "sap/ui/model/odata/type/Int64" {
        */
       sValue: string,
       /**
-       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): number | string;
@@ -55904,20 +57632,23 @@ declare module "sap/ui/model/odata/type/Int64" {
     /**
      * Parses the given value, which is expected to be of the given type, to an Int64 in `string` representation.
      *
-     * @returns the parsed value
+     * @returns The parsed value. The empty string and `null` are parsed to:
+     * 	 - `"0"` if the `parseEmptyValueToZero` format option is set to `true` and the `nullable` constraint
+     *     is set to `false`,
+     * 	 - `null` otherwise.
      */
     parseValue(
       /**
-       * the value to be parsed; the empty string and `null` are parsed to `null`
+       * The value to be parsed
        */
-      vValue: string | number,
+      vValue: string | number | null,
       /**
-       * the source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
-       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * The source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
+       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
-    ): string;
+    ): string | null;
     /**
      * Validates whether the given value in model representation is valid and meets the defined constraints.
      */
@@ -55938,10 +57669,10 @@ declare module "sap/ui/model/odata/type/ODataType" {
   /**
    * @since 1.27.0
    *
-   * This class is an abstract base class for all OData primitive types (see {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element
-   * OData V4 Edm Types} and {@link http://www.odata.org/documentation/odata-version-2-0/overview#AbstractTypeSystem
-   * OData V2 Edm Types}). All subtypes implement the interface of {@link sap.ui.model.SimpleType}. That means
-   * they implement next to the constructor:
+   * This class is an abstract base class for all OData primitive types (see {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element OData V4 Edm Types }
+   * and {@link http://www.odata.org/documentation/odata-version-2-0/overview#AbstractTypeSystem OData V2 Edm Types}).
+   * All subtypes implement the interface of {@link sap.ui.model.SimpleType}. That means they implement next
+   * to the constructor:
    * 	 - {@link sap.ui.model.Type#getName getName}
    * 	 - {@link sap.ui.model.SimpleType#formatValue formatValue}
    * 	 - {@link sap.ui.model.SimpleType#parseValue parseValue}
@@ -56143,7 +57874,13 @@ declare module "sap/ui/model/odata/type/SByte" {
       /**
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getIntegerInstance}
        */
-      oFormatOptions?: object,
+      oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link sap.ui.model.odata.type.Int#parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
+      },
       /**
        * constraints; {@link sap.ui.model.odata.type.Int#validateValue validateValue} throws an error if any constraint
        * is violated
@@ -56192,7 +57929,7 @@ declare module "sap/ui/model/odata/type/SByte" {
      */
     getName(): string;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the type's supported range as object with properties `minimum` and `maximum`.
      *
@@ -56232,6 +57969,11 @@ declare module "sap/ui/model/odata/type/Single" {
        * NumberFormat `groupingEnabled` defaults to `true`.
        */
       oFormatOptions?: {
+        /**
+         * Whether the empty string and `null` are parsed to `0` if the `nullable` constraint is set to `false`;
+         * see {@link #parseValue parseValue}; since 1.115.0
+         */
+        parseEmptyValueToZero?: boolean;
         /**
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
@@ -56289,8 +58031,8 @@ declare module "sap/ui/model/odata/type/Single" {
        */
       vValue: string | number,
       /**
-       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "float", "int", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): number | string;
@@ -56305,21 +58047,23 @@ declare module "sap/ui/model/odata/type/Single" {
      *
      * Parses the given value, which is expected to be of the given type, to an Edm.Single in `number` representation.
      *
-     * @returns the parsed value
+     * @returns The parsed value. The empty string and `null` are parsed to:
+     * 	 - `0` if the `parseEmptyValueToZero` format option is set to `true` and the `nullable` constraint is
+     *     set to `false`,
+     * 	 - `null` otherwise.
      */
     parseValue(
       /**
-       * the value to be parsed; the empty string and `null` are parsed to `null`; note that there is no way to
-       * enter `Infinity` or `NaN` values
+       * The value to be parsed; note that there is no way to enter `Infinity` or `NaN` values
        */
-      vValue: string | number,
+      vValue: number | string | null,
       /**
-       * the source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
-       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * The source type (the expected type of `vValue`); may be "float", "int", "string", or a type with one
+       * of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
-    ): number;
+    ): number | null;
     /**
      * @since 1.29.0
      *
@@ -56348,9 +58092,9 @@ declare module "sap/ui/model/odata/type/Stream" {
   /**
    * @since 1.51.0
    *
-   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element
-   * `Edm.Stream`}. The values for stream properties do not appear in the entity payload. Instead, the values
-   * are read or written through URLs.
+   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element `Edm.Stream`}.
+   * The values for stream properties do not appear in the entity payload. Instead, the values are read or
+   * written through URLs.
    *
    * This type only supports reading streams. For this purpose bind the stream property to a control property
    * of type `sap.ui.core.URI`. {#formatValue} will then deliver the correct URL to read the stream.
@@ -56562,7 +58306,7 @@ declare module "sap/ui/model/odata/type/String" {
        */
       sValue: string,
       /**
-       * the target type; may be "any", "boolean", "float", "int" or "string". See {@link sap.ui.model.odata.type}
+       * the target type; may be "any", "boolean", "float", "int" or "string". See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sTargetType: string
@@ -56699,8 +58443,8 @@ declare module "sap/ui/model/odata/type/Time" {
         ms: number;
       },
       /**
-       * the target type; may be "any", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the target type; may be "any", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): string;
@@ -56739,8 +58483,8 @@ declare module "sap/ui/model/odata/type/Time" {
        */
       sValue: string,
       /**
-       * the source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * the source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sSourceType: string
     ): object;
@@ -56772,8 +58516,8 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
   /**
    * @since 1.37.0
    *
-   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element
-   * `Edm.TimeOfDay`}. In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string`.
+   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element `Edm.TimeOfDay`}.
+   * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string`.
    */
   export default class TimeOfDay extends ODataType {
     /**
@@ -56843,7 +58587,7 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
       sValue: string,
       /**
        * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information
        */
       sTargetType: string
@@ -56886,8 +58630,8 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
       vValue: Date | string,
       /**
        * The source type (the expected type of `sValue`), must be "string", "object" (since 1.69.0) or a type
-       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link
-       * sap.ui.model.odata.type} for more information.
+       * with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
+       * for more information.
        */
       sSourceType: string
     ): string;
@@ -56922,12 +58666,11 @@ declare module "sap/ui/model/odata/type/Unit" {
    * This class represents the `Unit` composite type with the parts measure, unit, and unit customizing. The
    * type may only be used for measure and unit parts from a {@link sap.ui.model.odata.v4.ODataModel} or a
    * {@link sap.ui.model.odata.v2.ODataModel}. The measure part is formatted according to the customizing
-   * for the unit. Use the result of the promise returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestUnitsOfMeasure}
+   * for the unit. Use the result of the promise returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestUnitsOfMeasure }
    * for OData V4 or by {@link sap.ui.model.odata.ODataMetaModel#requestUnitsOfMeasure} for OData V2 as unit
-   * customizing part. See {@link topic:4d1b9d44941f483f9b7f579873d38685 Currency and Unit Customizing in
-   * OData V4} resp. {@link topic:6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency
-   * and Unit Customizing in OData V2} for more information. If no unit customizing is available, UI5's default
-   * formatting applies.
+   * customizing part. See {@link https://ui5.sap.com/#/topic/4d1b9d44941f483f9b7f579873d38685 Currency and Unit Customizing in OData V4 }
+   * resp. {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loioaa9024c7c5444822a68daeb21a92bd51 Currency and Unit Customizing in OData V2 }
+   * for more information. If no unit customizing is available, UI5's default formatting applies.
    */
   export default class Unit extends Unit1 {
     /**
@@ -57031,8 +58774,8 @@ declare module "sap/ui/model/odata/type/Unit" {
        */
       aValues: any[],
       /**
-       * The target type; must be "string" or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * The target type; must be "string" or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): string;
@@ -57060,8 +58803,8 @@ declare module "sap/ui/model/odata/type/Unit" {
        */
       vValue: string,
       /**
-       * The source type (the expected type of `vValue`); must be "string", or a type with "string" as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type} for more information.
+       * The source type (the expected type of `vValue`); must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * See {@link sap.ui.model.odata.type} for more information.
        */
       sSourceType: string,
       /**
@@ -57178,27 +58921,27 @@ declare module "sap/ui/model/odata/v2/Context" {
     /**
      * @since 1.96.0
      *
-     * Returns a promise on the creation state of this context if it has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * Returns a promise on the creation state of this context if it has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
      * or {@link sap.ui.model.odata.v2.ODataListBinding#create}; otherwise returns `undefined`.
      *
      * As long as the promise is not yet resolved or rejected, the entity represented by this context is transient.
      *
-     * Once the promise is resolved, the entity for this context is stored in the back end and {@link #getPath}
+     * Once the promise is resolved, the entity for this context is stored in the back end and {@link #getPath }
      * returns a path including the key predicate of the new entity.
      *
      * If the context has been created via {@link sap.ui.model.odata.v2.ODataListBinding#create} and the entity
      * for this context has been stored in the back end, {@link #created} returns `undefined` after the data
      * has been re-read from the back end and inserted at the right position based on the list binding's filters
-     * and sorters. If the context has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * and sorters. If the context has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
      * and the entity for this context has been stored in the back end, {@link #created} returns `undefined`.
      *
-     * @returns A promise for a context which has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * @returns A promise for a context which has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
      * or {@link sap.ui.model.odata.v2.ODataListBinding#create}, otherwise `undefined`.
      *
      * When the entity represented by this context has been persisted in the back end, the promise resolves
      * without data.
      *
-     * When the entity is deleted before it has been persisted in the back end via {@link sap.ui.model.odata.v2.ODataModel#resetChanges}
+     * When the entity is deleted before it has been persisted in the back end via {@link sap.ui.model.odata.v2.ODataModel#resetChanges }
      * with the `bDeleteCreatedEntities` parameter set to `true`, the promise rejects with an object `oError`
      * containing the error information, where `oError.aborted === true`.
      */
@@ -57213,12 +58956,13 @@ declare module "sap/ui/model/odata/v2/Context" {
      * in the back end. **Note:** The context must not be used anymore after successful deletion.
      *
      * @returns A promise resolving with `undefined` in case of successful deletion or rejecting with an error
-     * in case the deletion failed
+     * in case the deletion failed. If the `DELETE` request has been aborted, the error has an `aborted` flag
+     * set to `true`.
      */
     delete(
       /**
        * For a persistent context, a map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#remove},
-       * except that the `groupId` and `changeSetId` parameters default to the values set via {@link sap.ui.model.odata.v2.ODataModel#setChangeGroups}
+       * except that the `groupId` and `changeSetId` parameters default to the values set via {@link sap.ui.model.odata.v2.ODataModel#setChangeGroups }
        * for the type of the entity to be deleted.
        */
       mParameters?: {
@@ -57244,7 +58988,7 @@ declare module "sap/ui/model/odata/v2/Context" {
      *
      * Returns whether this context is inactive. An inactive context will not be sent to the server until it
      * is activated. From then on it behaves like any other created context. The result of this function can
-     * also be accessed via the "@$ui5.context.isInactive" instance annotation at the entity, see {@link sap.ui.model.odata.v2.ODataModel#getProperty}
+     * also be accessed via the "@$ui5.context.isInactive" instance annotation at the entity, see {@link sap.ui.model.odata.v2.ODataModel#getProperty }
      * for details.
      * See:
      * 	sap.ui.model.odata.v2.ODataListBinding#create
@@ -57263,11 +59007,11 @@ declare module "sap/ui/model/odata/v2/Context" {
      * at the entity, see {@link sap.ui.model.odata.v2.ODataModel#getProperty} for details.
      *
      * @returns
-     * 	 - `true`: if the context has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
-     * 			or {@link sap.ui.model.odata.v2.ODataListBinding#create} and is not yet persisted in the back end,
+     * 	 - `true`: if the context has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
+     *     or {@link sap.ui.model.odata.v2.ODataListBinding#create} and is not yet persisted in the back end,
      * 	 - `false`: if the context has been created via {@link sap.ui.model.odata.v2.ODataListBinding#create},
-     * 			data has been successfully persisted in the back end and the data is still displayed in the area of the
-     * 			inline creation rows, and
+     *     data has been successfully persisted in the back end and the data is still displayed in the area of the
+     *     inline creation rows, and
      * 	 - `undefined`: otherwise
      */
     isTransient(): boolean | undefined;
@@ -57815,7 +59559,7 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
    */
   export type errorParameters = {
     /**
-     * The error that occurred. Also contains the properties from {@link sap.ui.model.odata.v2.ODataAnnotations.Source}
+     * The error that occurred. Also contains the properties from {@link sap.ui.model.odata.v2.ODataAnnotations.Source }
      * that could be filled up to that point
      */
     result: Error;
@@ -57937,8 +59681,7 @@ declare module "sap/ui/model/odata/v2/ODataContextBinding" {
         select?: string;
         /**
          * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}.
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
          */
         usePreliminaryContext?: boolean;
         /**
@@ -58034,6 +59777,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
 
   import Message from "sap/ui/core/message/Message";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * List binding for an OData V2 model.
    */
@@ -58110,8 +59855,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         transitionMessagesOnly?: boolean;
         /**
          * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}.
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
          */
         usePreliminaryContext?: boolean;
         /**
@@ -58175,10 +59919,10 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
     /**
      * @since 1.98.0
      *
-     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
-     * Entities documentation} for comprehensive information on the topic.
+     * parameter. See {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
+     * for comprehensive information on the topic.
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      *
@@ -58215,9 +59959,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
          */
         error?: Function;
         /**
-         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
-         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link sap.ui.model.odata.v2.ODataModel#createEntry};
+         * **Note:** if no expand parameter is given, the expand parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
          */
         expand?: string;
         /**
@@ -58225,8 +59968,12 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
          */
         groupId?: string;
         /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context.
+         * Whether the created context is inactive. An inactive context will only be sent to the server when it
+         * has become active after a property update. From then on it behaves like any other created context.
+         *  When a property update happens on an inactive context, the {@link sap.ui.model.odata.v2.ODataListBinding#event:createActivate 'createActivate' }
+         * event is fired, and the context becomes active, unless the event handler prevents this. While inactive,
+         * the context does not count as a {@link sap.ui.model.odata.v2.ODataModel#hasPendingChanges pending change }
+         * and does not contribute to the {@link #getCount count}.
          */
         inactive?: boolean;
         /**
@@ -58290,7 +60037,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     getAllCurrentContexts(): Context1[];
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return contexts for the list.
      *
@@ -58405,7 +60152,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
     ): void;
     /**
      * @since 1.77.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests a {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -58420,7 +60167,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     requestFilterForMessages(
       /**
-       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
+       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message }
        * is considered. If no callback function is given, all messages are considered.
        */
       fnFilter?: (p1: Message) => boolean
@@ -58444,10 +60191,19 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
   }
+
+  export interface ODataListBinding$CreateActivateEventParameters {}
+
+  export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v2/ODataModel" {
-  import Model from "sap/ui/model/Model";
+  import {
+    default as Model,
+    Model$RequestCompletedEventParameters,
+    Model$RequestFailedEventParameters,
+    Model$RequestSentEventParameters,
+  } from "sap/ui/model/Model";
 
   import BindingMode from "sap/ui/model/BindingMode";
 
@@ -58473,22 +60229,23 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
 
   import Context1 from "sap/ui/model/odata/v2/Context";
 
-  import ODataAnnotations from "sap/ui/model/odata/v2/ODataAnnotations";
-
-  import ODataMetadata from "sap/ui/model/odata/ODataMetadata";
-
   import MessageScope from "sap/ui/model/odata/MessageScope";
 
   import Metadata from "sap/ui/base/Metadata";
 
   import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
 
+  import Event from "sap/ui/base/Event";
+
+  import { Source } from "sap/ui/model/odata/v2/ODataAnnotations";
+
   /**
    * @since 1.24.0
    *
    * Model implementation based on the OData protocol.
    *
-   * See chapter {@link topic:6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a general introduction.
+   * See chapter {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a
+   * general introduction.
    *
    * This model is not prepared to be inherited from.
    */
@@ -58617,8 +60374,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         persistTechnicalMessages?: boolean;
         /**
          * Whether a preliminary context will be created/used by a binding. When set to `true`, the model can bundle
-         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}
+         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
          */
         preliminaryContext?: boolean;
         /**
@@ -58706,7 +60462,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds (a) new URL(s) whose content should be parsed as OData annotations, which are then merged into the
      * annotations object which can be retrieved by calling the {@link #getServiceAnnotations}-method. If a
@@ -58726,7 +60482,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       vUrl: string | string[]
     ): Promise<any>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adds new XML content to be parsed for OData annotations, which are then merged into the annotations object
      * which can be retrieved by calling the {@link #getServiceAnnotations}-method.
@@ -58770,7 +60526,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58785,7 +60541,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58805,7 +60561,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58820,14 +60576,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted}
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
      * event of this `sap.ui.model.odata.v2.ODataModel`.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -58841,14 +60597,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted}
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
      * event of this `sap.ui.model.odata.v2.ODataModel`.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -58857,7 +60613,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58878,7 +60634,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58894,7 +60650,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58915,7 +60671,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58931,7 +60687,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58951,7 +60707,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58966,7 +60722,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -58986,7 +60742,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -59001,7 +60757,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
        */
@@ -59051,8 +60807,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         select?: string;
         /**
          * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}.
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
          */
         usePreliminaryContext?: boolean;
         /**
@@ -59137,8 +60892,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         transitionMessagesOnly?: boolean;
         /**
          * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}.
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
          */
         usePreliminaryContext?: boolean;
         /**
@@ -59209,16 +60963,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * For services without the `hierarchy-node-descendant-count-for` annotation, the `numberOfExpandedLevels`
      * property is not supported and deprecated.
      *
-     * Operation Modes: For a full definition and explanation of all OData binding operation modes, see {@link
-     * sap.ui.model.odata.OperationMode}.
+     * Operation Modes: For a full definition and explanation of all OData binding operation modes, see {@link sap.ui.model.odata.OperationMode}.
      *
-     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with {@link sap.ui.model.FilterType.Application
-     * application filters}. Be aware that this applies only to filters which do not prevent the creation of
-     * a hierarchy. So filtering on a property (e.g. a "Customer") is fine, as long as the application ensures
-     * that the responses from the back end are sufficient to create a valid hierarchy on the client. Subsequent
-     * paging requests for sibling and child nodes must also return responses, since the filters are sent with
-     * every request. Using control-defined filters (see {@link sap.ui.model.FilterType.Control}) via the {@link
-     * #filter} function is not supported for the operation mode `Server`.
+     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with {@link sap.ui.model.FilterType.Application application filters}.
+     * Be aware that this applies only to filters which do not prevent the creation of a hierarchy. So filtering
+     * on a property (e.g. a "Customer") is fine, as long as the application ensures that the responses from
+     * the back end are sufficient to create a valid hierarchy on the client. Subsequent paging requests for
+     * sibling and child nodes must also return responses, since the filters are sent with every request. Using
+     * control-defined filters (see {@link sap.ui.model.FilterType.Control}) via the {@link #filter} function
+     * is not supported for the operation mode `Server`.
      *
      * OperationMode.Client and OperationMode.Auto: The ODataTreeBinding supports control-defined filters only
      * in operation modes `Client` and `Auto`. With these operation modes, the filters and sorters are applied
@@ -59227,7 +60980,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * The operation modes `Client` and `Auto` are only supported for services which expose the hierarchy annotations
      * mentioned above, but do **not** expose the `hierarchy-node-descendant-count-for` annotation. Services
      * with hierarchy annotations including the `hierarchy-node-descendant-count-for` annotation, do **not**
-     * support the operation modes `Client` and `Auto`. **Note:** {@link sap.ui.model.odata.OperationMode.Auto}
+     * support the operation modes `Client` and `Auto`. **Note:** {@link sap.ui.model.odata.OperationMode.Auto }
      * is deprecated since 1.102.0.
      * See:
      * 	{@link http://www.sap.com/protocols/SAPData
@@ -59316,9 +61069,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * operation mode is {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto}. Use this feature
          * only if your back end supports pre-filtering the tree and is capable of responding with a complete tree
          * hierarchy, including all inner nodes. To construct the hierarchy on the client, it is mandatory that
-         * all filter matches include their complete parent chain up to the root level. If {@link sap.ui.model.odata.OperationMode.Client
-         * OperationMode.Client} is used, the complete collection without filters is requested; filters are applied
-         * on the client side.
+         * all filter matches include their complete parent chain up to the root level. If {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client }
+         * is used, the complete collection without filters is requested; filters are applied on the client side.
          */
         useServersideApplicationFilters?: boolean;
         /**
@@ -59326,10 +61078,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - The binding is running in {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client}, and
          *
          * 	 - the {@link sap.ui.table.TreeTable} is used.  The feature is only available when using the `ODataTreeBindingAdapter`,
-         * 			which is automatically applied when using the `sap.ui.table.TreeTable`. The tree state handle will contain
-         * 			all necessary information to expand the tree to the given state.
+         *     which is automatically applied when using the `sap.ui.table.TreeTable`. The tree state handle will contain
+         *     all necessary information to expand the tree to the given state.
          *
-         * This feature is not supported if {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server}
+         * This feature is not supported if {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server }
          * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used. See also {@link sap.ui.model.odata.ODataTreeBindingAdapter#getCurrentTreeState}
          */
         treeState?: any;
@@ -59373,11 +61125,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * with an `sap.ui.model.odata.v2.Context`. This context can be used to modify the function import parameter
      * values and to bind the function call's result. Changes of a parameter value via that context after the
      * function import has been processed lead to another function call with the modified parameters. Changed
-     * function import parameters are considered as pending changes, see {@link #hasPendingChanges} or {@link
-     * #getPendingChanges}, and can be reset via {@link #resetChanges}. If the function import returns an entity
-     * or a collection of entities, the `$result` property relative to that context can be used to bind the
-     * result to a control, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio6cb8d585ed594ee4b447b5b560f292a4
-     * Binding of Function Import Parameters}.
+     * function import parameters are considered as pending changes, see {@link #hasPendingChanges} or {@link #getPendingChanges},
+     * and can be reset via {@link #resetChanges}. If the function import returns an entity or a collection
+     * of entities, the `$result` property relative to that context can be used to bind the result to a control,
+     * see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio6cb8d585ed594ee4b447b5b560f292a4 Binding of Function Import Parameters}.
      *
      * @returns An object which has a `contextCreated` function that returns a `Promise`. This resolves with
      * the created {@link sap.ui.model.Context}. In addition it has an `abort` function to abort the current
@@ -59403,7 +61154,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * The callback function returns a `string` with the deep path for the entity returned by the function import
          * and gets the parameter map `mParameters` containing the following properties:
          * 	 - `{string} mParameters.deepPath`: The deep path of the resulting entity, as far as the framework is
-         * 			able to determine from the metadata and the OData response
+         *     able to determine from the metadata and the OData response
          * 	 - `{object} mParameters.response`: A copy of the OData response object
          */
         adjustDeepPath?: Function;
@@ -59413,7 +61164,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         changeSetId?: string;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the request has been aborted, the error has an `aborted`
+         * flag set to `true`.
          */
         error?: Function;
         /**
@@ -59431,16 +61183,16 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - the function import returns a single entity,
          * 	 - the back-end service must support the "Content-ID" header,
          * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
-         * 			`$batch` request.  The success and error callback functions are called only once, even if there
-         * 			are two requests in the `$batch` related to a single call of {@link #callFunction}.
+         *     `$batch` request.  The success and error callback functions are called only once, even if there
+         *     are two requests in the `$batch` related to a single call of {@link #callFunction}.
          * 	 - If both requests succeed, the success callback is called with the merged data of the POST and the
-         * 			GET request and with the response of the POST request.
+         *     GET request and with the response of the POST request.
          * 	 - If the POST request fails, the GET request also fails. In that case the error callback is called
-         * 			with the error response of the POST request.
+         *     with the error response of the POST request.
          * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
-         * 			callback is called with the data and the response of the POST request. The response object of the success
-         * 			callback call and the response parameter of the corresponding `requestFailed` and `requestCompleted`
-         * 			events have an additional property `expandAfterFunctionCallFailed` set to `true`.
+         *     callback is called with the data and the response of the POST request. The response object of the success
+         *     callback call and the response parameter of the corresponding `requestFailed` and `requestCompleted`
+         *     events have an additional property `expandAfterFunctionCallFailed` set to `true`.
          */
         expand?: string;
         /**
@@ -59457,9 +61209,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         method?: string;
         /**
-         * Defines whether to update all bindings after submitting this change operation; since 1.46. See {@link
-         * #setRefreshAfterChange}. If given, this overrules the model-wide `refreshAfterChange` flag for this operation
-         * only.
+         * Defines whether to update all bindings after submitting this change operation; since 1.46. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
         /**
@@ -59486,12 +61237,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     canonicalRequestsEnabled(): boolean;
     /**
-     * Trigger a `POST` request to the OData service that was specified in the model constructor; see {@link
-     * topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation}
+     * Trigger a `POST` request to the OData service that was specified in the model constructor; see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
      * for comprehensive information on the topic.
      *
-     * **Note:** This function does not support a "deep create" scenario. Use {@link #createEntry} or {@link
-     * sap.ui.model.odata.v2.ODataListBinding#create} instead.
+     * **Note:** This function does not support a "deep create" scenario. Use {@link #createEntry} or {@link sap.ui.model.odata.v2.ODataListBinding#create }
+     * instead.
      *
      * @returns An object which has an `abort` function to abort the current request.
      */
@@ -59522,7 +61272,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `POST` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -59546,9 +61297,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
-         * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
-         * only.
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
       }
@@ -59591,8 +61341,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         select?: string;
         /**
          * Whether a preliminary context will be created. When set to `true`, the model can bundle the OData calls
-         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
-         * Optimizing Dependent Bindings}
+         * for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
          */
         createPreliminaryContext?: boolean;
         /**
@@ -59612,8 +61361,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     ): Context1 | undefined;
     /**
      * Creates a new entry object which is described by the metadata of the entity type of the specified `sPath`
-     * Name. A context object is returned which can be used to bind against the newly created object. See {@link
-     * topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation}
+     * Name. A context object is returned which can be used to bind against the newly created object. See {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
      * for comprehensive information on the topic.
      *
      * For each created entry a request is created and stored in a request queue. The request queue can be submitted
@@ -59625,10 +61373,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * The optional parameter `mParameters.properties` can be used as follows:
      * 	 - `properties` could be an array containing the property names which should be included in the new
-     * 			entry. Other properties defined in the entity type won't be included.
+     *     entry. Other properties defined in the entity type won't be included.
      * 	 - `properties` could be an object which includes the desired properties and the corresponding values
-     * 			which should be used for the created entry.   If `properties` is not specified, all properties in
-     * 			the entity type will be included in the created entry.
+     *     which should be used for the created entry.   If `properties` is not specified, all properties in
+     *     the entity type will be included in the created entry.
      *
      * If there are no values specified, the properties will have `undefined` values.
      *
@@ -59642,15 +61390,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * 	 - a POST request for creating an entity,
      * 	 - a GET request for requesting the navigation properties for the just created entity.   The following
-     * 			outcomes are possible:
+     *     outcomes are possible:
      * 	 - If both requests succeed, the success handler is called with the merged data of the POST and the
-     * 			GET request and with the response of the POST request.
+     *     GET request and with the response of the POST request.
      * 	 - If the POST request fails, the GET request also fails. In that case the error callback handler is
-     * 			called with the error response of the POST request.
+     *     called with the error response of the POST request.
      * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
-     * 			handler is called with the data and the response of the POST request. The response object of the success
-     * 			handler call and the response parameter of the corresponding `requestFailed` and `requestCompleted` events
-     * 			have an additional property `expandAfterCreateFailed` set to `true`.
+     *     handler is called with the data and the response of the POST request. The response object of the success
+     *     handler call and the response parameter of the corresponding `requestFailed` and `requestCompleted` events
+     *     have an additional property `expandAfterCreateFailed` set to `true`.
      *
      * Note: If a server requires a property in the request, you must supply this property in the initial data,
      * for example if the server requires a unit for an amount. This also applies if this property has a default
@@ -59690,7 +61438,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         context?: Context;
         /**
-         * The callback function that is called after the metadata of the service is loaded and the {@link sap.ui.model.odata.v2.Context}
+         * The callback function that is called after the metadata of the service is loaded and the {@link sap.ui.model.odata.v2.Context }
          * instance for the newly created entry is available; The {@link sap.ui.model.odata.v2.Context} instance
          * for the newly created entry is passed as the first and only parameter.
          */
@@ -59706,7 +61454,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
          * 	 - the back-end service must support the "Content-ID" header,
          * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
-         * 			`$batch` request.
+         *     `$batch` request.
          */
         expand?: string;
         /**
@@ -59788,7 +61536,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -59805,14 +61553,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:batchRequestCompleted batchRequestCompleted}
+     * Detaches event handler `fnFunction` from the {@link #event:batchRequestCompleted batchRequestCompleted }
      * event of this `sap.ui.model.odata.v2.ODataModel`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -59823,7 +61571,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -59841,7 +61589,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -59859,7 +61607,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -59876,7 +61624,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -59893,14 +61641,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
      *
@@ -59910,27 +61658,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * A text that describes the failure
-         */
-        message?: string;
-        /**
-         * HTTP status code returned by the request (if available)
-         */
-        statusCode?: string;
-        /**
-         * The status as a text, details not specified, intended only for diagnosis output
-         */
-        statusText?: string;
-        /**
-         * Response that has been received for the request, as a text string
-         */
-        responseText?: string;
-      }
+      oParameters?: ODataModel$AnnotationsFailedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
      *
@@ -59940,15 +61671,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * The annotations object
-         */
-        annotations?: ODataAnnotations;
-      }
+      oParameters?: ODataModel$AnnotationsLoadedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestCompleted batchRequestCompleted} to attached listeners.
      *
@@ -59958,45 +61684,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * parameters to add to the fired event
        */
-      oParameters: {
-        /**
-         * The request ID
-         */
-        ID: string;
-        /**
-         * The URL which is sent to the backend
-         */
-        url: string;
-        /**
-         * The HTTP method
-         */
-        method: string;
-        /**
-         * The request headers
-         */
-        headers: Record<string, string>;
-        /**
-         * Request was successful or not
-         */
-        success: boolean;
-        /**
-         * If the request is synchronous or asynchronous (if available)
-         */
-        async: boolean;
-        /**
-         * Array of embedded requests ($batch) - empty array for non batch requests. Each request object within
-         * the array contains the following properties: url, method, headers, response object
-         */
-        requests: any[];
-        /**
-         * The response object - empty object if no response: The response object contains the following properties:
-         * message, success, headers, statusCode, statusText, responseText
-         */
-        response: object;
-      }
+      oParameters: ODataModel$BatchRequestCompletedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestFailed batchRequestFailed} to attached listeners.
      *
@@ -60006,45 +61697,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters: {
-        /**
-         * The request ID
-         */
-        ID: string;
-        /**
-         * The URL which is sent to the backend
-         */
-        url: string;
-        /**
-         * The HTTP method
-         */
-        method: string;
-        /**
-         * The request headers
-         */
-        headers: Record<string, string>;
-        /**
-         * If the request is synchronous or asynchronous (if available)
-         */
-        async: boolean;
-        /**
-         * Request was successful or not
-         */
-        success: boolean;
-        /**
-         * The response object - empty object if no response The response object contains the following properties:
-         * message, success, headers, statusCode, statusText, responseText
-         */
-        response: object;
-        /**
-         * Array of embedded requests ($batch) Each request object within the array contains the following properties:
-         * URL, method, headers, response object
-         */
-        requests: any[];
-      }
+      oParameters: ODataModel$BatchRequestFailedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:batchRequestSent batchRequestSent} to attached listeners.
      *
@@ -60054,28 +61710,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * The URL which is sent to the backend.
-         */
-        url?: string;
-        /**
-         * The type of the request (if available)
-         */
-        type?: string;
-        /**
-         * If the request is synchronous or asynchronous (if available)
-         */
-        async?: boolean;
-        /**
-         * Array of embedded requests ($batch) Each request object within the array contains the following properties:
-         * url, method, headers
-         */
-        requests: any[];
-      }
+      oParameters?: ODataModel$BatchRequestSentEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
      *
@@ -60085,27 +61723,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * A text that describes the failure.
-         */
-        message?: string;
-        /**
-         * HTTP status code returned by the request (if available)
-         */
-        statusCode?: string;
-        /**
-         * The status as a text, details not specified, intended only for diagnosis output
-         */
-        statusText?: string;
-        /**
-         * Response that has been received for the request ,as a text string
-         */
-        responseText?: string;
-      }
+      oParameters?: ODataModel$MetadataFailedEventParameters
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
      *
@@ -60115,12 +61736,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: {
-        /**
-         * the metadata object.
-         */
-        metadata?: ODataMetadata;
-      }
+      oParameters?: ODataModel$MetadataLoadedEventParameters
     ): this;
     /**
      * Force the update on the server of an entity by setting its ETag to '*'.
@@ -60248,8 +61864,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * V4 annotations from the existing {@link sap.ui.model.odata.v2.ODataAnnotations} directly into the corresponding
      * model element.
      *
-     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded
-     * loaded} has been resolved!
+     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded loaded }
+     * has been resolved!
      *
      * @returns The meta model for this `ODataModel`
      */
@@ -60399,9 +62015,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * which represents an instance annotation is supported. The following instance annotations are allowed;
      * they return information on the given oContext, which must be set and be an {@link sap.ui.model.odata.v2.Context}:
      *
-     * 	 - `@$ui5.context.isInactive`: The return value of {@link sap.ui.model.odata.v2.Context#isInactive}
+     * 	 - `@$ui5.context.isInactive`: The return value of {@link sap.ui.model.odata.v2.Context#isInactive }
      *
-     * 	 - `@$ui5.context.isTransient`: The return value of {@link sap.ui.model.odata.v2.Context#isTransient}
+     * 	 - `@$ui5.context.isTransient`: The return value of {@link sap.ui.model.odata.v2.Context#isTransient }
      *
      *
      * @returns Value of the property
@@ -60546,7 +62162,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * @since 1.76.0
      *
      * Checks whether the service has set the OData V2 annotation "message-scope-supported" on the `EntityContainer`
-     * with the value `true`. This is a a precondition for the setting of {@link sap.ui.model.odata.MessageScope.BusinessObject}
+     * with the value `true`. This is a a precondition for the setting of {@link sap.ui.model.odata.MessageScope.BusinessObject }
      * via {@link #setMessageScope}.
      * See:
      * 	sap.ui.model.odata.MessageScope
@@ -60569,16 +62185,16 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * but is only resolved if
      * 	 - the metadata are loaded successfully,
      * 	 - the annotations are processed, provided the model parameter `loadAnnotationsJoined` has been set.
-     * 			 Use this promise for delaying OData calls until all required information is available, i.e. this
-     * 			promise is resolved.
+     *      Use this promise for delaying OData calls until all required information is available, i.e. this
+     *     promise is resolved.
      *
      * `bRejectOnFailure=true`: Since 1.79, the parameter `bRejectOnFailure` allows to request a promise that
      * is rejected when one of the following fails:
      * 	 - the loading of the metadata,
      * 	 - the loading of the annotations, provided the model parameter `loadAnnotationsJoined` has been set.
-     * 			 The promise is fulfilled upon successful loading of both. This promise can be used to start processing
-     * 			OData calls when it is fulfilled and to display an error message when it is rejected. See also the example
-     * 			below.
+     *      The promise is fulfilled upon successful loading of both. This promise can be used to start processing
+     *     OData calls when it is fulfilled and to display an error message when it is rejected. See also the example
+     *     below.
      *
      * If the method `refreshMetadata` is called after the returned promise is already resolved or rejected,
      * you should use the promise returned by `refreshMetadata` to get information about the refreshed state.
@@ -60634,7 +62250,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `GET` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -60647,7 +62264,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         groupId?: string;
         /**
          * Whether messages for child entities belonging to the same business object as the requested or changed
-         * resources are updated. It is considered only if {@link sap.ui.model.odata.MessageScope.BusinessObject}
+         * resources are updated. It is considered only if {@link sap.ui.model.odata.MessageScope.BusinessObject }
          * is set using {@link #setMessageScope} and if the OData service supports message scope.
          */
         updateAggregatedMessages?: boolean;
@@ -60736,7 +62353,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `DELETE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -60764,9 +62382,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation, see {@link
-         * #setRefreshAfterChange}. If given, this overrules the model-wide `refreshAfterChange` flag for this operation
-         * only.
+         * Since 1.46; defines whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
       }
@@ -60783,8 +62400,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created by
      * one of the following methods:
-     * 	 - {@link #createEntry}, provided it is not yet persisted in the back end and is active (see {@link
-     * 			sap.ui.model.odata.v2.Context#isInactive}),
+     * 	 - {@link #createEntry}, provided it is not yet persisted in the back end and is active (see {@link sap.ui.model.odata.v2.Context#isInactive}),
+     *
      * 	 - {@link #callFunction}.
      * See:
      * 	#getPendingChanges
@@ -60798,7 +62415,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       aPath?: any[],
       /**
-       * Whether also deferred requests are taken into account
+       * Whether also deferred requests are taken into account so that they are aborted
        */
       bAll?: boolean,
       /**
@@ -60871,8 +62488,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * 	 - by sending a separate `$count` request
      * 	 - by adding parameter `$inlinecount=allpages` to one or all data requests
      * 	 - a combination of the previous two
-     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode}
-     * 			for all enumeration values and more details.
+     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode }
+     *     for all enumeration values and more details.
      *
      * Note that a call to this method does not modify the count mode for existing list bindings, only bindings
      * that are created afterwards will use the new mode when no mode is defined at their creation.
@@ -61038,7 +62655,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information
+         * which contains additional error information. If all contained requests have been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -61086,7 +62704,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information.
+         * which contains additional error information. If the `PUT/MERGE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
          */
         error?: Function;
         /**
@@ -61117,9 +62736,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
-         * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
-         * only.
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
          */
         refreshAfterChange?: boolean;
       }
@@ -61151,6 +62769,272 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     single?: boolean;
   };
+
+  export interface ODataModel$AnnotationsFailedEventParameters {
+    /**
+     * An array of Errors
+     */
+    result?: Error[];
+  }
+
+  export type ODataModel$AnnotationsFailedEvent = Event<ODataModel$AnnotationsFailedEventParameters>;
+
+  export interface ODataModel$AnnotationsLoadedEventParameters {
+    /**
+     * An array consisting of one or several annotation sources and/or errors containing a source property and
+     * error details.
+     */
+    result?: Source[];
+  }
+
+  export type ODataModel$AnnotationsLoadedEvent = Event<ODataModel$AnnotationsLoadedEventParameters>;
+
+  export interface ODataModel$BatchRequestCompletedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers, response object
+     */
+    requests?: any[];
+
+    /**
+     * The response object - empty object if no response: The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  export type ODataModel$BatchRequestCompletedEvent = Event<ODataModel$BatchRequestCompletedEventParameters>;
+
+  export interface ODataModel$BatchRequestFailedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * The response object - empty object if no response The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers, response object
+     */
+    requests?: any[];
+  }
+
+  export type ODataModel$BatchRequestFailedEvent = Event<ODataModel$BatchRequestFailedEventParameters>;
+
+  export interface ODataModel$BatchRequestSentEventParameters {
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The type of the request (if available)
+     */
+    type?: string;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers
+     */
+    requests?: any[];
+  }
+
+  export type ODataModel$BatchRequestSentEvent = Event<ODataModel$BatchRequestSentEventParameters>;
+
+  export interface ODataModel$MetadataFailedEventParameters {
+    /**
+     * The parsed metadata
+     */
+    metadata?: string;
+
+    /**
+     * A text that describes the failure.
+     */
+    message?: string;
+
+    /**
+     * HTTP status code returned by the request (if available)
+     */
+    statusCode?: string;
+
+    /**
+     * The status as a text, details not specified, intended only for diagnosis output
+     */
+    statusText?: string;
+
+    /**
+     * Response that has been received for the request, as a text string
+     */
+    responseText?: string;
+
+    /**
+     * The response object - empty object if no response
+     */
+    response?: object;
+  }
+
+  export type ODataModel$MetadataFailedEvent = Event<ODataModel$MetadataFailedEventParameters>;
+
+  export interface ODataModel$MetadataLoadedEventParameters {
+    /**
+     * The parsed metadata
+     */
+    metadata?: string;
+  }
+
+  export type ODataModel$MetadataLoadedEvent = Event<ODataModel$MetadataLoadedEventParameters>;
+
+  export interface ODataModel$RequestCompletedEventParameters
+    extends Model$RequestCompletedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * The response object - empty object if no response: The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
+
+  export interface ODataModel$RequestFailedEventParameters
+    extends Model$RequestFailedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * The response object - empty object if no response The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
+
+  export interface ODataModel$RequestSentEventParameters
+    extends Model$RequestSentEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+  }
+
+  export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
@@ -61169,7 +63053,7 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * Tree binding implementation for the {@link sap.ui.model.odata.v2.ODataModel}. Use {@link sap.ui.model.odata.v2.ODataModel#bindTree}
+   * Tree binding implementation for the {@link sap.ui.model.odata.v2.ODataModel}. Use {@link sap.ui.model.odata.v2.ODataModel#bindTree }
    * for creating an instance.
    */
   export default class ODataTreeBinding extends TreeBinding {
@@ -61232,7 +63116,7 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
      * Applies the given filters to the ODataTreeBinding.
      *
      * Please note that filters of type `FilterType.Control` are not supported for `OperationMode.Server`, here
-     * only filters of type `FilterType.Application` are allowed. Filters given via {@link sap.ui.model.odata.v2.ODataModel#bindTree}
+     * only filters of type `FilterType.Application` are allowed. Filters given via {@link sap.ui.model.odata.v2.ODataModel#bindTree }
      * are always of type `Application` and will be sent with every back-end request. For more information,
      * see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      *
@@ -61394,7 +63278,7 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
     ): void;
     /**
      * Sorts the Tree according to the given Sorter(s). In `OperationMode.Client` or `OperationMode.Auto` (if
-     * the given threshold is satisfied), the sorters are applied locally on the client. **Note:** {@link sap.ui.model.odata.OperationMode.Auto}
+     * the given threshold is satisfied), the sorters are applied locally on the client. **Note:** {@link sap.ui.model.odata.OperationMode.Auto }
      * is deprecated since 1.102.0.
      *
      * @returns returns `this` to facilitate method chaining
@@ -61420,7 +63304,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
   /**
    * @since 1.43.0
    *
-   * A collection of methods which help to consume OData V4 annotations in XML template views. Every context argument must belong to an {@link sap.ui.model.odata.v4.ODataMetaModel}
+   * A collection of methods which help to consume OData V4 annotations in XML template views. Every context argument must belong to an {@link sap.ui.model.odata.v4.ODataMetaModel }
    * instance.
    */
   interface AnnotationHelper {
@@ -61983,14 +63867,14 @@ declare module "sap/ui/model/odata/v4/Context" {
    *
    * Implementation of an OData V4 model's context.
    *
-   * The context is a pointer to model data as returned by a query from an {@link sap.ui.model.odata.v4.ODataContextBinding}
+   * The context is a pointer to model data as returned by a query from an {@link sap.ui.model.odata.v4.ODataContextBinding }
    * or an {@link sap.ui.model.odata.v4.ODataListBinding}. Contexts are always and only created by such bindings.
    * A context for a context binding points to the complete query result. A context for a list binding points
    * to one specific entry in the binding's collection. A property binding does not have a context, you can
    * access its value via {@link sap.ui.model.odata.v4.ODataPropertyBinding#getValue}.
    *
    * Applications can access model data only via a context, either synchronously with the risk that the values
-   * are not available yet ({@link #getProperty} and {@link #getObject}) or asynchronously ({@link #requestProperty}
+   * are not available yet ({@link #getProperty} and {@link #getObject}) or asynchronously ({@link #requestProperty }
    * and {@link #requestObject}).
    *
    * Context instances are immutable except for their indexes.
@@ -62041,7 +63925,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns a promise that is resolved without data when the entity represented by this context has been
      * created in the back end and all selected properties of this entity are available. Expanded navigation
-     * properties are only available if the context's binding is refreshable. {@link sap.ui.model.odata.v4.ODataContextBinding#refresh}
+     * properties are only available if the context's binding is refreshable. {@link sap.ui.model.odata.v4.ODataContextBinding#refresh }
      * and {@link sap.ui.model.odata.v4.ODataListBinding#refresh} describe which bindings are refreshable.
      *
      * As long as the promise is not yet resolved or rejected, the entity represented by this context is transient.
@@ -62049,12 +63933,15 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Once the promise is resolved, {@link #getPath} returns a path including the key predicate of the new
      * entity. This requires that all key properties are available.
      *
+     * Note that the promise of a nested context within a deep create is always rejected, even if the deep create
+     * succeeds. See {@link sap.ui.model.odata.v4.ODataListBinding#create} for more details.
+     *
      * @returns A promise that is resolved without data when the entity represented by this context has been
      * created in the back end. It is rejected with an `Error` instance where `oError.canceled === true` if
      * the transient entity is deleted before it is created in the back end, for example via {@link sap.ui.model.odata.v4.Context#delete},
-     * {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges} or {@link sap.ui.model.odata.v4.ODataModel#resetChanges}.
-     * It is rejected with an `Error` instance without `oError.canceled` if loading of $metadata fails. Returns
-     * `undefined` if the context has not been created using {@link sap.ui.model.odata.v4.ODataListBinding#create}.
+     * {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges} or {@link sap.ui.model.odata.v4.ODataModel#resetChanges},
+     * and for all nested contexts within a deep create. It is rejected with an `Error` instance without `oError.canceled`
+     * if loading of $metadata fails. Returns `undefined` if the context has not been created using {@link sap.ui.model.odata.v4.ODataListBinding#create}.
      */
     created(): Promise<void> | undefined;
     /**
@@ -62063,9 +63950,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Deletes the OData entity this context points to. The context is removed from the binding immediately,
      * even if {@link sap.ui.model.odata.v4.SubmitMode.API} is used, and the request is only sent later when
      * {@link sap.ui.model.odata.v4.ODataModel#submitBatch} is called. As soon as the context is deleted on
-     * the client, {@link #isDeleted} returns `true` and the context must not be used anymore (except for status
-     * APIs like {@link #isDeleted}, {@link #isKeepAlive}, {@link #hasPendingChanges}, {@link #resetChanges}),
-     * especially not as a binding context.
+     * the client, {@link #isDeleted} returns `true` and the context must not be used anymore, especially not
+     * as a binding context. Exceptions hold for status APIs like {@link #isDeleted}, {@link #isKeepAlive},
+     * {@link #hasPendingChanges}, {@link #resetChanges}, or {@link #isSelected} (returns `false` since 1.114.0).
      *
      * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
      * for the context, the binding containing it, and the model. The `resetChanges` method called on the context
@@ -62101,11 +63988,11 @@ declare module "sap/ui/model/odata/v4/Context" {
     delete(
       /**
        * The group ID to be used for the DELETE request; if not specified, the update group ID for the context's
-       * binding is used, see {@link #getUpdateGroupId}. Since 1.81, if this context is transient (see {@link
-       * #isTransient}), no group ID needs to be specified. Since 1.98.0, you can use `null` to prevent the DELETE
-       * request in case of a kept-alive context that is not in the collection and of which you know that it does
-       * not exist on the server anymore (for example, a draft after activation). Since 1.108.0 the usage of a
-       * group ID with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible.
+       * binding is used, see {@link #getUpdateGroupId}. Since 1.81, if this context is transient (see {@link #isTransient}),
+       * no group ID needs to be specified. Since 1.98.0, you can use `null` to prevent the DELETE request in
+       * case of a kept-alive context that is not in the collection and of which you know that it does not exist
+       * on the server anymore (for example, a draft after activation). Since 1.108.0 the usage of a group ID
+       * with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible.
        */
       sGroupId?: string,
       /**
@@ -62162,7 +64049,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @since 1.81.0
      *
-     * Returns the group ID of the context's binding that is used for read requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getGroupId}
+     * Returns the group ID of the context's binding that is used for read requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getGroupId }
      * and {@link sap.ui.model.odata.v4.ODataContextBinding#getGroupId}.
      *
      * @returns The group ID
@@ -62188,7 +64075,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * in "OData
      * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}.
      *
-     * Returns `undefined` if the data is not (yet) available; no request is triggered. Use {@link #requestObject}
+     * Returns `undefined` if the data is not (yet) available; no request is triggered. Use {@link #requestObject }
      * for asynchronous access.
      *
      * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
@@ -62230,7 +64117,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @since 1.81.0
      *
-     * Returns the group ID of the context's binding that is used for update requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getUpdateGroupId}
+     * Returns the group ID of the context's binding that is used for update requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getUpdateGroupId }
      * and {@link sap.ui.model.odata.v4.ODataContextBinding#getUpdateGroupId}.
      *
      * @returns The update group ID
@@ -62241,10 +64128,10 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns whether there are pending changes for bindings dependent on this context, or for unresolved bindings
      * (see {@link sap.ui.model.Binding#isResolved}) which were dependent on this context at the time the pending
-     * change was created. This includes the context itself being {@link #isTransient transient} or {@link #delete
-     * deleted} on the client, but not yet on the server. Since 1.98.0, {@link #isInactive inactive} contexts
-     * are ignored, unless their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation}
-     * has been prevented and therefore {@link #isInactive} returns `1`.
+     * change was created. This includes the context itself being {@link #isTransient transient} or {@link #delete deleted }
+     * on the client, but not yet on the server. Since 1.98.0, {@link #isInactive inactive} contexts are ignored,
+     * unless their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation} has been
+     * prevented and therefore {@link #isInactive} returns `1`.
      *
      * @returns Whether there are pending changes
      */
@@ -62253,7 +64140,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @since 1.105.0
      *
      * Returns whether this context is deleted. It becomes `true` immediately after calling {@link #delete},
-     * even while the request is waiting for {@link sap.ui.model.odata.v4.ODataModel#submitBatch submitBatch}
+     * even while the request is waiting for {@link sap.ui.model.odata.v4.ODataModel#submitBatch submitBatch }
      * or is in process. It becomes `false` again when the DELETE request fails or is canceled. The result of
      * this function can also be accessed via the "@$ui5.context.isDeleted" instance annotation at the entity.
      * See:
@@ -62280,8 +64167,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Returns whether this context is inactive. The result of this function can also be accessed via instance
      * annotation "@$ui5.context.isInactive" at the entity.
      *
-     * Since 1.110.0, `1` is returned in case {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate
-     * activation} has been prevented. Note that
+     * Since 1.110.0, `1` is returned in case {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation }
+     * has been prevented. Note that
      * 	 it is truthy: `!!1 === true`,  it is almost like `true`: `1 == true`,  but it can easily be
      * distinguished: `1 !== true`,  and `if (oContext.isInactive()) {...}` treats inactive contexts the
      * same, no matter whether activation has been prevented or not.
@@ -62307,7 +64194,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @experimental (since 1.111.0)
      *
-     * Tells whether this context is currently selected.
+     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client.
      * See:
      * 	#setSelected
      *
@@ -62386,8 +64273,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns a promise on the value for the given path relative to this context. The function allows access
      * to the complete data the context points to (if `sPath` is "") or any part thereof. The data is a JSON
-     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link
-     * sap.ui.model.odata.v4.Context#setProperty}.
+     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
      *
      * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
      *
@@ -62397,8 +64283,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * 	sap.ui.model.odata.v4.ODataContextBinding#refresh
      * 	sap.ui.model.odata.v4.ODataListBinding#refresh
      *
-     * @returns A promise on the requested value; it is rejected if the context is a header context and the
-     * path is neither empty nor "$count".
+     * @returns A promise on the requested value
      */
     requestObject(
       /**
@@ -62432,8 +64317,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @since 1.87.0
      *
-     * Refreshes the single entity represented by this context and returns a promise to wait for it. See {@link
-     * #refresh} for details. Use {@link #refresh} if you do not need the promise.
+     * Refreshes the single entity represented by this context and returns a promise to wait for it. See {@link #refresh }
+     * for details. Use {@link #refresh} if you do not need the promise.
      *
      * @returns A promise which resolves without a defined result when the refresh is finished and rejects with
      * an instance of `Error` if the refresh failed
@@ -62520,7 +64405,7 @@ declare module "sap/ui/model/odata/v4/Context" {
       aPathExpressions: object[] | string[],
       /**
        * The group ID to be used (since 1.69.0); if not specified, the update group ID for the context's binding
-       * is used, see {@link #getUpdateGroupId}. If a different group ID is specified, make sure that {@link #requestSideEffects}
+       * is used, see {@link #getUpdateGroupId}. If a different group ID is specified, make sure that {@link #requestSideEffects }
        * is called after the corresponding updates have been successfully processed by the server and that there
        * are no pending changes for the affected properties.
        */
@@ -62564,8 +64449,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       bKeepAlive: boolean,
       /**
-       * Callback function that is executed once for a kept-alive context just before it is destroyed, see {@link
-       * #destroy}. Supported since 1.84.0
+       * Callback function that is executed once for a kept-alive context just before it is destroyed, see {@link #destroy}.
+       * Supported since 1.84.0
        */
       fnOnBeforeDestroy?: Function,
       /**
@@ -62594,7 +64479,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * With `bRetry` it is only rejected with an `Error` instance where `oError.canceled === true` when the
      * entity has been deleted while the request was pending or the property has been reset via the methods
      *
-     * 	 {@link sap.ui.model.odata.v4.ODataModel#resetChanges}  {@link sap.ui.model.odata.v4.ODataContextBinding#resetChanges}
+     * 	 {@link sap.ui.model.odata.v4.ODataModel#resetChanges}  {@link sap.ui.model.odata.v4.ODataContextBinding#resetChanges }
      * or  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}.
      */
     setProperty(
@@ -62614,11 +64499,11 @@ declare module "sap/ui/model/odata/v4/Context" {
       sGroupId?: string,
       /**
        * Since 1.85.0, if `true` the property is not reset if the PATCH request failed. It contributes to the
-       * pending changes instead (see {@link sap.ui.model.odata.v4.ODataModel#hasPendingChanges}, {@link sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges}
+       * pending changes instead (see {@link sap.ui.model.odata.v4.ODataModel#hasPendingChanges}, {@link sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges }
        * and {@link sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges}) and can be reset via the corresponding
        * `resetChanges` methods.
        *
-       * The PATCH is automatically repeated with the next call of {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+       * The PATCH is automatically repeated with the next call of {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
        * if the group ID has {@link sap.ui.model.odata.v4.SubmitMode.API}. Otherwise it is repeated when the property
        * is modified again.
        *
@@ -62631,7 +64516,11 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @experimental (since 1.111.0)
      *
-     * Determines whether this context is currently selected.
+     * Determines whether this context is currently selected. If the preconditions of {@link #setKeepAlive }
+     * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
+     * state. While a context is currently {@link #delete deleted} on the client, it does not appear as {@link #isSelected selected}.
+     *
+     * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
      * 	#isSelected
      */
@@ -62646,8 +64535,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns a string representation of this object including the following information:
      * 	 {@link #getPath Binding path},  {@link #getIndex Index},  State (see also "Context states"
-     * of {@link topic:c9723f8265f644af91c0ed941e114d46 Creating an Entity}), including whether this context
-     * is {@link #isSelected selected}.
+     * of {@link https://ui5.sap.com/#/topic/c9723f8265f644af91c0ed941e114d46 Creating an Entity}), including
+     * whether this context is {@link #isSelected selected}.
      * See:
      * 	#destroy
      * 	#isDeleted
@@ -62670,6 +64559,14 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 
   import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
+
+  import {
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
+  } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -62795,8 +64692,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
      * is deselected.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #changeParameters}.
      *
@@ -62828,7 +64725,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataContextBinding$PatchCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -62880,7 +64777,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * context as described above is currently part of the list's collection (that is, has an index).
      *  A return value context is an {@link sap.ui.model.odata.v4.Context} which represents a bound operation
      * response. It is created only if the operation is bound and has a single entity return value from the
-     * same entity set as the operation's binding parameter and has a parent context which is an {@link sap.ui.model.odata.v4.Context}
+     * same entity set as the operation's binding parameter and has a parent context which is an {@link sap.ui.model.odata.v4.Context }
      * and points to an entity from an entity set. It is destroyed the next time this operation binding is executed
      * again!
      *  If a return value context is created, it must be used instead of `this.getBoundContext()`. All bound
@@ -62903,7 +64800,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       /**
        * If this callback is given for an action, the preference "handling=strict" is applied. If the service
        * responds with the HTTP status code 412 and a "Preference-applied: handling=strict" header, the details
-       * from the OData error response are extracted and passed to the callback as an array of {@link sap.ui.core.message.Message}
+       * from the OData error response are extracted and passed to the callback as an array of {@link sap.ui.core.message.Message }
        * items. The callback has to return a `Promise` resolving with a `boolean` value in order to indicate whether
        * the bound action should either be repeated **without** applying the preference or rejected with an `Error`
        * instance `oError` where `oError.canceled === true`. Since 1.92.0.
@@ -62917,9 +64814,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * `fnOnBeforeDestroy` will be called with the new context instance as the only argument in this case. An
        * existing context does not change its `keepAlive` attribute. In any case, the resulting context takes
        * the place (index, position) of the parent context (see {@link sap.ui.model.odata.v4.Context#getIndex}),
-       * which need not be in the collection currently if it is {@link sap.ui.model.odata.v4.Context#isKeepAlive
-       * kept alive}. If the parent context has requested messages when it was kept alive, they will be inherited
-       * if the $$inheritExpandSelect binding parameter is set to `true`. Since 1.97.0.
+       * which need not be in the collection currently if it is {@link sap.ui.model.odata.v4.Context#isKeepAlive kept alive}.
+       * If the parent context has requested messages when it was kept alive, they will be inherited if the $$inheritExpandSelect
+       * binding parameter is set to `true`. Since 1.97.0.
        */
       bReplaceWithRVC?: boolean
     ): Promise<any>;
@@ -62937,8 +64834,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Returns the group ID of the binding that is used for read requests. The group ID of the binding is alternatively
      * defined by
      * 	 the `groupId` parameter of the OData model; see {@link sap.ui.model.odata.v4.ODataModel#constructor},
-     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link
-     * sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *
      *
      * @returns The group ID
      */
@@ -62954,8 +64851,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     /**
      * @since 1.53.0
      *
-     * Returns the root binding of this binding's hierarchy, see {@link topic:fccfb2eb41414f0792c165e69a878717
-     * Initialization and Read Requests}.
+     * Returns the root binding of this binding's hierarchy, see {@link https://ui5.sap.com/#/topic/fccfb2eb41414f0792c165e69a878717 Initialization and Read Requests}.
      *
      * @returns The root binding or `undefined` if this binding is unresolved (see {@link sap.ui.model.Binding#isResolved}).
      */
@@ -62983,7 +64879,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * entity deletions which have not been sent successfully to the server. This function does not take the
      * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
      * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored, unless
-     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation}
+     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation }
      * has been prevented and {@link sap.ui.model.odata.v4.Context#isInactive} therefore returns `1`.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
@@ -62994,20 +64890,20 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      */
     hasPendingChanges(
       /**
-       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
-       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
-       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
-       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
-       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
-       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters changeParameters},
+       * {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh refresh }
+       * (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend }
+       * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
+       * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
+       * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
     /**
      * @since 1.37.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData context binding: Fires a 'change' event in case the binding has a resolved path
      * and its root binding is not suspended.
@@ -63030,11 +64926,11 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
-     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * with the given group ID.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #refresh}.
      *
@@ -63061,8 +64957,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      *
      * Returns a promise on the value for the given path relative to this binding. The function allows access
      * to the complete data the binding points to (if `sPath` is "") or any part thereof. The data is a JSON
-     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link
-     * sap.ui.model.odata.v4.Context#setProperty}.
+     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
      *
      * If you want {@link #requestObject} to read fresh data, call `oBinding.refresh()` first.
      * See:
@@ -63080,8 +64975,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     /**
      * @since 1.87.0
      *
-     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
-     * #refresh} if you do not need the promise.
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link #refresh }
+     * if you do not need the promise.
      *
      * @returns A promise which resolves without a defined result when the refresh is finished and rejects with
      * an instance of `Error` if the refresh failed
@@ -63108,7 +65003,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Resumes this binding. The binding can then again fire change events and trigger data service requests.
      * Before 1.53.0, this method was not supported and threw an error.
      * See:
-     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
+     * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#resume
      * 	#suspend
      */
@@ -63135,12 +65030,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      *
      * Suspends this binding. A suspended binding does not fire change events nor does it trigger data service
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
-     * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive
-     * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-     * contexts of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link
-     * sap.ui.model.odata.v4.Context#delete deleted} contexts do not count as pending changes.
+     * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive }
+     * context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts
+     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link sap.ui.model.odata.v4.Context#delete deleted }
+     * contexts do not count as pending changes.
      * See:
-     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
+     * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
      * 	sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges
@@ -63157,6 +65052,40 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      */
     toString(): string;
   }
+
+  export interface ODataContextBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {}
+
+  export type ODataContextBinding$ChangeEvent = Event<ODataContextBinding$ChangeEventParameters>;
+
+  export interface ODataContextBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
+
+  export type ODataContextBinding$DataReceivedEvent = Event<ODataContextBinding$DataReceivedEventParameters>;
+
+  export interface ODataContextBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  export type ODataContextBinding$DataRequestedEvent = Event<ODataContextBinding$DataRequestedEventParameters>;
+
+  export interface ODataContextBinding$PatchCompletedEventParameters {
+    /**
+     * Whether all PATCHes are successfully processed
+     */
+    success?: boolean;
+  }
+
+  export type ODataContextBinding$PatchCompletedEvent = Event<ODataContextBinding$PatchCompletedEventParameters>;
+
+  export interface ODataContextBinding$PatchSentEventParameters {}
+
+  export type ODataContextBinding$PatchSentEvent = Event<ODataContextBinding$PatchSentEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataListBinding" {
@@ -63177,6 +65106,16 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   import Message from "sap/ui/core/message/Message";
 
   import Sorter from "sap/ui/model/Sorter";
+
+  import {
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
+  } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
+
+  import ChangeReason from "sap/ui/model/ChangeReason";
 
   /**
    * @since 1.37.0
@@ -63330,8 +65269,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
      * is deselected.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #changeParameters}.
      *
@@ -63352,9 +65291,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * For creating the new entity, the binding's update group ID is used, see {@link #getUpdateGroupId}.
      *
      * You can call {@link sap.ui.model.odata.v4.Context#delete} to delete the created context again. As long
-     * as the context is {@link sap.ui.model.odata.v4.Context#isTransient transient} and {@link sap.ui.model.odata.v4.Context#isInactive
-     * active}, {@link #resetChanges} and a call to {@link sap.ui.model.odata.v4.ODataModel#resetChanges} with
-     * the update group ID as parameter also delete the created context together with other changes.
+     * as the context is {@link sap.ui.model.odata.v4.Context#isTransient transient} and {@link sap.ui.model.odata.v4.Context#isInactive active},
+     * {@link #resetChanges} and a call to {@link sap.ui.model.odata.v4.ODataModel#resetChanges} with the update
+     * group ID as parameter also delete the created context together with other changes.
      *
      * If the creation of the entity on the server failed, the creation is repeated automatically. If the binding's
      * update group ID has {@link sap.ui.model.odata.v4.SubmitMode.API}, it is repeated with the next call of
@@ -63363,9 +65302,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * IDs with {@link sap.ui.model.odata.v4.SubmitMode.Auto} in order to repeat the creation even if there
      * is no update for the entity.
      *
-     * Each time the data for the created entity is sent to the server, a {@link #event:createSent 'createSent'}
-     * event is fired and each time the client receives a response for the creation, a {@link #event:createCompleted
-     * 'createCompleted'} event is fired, independent of whether the creation was successful or not.
+     * Each time the data for the created entity is sent to the server, a {@link #event:createSent 'createSent' }
+     * event is fired and each time the client receives a response for the creation, a {@link #event:createCompleted 'createCompleted' }
+     * event is fired, independent of whether the creation was successful or not.
      *
      * The initial data for the created entity can be supplied via the parameter `oInitialData` and modified
      * via property bindings. Properties that are not part of the initial data show the default value from the
@@ -63379,32 +65318,33 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Note: After creation, the created entity is refreshed to ensure that the data specified in this list
      * binding's $expand is available. This refresh is done via the group ID of the binding, unless the group
      * ID has {@link sap.ui.model.odata.v4.SubmitMode.API}, in which case '$auto' is used. To skip this refresh,
-     * set `bSkipRefresh` to `true`. To avoid errors you must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects}
+     * set `bSkipRefresh` to `true`. To avoid errors you must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects }
      * in the same $batch to refresh the complete collection containing the newly created entity.
      *
-     * Since 1.112.0 it is possible to create nested entities in a collection-valued navigation property together
+     * Since 1.115.0 it is possible to create nested entities in a collection-valued navigation property together
      * with the entity (so-called "deep create"), for example a list of items for an order. For this purpose,
      * bind the list relative to a transient context. Calling this method then adds a transient entity to the
      * parent's navigation property, which is sent with the payload of the parent entity. Such a nested context
-     * also has a {@link sap.ui.model.odata.v4.Context#created created} promise, which resolves when the deep
-     * create resolves; it cannot be inactive. **Beware:** After a succesful creation of the main entity the
-     * context returned for a nested entity is no longer valid. New contexts are created for the nested collection
-     * because it is not possible to reliably assign the response entities to those of the request, especially
-     * if the count differs.
+     * cannot be inactive.
      *
-     * Deep create requires the autoExpandSelect parameter at the {@link sap.ui.model.odata.v4.ODataModel#constructor
-     * model}. The refresh after a deep create is optimized. Only the (navigation) properties missing from the
-     * POST response are actually requested. If the POST response contains all required properties, no request
-     * is sent at all.
+     * **Beware:** After a succesful creation of the main entity the context returned for a nested entity is
+     * no longer valid. Do not use the {@link sap.ui.model.odata.v4.Context#created created} promise of such
+     * a context! New contexts are created for the nested collection because it is not possible to reliably
+     * assign the response entities to those of the request, especially if the count differs. For this reason,
+     * the `created` promises of all nested contexts are always rejected with an instance of `Error`, even if
+     * the deep create succeeds. This error always has the property `canceled` with the value `true`.
      *
-     * Deep create is an **experimental** API.
+     * Deep create requires the `autoExpandSelect` parameter at the {@link sap.ui.model.odata.v4.ODataModel#constructor model}.
+     * The refresh after a deep create is optimized. Only the (navigation) properties missing from the POST
+     * response are actually requested. If the POST response contains all required properties, no request is
+     * sent at all.
      *
      * Note: Creating at the end is only allowed if the final length of the binding is known (see {@link #isLengthFinal}),
      * so that there is a clear position to place this entity at. This is the case if the complete collection
      * has been read or if the system query option `$count` is `true` and the binding has processed at least
      * one request.
      *
-     * @returns The context object for the created entity; its method {@link sap.ui.model.odata.v4.Context#created}
+     * @returns The context object for the created entity; its method {@link sap.ui.model.odata.v4.Context#created }
      * returns a promise that is resolved when the creation is finished
      */
     create(
@@ -63426,10 +65366,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * Create an inactive context. Such a context will only be sent to the server after the first property update.
        * From then on it behaves like any other created context. Supported since 1.97.0
-       *  Since 1.98.0, when the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive
-       * inactive} and the {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate 'createActivate'}
-       * event is fired. While inactive, it does not count as a {@link #hasPendingChanges pending change} and
-       * does not contribute to the {@link #getCount count}.
+       *  Since 1.98.0, when the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive inactive }
+       * and the {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate 'createActivate'} event is
+       * fired. While inactive, it does not count as a {@link #hasPendingChanges pending change} and does not
+       * contribute to the {@link #getCount count}.
        */
       bInactive?: boolean
     ): Context;
@@ -63469,7 +65409,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$CreateCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -63486,7 +65426,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$CreateSentEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -63503,7 +65443,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataListBinding$PatchCompletedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -63532,8 +65472,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Filters the list with the given filters. Since 1.97.0, if filters are unchanged, no request is sent,
      * regardless of pending changes. Since 1.111.0, the header context is deselected.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #filter}.
      *
@@ -63563,8 +65503,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * The dynamic filters to be used; replaces the dynamic filters given in {@link sap.ui.model.odata.v4.ODataModel#bindList}.
        * The filter executed on the list is created from the following parts, which are combined with a logical
        * 'and':
-       * 	 Dynamic filters of type {@link sap.ui.model.FilterType.Application}  Dynamic filters of type {@link
-       * sap.ui.model.FilterType.Control}  The static filters, as defined in the '$filter' binding parameter
+       * 	 Dynamic filters of type {@link sap.ui.model.FilterType.Application}  Dynamic filters of type {@link sap.ui.model.FilterType.Control }
+       *  The static filters, as defined in the '$filter' binding parameter
        */
       vFilters?: Filter | Filter[],
       /**
@@ -63599,16 +65539,16 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns all current contexts of this list binding in no special order. Just like {@link #getCurrentContexts},
      * this method does not request any data from a back end and does not change the binding's state. In contrast
      * to {@link #getCurrentContexts}, it does not only return those contexts that were last requested by a
-     * control, but all contexts that are currently available in the binding, including {@link sap.ui.model.odata.v4.Context#isKeepAlive
-     * kept-alive} contexts. To filter out kept-alive contexts that are not part of the list, you could check
-     * whether the index is `undefined`, as described in {@link sap.ui.model.odata.v4.Context#getIndex}.
+     * control, but all contexts that are currently available in the binding, including {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive }
+     * contexts. To filter out kept-alive contexts that are not part of the list, you could check whether the
+     * index is `undefined`, as described in {@link sap.ui.model.odata.v4.Context#getIndex}.
      *
      * @returns All current contexts of this list binding, in no special order
      */
     getAllCurrentContexts(): Context[];
     /**
      * @since 1.37.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns already created binding contexts for all entities in this list binding for the range determined
      * by the given start index `iStart` and `iLength`. If at least one of the entities in the given range has
@@ -63646,13 +65586,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns the count of elements.
      *
      * If known, the value represents the sum of the element count of the collection on the server and the number
-     * of {@link sap.ui.model.odata.v4.Context#isInactive active} {@link sap.ui.model.odata.v4.Context#isTransient
-     * transient} entities created on the client, minus the {@link #sap.ui.model.data.v4.Context#delete deleted}
-     * entities. Otherwise, it is `undefined`. The value is a number of type `Edm.Int64`. Since 1.91.0, in case
-     * of data aggregation with group levels, the count is the leaf count on the server; it is only determined
-     * if the `$count` system query option is given. Since 1.110.0, in case of a recursive hierarchy, the count
-     * is the number of nodes matching the current filter and search criteria (if any) or the number of all
-     * nodes; it is only determined if the `$count` system query option is given.
+     * of {@link sap.ui.model.odata.v4.Context#isInactive active} {@link sap.ui.model.odata.v4.Context#isTransient transient }
+     * entities created on the client, minus the {@link #sap.ui.model.data.v4.Context#delete deleted} entities.
+     * Otherwise, it is `undefined`. The value is a number of type `Edm.Int64`. Since 1.91.0, in case of data
+     * aggregation with group levels, the count is the leaf count on the server; it is only determined if the
+     * `$count` system query option is given. Since 1.110.0, in case of a recursive hierarchy, the count is
+     * the number of nodes matching the current filter and search criteria (if any) or the number of all nodes;
+     * it is only determined if the `$count` system query option is given.
      *
      * The count is known to the binding in the following situations:
      * 	 The server-side count has been requested via the `$count` system query option.  A "short read"
@@ -63674,9 +65614,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @since 1.39.0
      *
      * Returns the contexts that were requested by a control last time. Does not trigger a data request. In
-     * the time between the {@link #event:dataRequested 'dataRequested'} event and the {@link #event:dataReceived
-     * 'dataReceived'} event, the resulting array contains `undefined` at those indexes where the data is not
-     * yet available or has been deleted.
+     * the time between the {@link #event:dataRequested 'dataRequested'} event and the {@link #event:dataReceived 'dataReceived' }
+     * event, the resulting array contains `undefined` at those indexes where the data is not yet available
+     * or has been deleted.
      * See:
      * 	sap.ui.model.ListBinding#getCurrentContexts
      * 	#getAllCurrentContexts
@@ -63716,8 +65656,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns the group ID of the binding that is used for read requests. The group ID of the binding is alternatively
      * defined by
      * 	 the `groupId` parameter of the OData model; see {@link sap.ui.model.odata.v4.ODataModel#constructor},
-     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link
-     * sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *
      *
      * @returns The group ID
      */
@@ -63788,8 +65728,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     /**
      * @since 1.53.0
      *
-     * Returns the root binding of this binding's hierarchy, see {@link topic:fccfb2eb41414f0792c165e69a878717
-     * Initialization and Read Requests}.
+     * Returns the root binding of this binding's hierarchy, see {@link https://ui5.sap.com/#/topic/fccfb2eb41414f0792c165e69a878717 Initialization and Read Requests}.
      *
      * @returns The root binding or `undefined` if this binding is unresolved (see {@link sap.ui.model.Binding#isResolved}).
      */
@@ -63817,7 +65756,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * entity deletions which have not been sent successfully to the server. This function does not take the
      * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
      * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored, unless
-     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation}
+     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation }
      * has been prevented and {@link sap.ui.model.odata.v4.Context#isInactive} therefore returns `1`.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
@@ -63828,20 +65767,20 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     hasPendingChanges(
       /**
-       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
-       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
-       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
-       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
-       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
-       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters changeParameters},
+       * {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh refresh }
+       * (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend }
+       * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
+       * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
+       * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
     /**
      * @since 1.37.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Initializes the OData list binding: Fires an event in case the binding has a resolved path and its root
      * binding is not suspended. If the model's parameter `autoExpandSelect` is used (see {@link sap.ui.model.odata.v4.ODataModel#constructor}),
@@ -63886,11 +65825,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
-     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * with the given group ID.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #refresh}.
      *
@@ -63959,7 +65898,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     requestDownloadUrl(): Promise<string>;
     /**
      * @since 1.86.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Requests an {@link sap.ui.model.Filter} object which can be used to filter the list binding by entries
      * with model messages. With the filter callback, you can define if a message is considered when creating
@@ -63976,7 +65915,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     requestFilterForMessages(
       /**
-       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
+       * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message }
        * is considered. If no callback function is given, all messages are considered.
        */
       fnFilter?: (p1: Message) => boolean
@@ -63984,8 +65923,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     /**
      * @since 1.87.0
      *
-     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
-     * #refresh} if you do not need the promise.
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link #refresh }
+     * if you do not need the promise.
      *
      * @returns A promise which resolves without a defined result when the refresh is finished and rejects with
      * an instance of `Error` if the refresh failed
@@ -64012,7 +65951,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Resumes this binding. The binding can then again fire change events and trigger data service requests.
      * Before 1.53.0, this method was not supported and threw an error.
      * See:
-     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
+     * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#resume
      * 	#suspend
      */
@@ -64056,7 +65995,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         aggregate?: object;
         /**
-         * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand}
+         * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand }
          * (@experimental as of version 1.105.0), supported only if a `hierarchyQualifier` is given. Root nodes
          * are on the first level. By default, only root nodes are available; they are not yet expanded.
          */
@@ -64118,8 +66057,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * was given before, and not a newly created one, for example because `Function.prototype.bind` is called
      * repeatedly.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #sort}.
      * See:
@@ -64140,12 +66079,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      *
      * Suspends this binding. A suspended binding does not fire change events nor does it trigger data service
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
-     * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive
-     * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-     * contexts of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link
-     * sap.ui.model.odata.v4.Context#delete deleted} contexts do not count as pending changes.
+     * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive }
+     * context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts
+     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link sap.ui.model.odata.v4.Context#delete deleted }
+     * contexts do not count as pending changes.
      * See:
-     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
+     * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
      * 	sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges
@@ -64163,7 +66102,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     toString(): string;
     /**
      * @since 1.53.0
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Updates the binding's system query option `$apply` based on the given data aggregation information. Its
      * value is "groupby((<dimension_1,...,dimension_N,unit_or_text_1,...,unit_or_text_K>), aggregate(<measure>
@@ -64236,6 +66175,94 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       }>
     ): object | undefined;
   }
+
+  export interface ODataListBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {
+    /**
+     * During automatic determination of $expand and $select, a "virtual" context is first added with detailed
+     * reason "AddVirtualContext" and then removed with detailed reason "RemoveVirtualContext" (since 1.69.0);
+     * `undefined` is used in all other cases
+     */
+    detailedReason?: string;
+  }
+
+  export type ODataListBinding$ChangeEvent = Event<ODataListBinding$ChangeEventParameters>;
+
+  export interface ODataListBinding$CreateActivateEventParameters {}
+
+  export type ODataListBinding$CreateActivateEvent = Event<ODataListBinding$CreateActivateEventParameters>;
+
+  export interface ODataListBinding$CreateCompletedEventParameters {
+    /**
+     * The context for the created entity
+     */
+    context?: Context;
+
+    /**
+     * Whether the POST was successfully processed; in case of an error, the error is already reported to the
+     * {@link sap.ui.core.message.MessageManager}
+     */
+    success?: boolean;
+  }
+
+  export type ODataListBinding$CreateCompletedEvent = Event<ODataListBinding$CreateCompletedEventParameters>;
+
+  export interface ODataListBinding$CreateSentEventParameters {
+    /**
+     * The context for the created entity
+     */
+    context?: Context;
+  }
+
+  export type ODataListBinding$CreateSentEvent = Event<ODataListBinding$CreateSentEventParameters>;
+
+  export interface ODataListBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
+
+  export type ODataListBinding$DataReceivedEvent = Event<ODataListBinding$DataReceivedEventParameters>;
+
+  export interface ODataListBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  export type ODataListBinding$DataRequestedEvent = Event<ODataListBinding$DataRequestedEventParameters>;
+
+  export interface ODataListBinding$PatchCompletedEventParameters {
+    /**
+     * Whether all PATCHes are successfully processed
+     */
+    success?: boolean;
+  }
+
+  export type ODataListBinding$PatchCompletedEvent = Event<ODataListBinding$PatchCompletedEventParameters>;
+
+  export interface ODataListBinding$PatchSentEventParameters {}
+
+  export type ODataListBinding$PatchSentEvent = Event<ODataListBinding$PatchSentEventParameters>;
+
+  export interface ODataListBinding$RefreshEventParameters {
+    /**
+     * The reason for the 'refresh' event could be
+     * 	 {@link sap.ui.model.ChangeReason.Context Context} when the binding's parent context is changed,
+     * {@link sap.ui.model.ChangeReason.Filter Filter} on {@link #filter} and {@link #setAggregation},
+     * {@link sap.ui.model.ChangeReason.Refresh Refresh} on {@link #refresh}, or when the binding is initialized,
+     *  {@link sap.ui.model.ChangeReason.Sort Sort} on {@link #sort}.  {@link #changeParameters} leads
+     * to {@link sap.ui.model.ChangeReason.Filter Filter} if one of the parameters '$filter' and '$search' is
+     * changed, otherwise it leads to {@link sap.ui.model.ChangeReason.Sort Sort} if the parameter '$orderby'
+     * is changed; in other cases, it leads to {@link sap.ui.model.ChangeReason.Change Change}.
+     *  If APIs that would normally fire change events have been called while the binding is suspended, {@link #resume }
+     * leads to the "strongest" change reason in the order {@link sap.ui.model.ChangeReason.Filter Filter},
+     * {@link sap.ui.model.ChangeReason.Sort Sort}, {@link sap.ui.model.ChangeReason.Refresh Refresh}, {@link sap.ui.model.ChangeReason.Change Change}.
+     */
+    reason?: ChangeReason;
+  }
+
+  export type ODataListBinding$RefreshEvent = Event<ODataListBinding$RefreshEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataMetaModel" {
@@ -64344,8 +66371,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * Creates a list binding for this metadata model which iterates content from the given path (relative to
      * the given context), sorted and filtered as indicated.
      *
-     * By default, OData names are iterated and a trailing slash is implicitly added to the path (see {@link
-     * #requestObject} for the effects this has); technical properties and inline annotations are filtered out.
+     * By default, OData names are iterated and a trailing slash is implicitly added to the path (see {@link #requestObject }
+     * for the effects this has); technical properties and inline annotations are filtered out.
      *
      * A path which ends with an "@" segment can be used to iterate all inline or external targeting annotations;
      * no trailing slash is added implicitly; technical properties and OData names are filtered out.
@@ -64589,7 +66616,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * @since 1.63.0
      *
      * Request currency customizing based on the code list reference given in the entity container's `com.sap.vocabularies.CodeList.v1.CurrencyCodes`
-     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders}
+     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders }
      * from this meta model's data model.
      * See:
      * 	#requestUnitsOfMeasure
@@ -64636,8 +66663,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * Requests a snapshot of each $metadata or annotation file loaded so far, combined into a single "JSON"
      * object according to the streamlined OData V4 Metadata JSON Format. It is a map from all currently known
      * qualified names to their values, with the special key "$EntityContainer" mapped to the root entity container's
-     * qualified name as a starting point. See {@link topic:87aac894a40640f89920d7b2a414499b OData V4 Metadata
-     * JSON Format}.
+     * qualified name as a starting point. See {@link https://ui5.sap.com/#/topic/87aac894a40640f89920d7b2a414499b OData V4 Metadata JSON Format}.
      *
      * Note that this snapshot may change due to load-on-demand of "cross-service references" (see parameter
      * `supportReferences` of {@link sap.ui.model.odata.v4.ODataModel#constructor}).
@@ -64652,7 +66678,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      *
      * Requests the metadata value for the given path relative to the given context. Returns a `Promise` which
      * is resolved with the requested metadata value or rejected with an error (only in case metadata cannot
-     * be loaded). An invalid path leads to an `undefined` result and a warning is logged. Use {@link #getObject}
+     * be loaded). An invalid path leads to an `undefined` result and a warning is logged. Use {@link #getObject }
      * for synchronous access.
      *
      * A relative path is appended to the context's path separated by a forward slash("/"). A relative path
@@ -64740,10 +66766,10 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * must refer to a function in `mParameters.scope` in case of a relative name starting with a dot, which
      * is stripped before lookup; see the `<template:alias>` instruction for XML Templating. In case of an
      * absolute name, it is searched in `mParameters.scope` first and then in the global namespace. The names
-     * "requestCurrencyCodes" and "requestUnitsOfMeasure" default to {@link #requestCurrencyCodes} and {@link
-     * #requestUnitsOfMeasure} resp. if not present in `mParameters.scope`. This function is called with the
-     * current object (or primitive value) and additional details and returns the result of this {@link #requestObject}
-     * call. The additional details are given as an object with the following properties:
+     * "requestCurrencyCodes" and "requestUnitsOfMeasure" default to {@link #requestCurrencyCodes} and {@link #requestUnitsOfMeasure }
+     * resp. if not present in `mParameters.scope`. This function is called with the current object (or primitive
+     * value) and additional details and returns the result of this {@link #requestObject} call. The additional
+     * details are given as an object with the following properties:
      * 	 `{boolean} $$valueAsPromise` Whether the computed annotation may return a `Promise` resolving with
      * its value (since 1.57.0)  `{@link sap.ui.model.Context} context` Points to the current object
      * `{object} overload` In case of annotations of an operation or a parameter, if filtering by binding parameter
@@ -64878,7 +66904,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * @since 1.63.0
      *
      * Request unit customizing based on the code list reference given in the entity container's `com.sap.vocabularies.CodeList.v1.UnitOfMeasure`
-     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders}
+     * annotation. The corresponding HTTP request uses the HTTP headers obtained via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders }
      * from this meta model's data model.
      * See:
      * 	#requestCurrencyCodes
@@ -64925,7 +66951,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      *
      * @returns A promise which is resolved with a map of qualifier to value list mapping objects structured
      * as defined by `com.sap.vocabularies.Common.v1.ValueListType`; the map entry with key "" represents the
-     * mapping without qualifier. Each entry has an additional property "$model" which is the {@link sap.ui.model.odata.v4.ODataModel}
+     * mapping without qualifier. Each entry has an additional property "$model" which is the {@link sap.ui.model.odata.v4.ODataModel }
      * instance to read value list data via this mapping; that model is constructed with the HTTP headers obtained
      * via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders} from this meta model's data model. Since
      * 1.80.0, that model's parameter "sharedRequests" is set automatically (see {@link sap.ui.model.odata.v4.ODataModel#constructor}).
@@ -64976,9 +67002,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * See:
      * 	#getValueListType
      *
-     * @returns A promise that is resolved with the type of the value list, a constant of the enumeration {@link
-     * sap.ui.model.odata.v4.ValueListType}. The promise is rejected if the property cannot be found in the
-     * metadata.
+     * @returns A promise that is resolved with the type of the value list, a constant of the enumeration {@link sap.ui.model.odata.v4.ValueListType}.
+     * The promise is rejected if the property cannot be found in the metadata.
      */
     requestValueListType(
       /**
@@ -65004,7 +67029,14 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
 }
 
 declare module "sap/ui/model/odata/v4/ODataModel" {
-  import Model from "sap/ui/model/Model";
+  import {
+    default as Model,
+    Model$ParseErrorEventParameters,
+    Model$PropertyChangeEventParameters,
+    Model$RequestCompletedEventParameters,
+    Model$RequestFailedEventParameters,
+    Model$RequestSentEventParameters,
+  } from "sap/ui/model/Model";
 
   import OperationMode from "sap/ui/model/odata/OperationMode";
 
@@ -65031,6 +67063,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   import ODataMetaModel from "sap/ui/model/odata/v4/ODataMetaModel";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -65088,8 +67122,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * 	 root $metadata document and annotation files;  the security token.  Note: The root $metadata
          * document and annotation files are just requested but not yet converted from XML to JSON unless really
          * needed. Supported since 1.53.0. **BEWARE:** The default value may change to `true` in later releases.
-         * You may also set {@link topic:26ba6a5c1e5c417f8b21cce1411dba2c Manifest Model Preload} in order to further
-         * speed up the start of a UI5 component.
+         * You may also set {@link https://ui5.sap.com/#/topic/26ba6a5c1e5c417f8b21cce1411dba2c Manifest Model Preload }
+         * in order to further speed up the start of a UI5 component.
          */
         earlyRequests?: boolean;
         /**
@@ -65125,9 +67159,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         odataVersion?: string;
         /**
-         * The operation mode for filtering and sorting. Since 1.39.0, the operation mode {@link sap.ui.model.odata.OperationMode.Server}
+         * The operation mode for filtering and sorting. Since 1.39.0, the operation mode {@link sap.ui.model.odata.OperationMode.Server }
          * is supported. All other operation modes including `undefined` lead to an error if 'vFilters' or 'vSorters'
-         * are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter} or {@link sap.ui.model.odata.v4.ODataListBinding#sort}
+         * are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter} or {@link sap.ui.model.odata.v4.ODataListBinding#sort }
          * is called.
          */
         operationMode?: OperationMode | keyof typeof OperationMode;
@@ -65142,7 +67176,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         /**
          * Whether all list bindings for the same resource path share their data, so that it is requested only once;
          * only the value `true` is allowed; see parameter "$$sharedRequest" of {@link #bindList}. Additionally,
-         * {@link sap.ui.model.BindingMode.OneWay} becomes the default binding mode and {@link sap.ui.model.BindingMode.TwoWay}
+         * {@link sap.ui.model.BindingMode.OneWay} becomes the default binding mode and {@link sap.ui.model.BindingMode.TwoWay }
          * is forbidden. Note: This makes all bindings read-only, so it may be especially useful for value list
          * models. Supported since 1.80.0
          */
@@ -65156,7 +67190,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * (Controls synchronization between different bindings which refer to the same data for the case data changes
          * in one binding. Must be set to 'None' which means bindings are not synchronized at all; all other values
          * are not supported and lead to an error.) **deprecated:** As of version 1.110.0, this parameter is optional;
-         * see also {@link topic:648e360fa22d46248ca783dc6eb44531 Data Reuse}
+         * see also {@link https://ui5.sap.com/#/topic/648e360fa22d46248ca783dc6eb44531 Data Reuse}
          */
         synchronizationMode?: string;
         /**
@@ -65303,8 +67337,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * is a map from expand path to expand options, where the options are again maps of system query options,
          * typically with string values. $count can also be given as a `boolean` value, $expand can recursively
          * be given as a map, $levels can also be given as a `number` value, and $select can also be given as an
-         * array (but without navigation paths). An empty map can also be given as `null` or `true`. See also {@link
-         * topic:1ab4f62de6ab467096a2a98b363a1373 Parameters}.
+         * array (but without navigation paths). An empty map can also be given as `null` or `true`. See also {@link https://ui5.sap.com/#/topic/1ab4f62de6ab467096a2a98b363a1373 Parameters}.
          */
         $expand?: string | object;
         /**
@@ -65376,7 +67409,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       vSorters?: Sorter | Sorter[],
       /**
-       * The dynamic application filters to be used initially. Call {@link sap.ui.model.odata.v4.ODataListBinding#filter}
+       * The dynamic application filters to be used initially. Call {@link sap.ui.model.odata.v4.ODataListBinding#filter }
        * to replace them. Static filters, as defined in the '$filter' binding parameter, are always combined with
        * the dynamic filters using a logical `AND`. Supported since 1.39.0.
        */
@@ -65406,8 +67439,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * is a map from expand path to expand options, where the options are again maps of system query options,
          * typically with string values. $count can also be given as a `boolean` value, $expand can recursively
          * be given as a map, $levels can also be given as a `number` value, and $select can also be given as an
-         * array (but without navigation paths). An empty map can also be given as `null` or `true`. See also {@link
-         * topic:1ab4f62de6ab467096a2a98b363a1373 Parameters}.
+         * array (but without navigation paths). An empty map can also be given as `null` or `true`. See also {@link https://ui5.sap.com/#/topic/1ab4f62de6ab467096a2a98b363a1373 Parameters}.
          */
         $expand?: string | object;
         /**
@@ -65419,7 +67451,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $orderby?: string | number;
         /**
-         * The value for the "5.1.7 System Query Option $search"; see also `oAggregation.search` at {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}
+         * The value for the "5.1.7 System Query Option $search"; see also `oAggregation.search` at {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation }
          * and the note there!
          */
         $search?: string;
@@ -65431,7 +67463,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $select?: string | string[];
         /**
-         * An object holding the information needed for data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}
+         * An object holding the information needed for data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation }
          * for details.
          */
         $$aggregation?: object;
@@ -65457,7 +67489,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         /**
          * The operation mode for filtering and sorting with the model's operation mode as default. Since 1.39.0,
          * the operation mode {@link sap.ui.model.odata.OperationMode.Server} is supported. All other operation
-         * modes including `undefined` lead to an error if 'vFilters' or 'vSorters' are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter}
+         * modes including `undefined` lead to an error if 'vFilters' or 'vSorters' are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter }
          * or {@link sap.ui.model.odata.v4.ODataListBinding#sort} is called.
          */
         $$operationMode?: OperationMode | keyof typeof OperationMode;
@@ -65477,16 +67509,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Supported since 1.80.0 **Note:** These bindings are read-only, so they may be especially useful for value
          * lists; state messages (since 1.108.0) and the following APIs are **not** allowed
          * 	 for the list binding itself:
-         * 	 {@link sap.ui.model.odata.v4.ODataListBinding#create}  {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext}
-         * or {@link #getKeepAliveContext} as far as it affects such a list binding  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}
+         * 	 {@link sap.ui.model.odata.v4.ODataListBinding#create}  {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext }
+         * or {@link #getKeepAliveContext} as far as it affects such a list binding  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges }
          *   for the {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext header context} of
          * a list binding:
          * 	 {@link sap.ui.model.odata.v4.Context#requestSideEffects}   for the context of a list binding
          * representing a single entity:
          * 	 {@link sap.ui.model.odata.v4.Context#delete}  {@link sap.ui.model.odata.v4.Context#refresh}
-         * {@link sap.ui.model.odata.v4.Context#replaceWith}  {@link sap.ui.model.odata.v4.Context#requestSideEffects}
-         *  {@link sap.ui.model.odata.v4.Context#setKeepAlive}  {@link sap.ui.model.odata.v4.Context#setProperty}
-         *  executing a bound operation using `bReplaceWithRVC`, see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}
+         * {@link sap.ui.model.odata.v4.Context#replaceWith}  {@link sap.ui.model.odata.v4.Context#requestSideEffects }
+         *  {@link sap.ui.model.odata.v4.Context#setKeepAlive}  {@link sap.ui.model.odata.v4.Context#setProperty }
+         *  executing a bound operation using `bReplaceWithRVC`, see {@link sap.ui.model.odata.v4.ODataContextBinding#execute }
          *   for a dependent property binding of the list binding:
          * 	 {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}
          */
@@ -65628,14 +67660,14 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * @since 1.37.0
      *
      * Creates a binding context for the given path. A relative path can only be resolved if a context is provided.
-     * Note: The parameters `mParameters`, `fnCallBack`, and `bReload` from {@link sap.ui.model.Model#createBindingContext}
+     * Note: The parameters `mParameters`, `fnCallBack`, and `bReload` from {@link sap.ui.model.Model#createBindingContext }
      * are not supported.
      *
      * It is possible to create binding contexts pointing to metadata. A '##' is recognized as separator in
      * the resolved path and splits it into two parts; note that '#' may also be used as separator but is deprecated
      * since 1.51. The part before the separator is transformed into a metadata context (see {@link sap.ui.model.odata.v4.ODataMetaModel#getMetaContext}).
      * The part following the separator is then interpreted relative to this metadata context, even if it starts
-     * with a '/'; a trailing '/' is allowed here, see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject}
+     * with a '/'; a trailing '/' is allowed here, see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject }
      * for the effect it has.
      *
      * A binding path may also point to an operation advertisement which is addressed with '#.'
@@ -65682,12 +67714,15 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     delete(
       /**
-       * The canonical path of the entity to delete, starting with a '/'
+       * The canonical path of the entity to delete, starting with a '/'; since 1.115.0, a context instance can
+       * be given to determine both the path and ETag used for deletion on the server, but no bindings are affected
+       * and {@link sap.ui.model.odata.v4.Context#delete} should be used with a `null` group ID to clean up on
+       * the client side later
        */
-      sCanonicalPath: string,
+      vCanonicalPath: string | Context,
       /**
-       * The group ID that is used for the DELETE request; if not specified, the model's {@link #getUpdateGroupId
-       * update group ID} is used; the resulting group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}
+       * The group ID that is used for the DELETE request; if not specified, the model's {@link #getUpdateGroupId update group ID }
+       * is used; the resulting group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}
        */
       sGroupId?: string,
       /**
@@ -65721,7 +67756,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$DataReceivedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -65738,7 +67773,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * The function to call when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: ODataModel$DataRequestedEvent) => void,
       /**
        * Object on which to call the given function
        */
@@ -65811,8 +67846,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * binding differ from the given `mParameters` (except `$$groupId` which is especially used for the context),
      * that binding later runs into an error when trying to read data.
      *
-     * **Note**: The context received by this function may change its {@link sap.ui.model.odata.v4.Context#getBinding
-     * binding} during its lifetime.
+     * **Note**: The context received by this function may change its {@link sap.ui.model.odata.v4.Context#getBinding binding }
+     * during its lifetime.
      *
      * @returns The kept-alive context
      */
@@ -65827,7 +67862,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       bRequestMessages?: boolean,
       /**
        * Parameters for the context or the temporary binding; supported since 1.100.0. All custom query options
-       * and the following binding-specific parameters for a list binding may be given (see {@link #bindList}
+       * and the following binding-specific parameters for a list binding may be given (see {@link #bindList }
        * for details).
        */
       mParameters?: {
@@ -65871,9 +67906,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * @since 1.85.0
      *
      * Returns messages of this model associated with the given context, that is messages belonging to the object
-     * referred to by this context or a child object of that object. The messages are sorted by their {@link
-     * sap.ui.core.message.Message#getType type} according to the type's severity in a way that messages with
-     * highest severity come first.
+     * referred to by this context or a child object of that object. The messages are sorted by their {@link sap.ui.core.message.Message#getType type }
+     * according to the type's severity in a way that messages with highest severity come first.
      * See:
      * 	sap.ui.model.Model#getMessages
      *
@@ -65969,7 +68003,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * the given group ID.
      *
      * If there are pending changes, an error is thrown. Use {@link #hasPendingChanges} to check if there are
-     * pending changes. If there are changes, call {@link #submitBatch} to submit the changes or {@link #resetChanges}
+     * pending changes. If there are changes, call {@link #submitBatch} to submit the changes or {@link #resetChanges }
      * to reset the changes before calling {@link #refresh}.
      * See:
      * 	sap.ui.model.Model#refresh
@@ -66032,9 +68066,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      *
      * Resets all property changes, created entities, and entity deletions associated with the given group ID
      * which have not been successfully submitted via {@link #submitBatch}. Resets also invalid user input for
-     * the same group ID and (since 1.111.0) inactive contexts which had their activation prevented (see {@link
-     * sap.ui.model.odata.v4.Context#isInactive}). This function does not reset the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
+     * the same group ID and (since 1.111.0) inactive contexts which had their activation prevented (see {@link sap.ui.model.odata.v4.Context#isInactive}).
+     * This function does not reset the execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
      * See:
      * 	sap.ui.model.odata.v4.ODataModel#constructor
      * 	#hasPendingChanges
@@ -66058,9 +68091,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      *
      * Submits the requests associated with the given group ID in one batch request. Requests from subsequent
      * calls to this method for the same group ID may be combined in one batch request using separate change
-     * sets. For group IDs with {@link sap.ui.model.odata.v4.SubmitMode.Auto}, only a single change set is used;
-     * this method is useful to repeat failed updates or creates (see {@link sap.ui.model.odata.v4.ODataListBinding#create})
-     * together with all other requests for the given group ID in one batch request.
+     * sets. For group IDs with {@link sap.ui.model.odata.v4.SubmitMode.Auto}, this method is useful to repeat
+     * failed updates or creates (see {@link sap.ui.model.odata.v4.ODataListBinding#create}) together with all
+     * other requests for the given group ID in one batch request.
      *
      * {@link #resetChanges} can be used to reset all pending changes instead. After that, or when the promise
      * returned by this method is fulfilled, {@link #hasPendingChanges} will not report pending changes anymore.
@@ -66083,6 +68116,76 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     toString(): string;
   }
+
+  export interface ODataModel$DataReceivedEventParameters {
+    /**
+     * An empty data object if a back-end request succeeds
+     */
+    data?: object;
+
+    /**
+     * The error object if a back-end request failed.
+     */
+    error?: Error;
+
+    /**
+     * The absolute path to the entity which caused the event. The path is only provided for additional property
+     * requests; for other requests it is `undefined`.
+     */
+    path?: string;
+  }
+
+  export type ODataModel$DataReceivedEvent = Event<ODataModel$DataReceivedEventParameters>;
+
+  export interface ODataModel$DataRequestedEventParameters {
+    /**
+     * The absolute path to the entity which caused the event. The path is only provided for additional property
+     * requests; for other requests it is `undefined`.
+     */
+    path?: string;
+  }
+
+  export type ODataModel$DataRequestedEvent = Event<ODataModel$DataRequestedEventParameters>;
+
+  export interface ODataModel$ParseErrorEventParameters
+    extends Model$ParseErrorEventParameters {}
+
+  export type ODataModel$ParseErrorEvent = Event<ODataModel$ParseErrorEventParameters>;
+
+  export interface ODataModel$PropertyChangeEventParameters
+    extends Model$PropertyChangeEventParameters {
+    /**
+     * A promise on the outcome of the PATCH request, much like {@link sap.ui.model.odata.v4.Context#setProperty }
+     * provides it for `bRetry === true`; missing in case there is no PATCH
+     */
+    promise?: Promise<any>;
+
+    /**
+     * The property binding's {@link sap.ui.model.Binding#getResolvedPath resolved path}
+     */
+    resolvedPath?: string;
+  }
+
+  export type ODataModel$PropertyChangeEvent = Event<ODataModel$PropertyChangeEventParameters>;
+
+  export interface ODataModel$RequestCompletedEventParameters
+    extends Model$RequestCompletedEventParameters {}
+
+  export type ODataModel$RequestCompletedEvent = Event<ODataModel$RequestCompletedEventParameters>;
+
+  export interface ODataModel$RequestFailedEventParameters
+    extends Model$RequestFailedEventParameters {}
+
+  export type ODataModel$RequestFailedEvent = Event<ODataModel$RequestFailedEventParameters>;
+
+  export interface ODataModel$RequestSentEventParameters
+    extends Model$RequestSentEventParameters {}
+
+  export type ODataModel$RequestSentEvent = Event<ODataModel$RequestSentEventParameters>;
+
+  export interface ODataModel$SessionTimeoutEventParameters {}
+
+  export type ODataModel$SessionTimeoutEvent = Event<ODataModel$SessionTimeoutEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
@@ -66097,6 +68200,14 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   import ValueListType from "sap/ui/model/odata/v4/ValueListType";
 
   import Type from "sap/ui/model/Type";
+
+  import {
+    Binding$ChangeEventParameters,
+    Binding$DataReceivedEventParameters,
+    Binding$DataRequestedEventParameters,
+  } from "sap/ui/model/Binding";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.37.0
@@ -66172,8 +68283,8 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Returns the group ID of the binding that is used for read requests. The group ID of the binding is alternatively
      * defined by
      * 	 the `groupId` parameter of the OData model; see {@link sap.ui.model.odata.v4.ODataModel#constructor},
-     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link
-     * sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *  the `$$groupId` binding parameter; see {@link sap.ui.model.odata.v4.ODataModel#bindList} and {@link sap.ui.model.odata.v4.ODataModel#bindContext}.
+     *
      *
      * @returns The group ID
      */
@@ -66181,8 +68292,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     /**
      * @since 1.53.0
      *
-     * Returns the root binding of this binding's hierarchy, see {@link topic:fccfb2eb41414f0792c165e69a878717
-     * Initialization and Read Requests}.
+     * Returns the root binding of this binding's hierarchy, see {@link https://ui5.sap.com/#/topic/fccfb2eb41414f0792c165e69a878717 Initialization and Read Requests}.
      *
      * @returns The root binding or `undefined` if this binding is unresolved (see {@link sap.ui.model.Binding#isResolved}).
      */
@@ -66228,7 +68338,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * entity deletions which have not been sent successfully to the server. This function does not take the
      * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
      * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored, unless
-     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation}
+     * (since 1.100.0) their {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate activation }
      * has been prevented and {@link sap.ui.model.odata.v4.Context#isInactive} therefore returns `1`.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
@@ -66239,14 +68349,14 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      */
     hasPendingChanges(
       /**
-       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
-       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
-       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
-       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
-       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
-       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters changeParameters},
+       * {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh refresh }
+       * (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend }
+       * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
+       * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
+       * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -66265,11 +68375,11 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
-     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * with the given group ID.
      *
-     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
-     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
      * calling {@link #refresh}.
      *
@@ -66294,8 +68404,8 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     /**
      * @since 1.87.0
      *
-     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
-     * #refresh} if you do not need the promise.
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link #refresh }
+     * if you do not need the promise.
      *
      * @returns A promise which resolves without a defined result when the refresh is finished and rejects with
      * an instance of `Error` if the refresh failed
@@ -66380,8 +68490,8 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      *
      * Sets the new current value and updates the cache. If the value cannot be accepted or cannot be updated
      * on the server, an error is logged to the console and added to the message manager as a technical message.
-     * Unless preconditions fail synchronously, a {@link sap.ui.model.odata.v4.ODataModel#event:propertyChange
-     * 'propertyChange'} event is fired and provides a promise on the outcome of the asynchronous operation.
+     * Unless preconditions fail synchronously, a {@link sap.ui.model.odata.v4.ODataModel#event:propertyChange 'propertyChange' }
+     * event is fired and provides a promise on the outcome of the asynchronous operation.
      * See:
      * 	sap.ui.model.PropertyBinding#setValue
      */
@@ -66426,6 +68536,27 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      */
     toString(): string;
   }
+
+  export interface ODataPropertyBinding$ChangeEventParameters
+    extends Binding$ChangeEventParameters {}
+
+  export type ODataPropertyBinding$ChangeEvent = Event<ODataPropertyBinding$ChangeEventParameters>;
+
+  export interface ODataPropertyBinding$DataReceivedEventParameters
+    extends Binding$DataReceivedEventParameters {
+    /**
+     * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
+     * of the first one is provided.
+     */
+    error?: Error;
+  }
+
+  export type ODataPropertyBinding$DataReceivedEvent = Event<ODataPropertyBinding$DataReceivedEventParameters>;
+
+  export interface ODataPropertyBinding$DataRequestedEventParameters
+    extends Binding$DataRequestedEventParameters {}
+
+  export type ODataPropertyBinding$DataRequestedEvent = Event<ODataPropertyBinding$DataRequestedEventParameters>;
 }
 
 declare module "sap/ui/model/odata/v4/ODataUtils" {
@@ -66675,13 +68806,12 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     getFormatter(): Function;
     /**
-     * Returns the related JavaScript primitive value of the bound target which is parsed by the {@link sap.ui.model.SimpleType#getModelFormat
-     * model format} of this binding's type. If this binding doesn't have a type, the original value which is
-     * stored in the model is returned.
+     * Returns the related JavaScript primitive value of the bound target which is parsed by the {@link sap.ui.model.SimpleType#getModelFormat model format }
+     * of this binding's type. If this binding doesn't have a type, the original value which is stored in the
+     * model is returned.
      *
-     * This method will be used when targetType is set to "internal" or when it's included in a {@link sap.ui.model.CompositeBinding
-     * CompositeBinding} and the CompositeBinding needs to have the related JavaScript primitive values for
-     * its type or formatter.
+     * This method will be used when targetType is set to "internal" or when it's included in a {@link sap.ui.model.CompositeBinding CompositeBinding }
+     * and the CompositeBinding needs to have the related JavaScript primitive values for its type or formatter.
      *
      * @returns The value which is parsed by the model format of the bound target, or the original value in
      * case of no type.
@@ -66690,9 +68820,8 @@ declare module "sap/ui/model/PropertyBinding" {
     /**
      * Returns the raw model value, as it exists in the model dataset.
      *
-     * This method will be used when targetType of a binding is set to "raw" or when it's include in a {@link
-     * sap.ui.model.CompositeBinding CompositeBinding} and the CompositeBinding needs to have the related JavaScript
-     * primitive values for its type or formatter.
+     * This method will be used when targetType of a binding is set to "raw" or when it's include in a {@link sap.ui.model.CompositeBinding CompositeBinding }
+     * and the CompositeBinding needs to have the related JavaScript primitive values for its type or formatter.
      *
      * @returns The value which is parsed by the model format of the bound target, or the original value in
      * case of no type.
@@ -66718,7 +68847,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     resume(): void;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Sets the binding mode.
      */
@@ -66823,8 +68952,8 @@ declare module "sap/ui/model/resource/ResourceModel" {
    *
    * This model is not prepared to be inherited from.
    *
-   * This model allows to bind control properties against translatable texts. Its data is taken from a {@link
-   * module:sap/base/i18n/ResourceBundle} and it only supports property bindings.
+   * This model allows to bind control properties against translatable texts. Its data is taken from a {@link module:sap/base/i18n/ResourceBundle }
+   * and it only supports property bindings.
    *
    * In contrast to most other models, binding paths for a `ResourceModel` must not start with a slash; they
    * are absolute by default, and there's no further structure. Each key in the underlying resource bundle
@@ -66971,7 +69100,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Gets a property binding for the given path in the resource model. Only `sPath` from {@link sap.ui.model.Model#bindProperty}
+     * Gets a property binding for the given path in the resource model. Only `sPath` from {@link sap.ui.model.Model#bindProperty }
      * is supported; other parameters are ignored.
      *
      * @returns The property binding for the given path
@@ -67197,7 +69326,7 @@ declare module "sap/ui/model/SelectionModel" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -67375,8 +69504,7 @@ declare module "sap/ui/model/SimpleType" {
    * the given format options, parse an external value based on the given format options and validate the
    * raw model value based on the given constraints. An implementation of a simple type needs to implement
    * {@link #formatValue}, {@link #parseValue} and {@link #validateValue}. If the raw value, which is the
-   * value in model representation, isn't already a JavaScript primitive type, subclasses must override {@link
-   * #getModelFormat}.
+   * value in model representation, isn't already a JavaScript primitive type, subclasses must override {@link #getModelFormat}.
    */
   export default class SimpleType extends Type {
     /**
@@ -67434,19 +69562,18 @@ declare module "sap/ui/model/SimpleType" {
        */
       vValue: any,
       /**
-       * The target type; see {@link topic:ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
+       * The target type; see {@link https://ui5.sap.com/#/topic/ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
        */
       sTargetType: string
     ): any | Promise<any>;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object with `format` and `parse` methods. `format` converts the internal value which has a
      * JavaScript primitive type or is a built-in object such as Date which can be used by a control to the
      * raw value, and `parse` converts the raw value to the internal value.
      *
-     * You may return an instance of {@link sap.ui.core.format.DateFormat DateFormat} or {@link sap.ui.core.format.NumberFormat
-     * NumberFormat}.
+     * You may return an instance of {@link sap.ui.core.format.DateFormat DateFormat} or {@link sap.ui.core.format.NumberFormat NumberFormat}.
      *
      * The default implementation of the `format` and `parse` methods simply returns the given parameter. Subclasses
      * of {@link sap.ui.model.SimpleType#constructor SimpleType} should override this method if the raw value
@@ -67472,7 +69599,7 @@ declare module "sap/ui/model/SimpleType" {
        */
       vValue: any,
       /**
-       * The type of the given value; see {@link topic:ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
+       * The type of the given value; see {@link https://ui5.sap.com/#/topic/ac56d92162ed47ff858fdf1ce26c18c4 Allowed Property Types}
        */
       sSourceType: string
     ): any | Promise<any>;
@@ -67526,8 +69653,7 @@ declare module "sap/ui/model/Sorter" {
        * function that has been specified to create the group header for the control aggregation; see {@link sap.ui.base.ManagedObject#bindAggregation}.
        * **Note:** Grouping via `vGroup=true` is only possible (and only makes sense) for the primary sort property.
        * A more complicated grouping is possible by providing a grouping function. The sort order needs to fit
-       * to the grouping also in this case. See also {@link topic:ec79a5d5918f4f7f9cbc2150e66778cc Sorting, Grouping,
-       * and Filtering for List Binding}.
+       * to the grouping also in this case. See also {@link https://ui5.sap.com/#/topic/ec79a5d5918f4f7f9cbc2150e66778cc Sorting, Grouping, and Filtering for List Binding}.
        */
       vGroup?: boolean | Function,
       /**
@@ -67670,20 +69796,20 @@ declare module "sap/ui/model/StaticBinding" {
 
 declare module "sap/ui/model/TreeAutoExpandMode" {
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Different modes for setting the auto expand mode on tree or analytical bindings.
    */
   enum TreeAutoExpandMode {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * If supported by a backend provider with analytical capabilities, the requests needed for an automatic
      * node expansion are bundled.
      */
     Bundled = "Bundled",
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * Tree nodes will be expanded in sequence, level by level (Single requests are sent).
      */
@@ -67777,7 +69903,7 @@ declare module "sap/ui/model/TreeBinding" {
     /**
      * @deprecated (since 1.11) - use the `change` event. It now contains a parameter `(reason : "filter")`
      * when a filter event is fired.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Attaches event handler `fnFunction` to the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -67796,7 +69922,7 @@ declare module "sap/ui/model/TreeBinding" {
     ): void;
     /**
      * @deprecated (since 1.11) - use the `change` event.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Detaches event handler `fnFunction` from the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
@@ -67911,32 +70037,13 @@ declare module "sap/ui/model/TreeBindingAdapter" {
 
   export default class TreeBindingAdapter {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
      */
     constructor();
 
-    /**
-     * @deprecated (since 1.52) - This method is marked as 'protected' which was meant to be overwritten by
-     * its subclasses. It may be renamed or deleted and should only be called from this class or its subclasses.
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     *
-     * Calculate the request length based on the given information.
-     *
-     * @returns The calculated request length
-     */
-    _calculateRequestLength(
-      /**
-       * The maximum group size
-       */
-      iMaxGroupSize: number,
-      /**
-       * The information of the current section
-       */
-      oSection: object
-    ): number;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
      * this `sap.ui.model.TreeBindingAdapter`.
@@ -68003,7 +70110,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       oListener?: object
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
      *
@@ -68029,7 +70136,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       }
     ): this;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Gets an array of contexts for the requested part of the tree.
      *
@@ -68063,11 +70170,11 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
 
   /**
    * @deprecated (since 1.96.0) - use {@link sap.ui.model.TreeBindingAdapter} instead
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export default class TreeBindingCompatibilityAdapter {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
      * controls.
@@ -68329,8 +70436,7 @@ declare module "sap/ui/model/type/Currency" {
        */
       vValue: any[] | string,
       /**
-       * The target type; must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}
+       * The target type; must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}
        */
       sTargetType: string
     ): string | null;
@@ -68338,12 +70444,11 @@ declare module "sap/ui/model/type/Currency" {
      * @since 1.82.0
      *
      * Gets an array of indices that determine which parts of this type shall not propagate their model messages
-     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
-     * sap.ui.model.Binding#supportsIgnoreMessages}. If the format option `showMeasure` is set to `false` and
-     * the currency value is not shown in the control, the part for the currency code shall not propagate model
-     * messages to the control. Analogously, since 1.89.0, if the format option `showNumber` is set to `false`,
-     * the amount is not shown in the control and the part for the amount shall not propagate model messages
-     * to the control.
+     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link sap.ui.model.Binding#supportsIgnoreMessages}.
+     * If the format option `showMeasure` is set to `false` and the currency value is not shown in the control,
+     * the part for the currency code shall not propagate model messages to the control. Analogously, since
+     * 1.89.0, if the format option `showNumber` is set to `false`, the amount is not shown in the control and
+     * the part for the amount shall not propagate model messages to the control.
      * See:
      * 	sap.ui.model.Binding#supportsIgnoreMessages
      *
@@ -68365,8 +70470,7 @@ declare module "sap/ui/model/type/Currency" {
        */
       sValue: string,
       /**
-       * The source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link
-       * sap.ui.base.DataType#getPrimitiveType primitive type}.
+       * The source type (the expected type of `sValue`); must be "string", or a type with "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}.
        */
       sSourceType: string,
       /**
@@ -68391,8 +70495,7 @@ declare module "sap/ui/model/type/Date" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateInstance
-       * DateFormat}.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateInstance DateFormat}.
        */
       oFormatOptions?: {
         /**
@@ -68453,7 +70556,7 @@ declare module "sap/ui/model/type/Date" {
      */
     static getMetadata(): Metadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the output pattern.
      * See:
@@ -68588,14 +70691,14 @@ declare module "sap/ui/model/type/DateInterval" {
        * 	 - Two `Date` or `module:sap/ui/core/date/UI5Date` objects, or
        * 	 - Two strings as formatted start and end dates based on the `source` format option, or
        * 	 - Two numbers, representing the milliseconds of the timestamps based on the UNIX epoch if the `source`
-       * 			format option is used and `source.pattern` is `"timestamp"`.  If the `singleIntervalValue` format
-       * 			option is used, either an array with only one entry or an array with two entries, the second of which
-       * 			is `null`, are allowed.
+       *     format option is used and `source.pattern` is `"timestamp"`.  If the `singleIntervalValue` format
+       *     option is used, either an array with only one entry or an array with two entries, the second of which
+       *     is `null`, are allowed.
        */
       aValues: Array<Date | UI5Date | int | string | null>,
       /**
-       * The target type; may be "any" or "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
-       * primitive type}; see {@link sap.ui.model.odata.type} for more information.
+       * The target type; may be "any" or "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type};
+       * see {@link sap.ui.model.odata.type} for more information.
        */
       sTargetType: string
     ): string;
@@ -68618,7 +70721,7 @@ declare module "sap/ui/model/type/DateInterval" {
      * 	 - Two `Date` or `module:sap/ui/core/date/UI5Date` objects, or
      * 	 - Two strings as formatted start and end dates based on the `source` format option, or
      * 	 - Two numbers, representing the milliseconds of the timestamps based on the UNIX epoch if the `source`
-     * 			format option is used and `source.pattern` is `"timestamp"`.
+     *     format option is used and `source.pattern` is `"timestamp"`.
      */
     parseValue(
       /**
@@ -68627,7 +70730,7 @@ declare module "sap/ui/model/type/DateInterval" {
       sValue: string,
       /**
        * The source type (the expected type of `sValue`); it must be either "string" or a type with "string" as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type }
        * for more information.
        */
       sSourceType: string
@@ -68658,8 +70761,7 @@ declare module "sap/ui/model/type/DateTime" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeInstance
-       * DateFormat}.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeInstance DateFormat}.
        */
       oFormatOptions?: {
         /**
@@ -68725,8 +70827,7 @@ declare module "sap/ui/model/type/DateTimeInterval" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeInstance
-       * DateFormat}.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeInstance DateFormat}.
        */
       oFormatOptions?: {
         /**
@@ -68810,8 +70911,7 @@ declare module "sap/ui/model/type/FileSize" {
          * values in the data source (e.g. model) and a numeric byte representation. This second format object is
          * used to convert from a model string to numeric bytes before converting to string with the primary format
          * object. Vice versa, this 'source' format is also used to format an already parsed external value (e.g.
-         * user input) into the string format expected by the data source. Supports the same set of options as {@link
-         * sap.ui.core.format.FileSizeFormat.getInstance FileSizeFormat.getInstance}.
+         * user input) into the string format expected by the data source. Supports the same set of options as {@link sap.ui.core.format.FileSizeFormat.getInstance FileSizeFormat.getInstance}.
          */
         source?: object;
       },
@@ -69133,8 +71233,7 @@ declare module "sap/ui/model/type/String" {
       vValue: string | number | boolean,
       /**
        * The source type (the expected type of `vValue`); may be "boolean", "float", "int" or "string", or a type
-       * with "boolean", "float", "int" or "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive
-       * type}
+       * with "boolean", "float", "int" or "string" as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}
        */
       sSourceType: string
     ): string;
@@ -69165,8 +71264,7 @@ declare module "sap/ui/model/type/Time" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getTimeInstance
-       * DateFormat}.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getTimeInstance DateFormat}.
        */
       oFormatOptions?: {
         /**
@@ -69233,8 +71331,7 @@ declare module "sap/ui/model/type/TimeInterval" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getTimeInstance
-       * DateFormat}.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getTimeInstance DateFormat}.
        */
       oFormatOptions?: {
         /**
@@ -69312,11 +71409,11 @@ declare module "sap/ui/model/type/Unit" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.NumberFormat.getUnitInstance
-       * NumberFormat}. If the format options `showMeasure` or `showNumber` are set to `false`, model messages
-       * for the respective parts are not propagated to the control, provided the corresponding binding supports
-       * the feature of ignoring model messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and
-       * the corresponding binding parameter is not set manually.
+       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.NumberFormat.getUnitInstance NumberFormat}.
+       * If the format options `showMeasure` or `showNumber` are set to `false`, model messages for the respective
+       * parts are not propagated to the control, provided the corresponding binding supports the feature of ignoring
+       * model messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and the corresponding binding
+       * parameter is not set manually.
        */
       oFormatOptions?: {
         /**
@@ -69407,11 +71504,11 @@ declare module "sap/ui/model/type/Unit" {
      * @since 1.89.0
      *
      * Gets an array of indices that determine which parts of this type shall not propagate their model messages
-     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
-     * sap.ui.model.Binding#supportsIgnoreMessages}. If the format option `showMeasure` is set to `false` and
-     * the unit value is not shown in the control, the part for the unit code shall not propagate model messages
-     * to the control. Analogously, if the format option `showNumber` is set to `false`, the measure is not
-     * shown in the control and the part for the measure shall not propagate model messages to the control.
+     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link sap.ui.model.Binding#supportsIgnoreMessages}.
+     * If the format option `showMeasure` is set to `false` and the unit value is not shown in the control,
+     * the part for the unit code shall not propagate model messages to the control. Analogously, if the format
+     * option `showNumber` is set to `false`, the measure is not shown in the control and the part for the measure
+     * shall not propagate model messages to the control.
      * See:
      * 	sap.ui.model.Binding#supportsIgnoreMessages
      *
@@ -69654,13 +71751,13 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Tree binding implementation for XML format
    */
   export default class XMLTreeBinding extends ClientTreeBinding {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       oModel: XMLModel,
@@ -69682,7 +71779,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       mParameters?: object
     );
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor(
       /**
@@ -69704,7 +71801,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
     );
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Return node contexts for the tree
      *
@@ -69782,7 +71879,7 @@ declare module "sap/ui/test/actions/Action" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter Should be
      * overwritten by subclasses
@@ -69858,8 +71955,8 @@ declare module "sap/ui/test/actions/Drag" {
    * @since 1.76
    *
    * The `Drag` action is used to simulate a drag interaction with a control. The control should be draggable,
-   * as defined by its dnd aggregation configuration. The drop location will be defined by a consequtive {@link
-   * sap.ui.test.actions.Drop} action.
+   * as defined by its dnd aggregation configuration. The drop location will be defined by a consequtive {@link sap.ui.test.actions.Drop }
+   * action.
    *
    * The `Drag` action targets the DOM focus reference of the control.
    */
@@ -69944,7 +72041,7 @@ declare module "sap/ui/test/actions/Drop" {
    * @since 1.76
    *
    * The `Drop` action is used to simulate drop on a control. The control should be droppable, as defined
-   * by its dnd aggregation configuration. The dropped control should be defined in a preceding {@link sap.ui.test.actions.Drag}
+   * by its dnd aggregation configuration. The dropped control should be defined in a preceding {@link sap.ui.test.actions.Drag }
    * action.
    *
    * The `Drop` action targets a special DOM element representing the control. This DOM element can be customized.
@@ -70800,6 +72897,19 @@ declare module "sap/ui/test/gherkin/dataTableUtils" {
    */
   interface dataTableUtils {
     /**
+     * A simple object containing a series of normalization functions that change a string according to a particular
+     * strategy. All strategies do the following normalization as a minimum:
+     *
+     *
+     * 	 - Trim spaces off the string on both sides. For example: `" hello "` becomes `"hello"`.
+     * 	 - Assume that dashes and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
+     *     to party"` are equivalent, and would both convert to the camelCase `"soldToParty"`.
+     * 	 - Trim multiple spaces between words. For example: `"hello____world"` becomes `"hello world"`.
+     * 	 - Remove any characters that are not alphanumeric or whitespace. For example: `"(hello)"` becomes `"hello"`.
+     */
+    normalization: normalization;
+
+    /**
      * Takes the inputed 2D array "aData" and returns an equivalent object. Each row of data is expected to
      * be a property-value pair. To create nested objects, add extra columns to the data. E.g.
      * ```javascript
@@ -70890,11 +73000,11 @@ declare module "sap/ui/test/gherkin/dataTableUtils" {
    *
    * 	 - Trim spaces off the string on both sides. For example: `" hello "` becomes `"hello"`.
    * 	 - Assume that dashes and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
-   * 			to party"` are equivalent, and would both convert to the camelCase `"soldToParty"`.
+   *     to party"` are equivalent, and would both convert to the camelCase `"soldToParty"`.
    * 	 - Trim multiple spaces between words. For example: `"hello____world"` becomes `"hello world"`.
    * 	 - Remove any characters that are not alphanumeric or whitespace. For example: `"(hello)"` becomes `"hello"`.
    */
-  export interface normalization {
+  interface normalization {
     /**
      * For example: "First Name" -> "firstName"
      *
@@ -71688,7 +73798,6 @@ declare module "sap/ui/test/OpaBuilder" {
     MultiControlSelector,
     Matcher,
     Action,
-    Chain,
   } from "sap/ui/test/Opa5";
 
   import UI5Element from "sap/ui/core/Element";
@@ -71795,6 +73904,15 @@ declare module "sap/ui/test/OpaBuilder" {
        */
       oOptions?: SingleControlSelector | MultiControlSelector
     );
+    /**
+     * A collection of predefined actions. See also {@link sap.ui.test.actions}.
+     */
+    static Actions: Actions;
+
+    /**
+     * A collection of predefined matchers. See also {@link sap.ui.test.matchers}
+     */
+    static Matchers: Matchers;
 
     /**
      * Convenience creation and initialization of a new OpaBuilder.
@@ -72049,7 +74167,7 @@ declare module "sap/ui/test/OpaBuilder" {
        * the Opa5 instance to call {@link sap.ui.test.Opa5#waitFor} on
        */
       oOpaInstance?: Opa5
-    ): Chain;
+    ): /* was: sap.ui.test.Opa5.Chain */ any;
     /**
      * Sets the `fragmentId` parameter.
      *
@@ -72062,7 +74180,7 @@ declare module "sap/ui/test/OpaBuilder" {
       sFragmentId: string
     ): this;
     /**
-     * Get the Opa5 instance that will be used for {@link sap.ui.test.OpaBuilder#execute}. If no {sap.ui.test.Opa5}
+     * Get the Opa5 instance that will be used for {@link sap.ui.test.OpaBuilder#execute}. If no {sap.ui.test.Opa5 }
      * instance was set before, this function creates a new one lazily.
      *
      * @returns the Opa5 instance
@@ -72205,8 +74323,7 @@ declare module "sap/ui/test/OpaBuilder" {
       oProperties: Record<string, any>
     ): this;
     /**
-     * Adds a group of matchers that requires only one of them to actually match. It is internally using {@link
-     * sap.ui.test.OpaBuilder.Matchers.some}.
+     * Adds a group of matchers that requires only one of them to actually match. It is internally using {@link sap.ui.test.OpaBuilder.Matchers.some}.
      *
      * @returns this OpaBuilder instance
      */
@@ -72296,7 +74413,7 @@ declare module "sap/ui/test/OpaBuilder" {
     /**
      * Set the Opa5 instance to be used for {@link sap.ui.test.OpaBuilder#execute}. Please note that this function
      * does not return the OpaBuilder instance and can therefore not be chained. Use the `oOpaInstance` argument
-     * of {@link sap.ui.test.OpaBuilder.create}, {@link sap.ui.test.OpaBuilder#constructor} or {@link sap.ui.test.OpaBuilder#execute}
+     * of {@link sap.ui.test.OpaBuilder.create}, {@link sap.ui.test.OpaBuilder#constructor} or {@link sap.ui.test.OpaBuilder#execute }
      * to provide the Opa5 instance within the builder chain.
      */
     setOpaInstance(
@@ -72368,7 +74485,7 @@ declare module "sap/ui/test/OpaBuilder" {
   /**
    * A collection of predefined actions. See also {@link sap.ui.test.actions}.
    */
-  export interface Actions {
+  interface Actions {
     /**
      * Creates an action that is only performed if target control fulfills the conditions.
      *
@@ -72444,7 +74561,7 @@ declare module "sap/ui/test/OpaBuilder" {
   /**
    * A collection of predefined matchers. See also {@link sap.ui.test.matchers}
    */
-  export interface Matchers {
+  interface Matchers {
     /**
      * A matcher function that always returns `false`.
      *
@@ -72877,10 +74994,10 @@ declare module "sap/ui/test/matchers/BindingPath" {
    * As of version 1.60, comparison is strict and can include one or more binding criteria:
    * 	 - context path (matches children of bound controls, eg: items in a table)
    * 	 - property path (matches controls with no context and a single bound property, eg: Text with binding
-   * 			for property text)
+   *     for property text)
    * 	 - context path + property path (matches children of bound controls, where the child has a binding for
-   * 			a certain property within the context)
-   * 	 - as of version 1.86, static value is also accepted. Use this only for {@link sap.ui.model.StaticBinding}
+   *     a certain property within the context)
+   * 	 - as of version 1.86, static value is also accepted. Use this only for {@link sap.ui.model.StaticBinding }
    *
    *
    * **Note:** Before version 1.60, the only available criteria is binding context path.
@@ -73393,10 +75510,9 @@ declare module "sap/ui/test/matchers/Interactable" {
    * 	 -  It is recommended to enable autoWait OPA option instead of using the Interactable matcher directly.
    *
    * 	 -  The Interactable matcher doesn't check if a control is enabled or editable. One way to check for
-   * 			these properties is with matchers such as the {@link sap.ui.test.matchers.PropertyStrictEquals} and {@link
-   * 			sap.ui.test.matchers.Properties} matchers. Another way is to use the `enabled` and `editable` properties
-   * 			of {@link sap.ui.test.Opa5#waitFor}. Note that `enabled` is available as of version 1.66, and `editable`
-   * 			is available as of version 1.80.
+   *     these properties is with matchers such as the {@link sap.ui.test.matchers.PropertyStrictEquals} and {@link sap.ui.test.matchers.Properties }
+   *     matchers. Another way is to use the `enabled` and `editable` properties of {@link sap.ui.test.Opa5#waitFor}.
+   *     Note that `enabled` is available as of version 1.66, and `editable` is available as of version 1.80.
    */
   export default class Interactable extends Matcher {
     constructor();
@@ -73704,8 +75820,8 @@ declare module "sap/ui/test/matchers/Matcher" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor
-     * sap.ui.base.ManagedObject} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.base.ManagedObject#constructor sap.ui.base.ManagedObject }
+     * can be used.
      */
     constructor();
 
@@ -73739,7 +75855,7 @@ declare module "sap/ui/test/matchers/Matcher" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks if the matcher is matching - will get an instance of sap.ui.core.Control as parameter.
      *
@@ -74012,6 +76128,11 @@ declare module "sap/ui/test/Opa" {
       extensionObject?: object
     );
     /**
+     * "and" property for chaining actions and assertions
+     */
+    and: Omit<this, "and">;
+
+    /**
      * A map of QUnit-style assertions to be used in an opaTest. Contains all methods available on QUnit.assert
      * for the running QUnit version. Available assertions are: ok, equal, propEqual, deepEqual, strictEqual
      * and their negative counterparts.
@@ -74030,9 +76151,8 @@ declare module "sap/ui/test/Opa" {
      * 	 - timeout : 15 seconds, 0 for infinite timeout
      * 	 - pollingInterval: 400 milliseconds
      * 	 - debugTimeout: 0 seconds, infinite timeout by default. This will be used instead of timeout if running
-     * 			in debug mode.
-     * 	 - asyncPolling: false  You can either directly manipulate the config, or extend it using {@link
-     * 			sap.ui.test.Opa.extendConfig}.
+     *     in debug mode.
+     * 	 - asyncPolling: false  You can either directly manipulate the config, or extend it using {@link sap.ui.test.Opa.extendConfig}.
      */
     static config: Config;
 
@@ -74101,12 +76221,12 @@ declare module "sap/ui/test/Opa" {
      * 	 - timeout : 15 seconds, 0 for infinite timeout
      * 	 - pollingInterval: 400 milliseconds
      * 	 - debugTimeout: 0 seconds, infinite timeout by default. This will be used instead of timeout if running
-     * 			in debug mode.
+     *     in debug mode.
      * 	 -  executionDelay: 0 or 50 (depending on the browser). The value is a number representing milliseconds.
-     * 			The executionDelay will slow down the execution of every single waitFor statement to be delayed by the
-     * 			number of milliseconds. This does not effect the polling interval it just adds an initial pause. Use
-     * 			this parameter to slow down OPA when you want to watch your test during development or checking the UI
-     * 			of your app. It is not recommended to use this parameter in any automated test executions.
+     *     The executionDelay will slow down the execution of every single waitFor statement to be delayed by the
+     *     number of milliseconds. This does not effect the polling interval it just adds an initial pause. Use
+     *     this parameter to slow down OPA when you want to watch your test during development or checking the UI
+     *     of your app. It is not recommended to use this parameter in any automated test executions.
      * 	 - asyncPolling: false
      */
     static resetConfig(): void;
@@ -74115,7 +76235,7 @@ declare module "sap/ui/test/Opa" {
      *
      * Clears the queue and stops running tests so that new tests can be run. This means all waitFor statements
      * registered by {@link sap.ui.test.Opa#waitFor} will not be invoked anymore and the promise returned by
-     * {@link sap.ui.test.Opa.emptyQueue} will be rejected When it is called inside of a check in {@link sap.ui.test.Opa#waitFor}
+     * {@link sap.ui.test.Opa.emptyQueue} will be rejected When it is called inside of a check in {@link sap.ui.test.Opa#waitFor }
      * the success function of this waitFor will not be called.
      */
     static stopQueue(): void;
@@ -74148,7 +76268,7 @@ declare module "sap/ui/test/Opa" {
       oPromise: jQuery.Promise | Promise<any>
     ): jQuery.Promise;
     /**
-     * Queues up a waitFor command for Opa. The Queue will not be emptied until {@link sap.ui.test.Opa.emptyQueue}
+     * Queues up a waitFor command for Opa. The Queue will not be emptied until {@link sap.ui.test.Opa.emptyQueue }
      * is called. If you are using {@link module:sap/ui/test/opaQunit}, emptyQueue will be called by the wrapped
      * tests.
      *
@@ -74166,7 +76286,7 @@ declare module "sap/ui/test/Opa" {
        * configuration options
        */
       options: WaitForOptions
-    ): Chain;
+    ): this;
   }
   /**
    * Configuration parameters for Opa.
@@ -74192,16 +76312,6 @@ declare module "sap/ui/test/Opa" {
      * overflow toolbars. False by default.
      */
     asyncPolling?: boolean;
-  };
-
-  /**
-   * Used as return value of the {@link sap.ui.test.Opa#waitFor} to assist chaining
-   */
-  export type Chain = Opa & {
-    /**
-     * A reference to the same `sap.ui.test.Opa` instance that can be used for chaining statements
-     */
-    and: Opa;
   };
 
   /**
@@ -74283,9 +76393,14 @@ declare module "sap/ui/test/Opa5" {
   export default class Opa5 extends BaseObject {
     /**
      * See:
-     * 	{@link topic:2696ab50faad458f9b4027ec2f9b884d Opa5}
+     * 	{@link https://ui5.sap.com/#/topic/2696ab50faad458f9b4027ec2f9b884d Opa5}
      */
     constructor();
+    /**
+     * "and" property for chaining
+     */
+    and: Omit<this, "and">;
+
     /**
      * A map of QUnit-style assertions to be used in an opaTest.
      *
@@ -74522,7 +76637,7 @@ declare module "sap/ui/test/Opa5" {
       height?: string | number
     ): jQuery.Promise;
     /**
-     * Removes the iframe from the DOM and removes all the references to its objects. Use {@link sap.ui.test.Opa5#hasAppStartedInAFrame}
+     * Removes the iframe from the DOM and removes all the references to its objects. Use {@link sap.ui.test.Opa5#hasAppStartedInAFrame }
      * to ensure that an iframe has been started and teardown can be safely performed.
      *
      * @returns A promise that gets resolved on success. If no iframe has been created or an error occurs, the
@@ -74545,7 +76660,7 @@ declare module "sap/ui/test/Opa5" {
      * 	 - timeout : 15 seconds, 0 for infinite timeout
      * 	 - pollingInterval: 400 milliseconds
      * 	 - debugTimeout: 0 seconds, infinite timeout by default. This will be used instead of timeout if running
-     * 			in debug mode.
+     *     in debug mode.
      * 	 - autoWait: false - since 1.42
      * 	 - appParams: object with URI parameters for the tested app - since 1.48
      */
@@ -74553,13 +76668,12 @@ declare module "sap/ui/test/Opa5" {
     /**
      * Clears the queue and stops running tests so that new tests can be run. This means all waitFor statements
      * registered by {@link sap.ui.test.Opa5#waitFor} will not be invoked anymore and the promise returned by
-     * {@link sap.ui.test.Opa5.emptyQueue} will be rejected. When its called inside of a check in {@link sap.ui.test.Opa5#waitFor}
+     * {@link sap.ui.test.Opa5.emptyQueue} will be rejected. When its called inside of a check in {@link sap.ui.test.Opa5#waitFor }
      * the success function of this waitFor will not be called.
      */
     static stopQueue(): void;
     /**
-     * Checks if the application has been started using {@link sap.ui.test.Opa5#iStartMyAppInAFrame} or {@link
-     * sap.ui.test.Opa5#iStartMyUIComponent}
+     * Checks if the application has been started using {@link sap.ui.test.Opa5#iStartMyAppInAFrame} or {@link sap.ui.test.Opa5#iStartMyUIComponent}
      *
      * @returns A boolean indicating whether the application has been started regardless of how it was started
      */
@@ -74671,9 +76785,9 @@ declare module "sap/ui/test/Opa5" {
       }
     ): jQuery.Promise;
     /**
-     * Tears down the started application regardless of how it was started. Removes the iframe launched by {@link
-     * sap.ui.test.Opa5#iStartMyAppInAFrame} or destroys the UIComponent launched by {@link sap.ui.test.Opa5#iStartMyUIComponent}.
-     * This function is designed to make the test's teardown independent of the startup. Use {@link sap.ui.test.Opa5#hasAppStarted}
+     * Tears down the started application regardless of how it was started. Removes the iframe launched by {@link sap.ui.test.Opa5#iStartMyAppInAFrame }
+     * or destroys the UIComponent launched by {@link sap.ui.test.Opa5#iStartMyUIComponent}. This function is
+     * designed to make the test's teardown independent of the startup. Use {@link sap.ui.test.Opa5#hasAppStarted }
      * to ensure that the application has been started and teardown can be safely performed.
      *
      * @returns A promise that gets resolved on success. If nothing has been started or an error occurs, the
@@ -74682,7 +76796,7 @@ declare module "sap/ui/test/Opa5" {
      */
     iTeardownMyApp(): jQuery.Promise;
     /**
-     * Removes the iframe from the DOM and removes all the references to its objects Use {@link sap.ui.test.Opa5#hasAppStartedInAFrame}
+     * Removes the iframe from the DOM and removes all the references to its objects Use {@link sap.ui.test.Opa5#hasAppStartedInAFrame }
      * to ensure that an iframe has been started and teardown can be safely performed.
      *
      * @returns A promise that gets resolved on success. If no iframe has been created or an error occurs, the
@@ -74727,7 +76841,7 @@ declare module "sap/ui/test/Opa5" {
        * a superset of the parameters of {@link sap.ui.test.Opa#waitFor}
        */
       options: SingleControlSelector | MultiControlSelector
-    ): Chain;
+    ): this;
   }
   /**
    * An action simulates user interaction on a control
@@ -74752,10 +76866,10 @@ declare module "sap/ui/test/Opa5" {
      * @since 1.66 If set to false, Opa5 will look for both enabled and disabled controls. Note that this option's
      * default value is related to the autoWait mechanism:
      * 	 -  When autoWait is enabled globally or in the current waitFor, the default value for options.enabled
-     * 			is true.
+     *     is true.
      * 	 -  When autoWait is not used, the default value for options.enabled is false.  This means that
-     * 			if you use autoWait and you want to find a disabled control, you need to explicitly set options.enabled
-     * 			to false.
+     *     if you use autoWait and you want to find a disabled control, you need to explicitly set options.enabled
+     *     to false.
      */
     enabled?: boolean;
     /**
@@ -74767,7 +76881,7 @@ declare module "sap/ui/test/Opa5" {
      * @since 1.42 Only has an effect if set to true. Since 1.53 it can also be a plain object. When autoWait
      * is true, the waitFor statement will not execute success callbacks as long as there is pending asynchronous
      * work such as for example: open XMLHTTPRequests (requests to a server), scheduled delayed work and promises,
-     * unfinished UI navigation. In addition, the control state will be checked with the {@link sap.ui.test.matchers.Interactable}
+     * unfinished UI navigation. In addition, the control state will be checked with the {@link sap.ui.test.matchers.Interactable }
      * matcher, and the control will have to be enabled. So when autoWait is enabled, success behaves like an
      * action in terms of waiting. It is recommended to set this value to true for all your waitFor statements
      * using:
@@ -74797,16 +76911,6 @@ declare module "sap/ui/test/Opa5" {
      * will time out and finally disable autoWait in these tests.
      */
     autoWait?: boolean;
-  };
-
-  /**
-   * Used as return value of the {@link sap.ui.test.Opa5#waitFor} to assist chaining
-   */
-  export type Chain = Opa5 & {
-    /**
-     * A reference to the same `sap.ui.test.Opa5` instance that can be used for chaining statements
-     */
-    and: Opa5;
   };
 
   /**
@@ -74970,18 +77074,18 @@ declare module "sap/ui/test/Opa5" {
      * of them will be executed (first in first out) on each control of, similar to the matchers. Here is one
      * of the most common usages: ` function (sButtonId) { // executes a Press on a button with a specific id
      * new Opa5().waitFor({ id: sButtonId, actions: new Press() }); }; ` But actions will only be executed once
-     * and only after the check function returned true. Before actions are executed the {@link sap.ui.test.matchers.Interactable}
+     * and only after the check function returned true. Before actions are executed the {@link sap.ui.test.matchers.Interactable }
      * matcher and the internal autoWait logic will check if the Control is currently able to perform actions
      * if it is not, Opa5 will try again after the 'pollingInterval'. That means actions will only be executed
      * if:
      * 	 -  Controls and their parents are visible, not busy and not hidden behind a blocking layer
      * 	 -  The controls are not hidden behind static elements such as dialogs
      * 	 -  There is no pending asynchronous work performed by the application   If there are multiple
-     * 			controls in Opa5's result set the action will be executed on all of them. The actions will be invoked
-     * 			directly before success is called. In the documentation of the success parameter there is a list of conditions
-     * 			that have to be fulfilled. They also apply for the actions. There are some predefined actions in the
-     * 			{@link sap.ui.test.actions} namespace. since 1.42 an Action may add other waitFors. The next action or
-     * 			the success handler will not be executed until the waitFor of the action has finished. An example:
+     *     controls in Opa5's result set the action will be executed on all of them. The actions will be invoked
+     *     directly before success is called. In the documentation of the success parameter there is a list of conditions
+     *     that have to be fulfilled. They also apply for the actions. There are some predefined actions in the
+     *     {@link sap.ui.test.actions} namespace. since 1.42 an Action may add other waitFors. The next action or
+     *     the success handler will not be executed until the waitFor of the action has finished. An example:
      * ```javascript
      *
      *     this.waitFor({
@@ -75070,12 +77174,12 @@ declare module "sap/ui/test/Opa5" {
     /**
      * Will get invoked after the following conditions are met:
      * 	 -  One or multiple controls were found using controlType, Id, viewName. If visible is true (it is by
-     * 			default), the controls also need to be rendered.
+     *     default), the controls also need to be rendered.
      * 	 -  The whole matcher pipeline returned true for at least one control, or there are no matchers
      * 	 -  The check function returned true, or there is no check function   The first parameter passed
-     * 			into the function is an array of controls (viewName, controlType, multiple ID's, regex ID's) that matched
-     * 			all matchers. Matchers can alter the array to something different. Please read the documentation of waitFor's
-     * 			matcher parameter.
+     *     into the function is an array of controls (viewName, controlType, multiple ID's, regex ID's) that matched
+     *     all matchers. Matchers can alter the array to something different. Please read the documentation of waitFor's
+     *     matcher parameter.
      */
     success?: (p1: UI5Element[]) => void;
   };
@@ -75097,7 +77201,7 @@ declare module "sap/ui/test/Opa5" {
     /**
      * Will get invoked if the following conditions are met:
      * 	 -  A control was found using viewName and Id that maches any addiotnally specified criteria e.g. controlType,
-     * 			matchers. If visible is true (it is by default), the control also needs to be rendered.
+     *     matchers. If visible is true (it is by default), the control also needs to be rendered.
      * 	 -  The check function returned true, or there is no check function
      */
     success?: (p1: UI5Element) => void;
@@ -75165,15 +77269,15 @@ declare module "sap/ui/test/Opa5" {
      */
     namespace?: string;
     /**
-     * A map of functions that can be used as arrangement or action in Opa tests. Only the test decides whether
-     * a function is used as arrangement or action. Each function typically contains one or multiple `waitFor`
-     * statements.
+     * A map or a class of functions that can be used as arrangement or action in Opa tests. Only the test decides
+     * whether a function is used as arrangement or action. Each function typically contains one or multiple
+     * `waitFor` statements.
      */
-    actions?: Record<string, Function>;
+    actions?: Record<string, () => void> | Function;
     /**
-     * A map of functions that can be used as assertions in Opa tests.
+     * A map or a class of functions that can be used as assertions in Opa tests.
      */
-    assertions?: Record<string, Function>;
+    assertions?: Record<string, () => void> | Function;
   };
 }
 
@@ -75460,18 +77564,18 @@ declare module "sap/ui/test/PageObjectFactory" {
 
   /**
    * @since 1.26
-   * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * Page Object Factory.
    */
   export default class PageObjectFactory extends BaseObject {
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     constructor();
 
     /**
-     * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Creates a set of page objects, each consisting of actions and assertions, and adds them to the Opa configuration.
      *
@@ -75507,6 +77611,12 @@ declare module "sap/ui/test/RecordReplay" {
    */
   export default class RecordReplay extends BaseObject {
     constructor();
+    /**
+     * Interaction types.
+     *
+     * Values correspond to OPA5 built-in actions {@link sap.ui.test.actions}.
+     */
+    static InteractionType: typeof InteractionType;
 
     /**
      * Creates a new subclass of class sap.ui.test.RecordReplay with name `sClassName` and enriches it with
@@ -75544,7 +77654,7 @@ declare module "sap/ui/test/RecordReplay" {
        */
       oOptions: {
         /**
-         * Control selector for this control Could be the result of {@link sap.ui.test.RecordReplay.findControlSelectorByDOMElement}
+         * Control selector for this control Could be the result of {@link sap.ui.test.RecordReplay.findControlSelectorByDOMElement }
          * If the selector matches multiple controls, all of their representations will be included in the result.
          * If the selector contains ID suffix for a DOM element, the result will include the first DOM element with
          * a matching ID (one DOM element per control). Otherwise, the result will include the first DOM element
@@ -75595,7 +77705,7 @@ declare module "sap/ui/test/RecordReplay" {
        */
       oOptions: {
         /**
-         * Control selector for this control Could be the result of {@link sap.ui.test.RecordReplay.findControlSelectorByDOMElement}
+         * Control selector for this control Could be the result of {@link sap.ui.test.RecordReplay.findControlSelectorByDOMElement }
          * If the selector matches multiple controls, only the first one will be used If the selector contains ID
          * suffix for a DOM element, the 'first' relevant DOM element will be located Otherwise, the result will
          * be the 'first' DOM element with ID matching the control's or the one that usually receives focus events
@@ -75625,7 +77735,7 @@ declare module "sap/ui/test/RecordReplay" {
          */
         selector: Object;
         /**
-         * Interaction type; Currently supported interaction types are {@link sap.ui.test.RecordReplay.InteractionType}
+         * Interaction type; Currently supported interaction types are {@link sap.ui.test.RecordReplay.InteractionType }
          * To see the interaction details and options, see {@link sap.ui.test.actions}
          */
         interactionType: InteractionType;
@@ -75710,7 +77820,7 @@ declare module "sap/ui/test/RecordReplay" {
    *
    * Values correspond to OPA5 built-in actions {@link sap.ui.test.actions}.
    */
-  export enum InteractionType {
+  enum InteractionType {
     EnterText = "ENTER_TEXT",
 
     Press = "PRESS",
@@ -75729,9 +77839,9 @@ declare namespace sap {
   namespace ui {
     /**
      * @since 1.15.0
-     * @deprecated (since 1.56) - use {@link sap.ui.core.Component.get Component.get} or {@link sap.ui.core.Component.create
-     * Component.create} instead. Note: {@link sap.ui.core.Component.create Component.create} does not support
-     * synchronous loading or the deprecated options ***manifestFirst*** and ***manifestUrl***.
+     * @deprecated (since 1.56) - use {@link sap.ui.core.Component.get Component.get} or {@link sap.ui.core.Component.create Component.create }
+     * instead. Note: {@link sap.ui.core.Component.create Component.create} does not support synchronous loading
+     * or the deprecated options ***manifestFirst*** and ***manifestUrl***.
      *
      * Creates a new instance of a `Component` or returns the instance of an existing `Component`.
      *
@@ -75790,10 +77900,9 @@ declare namespace sap {
              */
             settings?: object;
             /**
-             * List of active terminologies. The order of the given active terminologies is significant. The {@link
-             * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
-             * in more detail. Please also have a look at this dev-guide chapter for general usage instructions: {@link
-             * topic:eba8d25a31ef416ead876e091e67824e Text Verticalization}.
+             * List of active terminologies. The order of the given active terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle }
+             * API documentation describes the processing behavior in more detail. Please also have a look at this dev-guide
+             * chapter for general usage instructions: {@link https://ui5.sap.com/#/topic/eba8d25a31ef416ead876e091e67824e Text Verticalization}.
              */
             activeTerminologies?: string[];
             /**
@@ -75945,7 +78054,7 @@ declare namespace sap {
      *
      * Module Name Syntax:
      *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name }
      * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
      * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
      * be omitted. Both methods always add this extension internally.
@@ -76021,9 +78130,9 @@ declare namespace sap {
      *
      *
      * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
+     *     module is ensured
      * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
+     *     the global name which is derived from the ID of the module
      *
      * The parameter lets the framework know whether any of those two operations is needed or not. In future
      * versions of UI5, a central configuration option is planned to suppress those 'exports'.
@@ -76070,42 +78179,42 @@ declare namespace sap {
      * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
      * or from concrete AMD loaders like `requireJS` in several aspects:
      * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
+     *     the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     *     the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     *     or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     *     of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     *     methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     *     can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     *     namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     *     using the `amd:true` flag (see example above)
      * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
+     *     either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     *     is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     *     synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     *     that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     *     {@link jQuery.sap.require}.
      * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
+     *     planned to support this in future
      * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
+     *     names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     *     that points to that URL (or to a prefix of it).
      * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
+     *     using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     *     executing the factory function.
      *
      * Restrictions, Design Considerations:
      * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
+     *     proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     *     this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     *     loading is implemented.
      * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *     of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     *     call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     *     the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
      *
      * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
+     *     supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     *     how this works might be changed in future implementations and are not part of the API contract
      * See:
      * 	https://github.com/amdjs/amdjs-api
      */
@@ -76194,7 +78303,7 @@ declare namespace sap {
      *
      * Module Name Syntax:
      *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name }
      * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
      * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
      * be omitted. Both methods always add this extension internally.
@@ -76270,9 +78379,9 @@ declare namespace sap {
      *
      *
      * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
+     *     module is ensured
      * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
+     *     the global name which is derived from the ID of the module
      *
      * The parameter lets the framework know whether any of those two operations is needed or not. In future
      * versions of UI5, a central configuration option is planned to suppress those 'exports'.
@@ -76319,42 +78428,42 @@ declare namespace sap {
      * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
      * or from concrete AMD loaders like `requireJS` in several aspects:
      * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
+     *     the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     *     the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     *     or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     *     of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     *     methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     *     can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     *     namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     *     using the `amd:true` flag (see example above)
      * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
+     *     either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     *     is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     *     synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     *     that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     *     {@link jQuery.sap.require}.
      * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
+     *     planned to support this in future
      * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
+     *     names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     *     that points to that URL (or to a prefix of it).
      * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
+     *     using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     *     executing the factory function.
      *
      * Restrictions, Design Considerations:
      * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
+     *     proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     *     this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     *     loading is implemented.
      * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *     of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     *     call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     *     the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
      *
      * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
+     *     supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     *     how this works might be changed in future implementations and are not part of the API contract
      * See:
      * 	https://github.com/amdjs/amdjs-api
      */
@@ -76437,7 +78546,7 @@ declare namespace sap {
      *
      * Module Name Syntax:
      *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name }
      * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
      * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
      * be omitted. Both methods always add this extension internally.
@@ -76513,9 +78622,9 @@ declare namespace sap {
      *
      *
      * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
+     *     module is ensured
      * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
+     *     the global name which is derived from the ID of the module
      *
      * The parameter lets the framework know whether any of those two operations is needed or not. In future
      * versions of UI5, a central configuration option is planned to suppress those 'exports'.
@@ -76562,42 +78671,42 @@ declare namespace sap {
      * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
      * or from concrete AMD loaders like `requireJS` in several aspects:
      * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
+     *     the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     *     the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     *     or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     *     of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     *     methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     *     can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     *     namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     *     using the `amd:true` flag (see example above)
      * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
+     *     either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     *     is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     *     synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     *     that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     *     {@link jQuery.sap.require}.
      * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
+     *     planned to support this in future
      * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
+     *     names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     *     that points to that URL (or to a prefix of it).
      * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
+     *     using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     *     executing the factory function.
      *
      * Restrictions, Design Considerations:
      * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
+     *     proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     *     this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     *     loading is implemented.
      * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *     of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     *     call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     *     the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
      *
      * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
+     *     supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     *     how this works might be changed in future implementations and are not part of the API contract
      * See:
      * 	https://github.com/amdjs/amdjs-api
      */
@@ -76681,7 +78790,7 @@ declare namespace sap {
      *
      * Module Name Syntax:
      *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name }
      * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
      * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
      * be omitted. Both methods always add this extension internally.
@@ -76757,9 +78866,9 @@ declare namespace sap {
      *
      *
      * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
+     *     module is ensured
      * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
+     *     the global name which is derived from the ID of the module
      *
      * The parameter lets the framework know whether any of those two operations is needed or not. In future
      * versions of UI5, a central configuration option is planned to suppress those 'exports'.
@@ -76806,42 +78915,42 @@ declare namespace sap {
      * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
      * or from concrete AMD loaders like `requireJS` in several aspects:
      * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
+     *     the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     *     the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     *     or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     *     of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     *     methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     *     can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     *     namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     *     using the `amd:true` flag (see example above)
      * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
+     *     either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     *     is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     *     synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     *     that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     *     {@link jQuery.sap.require}.
      * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
+     *     planned to support this in future
      * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
+     *     names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     *     that points to that URL (or to a prefix of it).
      * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
+     *     using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     *     executing the factory function.
      *
      * Restrictions, Design Considerations:
      * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
+     *     proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     *     this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     *     loading is implemented.
      * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *     of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     *     call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     *     the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
      *
      * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
+     *     supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     *     how this works might be changed in future implementations and are not part of the API contract
      * See:
      * 	https://github.com/amdjs/amdjs-api
      */
@@ -77123,10 +79232,10 @@ declare namespace sap {
      *
      *
      * 	 - View Definition `sap.ui.htmlview(sId, vView)`: Defines a view of the given name with the given implementation.
-     * 			sId must be the views name, vView must be an object and can contain implementations for any of the hooks
-     * 			provided by HTMLView
+     *     sId must be the views name, vView must be an object and can contain implementations for any of the hooks
+     *     provided by HTMLView
      * 	 - View Instantiation `sap.ui.htmlview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
+     *     name (and id).
      *
      * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
      * id will be created automatically.
@@ -77160,10 +79269,10 @@ declare namespace sap {
      *
      *
      * 	 - View Definition `sap.ui.htmlview(sId, vView)`: Defines a view of the given name with the given implementation.
-     * 			sId must be the views name, vView must be an object and can contain implementations for any of the hooks
-     * 			provided by HTMLView
+     *     sId must be the views name, vView must be an object and can contain implementations for any of the hooks
+     *     provided by HTMLView
      * 	 - View Instantiation `sap.ui.htmlview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
+     *     name (and id).
      *
      * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
      * id will be created automatically.
@@ -77195,12 +79304,12 @@ declare namespace sap {
      * ```
      *  where:
      * 	 - `sName` is the name by which this fragment later can be found and instantiated. If defined in its
-     * 			own file, in order to be found by the module loading system, the file location and name must correspond
-     * 			to `sName` (path + file name must be: fragmentName + ".fragment.js").
+     *     own file, in order to be found by the module loading system, the file location and name must correspond
+     *     to `sName` (path + file name must be: fragmentName + ".fragment.js").
      * 	 - `oFragmentDefinition` is an object at least holding the `createContent(oController)` method which
-     * 			defines the fragment content. If given during instantiation, the `createContent` method receives a controller
-     * 			instance (otherwise, parameter `oController` will be undefined) and the return value must be one `sap.ui.core.Control`
-     * 			(which could have any number of children).
+     *     defines the fragment content. If given during instantiation, the `createContent` method receives a controller
+     *     instance (otherwise, parameter `oController` will be undefined) and the return value must be one `sap.ui.core.Control`
+     *     (which could have any number of children).
      *
      * To instantiate a JS fragment, call:
      * ```javascript
@@ -77535,8 +79644,7 @@ declare namespace sap {
       sNamespace: string
     ): void;
     /**
-     * @deprecated (since 1.1) - see {@link topic:c78c07c094e04ccfaab659378a1707c7 Creating Control and Class
-     * Modules}.
+     * @deprecated (since 1.1) - see {@link topic:c78c07c094e04ccfaab659378a1707c7 Creating Control and Class Modules}.
      *
      * Ensures that a given a namespace or hierarchy of nested namespaces exists in the current `window`.
      *
@@ -77612,7 +79720,7 @@ declare namespace sap {
        * factory function. Note that due to browser restrictions not all errors will be reported via this callback.
        * In general, module loading is designed for the non-error case. Error handling is not complete.
        */
-      fnErrback?: Function
+      fnErrback?: (p1: Error) => void
     ): any | undefined;
     /**
      * @deprecated (since 1.56.0) - use `sap.ui.require.toUrl` instead.
@@ -77672,8 +79780,8 @@ declare namespace sap {
         | import("sap/ui/core/Control").default
     ): void;
     /**
-     * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or {@link sap.ui.core.mvc.JSView
-     * JSView} instead.
+     * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or {@link sap.ui.core.mvc.JSView JSView }
+     * instead.
      *
      * Creates a Template for the given ID, DOM reference or a configuration object.
      *
@@ -77777,8 +79885,8 @@ declare namespace sap {
       | import("sap/ui/core/tmpl/Template").default
       | Array<import("sap/ui/core/tmpl/Template").default>;
     /**
-     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
-     * XML Templating} instead
+     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b XML Templating }
+     * instead
      *
      * Defines or creates an instance of a template view.
      *
@@ -77786,10 +79894,10 @@ declare namespace sap {
      *
      *
      * 	 - View Definition `sap.ui.templateview(sId, vView)`: Defines a view of the given name with the given
-     * 			implementation. sId must be the views name, vView must be an object and can contain implementations for
-     * 			any of the hooks provided by templateview
+     *     implementation. sId must be the views name, vView must be an object and can contain implementations for
+     *     any of the hooks provided by templateview
      * 	 - View Instantiation `sap.ui.templateview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
+     *     name (and id).
      *
      * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
      * id will be created automatically.
@@ -77807,8 +79915,8 @@ declare namespace sap {
       vView: string | object
     ): import("sap/ui/core/mvc/TemplateView").default | undefined;
     /**
-     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
-     * XML Templating} instead
+     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b XML Templating }
+     * instead
      *
      * Defines or creates an instance of a template view.
      *
@@ -77816,10 +79924,10 @@ declare namespace sap {
      *
      *
      * 	 - View Definition `sap.ui.templateview(sId, vView)`: Defines a view of the given name with the given
-     * 			implementation. sId must be the views name, vView must be an object and can contain implementations for
-     * 			any of the hooks provided by templateview
+     *     implementation. sId must be the views name, vView must be an object and can contain implementations for
+     *     any of the hooks provided by templateview
      * 	 - View Instantiation `sap.ui.templateview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
+     *     name (and id).
      *
      * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
      * id will be created automatically.
@@ -77877,7 +79985,7 @@ declare namespace sap {
             type?: import("sap/ui/core/mvc/ViewType").default;
             /**
              * Holds application specific data. This data is available during the whole lifecycle of the view and the
-             * controller, for example in the constructor and in the {@link sap.ui.core.mvc.Controller.onInit onInit}
+             * controller, for example in the constructor and in the {@link sap.ui.core.mvc.Controller.onInit onInit }
              * hook.
              */
             viewData?: object;
@@ -78380,7 +80488,15 @@ declare namespace sap {
            */
           amd?: boolean;
         }
-      ): object | undefined;
+      ):
+        | {
+            amd: boolean;
+
+            async: boolean;
+
+            noConflict: boolean;
+          }
+        | undefined;
     }
     /**
      * The SAPUI5 Data Binding API.
@@ -78401,7 +80517,7 @@ declare namespace sap {
       namespace analytics {
         /**
          * @experimental - This module is only for experimental use!
-         * - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+         * @ui5-protected Do not call from applications (only from related classes in the framework)
          *
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
          */
@@ -78432,18 +80548,18 @@ declare namespace sap {
        *
        *
        * 	 - `oConfig.asyncHints.components : string[]`a list of components needed by the current component and
-       * 			its subcomponents The framework will try to preload these components (their Component-preload.js) asynchronously,
-       * 			errors will be ignored. Please note that the framework has no knowledge about whether a Component provides
-       * 			a preload file or whether it is bundled in some library preload. If Components are listed in the hints
-       * 			section, they will be preloaded.
+       *     its subcomponents The framework will try to preload these components (their Component-preload.js) asynchronously,
+       *     errors will be ignored. Please note that the framework has no knowledge about whether a Component provides
+       *     a preload file or whether it is bundled in some library preload. If Components are listed in the hints
+       *     section, they will be preloaded.
        * 	 - `oConfig.asyncHints.libs : string[]`libraries needed by the Component and its subcomponents. The
-       * 			framework will asynchronously load those libraries, if they're not loaded yet.
+       *     framework will asynchronously load those libraries, if they're not loaded yet.
        * 	 - `oConfig.asyncHints.preloadBundles : string[]`a list of additional preload bundles The framework
-       * 			will try to load these bundles asynchronously before requiring the Component, errors will be ignored.
-       * 			The named modules must only represent preload bundles. If they are normal modules, their dependencies
-       * 			will be loaded with the normal synchronous request mechanism and performance might degrade. `oConfig.asyncHints.preloadOnly
-       * 			: boolean (default: false)` whether only the preloads should be done, but not the loading of the Component
-       * 			controller class itself.
+       *     will try to load these bundles asynchronously before requiring the Component, errors will be ignored.
+       *     The named modules must only represent preload bundles. If they are normal modules, their dependencies
+       *     will be loaded with the normal synchronous request mechanism and performance might degrade. `oConfig.asyncHints.preloadOnly
+       *     : boolean (default: false)` whether only the preloads should be done, but not the loading of the Component
+       *     controller class itself.
        *
        * If Components and/or libraries are listed in the hints section, all the corresponding preload files will
        * be requested in parallel. The constructor class will only be required after all of them are rejected
@@ -78472,10 +80588,10 @@ declare namespace sap {
       /**
        * Calculates a URL from the provided resource name.
        *
-       * The calculation takes any configured ID mappings or resource paths into account (see {@link sap.ui.loader.config
-       * config options map and paths}. It also supports relative segments such as `./` and `../` within the path,
-       * but not at its beginning. If relative navigation would cross the root namespace (e.g. `sap.ui.require.toUrl("../")`)
-       * or when the resource name starts with a slash or with a relative segment, an error is thrown.
+       * The calculation takes any configured ID mappings or resource paths into account (see {@link sap.ui.loader.config config options map and paths}.
+       * It also supports relative segments such as `./` and `../` within the path, but not at its beginning.
+       * If relative navigation would cross the root namespace (e.g. `sap.ui.require.toUrl("../")`) or when the
+       * resource name starts with a slash or with a relative segment, an error is thrown.
        *
        * **Note:** `toUrl` does not resolve the returned URL; whether it is an absolute URL or a relative URL
        * depends on the configured `baseUrl` and `paths`.
@@ -78517,6 +80633,20 @@ declare namespace sap {
     "jquery.sap.trace": undefined;
 
     "sap/base/assert": undefined;
+
+    "sap/base/Event": undefined;
+
+    "sap/base/i18n/date/CalendarType": undefined;
+
+    "sap/base/i18n/date/CalendarWeekNumbering": undefined;
+
+    "sap/base/i18n/date/TimezoneUtils": undefined;
+
+    "sap/base/i18n/Formatting": undefined;
+
+    "sap/base/i18n/LanguageTag": undefined;
+
+    "sap/base/i18n/Localization": undefined;
 
     "sap/base/i18n/ResourceBundle": undefined;
 
@@ -78632,6 +80762,8 @@ declare namespace sap {
 
     "sap/ui/core/_UrlResolver": undefined;
 
+    "sap/ui/core/AnimationMode": undefined;
+
     "sap/ui/core/AppCacheBuster": undefined;
 
     "sap/ui/core/BusyIndicator": undefined;
@@ -78657,6 +80789,8 @@ declare namespace sap {
     "sap/ui/core/Configuration": undefined;
 
     "sap/ui/core/Control": undefined;
+
+    "sap/ui/core/ControlBehavior": undefined;
 
     "sap/ui/core/Core": undefined;
 
@@ -78707,8 +80841,6 @@ declare namespace sap {
     "sap/ui/core/format/ListFormat": undefined;
 
     "sap/ui/core/format/NumberFormat": undefined;
-
-    "sap/ui/core/format/TimezoneUtil": undefined;
 
     "sap/ui/core/Fragment": undefined;
 
@@ -78828,6 +80960,8 @@ declare namespace sap {
 
     "sap/ui/core/service/ServiceFactory": undefined;
 
+    "sap/ui/core/StaticArea": undefined;
+
     "sap/ui/core/support/Hotkeys": undefined;
 
     "sap/ui/core/support/Plugin": undefined;
@@ -78837,6 +80971,8 @@ declare namespace sap {
     "sap/ui/core/support/usage/EventBroadcaster": undefined;
 
     "sap/ui/core/syncStyleClass": undefined;
+
+    "sap/ui/core/Theming": undefined;
 
     "sap/ui/core/theming/Parameters": undefined;
 

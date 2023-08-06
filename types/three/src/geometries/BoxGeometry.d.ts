@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * {@link BoxGeometry} is a geometry class for a rectangular cuboid with a given 'width', 'height', and 'depth'

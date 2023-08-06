@@ -319,6 +319,11 @@ Settings.defaultZone = 'America/Los_Angeles';
 Settings.defaultZone = Settings.defaultZone;
 Settings.defaultZone; // $ExpectType Zone
 
+Settings.twoDigitCutoffYear;
+Settings.twoDigitCutoffYear = 42;
+// @ts-expect-error
+Settings.twoDigitCutoffYear = '123';
+
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
 

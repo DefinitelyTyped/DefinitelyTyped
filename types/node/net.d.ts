@@ -16,7 +16,7 @@ declare module 'net' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import * as dns from 'node:dns';
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+    type LookupFunction = (hostname: string, options: dns.LookupAllOptions, callback: (err: NodeJS.ErrnoException | null, addresses: dns.LookupAddress[]) => void) => void;
     interface AddressInfo {
         address: string;
         family: string;
@@ -310,12 +310,14 @@ declare module 'net' {
          */
         readonly remoteAddress?: string | undefined;
         /**
-         * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`.
+         * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`. Value may be `undefined` if
+         * the socket is destroyed (for example, if the client disconnected).
          * @since v0.11.14
          */
         readonly remoteFamily?: string | undefined;
         /**
-         * The numeric representation of the remote port. For example, `80` or `21`.
+         * The numeric representation of the remote port. For example, `80` or `21`. Value may be `undefined` if
+         * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
         readonly remotePort?: number | undefined;
@@ -744,8 +746,8 @@ declare module 'net' {
      *
      * Test this by using `telnet`:
      *
-     * ```console
-     * $ telnet localhost 8124
+     * ```bash
+     * telnet localhost 8124
      * ```
      *
      * To listen on the socket `/tmp/echo.sock`:
@@ -758,8 +760,8 @@ declare module 'net' {
      *
      * Use `nc` to connect to a Unix domain socket server:
      *
-     * ```console
-     * $ nc -U /tmp/echo.sock
+     * ```bash
+     * nc -U /tmp/echo.sock
      * ```
      * @since v0.5.0
      * @param connectionListener Automatically set as a listener for the {@link 'connection'} event.

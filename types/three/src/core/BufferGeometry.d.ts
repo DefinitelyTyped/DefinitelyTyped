@@ -1,13 +1,13 @@
-import { BufferAttribute } from './BufferAttribute';
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
-import { Box3 } from '../math/Box3';
-import { Sphere } from '../math/Sphere';
-import { Matrix4 } from '../math/Matrix4';
-import { Quaternion } from '../math/Quaternion';
-import { Vector2 } from '../math/Vector2';
-import { Vector3 } from '../math/Vector3';
-import { EventDispatcher } from './EventDispatcher';
-import { GLBufferAttribute } from './GLBufferAttribute';
+import { BufferAttribute } from './BufferAttribute.js';
+import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
+import { Box3 } from '../math/Box3.js';
+import { Sphere } from '../math/Sphere.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Quaternion } from '../math/Quaternion.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Vector3 } from '../math/Vector3.js';
+import { EventDispatcher } from './EventDispatcher.js';
+import { GLBufferAttribute } from './GLBufferAttribute.js';
 
 export type NormalBufferAttributes = Record<string, BufferAttribute | InterleavedBufferAttribute>;
 export type NormalOrGLBufferAttributes = Record<

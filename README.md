@@ -366,7 +366,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 #### Common mistakes
 
 * First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write 'path/to/package/**/*.ts'`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -462,6 +462,16 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 #### What about type definitions for the DOM?
 
 If types are part of a web standard, they should be contributed to [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+
+#### What about type definitions with no matching package?
+
+If there's no source Javascript code at all, for example if you're writing helper types or types for a spec, you should publish the types yourself, not on Definitely Typed.
+Because they're meant to provide types for existing Javascript code, `@types` packages are not meant to be imported directly.
+That is, you shouldn't create a Definitely Typed package that's meant to used like `import type { ... } from "@types/foo"`.
+Nor should you expect to write `import type { ... } from "foo"` when there's no `foo` installed.
+
+This is different from providing types for a browser-only Javascript library or types for an entire environment like node, bun, et al.
+There, the types are either resolved implicitly or using `/// <references types="foo" />`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 

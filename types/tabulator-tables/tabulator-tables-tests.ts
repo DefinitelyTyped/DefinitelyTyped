@@ -984,7 +984,7 @@ colDef.formatterParams = {
     urlSuffix: '.png',
 };
 
-table.refreshFilters();
+table.refreshFilter();
 table.clearHistory();
 
 colDef.maxWidth = 300;

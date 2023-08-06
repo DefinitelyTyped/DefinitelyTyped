@@ -1,9 +1,9 @@
-import { Material } from '../materials/Material';
-import { Object3D } from '../core/Object3D';
-import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry';
-import { BufferAttribute } from '../core/BufferAttribute';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
-import { GLBufferAttribute } from '../core/GLBufferAttribute';
+import { Material } from '../materials/Material.js';
+import { Object3D } from '../core/Object3D.js';
+import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { GLBufferAttribute } from '../core/GLBufferAttribute.js';
 
 /**
  * A class for displaying {@link Points}

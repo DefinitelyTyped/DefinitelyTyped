@@ -1,4 +1,5 @@
-type Region = 'eu1' | 'in1' | 'sg1' | 'us1' | 'sk1';
+type Region = 'sg1' | 'in1' | 'us1' | 'aps3' | 'mec1';
+
 interface PrivacyData {
     optOut?: boolean;
     useIP?: boolean;
@@ -122,6 +123,14 @@ declare class CleverTap {
     removeMultiValueForKey: (key: any, value: string | number) => void;
     removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
+    markReadAllInboxMessage: () => void;
+    markReadInboxMessage: (messageId: string) => void;
+    deleteInboxMessage: (messageId: string) => void;
+    getInboxMessageForId: (messageId: string) => void;
+    getUnreadInboxMessages: () => any;
+    getAllInboxMessages: () => any;
+    getInboxMessageUnreadCount: () => number | undefined;
+    getInboxMessageCount: () => number | undefined;
 }
 
 export default CleverTap;

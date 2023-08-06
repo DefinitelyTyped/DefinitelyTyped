@@ -333,7 +333,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Vary on `field`.
      */
-    vary(field: string): void;
+    vary(field: string | string[]): void;
 
     /**
      * Perform a 302 redirect to `url`.
@@ -551,7 +551,7 @@ declare namespace Application {
         /**
          * Custom properties.
          */
-        [key: string]: any;
+        [key: PropertyKey]: any;
     }
 
     type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<

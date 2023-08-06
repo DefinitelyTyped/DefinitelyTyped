@@ -2,7 +2,7 @@ import clevertap = require('clevertap-web-sdk');
 
 clevertap.privacy.push({ optOut: false }); // Set the flag to true, if the user of the device opts out of sharing their data
 clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user agrees to share their IP data
-clevertap.init('ACCOUNT_ID', 'eu1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
+clevertap.init('ACCOUNT_ID', 'us1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
 clevertap.raiseNotificationClicked = () => {
@@ -99,3 +99,20 @@ const totalVisits = clevertap.user.getTotalVisits();
 const lastVisit = clevertap.user.getLastVisit();
 const timeElapsed = clevertap.session.getTimeElapsed();
 const pageCount = clevertap.session.getPageCount();
+// WebInbox
+// Get Inbox Message Count
+clevertap.getInboxMessageCount();
+// Get Inbox Unread Message Count
+clevertap.getInboxMessageUnreadCount();
+// Get All Inbox messages
+clevertap.getAllInboxMessages();
+// Get only Unread messages
+clevertap.getUnreadInboxMessages();
+// Get message object belonging to the given message id only. Message id should be a String
+clevertap.getInboxMessageForId("1687446482_1687781900740");
+// Delete message from the Inbox. Message id should be a String
+clevertap.deleteInboxMessage("1687446482_1687781900740");
+// Mark Message as Read. Message id should be a String
+clevertap.markReadInboxMessage("1687446482_1687781900740");
+// Mark all messages as read
+clevertap.markReadAllInboxMessage();

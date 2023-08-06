@@ -37,6 +37,7 @@
         "test/tracing.ts",
         "test/webcrypto.ts",
         "test/websockets.ts",
+        "test/experimental/grpc.ts",
         "test/ws.ts"
     ]
 }

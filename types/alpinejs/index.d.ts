@@ -33,14 +33,14 @@ interface XDataContext {
 }
 type XData = XDataContext | string | number | boolean;
 
-interface DirectiveUtilities {
+export interface DirectiveUtilities {
     Alpine: Alpine;
-    effect: () => void;
-    cleanup: () => void;
+    effect: (cb: () => void) => void;
+    cleanup: (cb: () => void) => void;
     evaluate: (expression: string) => unknown;
     evaluateLater: (expression: string) => (result: unknown) => void;
 }
-interface DirectiveParameters {
+export interface DirectiveParameters {
     value: string;
     modifiers: string[];
     expression: string;
@@ -48,7 +48,7 @@ interface DirectiveParameters {
     type: string;
 }
 
-interface AlpineMagics<T> {
+export interface AlpineMagics<T> {
     /**
      * Access to current Alpine data.
      */

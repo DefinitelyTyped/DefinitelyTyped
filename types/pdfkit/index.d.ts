@@ -386,6 +386,7 @@ declare namespace PDFKit {
         CreationDate?: Date | undefined;
         Title?: string | undefined;
         Author?: string | undefined;
+        Subject?: string | undefined;
         Keywords?: string | undefined;
         ModDate?: Date | undefined;
     }

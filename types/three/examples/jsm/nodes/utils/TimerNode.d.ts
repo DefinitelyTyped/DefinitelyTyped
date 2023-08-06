@@ -1,4 +1,4 @@
-import UniformNode from '../core/UniformNode';
+import UniformNode from '../core/UniformNode.js';
 
 export type TimerNodeScope =
     | typeof TimerNode.LOCAL

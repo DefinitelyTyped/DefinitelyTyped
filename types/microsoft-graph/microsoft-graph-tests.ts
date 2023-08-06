@@ -429,3 +429,48 @@ const synchronizationStatus: MicrosoftGraph.SynchronizationStatus = {};
 const synchronizationTaskExecution: MicrosoftGraph.SynchronizationTaskExecution = {};
 
 const onlineMeetingRestricted: MicrosoftGraph.OnlineMeetingRestricted = {};
+
+const loginPageLayoutConfiguration: MicrosoftGraph.LoginPageLayoutConfiguration = {};
+
+const loginPageTextVisibilitySettings: MicrosoftGraph.LoginPageTextVisibilitySettings = {};
+
+const azureResourceEvidence: MicrosoftGraph.SecurityNamespace.AzureResourceEvidence = {};
+
+const layoutTemplateType: MicrosoftGraph.LayoutTemplateType = "verticalSplit";
+
+const googleCloudResourceEvidence: MicrosoftGraph.SecurityNamespace.GoogleCloudResourceEvidence = {};
+
+const organizationalBrandingProperties: MicrosoftGraph.OrganizationalBrandingProperties = {
+    customAccountResetCredentialsUrl: "",
+    customCannotAccessYourAccountText: "",
+    customCannotAccessYourAccountUrl: "",
+    customCSS: "",
+    customCSSRelativeUrl: "",
+    customForgotMyPasswordText: "",
+    customPrivacyAndCookiesText: "",
+    customPrivacyAndCookiesUrl: "",
+    customResetItNowText: "",
+    customTermsOfUseText: "",
+    customTermsOfUseUrl: "",
+    favicon: "",
+    faviconRelativeUrl: "",
+    headerBackgroundColor: "",
+    headerLogo: "",
+    headerLogoRelativeUrl: "",
+    loginPageLayoutConfiguration: {},
+    loginPageTextVisibilitySettings: {}
+};
+
+const blobContainerEvidence: MicrosoftGraph.SecurityNamespace.BlobContainerEvidence = {};
+const blobEvidence: MicrosoftGraph.SecurityNamespace.BlobEvidence = {};
+const fileHash: MicrosoftGraph.SecurityNamespace.FileHash = {};
+const containerEvidence: MicrosoftGraph.SecurityNamespace.ContainerEvidence = {};
+const containerImageEvidence: MicrosoftGraph.SecurityNamespace.ContainerImageEvidence = {};
+const kubernetesPodEvidence: MicrosoftGraph.SecurityNamespace.KubernetesPodEvidence = {};
+const kubernetesClusterEvidence: MicrosoftGraph.SecurityNamespace.KubernetesClusterEvidence = {};
+const kubernetesControllerEvidence: MicrosoftGraph.SecurityNamespace.KubernetesControllerEvidence = {};
+const kubernetesNamespaceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesNamespaceEvidence = {};
+const kubernetesServiceAccountEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceAccountEvidence = {};
+const kubernetesSecretEvidence: MicrosoftGraph.SecurityNamespace.KubernetesSecretEvidence = {};
+const kubernetesServiceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceEvidence = {};
+const kubernetesServicePort: MicrosoftGraph.SecurityNamespace.KubernetesServicePort = {};

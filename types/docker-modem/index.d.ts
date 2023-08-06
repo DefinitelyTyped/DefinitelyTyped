@@ -8,7 +8,7 @@
 import { ConnectConfig } from 'ssh2';
 import { ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions, Agent } from 'http';
 import { Socket } from 'net';
-import { Duplex, DuplexOptions, Stream } from 'stream';
+import { Duplex, DuplexOptions } from 'stream';
 
 declare namespace DockerModem {
     class HttpDuplex extends Duplex {
@@ -87,10 +87,10 @@ declare class DockerModem {
 
     dial(options: DockerModem.DialOptions, callback?: DockerModem.RequestCallback): void;
 
-    demuxStream(stream: Stream, stdout: NodeJS.WritableStream, stderr: NodeJS.WritableStream): void;
+    demuxStream(stream: NodeJS.ReadableStream, stdout: NodeJS.WritableStream, stderr: NodeJS.WritableStream): void;
 
     followProgress(
-        stream: Stream,
+        stream: NodeJS.ReadableStream,
         onFinished: (error: Error | null, result: any[]) => void,
         onProgress?: (obj: any) => void,
     ): void;

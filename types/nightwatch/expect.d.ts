@@ -1,4 +1,6 @@
-import { Definition, NightwatchAPI, Awaitable } from "./index";
+import 'chai';
+import { By, WebElement } from "selenium-webdriver";
+import { Definition, NightwatchAPI, Awaitable, Element, ELEMENT_KEY } from "./index";
 
 export interface NightwatchExpectResult {
   value: null;
@@ -171,6 +173,9 @@ export interface ExpectTitle extends ExpectAssertions<ExpectTitle> {}
 export interface ExpectUrl extends ExpectAssertions<ExpectUrl> {}
 
 export interface Expect {
+  (val: Element | WebElement | By | {[ELEMENT_KEY]: string}): ExpectElement;
+  (val: any): Chai.Assertion;
+
   /**
    *  Expect assertions operating on a single cookie after
    *  retrieving the entire cookie string, using .getCookies().
@@ -180,7 +185,12 @@ export interface Expect {
   /**
    * Expect assertions operating on a single element, specified by its CSS/Xpath selector.
    */
-  element(property: Definition): ExpectElement;
+  element(property: Definition | WebElement): ExpectElement;
+
+  /**
+   * Expect assertions operating on a single component.
+   */
+  component(property: Definition | WebElement): ExpectElement;
 
   /**
    * Expect assertions operating on a page-object section, specified by '`@section_name`'.

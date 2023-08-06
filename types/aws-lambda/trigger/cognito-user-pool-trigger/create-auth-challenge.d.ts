@@ -9,8 +9,8 @@ export interface CreateAuthChallengeTriggerEvent extends BaseTriggerEvent<'Creat
       userAttributes: StringMap;
       challengeName: string;
       session: Array<ChallengeResult | CustomChallengeResult>;
-      clientMetadata?: StringMap | undefined;
       userNotFound?: boolean | undefined;
+      clientMetadata?: StringMap | undefined;
   };
   response: {
       publicChallengeParameters: StringMap;

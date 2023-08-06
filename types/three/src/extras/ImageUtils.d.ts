@@ -1,5 +1,5 @@
-import { Mapping } from '../constants';
-import { Texture } from '../textures/Texture';
+import { Mapping } from '../constants.js';
+import { Texture } from '../textures/Texture.js';
 
 /**
  * A class containing utility functions for images.

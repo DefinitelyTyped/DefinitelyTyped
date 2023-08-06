@@ -323,6 +323,8 @@ export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
 
+export type AttributeGPUType = typeof FloatType | typeof IntType;
+
 /**
  * Texture Types.
  * @remarks Must correspond to the correct {@link PixelFormat | format}.
@@ -409,7 +411,7 @@ export const RGIntegerFormat: 1031;
  */
 export const RGBAIntegerFormat: 1033;
 
-export const _SRGBAFormat = 1035; // fallback for WebGL 1
+export const _SRGBAFormat: 1035; // fallback for WebGL 1
 
 /**
  * Texture Pixel Formats Modes. Compatible only with {@link WebGLRenderingContext | WebGL 1 Rendering Context}.
@@ -709,7 +711,7 @@ export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNo
 export const NoColorSpace: '';
 export const SRGBColorSpace: 'srgb';
 export const LinearSRGBColorSpace: 'srgb-linear';
-export const DisplayP3ColorSpace = 'display-p3';
+export const DisplayP3ColorSpace: 'display-p3';
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
@@ -754,6 +756,24 @@ export type StencilFunc =
     | typeof GreaterEqualStencilFunc
     | typeof AlwaysStencilFunc;
 
+export const NeverCompare: 512;
+export const LessCompare: 513;
+export const EqualCompare: 514;
+export const LessEqualCompare: 515;
+export const GreaterCompare: 516;
+export const NotEqualCompare: 517;
+export const GreaterEqualCompare: 518;
+export const AlwaysCompare: 519;
+export type TextureComparisonFunction =
+    | typeof NeverCompare
+    | typeof LessCompare
+    | typeof EqualCompare
+    | typeof LessEqualCompare
+    | typeof GreaterCompare
+    | typeof NotEqualCompare
+    | typeof GreaterEqualCompare
+    | typeof AlwaysCompare;
+
 // usage types
 export const StaticDrawUsage: 35044;
 export const DynamicDrawUsage: 35048;
@@ -778,6 +798,10 @@ export type Usage =
 export const GLSL1: '100';
 export const GLSL3: '300 es';
 export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
+
+export const WebGLCoordinateSystem: 2000;
+export const WebGPUCoordinateSystem: 2001;
+export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoordinateSystem;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

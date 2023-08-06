@@ -15,8 +15,8 @@ export interface LexV2Event {
     bot: LexV2Bot;
     interpretations: LexV2Interpretation[];
     proposedNextState: {
-        dialogAction: LexV2DialogAction,
-        intent: LexV2Intent
+        dialogAction: LexV2DialogAction;
+        intent: LexV2Intent;
     };
     requestAttributes?: Record<string, string>;
     sessionState: LexV2SessionState;
@@ -79,7 +79,7 @@ export interface LexV2ActiveContext {
     contextAttributes: Record<string, string>;
     timeToLive: {
         timeToLiveInSeconds: number;
-        turnsToLive: number
+        turnsToLive: number;
     };
 }
 
@@ -87,18 +87,15 @@ export type LevV2DialogActionWithoutSlot =
     | { type: 'Close' }
     | { type: 'ConfirmIntent' }
     | { type: 'Delegate' }
-    | { type: 'ElicitIntent' }
-    ;
+    | { type: 'ElicitIntent' };
 
 export type LexV2DialogAction =
-    | LevV2DialogActionWithoutSlot & { slotToElicit?: never }
-    | { type: 'ElicitSlot', slotToElicit: string }
-    ;
+    | (LevV2DialogActionWithoutSlot & { slotToElicit?: never })
+    | { type: 'ElicitSlot'; slotToElicit: string };
 
 export type LexV2ResultDialogAction =
-    | LevV2DialogActionWithoutSlot & { slotToElicit?: never }
-    | { type: 'ElicitSlot', slotToElicit: string, slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' }
-    ;
+    | (LevV2DialogActionWithoutSlot & { slotToElicit?: never })
+    | { type: 'ElicitSlot'; slotToElicit: string; slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' };
 
 export interface LexV2Result {
     sessionState: {
@@ -113,9 +110,7 @@ export interface LexV2Result {
     messages?: LexV2Message[];
 }
 
-export type LexV2Message =
-    | LexV2ContentMessage
-    | LexV2ImageResponseCardMessage;
+export type LexV2Message = LexV2ContentMessage | LexV2ImageResponseCardMessage;
 
 export interface LexV2ContentMessage {
     contentType: 'CustomPayload' | 'PlainText' | 'SSML';

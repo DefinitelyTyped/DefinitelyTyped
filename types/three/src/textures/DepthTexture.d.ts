@@ -1,4 +1,4 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Mapping,
     Wrapping,
@@ -6,7 +6,8 @@ import {
     DeepTexturePixelFormat,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-} from '../constants';
+    TextureComparisonFunction,
+} from '../constants.js';
 
 /**
  * This class can be used to automatically save the depth information of a rendering into a texture
@@ -95,4 +96,12 @@ export class DepthTexture extends Texture {
      * @defaultValue {@link THREE.UnsignedInt248Type} when {@link format | .format} === {@link THREE.DepthStencilFormat}
      */
     type: TextureDataType;
+
+    /**
+     * This is used to define the comparison function used when comparing texels in the depth texture to the value in
+     * the depth buffer. Default is `null` which means comparison is disabled.
+     *
+     * See {@link THREE.TextureComparisonFunction} for functions.
+     */
+    compareFunction: TextureComparisonFunction | null;
 }
