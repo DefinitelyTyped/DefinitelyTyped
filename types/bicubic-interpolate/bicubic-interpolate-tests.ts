@@ -32,20 +32,20 @@ const multiGrid: number[][][] = [
 
 const interpolator = createInterpolator(grid, options);
 const intVal = interpolator(0.5, 0.5); // 4.0
-console.log("Interpolated value: ");
-console.log(intVal);
+// console.log("Interpolated value: ");
+// console.log(intVal);
 
 const gridInterpolator = createGridInterpolator(grid, options);
 const gridIntVal = gridInterpolator(0.5, 0.5); // 4.0
-console.log("Grid interpolated value: ");
-console.log(gridIntVal);
+// console.log("Grid interpolated value: ");
+// console.log(gridIntVal);
 
 const multiInterpolator = createMultiInterpolator(multiGrid, options);
 const multiIntVal = multiInterpolator(0.5, 0.5); // [4.0, 13.0]
-console.log("Multi interpolated value: ");
-console.log(multiIntVal);
+// console.log("Multi interpolated value: ");
+// console.log(multiIntVal);
 
 const multiGridInterpolator = createMultiGridInterpolator(multiGrid, options);
 const multiGridIntVal = multiGridInterpolator(0.5, 0.5); // [4.0, 13.0]
-console.log("Multi grid interpolated value: ");
-console.log(multiGridIntVal);
+// console.log("Multi grid interpolated value: ");
+// console.log(multiGridIntVal);
