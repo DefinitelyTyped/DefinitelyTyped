@@ -47,8 +47,9 @@ declare function jsx(): TestElementType;
 // A JSX test implementation type
 declare global {
     namespace JSX {
-        // The addition and changes in ElementType change what is valid JSX.
-        // This should also be reflected by the MDX types.
+        // Note: The below code  and variations on it need to be tested manually.
+        // It is not possible to run this test with multiple TypeScript configurations in DefinitelyTyped.
+        //
         // type ElementType =
         //     | 'a'
         //     | 'div'

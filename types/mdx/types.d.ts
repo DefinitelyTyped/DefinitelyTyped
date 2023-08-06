@@ -3,7 +3,8 @@
 /**
  * This is the global JSX.ElementType if it’s defined, otherwise never.
  */
-// @ts-ignore
+// @ts-ignore JSX runtimes may optionally define JSX.ElementType. The MDX types need to work regardless whether this is
+// defined or not.
 type ElementType = any extends JSX.ElementType ? never : JSX.ElementType;
 
 /**
