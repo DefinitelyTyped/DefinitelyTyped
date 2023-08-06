@@ -1,4 +1,4 @@
-// Type definitions for jest-image-snapshot 6.1
+// Type definitions for jest-image-snapshot 6.2
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
@@ -47,6 +47,11 @@ export interface MatchImageSnapshotOptions {
      * A custom absolute path of a directory to keep this received image in.
      */
     customReceivedDir?: string | undefined;
+    /**
+     * A custom postfix which is added to the snapshot name of the received image
+     * @default '-received'
+     */
+    customReceivedPostfix?: string | undefined;
     /**
      * A custom name to give this snapshot. If not provided, one is computed automatically. When a function is provided
      * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
