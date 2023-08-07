@@ -129,8 +129,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
 
-    validator.isIBAN; // $ExpectType (str: string) => boolean
-    isIBANFunc; // $ExpectType (str: string) => boolean
+    validator.isIBAN; // $ExpectType (str: string, options?: IsIBANOptions | undefined) => boolean
+    isIBANFunc; // $ExpectType (str: string, options?: IsIBANOptions | undefined) => boolean
     validator.ibanLocales;
 
     let _isBIC = validator.isBIC;
@@ -614,6 +614,9 @@ const any: any = null;
     result = validator.isBefore('sample', new Date().toString());
 
     result = validator.isIBAN('sample');
+    result = validator.isIBAN('sample', { whitelist: ['GB', 'BR'] });
+    result = validator.isIBAN('sample', { blacklist: ['LT', 'GL'] });
+    result = validator.isIBAN('sample', { whitelist: ['GB', 'BR'], blacklist: ['DK'] });
 
     result = validator.isBIC('SBICKEN1345');
 
