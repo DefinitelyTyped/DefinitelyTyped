@@ -46,12 +46,24 @@ export interface Client {
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
      */
-    VERSION: string;
+    // This is never exported or assigned to any property of the Client object. Why is it here?
+    // VERSION: string;
 
     /**
      * Returns a copy of the configuration values.
      */
     getConfiguration(): Configuration;
+
+
+    /**
+     * Primarily used for testing the client initalization call
+     **/
+    clearCache(): void;
+
+    /*****************************************************************************************************************
+     * All of the following methods are added to the Client.prototype after it is instantiated. They are not available
+     * until after {@link Client#getConfiguration|create} is called and the callback is invoked or the Promise is resolved.
+     ******************************************************************************************************************/
 
     /**
      * Used by other modules to formulate all network requests to the Braintree gateway.
@@ -95,7 +107,7 @@ export interface Client {
      *   });
      * });
      */
-    request(options: { method: string; endpoint: string; data: any; timeout?: number | undefined }, callback: callback): void;
+    request?(options: { method: string; endpoint: string; data: any; timeout?: number | undefined }, callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link Client#getConfiguration|create}.
@@ -108,5 +120,9 @@ export interface Client {
      * });
      * @returns Returns a promise if no callback is provided.
      */
-    teardown(callback: callback<void>): Promise<void>;
+    teardown?(callback: callback<void>): Promise<void>;
+    getVersion?(): string;
+    toJSON?(): Configuration;
+    _findOrCreateFraudnetJSON?(): void;
+
 }
