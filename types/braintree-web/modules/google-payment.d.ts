@@ -227,9 +227,11 @@ export interface GooglePayment {
      */
     createPaymentDataRequest(overrides?: {
         emailRequired?: boolean | undefined;
-        merchantInfo?: {
-            merchantId: string;
-        } | undefined;
+        merchantInfo?:
+            | {
+                  merchantId: string;
+              }
+            | undefined;
         transactionInfo: {
             currencyCode: string;
             totalPriceStatus: string;

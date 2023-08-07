@@ -1,7 +1,3 @@
-/**
- * Check if a string is a IBAN (International Bank Account Number).
- */
-export default function isIBAN(str: string): boolean;
 export const locales: Array<
     | 'AD'
     | 'AE'
@@ -82,3 +78,19 @@ export const locales: Array<
     | 'VG'
     | 'XK'
 >;
+
+export interface IsIBANOptions {
+    /**
+     * @default undefined
+     */
+    whitelist?: typeof locales | undefined;
+    /**
+     * @default undefined
+     */
+    blacklist?: typeof locales | undefined;
+}
+
+/**
+ * Check if a string is a IBAN (International Bank Account Number).
+ */
+export default function isIBAN(str: string, options?: IsIBANOptions): boolean;
