@@ -178,7 +178,7 @@ export interface HostedFieldsTokenizePayload {
      * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
      */
     authenticationInsight?: {
-      regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+        regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
     };
 }
 
@@ -284,8 +284,14 @@ export interface HostedFields {
      */
     VERSION: string;
 
-    on<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
-    off<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
+    on<EventType extends HostedFieldEventType>(
+        event: EventType,
+        handler: (event: HostedFieldsEventTypeMap[EventType]) => void,
+    ): void;
+    off<EventType extends HostedFieldEventType>(
+        event: EventType,
+        handler: (event: HostedFieldsEventTypeMap[EventType]) => void,
+    ): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;

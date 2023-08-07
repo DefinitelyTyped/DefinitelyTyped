@@ -73,32 +73,34 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * The data attributes to apply to the script. Any data attribute can be passed. A subset of the
      * parameters are listed below. For a full list of data attributes, see the PayPal docs.
      */
-    dataAttributes?: {
-        /**
-         * CSP nonce used for rendering the button.
-         */
-        'csp-nonce'?: string | undefined;
+    dataAttributes?:
+        | {
+              /**
+               * CSP nonce used for rendering the button.
+               */
+              'csp-nonce'?: string | undefined;
 
-        /**
-         * Client token used for identifying your buyers.
-         */
-        'data-client-token'?: string | undefined;
+              /**
+               * Client token used for identifying your buyers.
+               */
+              'data-client-token'?: string | undefined;
 
-        /**
-         * Order ID used for optimizing the funding that displays.
-         */
-        'data-order-id'?: string | undefined;
+              /**
+               * Order ID used for optimizing the funding that displays.
+               */
+              'data-order-id'?: string | undefined;
 
-        /**
-         * Log page type and interactions for the JavaScript SDK.
-         */
-        'data-page-type'?: string | undefined;
+              /**
+               * Log page type and interactions for the JavaScript SDK.
+               */
+              'data-page-type'?: string | undefined;
 
-        /**
-         * Partner attribution ID used for revenue attribution.
-         */
-        'data-partner-attribution-id'?: string | undefined;
-    } | undefined;
+              /**
+               * Partner attribution ID used for revenue attribution.
+               */
+              'data-partner-attribution-id'?: string | undefined;
+          }
+        | undefined;
     /**
      * Funding sources to disallow from showing in the checkout buttons.
      * Do not use this query parameter to disable advanced credit and debit card payments.
@@ -161,8 +163,19 @@ export interface PayPalCheckout {
      *   console.error('Error!', err);
      * });
      */
-    create(options: { client?: Client | undefined; authorization?: string | undefined; merchantAccountId?: string | undefined }): Promise<PayPalCheckout>;
-    create(options: { client?: Client | undefined; authorization?: string | undefined; merchantAccountId?: string | undefined }, callback?: callback): void;
+    create(options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        merchantAccountId?: string | undefined;
+    }): Promise<PayPalCheckout>;
+    create(
+        options: {
+            client?: Client | undefined;
+            authorization?: string | undefined;
+            merchantAccountId?: string | undefined;
+        },
+        callback?: callback,
+    ): void;
 
     /**
      * Resolves when the PayPal SDK has been succesfully loaded onto the page.
