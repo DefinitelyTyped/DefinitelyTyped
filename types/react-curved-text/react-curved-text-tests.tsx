@@ -19,5 +19,5 @@ function MyCurvedText() {
             fontSize: "20px",
             }}
         />
-    )
+    );
 }
