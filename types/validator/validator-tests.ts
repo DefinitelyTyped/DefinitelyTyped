@@ -127,8 +127,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
 
-    validator.isIBAN; // $ExpectType (str: string, options?: IsIbanOptions | undefined) => boolean
-    isIBANFunc; // $ExpectType (str: string, options?: IsIbanOptions | undefined) => boolean
+    validator.isIBAN; // $ExpectType (str: string, options?: IsIBANOptions | undefined) => boolean
+    isIBANFunc; // $ExpectType (str: string, options?: IsIBANOptions | undefined) => boolean
     validator.ibanLocales;
 
     let _isBIC = validator.isBIC;
