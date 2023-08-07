@@ -324,6 +324,10 @@ declare namespace bricks {
 
     type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData | AdditionalTicketFormData;
 
+    interface UpdateValues {
+        amount: number;
+    }
+
     interface PaymentFormData {
         paymentType: PaymentType;
         selectedPaymentMethod: PaymentType;
@@ -331,10 +335,26 @@ declare namespace bricks {
         additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | AdditionalTicketFormData | null;
     }
 
-    interface BrickController {
+    interface CardPaymentController {
         unmount: () => void;
-        getFormData: () => Promise<CardFormData | PaymentFormData>;
-        getAdditionalData: () => Promise<AdditionalCardFormData | AdditionalPaymentFormData>;
+        getFormData: () => Promise<CardFormData>;
+        getAdditionalData: () => Promise<AdditionalCardFormData>;
+        update: (updateValues: UpdateValues) => boolean;
+    }
+
+    interface PaymentController {
+        unmount: () => void;
+        getFormData: () => Promise<PaymentFormData>;
+        getAdditionalData: () => Promise<AdditionalPaymentFormData>;
+        update: (updateValues: UpdateValues) => boolean;
+    }
+
+    interface StatusScreenController {
+        unmount: () => void;
+    }
+
+    interface WalletController {
+        unmount: () => void;
     }
 
     type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet';
@@ -345,6 +365,14 @@ declare namespace bricks {
             brick: BrickType,
             containerId: string,
             settings: BrickSettings<BrickType>,
-        ): Promise<BrickController>;
+        ): Promise<
+            BrickType extends 'cardPayment'
+            ? CardPaymentController
+            : BrickType extends 'payment'
+            ? PaymentController
+            : BrickType extends 'statusScreen'
+            ? StatusScreenController
+            : WalletController
+        >;
     }
 }
