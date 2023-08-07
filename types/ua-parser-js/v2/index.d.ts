@@ -1,16 +1,24 @@
-// Type definitions for ua-parser-js 0.7
+// Type definitions for ua-parser-js 2.0
 // Project: https://github.com/faisalman/ua-parser-js
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>
 //                 Lucas Woo <https://github.com/legendecas>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Faisal Salman <https://github.com/faisalman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace UAParser {
     // tslint:disable:interface-name backward compatible exclusion
 
-    interface IBrowser {
+    interface IData {
+        is(val: string): boolean;
+        toString(): string;
+        withClientHints(): PromiseLike<IData> | IData;
+        withFeatureCheck(): IData;
+    }
+
+    interface IBrowser extends IData {
         /**
          * Possible values :
          * Amaya, Android Browser, Arora, Avant, Baidu, Blazer, Bolt, Camino, Chimera, Chrome,
@@ -37,7 +45,7 @@ declare namespace UAParser {
         major: string | undefined;
     }
 
-    interface IDevice {
+    interface IDevice extends IData {
         /**
          * Determined dynamically
          */
@@ -59,7 +67,7 @@ declare namespace UAParser {
         vendor: string | undefined;
     }
 
-    interface IEngine {
+    interface IEngine extends IData {
         /**
          * Possible name:
          * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
@@ -72,7 +80,7 @@ declare namespace UAParser {
         version: string | undefined;
     }
 
-    interface IOS {
+    interface IOS extends IData {
         /**
          * Possible 'os.name'
          * AIX, Amiga OS, Android, Arch, Bada, BeOS, BlackBerry, CentOS, Chromium OS, Contiki,
@@ -89,7 +97,7 @@ declare namespace UAParser {
         version: string | undefined;
     }
 
-    interface ICPU {
+    interface ICPU extends IData {
         /**
          * Possible architecture:
          *  68k, amd64, arm, arm64, avr, ia32, ia64, irix, irix64, mips, mips64, pa-risc,
@@ -98,7 +106,7 @@ declare namespace UAParser {
         architecture: string | undefined;
     }
 
-    interface IResult {
+    interface IResult extends IData {
         ua: string;
         browser: IBrowser;
         device: IDevice;
@@ -198,10 +206,12 @@ declare const UAParser: {
     /**
      * Create a new parser with UA prepopulated and extensions extended
      */
-    new (uastring?: string, extensions?: Record<string, unknown>): UAParser.UAParserInstance;
-    new (extensions?: Record<string, unknown>): UAParser.UAParserInstance;
-    (uastring?: string, extensions?: Record<string, unknown>): UAParser.IResult;
-    (extensions?: Record<string, unknown>): UAParser.IResult;
+    new (uastring?: string, extensions?: Record<string, unknown>, headers?: Record<string, string>): UAParser.UAParserInstance;
+    new (extensions?: Record<string, unknown>, headers?: Record<string, string>): UAParser.UAParserInstance;
+    new (headers?: Record<string, string>): UAParser.UAParserInstance;
+    (uastring?: string, extensions?: Record<string, unknown>, headers?: Record<string, string>): UAParser.IResult;
+    (extensions?: Record<string, unknown>, headers?: Record<string, string>): UAParser.IResult;
+    (headers?: Record<string, string>): UAParser.IResult;
 
     // alias for older syntax
     UAParser: typeof UAParser;

@@ -8,10 +8,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+          "ua-parser-js": [ "ua-parser-js/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
