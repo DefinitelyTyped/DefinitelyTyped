@@ -395,6 +395,6 @@ function webOTPAutofill() {
             }
         });
     } else {
-        console.log("webOTP not supported by browser");
+        console.log("WebOTP not supported by browser");
     }
 }
