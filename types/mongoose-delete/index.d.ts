@@ -1,4 +1,4 @@
-// Type definitions for mongoose-delete 0.5
+// Type definitions for mongoose-delete 1.0
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,10 +45,18 @@ declare namespace MongooseDelete {
         findOneAndUpdateDeleted: this["findOneAndUpdate"];
         /** Find One And Update all documents including deleted */
         findOneAndUpdateWithDeleted: this["findOneAndUpdate"];
-        /** Update only deleted documents */
-        updateDeleted: this["update"];
-        /** Update all documents including deleted */
-        updateWithDeleted: this["update"];
+        /**
+         * @deprecated use `updateOneDeleted` or `updateManyDeleted` instead
+         *
+         * Update only deleted documents
+         */
+        updateDeleted: this["updateOne"];
+        /**
+         * @deprecated use `updateOneWithDeleted` or `updateManyWithDeleted` instead
+         *
+         * Update all documents including deleted
+         */
+        updateWithDeleted: this["updateOne"];
         /** Update One only deleted documents */
         updateOneDeleted: this["updateOne"];
         /** Update One all documents including deleted */
@@ -105,6 +113,8 @@ interface Options {
     deletedBy: boolean;
     indexFields: boolean | 'all' | Array<keyof MongooseDelete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
+    validateBeforeRestore: boolean;
+    use$neOperator: boolean;
 
     /**
      * DeleteBy Schema type, equal to
