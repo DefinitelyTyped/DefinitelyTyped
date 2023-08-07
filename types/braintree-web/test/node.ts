@@ -342,12 +342,12 @@ braintree.client.create(
                 lineItems: [
                     {
                         label: 'First item',
-                        amount: '4.00'
+                        amount: '4.00',
                     },
                     {
                         label: 'Second item',
-                        amount: '6.00'
-                    }
+                        amount: '6.00',
+                    },
                 ],
                 total: { label: 'Your Label', amount: '10.00' },
             };
@@ -542,46 +542,52 @@ braintree.client.create(
         });
 
         // Local Payment
-        braintree.localPayment.create({
-            client: clientInstance
-        }, (err, localPaymentInstance) => {
-            localPaymentInstance
-                .startPayment({
-                    amount: 11.00,
-                    currencyCode: 'EUR',
-                    paymentType: 'sofort',
-                    onPaymentStart: (data, next) => {
-                        if (data.paymentId) {
-                            // Implementation
+        braintree.localPayment.create(
+            {
+                client: clientInstance,
+            },
+            (err, localPaymentInstance) => {
+                localPaymentInstance
+                    .startPayment({
+                        amount: 11.0,
+                        currencyCode: 'EUR',
+                        paymentType: 'sofort',
+                        onPaymentStart: (data, next) => {
+                            if (data.paymentId) {
+                                // Implementation
+                            }
+                            next();
+                        },
+                    })
+                    .then((payload: braintree.LocalPaymentTokenizePayload) => {
+                        console.log(payload.nonce);
+                    })
+                    .catch((error: braintree.BraintreeError) => {
+                        console.error('Error!', error);
+                    });
+
+                localPaymentInstance.tokenize(
+                    {
+                        btLpPayerId: '1234',
+                        btLpPaymentId: '1234',
+                        btLpToken: '1234',
+                    },
+                    (error, data) => {
+                        if (error) {
+                            console.error('Tokenize Error!', error);
+                            return;
                         }
-                        next();
-                    }
-                })
-                .then((payload: braintree.LocalPaymentTokenizePayload) => {
-                    console.log(payload.nonce);
-                })
-                .catch((error: braintree.BraintreeError) => {
-                    console.error('Error!', error);
+
+                        // Implementation
+                        console.log(data.nonce);
+                    },
+                );
+
+                localPaymentInstance.teardown(err => {
+                    // Implementation
                 });
-
-            localPaymentInstance.tokenize({
-                btLpPayerId: '1234',
-                btLpPaymentId: '1234',
-                btLpToken: '1234'
-            }, (error, data) => {
-                if (error) {
-                    console.error('Tokenize Error!', error);
-                    return;
-                }
-
-                // Implementation
-                console.log(data.nonce);
-            });
-
-            localPaymentInstance.teardown(err => {
-                // Implementation
-            });
-        });
+            },
+        );
 
         braintree.dataCollector.create({ client: clientInstance }, (error, dataCollectorInstance) => {
             dataCollectorInstance.getDeviceData({ raw: false }, (err, deviceData) => {
@@ -643,6 +649,7 @@ braintree.threeDSecure.verifyCard(
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
         bin: '1234',
+        collectDeviceData: true,
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
             const my3DSContainer = document.createElement('div');

@@ -125,12 +125,18 @@ export interface ThreeDSecureVerifyOptions {
     amount: number;
     bin: string;
     challengeRequested?: boolean | undefined;
+    /**
+     * If set to `true`, device data such as browser screen dimensions, language and time zone is submitted with lookup data.
+     */
+    collectDeviceData?: boolean | undefined;
     exemptionRequested?: boolean | undefined;
     email?: string | undefined;
     mobilePhoneNumber?: string | undefined;
     billingAddress?: ThreeDSecureBillingAddress | undefined;
     additionalInformation?: ThreeDSecureAdditionalInformation | undefined;
+    /** @deprecated Only to be used for 3DS 1.0 integrations. */
     addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
+    /** @deprecated Only to be used for 3DS 1.0 integrations. */
     removeFrame?: (() => void) | undefined;
 }
 
@@ -189,10 +195,7 @@ export interface ThreeDSecure {
      * }, callback);
      */
     create(options: ThreeDSecureCreateOptions): Promise<ThreeDSecure>;
-    create(
-        options: ThreeDSecureCreateOptions,
-        callback: callback<ThreeDSecure>,
-    ): void;
+    create(options: ThreeDSecureCreateOptions, callback: callback<ThreeDSecure>): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.

@@ -95,7 +95,10 @@ export interface Client {
      *   });
      * });
      */
-    request(options: { method: string; endpoint: string; data: any; timeout?: number | undefined }, callback: callback): void;
+    request(
+        options: { method: string; endpoint: string; data: any; timeout?: number | undefined },
+        callback: callback,
+    ): void;
 
     /**
      * Cleanly tear down anything set up by {@link Client#getConfiguration|create}.
