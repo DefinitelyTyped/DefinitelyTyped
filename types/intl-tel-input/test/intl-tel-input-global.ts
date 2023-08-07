@@ -57,6 +57,10 @@ const country = countryData[0];
 const dialCode = country.dialCode;
 const iso2 = country.iso2;
 const countryName = country.name;
+// $ExpectType number
+const priority = country.priority;
+// $ExpectType string[] | null
+const areaCodes = country.areaCodes;
 
 window.intlTelInputGlobals.loadUtils('build/js/utils.js');
 
