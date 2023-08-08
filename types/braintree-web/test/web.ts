@@ -1,5 +1,5 @@
 import * as braintree from 'braintree-web';
-import { HostedFieldsBinPayload } from 'braintree-web/modules/hosted-fields';
+import { HostedFieldsBinPayload } from 'braintree-web/hosted-fields';
 
 const version: string = braintree.VERSION;
 

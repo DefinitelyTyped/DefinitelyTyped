@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { VERSION, BraintreeError, callback } from './modules/core';
-import { AmericanExpress } from './modules/american-express';
+import { VERSION, BraintreeError, callback } from './core';
+import { AmericanExpress } from './american-express';
 import {
     ApplePay,
     ApplePaySession,
@@ -19,10 +19,10 @@ import {
     ApplePayPaymentTiming,
     ApplePayRecurringPaymentDateUnit,
     ApplePayTokenizeValues,
-} from './modules/apple-pay';
-import { Client, CreditCardInfo } from './modules/client';
-import { DataCollector } from './modules/data-collector';
-import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
+} from './apple-pay';
+import { Client, CreditCardInfo } from './client';
+import { DataCollector } from './data-collector';
+import { GooglePayment, GooglePaymentTokenizePayload } from './google-payment';
 import {
     HostedFields,
     HostedFieldFieldOptions,
@@ -30,20 +30,15 @@ import {
     HostedFieldsEvent,
     HostedFieldsStateObject,
     HostedFieldsBinPayload,
-} from './modules/hosted-fields';
-import { LocalPayment, LocalPaymentTokenizePayload, LocalPaymentTypes } from './modules/local-payment';
-import { PayPal, PayPalTokenizePayload } from './modules/paypal';
-import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/paypal-checkout';
-import { ThreeDSecure, ThreeDSecureVerifyPayload } from './modules/three-d-secure';
-import {
-    UnionPay,
-    UnionPayFetchCapabilitiesPayload,
-    UnionPayEnrollPayload,
-    UnionPayTokenizePayload,
-} from './modules/unionpay';
-import { USBankAccount } from './modules/us-bank-account';
-import { VaultManager, FetchPaymentMethodsPayload } from './modules/vault-manager';
-import { Venmo, VenmoTokenizePayload } from './modules/venmo';
+} from './hosted-fields';
+import { LocalPayment, LocalPaymentTokenizePayload, LocalPaymentTypes } from './local-payment';
+import { PayPal, PayPalTokenizePayload } from './paypal';
+import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './paypal-checkout';
+import { ThreeDSecure, ThreeDSecureVerifyPayload } from './three-d-secure';
+import { UnionPay, UnionPayFetchCapabilitiesPayload, UnionPayEnrollPayload, UnionPayTokenizePayload } from './unionpay';
+import { USBankAccount } from './us-bank-account';
+import { VaultManager, FetchPaymentMethodsPayload } from './vault-manager';
+import { Venmo, VenmoTokenizePayload } from './venmo';
 
 export const americanExpress: AmericanExpress;
 export const applePay: ApplePay;
