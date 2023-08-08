@@ -1,6 +1,7 @@
 // Type definitions for Braintree-web 3.94
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Jason Buckner <https://github.com/jbuckner>
+//                Daniel Macak <https://github.com/daelmaak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
