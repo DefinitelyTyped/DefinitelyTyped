@@ -2,7 +2,7 @@
 
 > Le référentiel des définitions de type TypeScript de *haute qualité*.
 
-*Vous pouvez également lire ce README en [Espagnol](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coréen](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russe](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinois](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Portugais](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italien](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [Japonais](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) et [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
+*Vous pouvez également lire ce README en [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) et [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
 
 *Lien vers le [Manuel de l'administrateur](./docs/admin.md)*
 
@@ -125,7 +125,7 @@ puis suivez les instructions pour [modifier un paquet existant](#modifier-un-paq
 
 ### Faire une demande de pull request
 
-Once you've tested your package, you can share it on Definitely Typed.
+Une fois que vous avez testé votre paquet, vous pouvez le partager sur Definitely Typed.
 
 Tout d'abord, [fork](https://guides.github.com/activities/forking/) ce dépôt, [clone](#partial-clone), installez [node](https://nodejs.org/), et lancez `npm install`. Si vous utilisez `npm` v7, vous devez ajouter le drapeau `--legacy-peer-deps` à la commande.
 
@@ -140,7 +140,7 @@ Nous utilisons un robot pour permettre à un grand nombre de pull requests vers 
 
 Vous pouvez cloner l'ensemble du dépôt [comme d'habitude](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), mais il est volumineux et comprend un énorme répertoire de paquets de type. Cela prendra du temps à cloner et peut s'avérer inutilement lourd.
 
-Pour un clone plus facile à gérer qui inclut _only_ les paquets de type qui vous concernent, vous pouvez utiliser les fonctionnalités de git [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), et [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt). Cela réduira le temps de clonage et améliorera les performances de git.
+Pour un clone plus facile à gérer qui inclut _seulement_ les paquets de type qui vous concernent, vous pouvez utiliser les fonctionnalités de git [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), et [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt). Cela réduira le temps de clonage et améliorera les performances de git.
 
 >:warning: Ceci nécessite au minimum [git version 2.27.0](https://git-scm.com/downloads), qui est probablement plus récent que la version par défaut sur la plupart des machines. Des procédures plus complexes sont disponibles dans les versions plus anciennes, mais ne sont pas couvertes par ce guide.
 
@@ -285,7 +285,7 @@ Pour plus de détails, voir le readme de [dtslint](https://github.com/Microsoft/
 
 Le fichier de configuration du linter, `tslint.json` doit contenir `{ "extends" : "@definitelytyped/dtslint/dt.json" }`, et aucune règle supplémentaire.
 
-Si, pour une raison quelconque, une règle doit être désactivée, [désactivez-la pour cette ligne spécifique](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Désactive%20les%20règles%20listées%20pour%20la%20prochaine%20ligne) en utilisant `// tslint:disable-next-line :[nomRègle]` - pas pour tout le paquet, afin que la désactivation puisse être examinée. (Il y a quelques anciennes configurations de lint qui ont des contenus additionnels, mais cela ne devrait pas se produire dans un nouveau travail).
+Si, pour une raison quelconque, une règle doit être désactivée, [désactivez-la pour cette ligne spécifique](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Désactive%20les%20règles%20listées%20pour%20la%20prochaine%20ligne) en utilisant `// tslint:disable-next-line:[nomRègle]` - pas pour tout le paquet, afin que la désactivation puisse être examinée. (Il y a quelques anciennes configurations de lint qui ont des contenus additionnels, mais cela ne devrait pas se produire dans un nouveau travail).
 
 ##### Linter: `.eslintrc.json`
 
@@ -338,7 +338,7 @@ TL;DR : `esModuleInterop` et `allowSyntheticDefaultImports` ne sont *pas autoris
 En général, vous n'en aurez pas besoin.
 L'éditeur de paquets de DefinitelyTyped crée un `package.json` pour les paquets qui n'ont pas de dépendances en dehors de DefinitelyTyped.
 Un `package.json` peut être inclus pour spécifier des dépendances qui ne sont pas d'autres paquets `@types`.
-[Pikaday en est un bon exemple] (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+[Pikaday en est un bon exemple](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Même si vous écrivez votre propre `package.json`, vous ne pouvez spécifier que des dépendances ; d'autres champs comme `"description"` ne sont pas autorisés.
 Vous devez également ajouter la dépendance à [la liste des paquets autorisés](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 Cette liste est mise à jour par un humain, ce qui nous permet de nous assurer que les paquets `@types` ne dépendent pas de paquets malveillants.
@@ -358,13 +358,13 @@ Si le paquet d'implémentation utilise ESM et spécifie `"type" : "module"`, alo
 
 Ceci s'applique également si le paquet d'implémentation a `exports` dans son package.json.
 
-#### `AUTRES_FICHIERS.txt`
+#### `OTHER_FILES.txt`
 
-Si un fichier n'est ni testé ni référencé dans `index.d.ts`, ajoutez-le à un fichier nommé `AUTRES_FICHIERS.txt`. Ce fichier est une liste d'autres fichiers qui doivent être inclus dans le paquetage typings, un fichier par ligne.
+Si un fichier n'est ni testé ni référencé dans `index.d.ts`, ajoutez-le à un fichier nommé `OTHER_FILES.txt`. Ce fichier est une liste d'autres fichiers qui doivent être inclus dans le paquetage typings, un fichier par ligne.
 
 #### Erreurs courantes
 
-* Tout d'abord, suivez les conseils du [manuel] (https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Tout d'abord, suivez les conseils du [manuel](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatage : Utilisez 4 espaces. Prettier est installé sur ce repo, vous pouvez donc lancer `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Lorsque vous utilisez des assertions](https://github.com/SamVerschueren/tsd#assertions), ajoutez l'exclusion `// prettier-ignore` pour marquer les lignes de code comme exclues du formatage :
   ```tsx
   // prettier-ignore
@@ -474,7 +474,7 @@ Là, les types sont résolus soit implicitement, soit en utilisant `/// <referen
 
 #### Dois-je ajouter un espace de noms vide à un paquetage qui n'exporte pas de module pour utiliser les importations de style ES6 ??
 
-Certains paquets, comme [chai-http] (https://github.com/chaijs/chai-http), exportent une fonction.
+Certains paquets, comme [chai-http](https://github.com/chaijs/chai-http), exportent une fonction.
 
 Importer ce module avec un import de style ES6 de la forme `import * as foo from "foo";` conduit à l'erreur :
 
@@ -540,7 +540,7 @@ Voici un petit exemple pour commencer :
 
 #### Je souhaite ajouter une API DOM qui n'est pas présente par défaut dans TypeScript.
 
-Cela pourrait être dans [TypeScript-DOM-lib-generator] (https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). Voir les lignes directrices à cet endroit.
+Cela pourrait être dans [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). Voir les lignes directrices à cet endroit.
 Si le standard est encore à l'état de projet, il a sa place ici.
 Utilisez un nom commençant par `dom-` et incluez un lien vers le standard comme lien "Project" dans l'en-tête.
 Lorsqu'il sort du mode brouillon, nous pouvons le retirer de Definitely Typed et déprécier le paquetage `@types` associé.
