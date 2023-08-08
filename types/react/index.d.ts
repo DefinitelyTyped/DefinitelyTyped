@@ -2268,6 +2268,7 @@ declare namespace React {
         alt?: string | undefined;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         decoding?: "async" | "auto" | "sync" | undefined;
+        fetchPriority?: "high" | "low" | "auto";
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
