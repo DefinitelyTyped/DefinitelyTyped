@@ -26,3 +26,27 @@ geocoder.clear();
 
 // $ExpectType void
 geocoder.clear(new Event('clear'));
+
+// $ExpectType MapboxGeocoder
+geocoder.setAutocomplete(true);
+
+// $ExpectType boolean
+geocoder.getAutocomplete();
+
+// $ExpectType MapboxGeocoder
+geocoder.setFuzzyMatch(true);
+
+// $ExpectType boolean
+geocoder.getFuzzyMatch();
+
+// $ExpectType MapboxGeocoder
+geocoder.setRouting(true);
+
+// $ExpectType boolean
+geocoder.getRouting();
+
+// $ExpectType MapboxGeocoder
+geocoder.setWorldview('en');
+
+// $ExpectType string
+geocoder.getWorldview();
