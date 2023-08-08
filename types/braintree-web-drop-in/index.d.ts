@@ -17,9 +17,9 @@ Some objects, such as as the payload returned from Dropin.requestPaymentMethod, 
 https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-web-drop-in.html
 */
 
-import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
-import { HostedFieldsEvent, HostedFieldsField } from 'braintree-web/modules/hosted-fields';
-import { ThreeDSecureInfo } from 'braintree-web/modules/three-d-secure';
+import { ApplePayPaymentRequest } from 'braintree-web/apple-pay';
+import { HostedFieldsEvent, HostedFieldsField } from 'braintree-web/hosted-fields';
+import { ThreeDSecureInfo } from 'braintree-web/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
 
 /**
@@ -124,7 +124,15 @@ export interface PaymentOptionSelectedPayload {
     paymentOption: 'card' | 'paypal' | 'paypalCredit';
 }
 
-export type HostedFieldsStateEvents = 'card:binAvailable' | 'card:blur' | 'card:cardTypeChange' | 'card:empty' | 'card:focus' | 'card:inputSubmitRequest' | 'card:notEmpty' | 'card:validityChange';
+export type HostedFieldsStateEvents =
+    | 'card:binAvailable'
+    | 'card:blur'
+    | 'card:cardTypeChange'
+    | 'card:empty'
+    | 'card:focus'
+    | 'card:inputSubmitRequest'
+    | 'card:notEmpty'
+    | 'card:validityChange';
 
 export type UpdatableConfigurationOption = 'paypal' | 'paypalCredit' | 'applePay' | 'googlePay' | 'threeDSecure';
 
