@@ -36,22 +36,6 @@ export interface UnionPayFetchCapabilitiesPayload {
 
 export interface UnionPay {
     /**
-     * braintree.unionpay.create({ client: clientInstance }, function (createErr, unionpayInstance) {
-     *   if (createErr) {
-     *     console.error(createErr);
-     *     return;
-     *   }
-     *   // ...
-     * });
-     */
-    create: (options: { client: Client }, callback: callback) => void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
-
-    /**
      * Fetches the capabilities of a card, including whether or not the SMS enrollment process is required.
      * @example <caption>With raw card data</caption>
      * unionpayInstance.fetchCapabilities({
@@ -115,7 +99,13 @@ export interface UnionPay {
      *   });
      * });
      */
-    fetchCapabilities(options: { card: any; hostedFields: HostedFields }, callback: callback): void;
+    fetchCapabilities(
+        options: { card: any } | { hostedFields: HostedFields },
+        callback: callback<UnionPayFetchCapabilitiesPayload>,
+    ): void;
+    fetchCapabilities(
+        options: { card: any } | { hostedFields: HostedFields },
+    ): Promise<UnionPayFetchCapabilitiesPayload>;
 
     /**
      * Enrolls a UnionPay card. Use {@link UnionPay#fetchCapabilities|fetchCapabilities} to determine if the SMS enrollment
@@ -166,7 +156,13 @@ export interface UnionPay {
      *   }
      * });
      */
-    enroll(options: { card: any; hostedFields: HostedFields; mobile: any }, callback: callback): void;
+    enroll(
+        options: { card: any; mobile: any } | { hostedFields: HostedFields; mobile: any },
+        callback: callback<UnionPayEnrollPayload>,
+    ): void;
+    enroll(
+        options: { card: any; mobile: any } | { hostedFields: HostedFields; mobile: any },
+    ): Promise<UnionPayEnrollPayload>;
 
     /**
      * Tokenizes a UnionPay card and returns a nonce payload.
@@ -203,9 +199,20 @@ export interface UnionPay {
      * });
      */
     tokenize(
-        options: { card: any; hostedFields: HostedFields; enrollmentId: string; smsCode: string },
-        callback: callback,
+        options:
+            | { card: any; enrollmentId: string; smsCode: string }
+            | { hostedFields: HostedFields; enrollmentId: string; smsCode: string },
+        callback: callback<UnionPayTokenizePayload>,
     ): void;
+    tokenize(
+        options:
+            | { card: any; enrollmentId: string; smsCode: string }
+            | {
+                  hostedFields: HostedFields;
+                  enrollmentId: string;
+                  smsCode: string;
+              },
+    ): Promise<UnionPayTokenizePayload>;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/unionpay.create|create}.
@@ -221,3 +228,15 @@ export interface UnionPay {
      */
     teardown(callback?: callback): void;
 }
+
+/**
+ * braintree.unionpay.create({ client: clientInstance }, function (createErr, unionpayInstance) {
+ *   if (createErr) {
+ *     console.error(createErr);
+ *     return;
+ *   }
+ *   // ...
+ * });
+ */
+export function create(options: { client: Client }): Promise<UnionPay>;
+export function create(options: { client: Client }, callback: callback<UnionPay>): void;

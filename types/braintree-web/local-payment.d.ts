@@ -77,19 +77,6 @@ export interface LocalPaymentCreateOptions {
 
 export interface LocalPayment {
     /**
-     * braintree.localPayment.create({
-     *     client: client
-     * }, callback)
-     */
-    create(options: LocalPaymentCreateOptions): Promise<LocalPayment>;
-    create(options: LocalPaymentCreateOptions, callback: callback<LocalPayment>): void;
-
-    /**
-     * The current version of the SDK, i.e. 3.84.0.
-     */
-    VERSION: string;
-
-    /**
      * Closes the LocalPayment window if it is open.
      * @example
      * localPaymentInstance.closeWindow();
@@ -179,3 +166,11 @@ export interface LocalPayment {
     tokenize(params?: LocalPaymentTokenizeOptions): Promise<LocalPaymentTokenizePayload>;
     tokenize(params?: LocalPaymentTokenizeOptions, callback?: callback<LocalPaymentTokenizePayload>): void;
 }
+
+/**
+ * braintree.localPayment.create({
+ *     client: client
+ * }, callback)
+ */
+export function create(options: LocalPaymentCreateOptions): Promise<LocalPayment>;
+export function create(options: LocalPaymentCreateOptions, callback: callback<LocalPayment>): void;
