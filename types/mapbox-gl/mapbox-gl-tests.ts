@@ -713,6 +713,7 @@ let marker = new mapboxgl.Marker(undefined, {
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
     scale: 5.5,
+    occludedOpacity: 0.5
 })
     .setLngLat([-50, 50])
     .setPitchAlignment('map')
@@ -728,6 +729,12 @@ marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
+
+// $ExpectType number
+marker.getOccludedOpacity();
+
+// $ExpectType Marker
+marker.setOccludedOpacity(1);
 
 marker.remove();
 
