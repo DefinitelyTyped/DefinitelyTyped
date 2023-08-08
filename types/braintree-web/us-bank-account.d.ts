@@ -2,10 +2,6 @@ import { callback } from './core';
 import { Client } from './client';
 
 export interface USBankAccount {
-    create: (options: { client: Client }, callback: callback) => void;
-
-    VERSION: string;
-
     /**
      * Tokenizes bank information to return a payment method nonce. You can tokenize bank details by providing
      * information like account and routing numbers. You can also tokenize with a bank login UI that prompts
@@ -75,3 +71,6 @@ export interface USBankAccount {
      */
     teardown(callback?: callback): void;
 }
+
+export function create(options: { client: Client }): Promise<USBankAccount>;
+export function create(options: { client: Client }, callback: callback<USBankAccount>): void;
