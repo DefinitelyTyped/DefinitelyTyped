@@ -5,20 +5,15 @@ import keychain = require('keychain');
  */
 
 // @ts-expect-error
-// Errors when doesn't have the required properties
-keychain.setPassword({ account: 'some-account' }, err => {
-    if (err) {
-        err; // $ExpectType KeychainError
-    }
-});
-
-// @ts-expect-error
 // Another error when missing options
 keychain.setPassword({ account: 'some-account', password: 'some-pass' }, err => {
     if (err) {
         err; // $ExpectType KeychainError
     }
 });
+
+// Should pass
+keychain.setPassword({ account: 'some-account', password: 'some-pass', service: 'some-service' });
 
 // Should pass
 keychain.setPassword({ account: 'some-account', password: 'some-pass', service: 'some-service' }, err => {

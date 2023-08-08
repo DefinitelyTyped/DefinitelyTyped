@@ -186,6 +186,13 @@ declare module 'http' {
          */
         connectionsCheckingInterval?: number | undefined;
         /**
+         * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
+         * Default: @see stream.getDefaultHighWaterMark().
+         * @since v18.17.0
+         */
+        highWaterMark?: number | undefined;
+        /**
          * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.

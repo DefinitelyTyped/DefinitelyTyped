@@ -62,6 +62,7 @@ const createEvent = (): void => {
         attendees: [{ email: 'alice@example.com' }, { email: 'bob@example.com' }],
         // Red background. Use Calendar.Colors.get() for the full list.
         colorId: '11',
+        eventType: 'default',
     };
     event = Calendar.Events.insert(event, calendarId);
     Logger.log('Event ID: ' + event.id);

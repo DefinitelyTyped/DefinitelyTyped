@@ -485,6 +485,14 @@ declare module 'dns' {
      */
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void): void;
     /**
+     * Get the default value for `verbatim` in {@link lookup} and `dnsPromises.lookup()`. The value could be:
+     *
+     * * `ipv4first`: for `verbatim` defaulting to `false`.
+     * * `verbatim`: for `verbatim` defaulting to `true`.
+     * @since v18.17.0
+     */
+    export function getDefaultResultOrder(): 'ipv4first' | 'verbatim';
+    /**
      * Sets the IP address and port of servers to be used when performing DNS
      * resolution. The `servers` argument is an array of [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6) formatted
      * addresses. If the port is the IANA default DNS port (53) it can be omitted.

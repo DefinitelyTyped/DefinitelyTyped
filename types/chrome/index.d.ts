@@ -5906,7 +5906,13 @@ declare namespace chrome.offscreen {
         /** The offscreen document needs to use WebRTC APIs. */
         WEB_RTC = "WEB_RTC",
         /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
-        CLIPBOARD = "CLIPBOARD"
+        CLIPBOARD = "CLIPBOARD",
+        /** Specifies that the offscreen document needs access to localStorage. */
+        LOCAL_STORAGE = "LOCAL_STORAGE",
+        /** Specifies that the offscreen document needs to spawn workers. */
+        WORKERS = "WORKERS",
+        /** Specifies that the offscreen document needs to use navigator.geolocation. */
+        GEOLOCATION = "GEOLOCATION",
     }
 
     /** The parameters describing the offscreen document to create. */
@@ -7302,6 +7308,18 @@ declare namespace chrome.runtime {
             type?: 'module'; // If the service worker uses ES modules
         }
         | undefined;
+        content_scripts?: {
+            matches?: string[] | undefined;
+            exclude_matches?: string[] | undefined;
+            css?: string[] | undefined;
+            js?: string[] | undefined;
+            run_at?: string | undefined;
+            all_frames?: boolean | undefined;
+            match_about_blank?: boolean | undefined;
+            include_globs?: string[] | undefined;
+            exclude_globs?: string[] | undefined;
+            world?: "ISOLATED" | "MAIN" | undefined
+        }[] | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;

@@ -174,7 +174,7 @@ google.accounts.id.renderButton(
         text: 'signin_with',
         shape: 'rectangular',
         logo_alignment: 'left',
-        width: '',
+        width: undefined,
         locale: '',
         click_listener: () => {},
     },

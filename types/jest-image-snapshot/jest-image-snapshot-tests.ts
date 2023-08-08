@@ -41,6 +41,7 @@ it('Should be able to use configuration directly in toMatchImageSnapshot', () =>
         customDiffDir: './diffs',
         storeReceivedOnFailure: true,
         customReceivedDir: '/usr/local/__received_output__',
+        customReceivedPostfix: '-new',
         diffDirection: 'vertical',
         onlyDiff: false,
         dumpInlineDiffToConsole: true,

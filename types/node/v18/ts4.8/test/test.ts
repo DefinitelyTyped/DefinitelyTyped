@@ -1,4 +1,6 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
+import { Transform, TransformCallback, TransformOptions } from 'node:stream';
+import { TestEvent } from 'node:test/reporters';
 
 // run without options
 // $ExpectType TestsStream
@@ -533,3 +535,53 @@ test('mocks a setter', (t) => {
         call.this;
     }
 });
+
+class TestReporter extends Transform {
+    constructor(options: TransformOptions) {
+        super(options);
+    }
+    _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
+        switch (event.type) {
+            case 'test:diagnostic':
+                callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:fail':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/
+                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:pass':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:plan':
+                callback(null, `${event.data.count}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:start':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:stderr':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:stdout':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:enqueue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:dequeue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:watch:drained':
+                // event doesn't have any data
+                callback(null);
+                break;
+            default:
+                callback(null);
+        }
+    }
+}

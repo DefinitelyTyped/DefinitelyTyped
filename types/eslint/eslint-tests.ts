@@ -63,6 +63,10 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
+sourceCode.isSpaceBetween(TOKEN, TOKEN);
+sourceCode.isSpaceBetween(AST, TOKEN);
+sourceCode.isSpaceBetween(TOKEN, AST);
+
 const loc = sourceCode.getLocFromIndex(0);
 loc.line; // $ExpectType number
 loc.column; // $ExpectType number
@@ -261,6 +265,13 @@ sourceCode.getCommentsAfter(AST);
 sourceCode.getCommentsAfter(TOKEN);
 
 sourceCode.getCommentsInside(AST);
+
+sourceCode.markVariableAsUsed('foo');
+sourceCode.markVariableAsUsed('foo', AST);
+
+sourceCode.getDeclaredVariables(AST); // $ExpectType Variable[]
+
+sourceCode.getAncestors(AST); // $ExpectType Node[]
 
 //#endregion
 
@@ -666,8 +677,22 @@ linter.defineRules({
 
 linter.getRules();
 
-linter.defineParser('custom-parser', { parse: (src, opts) => AST });
 linter.defineParser('custom-parser', {
+    name: 'foo',
+    version: '1.2.3',
+    meta: {
+        name: 'foo',
+        version: '1.2.3'
+    },
+    parse: (src, opts) => AST
+});
+linter.defineParser('custom-parser', {
+    name: 'foo',
+    version: '1.2.3',
+    meta: {
+        name: 'foo',
+        version: '1.2.3'
+    },
     parseForESLint(src, opts) {
         return {
             ast: AST,
@@ -679,6 +704,12 @@ linter.defineParser('custom-parser', {
 });
 
 const _processor: Linter.Processor = {
+    name: 'foo',
+    version: '1.2.3',
+    meta: {
+        name: 'foo',
+        version: '1.2.3'
+    },
     supportsAutofix: true,
     preprocess(text, filename) {
         return [
@@ -775,6 +806,12 @@ eslint = new ESLint({ plugins: { foo: {} } });
 eslint = new ESLint({
     plugins: {
         bar: {
+            name: 'bar',
+            version: '1.0.0',
+            meta: {
+                name: 'bar',
+                version: '1.0.0'
+            },
             configs: {
                 myConfig: {
                     noInlineConfig: true
@@ -789,6 +826,12 @@ eslint = new ESLint({
             },
             processors: {
                 myProcessor: {
+                    name: 'blah',
+                    version: '1.2.3',
+                    meta: {
+                        name: 'blah',
+                        version: '1.2.3'
+                    },
                     supportsAutofix: false
                 }
             },

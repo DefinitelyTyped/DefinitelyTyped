@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.44
+// Type definitions for Azure Data Studio 1.45
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.44 Extension API
+ * Type Definition for Azure Data Studio 1.45 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -1594,7 +1594,7 @@ declare module 'azdata' {
     }
 
     export enum FrequencyTypes {
-        Unknown,
+        Unknown = 0,
         OneTime = 1 << 1,
         Daily = 1 << 2,
         Weekly = 1 << 3,
@@ -5411,6 +5411,7 @@ declare module 'azdata' {
          * specify the *content* of the document.
          *
          * @param options Options to control how the document will be created.
+         * @param options.content The initial content of the document
          * @param providerId Optional provider ID this editor will be associated with. Defaults to MSSQL.
          * @return A promise that resolves to a {@link QueryDocument}.
          */
@@ -5680,11 +5681,8 @@ declare module 'azdata' {
          * will be derived from the file name.
          * For all other schemes the registered notebook providers are consulted.
          *
-         * @param document A document to be shown.
-         * @param column A view column in which the {@link NotebookEditor} should be shown. The default is the {@link vscode.ViewColumn}, other values
-         * are adjusted to be `Min(column, columnCount + 1)`, the {@link vscode.ViewColumn.Active}-column is not adjusted. Use {@link vscode.ViewColumn.Beside}
-         * to open the editor to the side of the currently active one.
-         * @param preserveFocus When `true` the editor will not take focus.
+         * @param uri The URI of the document to show
+         * @param showOptions Options to control how the Notebook is shown
          * @return A promise that resolves to a {@link NotebookEditor}.
          */
         export function showNotebookDocument(uri: vscode.Uri, showOptions?: NotebookShowOptions): Thenable<NotebookEditor>;
