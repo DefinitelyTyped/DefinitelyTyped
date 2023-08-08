@@ -711,7 +711,7 @@ export interface Axis {
     /**
      * Hide SI prefix for 10^n if |n| is below this number. This only has an effect when `tickformat` is "SI" or "B".
      */
-    minexponent: number
+    minexponent: number;
     /**
      * 'If `true`, even 4-digit integers are separated
      */
