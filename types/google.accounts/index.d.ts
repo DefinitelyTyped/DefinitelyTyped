@@ -60,7 +60,7 @@ declare namespace google.accounts {
              * If you set this parameter's value to false and the
              * authorization request is granted, then the new access token
              * will only cover any scopes to which the scope requested
-             * in this TokenClientConfig.
+             * in this OverridableTokenClientConfig.
              */
             include_granted_scopes?: boolean;
 
