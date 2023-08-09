@@ -35,10 +35,6 @@ export interface FailOpenConfig extends GenericConfig {
     trustLocalTime?: boolean | undefined;
 }
 
-export class Lock {
-    release(callback: (error: Error) => void): void;
-}
-
 export class LockClient<PartitionTableKeyType extends string | number | Buffer | object> {
     acquireLock(id: PartitionTableKeyType, callback: (error: Error, lock: Lock) => void): void;
 }
