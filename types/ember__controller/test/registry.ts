@@ -11,5 +11,5 @@ declare module '@ember/controller' {
     }
 }
 
-owner.lookup('controller:non-registered'); // $ExpectType Controller
+owner.lookup('controller:non-registered'); // $ExpectType Controller | undefined
 owner.lookup('controller:test'); // $ExpectType TestController

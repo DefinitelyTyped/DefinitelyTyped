@@ -56,7 +56,7 @@ export function inject(target: object, propertyKey: string | symbol): void;
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.
 // tslint:disable-next-line no-empty-interface
-export interface Registry extends Record<string, Controller> {}
+export interface Registry extends Record<string, Controller | undefined> {}
 
 declare module '@ember/owner' {
     interface DIRegistry {
