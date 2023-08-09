@@ -62,6 +62,7 @@ type NativeTouchEvent = TouchEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
 
 // eslint-disable-next-line export-just-namespace
 export = React;
@@ -2678,7 +2679,7 @@ declare namespace React {
         colSpan?: number | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -2876,7 +2877,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         height?: number | string | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
@@ -2896,7 +2897,6 @@ declare namespace React {
         autoComplete?: string | undefined;
         capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2946,7 +2946,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
@@ -2968,7 +2968,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -3046,7 +3046,7 @@ declare namespace React {
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
         charSet?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
