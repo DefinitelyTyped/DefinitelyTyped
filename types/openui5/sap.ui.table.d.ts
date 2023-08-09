@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -430,7 +430,8 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
+   * @deprecated (since 1.117)
+   * @experimental (since 1.21)
    *
    * A column menu which is used by the analytical column
    */
@@ -710,6 +711,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      */
     getCollapseRecursive(): boolean;
     /**
+     * @deprecated (since 1.117)
+     *
      * Gets current value of property {@link #getColumnVisibilityMenuSorter columnVisibilityMenuSorter}.
      *
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
@@ -971,6 +974,8 @@ declare module "sap/ui/table/AnalyticalTable" {
       bCollapseRecursive?: boolean
     ): this;
     /**
+     * @deprecated (since 1.117)
+     *
      * Sets a new value for property {@link #getColumnVisibilityMenuSorter columnVisibilityMenuSorter}.
      *
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
@@ -1201,6 +1206,8 @@ declare module "sap/ui/table/AnalyticalTable" {
     autoExpandMode?: string | PropertyBindingInfo;
 
     /**
+     * @deprecated (since 1.117)
+     *
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
      * return 0 = equals, <0 lower, >0 greater }; Other values than functions will be ignored.
      */
@@ -1341,6 +1348,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * @since 1.33.0
+     * @deprecated (since 1.117)
      *
      * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
@@ -1369,6 +1377,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * @since 1.33.0
+     * @deprecated (since 1.117)
      *
      * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
@@ -1397,6 +1406,8 @@ declare module "sap/ui/table/Column" {
      */
     destroyLabel(): this;
     /**
+     * @deprecated (since 1.117) - use the `headerMenu` association instead.
+     *
      * Destroys the menu in the aggregation {@link #getMenu menu}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1418,6 +1429,7 @@ declare module "sap/ui/table/Column" {
     destroyTemplate(): this;
     /**
      * @since 1.33.0
+     * @deprecated (since 1.117)
      *
      * Detaches event handler `fnFunction` from the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
@@ -1438,6 +1450,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * @since 1.33.0
+     * @deprecated (since 1.117)
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnMenuOpen columnMenuOpen} to attached listeners.
@@ -1619,6 +1632,8 @@ declare module "sap/ui/table/Column" {
      */
     getLabel(): Control | string;
     /**
+     * @deprecated (since 1.117) - use the `headerMenu` association instead.
+     *
      * Gets content of aggregation {@link #getMenu menu}.
      *
      * The menu used by the column. By default the {@link sap.ui.table.ColumnMenu} is used.
@@ -2082,6 +2097,8 @@ declare module "sap/ui/table/Column" {
       vLabel: Control | string
     ): this;
     /**
+     * @deprecated (since 1.117) - use the `headerMenu` association instead.
+     *
      * Sets the aggregated {@link #getMenu menu}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -2536,6 +2553,8 @@ declare module "sap/ui/table/Column" {
     template?: string | Control | PropertyBindingInfo;
 
     /**
+     * @deprecated (since 1.117) - use the `headerMenu` association instead.
+     *
      * The menu used by the column. By default the {@link sap.ui.table.ColumnMenu} is used.
      *
      * **Note:** Applications must not use or change the default `sap.ui.table.ColumnMenu` of a column in any
@@ -2553,6 +2572,7 @@ declare module "sap/ui/table/Column" {
 
     /**
      * @since 1.33.0
+     * @deprecated (since 1.117)
      *
      * Fires before the column menu is opened.
      */
@@ -2566,7 +2586,10 @@ declare module "sap/ui/table/Column" {
     menu?: Menu;
   }
 
-  export type Column$ColumnMenuOpenEvent = Event<Column$ColumnMenuOpenEventParameters>;
+  export type Column$ColumnMenuOpenEvent = Event<
+    Column$ColumnMenuOpenEventParameters,
+    Column
+  >;
 }
 
 declare module "sap/ui/table/ColumnMenu" {
@@ -2575,6 +2598,8 @@ declare module "sap/ui/table/ColumnMenu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
+   * @deprecated (since 1.117) - use the {@link sap.m.table.columnmenu.Menu} instead.
+   *
    * The column menu provides all common actions that can be performed on a column.
    */
   export default class ColumnMenu extends Menu {
@@ -3134,7 +3159,10 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     customPayload?: object;
   }
 
-  export type MultiSelectionPlugin$SelectionChangeEvent = Event<MultiSelectionPlugin$SelectionChangeEventParameters>;
+  export type MultiSelectionPlugin$SelectionChangeEvent = Event<
+    MultiSelectionPlugin$SelectionChangeEventParameters,
+    MultiSelectionPlugin
+  >;
 }
 
 declare module "sap/ui/table/plugins/SelectionPlugin" {
@@ -3317,7 +3345,10 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
 
   export interface SelectionPlugin$SelectionChangeEventParameters {}
 
-  export type SelectionPlugin$SelectionChangeEvent = Event<SelectionPlugin$SelectionChangeEventParameters>;
+  export type SelectionPlugin$SelectionChangeEvent = Event<
+    SelectionPlugin$SelectionChangeEventParameters,
+    SelectionPlugin
+  >;
 }
 
 declare module "sap/ui/table/Row" {
@@ -3990,7 +4021,10 @@ declare module "sap/ui/table/RowActionItem" {
     row?: Row;
   }
 
-  export type RowActionItem$PressEvent = Event<RowActionItem$PressEventParameters>;
+  export type RowActionItem$PressEvent = Event<
+    RowActionItem$PressEventParameters,
+    RowActionItem
+  >;
 }
 
 declare module "sap/ui/table/RowSettings" {
@@ -4813,6 +4847,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.117)
+     *
      * Attaches event handler `fnFunction` to the {@link #event:columnVisibility columnVisibility} event of
      * this `sap.ui.table.Table`.
      *
@@ -4839,6 +4875,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.117)
+     *
      * Attaches event handler `fnFunction` to the {@link #event:columnVisibility columnVisibility} event of
      * this `sap.ui.table.Table`.
      *
@@ -5540,6 +5578,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.117)
+     *
      * Detaches event handler `fnFunction` from the {@link #event:columnVisibility columnVisibility} event of
      * this `sap.ui.table.Table`.
      *
@@ -5868,6 +5908,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnSelectEventParameters
     ): boolean;
     /**
+     * @deprecated (since 1.117)
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:columnVisibility columnVisibility} to attached listeners.
@@ -6485,6 +6526,9 @@ declare module "sap/ui/table/Table" {
      */
     getSelectionMode(): SelectionMode | keyof typeof SelectionMode;
     /**
+     * @deprecated (since 1.117) - use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
+     *
      * Gets current value of property {@link #getShowColumnVisibilityMenu showColumnVisibilityMenu}.
      *
      * Flag to show or hide the column visibility menu. This menu will get displayed in each generated column
@@ -7387,6 +7431,9 @@ declare module "sap/ui/table/Table" {
       sSelectionMode: SelectionMode | keyof typeof SelectionMode
     ): this;
     /**
+     * @deprecated (since 1.117) - use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
+     *
      * Sets a new value for property {@link #getShowColumnVisibilityMenu showColumnVisibilityMenu}.
      *
      * Flag to show or hide the column visibility menu. This menu will get displayed in each generated column
@@ -7739,6 +7786,9 @@ declare module "sap/ui/table/Table" {
     enableGrouping?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @deprecated (since 1.117) - use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
+     *
      * Flag to show or hide the column visibility menu. This menu will get displayed in each generated column
      * header menu. It allows to show or hide columns
      */
@@ -8037,6 +8087,8 @@ declare module "sap/ui/table/Table" {
     group?: (oEvent: Table$GroupEvent) => void;
 
     /**
+     * @deprecated (since 1.117)
+     *
      * fired when the visibility of a table column is changed.
      */
     columnVisibility?: (oEvent: Table$ColumnVisibilityEvent) => void;
@@ -8131,7 +8183,10 @@ declare module "sap/ui/table/Table" {
     contextMenu?: IContextMenu;
   }
 
-  export type Table$BeforeOpenContextMenuEvent = Event<Table$BeforeOpenContextMenuEventParameters>;
+  export type Table$BeforeOpenContextMenuEvent = Event<
+    Table$BeforeOpenContextMenuEventParameters,
+    Table
+  >;
 
   export interface Table$BusyStateChangedEventParameters {
     /**
@@ -8140,7 +8195,10 @@ declare module "sap/ui/table/Table" {
     busy?: boolean;
   }
 
-  export type Table$BusyStateChangedEvent = Event<Table$BusyStateChangedEventParameters>;
+  export type Table$BusyStateChangedEvent = Event<
+    Table$BusyStateChangedEventParameters,
+    Table
+  >;
 
   export interface Table$CellClickEventParameters {
     /**
@@ -8175,7 +8233,10 @@ declare module "sap/ui/table/Table" {
     rowBindingContext?: Context;
   }
 
-  export type Table$CellClickEvent = Event<Table$CellClickEventParameters>;
+  export type Table$CellClickEvent = Event<
+    Table$CellClickEventParameters,
+    Table
+  >;
 
   export interface Table$CellContextmenuEventParameters {
     /**
@@ -8210,7 +8271,10 @@ declare module "sap/ui/table/Table" {
     rowBindingContext?: Context;
   }
 
-  export type Table$CellContextmenuEvent = Event<Table$CellContextmenuEventParameters>;
+  export type Table$CellContextmenuEvent = Event<
+    Table$CellContextmenuEventParameters,
+    Table
+  >;
 
   export interface Table$ColumnFreezeEventParameters {
     /**
@@ -8219,7 +8283,10 @@ declare module "sap/ui/table/Table" {
     column?: Column;
   }
 
-  export type Table$ColumnFreezeEvent = Event<Table$ColumnFreezeEventParameters>;
+  export type Table$ColumnFreezeEvent = Event<
+    Table$ColumnFreezeEventParameters,
+    Table
+  >;
 
   export interface Table$ColumnMoveEventParameters {
     /**
@@ -8233,7 +8300,10 @@ declare module "sap/ui/table/Table" {
     newPos?: int;
   }
 
-  export type Table$ColumnMoveEvent = Event<Table$ColumnMoveEventParameters>;
+  export type Table$ColumnMoveEvent = Event<
+    Table$ColumnMoveEventParameters,
+    Table
+  >;
 
   export interface Table$ColumnResizeEventParameters {
     /**
@@ -8247,7 +8317,10 @@ declare module "sap/ui/table/Table" {
     width?: CSSSize;
   }
 
-  export type Table$ColumnResizeEvent = Event<Table$ColumnResizeEventParameters>;
+  export type Table$ColumnResizeEvent = Event<
+    Table$ColumnResizeEventParameters,
+    Table
+  >;
 
   export interface Table$ColumnSelectEventParameters {
     /**
@@ -8256,7 +8329,10 @@ declare module "sap/ui/table/Table" {
     column?: Column;
   }
 
-  export type Table$ColumnSelectEvent = Event<Table$ColumnSelectEventParameters>;
+  export type Table$ColumnSelectEvent = Event<
+    Table$ColumnSelectEventParameters,
+    Table
+  >;
 
   export interface Table$ColumnVisibilityEventParameters {
     /**
@@ -8270,7 +8346,10 @@ declare module "sap/ui/table/Table" {
     newVisible?: boolean;
   }
 
-  export type Table$ColumnVisibilityEvent = Event<Table$ColumnVisibilityEventParameters>;
+  export type Table$ColumnVisibilityEvent = Event<
+    Table$ColumnVisibilityEventParameters,
+    Table
+  >;
 
   export interface Table$CustomFilterEventParameters {
     /**
@@ -8284,7 +8363,10 @@ declare module "sap/ui/table/Table" {
     value?: string;
   }
 
-  export type Table$CustomFilterEvent = Event<Table$CustomFilterEventParameters>;
+  export type Table$CustomFilterEvent = Event<
+    Table$CustomFilterEventParameters,
+    Table
+  >;
 
   export interface Table$FilterEventParameters {
     /**
@@ -8298,7 +8380,7 @@ declare module "sap/ui/table/Table" {
     value?: string;
   }
 
-  export type Table$FilterEvent = Event<Table$FilterEventParameters>;
+  export type Table$FilterEvent = Event<Table$FilterEventParameters, Table>;
 
   export interface Table$FirstVisibleRowChangedEventParameters {
     /**
@@ -8307,7 +8389,10 @@ declare module "sap/ui/table/Table" {
     firstVisibleRow?: int;
   }
 
-  export type Table$FirstVisibleRowChangedEvent = Event<Table$FirstVisibleRowChangedEventParameters>;
+  export type Table$FirstVisibleRowChangedEvent = Event<
+    Table$FirstVisibleRowChangedEventParameters,
+    Table
+  >;
 
   export interface Table$GroupEventParameters {
     /**
@@ -8316,7 +8401,7 @@ declare module "sap/ui/table/Table" {
     column?: Column;
   }
 
-  export type Table$GroupEvent = Event<Table$GroupEventParameters>;
+  export type Table$GroupEvent = Event<Table$GroupEventParameters, Table>;
 
   export interface Table$PasteEventParameters {
     /**
@@ -8326,7 +8411,7 @@ declare module "sap/ui/table/Table" {
     data?: string[][];
   }
 
-  export type Table$PasteEvent = Event<Table$PasteEventParameters>;
+  export type Table$PasteEvent = Event<Table$PasteEventParameters, Table>;
 
   export interface Table$RowSelectionChangeEventParameters {
     /**
@@ -8356,11 +8441,17 @@ declare module "sap/ui/table/Table" {
     userInteraction?: boolean;
   }
 
-  export type Table$RowSelectionChangeEvent = Event<Table$RowSelectionChangeEventParameters>;
+  export type Table$RowSelectionChangeEvent = Event<
+    Table$RowSelectionChangeEventParameters,
+    Table
+  >;
 
   export interface Table$RowsUpdatedEventParameters {}
 
-  export type Table$RowsUpdatedEvent = Event<Table$RowsUpdatedEventParameters>;
+  export type Table$RowsUpdatedEvent = Event<
+    Table$RowsUpdatedEventParameters,
+    Table
+  >;
 
   export interface Table$SortEventParameters {
     /**
@@ -8379,7 +8470,7 @@ declare module "sap/ui/table/Table" {
     columnAdded?: boolean;
   }
 
-  export type Table$SortEvent = Event<Table$SortEventParameters>;
+  export type Table$SortEvent = Event<Table$SortEventParameters, Table>;
 }
 
 declare module "sap/ui/table/TablePersoController" {
@@ -9425,7 +9516,10 @@ declare module "sap/ui/table/TreeTable" {
     expanded?: boolean;
   }
 
-  export type TreeTable$ToggleOpenStateEvent = Event<TreeTable$ToggleOpenStateEventParameters>;
+  export type TreeTable$ToggleOpenStateEvent = Event<
+    TreeTable$ToggleOpenStateEventParameters,
+    TreeTable
+  >;
 }
 
 declare namespace sap {

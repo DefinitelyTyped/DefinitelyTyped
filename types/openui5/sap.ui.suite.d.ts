@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -403,7 +403,10 @@ declare module "sap/ui/suite/TaskCircle" {
 
   export interface TaskCircle$PressEventParameters {}
 
-  export type TaskCircle$PressEvent = Event<TaskCircle$PressEventParameters>;
+  export type TaskCircle$PressEvent = Event<
+    TaskCircle$PressEventParameters,
+    TaskCircle
+  >;
 }
 
 declare module "sap/ui/suite/VerticalProgressIndicator" {
@@ -675,7 +678,10 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
 
   export interface VerticalProgressIndicator$PressEventParameters {}
 
-  export type VerticalProgressIndicator$PressEvent = Event<VerticalProgressIndicator$PressEventParameters>;
+  export type VerticalProgressIndicator$PressEvent = Event<
+    VerticalProgressIndicator$PressEventParameters,
+    VerticalProgressIndicator
+  >;
 }
 
 declare namespace sap {

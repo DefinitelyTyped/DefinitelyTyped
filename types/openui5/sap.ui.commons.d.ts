@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -1122,7 +1122,10 @@ declare module "sap/ui/commons/Accordion" {
     closeSectionId?: string;
   }
 
-  export type Accordion$SectionCloseEvent = Event<Accordion$SectionCloseEventParameters>;
+  export type Accordion$SectionCloseEvent = Event<
+    Accordion$SectionCloseEventParameters,
+    Accordion
+  >;
 
   export interface Accordion$SectionOpenEventParameters {
     /**
@@ -1136,7 +1139,10 @@ declare module "sap/ui/commons/Accordion" {
     closeSectionIds?: string[];
   }
 
-  export type Accordion$SectionOpenEvent = Event<Accordion$SectionOpenEventParameters>;
+  export type Accordion$SectionOpenEvent = Event<
+    Accordion$SectionOpenEventParameters,
+    Accordion
+  >;
 
   export interface Accordion$SectionsReorderEventParameters {
     /**
@@ -1150,7 +1156,10 @@ declare module "sap/ui/commons/Accordion" {
     newIndex?: int;
   }
 
-  export type Accordion$SectionsReorderEvent = Event<Accordion$SectionsReorderEventParameters>;
+  export type Accordion$SectionsReorderEvent = Event<
+    Accordion$SectionsReorderEventParameters,
+    Accordion
+  >;
 }
 
 declare module "sap/ui/commons/AccordionSection" {
@@ -1525,7 +1534,10 @@ declare module "sap/ui/commons/AccordionSection" {
     top?: int;
   }
 
-  export type AccordionSection$ScrollEvent = Event<AccordionSection$ScrollEventParameters>;
+  export type AccordionSection$ScrollEvent = Event<
+    AccordionSection$ScrollEventParameters,
+    AccordionSection
+  >;
 }
 
 declare module "sap/ui/commons/ApplicationHeader" {
@@ -1840,7 +1852,10 @@ declare module "sap/ui/commons/ApplicationHeader" {
 
   export interface ApplicationHeader$LogoffEventParameters {}
 
-  export type ApplicationHeader$LogoffEvent = Event<ApplicationHeader$LogoffEventParameters>;
+  export type ApplicationHeader$LogoffEvent = Event<
+    ApplicationHeader$LogoffEventParameters,
+    ApplicationHeader
+  >;
 }
 
 declare module "sap/ui/commons/Area" {
@@ -2283,7 +2298,10 @@ declare module "sap/ui/commons/AutoComplete" {
     suggestValue?: string;
   }
 
-  export type AutoComplete$SuggestEvent = Event<AutoComplete$SuggestEventParameters>;
+  export type AutoComplete$SuggestEvent = Event<
+    AutoComplete$SuggestEventParameters,
+    AutoComplete
+  >;
 }
 
 declare module "sap/ui/commons/layout/BorderLayout" {
@@ -3493,7 +3511,7 @@ declare module "sap/ui/commons/Button" {
 
   export interface Button$PressEventParameters {}
 
-  export type Button$PressEvent = Event<Button$PressEventParameters>;
+  export type Button$PressEvent = Event<Button$PressEventParameters, Button>;
 }
 
 declare module "sap/ui/commons/Callout" {
@@ -4108,11 +4126,17 @@ declare module "sap/ui/commons/CalloutBase" {
     parent?: Control;
   }
 
-  export type CalloutBase$BeforeOpenEvent = Event<CalloutBase$BeforeOpenEventParameters>;
+  export type CalloutBase$BeforeOpenEvent = Event<
+    CalloutBase$BeforeOpenEventParameters,
+    CalloutBase
+  >;
 
   export interface CalloutBase$CloseEventParameters {}
 
-  export type CalloutBase$CloseEvent = Event<CalloutBase$CloseEventParameters>;
+  export type CalloutBase$CloseEvent = Event<
+    CalloutBase$CloseEventParameters,
+    CalloutBase
+  >;
 
   export interface CalloutBase$OpenEventParameters {
     /**
@@ -4121,11 +4145,17 @@ declare module "sap/ui/commons/CalloutBase" {
     parent?: Control;
   }
 
-  export type CalloutBase$OpenEvent = Event<CalloutBase$OpenEventParameters>;
+  export type CalloutBase$OpenEvent = Event<
+    CalloutBase$OpenEventParameters,
+    CalloutBase
+  >;
 
   export interface CalloutBase$OpenedEventParameters {}
 
-  export type CalloutBase$OpenedEvent = Event<CalloutBase$OpenedEventParameters>;
+  export type CalloutBase$OpenedEvent = Event<
+    CalloutBase$OpenedEventParameters,
+    CalloutBase
+  >;
 }
 
 declare module "sap/ui/commons/Carousel" {
@@ -5175,7 +5205,10 @@ declare module "sap/ui/commons/CheckBox" {
     checked?: boolean;
   }
 
-  export type CheckBox$ChangeEvent = Event<CheckBox$ChangeEventParameters>;
+  export type CheckBox$ChangeEvent = Event<
+    CheckBox$ChangeEventParameters,
+    CheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ColorPicker" {
@@ -5749,7 +5782,10 @@ declare module "sap/ui/commons/ComboBox" {
     selectedItem?: ListItem;
   }
 
-  export type ComboBox$ChangeEvent = Event<ComboBox$ChangeEventParameters>;
+  export type ComboBox$ChangeEvent = Event<
+    ComboBox$ChangeEventParameters,
+    ComboBox
+  >;
 }
 
 declare module "sap/ui/commons/DatePicker" {
@@ -6957,7 +6993,7 @@ declare module "sap/ui/commons/Dialog" {
     left?: int;
   }
 
-  export type Dialog$ClosedEvent = Event<Dialog$ClosedEventParameters>;
+  export type Dialog$ClosedEvent = Event<Dialog$ClosedEventParameters, Dialog>;
 }
 
 declare module "sap/ui/commons/DropdownBox" {
@@ -7452,7 +7488,10 @@ declare module "sap/ui/commons/DropdownBox" {
     value?: string;
   }
 
-  export type DropdownBox$SearchHelpEvent = Event<DropdownBox$SearchHelpEventParameters>;
+  export type DropdownBox$SearchHelpEvent = Event<
+    DropdownBox$SearchHelpEventParameters,
+    DropdownBox
+  >;
 }
 
 declare module "sap/ui/commons/FileUploader" {
@@ -8622,7 +8661,10 @@ declare module "sap/ui/commons/TextField" {
     newValue?: string;
   }
 
-  export type TextField$ChangeEvent = Event<TextField$ChangeEventParameters>;
+  export type TextField$ChangeEvent = Event<
+    TextField$ChangeEventParameters,
+    TextField
+  >;
 
   export interface TextField$LiveChangeEventParameters {
     /**
@@ -8631,7 +8673,10 @@ declare module "sap/ui/commons/TextField" {
     liveValue?: string;
   }
 
-  export type TextField$LiveChangeEvent = Event<TextField$LiveChangeEventParameters>;
+  export type TextField$LiveChangeEvent = Event<
+    TextField$LiveChangeEventParameters,
+    TextField
+  >;
 }
 
 declare module "sap/ui/commons/form/Form" {
@@ -9410,9 +9455,11 @@ declare module "sap/ui/commons/form/SimpleForm" {
     $SimpleFormSettings as $SimpleFormSettings1,
   } from "sap/ui/layout/form/SimpleForm";
 
-  import { form } from "sap/ui/commons/library";
+  import { form } from "sap/ui/layout/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
    * @since 1.12
@@ -9430,9 +9477,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor sap.ui.layout.form.SimpleForm }
-     * can be used.
      */
     constructor(
       /**
@@ -9446,9 +9490,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor sap.ui.layout.form.SimpleForm }
-     * can be used.
      */
     constructor(
       /**
@@ -9493,31 +9534,71 @@ declare module "sap/ui/commons/form/SimpleForm" {
     /**
      * @since 1.14
      *
-     * Getter for property `layout`. The FormLayout that is used to render the SimpleForm
+     * Gets current value of property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
      *
-     * @returns the value of property `layout`
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
     /**
      * @since 1.14
      *
-     * Setter for property `layout`.
+     * Sets a new value for property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
      *
-     * @returns `this` to allow method chaining
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayout(
       /**
-       * new value for property `layout`
+       * New value for property `layout`
        */
-      oLayout: form.SimpleFormLayout
+      sLayout?: form.SimpleFormLayout | keyof typeof form.SimpleFormLayout
     ): this;
   }
 
-  export interface $SimpleFormSettings extends $SimpleFormSettings1 {}
+  export interface $SimpleFormSettings extends $SimpleFormSettings1 {
+    /**
+     * @since 1.14
+     *
+     * The `FormLayout` that is used to render the `SimpleForm`.
+     *
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     */
+    layout?:
+      | (form.SimpleFormLayout | keyof typeof form.SimpleFormLayout)
+      | PropertyBindingInfo
+      | `{${string}}`;
+  }
 }
 
 declare module "sap/ui/commons/FormattedTextView" {
@@ -10309,7 +10390,7 @@ declare module "sap/ui/commons/Image" {
 
   export interface Image$PressEventParameters {}
 
-  export type Image$PressEvent = Event<Image$PressEventParameters>;
+  export type Image$PressEvent = Event<Image$PressEventParameters, Image>;
 }
 
 declare module "sap/ui/commons/ImageMap" {
@@ -10600,7 +10681,10 @@ declare module "sap/ui/commons/ImageMap" {
     areaId?: string;
   }
 
-  export type ImageMap$PressEvent = Event<ImageMap$PressEventParameters>;
+  export type ImageMap$PressEvent = Event<
+    ImageMap$PressEventParameters,
+    ImageMap
+  >;
 }
 
 declare module "sap/ui/commons/InPlaceEdit" {
@@ -11061,7 +11145,10 @@ declare module "sap/ui/commons/InPlaceEdit" {
     newValue?: string;
   }
 
-  export type InPlaceEdit$ChangeEvent = Event<InPlaceEdit$ChangeEventParameters>;
+  export type InPlaceEdit$ChangeEvent = Event<
+    InPlaceEdit$ChangeEventParameters,
+    InPlaceEdit
+  >;
 
   export interface InPlaceEdit$LiveChangeEventParameters {
     /**
@@ -11070,7 +11157,10 @@ declare module "sap/ui/commons/InPlaceEdit" {
     liveValue?: string;
   }
 
-  export type InPlaceEdit$LiveChangeEvent = Event<InPlaceEdit$LiveChangeEventParameters>;
+  export type InPlaceEdit$LiveChangeEvent = Event<
+    InPlaceEdit$LiveChangeEventParameters,
+    InPlaceEdit
+  >;
 }
 
 declare module "sap/ui/commons/Label" {
@@ -14466,7 +14556,7 @@ declare module "sap/ui/commons/Link" {
 
   export interface Link$PressEventParameters {}
 
-  export type Link$PressEvent = Event<Link$PressEventParameters>;
+  export type Link$PressEvent = Event<Link$PressEventParameters, Link>;
 }
 
 declare module "sap/ui/commons/ListBox" {
@@ -15382,7 +15472,10 @@ declare module "sap/ui/commons/ListBox" {
     selectedIndices?: int[];
   }
 
-  export type ListBox$SelectEvent = Event<ListBox$SelectEventParameters>;
+  export type ListBox$SelectEvent = Event<
+    ListBox$SelectEventParameters,
+    ListBox
+  >;
 }
 
 declare module "sap/ui/commons/Menu" {
@@ -16095,7 +16188,10 @@ declare module "sap/ui/commons/MenuButton" {
     item?: MenuItemBase;
   }
 
-  export type MenuButton$ItemSelectedEvent = Event<MenuButton$ItemSelectedEventParameters>;
+  export type MenuButton$ItemSelectedEvent = Event<
+    MenuButton$ItemSelectedEventParameters,
+    MenuButton
+  >;
 
   export interface MenuButton$PressEventParameters
     extends Button$PressEventParameters {
@@ -16110,7 +16206,10 @@ declare module "sap/ui/commons/MenuButton" {
     item?: MenuItemBase1;
   }
 
-  export type MenuButton$PressEvent = Event<MenuButton$PressEventParameters>;
+  export type MenuButton$PressEvent = Event<
+    MenuButton$PressEventParameters,
+    MenuButton
+  >;
 }
 
 declare module "sap/ui/commons/MenuItem" {
@@ -17458,7 +17557,10 @@ declare module "sap/ui/commons/MessageToast" {
 
   export interface MessageToast$NextEventParameters {}
 
-  export type MessageToast$NextEvent = Event<MessageToast$NextEventParameters>;
+  export type MessageToast$NextEvent = Event<
+    MessageToast$NextEventParameters,
+    MessageToast
+  >;
 }
 
 declare module "sap/ui/commons/Paginator" {
@@ -17703,7 +17805,10 @@ declare module "sap/ui/commons/Paginator" {
     type?: PaginatorEvent | keyof typeof PaginatorEvent;
   }
 
-  export type Paginator$PageEvent = Event<Paginator$PageEventParameters>;
+  export type Paginator$PageEvent = Event<
+    Paginator$PageEventParameters,
+    Paginator
+  >;
 }
 
 declare module "sap/ui/commons/Panel" {
@@ -19227,7 +19332,10 @@ declare module "sap/ui/commons/RadioButton" {
 
   export interface RadioButton$SelectEventParameters {}
 
-  export type RadioButton$SelectEvent = Event<RadioButton$SelectEventParameters>;
+  export type RadioButton$SelectEvent = Event<
+    RadioButton$SelectEventParameters,
+    RadioButton
+  >;
 }
 
 declare module "sap/ui/commons/RadioButtonGroup" {
@@ -19819,7 +19927,10 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     selectedIndex?: int;
   }
 
-  export type RadioButtonGroup$SelectEvent = Event<RadioButtonGroup$SelectEventParameters>;
+  export type RadioButtonGroup$SelectEvent = Event<
+    RadioButtonGroup$SelectEventParameters,
+    RadioButtonGroup
+  >;
 }
 
 declare module "sap/ui/commons/RangeSlider" {
@@ -20486,7 +20597,10 @@ declare module "sap/ui/commons/RatingIndicator" {
     value?: int;
   }
 
-  export type RatingIndicator$ChangeEvent = Event<RatingIndicator$ChangeEventParameters>;
+  export type RatingIndicator$ChangeEvent = Event<
+    RatingIndicator$ChangeEventParameters,
+    RatingIndicator
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainer" {
@@ -20832,7 +20946,10 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     currentRange?: ResponsiveContainerRange;
   }
 
-  export type ResponsiveContainer$RangeSwitchEvent = Event<ResponsiveContainer$RangeSwitchEventParameters>;
+  export type ResponsiveContainer$RangeSwitchEvent = Event<
+    ResponsiveContainer$RangeSwitchEventParameters,
+    ResponsiveContainer
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainerRange" {
@@ -21690,7 +21807,10 @@ declare module "sap/ui/commons/RoadMap" {
     stepId?: string;
   }
 
-  export type RoadMap$StepExpandedEvent = Event<RoadMap$StepExpandedEventParameters>;
+  export type RoadMap$StepExpandedEvent = Event<
+    RoadMap$StepExpandedEventParameters,
+    RoadMap
+  >;
 
   export interface RoadMap$StepSelectedEventParameters {
     /**
@@ -21699,7 +21819,10 @@ declare module "sap/ui/commons/RoadMap" {
     stepId?: string;
   }
 
-  export type RoadMap$StepSelectedEvent = Event<RoadMap$StepSelectedEventParameters>;
+  export type RoadMap$StepSelectedEvent = Event<
+    RoadMap$StepSelectedEventParameters,
+    RoadMap
+  >;
 }
 
 declare module "sap/ui/commons/RoadMapStep" {
@@ -22996,7 +23119,10 @@ declare module "sap/ui/commons/RowRepeater" {
     filterId?: string;
   }
 
-  export type RowRepeater$FilterEvent = Event<RowRepeater$FilterEventParameters>;
+  export type RowRepeater$FilterEvent = Event<
+    RowRepeater$FilterEventParameters,
+    RowRepeater
+  >;
 
   export interface RowRepeater$PageEventParameters {
     /**
@@ -23010,7 +23136,10 @@ declare module "sap/ui/commons/RowRepeater" {
     previousPage?: int;
   }
 
-  export type RowRepeater$PageEvent = Event<RowRepeater$PageEventParameters>;
+  export type RowRepeater$PageEvent = Event<
+    RowRepeater$PageEventParameters,
+    RowRepeater
+  >;
 
   export interface RowRepeater$ResizeEventParameters {
     /**
@@ -23024,7 +23153,10 @@ declare module "sap/ui/commons/RowRepeater" {
     previousNumberOfRows?: int;
   }
 
-  export type RowRepeater$ResizeEvent = Event<RowRepeater$ResizeEventParameters>;
+  export type RowRepeater$ResizeEvent = Event<
+    RowRepeater$ResizeEventParameters,
+    RowRepeater
+  >;
 
   export interface RowRepeater$SortEventParameters {
     /**
@@ -23033,7 +23165,10 @@ declare module "sap/ui/commons/RowRepeater" {
     sorterId?: string;
   }
 
-  export type RowRepeater$SortEvent = Event<RowRepeater$SortEventParameters>;
+  export type RowRepeater$SortEvent = Event<
+    RowRepeater$SortEventParameters,
+    RowRepeater
+  >;
 }
 
 declare module "sap/ui/commons/RowRepeaterFilter" {
@@ -24346,7 +24481,10 @@ declare module "sap/ui/commons/SearchField" {
     query?: string;
   }
 
-  export type SearchField$SearchEvent = Event<SearchField$SearchEventParameters>;
+  export type SearchField$SearchEvent = Event<
+    SearchField$SearchEventParameters,
+    SearchField
+  >;
 
   export interface SearchField$SuggestEventParameters {
     /**
@@ -24355,7 +24493,10 @@ declare module "sap/ui/commons/SearchField" {
     value?: string;
   }
 
-  export type SearchField$SuggestEvent = Event<SearchField$SuggestEventParameters>;
+  export type SearchField$SuggestEvent = Event<
+    SearchField$SuggestEventParameters,
+    SearchField
+  >;
 }
 
 declare module "sap/ui/commons/SearchProvider" {
@@ -24760,7 +24901,10 @@ declare module "sap/ui/commons/SegmentedButton" {
     selectedButtonId?: string;
   }
 
-  export type SegmentedButton$SelectEvent = Event<SegmentedButton$SelectEventParameters>;
+  export type SegmentedButton$SelectEvent = Event<
+    SegmentedButton$SelectEventParameters,
+    SegmentedButton
+  >;
 }
 
 declare module "sap/ui/commons/Slider" {
@@ -25504,7 +25648,7 @@ declare module "sap/ui/commons/Slider" {
     value?: float;
   }
 
-  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters>;
+  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters, Slider>;
 
   export interface Slider$LiveChangeEventParameters {
     /**
@@ -25513,7 +25657,10 @@ declare module "sap/ui/commons/Slider" {
     value?: float;
   }
 
-  export type Slider$LiveChangeEvent = Event<Slider$LiveChangeEventParameters>;
+  export type Slider$LiveChangeEvent = Event<
+    Slider$LiveChangeEventParameters,
+    Slider
+  >;
 }
 
 declare module "sap/ui/commons/Splitter" {
@@ -26731,7 +26878,10 @@ declare module "sap/ui/commons/TabStrip" {
     index?: int;
   }
 
-  export type TabStrip$CloseEvent = Event<TabStrip$CloseEventParameters>;
+  export type TabStrip$CloseEvent = Event<
+    TabStrip$CloseEventParameters,
+    TabStrip
+  >;
 
   export interface TabStrip$SelectEventParameters {
     /**
@@ -26740,7 +26890,10 @@ declare module "sap/ui/commons/TabStrip" {
     index?: int;
   }
 
-  export type TabStrip$SelectEvent = Event<TabStrip$SelectEventParameters>;
+  export type TabStrip$SelectEvent = Event<
+    TabStrip$SelectEventParameters,
+    TabStrip
+  >;
 }
 
 declare module "sap/ui/commons/TextArea" {
@@ -28950,7 +29103,7 @@ declare module "sap/ui/commons/Tree" {
     nodeContext?: object;
   }
 
-  export type Tree$SelectEvent = Event<Tree$SelectEventParameters>;
+  export type Tree$SelectEvent = Event<Tree$SelectEventParameters, Tree>;
 
   export interface Tree$SelectionChangeEventParameters {
     /**
@@ -28964,7 +29117,10 @@ declare module "sap/ui/commons/Tree" {
     nodeContexts?: object[];
   }
 
-  export type Tree$SelectionChangeEvent = Event<Tree$SelectionChangeEventParameters>;
+  export type Tree$SelectionChangeEvent = Event<
+    Tree$SelectionChangeEventParameters,
+    Tree
+  >;
 }
 
 declare module "sap/ui/commons/TreeNode" {
@@ -29574,7 +29730,10 @@ declare module "sap/ui/commons/TreeNode" {
 
   export interface TreeNode$SelectedEventParameters {}
 
-  export type TreeNode$SelectedEvent = Event<TreeNode$SelectedEventParameters>;
+  export type TreeNode$SelectedEvent = Event<
+    TreeNode$SelectedEventParameters,
+    TreeNode
+  >;
 
   export interface TreeNode$ToggleOpenStateEventParameters {
     /**
@@ -29583,7 +29742,10 @@ declare module "sap/ui/commons/TreeNode" {
     opened?: boolean;
   }
 
-  export type TreeNode$ToggleOpenStateEvent = Event<TreeNode$ToggleOpenStateEventParameters>;
+  export type TreeNode$ToggleOpenStateEvent = Event<
+    TreeNode$ToggleOpenStateEventParameters,
+    TreeNode
+  >;
 }
 
 declare module "sap/ui/commons/TriStateCheckBox" {
@@ -30004,7 +30166,10 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     selectionState?: string;
   }
 
-  export type TriStateCheckBox$ChangeEvent = Event<TriStateCheckBox$ChangeEventParameters>;
+  export type TriStateCheckBox$ChangeEvent = Event<
+    TriStateCheckBox$ChangeEventParameters,
+    TriStateCheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ValueHelpField" {
@@ -30280,7 +30445,10 @@ declare module "sap/ui/commons/ValueHelpField" {
 
   export interface ValueHelpField$ValueHelpRequestEventParameters {}
 
-  export type ValueHelpField$ValueHelpRequestEvent = Event<ValueHelpField$ValueHelpRequestEventParameters>;
+  export type ValueHelpField$ValueHelpRequestEvent = Event<
+    ValueHelpField$ValueHelpRequestEventParameters,
+    ValueHelpField
+  >;
 }
 
 declare namespace sap {
