@@ -85,7 +85,6 @@ declare namespace google.accounts {
 
             /**
              * Deprecated, you should use enable_granular_consent instead.
-             * Optional, defaults to true.
              * This has the same effect as enable_granular_consent. Existing
              * applications that use enable_serial_consent can continue to do
              * so, but you are encouraged to update your code to use
@@ -300,7 +299,6 @@ declare namespace google.accounts {
 
             /**
              * Deprecated, you should use enable_granular_consent instead.
-             * Optional, defaults to true.
              * This has the same effect as enable_granular_consent. Existing
              * applications that use enable_serial_consent can continue to do
              * so, but you are encouraged to update your code to use
@@ -426,10 +424,10 @@ declare namespace google.accounts {
 
             /**
              * Deprecated, you should use enable_granular_consent instead.
-             * Optional, defaults to true. If set to false, more granular Google
-             * Account permissions will be disabled for clients created before
-             * 2019. No effect for newer clients, since more granular
-             * permissions is always enabled for them.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
