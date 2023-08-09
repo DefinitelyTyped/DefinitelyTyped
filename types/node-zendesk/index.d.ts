@@ -622,6 +622,14 @@ export namespace Tickets {
     }
 
     /**
+     * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-many-tickets|Zendesk Tickets JSON Format}
+     */
+    interface UpdateManyModel extends UpdateModel {
+        additional_tags?: ReadonlyArray<string> | null | undefined;
+        remove_tags?: ReadonlyArray<string> | null | undefined;
+    }
+
+    /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/tickets#json-format|Zendesk Tickets JSON Format}
      */
     interface ResponseModel extends AuditableModel {
@@ -720,7 +728,7 @@ export namespace Tickets {
     }
 
     interface UpdateManyPayload {
-        readonly tickets: ReadonlyArray<UpdateModel>;
+        readonly tickets: ReadonlyArray<UpdateManyModel>;
     }
 
     interface MergePayload {

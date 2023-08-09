@@ -134,6 +134,10 @@ client.tickets.update(123, { ticket: {} }, zendeskCallback);
 client.tickets.update(123, { ticket: {} }).then(zendeskCallback);
 client.tickets.updateMany({ tickets: [{}] }, zendeskCallback);
 client.tickets.updateMany({ tickets: [{}] }).then(zendeskCallback);
+client.tickets.updateMany(
+    { tickets: [{additional_tags: ["foo", "bar"], remove_tags: ["baz", "qux"]}]},
+    zendeskCallback
+);
 client.tickets.delete(123, zendeskCallback);
 client.tickets.delete(123).then(zendeskCallback);
 client.tickets.deleteMany([123, 234], zendeskCallback);
