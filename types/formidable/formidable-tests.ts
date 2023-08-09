@@ -31,6 +31,7 @@ const options: Options = {
     minFileSize: 1,
     multiples: false,
     uploadDir: "/dir",
+    createDirsFromUploads: false,
     filter: (part) => {
         // $ExpectType Part
         part;
@@ -176,11 +177,11 @@ form.onPart = part => {
     form._handlePart(part);
 };
 
-http.createServer(req => {
+http.createServer(async req => {
     // $ExpectType IncomingMessage
     req;
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields, files) => { // testing with callback
         // $ExpectType any
         err;
         // $ExpectType Fields
@@ -188,13 +189,9 @@ http.createServer(req => {
         // $ExpectType Files
         files;
     });
-});
 
-http.createServer(req => {
     form.parse(req); // testing without callback
-});
 
-http.createServer(async req => {
     const [fields, files] = await form.parse(req); // testing with promise
     // $ExpectType Fields
     fields;
