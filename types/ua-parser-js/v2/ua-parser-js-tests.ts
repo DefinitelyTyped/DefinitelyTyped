@@ -75,3 +75,29 @@ interface Foo extends UAParser {
 }
 
 const method: Foo["getBrowser"] = parser.getBrowser;
+
+// test new API v2.0
+
+parser.getCPU().is('ia32'); // $ExpectType boolean
+parser.getCPU().toString(); // $ExpectType string
+parser.getCPU().withClientHints(); // $ExpectType IData | PromiseLike<IData>
+parser.getCPU().withFeatureCheck(); // $ExpectType IData
+
+const extensions = {
+    browser : ownBrowser
+};
+const headers = {
+    'user-agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+    'sec-ch-ua-mobile' : '?1',
+    'sec-ch-ua-model' : 'Galaxy S3 Marketing',
+    'sec-ch-ua-platform' : 'Android'
+};
+
+UAParser(); // $ExpectType IResult
+UAParser(uaString); // $ExpectType IResult
+UAParser(extensions); // $ExpectType IResult
+UAParser(headers); // $ExpectType IResult
+UAParser(uaString, extensions); // $ExpectType IResult
+UAParser(uaString, headers); // $ExpectType IResult
+UAParser(extensions, headers); // $ExpectType IResult
+UAParser(uaString, extensions, headers); // $ExpectType IResult
