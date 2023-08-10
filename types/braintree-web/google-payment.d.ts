@@ -33,126 +33,6 @@ export interface GooglePaymentTokenizePayload {
 
 export interface GooglePayment {
     /**
-     * // include https://pay.google.com/gp/p/js/pay.js in a script tag
-     * // on your page to load the `google.payments.api.PaymentsClient` global object.
-     *
-     * var paymentButton = document.querySelector('#google-pay-button');
-     * var paymentsClient = new google.payments.api.PaymentsClient({
-     *   environment: 'TEST' // or 'PRODUCTION'
-     * });
-     *
-     * braintree.client.create({
-     *   authorization: 'tokenization-key-or-client-token'
-     * }).then(function (clientInstance) {
-     *   return braintree.googlePayment.create({
-     *     client: clientInstance,
-     *      googlePayVersion: 2,
-     *      googleMerchantId: 'your-merchant-id-from-google'
-     *   });
-     * }).then(function (googlePaymentInstance) {
-     *   paymentButton.addEventListener('click', function (event) {
-     *     var paymentDataRequest;
-     *
-     *     event.preventDefault();
-     *
-     *     paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
-     *       transactionInfo: {
-     *         currencyCode: 'USD',
-     *         totalPriceStatus: 'FINAL',
-     *         totalPrice: '100.00'
-     *       }
-     *     });
-     *
-     *     paymentsClient.loadPaymentData(paymentDataRequest).then(function (paymentData) {
-     *       return googlePaymentInstance.parseResponse(paymentData);
-     *     }).then(function (result) {
-     *       // send result.nonce to your server
-     *     }).catch(function (err) {
-     *       // handle err
-     *     });
-     *   });
-     * });
-     *
-     * @example <caption>Check Browser and Customer Compatibility</caption>
-     * var paymentsClient = new google.payments.api.PaymentsClient({
-     *   environment: 'TEST' // or 'PRODUCTION'
-     * });
-     *
-     * function setupGooglePayButton(googlePaymentInstance) {
-     *   var button = document.createElement('button');
-     *
-     *   button.id = 'google-pay';
-     *   button.appendChild(document.createTextNode('Google Pay'));
-     *   button.addEventListener('click', function (event) {
-     *     var paymentRequestData;
-     *
-     *     event.preventDefault();
-     *
-     *     paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
-     *       transactionInfo: {
-     *         currencyCode: 'USD',
-     *         totalPriceStatus: 'FINAL',
-     *         totalPrice: '100.00' // your amount
-     *       }
-     *     });
-     *
-     *     paymentsClient.loadPaymentData(paymentDataRequest).then(function (paymentData) {
-     *       return googlePaymentInstance.parseResponse(paymentData);
-     *       }).then(function (result) {
-     *       // send result.nonce to your server
-     *     }).catch(function (err) {
-     *       // handle errors
-     *     });
-     *   });
-     *
-     *   document.getElementById('container').appendChild(button);
-     * }
-     *
-     * braintree.client.create({
-     *   authorization: 'tokenization-key-or-client-token'
-     * }).then(function (clientInstance) {
-     *   return braintree.googlePayment.create({
-     *     client: clientInstance,
-     *     googlePayVersion: 2,
-     *     googleMerchantId: 'your-merchant-id-from-google'
-     *   });
-     * }).then(function (googlePaymentInstance) {
-     *
-     *   return paymentsClient.isReadyToPay({
-     *     // see https://developers.google.com/pay/api/web/reference/object#IsReadyToPayRequest for all options
-     *     apiVersion: 2,
-     *     apiVersionMinor: 0,
-     *     allowedPaymentMethods: googlePaymentInstance.createPaymentDataRequest().allowedPaymentMethods,
-     *     existingPaymentMethodRequired: true
-     *   });
-     * }).then(function (response) {
-     *   if (response.result) {
-     *     setupGooglePayButton(googlePaymentInstance);
-     *   }
-     * }).catch(function (err) {
-     *   // handle setup errors
-     * });
-     *
-     */
-    create(options: {
-        client?: Client | undefined;
-        authorization?: string | undefined;
-        useDeferredClient?: boolean | undefined;
-        googlePayVersion?: number | undefined;
-        googleMerchantId?: string | undefined;
-    }): Promise<GooglePayment>;
-    create(
-        options: {
-            client?: Client | undefined;
-            authorization?: string | undefined;
-            useDeferredClient?: boolean | undefined;
-            googlePayVersion?: number | undefined;
-            googleMerchantId?: string | undefined;
-        },
-        callback?: callback,
-    ): void;
-
-    /**
      * Create a configuration object for use in the `loadPaymentData` method.
      *
      * **Note**: Version 1 of the Google Pay Api is deprecated and will become unsupported in a future version.
@@ -270,3 +150,123 @@ export interface GooglePayment {
     parseResponse(response: any): Promise<GooglePaymentTokenizePayload>;
     parseResponse(response: any, callback?: callback): void;
 }
+
+/**
+ * // include https://pay.google.com/gp/p/js/pay.js in a script tag
+ * // on your page to load the `google.payments.api.PaymentsClient` global object.
+ *
+ * var paymentButton = document.querySelector('#google-pay-button');
+ * var paymentsClient = new google.payments.api.PaymentsClient({
+ *   environment: 'TEST' // or 'PRODUCTION'
+ * });
+ *
+ * braintree.client.create({
+ *   authorization: 'tokenization-key-or-client-token'
+ * }).then(function (clientInstance) {
+ *   return braintree.googlePayment.create({
+ *     client: clientInstance,
+ *      googlePayVersion: 2,
+ *      googleMerchantId: 'your-merchant-id-from-google'
+ *   });
+ * }).then(function (googlePaymentInstance) {
+ *   paymentButton.addEventListener('click', function (event) {
+ *     var paymentDataRequest;
+ *
+ *     event.preventDefault();
+ *
+ *     paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
+ *       transactionInfo: {
+ *         currencyCode: 'USD',
+ *         totalPriceStatus: 'FINAL',
+ *         totalPrice: '100.00'
+ *       }
+ *     });
+ *
+ *     paymentsClient.loadPaymentData(paymentDataRequest).then(function (paymentData) {
+ *       return googlePaymentInstance.parseResponse(paymentData);
+ *     }).then(function (result) {
+ *       // send result.nonce to your server
+ *     }).catch(function (err) {
+ *       // handle err
+ *     });
+ *   });
+ * });
+ *
+ * @example <caption>Check Browser and Customer Compatibility</caption>
+ * var paymentsClient = new google.payments.api.PaymentsClient({
+ *   environment: 'TEST' // or 'PRODUCTION'
+ * });
+ *
+ * function setupGooglePayButton(googlePaymentInstance) {
+ *   var button = document.createElement('button');
+ *
+ *   button.id = 'google-pay';
+ *   button.appendChild(document.createTextNode('Google Pay'));
+ *   button.addEventListener('click', function (event) {
+ *     var paymentRequestData;
+ *
+ *     event.preventDefault();
+ *
+ *     paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
+ *       transactionInfo: {
+ *         currencyCode: 'USD',
+ *         totalPriceStatus: 'FINAL',
+ *         totalPrice: '100.00' // your amount
+ *       }
+ *     });
+ *
+ *     paymentsClient.loadPaymentData(paymentDataRequest).then(function (paymentData) {
+ *       return googlePaymentInstance.parseResponse(paymentData);
+ *       }).then(function (result) {
+ *       // send result.nonce to your server
+ *     }).catch(function (err) {
+ *       // handle errors
+ *     });
+ *   });
+ *
+ *   document.getElementById('container').appendChild(button);
+ * }
+ *
+ * braintree.client.create({
+ *   authorization: 'tokenization-key-or-client-token'
+ * }).then(function (clientInstance) {
+ *   return braintree.googlePayment.create({
+ *     client: clientInstance,
+ *     googlePayVersion: 2,
+ *     googleMerchantId: 'your-merchant-id-from-google'
+ *   });
+ * }).then(function (googlePaymentInstance) {
+ *
+ *   return paymentsClient.isReadyToPay({
+ *     // see https://developers.google.com/pay/api/web/reference/object#IsReadyToPayRequest for all options
+ *     apiVersion: 2,
+ *     apiVersionMinor: 0,
+ *     allowedPaymentMethods: googlePaymentInstance.createPaymentDataRequest().allowedPaymentMethods,
+ *     existingPaymentMethodRequired: true
+ *   });
+ * }).then(function (response) {
+ *   if (response.result) {
+ *     setupGooglePayButton(googlePaymentInstance);
+ *   }
+ * }).catch(function (err) {
+ *   // handle setup errors
+ * });
+ *
+ */
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    useDeferredClient?: boolean | undefined;
+    googlePayVersion?: number | undefined;
+    googleMerchantId?: string | undefined;
+}): Promise<GooglePayment>;
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient?: boolean | undefined;
+        googlePayVersion?: number | undefined;
+        googleMerchantId?: string | undefined;
+    },
+    callback?: callback<GooglePayment>,
+): void;

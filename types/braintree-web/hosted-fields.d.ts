@@ -198,50 +198,6 @@ export interface HostedFieldAttributeOptions {
 
 export interface HostedFields {
     /**
-     * braintree.hostedFields.create({
-     *   client: clientInstance,
-     *   styles: {
-     *     'input': {
-     *       'font-size': '16pt',
-     *       'color': '#3A3A3A'
-     *     },
-     *     '.number': {
-     *       'font-family': 'monospace'
-     *     },
-     *     '.valid': {
-     *       'color': 'green'
-     *     }
-     *   },
-     *   fields: {
-     *     number: {
-     *       selector: '#card-number'
-     *     },
-     *     cvv: {
-     *       selector: '#cvv'
-     *     },
-     *     expirationDate: {
-     *       selector: '#expiration-date'
-     *     }
-     *   }
-     * }, callback);
-     */
-    create(options: {
-        client?: Client | undefined;
-        authorization?: string | undefined;
-        fields: HostedFieldFieldOptions;
-        styles?: any;
-    }): Promise<HostedFields>;
-    create(
-        options: {
-            client?: Client | undefined;
-            authorization?: string | undefined;
-            fields: HostedFieldFieldOptions;
-            styles?: any;
-        },
-        callback: callback<HostedFields>,
-    ): void;
-
-    /**
      * An object that represents CSS that will be applied in each hosted field. This object looks similar to CSS.
      * Typically, these styles involve fonts (such as `font-family` or `color`).
      *
@@ -278,11 +234,6 @@ export interface HostedFields {
      * `-webkit-transition`
      */
     styleOptions: any;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
 
     on<EventType extends HostedFieldEventType>(
         event: EventType,
@@ -487,3 +438,47 @@ export interface HostedFields {
      */
     removeAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
 }
+
+/**
+ * braintree.hostedFields.create({
+ *   client: clientInstance,
+ *   styles: {
+ *     'input': {
+ *       'font-size': '16pt',
+ *       'color': '#3A3A3A'
+ *     },
+ *     '.number': {
+ *       'font-family': 'monospace'
+ *     },
+ *     '.valid': {
+ *       'color': 'green'
+ *     }
+ *   },
+ *   fields: {
+ *     number: {
+ *       selector: '#card-number'
+ *     },
+ *     cvv: {
+ *       selector: '#cvv'
+ *     },
+ *     expirationDate: {
+ *       selector: '#expiration-date'
+ *     }
+ *   }
+ * }, callback);
+ */
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    fields: HostedFieldFieldOptions;
+    styles?: any;
+}): Promise<HostedFields>;
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        fields: HostedFieldFieldOptions;
+        styles?: any;
+    },
+    callback: callback<HostedFields>,
+): void;

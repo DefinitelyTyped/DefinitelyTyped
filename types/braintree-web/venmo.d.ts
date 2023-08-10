@@ -13,37 +13,6 @@ export interface VenmoTokenizePayload {
 
 export interface Venmo {
     /**
-     * braintree.venmo.create({
-     *   client: clientInstance
-     * }).then(function (venmoInstance) {
-     *   // venmoInstance is ready to be used.
-     * }).catch(function (createErr) {
-     *   console.error('Error creating Venmo instance', createErr);
-     * });
-     */
-    create(options: {
-        client?: Client | undefined;
-        authorization?: string | undefined;
-        allowNewBrowserTab?: boolean | undefined;
-        ignoreHistoryChanges?: boolean | undefined;
-        profileId?: string | undefined;
-        deepLinkReturnUrl?: string | undefined;
-    }): Promise<Venmo>;
-    create(
-        options: {
-            client?: Client | undefined;
-            authorization?: string | undefined;
-            allowNewBrowserTab?: boolean | undefined;
-            ignoreHistoryChanges?: boolean | undefined;
-            profileId?: string | undefined;
-            deepLinkReturnUrl?: string | undefined;
-        },
-        callback?: callback,
-    ): void;
-
-    VERSION: string;
-
-    /**
      * Returns a boolean indicating whether the current browser supports Venmo as a payment method.
      *
      * If `options.allowNewBrowserTab` is false when calling {@link module:braintree-web/venmo.create|venmo.create},
@@ -112,3 +81,33 @@ export interface Venmo {
     teardown(callback?: () => void): void;
     teardown(): Promise<void>;
 }
+
+/**
+ * braintree.venmo.create({
+ *   client: clientInstance
+ * }).then(function (venmoInstance) {
+ *   // venmoInstance is ready to be used.
+ * }).catch(function (createErr) {
+ *   console.error('Error creating Venmo instance', createErr);
+ * });
+ */
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    allowNewBrowserTab?: boolean | undefined;
+    ignoreHistoryChanges?: boolean | undefined;
+    profileId?: string | undefined;
+    deepLinkReturnUrl?: string | undefined;
+}): Promise<Venmo>;
+
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        allowNewBrowserTab?: boolean | undefined;
+        ignoreHistoryChanges?: boolean | undefined;
+        profileId?: string | undefined;
+        deepLinkReturnUrl?: string | undefined;
+    },
+    callback?: callback<Venmo>,
+): void;

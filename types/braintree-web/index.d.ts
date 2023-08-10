@@ -1,11 +1,12 @@
-// Type definitions for Braintree-web 3.94
+// Type definitions for Braintree-web 3.96
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Jason Buckner <https://github.com/jbuckner>
+//                Daniel Macak <https://github.com/daelmaak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { VERSION, BraintreeError, callback } from './modules/core';
-import { AmericanExpress } from './modules/american-express';
+import { VERSION, BraintreeError, callback } from './core';
+import { AmericanExpress, create as americanExpressCreate } from './american-express';
 import {
     ApplePay,
     ApplePaySession,
@@ -18,10 +19,11 @@ import {
     ApplePayPaymentTiming,
     ApplePayRecurringPaymentDateUnit,
     ApplePayTokenizeValues,
-} from './modules/apple-pay';
-import { Client, CreditCardInfo } from './modules/client';
-import { DataCollector } from './modules/data-collector';
-import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
+    create as applePayCreate,
+} from './apple-pay';
+import { Client, CreditCardInfo, create as clientCreate } from './client';
+import { DataCollector, create as dataCollectorCreate } from './data-collector';
+import { GooglePayment, GooglePaymentTokenizePayload, create as googlePaymentCreate } from './google-payment';
 import {
     HostedFields,
     HostedFieldFieldOptions,
@@ -29,35 +31,46 @@ import {
     HostedFieldsEvent,
     HostedFieldsStateObject,
     HostedFieldsBinPayload,
-} from './modules/hosted-fields';
-import { LocalPayment, LocalPaymentTokenizePayload, LocalPaymentTypes } from './modules/local-payment';
-import { PayPal, PayPalTokenizePayload } from './modules/paypal';
-import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/paypal-checkout';
-import { ThreeDSecure, ThreeDSecureVerifyPayload } from './modules/three-d-secure';
+    create as hostedFieldsCreate,
+} from './hosted-fields';
+import {
+    LocalPayment,
+    LocalPaymentTokenizePayload,
+    LocalPaymentTypes,
+    create as localPaymentCreate,
+} from './local-payment';
+import { PayPal, PayPalTokenizePayload, create as payPalCreate } from './paypal';
+import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions, create as payPalCheckoutCreate } from './paypal-checkout';
+import { ThreeDSecure, ThreeDSecureVerifyPayload, create as threeDSecureCreate } from './three-d-secure';
 import {
     UnionPay,
     UnionPayFetchCapabilitiesPayload,
     UnionPayEnrollPayload,
     UnionPayTokenizePayload,
-} from './modules/unionpay';
-import { USBankAccount } from './modules/us-bank-account';
-import { VaultManager, FetchPaymentMethodsPayload } from './modules/vault-manager';
-import { Venmo, VenmoTokenizePayload } from './modules/venmo';
+    create as unionPayCreate,
+} from './unionpay';
+import { USBankAccount, create as usBankAccountCreate } from './us-bank-account';
+import { VaultManager, FetchPaymentMethodsPayload, create as vaultManagerCreate } from './vault-manager';
+import { Venmo, VenmoTokenizePayload, create as venmoCreate } from './venmo';
 
-export const americanExpress: AmericanExpress;
-export const applePay: ApplePay;
-export const client: Client;
-export const dataCollector: DataCollector;
-export const googlePayment: GooglePayment;
-export const hostedFields: HostedFields;
-export const localPayment: LocalPayment;
-export const paypal: PayPal;
-export const paypalCheckout: PayPalCheckout;
-export const threeDSecure: ThreeDSecure;
-export const unionpay: UnionPay;
-export const usBankAccount: USBankAccount;
-export const vaultManager: typeof VaultManager;
-export const venmo: Venmo;
+interface PaymentClient<T> {
+    create: T;
+}
+
+export const americanExpress: PaymentClient<typeof americanExpressCreate>;
+export const applePay: PaymentClient<typeof applePayCreate>;
+export const client: PaymentClient<typeof clientCreate>;
+export const dataCollector: PaymentClient<typeof dataCollectorCreate>;
+export const googlePayment: PaymentClient<typeof googlePaymentCreate>;
+export const hostedFields: PaymentClient<typeof hostedFieldsCreate>;
+export const localPayment: PaymentClient<typeof localPaymentCreate>;
+export const paypal: PaymentClient<typeof payPalCreate>;
+export const paypalCheckout: PaymentClient<typeof payPalCheckoutCreate>;
+export const threeDSecure: PaymentClient<typeof threeDSecureCreate>;
+export const unionpay: PaymentClient<typeof unionPayCreate>;
+export const usBankAccount: PaymentClient<typeof usBankAccountCreate>;
+export const vaultManager: PaymentClient<typeof vaultManagerCreate>;
+export const venmo: PaymentClient<typeof venmoCreate>;
 
 export {
     VERSION,

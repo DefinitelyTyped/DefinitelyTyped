@@ -49,25 +49,6 @@ export interface PayPalTokenizePayload {
 
 export interface PayPal {
     /**
-     * @example
-     * braintree.paypal.create({
-     *   client: clientInstance
-     * }, function (createErr, paypalInstance) {
-     *   if (createErr) {
-     *     if (createErr.code === 'PAYPAL_BROWSER_NOT_SUPPORTED') {
-     *       console.error('This browser is not supported.');
-     *     } else {
-     *       console.error('Error!', createErr);
-     *     }
-     *   }
-     * });
-     */
-    create(options: { client: Client }): Promise<PayPal>;
-    create(options: { client: Client }, callback: callback<PayPal>): void;
-
-    VERSION: string;
-
-    /**
      * Launches the PayPal login flow and returns a nonce payload. Only one PayPal login flow should be active at a time.
      * One way to achieve this is to disable your PayPal button while the flow is open.
      * * Checkout flows only.
@@ -174,3 +155,20 @@ export interface PayPal {
      */
     teardown(callback?: () => void): void;
 }
+
+/**
+ * @example
+ * braintree.paypal.create({
+ *   client: clientInstance
+ * }, function (createErr, paypalInstance) {
+ *   if (createErr) {
+ *     if (createErr.code === 'PAYPAL_BROWSER_NOT_SUPPORTED') {
+ *       console.error('This browser is not supported.');
+ *     } else {
+ *       console.error('Error!', createErr);
+ *     }
+ *   }
+ * });
+ */
+export function create(options: { client: Client }): Promise<PayPal>;
+export function create(options: { client: Client }, callback: callback<PayPal>): void;

@@ -189,19 +189,6 @@ export interface ThreeDSecureCreateOptions {
 }
 
 export interface ThreeDSecure {
-    /**
-     * braintree.threeDSecure.create({
-     *   client: client
-     * }, callback);
-     */
-    create(options: ThreeDSecureCreateOptions): Promise<ThreeDSecure>;
-    create(options: ThreeDSecureCreateOptions, callback: callback<ThreeDSecure>): void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
-
     addFrameCallback: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
 
     /**
@@ -309,3 +296,11 @@ export interface ThreeDSecure {
      */
     off(event: ThreeDSecureEvent, handler: (data?: any, next?: () => void) => void): void;
 }
+
+/**
+ * braintree.threeDSecure.create({
+ *   client: client
+ * }, callback);
+ */
+export function create(options: ThreeDSecureCreateOptions): Promise<ThreeDSecure>;
+export function create(options: ThreeDSecureCreateOptions, callback: callback<ThreeDSecure>): void;

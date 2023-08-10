@@ -5,13 +5,6 @@ import { Client } from './client';
  * @description This module is for use with Amex Express Checkout. To accept American Express cards, use Hosted Fields.
  */
 export interface AmericanExpress {
-    create: (options: { client: Client }, callback: callback) => void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
-
     /**
      * Gets the rewards balance associated with a Braintree nonce.     * @example
      * var americanExpress = require('braintree-web/american-express');
@@ -48,3 +41,6 @@ export interface AmericanExpress {
      */
     getExpressCheckoutProfile(options: { nonce: string }, callback: callback): void;
 }
+
+export function create(options: { client: Client }): Promise<AmericanExpress>;
+export function create(options: { client: Client }, callback: callback<AmericanExpress>): void;

@@ -2,18 +2,6 @@ import { callback } from './core';
 import { Client } from './client';
 
 export interface DataCollector {
-    create(options: {
-        client: Client;
-        kount?: boolean | undefined;
-        paypal?: boolean | undefined;
-    }): Promise<DataCollector>;
-    create(
-        options: { client: Client; kount?: boolean | undefined; paypal?: boolean | undefined },
-        callback: callback<DataCollector>,
-    ): void;
-
-    VERSION: string;
-
     deviceData: string;
 
     rawDeviceData: object;
@@ -24,3 +12,13 @@ export interface DataCollector {
     teardown(): Promise<void>;
     teardown(callback: callback): void;
 }
+
+export function create(options: {
+    client: Client;
+    kount?: boolean | undefined;
+    paypal?: boolean | undefined;
+}): Promise<DataCollector>;
+export function create(
+    options: { client: Client; kount?: boolean | undefined; paypal?: boolean | undefined },
+    callback: callback<DataCollector>,
+): void;
