@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -957,7 +957,10 @@ declare module "sap/f/AvatarGroup" {
     avatarsDisplayed?: int;
   }
 
-  export type AvatarGroup$PressEvent = Event<AvatarGroup$PressEventParameters>;
+  export type AvatarGroup$PressEvent = Event<
+    AvatarGroup$PressEventParameters,
+    AvatarGroup
+  >;
 }
 
 declare module "sap/f/AvatarGroupItem" {
@@ -2203,6 +2206,13 @@ declare module "sap/f/cards/Header" {
        */
       iTitleMaxLines?: int
     ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     *
+     * @returns If the icon should be shown.
+     */
+    shouldShowIcon(): boolean;
   }
 
   export interface $HeaderSettings extends $BaseHeaderSettings {
@@ -2285,7 +2295,7 @@ declare module "sap/f/cards/Header" {
 
   export interface Header$PressEventParameters {}
 
-  export type Header$PressEvent = Event<Header$PressEventParameters>;
+  export type Header$PressEvent = Event<Header$PressEventParameters, Header>;
 }
 
 declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
@@ -3103,7 +3113,10 @@ declare module "sap/f/cards/NumericHeader" {
 
   export interface NumericHeader$PressEventParameters {}
 
-  export type NumericHeader$PressEvent = Event<NumericHeader$PressEventParameters>;
+  export type NumericHeader$PressEvent = Event<
+    NumericHeader$PressEventParameters,
+    NumericHeader
+  >;
 }
 
 declare module "sap/f/cards/NumericSideIndicator" {
@@ -3868,7 +3881,7 @@ declare module "sap/f/DynamicPage" {
      */
     getPreserveHeaderStateOnScroll(): boolean;
     /**
-     * Returns the `sap.ui.core.ScrollEnablement` delegate which is used with this control.
+     * Returns the `sap.ui.core.delegate.ScrollEnablement` delegate which is used with this control.
      *
      * @returns The scroll delegate instance
      */
@@ -4303,7 +4316,10 @@ declare module "sap/f/DynamicPage" {
     pinned?: boolean;
   }
 
-  export type DynamicPage$PinnedStateChangeEvent = Event<DynamicPage$PinnedStateChangeEventParameters>;
+  export type DynamicPage$PinnedStateChangeEvent = Event<
+    DynamicPage$PinnedStateChangeEventParameters,
+    DynamicPage
+  >;
 }
 
 declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
@@ -6132,7 +6148,10 @@ declare module "sap/f/DynamicPageTitle" {
     isExpanded?: boolean;
   }
 
-  export type DynamicPageTitle$StateChangeEvent = Event<DynamicPageTitle$StateChangeEventParameters>;
+  export type DynamicPageTitle$StateChangeEvent = Event<
+    DynamicPageTitle$StateChangeEventParameters,
+    DynamicPageTitle
+  >;
 }
 
 declare module "sap/f/FlexibleColumnLayout" {
@@ -8241,7 +8260,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$AfterBeginColumnNavigateEvent = Event<FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$AfterBeginColumnNavigateEvent = Event<
+    FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$AfterEndColumnNavigateEventParameters {
     /**
@@ -8296,7 +8318,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$AfterEndColumnNavigateEvent = Event<FlexibleColumnLayout$AfterEndColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$AfterEndColumnNavigateEvent = Event<
+    FlexibleColumnLayout$AfterEndColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$AfterMidColumnNavigateEventParameters {
     /**
@@ -8351,7 +8376,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$AfterMidColumnNavigateEvent = Event<FlexibleColumnLayout$AfterMidColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$AfterMidColumnNavigateEvent = Event<
+    FlexibleColumnLayout$AfterMidColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$BeginColumnNavigateEventParameters {
     /**
@@ -8406,7 +8434,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$BeginColumnNavigateEvent = Event<FlexibleColumnLayout$BeginColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$BeginColumnNavigateEvent = Event<
+    FlexibleColumnLayout$BeginColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$ColumnResizeEventParameters {
     /**
@@ -8425,7 +8456,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     endColumn?: boolean;
   }
 
-  export type FlexibleColumnLayout$ColumnResizeEvent = Event<FlexibleColumnLayout$ColumnResizeEventParameters>;
+  export type FlexibleColumnLayout$ColumnResizeEvent = Event<
+    FlexibleColumnLayout$ColumnResizeEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$EndColumnNavigateEventParameters {
     /**
@@ -8480,7 +8514,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$EndColumnNavigateEvent = Event<FlexibleColumnLayout$EndColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$EndColumnNavigateEvent = Event<
+    FlexibleColumnLayout$EndColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$MidColumnNavigateEventParameters {
     /**
@@ -8535,7 +8572,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
-  export type FlexibleColumnLayout$MidColumnNavigateEvent = Event<FlexibleColumnLayout$MidColumnNavigateEventParameters>;
+  export type FlexibleColumnLayout$MidColumnNavigateEvent = Event<
+    FlexibleColumnLayout$MidColumnNavigateEventParameters,
+    FlexibleColumnLayout
+  >;
 
   export interface FlexibleColumnLayout$StateChangeEventParameters {
     /**
@@ -8565,7 +8605,10 @@ declare module "sap/f/FlexibleColumnLayout" {
     isResize?: boolean;
   }
 
-  export type FlexibleColumnLayout$StateChangeEvent = Event<FlexibleColumnLayout$StateChangeEventParameters>;
+  export type FlexibleColumnLayout$StateChangeEvent = Event<
+    FlexibleColumnLayout$StateChangeEventParameters,
+    FlexibleColumnLayout
+  >;
 }
 
 declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
@@ -10338,7 +10381,10 @@ declare module "sap/f/GridContainer" {
     column?: int;
   }
 
-  export type GridContainer$BorderReachedEvent = Event<GridContainer$BorderReachedEventParameters>;
+  export type GridContainer$BorderReachedEvent = Event<
+    GridContainer$BorderReachedEventParameters,
+    GridContainer
+  >;
 
   export interface GridContainer$ColumnsChangeEventParameters {
     /**
@@ -10347,7 +10393,10 @@ declare module "sap/f/GridContainer" {
     columns?: int;
   }
 
-  export type GridContainer$ColumnsChangeEvent = Event<GridContainer$ColumnsChangeEventParameters>;
+  export type GridContainer$ColumnsChangeEvent = Event<
+    GridContainer$ColumnsChangeEventParameters,
+    GridContainer
+  >;
 
   export interface GridContainer$LayoutChangeEventParameters {
     /**
@@ -10356,7 +10405,10 @@ declare module "sap/f/GridContainer" {
     layout?: string;
   }
 
-  export type GridContainer$LayoutChangeEvent = Event<GridContainer$LayoutChangeEventParameters>;
+  export type GridContainer$LayoutChangeEvent = Event<
+    GridContainer$LayoutChangeEventParameters,
+    GridContainer
+  >;
 }
 
 declare module "sap/f/GridContainerItemLayoutData" {
@@ -11182,7 +11234,10 @@ declare module "sap/f/GridList" {
     column?: int;
   }
 
-  export type GridList$BorderReachedEvent = Event<GridList$BorderReachedEventParameters>;
+  export type GridList$BorderReachedEvent = Event<
+    GridList$BorderReachedEventParameters,
+    GridList
+  >;
 }
 
 declare module "sap/f/GridListItem" {
@@ -11868,7 +11923,10 @@ declare module "sap/f/ProductSwitch" {
     itemPressed?: ProductSwitchItem;
   }
 
-  export type ProductSwitch$ChangeEvent = Event<ProductSwitch$ChangeEventParameters>;
+  export type ProductSwitch$ChangeEvent = Event<
+    ProductSwitch$ChangeEventParameters,
+    ProductSwitch
+  >;
 }
 
 declare module "sap/f/ProductSwitchItem" {
@@ -13332,7 +13390,10 @@ declare module "sap/f/SearchManager" {
     newValue?: string;
   }
 
-  export type SearchManager$LiveChangeEvent = Event<SearchManager$LiveChangeEventParameters>;
+  export type SearchManager$LiveChangeEvent = Event<
+    SearchManager$LiveChangeEventParameters,
+    SearchManager
+  >;
 
   export interface SearchManager$SearchEventParameters {
     /**
@@ -13346,7 +13407,10 @@ declare module "sap/f/SearchManager" {
     clearButtonPressed?: boolean;
   }
 
-  export type SearchManager$SearchEvent = Event<SearchManager$SearchEventParameters>;
+  export type SearchManager$SearchEvent = Event<
+    SearchManager$SearchEventParameters,
+    SearchManager
+  >;
 
   export interface SearchManager$SuggestEventParameters {
     /**
@@ -13355,7 +13419,10 @@ declare module "sap/f/SearchManager" {
     suggestValue?: string;
   }
 
-  export type SearchManager$SuggestEvent = Event<SearchManager$SuggestEventParameters>;
+  export type SearchManager$SuggestEvent = Event<
+    SearchManager$SuggestEventParameters,
+    SearchManager
+  >;
 }
 
 declare module "sap/f/semantic/AddAction" {
@@ -19258,7 +19325,10 @@ declare module "sap/f/ShellBar" {
     avatar?: Avatar;
   }
 
-  export type ShellBar$AvatarPressedEvent = Event<ShellBar$AvatarPressedEventParameters>;
+  export type ShellBar$AvatarPressedEvent = Event<
+    ShellBar$AvatarPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$CopilotPressedEventParameters {
     /**
@@ -19267,7 +19337,10 @@ declare module "sap/f/ShellBar" {
     image?: Image;
   }
 
-  export type ShellBar$CopilotPressedEvent = Event<ShellBar$CopilotPressedEventParameters>;
+  export type ShellBar$CopilotPressedEvent = Event<
+    ShellBar$CopilotPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$HomeIconPressedEventParameters {
     /**
@@ -19276,7 +19349,10 @@ declare module "sap/f/ShellBar" {
     icon?: Image;
   }
 
-  export type ShellBar$HomeIconPressedEvent = Event<ShellBar$HomeIconPressedEventParameters>;
+  export type ShellBar$HomeIconPressedEvent = Event<
+    ShellBar$HomeIconPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$MenuButtonPressedEventParameters {
     /**
@@ -19285,7 +19361,10 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
-  export type ShellBar$MenuButtonPressedEvent = Event<ShellBar$MenuButtonPressedEventParameters>;
+  export type ShellBar$MenuButtonPressedEvent = Event<
+    ShellBar$MenuButtonPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$NavButtonPressedEventParameters {
     /**
@@ -19294,7 +19373,10 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
-  export type ShellBar$NavButtonPressedEvent = Event<ShellBar$NavButtonPressedEventParameters>;
+  export type ShellBar$NavButtonPressedEvent = Event<
+    ShellBar$NavButtonPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$NotificationsPressedEventParameters {
     /**
@@ -19303,7 +19385,10 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
-  export type ShellBar$NotificationsPressedEvent = Event<ShellBar$NotificationsPressedEventParameters>;
+  export type ShellBar$NotificationsPressedEvent = Event<
+    ShellBar$NotificationsPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$ProductSwitcherPressedEventParameters {
     /**
@@ -19312,7 +19397,10 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
-  export type ShellBar$ProductSwitcherPressedEvent = Event<ShellBar$ProductSwitcherPressedEventParameters>;
+  export type ShellBar$ProductSwitcherPressedEvent = Event<
+    ShellBar$ProductSwitcherPressedEventParameters,
+    ShellBar
+  >;
 
   export interface ShellBar$SearchButtonPressedEventParameters {
     /**
@@ -19321,7 +19409,10 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
-  export type ShellBar$SearchButtonPressedEvent = Event<ShellBar$SearchButtonPressedEventParameters>;
+  export type ShellBar$SearchButtonPressedEvent = Event<
+    ShellBar$SearchButtonPressedEventParameters,
+    ShellBar
+  >;
 }
 
 declare module "sap/f/SidePanel" {
@@ -19416,10 +19507,10 @@ declare module "sap/f/SidePanel" {
    * 	 - [Enter] - set the expanded side panel width to the default value defined in `sidePanelWidth` property
    *
    * 	 - [Shift]+[F10] or [Context menu] - show the resize context menu
-   * 	 - [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with the regular
-   *     step
-   * 	 - [Shift] + [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with
-   *     the larger step
+   * 	 - [Arrow Left] or [Arrow Up] / [Arrow Right] or [Arrow Down] - increase/decrease the width of the expanded
+   *     side panel with the regular step
+   * 	 - [Shift] + [Arrow Left] or [Shift] + [Arrow Up] / [Shift] + [Arrow Right] or [Shift] + [Arrow Down]
+   *     - increase/decrease the width of the expanded side panel with the larger step
    */
   export default class SidePanel extends Control {
     /**
@@ -20103,7 +20194,10 @@ declare module "sap/f/SidePanel" {
     expanded?: boolean;
   }
 
-  export type SidePanel$ToggleEvent = Event<SidePanel$ToggleEventParameters>;
+  export type SidePanel$ToggleEvent = Event<
+    SidePanel$ToggleEventParameters,
+    SidePanel
+  >;
 }
 
 declare module "sap/f/SidePanelItem" {
