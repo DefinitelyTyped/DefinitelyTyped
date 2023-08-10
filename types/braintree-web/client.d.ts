@@ -28,27 +28,6 @@ export interface Client {
     authorization: string;
 
     /**
-     * @description This function is the entry point for the <code>braintree.client</code> module.
-     * It is used for creating {@link Client} instances that service communication to Braintree servers.
-     *
-     * @example
-     * var createClient = require('braintree-web/client').create;
-     *
-     * createClient({
-     *   authorization: CLIENT_AUTHORIZATION
-     * }, function (createErr, clientInstance) {
-     *   ...
-     * });
-     */
-    create(options: { authorization: string }): Promise<Client>;
-    create(options: { authorization: string }, callback: callback): void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
-
-    /**
      * Returns a copy of the configuration values.
      */
     getConfiguration(): Configuration;
@@ -113,3 +92,19 @@ export interface Client {
      */
     teardown(callback: callback<void>): Promise<void>;
 }
+
+/**
+ * @description This function is the entry point for the <code>braintree.client</code> module.
+ * It is used for creating {@link Client} instances that service communication to Braintree servers.
+ *
+ * @example
+ * var createClient = require('braintree-web/client').create;
+ *
+ * createClient({
+ *   authorization: CLIENT_AUTHORIZATION
+ * }, function (createErr, clientInstance) {
+ *   ...
+ * });
+ */
+export function create(options: { authorization: string }): Promise<Client>;
+export function create(options: { authorization: string }, callback: callback): void;

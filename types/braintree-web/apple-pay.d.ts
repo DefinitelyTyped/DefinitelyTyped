@@ -207,14 +207,6 @@ export class ApplePaySession {
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
 export interface ApplePay {
-    create(options: { client: Client }): Promise<ApplePay>;
-    create(options: { client: Client }, callback?: callback<ApplePay>): void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
-
     /**
      * @description A special merchant ID which represents the merchant association with Braintree. Required when using ApplePaySession.canMakePaymentsWithActiveCard.
      */
@@ -323,3 +315,6 @@ export interface ApplePay {
     tokenize(options: { token: any }, callback: callback<ApplePayPayload>): void;
     tokenize(options: { token: any }): Promise<ApplePayPayload>;
 }
+
+export function create(options: { client: Client }): Promise<ApplePay>;
+export function create(options: { client: Client }, callback?: callback<ApplePay>): void;

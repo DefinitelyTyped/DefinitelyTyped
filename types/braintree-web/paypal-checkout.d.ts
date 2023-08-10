@@ -148,47 +148,12 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
 
 export interface PayPalCheckout {
     /**
-     * @description There are two ways to integrate the PayPal Checkout component.
-     * See the [PayPal Checkout constructor documentation](PayPalCheckout.html#PayPalCheckout) for more information and examples.
-     * @example
-     * braintree.client.create({
-     *   authorization: 'authorization'
-     * }).then(function (clientInstance) {
-     *   return braintree.paypalCheckout.create({
-     *     client: clientInstance
-     *   });
-     * }).then(function (paypalCheckoutInstance) {
-     *   // set up checkout.js
-     * }).catch(function (err) {
-     *   console.error('Error!', err);
-     * });
-     */
-    create(options: {
-        client?: Client | undefined;
-        authorization?: string | undefined;
-        merchantAccountId?: string | undefined;
-    }): Promise<PayPalCheckout>;
-    create(
-        options: {
-            client?: Client | undefined;
-            authorization?: string | undefined;
-            merchantAccountId?: string | undefined;
-        },
-        callback?: callback,
-    ): void;
-
-    /**
      * Resolves when the PayPal SDK has been succesfully loaded onto the page.
      *
      * @link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#loadPayPalSDK
      */
     loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<PayPalCheckout>;
     loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions, callback?: callback): void;
-
-    /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
-     */
-    VERSION: string;
 
     /**
      * Creates a PayPal payment ID or billing token using the given options. This is meant to be passed to PayPal's checkout.js library.
@@ -387,3 +352,33 @@ export interface PayPalCheckout {
     teardown(callback: () => void): void;
     teardown(): Promise<void>;
 }
+
+/**
+ * @description There are two ways to integrate the PayPal Checkout component.
+ * See the [PayPal Checkout constructor documentation](PayPalCheckout.html#PayPalCheckout) for more information and examples.
+ * @example
+ * braintree.client.create({
+ *   authorization: 'authorization'
+ * }).then(function (clientInstance) {
+ *   return braintree.paypalCheckout.create({
+ *     client: clientInstance
+ *   });
+ * }).then(function (paypalCheckoutInstance) {
+ *   // set up checkout.js
+ * }).catch(function (err) {
+ *   console.error('Error!', err);
+ * });
+ */
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    merchantAccountId?: string | undefined;
+}): Promise<PayPalCheckout>;
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        merchantAccountId?: string | undefined;
+    },
+    callback?: callback<PayPalCheckout>,
+): void;
