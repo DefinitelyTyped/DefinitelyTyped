@@ -82,294 +82,294 @@ export type MKDAAutolinkType = 1 | 2;
 // there is never any requirement that all these callbacks are present, so this
 // is passed through `NullableValues<T>` and/or `Partial<T>` before being used.
 interface AllCallbacks {
-	/**
-	 * Renders a code block. Syntax highlighting specific to lanugage may be
-	 * performed here.
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param language The name of the code langage.
-	 * @param context A renderer specific context object.
-	 */
-	blockcode(out: Buffer, text: Buffer, language: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a blockquote.
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param context A renderer specific context object.
-	 */
-	blockquote(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a block of HTML code.
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param context A renderer specific context object.
-	 */
-	blockhtml(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a header.
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param level The header level.
-	 * @param context A renderer specific context object.
-	 */
-	header(out: Buffer, text: Buffer, level: number, context?: RenderState): void;
-	/**
-	 * Renders a horizontal rule.
-	 * @param out The output string buffer to append to.
-	 * @param context A renderer specific context object.
-	 */
-	hrule(out: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a list.
-	 *
-	 * This method handles the list wrapper, which in terms of HTML would be
-	 * <ol> or <ul>. This method is not responsible for handling list
-	 * elements, all such processing should already have occured on text
-	 * pased to the method. All that it is intended to do is to wrap the
-	 * text parameter in anything needed.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<ul>" + text.s + "</ul>"
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The input that goes inside the list.
-	 * @param flags A bitfield holding a portion of the render state. The only
-	 * bit that this should be concerned with is MKD_LIST_ORDERED
-	 * @param context A renderer specific context object.
-	 */
-	list(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
-	/**
-	 * Renders a list.
-	 *
-	 * @example Wraps the text in a list element.
-	 * ```js
-	 * out.s += "<li>;" + text.s + "</li>"
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The contents of the list element.
-	 * @param flags A bitfield holding a portion of the render state. The only
-	 * bit that this should be concerned with is MKD_LI_BLOCK.
-	 * @param context A renderer specific context object.
-	 */
-	listitem(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
-	/**
-	 * Renders a paragraph.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<p>" + text.s + "</p>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param context A renderer specific context object.
-	 */
-	paragraph(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a table.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<table><thead>";
-	 * out.s += header.s;
-	 * out.s += "</thead><tbody>";
-	 * out.s += body.s;
-	 * out.s += "</tbody></table>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param head The table header.
-	 * @param body The table body.
-	 * @param context A renderer specific context object.
-	 */
-	table(out: Buffer, head: Buffer, body: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a table row.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<tr>" + text.s + "</tr>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param context A renderer specific context object.
-	 */
-	table_row(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Renders a table cell.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<td>" + text.s + "</td>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param flags A bit filed indicating a portion of the output state.
-	 * Relevant bits are: MKD_TABLE_HEADER, MKD_TABLE_ALIGN_CENTER.
-	 * MKD_TABLE_ALIGN_L, and MKD_TABLE_ALIGN_R.
-	 * @param context A renderer specific context object.
-	 */
-	table_cell(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
-	/**
-	 * Renders a link that was autodetected.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<a href=\""+ text.s + "\">" + text.s + "</a>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The address being linked to.
-	 * @param type Equal to {@linkcode SnuOwnd.MKDA_NORMAL} or {@linkcode SnuOwnd.MKDA_EMAIL}
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	autolink(out: Buffer, text: Buffer, type: SnuOwnd.MKDAAutolinkType, context?: RenderState): boolean;
-	/**
-	 * Renders inline code.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	codespan(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders text with double emphasis. Default is equivalent to the HTML
-	 * <strong> tag.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	double_emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders text with single emphasis. Default is equivalent to the HTML <em>
-	 * tag.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders an image.
-	 *
-	 * @example
-	 * ```js
-	 * out.s = "<img src=\"" + link.s + "\" title=\"" + title.s + "\"  alt=\"" + alt.s + "\"/>";"
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param link The address of the image.
-	 * @param title Title text for the image
-	 * @param alt Alt text for the image
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	image(out: Buffer, link: Buffer, title: Buffer, alt: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders line break.
-	 *
-	 * @example
-	 * ```js
-	 * out.s += "<br/>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	linebreak(out: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders a link.
-	 *
-	 * @example
-	 * ```js
-	 * out.s = "<a href=\"" + link.s + "\" title=\"" + title.s + "\">" + content.s + "</a>";
-	 * ```
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param link The link address.
-	 * @param title Title text for the link.
-	 * @param content Link text.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	link(out: Buffer, link: Buffer, title: Buffer, content: Buffer, context?: RenderState): boolean;
-	/**
-	 * Copies and potentially escapes some HTML.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The input text.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	raw_html_tag(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders text with triple emphasis. Default is equivalent to both the <em> and <strong> HTML tags.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	triple_emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders text crossd out.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	strikethrough(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Renders text as superscript.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 * @returns Whether or not the tag was rendered.
-	 */
-	superscript(out: Buffer, text: Buffer, context?: RenderState): boolean;
-	/**
-	 * Escapes an HTML entity.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being wrapped.
-	 * @param context A renderer specific context object.
-	 */
-	entity(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Renders plain text.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param text The text being rendered.
-	 * @param context A renderer specific context object.
-	 */
-	normal_text(out: Buffer, text: Buffer, context?: RenderState): void;
-	/**
-	 * Creates opening boilerplate for a table of contents.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param context A renderer specific context object.
-	 */
-	doc_header(out: Buffer, context?: RenderState): void;
-	/**
-	 * Creates closing boilerplate for a table of contents.
-	 *
-	 * @param out The output string buffer to append to.
-	 * @param context A renderer specific context object.
-	 */
-	doc_footer(out: Buffer, context?: RenderState): void;
+    /**
+     * Renders a code block. Syntax highlighting specific to lanugage may be
+     * performed here.
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param language The name of the code langage.
+     * @param context A renderer specific context object.
+     */
+    blockcode(out: Buffer, text: Buffer, language: Buffer, context?: RenderState): void;
+    /**
+     * Renders a blockquote.
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param context A renderer specific context object.
+     */
+    blockquote(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Renders a block of HTML code.
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param context A renderer specific context object.
+     */
+    blockhtml(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Renders a header.
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param level The header level.
+     * @param context A renderer specific context object.
+     */
+    header(out: Buffer, text: Buffer, level: number, context?: RenderState): void;
+    /**
+     * Renders a horizontal rule.
+     * @param out The output string buffer to append to.
+     * @param context A renderer specific context object.
+     */
+    hrule(out: Buffer, context?: RenderState): void;
+    /**
+     * Renders a list.
+     *
+     * This method handles the list wrapper, which in terms of HTML would be
+     * <ol> or <ul>. This method is not responsible for handling list
+     * elements, all such processing should already have occured on text
+     * pased to the method. All that it is intended to do is to wrap the
+     * text parameter in anything needed.
+     *
+     * @example
+     * ```js
+     * out.s += "<ul>" + text.s + "</ul>"
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The input that goes inside the list.
+     * @param flags A bitfield holding a portion of the render state. The only
+     * bit that this should be concerned with is MKD_LIST_ORDERED
+     * @param context A renderer specific context object.
+     */
+    list(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
+    /**
+     * Renders a list.
+     *
+     * @example Wraps the text in a list element.
+     * ```js
+     * out.s += "<li>;" + text.s + "</li>"
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The contents of the list element.
+     * @param flags A bitfield holding a portion of the render state. The only
+     * bit that this should be concerned with is MKD_LI_BLOCK.
+     * @param context A renderer specific context object.
+     */
+    listitem(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
+    /**
+     * Renders a paragraph.
+     *
+     * @example
+     * ```js
+     * out.s += "<p>" + text.s + "</p>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param context A renderer specific context object.
+     */
+    paragraph(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Renders a table.
+     *
+     * @example
+     * ```js
+     * out.s += "<table><thead>";
+     * out.s += header.s;
+     * out.s += "</thead><tbody>";
+     * out.s += body.s;
+     * out.s += "</tbody></table>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param head The table header.
+     * @param body The table body.
+     * @param context A renderer specific context object.
+     */
+    table(out: Buffer, head: Buffer, body: Buffer, context?: RenderState): void;
+    /**
+     * Renders a table row.
+     *
+     * @example
+     * ```js
+     * out.s += "<tr>" + text.s + "</tr>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param context A renderer specific context object.
+     */
+    table_row(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Renders a table cell.
+     *
+     * @example
+     * ```js
+     * out.s += "<td>" + text.s + "</td>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param flags A bit filed indicating a portion of the output state.
+     * Relevant bits are: MKD_TABLE_HEADER, MKD_TABLE_ALIGN_CENTER.
+     * MKD_TABLE_ALIGN_L, and MKD_TABLE_ALIGN_R.
+     * @param context A renderer specific context object.
+     */
+    table_cell(out: Buffer, text: Buffer, flags: number, context?: RenderState): void;
+    /**
+     * Renders a link that was autodetected.
+     *
+     * @example
+     * ```js
+     * out.s += "<a href=\""+ text.s + "\">" + text.s + "</a>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param text The address being linked to.
+     * @param type Equal to {@linkcode SnuOwnd.MKDA_NORMAL} or {@linkcode SnuOwnd.MKDA_EMAIL}
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    autolink(out: Buffer, text: Buffer, type: SnuOwnd.MKDAAutolinkType, context?: RenderState): boolean;
+    /**
+     * Renders inline code.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    codespan(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders text with double emphasis. Default is equivalent to the HTML
+     * <strong> tag.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    double_emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders text with single emphasis. Default is equivalent to the HTML <em>
+     * tag.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders an image.
+     *
+     * @example
+     * ```js
+     * out.s = "<img src=\"" + link.s + "\" title=\"" + title.s + "\"  alt=\"" + alt.s + "\"/>";"
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param link The address of the image.
+     * @param title Title text for the image
+     * @param alt Alt text for the image
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    image(out: Buffer, link: Buffer, title: Buffer, alt: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders line break.
+     *
+     * @example
+     * ```js
+     * out.s += "<br/>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    linebreak(out: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders a link.
+     *
+     * @example
+     * ```js
+     * out.s = "<a href=\"" + link.s + "\" title=\"" + title.s + "\">" + content.s + "</a>";
+     * ```
+     *
+     * @param out The output string buffer to append to.
+     * @param link The link address.
+     * @param title Title text for the link.
+     * @param content Link text.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    link(out: Buffer, link: Buffer, title: Buffer, content: Buffer, context?: RenderState): boolean;
+    /**
+     * Copies and potentially escapes some HTML.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The input text.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    raw_html_tag(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders text with triple emphasis. Default is equivalent to both the <em> and <strong> HTML tags.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    triple_emphasis(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders text crossd out.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    strikethrough(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Renders text as superscript.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     * @returns Whether or not the tag was rendered.
+     */
+    superscript(out: Buffer, text: Buffer, context?: RenderState): boolean;
+    /**
+     * Escapes an HTML entity.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being wrapped.
+     * @param context A renderer specific context object.
+     */
+    entity(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Renders plain text.
+     *
+     * @param out The output string buffer to append to.
+     * @param text The text being rendered.
+     * @param context A renderer specific context object.
+     */
+    normal_text(out: Buffer, text: Buffer, context?: RenderState): void;
+    /**
+     * Creates opening boilerplate for a table of contents.
+     *
+     * @param out The output string buffer to append to.
+     * @param context A renderer specific context object.
+     */
+    doc_header(out: Buffer, context?: RenderState): void;
+    /**
+     * Creates closing boilerplate for a table of contents.
+     *
+     * @param out The output string buffer to append to.
+     * @param context A renderer specific context object.
+     */
+    doc_footer(out: Buffer, context?: RenderState): void;
 }
 
 /**

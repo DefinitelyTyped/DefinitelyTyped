@@ -6,9 +6,9 @@ SnuOwnd.getParser(SnuOwnd.getTocRenderer()).render(''); // $ExpectType string
 
 // Constructing a custom parser with totally fresh callbacks and state
 const customCallbacks = SnuOwnd.createCustomCallbacks({
-	blockcode(out, text, language, context) {
-		out.s; // $ExpectType string
-	},
+    blockcode(out, text, language, context) {
+        out.s; // $ExpectType string
+    },
 });
 const customState = SnuOwnd.defaultRenderState();
 customState.flags = customState.flags | SnuOwnd.HTML_TOC;
