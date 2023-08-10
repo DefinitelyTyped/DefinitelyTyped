@@ -37,12 +37,12 @@ declare class NPMCliPackageJson {
      *
      * @async
      */
-    static create(
+    static create: (
         path: string,
         opts?: {
             data?: NPMCliPackageJson.Content;
         },
-    ): Promise<NPMCliPackageJson>;
+    ) => Promise<NPMCliPackageJson>;
 
     /**
      * Load a package.json at given path and JSON parses.
@@ -66,58 +66,58 @@ declare class NPMCliPackageJson {
      *
      * @async
      */
-    static fix(path: string, opts?: NormalizeOptions): Promise<NPMCliPackageJson>;
+    static fix: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
 
     /**
      * read-package-json compatible behavior
      *
      * @async
      */
-    static prepare(path: string, opts?: NormalizeOptions): Promise<NPMCliPackageJson>;
+    static prepare: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
 
     /**
      * read-package-json-fast compatible behavior
      *
      * @async
      */
-    static normalize(path: string, opts?: NormalizeOptions): Promise<NPMCliPackageJson>;
+    static normalize: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
 
     /**
      * Load content from given path
      *
      * @async
      */
-    load(path: string, parseIndex?: boolean): Promise<this>;
+    load: (path: string, parseIndex?: boolean) => Promise<this>;
 
     /**
      * Load data from a JSON string
      */
-    fromJSON(data: string): this;
+    fromJSON: (data: string) => this;
 
     /**
      * Load data from a comment
      */
-    fromComment(data: string): this;
+    fromComment: (data: string) => this;
 
     content: NPMCliPackageJson.Content;
     path: string;
     filename: string | undefined;
 
-    create(path: string): this;
+    create: (path: string) => this;
 
-    update(content: NPMCliPackageJson.Content): this;
-
-    /** @async */
-    save(): Promise<void>;
+    update: (content: NPMCliPackageJson.Content) => this;
 
     /** @async */
-    normalize(opts?: NormalizeOptions): Promise<this>;
+    save: () => Promise<void>;
 
     /** @async */
-    prepare(opts?: NormalizeOptions): Promise<this>;
+    normalize: (opts?: NormalizeOptions) => Promise<this>;
 
     /** @async */
-    fix(opts?: NormalizeOptions): Promise<this>;
+    prepare: (opts?: NormalizeOptions) => Promise<this>;
+
+    /** @async */
+    fix: (opts?: NormalizeOptions) => Promise<this>;
 }
 
 declare namespace NPMCliPackageJson {
