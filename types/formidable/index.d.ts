@@ -189,7 +189,7 @@ declare namespace formidable {
          *
          * @default false
          */
-        createDirsFromUploads?: boolean;
+        createDirsFromUploads?: boolean | undefined;
 
         /**
          * Use it to control newFilename. Must return a string. Will be joined with
