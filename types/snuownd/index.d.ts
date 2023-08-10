@@ -380,7 +380,7 @@ export type Callbacks = NullableValues<AllCallbacks>;
 
 /**
  * Create a Callbacks object with the given callback table.
- * @param callbacks A table of callbacks to place int a callbacks object.
+ * @param callbacks A table of callbacks to place into a callbacks object.
  * @returns A callbacks object holding the provided callbacks.
  */
 export function createCustomCallbacks(callbacks?: Partial<Callbacks>): Callbacks;
