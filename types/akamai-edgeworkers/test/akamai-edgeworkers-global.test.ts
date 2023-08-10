@@ -92,6 +92,11 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
     if (target != null && target[0] === 'onOriginResponse-respondWith') {
         request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
     }
+
+    // verify wasTerminated() returns a boolean
+    if (request.wasTerminated()) {
+        request.respondWith(419, {}, 'overwritten!');
+    }
 }
 
 export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {
