@@ -1,7 +1,9 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/mdc/BaseDelegate" {
   import Control from "sap/ui/mdc/Control";
+
+  import TypeMap from "sap/ui/mdc/util/TypeMap";
 
   /**
    * @since 1.79.0
@@ -10,8 +12,8 @@ declare module "sap/ui/mdc/BaseDelegate" {
    *
    *
    * All delegate implementations for MDC controls must be derived directly or indirectly from this entity.
-   * Applications should implement {@link sap.ui.mdc.BaseDelegate.getTypeMap getTypeMap} to provide type mappings
-   * based on their model usage. Please also see the following extensible presets: {@link sap.ui.mdc.DefaultTypeMap},
+   * Applications should implement {@link module:sap/ui/mdc/BaseDelegate.getTypeMap getTypeMap} to provide
+   * type mappings based on their model usage. Please also see the following extensible presets: {@link sap.ui.mdc.DefaultTypeMap},
    * {@link sap.ui.mdc.odata.TypeMap}, {@link sap.ui.mdc.odata.v4.TypeMap}
    */
   interface BaseDelegate {
@@ -28,7 +30,7 @@ declare module "sap/ui/mdc/BaseDelegate" {
        * Delegate payload object
        */
       oControl: Control
-    ): /* was: sap.ui.mdc.util.TypeMap */ any;
+    ): TypeMap;
   }
   const BaseDelegate: BaseDelegate;
   export default BaseDelegate;
@@ -1168,7 +1170,16 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
       /**
        * The binding instance of the table
        */
-      oBinding?: ListBinding
+      oBinding?: ListBinding,
+      /**
+       * Additional settings
+       */
+      mSettings?: {
+        /**
+         * Indicates that the binding has to be refreshed even if `oBindingInfo` has not been changed
+         */
+        forceRefresh?: boolean;
+      }
     ): void;
   }
   const TableDelegate: TableDelegate;
@@ -1382,7 +1393,16 @@ declare module "sap/ui/mdc/TableDelegate" {
       /**
        * The binding instance of the table
        */
-      oBinding?: ListBinding
+      oBinding?: ListBinding,
+      /**
+       * Additional settings
+       */
+      mSettings?: {
+        /**
+         * Indicates that the binding has to be refreshed even if `oBindingInfo` has not been changed
+         */
+        forceRefresh?: boolean;
+      }
     ): void;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -1426,6 +1446,11 @@ declare module "sap/ui/mdc/util/TypeMap" {
      */
     export(): any[];
     /**
+     * Converts a value into a string using a designated type.
+     *
+     * The value is not checked for validity. The used values must be compatible with the used basic type.
+     *
+     * **Note:** Number types are not converted, the number conversion is done by the SAPUI5 Flexibility handling.
      *
      * @returns converted value
      */
@@ -1452,6 +1477,11 @@ declare module "sap/ui/mdc/util/TypeMap" {
      */
     freeze(): void;
     /**
+     * To determine which internal controls to render, the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.MultiValueField MultiValueField},
+     * or {@link sap.ui.mdc.FilterField FilterField} controls need to know if the type represents a date, a
+     * number, or another {@link sap.ui.mdc.enums.BaseType BaseType}.
+     *
+     * As default, `String` is returned.
      *
      * @returns output `Date`, `DateTime` or `Time`...
      */
@@ -1470,6 +1500,7 @@ declare module "sap/ui/mdc/util/TypeMap" {
       oConstraints: object
     ): BaseType | keyof typeof BaseType;
     /**
+     * Convenience method to retrieve the `BaseType` for a given {@link sap.ui.model.SimpleType SimpleType}.
      *
      * @returns output `Date`, `DateTime` or `Time`...
      */
@@ -1478,8 +1509,11 @@ declare module "sap/ui/mdc/util/TypeMap" {
        * Given type string or {@link sap.ui.model.SimpleType}
        */
       oType: SimpleType
-    ): string;
+    ): BaseType | keyof typeof BaseType;
     /**
+     * Returns a data type class based on a given name.
+     *
+     * **Note:** The module of the data type needs to be loaded before.
      *
      * @returns creates returns a dataType class
      */
@@ -1490,6 +1524,7 @@ declare module "sap/ui/mdc/util/TypeMap" {
       sDataType: string
     ): SimpleType;
     /**
+     * Returns the data type class name for a given name or alias.
      *
      * @returns Data type name
      */
@@ -1500,6 +1535,7 @@ declare module "sap/ui/mdc/util/TypeMap" {
       sType: string
     ): string;
     /**
+     * Returns a data type instance based on a given object path, `FormatOptions`, and `Constraints`.
      *
      * @returns creates returns an instance of the resolved dataType
      */
@@ -1522,6 +1558,7 @@ declare module "sap/ui/mdc/util/TypeMap" {
       oOptions?: object
     ): SimpleType;
     /**
+     * Returns a type mapping configuration object for a given type string or {@link sap.ui.model.SimpleType SimpleType}.
      *
      * @returns output returns typeConfig object
      */
@@ -1546,9 +1583,14 @@ declare module "sap/ui/mdc/util/TypeMap" {
       /**
        * TypeMap to import
        */
-      oTypeMap: /* was: sap.ui.mdc.util.TypeMap */ any
+      oTypeMap: TypeMap
     ): void;
     /**
+     * Converts a string into a type-based value.
+     *
+     * The value is not checked for validity. The used values must be compatible with the used basic type.
+     *
+     * **Note:** Number types are not converted, the number conversion is done by the SAPUI5 Flexibility handling.
      *
      * @returns converted value
      */
@@ -4100,7 +4142,10 @@ declare module "sap/ui/mdc/Chart" {
       | keyof typeof SelectionDetailsActionLevel;
   }
 
-  export type Chart$SelectionDetailsActionPressedEvent = Event<Chart$SelectionDetailsActionPressedEventParameters>;
+  export type Chart$SelectionDetailsActionPressedEvent = Event<
+    Chart$SelectionDetailsActionPressedEventParameters,
+    Chart
+  >;
 }
 
 declare module "sap/ui/mdc/chart/ChartImplementationContainer" {
@@ -4903,8 +4948,8 @@ declare module "sap/ui/mdc/condition/Condition" {
   /**
    * @since 1.61.0
    *
-   * Utilities to create conditions to be used in {@link sap.ui.mdc.FilterField FilterField}, {@link sap.ui.mdc.FilterBar FilterBar }
-   * or {@link sap.ui.mdc.condition.ConditionModel ConditionModel}
+   * Utilities to create conditions to be used in {@link sap.ui.mdc.FilterField FilterField}, {@link sap.ui.mdc.FilterBar FilterBar},
+   * or {@link sap.ui.mdc.condition.ConditionModel ConditionModel}.
    */
   interface Condition {
     /**
@@ -4931,7 +4976,7 @@ declare module "sap/ui/mdc/condition/Condition" {
       oOutParameters: object,
       /**
        * If set to `ConditionValidated.Validated`, the condition is validated (by the field help) and not shown
-       * in the `DefineConditionPanel` control
+       * in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions} content
        */
       sValidated: ConditionValidated | keyof typeof ConditionValidated,
       /**
@@ -4959,7 +5004,7 @@ declare module "sap/ui/mdc/condition/Condition" {
       oInParameters: object,
       /**
        * If set to `ConditionValidated.Validated`, the condition is validated (by the field help) and not shown
-       * in the `DefineConditionPanel` control
+       * in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions} content
        */
       sValidated: ConditionValidated | keyof typeof ConditionValidated,
       /**
@@ -4987,7 +5032,7 @@ declare module "sap/ui/mdc/condition/Condition" {
       oOutParameters: object,
       /**
        * If set to `ConditionValidated.Validated`, the condition is validated (by the field help) and not shown
-       * in the `DefineConditionPanel` control
+       * in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions} content
        */
       sValidated: ConditionValidated | keyof typeof ConditionValidated,
       /**
@@ -5011,7 +5056,7 @@ declare module "sap/ui/mdc/condition/Condition" {
       aValues: any[],
       /**
        * If set to `ConditionValidated.Validated`, the condition is validated (by the field help) and not shown
-       * in the `DefineConditionPanel` control
+       * in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions} content
        */
       sValidated: ConditionValidated | keyof typeof ConditionValidated,
       /**
@@ -5077,12 +5122,12 @@ declare module "sap/ui/mdc/condition/Condition" {
      */
     outParameters?: object;
     /**
-     * If set, the condition is empty (used as dummy condition in {@link sap.ui.mdc.valuehelp.base.DefineConditionPanel DefineConditionPanel})
+     * If set, the condition is empty (used as initially empty condition in {@link sap.ui.mdc.valuehelp.content.Conditions Conditions})
      */
     isEmpty?: boolean;
     /**
      * If set to `ConditionValidated.Validated`, the condition is validated (by the value help) and not shown
-     * in the {@link sap.ui.mdc.valuehelp.base.DefineConditionPanel DefineConditionPanel} control
+     * in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions} content
      */
     validated: ConditionValidated | keyof typeof ConditionValidated;
     /**
@@ -5362,7 +5407,7 @@ declare module "sap/ui/mdc/condition/Operator" {
          */
         isEmpty?: Function;
         /**
-         * Function to create a control to be used in {@link sap.ui.mdc.valuehelp.base.DefineConditionPanel DefineConditionPanel}
+         * Function to create a control to be used in {@link sap.ui.mdc.valuehelp.content.Conditions Conditions}
          */
         createControl?: Function;
         /**
@@ -5535,7 +5580,11 @@ declare module "sap/ui/mdc/Control" {
     $ControlSettings as $ControlSettings1,
   } from "sap/ui/core/Control";
 
+  import BaseDelegate from "sap/ui/mdc/BaseDelegate";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import TypeMap from "sap/ui/mdc/util/TypeMap";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -5586,7 +5635,7 @@ declare module "sap/ui/mdc/Control" {
      *
      * @returns Returns a `Promise` reflecting the delegate initialization
      */
-    static awaitControlDelegate(): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
+    static awaitControlDelegate(): Promise<BaseDelegate>;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5640,7 +5689,7 @@ declare module "sap/ui/mdc/Control" {
      *
      * @returns `typeUtil` made available by a delegate module
      */
-    static getControlDelegate(): /* was: sap.ui.mdc.BaseDelegate */ any;
+    static getControlDelegate(): BaseDelegate;
     /**
      * Returns a metadata object for class sap.ui.mdc.Control.
      *
@@ -5666,18 +5715,16 @@ declare module "sap/ui/mdc/Control" {
      *
      * @returns `TypeMap` object
      */
-    static getTypeMap(): /* was: sap.ui.mdc.util.TypeMap */ any;
+    static getTypeMap(): TypeMap;
     /**
-     * @deprecated - (since 1.115.0) - please see {@link #getTypeMap}
+     * @deprecated (since 1.115.0) - please see {@link #getTypeMap}
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `typeUtil` made available by a delegate module.
      *
      * @returns `TypeUtil` object
      */
-    static getTypeUtil(): /* was: sap.ui.mdc.util.TypeUtil */
-      | any
-      | /* was: sap.ui.mdc.util.TypeMap */ any;
+    static getTypeUtil(): /* was: sap.ui.mdc.util.TypeUtil */ any | TypeMap;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5689,8 +5736,8 @@ declare module "sap/ui/mdc/Control" {
       /**
        * Preloaded delegate module
        */
-      oPreloadedModule?: /* was: sap.ui.mdc.BaseDelegate */ any
-    ): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
+      oPreloadedModule?: BaseDelegate
+    ): Promise<BaseDelegate>;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5774,7 +5821,11 @@ declare module "sap/ui/mdc/Element" {
     $ElementSettings as $ElementSettings1,
   } from "sap/ui/core/Element";
 
+  import BaseDelegate from "sap/ui/mdc/BaseDelegate";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import TypeMap from "sap/ui/mdc/util/TypeMap";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -5825,7 +5876,7 @@ declare module "sap/ui/mdc/Element" {
      *
      * @returns Returns a `Promise` reflecting the delegate initialization
      */
-    static awaitControlDelegate(): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
+    static awaitControlDelegate(): Promise<BaseDelegate>;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5879,7 +5930,7 @@ declare module "sap/ui/mdc/Element" {
      *
      * @returns `typeUtil` made available by a delegate module
      */
-    static getControlDelegate(): /* was: sap.ui.mdc.BaseDelegate */ any;
+    static getControlDelegate(): BaseDelegate;
     /**
      * Returns a metadata object for class sap.ui.mdc.Element.
      *
@@ -5905,18 +5956,16 @@ declare module "sap/ui/mdc/Element" {
      *
      * @returns `TypeMap` object
      */
-    static getTypeMap(): /* was: sap.ui.mdc.util.TypeMap */ any;
+    static getTypeMap(): TypeMap;
     /**
-     * @deprecated - (since 1.115.0) - please see {@link #getTypeMap}
+     * @deprecated (since 1.115.0) - please see {@link #getTypeMap}
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the `typeUtil` made available by a delegate module.
      *
      * @returns `TypeUtil` object
      */
-    static getTypeUtil(): /* was: sap.ui.mdc.util.TypeUtil */
-      | any
-      | /* was: sap.ui.mdc.util.TypeMap */ any;
+    static getTypeUtil(): /* was: sap.ui.mdc.util.TypeUtil */ any | TypeMap;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5928,8 +5977,8 @@ declare module "sap/ui/mdc/Element" {
       /**
        * Preloaded delegate module
        */
-      oPreloadedModule?: /* was: sap.ui.mdc.BaseDelegate */ any
-    ): Promise</* was: sap.ui.mdc.BaseDelegate */ any>;
+      oPreloadedModule?: BaseDelegate
+    ): Promise<BaseDelegate>;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -6825,7 +6874,7 @@ declare module "sap/ui/mdc/Field" {
     promise?: Promise<any>;
   }
 
-  export type Field$ChangeEvent = Event<Field$ChangeEventParameters>;
+  export type Field$ChangeEvent = Event<Field$ChangeEventParameters, Field>;
 }
 
 declare module "sap/ui/mdc/field/ConditionsType" {
@@ -7409,6 +7458,8 @@ declare module "sap/ui/mdc/field/FieldBase" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import { ConditionObject } from "sap/ui/mdc/condition/Condition";
+
   import BaseType from "sap/ui/mdc/enums/BaseType";
 
   import FieldDisplay from "sap/ui/mdc/enums/FieldDisplay";
@@ -7426,7 +7477,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
   /**
    * @since 1.58.0
    *
-   * The `FieldBase` control is the base class for the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.MultiValueField MultiValueField }
+   * The `FieldBase` control is the base class for the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.MultiValueField MultiValueField},
    * and {@link sap.ui.mdc.FilterField FilterField} controls. It must not be used stand-alone.
    */
   export default class FieldBase
@@ -7800,7 +7851,25 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * Here inheriting controls need to fire the control-specific change event.
      */
-    fireChangeEvent(): void;
+    fireChangeEvent(
+      /**
+       * Current conditions after change
+       */
+      aConditions: ConditionObject[],
+      /**
+       * If `false`, the user input is not valid and leads to an error
+       */
+      bValid: boolean,
+      /**
+       * wrong user input (only set if known)
+       */
+      vWrongValue: any,
+      /**
+       * `Promise` that is resolved if the changed value is determined, as user might enter some description,
+       * and the key neeeds to be determined via back-end request.
+       */
+      oPromise: Promise<any>
+    ): void;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -7962,7 +8031,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * @returns Array of content controls
      */
-    getCurrentContent(): /* was: sap.ui.core.Conterol */ any[];
+    getCurrentContent(): Control1[];
     /**
      * Gets current value of property {@link #getDataType dataType}.
      *
@@ -8249,6 +8318,23 @@ declare module "sap/ui/mdc/field/FieldBase" {
        */
       oEvent: object
     ): void;
+    /**
+     * @since 1.117.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Returns the user interaction state of the control.
+     *
+     * If the user starts typing or navigates via arrow keys in a value help, the shown value might be updated.
+     * But as long as the user has not left the field or pressed the Enter key, the current user input will
+     * not be validated or updated or an event fired.
+     *
+     * As long as the user is interacting with the field, this function returns `true`. If the user interaction
+     * has been completed because the user has left the field, pressed the Enter key, or chosen a value from
+     * the value help, the function returns `false`.
+     *
+     * @returns `true` if there is a pending user input
+     */
+    hasPendingUserInput(): boolean;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -9110,11 +9196,17 @@ declare module "sap/ui/mdc/field/FieldBase" {
     previousValue?: string;
   }
 
-  export type FieldBase$LiveChangeEvent = Event<FieldBase$LiveChangeEventParameters>;
+  export type FieldBase$LiveChangeEvent = Event<
+    FieldBase$LiveChangeEventParameters,
+    FieldBase
+  >;
 
   export interface FieldBase$PressEventParameters {}
 
-  export type FieldBase$PressEvent = Event<FieldBase$PressEventParameters>;
+  export type FieldBase$PressEvent = Event<
+    FieldBase$PressEventParameters,
+    FieldBase
+  >;
 
   export interface FieldBase$SubmitEventParameters {
     /**
@@ -9125,7 +9217,10 @@ declare module "sap/ui/mdc/field/FieldBase" {
     promise?: Promise<any>;
   }
 
-  export type FieldBase$SubmitEvent = Event<FieldBase$SubmitEventParameters>;
+  export type FieldBase$SubmitEvent = Event<
+    FieldBase$SubmitEventParameters,
+    FieldBase
+  >;
 }
 
 declare module "sap/ui/mdc/field/FieldInfoBase" {
@@ -9133,11 +9228,11 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
 
   import Event from "sap/ui/base/Event";
 
+  import Control from "sap/ui/core/Control";
+
   import { DirectLinkObject } from "sap/ui/mdc/Link";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import Control from "sap/ui/core/Control";
 
   /**
    * @since 1.54.0
@@ -9381,7 +9476,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
        * Function returning the `Popover` control that is created in `createPopover`
        */
       fnGetAutoClosedControl?: Function
-    ): Promise</* was: sap.ui.Control */ any>;
+    ): Promise<Control>;
     /**
      * Returns a `Promise` resolving into an {@link sap.ui.mdc.link.DirectLinkObject} containing the `href`
      * and `target` of a direct navigation link. Returns a `Promise` resolving into null if there is no direct
@@ -9439,11 +9534,17 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
 
   export interface FieldInfoBase$DataUpdateEventParameters {}
 
-  export type FieldInfoBase$DataUpdateEvent = Event<FieldInfoBase$DataUpdateEventParameters>;
+  export type FieldInfoBase$DataUpdateEvent = Event<
+    FieldInfoBase$DataUpdateEventParameters,
+    FieldInfoBase
+  >;
 
   export interface FieldInfoBase$PopoverAfterOpenEventParameters {}
 
-  export type FieldInfoBase$PopoverAfterOpenEvent = Event<FieldInfoBase$PopoverAfterOpenEventParameters>;
+  export type FieldInfoBase$PopoverAfterOpenEvent = Event<
+    FieldInfoBase$PopoverAfterOpenEventParameters,
+    FieldInfoBase
+  >;
 }
 
 declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
@@ -9847,8 +9948,6 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
 
   import FilterField from "sap/ui/mdc/FilterField";
 
-  import Event from "sap/ui/base/Event";
-
   import FilterBarValidationStatus from "sap/ui/mdc/enums/FilterBarValidationStatus";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -9861,6 +9960,8 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @since 1.80.0
@@ -10014,7 +10115,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FilterBarBase$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.mdc.filterbar.FilterBarBase`
        * itself
@@ -10037,7 +10138,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FilterBarBase$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.mdc.filterbar.FilterBarBase`
        * itself
@@ -10092,7 +10193,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FilterBarBase$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10122,7 +10223,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: FilterBarBase$SearchEventParameters
     ): this;
     /**
      * Returns the labels of all filters with a value assignment.
@@ -10620,7 +10721,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * **Note**: This event should never be executed programmatically. It is triggered internally by the filter
      * bar after a `triggerSearch` has been executed
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: FilterBarBase$SearchEvent) => void;
 
     /**
      * This event is fired after either a filter value or the visibility of a filter item has been changed.
@@ -10645,11 +10746,28 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     filtersTextExpanded?: string;
   }
 
-  export type FilterBarBase$FiltersChangedEvent = Event<FilterBarBase$FiltersChangedEventParameters>;
+  export type FilterBarBase$FiltersChangedEvent = Event<
+    FilterBarBase$FiltersChangedEventParameters,
+    FilterBarBase
+  >;
 
-  export interface FilterBarBase$SearchEventParameters {}
+  export interface FilterBarBase$SearchEventParameters {
+    /**
+     * Indicates the initial reason for the search. This can either be:
+     *
+     * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Variant}`: Search is triggered based on variant settings
+     * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Enter}`: Search is triggered based on pressing Enter in a filter
+     *     field
+     * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Go}`: Search is triggered based on pressing the Go button
+     * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Unclear}`: Any other reasons for the search
+     */
+    reason?: /* was: sap.ui.mdc.enums.ReasonMode */ any;
+  }
 
-  export type FilterBarBase$SearchEvent = Event<FilterBarBase$SearchEventParameters>;
+  export type FilterBarBase$SearchEvent = Event<
+    FilterBarBase$SearchEventParameters,
+    FilterBarBase
+  >;
 }
 
 declare module "sap/ui/mdc/filterbar/IFilterContainer" {
@@ -11536,7 +11654,10 @@ declare module "sap/ui/mdc/FilterField" {
     promise?: boolean;
   }
 
-  export type FilterField$ChangeEvent = Event<FilterField$ChangeEventParameters>;
+  export type FilterField$ChangeEvent = Event<
+    FilterField$ChangeEventParameters,
+    FilterField
+  >;
 }
 
 declare module "sap/ui/mdc/Link" {
@@ -12525,7 +12646,10 @@ declare module "sap/ui/mdc/MultiValueField" {
     promise?: Promise<any>;
   }
 
-  export type MultiValueField$ChangeEvent = Event<MultiValueField$ChangeEventParameters>;
+  export type MultiValueField$ChangeEvent = Event<
+    MultiValueField$ChangeEventParameters,
+    MultiValueField
+  >;
 }
 
 declare module "sap/ui/mdc/table/V4AnalyticsPropertyHelper" {
@@ -14811,7 +14935,10 @@ declare module "sap/ui/mdc/Table" {
     filterSettings?: object[];
   }
 
-  export type Table$BeforeExportEvent = Event<Table$BeforeExportEventParameters>;
+  export type Table$BeforeExportEvent = Event<
+    Table$BeforeExportEventParameters,
+    Table
+  >;
 
   export interface Table$PasteEventParameters {
     /**
@@ -14821,7 +14948,7 @@ declare module "sap/ui/mdc/Table" {
     data?: string[][];
   }
 
-  export type Table$PasteEvent = Event<Table$PasteEventParameters>;
+  export type Table$PasteEvent = Event<Table$PasteEventParameters, Table>;
 
   export interface Table$RowPressEventParameters {
     /**
@@ -14830,7 +14957,7 @@ declare module "sap/ui/mdc/Table" {
     bindingContext?: Context;
   }
 
-  export type Table$RowPressEvent = Event<Table$RowPressEventParameters>;
+  export type Table$RowPressEvent = Event<Table$RowPressEventParameters, Table>;
 
   export interface Table$SelectionChangeEventParameters {
     /**
@@ -14839,7 +14966,10 @@ declare module "sap/ui/mdc/Table" {
     selectAll?: boolean;
   }
 
-  export type Table$SelectionChangeEvent = Event<Table$SelectionChangeEventParameters>;
+  export type Table$SelectionChangeEvent = Event<
+    Table$SelectionChangeEventParameters,
+    Table
+  >;
 }
 
 declare module "sap/ui/mdc/table/Column" {
@@ -16674,7 +16804,10 @@ declare module "sap/ui/mdc/table/RowActionItem" {
     bindingContext?: Context;
   }
 
-  export type RowActionItem$PressEvent = Event<RowActionItem$PressEventParameters>;
+  export type RowActionItem$PressEvent = Event<
+    RowActionItem$PressEventParameters,
+    RowActionItem
+  >;
 }
 
 declare module "sap/ui/mdc/table/RowSettings" {
@@ -18194,11 +18327,17 @@ declare module "sap/ui/mdc/ValueHelp" {
 
   export interface ValueHelp$ClosedEventParameters {}
 
-  export type ValueHelp$ClosedEvent = Event<ValueHelp$ClosedEventParameters>;
+  export type ValueHelp$ClosedEvent = Event<
+    ValueHelp$ClosedEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$DisconnectEventParameters {}
 
-  export type ValueHelp$DisconnectEvent = Event<ValueHelp$DisconnectEventParameters>;
+  export type ValueHelp$DisconnectEvent = Event<
+    ValueHelp$DisconnectEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$NavigatedEventParameters {
     /**
@@ -18219,7 +18358,10 @@ declare module "sap/ui/mdc/ValueHelp" {
     itemId?: string;
   }
 
-  export type ValueHelp$NavigatedEvent = Event<ValueHelp$NavigatedEventParameters>;
+  export type ValueHelp$NavigatedEvent = Event<
+    ValueHelp$NavigatedEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$OpenEventParameters {
     /**
@@ -18228,7 +18370,10 @@ declare module "sap/ui/mdc/ValueHelp" {
     container?: Container;
   }
 
-  export type ValueHelp$OpenEvent = Event<ValueHelp$OpenEventParameters>;
+  export type ValueHelp$OpenEvent = Event<
+    ValueHelp$OpenEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$OpenedEventParameters {
     /**
@@ -18237,7 +18382,10 @@ declare module "sap/ui/mdc/ValueHelp" {
     container?: Container;
   }
 
-  export type ValueHelp$OpenedEvent = Event<ValueHelp$OpenedEventParameters>;
+  export type ValueHelp$OpenedEvent = Event<
+    ValueHelp$OpenedEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$SelectEventParameters {
     /**
@@ -18259,11 +18407,17 @@ declare module "sap/ui/mdc/ValueHelp" {
     close?: boolean;
   }
 
-  export type ValueHelp$SelectEvent = Event<ValueHelp$SelectEventParameters>;
+  export type ValueHelp$SelectEvent = Event<
+    ValueHelp$SelectEventParameters,
+    ValueHelp
+  >;
 
   export interface ValueHelp$SwitchToValueHelpEventParameters {}
 
-  export type ValueHelp$SwitchToValueHelpEvent = Event<ValueHelp$SwitchToValueHelpEventParameters>;
+  export type ValueHelp$SwitchToValueHelpEvent = Event<
+    ValueHelp$SwitchToValueHelpEventParameters,
+    ValueHelp
+  >;
 }
 
 declare module "sap/ui/mdc/valuehelp/base/Container" {
@@ -19393,11 +19547,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
 
   export interface Container$CancelEventParameters {}
 
-  export type Container$CancelEvent = Event<Container$CancelEventParameters>;
+  export type Container$CancelEvent = Event<
+    Container$CancelEventParameters,
+    Container
+  >;
 
   export interface Container$ClosedEventParameters {}
 
-  export type Container$ClosedEvent = Event<Container$ClosedEventParameters>;
+  export type Container$ClosedEvent = Event<
+    Container$ClosedEventParameters,
+    Container
+  >;
 
   export interface Container$ConfirmEventParameters {
     /**
@@ -19406,7 +19566,10 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     close?: boolean;
   }
 
-  export type Container$ConfirmEvent = Event<Container$ConfirmEventParameters>;
+  export type Container$ConfirmEvent = Event<
+    Container$ConfirmEventParameters,
+    Container
+  >;
 
   export interface Container$NavigatedEventParameters {
     /**
@@ -19427,11 +19590,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     itemId?: string;
   }
 
-  export type Container$NavigatedEvent = Event<Container$NavigatedEventParameters>;
+  export type Container$NavigatedEvent = Event<
+    Container$NavigatedEventParameters,
+    Container
+  >;
 
   export interface Container$OpenedEventParameters {}
 
-  export type Container$OpenedEvent = Event<Container$OpenedEventParameters>;
+  export type Container$OpenedEvent = Event<
+    Container$OpenedEventParameters,
+    Container
+  >;
 
   export interface Container$RequestDelegateContentEventParameters {
     /**
@@ -19440,11 +19609,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     contentId?: string;
   }
 
-  export type Container$RequestDelegateContentEvent = Event<Container$RequestDelegateContentEventParameters>;
+  export type Container$RequestDelegateContentEvent = Event<
+    Container$RequestDelegateContentEventParameters,
+    Container
+  >;
 
   export interface Container$RequestSwitchToDialogEventParameters {}
 
-  export type Container$RequestSwitchToDialogEvent = Event<Container$RequestSwitchToDialogEventParameters>;
+  export type Container$RequestSwitchToDialogEvent = Event<
+    Container$RequestSwitchToDialogEventParameters,
+    Container
+  >;
 
   export interface Container$SelectEventParameters {
     /**
@@ -19460,7 +19635,10 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     conditions?: object[];
   }
 
-  export type Container$SelectEvent = Event<Container$SelectEventParameters>;
+  export type Container$SelectEvent = Event<
+    Container$SelectEventParameters,
+    Container
+  >;
 }
 
 declare module "sap/ui/mdc/valuehelp/base/Content" {
@@ -19473,6 +19651,8 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
   import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import BaseDelegate from "sap/ui/mdc/BaseDelegate";
 
   import ValueHelp from "sap/ui/mdc/ValueHelp";
 
@@ -20059,7 +20239,7 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      *
      * @returns `Delegate` module
      */
-    getValueHelpDelegate(): /* was: sap.ui.mdc.BaseDelegate */ any;
+    getValueHelpDelegate(): BaseDelegate;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -20396,7 +20576,10 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
 
   export interface Content$CancelEventParameters {}
 
-  export type Content$CancelEvent = Event<Content$CancelEventParameters>;
+  export type Content$CancelEvent = Event<
+    Content$CancelEventParameters,
+    Content
+  >;
 
   export interface Content$ConfirmEventParameters {
     /**
@@ -20405,7 +20588,10 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     close?: boolean;
   }
 
-  export type Content$ConfirmEvent = Event<Content$ConfirmEventParameters>;
+  export type Content$ConfirmEvent = Event<
+    Content$ConfirmEventParameters,
+    Content
+  >;
 
   export interface Content$NavigatedEventParameters {
     /**
@@ -20426,11 +20612,17 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     itemId?: string;
   }
 
-  export type Content$NavigatedEvent = Event<Content$NavigatedEventParameters>;
+  export type Content$NavigatedEvent = Event<
+    Content$NavigatedEventParameters,
+    Content
+  >;
 
   export interface Content$RequestSwitchToDialogEventParameters {}
 
-  export type Content$RequestSwitchToDialogEvent = Event<Content$RequestSwitchToDialogEventParameters>;
+  export type Content$RequestSwitchToDialogEvent = Event<
+    Content$RequestSwitchToDialogEventParameters,
+    Content
+  >;
 
   export interface Content$SelectEventParameters {
     /**
@@ -20446,7 +20638,10 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     conditions?: object[];
   }
 
-  export type Content$SelectEvent = Event<Content$SelectEventParameters>;
+  export type Content$SelectEvent = Event<
+    Content$SelectEventParameters,
+    Content
+  >;
 }
 
 declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
@@ -20655,9 +20850,9 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * Gets the conditions that are selecatble from list content.
+     * Gets the conditions that are selectable from list content.
      *
-     * This are validated conditions as other conditions are shown on the {@link sap.ui.mdc.valuehelp.base.DefineConditionPanel DefineConditionPanel}
+     * These are validated conditions as other conditions are shown in the {@link sap.ui.mdc.valuehelp.content.Conditions Conditions}.
      *
      * @returns ListBindingInfo
      */
@@ -21163,11 +21358,10 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
      * Optional `FieldHelp`.
      *
      * This is an association that allows the usage of one `FieldHelp` instance for the value fields for the
-     * `Conditions`. **Note:** The value fields on the conditions UI are created by the used `DefineConditionPanel`.
-     * They cannot be accessed from outside. The fields are single-value input, and the display is always set
-     * to `FieldDisplay.Value`. Only a `ValueHelp>/code> with a TypeAhead` and a single-selection `MTable`
-     * can be used. **Note:** For `Boolean`, `Date`, or `Time` types, no `FieldHelp` should be added, but a
-     * default `FieldHelp` used instead.
+     * `Conditions`. **Note:** The value fields on the conditions UI cannot be accessed from outside. The fields
+     * are single-value input, and the display is always set to `FieldDisplay.Value`. Only a `ValueHelp>/code>
+     * with a TypeAhead` and a single-selection `MTable` can be used. **Note:** For `Boolean`, `Date`,
+     * or `Time` types, no `FieldHelp` should be added, but a default `FieldHelp` used instead.
      */
     fieldHelp?: ValueHelp | string;
 
@@ -21177,10 +21371,9 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
      * This is an association that allows the usage of one `ValueHelp` instance for the value fields for the
      * `Conditions`.
      *
-     * **Note:** The value fields on the conditions UI are created by the used `DefineConditionPanel`. They
-     * cannot be accessed from outside. The fields are single-value input, and the display is always set to
-     * `FieldDisplay.Value`. Only a `ValueHelp>/code> with a TypeAhead` and a single-selection `MTable`
-     * can be used.
+     * **Note:** The value fields on the conditions UI cannot be accessed from outside. The fields are single-value
+     * input, and the display is always set to `FieldDisplay.Value`. Only a `ValueHelp>/code> with a TypeAhead`
+     * and a single-selection `MTable` can be used.
      *
      * **Note:** For `Boolean`, `Date`, or `Time` types, no `ValueHelp` should be added, but a default `ValueHelp`
      * used instead.
@@ -22120,7 +22313,10 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
 
   export interface MTable$ContentUpdatedEventParameters {}
 
-  export type MTable$ContentUpdatedEvent = Event<MTable$ContentUpdatedEventParameters>;
+  export type MTable$ContentUpdatedEvent = Event<
+    MTable$ContentUpdatedEventParameters,
+    MTable
+  >;
 }
 
 declare module "sap/ui/mdc/valuehelp/Popover" {
@@ -22315,6 +22511,8 @@ declare namespace sap {
     "sap/ui/mdc/ActionToolbar": undefined;
 
     "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
+
+    "sap/ui/mdc/AggregationBaseDelegate": undefined;
 
     "sap/ui/mdc/BaseDelegate": undefined;
 

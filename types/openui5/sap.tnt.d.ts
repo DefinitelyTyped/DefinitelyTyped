@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/tnt/library" {
   /**
@@ -851,7 +851,10 @@ declare module "sap/tnt/NavigationList" {
     item?: Item;
   }
 
-  export type NavigationList$ItemSelectEvent = Event<NavigationList$ItemSelectEventParameters>;
+  export type NavigationList$ItemSelectEvent = Event<
+    NavigationList$ItemSelectEventParameters,
+    NavigationList
+  >;
 }
 
 declare module "sap/tnt/NavigationListItem" {
@@ -1363,7 +1366,10 @@ declare module "sap/tnt/NavigationListItem" {
     item?: Item;
   }
 
-  export type NavigationListItem$SelectEvent = Event<NavigationListItem$SelectEventParameters>;
+  export type NavigationListItem$SelectEvent = Event<
+    NavigationListItem$SelectEventParameters,
+    NavigationListItem
+  >;
 }
 
 declare module "sap/tnt/SideNavigation" {
@@ -1764,7 +1770,10 @@ declare module "sap/tnt/SideNavigation" {
     item?: Item;
   }
 
-  export type SideNavigation$ItemSelectEvent = Event<SideNavigation$ItemSelectEventParameters>;
+  export type SideNavigation$ItemSelectEvent = Event<
+    SideNavigation$ItemSelectEventParameters,
+    SideNavigation
+  >;
 }
 
 declare module "sap/tnt/ToolHeader" {

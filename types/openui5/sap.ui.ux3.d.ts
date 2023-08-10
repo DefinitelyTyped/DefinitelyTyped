@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -202,9 +202,9 @@ declare module "sap/ui/ux3/ShellPersonalization" {
   /**
    * @deprecated (since 1.36) - This class was never released for productive use and will never be.
    * @experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
-   * @experimental work and might change or disappear in future versions.
+   * experimental work and might change or disappear in future versions.
    *
-   * @experimental implementation of visual Ux3 Shell personalization / branding.
+   * Experimental implementation of visual Ux3 Shell personalization / branding.
    *
    * DO NOT USE PRODUCTIVELY!!!
    *
@@ -928,7 +928,10 @@ declare module "sap/ui/ux3/ActionBar" {
     newState?: string;
   }
 
-  export type ActionBar$ActionSelectedEvent = Event<ActionBar$ActionSelectedEventParameters>;
+  export type ActionBar$ActionSelectedEvent = Event<
+    ActionBar$ActionSelectedEventParameters,
+    ActionBar
+  >;
 
   export interface ActionBar$FeedSubmitEventParameters {
     /**
@@ -937,7 +940,10 @@ declare module "sap/ui/ux3/ActionBar" {
     text?: string;
   }
 
-  export type ActionBar$FeedSubmitEvent = Event<ActionBar$FeedSubmitEventParameters>;
+  export type ActionBar$FeedSubmitEvent = Event<
+    ActionBar$FeedSubmitEventParameters,
+    ActionBar
+  >;
 }
 
 declare module "sap/ui/ux3/Collection" {
@@ -1398,11 +1404,17 @@ declare module "sap/ui/ux3/Collection" {
 
   export interface Collection$PropertyChangedEventParameters {}
 
-  export type Collection$PropertyChangedEvent = Event<Collection$PropertyChangedEventParameters>;
+  export type Collection$PropertyChangedEvent = Event<
+    Collection$PropertyChangedEventParameters,
+    Collection
+  >;
 
   export interface Collection$SelectionChangedEventParameters {}
 
-  export type Collection$SelectionChangedEvent = Event<Collection$SelectionChangedEventParameters>;
+  export type Collection$SelectionChangedEvent = Event<
+    Collection$SelectionChangedEventParameters,
+    Collection
+  >;
 }
 
 declare module "sap/ui/ux3/CollectionInspector" {
@@ -1995,15 +2007,24 @@ declare module "sap/ui/ux3/CollectionInspector" {
 
   export interface CollectionInspector$CollectionSelectedEventParameters {}
 
-  export type CollectionInspector$CollectionSelectedEvent = Event<CollectionInspector$CollectionSelectedEventParameters>;
+  export type CollectionInspector$CollectionSelectedEvent = Event<
+    CollectionInspector$CollectionSelectedEventParameters,
+    CollectionInspector
+  >;
 
   export interface CollectionInspector$EditCollectionEventParameters {}
 
-  export type CollectionInspector$EditCollectionEvent = Event<CollectionInspector$EditCollectionEventParameters>;
+  export type CollectionInspector$EditCollectionEvent = Event<
+    CollectionInspector$EditCollectionEventParameters,
+    CollectionInspector
+  >;
 
   export interface CollectionInspector$ItemSelectionChangedEventParameters {}
 
-  export type CollectionInspector$ItemSelectionChangedEvent = Event<CollectionInspector$ItemSelectionChangedEventParameters>;
+  export type CollectionInspector$ItemSelectionChangedEvent = Event<
+    CollectionInspector$ItemSelectionChangedEventParameters,
+    CollectionInspector
+  >;
 }
 
 declare module "sap/ui/ux3/DataSet" {
@@ -2763,7 +2784,10 @@ declare module "sap/ui/ux3/DataSet" {
     query?: string;
   }
 
-  export type DataSet$SearchEvent = Event<DataSet$SearchEventParameters>;
+  export type DataSet$SearchEvent = Event<
+    DataSet$SearchEventParameters,
+    DataSet
+  >;
 
   export interface DataSet$SelectionChangedEventParameters {
     /**
@@ -2777,7 +2801,10 @@ declare module "sap/ui/ux3/DataSet" {
     newLeadSelectedIndex?: int;
   }
 
-  export type DataSet$SelectionChangedEvent = Event<DataSet$SelectionChangedEventParameters>;
+  export type DataSet$SelectionChangedEvent = Event<
+    DataSet$SelectionChangedEventParameters,
+    DataSet
+  >;
 }
 
 declare module "sap/ui/ux3/DataSetItem" {
@@ -3072,7 +3099,10 @@ declare module "sap/ui/ux3/DataSetItem" {
     itemId?: string;
   }
 
-  export type DataSetItem$SelectedEvent = Event<DataSetItem$SelectedEventParameters>;
+  export type DataSetItem$SelectedEvent = Event<
+    DataSetItem$SelectedEventParameters,
+    DataSetItem
+  >;
 }
 
 declare module "sap/ui/ux3/DataSetSimpleView" {
@@ -4030,7 +4060,10 @@ declare module "sap/ui/ux3/Exact" {
     allSelectedAttributes?: object;
   }
 
-  export type Exact$RefineSearchEvent = Event<Exact$RefineSearchEventParameters>;
+  export type Exact$RefineSearchEvent = Event<
+    Exact$RefineSearchEventParameters,
+    Exact
+  >;
 
   export interface Exact$SearchEventParameters {
     /**
@@ -4039,7 +4072,7 @@ declare module "sap/ui/ux3/Exact" {
     query?: string;
   }
 
-  export type Exact$SearchEvent = Event<Exact$SearchEventParameters>;
+  export type Exact$SearchEvent = Event<Exact$SearchEventParameters, Exact>;
 }
 
 declare module "sap/ui/ux3/ExactArea" {
@@ -4899,7 +4932,10 @@ declare module "sap/ui/ux3/ExactAttribute" {
     attribute?: ExactAttribute;
   }
 
-  export type ExactAttribute$SupplyAttributesEvent = Event<ExactAttribute$SupplyAttributesEventParameters>;
+  export type ExactAttribute$SupplyAttributesEvent = Event<
+    ExactAttribute$SupplyAttributesEventParameters,
+    ExactAttribute
+  >;
 }
 
 declare module "sap/ui/ux3/ExactBrowser" {
@@ -5651,11 +5687,17 @@ declare module "sap/ui/ux3/ExactBrowser" {
     allAttributes?: object;
   }
 
-  export type ExactBrowser$AttributeSelectedEvent = Event<ExactBrowser$AttributeSelectedEventParameters>;
+  export type ExactBrowser$AttributeSelectedEvent = Event<
+    ExactBrowser$AttributeSelectedEventParameters,
+    ExactBrowser
+  >;
 
   export interface ExactBrowser$SaveEventParameters {}
 
-  export type ExactBrowser$SaveEvent = Event<ExactBrowser$SaveEventParameters>;
+  export type ExactBrowser$SaveEvent = Event<
+    ExactBrowser$SaveEventParameters,
+    ExactBrowser
+  >;
 }
 
 declare module "sap/ui/ux3/ExactList" {
@@ -6031,7 +6073,10 @@ declare module "sap/ui/ux3/ExactList" {
     allAttributes?: object;
   }
 
-  export type ExactList$AttributeSelectedEvent = Event<ExactList$AttributeSelectedEventParameters>;
+  export type ExactList$AttributeSelectedEvent = Event<
+    ExactList$AttributeSelectedEventParameters,
+    ExactList
+  >;
 }
 
 declare module "sap/ui/ux3/FacetFilter" {
@@ -6665,7 +6710,10 @@ declare module "sap/ui/ux3/FacetFilterList" {
     all?: boolean;
   }
 
-  export type FacetFilterList$SelectEvent = Event<FacetFilterList$SelectEventParameters>;
+  export type FacetFilterList$SelectEvent = Event<
+    FacetFilterList$SelectEventParameters,
+    FacetFilterList
+  >;
 }
 
 declare module "sap/ui/ux3/Feed" {
@@ -7585,7 +7633,10 @@ declare module "sap/ui/ux3/Feed" {
     chunk?: FeedChunk;
   }
 
-  export type Feed$ChunkAddedEvent = Event<Feed$ChunkAddedEventParameters>;
+  export type Feed$ChunkAddedEvent = Event<
+    Feed$ChunkAddedEventParameters,
+    Feed
+  >;
 
   export interface Feed$FilterChangeEventParameters {
     /**
@@ -7594,7 +7645,10 @@ declare module "sap/ui/ux3/Feed" {
     newValue?: string;
   }
 
-  export type Feed$FilterChangeEvent = Event<Feed$FilterChangeEventParameters>;
+  export type Feed$FilterChangeEvent = Event<
+    Feed$FilterChangeEventParameters,
+    Feed
+  >;
 
   export interface Feed$SearchEventParameters {
     /**
@@ -7603,7 +7657,7 @@ declare module "sap/ui/ux3/Feed" {
     query?: string;
   }
 
-  export type Feed$SearchEvent = Event<Feed$SearchEventParameters>;
+  export type Feed$SearchEvent = Event<Feed$SearchEventParameters, Feed>;
 
   export interface Feed$ToggleLiveEventParameters {
     /**
@@ -7612,7 +7666,10 @@ declare module "sap/ui/ux3/Feed" {
     live?: boolean;
   }
 
-  export type Feed$ToggleLiveEvent = Event<Feed$ToggleLiveEventParameters>;
+  export type Feed$ToggleLiveEvent = Event<
+    Feed$ToggleLiveEventParameters,
+    Feed
+  >;
 
   export interface Feed$ToolsItemSelectedEventParameters {
     /**
@@ -7626,7 +7683,10 @@ declare module "sap/ui/ux3/Feed" {
     item?: MenuItemBase;
   }
 
-  export type Feed$ToolsItemSelectedEvent = Event<Feed$ToolsItemSelectedEventParameters>;
+  export type Feed$ToolsItemSelectedEvent = Event<
+    Feed$ToolsItemSelectedEventParameters,
+    Feed
+  >;
 }
 
 declare module "sap/ui/ux3/FeedChunk" {
@@ -9175,7 +9235,10 @@ declare module "sap/ui/ux3/FeedChunk" {
     item?: MenuItemBase;
   }
 
-  export type FeedChunk$ActionItemSelectedEvent = Event<FeedChunk$ActionItemSelectedEventParameters>;
+  export type FeedChunk$ActionItemSelectedEvent = Event<
+    FeedChunk$ActionItemSelectedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$CommentAddedEventParameters {
     /**
@@ -9184,15 +9247,24 @@ declare module "sap/ui/ux3/FeedChunk" {
     comment?: FeedChunk;
   }
 
-  export type FeedChunk$CommentAddedEvent = Event<FeedChunk$CommentAddedEventParameters>;
+  export type FeedChunk$CommentAddedEvent = Event<
+    FeedChunk$CommentAddedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$DeletedEventParameters {}
 
-  export type FeedChunk$DeletedEvent = Event<FeedChunk$DeletedEventParameters>;
+  export type FeedChunk$DeletedEvent = Event<
+    FeedChunk$DeletedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$InspectEventParameters {}
 
-  export type FeedChunk$InspectEvent = Event<FeedChunk$InspectEventParameters>;
+  export type FeedChunk$InspectEvent = Event<
+    FeedChunk$InspectEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$ReferenceClickedEventParameters {
     /**
@@ -9201,11 +9273,17 @@ declare module "sap/ui/ux3/FeedChunk" {
     text?: string;
   }
 
-  export type FeedChunk$ReferenceClickedEvent = Event<FeedChunk$ReferenceClickedEventParameters>;
+  export type FeedChunk$ReferenceClickedEvent = Event<
+    FeedChunk$ReferenceClickedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$SenderClickedEventParameters {}
 
-  export type FeedChunk$SenderClickedEvent = Event<FeedChunk$SenderClickedEventParameters>;
+  export type FeedChunk$SenderClickedEvent = Event<
+    FeedChunk$SenderClickedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$ToggleFavoriteEventParameters {
     /**
@@ -9214,7 +9292,10 @@ declare module "sap/ui/ux3/FeedChunk" {
     favorite?: boolean;
   }
 
-  export type FeedChunk$ToggleFavoriteEvent = Event<FeedChunk$ToggleFavoriteEventParameters>;
+  export type FeedChunk$ToggleFavoriteEvent = Event<
+    FeedChunk$ToggleFavoriteEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$ToggleFlaggedEventParameters {
     /**
@@ -9223,7 +9304,10 @@ declare module "sap/ui/ux3/FeedChunk" {
     flagged?: boolean;
   }
 
-  export type FeedChunk$ToggleFlaggedEvent = Event<FeedChunk$ToggleFlaggedEventParameters>;
+  export type FeedChunk$ToggleFlaggedEvent = Event<
+    FeedChunk$ToggleFlaggedEventParameters,
+    FeedChunk
+  >;
 
   export interface FeedChunk$ToggleSharedEventParameters {
     /**
@@ -9232,7 +9316,10 @@ declare module "sap/ui/ux3/FeedChunk" {
     shareed?: boolean;
   }
 
-  export type FeedChunk$ToggleSharedEvent = Event<FeedChunk$ToggleSharedEventParameters>;
+  export type FeedChunk$ToggleSharedEvent = Event<
+    FeedChunk$ToggleSharedEventParameters,
+    FeedChunk
+  >;
 }
 
 declare module "sap/ui/ux3/Feeder" {
@@ -9535,7 +9622,7 @@ declare module "sap/ui/ux3/Feeder" {
     text?: string;
   }
 
-  export type Feeder$SubmitEvent = Event<Feeder$SubmitEventParameters>;
+  export type Feeder$SubmitEvent = Event<Feeder$SubmitEventParameters, Feeder>;
 }
 
 declare module "sap/ui/ux3/NavigationBar" {
@@ -9952,7 +10039,10 @@ declare module "sap/ui/ux3/NavigationBar" {
     item?: NavigationItem;
   }
 
-  export type NavigationBar$SelectEvent = Event<NavigationBar$SelectEventParameters>;
+  export type NavigationBar$SelectEvent = Event<
+    NavigationBar$SelectEventParameters,
+    NavigationBar
+  >;
 }
 
 declare module "sap/ui/ux3/NavigationItem" {
@@ -10694,7 +10784,10 @@ declare module "sap/ui/ux3/NotificationBar" {
     show?: boolean;
   }
 
-  export type NotificationBar$DisplayEvent = Event<NotificationBar$DisplayEventParameters>;
+  export type NotificationBar$DisplayEvent = Event<
+    NotificationBar$DisplayEventParameters,
+    NotificationBar
+  >;
 
   export interface NotificationBar$ResizeEventParameters {
     /**
@@ -10704,7 +10797,10 @@ declare module "sap/ui/ux3/NotificationBar" {
     status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
   }
 
-  export type NotificationBar$ResizeEvent = Event<NotificationBar$ResizeEventParameters>;
+  export type NotificationBar$ResizeEvent = Event<
+    NotificationBar$ResizeEventParameters,
+    NotificationBar
+  >;
 }
 
 declare module "sap/ui/ux3/Notifier" {
@@ -11024,7 +11120,10 @@ declare module "sap/ui/ux3/Notifier" {
     notifier?: Notifier;
   }
 
-  export type Notifier$MessageSelectedEvent = Event<Notifier$MessageSelectedEventParameters>;
+  export type Notifier$MessageSelectedEvent = Event<
+    Notifier$MessageSelectedEventParameters,
+    Notifier
+  >;
 }
 
 declare module "sap/ui/ux3/Overlay" {
@@ -11523,7 +11622,7 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
-  export type Overlay$CloseEvent = Event<Overlay$CloseEventParameters>;
+  export type Overlay$CloseEvent = Event<Overlay$CloseEventParameters, Overlay>;
 
   export interface Overlay$ClosedEventParameters {
     /**
@@ -11532,7 +11631,10 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
-  export type Overlay$ClosedEvent = Event<Overlay$ClosedEventParameters>;
+  export type Overlay$ClosedEvent = Event<
+    Overlay$ClosedEventParameters,
+    Overlay
+  >;
 
   export interface Overlay$OpenEventParameters {
     /**
@@ -11541,7 +11643,7 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
-  export type Overlay$OpenEvent = Event<Overlay$OpenEventParameters>;
+  export type Overlay$OpenEvent = Event<Overlay$OpenEventParameters, Overlay>;
 
   export interface Overlay$OpenNewEventParameters {
     /**
@@ -11550,7 +11652,10 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
-  export type Overlay$OpenNewEvent = Event<Overlay$OpenNewEventParameters>;
+  export type Overlay$OpenNewEvent = Event<
+    Overlay$OpenNewEventParameters,
+    Overlay
+  >;
 }
 
 declare module "sap/ui/ux3/OverlayContainer" {
@@ -12937,7 +13042,10 @@ declare module "sap/ui/ux3/QuickView" {
     newState?: string;
   }
 
-  export type QuickView$ActionSelectedEvent = Event<QuickView$ActionSelectedEventParameters>;
+  export type QuickView$ActionSelectedEvent = Event<
+    QuickView$ActionSelectedEventParameters,
+    QuickView
+  >;
 
   export interface QuickView$FeedSubmitEventParameters {
     /**
@@ -12946,7 +13054,10 @@ declare module "sap/ui/ux3/QuickView" {
     text?: string;
   }
 
-  export type QuickView$FeedSubmitEvent = Event<QuickView$FeedSubmitEventParameters>;
+  export type QuickView$FeedSubmitEvent = Event<
+    QuickView$FeedSubmitEventParameters,
+    QuickView
+  >;
 
   export interface QuickView$NavigateEventParameters {
     /**
@@ -12955,7 +13066,10 @@ declare module "sap/ui/ux3/QuickView" {
     href?: string;
   }
 
-  export type QuickView$NavigateEvent = Event<QuickView$NavigateEventParameters>;
+  export type QuickView$NavigateEvent = Event<
+    QuickView$NavigateEventParameters,
+    QuickView
+  >;
 }
 
 declare module "sap/ui/ux3/Shell" {
@@ -13948,7 +14062,7 @@ declare module "sap/ui/ux3/Shell" {
       oWorksetItem: NavigationItem
     ): int;
     /**
-     * @experimental method! Do not use!
+     * Experimental method! Do not use!
      *
      * Makes Shell personalization available and injects the given personalization settings. This should be
      * called before the user can do any adaptations per drag&drop or using the personalization dialog. Otherwise
@@ -14083,7 +14197,7 @@ declare module "sap/ui/ux3/Shell" {
       sPaneBarItemId: string
     ): this;
     /**
-     * @experimental method! Do not use!
+     * Experimental method! Do not use!
      */
     openPersonalizationDialog(): void;
     /**
@@ -14778,11 +14892,14 @@ declare module "sap/ui/ux3/Shell" {
 
   export interface Shell$FeedSubmitEventParameters {}
 
-  export type Shell$FeedSubmitEvent = Event<Shell$FeedSubmitEventParameters>;
+  export type Shell$FeedSubmitEvent = Event<
+    Shell$FeedSubmitEventParameters,
+    Shell
+  >;
 
   export interface Shell$LogoutEventParameters {}
 
-  export type Shell$LogoutEvent = Event<Shell$LogoutEventParameters>;
+  export type Shell$LogoutEvent = Event<Shell$LogoutEventParameters, Shell>;
 
   export interface Shell$PaneBarItemSelectedEventParameters {
     /**
@@ -14801,7 +14918,10 @@ declare module "sap/ui/ux3/Shell" {
     key?: string;
   }
 
-  export type Shell$PaneBarItemSelectedEvent = Event<Shell$PaneBarItemSelectedEventParameters>;
+  export type Shell$PaneBarItemSelectedEvent = Event<
+    Shell$PaneBarItemSelectedEventParameters,
+    Shell
+  >;
 
   export interface Shell$PaneClosedEventParameters {
     /**
@@ -14810,11 +14930,14 @@ declare module "sap/ui/ux3/Shell" {
     id?: string;
   }
 
-  export type Shell$PaneClosedEvent = Event<Shell$PaneClosedEventParameters>;
+  export type Shell$PaneClosedEvent = Event<
+    Shell$PaneClosedEventParameters,
+    Shell
+  >;
 
   export interface Shell$SearchEventParameters {}
 
-  export type Shell$SearchEvent = Event<Shell$SearchEventParameters>;
+  export type Shell$SearchEvent = Event<Shell$SearchEventParameters, Shell>;
 
   export interface Shell$WorksetItemSelectedEventParameters {
     /**
@@ -14834,7 +14957,10 @@ declare module "sap/ui/ux3/Shell" {
     key?: string;
   }
 
-  export type Shell$WorksetItemSelectedEvent = Event<Shell$WorksetItemSelectedEventParameters>;
+  export type Shell$WorksetItemSelectedEvent = Event<
+    Shell$WorksetItemSelectedEventParameters,
+    Shell
+  >;
 }
 
 declare module "sap/ui/ux3/ThingAction" {
@@ -15068,7 +15194,10 @@ declare module "sap/ui/ux3/ThingAction" {
     action?: ThingAction;
   }
 
-  export type ThingAction$SelectEvent = Event<ThingAction$SelectEventParameters>;
+  export type ThingAction$SelectEvent = Event<
+    ThingAction$SelectEventParameters,
+    ThingAction
+  >;
 }
 
 declare module "sap/ui/ux3/ThingGroup" {
@@ -16480,7 +16609,10 @@ declare module "sap/ui/ux3/ThingInspector" {
     action?: ThingAction;
   }
 
-  export type ThingInspector$ActionSelectedEvent = Event<ThingInspector$ActionSelectedEventParameters>;
+  export type ThingInspector$ActionSelectedEvent = Event<
+    ThingInspector$ActionSelectedEventParameters,
+    ThingInspector
+  >;
 
   export interface ThingInspector$FacetSelectedEventParameters {
     /**
@@ -16499,7 +16631,10 @@ declare module "sap/ui/ux3/ThingInspector" {
     key?: string;
   }
 
-  export type ThingInspector$FacetSelectedEvent = Event<ThingInspector$FacetSelectedEventParameters>;
+  export type ThingInspector$FacetSelectedEvent = Event<
+    ThingInspector$FacetSelectedEventParameters,
+    ThingInspector
+  >;
 
   export interface ThingInspector$FeedSubmitEventParameters {
     /**
@@ -16508,7 +16643,10 @@ declare module "sap/ui/ux3/ThingInspector" {
     text?: string;
   }
 
-  export type ThingInspector$FeedSubmitEvent = Event<ThingInspector$FeedSubmitEventParameters>;
+  export type ThingInspector$FeedSubmitEvent = Event<
+    ThingInspector$FeedSubmitEventParameters,
+    ThingInspector
+  >;
 }
 
 declare module "sap/ui/ux3/ThingViewer" {
@@ -17217,7 +17355,10 @@ declare module "sap/ui/ux3/ThingViewer" {
     key?: string;
   }
 
-  export type ThingViewer$FacetSelectedEvent = Event<ThingViewer$FacetSelectedEventParameters>;
+  export type ThingViewer$FacetSelectedEvent = Event<
+    ThingViewer$FacetSelectedEventParameters,
+    ThingViewer
+  >;
 }
 
 declare module "sap/ui/ux3/ToolPopup" {
@@ -18453,11 +18594,17 @@ declare module "sap/ui/ux3/ToolPopup" {
 
   export interface ToolPopup$CloseEventParameters {}
 
-  export type ToolPopup$CloseEvent = Event<ToolPopup$CloseEventParameters>;
+  export type ToolPopup$CloseEvent = Event<
+    ToolPopup$CloseEventParameters,
+    ToolPopup
+  >;
 
   export interface ToolPopup$ClosedEventParameters {}
 
-  export type ToolPopup$ClosedEvent = Event<ToolPopup$ClosedEventParameters>;
+  export type ToolPopup$ClosedEvent = Event<
+    ToolPopup$ClosedEventParameters,
+    ToolPopup
+  >;
 
   export interface ToolPopup$EnterEventParameters {
     /**
@@ -18471,19 +18618,31 @@ declare module "sap/ui/ux3/ToolPopup" {
     originalSrcControl?: Control;
   }
 
-  export type ToolPopup$EnterEvent = Event<ToolPopup$EnterEventParameters>;
+  export type ToolPopup$EnterEvent = Event<
+    ToolPopup$EnterEventParameters,
+    ToolPopup
+  >;
 
   export interface ToolPopup$IconChangedEventParameters {}
 
-  export type ToolPopup$IconChangedEvent = Event<ToolPopup$IconChangedEventParameters>;
+  export type ToolPopup$IconChangedEvent = Event<
+    ToolPopup$IconChangedEventParameters,
+    ToolPopup
+  >;
 
   export interface ToolPopup$OpenEventParameters {}
 
-  export type ToolPopup$OpenEvent = Event<ToolPopup$OpenEventParameters>;
+  export type ToolPopup$OpenEvent = Event<
+    ToolPopup$OpenEventParameters,
+    ToolPopup
+  >;
 
   export interface ToolPopup$OpenedEventParameters {}
 
-  export type ToolPopup$OpenedEvent = Event<ToolPopup$OpenedEventParameters>;
+  export type ToolPopup$OpenedEvent = Event<
+    ToolPopup$OpenedEventParameters,
+    ToolPopup
+  >;
 }
 
 declare namespace sap {

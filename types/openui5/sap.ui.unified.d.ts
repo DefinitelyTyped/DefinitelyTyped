@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1726,15 +1726,24 @@ declare module "sap/ui/unified/Calendar" {
 
   export interface Calendar$CancelEventParameters {}
 
-  export type Calendar$CancelEvent = Event<Calendar$CancelEventParameters>;
+  export type Calendar$CancelEvent = Event<
+    Calendar$CancelEventParameters,
+    Calendar
+  >;
 
   export interface Calendar$SelectEventParameters {}
 
-  export type Calendar$SelectEvent = Event<Calendar$SelectEventParameters>;
+  export type Calendar$SelectEvent = Event<
+    Calendar$SelectEventParameters,
+    Calendar
+  >;
 
   export interface Calendar$StartDateChangeEventParameters {}
 
-  export type Calendar$StartDateChangeEvent = Event<Calendar$StartDateChangeEventParameters>;
+  export type Calendar$StartDateChangeEvent = Event<
+    Calendar$StartDateChangeEventParameters,
+    Calendar
+  >;
 
   export interface Calendar$WeekNumberSelectEventParameters {
     /**
@@ -1748,7 +1757,10 @@ declare module "sap/ui/unified/Calendar" {
     weekDays?: DateRange;
   }
 
-  export type Calendar$WeekNumberSelectEvent = Event<Calendar$WeekNumberSelectEventParameters>;
+  export type Calendar$WeekNumberSelectEvent = Event<
+    Calendar$WeekNumberSelectEventParameters,
+    Calendar
+  >;
 }
 
 declare module "sap/ui/unified/calendar/DatesRow" {
@@ -3094,27 +3106,45 @@ declare module "sap/ui/unified/calendar/Header" {
 
   export interface Header$PressButton0EventParameters {}
 
-  export type Header$PressButton0Event = Event<Header$PressButton0EventParameters>;
+  export type Header$PressButton0Event = Event<
+    Header$PressButton0EventParameters,
+    Header
+  >;
 
   export interface Header$PressButton1EventParameters {}
 
-  export type Header$PressButton1Event = Event<Header$PressButton1EventParameters>;
+  export type Header$PressButton1Event = Event<
+    Header$PressButton1EventParameters,
+    Header
+  >;
 
   export interface Header$PressButton2EventParameters {}
 
-  export type Header$PressButton2Event = Event<Header$PressButton2EventParameters>;
+  export type Header$PressButton2Event = Event<
+    Header$PressButton2EventParameters,
+    Header
+  >;
 
   export interface Header$PressCurrentDateEventParameters {}
 
-  export type Header$PressCurrentDateEvent = Event<Header$PressCurrentDateEventParameters>;
+  export type Header$PressCurrentDateEvent = Event<
+    Header$PressCurrentDateEventParameters,
+    Header
+  >;
 
   export interface Header$PressNextEventParameters {}
 
-  export type Header$PressNextEvent = Event<Header$PressNextEventParameters>;
+  export type Header$PressNextEvent = Event<
+    Header$PressNextEventParameters,
+    Header
+  >;
 
   export interface Header$PressPreviousEventParameters {}
 
-  export type Header$PressPreviousEvent = Event<Header$PressPreviousEventParameters>;
+  export type Header$PressPreviousEvent = Event<
+    Header$PressPreviousEventParameters,
+    Header
+  >;
 }
 
 declare module "sap/ui/unified/calendar/Month" {
@@ -4253,11 +4283,11 @@ declare module "sap/ui/unified/calendar/Month" {
     restoreOldDate?: boolean;
   }
 
-  export type Month$FocusEvent = Event<Month$FocusEventParameters>;
+  export type Month$FocusEvent = Event<Month$FocusEventParameters, Month>;
 
   export interface Month$SelectEventParameters {}
 
-  export type Month$SelectEvent = Event<Month$SelectEventParameters>;
+  export type Month$SelectEvent = Event<Month$SelectEventParameters, Month>;
 
   export interface Month$WeekNumberSelectEventParameters {
     /**
@@ -4273,7 +4303,10 @@ declare module "sap/ui/unified/calendar/Month" {
     weekDays?: DateRange;
   }
 
-  export type Month$WeekNumberSelectEvent = Event<Month$WeekNumberSelectEventParameters>;
+  export type Month$WeekNumberSelectEvent = Event<
+    Month$WeekNumberSelectEventParameters,
+    Month
+  >;
 }
 
 declare module "sap/ui/unified/calendar/MonthPicker" {
@@ -4935,11 +4968,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
 
   export interface MonthPicker$PageChangeEventParameters {}
 
-  export type MonthPicker$PageChangeEvent = Event<MonthPicker$PageChangeEventParameters>;
+  export type MonthPicker$PageChangeEvent = Event<
+    MonthPicker$PageChangeEventParameters,
+    MonthPicker
+  >;
 
   export interface MonthPicker$SelectEventParameters {}
 
-  export type MonthPicker$SelectEvent = Event<MonthPicker$SelectEventParameters>;
+  export type MonthPicker$SelectEvent = Event<
+    MonthPicker$SelectEventParameters,
+    MonthPicker
+  >;
 }
 
 declare module "sap/ui/unified/calendar/MonthsRow" {
@@ -5744,11 +5783,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     notVisible?: boolean;
   }
 
-  export type MonthsRow$FocusEvent = Event<MonthsRow$FocusEventParameters>;
+  export type MonthsRow$FocusEvent = Event<
+    MonthsRow$FocusEventParameters,
+    MonthsRow
+  >;
 
   export interface MonthsRow$SelectEventParameters {}
 
-  export type MonthsRow$SelectEvent = Event<MonthsRow$SelectEventParameters>;
+  export type MonthsRow$SelectEvent = Event<
+    MonthsRow$SelectEventParameters,
+    MonthsRow
+  >;
 }
 
 declare module "sap/ui/unified/calendar/TimesRow" {
@@ -6589,11 +6634,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     notVisible?: boolean;
   }
 
-  export type TimesRow$FocusEvent = Event<TimesRow$FocusEventParameters>;
+  export type TimesRow$FocusEvent = Event<
+    TimesRow$FocusEventParameters,
+    TimesRow
+  >;
 
   export interface TimesRow$SelectEventParameters {}
 
-  export type TimesRow$SelectEvent = Event<TimesRow$SelectEventParameters>;
+  export type TimesRow$SelectEvent = Event<
+    TimesRow$SelectEventParameters,
+    TimesRow
+  >;
 }
 
 declare module "sap/ui/unified/calendar/YearPicker" {
@@ -7234,11 +7285,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
 
   export interface YearPicker$PageChangeEventParameters {}
 
-  export type YearPicker$PageChangeEvent = Event<YearPicker$PageChangeEventParameters>;
+  export type YearPicker$PageChangeEvent = Event<
+    YearPicker$PageChangeEventParameters,
+    YearPicker
+  >;
 
   export interface YearPicker$SelectEventParameters {}
 
-  export type YearPicker$SelectEvent = Event<YearPicker$SelectEventParameters>;
+  export type YearPicker$SelectEvent = Event<
+    YearPicker$SelectEventParameters,
+    YearPicker
+  >;
 }
 
 declare module "sap/ui/unified/CalendarAppointment" {
@@ -9312,15 +9369,24 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
 
   export interface CalendarMonthInterval$CancelEventParameters {}
 
-  export type CalendarMonthInterval$CancelEvent = Event<CalendarMonthInterval$CancelEventParameters>;
+  export type CalendarMonthInterval$CancelEvent = Event<
+    CalendarMonthInterval$CancelEventParameters,
+    CalendarMonthInterval
+  >;
 
   export interface CalendarMonthInterval$SelectEventParameters {}
 
-  export type CalendarMonthInterval$SelectEvent = Event<CalendarMonthInterval$SelectEventParameters>;
+  export type CalendarMonthInterval$SelectEvent = Event<
+    CalendarMonthInterval$SelectEventParameters,
+    CalendarMonthInterval
+  >;
 
   export interface CalendarMonthInterval$StartDateChangeEventParameters {}
 
-  export type CalendarMonthInterval$StartDateChangeEvent = Event<CalendarMonthInterval$StartDateChangeEventParameters>;
+  export type CalendarMonthInterval$StartDateChangeEvent = Event<
+    CalendarMonthInterval$StartDateChangeEventParameters,
+    CalendarMonthInterval
+  >;
 }
 
 declare module "sap/ui/unified/CalendarRow" {
@@ -10867,7 +10933,10 @@ declare module "sap/ui/unified/CalendarRow" {
     subInterval?: boolean;
   }
 
-  export type CalendarRow$IntervalSelectEvent = Event<CalendarRow$IntervalSelectEventParameters>;
+  export type CalendarRow$IntervalSelectEvent = Event<
+    CalendarRow$IntervalSelectEventParameters,
+    CalendarRow
+  >;
 
   export interface CalendarRow$LeaveRowEventParameters {
     /**
@@ -10876,7 +10945,10 @@ declare module "sap/ui/unified/CalendarRow" {
     type?: string;
   }
 
-  export type CalendarRow$LeaveRowEvent = Event<CalendarRow$LeaveRowEventParameters>;
+  export type CalendarRow$LeaveRowEvent = Event<
+    CalendarRow$LeaveRowEventParameters,
+    CalendarRow
+  >;
 
   export interface CalendarRow$SelectEventParameters {
     /**
@@ -10901,11 +10973,17 @@ declare module "sap/ui/unified/CalendarRow" {
     domRefId?: string;
   }
 
-  export type CalendarRow$SelectEvent = Event<CalendarRow$SelectEventParameters>;
+  export type CalendarRow$SelectEvent = Event<
+    CalendarRow$SelectEventParameters,
+    CalendarRow
+  >;
 
   export interface CalendarRow$StartDateChangeEventParameters {}
 
-  export type CalendarRow$StartDateChangeEvent = Event<CalendarRow$StartDateChangeEventParameters>;
+  export type CalendarRow$StartDateChangeEvent = Event<
+    CalendarRow$StartDateChangeEventParameters,
+    CalendarRow
+  >;
 }
 
 declare module "sap/ui/unified/CalendarTimeInterval" {
@@ -11836,15 +11914,24 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
 
   export interface CalendarTimeInterval$CancelEventParameters {}
 
-  export type CalendarTimeInterval$CancelEvent = Event<CalendarTimeInterval$CancelEventParameters>;
+  export type CalendarTimeInterval$CancelEvent = Event<
+    CalendarTimeInterval$CancelEventParameters,
+    CalendarTimeInterval
+  >;
 
   export interface CalendarTimeInterval$SelectEventParameters {}
 
-  export type CalendarTimeInterval$SelectEvent = Event<CalendarTimeInterval$SelectEventParameters>;
+  export type CalendarTimeInterval$SelectEvent = Event<
+    CalendarTimeInterval$SelectEventParameters,
+    CalendarTimeInterval
+  >;
 
   export interface CalendarTimeInterval$StartDateChangeEventParameters {}
 
-  export type CalendarTimeInterval$StartDateChangeEvent = Event<CalendarTimeInterval$StartDateChangeEventParameters>;
+  export type CalendarTimeInterval$StartDateChangeEvent = Event<
+    CalendarTimeInterval$StartDateChangeEventParameters,
+    CalendarTimeInterval
+  >;
 }
 
 declare module "sap/ui/unified/ColorPicker" {
@@ -12323,7 +12410,10 @@ declare module "sap/ui/unified/ColorPicker" {
     alpha?: string;
   }
 
-  export type ColorPicker$ChangeEvent = Event<ColorPicker$ChangeEventParameters>;
+  export type ColorPicker$ChangeEvent = Event<
+    ColorPicker$ChangeEventParameters,
+    ColorPicker
+  >;
 
   export interface ColorPicker$LiveChangeEventParameters {
     /**
@@ -12372,7 +12462,10 @@ declare module "sap/ui/unified/ColorPicker" {
     alpha?: string;
   }
 
-  export type ColorPicker$LiveChangeEvent = Event<ColorPicker$LiveChangeEventParameters>;
+  export type ColorPicker$LiveChangeEvent = Event<
+    ColorPicker$LiveChangeEventParameters,
+    ColorPicker
+  >;
 }
 
 declare module "sap/ui/unified/ColorPickerDisplayMode" {
@@ -12859,7 +12952,10 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     alpha?: string;
   }
 
-  export type ColorPickerPopover$ChangeEvent = Event<ColorPickerPopover$ChangeEventParameters>;
+  export type ColorPickerPopover$ChangeEvent = Event<
+    ColorPickerPopover$ChangeEventParameters,
+    ColorPickerPopover
+  >;
 
   export interface ColorPickerPopover$LiveChangeEventParameters {
     /**
@@ -12908,7 +13004,10 @@ declare module "sap/ui/unified/ColorPickerPopover" {
     alpha?: string;
   }
 
-  export type ColorPickerPopover$LiveChangeEvent = Event<ColorPickerPopover$LiveChangeEventParameters>;
+  export type ColorPickerPopover$LiveChangeEvent = Event<
+    ColorPickerPopover$LiveChangeEventParameters,
+    ColorPickerPopover
+  >;
 }
 
 declare module "sap/ui/unified/ContentSwitcher" {
@@ -16485,11 +16584,17 @@ declare module "sap/ui/unified/FileUploader" {
 
   export interface FileUploader$AfterDialogCloseEventParameters {}
 
-  export type FileUploader$AfterDialogCloseEvent = Event<FileUploader$AfterDialogCloseEventParameters>;
+  export type FileUploader$AfterDialogCloseEvent = Event<
+    FileUploader$AfterDialogCloseEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$BeforeDialogOpenEventParameters {}
 
-  export type FileUploader$BeforeDialogOpenEvent = Event<FileUploader$BeforeDialogOpenEventParameters>;
+  export type FileUploader$BeforeDialogOpenEvent = Event<
+    FileUploader$BeforeDialogOpenEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$ChangeEventParameters {
     /**
@@ -16503,11 +16608,17 @@ declare module "sap/ui/unified/FileUploader" {
     files?: object[];
   }
 
-  export type FileUploader$ChangeEvent = Event<FileUploader$ChangeEventParameters>;
+  export type FileUploader$ChangeEvent = Event<
+    FileUploader$ChangeEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$FileAllowedEventParameters {}
 
-  export type FileUploader$FileAllowedEvent = Event<FileUploader$FileAllowedEventParameters>;
+  export type FileUploader$FileAllowedEvent = Event<
+    FileUploader$FileAllowedEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$FileEmptyEventParameters {
     /**
@@ -16516,7 +16627,10 @@ declare module "sap/ui/unified/FileUploader" {
     fileName?: string;
   }
 
-  export type FileUploader$FileEmptyEvent = Event<FileUploader$FileEmptyEventParameters>;
+  export type FileUploader$FileEmptyEvent = Event<
+    FileUploader$FileEmptyEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$FilenameLengthExceedEventParameters {
     /**
@@ -16525,7 +16639,10 @@ declare module "sap/ui/unified/FileUploader" {
     fileName?: string;
   }
 
-  export type FileUploader$FilenameLengthExceedEvent = Event<FileUploader$FilenameLengthExceedEventParameters>;
+  export type FileUploader$FilenameLengthExceedEvent = Event<
+    FileUploader$FilenameLengthExceedEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$FileSizeExceedEventParameters {
     /**
@@ -16539,7 +16656,10 @@ declare module "sap/ui/unified/FileUploader" {
     fileSize?: string;
   }
 
-  export type FileUploader$FileSizeExceedEvent = Event<FileUploader$FileSizeExceedEventParameters>;
+  export type FileUploader$FileSizeExceedEvent = Event<
+    FileUploader$FileSizeExceedEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$TypeMissmatchEventParameters {
     /**
@@ -16558,7 +16678,10 @@ declare module "sap/ui/unified/FileUploader" {
     mimeType?: string;
   }
 
-  export type FileUploader$TypeMissmatchEvent = Event<FileUploader$TypeMissmatchEventParameters>;
+  export type FileUploader$TypeMissmatchEvent = Event<
+    FileUploader$TypeMissmatchEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$UploadAbortedEventParameters {
     /**
@@ -16575,7 +16698,10 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export type FileUploader$UploadAbortedEvent = Event<FileUploader$UploadAbortedEventParameters>;
+  export type FileUploader$UploadAbortedEvent = Event<
+    FileUploader$UploadAbortedEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$UploadCompleteEventParameters {
     /**
@@ -16637,7 +16763,10 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export type FileUploader$UploadCompleteEvent = Event<FileUploader$UploadCompleteEventParameters>;
+  export type FileUploader$UploadCompleteEvent = Event<
+    FileUploader$UploadCompleteEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$UploadProgressEventParameters {
     /**
@@ -16669,7 +16798,10 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export type FileUploader$UploadProgressEvent = Event<FileUploader$UploadProgressEventParameters>;
+  export type FileUploader$UploadProgressEvent = Event<
+    FileUploader$UploadProgressEventParameters,
+    FileUploader
+  >;
 
   export interface FileUploader$UploadStartEventParameters {
     /**
@@ -16686,7 +16818,10 @@ declare module "sap/ui/unified/FileUploader" {
     requestHeaders?: object[];
   }
 
-  export type FileUploader$UploadStartEvent = Event<FileUploader$UploadStartEventParameters>;
+  export type FileUploader$UploadStartEvent = Event<
+    FileUploader$UploadStartEventParameters,
+    FileUploader
+  >;
 }
 
 declare module "sap/ui/unified/FileUploaderHttpRequestMethod" {
@@ -17261,6 +17396,12 @@ declare module "sap/ui/unified/Menu" {
       iIndex: int
     ): this;
     /**
+     * Returns whether the `Menu` is currently open.
+     *
+     * @returns true if menu is open
+     */
+    isOpen(): boolean;
+    /**
      * Opens the menu at the specified position.
      *
      * The position of the menu is defined relative to an element in the visible DOM by specifying the docking
@@ -17501,7 +17642,10 @@ declare module "sap/ui/unified/Menu" {
     item?: MenuItemBase;
   }
 
-  export type Menu$ItemSelectEvent = Event<Menu$ItemSelectEventParameters>;
+  export type Menu$ItemSelectEvent = Event<
+    Menu$ItemSelectEventParameters,
+    Menu
+  >;
 }
 
 declare module "sap/ui/unified/MenuItem" {
@@ -18060,7 +18204,10 @@ declare module "sap/ui/unified/MenuItemBase" {
     item?: MenuItemBase;
   }
 
-  export type MenuItemBase$SelectEvent = Event<MenuItemBase$SelectEventParameters>;
+  export type MenuItemBase$SelectEvent = Event<
+    MenuItemBase$SelectEventParameters,
+    MenuItemBase
+  >;
 }
 
 declare module "sap/ui/unified/MenuTextFieldItem" {
@@ -18522,7 +18669,7 @@ declare module "sap/ui/unified/Shell" {
     /**
      * Gets content of aggregation {@link #getSearch search}.
      *
-     * @experimental (This aggregation might change in future!): The search control which should be displayed
+     * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the shell header. If a custom header is set this aggregation has no effect.
      */
     getSearch(): Control;
@@ -18933,7 +19080,7 @@ declare module "sap/ui/unified/Shell" {
       | `{${string}}`;
 
     /**
-     * @experimental (This aggregation might change in future!): The search control which should be displayed
+     * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the shell header. If a custom header is set this aggregation has no effect.
      */
     search?: Control;
@@ -19410,7 +19557,10 @@ declare module "sap/ui/unified/ShellHeadItem" {
 
   export interface ShellHeadItem$PressEventParameters {}
 
-  export type ShellHeadItem$PressEvent = Event<ShellHeadItem$PressEventParameters>;
+  export type ShellHeadItem$PressEvent = Event<
+    ShellHeadItem$PressEventParameters,
+    ShellHeadItem
+  >;
 }
 
 declare module "sap/ui/unified/ShellHeadUserItem" {
@@ -19717,7 +19867,10 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
 
   export interface ShellHeadUserItem$PressEventParameters {}
 
-  export type ShellHeadUserItem$PressEvent = Event<ShellHeadUserItem$PressEventParameters>;
+  export type ShellHeadUserItem$PressEvent = Event<
+    ShellHeadUserItem$PressEventParameters,
+    ShellHeadUserItem
+  >;
 }
 
 declare module "sap/ui/unified/ShellLayout" {
@@ -20290,7 +20443,7 @@ declare module "sap/ui/unified/ShellOverlay" {
     /**
      * Gets content of aggregation {@link #getSearch search}.
      *
-     * @experimental (This aggregation might change in future!): The search control which should be displayed
+     * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the overlay header.
      */
     getSearch(): Control;
@@ -20399,7 +20552,7 @@ declare module "sap/ui/unified/ShellOverlay" {
     content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * @experimental (This aggregation might change in future!): The search control which should be displayed
+     * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the overlay header.
      */
     search?: Control;
@@ -20422,7 +20575,10 @@ declare module "sap/ui/unified/ShellOverlay" {
 
   export interface ShellOverlay$ClosedEventParameters {}
 
-  export type ShellOverlay$ClosedEvent = Event<ShellOverlay$ClosedEventParameters>;
+  export type ShellOverlay$ClosedEvent = Event<
+    ShellOverlay$ClosedEventParameters,
+    ShellOverlay
+  >;
 }
 
 declare module "sap/ui/unified/SplitContainer" {

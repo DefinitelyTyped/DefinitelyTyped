@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1796,7 +1796,7 @@ declare module "sap/ui/webc/main/Avatar" {
 
   export interface Avatar$ClickEventParameters {}
 
-  export type Avatar$ClickEvent = Event<Avatar$ClickEventParameters>;
+  export type Avatar$ClickEvent = Event<Avatar$ClickEventParameters, Avatar>;
 }
 
 declare module "sap/ui/webc/main/AvatarGroup" {
@@ -2282,11 +2282,17 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     overflowButtonClicked?: boolean;
   }
 
-  export type AvatarGroup$ClickEvent = Event<AvatarGroup$ClickEventParameters>;
+  export type AvatarGroup$ClickEvent = Event<
+    AvatarGroup$ClickEventParameters,
+    AvatarGroup
+  >;
 
   export interface AvatarGroup$OverflowEventParameters {}
 
-  export type AvatarGroup$OverflowEvent = Event<AvatarGroup$OverflowEventParameters>;
+  export type AvatarGroup$OverflowEvent = Event<
+    AvatarGroup$OverflowEventParameters,
+    AvatarGroup
+  >;
 }
 
 declare module "sap/ui/webc/main/Badge" {
@@ -2970,7 +2976,10 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     shiftKey?: boolean;
   }
 
-  export type Breadcrumbs$ItemClickEvent = Event<Breadcrumbs$ItemClickEventParameters>;
+  export type Breadcrumbs$ItemClickEvent = Event<
+    Breadcrumbs$ItemClickEventParameters,
+    Breadcrumbs
+  >;
 }
 
 declare module "sap/ui/webc/main/BreadcrumbsItem" {
@@ -4303,7 +4312,7 @@ declare module "sap/ui/webc/main/Button" {
 
   export interface Button$ClickEventParameters {}
 
-  export type Button$ClickEvent = Event<Button$ClickEventParameters>;
+  export type Button$ClickEvent = Event<Button$ClickEventParameters, Button>;
 }
 
 declare module "sap/ui/webc/main/Calendar" {
@@ -4939,7 +4948,10 @@ declare module "sap/ui/webc/main/Calendar" {
     dates?: any[];
   }
 
-  export type Calendar$SelectedDatesChangeEvent = Event<Calendar$SelectedDatesChangeEventParameters>;
+  export type Calendar$SelectedDatesChangeEvent = Event<
+    Calendar$SelectedDatesChangeEventParameters,
+    Calendar
+  >;
 }
 
 declare module "sap/ui/webc/main/CalendarDate" {
@@ -5928,7 +5940,10 @@ declare module "sap/ui/webc/main/CardHeader" {
 
   export interface CardHeader$ClickEventParameters {}
 
-  export type CardHeader$ClickEvent = Event<CardHeader$ClickEventParameters>;
+  export type CardHeader$ClickEvent = Event<
+    CardHeader$ClickEventParameters,
+    CardHeader
+  >;
 }
 
 declare module "sap/ui/webc/main/Carousel" {
@@ -6666,7 +6681,10 @@ declare module "sap/ui/webc/main/Carousel" {
     selectedIndex?: int;
   }
 
-  export type Carousel$NavigateEvent = Event<Carousel$NavigateEventParameters>;
+  export type Carousel$NavigateEvent = Event<
+    Carousel$NavigateEventParameters,
+    Carousel
+  >;
 }
 
 declare module "sap/ui/webc/main/CheckBox" {
@@ -7366,7 +7384,10 @@ declare module "sap/ui/webc/main/CheckBox" {
 
   export interface CheckBox$ChangeEventParameters {}
 
-  export type CheckBox$ChangeEvent = Event<CheckBox$ChangeEventParameters>;
+  export type CheckBox$ChangeEvent = Event<
+    CheckBox$ChangeEventParameters,
+    CheckBox
+  >;
 }
 
 declare module "sap/ui/webc/main/ColorPalette" {
@@ -7628,7 +7649,10 @@ declare module "sap/ui/webc/main/ColorPalette" {
     color?: string;
   }
 
-  export type ColorPalette$ItemClickEvent = Event<ColorPalette$ItemClickEventParameters>;
+  export type ColorPalette$ItemClickEvent = Event<
+    ColorPalette$ItemClickEventParameters,
+    ColorPalette
+  >;
 }
 
 declare module "sap/ui/webc/main/ColorPaletteItem" {
@@ -8176,7 +8200,10 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
     color?: string;
   }
 
-  export type ColorPalettePopover$ItemClickEvent = Event<ColorPalettePopover$ItemClickEventParameters>;
+  export type ColorPalettePopover$ItemClickEvent = Event<
+    ColorPalettePopover$ItemClickEventParameters,
+    ColorPalettePopover
+  >;
 }
 
 declare module "sap/ui/webc/main/ColorPicker" {
@@ -8389,7 +8416,10 @@ declare module "sap/ui/webc/main/ColorPicker" {
 
   export interface ColorPicker$ChangeEventParameters {}
 
-  export type ColorPicker$ChangeEvent = Event<ColorPicker$ChangeEventParameters>;
+  export type ColorPicker$ChangeEvent = Event<
+    ColorPicker$ChangeEventParameters,
+    ColorPicker
+  >;
 }
 
 declare module "sap/ui/webc/main/ComboBox" {
@@ -9359,11 +9389,17 @@ declare module "sap/ui/webc/main/ComboBox" {
 
   export interface ComboBox$ChangeEventParameters {}
 
-  export type ComboBox$ChangeEvent = Event<ComboBox$ChangeEventParameters>;
+  export type ComboBox$ChangeEvent = Event<
+    ComboBox$ChangeEventParameters,
+    ComboBox
+  >;
 
   export interface ComboBox$InputEventParameters {}
 
-  export type ComboBox$InputEvent = Event<ComboBox$InputEventParameters>;
+  export type ComboBox$InputEvent = Event<
+    ComboBox$InputEventParameters,
+    ComboBox
+  >;
 
   export interface ComboBox$SelectionChangeEventParameters {
     /**
@@ -9372,7 +9408,10 @@ declare module "sap/ui/webc/main/ComboBox" {
     item?: IComboBoxItem;
   }
 
-  export type ComboBox$SelectionChangeEvent = Event<ComboBox$SelectionChangeEventParameters>;
+  export type ComboBox$SelectionChangeEvent = Event<
+    ComboBox$SelectionChangeEventParameters,
+    ComboBox
+  >;
 }
 
 declare module "sap/ui/webc/main/ComboBoxGroupItem" {
@@ -10077,7 +10116,10 @@ declare module "sap/ui/webc/main/CustomListItem" {
 
   export interface CustomListItem$DetailClickEventParameters {}
 
-  export type CustomListItem$DetailClickEvent = Event<CustomListItem$DetailClickEventParameters>;
+  export type CustomListItem$DetailClickEvent = Event<
+    CustomListItem$DetailClickEventParameters,
+    CustomListItem
+  >;
 }
 
 declare module "sap/ui/webc/main/DatePicker" {
@@ -11098,7 +11140,10 @@ declare module "sap/ui/webc/main/DatePicker" {
     valid?: boolean;
   }
 
-  export type DatePicker$ChangeEvent = Event<DatePicker$ChangeEventParameters>;
+  export type DatePicker$ChangeEvent = Event<
+    DatePicker$ChangeEventParameters,
+    DatePicker
+  >;
 
   export interface DatePicker$InputEventParameters {
     /**
@@ -11112,7 +11157,10 @@ declare module "sap/ui/webc/main/DatePicker" {
     valid?: boolean;
   }
 
-  export type DatePicker$InputEvent = Event<DatePicker$InputEventParameters>;
+  export type DatePicker$InputEvent = Event<
+    DatePicker$InputEventParameters,
+    DatePicker
+  >;
 }
 
 declare module "sap/ui/webc/main/DateRangePicker" {
@@ -12141,7 +12189,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     valid?: boolean;
   }
 
-  export type DateRangePicker$ChangeEvent = Event<DateRangePicker$ChangeEventParameters>;
+  export type DateRangePicker$ChangeEvent = Event<
+    DateRangePicker$ChangeEventParameters,
+    DateRangePicker
+  >;
 
   export interface DateRangePicker$InputEventParameters {
     /**
@@ -12155,7 +12206,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     valid?: boolean;
   }
 
-  export type DateRangePicker$InputEvent = Event<DateRangePicker$InputEventParameters>;
+  export type DateRangePicker$InputEvent = Event<
+    DateRangePicker$InputEventParameters,
+    DateRangePicker
+  >;
 }
 
 declare module "sap/ui/webc/main/DateTimePicker" {
@@ -13170,7 +13224,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     valid?: boolean;
   }
 
-  export type DateTimePicker$ChangeEvent = Event<DateTimePicker$ChangeEventParameters>;
+  export type DateTimePicker$ChangeEvent = Event<
+    DateTimePicker$ChangeEventParameters,
+    DateTimePicker
+  >;
 
   export interface DateTimePicker$InputEventParameters {
     /**
@@ -13184,7 +13241,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     valid?: boolean;
   }
 
-  export type DateTimePicker$InputEvent = Event<DateTimePicker$InputEventParameters>;
+  export type DateTimePicker$InputEvent = Event<
+    DateTimePicker$InputEventParameters,
+    DateTimePicker
+  >;
 }
 
 declare module "sap/ui/webc/main/Dialog" {
@@ -14385,11 +14445,17 @@ declare module "sap/ui/webc/main/Dialog" {
 
   export interface Dialog$AfterCloseEventParameters {}
 
-  export type Dialog$AfterCloseEvent = Event<Dialog$AfterCloseEventParameters>;
+  export type Dialog$AfterCloseEvent = Event<
+    Dialog$AfterCloseEventParameters,
+    Dialog
+  >;
 
   export interface Dialog$AfterOpenEventParameters {}
 
-  export type Dialog$AfterOpenEvent = Event<Dialog$AfterOpenEventParameters>;
+  export type Dialog$AfterOpenEvent = Event<
+    Dialog$AfterOpenEventParameters,
+    Dialog
+  >;
 
   export interface Dialog$BeforeCloseEventParameters {
     /**
@@ -14398,11 +14464,17 @@ declare module "sap/ui/webc/main/Dialog" {
     escPressed?: boolean;
   }
 
-  export type Dialog$BeforeCloseEvent = Event<Dialog$BeforeCloseEventParameters>;
+  export type Dialog$BeforeCloseEvent = Event<
+    Dialog$BeforeCloseEventParameters,
+    Dialog
+  >;
 
   export interface Dialog$BeforeOpenEventParameters {}
 
-  export type Dialog$BeforeOpenEvent = Event<Dialog$BeforeOpenEventParameters>;
+  export type Dialog$BeforeOpenEvent = Event<
+    Dialog$BeforeOpenEventParameters,
+    Dialog
+  >;
 }
 
 declare module "sap/ui/webc/main/FileUploader" {
@@ -15064,7 +15136,10 @@ declare module "sap/ui/webc/main/FileUploader" {
     files?: FileList;
   }
 
-  export type FileUploader$ChangeEvent = Event<FileUploader$ChangeEventParameters>;
+  export type FileUploader$ChangeEvent = Event<
+    FileUploader$ChangeEventParameters,
+    FileUploader
+  >;
 }
 
 declare module "sap/ui/webc/main/GroupHeaderListItem" {
@@ -15932,7 +16007,7 @@ declare module "sap/ui/webc/main/Icon" {
 
   export interface Icon$ClickEventParameters {}
 
-  export type Icon$ClickEvent = Event<Icon$ClickEventParameters>;
+  export type Icon$ClickEvent = Event<Icon$ClickEventParameters, Icon>;
 }
 
 declare module "sap/ui/webc/main/Input" {
@@ -17176,11 +17251,11 @@ declare module "sap/ui/webc/main/Input" {
 
   export interface Input$ChangeEventParameters {}
 
-  export type Input$ChangeEvent = Event<Input$ChangeEventParameters>;
+  export type Input$ChangeEvent = Event<Input$ChangeEventParameters, Input>;
 
   export interface Input$InputEventParameters {}
 
-  export type Input$InputEvent = Event<Input$InputEventParameters>;
+  export type Input$InputEvent = Event<Input$InputEventParameters, Input>;
 
   export interface Input$SuggestionItemPreviewEventParameters {
     /**
@@ -17194,7 +17269,10 @@ declare module "sap/ui/webc/main/Input" {
     targetRef?: HTMLElement;
   }
 
-  export type Input$SuggestionItemPreviewEvent = Event<Input$SuggestionItemPreviewEventParameters>;
+  export type Input$SuggestionItemPreviewEvent = Event<
+    Input$SuggestionItemPreviewEventParameters,
+    Input
+  >;
 
   export interface Input$SuggestionItemSelectEventParameters {
     /**
@@ -17203,7 +17281,10 @@ declare module "sap/ui/webc/main/Input" {
     item?: HTMLElement;
   }
 
-  export type Input$SuggestionItemSelectEvent = Event<Input$SuggestionItemSelectEventParameters>;
+  export type Input$SuggestionItemSelectEvent = Event<
+    Input$SuggestionItemSelectEventParameters,
+    Input
+  >;
 }
 
 declare module "sap/ui/webc/main/Label" {
@@ -18173,7 +18254,7 @@ declare module "sap/ui/webc/main/Link" {
     shiftKey?: boolean;
   }
 
-  export type Link$ClickEvent = Event<Link$ClickEventParameters>;
+  export type Link$ClickEvent = Event<Link$ClickEventParameters, Link>;
 }
 
 declare module "sap/ui/webc/main/List" {
@@ -19532,7 +19613,7 @@ declare module "sap/ui/webc/main/List" {
     item?: HTMLElement;
   }
 
-  export type List$ItemClickEvent = Event<List$ItemClickEventParameters>;
+  export type List$ItemClickEvent = Event<List$ItemClickEventParameters, List>;
 
   export interface List$ItemCloseEventParameters {
     /**
@@ -19541,7 +19622,7 @@ declare module "sap/ui/webc/main/List" {
     item?: HTMLElement;
   }
 
-  export type List$ItemCloseEvent = Event<List$ItemCloseEventParameters>;
+  export type List$ItemCloseEvent = Event<List$ItemCloseEventParameters, List>;
 
   export interface List$ItemDeleteEventParameters {
     /**
@@ -19550,7 +19631,10 @@ declare module "sap/ui/webc/main/List" {
     item?: HTMLElement;
   }
 
-  export type List$ItemDeleteEvent = Event<List$ItemDeleteEventParameters>;
+  export type List$ItemDeleteEvent = Event<
+    List$ItemDeleteEventParameters,
+    List
+  >;
 
   export interface List$ItemToggleEventParameters {
     /**
@@ -19559,11 +19643,14 @@ declare module "sap/ui/webc/main/List" {
     item?: HTMLElement;
   }
 
-  export type List$ItemToggleEvent = Event<List$ItemToggleEventParameters>;
+  export type List$ItemToggleEvent = Event<
+    List$ItemToggleEventParameters,
+    List
+  >;
 
   export interface List$LoadMoreEventParameters {}
 
-  export type List$LoadMoreEvent = Event<List$LoadMoreEventParameters>;
+  export type List$LoadMoreEvent = Event<List$LoadMoreEventParameters, List>;
 
   export interface List$SelectionChangeEventParameters {
     /**
@@ -19577,7 +19664,10 @@ declare module "sap/ui/webc/main/List" {
     previouslySelectedItems?: any[];
   }
 
-  export type List$SelectionChangeEvent = Event<List$SelectionChangeEventParameters>;
+  export type List$SelectionChangeEvent = Event<
+    List$SelectionChangeEventParameters,
+    List
+  >;
 }
 
 declare module "sap/ui/webc/main/Menu" {
@@ -20348,11 +20438,14 @@ declare module "sap/ui/webc/main/Menu" {
 
   export interface Menu$AfterCloseEventParameters {}
 
-  export type Menu$AfterCloseEvent = Event<Menu$AfterCloseEventParameters>;
+  export type Menu$AfterCloseEvent = Event<
+    Menu$AfterCloseEventParameters,
+    Menu
+  >;
 
   export interface Menu$AfterOpenEventParameters {}
 
-  export type Menu$AfterOpenEvent = Event<Menu$AfterOpenEventParameters>;
+  export type Menu$AfterOpenEvent = Event<Menu$AfterOpenEventParameters, Menu>;
 
   export interface Menu$BeforeCloseEventParameters {
     /**
@@ -20361,7 +20454,10 @@ declare module "sap/ui/webc/main/Menu" {
     escPressed?: boolean;
   }
 
-  export type Menu$BeforeCloseEvent = Event<Menu$BeforeCloseEventParameters>;
+  export type Menu$BeforeCloseEvent = Event<
+    Menu$BeforeCloseEventParameters,
+    Menu
+  >;
 
   export interface Menu$BeforeOpenEventParameters {
     /**
@@ -20371,7 +20467,10 @@ declare module "sap/ui/webc/main/Menu" {
     item?: HTMLElement;
   }
 
-  export type Menu$BeforeOpenEvent = Event<Menu$BeforeOpenEventParameters>;
+  export type Menu$BeforeOpenEvent = Event<
+    Menu$BeforeOpenEventParameters,
+    Menu
+  >;
 
   export interface Menu$ItemClickEventParameters {
     /**
@@ -20385,7 +20484,7 @@ declare module "sap/ui/webc/main/Menu" {
     text?: string;
   }
 
-  export type Menu$ItemClickEvent = Event<Menu$ItemClickEventParameters>;
+  export type Menu$ItemClickEvent = Event<Menu$ItemClickEventParameters, Menu>;
 }
 
 declare module "sap/ui/webc/main/MenuItem" {
@@ -21263,7 +21362,10 @@ declare module "sap/ui/webc/main/MessageStrip" {
 
   export interface MessageStrip$CloseEventParameters {}
 
-  export type MessageStrip$CloseEvent = Event<MessageStrip$CloseEventParameters>;
+  export type MessageStrip$CloseEvent = Event<
+    MessageStrip$CloseEventParameters,
+    MessageStrip
+  >;
 }
 
 declare module "sap/ui/webc/main/MultiComboBox" {
@@ -22354,15 +22456,24 @@ declare module "sap/ui/webc/main/MultiComboBox" {
 
   export interface MultiComboBox$ChangeEventParameters {}
 
-  export type MultiComboBox$ChangeEvent = Event<MultiComboBox$ChangeEventParameters>;
+  export type MultiComboBox$ChangeEvent = Event<
+    MultiComboBox$ChangeEventParameters,
+    MultiComboBox
+  >;
 
   export interface MultiComboBox$InputEventParameters {}
 
-  export type MultiComboBox$InputEvent = Event<MultiComboBox$InputEventParameters>;
+  export type MultiComboBox$InputEvent = Event<
+    MultiComboBox$InputEventParameters,
+    MultiComboBox
+  >;
 
   export interface MultiComboBox$OpenChangeEventParameters {}
 
-  export type MultiComboBox$OpenChangeEvent = Event<MultiComboBox$OpenChangeEventParameters>;
+  export type MultiComboBox$OpenChangeEvent = Event<
+    MultiComboBox$OpenChangeEventParameters,
+    MultiComboBox
+  >;
 
   export interface MultiComboBox$SelectionChangeEventParameters {
     /**
@@ -22371,7 +22482,10 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     items?: any[];
   }
 
-  export type MultiComboBox$SelectionChangeEvent = Event<MultiComboBox$SelectionChangeEventParameters>;
+  export type MultiComboBox$SelectionChangeEvent = Event<
+    MultiComboBox$SelectionChangeEventParameters,
+    MultiComboBox
+  >;
 }
 
 declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
@@ -24180,11 +24294,17 @@ declare module "sap/ui/webc/main/MultiInput" {
 
   export interface MultiInput$ChangeEventParameters {}
 
-  export type MultiInput$ChangeEvent = Event<MultiInput$ChangeEventParameters>;
+  export type MultiInput$ChangeEvent = Event<
+    MultiInput$ChangeEventParameters,
+    MultiInput
+  >;
 
   export interface MultiInput$InputEventParameters {}
 
-  export type MultiInput$InputEvent = Event<MultiInput$InputEventParameters>;
+  export type MultiInput$InputEvent = Event<
+    MultiInput$InputEventParameters,
+    MultiInput
+  >;
 
   export interface MultiInput$SuggestionItemPreviewEventParameters {
     /**
@@ -24198,7 +24318,10 @@ declare module "sap/ui/webc/main/MultiInput" {
     targetRef?: HTMLElement;
   }
 
-  export type MultiInput$SuggestionItemPreviewEvent = Event<MultiInput$SuggestionItemPreviewEventParameters>;
+  export type MultiInput$SuggestionItemPreviewEvent = Event<
+    MultiInput$SuggestionItemPreviewEventParameters,
+    MultiInput
+  >;
 
   export interface MultiInput$SuggestionItemSelectEventParameters {
     /**
@@ -24207,7 +24330,10 @@ declare module "sap/ui/webc/main/MultiInput" {
     item?: HTMLElement;
   }
 
-  export type MultiInput$SuggestionItemSelectEvent = Event<MultiInput$SuggestionItemSelectEventParameters>;
+  export type MultiInput$SuggestionItemSelectEvent = Event<
+    MultiInput$SuggestionItemSelectEventParameters,
+    MultiInput
+  >;
 
   export interface MultiInput$TokenDeleteEventParameters {
     /**
@@ -24216,11 +24342,17 @@ declare module "sap/ui/webc/main/MultiInput" {
     token?: HTMLElement;
   }
 
-  export type MultiInput$TokenDeleteEvent = Event<MultiInput$TokenDeleteEventParameters>;
+  export type MultiInput$TokenDeleteEvent = Event<
+    MultiInput$TokenDeleteEventParameters,
+    MultiInput
+  >;
 
   export interface MultiInput$ValueHelpTriggerEventParameters {}
 
-  export type MultiInput$ValueHelpTriggerEvent = Event<MultiInput$ValueHelpTriggerEventParameters>;
+  export type MultiInput$ValueHelpTriggerEvent = Event<
+    MultiInput$ValueHelpTriggerEventParameters,
+    MultiInput
+  >;
 }
 
 declare module "sap/ui/webc/main/Option" {
@@ -25179,7 +25311,7 @@ declare module "sap/ui/webc/main/Panel" {
 
   export interface Panel$ToggleEventParameters {}
 
-  export type Panel$ToggleEvent = Event<Panel$ToggleEventParameters>;
+  export type Panel$ToggleEvent = Event<Panel$ToggleEventParameters, Panel>;
 }
 
 declare module "sap/ui/webc/main/Popover" {
@@ -26501,11 +26633,17 @@ declare module "sap/ui/webc/main/Popover" {
 
   export interface Popover$AfterCloseEventParameters {}
 
-  export type Popover$AfterCloseEvent = Event<Popover$AfterCloseEventParameters>;
+  export type Popover$AfterCloseEvent = Event<
+    Popover$AfterCloseEventParameters,
+    Popover
+  >;
 
   export interface Popover$AfterOpenEventParameters {}
 
-  export type Popover$AfterOpenEvent = Event<Popover$AfterOpenEventParameters>;
+  export type Popover$AfterOpenEvent = Event<
+    Popover$AfterOpenEventParameters,
+    Popover
+  >;
 
   export interface Popover$BeforeCloseEventParameters {
     /**
@@ -26514,11 +26652,17 @@ declare module "sap/ui/webc/main/Popover" {
     escPressed?: boolean;
   }
 
-  export type Popover$BeforeCloseEvent = Event<Popover$BeforeCloseEventParameters>;
+  export type Popover$BeforeCloseEvent = Event<
+    Popover$BeforeCloseEventParameters,
+    Popover
+  >;
 
   export interface Popover$BeforeOpenEventParameters {}
 
-  export type Popover$BeforeOpenEvent = Event<Popover$BeforeOpenEventParameters>;
+  export type Popover$BeforeOpenEvent = Event<
+    Popover$BeforeOpenEventParameters,
+    Popover
+  >;
 }
 
 declare module "sap/ui/webc/main/ProgressIndicator" {
@@ -27513,7 +27657,10 @@ declare module "sap/ui/webc/main/RadioButton" {
 
   export interface RadioButton$ChangeEventParameters {}
 
-  export type RadioButton$ChangeEvent = Event<RadioButton$ChangeEventParameters>;
+  export type RadioButton$ChangeEvent = Event<
+    RadioButton$ChangeEventParameters,
+    RadioButton
+  >;
 }
 
 declare module "sap/ui/webc/main/RangeSlider" {
@@ -28193,11 +28340,17 @@ declare module "sap/ui/webc/main/RangeSlider" {
 
   export interface RangeSlider$ChangeEventParameters {}
 
-  export type RangeSlider$ChangeEvent = Event<RangeSlider$ChangeEventParameters>;
+  export type RangeSlider$ChangeEvent = Event<
+    RangeSlider$ChangeEventParameters,
+    RangeSlider
+  >;
 
   export interface RangeSlider$InputEventParameters {}
 
-  export type RangeSlider$InputEvent = Event<RangeSlider$InputEventParameters>;
+  export type RangeSlider$InputEvent = Event<
+    RangeSlider$InputEventParameters,
+    RangeSlider
+  >;
 }
 
 declare module "sap/ui/webc/main/RatingIndicator" {
@@ -28601,7 +28754,10 @@ declare module "sap/ui/webc/main/RatingIndicator" {
 
   export interface RatingIndicator$ChangeEventParameters {}
 
-  export type RatingIndicator$ChangeEvent = Event<RatingIndicator$ChangeEventParameters>;
+  export type RatingIndicator$ChangeEvent = Event<
+    RatingIndicator$ChangeEventParameters,
+    RatingIndicator
+  >;
 }
 
 declare module "sap/ui/webc/main/ResponsivePopover" {
@@ -29864,11 +30020,17 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
 
   export interface ResponsivePopover$AfterCloseEventParameters {}
 
-  export type ResponsivePopover$AfterCloseEvent = Event<ResponsivePopover$AfterCloseEventParameters>;
+  export type ResponsivePopover$AfterCloseEvent = Event<
+    ResponsivePopover$AfterCloseEventParameters,
+    ResponsivePopover
+  >;
 
   export interface ResponsivePopover$AfterOpenEventParameters {}
 
-  export type ResponsivePopover$AfterOpenEvent = Event<ResponsivePopover$AfterOpenEventParameters>;
+  export type ResponsivePopover$AfterOpenEvent = Event<
+    ResponsivePopover$AfterOpenEventParameters,
+    ResponsivePopover
+  >;
 
   export interface ResponsivePopover$BeforeCloseEventParameters {
     /**
@@ -29877,11 +30039,17 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     escPressed?: boolean;
   }
 
-  export type ResponsivePopover$BeforeCloseEvent = Event<ResponsivePopover$BeforeCloseEventParameters>;
+  export type ResponsivePopover$BeforeCloseEvent = Event<
+    ResponsivePopover$BeforeCloseEventParameters,
+    ResponsivePopover
+  >;
 
   export interface ResponsivePopover$BeforeOpenEventParameters {}
 
-  export type ResponsivePopover$BeforeOpenEvent = Event<ResponsivePopover$BeforeOpenEventParameters>;
+  export type ResponsivePopover$BeforeOpenEvent = Event<
+    ResponsivePopover$BeforeOpenEventParameters,
+    ResponsivePopover
+  >;
 }
 
 declare module "sap/ui/webc/main/SegmentedButton" {
@@ -30306,7 +30474,10 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     selectedItems?: HTMLElement[];
   }
 
-  export type SegmentedButton$SelectionChangeEvent = Event<SegmentedButton$SelectionChangeEventParameters>;
+  export type SegmentedButton$SelectionChangeEvent = Event<
+    SegmentedButton$SelectionChangeEventParameters,
+    SegmentedButton
+  >;
 }
 
 declare module "sap/ui/webc/main/SegmentedButtonItem" {
@@ -30898,7 +31069,10 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
 
   export interface SegmentedButtonItem$ClickEventParameters {}
 
-  export type SegmentedButtonItem$ClickEvent = Event<SegmentedButtonItem$ClickEventParameters>;
+  export type SegmentedButtonItem$ClickEvent = Event<
+    SegmentedButtonItem$ClickEventParameters,
+    SegmentedButtonItem
+  >;
 }
 
 declare module "sap/ui/webc/main/Select" {
@@ -31676,15 +31850,15 @@ declare module "sap/ui/webc/main/Select" {
     selectedOption?: HTMLElement;
   }
 
-  export type Select$ChangeEvent = Event<Select$ChangeEventParameters>;
+  export type Select$ChangeEvent = Event<Select$ChangeEventParameters, Select>;
 
   export interface Select$CloseEventParameters {}
 
-  export type Select$CloseEvent = Event<Select$CloseEventParameters>;
+  export type Select$CloseEvent = Event<Select$CloseEventParameters, Select>;
 
   export interface Select$OpenEventParameters {}
 
-  export type Select$OpenEvent = Event<Select$OpenEventParameters>;
+  export type Select$OpenEvent = Event<Select$OpenEventParameters, Select>;
 }
 
 declare module "sap/ui/webc/main/Slider" {
@@ -32329,11 +32503,11 @@ declare module "sap/ui/webc/main/Slider" {
 
   export interface Slider$ChangeEventParameters {}
 
-  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters>;
+  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters, Slider>;
 
   export interface Slider$InputEventParameters {}
 
-  export type Slider$InputEvent = Event<Slider$InputEventParameters>;
+  export type Slider$InputEvent = Event<Slider$InputEventParameters, Slider>;
 }
 
 declare module "sap/ui/webc/main/SplitButton" {
@@ -32856,11 +33030,17 @@ declare module "sap/ui/webc/main/SplitButton" {
 
   export interface SplitButton$ArrowClickEventParameters {}
 
-  export type SplitButton$ArrowClickEvent = Event<SplitButton$ArrowClickEventParameters>;
+  export type SplitButton$ArrowClickEvent = Event<
+    SplitButton$ArrowClickEventParameters,
+    SplitButton
+  >;
 
   export interface SplitButton$ClickEventParameters {}
 
-  export type SplitButton$ClickEvent = Event<SplitButton$ClickEventParameters>;
+  export type SplitButton$ClickEvent = Event<
+    SplitButton$ClickEventParameters,
+    SplitButton
+  >;
 }
 
 declare module "sap/ui/webc/main/StandardListItem" {
@@ -33546,7 +33726,10 @@ declare module "sap/ui/webc/main/StandardListItem" {
 
   export interface StandardListItem$DetailClickEventParameters {}
 
-  export type StandardListItem$DetailClickEvent = Event<StandardListItem$DetailClickEventParameters>;
+  export type StandardListItem$DetailClickEvent = Event<
+    StandardListItem$DetailClickEventParameters,
+    StandardListItem
+  >;
 }
 
 declare module "sap/ui/webc/main/StepInput" {
@@ -34286,7 +34469,10 @@ declare module "sap/ui/webc/main/StepInput" {
 
   export interface StepInput$ChangeEventParameters {}
 
-  export type StepInput$ChangeEvent = Event<StepInput$ChangeEventParameters>;
+  export type StepInput$ChangeEvent = Event<
+    StepInput$ChangeEventParameters,
+    StepInput
+  >;
 }
 
 declare module "sap/ui/webc/main/SuggestionGroupItem" {
@@ -35282,7 +35468,7 @@ declare module "sap/ui/webc/main/Switch" {
 
   export interface Switch$ChangeEventParameters {}
 
-  export type Switch$ChangeEvent = Event<Switch$ChangeEventParameters>;
+  export type Switch$ChangeEvent = Event<Switch$ChangeEventParameters, Switch>;
 }
 
 declare module "sap/ui/webc/main/Tab" {
@@ -36547,7 +36733,10 @@ declare module "sap/ui/webc/main/TabContainer" {
     tabIndex?: int;
   }
 
-  export type TabContainer$TabSelectEvent = Event<TabContainer$TabSelectEventParameters>;
+  export type TabContainer$TabSelectEvent = Event<
+    TabContainer$TabSelectEventParameters,
+    TabContainer
+  >;
 }
 
 declare module "sap/ui/webc/main/Table" {
@@ -37734,7 +37923,7 @@ declare module "sap/ui/webc/main/Table" {
 
   export interface Table$LoadMoreEventParameters {}
 
-  export type Table$LoadMoreEvent = Event<Table$LoadMoreEventParameters>;
+  export type Table$LoadMoreEvent = Event<Table$LoadMoreEventParameters, Table>;
 
   export interface Table$PopinChangeEventParameters {
     /**
@@ -37743,7 +37932,10 @@ declare module "sap/ui/webc/main/Table" {
     poppedColumns?: any[];
   }
 
-  export type Table$PopinChangeEvent = Event<Table$PopinChangeEventParameters>;
+  export type Table$PopinChangeEvent = Event<
+    Table$PopinChangeEventParameters,
+    Table
+  >;
 
   export interface Table$RowClickEventParameters {
     /**
@@ -37752,7 +37944,7 @@ declare module "sap/ui/webc/main/Table" {
     row?: HTMLElement;
   }
 
-  export type Table$RowClickEvent = Event<Table$RowClickEventParameters>;
+  export type Table$RowClickEvent = Event<Table$RowClickEventParameters, Table>;
 
   export interface Table$SelectionChangeEventParameters {
     /**
@@ -37766,7 +37958,10 @@ declare module "sap/ui/webc/main/Table" {
     previouslySelectedRows?: any[];
   }
 
-  export type Table$SelectionChangeEvent = Event<Table$SelectionChangeEventParameters>;
+  export type Table$SelectionChangeEvent = Event<
+    Table$SelectionChangeEventParameters,
+    Table
+  >;
 }
 
 declare module "sap/ui/webc/main/TableCell" {
@@ -39724,11 +39919,17 @@ declare module "sap/ui/webc/main/TextArea" {
 
   export interface TextArea$ChangeEventParameters {}
 
-  export type TextArea$ChangeEvent = Event<TextArea$ChangeEventParameters>;
+  export type TextArea$ChangeEvent = Event<
+    TextArea$ChangeEventParameters,
+    TextArea
+  >;
 
   export interface TextArea$InputEventParameters {}
 
-  export type TextArea$InputEvent = Event<TextArea$InputEventParameters>;
+  export type TextArea$InputEvent = Event<
+    TextArea$InputEventParameters,
+    TextArea
+  >;
 }
 
 declare module "sap/ui/webc/main/TimePicker" {
@@ -40390,7 +40591,10 @@ declare module "sap/ui/webc/main/TimePicker" {
     valid?: boolean;
   }
 
-  export type TimePicker$ChangeEvent = Event<TimePicker$ChangeEventParameters>;
+  export type TimePicker$ChangeEvent = Event<
+    TimePicker$ChangeEventParameters,
+    TimePicker
+  >;
 
   export interface TimePicker$InputEventParameters {
     /**
@@ -40404,7 +40608,10 @@ declare module "sap/ui/webc/main/TimePicker" {
     valid?: boolean;
   }
 
-  export type TimePicker$InputEvent = Event<TimePicker$InputEventParameters>;
+  export type TimePicker$InputEvent = Event<
+    TimePicker$InputEventParameters,
+    TimePicker
+  >;
 }
 
 declare module "sap/ui/webc/main/Title" {
@@ -41581,7 +41788,10 @@ declare module "sap/ui/webc/main/ToggleButton" {
 
   export interface ToggleButton$ClickEventParameters {}
 
-  export type ToggleButton$ClickEvent = Event<ToggleButton$ClickEventParameters>;
+  export type ToggleButton$ClickEvent = Event<
+    ToggleButton$ClickEventParameters,
+    ToggleButton
+  >;
 }
 
 declare module "sap/ui/webc/main/Token" {
@@ -41941,7 +42151,7 @@ declare module "sap/ui/webc/main/Token" {
 
   export interface Token$SelectEventParameters {}
 
-  export type Token$SelectEvent = Event<Token$SelectEventParameters>;
+  export type Token$SelectEvent = Event<Token$SelectEventParameters, Token>;
 }
 
 declare module "sap/ui/webc/main/Tree" {
@@ -43043,7 +43253,7 @@ declare module "sap/ui/webc/main/Tree" {
     item?: HTMLElement;
   }
 
-  export type Tree$ItemClickEvent = Event<Tree$ItemClickEventParameters>;
+  export type Tree$ItemClickEvent = Event<Tree$ItemClickEventParameters, Tree>;
 
   export interface Tree$ItemDeleteEventParameters {
     /**
@@ -43052,7 +43262,10 @@ declare module "sap/ui/webc/main/Tree" {
     item?: HTMLElement;
   }
 
-  export type Tree$ItemDeleteEvent = Event<Tree$ItemDeleteEventParameters>;
+  export type Tree$ItemDeleteEvent = Event<
+    Tree$ItemDeleteEventParameters,
+    Tree
+  >;
 
   export interface Tree$ItemMouseoutEventParameters {
     /**
@@ -43061,7 +43274,10 @@ declare module "sap/ui/webc/main/Tree" {
     item?: HTMLElement;
   }
 
-  export type Tree$ItemMouseoutEvent = Event<Tree$ItemMouseoutEventParameters>;
+  export type Tree$ItemMouseoutEvent = Event<
+    Tree$ItemMouseoutEventParameters,
+    Tree
+  >;
 
   export interface Tree$ItemMouseoverEventParameters {
     /**
@@ -43070,7 +43286,10 @@ declare module "sap/ui/webc/main/Tree" {
     item?: HTMLElement;
   }
 
-  export type Tree$ItemMouseoverEvent = Event<Tree$ItemMouseoverEventParameters>;
+  export type Tree$ItemMouseoverEvent = Event<
+    Tree$ItemMouseoverEventParameters,
+    Tree
+  >;
 
   export interface Tree$ItemToggleEventParameters {
     /**
@@ -43079,7 +43298,10 @@ declare module "sap/ui/webc/main/Tree" {
     item?: HTMLElement;
   }
 
-  export type Tree$ItemToggleEvent = Event<Tree$ItemToggleEventParameters>;
+  export type Tree$ItemToggleEvent = Event<
+    Tree$ItemToggleEventParameters,
+    Tree
+  >;
 
   export interface Tree$SelectionChangeEventParameters {
     /**
@@ -43098,7 +43320,10 @@ declare module "sap/ui/webc/main/Tree" {
     targetItem?: HTMLElement;
   }
 
-  export type Tree$SelectionChangeEvent = Event<Tree$SelectionChangeEventParameters>;
+  export type Tree$SelectionChangeEvent = Event<
+    Tree$SelectionChangeEventParameters,
+    Tree
+  >;
 }
 
 declare module "sap/ui/webc/main/TreeItem" {
@@ -43808,7 +44033,10 @@ declare module "sap/ui/webc/main/TreeItem" {
 
   export interface TreeItem$DetailClickEventParameters {}
 
-  export type TreeItem$DetailClickEvent = Event<TreeItem$DetailClickEventParameters>;
+  export type TreeItem$DetailClickEvent = Event<
+    TreeItem$DetailClickEventParameters,
+    TreeItem
+  >;
 }
 
 declare module "sap/ui/webc/main/TreeItemCustom" {
@@ -44568,7 +44796,10 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
 
   export interface TreeItemCustom$DetailClickEventParameters {}
 
-  export type TreeItemCustom$DetailClickEvent = Event<TreeItemCustom$DetailClickEventParameters>;
+  export type TreeItemCustom$DetailClickEvent = Event<
+    TreeItemCustom$DetailClickEventParameters,
+    TreeItemCustom
+  >;
 }
 
 declare namespace sap {

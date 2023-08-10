@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -677,7 +677,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     oldValue?: string;
   }
 
-  export type CodeEditor$ChangeEvent = Event<CodeEditor$ChangeEventParameters>;
+  export type CodeEditor$ChangeEvent = Event<
+    CodeEditor$ChangeEventParameters,
+    CodeEditor
+  >;
 
   export interface CodeEditor$LiveChangeEventParameters {
     /**
@@ -691,7 +694,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     editorEvent?: object;
   }
 
-  export type CodeEditor$LiveChangeEvent = Event<CodeEditor$LiveChangeEventParameters>;
+  export type CodeEditor$LiveChangeEvent = Event<
+    CodeEditor$LiveChangeEventParameters,
+    CodeEditor
+  >;
 }
 
 declare namespace sap {

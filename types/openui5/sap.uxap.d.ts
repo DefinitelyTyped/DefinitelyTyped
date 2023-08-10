@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.117.0
 
 declare module "sap/uxap/library" {
   /**
@@ -943,7 +943,10 @@ declare module "sap/uxap/BlockBase" {
     view?: View;
   }
 
-  export type BlockBase$ViewInitEvent = Event<BlockBase$ViewInitEventParameters>;
+  export type BlockBase$ViewInitEvent = Event<
+    BlockBase$ViewInitEventParameters,
+    BlockBase
+  >;
 }
 
 declare module "sap/uxap/BreadCrumbs" {
@@ -3498,7 +3501,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$MarkChangesPressEvent = Event<ObjectPageHeader$MarkChangesPressEventParameters>;
+  export type ObjectPageHeader$MarkChangesPressEvent = Event<
+    ObjectPageHeader$MarkChangesPressEventParameters,
+    ObjectPageHeader
+  >;
 
   export interface ObjectPageHeader$MarkLockedPressEventParameters {
     /**
@@ -3507,7 +3513,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$MarkLockedPressEvent = Event<ObjectPageHeader$MarkLockedPressEventParameters>;
+  export type ObjectPageHeader$MarkLockedPressEvent = Event<
+    ObjectPageHeader$MarkLockedPressEventParameters,
+    ObjectPageHeader
+  >;
 
   export interface ObjectPageHeader$TitleSelectorPressEventParameters {
     /**
@@ -3516,7 +3525,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$TitleSelectorPressEvent = Event<ObjectPageHeader$TitleSelectorPressEventParameters>;
+  export type ObjectPageHeader$TitleSelectorPressEvent = Event<
+    ObjectPageHeader$TitleSelectorPressEventParameters,
+    ObjectPageHeader
+  >;
 }
 
 declare module "sap/uxap/ObjectPageHeaderActionButton" {
@@ -5110,7 +5122,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     getPreserveHeaderStateOnScroll(): boolean;
     /**
-     * Returns the `sap.ui.core.ScrollEnablement` delegate which is used with this control.
+     * Returns the `sap.ui.core.delegate.ScrollEnablement` delegate which is used with this control.
      *
      * @returns The scroll delegate instance
      */
@@ -6265,7 +6277,10 @@ declare module "sap/uxap/ObjectPageLayout" {
 
   export interface ObjectPageLayout$EditHeaderButtonPressEventParameters {}
 
-  export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<ObjectPageLayout$EditHeaderButtonPressEventParameters>;
+  export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<
+    ObjectPageLayout$EditHeaderButtonPressEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters {
     /**
@@ -6274,7 +6289,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     pinned?: boolean;
   }
 
-  export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters>;
+  export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<
+    ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$NavigateEventParameters {
     /**
@@ -6288,7 +6306,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  export type ObjectPageLayout$NavigateEvent = Event<ObjectPageLayout$NavigateEventParameters>;
+  export type ObjectPageLayout$NavigateEvent = Event<
+    ObjectPageLayout$NavigateEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$SectionChangeEventParameters {
     /**
@@ -6302,7 +6323,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  export type ObjectPageLayout$SectionChangeEvent = Event<ObjectPageLayout$SectionChangeEventParameters>;
+  export type ObjectPageLayout$SectionChangeEvent = Event<
+    ObjectPageLayout$SectionChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$SubSectionVisibilityChangeEventParameters {
     /**
@@ -6311,7 +6335,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     visibleSubSections?: object;
   }
 
-  export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<ObjectPageLayout$SubSectionVisibilityChangeEventParameters>;
+  export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<
+    ObjectPageLayout$SubSectionVisibilityChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$ToggleAnchorBarEventParameters {
     /**
@@ -6321,7 +6348,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     fixed?: boolean;
   }
 
-  export type ObjectPageLayout$ToggleAnchorBarEvent = Event<ObjectPageLayout$ToggleAnchorBarEventParameters>;
+  export type ObjectPageLayout$ToggleAnchorBarEvent = Event<
+    ObjectPageLayout$ToggleAnchorBarEventParameters,
+    ObjectPageLayout
+  >;
 }
 
 declare module "sap/uxap/ObjectPageLazyLoader" {
