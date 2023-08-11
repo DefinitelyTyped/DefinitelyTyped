@@ -87,6 +87,17 @@ const commandId = GM_registerMenuCommand(
     'h',
 );
 
+GM_registerMenuCommand(
+    'Show Alert',
+    () => {
+        console.log('Menu item selected');
+    },
+    {
+        accessKey: 'a',
+        autoClose: true
+    }
+);
+
 // GM_unregisterMenuCommand
 
 GM_unregisterMenuCommand(commandId);

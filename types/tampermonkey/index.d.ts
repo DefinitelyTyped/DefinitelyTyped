@@ -483,7 +483,14 @@ declare function GM_getResourceURL(name: string): string;
  * Register a menu to be displayed at the Tampermonkey menu at pages where this
  * script runs and returns a menu command ID.
  */
-declare function GM_registerMenuCommand(name: string, onClick: () => void, accessKey?: string): number;
+declare function GM_registerMenuCommand(
+    name: string,
+    onClick: () => void,
+    optionsOrAccessKey?: string | {
+        accessKey?: string;
+        autoClose?: boolean;
+    }
+): number;
 
 /**
  *  Unregister a menu command that was previously registered by
