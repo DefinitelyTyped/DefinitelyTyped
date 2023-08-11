@@ -55,8 +55,8 @@ braintree.client.create(
                         nonce: existingNonce,
                         bin: testBin,
                     })
-                    .then(payload => { })
-                    .catch((err: braintree.BraintreeError) => { });
+                    .then(payload => {})
+                    .catch((err: braintree.BraintreeError) => {});
             });
 
         clientInstance.request(
@@ -883,7 +883,7 @@ braintree.client.create(
 );
 
 const existingNonce = 'fake-valid-nonce';
-const submitNonceToServer: (nonce: string) => void = (nonce: string) => { };
+const submitNonceToServer: (nonce: string) => void = (nonce: string) => {};
 
 braintree.client.create(
     {
