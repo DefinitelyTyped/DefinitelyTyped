@@ -1,2 +1,2 @@
-import { startsWith } from "lodash";
+import { startsWith } from 'lodash';
 export default startsWith;

@@ -1,2 +1,2 @@
-import { dropRightWhile } from "lodash";
+import { dropRightWhile } from 'lodash';
 export default dropRightWhile;

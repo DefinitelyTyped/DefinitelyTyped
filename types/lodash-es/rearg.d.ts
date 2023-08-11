@@ -1,2 +1,2 @@
-import { rearg } from "lodash";
+import { rearg } from 'lodash';
 export default rearg;

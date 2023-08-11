@@ -1,2 +1,2 @@
-import { negate } from "lodash";
+import { negate } from 'lodash';
 export default negate;

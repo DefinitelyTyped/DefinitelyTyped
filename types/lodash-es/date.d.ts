@@ -1,3 +1,3 @@
-import { default as now } from "./now";
+import { default as now } from './now';
 
-export { default } from "./date.default";
+export { default } from './date.default';

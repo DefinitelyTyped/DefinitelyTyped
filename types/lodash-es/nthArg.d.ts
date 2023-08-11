@@ -1,2 +1,2 @@
-import { nthArg } from "lodash";
+import { nthArg } from 'lodash';
 export default nthArg;

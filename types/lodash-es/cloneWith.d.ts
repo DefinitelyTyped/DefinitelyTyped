@@ -1,2 +1,2 @@
-import { cloneWith } from "lodash";
+import { cloneWith } from 'lodash';
 export default cloneWith;

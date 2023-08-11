@@ -1,2 +1,2 @@
-import { overSome } from "lodash";
+import { overSome } from 'lodash';
 export default overSome;

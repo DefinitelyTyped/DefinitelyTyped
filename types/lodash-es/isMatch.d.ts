@@ -1,2 +1,2 @@
-import { isMatch } from "lodash";
+import { isMatch } from 'lodash';
 export default isMatch;

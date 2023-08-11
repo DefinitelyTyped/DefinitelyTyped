@@ -1,2 +1,2 @@
-import { flatMapDepth } from "lodash";
+import { flatMapDepth } from 'lodash';
 export default flatMapDepth;

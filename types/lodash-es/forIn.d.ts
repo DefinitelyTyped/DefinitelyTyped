@@ -1,2 +1,2 @@
-import { forIn } from "lodash";
+import { forIn } from 'lodash';
 export default forIn;

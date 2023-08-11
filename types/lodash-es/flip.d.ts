@@ -1,2 +1,2 @@
-import { flip } from "lodash";
+import { flip } from 'lodash';
 export default flip;

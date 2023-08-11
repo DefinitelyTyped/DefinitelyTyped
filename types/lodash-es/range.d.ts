@@ -1,2 +1,2 @@
-import { range } from "lodash";
+import { range } from 'lodash';
 export default range;

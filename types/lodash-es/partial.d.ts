@@ -1,2 +1,2 @@
-import { partial } from "lodash";
+import { partial } from 'lodash';
 export default partial;

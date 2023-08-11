@@ -1,2 +1,2 @@
-import { repeat } from "lodash";
+import { repeat } from 'lodash';
 export default repeat;

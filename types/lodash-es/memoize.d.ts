@@ -1,2 +1,2 @@
-import { memoize } from "lodash";
+import { memoize } from 'lodash';
 export default memoize;

@@ -1,2 +1,2 @@
-import { isArray } from "lodash";
+import { isArray } from 'lodash';
 export default isArray;

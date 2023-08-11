@@ -1,2 +1,2 @@
-import { slice } from "lodash";
+import { slice } from 'lodash';
 export default slice;

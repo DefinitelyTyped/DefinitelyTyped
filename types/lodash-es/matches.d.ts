@@ -1,2 +1,2 @@
-import { matches } from "lodash";
+import { matches } from 'lodash';
 export default matches;

@@ -1,2 +1,2 @@
-import { propertyOf } from "lodash";
+import { propertyOf } from 'lodash';
 export default propertyOf;

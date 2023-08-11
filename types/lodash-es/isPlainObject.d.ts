@@ -1,2 +1,2 @@
-import { isPlainObject } from "lodash";
+import { isPlainObject } from 'lodash';
 export default isPlainObject;

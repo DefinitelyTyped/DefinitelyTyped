@@ -1,2 +1,2 @@
-import { conforms } from "lodash";
+import { conforms } from 'lodash';
 export default conforms;

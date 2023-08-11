@@ -1,2 +1,2 @@
-import { flatMap } from "lodash";
+import { flatMap } from 'lodash';
 export default flatMap;

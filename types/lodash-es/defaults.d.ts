@@ -1,2 +1,2 @@
-import { defaults } from "lodash";
+import { defaults } from 'lodash';
 export default defaults;

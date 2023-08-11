@@ -1,2 +1,2 @@
-import { chunk } from "lodash";
+import { chunk } from 'lodash';
 export default chunk;

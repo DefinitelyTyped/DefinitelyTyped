@@ -1,2 +1,2 @@
-import { isArguments } from "lodash";
+import { isArguments } from 'lodash';
 export default isArguments;

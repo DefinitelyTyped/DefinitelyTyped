@@ -1,2 +1,2 @@
-import { sumBy } from "lodash";
+import { sumBy } from 'lodash';
 export default sumBy;
