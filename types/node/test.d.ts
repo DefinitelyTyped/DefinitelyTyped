@@ -1241,6 +1241,11 @@ interface TestFail {
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -1276,6 +1281,11 @@ interface TestPass {
          * The duration of the test in milliseconds.
          */
         duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
