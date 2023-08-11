@@ -19,7 +19,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
-    - run: npm install
+      with:
+        check-latest: true
+        node-version: '*'
+    - run: npm ci
+    - uses: actions/cache@v3
+      with:
+        key: ${{ runner.os }}-dprint-${{ hashFiles('package-lock.json', '.dprint.jsonc') }}
+        path: ~/.cache/dprint
+        restore-keys: |
+          ${{ runner.os }}-dprint-
     - run: npx dprint fmt
     - uses: stefanzweifel/git-auto-commit-action@v4.16.0
       with:
