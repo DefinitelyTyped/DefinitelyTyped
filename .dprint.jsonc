@@ -14,6 +14,7 @@
     "./types/lodash",
     "./types/material-ui",
     "./types/meteor",
+    "./types/microsoft-graph",
     "./types/nginstack__engine",
     "./types/node",
     "./types/office-js-preview",
