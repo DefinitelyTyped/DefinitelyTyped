@@ -152,7 +152,7 @@ export type MouseMultiClickOptions = MouseClickOptions & {
     clickCount?: number;
 };
 
- export interface MouseDownUpOptions {
+export interface MouseDownUpOptions {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
