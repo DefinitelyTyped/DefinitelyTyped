@@ -1,3 +1,3 @@
-import { Troubleshooting } from "../../";
+import { Troubleshooting } from '../../';
 
 export = Troubleshooting;

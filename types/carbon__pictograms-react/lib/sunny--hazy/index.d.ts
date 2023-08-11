@@ -1,3 +1,3 @@
-import { SunnyHazy } from "../../";
+import { SunnyHazy } from '../../';
 
 export = SunnyHazy;

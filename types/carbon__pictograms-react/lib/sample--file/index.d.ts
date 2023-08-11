@@ -1,3 +1,3 @@
-import { SampleFile } from "../../";
+import { SampleFile } from '../../';
 
 export = SampleFile;

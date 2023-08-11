@@ -1,1 +1,1 @@
-export { ManagingContractualFlow as default } from "../../";
+export { ManagingContractualFlow as default } from '../../';

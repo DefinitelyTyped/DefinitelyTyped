@@ -1,1 +1,1 @@
-export { Candy as default } from "../../";
+export { Candy as default } from '../../';

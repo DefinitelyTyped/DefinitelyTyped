@@ -1,1 +1,1 @@
-export { CloudTutorials as default } from "../../";
+export { CloudTutorials as default } from '../../';

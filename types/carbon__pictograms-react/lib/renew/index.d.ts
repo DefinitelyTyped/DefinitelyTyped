@@ -1,3 +1,3 @@
-import { Renew } from "../../";
+import { Renew } from '../../';
 
 export = Renew;

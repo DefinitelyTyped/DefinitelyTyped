@@ -1,1 +1,1 @@
-export { RandomSamples as default } from "../../";
+export { RandomSamples as default } from '../../';

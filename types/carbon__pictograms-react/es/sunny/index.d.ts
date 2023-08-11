@@ -1,1 +1,1 @@
-export { Sunny as default } from "../../";
+export { Sunny as default } from '../../';

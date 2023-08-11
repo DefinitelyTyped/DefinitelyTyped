@@ -1,3 +1,3 @@
-import { AssessmentUsed } from "../../";
+import { AssessmentUsed } from '../../';
 
 export = AssessmentUsed;

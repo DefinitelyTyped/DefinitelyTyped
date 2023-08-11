@@ -1,3 +1,3 @@
-import { ZeroTrust } from "../../";
+import { ZeroTrust } from '../../';
 
 export = ZeroTrust;

@@ -1,1 +1,1 @@
-export { NetworkTraffic as default } from "../../";
+export { NetworkTraffic as default } from '../../';

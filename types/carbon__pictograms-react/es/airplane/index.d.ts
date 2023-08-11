@@ -1,1 +1,1 @@
-export { Airplane as default } from "../../";
+export { Airplane as default } from '../../';

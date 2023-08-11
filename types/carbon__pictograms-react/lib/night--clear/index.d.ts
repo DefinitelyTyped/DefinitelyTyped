@@ -1,3 +1,3 @@
-import { NightClear } from "../../";
+import { NightClear } from '../../';
 
 export = NightClear;

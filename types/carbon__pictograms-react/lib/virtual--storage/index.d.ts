@@ -1,3 +1,3 @@
-import { VirtualStorage } from "../../";
+import { VirtualStorage } from '../../';
 
 export = VirtualStorage;

@@ -1,1 +1,1 @@
-export { CloudAnalytics as default } from "../../";
+export { CloudAnalytics as default } from '../../';

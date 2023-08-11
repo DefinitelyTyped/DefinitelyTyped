@@ -1,3 +1,3 @@
-import { Workflows } from "../../";
+import { Workflows } from '../../';
 
 export = Workflows;

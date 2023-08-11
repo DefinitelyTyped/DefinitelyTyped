@@ -1,3 +1,3 @@
-import { Path } from "../../";
+import { Path } from '../../';
 
 export = Path;

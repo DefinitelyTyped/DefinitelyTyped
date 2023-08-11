@@ -1,3 +1,3 @@
-import { InspectData } from "../../";
+import { InspectData } from '../../';
 
 export = InspectData;

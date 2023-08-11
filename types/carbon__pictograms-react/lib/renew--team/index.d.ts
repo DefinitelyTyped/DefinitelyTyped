@@ -1,3 +1,3 @@
-import { RenewTeam } from "../../";
+import { RenewTeam } from '../../';
 
 export = RenewTeam;

@@ -1,1 +1,1 @@
-export { RedefiningFinancialServices as default } from "../../";
+export { RedefiningFinancialServices as default } from '../../';

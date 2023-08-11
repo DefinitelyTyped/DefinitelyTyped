@@ -1,3 +1,3 @@
-import { DoorHandle } from "../../";
+import { DoorHandle } from '../../';
 
 export = DoorHandle;

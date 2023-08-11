@@ -1,3 +1,3 @@
-import { HeartHealth } from "../../";
+import { HeartHealth } from '../../';
 
 export = HeartHealth;

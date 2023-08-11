@@ -1,1 +1,1 @@
-export { CloudPakForMulticloudManagement as default } from "../../";
+export { CloudPakForMulticloudManagement as default } from '../../';

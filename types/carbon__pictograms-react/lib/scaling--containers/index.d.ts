@@ -1,3 +1,3 @@
-import { ScalingContainers } from "../../";
+import { ScalingContainers } from '../../';
 
 export = ScalingContainers;

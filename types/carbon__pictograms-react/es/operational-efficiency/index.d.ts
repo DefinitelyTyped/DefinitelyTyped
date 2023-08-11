@@ -1,1 +1,1 @@
-export { OperationalEfficiency as default } from "../../";
+export { OperationalEfficiency as default } from '../../';

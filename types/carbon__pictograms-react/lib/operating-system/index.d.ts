@@ -1,3 +1,3 @@
-import { OperatingSystem } from "../../";
+import { OperatingSystem } from '../../';
 
 export = OperatingSystem;

@@ -1,1 +1,1 @@
-export { StorageProduct as default } from "../../";
+export { StorageProduct as default } from '../../';

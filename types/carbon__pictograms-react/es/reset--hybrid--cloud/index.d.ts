@@ -1,1 +1,1 @@
-export { ResetHybridCloud as default } from "../../";
+export { ResetHybridCloud as default } from '../../';

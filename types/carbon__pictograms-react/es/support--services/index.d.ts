@@ -1,1 +1,1 @@
-export { SupportServices as default } from "../../";
+export { SupportServices as default } from '../../';

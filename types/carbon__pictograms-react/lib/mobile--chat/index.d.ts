@@ -1,3 +1,3 @@
-import { MobileChat } from "../../";
+import { MobileChat } from '../../';
 
 export = MobileChat;

@@ -1,3 +1,3 @@
-import { Handshake } from "../../";
+import { Handshake } from '../../';
 
 export = Handshake;

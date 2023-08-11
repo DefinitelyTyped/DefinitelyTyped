@@ -1,1 +1,1 @@
-export { CloudEcosystem as default } from "../../";
+export { CloudEcosystem as default } from '../../';

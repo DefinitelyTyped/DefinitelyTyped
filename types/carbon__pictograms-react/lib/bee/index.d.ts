@@ -1,3 +1,3 @@
-import { Bee } from "../../";
+import { Bee } from '../../';
 
 export = Bee;

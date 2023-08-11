@@ -1,3 +1,3 @@
-import { Virus } from "../../";
+import { Virus } from '../../';
 
 export = Virus;

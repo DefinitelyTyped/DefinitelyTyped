@@ -1,1 +1,1 @@
-export { Tractor as default } from "../../";
+export { Tractor as default } from '../../';

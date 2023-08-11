@@ -1,1 +1,1 @@
-export { UserInsights as default } from "../../";
+export { UserInsights as default } from '../../';

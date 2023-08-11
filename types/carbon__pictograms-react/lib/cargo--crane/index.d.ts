@@ -1,3 +1,3 @@
-import { CargoCrane } from "../../";
+import { CargoCrane } from '../../';
 
 export = CargoCrane;

@@ -1,1 +1,1 @@
-export { Cherries as default } from "../../";
+export { Cherries as default } from '../../';

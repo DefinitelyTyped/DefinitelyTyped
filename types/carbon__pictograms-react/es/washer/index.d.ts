@@ -1,1 +1,1 @@
-export { Washer as default } from "../../";
+export { Washer as default } from '../../';

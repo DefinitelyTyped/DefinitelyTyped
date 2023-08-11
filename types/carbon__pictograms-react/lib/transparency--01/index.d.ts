@@ -1,3 +1,3 @@
-import { Transparency_01 } from "../../";
+import { Transparency_01 } from '../../';
 
 export = Transparency_01;

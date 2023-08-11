@@ -1,3 +1,3 @@
-import { CloudDownload } from "../../";
+import { CloudDownload } from '../../';
 
 export = CloudDownload;

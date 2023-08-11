@@ -1,1 +1,1 @@
-export { CalendarEvent as default } from "../../";
+export { CalendarEvent as default } from '../../';

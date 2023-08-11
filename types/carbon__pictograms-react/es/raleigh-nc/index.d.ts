@@ -1,1 +1,1 @@
-export { RaleighNc as default } from "../../";
+export { RaleighNc as default } from '../../';

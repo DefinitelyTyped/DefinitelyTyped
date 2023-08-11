@@ -1,1 +1,1 @@
-export { CustomerService as default } from "../../";
+export { CustomerService as default } from '../../';

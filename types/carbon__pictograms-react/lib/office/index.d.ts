@@ -1,3 +1,3 @@
-import { Office } from "../../";
+import { Office } from '../../';
 
 export = Office;

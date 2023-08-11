@@ -1,1 +1,1 @@
-export { SunnyHazy as default } from "../../";
+export { SunnyHazy as default } from '../../';

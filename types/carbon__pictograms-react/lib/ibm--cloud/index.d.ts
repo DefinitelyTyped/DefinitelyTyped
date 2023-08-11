@@ -1,3 +1,3 @@
-import { IbmCloud } from "../../";
+import { IbmCloud } from '../../';
 
 export = IbmCloud;

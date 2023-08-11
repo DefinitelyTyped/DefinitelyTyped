@@ -1,3 +1,3 @@
-import { Prescription } from "../../";
+import { Prescription } from '../../';
 
 export = Prescription;

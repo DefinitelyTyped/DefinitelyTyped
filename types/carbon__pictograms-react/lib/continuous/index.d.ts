@@ -1,3 +1,3 @@
-import { Continuous } from "../../";
+import { Continuous } from '../../';
 
 export = Continuous;

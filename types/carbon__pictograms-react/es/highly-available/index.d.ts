@@ -1,1 +1,1 @@
-export { HighlyAvailable as default } from "../../";
+export { HighlyAvailable as default } from '../../';

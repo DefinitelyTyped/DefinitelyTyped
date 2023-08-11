@@ -1,3 +1,3 @@
-import { Agility } from "../../";
+import { Agility } from '../../';
 
 export = Agility;

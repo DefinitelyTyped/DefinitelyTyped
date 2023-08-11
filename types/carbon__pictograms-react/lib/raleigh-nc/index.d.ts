@@ -1,3 +1,3 @@
-import { RaleighNc } from "../../";
+import { RaleighNc } from '../../';
 
 export = RaleighNc;

@@ -1,3 +1,3 @@
-import { EndpointProtection } from "../../";
+import { EndpointProtection } from '../../';
 
 export = EndpointProtection;

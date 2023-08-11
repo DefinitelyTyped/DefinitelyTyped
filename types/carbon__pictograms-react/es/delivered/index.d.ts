@@ -1,1 +1,1 @@
-export { Delivered as default } from "../../";
+export { Delivered as default } from '../../';

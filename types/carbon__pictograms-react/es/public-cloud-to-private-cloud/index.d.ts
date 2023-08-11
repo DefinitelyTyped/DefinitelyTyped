@@ -1,1 +1,1 @@
-export { PublicCloudToPrivateCloud as default } from "../../";
+export { PublicCloudToPrivateCloud as default } from '../../';

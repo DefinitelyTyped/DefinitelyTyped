@@ -1,1 +1,1 @@
-export { CustomReports as default } from "../../";
+export { CustomReports as default } from '../../';

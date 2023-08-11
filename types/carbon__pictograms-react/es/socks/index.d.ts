@@ -1,1 +1,1 @@
-export { Socks as default } from "../../";
+export { Socks as default } from '../../';

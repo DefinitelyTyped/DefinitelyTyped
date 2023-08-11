@@ -1,1 +1,1 @@
-export { DoNot as default } from "../../";
+export { DoNot as default } from '../../';

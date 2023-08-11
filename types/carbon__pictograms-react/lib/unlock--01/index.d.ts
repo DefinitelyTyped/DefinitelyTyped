@@ -1,3 +1,3 @@
-import { Unlock_01 } from "../../";
+import { Unlock_01 } from '../../';
 
 export = Unlock_01;

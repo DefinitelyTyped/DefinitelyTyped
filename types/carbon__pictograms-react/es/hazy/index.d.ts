@@ -1,1 +1,1 @@
-export { Hazy as default } from "../../";
+export { Hazy as default } from '../../';

@@ -1,1 +1,1 @@
-export { Coupon as default } from "../../";
+export { Coupon as default } from '../../';

@@ -1,3 +1,3 @@
-import { Maximize } from "../../";
+import { Maximize } from '../../';
 
 export = Maximize;

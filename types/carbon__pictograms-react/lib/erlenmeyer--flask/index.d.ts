@@ -1,3 +1,3 @@
-import { ErlenmeyerFlask } from "../../";
+import { ErlenmeyerFlask } from '../../';
 
 export = ErlenmeyerFlask;

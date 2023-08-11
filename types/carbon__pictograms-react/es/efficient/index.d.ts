@@ -1,1 +1,1 @@
-export { Efficient as default } from "../../";
+export { Efficient as default } from '../../';

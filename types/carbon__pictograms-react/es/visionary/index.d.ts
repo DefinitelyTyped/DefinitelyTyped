@@ -1,1 +1,1 @@
-export { Visionary as default } from "../../";
+export { Visionary as default } from '../../';

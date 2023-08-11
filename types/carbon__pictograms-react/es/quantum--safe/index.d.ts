@@ -1,1 +1,1 @@
-export { QuantumSafe as default } from "../../";
+export { QuantumSafe as default } from '../../';

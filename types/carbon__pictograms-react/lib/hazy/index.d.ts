@@ -1,3 +1,3 @@
-import { Hazy } from "../../";
+import { Hazy } from '../../';
 
 export = Hazy;

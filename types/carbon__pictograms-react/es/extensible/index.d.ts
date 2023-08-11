@@ -1,1 +1,1 @@
-export { Extensible as default } from "../../";
+export { Extensible as default } from '../../';

@@ -1,3 +1,3 @@
-import { WashingtonDc } from "../../";
+import { WashingtonDc } from '../../';
 
 export = WashingtonDc;

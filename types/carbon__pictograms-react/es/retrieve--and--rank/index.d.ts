@@ -1,1 +1,1 @@
-export { RetrieveAndRank as default } from "../../";
+export { RetrieveAndRank as default } from '../../';

@@ -1,3 +1,3 @@
-import { CloudOracle } from "../../";
+import { CloudOracle } from '../../';
 
 export = CloudOracle;

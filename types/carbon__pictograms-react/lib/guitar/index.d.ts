@@ -1,3 +1,3 @@
-import { Guitar } from "../../";
+import { Guitar } from '../../';
 
 export = Guitar;

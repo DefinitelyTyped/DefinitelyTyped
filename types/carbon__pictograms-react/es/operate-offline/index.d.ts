@@ -1,1 +1,1 @@
-export { OperateOffline as default } from "../../";
+export { OperateOffline as default } from '../../';

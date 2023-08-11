@@ -1,3 +1,3 @@
-import { HybridCloud } from "../../";
+import { HybridCloud } from '../../';
 
 export = HybridCloud;

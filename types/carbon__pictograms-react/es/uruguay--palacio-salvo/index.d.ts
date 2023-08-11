@@ -1,1 +1,1 @@
-export { UruguayPalacioSalvo as default } from "../../";
+export { UruguayPalacioSalvo as default } from '../../';

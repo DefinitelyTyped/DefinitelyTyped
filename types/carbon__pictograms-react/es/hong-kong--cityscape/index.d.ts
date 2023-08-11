@@ -1,1 +1,1 @@
-export { HongKongCityscape as default } from "../../";
+export { HongKongCityscape as default } from '../../';

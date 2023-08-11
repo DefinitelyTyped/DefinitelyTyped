@@ -1,1 +1,1 @@
-export { DeveloperZOs as default } from "../../";
+export { DeveloperZOs as default } from '../../';

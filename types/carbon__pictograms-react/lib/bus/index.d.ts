@@ -1,3 +1,3 @@
-import { Bus } from "../../";
+import { Bus } from '../../';
 
 export = Bus;

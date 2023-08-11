@@ -1,3 +1,3 @@
-import { StairsPlanView } from "../../";
+import { StairsPlanView } from '../../';
 
 export = StairsPlanView;

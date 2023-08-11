@@ -1,1 +1,1 @@
-export { SelectProduct as default } from "../../";
+export { SelectProduct as default } from '../../';

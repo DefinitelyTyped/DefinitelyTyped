@@ -1,1 +1,1 @@
-export { Ideate as default } from "../../";
+export { Ideate as default } from '../../';

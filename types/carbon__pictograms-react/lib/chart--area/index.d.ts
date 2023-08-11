@@ -1,3 +1,3 @@
-import { ChartArea } from "../../";
+import { ChartArea } from '../../';
 
 export = ChartArea;

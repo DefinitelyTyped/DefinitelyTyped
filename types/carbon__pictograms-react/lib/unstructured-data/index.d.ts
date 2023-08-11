@@ -1,3 +1,3 @@
-import { UnstructuredData } from "../../";
+import { UnstructuredData } from '../../';
 
 export = UnstructuredData;

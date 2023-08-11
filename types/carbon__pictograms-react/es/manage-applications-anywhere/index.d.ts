@@ -1,1 +1,1 @@
-export { ManageApplicationsAnywhere as default } from "../../";
+export { ManageApplicationsAnywhere as default } from '../../';

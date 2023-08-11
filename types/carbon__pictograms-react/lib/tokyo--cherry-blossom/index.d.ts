@@ -1,3 +1,3 @@
-import { TokyoCherryBlossom } from "../../";
+import { TokyoCherryBlossom } from '../../';
 
 export = TokyoCherryBlossom;

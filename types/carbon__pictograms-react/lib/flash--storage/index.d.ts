@@ -1,3 +1,3 @@
-import { FlashStorage } from "../../";
+import { FlashStorage } from '../../';
 
 export = FlashStorage;

@@ -1,1 +1,1 @@
-export { CurvePower as default } from "../../";
+export { CurvePower as default } from '../../';

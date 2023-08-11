@@ -1,3 +1,3 @@
-import { VisualData } from "../../";
+import { VisualData } from '../../';
 
 export = VisualData;

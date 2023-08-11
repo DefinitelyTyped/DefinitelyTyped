@@ -1,1 +1,1 @@
-export { QuantumComputing as default } from "../../";
+export { QuantumComputing as default } from '../../';

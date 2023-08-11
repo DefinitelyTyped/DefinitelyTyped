@@ -1,3 +1,3 @@
-import { CodeSyntax } from "../../";
+import { CodeSyntax } from '../../';
 
 export = CodeSyntax;

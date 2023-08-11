@@ -1,1 +1,1 @@
-export { EndpointProtection as default } from "../../";
+export { EndpointProtection as default } from '../../';

@@ -1,3 +1,3 @@
-import { GlobalPartner } from "../../";
+import { GlobalPartner } from '../../';
 
 export = GlobalPartner;

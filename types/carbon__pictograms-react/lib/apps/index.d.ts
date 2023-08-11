@@ -1,3 +1,3 @@
-import { Apps } from "../../";
+import { Apps } from '../../';
 
 export = Apps;

@@ -1,3 +1,3 @@
-import { Rome } from "../../";
+import { Rome } from '../../';
 
 export = Rome;

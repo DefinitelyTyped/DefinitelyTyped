@@ -1,1 +1,1 @@
-export { CompostBin as default } from "../../";
+export { CompostBin as default } from '../../';

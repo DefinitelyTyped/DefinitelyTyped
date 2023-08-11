@@ -1,1 +1,1 @@
-export { DataCenters as default } from "../../";
+export { DataCenters as default } from '../../';

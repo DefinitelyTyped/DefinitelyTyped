@@ -1,3 +1,3 @@
-import { Bag } from "../../";
+import { Bag } from '../../';
 
 export = Bag;

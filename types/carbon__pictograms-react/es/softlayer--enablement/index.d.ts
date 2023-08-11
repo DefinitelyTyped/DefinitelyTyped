@@ -1,1 +1,1 @@
-export { SoftlayerEnablement as default } from "../../";
+export { SoftlayerEnablement as default } from '../../';

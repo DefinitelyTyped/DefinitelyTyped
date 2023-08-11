@@ -1,3 +1,3 @@
-import { EventEndpointManagement } from "../../";
+import { EventEndpointManagement } from '../../';
 
 export = EventEndpointManagement;

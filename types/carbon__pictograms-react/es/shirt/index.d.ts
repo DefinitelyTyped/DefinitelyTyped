@@ -1,1 +1,1 @@
-export { Shirt as default } from "../../";
+export { Shirt as default } from '../../';

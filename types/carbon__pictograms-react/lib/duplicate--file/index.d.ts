@@ -1,3 +1,3 @@
-import { DuplicateFile } from "../../";
+import { DuplicateFile } from '../../';
 
 export = DuplicateFile;

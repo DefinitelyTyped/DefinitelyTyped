@@ -1,1 +1,1 @@
-export { HailHeavy as default } from "../../";
+export { HailHeavy as default } from '../../';

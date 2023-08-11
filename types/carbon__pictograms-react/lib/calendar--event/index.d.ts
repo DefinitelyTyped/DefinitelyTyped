@@ -1,3 +1,3 @@
-import { CalendarEvent } from "../../";
+import { CalendarEvent } from '../../';
 
 export = CalendarEvent;

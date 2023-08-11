@@ -1,3 +1,3 @@
-import { AudioData } from "../../";
+import { AudioData } from '../../';
 
 export = AudioData;

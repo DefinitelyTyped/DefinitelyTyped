@@ -1,3 +1,3 @@
-import { RetrieveAndRank } from "../../";
+import { RetrieveAndRank } from '../../';
 
 export = RetrieveAndRank;

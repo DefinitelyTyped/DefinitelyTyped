@@ -1,3 +1,3 @@
-import { RockOn } from "../../";
+import { RockOn } from '../../';
 
 export = RockOn;

@@ -1,1 +1,1 @@
-export { HeatMap_02 as default } from "../../";
+export { HeatMap_02 as default } from '../../';

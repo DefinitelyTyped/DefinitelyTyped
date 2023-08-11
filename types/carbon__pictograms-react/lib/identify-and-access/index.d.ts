@@ -1,3 +1,3 @@
-import { IdentifyAndAccess } from "../../";
+import { IdentifyAndAccess } from '../../';
 
 export = IdentifyAndAccess;

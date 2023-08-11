@@ -1,3 +1,3 @@
-import { TrustedUser } from "../../";
+import { TrustedUser } from '../../';
 
 export = TrustedUser;

@@ -1,1 +1,1 @@
-export { MailVerse as default } from "../../";
+export { MailVerse as default } from '../../';

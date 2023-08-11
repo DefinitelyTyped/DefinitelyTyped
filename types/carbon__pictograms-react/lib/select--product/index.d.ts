@@ -1,3 +1,3 @@
-import { SelectProduct } from "../../";
+import { SelectProduct } from '../../';
 
 export = SelectProduct;

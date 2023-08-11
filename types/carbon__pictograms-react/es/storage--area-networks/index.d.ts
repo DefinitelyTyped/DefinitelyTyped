@@ -1,1 +1,1 @@
-export { StorageAreaNetworks as default } from "../../";
+export { StorageAreaNetworks as default } from '../../';

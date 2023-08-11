@@ -1,3 +1,3 @@
-import { Microscope } from "../../";
+import { Microscope } from '../../';
 
 export = Microscope;

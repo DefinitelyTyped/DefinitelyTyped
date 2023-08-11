@@ -1,1 +1,1 @@
-export { IbmZ16SingleFrame as default } from "../../";
+export { IbmZ16SingleFrame as default } from '../../';

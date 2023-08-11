@@ -1,3 +1,3 @@
-import { Kubernetes } from "../../";
+import { Kubernetes } from '../../';
 
 export = Kubernetes;

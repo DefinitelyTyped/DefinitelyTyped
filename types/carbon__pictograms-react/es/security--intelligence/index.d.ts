@@ -1,1 +1,1 @@
-export { SecurityIntelligence as default } from "../../";
+export { SecurityIntelligence as default } from '../../';

@@ -1,3 +1,3 @@
-import { Dining } from "../../";
+import { Dining } from '../../';
 
 export = Dining;

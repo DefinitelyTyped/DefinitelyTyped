@@ -1,3 +1,3 @@
-import { Fuel } from "../../";
+import { Fuel } from '../../';
 
 export = Fuel;

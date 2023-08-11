@@ -1,1 +1,1 @@
-export { HomeProfile as default } from "../../";
+export { HomeProfile as default } from '../../';

@@ -1,1 +1,1 @@
-export { Juice as default } from "../../";
+export { Juice as default } from '../../';

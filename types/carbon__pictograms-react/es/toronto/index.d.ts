@@ -1,1 +1,1 @@
-export { Toronto as default } from "../../";
+export { Toronto as default } from '../../';

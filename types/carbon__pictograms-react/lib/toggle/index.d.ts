@@ -1,3 +1,3 @@
-import { Toggle } from "../../";
+import { Toggle } from '../../';
 
 export = Toggle;

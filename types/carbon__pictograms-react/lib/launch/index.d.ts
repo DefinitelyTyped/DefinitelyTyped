@@ -1,3 +1,3 @@
-import { Launch } from "../../";
+import { Launch } from '../../';
 
 export = Launch;

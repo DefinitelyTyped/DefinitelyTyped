@@ -1,1 +1,1 @@
-export { EcuadorQuito as default } from "../../";
+export { EcuadorQuito as default } from '../../';

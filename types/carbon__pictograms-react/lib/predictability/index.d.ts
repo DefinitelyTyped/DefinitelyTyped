@@ -1,3 +1,3 @@
-import { Predictability } from "../../";
+import { Predictability } from '../../';
 
 export = Predictability;

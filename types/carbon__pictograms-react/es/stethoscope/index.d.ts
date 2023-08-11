@@ -1,1 +1,1 @@
-export { Stethoscope as default } from "../../";
+export { Stethoscope as default } from '../../';

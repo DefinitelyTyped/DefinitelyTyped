@@ -1,1 +1,1 @@
-export { SanFranciscoFog as default } from "../../";
+export { SanFranciscoFog as default } from '../../';

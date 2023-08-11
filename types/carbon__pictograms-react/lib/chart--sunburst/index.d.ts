@@ -1,3 +1,3 @@
-import { ChartSunburst } from "../../";
+import { ChartSunburst } from '../../';
 
 export = ChartSunburst;

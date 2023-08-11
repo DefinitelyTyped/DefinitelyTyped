@@ -1,3 +1,3 @@
-import { Speedometer } from "../../";
+import { Speedometer } from '../../';
 
 export = Speedometer;

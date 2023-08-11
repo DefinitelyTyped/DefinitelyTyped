@@ -1,3 +1,3 @@
-import { Resources } from "../../";
+import { Resources } from '../../';
 
 export = Resources;

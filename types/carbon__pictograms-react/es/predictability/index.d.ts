@@ -1,1 +1,1 @@
-export { Predictability as default } from "../../";
+export { Predictability as default } from '../../';

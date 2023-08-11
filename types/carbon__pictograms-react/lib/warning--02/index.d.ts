@@ -1,3 +1,3 @@
-import { Warning_02 } from "../../";
+import { Warning_02 } from '../../';
 
 export = Warning_02;

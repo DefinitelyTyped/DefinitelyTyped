@@ -1,1 +1,1 @@
-export { GlobalCurrency as default } from "../../";
+export { GlobalCurrency as default } from '../../';

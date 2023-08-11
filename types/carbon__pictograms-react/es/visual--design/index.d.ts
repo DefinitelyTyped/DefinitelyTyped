@@ -1,1 +1,1 @@
-export { VisualDesign as default } from "../../";
+export { VisualDesign as default } from '../../';

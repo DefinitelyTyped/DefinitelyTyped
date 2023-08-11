@@ -1,1 +1,1 @@
-export { Americas as default } from "../../";
+export { Americas as default } from '../../';

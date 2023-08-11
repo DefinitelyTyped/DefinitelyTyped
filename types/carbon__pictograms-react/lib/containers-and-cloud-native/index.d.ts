@@ -1,3 +1,3 @@
-import { ContainersAndCloudNative } from "../../";
+import { ContainersAndCloudNative } from '../../';
 
 export = ContainersAndCloudNative;

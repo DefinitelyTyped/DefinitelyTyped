@@ -1,1 +1,1 @@
-export { AppModernization as default } from "../../";
+export { AppModernization as default } from '../../';

@@ -1,3 +1,3 @@
-import { MovementInOverlappingNetworks } from "../../";
+import { MovementInOverlappingNetworks } from '../../';
 
 export = MovementInOverlappingNetworks;

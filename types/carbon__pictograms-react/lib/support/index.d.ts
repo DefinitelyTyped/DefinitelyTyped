@@ -1,3 +1,3 @@
-import { Support } from "../../";
+import { Support } from '../../';
 
 export = Support;

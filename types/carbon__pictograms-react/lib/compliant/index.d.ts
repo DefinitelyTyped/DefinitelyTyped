@@ -1,3 +1,3 @@
-import { Compliant } from "../../";
+import { Compliant } from '../../';
 
 export = Compliant;

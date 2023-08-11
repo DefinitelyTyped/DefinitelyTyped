@@ -1,1 +1,1 @@
-export { HeartHealth as default } from "../../";
+export { HeartHealth as default } from '../../';

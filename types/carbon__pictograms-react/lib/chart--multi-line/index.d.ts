@@ -1,3 +1,3 @@
-import { ChartMultiLine } from "../../";
+import { ChartMultiLine } from '../../';
 
 export = ChartMultiLine;

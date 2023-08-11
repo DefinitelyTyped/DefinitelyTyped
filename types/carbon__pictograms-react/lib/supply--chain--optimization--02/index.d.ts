@@ -1,3 +1,3 @@
-import { SupplyChainOptimization_02 } from "../../";
+import { SupplyChainOptimization_02 } from '../../';
 
 export = SupplyChainOptimization_02;

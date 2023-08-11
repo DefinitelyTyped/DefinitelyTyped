@@ -1,3 +1,3 @@
-import { OperationalMetrics } from "../../";
+import { OperationalMetrics } from '../../';
 
 export = OperationalMetrics;

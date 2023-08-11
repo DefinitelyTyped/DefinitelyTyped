@@ -1,3 +1,3 @@
-import { TouchGesture } from "../../";
+import { TouchGesture } from '../../';
 
 export = TouchGesture;

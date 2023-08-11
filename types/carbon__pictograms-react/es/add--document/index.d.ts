@@ -1,1 +1,1 @@
-export { AddDocument as default } from "../../";
+export { AddDocument as default } from '../../';

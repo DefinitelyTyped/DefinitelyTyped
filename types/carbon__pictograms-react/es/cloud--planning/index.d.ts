@@ -1,1 +1,1 @@
-export { CloudPlanning as default } from "../../";
+export { CloudPlanning as default } from '../../';

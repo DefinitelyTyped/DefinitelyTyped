@@ -1,1 +1,1 @@
-export { FocusOnCode as default } from "../../";
+export { FocusOnCode as default } from '../../';

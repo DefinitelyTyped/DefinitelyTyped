@@ -1,3 +1,3 @@
-import { SoftIceCream } from "../../";
+import { SoftIceCream } from '../../';
 
 export = SoftIceCream;

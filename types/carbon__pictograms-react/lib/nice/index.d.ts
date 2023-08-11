@@ -1,3 +1,3 @@
-import { Nice } from "../../";
+import { Nice } from '../../';
 
 export = Nice;

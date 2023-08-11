@@ -1,1 +1,1 @@
-export { AiPrivacy as default } from "../../";
+export { AiPrivacy as default } from '../../';

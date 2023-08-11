@@ -1,3 +1,3 @@
-import { Calendar } from "../../";
+import { Calendar } from '../../';
 
 export = Calendar;

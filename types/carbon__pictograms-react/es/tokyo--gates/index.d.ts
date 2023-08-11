@@ -1,1 +1,1 @@
-export { TokyoGates as default } from "../../";
+export { TokyoGates as default } from '../../';

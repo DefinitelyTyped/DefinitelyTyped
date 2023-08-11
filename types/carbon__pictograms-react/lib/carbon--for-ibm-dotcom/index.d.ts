@@ -1,3 +1,3 @@
-import { CarbonForIbmDotcom } from "../../";
+import { CarbonForIbmDotcom } from '../../';
 
 export = CarbonForIbmDotcom;

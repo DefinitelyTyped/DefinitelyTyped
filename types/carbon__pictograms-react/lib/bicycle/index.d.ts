@@ -1,3 +1,3 @@
-import { Bicycle } from "../../";
+import { Bicycle } from '../../';
 
 export = Bicycle;

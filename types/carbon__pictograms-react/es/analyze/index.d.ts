@@ -1,1 +1,1 @@
-export { Analyze as default } from "../../";
+export { Analyze as default } from '../../';

@@ -1,3 +1,3 @@
-import { DevicesAtIbm } from "../../";
+import { DevicesAtIbm } from '../../';
 
 export = DevicesAtIbm;

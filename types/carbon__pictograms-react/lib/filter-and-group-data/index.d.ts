@@ -1,3 +1,3 @@
-import { FilterAndGroupData } from "../../";
+import { FilterAndGroupData } from '../../';
 
 export = FilterAndGroupData;

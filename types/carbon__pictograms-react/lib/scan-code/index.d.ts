@@ -1,3 +1,3 @@
-import { ScanCode } from "../../";
+import { ScanCode } from '../../';
 
 export = ScanCode;

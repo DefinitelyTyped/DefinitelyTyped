@@ -1,1 +1,1 @@
-export { ChartHighLow as default } from "../../";
+export { ChartHighLow as default } from '../../';

@@ -1,3 +1,3 @@
-import { Camera } from "../../";
+import { Camera } from '../../';
 
 export = Camera;

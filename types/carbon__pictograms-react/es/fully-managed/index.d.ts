@@ -1,1 +1,1 @@
-export { FullyManaged as default } from "../../";
+export { FullyManaged as default } from '../../';

@@ -1,3 +1,3 @@
-import { SecurityShield } from "../../";
+import { SecurityShield } from '../../';
 
 export = SecurityShield;

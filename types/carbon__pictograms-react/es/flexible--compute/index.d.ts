@@ -1,1 +1,1 @@
-export { FlexibleCompute as default } from "../../";
+export { FlexibleCompute as default } from '../../';

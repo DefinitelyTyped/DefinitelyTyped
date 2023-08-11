@@ -1,3 +1,3 @@
-import { Rocket } from "../../";
+import { Rocket } from '../../';
 
 export = Rocket;

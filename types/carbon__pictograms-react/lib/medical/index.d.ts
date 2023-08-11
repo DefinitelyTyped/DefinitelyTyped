@@ -1,3 +1,3 @@
-import { Medical } from "../../";
+import { Medical } from '../../';
 
 export = Medical;

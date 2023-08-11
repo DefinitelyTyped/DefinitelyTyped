@@ -1,3 +1,3 @@
-import { GlobalFootprint } from "../../";
+import { GlobalFootprint } from '../../';
 
 export = GlobalFootprint;

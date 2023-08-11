@@ -1,1 +1,1 @@
-export { ThreatManagement as default } from "../../";
+export { ThreatManagement as default } from '../../';

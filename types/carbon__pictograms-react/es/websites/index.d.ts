@@ -1,1 +1,1 @@
-export { Websites as default } from "../../";
+export { Websites as default } from '../../';

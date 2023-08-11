@@ -1,3 +1,3 @@
-import { WebDeveloper } from "../../";
+import { WebDeveloper } from '../../';
 
 export = WebDeveloper;

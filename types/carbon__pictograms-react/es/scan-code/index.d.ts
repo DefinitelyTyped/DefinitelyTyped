@@ -1,1 +1,1 @@
-export { ScanCode as default } from "../../";
+export { ScanCode as default } from '../../';

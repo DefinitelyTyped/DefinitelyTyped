@@ -1,3 +1,3 @@
-import { AdvocateMask } from "../../";
+import { AdvocateMask } from '../../';
 
 export = AdvocateMask;

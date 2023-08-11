@@ -1,3 +1,3 @@
-import { TreeDiagram } from "../../";
+import { TreeDiagram } from '../../';
 
 export = TreeDiagram;

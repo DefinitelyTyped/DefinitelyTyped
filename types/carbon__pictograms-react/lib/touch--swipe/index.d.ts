@@ -1,3 +1,3 @@
-import { TouchSwipe } from "../../";
+import { TouchSwipe } from '../../';
 
 export = TouchSwipe;

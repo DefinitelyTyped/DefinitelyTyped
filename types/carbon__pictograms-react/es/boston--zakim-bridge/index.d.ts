@@ -1,1 +1,1 @@
-export { BostonZakimBridge as default } from "../../";
+export { BostonZakimBridge as default } from '../../';

@@ -1,3 +1,3 @@
-import { Dashboard } from "../../";
+import { Dashboard } from '../../';
 
 export = Dashboard;

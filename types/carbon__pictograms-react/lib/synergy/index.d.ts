@@ -1,3 +1,3 @@
-import { Synergy } from "../../";
+import { Synergy } from '../../';
 
 export = Synergy;

@@ -1,1 +1,1 @@
-export { Archive as default } from "../../";
+export { Archive as default } from '../../';

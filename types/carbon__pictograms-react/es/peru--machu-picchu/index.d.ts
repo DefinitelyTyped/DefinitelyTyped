@@ -1,1 +1,1 @@
-export { PeruMachuPicchu as default } from "../../";
+export { PeruMachuPicchu as default } from '../../';

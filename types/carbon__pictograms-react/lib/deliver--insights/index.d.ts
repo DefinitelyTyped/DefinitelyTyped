@@ -1,3 +1,3 @@
-import { DeliverInsights } from "../../";
+import { DeliverInsights } from '../../';
 
 export = DeliverInsights;

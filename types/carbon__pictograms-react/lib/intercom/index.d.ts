@@ -1,3 +1,3 @@
-import { Intercom } from "../../";
+import { Intercom } from '../../';
 
 export = Intercom;

@@ -1,1 +1,1 @@
-export { Price as default } from "../../";
+export { Price as default } from '../../';

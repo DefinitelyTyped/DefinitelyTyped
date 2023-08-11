@@ -1,1 +1,1 @@
-export { Government_02 as default } from "../../";
+export { Government_02 as default } from '../../';

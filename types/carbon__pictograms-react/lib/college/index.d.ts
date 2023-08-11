@@ -1,3 +1,3 @@
-import { College } from "../../";
+import { College } from '../../';
 
 export = College;

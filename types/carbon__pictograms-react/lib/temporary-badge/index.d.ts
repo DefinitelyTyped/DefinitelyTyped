@@ -1,3 +1,3 @@
-import { TemporaryBadge } from "../../";
+import { TemporaryBadge } from '../../';
 
 export = TemporaryBadge;

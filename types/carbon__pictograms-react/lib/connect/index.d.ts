@@ -1,3 +1,3 @@
-import { Connect } from "../../";
+import { Connect } from '../../';
 
 export = Connect;

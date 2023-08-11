@@ -1,3 +1,3 @@
-import { NewRevenueStreams } from "../../";
+import { NewRevenueStreams } from '../../';
 
 export = NewRevenueStreams;

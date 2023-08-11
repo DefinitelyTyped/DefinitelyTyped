@@ -1,3 +1,3 @@
-import { Television } from "../../";
+import { Television } from '../../';
 
 export = Television;

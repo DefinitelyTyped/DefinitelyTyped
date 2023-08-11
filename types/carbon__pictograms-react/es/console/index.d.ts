@@ -1,1 +1,1 @@
-export { Console as default } from "../../";
+export { Console as default } from '../../';

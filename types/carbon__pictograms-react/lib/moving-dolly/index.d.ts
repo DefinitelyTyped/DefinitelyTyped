@@ -1,3 +1,3 @@
-import { MovingDolly } from "../../";
+import { MovingDolly } from '../../';
 
 export = MovingDolly;

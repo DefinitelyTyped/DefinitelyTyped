@@ -1,3 +1,3 @@
-import { DocumentConversion } from "../../";
+import { DocumentConversion } from '../../';
 
 export = DocumentConversion;

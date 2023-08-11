@@ -1,3 +1,3 @@
-import { CloudBuilderProfessionalServices } from "../../";
+import { CloudBuilderProfessionalServices } from '../../';
 
 export = CloudBuilderProfessionalServices;

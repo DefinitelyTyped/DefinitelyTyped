@@ -1,3 +1,3 @@
-import { Fast } from "../../";
+import { Fast } from '../../';
 
 export = Fast;

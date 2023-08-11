@@ -1,3 +1,3 @@
-import { AutomateModularManagement } from "../../";
+import { AutomateModularManagement } from '../../';
 
 export = AutomateModularManagement;

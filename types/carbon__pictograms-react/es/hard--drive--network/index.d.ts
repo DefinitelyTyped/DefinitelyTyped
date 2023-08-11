@@ -1,1 +1,1 @@
-export { HardDriveNetwork as default } from "../../";
+export { HardDriveNetwork as default } from '../../';

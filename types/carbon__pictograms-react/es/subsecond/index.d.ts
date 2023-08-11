@@ -1,1 +1,1 @@
-export { Subsecond as default } from "../../";
+export { Subsecond as default } from '../../';

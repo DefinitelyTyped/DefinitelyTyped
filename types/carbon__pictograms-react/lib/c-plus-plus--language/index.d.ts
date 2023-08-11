@@ -1,3 +1,3 @@
-import { CPlusPlusLanguage } from "../../";
+import { CPlusPlusLanguage } from '../../';
 
 export = CPlusPlusLanguage;

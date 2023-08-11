@@ -1,1 +1,1 @@
-export { MadridSkyscrapers as default } from "../../";
+export { MadridSkyscrapers as default } from '../../';

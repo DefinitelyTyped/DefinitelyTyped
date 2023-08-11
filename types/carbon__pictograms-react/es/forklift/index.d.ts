@@ -1,1 +1,1 @@
-export { Forklift as default } from "../../";
+export { Forklift as default } from '../../';

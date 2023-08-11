@@ -1,3 +1,3 @@
-import { Balloon } from "../../";
+import { Balloon } from '../../';
 
 export = Balloon;

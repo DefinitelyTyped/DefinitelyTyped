@@ -1,3 +1,3 @@
-import { DataProcessing } from "../../";
+import { DataProcessing } from '../../';
 
 export = DataProcessing;

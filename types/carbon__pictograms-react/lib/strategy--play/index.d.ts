@@ -1,3 +1,3 @@
-import { StrategyPlay } from "../../";
+import { StrategyPlay } from '../../';
 
 export = StrategyPlay;

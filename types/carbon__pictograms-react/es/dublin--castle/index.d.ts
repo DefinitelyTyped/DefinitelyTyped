@@ -1,1 +1,1 @@
-export { DublinCastle as default } from "../../";
+export { DublinCastle as default } from '../../';

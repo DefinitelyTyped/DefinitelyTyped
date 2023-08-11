@@ -1,3 +1,3 @@
-import { GlobalAnalytics } from "../../";
+import { GlobalAnalytics } from '../../';
 
 export = GlobalAnalytics;

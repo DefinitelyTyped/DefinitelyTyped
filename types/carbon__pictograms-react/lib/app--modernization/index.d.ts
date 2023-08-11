@@ -1,3 +1,3 @@
-import { AppModernization } from "../../";
+import { AppModernization } from '../../';
 
 export = AppModernization;

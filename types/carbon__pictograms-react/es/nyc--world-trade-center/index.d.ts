@@ -1,1 +1,1 @@
-export { NycWorldTradeCenter as default } from "../../";
+export { NycWorldTradeCenter as default } from '../../';

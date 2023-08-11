@@ -1,1 +1,1 @@
-export { Streamline as default } from "../../";
+export { Streamline as default } from '../../';

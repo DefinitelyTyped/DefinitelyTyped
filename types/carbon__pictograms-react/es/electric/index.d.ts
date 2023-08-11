@@ -1,1 +1,1 @@
-export { Electric as default } from "../../";
+export { Electric as default } from '../../';

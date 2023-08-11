@@ -1,3 +1,3 @@
-import { HighPerformance } from "../../";
+import { HighPerformance } from '../../';
 
 export = HighPerformance;

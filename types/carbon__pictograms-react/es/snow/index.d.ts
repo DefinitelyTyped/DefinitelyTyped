@@ -1,1 +1,1 @@
-export { Snow as default } from "../../";
+export { Snow as default } from '../../';

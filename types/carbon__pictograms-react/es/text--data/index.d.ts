@@ -1,1 +1,1 @@
-export { TextData as default } from "../../";
+export { TextData as default } from '../../';

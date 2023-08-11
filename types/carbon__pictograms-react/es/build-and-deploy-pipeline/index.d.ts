@@ -1,1 +1,1 @@
-export { BuildAndDeployPipeline as default } from "../../";
+export { BuildAndDeployPipeline as default } from '../../';

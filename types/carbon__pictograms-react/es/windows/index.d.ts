@@ -1,1 +1,1 @@
-export { Windows as default } from "../../";
+export { Windows as default } from '../../';

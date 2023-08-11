@@ -1,1 +1,1 @@
-export { Stairs as default } from "../../";
+export { Stairs as default } from '../../';

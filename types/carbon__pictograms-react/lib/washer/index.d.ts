@@ -1,3 +1,3 @@
-import { Washer } from "../../";
+import { Washer } from '../../';
 
 export = Washer;

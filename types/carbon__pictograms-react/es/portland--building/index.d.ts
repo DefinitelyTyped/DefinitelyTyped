@@ -1,1 +1,1 @@
-export { PortlandBuilding as default } from "../../";
+export { PortlandBuilding as default } from '../../';

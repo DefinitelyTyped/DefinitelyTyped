@@ -1,3 +1,3 @@
-import { Cookie } from "../../";
+import { Cookie } from '../../';
 
 export = Cookie;

@@ -1,3 +1,3 @@
-import { DragAndDropInterface } from "../../";
+import { DragAndDropInterface } from '../../';
 
 export = DragAndDropInterface;

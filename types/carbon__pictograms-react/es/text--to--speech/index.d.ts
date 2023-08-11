@@ -1,1 +1,1 @@
-export { TextToSpeech as default } from "../../";
+export { TextToSpeech as default } from '../../';

@@ -1,1 +1,1 @@
-export { PredictiveAnalytics as default } from "../../";
+export { PredictiveAnalytics as default } from '../../';

@@ -1,1 +1,1 @@
-export { FilterAndGroupData as default } from "../../";
+export { FilterAndGroupData as default } from '../../';

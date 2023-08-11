@@ -1,3 +1,3 @@
-import { Presenter } from "../../";
+import { Presenter } from '../../';
 
 export = Presenter;

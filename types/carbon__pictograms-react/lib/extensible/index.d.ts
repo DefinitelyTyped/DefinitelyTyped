@@ -1,3 +1,3 @@
-import { Extensible } from "../../";
+import { Extensible } from '../../';
 
 export = Extensible;

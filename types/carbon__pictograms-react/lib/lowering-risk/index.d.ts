@@ -1,3 +1,3 @@
-import { LoweringRisk } from "../../";
+import { LoweringRisk } from '../../';
 
 export = LoweringRisk;

@@ -1,3 +1,3 @@
-import { TargetArea } from "../../";
+import { TargetArea } from '../../';
 
 export = TargetArea;

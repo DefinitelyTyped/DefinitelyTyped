@@ -1,1 +1,1 @@
-export { Vancouver as default } from "../../";
+export { Vancouver as default } from '../../';

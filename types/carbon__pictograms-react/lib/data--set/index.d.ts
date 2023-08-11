@@ -1,3 +1,3 @@
-import { DataSet } from "../../";
+import { DataSet } from '../../';
 
 export = DataSet;

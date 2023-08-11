@@ -1,1 +1,1 @@
-export { FreeTrial as default } from "../../";
+export { FreeTrial as default } from '../../';

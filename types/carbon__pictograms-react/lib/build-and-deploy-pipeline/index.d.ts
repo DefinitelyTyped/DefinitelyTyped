@@ -1,3 +1,3 @@
-import { BuildAndDeployPipeline } from "../../";
+import { BuildAndDeployPipeline } from '../../';
 
 export = BuildAndDeployPipeline;

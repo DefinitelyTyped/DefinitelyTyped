@@ -1,3 +1,3 @@
-import { AiEthics } from "../../";
+import { AiEthics } from '../../';
 
 export = AiEthics;

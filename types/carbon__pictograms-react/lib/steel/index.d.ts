@@ -1,3 +1,3 @@
-import { Steel } from "../../";
+import { Steel } from '../../';
 
 export = Steel;

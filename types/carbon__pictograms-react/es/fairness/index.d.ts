@@ -1,1 +1,1 @@
-export { Fairness as default } from "../../";
+export { Fairness as default } from '../../';

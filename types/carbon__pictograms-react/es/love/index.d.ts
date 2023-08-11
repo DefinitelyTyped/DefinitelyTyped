@@ -1,1 +1,1 @@
-export { Love as default } from "../../";
+export { Love as default } from '../../';

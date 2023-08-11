@@ -1,3 +1,3 @@
-import { Racetrack } from "../../";
+import { Racetrack } from '../../';
 
 export = Racetrack;

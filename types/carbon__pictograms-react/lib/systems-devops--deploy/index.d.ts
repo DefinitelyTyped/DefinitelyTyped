@@ -1,3 +1,3 @@
-import { SystemsDevopsDeploy } from "../../";
+import { SystemsDevopsDeploy } from '../../';
 
 export = SystemsDevopsDeploy;

@@ -1,1 +1,1 @@
-export { Slack as default } from "../../";
+export { Slack as default } from '../../';

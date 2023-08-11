@@ -1,3 +1,3 @@
-import { Notifications } from "../../";
+import { Notifications } from '../../';
 
 export = Notifications;

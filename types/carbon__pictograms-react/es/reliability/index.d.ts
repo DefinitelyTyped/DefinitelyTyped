@@ -1,1 +1,1 @@
-export { Reliability as default } from "../../";
+export { Reliability as default } from '../../';

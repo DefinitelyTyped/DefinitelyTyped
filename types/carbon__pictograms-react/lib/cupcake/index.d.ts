@@ -1,3 +1,3 @@
-import { Cupcake } from "../../";
+import { Cupcake } from '../../';
 
 export = Cupcake;

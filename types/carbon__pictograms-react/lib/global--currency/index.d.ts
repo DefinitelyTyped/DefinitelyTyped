@@ -1,3 +1,3 @@
-import { GlobalCurrency } from "../../";
+import { GlobalCurrency } from '../../';
 
 export = GlobalCurrency;

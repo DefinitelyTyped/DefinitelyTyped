@@ -1,3 +1,3 @@
-import { DeveloperZOs } from "../../";
+import { DeveloperZOs } from '../../';
 
 export = DeveloperZOs;

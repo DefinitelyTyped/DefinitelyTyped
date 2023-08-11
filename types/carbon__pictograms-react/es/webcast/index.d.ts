@@ -1,1 +1,1 @@
-export { Webcast as default } from "../../";
+export { Webcast as default } from '../../';

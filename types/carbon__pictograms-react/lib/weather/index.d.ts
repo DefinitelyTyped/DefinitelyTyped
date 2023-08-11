@@ -1,3 +1,3 @@
-import { Weather } from "../../";
+import { Weather } from '../../';
 
 export = Weather;

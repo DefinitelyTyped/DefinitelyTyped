@@ -1,1 +1,1 @@
-export { TrustedUser as default } from "../../";
+export { TrustedUser as default } from '../../';

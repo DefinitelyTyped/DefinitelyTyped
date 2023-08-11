@@ -1,3 +1,3 @@
-import { TreeMap } from "../../";
+import { TreeMap } from '../../';
 
 export = TreeMap;

@@ -1,3 +1,3 @@
-import { CloudPakForNetworkAutomation } from "../../";
+import { CloudPakForNetworkAutomation } from '../../';
 
 export = CloudPakForNetworkAutomation;

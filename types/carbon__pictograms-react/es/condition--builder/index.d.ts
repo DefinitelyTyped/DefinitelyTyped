@@ -1,1 +1,1 @@
-export { ConditionBuilder as default } from "../../";
+export { ConditionBuilder as default } from '../../';

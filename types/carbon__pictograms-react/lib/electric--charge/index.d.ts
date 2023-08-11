@@ -1,3 +1,3 @@
-import { ElectricCharge } from "../../";
+import { ElectricCharge } from '../../';
 
 export = ElectricCharge;

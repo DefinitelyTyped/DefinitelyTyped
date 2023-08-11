@@ -1,1 +1,1 @@
-export { MobileChat as default } from "../../";
+export { MobileChat as default } from '../../';

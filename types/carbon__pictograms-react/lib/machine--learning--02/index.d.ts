@@ -1,3 +1,3 @@
-import { MachineLearning_02 } from "../../";
+import { MachineLearning_02 } from '../../';
 
 export = MachineLearning_02;

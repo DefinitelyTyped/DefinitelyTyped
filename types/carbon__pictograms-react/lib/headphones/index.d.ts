@@ -1,3 +1,3 @@
-import { Headphones } from "../../";
+import { Headphones } from '../../';
 
 export = Headphones;

@@ -1,3 +1,3 @@
-import { DataPrivacy } from "../../";
+import { DataPrivacy } from '../../';
 
 export = DataPrivacy;

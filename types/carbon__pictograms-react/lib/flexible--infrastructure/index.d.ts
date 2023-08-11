@@ -1,3 +1,3 @@
-import { FlexibleInfrastructure } from "../../";
+import { FlexibleInfrastructure } from '../../';
 
 export = FlexibleInfrastructure;

@@ -1,3 +1,3 @@
-import { Innovate } from "../../";
+import { Innovate } from '../../';
 
 export = Innovate;

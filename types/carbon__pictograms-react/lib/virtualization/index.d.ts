@@ -1,3 +1,3 @@
-import { Virtualization } from "../../";
+import { Virtualization } from '../../';
 
 export = Virtualization;

@@ -1,3 +1,3 @@
-import { EventProcessing } from "../../";
+import { EventProcessing } from '../../';
 
 export = EventProcessing;

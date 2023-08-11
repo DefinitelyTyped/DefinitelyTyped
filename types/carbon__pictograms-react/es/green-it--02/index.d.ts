@@ -1,1 +1,1 @@
-export { GreenIt_02 as default } from "../../";
+export { GreenIt_02 as default } from '../../';

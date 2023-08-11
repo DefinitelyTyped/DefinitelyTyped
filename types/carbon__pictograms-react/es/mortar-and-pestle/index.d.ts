@@ -1,1 +1,1 @@
-export { MortarAndPestle as default } from "../../";
+export { MortarAndPestle as default } from '../../';

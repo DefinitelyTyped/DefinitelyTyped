@@ -1,1 +1,1 @@
-export { DesignThinkingTeam as default } from "../../";
+export { DesignThinkingTeam as default } from '../../';

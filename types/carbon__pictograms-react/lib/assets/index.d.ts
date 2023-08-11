@@ -1,3 +1,3 @@
-import { Assets } from "../../";
+import { Assets } from '../../';
 
 export = Assets;

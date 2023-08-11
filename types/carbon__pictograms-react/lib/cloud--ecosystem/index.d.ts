@@ -1,3 +1,3 @@
-import { CloudEcosystem } from "../../";
+import { CloudEcosystem } from '../../';
 
 export = CloudEcosystem;

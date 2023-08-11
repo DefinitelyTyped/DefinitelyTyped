@@ -1,1 +1,1 @@
-export { UruguaySolDeMayo as default } from "../../";
+export { UruguaySolDeMayo as default } from '../../';

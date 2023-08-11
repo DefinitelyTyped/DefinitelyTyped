@@ -1,1 +1,1 @@
-export { Doctor as default } from "../../";
+export { Doctor as default } from '../../';

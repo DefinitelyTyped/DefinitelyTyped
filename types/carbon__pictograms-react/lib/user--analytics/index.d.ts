@@ -1,3 +1,3 @@
-import { UserAnalytics } from "../../";
+import { UserAnalytics } from '../../';
 
 export = UserAnalytics;

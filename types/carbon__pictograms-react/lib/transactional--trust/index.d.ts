@@ -1,3 +1,3 @@
-import { TransactionalTrust } from "../../";
+import { TransactionalTrust } from '../../';
 
 export = TransactionalTrust;

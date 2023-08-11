@@ -1,3 +1,3 @@
-import { HailHeavy } from "../../";
+import { HailHeavy } from '../../';
 
 export = HailHeavy;

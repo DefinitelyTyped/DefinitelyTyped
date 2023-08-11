@@ -1,1 +1,1 @@
-export { ReactToData as default } from "../../";
+export { ReactToData as default } from '../../';

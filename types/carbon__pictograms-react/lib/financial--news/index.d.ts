@@ -1,3 +1,3 @@
-import { FinancialNews } from "../../";
+import { FinancialNews } from '../../';
 
 export = FinancialNews;

@@ -1,3 +1,3 @@
-import { Reset } from "../../";
+import { Reset } from '../../';
 
 export = Reset;

@@ -1,1 +1,1 @@
-export { ControlsFramework as default } from "../../";
+export { ControlsFramework as default } from '../../';

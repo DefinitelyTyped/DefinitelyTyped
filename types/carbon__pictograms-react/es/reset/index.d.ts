@@ -1,1 +1,1 @@
-export { Reset as default } from "../../";
+export { Reset as default } from '../../';

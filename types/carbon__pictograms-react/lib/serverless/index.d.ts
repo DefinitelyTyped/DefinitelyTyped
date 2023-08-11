@@ -1,3 +1,3 @@
-import { Serverless } from "../../";
+import { Serverless } from '../../';
 
 export = Serverless;

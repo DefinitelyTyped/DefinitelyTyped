@@ -1,3 +1,3 @@
-import { Devops } from "../../";
+import { Devops } from '../../';
 
 export = Devops;

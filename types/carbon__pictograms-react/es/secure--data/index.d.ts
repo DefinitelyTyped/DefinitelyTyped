@@ -1,1 +1,1 @@
-export { SecureData as default } from "../../";
+export { SecureData as default } from '../../';

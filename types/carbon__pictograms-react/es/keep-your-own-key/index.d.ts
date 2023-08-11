@@ -1,1 +1,1 @@
-export { KeepYourOwnKey as default } from "../../";
+export { KeepYourOwnKey as default } from '../../';

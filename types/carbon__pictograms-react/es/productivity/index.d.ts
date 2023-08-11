@@ -1,1 +1,1 @@
-export { Productivity as default } from "../../";
+export { Productivity as default } from '../../';

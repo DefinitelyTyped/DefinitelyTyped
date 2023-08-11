@@ -1,1 +1,1 @@
-export { Forecasting as default } from "../../";
+export { Forecasting as default } from '../../';

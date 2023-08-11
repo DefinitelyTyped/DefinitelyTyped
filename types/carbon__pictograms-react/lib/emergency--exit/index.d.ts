@@ -1,3 +1,3 @@
-import { EmergencyExit } from "../../";
+import { EmergencyExit } from '../../';
 
 export = EmergencyExit;

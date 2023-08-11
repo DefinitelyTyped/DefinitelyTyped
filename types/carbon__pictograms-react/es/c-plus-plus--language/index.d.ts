@@ -1,1 +1,1 @@
-export { CPlusPlusLanguage as default } from "../../";
+export { CPlusPlusLanguage as default } from '../../';

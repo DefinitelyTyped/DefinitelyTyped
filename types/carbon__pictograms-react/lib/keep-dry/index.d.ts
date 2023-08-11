@@ -1,3 +1,3 @@
-import { KeepDry } from "../../";
+import { KeepDry } from '../../';
 
 export = KeepDry;

@@ -1,3 +1,3 @@
-import { ConfidentialComputing } from "../../";
+import { ConfidentialComputing } from '../../';
 
 export = ConfidentialComputing;

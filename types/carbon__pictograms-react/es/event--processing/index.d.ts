@@ -1,1 +1,1 @@
-export { EventProcessing as default } from "../../";
+export { EventProcessing as default } from '../../';

@@ -1,3 +1,3 @@
-import { CopenhagenPlanetarium } from "../../";
+import { CopenhagenPlanetarium } from '../../';
 
 export = CopenhagenPlanetarium;

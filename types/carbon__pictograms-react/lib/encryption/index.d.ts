@@ -1,3 +1,3 @@
-import { Encryption } from "../../";
+import { Encryption } from '../../';
 
 export = Encryption;

@@ -1,1 +1,1 @@
-export { HamburgPhilharmone as default } from "../../";
+export { HamburgPhilharmone as default } from '../../';

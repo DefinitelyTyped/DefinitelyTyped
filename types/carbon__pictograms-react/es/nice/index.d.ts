@@ -1,1 +1,1 @@
-export { Nice as default } from "../../";
+export { Nice as default } from '../../';

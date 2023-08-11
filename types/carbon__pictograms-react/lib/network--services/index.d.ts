@@ -1,3 +1,3 @@
-import { NetworkServices } from "../../";
+import { NetworkServices } from '../../';
 
 export = NetworkServices;

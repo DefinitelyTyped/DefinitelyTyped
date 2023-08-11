@@ -1,1 +1,1 @@
-export { EventDriven as default } from "../../";
+export { EventDriven as default } from '../../';

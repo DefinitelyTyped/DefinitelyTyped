@@ -1,3 +1,3 @@
-import { CustomWorkloads } from "../../";
+import { CustomWorkloads } from '../../';
 
 export = CustomWorkloads;

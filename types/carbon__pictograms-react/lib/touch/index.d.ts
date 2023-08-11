@@ -1,3 +1,3 @@
-import { Touch } from "../../";
+import { Touch } from '../../';
 
 export = Touch;

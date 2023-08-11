@@ -1,1 +1,1 @@
-export { CloudPlatform as default } from "../../";
+export { CloudPlatform as default } from '../../';

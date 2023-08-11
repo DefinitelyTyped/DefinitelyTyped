@@ -1,1 +1,1 @@
-export { WatsonxGovernance as default } from "../../";
+export { WatsonxGovernance as default } from '../../';

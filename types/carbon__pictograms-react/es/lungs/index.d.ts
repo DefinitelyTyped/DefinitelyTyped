@@ -1,1 +1,1 @@
-export { Lungs as default } from "../../";
+export { Lungs as default } from '../../';

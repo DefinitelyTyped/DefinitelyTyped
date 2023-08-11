@@ -1,3 +1,3 @@
-import { OperateOffline } from "../../";
+import { OperateOffline } from '../../';
 
 export = OperateOffline;

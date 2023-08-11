@@ -1,3 +1,3 @@
-import { Fragile } from "../../";
+import { Fragile } from '../../';
 
 export = Fragile;

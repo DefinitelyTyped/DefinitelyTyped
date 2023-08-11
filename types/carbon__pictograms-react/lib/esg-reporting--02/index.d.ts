@@ -1,3 +1,3 @@
-import { EsgReporting_02 } from "../../";
+import { EsgReporting_02 } from '../../';
 
 export = EsgReporting_02;

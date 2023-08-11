@@ -1,3 +1,3 @@
-import { BudapestCitadella } from "../../";
+import { BudapestCitadella } from '../../';
 
 export = BudapestCitadella;

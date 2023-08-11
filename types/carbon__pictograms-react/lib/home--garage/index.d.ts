@@ -1,3 +1,3 @@
-import { HomeGarage } from "../../";
+import { HomeGarage } from '../../';
 
 export = HomeGarage;

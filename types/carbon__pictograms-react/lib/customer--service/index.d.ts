@@ -1,3 +1,3 @@
-import { CustomerService } from "../../";
+import { CustomerService } from '../../';
 
 export = CustomerService;

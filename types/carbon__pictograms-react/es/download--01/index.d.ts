@@ -1,1 +1,1 @@
-export { Download_01 as default } from "../../";
+export { Download_01 as default } from '../../';

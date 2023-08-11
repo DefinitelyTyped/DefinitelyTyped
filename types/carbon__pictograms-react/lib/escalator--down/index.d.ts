@@ -1,3 +1,3 @@
-import { EscalatorDown } from "../../";
+import { EscalatorDown } from '../../';
 
 export = EscalatorDown;

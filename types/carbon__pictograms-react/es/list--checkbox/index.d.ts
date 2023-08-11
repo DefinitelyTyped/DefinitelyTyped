@@ -1,1 +1,1 @@
-export { ListCheckbox as default } from "../../";
+export { ListCheckbox as default } from '../../';

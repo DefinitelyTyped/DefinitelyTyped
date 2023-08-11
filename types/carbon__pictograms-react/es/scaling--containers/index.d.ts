@@ -1,1 +1,1 @@
-export { ScalingContainers as default } from "../../";
+export { ScalingContainers as default } from '../../';

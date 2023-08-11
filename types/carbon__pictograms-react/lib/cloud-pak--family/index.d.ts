@@ -1,3 +1,3 @@
-import { CloudPakFamily } from "../../";
+import { CloudPakFamily } from '../../';
 
 export = CloudPakFamily;

@@ -1,1 +1,1 @@
-export { NycChryslerBuilding as default } from "../../";
+export { NycChryslerBuilding as default } from '../../';

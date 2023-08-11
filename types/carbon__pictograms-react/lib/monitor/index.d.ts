@@ -1,3 +1,3 @@
-import { Monitor } from "../../";
+import { Monitor } from '../../';
 
 export = Monitor;

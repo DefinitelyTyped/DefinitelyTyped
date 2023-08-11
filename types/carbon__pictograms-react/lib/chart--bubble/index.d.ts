@@ -1,3 +1,3 @@
-import { ChartBubble } from "../../";
+import { ChartBubble } from '../../';
 
 export = ChartBubble;

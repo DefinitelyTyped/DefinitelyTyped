@@ -1,3 +1,3 @@
-import { FireAlarm } from "../../";
+import { FireAlarm } from '../../';
 
 export = FireAlarm;

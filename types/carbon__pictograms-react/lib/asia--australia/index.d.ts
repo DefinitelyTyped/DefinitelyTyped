@@ -1,3 +1,3 @@
-import { AsiaAustralia } from "../../";
+import { AsiaAustralia } from '../../';
 
 export = AsiaAustralia;

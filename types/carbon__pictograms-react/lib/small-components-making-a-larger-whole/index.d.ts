@@ -1,3 +1,3 @@
-import { SmallComponentsMakingALargerWhole } from "../../";
+import { SmallComponentsMakingALargerWhole } from '../../';
 
 export = SmallComponentsMakingALargerWhole;

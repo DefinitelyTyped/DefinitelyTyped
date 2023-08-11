@@ -1,3 +1,3 @@
-import { Slider } from "../../";
+import { Slider } from '../../';
 
 export = Slider;

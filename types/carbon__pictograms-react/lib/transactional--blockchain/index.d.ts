@@ -1,3 +1,3 @@
-import { TransactionalBlockchain } from "../../";
+import { TransactionalBlockchain } from '../../';
 
 export = TransactionalBlockchain;

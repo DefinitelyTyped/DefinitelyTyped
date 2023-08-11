@@ -1,3 +1,3 @@
-import { Dropper } from "../../";
+import { Dropper } from '../../';
 
 export = Dropper;

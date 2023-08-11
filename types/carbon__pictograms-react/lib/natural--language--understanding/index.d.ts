@@ -1,3 +1,3 @@
-import { NaturalLanguageUnderstanding } from "../../";
+import { NaturalLanguageUnderstanding } from '../../';
 
 export = NaturalLanguageUnderstanding;

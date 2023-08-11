@@ -1,3 +1,3 @@
-import { WatsonxGovernance } from "../../";
+import { WatsonxGovernance } from '../../';
 
 export = WatsonxGovernance;

@@ -1,1 +1,1 @@
-export { ConstructionWorker as default } from "../../";
+export { ConstructionWorker as default } from '../../';

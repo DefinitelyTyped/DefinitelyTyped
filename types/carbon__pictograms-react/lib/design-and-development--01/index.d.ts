@@ -1,3 +1,3 @@
-import { DesignAndDevelopment_01 } from "../../";
+import { DesignAndDevelopment_01 } from '../../';
 
 export = DesignAndDevelopment_01;

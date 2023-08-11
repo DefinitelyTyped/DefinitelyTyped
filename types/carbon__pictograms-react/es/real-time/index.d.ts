@@ -1,1 +1,1 @@
-export { RealTime as default } from "../../";
+export { RealTime as default } from '../../';

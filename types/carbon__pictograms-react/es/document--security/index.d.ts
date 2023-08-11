@@ -1,1 +1,1 @@
-export { DocumentSecurity as default } from "../../";
+export { DocumentSecurity as default } from '../../';

@@ -1,3 +1,3 @@
-import { MedicalStaff } from "../../";
+import { MedicalStaff } from '../../';
 
 export = MedicalStaff;

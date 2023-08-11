@@ -1,3 +1,3 @@
-import { ElementsOfTheCloud } from "../../";
+import { ElementsOfTheCloud } from '../../';
 
 export = ElementsOfTheCloud;

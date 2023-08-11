@@ -1,3 +1,3 @@
-import { DeployingContainers } from "../../";
+import { DeployingContainers } from '../../';
 
 export = DeployingContainers;

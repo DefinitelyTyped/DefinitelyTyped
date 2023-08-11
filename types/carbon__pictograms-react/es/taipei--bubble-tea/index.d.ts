@@ -1,1 +1,1 @@
-export { TaipeiBubbleTea as default } from "../../";
+export { TaipeiBubbleTea as default } from '../../';

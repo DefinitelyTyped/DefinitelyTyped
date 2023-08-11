@@ -1,3 +1,3 @@
-import { Wheat } from "../../";
+import { Wheat } from '../../';
 
 export = Wheat;

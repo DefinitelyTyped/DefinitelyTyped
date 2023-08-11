@@ -1,1 +1,1 @@
-export { Fuel as default } from "../../";
+export { Fuel as default } from '../../';

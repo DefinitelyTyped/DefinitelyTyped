@@ -1,3 +1,3 @@
-import { AdvancedFraudProtection } from "../../";
+import { AdvancedFraudProtection } from '../../';
 
 export = AdvancedFraudProtection;

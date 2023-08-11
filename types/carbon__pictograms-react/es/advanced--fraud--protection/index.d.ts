@@ -1,1 +1,1 @@
-export { AdvancedFraudProtection as default } from "../../";
+export { AdvancedFraudProtection as default } from '../../';

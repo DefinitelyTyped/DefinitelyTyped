@@ -1,1 +1,1 @@
-export { Connectivity as default } from "../../";
+export { Connectivity as default } from '../../';

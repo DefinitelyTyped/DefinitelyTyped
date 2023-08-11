@@ -1,1 +1,1 @@
-export { ExtractText as default } from "../../";
+export { ExtractText as default } from '../../';

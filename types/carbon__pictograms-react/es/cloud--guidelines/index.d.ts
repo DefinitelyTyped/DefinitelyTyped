@@ -1,1 +1,1 @@
-export { CloudGuidelines as default } from "../../";
+export { CloudGuidelines as default } from '../../';

@@ -1,1 +1,1 @@
-export { SeoulGyeongbokgungPalace as default } from "../../";
+export { SeoulGyeongbokgungPalace as default } from '../../';

@@ -1,3 +1,3 @@
-import { QuestionAndAnswer } from "../../";
+import { QuestionAndAnswer } from '../../';
 
 export = QuestionAndAnswer;

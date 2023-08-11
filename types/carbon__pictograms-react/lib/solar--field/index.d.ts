@@ -1,3 +1,3 @@
-import { SolarField } from "../../";
+import { SolarField } from '../../';
 
 export = SolarField;

@@ -1,1 +1,1 @@
-export { HomeGarage as default } from "../../";
+export { HomeGarage as default } from '../../';

@@ -1,1 +1,1 @@
-export { Apple as default } from "../../";
+export { Apple as default } from '../../';

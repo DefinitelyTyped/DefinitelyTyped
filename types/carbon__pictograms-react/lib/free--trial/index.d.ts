@@ -1,3 +1,3 @@
-import { FreeTrial } from "../../";
+import { FreeTrial } from '../../';
 
 export = FreeTrial;

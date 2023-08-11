@@ -1,1 +1,1 @@
-export { SaveTime as default } from "../../";
+export { SaveTime as default } from '../../';

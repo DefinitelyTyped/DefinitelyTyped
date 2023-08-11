@@ -1,1 +1,1 @@
-export { CustomWorkloads as default } from "../../";
+export { CustomWorkloads as default } from '../../';

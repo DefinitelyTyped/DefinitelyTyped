@@ -1,3 +1,3 @@
-import { Power } from "../../";
+import { Power } from '../../';
 
 export = Power;

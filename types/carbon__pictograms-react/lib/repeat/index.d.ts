@@ -1,3 +1,3 @@
-import { Repeat } from "../../";
+import { Repeat } from '../../';
 
 export = Repeat;

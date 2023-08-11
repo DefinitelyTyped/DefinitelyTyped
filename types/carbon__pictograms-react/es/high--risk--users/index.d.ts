@@ -1,1 +1,1 @@
-export { HighRiskUsers as default } from "../../";
+export { HighRiskUsers as default } from '../../';

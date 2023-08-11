@@ -1,1 +1,1 @@
-export { StackLimitation as default } from "../../";
+export { StackLimitation as default } from '../../';

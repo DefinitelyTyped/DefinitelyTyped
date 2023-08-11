@@ -1,1 +1,1 @@
-export { UnifyEndpointManagement as default } from "../../";
+export { UnifyEndpointManagement as default } from '../../';

@@ -1,3 +1,3 @@
-import { MadridStatue } from "../../";
+import { MadridStatue } from '../../';
 
 export = MadridStatue;

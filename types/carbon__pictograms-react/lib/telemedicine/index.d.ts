@@ -1,3 +1,3 @@
-import { Telemedicine } from "../../";
+import { Telemedicine } from '../../';
 
 export = Telemedicine;

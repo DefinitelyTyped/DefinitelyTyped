@@ -1,3 +1,3 @@
-import { BusinessContinuity } from "../../";
+import { BusinessContinuity } from '../../';
 
 export = BusinessContinuity;

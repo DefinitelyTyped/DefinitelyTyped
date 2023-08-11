@@ -1,1 +1,1 @@
-export { Fast as default } from "../../";
+export { Fast as default } from '../../';

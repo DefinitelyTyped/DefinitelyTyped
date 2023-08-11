@@ -1,1 +1,1 @@
-export { DataInsights as default } from "../../";
+export { DataInsights as default } from '../../';

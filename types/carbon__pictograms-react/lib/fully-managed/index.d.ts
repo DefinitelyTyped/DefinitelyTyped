@@ -1,3 +1,3 @@
-import { FullyManaged } from "../../";
+import { FullyManaged } from '../../';
 
 export = FullyManaged;

@@ -1,1 +1,1 @@
-export { Monitor as default } from "../../";
+export { Monitor as default } from '../../';

@@ -1,3 +1,3 @@
-import { Ai } from "../../";
+import { Ai } from '../../';
 
 export = Ai;

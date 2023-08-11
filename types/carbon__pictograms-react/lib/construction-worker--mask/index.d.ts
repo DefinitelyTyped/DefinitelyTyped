@@ -1,3 +1,3 @@
-import { ConstructionWorkerMask } from "../../";
+import { ConstructionWorkerMask } from '../../';
 
 export = ConstructionWorkerMask;

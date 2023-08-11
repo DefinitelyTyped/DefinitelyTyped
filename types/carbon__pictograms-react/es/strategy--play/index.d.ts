@@ -1,1 +1,1 @@
-export { StrategyPlay as default } from "../../";
+export { StrategyPlay as default } from '../../';

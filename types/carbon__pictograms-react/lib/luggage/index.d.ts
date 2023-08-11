@@ -1,3 +1,3 @@
-import { Luggage } from "../../";
+import { Luggage } from '../../';
 
 export = Luggage;

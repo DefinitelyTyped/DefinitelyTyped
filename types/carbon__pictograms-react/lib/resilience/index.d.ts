@@ -1,3 +1,3 @@
-import { Resilience } from "../../";
+import { Resilience } from '../../';
 
 export = Resilience;

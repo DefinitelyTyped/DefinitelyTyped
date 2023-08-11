@@ -1,3 +1,3 @@
-import { QuantumSafe } from "../../";
+import { QuantumSafe } from '../../';
 
 export = QuantumSafe;

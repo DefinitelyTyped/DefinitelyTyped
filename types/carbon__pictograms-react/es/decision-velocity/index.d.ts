@@ -1,1 +1,1 @@
-export { DecisionVelocity as default } from "../../";
+export { DecisionVelocity as default } from '../../';

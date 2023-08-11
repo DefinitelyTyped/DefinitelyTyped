@@ -1,1 +1,1 @@
-export { Capitol as default } from "../../";
+export { Capitol as default } from '../../';

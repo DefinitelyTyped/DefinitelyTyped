@@ -1,3 +1,3 @@
-import { FaceDissatisfied } from "../../";
+import { FaceDissatisfied } from '../../';
 
 export = FaceDissatisfied;

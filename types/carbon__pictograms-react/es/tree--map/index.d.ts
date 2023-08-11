@@ -1,1 +1,1 @@
-export { TreeMap as default } from "../../";
+export { TreeMap as default } from '../../';

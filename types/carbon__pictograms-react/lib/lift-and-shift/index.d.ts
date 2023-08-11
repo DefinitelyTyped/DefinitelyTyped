@@ -1,3 +1,3 @@
-import { LiftAndShift } from "../../";
+import { LiftAndShift } from '../../';
 
 export = LiftAndShift;

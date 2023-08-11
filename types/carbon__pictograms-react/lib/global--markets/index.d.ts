@@ -1,3 +1,3 @@
-import { GlobalMarkets } from "../../";
+import { GlobalMarkets } from '../../';
 
 export = GlobalMarkets;

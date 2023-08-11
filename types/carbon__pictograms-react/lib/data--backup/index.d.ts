@@ -1,3 +1,3 @@
-import { DataBackup } from "../../";
+import { DataBackup } from '../../';
 
 export = DataBackup;

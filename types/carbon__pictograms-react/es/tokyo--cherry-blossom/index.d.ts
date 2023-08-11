@@ -1,1 +1,1 @@
-export { TokyoCherryBlossom as default } from "../../";
+export { TokyoCherryBlossom as default } from '../../';

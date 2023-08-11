@@ -1,1 +1,1 @@
-export { Javascript as default } from "../../";
+export { Javascript as default } from '../../';

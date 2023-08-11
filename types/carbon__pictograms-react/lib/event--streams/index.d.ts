@@ -1,3 +1,3 @@
-import { EventStreams } from "../../";
+import { EventStreams } from '../../';
 
 export = EventStreams;

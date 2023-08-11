@@ -1,3 +1,3 @@
-import { TaipeiBubbleTea } from "../../";
+import { TaipeiBubbleTea } from '../../';
 
 export = TaipeiBubbleTea;

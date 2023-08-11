@@ -1,1 +1,1 @@
-export { EventStreams as default } from "../../";
+export { EventStreams as default } from '../../';

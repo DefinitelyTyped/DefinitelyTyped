@@ -1,3 +1,3 @@
-import { Doctor } from "../../";
+import { Doctor } from '../../';
 
 export = Doctor;

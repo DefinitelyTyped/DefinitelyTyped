@@ -1,3 +1,3 @@
-import { ParisArcDeTriomphe } from "../../";
+import { ParisArcDeTriomphe } from '../../';
 
 export = ParisArcDeTriomphe;

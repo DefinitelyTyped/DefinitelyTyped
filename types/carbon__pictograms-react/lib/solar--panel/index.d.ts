@@ -1,3 +1,3 @@
-import { SolarPanel } from "../../";
+import { SolarPanel } from '../../';
 
 export = SolarPanel;

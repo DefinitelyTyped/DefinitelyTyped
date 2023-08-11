@@ -1,3 +1,3 @@
-import { Docker } from "../../";
+import { Docker } from '../../';
 
 export = Docker;

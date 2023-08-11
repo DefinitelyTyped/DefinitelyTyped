@@ -1,1 +1,1 @@
-export { BerlinCathedral as default } from "../../";
+export { BerlinCathedral as default } from '../../';

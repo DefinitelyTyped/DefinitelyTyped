@@ -1,1 +1,1 @@
-export { Maximize as default } from "../../";
+export { Maximize as default } from '../../';

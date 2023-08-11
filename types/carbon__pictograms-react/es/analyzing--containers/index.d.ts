@@ -1,1 +1,1 @@
-export { AnalyzingContainers as default } from "../../";
+export { AnalyzingContainers as default } from '../../';

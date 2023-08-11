@@ -1,3 +1,3 @@
-import { ManagingContainers } from "../../";
+import { ManagingContainers } from '../../';
 
 export = ManagingContainers;

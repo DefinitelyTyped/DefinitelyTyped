@@ -1,3 +1,3 @@
-import { SeoulGyeongbokgungPalace } from "../../";
+import { SeoulGyeongbokgungPalace } from '../../';
 
 export = SeoulGyeongbokgungPalace;

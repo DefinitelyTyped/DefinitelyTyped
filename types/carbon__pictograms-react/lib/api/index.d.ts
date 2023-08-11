@@ -1,3 +1,3 @@
-import { Api } from "../../";
+import { Api } from '../../';
 
 export = Api;

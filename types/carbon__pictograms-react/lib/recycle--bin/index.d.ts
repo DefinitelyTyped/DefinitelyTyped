@@ -1,3 +1,3 @@
-import { RecycleBin } from "../../";
+import { RecycleBin } from '../../';
 
 export = RecycleBin;

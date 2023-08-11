@@ -1,3 +1,3 @@
-import { KnowsDarkData } from "../../";
+import { KnowsDarkData } from '../../';
 
 export = KnowsDarkData;

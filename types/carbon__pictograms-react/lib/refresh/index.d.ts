@@ -1,3 +1,3 @@
-import { Refresh } from "../../";
+import { Refresh } from '../../';
 
 export = Refresh;

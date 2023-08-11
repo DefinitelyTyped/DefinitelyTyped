@@ -1,3 +1,3 @@
-import { ColombiaCathedralOfLasLajas } from "../../";
+import { ColombiaCathedralOfLasLajas } from '../../';
 
 export = ColombiaCathedralOfLasLajas;

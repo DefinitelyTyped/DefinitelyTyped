@@ -1,1 +1,1 @@
-export { OilRig as default } from "../../";
+export { OilRig as default } from '../../';

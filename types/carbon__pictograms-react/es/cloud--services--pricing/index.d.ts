@@ -1,1 +1,1 @@
-export { CloudServicesPricing as default } from "../../";
+export { CloudServicesPricing as default } from '../../';

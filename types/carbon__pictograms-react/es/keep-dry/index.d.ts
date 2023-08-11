@@ -1,1 +1,1 @@
-export { KeepDry as default } from "../../";
+export { KeepDry as default } from '../../';

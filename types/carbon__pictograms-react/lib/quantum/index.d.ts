@@ -1,3 +1,3 @@
-import { Quantum } from "../../";
+import { Quantum } from '../../';
 
 export = Quantum;

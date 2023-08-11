@@ -1,3 +1,3 @@
-import { Modernize } from "../../";
+import { Modernize } from '../../';
 
 export = Modernize;

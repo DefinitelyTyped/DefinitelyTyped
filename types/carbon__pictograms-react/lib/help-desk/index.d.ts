@@ -1,3 +1,3 @@
-import { HelpDesk } from "../../";
+import { HelpDesk } from '../../';
 
 export = HelpDesk;

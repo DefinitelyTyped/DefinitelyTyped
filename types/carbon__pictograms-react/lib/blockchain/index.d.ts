@@ -1,3 +1,3 @@
-import { Blockchain } from "../../";
+import { Blockchain } from '../../';
 
 export = Blockchain;

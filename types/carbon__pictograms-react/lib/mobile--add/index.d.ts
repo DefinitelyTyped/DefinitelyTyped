@@ -1,3 +1,3 @@
-import { MobileAdd } from "../../";
+import { MobileAdd } from '../../';
 
 export = MobileAdd;

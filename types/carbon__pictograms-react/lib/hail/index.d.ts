@@ -1,3 +1,3 @@
-import { Hail } from "../../";
+import { Hail } from '../../';
 
 export = Hail;

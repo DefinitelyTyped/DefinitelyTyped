@@ -1,3 +1,3 @@
-import { Insurance } from "../../";
+import { Insurance } from '../../';
 
 export = Insurance;

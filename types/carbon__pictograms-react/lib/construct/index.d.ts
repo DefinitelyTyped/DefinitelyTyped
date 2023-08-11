@@ -1,3 +1,3 @@
-import { Construct } from "../../";
+import { Construct } from '../../';
 
 export = Construct;

@@ -1,1 +1,1 @@
-export { GeographicFlexibility as default } from "../../";
+export { GeographicFlexibility as default } from '../../';

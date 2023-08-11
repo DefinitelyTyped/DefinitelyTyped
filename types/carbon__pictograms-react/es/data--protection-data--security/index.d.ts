@@ -1,1 +1,1 @@
-export { DataProtectionDataSecurity as default } from "../../";
+export { DataProtectionDataSecurity as default } from '../../';

@@ -1,1 +1,1 @@
-export { ZeroTrust as default } from "../../";
+export { ZeroTrust as default } from '../../';

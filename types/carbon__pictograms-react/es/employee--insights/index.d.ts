@@ -1,1 +1,1 @@
-export { EmployeeInsights as default } from "../../";
+export { EmployeeInsights as default } from '../../';

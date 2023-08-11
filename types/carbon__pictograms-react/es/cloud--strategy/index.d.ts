@@ -1,1 +1,1 @@
-export { CloudStrategy as default } from "../../";
+export { CloudStrategy as default } from '../../';

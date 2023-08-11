@@ -1,1 +1,1 @@
-export { EventAutomation as default } from "../../";
+export { EventAutomation as default } from '../../';

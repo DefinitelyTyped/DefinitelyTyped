@@ -1,3 +1,3 @@
-import { Optimize } from "../../";
+import { Optimize } from '../../';
 
 export = Optimize;

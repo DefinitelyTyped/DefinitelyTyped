@@ -1,3 +1,3 @@
-import { SaasEnablement } from "../../";
+import { SaasEnablement } from '../../';
 
 export = SaasEnablement;

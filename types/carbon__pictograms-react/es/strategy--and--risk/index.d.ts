@@ -1,1 +1,1 @@
-export { StrategyAndRisk as default } from "../../";
+export { StrategyAndRisk as default } from '../../';

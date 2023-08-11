@@ -1,1 +1,1 @@
-export { Advocate as default } from "../../";
+export { Advocate as default } from '../../';

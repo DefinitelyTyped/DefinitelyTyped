@@ -1,1 +1,1 @@
-export { GraphicIntensiveWorkloads as default } from "../../";
+export { GraphicIntensiveWorkloads as default } from '../../';

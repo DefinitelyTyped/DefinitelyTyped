@@ -1,3 +1,3 @@
-import { CalendarDate } from "../../";
+import { CalendarDate } from '../../';
 
 export = CalendarDate;

@@ -1,3 +1,3 @@
-import { CopenhagenSnekkja } from "../../";
+import { CopenhagenSnekkja } from '../../';
 
 export = CopenhagenSnekkja;

@@ -1,3 +1,3 @@
-import { Javascript } from "../../";
+import { Javascript } from '../../';
 
 export = Javascript;

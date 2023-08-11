@@ -1,3 +1,3 @@
-import { IbmRpa } from "../../";
+import { IbmRpa } from '../../';
 
 export = IbmRpa;

@@ -1,3 +1,3 @@
-import { ChooseHowToGetStarted } from "../../";
+import { ChooseHowToGetStarted } from '../../';
 
 export = ChooseHowToGetStarted;

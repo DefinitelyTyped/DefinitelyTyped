@@ -1,3 +1,3 @@
-import { WorldCommunityGrid } from "../../";
+import { WorldCommunityGrid } from '../../';
 
 export = WorldCommunityGrid;

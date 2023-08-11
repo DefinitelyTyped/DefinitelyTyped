@@ -1,3 +1,3 @@
-import { Organization } from "../../";
+import { Organization } from '../../';
 
 export = Organization;

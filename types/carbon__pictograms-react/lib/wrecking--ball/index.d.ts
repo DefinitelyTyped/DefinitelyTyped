@@ -1,3 +1,3 @@
-import { WreckingBall } from "../../";
+import { WreckingBall } from '../../';
 
 export = WreckingBall;

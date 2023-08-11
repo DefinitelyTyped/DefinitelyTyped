@@ -1,1 +1,1 @@
-export { ExtendTheDataCenter as default } from "../../";
+export { ExtendTheDataCenter as default } from '../../';

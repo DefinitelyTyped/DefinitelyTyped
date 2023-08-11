@@ -1,3 +1,3 @@
-import { DataTransfer } from "../../";
+import { DataTransfer } from '../../';
 
 export = DataTransfer;

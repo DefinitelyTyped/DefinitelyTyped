@@ -1,3 +1,3 @@
-import { Sports } from "../../";
+import { Sports } from '../../';
 
 export = Sports;

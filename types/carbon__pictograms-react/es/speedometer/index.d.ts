@@ -1,1 +1,1 @@
-export { Speedometer as default } from "../../";
+export { Speedometer as default } from '../../';

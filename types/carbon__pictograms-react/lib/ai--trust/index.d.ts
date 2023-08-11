@@ -1,3 +1,3 @@
-import { AiTrust } from "../../";
+import { AiTrust } from '../../';
 
 export = AiTrust;

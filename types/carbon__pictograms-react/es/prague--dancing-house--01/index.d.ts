@@ -1,1 +1,1 @@
-export { PragueDancingHouse_01 as default } from "../../";
+export { PragueDancingHouse_01 as default } from '../../';

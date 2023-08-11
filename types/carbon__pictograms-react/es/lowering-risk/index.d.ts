@@ -1,1 +1,1 @@
-export { LoweringRisk as default } from "../../";
+export { LoweringRisk as default } from '../../';

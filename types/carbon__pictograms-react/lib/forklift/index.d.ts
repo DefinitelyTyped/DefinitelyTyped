@@ -1,3 +1,3 @@
-import { Forklift } from "../../";
+import { Forklift } from '../../';
 
 export = Forklift;

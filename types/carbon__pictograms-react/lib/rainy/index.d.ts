@@ -1,3 +1,3 @@
-import { Rainy } from "../../";
+import { Rainy } from '../../';
 
 export = Rainy;

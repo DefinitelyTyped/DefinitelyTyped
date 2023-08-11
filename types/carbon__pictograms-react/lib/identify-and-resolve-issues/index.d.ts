@@ -1,3 +1,3 @@
-import { IdentifyAndResolveIssues } from "../../";
+import { IdentifyAndResolveIssues } from '../../';
 
 export = IdentifyAndResolveIssues;

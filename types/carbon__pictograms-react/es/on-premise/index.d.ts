@@ -1,1 +1,1 @@
-export { OnPremise as default } from "../../";
+export { OnPremise as default } from '../../';

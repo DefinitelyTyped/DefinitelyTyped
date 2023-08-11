@@ -1,3 +1,3 @@
-import { Build } from "../../";
+import { Build } from '../../';
 
 export = Build;

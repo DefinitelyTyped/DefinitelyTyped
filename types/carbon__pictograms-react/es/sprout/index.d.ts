@@ -1,1 +1,1 @@
-export { Sprout as default } from "../../";
+export { Sprout as default } from '../../';

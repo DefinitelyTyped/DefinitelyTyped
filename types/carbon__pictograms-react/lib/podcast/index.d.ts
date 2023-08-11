@@ -1,3 +1,3 @@
-import { Podcast } from "../../";
+import { Podcast } from '../../';
 
 export = Podcast;

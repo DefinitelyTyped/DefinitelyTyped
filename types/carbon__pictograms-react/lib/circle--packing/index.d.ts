@@ -1,3 +1,3 @@
-import { CirclePacking } from "../../";
+import { CirclePacking } from '../../';
 
 export = CirclePacking;

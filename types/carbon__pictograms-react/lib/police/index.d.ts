@@ -1,3 +1,3 @@
-import { Police } from "../../";
+import { Police } from '../../';
 
 export = Police;

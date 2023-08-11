@@ -1,1 +1,1 @@
-export { ManagingItems as default } from "../../";
+export { ManagingItems as default } from '../../';

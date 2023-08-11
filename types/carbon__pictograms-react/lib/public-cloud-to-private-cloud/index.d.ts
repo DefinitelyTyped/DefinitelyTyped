@@ -1,3 +1,3 @@
-import { PublicCloudToPrivateCloud } from "../../";
+import { PublicCloudToPrivateCloud } from '../../';
 
 export = PublicCloudToPrivateCloud;

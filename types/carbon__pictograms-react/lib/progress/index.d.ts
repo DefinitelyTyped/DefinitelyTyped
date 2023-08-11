@@ -1,3 +1,3 @@
-import { Progress } from "../../";
+import { Progress } from '../../';
 
 export = Progress;

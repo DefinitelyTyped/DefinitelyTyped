@@ -1,3 +1,3 @@
-import { IndiaSouthAsia } from "../../";
+import { IndiaSouthAsia } from '../../';
 
 export = IndiaSouthAsia;

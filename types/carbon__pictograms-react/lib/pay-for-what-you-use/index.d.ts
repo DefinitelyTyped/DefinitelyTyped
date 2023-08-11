@@ -1,3 +1,3 @@
-import { PayForWhatYouUse } from "../../";
+import { PayForWhatYouUse } from '../../';
 
 export = PayForWhatYouUse;

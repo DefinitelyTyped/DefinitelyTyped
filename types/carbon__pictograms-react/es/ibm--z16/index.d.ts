@@ -1,1 +1,1 @@
-export { IbmZ16 as default } from "../../";
+export { IbmZ16 as default } from '../../';

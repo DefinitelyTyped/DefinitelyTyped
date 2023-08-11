@@ -1,1 +1,1 @@
-export { Security_02 as default } from "../../";
+export { Security_02 as default } from '../../';

@@ -1,1 +1,1 @@
-export { UniversalExperiences as default } from "../../";
+export { UniversalExperiences as default } from '../../';

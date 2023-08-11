@@ -1,1 +1,1 @@
-export { Cupcake as default } from "../../";
+export { Cupcake as default } from '../../';

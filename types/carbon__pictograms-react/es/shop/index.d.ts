@@ -1,1 +1,1 @@
-export { Shop as default } from "../../";
+export { Shop as default } from '../../';

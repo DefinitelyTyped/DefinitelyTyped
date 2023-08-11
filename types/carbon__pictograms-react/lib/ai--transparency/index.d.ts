@@ -1,3 +1,3 @@
-import { AiTransparency } from "../../";
+import { AiTransparency } from '../../';
 
 export = AiTransparency;

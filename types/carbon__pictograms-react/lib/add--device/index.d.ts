@@ -1,3 +1,3 @@
-import { AddDevice } from "../../";
+import { AddDevice } from '../../';
 
 export = AddDevice;

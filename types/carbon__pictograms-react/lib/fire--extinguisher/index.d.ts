@@ -1,3 +1,3 @@
-import { FireExtinguisher } from "../../";
+import { FireExtinguisher } from '../../';
 
 export = FireExtinguisher;

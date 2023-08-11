@@ -1,3 +1,3 @@
-import { AppDeveloper } from "../../";
+import { AppDeveloper } from '../../';
 
 export = AppDeveloper;

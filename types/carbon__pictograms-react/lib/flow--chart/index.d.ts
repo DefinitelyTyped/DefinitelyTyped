@@ -1,3 +1,3 @@
-import { FlowChart } from "../../";
+import { FlowChart } from '../../';
 
 export = FlowChart;

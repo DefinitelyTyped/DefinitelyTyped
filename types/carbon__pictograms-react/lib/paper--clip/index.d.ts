@@ -1,3 +1,3 @@
-import { PaperClip } from "../../";
+import { PaperClip } from '../../';
 
 export = PaperClip;

@@ -1,3 +1,3 @@
-import { ReducingCost } from "../../";
+import { ReducingCost } from '../../';
 
 export = ReducingCost;

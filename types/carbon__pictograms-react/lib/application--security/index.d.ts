@@ -1,3 +1,3 @@
-import { ApplicationSecurity } from "../../";
+import { ApplicationSecurity } from '../../';
 
 export = ApplicationSecurity;

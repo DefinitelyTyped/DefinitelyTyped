@@ -1,3 +1,3 @@
-import { Hpi } from "../../";
+import { Hpi } from '../../';
 
 export = Hpi;

@@ -1,3 +1,3 @@
-import { Government_02 } from "../../";
+import { Government_02 } from '../../';
 
 export = Government_02;

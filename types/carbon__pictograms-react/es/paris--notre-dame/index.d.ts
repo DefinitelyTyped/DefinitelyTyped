@@ -1,1 +1,1 @@
-export { ParisNotreDame as default } from "../../";
+export { ParisNotreDame as default } from '../../';

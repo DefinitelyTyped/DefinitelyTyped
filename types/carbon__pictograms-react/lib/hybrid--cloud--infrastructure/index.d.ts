@@ -1,3 +1,3 @@
-import { HybridCloudInfrastructure } from "../../";
+import { HybridCloudInfrastructure } from '../../';
 
 export = HybridCloudInfrastructure;

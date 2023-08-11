@@ -1,3 +1,3 @@
-import { Solve } from "../../";
+import { Solve } from '../../';
 
 export = Solve;

@@ -1,3 +1,3 @@
-import { Singapore } from "../../";
+import { Singapore } from '../../';
 
 export = Singapore;

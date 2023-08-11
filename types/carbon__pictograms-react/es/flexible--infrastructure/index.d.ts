@@ -1,1 +1,1 @@
-export { FlexibleInfrastructure as default } from "../../";
+export { FlexibleInfrastructure as default } from '../../';

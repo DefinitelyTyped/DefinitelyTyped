@@ -1,3 +1,3 @@
-import { Hurricane } from "../../";
+import { Hurricane } from '../../';
 
 export = Hurricane;

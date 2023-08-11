@@ -1,1 +1,1 @@
-export { TextEquivalent as default } from "../../";
+export { TextEquivalent as default } from '../../';

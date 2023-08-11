@@ -1,1 +1,1 @@
-export { DeepLearning as default } from "../../";
+export { DeepLearning as default } from '../../';

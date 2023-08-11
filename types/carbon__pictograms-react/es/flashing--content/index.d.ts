@@ -1,1 +1,1 @@
-export { FlashingContent as default } from "../../";
+export { FlashingContent as default } from '../../';

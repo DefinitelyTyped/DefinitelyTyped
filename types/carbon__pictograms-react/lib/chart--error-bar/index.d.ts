@@ -1,3 +1,3 @@
-import { ChartErrorBar } from "../../";
+import { ChartErrorBar } from '../../';
 
 export = ChartErrorBar;

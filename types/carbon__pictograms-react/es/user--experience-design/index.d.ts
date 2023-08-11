@@ -1,1 +1,1 @@
-export { UserExperienceDesign as default } from "../../";
+export { UserExperienceDesign as default } from '../../';

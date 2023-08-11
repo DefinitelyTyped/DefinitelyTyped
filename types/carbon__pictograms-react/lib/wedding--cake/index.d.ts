@@ -1,3 +1,3 @@
-import { WeddingCake } from "../../";
+import { WeddingCake } from '../../';
 
 export = WeddingCake;

@@ -1,3 +1,3 @@
-import { WirelessHome } from "../../";
+import { WirelessHome } from '../../';
 
 export = WirelessHome;

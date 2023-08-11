@@ -1,3 +1,3 @@
-import { SwipeRight } from "../../";
+import { SwipeRight } from '../../';
 
 export = SwipeRight;

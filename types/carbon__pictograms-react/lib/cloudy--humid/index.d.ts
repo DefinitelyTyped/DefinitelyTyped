@@ -1,3 +1,3 @@
-import { CloudyHumid } from "../../";
+import { CloudyHumid } from '../../';
 
 export = CloudyHumid;

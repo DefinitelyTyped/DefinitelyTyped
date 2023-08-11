@@ -1,3 +1,3 @@
-import { ChartPie } from "../../";
+import { ChartPie } from '../../';
 
 export = ChartPie;

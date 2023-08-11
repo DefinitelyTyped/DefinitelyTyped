@@ -1,3 +1,3 @@
-import { HeatMap_01 } from "../../";
+import { HeatMap_01 } from '../../';
 
 export = HeatMap_01;

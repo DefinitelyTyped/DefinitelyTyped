@@ -1,1 +1,1 @@
-export { ContainerMicroservices as default } from "../../";
+export { ContainerMicroservices as default } from '../../';

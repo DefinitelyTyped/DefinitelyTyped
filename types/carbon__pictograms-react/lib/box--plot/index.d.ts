@@ -1,3 +1,3 @@
-import { BoxPlot } from "../../";
+import { BoxPlot } from '../../';
 
 export = BoxPlot;

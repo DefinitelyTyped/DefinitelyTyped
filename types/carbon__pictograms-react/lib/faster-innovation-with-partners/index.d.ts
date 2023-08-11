@@ -1,3 +1,3 @@
-import { FasterInnovationWithPartners } from "../../";
+import { FasterInnovationWithPartners } from '../../';
 
 export = FasterInnovationWithPartners;

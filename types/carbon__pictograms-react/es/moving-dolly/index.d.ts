@@ -1,1 +1,1 @@
-export { MovingDolly as default } from "../../";
+export { MovingDolly as default } from '../../';

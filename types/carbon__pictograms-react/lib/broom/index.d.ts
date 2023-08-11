@@ -1,3 +1,3 @@
-import { Broom } from "../../";
+import { Broom } from '../../';
 
 export = Broom;

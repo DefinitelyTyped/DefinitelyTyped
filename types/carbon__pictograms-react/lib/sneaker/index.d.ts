@@ -1,3 +1,3 @@
-import { Sneaker } from "../../";
+import { Sneaker } from '../../';
 
 export = Sneaker;

@@ -1,3 +1,3 @@
-import { ChartBubbleLine } from "../../";
+import { ChartBubbleLine } from '../../';
 
 export = ChartBubbleLine;

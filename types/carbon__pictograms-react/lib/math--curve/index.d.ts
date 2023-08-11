@@ -1,3 +1,3 @@
-import { MathCurve } from "../../";
+import { MathCurve } from '../../';
 
 export = MathCurve;

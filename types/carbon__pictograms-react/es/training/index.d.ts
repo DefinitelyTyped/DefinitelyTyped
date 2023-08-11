@@ -1,1 +1,1 @@
-export { Training as default } from "../../";
+export { Training as default } from '../../';

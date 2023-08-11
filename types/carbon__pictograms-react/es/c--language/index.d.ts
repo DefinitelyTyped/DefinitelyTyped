@@ -1,1 +1,1 @@
-export { CLanguage as default } from "../../";
+export { CLanguage as default } from '../../';

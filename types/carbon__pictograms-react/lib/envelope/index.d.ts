@@ -1,3 +1,3 @@
-import { Envelope } from "../../";
+import { Envelope } from '../../';
 
 export = Envelope;

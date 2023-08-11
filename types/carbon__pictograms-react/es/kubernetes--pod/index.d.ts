@@ -1,1 +1,1 @@
-export { KubernetesPod as default } from "../../";
+export { KubernetesPod as default } from '../../';

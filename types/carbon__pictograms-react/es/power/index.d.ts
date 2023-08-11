@@ -1,1 +1,1 @@
-export { Power as default } from "../../";
+export { Power as default } from '../../';

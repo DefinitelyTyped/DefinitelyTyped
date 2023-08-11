@@ -1,1 +1,1 @@
-export { SingleSignOn as default } from "../../";
+export { SingleSignOn as default } from '../../';

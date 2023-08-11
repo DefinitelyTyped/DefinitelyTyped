@@ -1,3 +1,3 @@
-import { PlanningAnalytics } from "../../";
+import { PlanningAnalytics } from '../../';
 
 export = PlanningAnalytics;

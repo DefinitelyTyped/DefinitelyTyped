@@ -1,3 +1,3 @@
-import { OilPump } from "../../";
+import { OilPump } from '../../';
 
 export = OilPump;

@@ -1,3 +1,3 @@
-import { Cluster } from "../../";
+import { Cluster } from '../../';
 
 export = Cluster;

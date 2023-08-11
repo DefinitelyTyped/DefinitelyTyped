@@ -1,1 +1,1 @@
-export { AudioData as default } from "../../";
+export { AudioData as default } from '../../';

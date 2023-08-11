@@ -1,3 +1,3 @@
-import { Agriculture } from "../../";
+import { Agriculture } from '../../';
 
 export = Agriculture;

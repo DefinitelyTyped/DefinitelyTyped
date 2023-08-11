@@ -1,1 +1,1 @@
-export { ChartTSne as default } from "../../";
+export { ChartTSne as default } from '../../';

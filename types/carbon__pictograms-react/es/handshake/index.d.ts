@@ -1,1 +1,1 @@
-export { Handshake as default } from "../../";
+export { Handshake as default } from '../../';

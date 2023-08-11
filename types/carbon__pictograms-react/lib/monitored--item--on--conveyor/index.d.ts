@@ -1,3 +1,3 @@
-import { MonitoredItemOnConveyor } from "../../";
+import { MonitoredItemOnConveyor } from '../../';
 
 export = MonitoredItemOnConveyor;

@@ -1,3 +1,3 @@
-import { Eye } from "../../";
+import { Eye } from '../../';
 
 export = Eye;

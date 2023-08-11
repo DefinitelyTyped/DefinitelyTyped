@@ -1,1 +1,1 @@
-export { AiTrust as default } from "../../";
+export { AiTrust as default } from '../../';

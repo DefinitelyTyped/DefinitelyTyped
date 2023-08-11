@@ -1,3 +1,3 @@
-import { AugmentedReality } from "../../";
+import { AugmentedReality } from '../../';
 
 export = AugmentedReality;

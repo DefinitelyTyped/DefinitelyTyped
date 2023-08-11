@@ -1,3 +1,3 @@
-import { Contract } from "../../";
+import { Contract } from '../../';
 
 export = Contract;

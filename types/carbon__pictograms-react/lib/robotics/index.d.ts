@@ -1,3 +1,3 @@
-import { Robotics } from "../../";
+import { Robotics } from '../../';
 
 export = Robotics;

@@ -1,3 +1,3 @@
-import { Robot } from "../../";
+import { Robot } from '../../';
 
 export = Robot;

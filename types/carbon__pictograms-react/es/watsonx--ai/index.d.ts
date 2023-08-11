@@ -1,1 +1,1 @@
-export { WatsonxAi as default } from "../../";
+export { WatsonxAi as default } from '../../';

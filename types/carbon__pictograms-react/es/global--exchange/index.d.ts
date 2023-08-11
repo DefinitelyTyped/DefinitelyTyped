@@ -1,1 +1,1 @@
-export { GlobalExchange as default } from "../../";
+export { GlobalExchange as default } from '../../';

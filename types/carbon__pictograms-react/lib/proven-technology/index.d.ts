@@ -1,3 +1,3 @@
-import { ProvenTechnology } from "../../";
+import { ProvenTechnology } from '../../';
 
 export = ProvenTechnology;

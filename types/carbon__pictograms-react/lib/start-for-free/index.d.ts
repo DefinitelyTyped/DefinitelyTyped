@@ -1,3 +1,3 @@
-import { StartForFree } from "../../";
+import { StartForFree } from '../../';
 
 export = StartForFree;

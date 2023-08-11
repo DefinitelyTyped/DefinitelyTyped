@@ -1,3 +1,3 @@
-import { Lightning } from "../../";
+import { Lightning } from '../../';
 
 export = Lightning;

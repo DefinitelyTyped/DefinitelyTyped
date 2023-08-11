@@ -1,3 +1,3 @@
-import { OpenSource } from "../../";
+import { OpenSource } from '../../';
 
 export = OpenSource;

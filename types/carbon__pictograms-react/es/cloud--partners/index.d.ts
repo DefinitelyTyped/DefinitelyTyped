@@ -1,1 +1,1 @@
-export { CloudPartners as default } from "../../";
+export { CloudPartners as default } from '../../';

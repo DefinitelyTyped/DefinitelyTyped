@@ -1,3 +1,3 @@
-import { Process } from "../../";
+import { Process } from '../../';
 
 export = Process;

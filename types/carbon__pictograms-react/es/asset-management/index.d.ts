@@ -1,1 +1,1 @@
-export { AssetManagement as default } from "../../";
+export { AssetManagement as default } from '../../';

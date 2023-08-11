@@ -1,1 +1,1 @@
-export { ProfessionalMarketplace as default } from "../../";
+export { ProfessionalMarketplace as default } from '../../';

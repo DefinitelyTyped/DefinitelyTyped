@@ -1,3 +1,3 @@
-import { DubaiPalmIslands } from "../../";
+import { DubaiPalmIslands } from '../../';
 
 export = DubaiPalmIslands;

@@ -1,3 +1,3 @@
-import { Webcast } from "../../";
+import { Webcast } from '../../';
 
 export = Webcast;

@@ -1,3 +1,3 @@
-import { CreditCard } from "../../";
+import { CreditCard } from '../../';
 
 export = CreditCard;

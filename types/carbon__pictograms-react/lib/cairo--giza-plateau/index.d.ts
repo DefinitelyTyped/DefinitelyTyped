@@ -1,3 +1,3 @@
-import { CairoGizaPlateau } from "../../";
+import { CairoGizaPlateau } from '../../';
 
 export = CairoGizaPlateau;

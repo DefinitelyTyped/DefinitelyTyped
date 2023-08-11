@@ -1,3 +1,3 @@
-import { EcuadorQuito } from "../../";
+import { EcuadorQuito } from '../../';
 
 export = EcuadorQuito;

@@ -1,1 +1,1 @@
-export { AcceleratedComputing as default } from "../../";
+export { AcceleratedComputing as default } from '../../';

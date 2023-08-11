@@ -1,1 +1,1 @@
-export { VideoPlay as default } from "../../";
+export { VideoPlay as default } from '../../';

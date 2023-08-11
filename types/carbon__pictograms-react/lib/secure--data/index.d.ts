@@ -1,3 +1,3 @@
-import { SecureData } from "../../";
+import { SecureData } from '../../';
 
 export = SecureData;

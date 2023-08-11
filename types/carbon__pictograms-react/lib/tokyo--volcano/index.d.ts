@@ -1,3 +1,3 @@
-import { TokyoVolcano } from "../../";
+import { TokyoVolcano } from '../../';
 
 export = TokyoVolcano;

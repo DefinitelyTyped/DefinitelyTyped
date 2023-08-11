@@ -1,3 +1,3 @@
-import { VideoPlay } from "../../";
+import { VideoPlay } from '../../';
 
 export = VideoPlay;

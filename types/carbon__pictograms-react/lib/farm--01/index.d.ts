@@ -1,3 +1,3 @@
-import { Farm_01 } from "../../";
+import { Farm_01 } from '../../';
 
 export = Farm_01;

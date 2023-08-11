@@ -1,3 +1,3 @@
-import { Socks } from "../../";
+import { Socks } from '../../';
 
 export = Socks;

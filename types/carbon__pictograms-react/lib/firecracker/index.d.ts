@@ -1,3 +1,3 @@
-import { Firecracker } from "../../";
+import { Firecracker } from '../../';
 
 export = Firecracker;

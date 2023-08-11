@@ -1,1 +1,1 @@
-export { NycStatueOfLiberty as default } from "../../";
+export { NycStatueOfLiberty as default } from '../../';

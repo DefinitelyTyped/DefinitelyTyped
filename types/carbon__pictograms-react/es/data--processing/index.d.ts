@@ -1,1 +1,1 @@
-export { DataProcessing as default } from "../../";
+export { DataProcessing as default } from '../../';

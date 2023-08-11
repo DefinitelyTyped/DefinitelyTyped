@@ -1,1 +1,1 @@
-export { Flexibility as default } from "../../";
+export { Flexibility as default } from '../../';

@@ -1,1 +1,1 @@
-export { Edge as default } from "../../";
+export { Edge as default } from '../../';

@@ -1,1 +1,1 @@
-export { CloudDownload as default } from "../../";
+export { CloudDownload as default } from '../../';

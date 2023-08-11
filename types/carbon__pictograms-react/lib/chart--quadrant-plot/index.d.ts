@@ -1,3 +1,3 @@
-import { ChartQuadrantPlot } from "../../";
+import { ChartQuadrantPlot } from '../../';
 
 export = ChartQuadrantPlot;

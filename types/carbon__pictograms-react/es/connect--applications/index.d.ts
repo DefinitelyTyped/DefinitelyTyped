@@ -1,1 +1,1 @@
-export { ConnectApplications as default } from "../../";
+export { ConnectApplications as default } from '../../';

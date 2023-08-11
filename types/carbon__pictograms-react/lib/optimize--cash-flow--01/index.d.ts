@@ -1,3 +1,3 @@
-import { OptimizeCashFlow_01 } from "../../";
+import { OptimizeCashFlow_01 } from '../../';
 
 export = OptimizeCashFlow_01;

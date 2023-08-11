@@ -1,3 +1,3 @@
-import { Visibility } from "../../";
+import { Visibility } from '../../';
 
 export = Visibility;

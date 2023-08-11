@@ -1,3 +1,3 @@
-import { AssetManagement } from "../../";
+import { AssetManagement } from '../../';
 
 export = AssetManagement;

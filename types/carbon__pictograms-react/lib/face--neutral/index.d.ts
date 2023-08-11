@@ -1,3 +1,3 @@
-import { FaceNeutral } from "../../";
+import { FaceNeutral } from '../../';
 
 export = FaceNeutral;

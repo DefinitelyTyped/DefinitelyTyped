@@ -1,1 +1,1 @@
-export { ControlPanel as default } from "../../";
+export { ControlPanel as default } from '../../';

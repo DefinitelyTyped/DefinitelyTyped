@@ -1,1 +1,1 @@
-export { TouchScreen as default } from "../../";
+export { TouchScreen as default } from '../../';

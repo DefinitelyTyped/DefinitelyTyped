@@ -1,3 +1,3 @@
-import { TextInput } from "../../";
+import { TextInput } from '../../';
 
 export = TextInput;

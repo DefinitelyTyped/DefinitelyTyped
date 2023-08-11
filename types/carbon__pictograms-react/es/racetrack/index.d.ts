@@ -1,1 +1,1 @@
-export { Racetrack as default } from "../../";
+export { Racetrack as default } from '../../';

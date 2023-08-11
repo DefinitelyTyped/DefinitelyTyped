@@ -1,3 +1,3 @@
-import { ProtectCriticalAssets } from "../../";
+import { ProtectCriticalAssets } from '../../';
 
 export = ProtectCriticalAssets;

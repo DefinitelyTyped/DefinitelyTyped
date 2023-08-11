@@ -1,3 +1,3 @@
-import { CobolLanguage } from "../../";
+import { CobolLanguage } from '../../';
 
 export = CobolLanguage;

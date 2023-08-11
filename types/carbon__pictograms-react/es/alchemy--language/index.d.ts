@@ -1,1 +1,1 @@
-export { AlchemyLanguage as default } from "../../";
+export { AlchemyLanguage as default } from '../../';

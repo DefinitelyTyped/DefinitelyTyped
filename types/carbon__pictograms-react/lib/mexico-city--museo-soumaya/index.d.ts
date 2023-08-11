@@ -1,3 +1,3 @@
-import { MexicoCityMuseoSoumaya } from "../../";
+import { MexicoCityMuseoSoumaya } from '../../';
 
 export = MexicoCityMuseoSoumaya;

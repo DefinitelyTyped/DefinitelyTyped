@@ -1,1 +1,1 @@
-export { CurveLogarithmic as default } from "../../";
+export { CurveLogarithmic as default } from '../../';

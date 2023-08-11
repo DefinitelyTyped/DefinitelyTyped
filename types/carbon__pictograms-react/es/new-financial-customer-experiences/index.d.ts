@@ -1,1 +1,1 @@
-export { NewFinancialCustomerExperiences as default } from "../../";
+export { NewFinancialCustomerExperiences as default } from '../../';

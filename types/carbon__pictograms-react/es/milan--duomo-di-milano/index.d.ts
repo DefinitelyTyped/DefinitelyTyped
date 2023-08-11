@@ -1,1 +1,1 @@
-export { MilanDuomoDiMilano as default } from "../../";
+export { MilanDuomoDiMilano as default } from '../../';

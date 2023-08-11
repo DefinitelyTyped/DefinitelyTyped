@@ -1,1 +1,1 @@
-export { Encryption as default } from "../../";
+export { Encryption as default } from '../../';

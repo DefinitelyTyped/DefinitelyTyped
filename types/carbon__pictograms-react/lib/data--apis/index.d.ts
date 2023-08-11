@@ -1,3 +1,3 @@
-import { DataApis } from "../../";
+import { DataApis } from '../../';
 
 export = DataApis;

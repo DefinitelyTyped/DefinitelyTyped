@@ -1,1 +1,1 @@
-export { RLanguage as default } from "../../";
+export { RLanguage as default } from '../../';

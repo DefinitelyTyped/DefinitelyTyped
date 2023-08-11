@@ -1,1 +1,1 @@
-export { GoLanguage as default } from "../../";
+export { GoLanguage as default } from '../../';

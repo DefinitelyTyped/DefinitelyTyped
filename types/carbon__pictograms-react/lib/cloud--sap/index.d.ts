@@ -1,3 +1,3 @@
-import { CloudSap } from "../../";
+import { CloudSap } from '../../';
 
 export = CloudSap;

@@ -1,1 +1,1 @@
-export { Agility as default } from "../../";
+export { Agility as default } from '../../';

@@ -1,1 +1,1 @@
-export { SecureProfile as default } from "../../";
+export { SecureProfile as default } from '../../';

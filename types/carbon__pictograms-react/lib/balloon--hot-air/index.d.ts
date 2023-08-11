@@ -1,3 +1,3 @@
-import { BalloonHotAir } from "../../";
+import { BalloonHotAir } from '../../';
 
 export = BalloonHotAir;

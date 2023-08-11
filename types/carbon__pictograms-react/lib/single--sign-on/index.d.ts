@@ -1,3 +1,3 @@
-import { SingleSignOn } from "../../";
+import { SingleSignOn } from '../../';
 
 export = SingleSignOn;

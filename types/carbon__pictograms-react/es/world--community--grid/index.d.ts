@@ -1,1 +1,1 @@
-export { WorldCommunityGrid as default } from "../../";
+export { WorldCommunityGrid as default } from '../../';

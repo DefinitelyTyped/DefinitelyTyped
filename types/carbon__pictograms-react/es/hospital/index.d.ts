@@ -1,1 +1,1 @@
-export { Hospital as default } from "../../";
+export { Hospital as default } from '../../';

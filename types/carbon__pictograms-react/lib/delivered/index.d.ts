@@ -1,3 +1,3 @@
-import { Delivered } from "../../";
+import { Delivered } from '../../';
 
 export = Delivered;

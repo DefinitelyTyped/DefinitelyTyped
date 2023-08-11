@@ -1,3 +1,3 @@
-import { MortarAndPestle } from "../../";
+import { MortarAndPestle } from '../../';
 
 export = MortarAndPestle;

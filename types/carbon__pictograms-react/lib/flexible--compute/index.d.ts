@@ -1,3 +1,3 @@
-import { FlexibleCompute } from "../../";
+import { FlexibleCompute } from '../../';
 
 export = FlexibleCompute;

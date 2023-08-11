@@ -1,1 +1,1 @@
-export { FaultTolerant as default } from "../../";
+export { FaultTolerant as default } from '../../';

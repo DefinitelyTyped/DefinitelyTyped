@@ -1,1 +1,1 @@
-export { Serverless as default } from "../../";
+export { Serverless as default } from '../../';

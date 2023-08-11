@@ -1,3 +1,3 @@
-import { InfrastructureSecurity } from "../../";
+import { InfrastructureSecurity } from '../../';
 
 export = InfrastructureSecurity;

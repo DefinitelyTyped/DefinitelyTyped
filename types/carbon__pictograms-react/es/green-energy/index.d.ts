@@ -1,1 +1,1 @@
-export { GreenEnergy as default } from "../../";
+export { GreenEnergy as default } from '../../';

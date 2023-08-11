@@ -1,3 +1,3 @@
-import { Customizable } from "../../";
+import { Customizable } from '../../';
 
 export = Customizable;

@@ -1,1 +1,1 @@
-export { SystemsDevopsRelease as default } from "../../";
+export { SystemsDevopsRelease as default } from '../../';

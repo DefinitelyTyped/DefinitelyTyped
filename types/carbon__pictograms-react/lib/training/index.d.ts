@@ -1,3 +1,3 @@
-import { Training } from "../../";
+import { Training } from '../../';
 
 export = Training;

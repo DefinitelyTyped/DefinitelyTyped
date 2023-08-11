@@ -1,1 +1,1 @@
-export { Firefighter as default } from "../../";
+export { Firefighter as default } from '../../';

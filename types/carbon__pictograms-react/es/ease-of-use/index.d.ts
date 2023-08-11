@@ -1,1 +1,1 @@
-export { EaseOfUse as default } from "../../";
+export { EaseOfUse as default } from '../../';

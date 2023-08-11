@@ -1,1 +1,1 @@
-export { VisualData as default } from "../../";
+export { VisualData as default } from '../../';

@@ -1,1 +1,1 @@
-export { Teacher as default } from "../../";
+export { Teacher as default } from '../../';

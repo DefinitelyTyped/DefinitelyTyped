@@ -1,1 +1,1 @@
-export { Hills as default } from "../../";
+export { Hills as default } from '../../';

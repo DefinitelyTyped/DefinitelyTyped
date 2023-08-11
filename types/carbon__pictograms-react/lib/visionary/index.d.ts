@@ -1,3 +1,3 @@
-import { Visionary } from "../../";
+import { Visionary } from '../../';
 
 export = Visionary;

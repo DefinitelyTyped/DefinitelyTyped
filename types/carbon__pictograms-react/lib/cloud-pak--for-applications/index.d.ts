@@ -1,3 +1,3 @@
-import { CloudPakForApplications } from "../../";
+import { CloudPakForApplications } from '../../';
 
 export = CloudPakForApplications;

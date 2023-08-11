@@ -1,3 +1,3 @@
-import { StemLeafPlot } from "../../";
+import { StemLeafPlot } from '../../';
 
 export = StemLeafPlot;

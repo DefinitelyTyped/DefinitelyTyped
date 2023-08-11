@@ -1,1 +1,1 @@
-export { ManagingContainers as default } from "../../";
+export { ManagingContainers as default } from '../../';

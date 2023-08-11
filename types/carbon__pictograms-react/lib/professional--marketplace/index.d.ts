@@ -1,3 +1,3 @@
-import { ProfessionalMarketplace } from "../../";
+import { ProfessionalMarketplace } from '../../';
 
 export = ProfessionalMarketplace;

@@ -1,1 +1,1 @@
-export { Teammates as default } from "../../";
+export { Teammates as default } from '../../';

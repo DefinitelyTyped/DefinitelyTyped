@@ -1,1 +1,1 @@
-export { EmergencyExit as default } from "../../";
+export { EmergencyExit as default } from '../../';

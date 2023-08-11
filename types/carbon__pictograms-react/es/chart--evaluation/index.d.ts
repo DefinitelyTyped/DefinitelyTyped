@@ -1,1 +1,1 @@
-export { ChartEvaluation as default } from "../../";
+export { ChartEvaluation as default } from '../../';

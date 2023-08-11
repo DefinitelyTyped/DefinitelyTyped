@@ -1,3 +1,3 @@
-import { TabletDeviceCheck } from "../../";
+import { TabletDeviceCheck } from '../../';
 
 export = TabletDeviceCheck;

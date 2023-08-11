@@ -1,3 +1,3 @@
-import { EyewashStation } from "../../";
+import { EyewashStation } from '../../';
 
 export = EyewashStation;

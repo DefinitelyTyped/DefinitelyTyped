@@ -1,1 +1,1 @@
-export { MedicalCharts as default } from "../../";
+export { MedicalCharts as default } from '../../';

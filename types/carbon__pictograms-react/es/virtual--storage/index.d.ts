@@ -1,1 +1,1 @@
-export { VirtualStorage as default } from "../../";
+export { VirtualStorage as default } from '../../';

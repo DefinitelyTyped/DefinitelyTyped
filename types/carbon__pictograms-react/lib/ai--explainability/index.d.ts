@@ -1,3 +1,3 @@
-import { AiExplainability } from "../../";
+import { AiExplainability } from '../../';
 
 export = AiExplainability;

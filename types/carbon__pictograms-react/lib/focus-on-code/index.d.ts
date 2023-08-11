@@ -1,3 +1,3 @@
-import { FocusOnCode } from "../../";
+import { FocusOnCode } from '../../';
 
 export = FocusOnCode;

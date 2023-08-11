@@ -1,1 +1,1 @@
-export { UserMask as default } from "../../";
+export { UserMask as default } from '../../';

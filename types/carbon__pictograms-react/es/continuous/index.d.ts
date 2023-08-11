@@ -1,1 +1,1 @@
-export { Continuous as default } from "../../";
+export { Continuous as default } from '../../';

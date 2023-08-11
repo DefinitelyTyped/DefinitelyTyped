@@ -1,1 +1,1 @@
-export { AiExplainability as default } from "../../";
+export { AiExplainability as default } from '../../';

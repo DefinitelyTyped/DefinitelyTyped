@@ -1,3 +1,3 @@
-import { Apple } from "../../";
+import { Apple } from '../../';
 
 export = Apple;

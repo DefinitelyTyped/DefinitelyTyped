@@ -1,3 +1,3 @@
-import { Globe } from "../../";
+import { Globe } from '../../';
 
 export = Globe;

@@ -1,1 +1,1 @@
-export { StairsPlanView as default } from "../../";
+export { StairsPlanView as default } from '../../';

@@ -1,1 +1,1 @@
-export { Solve as default } from "../../";
+export { Solve as default } from '../../';

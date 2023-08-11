@@ -1,1 +1,1 @@
-export { TextLayout as default } from "../../";
+export { TextLayout as default } from '../../';

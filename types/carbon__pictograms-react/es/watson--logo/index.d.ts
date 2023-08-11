@@ -1,1 +1,1 @@
-export { WatsonLogo as default } from "../../";
+export { WatsonLogo as default } from '../../';

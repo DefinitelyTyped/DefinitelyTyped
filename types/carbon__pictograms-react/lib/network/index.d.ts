@@ -1,3 +1,3 @@
-import { Network } from "../../";
+import { Network } from '../../';
 
 export = Network;

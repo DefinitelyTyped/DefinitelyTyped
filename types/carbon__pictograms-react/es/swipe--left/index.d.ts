@@ -1,1 +1,1 @@
-export { SwipeLeft as default } from "../../";
+export { SwipeLeft as default } from '../../';

@@ -1,3 +1,3 @@
-import { Crop } from "../../";
+import { Crop } from '../../';
 
 export = Crop;

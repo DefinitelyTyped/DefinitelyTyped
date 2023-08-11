@@ -1,1 +1,1 @@
-export { NetworkOfDevices as default } from "../../";
+export { NetworkOfDevices as default } from '../../';

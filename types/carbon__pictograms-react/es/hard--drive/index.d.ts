@@ -1,1 +1,1 @@
-export { HardDrive as default } from "../../";
+export { HardDrive as default } from '../../';

@@ -1,3 +1,3 @@
-import { TechnicalOwner } from "../../";
+import { TechnicalOwner } from '../../';
 
 export = TechnicalOwner;

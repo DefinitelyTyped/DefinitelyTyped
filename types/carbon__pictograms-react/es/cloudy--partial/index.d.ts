@@ -1,1 +1,1 @@
-export { CloudyPartial as default } from "../../";
+export { CloudyPartial as default } from '../../';

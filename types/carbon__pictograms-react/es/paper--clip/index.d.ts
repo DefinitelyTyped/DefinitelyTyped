@@ -1,1 +1,1 @@
-export { PaperClip as default } from "../../";
+export { PaperClip as default } from '../../';

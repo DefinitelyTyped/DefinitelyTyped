@@ -1,1 +1,1 @@
-export { CurveExponential as default } from "../../";
+export { CurveExponential as default } from '../../';

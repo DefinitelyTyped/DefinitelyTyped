@@ -1,3 +1,3 @@
-import { Apartment } from "../../";
+import { Apartment } from '../../';
 
 export = Apartment;

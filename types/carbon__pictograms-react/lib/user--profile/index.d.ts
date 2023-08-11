@@ -1,3 +1,3 @@
-import { UserProfile } from "../../";
+import { UserProfile } from '../../';
 
 export = UserProfile;

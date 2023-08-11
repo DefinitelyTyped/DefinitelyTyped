@@ -1,1 +1,1 @@
-export { GlobalTechnologyServices as default } from "../../";
+export { GlobalTechnologyServices as default } from '../../';

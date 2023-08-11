@@ -1,3 +1,3 @@
-import { Delete } from "../../";
+import { Delete } from '../../';
 
 export = Delete;

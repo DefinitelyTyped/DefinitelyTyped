@@ -1,1 +1,1 @@
-export { Satellite as default } from "../../";
+export { Satellite as default } from '../../';

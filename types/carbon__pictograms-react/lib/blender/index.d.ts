@@ -1,3 +1,3 @@
-import { Blender } from "../../";
+import { Blender } from '../../';
 
 export = Blender;

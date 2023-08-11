@@ -1,3 +1,3 @@
-import { NetworkProtection } from "../../";
+import { NetworkProtection } from '../../';
 
 export = NetworkProtection;

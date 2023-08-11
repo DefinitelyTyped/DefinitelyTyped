@@ -1,1 +1,1 @@
-export { Police as default } from "../../";
+export { Police as default } from '../../';

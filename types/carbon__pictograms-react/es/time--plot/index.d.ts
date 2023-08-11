@@ -1,1 +1,1 @@
-export { TimePlot as default } from "../../";
+export { TimePlot as default } from '../../';

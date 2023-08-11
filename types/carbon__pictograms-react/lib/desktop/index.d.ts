@@ -1,3 +1,3 @@
-import { Desktop } from "../../";
+import { Desktop } from '../../';
 
 export = Desktop;

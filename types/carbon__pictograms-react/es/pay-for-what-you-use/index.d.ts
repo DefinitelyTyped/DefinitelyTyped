@@ -1,1 +1,1 @@
-export { PayForWhatYouUse as default } from "../../";
+export { PayForWhatYouUse as default } from '../../';

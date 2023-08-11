@@ -1,3 +1,3 @@
-import { OilRig } from "../../";
+import { OilRig } from '../../';
 
 export = OilRig;

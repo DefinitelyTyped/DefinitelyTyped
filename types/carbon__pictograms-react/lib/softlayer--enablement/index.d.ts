@@ -1,3 +1,3 @@
-import { SoftlayerEnablement } from "../../";
+import { SoftlayerEnablement } from '../../';
 
 export = SoftlayerEnablement;

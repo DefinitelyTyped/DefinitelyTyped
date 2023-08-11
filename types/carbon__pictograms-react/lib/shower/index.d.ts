@@ -1,3 +1,3 @@
-import { Shower } from "../../";
+import { Shower } from '../../';
 
 export = Shower;

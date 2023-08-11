@@ -1,3 +1,3 @@
-import { Forecasting } from "../../";
+import { Forecasting } from '../../';
 
 export = Forecasting;

@@ -1,1 +1,1 @@
-export { RedHatApplications as default } from "../../";
+export { RedHatApplications as default } from '../../';

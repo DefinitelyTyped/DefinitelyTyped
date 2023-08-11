@@ -1,1 +1,1 @@
-export { WashingtonDcMonument as default } from "../../";
+export { WashingtonDcMonument as default } from '../../';

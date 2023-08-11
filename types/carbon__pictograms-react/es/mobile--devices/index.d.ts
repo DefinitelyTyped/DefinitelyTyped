@@ -1,1 +1,1 @@
-export { MobileDevices as default } from "../../";
+export { MobileDevices as default } from '../../';

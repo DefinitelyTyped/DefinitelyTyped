@@ -1,1 +1,1 @@
-export { Resilience as default } from "../../";
+export { Resilience as default } from '../../';

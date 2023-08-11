@@ -1,3 +1,3 @@
-import { UseTheLanguageOfYourChoice } from "../../";
+import { UseTheLanguageOfYourChoice } from '../../';
 
 export = UseTheLanguageOfYourChoice;

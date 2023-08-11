@@ -1,1 +1,1 @@
-export { Parliament as default } from "../../";
+export { Parliament as default } from '../../';

@@ -1,1 +1,1 @@
-export { AlchemyDataNews as default } from "../../";
+export { AlchemyDataNews as default } from '../../';

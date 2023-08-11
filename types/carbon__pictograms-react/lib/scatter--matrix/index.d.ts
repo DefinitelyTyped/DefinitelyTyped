@@ -1,3 +1,3 @@
-import { ScatterMatrix } from "../../";
+import { ScatterMatrix } from '../../';
 
 export = ScatterMatrix;

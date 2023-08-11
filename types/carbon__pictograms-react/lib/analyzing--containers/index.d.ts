@@ -1,3 +1,3 @@
-import { AnalyzingContainers } from "../../";
+import { AnalyzingContainers } from '../../';
 
 export = AnalyzingContainers;

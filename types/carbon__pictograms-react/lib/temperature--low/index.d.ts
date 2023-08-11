@@ -1,3 +1,3 @@
-import { TemperatureLow } from "../../";
+import { TemperatureLow } from '../../';
 
 export = TemperatureLow;

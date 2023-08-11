@@ -1,3 +1,3 @@
-import { IbmZAndLinuxoneSingleFrame } from "../../";
+import { IbmZAndLinuxoneSingleFrame } from '../../';
 
 export = IbmZAndLinuxoneSingleFrame;

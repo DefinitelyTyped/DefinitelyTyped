@@ -1,1 +1,1 @@
-export { Medal_01 as default } from "../../";
+export { Medal_01 as default } from '../../';

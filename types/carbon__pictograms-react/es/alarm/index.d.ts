@@ -1,1 +1,1 @@
-export { Alarm as default } from "../../";
+export { Alarm as default } from '../../';

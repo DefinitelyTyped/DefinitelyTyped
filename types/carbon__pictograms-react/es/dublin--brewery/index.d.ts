@@ -1,1 +1,1 @@
-export { DublinBrewery as default } from "../../";
+export { DublinBrewery as default } from '../../';

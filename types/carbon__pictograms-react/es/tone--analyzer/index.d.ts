@@ -1,1 +1,1 @@
-export { ToneAnalyzer as default } from "../../";
+export { ToneAnalyzer as default } from '../../';

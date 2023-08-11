@@ -1,1 +1,1 @@
-export { TouchSwipe as default } from "../../";
+export { TouchSwipe as default } from '../../';

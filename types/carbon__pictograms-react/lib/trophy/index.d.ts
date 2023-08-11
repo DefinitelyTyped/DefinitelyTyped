@@ -1,3 +1,3 @@
-import { Trophy } from "../../";
+import { Trophy } from '../../';
 
 export = Trophy;

@@ -1,1 +1,1 @@
-export { DetectAndStopAdvancingThreats as default } from "../../";
+export { DetectAndStopAdvancingThreats as default } from '../../';

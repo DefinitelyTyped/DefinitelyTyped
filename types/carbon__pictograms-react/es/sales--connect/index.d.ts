@@ -1,1 +1,1 @@
-export { SalesConnect as default } from "../../";
+export { SalesConnect as default } from '../../';

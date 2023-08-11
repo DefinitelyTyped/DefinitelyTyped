@@ -1,3 +1,3 @@
-import { Magnify } from "../../";
+import { Magnify } from '../../';
 
 export = Magnify;

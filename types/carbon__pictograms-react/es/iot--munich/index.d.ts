@@ -1,1 +1,1 @@
-export { IotMunich as default } from "../../";
+export { IotMunich as default } from '../../';

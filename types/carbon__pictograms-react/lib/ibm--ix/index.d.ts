@@ -1,3 +1,3 @@
-import { IbmIx } from "../../";
+import { IbmIx } from '../../';
 
 export = IbmIx;

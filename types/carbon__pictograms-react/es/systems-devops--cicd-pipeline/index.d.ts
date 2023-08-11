@@ -1,1 +1,1 @@
-export { SystemsDevopsCicdPipeline as default } from "../../";
+export { SystemsDevopsCicdPipeline as default } from '../../';

@@ -1,1 +1,1 @@
-export { RockOn as default } from "../../";
+export { RockOn as default } from '../../';

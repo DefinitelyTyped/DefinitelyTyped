@@ -1,3 +1,3 @@
-import { SaveTime } from "../../";
+import { SaveTime } from '../../';
 
 export = SaveTime;

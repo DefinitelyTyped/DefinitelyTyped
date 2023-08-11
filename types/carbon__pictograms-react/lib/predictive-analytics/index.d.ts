@@ -1,3 +1,3 @@
-import { PredictiveAnalytics } from "../../";
+import { PredictiveAnalytics } from '../../';
 
 export = PredictiveAnalytics;

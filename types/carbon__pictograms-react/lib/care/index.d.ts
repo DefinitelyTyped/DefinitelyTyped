@@ -1,3 +1,3 @@
-import { Care } from "../../";
+import { Care } from '../../';
 
 export = Care;

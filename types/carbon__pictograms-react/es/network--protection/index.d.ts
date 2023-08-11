@@ -1,1 +1,1 @@
-export { NetworkProtection as default } from "../../";
+export { NetworkProtection as default } from '../../';

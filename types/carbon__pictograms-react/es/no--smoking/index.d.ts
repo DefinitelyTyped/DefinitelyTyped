@@ -1,1 +1,1 @@
-export { NoSmoking as default } from "../../";
+export { NoSmoking as default } from '../../';

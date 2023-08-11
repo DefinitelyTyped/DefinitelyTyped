@@ -1,3 +1,3 @@
-import { ConnectToCloud } from "../../";
+import { ConnectToCloud } from '../../';
 
 export = ConnectToCloud;

@@ -1,3 +1,3 @@
-import { Tractor } from "../../";
+import { Tractor } from '../../';
 
 export = Tractor;

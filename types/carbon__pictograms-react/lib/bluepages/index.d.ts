@@ -1,3 +1,3 @@
-import { Bluepages } from "../../";
+import { Bluepages } from '../../';
 
 export = Bluepages;

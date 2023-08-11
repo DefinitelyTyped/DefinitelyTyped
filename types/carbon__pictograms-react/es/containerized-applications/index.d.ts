@@ -1,1 +1,1 @@
-export { ContainerizedApplications as default } from "../../";
+export { ContainerizedApplications as default } from '../../';

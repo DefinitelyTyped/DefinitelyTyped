@@ -1,3 +1,3 @@
-import { MedicalCharts } from "../../";
+import { MedicalCharts } from '../../';
 
 export = MedicalCharts;

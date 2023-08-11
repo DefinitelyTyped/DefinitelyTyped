@@ -1,1 +1,1 @@
-export { MoonCake as default } from "../../";
+export { MoonCake as default } from '../../';

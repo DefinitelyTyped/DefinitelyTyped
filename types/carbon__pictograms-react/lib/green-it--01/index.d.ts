@@ -1,3 +1,3 @@
-import { GreenIt_01 } from "../../";
+import { GreenIt_01 } from '../../';
 
 export = GreenIt_01;

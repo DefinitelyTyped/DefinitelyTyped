@@ -1,1 +1,1 @@
-export { AiEthics as default } from "../../";
+export { AiEthics as default } from '../../';

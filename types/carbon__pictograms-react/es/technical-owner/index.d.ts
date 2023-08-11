@@ -1,1 +1,1 @@
-export { TechnicalOwner as default } from "../../";
+export { TechnicalOwner as default } from '../../';

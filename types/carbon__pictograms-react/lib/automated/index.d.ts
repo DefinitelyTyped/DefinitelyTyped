@@ -1,3 +1,3 @@
-import { Automated } from "../../";
+import { Automated } from '../../';
 
 export = Automated;

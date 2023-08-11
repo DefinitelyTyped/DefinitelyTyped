@@ -1,3 +1,3 @@
-import { SelectRange } from "../../";
+import { SelectRange } from '../../';
 
 export = SelectRange;

@@ -1,3 +1,3 @@
-import { Edge } from "../../";
+import { Edge } from '../../';
 
 export = Edge;

@@ -1,1 +1,1 @@
-export { TargetArea as default } from "../../";
+export { TargetArea as default } from '../../';

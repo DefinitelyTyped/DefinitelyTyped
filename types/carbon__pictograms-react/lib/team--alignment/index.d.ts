@@ -1,3 +1,3 @@
-import { TeamAlignment } from "../../";
+import { TeamAlignment } from '../../';
 
 export = TeamAlignment;
