@@ -18,7 +18,7 @@ declare namespace GoogleAppsScript {
             slides?: SlidesEventObject | undefined;
         }
 
-        type InvitationResponseStatus = "accepted" | "declined" | "needsAction" | "tentative";
+        type InvitationResponseStatus = 'accepted' | 'declined' | 'needsAction' | 'tentative';
 
         /**
          * @summary Object with information on individual attendees to Calendar events
@@ -36,8 +36,8 @@ declare namespace GoogleAppsScript {
             self: boolean;
         }
 
-        type EntryPointFeature = "toll" | "toll_free";
-        type EntryPointType = "more" | "phone" | "sip" | "video";
+        type EntryPointFeature = 'toll' | 'toll_free';
+        type EntryPointType = 'more' | 'phone' | 'sip' | 'video';
 
         /**
          * @summary Object with information on means of accessing a conference
@@ -65,7 +65,7 @@ declare namespace GoogleAppsScript {
             conferenceSolution: {
                 iconUri: string;
                 key: {
-                    type: "eventHangout" | "eventNamedHangout" | "hangoutsMeet";
+                    type: 'eventHangout' | 'eventNamedHangout' | 'hangoutsMeet';
                 };
                 name: string;
             };
@@ -161,8 +161,8 @@ declare namespace GoogleAppsScript {
             addonHasFileScopePermission: boolean;
         }
 
-        type Platform = "WEB" | "IOS" | "ANDROID";
-        type HostApplication = "GMAIL" | "CALENDAR" | "DRIVE" | "DOCS" | "SHEETS" | "SLIDES";
+        type Platform = 'WEB' | 'IOS' | 'ANDROID';
+        type HostApplication = 'GMAIL' | 'CALENDAR' | 'DRIVE' | 'DOCS' | 'SHEETS' | 'SLIDES';
 
         /**
          * @summary Event object with host-independent information
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
             hostApp: HostApplication;
             formInputs: {
                 [ID: string]: {
-                    "": {
+                    '': {
                         stringInputs?: StringInputObject | undefined;
                         dateInput?: DateInputObject | undefined;
                         timeInput?: TimeInputObject | undefined;
