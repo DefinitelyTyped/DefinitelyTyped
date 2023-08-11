@@ -486,7 +486,7 @@ declare function GM_getResourceURL(name: string): string;
 declare function GM_registerMenuCommand(
     name: string,
     onClick: () => void,
-    options_or_accessKey?: string | {
+    optionsOrAccessKey?: string | {
         accessKey?: string;
         autoClose?: boolean;
     }
