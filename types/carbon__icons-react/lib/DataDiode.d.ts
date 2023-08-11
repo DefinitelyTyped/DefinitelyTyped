@@ -1,1 +1,1 @@
-export { DataDiode as default } from "../";
+export { DataDiode as default } from '../';

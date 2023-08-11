@@ -1,1 +1,1 @@
-export { FlightInternational as default } from "../";
+export { FlightInternational as default } from '../';

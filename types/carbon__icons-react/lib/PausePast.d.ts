@@ -1,1 +1,1 @@
-export { PausePast as default } from "../";
+export { PausePast as default } from '../';

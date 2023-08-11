@@ -1,1 +1,1 @@
-export { Wikis as default } from "../";
+export { Wikis as default } from '../';

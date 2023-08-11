@@ -1,1 +1,1 @@
-export { WatsonHealthInteractiveSegmentationCursor as default } from "../../";
+export { WatsonHealthInteractiveSegmentationCursor as default } from '../../';

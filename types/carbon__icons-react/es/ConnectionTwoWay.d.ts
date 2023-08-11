@@ -1,1 +1,1 @@
-export { ConnectionTwoWay as default } from "../";
+export { ConnectionTwoWay as default } from '../';

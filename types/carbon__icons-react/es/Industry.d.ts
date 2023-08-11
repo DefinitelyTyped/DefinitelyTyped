@@ -1,1 +1,1 @@
-export { Industry as default } from "../";
+export { Industry as default } from '../';

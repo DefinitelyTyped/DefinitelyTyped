@@ -1,1 +1,1 @@
-export { ToolsAlt as default } from "../";
+export { ToolsAlt as default } from '../';

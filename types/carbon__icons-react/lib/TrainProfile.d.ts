@@ -1,1 +1,1 @@
-export { TrainProfile as default } from "../";
+export { TrainProfile as default } from '../';

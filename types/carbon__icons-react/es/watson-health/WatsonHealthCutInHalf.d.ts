@@ -1,1 +1,1 @@
-export { WatsonHealthCutInHalf as default } from "../../";
+export { WatsonHealthCutInHalf as default } from '../../';

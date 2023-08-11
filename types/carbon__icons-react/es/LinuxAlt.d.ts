@@ -1,1 +1,1 @@
-export { LinuxAlt as default } from "../";
+export { LinuxAlt as default } from '../';

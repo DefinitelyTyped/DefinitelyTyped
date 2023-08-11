@@ -1,1 +1,1 @@
-export { IceVision as default } from "../";
+export { IceVision as default } from '../';

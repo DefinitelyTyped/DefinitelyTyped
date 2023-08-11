@@ -1,1 +1,1 @@
-export { CicsCmas as default } from "../";
+export { CicsCmas as default } from '../';

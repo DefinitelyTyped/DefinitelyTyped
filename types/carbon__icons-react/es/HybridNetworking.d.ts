@@ -1,1 +1,1 @@
-export { HybridNetworking as default } from "../";
+export { HybridNetworking as default } from '../';

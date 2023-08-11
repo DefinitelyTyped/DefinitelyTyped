@@ -1,1 +1,1 @@
-export { LogoWechat as default } from "../";
+export { LogoWechat as default } from '../';

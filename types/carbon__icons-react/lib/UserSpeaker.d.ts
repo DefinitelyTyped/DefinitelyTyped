@@ -1,1 +1,1 @@
-export { UserSpeaker as default } from "../";
+export { UserSpeaker as default } from '../';

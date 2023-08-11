@@ -1,1 +1,1 @@
-export { Hearing as default } from "../";
+export { Hearing as default } from '../';

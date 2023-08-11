@@ -1,1 +1,1 @@
-export { Purchase as default } from "../";
+export { Purchase as default } from '../';

@@ -1,1 +1,1 @@
-export { VolumeMute as default } from "../";
+export { VolumeMute as default } from '../';

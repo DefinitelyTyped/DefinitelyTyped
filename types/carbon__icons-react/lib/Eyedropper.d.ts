@@ -1,1 +1,1 @@
-export { Eyedropper as default } from "../";
+export { Eyedropper as default } from '../';

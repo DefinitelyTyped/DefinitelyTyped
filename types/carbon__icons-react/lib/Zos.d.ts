@@ -1,1 +1,1 @@
-export { Zos as default } from "../";
+export { Zos as default } from '../';

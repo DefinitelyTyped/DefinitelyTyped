@@ -1,1 +1,1 @@
-export { WindyStrong as default } from "../";
+export { WindyStrong as default } from '../';

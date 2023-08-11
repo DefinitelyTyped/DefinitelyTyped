@@ -1,1 +1,1 @@
-export { Drink_02 as default } from "../";
+export { Drink_02 as default } from '../';

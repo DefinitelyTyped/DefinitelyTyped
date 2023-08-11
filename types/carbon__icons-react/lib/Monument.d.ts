@@ -1,1 +1,1 @@
-export { Monument as default } from "../";
+export { Monument as default } from '../';

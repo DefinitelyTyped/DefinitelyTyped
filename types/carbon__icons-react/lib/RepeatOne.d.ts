@@ -1,1 +1,1 @@
-export { RepeatOne as default } from "../";
+export { RepeatOne as default } from '../';

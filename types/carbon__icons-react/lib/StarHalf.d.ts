@@ -1,1 +1,1 @@
-export { StarHalf as default } from "../";
+export { StarHalf as default } from '../';

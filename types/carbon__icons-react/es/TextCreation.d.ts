@@ -1,1 +1,1 @@
-export { TextCreation as default } from "../";
+export { TextCreation as default } from '../';

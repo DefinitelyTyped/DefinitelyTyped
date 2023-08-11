@@ -1,1 +1,1 @@
-export { ColumnDelete as default } from "../";
+export { ColumnDelete as default } from '../';

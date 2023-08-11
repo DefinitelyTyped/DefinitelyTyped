@@ -1,1 +1,1 @@
-export { IntentRequestHeal as default } from "../";
+export { IntentRequestHeal as default } from '../';

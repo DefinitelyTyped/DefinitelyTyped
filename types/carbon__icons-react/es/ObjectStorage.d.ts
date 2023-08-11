@@ -1,1 +1,1 @@
-export { ObjectStorage as default } from "../";
+export { ObjectStorage as default } from '../';

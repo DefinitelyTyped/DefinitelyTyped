@@ -1,1 +1,1 @@
-export { CaretSortDown as default } from "../";
+export { CaretSortDown as default } from '../';

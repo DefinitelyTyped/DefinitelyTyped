@@ -1,1 +1,1 @@
-export { Binoculars as default } from "../";
+export { Binoculars as default } from '../';

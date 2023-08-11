@@ -1,1 +1,1 @@
-export { IbmCloudDirectLink_2DedicatedHosting as default } from "../";
+export { IbmCloudDirectLink_2DedicatedHosting as default } from '../';

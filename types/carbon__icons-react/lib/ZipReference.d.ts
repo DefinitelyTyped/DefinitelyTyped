@@ -1,1 +1,1 @@
-export { ZipReference as default } from "../";
+export { ZipReference as default } from '../';

@@ -1,1 +1,1 @@
-export { LogoYoutube as default } from "../";
+export { LogoYoutube as default } from '../';

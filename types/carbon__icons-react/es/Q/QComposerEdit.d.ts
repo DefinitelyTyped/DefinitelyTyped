@@ -1,1 +1,1 @@
-export { QComposerEdit as default } from "../../";
+export { QComposerEdit as default } from '../../';

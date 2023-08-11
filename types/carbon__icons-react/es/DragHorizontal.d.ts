@@ -1,1 +1,1 @@
-export { DragHorizontal as default } from "../";
+export { DragHorizontal as default } from '../';

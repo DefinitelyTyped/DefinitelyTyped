@@ -1,1 +1,1 @@
-export { HazeNight as default } from "../";
+export { HazeNight as default } from '../';

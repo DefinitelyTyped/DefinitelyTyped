@@ -1,1 +1,1 @@
-export { ChartBarTarget as default } from "../";
+export { ChartBarTarget as default } from '../';

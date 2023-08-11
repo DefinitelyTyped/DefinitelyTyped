@@ -1,1 +1,1 @@
-export { DewPoint as default } from "../";
+export { DewPoint as default } from '../';

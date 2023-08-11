@@ -1,1 +1,1 @@
-export { ChartComboStacked as default } from "../";
+export { ChartComboStacked as default } from '../';

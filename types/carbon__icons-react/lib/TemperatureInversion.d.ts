@@ -1,1 +1,1 @@
-export { TemperatureInversion as default } from "../";
+export { TemperatureInversion as default } from '../';

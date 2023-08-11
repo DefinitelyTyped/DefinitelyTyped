@@ -1,1 +1,1 @@
-export { FitToScreen as default } from "../";
+export { FitToScreen as default } from '../';

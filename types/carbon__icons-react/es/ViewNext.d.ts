@@ -1,1 +1,1 @@
-export { ViewNext as default } from "../";
+export { ViewNext as default } from '../';

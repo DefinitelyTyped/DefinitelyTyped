@@ -1,1 +1,1 @@
-export { CurrencyDollar as default } from "../";
+export { CurrencyDollar as default } from '../';

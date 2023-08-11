@@ -1,1 +1,1 @@
-export { ToolBox as default } from "../";
+export { ToolBox as default } from '../';

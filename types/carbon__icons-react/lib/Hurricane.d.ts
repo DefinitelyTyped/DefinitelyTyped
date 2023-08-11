@@ -1,1 +1,1 @@
-export { Hurricane as default } from "../";
+export { Hurricane as default } from '../';

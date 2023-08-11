@@ -1,1 +1,1 @@
-export { Hdr as default } from "../";
+export { Hdr as default } from '../';

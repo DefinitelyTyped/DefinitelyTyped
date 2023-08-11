@@ -1,1 +1,1 @@
-export { DnsServices as default } from "../";
+export { DnsServices as default } from '../';

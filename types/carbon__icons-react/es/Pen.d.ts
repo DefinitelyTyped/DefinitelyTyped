@@ -1,1 +1,1 @@
-export { Pen as default } from "../";
+export { Pen as default } from '../';

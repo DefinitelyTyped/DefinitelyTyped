@@ -1,1 +1,1 @@
-export { CloudAuditing as default } from "../";
+export { CloudAuditing as default } from '../';

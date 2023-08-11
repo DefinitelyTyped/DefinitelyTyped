@@ -1,1 +1,1 @@
-export { Bat as default } from "../";
+export { Bat as default } from '../';

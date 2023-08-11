@@ -1,1 +1,1 @@
-export { BlockStorage as default } from "../";
+export { BlockStorage as default } from '../';

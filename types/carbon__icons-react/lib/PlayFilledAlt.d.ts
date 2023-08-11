@@ -1,1 +1,1 @@
-export { PlayFilledAlt as default } from "../";
+export { PlayFilledAlt as default } from '../';

@@ -1,1 +1,1 @@
-export { Carbon as default } from "../";
+export { Carbon as default } from '../';

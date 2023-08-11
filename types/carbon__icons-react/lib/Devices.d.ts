@@ -1,1 +1,1 @@
-export { Devices as default } from "../";
+export { Devices as default } from '../';

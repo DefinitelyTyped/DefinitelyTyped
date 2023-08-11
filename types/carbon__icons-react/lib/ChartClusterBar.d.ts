@@ -1,1 +1,1 @@
-export { ChartClusterBar as default } from "../";
+export { ChartClusterBar as default } from '../';

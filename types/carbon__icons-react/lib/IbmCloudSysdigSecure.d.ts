@@ -1,1 +1,1 @@
-export { IbmCloudSysdigSecure as default } from "../";
+export { IbmCloudSysdigSecure as default } from '../';

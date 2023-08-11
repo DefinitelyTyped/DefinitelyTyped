@@ -1,1 +1,1 @@
-export { ChartColumnFloating as default } from "../";
+export { ChartColumnFloating as default } from '../';

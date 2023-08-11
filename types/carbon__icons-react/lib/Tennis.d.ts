@@ -1,1 +1,1 @@
-export { Tennis as default } from "../";
+export { Tennis as default } from '../';

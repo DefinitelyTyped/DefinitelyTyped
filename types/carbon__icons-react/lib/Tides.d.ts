@@ -1,1 +1,1 @@
-export { Tides as default } from "../";
+export { Tides as default } from '../';

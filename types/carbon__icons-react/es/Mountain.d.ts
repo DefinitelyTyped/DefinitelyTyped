@@ -1,1 +1,1 @@
-export { Mountain as default } from "../";
+export { Mountain as default } from '../';

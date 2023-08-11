@@ -1,1 +1,1 @@
-export { NotebookReference as default } from "../";
+export { NotebookReference as default } from '../';

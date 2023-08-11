@@ -1,1 +1,1 @@
-export { SkipForwardFilled as default } from "../";
+export { SkipForwardFilled as default } from '../';

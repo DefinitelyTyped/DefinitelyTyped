@@ -1,1 +1,1 @@
-export { DistributeHorizontalLeft as default } from "../";
+export { DistributeHorizontalLeft as default } from '../';

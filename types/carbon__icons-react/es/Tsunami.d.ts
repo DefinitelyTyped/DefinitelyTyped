@@ -1,1 +1,1 @@
-export { Tsunami as default } from "../";
+export { Tsunami as default } from '../';

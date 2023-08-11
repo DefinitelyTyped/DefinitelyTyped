@@ -1,1 +1,1 @@
-export { AssemblyReference as default } from "../";
+export { AssemblyReference as default } from '../';

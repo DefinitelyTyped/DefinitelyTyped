@@ -1,1 +1,1 @@
-export { Policy as default } from "../";
+export { Policy as default } from '../';

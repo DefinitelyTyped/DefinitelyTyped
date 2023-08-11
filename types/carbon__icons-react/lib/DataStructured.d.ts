@@ -1,1 +1,1 @@
-export { DataStructured as default } from "../";
+export { DataStructured as default } from '../';

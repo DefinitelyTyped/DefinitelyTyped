@@ -1,1 +1,1 @@
-export { Cicsplex as default } from "../";
+export { Cicsplex as default } from '../';

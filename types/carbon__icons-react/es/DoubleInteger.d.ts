@@ -1,1 +1,1 @@
-export { DoubleInteger as default } from "../";
+export { DoubleInteger as default } from '../';

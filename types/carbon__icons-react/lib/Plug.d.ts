@@ -1,1 +1,1 @@
-export { Plug as default } from "../";
+export { Plug as default } from '../';

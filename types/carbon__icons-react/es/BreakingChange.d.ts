@@ -1,1 +1,1 @@
-export { BreakingChange as default } from "../";
+export { BreakingChange as default } from '../';

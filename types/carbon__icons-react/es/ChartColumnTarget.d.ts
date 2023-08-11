@@ -1,1 +1,1 @@
-export { ChartColumnTarget as default } from "../";
+export { ChartColumnTarget as default } from '../';

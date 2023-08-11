@@ -1,1 +1,1 @@
-export { Gui as default } from "../";
+export { Gui as default } from '../';

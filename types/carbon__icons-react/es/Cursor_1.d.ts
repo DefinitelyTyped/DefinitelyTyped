@@ -1,1 +1,1 @@
-export { Cursor_1 as default } from "../";
+export { Cursor_1 as default } from '../';

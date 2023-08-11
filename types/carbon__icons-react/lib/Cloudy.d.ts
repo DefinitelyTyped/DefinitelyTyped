@@ -1,1 +1,1 @@
-export { Cloudy as default } from "../";
+export { Cloudy as default } from '../';

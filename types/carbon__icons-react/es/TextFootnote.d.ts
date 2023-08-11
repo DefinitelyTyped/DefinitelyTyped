@@ -1,1 +1,1 @@
-export { TextFootnote as default } from "../";
+export { TextFootnote as default } from '../';

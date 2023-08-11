@@ -1,1 +1,1 @@
-export { ImageSearchAlt as default } from "../";
+export { ImageSearchAlt as default } from '../';

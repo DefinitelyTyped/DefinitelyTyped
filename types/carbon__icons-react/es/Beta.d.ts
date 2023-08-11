@@ -1,1 +1,1 @@
-export { Beta as default } from "../";
+export { Beta as default } from '../';

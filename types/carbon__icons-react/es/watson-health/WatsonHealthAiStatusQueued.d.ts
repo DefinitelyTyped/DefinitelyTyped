@@ -1,1 +1,1 @@
-export { WatsonHealthAiStatusQueued as default } from "../../";
+export { WatsonHealthAiStatusQueued as default } from '../../';

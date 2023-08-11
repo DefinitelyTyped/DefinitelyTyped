@@ -1,1 +1,1 @@
-export { ChartArea as default } from "../";
+export { ChartArea as default } from '../';

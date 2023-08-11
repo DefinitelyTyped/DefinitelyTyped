@@ -1,1 +1,1 @@
-export { ChartCombo as default } from "../";
+export { ChartCombo as default } from '../';

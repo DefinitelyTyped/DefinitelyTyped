@@ -1,1 +1,1 @@
-export { Departure as default } from "../";
+export { Departure as default } from '../';

@@ -1,1 +1,1 @@
-export { IbmWatsonMachineLearning as default } from "../";
+export { IbmWatsonMachineLearning as default } from '../';

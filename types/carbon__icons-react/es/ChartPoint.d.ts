@@ -1,1 +1,1 @@
-export { ChartPoint as default } from "../";
+export { ChartPoint as default } from '../';

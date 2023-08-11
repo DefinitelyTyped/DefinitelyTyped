@@ -1,1 +1,1 @@
-export { FolderShared as default } from "../";
+export { FolderShared as default } from '../';

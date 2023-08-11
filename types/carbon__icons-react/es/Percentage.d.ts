@@ -1,1 +1,1 @@
-export { Percentage as default } from "../";
+export { Percentage as default } from '../';

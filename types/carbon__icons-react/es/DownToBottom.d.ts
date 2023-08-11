@@ -1,1 +1,1 @@
-export { DownToBottom as default } from "../";
+export { DownToBottom as default } from '../';

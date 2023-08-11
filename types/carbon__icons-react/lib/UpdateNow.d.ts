@@ -1,1 +1,1 @@
-export { UpdateNow as default } from "../";
+export { UpdateNow as default } from '../';

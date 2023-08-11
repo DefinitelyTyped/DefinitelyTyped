@@ -1,1 +1,1 @@
-export { CicsRegion as default } from "../";
+export { CicsRegion as default } from '../';

@@ -1,1 +1,1 @@
-export { WatsonHealthAutoScroll as default } from "../../";
+export { WatsonHealthAutoScroll as default } from '../../';

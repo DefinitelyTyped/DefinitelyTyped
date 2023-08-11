@@ -1,1 +1,1 @@
-export { ChartBarOverlay as default } from "../";
+export { ChartBarOverlay as default } from '../';

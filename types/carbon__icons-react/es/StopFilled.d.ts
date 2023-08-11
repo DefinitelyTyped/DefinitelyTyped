@@ -1,1 +1,1 @@
-export { StopFilled as default } from "../";
+export { StopFilled as default } from '../';

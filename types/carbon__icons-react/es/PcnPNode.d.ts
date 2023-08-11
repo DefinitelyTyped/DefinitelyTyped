@@ -1,1 +1,1 @@
-export { PcnPNode as default } from "../";
+export { PcnPNode as default } from '../';

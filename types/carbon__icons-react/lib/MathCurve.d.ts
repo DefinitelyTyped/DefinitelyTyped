@@ -1,1 +1,1 @@
-export { MathCurve as default } from "../";
+export { MathCurve as default } from '../';

@@ -1,1 +1,1 @@
-export { Person as default } from "../";
+export { Person as default } from '../';

@@ -1,1 +1,1 @@
-export { Swim as default } from "../";
+export { Swim as default } from '../';

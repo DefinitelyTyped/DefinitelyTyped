@@ -1,1 +1,1 @@
-export { BatchJobStep as default } from "../";
+export { BatchJobStep as default } from '../';

@@ -1,1 +1,1 @@
-export { Shuffle as default } from "../";
+export { Shuffle as default } from '../';

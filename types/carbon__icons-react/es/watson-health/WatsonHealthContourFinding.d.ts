@@ -1,1 +1,1 @@
-export { WatsonHealthContourFinding as default } from "../../";
+export { WatsonHealthContourFinding as default } from '../../';

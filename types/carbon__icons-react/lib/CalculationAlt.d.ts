@@ -1,1 +1,1 @@
-export { CalculationAlt as default } from "../";
+export { CalculationAlt as default } from '../';

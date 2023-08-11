@@ -1,1 +1,1 @@
-export { MeterAlt as default } from "../";
+export { MeterAlt as default } from '../';

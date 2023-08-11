@@ -1,1 +1,1 @@
-export { CostTotal as default } from "../";
+export { CostTotal as default } from '../';

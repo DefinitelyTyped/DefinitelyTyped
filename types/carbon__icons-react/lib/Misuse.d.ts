@@ -1,1 +1,1 @@
-export { Misuse as default } from "../";
+export { Misuse as default } from '../';

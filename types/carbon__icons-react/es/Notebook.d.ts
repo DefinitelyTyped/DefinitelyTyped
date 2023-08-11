@@ -1,1 +1,1 @@
-export { Notebook as default } from "../";
+export { Notebook as default } from '../';

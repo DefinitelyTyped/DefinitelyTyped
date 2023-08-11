@@ -1,1 +1,1 @@
-export { IbmMq as default } from "../";
+export { IbmMq as default } from '../';

@@ -1,1 +1,1 @@
-export { PageBreak as default } from "../";
+export { PageBreak as default } from '../';

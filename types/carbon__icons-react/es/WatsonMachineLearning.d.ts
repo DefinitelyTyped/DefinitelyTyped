@@ -1,1 +1,1 @@
-export { WatsonMachineLearning as default } from "../";
+export { WatsonMachineLearning as default } from '../';

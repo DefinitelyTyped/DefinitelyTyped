@@ -1,1 +1,1 @@
-export { RadioCombat as default } from "../";
+export { RadioCombat as default } from '../';

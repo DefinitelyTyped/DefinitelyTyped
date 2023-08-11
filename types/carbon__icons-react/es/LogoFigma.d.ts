@@ -1,1 +1,1 @@
-export { LogoFigma as default } from "../";
+export { LogoFigma as default } from '../';

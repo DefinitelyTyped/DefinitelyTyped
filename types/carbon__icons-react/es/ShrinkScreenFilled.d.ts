@@ -1,1 +1,1 @@
-export { ShrinkScreenFilled as default } from "../";
+export { ShrinkScreenFilled as default } from '../';

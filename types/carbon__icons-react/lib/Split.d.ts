@@ -1,1 +1,1 @@
-export { Split as default } from "../";
+export { Split as default } from '../';

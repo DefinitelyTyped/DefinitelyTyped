@@ -1,1 +1,1 @@
-export { PdfReference as default } from "../";
+export { PdfReference as default } from '../';

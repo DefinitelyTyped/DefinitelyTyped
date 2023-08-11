@@ -1,1 +1,1 @@
-export { FlowLogsVpc as default } from "../";
+export { FlowLogsVpc as default } from '../';

@@ -1,1 +1,1 @@
-export { ClosedCaptionAlt as default } from "../";
+export { ClosedCaptionAlt as default } from '../';

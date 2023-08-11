@@ -1,1 +1,1 @@
-export { TrainTime as default } from "../";
+export { TrainTime as default } from '../';

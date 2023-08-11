@@ -1,1 +1,1 @@
-export { WatsonHealth3DCurveAutoVessels as default } from "../../";
+export { WatsonHealth3DCurveAutoVessels as default } from '../../';

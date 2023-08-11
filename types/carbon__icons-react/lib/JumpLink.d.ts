@@ -1,1 +1,1 @@
-export { JumpLink as default } from "../";
+export { JumpLink as default } from '../';

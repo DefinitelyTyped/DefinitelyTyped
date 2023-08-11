@@ -1,1 +1,1 @@
-export { RadarWeather as default } from "../";
+export { RadarWeather as default } from '../';

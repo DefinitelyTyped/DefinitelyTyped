@@ -1,1 +1,1 @@
-export { ScisTransparentSupply as default } from "../";
+export { ScisTransparentSupply as default } from '../';

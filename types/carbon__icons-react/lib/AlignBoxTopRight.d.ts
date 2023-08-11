@@ -1,1 +1,1 @@
-export { AlignBoxTopRight as default } from "../";
+export { AlignBoxTopRight as default } from '../';

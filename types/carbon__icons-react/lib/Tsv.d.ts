@@ -1,1 +1,1 @@
-export { Tsv as default } from "../";
+export { Tsv as default } from '../';

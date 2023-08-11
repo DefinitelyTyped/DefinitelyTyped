@@ -1,1 +1,1 @@
-export { VolumeUp as default } from "../";
+export { VolumeUp as default } from '../';

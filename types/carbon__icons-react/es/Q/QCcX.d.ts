@@ -1,1 +1,1 @@
-export { QCcX as default } from "../../";
+export { QCcX as default } from '../../';

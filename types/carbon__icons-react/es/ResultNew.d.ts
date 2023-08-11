@@ -1,1 +1,1 @@
-export { ResultNew as default } from "../";
+export { ResultNew as default } from '../';

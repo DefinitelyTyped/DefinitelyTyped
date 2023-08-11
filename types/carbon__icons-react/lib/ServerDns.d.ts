@@ -1,1 +1,1 @@
-export { ServerDns as default } from "../";
+export { ServerDns as default } from '../';

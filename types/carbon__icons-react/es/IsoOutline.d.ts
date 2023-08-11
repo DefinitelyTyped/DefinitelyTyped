@@ -1,1 +1,1 @@
-export { IsoOutline as default } from "../";
+export { IsoOutline as default } from '../';

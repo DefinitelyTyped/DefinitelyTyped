@@ -1,1 +1,1 @@
-export { IbmSecureInfrastructureOnVpcForRegulatedIndustries as default } from "../";
+export { IbmSecureInfrastructureOnVpcForRegulatedIndustries as default } from '../';

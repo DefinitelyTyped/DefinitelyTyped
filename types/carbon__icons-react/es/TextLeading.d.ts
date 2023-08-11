@@ -1,1 +1,1 @@
-export { TextLeading as default } from "../";
+export { TextLeading as default } from '../';

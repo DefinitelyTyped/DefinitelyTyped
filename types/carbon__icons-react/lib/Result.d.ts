@@ -1,1 +1,1 @@
-export { Result as default } from "../";
+export { Result as default } from '../';

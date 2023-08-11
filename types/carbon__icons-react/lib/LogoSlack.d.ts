@@ -1,1 +1,1 @@
-export { LogoSlack as default } from "../";
+export { LogoSlack as default } from '../';

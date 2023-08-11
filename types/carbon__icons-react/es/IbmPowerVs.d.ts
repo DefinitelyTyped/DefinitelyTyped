@@ -1,1 +1,1 @@
-export { IbmPowerVs as default } from "../";
+export { IbmPowerVs as default } from '../';

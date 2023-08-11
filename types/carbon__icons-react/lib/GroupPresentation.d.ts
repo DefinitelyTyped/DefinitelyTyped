@@ -1,1 +1,1 @@
-export { GroupPresentation as default } from "../";
+export { GroupPresentation as default } from '../';

@@ -1,1 +1,1 @@
-export { ChargingStationFilled as default } from "../";
+export { ChargingStationFilled as default } from '../';

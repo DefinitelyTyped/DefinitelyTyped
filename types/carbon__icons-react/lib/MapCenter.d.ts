@@ -1,1 +1,1 @@
-export { MapCenter as default } from "../";
+export { MapCenter as default } from '../';

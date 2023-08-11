@@ -1,1 +1,1 @@
-export { Recording as default } from "../";
+export { Recording as default } from '../';

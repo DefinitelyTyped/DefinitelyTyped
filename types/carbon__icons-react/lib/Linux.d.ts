@@ -1,1 +1,1 @@
-export { Linux as default } from "../";
+export { Linux as default } from '../';

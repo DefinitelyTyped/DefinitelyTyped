@@ -1,1 +1,1 @@
-export { Identification as default } from "../";
+export { Identification as default } from '../';

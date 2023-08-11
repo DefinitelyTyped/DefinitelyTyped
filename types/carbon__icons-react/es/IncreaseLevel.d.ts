@@ -1,1 +1,1 @@
-export { IncreaseLevel as default } from "../";
+export { IncreaseLevel as default } from '../';

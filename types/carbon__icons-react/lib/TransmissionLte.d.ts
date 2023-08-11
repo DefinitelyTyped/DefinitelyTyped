@@ -1,1 +1,1 @@
-export { TransmissionLte as default } from "../";
+export { TransmissionLte as default } from '../';

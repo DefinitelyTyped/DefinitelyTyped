@@ -1,1 +1,1 @@
-export { SubnetAclRules as default } from "../";
+export { SubnetAclRules as default } from '../';

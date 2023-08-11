@@ -1,1 +1,1 @@
-export { AlignHorizontalLeft as default } from "../";
+export { AlignHorizontalLeft as default } from '../';

@@ -1,1 +1,1 @@
-export { Undefined as default } from "../";
+export { Undefined as default } from '../';

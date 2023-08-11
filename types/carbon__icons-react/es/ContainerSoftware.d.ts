@@ -1,1 +1,1 @@
-export { ContainerSoftware as default } from "../";
+export { ContainerSoftware as default } from '../';

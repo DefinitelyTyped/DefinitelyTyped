@@ -1,1 +1,1 @@
-export { FaceWink as default } from "../";
+export { FaceWink as default } from '../';

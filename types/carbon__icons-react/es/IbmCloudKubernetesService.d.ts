@@ -1,1 +1,1 @@
-export { IbmCloudKubernetesService as default } from "../";
+export { IbmCloudKubernetesService as default } from '../';

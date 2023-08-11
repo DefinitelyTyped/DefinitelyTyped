@@ -1,1 +1,1 @@
-export { ChooseItem as default } from "../";
+export { ChooseItem as default } from '../';

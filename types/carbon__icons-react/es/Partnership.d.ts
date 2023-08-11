@@ -1,1 +1,1 @@
-export { Partnership as default } from "../";
+export { Partnership as default } from '../';

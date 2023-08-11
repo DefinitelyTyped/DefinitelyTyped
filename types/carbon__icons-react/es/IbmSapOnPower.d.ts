@@ -1,1 +1,1 @@
-export { IbmSapOnPower as default } from "../";
+export { IbmSapOnPower as default } from '../';

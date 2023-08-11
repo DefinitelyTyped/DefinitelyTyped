@@ -1,1 +1,1 @@
-export { WhitePaper as default } from "../";
+export { WhitePaper as default } from '../';

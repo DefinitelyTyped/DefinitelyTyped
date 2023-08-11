@@ -1,1 +1,1 @@
-export { LoadBalancerPool as default } from "../";
+export { LoadBalancerPool as default } from '../';

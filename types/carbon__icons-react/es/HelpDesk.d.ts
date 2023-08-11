@@ -1,1 +1,1 @@
-export { HelpDesk as default } from "../";
+export { HelpDesk as default } from '../';

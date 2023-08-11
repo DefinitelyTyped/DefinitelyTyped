@@ -1,1 +1,1 @@
-export { CloseFilled as default } from "../";
+export { CloseFilled as default } from '../';

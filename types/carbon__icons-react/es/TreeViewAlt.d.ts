@@ -1,1 +1,1 @@
-export { TreeViewAlt as default } from "../";
+export { TreeViewAlt as default } from '../';

@@ -1,1 +1,1 @@
-export { UpToTop as default } from "../";
+export { UpToTop as default } from '../';

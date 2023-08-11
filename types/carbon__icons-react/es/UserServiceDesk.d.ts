@@ -1,1 +1,1 @@
-export { UserServiceDesk as default } from "../";
+export { UserServiceDesk as default } from '../';

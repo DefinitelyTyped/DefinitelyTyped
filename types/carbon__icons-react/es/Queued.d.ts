@@ -1,1 +1,1 @@
-export { Queued as default } from "../";
+export { Queued as default } from '../';

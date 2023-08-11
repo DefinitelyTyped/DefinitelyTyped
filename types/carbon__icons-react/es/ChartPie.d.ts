@@ -1,1 +1,1 @@
-export { ChartPie as default } from "../";
+export { ChartPie as default } from '../';

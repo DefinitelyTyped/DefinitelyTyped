@@ -1,1 +1,1 @@
-export { Vpn as default } from "../";
+export { Vpn as default } from '../';

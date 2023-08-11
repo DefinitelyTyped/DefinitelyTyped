@@ -1,1 +1,1 @@
-export { Friendship as default } from "../";
+export { Friendship as default } from '../';

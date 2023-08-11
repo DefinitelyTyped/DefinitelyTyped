@@ -1,1 +1,1 @@
-export { CurrencyShekel as default } from "../";
+export { CurrencyShekel as default } from '../';

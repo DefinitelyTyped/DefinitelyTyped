@@ -1,1 +1,1 @@
-export { ListCheckedMirror as default } from "../";
+export { ListCheckedMirror as default } from '../';

@@ -1,1 +1,1 @@
-export { MacOption as default } from "../";
+export { MacOption as default } from '../';

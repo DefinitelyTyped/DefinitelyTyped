@@ -1,1 +1,1 @@
-export { Asterisk as default } from "../";
+export { Asterisk as default } from '../';

@@ -1,1 +1,1 @@
-export { TrainSpeed as default } from "../";
+export { TrainSpeed as default } from '../';

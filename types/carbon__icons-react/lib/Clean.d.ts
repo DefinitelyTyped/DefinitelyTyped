@@ -1,1 +1,1 @@
-export { Clean as default } from "../";
+export { Clean as default } from '../';

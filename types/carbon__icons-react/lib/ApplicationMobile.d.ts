@@ -1,1 +1,1 @@
-export { ApplicationMobile as default } from "../";
+export { ApplicationMobile as default } from '../';

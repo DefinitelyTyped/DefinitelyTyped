@@ -1,1 +1,1 @@
-export { Contrast as default } from "../";
+export { Contrast as default } from '../';

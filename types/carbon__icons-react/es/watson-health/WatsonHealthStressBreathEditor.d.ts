@@ -1,1 +1,1 @@
-export { WatsonHealthStressBreathEditor as default } from "../../";
+export { WatsonHealthStressBreathEditor as default } from '../../';

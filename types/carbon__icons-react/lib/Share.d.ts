@@ -1,1 +1,1 @@
-export { Share as default } from "../";
+export { Share as default } from '../';

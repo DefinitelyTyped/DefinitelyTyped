@@ -1,1 +1,1 @@
-export { UserIdentification as default } from "../";
+export { UserIdentification as default } from '../';

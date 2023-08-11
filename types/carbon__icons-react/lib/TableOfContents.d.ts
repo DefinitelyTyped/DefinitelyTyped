@@ -1,1 +1,1 @@
-export { TableOfContents as default } from "../";
+export { TableOfContents as default } from '../';

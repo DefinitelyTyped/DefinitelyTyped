@@ -1,1 +1,1 @@
-export { WarningSquareFilled as default } from "../";
+export { WarningSquareFilled as default } from '../';

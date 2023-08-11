@@ -1,1 +1,1 @@
-export { IbmDatastage as default } from "../";
+export { IbmDatastage as default } from '../';

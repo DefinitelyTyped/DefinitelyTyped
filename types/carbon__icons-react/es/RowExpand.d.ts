@@ -1,1 +1,1 @@
-export { RowExpand as default } from "../";
+export { RowExpand as default } from '../';

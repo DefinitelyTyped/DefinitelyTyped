@@ -1,1 +1,1 @@
-export { DataCategorical as default } from "../";
+export { DataCategorical as default } from '../';

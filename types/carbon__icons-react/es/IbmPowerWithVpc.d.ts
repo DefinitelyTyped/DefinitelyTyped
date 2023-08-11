@@ -1,1 +1,1 @@
-export { IbmPowerWithVpc as default } from "../";
+export { IbmPowerWithVpc as default } from '../';

@@ -1,1 +1,1 @@
-export { Cad as default } from "../";
+export { Cad as default } from '../';

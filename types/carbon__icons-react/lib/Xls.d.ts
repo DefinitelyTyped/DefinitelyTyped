@@ -1,1 +1,1 @@
-export { Xls as default } from "../";
+export { Xls as default } from '../';

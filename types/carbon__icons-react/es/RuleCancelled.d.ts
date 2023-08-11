@@ -1,1 +1,1 @@
-export { RuleCancelled as default } from "../";
+export { RuleCancelled as default } from '../';

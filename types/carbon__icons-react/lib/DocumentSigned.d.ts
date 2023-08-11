@@ -1,1 +1,1 @@
-export { DocumentSigned as default } from "../";
+export { DocumentSigned as default } from '../';

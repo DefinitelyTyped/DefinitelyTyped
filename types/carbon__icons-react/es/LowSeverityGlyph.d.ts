@@ -1,1 +1,1 @@
-export { LowSeverityGlyph as default } from "../";
+export { LowSeverityGlyph as default } from '../';

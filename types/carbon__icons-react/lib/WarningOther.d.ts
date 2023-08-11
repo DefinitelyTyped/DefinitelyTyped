@@ -1,1 +1,1 @@
-export { WarningOther as default } from "../";
+export { WarningOther as default } from '../';

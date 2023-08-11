@@ -1,1 +1,1 @@
-export { WaveDirection as default } from "../";
+export { WaveDirection as default } from '../';

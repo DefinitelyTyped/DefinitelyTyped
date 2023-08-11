@@ -1,1 +1,1 @@
-export { IbmToolchain as default } from "../";
+export { IbmToolchain as default } from '../';

@@ -1,1 +1,1 @@
-export { Music as default } from "../";
+export { Music as default } from '../';

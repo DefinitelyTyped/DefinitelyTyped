@@ -1,1 +1,1 @@
-export { NotificationOff as default } from "../";
+export { NotificationOff as default } from '../';

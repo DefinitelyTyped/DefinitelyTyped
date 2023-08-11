@@ -1,1 +1,1 @@
-export { CircleDash as default } from "../";
+export { CircleDash as default } from '../';

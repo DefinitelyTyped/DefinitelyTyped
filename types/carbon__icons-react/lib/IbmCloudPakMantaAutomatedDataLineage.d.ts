@@ -1,1 +1,1 @@
-export { IbmCloudPakMantaAutomatedDataLineage as default } from "../";
+export { IbmCloudPakMantaAutomatedDataLineage as default } from '../';

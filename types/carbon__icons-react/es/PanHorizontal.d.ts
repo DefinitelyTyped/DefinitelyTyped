@@ -1,1 +1,1 @@
-export { PanHorizontal as default } from "../";
+export { PanHorizontal as default } from '../';

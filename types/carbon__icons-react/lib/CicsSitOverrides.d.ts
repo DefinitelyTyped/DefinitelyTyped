@@ -1,1 +1,1 @@
-export { CicsSitOverrides as default } from "../";
+export { CicsSitOverrides as default } from '../';

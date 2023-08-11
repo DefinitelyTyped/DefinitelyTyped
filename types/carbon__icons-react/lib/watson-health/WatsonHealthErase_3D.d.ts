@@ -1,1 +1,1 @@
-export { WatsonHealthErase_3D as default } from "../../";
+export { WatsonHealthErase_3D as default } from '../../';

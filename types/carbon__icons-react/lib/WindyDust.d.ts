@@ -1,1 +1,1 @@
-export { WindyDust as default } from "../";
+export { WindyDust as default } from '../';

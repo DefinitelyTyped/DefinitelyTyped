@@ -1,1 +1,1 @@
-export { AlarmSubtract as default } from "../";
+export { AlarmSubtract as default } from '../';

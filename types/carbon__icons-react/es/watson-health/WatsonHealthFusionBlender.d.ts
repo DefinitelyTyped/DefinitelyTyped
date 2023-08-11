@@ -1,1 +1,1 @@
-export { WatsonHealthFusionBlender as default } from "../../";
+export { WatsonHealthFusionBlender as default } from '../../';

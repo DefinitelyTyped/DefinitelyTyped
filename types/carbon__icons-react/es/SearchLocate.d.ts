@@ -1,1 +1,1 @@
-export { SearchLocate as default } from "../";
+export { SearchLocate as default } from '../';

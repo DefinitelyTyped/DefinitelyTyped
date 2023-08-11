@@ -1,1 +1,1 @@
-export { TcpIpService as default } from "../";
+export { TcpIpService as default } from '../';

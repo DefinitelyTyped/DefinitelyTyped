@@ -1,1 +1,1 @@
-export { Haze as default } from "../";
+export { Haze as default } from '../';

@@ -1,1 +1,1 @@
-export { ChartRelationship as default } from "../";
+export { ChartRelationship as default } from '../';

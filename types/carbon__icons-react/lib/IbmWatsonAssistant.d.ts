@@ -1,1 +1,1 @@
-export { IbmWatsonAssistant as default } from "../";
+export { IbmWatsonAssistant as default } from '../';

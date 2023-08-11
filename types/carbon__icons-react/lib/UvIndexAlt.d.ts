@@ -1,1 +1,1 @@
-export { UvIndexAlt as default } from "../";
+export { UvIndexAlt as default } from '../';

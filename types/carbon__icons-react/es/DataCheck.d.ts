@@ -1,1 +1,1 @@
-export { DataCheck as default } from "../";
+export { DataCheck as default } from '../';

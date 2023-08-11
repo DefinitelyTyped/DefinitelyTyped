@@ -1,1 +1,1 @@
-export { BootVolumeAlt as default } from "../";
+export { BootVolumeAlt as default } from '../';

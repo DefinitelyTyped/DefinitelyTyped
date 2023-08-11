@@ -1,1 +1,1 @@
-export { Migrate as default } from "../";
+export { Migrate as default } from '../';

@@ -1,1 +1,1 @@
-export { CenterToFit as default } from "../";
+export { CenterToFit as default } from '../';

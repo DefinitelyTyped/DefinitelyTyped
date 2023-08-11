@@ -1,1 +1,1 @@
-export { SubflowLocal as default } from "../";
+export { SubflowLocal as default } from '../';

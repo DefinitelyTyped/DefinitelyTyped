@@ -1,1 +1,1 @@
-export { Sight as default } from "../";
+export { Sight as default } from '../';

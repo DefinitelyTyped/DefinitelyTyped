@@ -1,1 +1,1 @@
-export { PinFilled as default } from "../";
+export { PinFilled as default } from '../';

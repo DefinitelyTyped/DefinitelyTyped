@@ -1,1 +1,1 @@
-export { WatsonHealthRotate_180 as default } from "../../";
+export { WatsonHealthRotate_180 as default } from '../../';

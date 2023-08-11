@@ -1,1 +1,1 @@
-export { DocumentImport as default } from "../";
+export { DocumentImport as default } from '../';

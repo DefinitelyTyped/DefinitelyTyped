@@ -1,1 +1,1 @@
-export { MacShift as default } from "../";
+export { MacShift as default } from '../';

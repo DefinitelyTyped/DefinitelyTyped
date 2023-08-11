@@ -1,1 +1,1 @@
-export { WatsonHealthMagnify as default } from "../../";
+export { WatsonHealthMagnify as default } from '../../';

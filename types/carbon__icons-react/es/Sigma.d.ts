@@ -1,1 +1,1 @@
-export { Sigma as default } from "../";
+export { Sigma as default } from '../';

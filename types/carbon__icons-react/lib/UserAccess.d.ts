@@ -1,1 +1,1 @@
-export { UserAccess as default } from "../";
+export { UserAccess as default } from '../';

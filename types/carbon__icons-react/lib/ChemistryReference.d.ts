@@ -1,1 +1,1 @@
-export { ChemistryReference as default } from "../";
+export { ChemistryReference as default } from '../';

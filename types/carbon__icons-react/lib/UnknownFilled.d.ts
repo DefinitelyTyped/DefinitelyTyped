@@ -1,1 +1,1 @@
-export { UnknownFilled as default } from "../";
+export { UnknownFilled as default } from '../';

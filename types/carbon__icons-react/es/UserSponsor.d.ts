@@ -1,1 +1,1 @@
-export { UserSponsor as default } from "../";
+export { UserSponsor as default } from '../';

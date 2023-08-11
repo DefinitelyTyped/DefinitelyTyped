@@ -1,1 +1,1 @@
-export { Package as default } from "../";
+export { Package as default } from '../';

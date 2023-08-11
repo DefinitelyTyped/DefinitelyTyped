@@ -1,1 +1,1 @@
-export { AddAlt as default } from "../";
+export { AddAlt as default } from '../';

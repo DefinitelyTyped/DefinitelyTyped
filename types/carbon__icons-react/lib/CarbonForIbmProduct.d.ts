@@ -1,1 +1,1 @@
-export { CarbonForIbmProduct as default } from "../";
+export { CarbonForIbmProduct as default } from '../';

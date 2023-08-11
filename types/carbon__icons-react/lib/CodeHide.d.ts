@@ -1,1 +1,1 @@
-export { CodeHide as default } from "../";
+export { CodeHide as default } from '../';

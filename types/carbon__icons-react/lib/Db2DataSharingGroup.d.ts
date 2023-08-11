@@ -1,1 +1,1 @@
-export { Db2DataSharingGroup as default } from "../";
+export { Db2DataSharingGroup as default } from '../';

@@ -1,1 +1,1 @@
-export { Pest as default } from "../";
+export { Pest as default } from '../';

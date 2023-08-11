@@ -1,1 +1,1 @@
-export { TextIndentLess as default } from "../";
+export { TextIndentLess as default } from '../';

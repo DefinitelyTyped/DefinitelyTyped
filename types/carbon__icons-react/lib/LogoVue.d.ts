@@ -1,1 +1,1 @@
-export { LogoVue as default } from "../";
+export { LogoVue as default } from '../';

@@ -1,1 +1,1 @@
-export { Account as default } from "../";
+export { Account as default } from '../';

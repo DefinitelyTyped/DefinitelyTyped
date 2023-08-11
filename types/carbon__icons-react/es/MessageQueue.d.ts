@@ -1,1 +1,1 @@
-export { MessageQueue as default } from "../";
+export { MessageQueue as default } from '../';

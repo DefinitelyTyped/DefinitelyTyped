@@ -1,1 +1,1 @@
-export { DocumentMultiple_01 as default } from "../";
+export { DocumentMultiple_01 as default } from '../';

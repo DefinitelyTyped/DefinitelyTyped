@@ -1,1 +1,1 @@
-export { TableBuilt as default } from "../";
+export { TableBuilt as default } from '../';

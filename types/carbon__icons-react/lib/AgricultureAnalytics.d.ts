@@ -1,1 +1,1 @@
-export { AgricultureAnalytics as default } from "../";
+export { AgricultureAnalytics as default } from '../';

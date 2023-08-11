@@ -1,1 +1,1 @@
-export { JoinFull as default } from "../";
+export { JoinFull as default } from '../';

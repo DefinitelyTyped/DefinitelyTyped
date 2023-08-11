@@ -1,1 +1,1 @@
-export { StringInteger as default } from "../";
+export { StringInteger as default } from '../';

@@ -1,1 +1,1 @@
-export { StopSign as default } from "../";
+export { StopSign as default } from '../';

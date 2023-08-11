@@ -1,1 +1,1 @@
-export { ImageReference as default } from "../";
+export { ImageReference as default } from '../';

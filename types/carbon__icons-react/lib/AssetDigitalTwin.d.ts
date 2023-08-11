@@ -1,1 +1,1 @@
-export { AssetDigitalTwin as default } from "../";
+export { AssetDigitalTwin as default } from '../';

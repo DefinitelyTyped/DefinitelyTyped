@@ -1,1 +1,1 @@
-export { SendFilled as default } from "../";
+export { SendFilled as default } from '../';

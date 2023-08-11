@@ -1,1 +1,1 @@
-export { WatsonHealthSubVolume as default } from "../../";
+export { WatsonHealthSubVolume as default } from '../../';

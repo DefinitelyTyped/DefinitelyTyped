@@ -1,1 +1,1 @@
-export { CropGrowth as default } from "../";
+export { CropGrowth as default } from '../';

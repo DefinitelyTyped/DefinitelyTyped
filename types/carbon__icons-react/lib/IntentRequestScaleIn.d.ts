@@ -1,1 +1,1 @@
-export { IntentRequestScaleIn as default } from "../";
+export { IntentRequestScaleIn as default } from '../';

@@ -1,1 +1,1 @@
-export { Commit as default } from "../";
+export { Commit as default } from '../';

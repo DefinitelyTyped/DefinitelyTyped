@@ -1,1 +1,1 @@
-export { DirectionStraightRight as default } from "../";
+export { DirectionStraightRight as default } from '../';

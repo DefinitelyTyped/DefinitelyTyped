@@ -1,1 +1,1 @@
-export { IbmCloudSecurityComplianceCenter as default } from "../";
+export { IbmCloudSecurityComplianceCenter as default } from '../';

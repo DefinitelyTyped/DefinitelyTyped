@@ -1,1 +1,1 @@
-export { Finance as default } from "../";
+export { Finance as default } from '../';

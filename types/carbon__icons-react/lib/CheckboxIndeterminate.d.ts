@@ -1,1 +1,1 @@
-export { CheckboxIndeterminate as default } from "../";
+export { CheckboxIndeterminate as default } from '../';

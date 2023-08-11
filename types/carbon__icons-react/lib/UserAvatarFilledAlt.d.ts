@@ -1,1 +1,1 @@
-export { UserAvatarFilledAlt as default } from "../";
+export { UserAvatarFilledAlt as default } from '../';

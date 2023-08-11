@@ -1,1 +1,1 @@
-export { Favorite as default } from "../";
+export { Favorite as default } from '../';

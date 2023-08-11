@@ -1,30 +1,30 @@
-import * as React from "react";
 import {
-    AccumulationIce,
-    Layers,
-    BorderLeft,
-    AnalyticsReference,
-    Add,
     AccessibilityAlt,
-    DataBaseAlt,
-    GasStation,
-    Lasso,
+    AccumulationIce,
+    Add,
+    AnalyticsReference,
+    Barcode,
+    BatchJob,
     BookmarkFilled,
+    BorderLeft,
+    CalculationAlt,
     CalendarHeatMap,
     ChartColumn,
-    LogoKeybase,
-    Barcode,
-    CalculationAlt,
-    UserAccess,
-    TextClearFormat,
-    IceVision,
+    DataBaseAlt,
+    DataCategorical,
+    GasStation,
     IbmCloudKubernetesService,
+    IceVision,
+    Lasso,
+    Layers,
+    LogoKeybase,
     LogoSvelte,
     Plan,
-    BatchJob,
+    TextClearFormat,
+    UserAccess,
     WhitePaper,
-    DataCategorical,
-} from "@carbon/icons-react";
+} from '@carbon/icons-react';
+import * as React from 'react';
 
 <UserAccess />; // $ExpectType Element
 <TextClearFormat />; // $ExpectType Element
@@ -37,8 +37,8 @@ import {
 <Add>
     <title>Icon title</title>
 </Add>;
-<Add aria-label="Add" />; // $ExpectType Element
-<Add size={32} title="Add" aria-label="Add" tabIndex="0" className="add-32" />; // $ExpectType Element
+<Add aria-label='Add' />; // $ExpectType Element
+<Add size={32} title='Add' aria-label='Add' tabIndex='0' className='add-32' />; // $ExpectType Element
 <DataBaseAlt />; // $ExpectType Element
 <GasStation />; // $ExpectType Element
 <AnalyticsReference />; // $ExpectType Element

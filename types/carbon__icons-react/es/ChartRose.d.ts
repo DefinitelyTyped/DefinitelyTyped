@@ -1,1 +1,1 @@
-export { ChartRose as default } from "../";
+export { ChartRose as default } from '../';

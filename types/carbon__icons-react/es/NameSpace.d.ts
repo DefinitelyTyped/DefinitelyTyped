@@ -1,1 +1,1 @@
-export { NameSpace as default } from "../";
+export { NameSpace as default } from '../';

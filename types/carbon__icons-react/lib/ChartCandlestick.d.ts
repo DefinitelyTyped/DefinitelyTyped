@@ -1,1 +1,1 @@
-export { ChartCandlestick as default } from "../";
+export { ChartCandlestick as default } from '../';

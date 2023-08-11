@@ -1,1 +1,1 @@
-export { PlugFilled as default } from "../";
+export { PlugFilled as default } from '../';

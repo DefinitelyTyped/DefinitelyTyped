@@ -1,1 +1,1 @@
-export { GraphicalDataFlow as default } from "../";
+export { GraphicalDataFlow as default } from '../';

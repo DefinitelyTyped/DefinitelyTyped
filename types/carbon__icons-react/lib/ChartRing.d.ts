@@ -1,1 +1,1 @@
-export { ChartRing as default } from "../";
+export { ChartRing as default } from '../';

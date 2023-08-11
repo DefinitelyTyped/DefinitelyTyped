@@ -1,1 +1,1 @@
-export { TextVerticalAlignment as default } from "../";
+export { TextVerticalAlignment as default } from '../';

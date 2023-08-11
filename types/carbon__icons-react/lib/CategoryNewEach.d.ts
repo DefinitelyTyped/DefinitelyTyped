@@ -1,1 +1,1 @@
-export { CategoryNewEach as default } from "../";
+export { CategoryNewEach as default } from '../';

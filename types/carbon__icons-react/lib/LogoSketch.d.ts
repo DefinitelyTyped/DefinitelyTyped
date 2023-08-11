@@ -1,1 +1,1 @@
-export { LogoSketch as default } from "../";
+export { LogoSketch as default } from '../';

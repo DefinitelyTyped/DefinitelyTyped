@@ -1,1 +1,1 @@
-export { LogoKubernetes as default } from "../";
+export { LogoKubernetes as default } from '../';

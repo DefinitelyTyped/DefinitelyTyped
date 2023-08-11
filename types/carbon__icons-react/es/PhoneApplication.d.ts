@@ -1,1 +1,1 @@
-export { PhoneApplication as default } from "../";
+export { PhoneApplication as default } from '../';

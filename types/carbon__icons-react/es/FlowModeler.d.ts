@@ -1,1 +1,1 @@
-export { FlowModeler as default } from "../";
+export { FlowModeler as default } from '../';

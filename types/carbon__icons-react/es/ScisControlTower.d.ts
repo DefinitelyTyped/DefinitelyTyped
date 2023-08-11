@@ -1,1 +1,1 @@
-export { ScisControlTower as default } from "../";
+export { ScisControlTower as default } from '../';

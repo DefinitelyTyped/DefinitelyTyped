@@ -1,1 +1,1 @@
-export { PhoneIp as default } from "../";
+export { PhoneIp as default } from '../';

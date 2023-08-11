@@ -1,1 +1,1 @@
-export { FacePending as default } from "../";
+export { FacePending as default } from '../';

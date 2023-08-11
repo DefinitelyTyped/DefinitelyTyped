@@ -1,1 +1,1 @@
-export { AlignVerticalBottom as default } from "../";
+export { AlignVerticalBottom as default } from '../';

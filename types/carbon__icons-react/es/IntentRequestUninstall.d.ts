@@ -1,1 +1,1 @@
-export { IntentRequestUninstall as default } from "../";
+export { IntentRequestUninstall as default } from '../';

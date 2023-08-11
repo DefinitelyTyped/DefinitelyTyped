@@ -1,1 +1,1 @@
-export { Laptop as default } from "../";
+export { Laptop as default } from '../';

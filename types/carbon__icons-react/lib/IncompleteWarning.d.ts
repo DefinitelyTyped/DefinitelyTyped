@@ -1,1 +1,1 @@
-export { IncompleteWarning as default } from "../";
+export { IncompleteWarning as default } from '../';

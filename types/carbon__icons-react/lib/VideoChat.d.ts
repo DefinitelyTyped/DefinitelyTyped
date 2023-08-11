@@ -1,1 +1,1 @@
-export { VideoChat as default } from "../";
+export { VideoChat as default } from '../';

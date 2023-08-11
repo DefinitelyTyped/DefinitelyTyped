@@ -1,1 +1,1 @@
-export { Outage as default } from "../";
+export { Outage as default } from '../';

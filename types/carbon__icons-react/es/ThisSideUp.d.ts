@@ -1,1 +1,1 @@
-export { ThisSideUp as default } from "../";
+export { ThisSideUp as default } from '../';

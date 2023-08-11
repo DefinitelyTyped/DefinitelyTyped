@@ -1,1 +1,1 @@
-export { ShapeIntersect as default } from "../";
+export { ShapeIntersect as default } from '../';

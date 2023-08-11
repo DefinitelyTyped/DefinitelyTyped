@@ -1,1 +1,1 @@
-export { LogoGlassdoor as default } from "../";
+export { LogoGlassdoor as default } from '../';

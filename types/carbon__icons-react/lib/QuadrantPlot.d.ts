@@ -1,1 +1,1 @@
-export { QuadrantPlot as default } from "../";
+export { QuadrantPlot as default } from '../';

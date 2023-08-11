@@ -1,1 +1,1 @@
-export { TrafficEvent as default } from "../";
+export { TrafficEvent as default } from '../';

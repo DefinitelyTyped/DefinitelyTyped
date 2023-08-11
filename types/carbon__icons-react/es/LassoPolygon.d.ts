@@ -1,1 +1,1 @@
-export { LassoPolygon as default } from "../";
+export { LassoPolygon as default } from '../';

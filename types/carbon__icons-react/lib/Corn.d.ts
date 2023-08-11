@@ -1,1 +1,1 @@
-export { Corn as default } from "../";
+export { Corn as default } from '../';

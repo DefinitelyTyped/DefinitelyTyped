@@ -1,1 +1,1 @@
-export { DocumentHorizontal as default } from "../";
+export { DocumentHorizontal as default } from '../';

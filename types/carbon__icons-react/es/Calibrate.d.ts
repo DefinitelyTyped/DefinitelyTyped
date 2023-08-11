@@ -1,1 +1,1 @@
-export { Calibrate as default } from "../";
+export { Calibrate as default } from '../';

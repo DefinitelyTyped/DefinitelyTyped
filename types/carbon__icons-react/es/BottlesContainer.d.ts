@@ -1,1 +1,1 @@
-export { BottlesContainer as default } from "../";
+export { BottlesContainer as default } from '../';

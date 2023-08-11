@@ -1,1 +1,1 @@
-export { LoadBalancerVpc as default } from "../";
+export { LoadBalancerVpc as default } from '../';

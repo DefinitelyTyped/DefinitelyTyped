@@ -1,1 +1,1 @@
-export { ThumbsUpFilled as default } from "../";
+export { ThumbsUpFilled as default } from '../';

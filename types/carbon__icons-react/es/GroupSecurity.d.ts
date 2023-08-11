@@ -1,1 +1,1 @@
-export { GroupSecurity as default } from "../";
+export { GroupSecurity as default } from '../';

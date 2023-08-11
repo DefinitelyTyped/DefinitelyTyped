@@ -1,1 +1,1 @@
-export { WavePeriod as default } from "../";
+export { WavePeriod as default } from '../';

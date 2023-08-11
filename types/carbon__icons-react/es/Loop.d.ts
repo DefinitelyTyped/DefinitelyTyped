@@ -1,1 +1,1 @@
-export { Loop as default } from "../";
+export { Loop as default } from '../';

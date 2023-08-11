@@ -1,1 +1,1 @@
-export { WatsonHealthBrushFreehand as default } from "../../";
+export { WatsonHealthBrushFreehand as default } from '../../';

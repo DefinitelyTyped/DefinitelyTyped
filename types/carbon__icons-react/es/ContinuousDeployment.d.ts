@@ -1,1 +1,1 @@
-export { ContinuousDeployment as default } from "../";
+export { ContinuousDeployment as default } from '../';

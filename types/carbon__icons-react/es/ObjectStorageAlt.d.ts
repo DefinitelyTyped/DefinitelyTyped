@@ -1,1 +1,1 @@
-export { ObjectStorageAlt as default } from "../";
+export { ObjectStorageAlt as default } from '../';

@@ -1,1 +1,1 @@
-export { Sql as default } from "../";
+export { Sql as default } from '../';

@@ -1,1 +1,1 @@
-export { Fog as default } from "../";
+export { Fog as default } from '../';

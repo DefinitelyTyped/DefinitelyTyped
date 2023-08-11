@@ -1,1 +1,1 @@
-export { ZLpar as default } from "../";
+export { ZLpar as default } from '../';

@@ -1,1 +1,1 @@
-export { FacePendingFilled as default } from "../";
+export { FacePendingFilled as default } from '../';

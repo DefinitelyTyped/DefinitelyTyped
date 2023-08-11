@@ -1,1 +1,1 @@
-export { LogoRedHatAnsible as default } from "../";
+export { LogoRedHatAnsible as default } from '../';

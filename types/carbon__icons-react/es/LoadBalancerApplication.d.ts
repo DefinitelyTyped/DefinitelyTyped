@@ -1,1 +1,1 @@
-export { LoadBalancerApplication as default } from "../";
+export { LoadBalancerApplication as default } from '../';

@@ -1,1 +1,1 @@
-export { DogWalker as default } from "../";
+export { DogWalker as default } from '../';

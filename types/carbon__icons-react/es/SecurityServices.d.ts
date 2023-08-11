@@ -1,1 +1,1 @@
-export { SecurityServices as default } from "../";
+export { SecurityServices as default } from '../';

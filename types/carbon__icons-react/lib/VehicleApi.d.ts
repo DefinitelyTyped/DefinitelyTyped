@@ -1,1 +1,1 @@
-export { VehicleApi as default } from "../";
+export { VehicleApi as default } from '../';

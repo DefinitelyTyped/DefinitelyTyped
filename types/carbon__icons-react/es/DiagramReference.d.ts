@@ -1,1 +1,1 @@
-export { DiagramReference as default } from "../";
+export { DiagramReference as default } from '../';

@@ -1,1 +1,1 @@
-export { MostlyCloudy as default } from "../";
+export { MostlyCloudy as default } from '../';

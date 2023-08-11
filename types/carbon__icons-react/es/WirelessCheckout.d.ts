@@ -1,1 +1,1 @@
-export { WirelessCheckout as default } from "../";
+export { WirelessCheckout as default } from '../';

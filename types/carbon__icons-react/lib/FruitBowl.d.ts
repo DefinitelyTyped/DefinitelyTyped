@@ -1,1 +1,1 @@
-export { FruitBowl as default } from "../";
+export { FruitBowl as default } from '../';

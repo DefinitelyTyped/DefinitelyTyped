@@ -1,1 +1,1 @@
-export { FitToWidth as default } from "../";
+export { FitToWidth as default } from '../';

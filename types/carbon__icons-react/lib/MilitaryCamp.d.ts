@@ -1,1 +1,1 @@
-export { MilitaryCamp as default } from "../";
+export { MilitaryCamp as default } from '../';

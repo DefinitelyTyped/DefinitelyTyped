@@ -1,1 +1,1 @@
-export { DocumentBlank as default } from "../";
+export { DocumentBlank as default } from '../';

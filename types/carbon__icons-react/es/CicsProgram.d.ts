@@ -1,1 +1,1 @@
-export { CicsProgram as default } from "../";
+export { CicsProgram as default } from '../';

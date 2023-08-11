@@ -1,1 +1,1 @@
-export { UserRole as default } from "../";
+export { UserRole as default } from '../';

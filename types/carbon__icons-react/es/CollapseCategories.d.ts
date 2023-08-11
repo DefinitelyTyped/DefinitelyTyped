@@ -1,1 +1,1 @@
-export { CollapseCategories as default } from "../";
+export { CollapseCategories as default } from '../';

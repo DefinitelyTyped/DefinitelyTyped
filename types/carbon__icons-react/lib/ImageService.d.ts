@@ -1,1 +1,1 @@
-export { ImageService as default } from "../";
+export { ImageService as default } from '../';

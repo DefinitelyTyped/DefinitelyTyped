@@ -1,1 +1,1 @@
-export { ChartLogisticRegression as default } from "../";
+export { ChartLogisticRegression as default } from '../';

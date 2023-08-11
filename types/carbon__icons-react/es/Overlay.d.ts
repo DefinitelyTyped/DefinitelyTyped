@@ -1,1 +1,1 @@
-export { Overlay as default } from "../";
+export { Overlay as default } from '../';

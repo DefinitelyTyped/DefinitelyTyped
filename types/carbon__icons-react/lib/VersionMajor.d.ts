@@ -1,1 +1,1 @@
-export { VersionMajor as default } from "../";
+export { VersionMajor as default } from '../';

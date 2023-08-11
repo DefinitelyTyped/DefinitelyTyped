@@ -1,1 +1,1 @@
-export { MicrophoneOff as default } from "../";
+export { MicrophoneOff as default } from '../';

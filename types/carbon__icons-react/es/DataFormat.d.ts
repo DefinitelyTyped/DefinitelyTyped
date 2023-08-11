@@ -1,1 +1,1 @@
-export { DataFormat as default } from "../";
+export { DataFormat as default } from '../';

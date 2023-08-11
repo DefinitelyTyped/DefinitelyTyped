@@ -1,1 +1,1 @@
-export { DotMark as default } from "../";
+export { DotMark as default } from '../';

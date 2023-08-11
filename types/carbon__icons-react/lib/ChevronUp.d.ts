@@ -1,1 +1,1 @@
-export { ChevronUp as default } from "../";
+export { ChevronUp as default } from '../';

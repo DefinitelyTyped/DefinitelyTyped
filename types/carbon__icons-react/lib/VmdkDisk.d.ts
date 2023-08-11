@@ -1,1 +1,1 @@
-export { VmdkDisk as default } from "../";
+export { VmdkDisk as default } from '../';

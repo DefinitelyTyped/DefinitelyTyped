@@ -1,1 +1,1 @@
-export { Floorplan as default } from "../";
+export { Floorplan as default } from '../';

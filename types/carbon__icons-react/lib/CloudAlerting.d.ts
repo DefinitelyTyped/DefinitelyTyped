@@ -1,1 +1,1 @@
-export { CloudAlerting as default } from "../";
+export { CloudAlerting as default } from '../';

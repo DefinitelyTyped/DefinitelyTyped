@@ -1,1 +1,1 @@
-export { GenderMale as default } from "../";
+export { GenderMale as default } from '../';

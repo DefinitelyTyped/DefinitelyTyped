@@ -1,1 +1,1 @@
-export { DataShare as default } from "../";
+export { DataShare as default } from '../';

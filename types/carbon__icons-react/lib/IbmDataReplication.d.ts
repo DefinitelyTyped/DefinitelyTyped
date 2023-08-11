@@ -1,1 +1,1 @@
-export { IbmDataReplication as default } from "../";
+export { IbmDataReplication as default } from '../';

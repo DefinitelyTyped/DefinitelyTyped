@@ -1,1 +1,1 @@
-export { Webhook as default } from "../";
+export { Webhook as default } from '../';

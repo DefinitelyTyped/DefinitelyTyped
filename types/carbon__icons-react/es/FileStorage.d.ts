@@ -1,1 +1,1 @@
-export { FileStorage as default } from "../";
+export { FileStorage as default } from '../';

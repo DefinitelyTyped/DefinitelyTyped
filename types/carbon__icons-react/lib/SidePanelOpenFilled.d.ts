@@ -1,1 +1,1 @@
-export { SidePanelOpenFilled as default } from "../";
+export { SidePanelOpenFilled as default } from '../';

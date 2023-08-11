@@ -1,1 +1,1 @@
-export { Reply as default } from "../";
+export { Reply as default } from '../';

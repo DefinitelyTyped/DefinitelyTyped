@@ -1,1 +1,1 @@
-export { DataBlob as default } from "../";
+export { DataBlob as default } from '../';

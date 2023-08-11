@@ -1,1 +1,1 @@
-export { DataConnected as default } from "../";
+export { DataConnected as default } from '../';

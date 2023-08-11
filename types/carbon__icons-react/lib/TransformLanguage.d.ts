@@ -1,1 +1,1 @@
-export { TransformLanguage as default } from "../";
+export { TransformLanguage as default } from '../';

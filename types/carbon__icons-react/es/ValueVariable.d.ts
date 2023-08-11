@@ -1,1 +1,1 @@
-export { ValueVariable as default } from "../";
+export { ValueVariable as default } from '../';

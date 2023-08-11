@@ -1,1 +1,1 @@
-export { DataEnrichmentAdd as default } from "../";
+export { DataEnrichmentAdd as default } from '../';

@@ -1,1 +1,1 @@
-export { TextLink as default } from "../";
+export { TextLink as default } from '../';

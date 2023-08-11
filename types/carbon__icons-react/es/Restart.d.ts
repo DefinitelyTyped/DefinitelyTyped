@@ -1,1 +1,1 @@
-export { Restart as default } from "../";
+export { Restart as default } from '../';

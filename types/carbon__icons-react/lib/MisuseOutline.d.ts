@@ -1,1 +1,1 @@
-export { MisuseOutline as default } from "../";
+export { MisuseOutline as default } from '../';

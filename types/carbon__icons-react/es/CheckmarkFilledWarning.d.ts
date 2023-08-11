@@ -1,1 +1,1 @@
-export { CheckmarkFilledWarning as default } from "../";
+export { CheckmarkFilledWarning as default } from '../';

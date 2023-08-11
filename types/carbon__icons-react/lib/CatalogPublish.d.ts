@@ -1,1 +1,1 @@
-export { CatalogPublish as default } from "../";
+export { CatalogPublish as default } from '../';

@@ -1,1 +1,1 @@
-export { MailReply as default } from "../";
+export { MailReply as default } from '../';

@@ -1,1 +1,1 @@
-export { PicnicArea as default } from "../";
+export { PicnicArea as default } from '../';

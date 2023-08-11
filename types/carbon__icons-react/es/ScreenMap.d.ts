@@ -1,1 +1,1 @@
-export { ScreenMap as default } from "../";
+export { ScreenMap as default } from '../';

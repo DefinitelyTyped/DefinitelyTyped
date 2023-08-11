@@ -1,1 +1,1 @@
-export { LogoVmwareAlt as default } from "../";
+export { LogoVmwareAlt as default } from '../';

@@ -1,1 +1,1 @@
-export { DeploymentPolicy as default } from "../";
+export { DeploymentPolicy as default } from '../';

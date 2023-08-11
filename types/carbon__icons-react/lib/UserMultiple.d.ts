@@ -1,1 +1,1 @@
-export { UserMultiple as default } from "../";
+export { UserMultiple as default } from '../';

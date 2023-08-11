@@ -1,1 +1,1 @@
-export { YAxis as default } from "../";
+export { YAxis as default } from '../';

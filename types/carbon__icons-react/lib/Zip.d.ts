@@ -1,1 +1,1 @@
-export { Zip as default } from "../";
+export { Zip as default } from '../';

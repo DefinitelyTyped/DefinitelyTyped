@@ -1,1 +1,1 @@
-export { DataQualityDefinition as default } from "../";
+export { DataQualityDefinition as default } from '../';

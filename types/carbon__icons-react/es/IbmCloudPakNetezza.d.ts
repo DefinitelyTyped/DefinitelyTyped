@@ -1,1 +1,1 @@
-export { IbmCloudPakNetezza as default } from "../";
+export { IbmCloudPakNetezza as default } from '../';

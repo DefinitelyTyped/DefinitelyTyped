@@ -1,1 +1,1 @@
-export { DirectLink as default } from "../";
+export { DirectLink as default } from '../';

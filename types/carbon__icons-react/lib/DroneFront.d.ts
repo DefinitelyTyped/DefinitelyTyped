@@ -1,1 +1,1 @@
-export { DroneFront as default } from "../";
+export { DroneFront as default } from '../';

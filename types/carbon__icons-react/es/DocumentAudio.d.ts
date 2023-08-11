@@ -1,1 +1,1 @@
-export { DocumentAudio as default } from "../";
+export { DocumentAudio as default } from '../';

@@ -1,1 +1,1 @@
-export { SoftwareResourceCluster as default } from "../";
+export { SoftwareResourceCluster as default } from '../';

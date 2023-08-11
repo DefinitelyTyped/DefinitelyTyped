@@ -1,1 +1,1 @@
-export { TwoPersonLift as default } from "../";
+export { TwoPersonLift as default } from '../';

@@ -1,1 +1,1 @@
-export { DeploymentPattern as default } from "../";
+export { DeploymentPattern as default } from '../';

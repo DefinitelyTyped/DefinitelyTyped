@@ -1,1 +1,1 @@
-export { ChartLineSmooth as default } from "../";
+export { ChartLineSmooth as default } from '../';

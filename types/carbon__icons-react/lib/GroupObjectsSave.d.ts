@@ -1,1 +1,1 @@
-export { GroupObjectsSave as default } from "../";
+export { GroupObjectsSave as default } from '../';

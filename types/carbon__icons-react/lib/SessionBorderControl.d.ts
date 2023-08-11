@@ -1,1 +1,1 @@
-export { SessionBorderControl as default } from "../";
+export { SessionBorderControl as default } from '../';

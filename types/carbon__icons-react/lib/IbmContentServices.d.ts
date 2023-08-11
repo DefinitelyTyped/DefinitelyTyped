@@ -1,1 +1,1 @@
-export { IbmContentServices as default } from "../";
+export { IbmContentServices as default } from '../';

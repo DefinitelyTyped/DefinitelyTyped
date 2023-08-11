@@ -1,1 +1,1 @@
-export { RulerAlt as default } from "../";
+export { RulerAlt as default } from '../';

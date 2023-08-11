@@ -1,1 +1,1 @@
-export { AlignHorizontalCenter as default } from "../";
+export { AlignHorizontalCenter as default } from '../';

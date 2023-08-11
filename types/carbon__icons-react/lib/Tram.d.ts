@@ -1,1 +1,1 @@
-export { Tram as default } from "../";
+export { Tram as default } from '../';

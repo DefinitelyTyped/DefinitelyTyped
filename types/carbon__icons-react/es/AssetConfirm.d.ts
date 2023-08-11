@@ -1,1 +1,1 @@
-export { AssetConfirm as default } from "../";
+export { AssetConfirm as default } from '../';

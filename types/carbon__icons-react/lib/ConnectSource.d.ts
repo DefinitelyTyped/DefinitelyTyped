@@ -1,1 +1,1 @@
-export { ConnectSource as default } from "../";
+export { ConnectSource as default } from '../';

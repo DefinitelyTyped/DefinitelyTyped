@@ -1,1 +1,1 @@
-export { MagicWandFilled as default } from "../";
+export { MagicWandFilled as default } from '../';

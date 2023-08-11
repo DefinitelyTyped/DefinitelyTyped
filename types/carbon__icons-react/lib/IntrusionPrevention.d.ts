@@ -1,1 +1,1 @@
-export { IntrusionPrevention as default } from "../";
+export { IntrusionPrevention as default } from '../';

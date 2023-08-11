@@ -1,1 +1,1 @@
-export { NotSentFilled as default } from "../";
+export { NotSentFilled as default } from '../';

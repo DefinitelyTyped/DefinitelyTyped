@@ -1,1 +1,1 @@
-export { ResultDraft as default } from "../";
+export { ResultDraft as default } from '../';

@@ -1,1 +1,1 @@
-export { VoiceActivate as default } from "../";
+export { VoiceActivate as default } from '../';

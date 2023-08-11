@@ -1,1 +1,1 @@
-export { Taste as default } from "../";
+export { Taste as default } from '../';

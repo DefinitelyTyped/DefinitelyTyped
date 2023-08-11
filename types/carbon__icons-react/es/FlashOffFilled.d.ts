@@ -1,1 +1,1 @@
-export { FlashOffFilled as default } from "../";
+export { FlashOffFilled as default } from '../';

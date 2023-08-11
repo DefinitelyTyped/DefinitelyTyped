@@ -1,1 +1,1 @@
-export { ScreenOff as default } from "../";
+export { ScreenOff as default } from '../';

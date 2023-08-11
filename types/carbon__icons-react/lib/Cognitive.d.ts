@@ -1,1 +1,1 @@
-export { Cognitive as default } from "../";
+export { Cognitive as default } from '../';

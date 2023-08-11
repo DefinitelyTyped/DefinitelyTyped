@@ -1,1 +1,1 @@
-export { DocumentProtected as default } from "../";
+export { DocumentProtected as default } from '../';

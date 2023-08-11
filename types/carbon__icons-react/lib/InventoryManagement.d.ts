@@ -1,1 +1,1 @@
-export { InventoryManagement as default } from "../";
+export { InventoryManagement as default } from '../';

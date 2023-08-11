@@ -1,1 +1,1 @@
-export { CheckmarkOutlineWarning as default } from "../";
+export { CheckmarkOutlineWarning as default } from '../';

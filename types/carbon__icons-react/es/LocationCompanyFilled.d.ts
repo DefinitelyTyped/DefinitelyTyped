@@ -1,1 +1,1 @@
-export { LocationCompanyFilled as default } from "../";
+export { LocationCompanyFilled as default } from '../';

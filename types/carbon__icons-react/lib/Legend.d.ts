@@ -1,1 +1,1 @@
-export { Legend as default } from "../";
+export { Legend as default } from '../';

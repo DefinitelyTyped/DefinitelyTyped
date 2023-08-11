@@ -1,1 +1,1 @@
-export { LoadBalancerListener as default } from "../";
+export { LoadBalancerListener as default } from '../';

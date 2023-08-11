@@ -1,1 +1,1 @@
-export { LicenseGlobal as default } from "../";
+export { LicenseGlobal as default } from '../';

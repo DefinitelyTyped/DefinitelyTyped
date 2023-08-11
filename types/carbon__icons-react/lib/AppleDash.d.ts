@@ -1,1 +1,1 @@
-export { AppleDash as default } from "../";
+export { AppleDash as default } from '../';

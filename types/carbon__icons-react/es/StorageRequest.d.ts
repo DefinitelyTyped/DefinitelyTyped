@@ -1,1 +1,1 @@
-export { StorageRequest as default } from "../";
+export { StorageRequest as default } from '../';

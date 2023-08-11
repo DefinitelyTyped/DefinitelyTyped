@@ -1,1 +1,1 @@
-export { WifiSecure as default } from "../";
+export { WifiSecure as default } from '../';

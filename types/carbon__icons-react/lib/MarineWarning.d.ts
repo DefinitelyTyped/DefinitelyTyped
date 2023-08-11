@@ -1,1 +1,1 @@
-export { MarineWarning as default } from "../";
+export { MarineWarning as default } from '../';

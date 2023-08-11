@@ -1,1 +1,1 @@
-export { Timer as default } from "../";
+export { Timer as default } from '../';

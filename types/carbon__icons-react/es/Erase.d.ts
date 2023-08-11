@@ -1,1 +1,1 @@
-export { Erase as default } from "../";
+export { Erase as default } from '../';

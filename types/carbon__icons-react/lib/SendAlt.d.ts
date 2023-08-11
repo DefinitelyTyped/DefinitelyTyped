@@ -1,1 +1,1 @@
-export { SendAlt as default } from "../";
+export { SendAlt as default } from '../';

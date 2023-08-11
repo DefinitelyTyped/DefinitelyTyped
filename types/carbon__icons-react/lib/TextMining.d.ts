@@ -1,1 +1,1 @@
-export { TextMining as default } from "../";
+export { TextMining as default } from '../';

@@ -1,1 +1,1 @@
-export { Pin as default } from "../";
+export { Pin as default } from '../';

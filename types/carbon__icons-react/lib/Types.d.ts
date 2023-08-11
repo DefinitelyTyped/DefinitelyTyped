@@ -1,1 +1,1 @@
-export { Types as default } from "../";
+export { Types as default } from '../';

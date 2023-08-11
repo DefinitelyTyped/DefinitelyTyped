@@ -1,1 +1,1 @@
-export { ChartViolinPlot as default } from "../";
+export { ChartViolinPlot as default } from '../';

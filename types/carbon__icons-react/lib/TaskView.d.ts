@@ -1,1 +1,1 @@
-export { TaskView as default } from "../";
+export { TaskView as default } from '../';

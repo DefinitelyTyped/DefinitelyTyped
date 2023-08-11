@@ -1,1 +1,1 @@
-export { Recommend as default } from "../";
+export { Recommend as default } from '../';

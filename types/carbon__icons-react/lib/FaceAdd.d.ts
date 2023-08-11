@@ -1,1 +1,1 @@
-export { FaceAdd as default } from "../";
+export { FaceAdd as default } from '../';

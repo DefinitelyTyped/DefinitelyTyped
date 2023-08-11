@@ -1,1 +1,1 @@
-export { BatteryLow as default } from "../";
+export { BatteryLow as default } from '../';

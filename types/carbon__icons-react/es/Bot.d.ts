@@ -1,1 +1,1 @@
-export { Bot as default } from "../";
+export { Bot as default } from '../';

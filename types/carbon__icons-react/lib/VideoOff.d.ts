@@ -1,1 +1,1 @@
-export { VideoOff as default } from "../";
+export { VideoOff as default } from '../';

@@ -1,1 +1,1 @@
-export { Forward_5 as default } from "../";
+export { Forward_5 as default } from '../';

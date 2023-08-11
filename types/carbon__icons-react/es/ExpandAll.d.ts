@@ -1,1 +1,1 @@
-export { ExpandAll as default } from "../";
+export { ExpandAll as default } from '../';

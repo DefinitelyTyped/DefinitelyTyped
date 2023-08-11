@@ -1,1 +1,1 @@
-export { Minimize as default } from "../";
+export { Minimize as default } from '../';

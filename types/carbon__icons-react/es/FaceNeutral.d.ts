@@ -1,1 +1,1 @@
-export { FaceNeutral as default } from "../";
+export { FaceNeutral as default } from '../';

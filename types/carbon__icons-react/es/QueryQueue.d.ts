@@ -1,1 +1,1 @@
-export { QueryQueue as default } from "../";
+export { QueryQueue as default } from '../';

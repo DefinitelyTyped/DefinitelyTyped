@@ -1,1 +1,1 @@
-export { Network_1 as default } from "../";
+export { Network_1 as default } from '../';

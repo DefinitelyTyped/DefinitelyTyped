@@ -1,1 +1,1 @@
-export { Number_8 as default } from "../";
+export { Number_8 as default } from '../';

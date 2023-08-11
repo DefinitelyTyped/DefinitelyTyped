@@ -1,1 +1,1 @@
-export { CloudCeiling as default } from "../";
+export { CloudCeiling as default } from '../';

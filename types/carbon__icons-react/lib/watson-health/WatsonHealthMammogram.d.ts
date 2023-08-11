@@ -1,1 +1,1 @@
-export { WatsonHealthMammogram as default } from "../../";
+export { WatsonHealthMammogram as default } from '../../';

@@ -1,1 +1,1 @@
-export { Aperture as default } from "../";
+export { Aperture as default } from '../';

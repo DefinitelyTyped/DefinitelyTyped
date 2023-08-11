@@ -1,1 +1,1 @@
-export { AlignVerticalCenter as default } from "../";
+export { AlignVerticalCenter as default } from '../';

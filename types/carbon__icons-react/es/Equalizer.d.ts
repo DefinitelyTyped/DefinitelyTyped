@@ -1,1 +1,1 @@
-export { Equalizer as default } from "../";
+export { Equalizer as default } from '../';

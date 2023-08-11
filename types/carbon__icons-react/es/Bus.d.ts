@@ -1,1 +1,1 @@
-export { Bus as default } from "../";
+export { Bus as default } from '../';

@@ -1,1 +1,1 @@
-export { ConnectionSend as default } from "../";
+export { ConnectionSend as default } from '../';

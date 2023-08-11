@@ -1,1 +1,1 @@
-export { ModelAlt as default } from "../";
+export { ModelAlt as default } from '../';

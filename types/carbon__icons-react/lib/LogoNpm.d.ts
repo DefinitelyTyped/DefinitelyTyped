@@ -1,1 +1,1 @@
-export { LogoNpm as default } from "../";
+export { LogoNpm as default } from '../';

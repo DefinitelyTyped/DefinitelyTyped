@@ -1,1 +1,1 @@
-export { GuiManagement as default } from "../";
+export { GuiManagement as default } from '../';

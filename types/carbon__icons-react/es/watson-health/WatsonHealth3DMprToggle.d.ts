@@ -1,1 +1,1 @@
-export { WatsonHealth3DMprToggle as default } from "../../";
+export { WatsonHealth3DMprToggle as default } from '../../';

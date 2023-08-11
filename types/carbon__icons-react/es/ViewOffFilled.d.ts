@@ -1,1 +1,1 @@
-export { ViewOffFilled as default } from "../";
+export { ViewOffFilled as default } from '../';

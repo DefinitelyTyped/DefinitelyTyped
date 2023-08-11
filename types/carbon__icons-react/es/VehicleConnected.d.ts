@@ -1,1 +1,1 @@
-export { VehicleConnected as default } from "../";
+export { VehicleConnected as default } from '../';

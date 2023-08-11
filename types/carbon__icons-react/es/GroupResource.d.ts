@@ -1,1 +1,1 @@
-export { GroupResource as default } from "../";
+export { GroupResource as default } from '../';

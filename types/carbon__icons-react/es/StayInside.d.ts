@@ -1,1 +1,1 @@
-export { StayInside as default } from "../";
+export { StayInside as default } from '../';

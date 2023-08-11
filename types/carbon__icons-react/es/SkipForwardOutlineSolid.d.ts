@@ -1,1 +1,1 @@
-export { SkipForwardOutlineSolid as default } from "../";
+export { SkipForwardOutlineSolid as default } from '../';

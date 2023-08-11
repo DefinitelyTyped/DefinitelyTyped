@@ -1,1 +1,1 @@
-export { TextAlignCenter as default } from "../";
+export { TextAlignCenter as default } from '../';

@@ -1,1 +1,1 @@
-export { Edit as default } from "../";
+export { Edit as default } from '../';

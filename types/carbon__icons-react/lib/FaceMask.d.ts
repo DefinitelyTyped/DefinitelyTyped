@@ -1,1 +1,1 @@
-export { FaceMask as default } from "../";
+export { FaceMask as default } from '../';

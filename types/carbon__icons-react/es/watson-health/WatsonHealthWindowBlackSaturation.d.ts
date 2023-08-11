@@ -1,1 +1,1 @@
-export { WatsonHealthWindowBlackSaturation as default } from "../../";
+export { WatsonHealthWindowBlackSaturation as default } from '../../';

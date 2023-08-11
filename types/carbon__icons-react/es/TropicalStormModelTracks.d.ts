@@ -1,1 +1,1 @@
-export { TropicalStormModelTracks as default } from "../";
+export { TropicalStormModelTracks as default } from '../';

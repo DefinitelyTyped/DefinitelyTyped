@@ -1,1 +1,1 @@
-export { Bee as default } from "../";
+export { Bee as default } from '../';

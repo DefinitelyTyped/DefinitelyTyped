@@ -1,1 +1,1 @@
-export { Nominal as default } from "../";
+export { Nominal as default } from '../';

@@ -1,1 +1,1 @@
-export { ProgressBarRound as default } from "../";
+export { ProgressBarRound as default } from '../';

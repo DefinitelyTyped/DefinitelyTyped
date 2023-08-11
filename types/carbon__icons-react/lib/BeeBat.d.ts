@@ -1,1 +1,1 @@
-export { BeeBat as default } from "../";
+export { BeeBat as default } from '../';

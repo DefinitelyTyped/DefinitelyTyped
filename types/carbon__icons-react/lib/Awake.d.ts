@@ -1,1 +1,1 @@
-export { Awake as default } from "../";
+export { Awake as default } from '../';

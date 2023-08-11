@@ -1,1 +1,1 @@
-export { ChartBarStacked as default } from "../";
+export { ChartBarStacked as default } from '../';

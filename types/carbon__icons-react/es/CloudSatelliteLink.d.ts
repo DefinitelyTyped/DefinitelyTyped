@@ -1,1 +1,1 @@
-export { CloudSatelliteLink as default } from "../";
+export { CloudSatelliteLink as default } from '../';

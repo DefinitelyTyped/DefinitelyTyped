@@ -1,1 +1,1 @@
-export { Slm as default } from "../";
+export { Slm as default } from '../';

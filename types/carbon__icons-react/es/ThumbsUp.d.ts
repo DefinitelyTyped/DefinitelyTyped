@@ -1,1 +1,1 @@
-export { ThumbsUp as default } from "../";
+export { ThumbsUp as default } from '../';

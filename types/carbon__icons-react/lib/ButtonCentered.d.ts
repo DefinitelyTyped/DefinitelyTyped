@@ -1,1 +1,1 @@
-export { ButtonCentered as default } from "../";
+export { ButtonCentered as default } from '../';

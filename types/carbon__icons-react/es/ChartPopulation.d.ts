@@ -1,1 +1,1 @@
-export { ChartPopulation as default } from "../";
+export { ChartPopulation as default } from '../';

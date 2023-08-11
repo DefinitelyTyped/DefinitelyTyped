@@ -1,1 +1,1 @@
-export { LicenseMaintenanceDraft as default } from "../";
+export { LicenseMaintenanceDraft as default } from '../';

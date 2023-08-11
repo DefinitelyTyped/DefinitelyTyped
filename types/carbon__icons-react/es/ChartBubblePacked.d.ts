@@ -1,1 +1,1 @@
-export { ChartBubblePacked as default } from "../";
+export { ChartBubblePacked as default } from '../';

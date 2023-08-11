@@ -1,1 +1,1 @@
-export { CollapseAll as default } from "../";
+export { CollapseAll as default } from '../';

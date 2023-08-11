@@ -1,1 +1,1 @@
-export { Ruler as default } from "../";
+export { Ruler as default } from '../';

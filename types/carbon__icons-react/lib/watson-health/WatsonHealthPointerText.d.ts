@@ -1,1 +1,1 @@
-export { WatsonHealthPointerText as default } from "../../";
+export { WatsonHealthPointerText as default } from '../../';

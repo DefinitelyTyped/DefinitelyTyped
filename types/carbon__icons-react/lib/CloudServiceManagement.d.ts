@@ -1,1 +1,1 @@
-export { CloudServiceManagement as default } from "../";
+export { CloudServiceManagement as default } from '../';

@@ -1,1 +1,1 @@
-export { ImageMedical as default } from "../";
+export { ImageMedical as default } from '../';

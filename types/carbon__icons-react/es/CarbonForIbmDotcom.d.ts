@@ -1,1 +1,1 @@
-export { CarbonForIbmDotcom as default } from "../";
+export { CarbonForIbmDotcom as default } from '../';

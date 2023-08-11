@@ -1,1 +1,1 @@
-export { LocationFilled as default } from "../";
+export { LocationFilled as default } from '../';

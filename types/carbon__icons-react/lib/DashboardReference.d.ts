@@ -1,1 +1,1 @@
-export { DashboardReference as default } from "../";
+export { DashboardReference as default } from '../';

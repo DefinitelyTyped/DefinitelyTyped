@@ -1,1 +1,1 @@
-export { TropicalWarning as default } from "../";
+export { TropicalWarning as default } from '../';

@@ -1,1 +1,1 @@
-export { Promote as default } from "../";
+export { Promote as default } from '../';

@@ -1,1 +1,1 @@
-export { _4KFilled as default } from "../";
+export { _4KFilled as default } from '../';

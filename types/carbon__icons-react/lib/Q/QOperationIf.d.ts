@@ -1,1 +1,1 @@
-export { QOperationIf as default } from "../../";
+export { QOperationIf as default } from '../../';

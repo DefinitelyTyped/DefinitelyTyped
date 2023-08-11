@@ -1,1 +1,1 @@
-export { WatsonHealthDicomOverlay as default } from "../../";
+export { WatsonHealthDicomOverlay as default } from '../../';

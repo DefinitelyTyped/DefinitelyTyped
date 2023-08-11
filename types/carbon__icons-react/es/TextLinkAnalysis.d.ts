@@ -1,1 +1,1 @@
-export { TextLinkAnalysis as default } from "../";
+export { TextLinkAnalysis as default } from '../';

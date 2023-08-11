@@ -1,1 +1,1 @@
-export { Interactions as default } from "../";
+export { Interactions as default } from '../';

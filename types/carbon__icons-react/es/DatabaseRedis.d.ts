@@ -1,1 +1,1 @@
-export { DatabaseRedis as default } from "../";
+export { DatabaseRedis as default } from '../';

@@ -1,1 +1,1 @@
-export { Intersect as default } from "../";
+export { Intersect as default } from '../';

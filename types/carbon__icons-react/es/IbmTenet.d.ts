@@ -1,1 +1,1 @@
-export { IbmTenet as default } from "../";
+export { IbmTenet as default } from '../';

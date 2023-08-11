@@ -1,1 +1,1 @@
-export { WatsonHealth3DSoftware as default } from "../../";
+export { WatsonHealth3DSoftware as default } from '../../';

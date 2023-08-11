@@ -1,1 +1,1 @@
-export { IbmCloudEventNotification as default } from "../";
+export { IbmCloudEventNotification as default } from '../';

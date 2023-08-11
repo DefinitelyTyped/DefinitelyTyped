@@ -1,1 +1,1 @@
-export { CopyLink as default } from "../";
+export { CopyLink as default } from '../';

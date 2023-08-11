@@ -1,1 +1,1 @@
-export { DistributeHorizontalCenter as default } from "../";
+export { DistributeHorizontalCenter as default } from '../';

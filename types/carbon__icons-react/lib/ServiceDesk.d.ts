@@ -1,1 +1,1 @@
-export { ServiceDesk as default } from "../";
+export { ServiceDesk as default } from '../';

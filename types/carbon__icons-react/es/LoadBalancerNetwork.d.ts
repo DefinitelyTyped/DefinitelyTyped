@@ -1,1 +1,1 @@
-export { LoadBalancerNetwork as default } from "../";
+export { LoadBalancerNetwork as default } from '../';

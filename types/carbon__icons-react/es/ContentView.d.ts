@@ -1,1 +1,1 @@
-export { ContentView as default } from "../";
+export { ContentView as default } from '../';

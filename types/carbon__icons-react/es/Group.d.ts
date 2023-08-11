@@ -1,1 +1,1 @@
-export { Group as default } from "../";
+export { Group as default } from '../';

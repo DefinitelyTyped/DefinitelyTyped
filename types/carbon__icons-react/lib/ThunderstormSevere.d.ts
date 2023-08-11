@@ -1,1 +1,1 @@
-export { ThunderstormSevere as default } from "../";
+export { ThunderstormSevere as default } from '../';

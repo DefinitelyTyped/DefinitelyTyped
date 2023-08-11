@@ -1,1 +1,1 @@
-export { ResultOld as default } from "../";
+export { ResultOld as default } from '../';

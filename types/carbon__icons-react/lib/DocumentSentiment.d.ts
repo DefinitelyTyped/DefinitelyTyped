@@ -1,1 +1,1 @@
-export { DocumentSentiment as default } from "../";
+export { DocumentSentiment as default } from '../';

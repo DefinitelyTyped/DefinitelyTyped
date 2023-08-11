@@ -1,1 +1,1 @@
-export { InProgressWarning as default } from "../";
+export { InProgressWarning as default } from '../';

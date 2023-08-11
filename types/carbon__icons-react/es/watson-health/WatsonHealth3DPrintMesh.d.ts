@@ -1,1 +1,1 @@
-export { WatsonHealth3DPrintMesh as default } from "../../";
+export { WatsonHealth3DPrintMesh as default } from '../../';

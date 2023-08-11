@@ -1,1 +1,1 @@
-export { LogoQuora as default } from "../";
+export { LogoQuora as default } from '../';

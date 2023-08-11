@@ -1,1 +1,1 @@
-export { WifiController as default } from "../";
+export { WifiController as default } from '../';

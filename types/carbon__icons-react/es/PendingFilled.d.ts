@@ -1,1 +1,1 @@
-export { PendingFilled as default } from "../";
+export { PendingFilled as default } from '../';

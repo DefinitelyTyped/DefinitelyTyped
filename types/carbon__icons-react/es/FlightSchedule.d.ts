@@ -1,1 +1,1 @@
-export { FlightSchedule as default } from "../";
+export { FlightSchedule as default } from '../';

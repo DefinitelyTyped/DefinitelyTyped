@@ -1,1 +1,1 @@
-export { TextSuperscript as default } from "../";
+export { TextSuperscript as default } from '../';

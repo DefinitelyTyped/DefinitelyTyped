@@ -1,1 +1,1 @@
-export { CloseOutline as default } from "../";
+export { CloseOutline as default } from '../';

@@ -1,1 +1,1 @@
-export { TouchInteraction as default } from "../";
+export { TouchInteraction as default } from '../';

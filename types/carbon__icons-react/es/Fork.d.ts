@@ -1,1 +1,1 @@
-export { Fork as default } from "../";
+export { Fork as default } from '../';

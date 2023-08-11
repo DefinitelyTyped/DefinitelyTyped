@@ -1,1 +1,1 @@
-export { ChartScatter as default } from "../";
+export { ChartScatter as default } from '../';

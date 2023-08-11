@@ -1,1 +1,1 @@
-export { Rocket as default } from "../";
+export { Rocket as default } from '../';

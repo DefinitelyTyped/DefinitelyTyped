@@ -1,1 +1,1 @@
-export { WatsonHealthSplitDiscard as default } from "../../";
+export { WatsonHealthSplitDiscard as default } from '../../';

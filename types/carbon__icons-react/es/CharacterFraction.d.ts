@@ -1,1 +1,1 @@
-export { CharacterFraction as default } from "../";
+export { CharacterFraction as default } from '../';

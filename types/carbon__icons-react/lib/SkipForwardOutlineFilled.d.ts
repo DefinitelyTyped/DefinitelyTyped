@@ -1,1 +1,1 @@
-export { SkipForwardOutlineFilled as default } from "../";
+export { SkipForwardOutlineFilled as default } from '../';

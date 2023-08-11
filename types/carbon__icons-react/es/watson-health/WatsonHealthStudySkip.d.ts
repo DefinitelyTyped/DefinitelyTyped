@@ -1,1 +1,1 @@
-export { WatsonHealthStudySkip as default } from "../../";
+export { WatsonHealthStudySkip as default } from '../../';

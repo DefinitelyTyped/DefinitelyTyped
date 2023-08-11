@@ -1,1 +1,1 @@
-export { Headset as default } from "../";
+export { Headset as default } from '../';

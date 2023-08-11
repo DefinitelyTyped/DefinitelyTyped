@@ -1,1 +1,1 @@
-export { Stop as default } from "../";
+export { Stop as default } from '../';

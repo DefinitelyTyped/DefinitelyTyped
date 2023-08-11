@@ -1,1 +1,1 @@
-export { PropertyRelationship as default } from "../";
+export { PropertyRelationship as default } from '../';

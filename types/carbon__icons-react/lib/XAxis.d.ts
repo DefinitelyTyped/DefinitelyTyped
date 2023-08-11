@@ -1,1 +1,1 @@
-export { XAxis as default } from "../";
+export { XAxis as default } from '../';

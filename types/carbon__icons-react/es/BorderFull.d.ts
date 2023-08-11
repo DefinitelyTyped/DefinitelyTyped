@@ -1,1 +1,1 @@
-export { BorderFull as default } from "../";
+export { BorderFull as default } from '../';

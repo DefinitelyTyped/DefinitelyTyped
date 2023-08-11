@@ -1,1 +1,1 @@
-export { DocumentTasks as default } from "../";
+export { DocumentTasks as default } from '../';

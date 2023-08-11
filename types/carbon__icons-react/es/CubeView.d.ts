@@ -1,1 +1,1 @@
-export { CubeView as default } from "../";
+export { CubeView as default } from '../';

@@ -1,1 +1,1 @@
-export { IbmSecurityServices as default } from "../";
+export { IbmSecurityServices as default } from '../';

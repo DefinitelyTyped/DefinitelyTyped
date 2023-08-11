@@ -1,1 +1,1 @@
-export { Rain as default } from "../";
+export { Rain as default } from '../';

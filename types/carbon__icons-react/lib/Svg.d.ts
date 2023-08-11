@@ -1,1 +1,1 @@
-export { Svg as default } from "../";
+export { Svg as default } from '../';

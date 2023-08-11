@@ -1,1 +1,1 @@
-export { IdManagement as default } from "../";
+export { IdManagement as default } from '../';

@@ -1,1 +1,1 @@
-export { IbmCloudCitrixDaas as default } from "../";
+export { IbmCloudCitrixDaas as default } from '../';

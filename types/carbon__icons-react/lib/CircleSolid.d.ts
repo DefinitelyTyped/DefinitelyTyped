@@ -1,1 +1,1 @@
-export { CircleSolid as default } from "../";
+export { CircleSolid as default } from '../';

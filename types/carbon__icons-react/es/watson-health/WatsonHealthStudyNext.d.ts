@@ -1,1 +1,1 @@
-export { WatsonHealthStudyNext as default } from "../../";
+export { WatsonHealthStudyNext as default } from '../../';

@@ -1,1 +1,1 @@
-export { NoImage as default } from "../";
+export { NoImage as default } from '../';

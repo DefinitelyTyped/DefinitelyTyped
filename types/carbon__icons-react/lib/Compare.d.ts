@@ -1,1 +1,1 @@
-export { Compare as default } from "../";
+export { Compare as default } from '../';

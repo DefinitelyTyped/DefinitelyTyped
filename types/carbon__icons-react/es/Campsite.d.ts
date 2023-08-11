@@ -1,1 +1,1 @@
-export { Campsite as default } from "../";
+export { Campsite as default } from '../';

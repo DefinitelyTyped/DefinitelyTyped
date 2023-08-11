@@ -1,1 +1,1 @@
-export { CharacterWholeNumber as default } from "../";
+export { CharacterWholeNumber as default } from '../';

@@ -1,1 +1,1 @@
-export { QTAlt as default } from "../../";
+export { QTAlt as default } from '../../';

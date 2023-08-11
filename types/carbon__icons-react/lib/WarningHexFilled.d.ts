@@ -1,1 +1,1 @@
-export { WarningHexFilled as default } from "../";
+export { WarningHexFilled as default } from '../';

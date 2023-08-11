@@ -1,1 +1,1 @@
-export { Classification as default } from "../";
+export { Classification as default } from '../';

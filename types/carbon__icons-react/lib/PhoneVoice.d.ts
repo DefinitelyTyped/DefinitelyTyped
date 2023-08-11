@@ -1,1 +1,1 @@
-export { PhoneVoice as default } from "../";
+export { PhoneVoice as default } from '../';

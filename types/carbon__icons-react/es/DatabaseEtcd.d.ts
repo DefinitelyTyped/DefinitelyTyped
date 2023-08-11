@@ -1,1 +1,1 @@
-export { DatabaseEtcd as default } from "../";
+export { DatabaseEtcd as default } from '../';

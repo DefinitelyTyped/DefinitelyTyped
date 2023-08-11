@@ -1,1 +1,1 @@
-export { ChartWaterfall as default } from "../";
+export { ChartWaterfall as default } from '../';

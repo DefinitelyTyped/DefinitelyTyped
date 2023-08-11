@@ -1,1 +1,1 @@
-export { VehicleInsights as default } from "../";
+export { VehicleInsights as default } from '../';

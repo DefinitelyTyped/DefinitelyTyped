@@ -1,1 +1,1 @@
-export { CicsSit as default } from "../";
+export { CicsSit as default } from '../';

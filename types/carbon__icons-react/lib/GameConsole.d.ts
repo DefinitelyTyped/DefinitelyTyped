@@ -1,1 +1,1 @@
-export { GameConsole as default } from "../";
+export { GameConsole as default } from '../';

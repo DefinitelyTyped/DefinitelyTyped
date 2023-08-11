@@ -1,1 +1,1 @@
-export { DiamondFillGlyph as default } from "../";
+export { DiamondFillGlyph as default } from '../';

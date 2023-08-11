@@ -1,1 +1,1 @@
-export { InformationSquareFilled as default } from "../";
+export { InformationSquareFilled as default } from '../';

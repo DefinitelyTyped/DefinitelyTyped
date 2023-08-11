@@ -1,1 +1,1 @@
-export { Branch as default } from "../";
+export { Branch as default } from '../';

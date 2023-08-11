@@ -1,1 +1,1 @@
-export { AccumulationSnow as default } from "../";
+export { AccumulationSnow as default } from '../';

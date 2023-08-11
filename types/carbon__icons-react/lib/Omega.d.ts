@@ -1,1 +1,1 @@
-export { Omega as default } from "../";
+export { Omega as default } from '../';

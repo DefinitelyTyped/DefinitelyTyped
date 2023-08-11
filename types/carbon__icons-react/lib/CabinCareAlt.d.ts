@@ -1,1 +1,1 @@
-export { CabinCareAlt as default } from "../";
+export { CabinCareAlt as default } from '../';

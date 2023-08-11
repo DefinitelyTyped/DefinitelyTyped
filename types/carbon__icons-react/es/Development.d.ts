@@ -1,1 +1,1 @@
-export { Development as default } from "../";
+export { Development as default } from '../';

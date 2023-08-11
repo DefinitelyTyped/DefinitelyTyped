@@ -1,1 +1,1 @@
-export { TextHighlight as default } from "../";
+export { TextHighlight as default } from '../';

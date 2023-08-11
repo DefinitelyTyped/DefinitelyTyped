@@ -1,1 +1,1 @@
-export { ShoppingBag as default } from "../";
+export { ShoppingBag as default } from '../';

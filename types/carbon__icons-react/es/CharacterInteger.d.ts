@@ -1,1 +1,1 @@
-export { CharacterInteger as default } from "../";
+export { CharacterInteger as default } from '../';

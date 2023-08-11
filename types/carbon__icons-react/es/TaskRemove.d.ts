@@ -1,1 +1,1 @@
-export { TaskRemove as default } from "../";
+export { TaskRemove as default } from '../';

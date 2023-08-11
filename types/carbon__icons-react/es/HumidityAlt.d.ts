@@ -1,1 +1,1 @@
-export { HumidityAlt as default } from "../";
+export { HumidityAlt as default } from '../';

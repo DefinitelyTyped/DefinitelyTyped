@@ -1,1 +1,1 @@
-export { Earthquake as default } from "../";
+export { Earthquake as default } from '../';

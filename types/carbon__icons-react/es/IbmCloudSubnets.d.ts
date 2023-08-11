@@ -1,1 +1,1 @@
-export { IbmCloudSubnets as default } from "../";
+export { IbmCloudSubnets as default } from '../';

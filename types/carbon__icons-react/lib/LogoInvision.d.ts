@@ -1,1 +1,1 @@
-export { LogoInvision as default } from "../";
+export { LogoInvision as default } from '../';

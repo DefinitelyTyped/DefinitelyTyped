@@ -1,1 +1,1 @@
-export { WarningAlt as default } from "../";
+export { WarningAlt as default } from '../';

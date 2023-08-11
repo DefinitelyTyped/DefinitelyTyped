@@ -1,1 +1,1 @@
-export { LogoVmware as default } from "../";
+export { LogoVmware as default } from '../';

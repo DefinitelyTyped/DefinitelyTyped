@@ -1,1 +1,1 @@
-export { DocumentWordProcessor as default } from "../";
+export { DocumentWordProcessor as default } from '../';

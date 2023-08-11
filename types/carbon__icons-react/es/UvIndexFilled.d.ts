@@ -1,1 +1,1 @@
-export { UvIndexFilled as default } from "../";
+export { UvIndexFilled as default } from '../';

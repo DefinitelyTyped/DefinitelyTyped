@@ -1,1 +1,1 @@
-export { ListNumberedMirror as default } from "../";
+export { ListNumberedMirror as default } from '../';

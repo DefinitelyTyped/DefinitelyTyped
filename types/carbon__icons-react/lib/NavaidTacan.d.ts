@@ -1,1 +1,1 @@
-export { NavaidTacan as default } from "../";
+export { NavaidTacan as default } from '../';

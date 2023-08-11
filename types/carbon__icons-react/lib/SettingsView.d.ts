@@ -1,1 +1,1 @@
-export { SettingsView as default } from "../";
+export { SettingsView as default } from '../';

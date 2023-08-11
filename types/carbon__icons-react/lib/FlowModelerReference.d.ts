@@ -1,1 +1,1 @@
-export { FlowModelerReference as default } from "../";
+export { FlowModelerReference as default } from '../';

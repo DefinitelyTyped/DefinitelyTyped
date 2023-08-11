@@ -1,1 +1,1 @@
-export { Draw as default } from "../";
+export { Draw as default } from '../';

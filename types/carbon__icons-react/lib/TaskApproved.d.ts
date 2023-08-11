@@ -1,1 +1,1 @@
-export { TaskApproved as default } from "../";
+export { TaskApproved as default } from '../';

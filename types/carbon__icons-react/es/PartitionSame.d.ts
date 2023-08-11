@@ -1,1 +1,1 @@
-export { PartitionSame as default } from "../";
+export { PartitionSame as default } from '../';

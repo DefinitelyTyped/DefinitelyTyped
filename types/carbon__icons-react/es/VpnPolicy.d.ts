@@ -1,1 +1,1 @@
-export { VpnPolicy as default } from "../";
+export { VpnPolicy as default } from '../';

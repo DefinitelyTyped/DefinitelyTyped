@@ -1,1 +1,1 @@
-export { NavaidNdb as default } from "../";
+export { NavaidNdb as default } from '../';

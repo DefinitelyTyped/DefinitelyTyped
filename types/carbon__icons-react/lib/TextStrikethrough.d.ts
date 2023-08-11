@@ -1,1 +1,1 @@
-export { TextStrikethrough as default } from "../";
+export { TextStrikethrough as default } from '../';

@@ -1,1 +1,1 @@
-export { TaskAssetView as default } from "../";
+export { TaskAssetView as default } from '../';

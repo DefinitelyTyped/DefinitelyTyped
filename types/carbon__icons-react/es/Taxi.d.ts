@@ -1,1 +1,1 @@
-export { Taxi as default } from "../";
+export { Taxi as default } from '../';

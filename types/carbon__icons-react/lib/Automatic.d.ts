@@ -1,1 +1,1 @@
-export { Automatic as default } from "../";
+export { Automatic as default } from '../';

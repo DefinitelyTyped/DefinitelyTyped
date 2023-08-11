@@ -1,1 +1,1 @@
-export { NoTicket as default } from "../";
+export { NoTicket as default } from '../';

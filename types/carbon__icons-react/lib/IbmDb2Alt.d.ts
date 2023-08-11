@@ -1,1 +1,1 @@
-export { IbmDb2Alt as default } from "../";
+export { IbmDb2Alt as default } from '../';

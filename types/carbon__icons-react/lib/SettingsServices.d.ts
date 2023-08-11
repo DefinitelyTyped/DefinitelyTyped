@@ -1,1 +1,1 @@
-export { SettingsServices as default } from "../";
+export { SettingsServices as default } from '../';

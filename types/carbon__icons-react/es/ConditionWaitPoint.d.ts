@@ -1,1 +1,1 @@
-export { ConditionWaitPoint as default } from "../";
+export { ConditionWaitPoint as default } from '../';

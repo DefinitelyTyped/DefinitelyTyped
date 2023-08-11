@@ -1,1 +1,1 @@
-export { Blockchain as default } from "../";
+export { Blockchain as default } from '../';

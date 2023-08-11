@@ -1,1 +1,1 @@
-export { LogoDiscord as default } from "../";
+export { LogoDiscord as default } from '../';

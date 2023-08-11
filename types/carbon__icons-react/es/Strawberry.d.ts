@@ -1,1 +1,1 @@
-export { Strawberry as default } from "../";
+export { Strawberry as default } from '../';

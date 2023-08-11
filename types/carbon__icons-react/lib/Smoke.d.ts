@@ -1,1 +1,1 @@
-export { Smoke as default } from "../";
+export { Smoke as default } from '../';

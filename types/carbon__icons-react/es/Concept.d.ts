@@ -1,1 +1,1 @@
-export { Concept as default } from "../";
+export { Concept as default } from '../';

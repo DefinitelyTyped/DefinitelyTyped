@@ -1,1 +1,1 @@
-export { CabinCare as default } from "../";
+export { CabinCare as default } from '../';

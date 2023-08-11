@@ -1,1 +1,1 @@
-export { PageNumber as default } from "../";
+export { PageNumber as default } from '../';

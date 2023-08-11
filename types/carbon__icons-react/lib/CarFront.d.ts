@@ -1,1 +1,1 @@
-export { CarFront as default } from "../";
+export { CarFront as default } from '../';

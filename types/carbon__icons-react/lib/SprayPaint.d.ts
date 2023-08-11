@@ -1,1 +1,1 @@
-export { SprayPaint as default } from "../";
+export { SprayPaint as default } from '../';

@@ -1,1 +1,1 @@
-export { IbmCloudPakMulticloudMgmt as default } from "../";
+export { IbmCloudPakMulticloudMgmt as default } from '../';

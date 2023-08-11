@@ -1,1 +1,1 @@
-export { CameraAction as default } from "../";
+export { CameraAction as default } from '../';

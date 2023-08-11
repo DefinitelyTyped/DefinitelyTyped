@@ -1,1 +1,1 @@
-export { GatewaySecurity as default } from "../";
+export { GatewaySecurity as default } from '../';

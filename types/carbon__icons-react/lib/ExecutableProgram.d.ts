@@ -1,1 +1,1 @@
-export { ExecutableProgram as default } from "../";
+export { ExecutableProgram as default } from '../';

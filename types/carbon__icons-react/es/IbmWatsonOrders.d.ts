@@ -1,1 +1,1 @@
-export { IbmWatsonOrders as default } from "../";
+export { IbmWatsonOrders as default } from '../';

@@ -1,1 +1,1 @@
-export { BluetoothOff as default } from "../";
+export { BluetoothOff as default } from '../';

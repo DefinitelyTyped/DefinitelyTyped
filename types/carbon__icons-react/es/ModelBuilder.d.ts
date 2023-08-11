@@ -1,1 +1,1 @@
-export { ModelBuilder as default } from "../";
+export { ModelBuilder as default } from '../';

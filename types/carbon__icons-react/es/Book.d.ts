@@ -1,1 +1,1 @@
-export { Book as default } from "../";
+export { Book as default } from '../';

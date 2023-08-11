@@ -1,1 +1,1 @@
-export { QMatrix as default } from "../../";
+export { QMatrix as default } from '../../';

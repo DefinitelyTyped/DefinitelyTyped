@@ -1,1 +1,1 @@
-export { WatsonHealthSpineLabel as default } from "../../";
+export { WatsonHealthSpineLabel as default } from '../../';

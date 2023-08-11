@@ -1,1 +1,1 @@
-export { DataError as default } from "../";
+export { DataError as default } from '../';

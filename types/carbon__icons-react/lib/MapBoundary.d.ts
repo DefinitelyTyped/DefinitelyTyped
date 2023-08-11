@@ -1,1 +1,1 @@
-export { MapBoundary as default } from "../";
+export { MapBoundary as default } from '../';

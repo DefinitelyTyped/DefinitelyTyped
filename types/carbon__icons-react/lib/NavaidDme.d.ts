@@ -1,1 +1,1 @@
-export { NavaidDme as default } from "../";
+export { NavaidDme as default } from '../';

@@ -1,1 +1,1 @@
-export { TextScale as default } from "../";
+export { TextScale as default } from '../';

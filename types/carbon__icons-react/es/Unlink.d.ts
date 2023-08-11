@@ -1,1 +1,1 @@
-export { Unlink as default } from "../";
+export { Unlink as default } from '../';

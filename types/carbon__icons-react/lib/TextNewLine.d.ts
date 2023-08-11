@@ -1,1 +1,1 @@
-export { TextNewLine as default } from "../";
+export { TextNewLine as default } from '../';

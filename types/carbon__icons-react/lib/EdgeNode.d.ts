@@ -1,1 +1,1 @@
-export { EdgeNode as default } from "../";
+export { EdgeNode as default } from '../';

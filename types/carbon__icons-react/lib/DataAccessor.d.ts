@@ -1,1 +1,1 @@
-export { DataAccessor as default } from "../";
+export { DataAccessor as default } from '../';

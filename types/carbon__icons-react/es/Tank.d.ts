@@ -1,1 +1,1 @@
-export { Tank as default } from "../";
+export { Tank as default } from '../';

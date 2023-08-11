@@ -1,1 +1,1 @@
-export { FlowConnection as default } from "../";
+export { FlowConnection as default } from '../';

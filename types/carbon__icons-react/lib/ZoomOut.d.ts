@@ -1,1 +1,1 @@
-export { ZoomOut as default } from "../";
+export { ZoomOut as default } from '../';

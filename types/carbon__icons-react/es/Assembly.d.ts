@@ -1,1 +1,1 @@
-export { Assembly as default } from "../";
+export { Assembly as default } from '../';

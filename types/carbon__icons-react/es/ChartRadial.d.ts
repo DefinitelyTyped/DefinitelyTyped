@@ -1,1 +1,1 @@
-export { ChartRadial as default } from "../";
+export { ChartRadial as default } from '../';

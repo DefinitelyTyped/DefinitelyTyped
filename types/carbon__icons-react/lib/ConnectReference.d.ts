@@ -1,1 +1,1 @@
-export { ConnectReference as default } from "../";
+export { ConnectReference as default } from '../';

@@ -1,1 +1,1 @@
-export { Opacity as default } from "../";
+export { Opacity as default } from '../';

@@ -1,1 +1,1 @@
-export { Script as default } from "../";
+export { Script as default } from '../';

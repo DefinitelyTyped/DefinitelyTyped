@@ -1,1 +1,1 @@
-export { IbmZCloudProvisioning as default } from "../";
+export { IbmZCloudProvisioning as default } from '../';

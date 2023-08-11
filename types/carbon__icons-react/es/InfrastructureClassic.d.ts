@@ -1,1 +1,1 @@
-export { InfrastructureClassic as default } from "../";
+export { InfrastructureClassic as default } from '../';

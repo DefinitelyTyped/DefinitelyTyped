@@ -1,1 +1,1 @@
-export { CharacterSentenceCase as default } from "../";
+export { CharacterSentenceCase as default } from '../';

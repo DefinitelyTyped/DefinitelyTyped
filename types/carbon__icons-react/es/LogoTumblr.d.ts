@@ -1,1 +1,1 @@
-export { LogoTumblr as default } from "../";
+export { LogoTumblr as default } from '../';

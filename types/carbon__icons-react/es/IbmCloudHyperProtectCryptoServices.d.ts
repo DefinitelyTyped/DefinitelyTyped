@@ -1,1 +1,1 @@
-export { IbmCloudHyperProtectCryptoServices as default } from "../";
+export { IbmCloudHyperProtectCryptoServices as default } from '../';

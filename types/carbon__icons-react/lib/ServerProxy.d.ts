@@ -1,1 +1,1 @@
-export { ServerProxy as default } from "../";
+export { ServerProxy as default } from '../';

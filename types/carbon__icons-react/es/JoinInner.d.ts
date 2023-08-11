@@ -1,1 +1,1 @@
-export { JoinInner as default } from "../";
+export { JoinInner as default } from '../';

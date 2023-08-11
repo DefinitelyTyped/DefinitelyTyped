@@ -1,1 +1,1 @@
-export { TabletLandscape as default } from "../";
+export { TabletLandscape as default } from '../';

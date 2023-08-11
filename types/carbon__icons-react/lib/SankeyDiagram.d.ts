@@ -1,1 +1,1 @@
-export { SankeyDiagram as default } from "../";
+export { SankeyDiagram as default } from '../';

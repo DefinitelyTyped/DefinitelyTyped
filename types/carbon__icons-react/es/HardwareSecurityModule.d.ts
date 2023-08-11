@@ -1,1 +1,1 @@
-export { HardwareSecurityModule as default } from "../";
+export { HardwareSecurityModule as default } from '../';

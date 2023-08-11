@@ -1,1 +1,1 @@
-export { WatsonHealthStackedMove as default } from "../../";
+export { WatsonHealthStackedMove as default } from '../../';

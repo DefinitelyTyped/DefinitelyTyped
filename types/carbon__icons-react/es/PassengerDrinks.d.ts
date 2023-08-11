@@ -1,1 +1,1 @@
-export { PassengerDrinks as default } from "../";
+export { PassengerDrinks as default } from '../';

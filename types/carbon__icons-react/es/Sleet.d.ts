@@ -1,1 +1,1 @@
-export { Sleet as default } from "../";
+export { Sleet as default } from '../';

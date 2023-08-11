@@ -1,1 +1,1 @@
-export { ObservedLightning as default } from "../";
+export { ObservedLightning as default } from '../';

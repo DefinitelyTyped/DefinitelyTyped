@@ -1,1 +1,1 @@
-export { BaggageClaim as default } from "../";
+export { BaggageClaim as default } from '../';

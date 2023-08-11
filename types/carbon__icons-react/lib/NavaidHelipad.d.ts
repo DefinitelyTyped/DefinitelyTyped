@@ -1,1 +1,1 @@
-export { NavaidHelipad as default } from "../";
+export { NavaidHelipad as default } from '../';

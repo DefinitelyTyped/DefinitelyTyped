@@ -1,1 +1,1 @@
-export { Snooze as default } from "../";
+export { Snooze as default } from '../';

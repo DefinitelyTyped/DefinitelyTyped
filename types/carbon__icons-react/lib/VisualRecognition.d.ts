@@ -1,1 +1,1 @@
-export { VisualRecognition as default } from "../";
+export { VisualRecognition as default } from '../';

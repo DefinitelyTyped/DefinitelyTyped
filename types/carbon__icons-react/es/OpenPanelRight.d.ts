@@ -1,1 +1,1 @@
-export { OpenPanelRight as default } from "../";
+export { OpenPanelRight as default } from '../';

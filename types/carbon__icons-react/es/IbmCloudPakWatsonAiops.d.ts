@@ -1,1 +1,1 @@
-export { IbmCloudPakWatsonAiops as default } from "../";
+export { IbmCloudPakWatsonAiops as default } from '../';

@@ -1,1 +1,1 @@
-export { PreviousOutline as default } from "../";
+export { PreviousOutline as default } from '../';

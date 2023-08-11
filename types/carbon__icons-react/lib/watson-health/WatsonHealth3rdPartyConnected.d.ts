@@ -1,1 +1,1 @@
-export { WatsonHealth3rdPartyConnected as default } from "../../";
+export { WatsonHealth3rdPartyConnected as default } from '../../';

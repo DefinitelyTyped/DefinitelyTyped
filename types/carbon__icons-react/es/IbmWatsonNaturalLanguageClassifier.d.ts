@@ -1,1 +1,1 @@
-export { IbmWatsonNaturalLanguageClassifier as default } from "../";
+export { IbmWatsonNaturalLanguageClassifier as default } from '../';

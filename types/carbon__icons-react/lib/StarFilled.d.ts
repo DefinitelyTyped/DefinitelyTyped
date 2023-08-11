@@ -1,1 +1,1 @@
-export { StarFilled as default } from "../";
+export { StarFilled as default } from '../';

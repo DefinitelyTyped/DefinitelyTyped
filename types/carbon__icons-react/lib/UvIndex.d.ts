@@ -1,1 +1,1 @@
-export { UvIndex as default } from "../";
+export { UvIndex as default } from '../';

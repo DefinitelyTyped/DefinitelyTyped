@@ -1,1 +1,1 @@
-export { Sunrise as default } from "../";
+export { Sunrise as default } from '../';

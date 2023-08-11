@@ -1,1 +1,1 @@
-export { LogicalPartition as default } from "../";
+export { LogicalPartition as default } from '../';

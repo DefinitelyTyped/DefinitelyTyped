@@ -1,1 +1,1 @@
-export { SolarPanel as default } from "../";
+export { SolarPanel as default } from '../';

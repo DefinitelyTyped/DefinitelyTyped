@@ -1,1 +1,1 @@
-export { IbmWatsonNaturalLanguageUnderstanding as default } from "../";
+export { IbmWatsonNaturalLanguageUnderstanding as default } from '../';

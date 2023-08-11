@@ -1,1 +1,1 @@
-export { Renew as default } from "../";
+export { Renew as default } from '../';

@@ -1,1 +1,1 @@
-export { MacCommand as default } from "../";
+export { MacCommand as default } from '../';

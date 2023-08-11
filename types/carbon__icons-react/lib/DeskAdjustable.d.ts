@@ -1,1 +1,1 @@
-export { DeskAdjustable as default } from "../";
+export { DeskAdjustable as default } from '../';

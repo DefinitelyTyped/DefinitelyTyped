@@ -1,1 +1,1 @@
-export { PedestrianChild as default } from "../";
+export { PedestrianChild as default } from '../';

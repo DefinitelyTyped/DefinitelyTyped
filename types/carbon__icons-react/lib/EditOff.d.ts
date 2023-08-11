@@ -1,1 +1,1 @@
-export { EditOff as default } from "../";
+export { EditOff as default } from '../';

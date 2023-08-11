@@ -1,1 +1,1 @@
-export { CloudApp as default } from "../";
+export { CloudApp as default } from '../';

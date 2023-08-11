@@ -1,1 +1,1 @@
-export { EarthFilled as default } from "../";
+export { EarthFilled as default } from '../';
