@@ -7,7 +7,7 @@ import {
     Request,
     Response,
     ElementHandle,
-    Browser,
+    browser,
     BrowserContext,
 } from 'k6/experimental/browser';
 
@@ -16,9 +16,8 @@ const selector = 'a[href="http://example.com"]';
 const elementHandle = new ElementHandle();
 
 //
-// Create a browser
+// browser tests
 //
-const browser = new Browser();
 
 // $ExpectType BrowserContext
 browser.context();

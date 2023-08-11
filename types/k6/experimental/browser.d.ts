@@ -1,3 +1,5 @@
+export {};
+
 /**
  * Represents event-specific properties. Refer to the events documentation for
  * the lists of initial properties:
@@ -530,10 +532,15 @@ export interface NewBrowserContextOptions {
 }
 
 /**
- * The `Browser` class is the entry point for all your tests, it interacts
- * with the actual web browser via Chrome DevTools Protocol (CDP).
+ * The `browser` named export is the entry point for all your tests,
+ * it interacts with the actual web browser via Chrome DevTools Protocol (CDP).
  */
-export class Browser {
+export const browser: Browser;
+
+/**
+ * `Browser` represents the main web browser instance.
+ */
+interface Browser {
     /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
