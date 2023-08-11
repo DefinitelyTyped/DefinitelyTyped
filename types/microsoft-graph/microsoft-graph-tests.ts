@@ -1,77 +1,77 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import * as MicrosoftGraph from "microsoft-graph";
+import * as MicrosoftGraph from 'microsoft-graph';
 
 const user: MicrosoftGraph.User = {
-    officeLocation: "Bengaluru",
-    companyName: "Microsoft",
-    country: "India",
-    displayName: "Muthu"
+    officeLocation: 'Bengaluru',
+    companyName: 'Microsoft',
+    country: 'India',
+    displayName: 'Muthu',
 };
 
 const startTime: MicrosoftGraph.DateTimeTimeZone = {
-    dateTime: "2019-05-29T04:00:00.0000000"
+    dateTime: '2019-05-29T04:00:00.0000000',
 };
 
 const endTime: MicrosoftGraph.DateTimeTimeZone = {
-    dateTime: "2019-05-29T05:00:00.0000000",
+    dateTime: '2019-05-29T05:00:00.0000000',
 };
 
 const bodyText: MicrosoftGraph.ItemBody = {
-    contentType: "text",
-    content: "Hi, Shall we meet for a cup of coffee"
+    contentType: 'text',
+    content: 'Hi, Shall we meet for a cup of coffee',
 };
 
 const event: MicrosoftGraph.Event = {
-    subject: "Meet for a coffee",
+    subject: 'Meet for a coffee',
     body: bodyText,
     start: startTime,
-    end: endTime
+    end: endTime,
 };
 
 const servicePrincipal: MicrosoftGraph.ServicePrincipal = {
     accountEnabled: true,
-    appDisplayName: "MyNewAppName",
+    appDisplayName: 'MyNewAppName',
     appDescription: null,
-    description: "Test-Description"
+    description: 'Test-Description',
 };
 
 const servicePrincipalWithAppDescription: MicrosoftGraph.ServicePrincipal = {
-    appDescription: "Test-App-Description",
+    appDescription: 'Test-App-Description',
     accountEnabled: null,
-    description: null
+    description: null,
 };
 
 const invitation: MicrosoftGraph.Invitation = {
     invitedUserDisplayName: null,
     invitedUserType: undefined,
-    inviteRedeemUrl: "url"
+    inviteRedeemUrl: 'url',
 };
 
 const application: MicrosoftGraph.Application = {
     description: null,
-    displayName: "Test-Application-Name",
+    displayName: 'Test-Application-Name',
     appRoles: undefined,
-    notes: ""
+    notes: '',
 };
 
 const callTranscriptInfo: MicrosoftGraph.CallTranscriptionInfo = {
-    state: "active",
-    lastModifiedDateTime: null
+    state: 'active',
+    lastModifiedDateTime: null,
 };
 
 const resultInfo: MicrosoftGraph.ResultInfo = {
     code: 3,
-    subcode: 4
+    subcode: 4,
 };
 
 const cancelMediaProcessingOperation: MicrosoftGraph.CancelMediaProcessingOperation = {
-    id: "testId",
-    resultInfo
+    id: 'testId',
+    resultInfo,
 };
 
-const callType: MicrosoftGraph.CallRecords.CallType = "unknown";
+const callType: MicrosoftGraph.CallRecords.CallType = 'unknown';
 
 const callRecord: MicrosoftGraph.CallRecords.CallRecord = {
     type: callType,
@@ -80,157 +80,160 @@ const callRecord: MicrosoftGraph.CallRecords.CallRecord = {
 // Testing cross namespace inheritance
 // id comes from Entity which is defined in parent namespace
 const session: MicrosoftGraph.CallRecords.Session = {
-    id: "TestId"
+    id: 'TestId',
 };
 
 const deviceIdentity: MicrosoftGraph.Identity = {
-    displayName: "TestDisplayName"
+    displayName: 'TestDisplayName',
 };
 
 const identitySet: MicrosoftGraph.IdentitySet = {
-    device: deviceIdentity
+    device: deviceIdentity,
 };
 
 // Testing cross namespace property reference
 const info: MicrosoftGraph.CallRecords.ParticipantEndpoint = {
-    identity: identitySet
+    identity: identitySet,
 };
 
-const riskLevel: MicrosoftGraph.RiskLevel = "hidden";
+const riskLevel: MicrosoftGraph.RiskLevel = 'hidden';
 
 const eventMessageResponse: MicrosoftGraph.EventMessageResponse = {
-    type: null
+    type: null,
 };
 
-const permissionClassificationType: MicrosoftGraph.PermissionClassificationType = "medium";
+const permissionClassificationType: MicrosoftGraph.PermissionClassificationType = 'medium';
 
 const delegatedPermissionClassification: MicrosoftGraph.DelegatedPermissionClassification = {
-    classification: permissionClassificationType
+    classification: permissionClassificationType,
 };
 
 const permission: MicrosoftGraph.Permission = {
     link: null,
-    id: "string"
+    id: 'string',
 };
 
 const userFeedback: MicrosoftGraph.CallRecords.UserFeedback = {
-    rating: "notRated",
-    text: null
+    rating: 'notRated',
+    text: null,
 };
 
 const group: MicrosoftGraph.Group = {
     mailEnabled: true,
     classification: null,
-    onPremisesDomainName: "test"
+    onPremisesDomainName: 'test',
 };
 
 const todoTask: MicrosoftGraph.TodoTask = {
-    status: "notStarted",
-    importance: "low"
+    status: 'notStarted',
+    importance: 'low',
 };
 
-const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
+const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = 'organizer';
 
-const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = "Owner";
+const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = 'Owner';
 
-const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = "passwordChange";
+const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = 'passwordChange';
 
-const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = "disabled";
+const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = 'disabled';
 
 const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
     categories: [],
-    logoUrl: "test"
+    logoUrl: 'test',
 };
 
-const chatType: MicrosoftGraph.ChatType = "group";
+const chatType: MicrosoftGraph.ChatType = 'group';
 
 const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
-    description: "TEST_DESC",
-    displayName: "TEST_NAME"
+    description: 'TEST_DESC',
+    displayName: 'TEST_NAME',
 };
 
-const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = 'reviewer';
 
-const initiatorType: MicrosoftGraph.InitiatorType = "user";
+const initiatorType: MicrosoftGraph.InitiatorType = 'user';
 
-const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = 'string';
 
-const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";
+const enrollmentState: MicrosoftGraph.EnrollmentState = 'enrolled';
 
 const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
-    guestUserRoleId: "TEST_ID",
-    displayName: "TEST_NAME"
+    guestUserRoleId: 'TEST_ID',
+    displayName: 'TEST_NAME',
 };
 
-const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = 'windowsCoManagement';
 
 const applicationStatus: MicrosoftGraph.Application = {
-    disabledByMicrosoftStatus: "TEST_VAL"
+    disabledByMicrosoftStatus: 'TEST_VAL',
 };
 
-const bodyType: MicrosoftGraph.BodyType = "text";
+const bodyType: MicrosoftGraph.BodyType = 'text';
 
 const channel: MicrosoftGraph.Channel = {
-    description: "Test",
+    description: 'Test',
 };
 
-const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = 'clientIpAddress';
 
-const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+const volumeType: MicrosoftGraph.VolumeType = 'unknownFutureValue';
 
-const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = 'foreground';
 
 const compliance: MicrosoftGraph.Compliance = {};
 
-const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+const columnTypes: MicrosoftGraph.ColumnTypes = 'approvalStatus';
 
-const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = 'unknownFutureValue';
 
-const filterMode: MicrosoftGraph.FilterMode = "include";
+const filterMode: MicrosoftGraph.FilterMode = 'include';
 
-const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";
+const policyPlatformType: MicrosoftGraph.PolicyPlatformType = 'androidForWork';
 
-const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
+const dataSubjectType: MicrosoftGraph.DataSubjectType = 'teacher';
 
-const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
+const advancedConfigState: MicrosoftGraph.AdvancedConfigState = 'disabled';
 
-const messageActionFlag: MicrosoftGraph.MessageActionFlag = "read";
+const messageActionFlag: MicrosoftGraph.MessageActionFlag = 'read';
 
-const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";
+const stagedFeatureName: MicrosoftGraph.StagedFeatureName = 'seamlessSso';
 
-const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = "acceptAccessRecommendation";
+const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = 'acceptAccessRecommendation';
 
-const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";
+const roleEligibilityScheduleFilterByCurrentUserOptions:
+    MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = 'principal';
 
-const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
+const bookingPriceType: MicrosoftGraph.BookingPriceType = 'undefined';
 
-const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "succeeded";
+const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = 'succeeded';
 
 const album: MicrosoftGraph.Album = {
-    coverImageItemId: "test",
+    coverImageItemId: 'test',
 };
 
-const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = 'available';
 
-const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = 'available';
 
-const bookingStaffRole: MicrosoftGraph.BookingStaffRole = "unknownFutureValue";
+const bookingStaffRole: MicrosoftGraph.BookingStaffRole = 'unknownFutureValue';
 
 const bookingAppointmentStatus: MicrosoftGraph.BookingAppointment = {
-    id: "test",
+    id: 'test',
 };
 
-const authenticationMethodsPolicyMigrationState: MicrosoftGraph.AuthenticationMethodsPolicyMigrationState = "unknownFutureValue";
+const authenticationMethodsPolicyMigrationState: MicrosoftGraph.AuthenticationMethodsPolicyMigrationState =
+    'unknownFutureValue';
 
-const conditionalAccessGuestOrExternalUserTypes: MicrosoftGraph.ConditionalAccessGuestOrExternalUserTypes = "unknownFutureValue";
+const conditionalAccessGuestOrExternalUserTypes: MicrosoftGraph.ConditionalAccessGuestOrExternalUserTypes =
+    'unknownFutureValue';
 
 const appManagementConfiguration: MicrosoftGraph.AppManagementConfiguration = {};
 
-const authenticationMethodModes: MicrosoftGraph.AuthenticationMethodModes = "unknownFutureValue";
+const authenticationMethodModes: MicrosoftGraph.AuthenticationMethodModes = 'unknownFutureValue';
 
-const authenticationStrengthRequirements: MicrosoftGraph.AuthenticationStrengthRequirements = "unknownFutureValue";
+const authenticationStrengthRequirements: MicrosoftGraph.AuthenticationStrengthRequirements = 'unknownFutureValue';
 
-const baseAuthenticationMethod: MicrosoftGraph.BaseAuthenticationMethod = "x509Certificate";
+const baseAuthenticationMethod: MicrosoftGraph.BaseAuthenticationMethod = 'x509Certificate';
 
 const authenticationCombinationConfiguration: MicrosoftGraph.AuthenticationCombinationConfiguration = {};
 
@@ -266,7 +269,7 @@ const crossTenantUserSyncInbound: MicrosoftGraph.CrossTenantUserSyncInbound = {}
 
 const conditionalAccessExternalTenants: MicrosoftGraph.ConditionalAccessExternalTenants = {};
 
-const ruleOperation: MicrosoftGraph.ExternalConnectors.RuleOperation = "unknownFutureValue";
+const ruleOperation: MicrosoftGraph.ExternalConnectors.RuleOperation = 'unknownFutureValue';
 
 const displayTemplate: MicrosoftGraph.ExternalConnectors.DisplayTemplate = {};
 
@@ -296,53 +299,53 @@ const identity: MicrosoftGraph.ExternalConnectors.Identity = {};
 
 const externalActivityResult: MicrosoftGraph.ExternalConnectors.ExternalActivityResult = {};
 
-const attributeDefinitionMetadata: MicrosoftGraph.AttributeDefinitionMetadata = "ReferencedProperty";
+const attributeDefinitionMetadata: MicrosoftGraph.AttributeDefinitionMetadata = 'ReferencedProperty';
 
-const attributeFlowBehavior: MicrosoftGraph.AttributeFlowBehavior = "FlowWhenChanged";
+const attributeFlowBehavior: MicrosoftGraph.AttributeFlowBehavior = 'FlowWhenChanged';
 
-const attributeFlowType: MicrosoftGraph.AttributeFlowType = "AttributeAddOnly";
+const attributeFlowType: MicrosoftGraph.AttributeFlowType = 'AttributeAddOnly';
 
-const attributeMappingSourceType: MicrosoftGraph.AttributeMappingSourceType = "Function";
+const attributeMappingSourceType: MicrosoftGraph.AttributeMappingSourceType = 'Function';
 
-const attributeType: MicrosoftGraph.AttributeType = "DateTime";
+const attributeType: MicrosoftGraph.AttributeType = 'DateTime';
 
-const directoryDefinitionDiscoverabilities: MicrosoftGraph.DirectoryDefinitionDiscoverabilities = "UnknownFutureValue";
+const directoryDefinitionDiscoverabilities: MicrosoftGraph.DirectoryDefinitionDiscoverabilities = 'UnknownFutureValue';
 
-const entryExportStatus: MicrosoftGraph.EntryExportStatus = "Error";
+const entryExportStatus: MicrosoftGraph.EntryExportStatus = 'Error';
 
-const entrySyncOperation: MicrosoftGraph.EntrySyncOperation = "Update";
+const entrySyncOperation: MicrosoftGraph.EntrySyncOperation = 'Update';
 
-const escrowBehavior: MicrosoftGraph.EscrowBehavior = "IgnoreLookupReferenceResolutionFailure";
+const escrowBehavior: MicrosoftGraph.EscrowBehavior = 'IgnoreLookupReferenceResolutionFailure';
 
-const mutability: MicrosoftGraph.Mutability = "WriteOnly";
+const mutability: MicrosoftGraph.Mutability = 'WriteOnly';
 
-const objectDefinitionMetadata: MicrosoftGraph.ObjectDefinitionMetadata = "BaseObjectName";
+const objectDefinitionMetadata: MicrosoftGraph.ObjectDefinitionMetadata = 'BaseObjectName';
 
-const objectFlowTypes: MicrosoftGraph.ObjectFlowTypes = "Delete";
+const objectFlowTypes: MicrosoftGraph.ObjectFlowTypes = 'Delete';
 
-const objectMappingMetadata: MicrosoftGraph.ObjectMappingMetadata = "Unsynchronized";
+const objectMappingMetadata: MicrosoftGraph.ObjectMappingMetadata = 'Unsynchronized';
 
-const quarantineReason: MicrosoftGraph.QuarantineReason = "IngestionInterrupted";
+const quarantineReason: MicrosoftGraph.QuarantineReason = 'IngestionInterrupted';
 
-const scopeOperatorMultiValuedComparisonType: MicrosoftGraph.ScopeOperatorMultiValuedComparisonType = "Any";
+const scopeOperatorMultiValuedComparisonType: MicrosoftGraph.ScopeOperatorMultiValuedComparisonType = 'Any';
 
-const scopeOperatorType: MicrosoftGraph.ScopeOperatorType = "Unary";
+const scopeOperatorType: MicrosoftGraph.ScopeOperatorType = 'Unary';
 
-const synchronizationDisposition: MicrosoftGraph.SynchronizationDisposition = "Escrow";
+const synchronizationDisposition: MicrosoftGraph.SynchronizationDisposition = 'Escrow';
 
-const synchronizationJobRestartScope: MicrosoftGraph.SynchronizationJobRestartScope = "ForceDeletes";
+const synchronizationJobRestartScope: MicrosoftGraph.SynchronizationJobRestartScope = 'ForceDeletes';
 
-const synchronizationMetadata: MicrosoftGraph.SynchronizationMetadata = "ConfigurationFields";
+const synchronizationMetadata: MicrosoftGraph.SynchronizationMetadata = 'ConfigurationFields';
 
-const synchronizationScheduleState: MicrosoftGraph.SynchronizationScheduleState = "Paused";
+const synchronizationScheduleState: MicrosoftGraph.SynchronizationScheduleState = 'Paused';
 
-const synchronizationSecret: MicrosoftGraph.SynchronizationSecret = "ConnectionString";
+const synchronizationSecret: MicrosoftGraph.SynchronizationSecret = 'ConnectionString';
 
-const synchronizationStatusCode: MicrosoftGraph.SynchronizationStatusCode = "Quarantine";
+const synchronizationStatusCode: MicrosoftGraph.SynchronizationStatusCode = 'Quarantine';
 
-const synchronizationTaskExecutionResult: MicrosoftGraph.SynchronizationTaskExecutionResult = "EntryLevelErrors";
+const synchronizationTaskExecutionResult: MicrosoftGraph.SynchronizationTaskExecutionResult = 'EntryLevelErrors';
 
-const accessReviewHistoryDecisionFilter: MicrosoftGraph.AccessReviewHistoryDecisionFilter = "approve";
+const accessReviewHistoryDecisionFilter: MicrosoftGraph.AccessReviewHistoryDecisionFilter = 'approve';
 
 const attributeMappingFunctionSchema: MicrosoftGraph.AttributeMappingFunctionSchema = {};
 
@@ -436,29 +439,29 @@ const loginPageTextVisibilitySettings: MicrosoftGraph.LoginPageTextVisibilitySet
 
 const azureResourceEvidence: MicrosoftGraph.SecurityNamespace.AzureResourceEvidence = {};
 
-const layoutTemplateType: MicrosoftGraph.LayoutTemplateType = "verticalSplit";
+const layoutTemplateType: MicrosoftGraph.LayoutTemplateType = 'verticalSplit';
 
 const googleCloudResourceEvidence: MicrosoftGraph.SecurityNamespace.GoogleCloudResourceEvidence = {};
 
 const organizationalBrandingProperties: MicrosoftGraph.OrganizationalBrandingProperties = {
-    customAccountResetCredentialsUrl: "",
-    customCannotAccessYourAccountText: "",
-    customCannotAccessYourAccountUrl: "",
-    customCSS: "",
-    customCSSRelativeUrl: "",
-    customForgotMyPasswordText: "",
-    customPrivacyAndCookiesText: "",
-    customPrivacyAndCookiesUrl: "",
-    customResetItNowText: "",
-    customTermsOfUseText: "",
-    customTermsOfUseUrl: "",
-    favicon: "",
-    faviconRelativeUrl: "",
-    headerBackgroundColor: "",
-    headerLogo: "",
-    headerLogoRelativeUrl: "",
+    customAccountResetCredentialsUrl: '',
+    customCannotAccessYourAccountText: '',
+    customCannotAccessYourAccountUrl: '',
+    customCSS: '',
+    customCSSRelativeUrl: '',
+    customForgotMyPasswordText: '',
+    customPrivacyAndCookiesText: '',
+    customPrivacyAndCookiesUrl: '',
+    customResetItNowText: '',
+    customTermsOfUseText: '',
+    customTermsOfUseUrl: '',
+    favicon: '',
+    faviconRelativeUrl: '',
+    headerBackgroundColor: '',
+    headerLogo: '',
+    headerLogoRelativeUrl: '',
     loginPageLayoutConfiguration: {},
-    loginPageTextVisibilitySettings: {}
+    loginPageTextVisibilitySettings: {},
 };
 
 const blobContainerEvidence: MicrosoftGraph.SecurityNamespace.BlobContainerEvidence = {};

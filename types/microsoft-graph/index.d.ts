@@ -14,2898 +14,2913 @@ export as namespace microsoftgraph;
 export type NullableOption<T> = T | null;
 
 export type AppliedConditionalAccessPolicyResult =
-    | "success"
-    | "failure"
-    | "notApplied"
-    | "notEnabled"
-    | "unknown"
-    | "unknownFutureValue";
+    | 'success'
+    | 'failure'
+    | 'notApplied'
+    | 'notEnabled'
+    | 'unknown'
+    | 'unknownFutureValue';
 export type AuthenticationMethodFeature =
-    | "ssprRegistered"
-    | "ssprEnabled"
-    | "ssprCapable"
-    | "passwordlessCapable"
-    | "mfaCapable"
-    | "unknownFutureValue";
-export type ConditionalAccessStatus = "success" | "failure" | "notApplied" | "unknownFutureValue";
-export type FeatureType = "registration" | "reset" | "unknownFutureValue";
-export type GroupType = "unifiedGroups" | "azureAD" | "unknownFutureValue";
-export type IncludedUserRoles = "all" | "privilegedAdmin" | "admin" | "user" | "unknownFutureValue";
-export type IncludedUserTypes = "all" | "member" | "guest" | "unknownFutureValue";
-export type InitiatorType = "user" | "application" | "system" | "unknownFutureValue";
-export type OperationResult = "success" | "failure" | "timeout" | "unknownFutureValue";
-export type OutlierContainerType = "group" | "unknownFutureValue";
-export type OutlierMemberType = "user" | "unknownFutureValue";
+    | 'ssprRegistered'
+    | 'ssprEnabled'
+    | 'ssprCapable'
+    | 'passwordlessCapable'
+    | 'mfaCapable'
+    | 'unknownFutureValue';
+export type ConditionalAccessStatus = 'success' | 'failure' | 'notApplied' | 'unknownFutureValue';
+export type FeatureType = 'registration' | 'reset' | 'unknownFutureValue';
+export type GroupType = 'unifiedGroups' | 'azureAD' | 'unknownFutureValue';
+export type IncludedUserRoles = 'all' | 'privilegedAdmin' | 'admin' | 'user' | 'unknownFutureValue';
+export type IncludedUserTypes = 'all' | 'member' | 'guest' | 'unknownFutureValue';
+export type InitiatorType = 'user' | 'application' | 'system' | 'unknownFutureValue';
+export type OperationResult = 'success' | 'failure' | 'timeout' | 'unknownFutureValue';
+export type OutlierContainerType = 'group' | 'unknownFutureValue';
+export type OutlierMemberType = 'user' | 'unknownFutureValue';
 export type ProvisioningAction =
-    | "other"
-    | "create"
-    | "delete"
-    | "disable"
-    | "update"
-    | "stagedDelete"
-    | "unknownFutureValue";
-export type ProvisioningResult = "success" | "failure" | "skipped" | "warning" | "unknownFutureValue";
-export type ProvisioningStatusErrorCategory = "failure" | "nonServiceFailure" | "success" | "unknownFutureValue";
+    | 'other'
+    | 'create'
+    | 'delete'
+    | 'disable'
+    | 'update'
+    | 'stagedDelete'
+    | 'unknownFutureValue';
+export type ProvisioningResult = 'success' | 'failure' | 'skipped' | 'warning' | 'unknownFutureValue';
+export type ProvisioningStatusErrorCategory = 'failure' | 'nonServiceFailure' | 'success' | 'unknownFutureValue';
 export type ProvisioningStepType =
-    | "import"
-    | "scoping"
-    | "matching"
-    | "processing"
-    | "referenceResolution"
-    | "export"
-    | "unknownFutureValue";
+    | 'import'
+    | 'scoping'
+    | 'matching'
+    | 'processing'
+    | 'referenceResolution'
+    | 'export'
+    | 'unknownFutureValue';
 export type RiskDetail =
-    | "none"
-    | "adminGeneratedTemporaryPassword"
-    | "userPerformedSecuredPasswordChange"
-    | "userPerformedSecuredPasswordReset"
-    | "adminConfirmedSigninSafe"
-    | "aiConfirmedSigninSafe"
-    | "userPassedMFADrivenByRiskBasedPolicy"
-    | "adminDismissedAllRiskForUser"
-    | "adminConfirmedSigninCompromised"
-    | "hidden"
-    | "adminConfirmedUserCompromised"
-    | "unknownFutureValue"
-    | "adminConfirmedServicePrincipalCompromised"
-    | "adminDismissedAllRiskForServicePrincipal"
-    | "m365DAdminDismissedDetection";
+    | 'none'
+    | 'adminGeneratedTemporaryPassword'
+    | 'userPerformedSecuredPasswordChange'
+    | 'userPerformedSecuredPasswordReset'
+    | 'adminConfirmedSigninSafe'
+    | 'aiConfirmedSigninSafe'
+    | 'userPassedMFADrivenByRiskBasedPolicy'
+    | 'adminDismissedAllRiskForUser'
+    | 'adminConfirmedSigninCompromised'
+    | 'hidden'
+    | 'adminConfirmedUserCompromised'
+    | 'unknownFutureValue'
+    | 'adminConfirmedServicePrincipalCompromised'
+    | 'adminDismissedAllRiskForServicePrincipal'
+    | 'm365DAdminDismissedDetection';
 export type RiskEventType =
-    | "unlikelyTravel"
-    | "anonymizedIPAddress"
-    | "maliciousIPAddress"
-    | "unfamiliarFeatures"
-    | "malwareInfectedIPAddress"
-    | "suspiciousIPAddress"
-    | "leakedCredentials"
-    | "investigationsThreatIntelligence"
-    | "generic"
-    | "adminConfirmedUserCompromised"
-    | "mcasImpossibleTravel"
-    | "mcasSuspiciousInboxManipulationRules"
-    | "investigationsThreatIntelligenceSigninLinked"
-    | "maliciousIPAddressValidCredentialsBlockedIP"
-    | "unknownFutureValue";
-export type RiskLevel = "low" | "medium" | "high" | "hidden" | "none" | "unknownFutureValue";
+    | 'unlikelyTravel'
+    | 'anonymizedIPAddress'
+    | 'maliciousIPAddress'
+    | 'unfamiliarFeatures'
+    | 'malwareInfectedIPAddress'
+    | 'suspiciousIPAddress'
+    | 'leakedCredentials'
+    | 'investigationsThreatIntelligence'
+    | 'generic'
+    | 'adminConfirmedUserCompromised'
+    | 'mcasImpossibleTravel'
+    | 'mcasSuspiciousInboxManipulationRules'
+    | 'investigationsThreatIntelligenceSigninLinked'
+    | 'maliciousIPAddressValidCredentialsBlockedIP'
+    | 'unknownFutureValue';
+export type RiskLevel = 'low' | 'medium' | 'high' | 'hidden' | 'none' | 'unknownFutureValue';
 export type RiskState =
-    | "none"
-    | "confirmedSafe"
-    | "remediated"
-    | "dismissed"
-    | "atRisk"
-    | "confirmedCompromised"
-    | "unknownFutureValue";
-export type SignInUserType = "member" | "guest" | "unknownFutureValue";
+    | 'none'
+    | 'confirmedSafe'
+    | 'remediated'
+    | 'dismissed'
+    | 'atRisk'
+    | 'confirmedCompromised'
+    | 'unknownFutureValue';
+export type SignInUserType = 'member' | 'guest' | 'unknownFutureValue';
 export type UserDefaultAuthenticationMethod =
-    | "push"
-    | "oath"
-    | "voiceMobile"
-    | "voiceAlternateMobile"
-    | "voiceOffice"
-    | "sms"
-    | "none"
-    | "unknownFutureValue";
-export type AdvancedConfigState = "default" | "enabled" | "disabled" | "unknownFutureValue";
+    | 'push'
+    | 'oath'
+    | 'voiceMobile'
+    | 'voiceAlternateMobile'
+    | 'voiceOffice'
+    | 'sms'
+    | 'none'
+    | 'unknownFutureValue';
+export type AdvancedConfigState = 'default' | 'enabled' | 'disabled' | 'unknownFutureValue';
 export type AuthenticationMethodModes =
-    | "password"
-    | "voice"
-    | "hardwareOath"
-    | "softwareOath"
-    | "sms"
-    | "fido2"
-    | "windowsHelloForBusiness"
-    | "microsoftAuthenticatorPush"
-    | "deviceBasedPush"
-    | "temporaryAccessPassOneTime"
-    | "temporaryAccessPassMultiUse"
-    | "email"
-    | "x509CertificateSingleFactor"
-    | "x509CertificateMultiFactor"
-    | "federatedSingleFactor"
-    | "federatedMultiFactor"
-    | "unknownFutureValue";
+    | 'password'
+    | 'voice'
+    | 'hardwareOath'
+    | 'softwareOath'
+    | 'sms'
+    | 'fido2'
+    | 'windowsHelloForBusiness'
+    | 'microsoftAuthenticatorPush'
+    | 'deviceBasedPush'
+    | 'temporaryAccessPassOneTime'
+    | 'temporaryAccessPassMultiUse'
+    | 'email'
+    | 'x509CertificateSingleFactor'
+    | 'x509CertificateMultiFactor'
+    | 'federatedSingleFactor'
+    | 'federatedMultiFactor'
+    | 'unknownFutureValue';
 export type AuthenticationMethodsPolicyMigrationState =
-    | "preMigration"
-    | "migrationInProgress"
-    | "migrationComplete"
-    | "unknownFutureValue";
-export type AuthenticationMethodState = "enabled" | "disabled";
-export type AuthenticationMethodTargetType = "user" | "group" | "unknownFutureValue";
-export type AuthenticationStrengthPolicyType = "builtIn" | "custom" | "unknownFutureValue";
-export type AuthenticationStrengthRequirements = "none" | "mfa" | "unknownFutureValue";
+    | 'preMigration'
+    | 'migrationInProgress'
+    | 'migrationComplete'
+    | 'unknownFutureValue';
+export type AuthenticationMethodState = 'enabled' | 'disabled';
+export type AuthenticationMethodTargetType = 'user' | 'group' | 'unknownFutureValue';
+export type AuthenticationStrengthPolicyType = 'builtIn' | 'custom' | 'unknownFutureValue';
+export type AuthenticationStrengthRequirements = 'none' | 'mfa' | 'unknownFutureValue';
 export type BaseAuthenticationMethod =
-    | "password"
-    | "voice"
-    | "hardwareOath"
-    | "softwareOath"
-    | "sms"
-    | "fido2"
-    | "windowsHelloForBusiness"
-    | "microsoftAuthenticator"
-    | "temporaryAccessPass"
-    | "email"
-    | "x509Certificate"
-    | "federation"
-    | "unknownFutureValue";
-export type ExternalEmailOtpState = "default" | "enabled" | "disabled" | "unknownFutureValue";
-export type FeatureTargetType = "group" | "administrativeUnit" | "role" | "unknownFutureValue";
-export type Fido2RestrictionEnforcementType = "allow" | "block" | "unknownFutureValue";
-export type MicrosoftAuthenticatorAuthenticationMode = "deviceBasedPush" | "push" | "any";
+    | 'password'
+    | 'voice'
+    | 'hardwareOath'
+    | 'softwareOath'
+    | 'sms'
+    | 'fido2'
+    | 'windowsHelloForBusiness'
+    | 'microsoftAuthenticator'
+    | 'temporaryAccessPass'
+    | 'email'
+    | 'x509Certificate'
+    | 'federation'
+    | 'unknownFutureValue';
+export type ExternalEmailOtpState = 'default' | 'enabled' | 'disabled' | 'unknownFutureValue';
+export type FeatureTargetType = 'group' | 'administrativeUnit' | 'role' | 'unknownFutureValue';
+export type Fido2RestrictionEnforcementType = 'allow' | 'block' | 'unknownFutureValue';
+export type MicrosoftAuthenticatorAuthenticationMode = 'deviceBasedPush' | 'push' | 'any';
 export type X509CertificateAuthenticationMode =
-    | "x509CertificateSingleFactor"
-    | "x509CertificateMultiFactor"
-    | "unknownFutureValue";
-export type X509CertificateRuleType = "issuerSubject" | "policyOID" | "unknownFutureValue";
-export type VolumeType = "operatingSystemVolume" | "fixedDataVolume" | "removableDataVolume" | "unknownFutureValue";
-export type AnswerInputType = "text" | "radioButton" | "unknownFutureValue";
+    | 'x509CertificateSingleFactor'
+    | 'x509CertificateMultiFactor'
+    | 'unknownFutureValue';
+export type X509CertificateRuleType = 'issuerSubject' | 'policyOID' | 'unknownFutureValue';
+export type VolumeType = 'operatingSystemVolume' | 'fixedDataVolume' | 'removableDataVolume' | 'unknownFutureValue';
+export type AnswerInputType = 'text' | 'radioButton' | 'unknownFutureValue';
 export type BookingPriceType =
-    | "undefined"
-    | "fixedPrice"
-    | "startingAt"
-    | "hourly"
-    | "free"
-    | "priceVaries"
-    | "callUs"
-    | "notSet"
-    | "unknownFutureValue";
-export type BookingReminderRecipients = "allAttendees" | "staff" | "customer" | "unknownFutureValue";
-export type BookingsAvailabilityStatus = "available" | "busy" | "slotsAvailable" | "outOfOffice" | "unknownFutureValue";
+    | 'undefined'
+    | 'fixedPrice'
+    | 'startingAt'
+    | 'hourly'
+    | 'free'
+    | 'priceVaries'
+    | 'callUs'
+    | 'notSet'
+    | 'unknownFutureValue';
+export type BookingReminderRecipients = 'allAttendees' | 'staff' | 'customer' | 'unknownFutureValue';
+export type BookingsAvailabilityStatus = 'available' | 'busy' | 'slotsAvailable' | 'outOfOffice' | 'unknownFutureValue';
 export type BookingStaffRole =
-    | "guest"
-    | "administrator"
-    | "viewer"
-    | "externalGuest"
-    | "unknownFutureValue"
-    | "scheduler"
-    | "teamMember";
-export type DayOfWeek = "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday";
+    | 'guest'
+    | 'administrator'
+    | 'viewer'
+    | 'externalGuest'
+    | 'unknownFutureValue'
+    | 'scheduler'
+    | 'teamMember';
+export type DayOfWeek = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
 export type LocationType =
-    | "default"
-    | "conferenceRoom"
-    | "homeAddress"
-    | "businessAddress"
-    | "geoCoordinates"
-    | "streetAddress"
-    | "hotel"
-    | "restaurant"
-    | "localBusiness"
-    | "postalAddress";
-export type LocationUniqueIdType = "unknown" | "locationStore" | "directory" | "private" | "bing";
+    | 'default'
+    | 'conferenceRoom'
+    | 'homeAddress'
+    | 'businessAddress'
+    | 'geoCoordinates'
+    | 'streetAddress'
+    | 'hotel'
+    | 'restaurant'
+    | 'localBusiness'
+    | 'postalAddress';
+export type LocationUniqueIdType = 'unknown' | 'locationStore' | 'directory' | 'private' | 'bing';
 export type PhoneType =
-    | "home"
-    | "business"
-    | "mobile"
-    | "other"
-    | "assistant"
-    | "homeFax"
-    | "businessFax"
-    | "otherFax"
-    | "pager"
-    | "radio";
-export type PhysicalAddressType = "unknown" | "home" | "business" | "other";
-export type BodyType = "text" | "html";
+    | 'home'
+    | 'business'
+    | 'mobile'
+    | 'other'
+    | 'assistant'
+    | 'homeFax'
+    | 'businessFax'
+    | 'otherFax'
+    | 'pager'
+    | 'radio';
+export type PhysicalAddressType = 'unknown' | 'home' | 'business' | 'other';
+export type BodyType = 'text' | 'html';
 export type DataSubjectType =
-    | "customer"
-    | "currentEmployee"
-    | "formerEmployee"
-    | "prospectiveEmployee"
-    | "student"
-    | "teacher"
-    | "faculty"
-    | "other"
-    | "unknownFutureValue";
+    | 'customer'
+    | 'currentEmployee'
+    | 'formerEmployee'
+    | 'prospectiveEmployee'
+    | 'student'
+    | 'teacher'
+    | 'faculty'
+    | 'other'
+    | 'unknownFutureValue';
 export type SubjectRightsRequestStage =
-    | "contentRetrieval"
-    | "contentReview"
-    | "generateReport"
-    | "contentDeletion"
-    | "caseResolved"
-    | "contentEstimate"
-    | "unknownFutureValue";
-export type SubjectRightsRequestStageStatus = "notStarted" | "current" | "completed" | "failed" | "unknownFutureValue";
-export type SubjectRightsRequestStatus = "active" | "closed" | "unknownFutureValue";
-export type SubjectRightsRequestType = "export" | "delete" | "access" | "tagForAction" | "unknownFutureValue";
+    | 'contentRetrieval'
+    | 'contentReview'
+    | 'generateReport'
+    | 'contentDeletion'
+    | 'caseResolved'
+    | 'contentEstimate'
+    | 'unknownFutureValue';
+export type SubjectRightsRequestStageStatus = 'notStarted' | 'current' | 'completed' | 'failed' | 'unknownFutureValue';
+export type SubjectRightsRequestStatus = 'active' | 'closed' | 'unknownFutureValue';
+export type SubjectRightsRequestType = 'export' | 'delete' | 'access' | 'tagForAction' | 'unknownFutureValue';
 export type IdentityUserFlowAttributeDataType =
-    | "string"
-    | "boolean"
-    | "int64"
-    | "stringCollection"
-    | "dateTime"
-    | "unknownFutureValue";
+    | 'string'
+    | 'boolean'
+    | 'int64'
+    | 'stringCollection'
+    | 'dateTime'
+    | 'unknownFutureValue';
 export type IdentityUserFlowAttributeInputType =
-    | "textBox"
-    | "dateTimeDropdown"
-    | "radioSingleSelect"
-    | "dropdownSingleSelect"
-    | "emailBox"
-    | "checkboxMultiSelect";
-export type IdentityUserFlowAttributeType = "builtIn" | "custom" | "required" | "unknownFutureValue";
+    | 'textBox'
+    | 'dateTimeDropdown'
+    | 'radioSingleSelect'
+    | 'dropdownSingleSelect'
+    | 'emailBox'
+    | 'checkboxMultiSelect';
+export type IdentityUserFlowAttributeType = 'builtIn' | 'custom' | 'required' | 'unknownFutureValue';
 export type UserFlowType =
-    | "signUp"
-    | "signIn"
-    | "signUpOrSignIn"
-    | "passwordReset"
-    | "profileUpdate"
-    | "resourceOwner"
-    | "unknownFutureValue";
+    | 'signUp'
+    | 'signIn'
+    | 'signUpOrSignIn'
+    | 'passwordReset'
+    | 'profileUpdate'
+    | 'resourceOwner'
+    | 'unknownFutureValue';
 export type LobbyBypassScope =
-    | "organizer"
-    | "organization"
-    | "organizationAndFederated"
-    | "everyone"
-    | "unknownFutureValue"
-    | "invited"
-    | "organizationExcludingGuests";
-export type MeetingChatMode = "enabled" | "disabled" | "limited" | "unknownFutureValue";
+    | 'organizer'
+    | 'organization'
+    | 'organizationAndFederated'
+    | 'everyone'
+    | 'unknownFutureValue'
+    | 'invited'
+    | 'organizationExcludingGuests';
+export type MeetingChatMode = 'enabled' | 'disabled' | 'limited' | 'unknownFutureValue';
 export type OnlineMeetingPresenters =
-    | "everyone"
-    | "organization"
-    | "roleIsPresenter"
-    | "organizer"
-    | "unknownFutureValue";
+    | 'everyone'
+    | 'organization'
+    | 'roleIsPresenter'
+    | 'organizer'
+    | 'unknownFutureValue';
 export type AllowInvitesFrom =
-    | "none"
-    | "adminsAndGuestInviters"
-    | "adminsGuestInvitersAndAllMembers"
-    | "everyone"
-    | "unknownFutureValue";
+    | 'none'
+    | 'adminsAndGuestInviters'
+    | 'adminsGuestInvitersAndAllMembers'
+    | 'everyone'
+    | 'unknownFutureValue';
 export type AppCredentialRestrictionType =
-    | "passwordAddition"
-    | "passwordLifetime"
-    | "symmetricKeyAddition"
-    | "symmetricKeyLifetime"
-    | "customPasswordAddition"
-    | "unknownFutureValue";
-export type AppKeyCredentialRestrictionType = "asymmetricKeyLifetime" | "unknownFutureValue";
-export type AuthenticationProtocol = "wsFed" | "saml" | "unknownFutureValue";
-export type CrossTenantAccessPolicyTargetConfigurationAccessType = "allowed" | "blocked" | "unknownFutureValue";
-export type CrossTenantAccessPolicyTargetType = "user" | "group" | "application" | "unknownFutureValue";
+    | 'passwordAddition'
+    | 'passwordLifetime'
+    | 'symmetricKeyAddition'
+    | 'symmetricKeyLifetime'
+    | 'customPasswordAddition'
+    | 'unknownFutureValue';
+export type AppKeyCredentialRestrictionType = 'asymmetricKeyLifetime' | 'unknownFutureValue';
+export type AuthenticationProtocol = 'wsFed' | 'saml' | 'unknownFutureValue';
+export type CrossTenantAccessPolicyTargetConfigurationAccessType = 'allowed' | 'blocked' | 'unknownFutureValue';
+export type CrossTenantAccessPolicyTargetType = 'user' | 'group' | 'application' | 'unknownFutureValue';
 export type FederatedIdpMfaBehavior =
-    | "acceptIfMfaDoneByFederatedIdp"
-    | "enforceMfaByFederatedIdp"
-    | "rejectMfaByFederatedIdp"
-    | "unknownFutureValue";
-export type LayoutTemplateType = "default" | "verticalSplit" | "unknownFutureValue";
+    | 'acceptIfMfaDoneByFederatedIdp'
+    | 'enforceMfaByFederatedIdp'
+    | 'rejectMfaByFederatedIdp'
+    | 'unknownFutureValue';
+export type LayoutTemplateType = 'default' | 'verticalSplit' | 'unknownFutureValue';
 export type OnPremisesDirectorySynchronizationDeletionPreventionType =
-    | "disabled"
-    | "enabledForCount"
-    | "enabledForPercentage"
-    | "unknownFutureValue";
+    | 'disabled'
+    | 'enabledForCount'
+    | 'enabledForPercentage'
+    | 'unknownFutureValue';
 export type PartnerTenantType =
-    | "microsoftSupport"
-    | "syndicatePartner"
-    | "breadthPartner"
-    | "breadthPartnerDelegatedAdmin"
-    | "resellerPartnerDelegatedAdmin"
-    | "valueAddedResellerPartnerDelegatedAdmin"
-    | "unknownFutureValue";
-export type PermissionClassificationType = "low" | "medium" | "high" | "unknownFutureValue";
-export type PermissionType = "application" | "delegated" | "delegatedUserConsentable";
+    | 'microsoftSupport'
+    | 'syndicatePartner'
+    | 'breadthPartner'
+    | 'breadthPartnerDelegatedAdmin'
+    | 'resellerPartnerDelegatedAdmin'
+    | 'valueAddedResellerPartnerDelegatedAdmin'
+    | 'unknownFutureValue';
+export type PermissionClassificationType = 'low' | 'medium' | 'high' | 'unknownFutureValue';
+export type PermissionType = 'application' | 'delegated' | 'delegatedUserConsentable';
 export type PromptLoginBehavior =
-    | "translateToFreshPasswordAuthentication"
-    | "nativeSupport"
-    | "disabled"
-    | "unknownFutureValue";
-export type WeakAlgorithms = "rsaSha1" | "unknownFutureValue";
+    | 'translateToFreshPasswordAuthentication'
+    | 'nativeSupport'
+    | 'disabled'
+    | 'unknownFutureValue';
+export type WeakAlgorithms = 'rsaSha1' | 'unknownFutureValue';
 export type BrowserSharedCookieSourceEnvironment =
-    | "microsoftEdge"
-    | "internetExplorer11"
-    | "both"
-    | "unknownFutureValue";
+    | 'microsoftEdge'
+    | 'internetExplorer11'
+    | 'both'
+    | 'unknownFutureValue';
 export type BrowserSharedCookieStatus =
-    | "published"
-    | "pendingAdd"
-    | "pendingEdit"
-    | "pendingDelete"
-    | "unknownFutureValue";
+    | 'published'
+    | 'pendingAdd'
+    | 'pendingEdit'
+    | 'pendingDelete'
+    | 'unknownFutureValue';
 export type BrowserSiteCompatibilityMode =
-    | "default"
-    | "internetExplorer8Enterprise"
-    | "internetExplorer7Enterprise"
-    | "internetExplorer11"
-    | "internetExplorer10"
-    | "internetExplorer9"
-    | "internetExplorer8"
-    | "internetExplorer7"
-    | "internetExplorer5"
-    | "unknownFutureValue";
-export type BrowserSiteListStatus = "draft" | "published" | "pending" | "unknownFutureValue";
-export type BrowserSiteMergeType = "noMerge" | "default" | "unknownFutureValue";
-export type BrowserSiteStatus = "published" | "pendingAdd" | "pendingEdit" | "pendingDelete" | "unknownFutureValue";
+    | 'default'
+    | 'internetExplorer8Enterprise'
+    | 'internetExplorer7Enterprise'
+    | 'internetExplorer11'
+    | 'internetExplorer10'
+    | 'internetExplorer9'
+    | 'internetExplorer8'
+    | 'internetExplorer7'
+    | 'internetExplorer5'
+    | 'unknownFutureValue';
+export type BrowserSiteListStatus = 'draft' | 'published' | 'pending' | 'unknownFutureValue';
+export type BrowserSiteMergeType = 'noMerge' | 'default' | 'unknownFutureValue';
+export type BrowserSiteStatus = 'published' | 'pendingAdd' | 'pendingEdit' | 'pendingDelete' | 'unknownFutureValue';
 export type BrowserSiteTargetEnvironment =
-    | "internetExplorerMode"
-    | "internetExplorer11"
-    | "microsoftEdge"
-    | "configurable"
-    | "none"
-    | "unknownFutureValue";
-export type EducationAddedStudentAction = "none" | "assignIfOpen" | "unknownFutureValue";
+    | 'internetExplorerMode'
+    | 'internetExplorer11'
+    | 'microsoftEdge'
+    | 'configurable'
+    | 'none'
+    | 'unknownFutureValue';
+export type EducationAddedStudentAction = 'none' | 'assignIfOpen' | 'unknownFutureValue';
 export type EducationAddToCalendarOptions =
-    | "none"
-    | "studentsAndPublisher"
-    | "studentsAndTeamOwners"
-    | "unknownFutureValue"
-    | "studentsOnly";
-export type EducationAssignmentStatus = "draft" | "published" | "assigned" | "unknownFutureValue";
+    | 'none'
+    | 'studentsAndPublisher'
+    | 'studentsAndTeamOwners'
+    | 'unknownFutureValue'
+    | 'studentsOnly';
+export type EducationAssignmentStatus = 'draft' | 'published' | 'assigned' | 'unknownFutureValue';
 export type EducationFeedbackResourceOutcomeStatus =
-    | "notPublished"
-    | "pendingPublish"
-    | "published"
-    | "failedPublish"
-    | "unknownFutureValue";
+    | 'notPublished'
+    | 'pendingPublish'
+    | 'published'
+    | 'failedPublish'
+    | 'unknownFutureValue';
 export type EducationSubmissionStatus =
-    | "working"
-    | "submitted"
-    | "released"
-    | "returned"
-    | "unknownFutureValue"
-    | "reassigned";
+    | 'working'
+    | 'submitted'
+    | 'released'
+    | 'returned'
+    | 'unknownFutureValue'
+    | 'reassigned';
 export type ContactRelationship =
-    | "parent"
-    | "relative"
-    | "aide"
-    | "doctor"
-    | "guardian"
-    | "child"
-    | "other"
-    | "unknownFutureValue";
-export type EducationExternalSource = "sis" | "manual" | "unknownFutureValue";
-export type EducationGender = "female" | "male" | "other" | "unknownFutureValue";
-export type EducationUserRole = "student" | "teacher" | "none" | "unknownFutureValue";
-export type WorkbookOperationStatus = "notStarted" | "running" | "succeeded" | "failed";
-export type ActivityDomain = "unknown" | "work" | "personal" | "unrestricted";
-export type AttendeeType = "required" | "optional" | "resource";
-export type FreeBusyStatus = "unknown" | "free" | "tentative" | "busy" | "oof" | "workingElsewhere";
-export type BookingType = "unknown" | "standard" | "reserved";
-export type AttachmentType = "file" | "item" | "reference";
-export type AutomaticRepliesStatus = "disabled" | "alwaysEnabled" | "scheduled";
+    | 'parent'
+    | 'relative'
+    | 'aide'
+    | 'doctor'
+    | 'guardian'
+    | 'child'
+    | 'other'
+    | 'unknownFutureValue';
+export type EducationExternalSource = 'sis' | 'manual' | 'unknownFutureValue';
+export type EducationGender = 'female' | 'male' | 'other' | 'unknownFutureValue';
+export type EducationUserRole = 'student' | 'teacher' | 'none' | 'unknownFutureValue';
+export type WorkbookOperationStatus = 'notStarted' | 'running' | 'succeeded' | 'failed';
+export type ActivityDomain = 'unknown' | 'work' | 'personal' | 'unrestricted';
+export type AttendeeType = 'required' | 'optional' | 'resource';
+export type FreeBusyStatus = 'unknown' | 'free' | 'tentative' | 'busy' | 'oof' | 'workingElsewhere';
+export type BookingType = 'unknown' | 'standard' | 'reserved';
+export type AttachmentType = 'file' | 'item' | 'reference';
+export type AutomaticRepliesStatus = 'disabled' | 'alwaysEnabled' | 'scheduled';
 export type CalendarColor =
-    | "auto"
-    | "lightBlue"
-    | "lightGreen"
-    | "lightOrange"
-    | "lightGray"
-    | "lightYellow"
-    | "lightTeal"
-    | "lightPink"
-    | "lightBrown"
-    | "lightRed"
-    | "maxColor";
+    | 'auto'
+    | 'lightBlue'
+    | 'lightGreen'
+    | 'lightOrange'
+    | 'lightGray'
+    | 'lightYellow'
+    | 'lightTeal'
+    | 'lightPink'
+    | 'lightBrown'
+    | 'lightRed'
+    | 'maxColor';
 export type CalendarRoleType =
-    | "none"
-    | "freeBusyRead"
-    | "limitedRead"
-    | "read"
-    | "write"
-    | "delegateWithoutPrivateEventAccess"
-    | "delegateWithPrivateEventAccess"
-    | "custom";
-export type CalendarSharingAction = "accept" | "acceptAndViewCalendar" | "viewCalendar" | "addThisCalendar";
-export type CalendarSharingActionImportance = "primary" | "secondary";
-export type CalendarSharingActionType = "accept";
+    | 'none'
+    | 'freeBusyRead'
+    | 'limitedRead'
+    | 'read'
+    | 'write'
+    | 'delegateWithoutPrivateEventAccess'
+    | 'delegateWithPrivateEventAccess'
+    | 'custom';
+export type CalendarSharingAction = 'accept' | 'acceptAndViewCalendar' | 'viewCalendar' | 'addThisCalendar';
+export type CalendarSharingActionImportance = 'primary' | 'secondary';
+export type CalendarSharingActionType = 'accept';
 export type CategoryColor =
-    | "none"
-    | "preset0"
-    | "preset1"
-    | "preset2"
-    | "preset3"
-    | "preset4"
-    | "preset5"
-    | "preset6"
-    | "preset7"
-    | "preset8"
-    | "preset9"
-    | "preset10"
-    | "preset11"
-    | "preset12"
-    | "preset13"
-    | "preset14"
-    | "preset15"
-    | "preset16"
-    | "preset17"
-    | "preset18"
-    | "preset19"
-    | "preset20"
-    | "preset21"
-    | "preset22"
-    | "preset23"
-    | "preset24";
+    | 'none'
+    | 'preset0'
+    | 'preset1'
+    | 'preset2'
+    | 'preset3'
+    | 'preset4'
+    | 'preset5'
+    | 'preset6'
+    | 'preset7'
+    | 'preset8'
+    | 'preset9'
+    | 'preset10'
+    | 'preset11'
+    | 'preset12'
+    | 'preset13'
+    | 'preset14'
+    | 'preset15'
+    | 'preset16'
+    | 'preset17'
+    | 'preset18'
+    | 'preset19'
+    | 'preset20'
+    | 'preset21'
+    | 'preset22'
+    | 'preset23'
+    | 'preset24';
 export type DelegateMeetingMessageDeliveryOptions =
-    | "sendToDelegateAndInformationToPrincipal"
-    | "sendToDelegateAndPrincipal"
-    | "sendToDelegateOnly";
-export type EventType = "singleInstance" | "occurrence" | "exception" | "seriesMaster";
-export type ExchangeIdFormat = "entryId" | "ewsId" | "immutableEntryId" | "restId" | "restImmutableEntryId";
-export type ExternalAudienceScope = "none" | "contactsOnly" | "all";
-export type FollowupFlagStatus = "notFlagged" | "complete" | "flagged";
-export type Importance = "low" | "normal" | "high";
-export type InferenceClassificationType = "focused" | "other";
+    | 'sendToDelegateAndInformationToPrincipal'
+    | 'sendToDelegateAndPrincipal'
+    | 'sendToDelegateOnly';
+export type EventType = 'singleInstance' | 'occurrence' | 'exception' | 'seriesMaster';
+export type ExchangeIdFormat = 'entryId' | 'ewsId' | 'immutableEntryId' | 'restId' | 'restImmutableEntryId';
+export type ExternalAudienceScope = 'none' | 'contactsOnly' | 'all';
+export type FollowupFlagStatus = 'notFlagged' | 'complete' | 'flagged';
+export type Importance = 'low' | 'normal' | 'high';
+export type InferenceClassificationType = 'focused' | 'other';
 export type MailTipsType =
-    | "automaticReplies"
-    | "mailboxFullStatus"
-    | "customMailTip"
-    | "externalMemberCount"
-    | "totalMemberCount"
-    | "maxMessageSize"
-    | "deliveryRestriction"
-    | "moderationStatus"
-    | "recipientScope"
-    | "recipientSuggestions";
+    | 'automaticReplies'
+    | 'mailboxFullStatus'
+    | 'customMailTip'
+    | 'externalMemberCount'
+    | 'totalMemberCount'
+    | 'maxMessageSize'
+    | 'deliveryRestriction'
+    | 'moderationStatus'
+    | 'recipientScope'
+    | 'recipientSuggestions';
 export type MeetingMessageType =
-    | "none"
-    | "meetingRequest"
-    | "meetingCancelled"
-    | "meetingAccepted"
-    | "meetingTenativelyAccepted"
-    | "meetingDeclined";
+    | 'none'
+    | 'meetingRequest'
+    | 'meetingCancelled'
+    | 'meetingAccepted'
+    | 'meetingTenativelyAccepted'
+    | 'meetingDeclined';
 export type MeetingRequestType =
-    | "none"
-    | "newMeetingRequest"
-    | "fullUpdate"
-    | "informationalUpdate"
-    | "silentUpdate"
-    | "outdated"
-    | "principalWantsCopy";
+    | 'none'
+    | 'newMeetingRequest'
+    | 'fullUpdate'
+    | 'informationalUpdate'
+    | 'silentUpdate'
+    | 'outdated'
+    | 'principalWantsCopy';
 export type MessageActionFlag =
-    | "any"
-    | "call"
-    | "doNotForward"
-    | "followUp"
-    | "fyi"
-    | "forward"
-    | "noResponseNecessary"
-    | "read"
-    | "reply"
-    | "replyToAll"
-    | "review";
-export type OnlineMeetingProviderType = "unknown" | "skypeForBusiness" | "skypeForConsumer" | "teamsForBusiness";
-export type RecipientScopeType = "none" | "internal" | "external" | "externalPartner" | "externalNonPartner";
+    | 'any'
+    | 'call'
+    | 'doNotForward'
+    | 'followUp'
+    | 'fyi'
+    | 'forward'
+    | 'noResponseNecessary'
+    | 'read'
+    | 'reply'
+    | 'replyToAll'
+    | 'review';
+export type OnlineMeetingProviderType = 'unknown' | 'skypeForBusiness' | 'skypeForConsumer' | 'teamsForBusiness';
+export type RecipientScopeType = 'none' | 'internal' | 'external' | 'externalPartner' | 'externalNonPartner';
 export type RecurrencePatternType =
-    | "daily"
-    | "weekly"
-    | "absoluteMonthly"
-    | "relativeMonthly"
-    | "absoluteYearly"
-    | "relativeYearly";
-export type RecurrenceRangeType = "endDate" | "noEnd" | "numbered";
-export type ResponseType = "none" | "organizer" | "tentativelyAccepted" | "accepted" | "declined" | "notResponded";
-export type SelectionLikelihoodInfo = "notSpecified" | "high";
-export type Sensitivity = "normal" | "personal" | "private" | "confidential";
-export type TimeZoneStandard = "windows" | "iana";
-export type UserPurpose = "user" | "linked" | "shared" | "room" | "equipment" | "others" | "unknownFutureValue";
-export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
-export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
-export type ImageTaggingChoice = "disabled" | "basic" | "enhanced" | "unknownFutureValue";
+    | 'daily'
+    | 'weekly'
+    | 'absoluteMonthly'
+    | 'relativeMonthly'
+    | 'absoluteYearly'
+    | 'relativeYearly';
+export type RecurrenceRangeType = 'endDate' | 'noEnd' | 'numbered';
+export type ResponseType = 'none' | 'organizer' | 'tentativelyAccepted' | 'accepted' | 'declined' | 'notResponded';
+export type SelectionLikelihoodInfo = 'notSpecified' | 'high';
+export type Sensitivity = 'normal' | 'personal' | 'private' | 'confidential';
+export type TimeZoneStandard = 'windows' | 'iana';
+export type UserPurpose = 'user' | 'linked' | 'shared' | 'room' | 'equipment' | 'others' | 'unknownFutureValue';
+export type WebsiteType = 'other' | 'home' | 'work' | 'blog' | 'profile';
+export type WeekIndex = 'first' | 'second' | 'third' | 'fourth' | 'last';
+export type ImageTaggingChoice = 'disabled' | 'basic' | 'enhanced' | 'unknownFutureValue';
 export type SharingCapabilities =
-    | "disabled"
-    | "externalUserSharingOnly"
-    | "externalUserAndGuestSharing"
-    | "existingExternalUserSharingOnly"
-    | "unknownFutureValue";
-export type SharingDomainRestrictionMode = "none" | "allowList" | "blockList" | "unknownFutureValue";
+    | 'disabled'
+    | 'externalUserSharingOnly'
+    | 'externalUserAndGuestSharing'
+    | 'existingExternalUserSharingOnly'
+    | 'unknownFutureValue';
+export type SharingDomainRestrictionMode = 'none' | 'allowList' | 'blockList' | 'unknownFutureValue';
 export type ColumnTypes =
-    | "note"
-    | "text"
-    | "choice"
-    | "multichoice"
-    | "number"
-    | "currency"
-    | "dateTime"
-    | "lookup"
-    | "boolean"
-    | "user"
-    | "url"
-    | "calculated"
-    | "location"
-    | "geolocation"
-    | "term"
-    | "multiterm"
-    | "thumbnail"
-    | "approvalStatus"
-    | "unknownFutureValue";
-export type LongRunningOperationStatus = "notStarted" | "running" | "succeeded" | "failed" | "unknownFutureValue";
-export type SensitivityLabelAssignmentMethod = "standard" | "privileged" | "auto" | "unknownFutureValue";
+    | 'note'
+    | 'text'
+    | 'choice'
+    | 'multichoice'
+    | 'number'
+    | 'currency'
+    | 'dateTime'
+    | 'lookup'
+    | 'boolean'
+    | 'user'
+    | 'url'
+    | 'calculated'
+    | 'location'
+    | 'geolocation'
+    | 'term'
+    | 'multiterm'
+    | 'thumbnail'
+    | 'approvalStatus'
+    | 'unknownFutureValue';
+export type LongRunningOperationStatus = 'notStarted' | 'running' | 'succeeded' | 'failed' | 'unknownFutureValue';
+export type SensitivityLabelAssignmentMethod = 'standard' | 'privileged' | 'auto' | 'unknownFutureValue';
 export type StagedFeatureName =
-    | "passthroughAuthentication"
-    | "seamlessSso"
-    | "passwordHashSync"
-    | "emailAsAlternateId"
-    | "unknownFutureValue"
-    | "certificateBasedAuthentication"
-    | "multiFactorAuthentication";
+    | 'passthroughAuthentication'
+    | 'seamlessSso'
+    | 'passwordHashSync'
+    | 'emailAsAlternateId'
+    | 'unknownFutureValue'
+    | 'certificateBasedAuthentication'
+    | 'multiFactorAuthentication';
 export type AttributeDefinitionMetadata =
-    | "BaseAttributeName"
-    | "ComplexObjectDefinition"
-    | "IsContainer"
-    | "IsCustomerDefined"
-    | "IsDomainQualified"
-    | "LinkPropertyNames"
-    | "LinkTypeName"
-    | "MaximumLength"
-    | "ReferencedProperty";
-export type AttributeFlowBehavior = "FlowWhenChanged" | "FlowAlways";
-export type AttributeFlowType = "Always" | "ObjectAddOnly" | "MultiValueAddOnly" | "ValueAddOnly" | "AttributeAddOnly";
-export type AttributeMappingSourceType = "Attribute" | "Constant" | "Function";
-export type AttributeType = "String" | "Integer" | "Reference" | "Binary" | "Boolean" | "DateTime";
+    | 'BaseAttributeName'
+    | 'ComplexObjectDefinition'
+    | 'IsContainer'
+    | 'IsCustomerDefined'
+    | 'IsDomainQualified'
+    | 'LinkPropertyNames'
+    | 'LinkTypeName'
+    | 'MaximumLength'
+    | 'ReferencedProperty';
+export type AttributeFlowBehavior = 'FlowWhenChanged' | 'FlowAlways';
+export type AttributeFlowType = 'Always' | 'ObjectAddOnly' | 'MultiValueAddOnly' | 'ValueAddOnly' | 'AttributeAddOnly';
+export type AttributeMappingSourceType = 'Attribute' | 'Constant' | 'Function';
+export type AttributeType = 'String' | 'Integer' | 'Reference' | 'Binary' | 'Boolean' | 'DateTime';
 export type DirectoryDefinitionDiscoverabilities =
-    | "None"
-    | "AttributeNames"
-    | "AttributeDataTypes"
-    | "AttributeReadOnly"
-    | "ReferenceAttributes"
-    | "UnknownFutureValue";
-export type EntryExportStatus = "Noop" | "Success" | "RetryableError" | "PermanentError" | "Error";
-export type EntrySyncOperation = "None" | "Add" | "Delete" | "Update";
-export type EscrowBehavior = "Default" | "IgnoreLookupReferenceResolutionFailure";
-export type Mutability = "ReadWrite" | "ReadOnly" | "Immutable" | "WriteOnly";
+    | 'None'
+    | 'AttributeNames'
+    | 'AttributeDataTypes'
+    | 'AttributeReadOnly'
+    | 'ReferenceAttributes'
+    | 'UnknownFutureValue';
+export type EntryExportStatus = 'Noop' | 'Success' | 'RetryableError' | 'PermanentError' | 'Error';
+export type EntrySyncOperation = 'None' | 'Add' | 'Delete' | 'Update';
+export type EscrowBehavior = 'Default' | 'IgnoreLookupReferenceResolutionFailure';
+export type Mutability = 'ReadWrite' | 'ReadOnly' | 'Immutable' | 'WriteOnly';
 export type ObjectDefinitionMetadata =
-    | "PropertyNameAccountEnabled"
-    | "PropertyNameSoftDeleted"
-    | "IsSoftDeletionSupported"
-    | "IsSynchronizeAllSupported"
-    | "ConnectorDataStorageRequired"
-    | "Extensions"
-    | "BaseObjectName";
-export type ObjectFlowTypes = "None" | "Add" | "Update" | "Delete";
+    | 'PropertyNameAccountEnabled'
+    | 'PropertyNameSoftDeleted'
+    | 'IsSoftDeletionSupported'
+    | 'IsSynchronizeAllSupported'
+    | 'ConnectorDataStorageRequired'
+    | 'Extensions'
+    | 'BaseObjectName';
+export type ObjectFlowTypes = 'None' | 'Add' | 'Update' | 'Delete';
 export type ObjectMappingMetadata =
-    | "EscrowBehavior"
-    | "DisableMonitoringForChanges"
-    | "OriginalJoiningProperty"
-    | "Disposition"
-    | "IsCustomerDefined"
-    | "ExcludeFromReporting"
-    | "Unsynchronized";
+    | 'EscrowBehavior'
+    | 'DisableMonitoringForChanges'
+    | 'OriginalJoiningProperty'
+    | 'Disposition'
+    | 'IsCustomerDefined'
+    | 'ExcludeFromReporting'
+    | 'Unsynchronized';
 export type QuarantineReason =
-    | "EncounteredBaseEscrowThreshold"
-    | "EncounteredTotalEscrowThreshold"
-    | "EncounteredEscrowProportionThreshold"
-    | "EncounteredQuarantineException"
-    | "Unknown"
-    | "QuarantinedOnDemand"
-    | "TooManyDeletes"
-    | "IngestionInterrupted";
-export type ScopeOperatorMultiValuedComparisonType = "All" | "Any";
-export type ScopeOperatorType = "Binary" | "Unary";
-export type SynchronizationDisposition = "Normal" | "Discard" | "Escrow";
+    | 'EncounteredBaseEscrowThreshold'
+    | 'EncounteredTotalEscrowThreshold'
+    | 'EncounteredEscrowProportionThreshold'
+    | 'EncounteredQuarantineException'
+    | 'Unknown'
+    | 'QuarantinedOnDemand'
+    | 'TooManyDeletes'
+    | 'IngestionInterrupted';
+export type ScopeOperatorMultiValuedComparisonType = 'All' | 'Any';
+export type ScopeOperatorType = 'Binary' | 'Unary';
+export type SynchronizationDisposition = 'Normal' | 'Discard' | 'Escrow';
 export type SynchronizationJobRestartScope =
-    | "None"
-    | "ConnectorDataStore"
-    | "Escrows"
-    | "Watermark"
-    | "QuarantineState"
-    | "Full"
-    | "ForceDeletes";
+    | 'None'
+    | 'ConnectorDataStore'
+    | 'Escrows'
+    | 'Watermark'
+    | 'QuarantineState'
+    | 'Full'
+    | 'ForceDeletes';
 export type SynchronizationMetadata =
-    | "GalleryApplicationIdentifier"
-    | "GalleryApplicationKey"
-    | "IsOAuthEnabled"
-    | "IsSynchronizationAgentAssignmentRequired"
-    | "IsSynchronizationAgentRequired"
-    | "IsSynchronizationInPreview"
-    | "OAuthSettings"
-    | "SynchronizationLearnMoreIbizaFwLink"
-    | "ConfigurationFields";
-export type SynchronizationScheduleState = "Active" | "Disabled" | "Paused";
+    | 'GalleryApplicationIdentifier'
+    | 'GalleryApplicationKey'
+    | 'IsOAuthEnabled'
+    | 'IsSynchronizationAgentAssignmentRequired'
+    | 'IsSynchronizationAgentRequired'
+    | 'IsSynchronizationInPreview'
+    | 'OAuthSettings'
+    | 'SynchronizationLearnMoreIbizaFwLink'
+    | 'ConfigurationFields';
+export type SynchronizationScheduleState = 'Active' | 'Disabled' | 'Paused';
 export type SynchronizationSecret =
-    | "None"
-    | "UserName"
-    | "Password"
-    | "SecretToken"
-    | "AppKey"
-    | "BaseAddress"
-    | "ClientIdentifier"
-    | "ClientSecret"
-    | "SingleSignOnType"
-    | "Sandbox"
-    | "Url"
-    | "Domain"
-    | "ConsumerKey"
-    | "ConsumerSecret"
-    | "TokenKey"
-    | "TokenExpiration"
-    | "Oauth2AccessToken"
-    | "Oauth2AccessTokenCreationTime"
-    | "Oauth2RefreshToken"
-    | "SyncAll"
-    | "InstanceName"
-    | "Oauth2ClientId"
-    | "Oauth2ClientSecret"
-    | "CompanyId"
-    | "UpdateKeyOnSoftDelete"
-    | "SynchronizationSchedule"
-    | "SystemOfRecord"
-    | "SandboxName"
-    | "EnforceDomain"
-    | "SyncNotificationSettings"
-    | "SkipOutOfScopeDeletions"
-    | "Oauth2AuthorizationCode"
-    | "Oauth2RedirectUri"
-    | "ApplicationTemplateIdentifier"
-    | "Oauth2TokenExchangeUri"
-    | "Oauth2AuthorizationUri"
-    | "AuthenticationType"
-    | "Server"
-    | "PerformInboundEntitlementGrants"
-    | "HardDeletesEnabled"
-    | "SyncAgentCompatibilityKey"
-    | "SyncAgentADContainer"
-    | "ValidateDomain"
-    | "TestReferences"
-    | "ConnectionString";
-export type SynchronizationStatusCode = "NotConfigured" | "NotRun" | "Active" | "Paused" | "Quarantine";
-export type SynchronizationTaskExecutionResult = "Succeeded" | "Failed" | "EntryLevelErrors";
+    | 'None'
+    | 'UserName'
+    | 'Password'
+    | 'SecretToken'
+    | 'AppKey'
+    | 'BaseAddress'
+    | 'ClientIdentifier'
+    | 'ClientSecret'
+    | 'SingleSignOnType'
+    | 'Sandbox'
+    | 'Url'
+    | 'Domain'
+    | 'ConsumerKey'
+    | 'ConsumerSecret'
+    | 'TokenKey'
+    | 'TokenExpiration'
+    | 'Oauth2AccessToken'
+    | 'Oauth2AccessTokenCreationTime'
+    | 'Oauth2RefreshToken'
+    | 'SyncAll'
+    | 'InstanceName'
+    | 'Oauth2ClientId'
+    | 'Oauth2ClientSecret'
+    | 'CompanyId'
+    | 'UpdateKeyOnSoftDelete'
+    | 'SynchronizationSchedule'
+    | 'SystemOfRecord'
+    | 'SandboxName'
+    | 'EnforceDomain'
+    | 'SyncNotificationSettings'
+    | 'SkipOutOfScopeDeletions'
+    | 'Oauth2AuthorizationCode'
+    | 'Oauth2RedirectUri'
+    | 'ApplicationTemplateIdentifier'
+    | 'Oauth2TokenExchangeUri'
+    | 'Oauth2AuthorizationUri'
+    | 'AuthenticationType'
+    | 'Server'
+    | 'PerformInboundEntitlementGrants'
+    | 'HardDeletesEnabled'
+    | 'SyncAgentCompatibilityKey'
+    | 'SyncAgentADContainer'
+    | 'ValidateDomain'
+    | 'TestReferences'
+    | 'ConnectionString';
+export type SynchronizationStatusCode = 'NotConfigured' | 'NotRun' | 'Active' | 'Paused' | 'Quarantine';
+export type SynchronizationTaskExecutionResult = 'Succeeded' | 'Failed' | 'EntryLevelErrors';
 export type AccessReviewHistoryDecisionFilter =
-    | "approve"
-    | "deny"
-    | "notReviewed"
-    | "dontKnow"
-    | "notNotified"
-    | "unknownFutureValue";
-export type AccessReviewHistoryStatus = "done" | "inprogress" | "error" | "requested" | "unknownFutureValue";
-export type AccessReviewInstanceDecisionItemFilterByCurrentUserOptions = "reviewer" | "unknownFutureValue";
-export type AccessReviewInstanceFilterByCurrentUserOptions = "reviewer" | "unknownFutureValue";
-export type AccessReviewScheduleDefinitionFilterByCurrentUserOptions = "reviewer" | "unknownFutureValue";
-export type AccessReviewStageFilterByCurrentUserOptions = "reviewer" | "unknownFutureValue";
-export type ApprovalFilterByCurrentUserOptions = "target" | "createdBy" | "approver" | "unknownFutureValue";
-export type ConsentRequestFilterByCurrentUserOptions = "reviewer" | "unknownFutureValue";
-export type UserSignInRecommendationScope = "tenant" | "application" | "unknownFutureValue";
-export type AgreementAcceptanceState = "accepted" | "declined" | "unknownFutureValue";
-export type ActivityType = "signin" | "user" | "unknownFutureValue" | "servicePrincipal";
+    | 'approve'
+    | 'deny'
+    | 'notReviewed'
+    | 'dontKnow'
+    | 'notNotified'
+    | 'unknownFutureValue';
+export type AccessReviewHistoryStatus = 'done' | 'inprogress' | 'error' | 'requested' | 'unknownFutureValue';
+export type AccessReviewInstanceDecisionItemFilterByCurrentUserOptions = 'reviewer' | 'unknownFutureValue';
+export type AccessReviewInstanceFilterByCurrentUserOptions = 'reviewer' | 'unknownFutureValue';
+export type AccessReviewScheduleDefinitionFilterByCurrentUserOptions = 'reviewer' | 'unknownFutureValue';
+export type AccessReviewStageFilterByCurrentUserOptions = 'reviewer' | 'unknownFutureValue';
+export type ApprovalFilterByCurrentUserOptions = 'target' | 'createdBy' | 'approver' | 'unknownFutureValue';
+export type ConsentRequestFilterByCurrentUserOptions = 'reviewer' | 'unknownFutureValue';
+export type UserSignInRecommendationScope = 'tenant' | 'application' | 'unknownFutureValue';
+export type AgreementAcceptanceState = 'accepted' | 'declined' | 'unknownFutureValue';
+export type ActivityType = 'signin' | 'user' | 'unknownFutureValue' | 'servicePrincipal';
 export type CloudAppSecuritySessionControlType =
-    | "mcasConfigured"
-    | "monitorOnly"
-    | "blockDownloads"
-    | "unknownFutureValue";
+    | 'mcasConfigured'
+    | 'monitorOnly'
+    | 'blockDownloads'
+    | 'unknownFutureValue';
 export type ConditionalAccessClientApp =
-    | "all"
-    | "browser"
-    | "mobileAppsAndDesktopClients"
-    | "exchangeActiveSync"
-    | "easSupported"
-    | "other"
-    | "unknownFutureValue";
+    | 'all'
+    | 'browser'
+    | 'mobileAppsAndDesktopClients'
+    | 'exchangeActiveSync'
+    | 'easSupported'
+    | 'other'
+    | 'unknownFutureValue';
 export type ConditionalAccessDevicePlatform =
-    | "android"
-    | "iOS"
-    | "windows"
-    | "windowsPhone"
-    | "macOS"
-    | "all"
-    | "unknownFutureValue"
-    | "linux";
-export type ConditionalAccessExternalTenantsMembershipKind = "all" | "enumerated" | "unknownFutureValue";
+    | 'android'
+    | 'iOS'
+    | 'windows'
+    | 'windowsPhone'
+    | 'macOS'
+    | 'all'
+    | 'unknownFutureValue'
+    | 'linux';
+export type ConditionalAccessExternalTenantsMembershipKind = 'all' | 'enumerated' | 'unknownFutureValue';
 export type ConditionalAccessGrantControl =
-    | "block"
-    | "mfa"
-    | "compliantDevice"
-    | "domainJoinedDevice"
-    | "approvedApplication"
-    | "compliantApplication"
-    | "passwordChange"
-    | "unknownFutureValue";
+    | 'block'
+    | 'mfa'
+    | 'compliantDevice'
+    | 'domainJoinedDevice'
+    | 'approvedApplication'
+    | 'compliantApplication'
+    | 'passwordChange'
+    | 'unknownFutureValue';
 export type ConditionalAccessGuestOrExternalUserTypes =
-    | "none"
-    | "internalGuest"
-    | "b2bCollaborationGuest"
-    | "b2bCollaborationMember"
-    | "b2bDirectConnectUser"
-    | "otherExternalUser"
-    | "serviceProvider"
-    | "unknownFutureValue";
-export type ConditionalAccessPolicyState = "enabled" | "disabled" | "enabledForReportingButNotEnforced";
-export type CountryLookupMethodType = "clientIpAddress" | "authenticatorAppGps" | "unknownFutureValue";
-export type FilterMode = "include" | "exclude";
-export type PersistentBrowserSessionMode = "always" | "never";
-export type RiskDetectionTimingType = "notDefined" | "realtime" | "nearRealtime" | "offline" | "unknownFutureValue";
+    | 'none'
+    | 'internalGuest'
+    | 'b2bCollaborationGuest'
+    | 'b2bCollaborationMember'
+    | 'b2bDirectConnectUser'
+    | 'otherExternalUser'
+    | 'serviceProvider'
+    | 'unknownFutureValue';
+export type ConditionalAccessPolicyState = 'enabled' | 'disabled' | 'enabledForReportingButNotEnforced';
+export type CountryLookupMethodType = 'clientIpAddress' | 'authenticatorAppGps' | 'unknownFutureValue';
+export type FilterMode = 'include' | 'exclude';
+export type PersistentBrowserSessionMode = 'always' | 'never';
+export type RiskDetectionTimingType = 'notDefined' | 'realtime' | 'nearRealtime' | 'offline' | 'unknownFutureValue';
 export type SignInFrequencyAuthenticationType =
-    | "primaryAndSecondaryAuthentication"
-    | "secondaryAuthentication"
-    | "unknownFutureValue";
-export type SignInFrequencyInterval = "timeBased" | "everyTime" | "unknownFutureValue";
-export type SigninFrequencyType = "days" | "hours";
+    | 'primaryAndSecondaryAuthentication'
+    | 'secondaryAuthentication'
+    | 'unknownFutureValue';
+export type SignInFrequencyInterval = 'timeBased' | 'everyTime' | 'unknownFutureValue';
+export type SigninFrequencyType = 'days' | 'hours';
 export type TemplateScenarios =
-    | "new"
-    | "secureFoundation"
-    | "zeroTrust"
-    | "remoteWork"
-    | "protectAdmins"
-    | "emergingThreats"
-    | "unknownFutureValue";
+    | 'new'
+    | 'secureFoundation'
+    | 'zeroTrust'
+    | 'remoteWork'
+    | 'protectAdmins'
+    | 'emergingThreats'
+    | 'unknownFutureValue';
 export type TokenIssuerType =
-    | "AzureAD"
-    | "ADFederationServices"
-    | "UnknownFutureValue"
-    | "AzureADBackupAuth"
-    | "ADFederationServicesMFAAdapter"
-    | "NPSExtension";
-export type AccessPackageAssignmentFilterByCurrentUserOptions = "target" | "createdBy" | "unknownFutureValue";
+    | 'AzureAD'
+    | 'ADFederationServices'
+    | 'UnknownFutureValue'
+    | 'AzureADBackupAuth'
+    | 'ADFederationServicesMFAAdapter'
+    | 'NPSExtension';
+export type AccessPackageAssignmentFilterByCurrentUserOptions = 'target' | 'createdBy' | 'unknownFutureValue';
 export type AccessPackageAssignmentRequestFilterByCurrentUserOptions =
-    | "target"
-    | "createdBy"
-    | "approver"
-    | "unknownFutureValue";
+    | 'target'
+    | 'createdBy'
+    | 'approver'
+    | 'unknownFutureValue';
 export type AccessPackageAssignmentState =
-    | "delivering"
-    | "partiallyDelivered"
-    | "delivered"
-    | "expired"
-    | "deliveryFailed"
-    | "unknownFutureValue";
-export type AccessPackageCatalogState = "unpublished" | "published" | "unknownFutureValue";
-export type AccessPackageCatalogType = "userManaged" | "serviceDefault" | "serviceManaged" | "unknownFutureValue";
+    | 'delivering'
+    | 'partiallyDelivered'
+    | 'delivered'
+    | 'expired'
+    | 'deliveryFailed'
+    | 'unknownFutureValue';
+export type AccessPackageCatalogState = 'unpublished' | 'published' | 'unknownFutureValue';
+export type AccessPackageCatalogType = 'userManaged' | 'serviceDefault' | 'serviceManaged' | 'unknownFutureValue';
 export type AccessPackageCustomExtensionStage =
-    | "assignmentRequestCreated"
-    | "assignmentRequestApproved"
-    | "assignmentRequestGranted"
-    | "assignmentRequestRemoved"
-    | "assignmentFourteenDaysBeforeExpiration"
-    | "assignmentOneDayBeforeExpiration"
-    | "unknownFutureValue";
+    | 'assignmentRequestCreated'
+    | 'assignmentRequestApproved'
+    | 'assignmentRequestGranted'
+    | 'assignmentRequestRemoved'
+    | 'assignmentFourteenDaysBeforeExpiration'
+    | 'assignmentOneDayBeforeExpiration'
+    | 'unknownFutureValue';
 export type AccessPackageExternalUserLifecycleAction =
-    | "none"
-    | "blockSignIn"
-    | "blockSignInAndDelete"
-    | "unknownFutureValue";
-export type AccessPackageFilterByCurrentUserOptions = "allowedRequestor" | "unknownFutureValue";
+    | 'none'
+    | 'blockSignIn'
+    | 'blockSignInAndDelete'
+    | 'unknownFutureValue';
+export type AccessPackageFilterByCurrentUserOptions = 'allowedRequestor' | 'unknownFutureValue';
 export type AccessPackageRequestState =
-    | "submitted"
-    | "pendingApproval"
-    | "delivering"
-    | "delivered"
-    | "deliveryFailed"
-    | "denied"
-    | "scheduled"
-    | "canceled"
-    | "partiallyDelivered"
-    | "unknownFutureValue";
+    | 'submitted'
+    | 'pendingApproval'
+    | 'delivering'
+    | 'delivered'
+    | 'deliveryFailed'
+    | 'denied'
+    | 'scheduled'
+    | 'canceled'
+    | 'partiallyDelivered'
+    | 'unknownFutureValue';
 export type AccessPackageRequestType =
-    | "notSpecified"
-    | "userAdd"
-    | "userUpdate"
-    | "userRemove"
-    | "adminAdd"
-    | "adminUpdate"
-    | "adminRemove"
-    | "systemAdd"
-    | "systemUpdate"
-    | "systemRemove"
-    | "onBehalfAdd"
-    | "unknownFutureValue";
-export type AccessPackageSubjectType = "notSpecified" | "user" | "servicePrincipal" | "unknownFutureValue";
+    | 'notSpecified'
+    | 'userAdd'
+    | 'userUpdate'
+    | 'userRemove'
+    | 'adminAdd'
+    | 'adminUpdate'
+    | 'adminRemove'
+    | 'systemAdd'
+    | 'systemUpdate'
+    | 'systemRemove'
+    | 'onBehalfAdd'
+    | 'unknownFutureValue';
+export type AccessPackageSubjectType = 'notSpecified' | 'user' | 'servicePrincipal' | 'unknownFutureValue';
 export type AccessReviewExpirationBehavior =
-    | "keepAccess"
-    | "removeAccess"
-    | "acceptAccessRecommendation"
-    | "unknownFutureValue";
+    | 'keepAccess'
+    | 'removeAccess'
+    | 'acceptAccessRecommendation'
+    | 'unknownFutureValue';
 export type AllowedTargetScope =
-    | "notSpecified"
-    | "specificDirectoryUsers"
-    | "specificConnectedOrganizationUsers"
-    | "specificDirectoryServicePrincipals"
-    | "allMemberUsers"
-    | "allDirectoryUsers"
-    | "allDirectoryServicePrincipals"
-    | "allConfiguredConnectedOrganizationUsers"
-    | "allExternalUsers"
-    | "unknownFutureValue";
+    | 'notSpecified'
+    | 'specificDirectoryUsers'
+    | 'specificConnectedOrganizationUsers'
+    | 'specificDirectoryServicePrincipals'
+    | 'allMemberUsers'
+    | 'allDirectoryUsers'
+    | 'allDirectoryServicePrincipals'
+    | 'allConfiguredConnectedOrganizationUsers'
+    | 'allExternalUsers'
+    | 'unknownFutureValue';
 export type CustomExtensionCalloutInstanceStatus =
-    | "calloutSent"
-    | "callbackReceived"
-    | "calloutFailed"
-    | "callbackTimedOut"
-    | "waitingForCallback"
-    | "unknownFutureValue";
-export type ExpirationPatternType = "notSpecified" | "noExpiration" | "afterDateTime" | "afterDuration";
-export type ConnectedOrganizationState = "configured" | "proposed" | "unknownFutureValue";
-export type CertificateStatus = "notProvisioned" | "provisioned";
+    | 'calloutSent'
+    | 'callbackReceived'
+    | 'calloutFailed'
+    | 'callbackTimedOut'
+    | 'waitingForCallback'
+    | 'unknownFutureValue';
+export type ExpirationPatternType = 'notSpecified' | 'noExpiration' | 'afterDateTime' | 'afterDuration';
+export type ConnectedOrganizationState = 'configured' | 'proposed' | 'unknownFutureValue';
+export type CertificateStatus = 'notProvisioned' | 'provisioned';
 export type ComplianceStatus =
-    | "unknown"
-    | "notApplicable"
-    | "compliant"
-    | "remediated"
-    | "nonCompliant"
-    | "error"
-    | "conflict"
-    | "notAssigned";
-export type InstallIntent = "available" | "required" | "uninstall" | "availableWithoutEnrollment";
-export type ManagedAppAvailability = "global" | "lineOfBusiness";
-export type MdmAppConfigKeyType = "stringType" | "integerType" | "realType" | "booleanType" | "tokenType";
-export type MicrosoftEdgeChannel = "dev" | "beta" | "stable" | "unknownFutureValue";
-export type MicrosoftStoreForBusinessLicenseType = "offline" | "online";
+    | 'unknown'
+    | 'notApplicable'
+    | 'compliant'
+    | 'remediated'
+    | 'nonCompliant'
+    | 'error'
+    | 'conflict'
+    | 'notAssigned';
+export type InstallIntent = 'available' | 'required' | 'uninstall' | 'availableWithoutEnrollment';
+export type ManagedAppAvailability = 'global' | 'lineOfBusiness';
+export type MdmAppConfigKeyType = 'stringType' | 'integerType' | 'realType' | 'booleanType' | 'tokenType';
+export type MicrosoftEdgeChannel = 'dev' | 'beta' | 'stable' | 'unknownFutureValue';
+export type MicrosoftStoreForBusinessLicenseType = 'offline' | 'online';
 export type MobileAppContentFileUploadState =
-    | "success"
-    | "transientError"
-    | "error"
-    | "unknown"
-    | "azureStorageUriRequestSuccess"
-    | "azureStorageUriRequestPending"
-    | "azureStorageUriRequestFailed"
-    | "azureStorageUriRequestTimedOut"
-    | "azureStorageUriRenewalSuccess"
-    | "azureStorageUriRenewalPending"
-    | "azureStorageUriRenewalFailed"
-    | "azureStorageUriRenewalTimedOut"
-    | "commitFileSuccess"
-    | "commitFilePending"
-    | "commitFileFailed"
-    | "commitFileTimedOut";
-export type MobileAppPublishingState = "notPublished" | "processing" | "published";
-export type RunAsAccountType = "system" | "user";
-export type VppTokenAccountType = "business" | "education";
-export type Win32LobAppDeliveryOptimizationPriority = "notConfigured" | "foreground";
+    | 'success'
+    | 'transientError'
+    | 'error'
+    | 'unknown'
+    | 'azureStorageUriRequestSuccess'
+    | 'azureStorageUriRequestPending'
+    | 'azureStorageUriRequestFailed'
+    | 'azureStorageUriRequestTimedOut'
+    | 'azureStorageUriRenewalSuccess'
+    | 'azureStorageUriRenewalPending'
+    | 'azureStorageUriRenewalFailed'
+    | 'azureStorageUriRenewalTimedOut'
+    | 'commitFileSuccess'
+    | 'commitFilePending'
+    | 'commitFileFailed'
+    | 'commitFileTimedOut';
+export type MobileAppPublishingState = 'notPublished' | 'processing' | 'published';
+export type RunAsAccountType = 'system' | 'user';
+export type VppTokenAccountType = 'business' | 'education';
+export type Win32LobAppDeliveryOptimizationPriority = 'notConfigured' | 'foreground';
 export type Win32LobAppFileSystemOperationType =
-    | "notConfigured"
-    | "exists"
-    | "modifiedDate"
-    | "createdDate"
-    | "version"
-    | "sizeInMB";
-export type Win32LobAppMsiPackageType = "perMachine" | "perUser" | "dualPurpose";
-export type Win32LobAppNotification = "showAll" | "showReboot" | "hideAll";
+    | 'notConfigured'
+    | 'exists'
+    | 'modifiedDate'
+    | 'createdDate'
+    | 'version'
+    | 'sizeInMB';
+export type Win32LobAppMsiPackageType = 'perMachine' | 'perUser' | 'dualPurpose';
+export type Win32LobAppNotification = 'showAll' | 'showReboot' | 'hideAll';
 export type Win32LobAppPowerShellScriptRuleOperationType =
-    | "notConfigured"
-    | "string"
-    | "dateTime"
-    | "integer"
-    | "float"
-    | "version"
-    | "boolean";
+    | 'notConfigured'
+    | 'string'
+    | 'dateTime'
+    | 'integer'
+    | 'float'
+    | 'version'
+    | 'boolean';
 export type Win32LobAppRegistryRuleOperationType =
-    | "notConfigured"
-    | "exists"
-    | "doesNotExist"
-    | "string"
-    | "integer"
-    | "version";
-export type Win32LobAppRestartBehavior = "basedOnReturnCode" | "allow" | "suppress" | "force";
-export type Win32LobAppReturnCodeType = "failed" | "success" | "softReboot" | "hardReboot" | "retry";
+    | 'notConfigured'
+    | 'exists'
+    | 'doesNotExist'
+    | 'string'
+    | 'integer'
+    | 'version';
+export type Win32LobAppRestartBehavior = 'basedOnReturnCode' | 'allow' | 'suppress' | 'force';
+export type Win32LobAppReturnCodeType = 'failed' | 'success' | 'softReboot' | 'hardReboot' | 'retry';
 export type Win32LobAppRuleOperator =
-    | "notConfigured"
-    | "equal"
-    | "notEqual"
-    | "greaterThan"
-    | "greaterThanOrEqual"
-    | "lessThan"
-    | "lessThanOrEqual";
-export type Win32LobAppRuleType = "detection" | "requirement";
-export type WindowsArchitecture = "none" | "x86" | "x64" | "arm" | "neutral";
-export type WindowsDeviceType = "none" | "desktop" | "mobile" | "holographic" | "team";
-export type InstallState = "notApplicable" | "installed" | "failed" | "notInstalled" | "uninstallFailed" | "unknown";
+    | 'notConfigured'
+    | 'equal'
+    | 'notEqual'
+    | 'greaterThan'
+    | 'greaterThanOrEqual'
+    | 'lessThan'
+    | 'lessThanOrEqual';
+export type Win32LobAppRuleType = 'detection' | 'requirement';
+export type WindowsArchitecture = 'none' | 'x86' | 'x64' | 'arm' | 'neutral';
+export type WindowsDeviceType = 'none' | 'desktop' | 'mobile' | 'holographic' | 'team';
+export type InstallState = 'notApplicable' | 'installed' | 'failed' | 'notInstalled' | 'uninstallFailed' | 'unknown';
 export type AndroidRequiredPasswordType =
-    | "deviceDefault"
-    | "alphabetic"
-    | "alphanumeric"
-    | "alphanumericWithSymbols"
-    | "lowSecurityBiometric"
-    | "numeric"
-    | "numericComplex"
-    | "any";
+    | 'deviceDefault'
+    | 'alphabetic'
+    | 'alphanumeric'
+    | 'alphanumericWithSymbols'
+    | 'lowSecurityBiometric'
+    | 'numeric'
+    | 'numericComplex'
+    | 'any';
 export type AndroidWorkProfileCrossProfileDataSharingType =
-    | "deviceDefault"
-    | "preventAny"
-    | "allowPersonalToWork"
-    | "noRestrictions";
-export type AndroidWorkProfileDefaultAppPermissionPolicyType = "deviceDefault" | "prompt" | "autoGrant" | "autoDeny";
+    | 'deviceDefault'
+    | 'preventAny'
+    | 'allowPersonalToWork'
+    | 'noRestrictions';
+export type AndroidWorkProfileDefaultAppPermissionPolicyType = 'deviceDefault' | 'prompt' | 'autoGrant' | 'autoDeny';
 export type AndroidWorkProfileRequiredPasswordType =
-    | "deviceDefault"
-    | "lowSecurityBiometric"
-    | "required"
-    | "atLeastNumeric"
-    | "numericComplex"
-    | "atLeastAlphabetic"
-    | "atLeastAlphanumeric"
-    | "alphanumericWithSymbols";
+    | 'deviceDefault'
+    | 'lowSecurityBiometric'
+    | 'required'
+    | 'atLeastNumeric'
+    | 'numericComplex'
+    | 'atLeastAlphabetic'
+    | 'atLeastAlphanumeric'
+    | 'alphanumericWithSymbols';
 export type ApplicationGuardBlockClipboardSharingType =
-    | "notConfigured"
-    | "blockBoth"
-    | "blockHostToContainer"
-    | "blockContainerToHost"
-    | "blockNone";
+    | 'notConfigured'
+    | 'blockBoth'
+    | 'blockHostToContainer'
+    | 'blockContainerToHost'
+    | 'blockNone';
 export type ApplicationGuardBlockFileTransferType =
-    | "notConfigured"
-    | "blockImageAndTextFile"
-    | "blockImageFile"
-    | "blockNone"
-    | "blockTextFile";
-export type AppListType = "none" | "appsInListCompliant" | "appsNotInListCompliant";
+    | 'notConfigured'
+    | 'blockImageAndTextFile'
+    | 'blockImageFile'
+    | 'blockNone'
+    | 'blockTextFile';
+export type AppListType = 'none' | 'appsInListCompliant' | 'appsNotInListCompliant';
 export type AppLockerApplicationControlType =
-    | "notConfigured"
-    | "enforceComponentsAndStoreApps"
-    | "auditComponentsAndStoreApps"
-    | "enforceComponentsStoreAppsAndSmartlocker"
-    | "auditComponentsStoreAppsAndSmartlocker";
+    | 'notConfigured'
+    | 'enforceComponentsAndStoreApps'
+    | 'auditComponentsAndStoreApps'
+    | 'enforceComponentsStoreAppsAndSmartlocker'
+    | 'auditComponentsStoreAppsAndSmartlocker';
 export type AutomaticUpdateMode =
-    | "userDefined"
-    | "notifyDownload"
-    | "autoInstallAtMaintenanceTime"
-    | "autoInstallAndRebootAtMaintenanceTime"
-    | "autoInstallAndRebootAtScheduledTime"
-    | "autoInstallAndRebootWithoutEndUserControl";
-export type AutoRestartNotificationDismissalMethod = "notConfigured" | "automatic" | "user" | "unknownFutureValue";
-export type BitLockerEncryptionMethod = "aesCbc128" | "aesCbc256" | "xtsAes128" | "xtsAes256";
-export type DefenderCloudBlockLevelType = "notConfigured" | "high" | "highPlus" | "zeroTolerance";
+    | 'userDefined'
+    | 'notifyDownload'
+    | 'autoInstallAtMaintenanceTime'
+    | 'autoInstallAndRebootAtMaintenanceTime'
+    | 'autoInstallAndRebootAtScheduledTime'
+    | 'autoInstallAndRebootWithoutEndUserControl';
+export type AutoRestartNotificationDismissalMethod = 'notConfigured' | 'automatic' | 'user' | 'unknownFutureValue';
+export type BitLockerEncryptionMethod = 'aesCbc128' | 'aesCbc256' | 'xtsAes128' | 'xtsAes256';
+export type DefenderCloudBlockLevelType = 'notConfigured' | 'high' | 'highPlus' | 'zeroTolerance';
 export type DefenderMonitorFileActivity =
-    | "userDefined"
-    | "disable"
-    | "monitorAllFiles"
-    | "monitorIncomingFilesOnly"
-    | "monitorOutgoingFilesOnly";
+    | 'userDefined'
+    | 'disable'
+    | 'monitorAllFiles'
+    | 'monitorIncomingFilesOnly'
+    | 'monitorOutgoingFilesOnly';
 export type DefenderPromptForSampleSubmission =
-    | "userDefined"
-    | "alwaysPrompt"
-    | "promptBeforeSendingPersonalData"
-    | "neverSendData"
-    | "sendAllDataWithoutPrompting";
-export type DefenderScanType = "userDefined" | "disabled" | "quick" | "full";
+    | 'userDefined'
+    | 'alwaysPrompt'
+    | 'promptBeforeSendingPersonalData'
+    | 'neverSendData'
+    | 'sendAllDataWithoutPrompting';
+export type DefenderScanType = 'userDefined' | 'disabled' | 'quick' | 'full';
 export type DefenderThreatAction =
-    | "deviceDefault"
-    | "clean"
-    | "quarantine"
-    | "remove"
-    | "allow"
-    | "userDefined"
-    | "block";
+    | 'deviceDefault'
+    | 'clean'
+    | 'quarantine'
+    | 'remove'
+    | 'allow'
+    | 'userDefined'
+    | 'block';
 export type DeviceComplianceActionType =
-    | "noAction"
-    | "notification"
-    | "block"
-    | "retire"
-    | "wipe"
-    | "removeResourceAccessProfiles"
-    | "pushNotification";
-export type DeviceThreatProtectionLevel = "unavailable" | "secured" | "low" | "medium" | "high" | "notSet";
-export type DiagnosticDataSubmissionMode = "userDefined" | "none" | "basic" | "enhanced" | "full";
-export type EdgeCookiePolicy = "userDefined" | "allow" | "blockThirdParty" | "blockAll";
-export type EdgeSearchEngineType = "default" | "bing";
-export type EditionUpgradeLicenseType = "productKey" | "licenseFile";
-export type Enablement = "notConfigured" | "enabled" | "disabled";
-export type FirewallCertificateRevocationListCheckMethodType = "deviceDefault" | "none" | "attempt" | "require";
+    | 'noAction'
+    | 'notification'
+    | 'block'
+    | 'retire'
+    | 'wipe'
+    | 'removeResourceAccessProfiles'
+    | 'pushNotification';
+export type DeviceThreatProtectionLevel = 'unavailable' | 'secured' | 'low' | 'medium' | 'high' | 'notSet';
+export type DiagnosticDataSubmissionMode = 'userDefined' | 'none' | 'basic' | 'enhanced' | 'full';
+export type EdgeCookiePolicy = 'userDefined' | 'allow' | 'blockThirdParty' | 'blockAll';
+export type EdgeSearchEngineType = 'default' | 'bing';
+export type EditionUpgradeLicenseType = 'productKey' | 'licenseFile';
+export type Enablement = 'notConfigured' | 'enabled' | 'disabled';
+export type FirewallCertificateRevocationListCheckMethodType = 'deviceDefault' | 'none' | 'attempt' | 'require';
 export type FirewallPacketQueueingMethodType =
-    | "deviceDefault"
-    | "disabled"
-    | "queueInbound"
-    | "queueOutbound"
-    | "queueBoth";
-export type FirewallPreSharedKeyEncodingMethodType = "deviceDefault" | "none" | "utF8";
-export type InternetSiteSecurityLevel = "userDefined" | "medium" | "mediumHigh" | "high";
-export type IosNotificationAlertType = "deviceDefault" | "banner" | "modal" | "none";
+    | 'deviceDefault'
+    | 'disabled'
+    | 'queueInbound'
+    | 'queueOutbound'
+    | 'queueBoth';
+export type FirewallPreSharedKeyEncodingMethodType = 'deviceDefault' | 'none' | 'utF8';
+export type InternetSiteSecurityLevel = 'userDefined' | 'medium' | 'mediumHigh' | 'high';
+export type IosNotificationAlertType = 'deviceDefault' | 'banner' | 'modal' | 'none';
 export type IosUpdatesInstallStatus =
-    | "deviceOsHigherThanDesiredOsVersion"
-    | "sharedDeviceUserLoggedInError"
-    | "notSupportedOperation"
-    | "installFailed"
-    | "installPhoneCallInProgress"
-    | "installInsufficientPower"
-    | "installInsufficientSpace"
-    | "installing"
-    | "downloadInsufficientNetwork"
-    | "downloadInsufficientPower"
-    | "downloadInsufficientSpace"
-    | "downloadRequiresComputer"
-    | "downloadFailed"
-    | "downloading"
-    | "success"
-    | "available"
-    | "idle"
-    | "unknown";
+    | 'deviceOsHigherThanDesiredOsVersion'
+    | 'sharedDeviceUserLoggedInError'
+    | 'notSupportedOperation'
+    | 'installFailed'
+    | 'installPhoneCallInProgress'
+    | 'installInsufficientPower'
+    | 'installInsufficientSpace'
+    | 'installing'
+    | 'downloadInsufficientNetwork'
+    | 'downloadInsufficientPower'
+    | 'downloadInsufficientSpace'
+    | 'downloadRequiresComputer'
+    | 'downloadFailed'
+    | 'downloading'
+    | 'success'
+    | 'available'
+    | 'idle'
+    | 'unknown';
 export type MiracastChannel =
-    | "userDefined"
-    | "one"
-    | "two"
-    | "three"
-    | "four"
-    | "five"
-    | "six"
-    | "seven"
-    | "eight"
-    | "nine"
-    | "ten"
-    | "eleven"
-    | "thirtySix"
-    | "forty"
-    | "fortyFour"
-    | "fortyEight"
-    | "oneHundredFortyNine"
-    | "oneHundredFiftyThree"
-    | "oneHundredFiftySeven"
-    | "oneHundredSixtyOne"
-    | "oneHundredSixtyFive";
+    | 'userDefined'
+    | 'one'
+    | 'two'
+    | 'three'
+    | 'four'
+    | 'five'
+    | 'six'
+    | 'seven'
+    | 'eight'
+    | 'nine'
+    | 'ten'
+    | 'eleven'
+    | 'thirtySix'
+    | 'forty'
+    | 'fortyFour'
+    | 'fortyEight'
+    | 'oneHundredFortyNine'
+    | 'oneHundredFiftyThree'
+    | 'oneHundredFiftySeven'
+    | 'oneHundredSixtyOne'
+    | 'oneHundredSixtyFive';
 export type PolicyPlatformType =
-    | "android"
-    | "androidForWork"
-    | "iOS"
-    | "macOS"
-    | "windowsPhone81"
-    | "windows81AndLater"
-    | "windows10AndLater"
-    | "all";
-export type PrereleaseFeatures = "userDefined" | "settingsOnly" | "settingsAndExperimentations" | "notAllowed";
-export type RatingAppsType = "allAllowed" | "allBlocked" | "agesAbove4" | "agesAbove9" | "agesAbove12" | "agesAbove17";
+    | 'android'
+    | 'androidForWork'
+    | 'iOS'
+    | 'macOS'
+    | 'windowsPhone81'
+    | 'windows81AndLater'
+    | 'windows10AndLater'
+    | 'all';
+export type PrereleaseFeatures = 'userDefined' | 'settingsOnly' | 'settingsAndExperimentations' | 'notAllowed';
+export type RatingAppsType = 'allAllowed' | 'allBlocked' | 'agesAbove4' | 'agesAbove9' | 'agesAbove12' | 'agesAbove17';
 export type RatingAustraliaMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove15"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove15'
+    | 'agesAbove18';
 export type RatingAustraliaTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "preschoolers"
-    | "children"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove15"
-    | "agesAbove15AdultViolence";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'preschoolers'
+    | 'children'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove15'
+    | 'agesAbove15AdultViolence';
 export type RatingCanadaMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove14"
-    | "agesAbove18"
-    | "restricted";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove14'
+    | 'agesAbove18'
+    | 'restricted';
 export type RatingCanadaTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "children"
-    | "childrenAbove8"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove14"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'children'
+    | 'childrenAbove8'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove14'
+    | 'agesAbove18';
 export type RatingFranceMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "agesAbove10"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'agesAbove10'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'agesAbove18';
 export type RatingFranceTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "agesAbove10"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'agesAbove10'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'agesAbove18';
 export type RatingGermanyMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "agesAbove6"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'agesAbove6'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingGermanyTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "agesAbove6"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'agesAbove6'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingIrelandMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove12"
-    | "agesAbove15"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove12'
+    | 'agesAbove15'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingIrelandTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "children"
-    | "youngAdults"
-    | "parentalSupervision"
-    | "mature";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'children'
+    | 'youngAdults'
+    | 'parentalSupervision'
+    | 'mature';
 export type RatingJapanMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove15"
-    | "agesAbove18";
-export type RatingJapanTelevisionType = "allAllowed" | "allBlocked" | "explicitAllowed";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove15'
+    | 'agesAbove18';
+export type RatingJapanTelevisionType = 'allAllowed' | 'allBlocked' | 'explicitAllowed';
 export type RatingNewZealandMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove13"
-    | "agesAbove15"
-    | "agesAbove16"
-    | "agesAbove18"
-    | "restricted"
-    | "agesAbove16Restricted";
-export type RatingNewZealandTelevisionType = "allAllowed" | "allBlocked" | "general" | "parentalGuidance" | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove13'
+    | 'agesAbove15'
+    | 'agesAbove16'
+    | 'agesAbove18'
+    | 'restricted'
+    | 'agesAbove16Restricted';
+export type RatingNewZealandTelevisionType = 'allAllowed' | 'allBlocked' | 'general' | 'parentalGuidance' | 'adults';
 export type RatingUnitedKingdomMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "universalChildren"
-    | "parentalGuidance"
-    | "agesAbove12Video"
-    | "agesAbove12Cinema"
-    | "agesAbove15"
-    | "adults";
-export type RatingUnitedKingdomTelevisionType = "allAllowed" | "allBlocked" | "caution";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'universalChildren'
+    | 'parentalGuidance'
+    | 'agesAbove12Video'
+    | 'agesAbove12Cinema'
+    | 'agesAbove15'
+    | 'adults';
+export type RatingUnitedKingdomTelevisionType = 'allAllowed' | 'allBlocked' | 'caution';
 export type RatingUnitedStatesMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "parentalGuidance13"
-    | "restricted"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'parentalGuidance13'
+    | 'restricted'
+    | 'adults';
 export type RatingUnitedStatesTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "childrenAll"
-    | "childrenAbove7"
-    | "general"
-    | "parentalGuidance"
-    | "childrenAbove14"
-    | "adults";
-export type RequiredPasswordType = "deviceDefault" | "alphanumeric" | "numeric";
-export type SafeSearchFilterType = "userDefined" | "strict" | "moderate";
-export type SettingSourceType = "deviceConfiguration" | "deviceIntent";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'childrenAll'
+    | 'childrenAbove7'
+    | 'general'
+    | 'parentalGuidance'
+    | 'childrenAbove14'
+    | 'adults';
+export type RequiredPasswordType = 'deviceDefault' | 'alphanumeric' | 'numeric';
+export type SafeSearchFilterType = 'userDefined' | 'strict' | 'moderate';
+export type SettingSourceType = 'deviceConfiguration' | 'deviceIntent';
 export type SharedPCAccountDeletionPolicyType =
-    | "immediate"
-    | "diskSpaceThreshold"
-    | "diskSpaceThresholdOrInactiveThreshold";
-export type SharedPCAllowedAccountType = "guest" | "domain";
-export type SiteSecurityLevel = "userDefined" | "low" | "mediumLow" | "medium" | "mediumHigh" | "high";
-export type StateManagementSetting = "notConfigured" | "blocked" | "allowed";
-export type VisibilitySetting = "notConfigured" | "hide" | "show";
+    | 'immediate'
+    | 'diskSpaceThreshold'
+    | 'diskSpaceThresholdOrInactiveThreshold';
+export type SharedPCAllowedAccountType = 'guest' | 'domain';
+export type SiteSecurityLevel = 'userDefined' | 'low' | 'mediumLow' | 'medium' | 'mediumHigh' | 'high';
+export type StateManagementSetting = 'notConfigured' | 'blocked' | 'allowed';
+export type VisibilitySetting = 'notConfigured' | 'hide' | 'show';
 export type WebBrowserCookieSettings =
-    | "browserDefault"
-    | "blockAlways"
-    | "allowCurrentWebSite"
-    | "allowFromWebsitesVisited"
-    | "allowAlways";
+    | 'browserDefault'
+    | 'blockAlways'
+    | 'allowCurrentWebSite'
+    | 'allowFromWebsitesVisited'
+    | 'allowAlways';
 export type WeeklySchedule =
-    | "userDefined"
-    | "everyday"
-    | "sunday"
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday";
+    | 'userDefined'
+    | 'everyday'
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday';
 export type WelcomeScreenMeetingInformation =
-    | "userDefined"
-    | "showOrganizerAndTimeOnly"
-    | "showOrganizerAndTimeAndSubject";
+    | 'userDefined'
+    | 'showOrganizerAndTimeOnly'
+    | 'showOrganizerAndTimeAndSubject';
 export type Windows10EditionType =
-    | "windows10Enterprise"
-    | "windows10EnterpriseN"
-    | "windows10Education"
-    | "windows10EducationN"
-    | "windows10MobileEnterprise"
-    | "windows10HolographicEnterprise"
-    | "windows10Professional"
-    | "windows10ProfessionalN"
-    | "windows10ProfessionalEducation"
-    | "windows10ProfessionalEducationN"
-    | "windows10ProfessionalWorkstation"
-    | "windows10ProfessionalWorkstationN";
+    | 'windows10Enterprise'
+    | 'windows10EnterpriseN'
+    | 'windows10Education'
+    | 'windows10EducationN'
+    | 'windows10MobileEnterprise'
+    | 'windows10HolographicEnterprise'
+    | 'windows10Professional'
+    | 'windows10ProfessionalN'
+    | 'windows10ProfessionalEducation'
+    | 'windows10ProfessionalEducationN'
+    | 'windows10ProfessionalWorkstation'
+    | 'windows10ProfessionalWorkstationN';
 export type WindowsDeliveryOptimizationMode =
-    | "userDefined"
-    | "httpOnly"
-    | "httpWithPeeringNat"
-    | "httpWithPeeringPrivateGroup"
-    | "httpWithInternetPeering"
-    | "simpleDownload"
-    | "bypassMode";
-export type WindowsSpotlightEnablementSettings = "notConfigured" | "disabled" | "enabled";
-export type WindowsStartMenuAppListVisibilityType = "userDefined" | "collapse" | "remove" | "disableSettingsApp";
-export type WindowsStartMenuModeType = "userDefined" | "fullScreen" | "nonFullScreen";
+    | 'userDefined'
+    | 'httpOnly'
+    | 'httpWithPeeringNat'
+    | 'httpWithPeeringPrivateGroup'
+    | 'httpWithInternetPeering'
+    | 'simpleDownload'
+    | 'bypassMode';
+export type WindowsSpotlightEnablementSettings = 'notConfigured' | 'disabled' | 'enabled';
+export type WindowsStartMenuAppListVisibilityType = 'userDefined' | 'collapse' | 'remove' | 'disableSettingsApp';
+export type WindowsStartMenuModeType = 'userDefined' | 'fullScreen' | 'nonFullScreen';
 export type WindowsUpdateForBusinessUpdateWeeks =
-    | "userDefined"
-    | "firstWeek"
-    | "secondWeek"
-    | "thirdWeek"
-    | "fourthWeek"
-    | "everyWeek"
-    | "unknownFutureValue";
+    | 'userDefined'
+    | 'firstWeek'
+    | 'secondWeek'
+    | 'thirdWeek'
+    | 'fourthWeek'
+    | 'everyWeek'
+    | 'unknownFutureValue';
 export type WindowsUpdateNotificationDisplayOption =
-    | "notConfigured"
-    | "defaultNotifications"
-    | "restartWarningsOnly"
-    | "disableAllNotifications"
-    | "unknownFutureValue";
+    | 'notConfigured'
+    | 'defaultNotifications'
+    | 'restartWarningsOnly'
+    | 'disableAllNotifications'
+    | 'unknownFutureValue';
 export type WindowsUpdateType =
-    | "userDefined"
-    | "all"
-    | "businessReadyOnly"
-    | "windowsInsiderBuildFast"
-    | "windowsInsiderBuildSlow"
-    | "windowsInsiderBuildRelease";
+    | 'userDefined'
+    | 'all'
+    | 'businessReadyOnly'
+    | 'windowsInsiderBuildFast'
+    | 'windowsInsiderBuildSlow'
+    | 'windowsInsiderBuildRelease';
 export type WindowsUserAccountControlSettings =
-    | "userDefined"
-    | "alwaysNotify"
-    | "notifyOnAppChanges"
-    | "notifyOnAppChangesWithoutDimming"
-    | "neverNotify";
+    | 'userDefined'
+    | 'alwaysNotify'
+    | 'notifyOnAppChanges'
+    | 'notifyOnAppChangesWithoutDimming'
+    | 'neverNotify';
 export type DeviceManagementExchangeConnectorStatus =
-    | "none"
-    | "connectionPending"
-    | "connected"
-    | "disconnected"
-    | "unknownFutureValue";
-export type DeviceManagementExchangeConnectorSyncType = "fullSync" | "deltaSync";
+    | 'none'
+    | 'connectionPending'
+    | 'connected'
+    | 'disconnected'
+    | 'unknownFutureValue';
+export type DeviceManagementExchangeConnectorSyncType = 'fullSync' | 'deltaSync';
 export type DeviceManagementExchangeConnectorType =
-    | "onPremises"
-    | "hosted"
-    | "serviceToService"
-    | "dedicated"
-    | "unknownFutureValue";
-export type DeviceManagementPartnerAppType = "unknown" | "singleTenantApp" | "multiTenantApp";
+    | 'onPremises'
+    | 'hosted'
+    | 'serviceToService'
+    | 'dedicated'
+    | 'unknownFutureValue';
+export type DeviceManagementPartnerAppType = 'unknown' | 'singleTenantApp' | 'multiTenantApp';
 export type DeviceManagementPartnerTenantState =
-    | "unknown"
-    | "unavailable"
-    | "enabled"
-    | "terminated"
-    | "rejected"
-    | "unresponsive";
-export type MdmAuthority = "unknown" | "intune" | "sccm" | "office365";
-export type MobileThreatPartnerTenantState = "unavailable" | "available" | "enabled" | "unresponsive";
-export type VppTokenState = "unknown" | "valid" | "expired" | "invalid" | "assignedToExternalMDM";
-export type VppTokenSyncStatus = "none" | "inProgress" | "completed" | "failed";
-export type WindowsHelloForBusinessPinUsage = "allowed" | "required" | "disallowed";
-export type ActionState = "none" | "pending" | "canceled" | "active" | "done" | "failed" | "notSupported";
-export type AppLogDecryptionAlgorithm = "aes256" | "unknownFutureValue";
-export type AppLogUploadState = "pending" | "completed" | "failed" | "unknownFutureValue";
+    | 'unknown'
+    | 'unavailable'
+    | 'enabled'
+    | 'terminated'
+    | 'rejected'
+    | 'unresponsive';
+export type MdmAuthority = 'unknown' | 'intune' | 'sccm' | 'office365';
+export type MobileThreatPartnerTenantState = 'unavailable' | 'available' | 'enabled' | 'unresponsive';
+export type VppTokenState = 'unknown' | 'valid' | 'expired' | 'invalid' | 'assignedToExternalMDM';
+export type VppTokenSyncStatus = 'none' | 'inProgress' | 'completed' | 'failed';
+export type WindowsHelloForBusinessPinUsage = 'allowed' | 'required' | 'disallowed';
+export type ActionState = 'none' | 'pending' | 'canceled' | 'active' | 'done' | 'failed' | 'notSupported';
+export type AppLogDecryptionAlgorithm = 'aes256' | 'unknownFutureValue';
+export type AppLogUploadState = 'pending' | 'completed' | 'failed' | 'unknownFutureValue';
 export type ComplianceState =
-    | "unknown"
-    | "compliant"
-    | "noncompliant"
-    | "conflict"
-    | "error"
-    | "inGracePeriod"
-    | "configManager";
+    | 'unknown'
+    | 'compliant'
+    | 'noncompliant'
+    | 'conflict'
+    | 'error'
+    | 'inGracePeriod'
+    | 'configManager';
 export type DetectedAppPlatformType =
-    | "unknown"
-    | "windows"
-    | "windowsMobile"
-    | "windowsHolographic"
-    | "ios"
-    | "macOS"
-    | "chromeOS"
-    | "androidOSP"
-    | "androidDeviceAdministrator"
-    | "androidWorkProfile"
-    | "androidDedicatedAndFullyManaged"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'windows'
+    | 'windowsMobile'
+    | 'windowsHolographic'
+    | 'ios'
+    | 'macOS'
+    | 'chromeOS'
+    | 'androidOSP'
+    | 'androidDeviceAdministrator'
+    | 'androidWorkProfile'
+    | 'androidDedicatedAndFullyManaged'
+    | 'unknownFutureValue';
 export type DeviceEnrollmentType =
-    | "unknown"
-    | "userEnrollment"
-    | "deviceEnrollmentManager"
-    | "appleBulkWithUser"
-    | "appleBulkWithoutUser"
-    | "windowsAzureADJoin"
-    | "windowsBulkUserless"
-    | "windowsAutoEnrollment"
-    | "windowsBulkAzureDomainJoin"
-    | "windowsCoManagement"
-    | "windowsAzureADJoinUsingDeviceAuth"
-    | "appleUserEnrollment"
-    | "appleUserEnrollmentWithServiceAccount";
-export type DeviceLogCollectionTemplateType = "predefined" | "unknownFutureValue";
-export type DeviceManagementExchangeAccessState = "none" | "unknown" | "allowed" | "blocked" | "quarantined";
+    | 'unknown'
+    | 'userEnrollment'
+    | 'deviceEnrollmentManager'
+    | 'appleBulkWithUser'
+    | 'appleBulkWithoutUser'
+    | 'windowsAzureADJoin'
+    | 'windowsBulkUserless'
+    | 'windowsAutoEnrollment'
+    | 'windowsBulkAzureDomainJoin'
+    | 'windowsCoManagement'
+    | 'windowsAzureADJoinUsingDeviceAuth'
+    | 'appleUserEnrollment'
+    | 'appleUserEnrollmentWithServiceAccount';
+export type DeviceLogCollectionTemplateType = 'predefined' | 'unknownFutureValue';
+export type DeviceManagementExchangeAccessState = 'none' | 'unknown' | 'allowed' | 'blocked' | 'quarantined';
 export type DeviceManagementExchangeAccessStateReason =
-    | "none"
-    | "unknown"
-    | "exchangeGlobalRule"
-    | "exchangeIndividualRule"
-    | "exchangeDeviceRule"
-    | "exchangeUpgrade"
-    | "exchangeMailboxPolicy"
-    | "other"
-    | "compliant"
-    | "notCompliant"
-    | "notEnrolled"
-    | "unknownLocation"
-    | "mfaRequired"
-    | "azureADBlockDueToAccessPolicy"
-    | "compromisedPassword"
-    | "deviceNotKnownWithManagedApp";
+    | 'none'
+    | 'unknown'
+    | 'exchangeGlobalRule'
+    | 'exchangeIndividualRule'
+    | 'exchangeDeviceRule'
+    | 'exchangeUpgrade'
+    | 'exchangeMailboxPolicy'
+    | 'other'
+    | 'compliant'
+    | 'notCompliant'
+    | 'notEnrolled'
+    | 'unknownLocation'
+    | 'mfaRequired'
+    | 'azureADBlockDueToAccessPolicy'
+    | 'compromisedPassword'
+    | 'deviceNotKnownWithManagedApp';
 export type DeviceManagementSubscriptionState =
-    | "pending"
-    | "active"
-    | "warning"
-    | "disabled"
-    | "deleted"
-    | "blocked"
-    | "lockedOut";
+    | 'pending'
+    | 'active'
+    | 'warning'
+    | 'disabled'
+    | 'deleted'
+    | 'blocked'
+    | 'lockedOut';
 export type DeviceRegistrationState =
-    | "notRegistered"
-    | "registered"
-    | "revoked"
-    | "keyConflict"
-    | "approvalPending"
-    | "certificateReset"
-    | "notRegisteredPendingEnrollment"
-    | "unknown";
-export type DiskType = "unknown" | "hdd" | "ssd" | "unknownFutureValue";
-export type ManagedDeviceOwnerType = "unknown" | "company" | "personal";
+    | 'notRegistered'
+    | 'registered'
+    | 'revoked'
+    | 'keyConflict'
+    | 'approvalPending'
+    | 'certificateReset'
+    | 'notRegisteredPendingEnrollment'
+    | 'unknown';
+export type DiskType = 'unknown' | 'hdd' | 'ssd' | 'unknownFutureValue';
+export type ManagedDeviceOwnerType = 'unknown' | 'company' | 'personal';
 export type ManagedDevicePartnerReportedHealthState =
-    | "unknown"
-    | "activated"
-    | "deactivated"
-    | "secured"
-    | "lowSeverity"
-    | "mediumSeverity"
-    | "highSeverity"
-    | "unresponsive"
-    | "compromised"
-    | "misconfigured";
+    | 'unknown'
+    | 'activated'
+    | 'deactivated'
+    | 'secured'
+    | 'lowSeverity'
+    | 'mediumSeverity'
+    | 'highSeverity'
+    | 'unresponsive'
+    | 'compromised'
+    | 'misconfigured';
 export type ManagementAgentType =
-    | "eas"
-    | "mdm"
-    | "easMdm"
-    | "intuneClient"
-    | "easIntuneClient"
-    | "configurationManagerClient"
-    | "configurationManagerClientMdm"
-    | "configurationManagerClientMdmEas"
-    | "unknown"
-    | "jamf"
-    | "googleCloudDevicePolicyController"
-    | "microsoft365ManagedMdm"
-    | "msSense";
+    | 'eas'
+    | 'mdm'
+    | 'easMdm'
+    | 'intuneClient'
+    | 'easIntuneClient'
+    | 'configurationManagerClient'
+    | 'configurationManagerClientMdm'
+    | 'configurationManagerClientMdmEas'
+    | 'unknown'
+    | 'jamf'
+    | 'googleCloudDevicePolicyController'
+    | 'microsoft365ManagedMdm'
+    | 'msSense';
 export type ObliterationBehavior =
-    | "default"
-    | "doNotObliterate"
-    | "obliterateWithWarning"
-    | "always"
-    | "unknownFutureValue";
-export type OperatingSystemUpgradeEligibility = "upgraded" | "unknown" | "notCapable" | "capable" | "unknownFutureValue";
+    | 'default'
+    | 'doNotObliterate'
+    | 'obliterateWithWarning'
+    | 'always'
+    | 'unknownFutureValue';
+export type OperatingSystemUpgradeEligibility =
+    | 'upgraded'
+    | 'unknown'
+    | 'notCapable'
+    | 'capable'
+    | 'unknownFutureValue';
 export type UserExperienceAnalyticsHealthState =
-    | "unknown"
-    | "insufficientData"
-    | "needsAttention"
-    | "meetingGoals"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'insufficientData'
+    | 'needsAttention'
+    | 'meetingGoals'
+    | 'unknownFutureValue';
 export type UserExperienceAnalyticsInsightSeverity =
-    | "none"
-    | "informational"
-    | "warning"
-    | "error"
-    | "unknownFutureValue";
+    | 'none'
+    | 'informational'
+    | 'warning'
+    | 'error'
+    | 'unknownFutureValue';
 export type UserExperienceAnalyticsOperatingSystemRestartCategory =
-    | "unknown"
-    | "restartWithUpdate"
-    | "restartWithoutUpdate"
-    | "blueScreen"
-    | "shutdownWithUpdate"
-    | "shutdownWithoutUpdate"
-    | "longPowerButtonPress"
-    | "bootError"
-    | "update"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'restartWithUpdate'
+    | 'restartWithoutUpdate'
+    | 'blueScreen'
+    | 'shutdownWithUpdate'
+    | 'shutdownWithoutUpdate'
+    | 'longPowerButtonPress'
+    | 'bootError'
+    | 'update'
+    | 'unknownFutureValue';
 export type UserExperienceAnalyticsSummarizedBy =
-    | "none"
-    | "model"
-    | "allRegressions"
-    | "modelRegression"
-    | "manufacturerRegression"
-    | "operatingSystemVersionRegression"
-    | "unknownFutureValue";
+    | 'none'
+    | 'model'
+    | 'allRegressions'
+    | 'modelRegression'
+    | 'manufacturerRegression'
+    | 'operatingSystemVersionRegression'
+    | 'unknownFutureValue';
 export type WindowsDefenderProductStatus =
-    | "noStatus"
-    | "serviceNotRunning"
-    | "serviceStartedWithoutMalwareProtection"
-    | "pendingFullScanDueToThreatAction"
-    | "pendingRebootDueToThreatAction"
-    | "pendingManualStepsDueToThreatAction"
-    | "avSignaturesOutOfDate"
-    | "asSignaturesOutOfDate"
-    | "noQuickScanHappenedForSpecifiedPeriod"
-    | "noFullScanHappenedForSpecifiedPeriod"
-    | "systemInitiatedScanInProgress"
-    | "systemInitiatedCleanInProgress"
-    | "samplesPendingSubmission"
-    | "productRunningInEvaluationMode"
-    | "productRunningInNonGenuineMode"
-    | "productExpired"
-    | "offlineScanRequired"
-    | "serviceShutdownAsPartOfSystemShutdown"
-    | "threatRemediationFailedCritically"
-    | "threatRemediationFailedNonCritically"
-    | "noStatusFlagsSet"
-    | "platformOutOfDate"
-    | "platformUpdateInProgress"
-    | "platformAboutToBeOutdated"
-    | "signatureOrPlatformEndOfLifeIsPastOrIsImpending"
-    | "windowsSModeSignaturesInUseOnNonWin10SInstall";
+    | 'noStatus'
+    | 'serviceNotRunning'
+    | 'serviceStartedWithoutMalwareProtection'
+    | 'pendingFullScanDueToThreatAction'
+    | 'pendingRebootDueToThreatAction'
+    | 'pendingManualStepsDueToThreatAction'
+    | 'avSignaturesOutOfDate'
+    | 'asSignaturesOutOfDate'
+    | 'noQuickScanHappenedForSpecifiedPeriod'
+    | 'noFullScanHappenedForSpecifiedPeriod'
+    | 'systemInitiatedScanInProgress'
+    | 'systemInitiatedCleanInProgress'
+    | 'samplesPendingSubmission'
+    | 'productRunningInEvaluationMode'
+    | 'productRunningInNonGenuineMode'
+    | 'productExpired'
+    | 'offlineScanRequired'
+    | 'serviceShutdownAsPartOfSystemShutdown'
+    | 'threatRemediationFailedCritically'
+    | 'threatRemediationFailedNonCritically'
+    | 'noStatusFlagsSet'
+    | 'platformOutOfDate'
+    | 'platformUpdateInProgress'
+    | 'platformAboutToBeOutdated'
+    | 'signatureOrPlatformEndOfLifeIsPastOrIsImpending'
+    | 'windowsSModeSignaturesInUseOnNonWin10SInstall';
 export type WindowsDeviceHealthState =
-    | "clean"
-    | "fullScanPending"
-    | "rebootPending"
-    | "manualStepsPending"
-    | "offlineScanPending"
-    | "critical";
+    | 'clean'
+    | 'fullScanPending'
+    | 'rebootPending'
+    | 'manualStepsPending'
+    | 'offlineScanPending'
+    | 'critical';
 export type WindowsMalwareCategory =
-    | "invalid"
-    | "adware"
-    | "spyware"
-    | "passwordStealer"
-    | "trojanDownloader"
-    | "worm"
-    | "backdoor"
-    | "remoteAccessTrojan"
-    | "trojan"
-    | "emailFlooder"
-    | "keylogger"
-    | "dialer"
-    | "monitoringSoftware"
-    | "browserModifier"
-    | "cookie"
-    | "browserPlugin"
-    | "aolExploit"
-    | "nuker"
-    | "securityDisabler"
-    | "jokeProgram"
-    | "hostileActiveXControl"
-    | "softwareBundler"
-    | "stealthNotifier"
-    | "settingsModifier"
-    | "toolBar"
-    | "remoteControlSoftware"
-    | "trojanFtp"
-    | "potentialUnwantedSoftware"
-    | "icqExploit"
-    | "trojanTelnet"
-    | "exploit"
-    | "filesharingProgram"
-    | "malwareCreationTool"
-    | "remote_Control_Software"
-    | "tool"
-    | "trojanDenialOfService"
-    | "trojanDropper"
-    | "trojanMassMailer"
-    | "trojanMonitoringSoftware"
-    | "trojanProxyServer"
-    | "virus"
-    | "known"
-    | "unknown"
-    | "spp"
-    | "behavior"
-    | "vulnerability"
-    | "policy"
-    | "enterpriseUnwantedSoftware"
-    | "ransom"
-    | "hipsRule";
-export type WindowsMalwareExecutionState = "unknown" | "blocked" | "allowed" | "running" | "notRunning";
-export type WindowsMalwareSeverity = "unknown" | "low" | "moderate" | "high" | "severe";
+    | 'invalid'
+    | 'adware'
+    | 'spyware'
+    | 'passwordStealer'
+    | 'trojanDownloader'
+    | 'worm'
+    | 'backdoor'
+    | 'remoteAccessTrojan'
+    | 'trojan'
+    | 'emailFlooder'
+    | 'keylogger'
+    | 'dialer'
+    | 'monitoringSoftware'
+    | 'browserModifier'
+    | 'cookie'
+    | 'browserPlugin'
+    | 'aolExploit'
+    | 'nuker'
+    | 'securityDisabler'
+    | 'jokeProgram'
+    | 'hostileActiveXControl'
+    | 'softwareBundler'
+    | 'stealthNotifier'
+    | 'settingsModifier'
+    | 'toolBar'
+    | 'remoteControlSoftware'
+    | 'trojanFtp'
+    | 'potentialUnwantedSoftware'
+    | 'icqExploit'
+    | 'trojanTelnet'
+    | 'exploit'
+    | 'filesharingProgram'
+    | 'malwareCreationTool'
+    | 'remote_Control_Software'
+    | 'tool'
+    | 'trojanDenialOfService'
+    | 'trojanDropper'
+    | 'trojanMassMailer'
+    | 'trojanMonitoringSoftware'
+    | 'trojanProxyServer'
+    | 'virus'
+    | 'known'
+    | 'unknown'
+    | 'spp'
+    | 'behavior'
+    | 'vulnerability'
+    | 'policy'
+    | 'enterpriseUnwantedSoftware'
+    | 'ransom'
+    | 'hipsRule';
+export type WindowsMalwareExecutionState = 'unknown' | 'blocked' | 'allowed' | 'running' | 'notRunning';
+export type WindowsMalwareSeverity = 'unknown' | 'low' | 'moderate' | 'high' | 'severe';
 export type WindowsMalwareState =
-    | "unknown"
-    | "detected"
-    | "cleaned"
-    | "quarantined"
-    | "removed"
-    | "allowed"
-    | "blocked"
-    | "cleanFailed"
-    | "quarantineFailed"
-    | "removeFailed"
-    | "allowFailed"
-    | "abandoned"
-    | "blockFailed";
+    | 'unknown'
+    | 'detected'
+    | 'cleaned'
+    | 'quarantined'
+    | 'removed'
+    | 'allowed'
+    | 'blocked'
+    | 'cleanFailed'
+    | 'quarantineFailed'
+    | 'removeFailed'
+    | 'allowFailed'
+    | 'abandoned'
+    | 'blockFailed';
 export type WindowsMalwareThreatState =
-    | "active"
-    | "actionFailed"
-    | "manualStepsRequired"
-    | "fullScanRequired"
-    | "rebootRequired"
-    | "remediatedWithNonCriticalFailures"
-    | "quarantined"
-    | "removed"
-    | "cleaned"
-    | "allowed"
-    | "noStatusCleared";
-export type EnrollmentState = "unknown" | "enrolled" | "pendingReset" | "failed" | "notContacted";
+    | 'active'
+    | 'actionFailed'
+    | 'manualStepsRequired'
+    | 'fullScanRequired'
+    | 'rebootRequired'
+    | 'remediatedWithNonCriticalFailures'
+    | 'quarantined'
+    | 'removed'
+    | 'cleaned'
+    | 'allowed'
+    | 'noStatusCleared';
+export type EnrollmentState = 'unknown' | 'enrolled' | 'pendingReset' | 'failed' | 'notContacted';
 export type ImportedWindowsAutopilotDeviceIdentityImportStatus =
-    | "unknown"
-    | "pending"
-    | "partial"
-    | "complete"
-    | "error";
-export type ImportedWindowsAutopilotDeviceIdentityUploadStatus = "noUpload" | "pending" | "complete" | "error";
-export type ManagedAppClipboardSharingLevel = "allApps" | "managedAppsWithPasteIn" | "managedApps" | "blocked";
+    | 'unknown'
+    | 'pending'
+    | 'partial'
+    | 'complete'
+    | 'error';
+export type ImportedWindowsAutopilotDeviceIdentityUploadStatus = 'noUpload' | 'pending' | 'complete' | 'error';
+export type ManagedAppClipboardSharingLevel = 'allApps' | 'managedAppsWithPasteIn' | 'managedApps' | 'blocked';
 export type ManagedAppDataEncryptionType =
-    | "useDeviceSettings"
-    | "afterDeviceRestart"
-    | "whenDeviceLockedExceptOpenFiles"
-    | "whenDeviceLocked";
-export type ManagedAppDataStorageLocation = "oneDriveForBusiness" | "sharePoint" | "box" | "localStorage";
-export type ManagedAppDataTransferLevel = "allApps" | "managedApps" | "none";
-export type ManagedAppFlaggedReason = "none" | "rootedDevice";
-export type ManagedAppPinCharacterSet = "numeric" | "alphanumericAndSymbol";
-export type ManagedBrowserType = "notConfigured" | "microsoftEdge";
-export type TargetedManagedAppGroupType = "selectedPublicApps" | "allCoreMicrosoftApps" | "allMicrosoftApps" | "allApps";
+    | 'useDeviceSettings'
+    | 'afterDeviceRestart'
+    | 'whenDeviceLockedExceptOpenFiles'
+    | 'whenDeviceLocked';
+export type ManagedAppDataStorageLocation = 'oneDriveForBusiness' | 'sharePoint' | 'box' | 'localStorage';
+export type ManagedAppDataTransferLevel = 'allApps' | 'managedApps' | 'none';
+export type ManagedAppFlaggedReason = 'none' | 'rootedDevice';
+export type ManagedAppPinCharacterSet = 'numeric' | 'alphanumericAndSymbol';
+export type ManagedBrowserType = 'notConfigured' | 'microsoftEdge';
+export type TargetedManagedAppGroupType =
+    | 'selectedPublicApps'
+    | 'allCoreMicrosoftApps'
+    | 'allMicrosoftApps'
+    | 'allApps';
 export type WindowsInformationProtectionEnforcementLevel =
-    | "noProtection"
-    | "encryptAndAuditOnly"
-    | "encryptAuditAndPrompt"
-    | "encryptAuditAndBlock";
-export type WindowsInformationProtectionPinCharacterRequirements = "notAllow" | "requireAtLeastOne" | "allow";
+    | 'noProtection'
+    | 'encryptAndAuditOnly'
+    | 'encryptAuditAndPrompt'
+    | 'encryptAuditAndBlock';
+export type WindowsInformationProtectionPinCharacterRequirements = 'notAllow' | 'requireAtLeastOne' | 'allow';
 export type NotificationTemplateBrandingOptions =
-    | "none"
-    | "includeCompanyLogo"
-    | "includeCompanyName"
-    | "includeContactInformation"
-    | "includeCompanyPortalLink"
-    | "includeDeviceDetails"
-    | "unknownFutureValue";
-export type RemoteAssistanceOnboardingStatus = "notOnboarded" | "onboarding" | "onboarded";
-export type DeviceManagementExportJobLocalizationType = "localizedValuesAsAdditionalColumn" | "replaceLocalizableValues";
-export type DeviceManagementReportFileFormat = "csv" | "pdf" | "json" | "unknownFutureValue";
-export type DeviceManagementReportStatus = "unknown" | "notStarted" | "inProgress" | "completed" | "failed";
+    | 'none'
+    | 'includeCompanyLogo'
+    | 'includeCompanyName'
+    | 'includeContactInformation'
+    | 'includeCompanyPortalLink'
+    | 'includeDeviceDetails'
+    | 'unknownFutureValue';
+export type RemoteAssistanceOnboardingStatus = 'notOnboarded' | 'onboarding' | 'onboarded';
+export type DeviceManagementExportJobLocalizationType =
+    | 'localizedValuesAsAdditionalColumn'
+    | 'replaceLocalizableValues';
+export type DeviceManagementReportFileFormat = 'csv' | 'pdf' | 'json' | 'unknownFutureValue';
+export type DeviceManagementReportStatus = 'unknown' | 'notStarted' | 'inProgress' | 'completed' | 'failed';
 export type DeviceEnrollmentFailureReason =
-    | "unknown"
-    | "authentication"
-    | "authorization"
-    | "accountValidation"
-    | "userValidation"
-    | "deviceNotSupported"
-    | "inMaintenance"
-    | "badRequest"
-    | "featureNotSupported"
-    | "enrollmentRestrictionsEnforced"
-    | "clientDisconnected"
-    | "userAbandonment";
-export type ApplicationType = "universal" | "desktop";
-export type PostType = "regular" | "quick" | "strategic" | "unknownFutureValue";
-export type ServiceHealthClassificationType = "advisory" | "incident" | "unknownFutureValue";
-export type ServiceHealthOrigin = "microsoft" | "thirdParty" | "customer" | "unknownFutureValue";
+    | 'unknown'
+    | 'authentication'
+    | 'authorization'
+    | 'accountValidation'
+    | 'userValidation'
+    | 'deviceNotSupported'
+    | 'inMaintenance'
+    | 'badRequest'
+    | 'featureNotSupported'
+    | 'enrollmentRestrictionsEnforced'
+    | 'clientDisconnected'
+    | 'userAbandonment';
+export type ApplicationType = 'universal' | 'desktop';
+export type PostType = 'regular' | 'quick' | 'strategic' | 'unknownFutureValue';
+export type ServiceHealthClassificationType = 'advisory' | 'incident' | 'unknownFutureValue';
+export type ServiceHealthOrigin = 'microsoft' | 'thirdParty' | 'customer' | 'unknownFutureValue';
 export type ServiceHealthStatus =
-    | "serviceOperational"
-    | "investigating"
-    | "restoringService"
-    | "verifyingService"
-    | "serviceRestored"
-    | "postIncidentReviewPublished"
-    | "serviceDegradation"
-    | "serviceInterruption"
-    | "extendedRecovery"
-    | "falsePositive"
-    | "investigationSuspended"
-    | "resolved"
-    | "mitigatedExternal"
-    | "mitigated"
-    | "resolvedExternal"
-    | "confirmed"
-    | "reported"
-    | "unknownFutureValue";
-export type ServiceUpdateCategory = "preventOrFixIssue" | "planForChange" | "stayInformed" | "unknownFutureValue";
-export type ServiceUpdateSeverity = "normal" | "high" | "critical" | "unknownFutureValue";
-export type BucketAggregationSortProperty = "count" | "keyAsString" | "keyAsNumber" | "unknownFutureValue";
+    | 'serviceOperational'
+    | 'investigating'
+    | 'restoringService'
+    | 'verifyingService'
+    | 'serviceRestored'
+    | 'postIncidentReviewPublished'
+    | 'serviceDegradation'
+    | 'serviceInterruption'
+    | 'extendedRecovery'
+    | 'falsePositive'
+    | 'investigationSuspended'
+    | 'resolved'
+    | 'mitigatedExternal'
+    | 'mitigated'
+    | 'resolvedExternal'
+    | 'confirmed'
+    | 'reported'
+    | 'unknownFutureValue';
+export type ServiceUpdateCategory = 'preventOrFixIssue' | 'planForChange' | 'stayInformed' | 'unknownFutureValue';
+export type ServiceUpdateSeverity = 'normal' | 'high' | 'critical' | 'unknownFutureValue';
+export type BucketAggregationSortProperty = 'count' | 'keyAsString' | 'keyAsNumber' | 'unknownFutureValue';
 export type EntityType =
-    | "event"
-    | "message"
-    | "driveItem"
-    | "externalItem"
-    | "site"
-    | "list"
-    | "listItem"
-    | "drive"
-    | "unknownFutureValue"
-    | "acronym"
-    | "bookmark"
-    | "chatMessage"
-    | "person";
-export type SearchAlterationType = "suggestion" | "modification" | "unknownFutureValue";
-export type SearchContent = "sharedContent" | "privateContent" | "unknownFutureValue";
-export type PlannerContainerType = "group" | "unknownFutureValue" | "roster";
-export type PlannerPreviewType = "automatic" | "noPreview" | "checklist" | "description" | "reference";
-export type OnenotePatchActionType = "Replace" | "Append" | "Delete" | "Insert" | "Prepend";
-export type OnenotePatchInsertPosition = "After" | "Before";
-export type OnenoteSourceService = "Unknown" | "OneDrive" | "OneDriveForBusiness" | "OnPremOneDriveForBusiness";
-export type OnenoteUserRole = "None" | "Owner" | "Contributor" | "Reader";
-export type OperationStatus = "NotStarted" | "Running" | "Completed" | "Failed";
+    | 'event'
+    | 'message'
+    | 'driveItem'
+    | 'externalItem'
+    | 'site'
+    | 'list'
+    | 'listItem'
+    | 'drive'
+    | 'unknownFutureValue'
+    | 'acronym'
+    | 'bookmark'
+    | 'chatMessage'
+    | 'person';
+export type SearchAlterationType = 'suggestion' | 'modification' | 'unknownFutureValue';
+export type SearchContent = 'sharedContent' | 'privateContent' | 'unknownFutureValue';
+export type PlannerContainerType = 'group' | 'unknownFutureValue' | 'roster';
+export type PlannerPreviewType = 'automatic' | 'noPreview' | 'checklist' | 'description' | 'reference';
+export type OnenotePatchActionType = 'Replace' | 'Append' | 'Delete' | 'Insert' | 'Prepend';
+export type OnenotePatchInsertPosition = 'After' | 'Before';
+export type OnenoteSourceService = 'Unknown' | 'OneDrive' | 'OneDriveForBusiness' | 'OnPremOneDriveForBusiness';
+export type OnenoteUserRole = 'None' | 'Owner' | 'Contributor' | 'Reader';
+export type OperationStatus = 'NotStarted' | 'Running' | 'Completed' | 'Failed';
 export type DelegatedAdminAccessAssignmentStatus =
-    | "pending"
-    | "active"
-    | "deleting"
-    | "deleted"
-    | "error"
-    | "unknownFutureValue";
-export type DelegatedAdminAccessContainerType = "securityGroup" | "unknownFutureValue";
-export type DelegatedAdminRelationshipOperationType = "delegatedAdminAccessAssignmentUpdate" | "unknownFutureValue";
-export type DelegatedAdminRelationshipRequestAction = "lockForApproval" | "approve" | "terminate" | "unknownFutureValue";
+    | 'pending'
+    | 'active'
+    | 'deleting'
+    | 'deleted'
+    | 'error'
+    | 'unknownFutureValue';
+export type DelegatedAdminAccessContainerType = 'securityGroup' | 'unknownFutureValue';
+export type DelegatedAdminRelationshipOperationType = 'delegatedAdminAccessAssignmentUpdate' | 'unknownFutureValue';
+export type DelegatedAdminRelationshipRequestAction =
+    | 'lockForApproval'
+    | 'approve'
+    | 'terminate'
+    | 'unknownFutureValue';
 export type DelegatedAdminRelationshipRequestStatus =
-    | "created"
-    | "pending"
-    | "succeeded"
-    | "failed"
-    | "unknownFutureValue";
+    | 'created'
+    | 'pending'
+    | 'succeeded'
+    | 'failed'
+    | 'unknownFutureValue';
 export type DelegatedAdminRelationshipStatus =
-    | "activating"
-    | "active"
-    | "approvalPending"
-    | "approved"
-    | "created"
-    | "expired"
-    | "expiring"
-    | "terminated"
-    | "terminating"
-    | "terminationRequested"
-    | "unknownFutureValue";
-export type RoleAssignmentScheduleFilterByCurrentUserOptions = "principal" | "unknownFutureValue";
-export type RoleAssignmentScheduleInstanceFilterByCurrentUserOptions = "principal" | "unknownFutureValue";
+    | 'activating'
+    | 'active'
+    | 'approvalPending'
+    | 'approved'
+    | 'created'
+    | 'expired'
+    | 'expiring'
+    | 'terminated'
+    | 'terminating'
+    | 'terminationRequested'
+    | 'unknownFutureValue';
+export type RoleAssignmentScheduleFilterByCurrentUserOptions = 'principal' | 'unknownFutureValue';
+export type RoleAssignmentScheduleInstanceFilterByCurrentUserOptions = 'principal' | 'unknownFutureValue';
 export type RoleAssignmentScheduleRequestFilterByCurrentUserOptions =
-    | "principal"
-    | "createdBy"
-    | "approver"
-    | "unknownFutureValue";
-export type RoleEligibilityScheduleFilterByCurrentUserOptions = "principal" | "unknownFutureValue";
-export type RoleEligibilityScheduleInstanceFilterByCurrentUserOptions = "principal" | "unknownFutureValue";
+    | 'principal'
+    | 'createdBy'
+    | 'approver'
+    | 'unknownFutureValue';
+export type RoleEligibilityScheduleFilterByCurrentUserOptions = 'principal' | 'unknownFutureValue';
+export type RoleEligibilityScheduleInstanceFilterByCurrentUserOptions = 'principal' | 'unknownFutureValue';
 export type RoleEligibilityScheduleRequestFilterByCurrentUserOptions =
-    | "principal"
-    | "createdBy"
-    | "approver"
-    | "unknownFutureValue";
+    | 'principal'
+    | 'createdBy'
+    | 'approver'
+    | 'unknownFutureValue';
 export type UnifiedRoleManagementPolicyRuleTargetOperations =
-    | "all"
-    | "activate"
-    | "deactivate"
-    | "assign"
-    | "update"
-    | "remove"
-    | "extend"
-    | "renew"
-    | "unknownFutureValue";
+    | 'all'
+    | 'activate'
+    | 'deactivate'
+    | 'assign'
+    | 'update'
+    | 'remove'
+    | 'extend'
+    | 'renew'
+    | 'unknownFutureValue';
 export type UnifiedRoleScheduleRequestActions =
-    | "adminAssign"
-    | "adminUpdate"
-    | "adminRemove"
-    | "selfActivate"
-    | "selfDeactivate"
-    | "adminExtend"
-    | "adminRenew"
-    | "selfExtend"
-    | "selfRenew"
-    | "unknownFutureValue";
-export type PrintColorMode = "blackAndWhite" | "grayscale" | "color" | "auto" | "unknownFutureValue";
-export type PrintDuplexMode = "flipOnLongEdge" | "flipOnShortEdge" | "oneSided" | "unknownFutureValue";
-export type PrinterFeedOrientation = "longEdgeFirst" | "shortEdgeFirst" | "unknownFutureValue";
-export type PrinterProcessingState = "unknown" | "idle" | "processing" | "stopped" | "unknownFutureValue";
+    | 'adminAssign'
+    | 'adminUpdate'
+    | 'adminRemove'
+    | 'selfActivate'
+    | 'selfDeactivate'
+    | 'adminExtend'
+    | 'adminRenew'
+    | 'selfExtend'
+    | 'selfRenew'
+    | 'unknownFutureValue';
+export type PrintColorMode = 'blackAndWhite' | 'grayscale' | 'color' | 'auto' | 'unknownFutureValue';
+export type PrintDuplexMode = 'flipOnLongEdge' | 'flipOnShortEdge' | 'oneSided' | 'unknownFutureValue';
+export type PrinterFeedOrientation = 'longEdgeFirst' | 'shortEdgeFirst' | 'unknownFutureValue';
+export type PrinterProcessingState = 'unknown' | 'idle' | 'processing' | 'stopped' | 'unknownFutureValue';
 export type PrinterProcessingStateDetail =
-    | "paused"
-    | "mediaJam"
-    | "mediaNeeded"
-    | "mediaLow"
-    | "mediaEmpty"
-    | "coverOpen"
-    | "interlockOpen"
-    | "outputTrayMissing"
-    | "outputAreaFull"
-    | "markerSupplyLow"
-    | "markerSupplyEmpty"
-    | "inputTrayMissing"
-    | "outputAreaAlmostFull"
-    | "markerWasteAlmostFull"
-    | "markerWasteFull"
-    | "fuserOverTemp"
-    | "fuserUnderTemp"
-    | "other"
-    | "none"
-    | "movingToPaused"
-    | "shutdown"
-    | "connectingToDevice"
-    | "timedOut"
-    | "stopping"
-    | "stoppedPartially"
-    | "tonerLow"
-    | "tonerEmpty"
-    | "spoolAreaFull"
-    | "doorOpen"
-    | "opticalPhotoConductorNearEndOfLife"
-    | "opticalPhotoConductorLifeOver"
-    | "developerLow"
-    | "developerEmpty"
-    | "interpreterResourceUnavailable"
-    | "unknownFutureValue"
-    | "alertRemovalOfBinaryChangeEntry"
-    | "banderAdded"
-    | "banderAlmostEmpty"
-    | "banderAlmostFull"
-    | "banderAtLimit"
-    | "banderClosed"
-    | "banderConfigurationChange"
-    | "banderCoverClosed"
-    | "banderCoverOpen"
-    | "banderEmpty"
-    | "banderFull"
-    | "banderInterlockClosed"
-    | "banderInterlockOpen"
-    | "banderJam"
-    | "banderLifeAlmostOver"
-    | "banderLifeOver"
-    | "banderMemoryExhausted"
-    | "banderMissing"
-    | "banderMotorFailure"
-    | "banderNearLimit"
-    | "banderOffline"
-    | "banderOpened"
-    | "banderOverTemperature"
-    | "banderPowerSaver"
-    | "banderRecoverableFailure"
-    | "banderRecoverableStorage"
-    | "banderRemoved"
-    | "banderResourceAdded"
-    | "banderResourceRemoved"
-    | "banderThermistorFailure"
-    | "banderTimingFailure"
-    | "banderTurnedOff"
-    | "banderTurnedOn"
-    | "banderUnderTemperature"
-    | "banderUnrecoverableFailure"
-    | "banderUnrecoverableStorageError"
-    | "banderWarmingUp"
-    | "binderAdded"
-    | "binderAlmostEmpty"
-    | "binderAlmostFull"
-    | "binderAtLimit"
-    | "binderClosed"
-    | "binderConfigurationChange"
-    | "binderCoverClosed"
-    | "binderCoverOpen"
-    | "binderEmpty"
-    | "binderFull"
-    | "binderInterlockClosed"
-    | "binderInterlockOpen"
-    | "binderJam"
-    | "binderLifeAlmostOver"
-    | "binderLifeOver"
-    | "binderMemoryExhausted"
-    | "binderMissing"
-    | "binderMotorFailure"
-    | "binderNearLimit"
-    | "binderOffline"
-    | "binderOpened"
-    | "binderOverTemperature"
-    | "binderPowerSaver"
-    | "binderRecoverableFailure"
-    | "binderRecoverableStorage"
-    | "binderRemoved"
-    | "binderResourceAdded"
-    | "binderResourceRemoved"
-    | "binderThermistorFailure"
-    | "binderTimingFailure"
-    | "binderTurnedOff"
-    | "binderTurnedOn"
-    | "binderUnderTemperature"
-    | "binderUnrecoverableFailure"
-    | "binderUnrecoverableStorageError"
-    | "binderWarmingUp"
-    | "cameraFailure"
-    | "chamberCooling"
-    | "chamberFailure"
-    | "chamberHeating"
-    | "chamberTemperatureHigh"
-    | "chamberTemperatureLow"
-    | "cleanerLifeAlmostOver"
-    | "cleanerLifeOver"
-    | "configurationChange"
-    | "deactivated"
-    | "deleted"
-    | "dieCutterAdded"
-    | "dieCutterAlmostEmpty"
-    | "dieCutterAlmostFull"
-    | "dieCutterAtLimit"
-    | "dieCutterClosed"
-    | "dieCutterConfigurationChange"
-    | "dieCutterCoverClosed"
-    | "dieCutterCoverOpen"
-    | "dieCutterEmpty"
-    | "dieCutterFull"
-    | "dieCutterInterlockClosed"
-    | "dieCutterInterlockOpen"
-    | "dieCutterJam"
-    | "dieCutterLifeAlmostOver"
-    | "dieCutterLifeOver"
-    | "dieCutterMemoryExhausted"
-    | "dieCutterMissing"
-    | "dieCutterMotorFailure"
-    | "dieCutterNearLimit"
-    | "dieCutterOffline"
-    | "dieCutterOpened"
-    | "dieCutterOverTemperature"
-    | "dieCutterPowerSaver"
-    | "dieCutterRecoverableFailure"
-    | "dieCutterRecoverableStorage"
-    | "dieCutterRemoved"
-    | "dieCutterResourceAdded"
-    | "dieCutterResourceRemoved"
-    | "dieCutterThermistorFailure"
-    | "dieCutterTimingFailure"
-    | "dieCutterTurnedOff"
-    | "dieCutterTurnedOn"
-    | "dieCutterUnderTemperature"
-    | "dieCutterUnrecoverableFailure"
-    | "dieCutterUnrecoverableStorageError"
-    | "dieCutterWarmingUp"
-    | "extruderCooling"
-    | "extruderFailure"
-    | "extruderHeating"
-    | "extruderJam"
-    | "extruderTemperatureHigh"
-    | "extruderTemperatureLow"
-    | "fanFailure"
-    | "faxModemLifeAlmostOver"
-    | "faxModemLifeOver"
-    | "faxModemMissing"
-    | "faxModemTurnedOff"
-    | "faxModemTurnedOn"
-    | "folderAdded"
-    | "folderAlmostEmpty"
-    | "folderAlmostFull"
-    | "folderAtLimit"
-    | "folderClosed"
-    | "folderConfigurationChange"
-    | "folderCoverClosed"
-    | "folderCoverOpen"
-    | "folderEmpty"
-    | "folderFull"
-    | "folderInterlockClosed"
-    | "folderInterlockOpen"
-    | "folderJam"
-    | "folderLifeAlmostOver"
-    | "folderLifeOver"
-    | "folderMemoryExhausted"
-    | "folderMissing"
-    | "folderMotorFailure"
-    | "folderNearLimit"
-    | "folderOffline"
-    | "folderOpened"
-    | "folderOverTemperature"
-    | "folderPowerSaver"
-    | "folderRecoverableFailure"
-    | "folderRecoverableStorage"
-    | "folderRemoved"
-    | "folderResourceAdded"
-    | "folderResourceRemoved"
-    | "folderThermistorFailure"
-    | "folderTimingFailure"
-    | "folderTurnedOff"
-    | "folderTurnedOn"
-    | "folderUnderTemperature"
-    | "folderUnrecoverableFailure"
-    | "folderUnrecoverableStorageError"
-    | "folderWarmingUp"
-    | "hibernate"
-    | "holdNewJobs"
-    | "identifyPrinterRequested"
-    | "imprinterAdded"
-    | "imprinterAlmostEmpty"
-    | "imprinterAlmostFull"
-    | "imprinterAtLimit"
-    | "imprinterClosed"
-    | "imprinterConfigurationChange"
-    | "imprinterCoverClosed"
-    | "imprinterCoverOpen"
-    | "imprinterEmpty"
-    | "imprinterFull"
-    | "imprinterInterlockClosed"
-    | "imprinterInterlockOpen"
-    | "imprinterJam"
-    | "imprinterLifeAlmostOver"
-    | "imprinterLifeOver"
-    | "imprinterMemoryExhausted"
-    | "imprinterMissing"
-    | "imprinterMotorFailure"
-    | "imprinterNearLimit"
-    | "imprinterOffline"
-    | "imprinterOpened"
-    | "imprinterOverTemperature"
-    | "imprinterPowerSaver"
-    | "imprinterRecoverableFailure"
-    | "imprinterRecoverableStorage"
-    | "imprinterRemoved"
-    | "imprinterResourceAdded"
-    | "imprinterResourceRemoved"
-    | "imprinterThermistorFailure"
-    | "imprinterTimingFailure"
-    | "imprinterTurnedOff"
-    | "imprinterTurnedOn"
-    | "imprinterUnderTemperature"
-    | "imprinterUnrecoverableFailure"
-    | "imprinterUnrecoverableStorageError"
-    | "imprinterWarmingUp"
-    | "inputCannotFeedSizeSelected"
-    | "inputManualInputRequest"
-    | "inputMediaColorChange"
-    | "inputMediaFormPartsChange"
-    | "inputMediaSizeChange"
-    | "inputMediaTrayFailure"
-    | "inputMediaTrayFeedError"
-    | "inputMediaTrayJam"
-    | "inputMediaTypeChange"
-    | "inputMediaWeightChange"
-    | "inputPickRollerFailure"
-    | "inputPickRollerLifeOver"
-    | "inputPickRollerLifeWarn"
-    | "inputPickRollerMissing"
-    | "inputTrayElevationFailure"
-    | "inputTrayPositionFailure"
-    | "inserterAdded"
-    | "inserterAlmostEmpty"
-    | "inserterAlmostFull"
-    | "inserterAtLimit"
-    | "inserterClosed"
-    | "inserterConfigurationChange"
-    | "inserterCoverClosed"
-    | "inserterCoverOpen"
-    | "inserterEmpty"
-    | "inserterFull"
-    | "inserterInterlockClosed"
-    | "inserterInterlockOpen"
-    | "inserterJam"
-    | "inserterLifeAlmostOver"
-    | "inserterLifeOver"
-    | "inserterMemoryExhausted"
-    | "inserterMissing"
-    | "inserterMotorFailure"
-    | "inserterNearLimit"
-    | "inserterOffline"
-    | "inserterOpened"
-    | "inserterOverTemperature"
-    | "inserterPowerSaver"
-    | "inserterRecoverableFailure"
-    | "inserterRecoverableStorage"
-    | "inserterRemoved"
-    | "inserterResourceAdded"
-    | "inserterResourceRemoved"
-    | "inserterThermistorFailure"
-    | "inserterTimingFailure"
-    | "inserterTurnedOff"
-    | "inserterTurnedOn"
-    | "inserterUnderTemperature"
-    | "inserterUnrecoverableFailure"
-    | "inserterUnrecoverableStorageError"
-    | "inserterWarmingUp"
-    | "interlockClosed"
-    | "interpreterCartridgeAdded"
-    | "interpreterCartridgeDeleted"
-    | "interpreterComplexPageEncountered"
-    | "interpreterMemoryDecrease"
-    | "interpreterMemoryIncrease"
-    | "interpreterResourceAdded"
-    | "interpreterResourceDeleted"
-    | "lampAtEol"
-    | "lampFailure"
-    | "lampNearEol"
-    | "laserAtEol"
-    | "laserFailure"
-    | "laserNearEol"
-    | "makeEnvelopeAdded"
-    | "makeEnvelopeAlmostEmpty"
-    | "makeEnvelopeAlmostFull"
-    | "makeEnvelopeAtLimit"
-    | "makeEnvelopeClosed"
-    | "makeEnvelopeConfigurationChange"
-    | "makeEnvelopeCoverClosed"
-    | "makeEnvelopeCoverOpen"
-    | "makeEnvelopeEmpty"
-    | "makeEnvelopeFull"
-    | "makeEnvelopeInterlockClosed"
-    | "makeEnvelopeInterlockOpen"
-    | "makeEnvelopeJam"
-    | "makeEnvelopeLifeAlmostOver"
-    | "makeEnvelopeLifeOver"
-    | "makeEnvelopeMemoryExhausted"
-    | "makeEnvelopeMissing"
-    | "makeEnvelopeMotorFailure"
-    | "makeEnvelopeNearLimit"
-    | "makeEnvelopeOffline"
-    | "makeEnvelopeOpened"
-    | "makeEnvelopeOverTemperature"
-    | "makeEnvelopePowerSaver"
-    | "makeEnvelopeRecoverableFailure"
-    | "makeEnvelopeRecoverableStorage"
-    | "makeEnvelopeRemoved"
-    | "makeEnvelopeResourceAdded"
-    | "makeEnvelopeResourceRemoved"
-    | "makeEnvelopeThermistorFailure"
-    | "makeEnvelopeTimingFailure"
-    | "makeEnvelopeTurnedOff"
-    | "makeEnvelopeTurnedOn"
-    | "makeEnvelopeUnderTemperature"
-    | "makeEnvelopeUnrecoverableFailure"
-    | "makeEnvelopeUnrecoverableStorageError"
-    | "makeEnvelopeWarmingUp"
-    | "markerAdjustingPrintQuality"
-    | "markerCleanerMissing"
-    | "markerDeveloperAlmostEmpty"
-    | "markerDeveloperEmpty"
-    | "markerDeveloperMissing"
-    | "markerFuserMissing"
-    | "markerFuserThermistorFailure"
-    | "markerFuserTimingFailure"
-    | "markerInkAlmostEmpty"
-    | "markerInkEmpty"
-    | "markerInkMissing"
-    | "markerOpcMissing"
-    | "markerPrintRibbonAlmostEmpty"
-    | "markerPrintRibbonEmpty"
-    | "markerPrintRibbonMissing"
-    | "markerSupplyAlmostEmpty"
-    | "markerSupplyMissing"
-    | "markerTonerCartridgeMissing"
-    | "markerTonerMissing"
-    | "markerWasteInkReceptacleAlmostFull"
-    | "markerWasteInkReceptacleFull"
-    | "markerWasteInkReceptacleMissing"
-    | "markerWasteMissing"
-    | "markerWasteTonerReceptacleAlmostFull"
-    | "markerWasteTonerReceptacleFull"
-    | "markerWasteTonerReceptacleMissing"
-    | "materialEmpty"
-    | "materialLow"
-    | "materialNeeded"
-    | "mediaDrying"
-    | "mediaPathCannotDuplexMediaSelected"
-    | "mediaPathFailure"
-    | "mediaPathInputEmpty"
-    | "mediaPathInputFeedError"
-    | "mediaPathInputJam"
-    | "mediaPathInputRequest"
-    | "mediaPathJam"
-    | "mediaPathMediaTrayAlmostFull"
-    | "mediaPathMediaTrayFull"
-    | "mediaPathMediaTrayMissing"
-    | "mediaPathOutputFeedError"
-    | "mediaPathOutputFull"
-    | "mediaPathOutputJam"
-    | "mediaPathPickRollerFailure"
-    | "mediaPathPickRollerLifeOver"
-    | "mediaPathPickRollerLifeWarn"
-    | "mediaPathPickRollerMissing"
-    | "motorFailure"
-    | "outputMailboxSelectFailure"
-    | "outputMediaTrayFailure"
-    | "outputMediaTrayFeedError"
-    | "outputMediaTrayJam"
-    | "perforaterAdded"
-    | "perforaterAlmostEmpty"
-    | "perforaterAlmostFull"
-    | "perforaterAtLimit"
-    | "perforaterClosed"
-    | "perforaterConfigurationChange"
-    | "perforaterCoverClosed"
-    | "perforaterCoverOpen"
-    | "perforaterEmpty"
-    | "perforaterFull"
-    | "perforaterInterlockClosed"
-    | "perforaterInterlockOpen"
-    | "perforaterJam"
-    | "perforaterLifeAlmostOver"
-    | "perforaterLifeOver"
-    | "perforaterMemoryExhausted"
-    | "perforaterMissing"
-    | "perforaterMotorFailure"
-    | "perforaterNearLimit"
-    | "perforaterOffline"
-    | "perforaterOpened"
-    | "perforaterOverTemperature"
-    | "perforaterPowerSaver"
-    | "perforaterRecoverableFailure"
-    | "perforaterRecoverableStorage"
-    | "perforaterRemoved"
-    | "perforaterResourceAdded"
-    | "perforaterResourceRemoved"
-    | "perforaterThermistorFailure"
-    | "perforaterTimingFailure"
-    | "perforaterTurnedOff"
-    | "perforaterTurnedOn"
-    | "perforaterUnderTemperature"
-    | "perforaterUnrecoverableFailure"
-    | "perforaterUnrecoverableStorageError"
-    | "perforaterWarmingUp"
-    | "platformCooling"
-    | "platformFailure"
-    | "platformHeating"
-    | "platformTemperatureHigh"
-    | "platformTemperatureLow"
-    | "powerDown"
-    | "powerUp"
-    | "printerManualReset"
-    | "printerNmsReset"
-    | "printerReadyToPrint"
-    | "puncherAdded"
-    | "puncherAlmostEmpty"
-    | "puncherAlmostFull"
-    | "puncherAtLimit"
-    | "puncherClosed"
-    | "puncherConfigurationChange"
-    | "puncherCoverClosed"
-    | "puncherCoverOpen"
-    | "puncherEmpty"
-    | "puncherFull"
-    | "puncherInterlockClosed"
-    | "puncherInterlockOpen"
-    | "puncherJam"
-    | "puncherLifeAlmostOver"
-    | "puncherLifeOver"
-    | "puncherMemoryExhausted"
-    | "puncherMissing"
-    | "puncherMotorFailure"
-    | "puncherNearLimit"
-    | "puncherOffline"
-    | "puncherOpened"
-    | "puncherOverTemperature"
-    | "puncherPowerSaver"
-    | "puncherRecoverableFailure"
-    | "puncherRecoverableStorage"
-    | "puncherRemoved"
-    | "puncherResourceAdded"
-    | "puncherResourceRemoved"
-    | "puncherThermistorFailure"
-    | "puncherTimingFailure"
-    | "puncherTurnedOff"
-    | "puncherTurnedOn"
-    | "puncherUnderTemperature"
-    | "puncherUnrecoverableFailure"
-    | "puncherUnrecoverableStorageError"
-    | "puncherWarmingUp"
-    | "resuming"
-    | "scanMediaPathFailure"
-    | "scanMediaPathInputEmpty"
-    | "scanMediaPathInputFeedError"
-    | "scanMediaPathInputJam"
-    | "scanMediaPathInputRequest"
-    | "scanMediaPathJam"
-    | "scanMediaPathOutputFeedError"
-    | "scanMediaPathOutputFull"
-    | "scanMediaPathOutputJam"
-    | "scanMediaPathPickRollerFailure"
-    | "scanMediaPathPickRollerLifeOver"
-    | "scanMediaPathPickRollerLifeWarn"
-    | "scanMediaPathPickRollerMissing"
-    | "scanMediaPathTrayAlmostFull"
-    | "scanMediaPathTrayFull"
-    | "scanMediaPathTrayMissing"
-    | "scannerLightFailure"
-    | "scannerLightLifeAlmostOver"
-    | "scannerLightLifeOver"
-    | "scannerLightMissing"
-    | "scannerSensorFailure"
-    | "scannerSensorLifeAlmostOver"
-    | "scannerSensorLifeOver"
-    | "scannerSensorMissing"
-    | "separationCutterAdded"
-    | "separationCutterAlmostEmpty"
-    | "separationCutterAlmostFull"
-    | "separationCutterAtLimit"
-    | "separationCutterClosed"
-    | "separationCutterConfigurationChange"
-    | "separationCutterCoverClosed"
-    | "separationCutterCoverOpen"
-    | "separationCutterEmpty"
-    | "separationCutterFull"
-    | "separationCutterInterlockClosed"
-    | "separationCutterInterlockOpen"
-    | "separationCutterJam"
-    | "separationCutterLifeAlmostOver"
-    | "separationCutterLifeOver"
-    | "separationCutterMemoryExhausted"
-    | "separationCutterMissing"
-    | "separationCutterMotorFailure"
-    | "separationCutterNearLimit"
-    | "separationCutterOffline"
-    | "separationCutterOpened"
-    | "separationCutterOverTemperature"
-    | "separationCutterPowerSaver"
-    | "separationCutterRecoverableFailure"
-    | "separationCutterRecoverableStorage"
-    | "separationCutterRemoved"
-    | "separationCutterResourceAdded"
-    | "separationCutterResourceRemoved"
-    | "separationCutterThermistorFailure"
-    | "separationCutterTimingFailure"
-    | "separationCutterTurnedOff"
-    | "separationCutterTurnedOn"
-    | "separationCutterUnderTemperature"
-    | "separationCutterUnrecoverableFailure"
-    | "separationCutterUnrecoverableStorageError"
-    | "separationCutterWarmingUp"
-    | "sheetRotatorAdded"
-    | "sheetRotatorAlmostEmpty"
-    | "sheetRotatorAlmostFull"
-    | "sheetRotatorAtLimit"
-    | "sheetRotatorClosed"
-    | "sheetRotatorConfigurationChange"
-    | "sheetRotatorCoverClosed"
-    | "sheetRotatorCoverOpen"
-    | "sheetRotatorEmpty"
-    | "sheetRotatorFull"
-    | "sheetRotatorInterlockClosed"
-    | "sheetRotatorInterlockOpen"
-    | "sheetRotatorJam"
-    | "sheetRotatorLifeAlmostOver"
-    | "sheetRotatorLifeOver"
-    | "sheetRotatorMemoryExhausted"
-    | "sheetRotatorMissing"
-    | "sheetRotatorMotorFailure"
-    | "sheetRotatorNearLimit"
-    | "sheetRotatorOffline"
-    | "sheetRotatorOpened"
-    | "sheetRotatorOverTemperature"
-    | "sheetRotatorPowerSaver"
-    | "sheetRotatorRecoverableFailure"
-    | "sheetRotatorRecoverableStorage"
-    | "sheetRotatorRemoved"
-    | "sheetRotatorResourceAdded"
-    | "sheetRotatorResourceRemoved"
-    | "sheetRotatorThermistorFailure"
-    | "sheetRotatorTimingFailure"
-    | "sheetRotatorTurnedOff"
-    | "sheetRotatorTurnedOn"
-    | "sheetRotatorUnderTemperature"
-    | "sheetRotatorUnrecoverableFailure"
-    | "sheetRotatorUnrecoverableStorageError"
-    | "sheetRotatorWarmingUp"
-    | "slitterAdded"
-    | "slitterAlmostEmpty"
-    | "slitterAlmostFull"
-    | "slitterAtLimit"
-    | "slitterClosed"
-    | "slitterConfigurationChange"
-    | "slitterCoverClosed"
-    | "slitterCoverOpen"
-    | "slitterEmpty"
-    | "slitterFull"
-    | "slitterInterlockClosed"
-    | "slitterInterlockOpen"
-    | "slitterJam"
-    | "slitterLifeAlmostOver"
-    | "slitterLifeOver"
-    | "slitterMemoryExhausted"
-    | "slitterMissing"
-    | "slitterMotorFailure"
-    | "slitterNearLimit"
-    | "slitterOffline"
-    | "slitterOpened"
-    | "slitterOverTemperature"
-    | "slitterPowerSaver"
-    | "slitterRecoverableFailure"
-    | "slitterRecoverableStorage"
-    | "slitterRemoved"
-    | "slitterResourceAdded"
-    | "slitterResourceRemoved"
-    | "slitterThermistorFailure"
-    | "slitterTimingFailure"
-    | "slitterTurnedOff"
-    | "slitterTurnedOn"
-    | "slitterUnderTemperature"
-    | "slitterUnrecoverableFailure"
-    | "slitterUnrecoverableStorageError"
-    | "slitterWarmingUp"
-    | "stackerAdded"
-    | "stackerAlmostEmpty"
-    | "stackerAlmostFull"
-    | "stackerAtLimit"
-    | "stackerClosed"
-    | "stackerConfigurationChange"
-    | "stackerCoverClosed"
-    | "stackerCoverOpen"
-    | "stackerEmpty"
-    | "stackerFull"
-    | "stackerInterlockClosed"
-    | "stackerInterlockOpen"
-    | "stackerJam"
-    | "stackerLifeAlmostOver"
-    | "stackerLifeOver"
-    | "stackerMemoryExhausted"
-    | "stackerMissing"
-    | "stackerMotorFailure"
-    | "stackerNearLimit"
-    | "stackerOffline"
-    | "stackerOpened"
-    | "stackerOverTemperature"
-    | "stackerPowerSaver"
-    | "stackerRecoverableFailure"
-    | "stackerRecoverableStorage"
-    | "stackerRemoved"
-    | "stackerResourceAdded"
-    | "stackerResourceRemoved"
-    | "stackerThermistorFailure"
-    | "stackerTimingFailure"
-    | "stackerTurnedOff"
-    | "stackerTurnedOn"
-    | "stackerUnderTemperature"
-    | "stackerUnrecoverableFailure"
-    | "stackerUnrecoverableStorageError"
-    | "stackerWarmingUp"
-    | "standby"
-    | "staplerAdded"
-    | "staplerAlmostEmpty"
-    | "staplerAlmostFull"
-    | "staplerAtLimit"
-    | "staplerClosed"
-    | "staplerConfigurationChange"
-    | "staplerCoverClosed"
-    | "staplerCoverOpen"
-    | "staplerEmpty"
-    | "staplerFull"
-    | "staplerInterlockClosed"
-    | "staplerInterlockOpen"
-    | "staplerJam"
-    | "staplerLifeAlmostOver"
-    | "staplerLifeOver"
-    | "staplerMemoryExhausted"
-    | "staplerMissing"
-    | "staplerMotorFailure"
-    | "staplerNearLimit"
-    | "staplerOffline"
-    | "staplerOpened"
-    | "staplerOverTemperature"
-    | "staplerPowerSaver"
-    | "staplerRecoverableFailure"
-    | "staplerRecoverableStorage"
-    | "staplerRemoved"
-    | "staplerResourceAdded"
-    | "staplerResourceRemoved"
-    | "staplerThermistorFailure"
-    | "staplerTimingFailure"
-    | "staplerTurnedOff"
-    | "staplerTurnedOn"
-    | "staplerUnderTemperature"
-    | "staplerUnrecoverableFailure"
-    | "staplerUnrecoverableStorageError"
-    | "staplerWarmingUp"
-    | "stitcherAdded"
-    | "stitcherAlmostEmpty"
-    | "stitcherAlmostFull"
-    | "stitcherAtLimit"
-    | "stitcherClosed"
-    | "stitcherConfigurationChange"
-    | "stitcherCoverClosed"
-    | "stitcherCoverOpen"
-    | "stitcherEmpty"
-    | "stitcherFull"
-    | "stitcherInterlockClosed"
-    | "stitcherInterlockOpen"
-    | "stitcherJam"
-    | "stitcherLifeAlmostOver"
-    | "stitcherLifeOver"
-    | "stitcherMemoryExhausted"
-    | "stitcherMissing"
-    | "stitcherMotorFailure"
-    | "stitcherNearLimit"
-    | "stitcherOffline"
-    | "stitcherOpened"
-    | "stitcherOverTemperature"
-    | "stitcherPowerSaver"
-    | "stitcherRecoverableFailure"
-    | "stitcherRecoverableStorage"
-    | "stitcherRemoved"
-    | "stitcherResourceAdded"
-    | "stitcherResourceRemoved"
-    | "stitcherThermistorFailure"
-    | "stitcherTimingFailure"
-    | "stitcherTurnedOff"
-    | "stitcherTurnedOn"
-    | "stitcherUnderTemperature"
-    | "stitcherUnrecoverableFailure"
-    | "stitcherUnrecoverableStorageError"
-    | "stitcherWarmingUp"
-    | "subunitAdded"
-    | "subunitAlmostEmpty"
-    | "subunitAlmostFull"
-    | "subunitAtLimit"
-    | "subunitClosed"
-    | "subunitCoolingDown"
-    | "subunitEmpty"
-    | "subunitFull"
-    | "subunitLifeAlmostOver"
-    | "subunitLifeOver"
-    | "subunitMemoryExhausted"
-    | "subunitMissing"
-    | "subunitMotorFailure"
-    | "subunitNearLimit"
-    | "subunitOffline"
-    | "subunitOpened"
-    | "subunitOverTemperature"
-    | "subunitPowerSaver"
-    | "subunitRecoverableFailure"
-    | "subunitRecoverableStorage"
-    | "subunitRemoved"
-    | "subunitResourceAdded"
-    | "subunitResourceRemoved"
-    | "subunitThermistorFailure"
-    | "subunitTimingFailure"
-    | "subunitTurnedOff"
-    | "subunitTurnedOn"
-    | "subunitUnderTemperature"
-    | "subunitUnrecoverableFailure"
-    | "subunitUnrecoverableStorage"
-    | "subunitWarmingUp"
-    | "suspend"
-    | "testing"
-    | "trimmerAdded"
-    | "trimmerAlmostEmpty"
-    | "trimmerAlmostFull"
-    | "trimmerAtLimit"
-    | "trimmerClosed"
-    | "trimmerConfigurationChange"
-    | "trimmerCoverClosed"
-    | "trimmerCoverOpen"
-    | "trimmerEmpty"
-    | "trimmerFull"
-    | "trimmerInterlockClosed"
-    | "trimmerInterlockOpen"
-    | "trimmerJam"
-    | "trimmerLifeAlmostOver"
-    | "trimmerLifeOver"
-    | "trimmerMemoryExhausted"
-    | "trimmerMissing"
-    | "trimmerMotorFailure"
-    | "trimmerNearLimit"
-    | "trimmerOffline"
-    | "trimmerOpened"
-    | "trimmerOverTemperature"
-    | "trimmerPowerSaver"
-    | "trimmerRecoverableFailure"
-    | "trimmerRecoverableStorage"
-    | "trimmerRemoved"
-    | "trimmerResourceAdded"
-    | "trimmerResourceRemoved"
-    | "trimmerThermistorFailure"
-    | "trimmerTimingFailure"
-    | "trimmerTurnedOff"
-    | "trimmerTurnedOn"
-    | "trimmerUnderTemperature"
-    | "trimmerUnrecoverableFailure"
-    | "trimmerUnrecoverableStorageError"
-    | "trimmerWarmingUp"
-    | "unknown"
-    | "wrapperAdded"
-    | "wrapperAlmostEmpty"
-    | "wrapperAlmostFull"
-    | "wrapperAtLimit"
-    | "wrapperClosed"
-    | "wrapperConfigurationChange"
-    | "wrapperCoverClosed"
-    | "wrapperCoverOpen"
-    | "wrapperEmpty"
-    | "wrapperFull"
-    | "wrapperInterlockClosed"
-    | "wrapperInterlockOpen"
-    | "wrapperJam"
-    | "wrapperLifeAlmostOver"
-    | "wrapperLifeOver"
-    | "wrapperMemoryExhausted"
-    | "wrapperMissing"
-    | "wrapperMotorFailure"
-    | "wrapperNearLimit"
-    | "wrapperOffline"
-    | "wrapperOpened"
-    | "wrapperOverTemperature"
-    | "wrapperPowerSaver"
-    | "wrapperRecoverableFailure"
-    | "wrapperRecoverableStorage"
-    | "wrapperRemoved"
-    | "wrapperResourceAdded"
-    | "wrapperResourceRemoved"
-    | "wrapperThermistorFailure"
-    | "wrapperTimingFailure"
-    | "wrapperTurnedOff"
-    | "wrapperTurnedOn"
-    | "wrapperUnderTemperature"
-    | "wrapperUnrecoverableFailure"
-    | "wrapperUnrecoverableStorageError"
-    | "wrapperWarmingUp";
-export type PrintEvent = "jobStarted" | "unknownFutureValue";
+    | 'paused'
+    | 'mediaJam'
+    | 'mediaNeeded'
+    | 'mediaLow'
+    | 'mediaEmpty'
+    | 'coverOpen'
+    | 'interlockOpen'
+    | 'outputTrayMissing'
+    | 'outputAreaFull'
+    | 'markerSupplyLow'
+    | 'markerSupplyEmpty'
+    | 'inputTrayMissing'
+    | 'outputAreaAlmostFull'
+    | 'markerWasteAlmostFull'
+    | 'markerWasteFull'
+    | 'fuserOverTemp'
+    | 'fuserUnderTemp'
+    | 'other'
+    | 'none'
+    | 'movingToPaused'
+    | 'shutdown'
+    | 'connectingToDevice'
+    | 'timedOut'
+    | 'stopping'
+    | 'stoppedPartially'
+    | 'tonerLow'
+    | 'tonerEmpty'
+    | 'spoolAreaFull'
+    | 'doorOpen'
+    | 'opticalPhotoConductorNearEndOfLife'
+    | 'opticalPhotoConductorLifeOver'
+    | 'developerLow'
+    | 'developerEmpty'
+    | 'interpreterResourceUnavailable'
+    | 'unknownFutureValue'
+    | 'alertRemovalOfBinaryChangeEntry'
+    | 'banderAdded'
+    | 'banderAlmostEmpty'
+    | 'banderAlmostFull'
+    | 'banderAtLimit'
+    | 'banderClosed'
+    | 'banderConfigurationChange'
+    | 'banderCoverClosed'
+    | 'banderCoverOpen'
+    | 'banderEmpty'
+    | 'banderFull'
+    | 'banderInterlockClosed'
+    | 'banderInterlockOpen'
+    | 'banderJam'
+    | 'banderLifeAlmostOver'
+    | 'banderLifeOver'
+    | 'banderMemoryExhausted'
+    | 'banderMissing'
+    | 'banderMotorFailure'
+    | 'banderNearLimit'
+    | 'banderOffline'
+    | 'banderOpened'
+    | 'banderOverTemperature'
+    | 'banderPowerSaver'
+    | 'banderRecoverableFailure'
+    | 'banderRecoverableStorage'
+    | 'banderRemoved'
+    | 'banderResourceAdded'
+    | 'banderResourceRemoved'
+    | 'banderThermistorFailure'
+    | 'banderTimingFailure'
+    | 'banderTurnedOff'
+    | 'banderTurnedOn'
+    | 'banderUnderTemperature'
+    | 'banderUnrecoverableFailure'
+    | 'banderUnrecoverableStorageError'
+    | 'banderWarmingUp'
+    | 'binderAdded'
+    | 'binderAlmostEmpty'
+    | 'binderAlmostFull'
+    | 'binderAtLimit'
+    | 'binderClosed'
+    | 'binderConfigurationChange'
+    | 'binderCoverClosed'
+    | 'binderCoverOpen'
+    | 'binderEmpty'
+    | 'binderFull'
+    | 'binderInterlockClosed'
+    | 'binderInterlockOpen'
+    | 'binderJam'
+    | 'binderLifeAlmostOver'
+    | 'binderLifeOver'
+    | 'binderMemoryExhausted'
+    | 'binderMissing'
+    | 'binderMotorFailure'
+    | 'binderNearLimit'
+    | 'binderOffline'
+    | 'binderOpened'
+    | 'binderOverTemperature'
+    | 'binderPowerSaver'
+    | 'binderRecoverableFailure'
+    | 'binderRecoverableStorage'
+    | 'binderRemoved'
+    | 'binderResourceAdded'
+    | 'binderResourceRemoved'
+    | 'binderThermistorFailure'
+    | 'binderTimingFailure'
+    | 'binderTurnedOff'
+    | 'binderTurnedOn'
+    | 'binderUnderTemperature'
+    | 'binderUnrecoverableFailure'
+    | 'binderUnrecoverableStorageError'
+    | 'binderWarmingUp'
+    | 'cameraFailure'
+    | 'chamberCooling'
+    | 'chamberFailure'
+    | 'chamberHeating'
+    | 'chamberTemperatureHigh'
+    | 'chamberTemperatureLow'
+    | 'cleanerLifeAlmostOver'
+    | 'cleanerLifeOver'
+    | 'configurationChange'
+    | 'deactivated'
+    | 'deleted'
+    | 'dieCutterAdded'
+    | 'dieCutterAlmostEmpty'
+    | 'dieCutterAlmostFull'
+    | 'dieCutterAtLimit'
+    | 'dieCutterClosed'
+    | 'dieCutterConfigurationChange'
+    | 'dieCutterCoverClosed'
+    | 'dieCutterCoverOpen'
+    | 'dieCutterEmpty'
+    | 'dieCutterFull'
+    | 'dieCutterInterlockClosed'
+    | 'dieCutterInterlockOpen'
+    | 'dieCutterJam'
+    | 'dieCutterLifeAlmostOver'
+    | 'dieCutterLifeOver'
+    | 'dieCutterMemoryExhausted'
+    | 'dieCutterMissing'
+    | 'dieCutterMotorFailure'
+    | 'dieCutterNearLimit'
+    | 'dieCutterOffline'
+    | 'dieCutterOpened'
+    | 'dieCutterOverTemperature'
+    | 'dieCutterPowerSaver'
+    | 'dieCutterRecoverableFailure'
+    | 'dieCutterRecoverableStorage'
+    | 'dieCutterRemoved'
+    | 'dieCutterResourceAdded'
+    | 'dieCutterResourceRemoved'
+    | 'dieCutterThermistorFailure'
+    | 'dieCutterTimingFailure'
+    | 'dieCutterTurnedOff'
+    | 'dieCutterTurnedOn'
+    | 'dieCutterUnderTemperature'
+    | 'dieCutterUnrecoverableFailure'
+    | 'dieCutterUnrecoverableStorageError'
+    | 'dieCutterWarmingUp'
+    | 'extruderCooling'
+    | 'extruderFailure'
+    | 'extruderHeating'
+    | 'extruderJam'
+    | 'extruderTemperatureHigh'
+    | 'extruderTemperatureLow'
+    | 'fanFailure'
+    | 'faxModemLifeAlmostOver'
+    | 'faxModemLifeOver'
+    | 'faxModemMissing'
+    | 'faxModemTurnedOff'
+    | 'faxModemTurnedOn'
+    | 'folderAdded'
+    | 'folderAlmostEmpty'
+    | 'folderAlmostFull'
+    | 'folderAtLimit'
+    | 'folderClosed'
+    | 'folderConfigurationChange'
+    | 'folderCoverClosed'
+    | 'folderCoverOpen'
+    | 'folderEmpty'
+    | 'folderFull'
+    | 'folderInterlockClosed'
+    | 'folderInterlockOpen'
+    | 'folderJam'
+    | 'folderLifeAlmostOver'
+    | 'folderLifeOver'
+    | 'folderMemoryExhausted'
+    | 'folderMissing'
+    | 'folderMotorFailure'
+    | 'folderNearLimit'
+    | 'folderOffline'
+    | 'folderOpened'
+    | 'folderOverTemperature'
+    | 'folderPowerSaver'
+    | 'folderRecoverableFailure'
+    | 'folderRecoverableStorage'
+    | 'folderRemoved'
+    | 'folderResourceAdded'
+    | 'folderResourceRemoved'
+    | 'folderThermistorFailure'
+    | 'folderTimingFailure'
+    | 'folderTurnedOff'
+    | 'folderTurnedOn'
+    | 'folderUnderTemperature'
+    | 'folderUnrecoverableFailure'
+    | 'folderUnrecoverableStorageError'
+    | 'folderWarmingUp'
+    | 'hibernate'
+    | 'holdNewJobs'
+    | 'identifyPrinterRequested'
+    | 'imprinterAdded'
+    | 'imprinterAlmostEmpty'
+    | 'imprinterAlmostFull'
+    | 'imprinterAtLimit'
+    | 'imprinterClosed'
+    | 'imprinterConfigurationChange'
+    | 'imprinterCoverClosed'
+    | 'imprinterCoverOpen'
+    | 'imprinterEmpty'
+    | 'imprinterFull'
+    | 'imprinterInterlockClosed'
+    | 'imprinterInterlockOpen'
+    | 'imprinterJam'
+    | 'imprinterLifeAlmostOver'
+    | 'imprinterLifeOver'
+    | 'imprinterMemoryExhausted'
+    | 'imprinterMissing'
+    | 'imprinterMotorFailure'
+    | 'imprinterNearLimit'
+    | 'imprinterOffline'
+    | 'imprinterOpened'
+    | 'imprinterOverTemperature'
+    | 'imprinterPowerSaver'
+    | 'imprinterRecoverableFailure'
+    | 'imprinterRecoverableStorage'
+    | 'imprinterRemoved'
+    | 'imprinterResourceAdded'
+    | 'imprinterResourceRemoved'
+    | 'imprinterThermistorFailure'
+    | 'imprinterTimingFailure'
+    | 'imprinterTurnedOff'
+    | 'imprinterTurnedOn'
+    | 'imprinterUnderTemperature'
+    | 'imprinterUnrecoverableFailure'
+    | 'imprinterUnrecoverableStorageError'
+    | 'imprinterWarmingUp'
+    | 'inputCannotFeedSizeSelected'
+    | 'inputManualInputRequest'
+    | 'inputMediaColorChange'
+    | 'inputMediaFormPartsChange'
+    | 'inputMediaSizeChange'
+    | 'inputMediaTrayFailure'
+    | 'inputMediaTrayFeedError'
+    | 'inputMediaTrayJam'
+    | 'inputMediaTypeChange'
+    | 'inputMediaWeightChange'
+    | 'inputPickRollerFailure'
+    | 'inputPickRollerLifeOver'
+    | 'inputPickRollerLifeWarn'
+    | 'inputPickRollerMissing'
+    | 'inputTrayElevationFailure'
+    | 'inputTrayPositionFailure'
+    | 'inserterAdded'
+    | 'inserterAlmostEmpty'
+    | 'inserterAlmostFull'
+    | 'inserterAtLimit'
+    | 'inserterClosed'
+    | 'inserterConfigurationChange'
+    | 'inserterCoverClosed'
+    | 'inserterCoverOpen'
+    | 'inserterEmpty'
+    | 'inserterFull'
+    | 'inserterInterlockClosed'
+    | 'inserterInterlockOpen'
+    | 'inserterJam'
+    | 'inserterLifeAlmostOver'
+    | 'inserterLifeOver'
+    | 'inserterMemoryExhausted'
+    | 'inserterMissing'
+    | 'inserterMotorFailure'
+    | 'inserterNearLimit'
+    | 'inserterOffline'
+    | 'inserterOpened'
+    | 'inserterOverTemperature'
+    | 'inserterPowerSaver'
+    | 'inserterRecoverableFailure'
+    | 'inserterRecoverableStorage'
+    | 'inserterRemoved'
+    | 'inserterResourceAdded'
+    | 'inserterResourceRemoved'
+    | 'inserterThermistorFailure'
+    | 'inserterTimingFailure'
+    | 'inserterTurnedOff'
+    | 'inserterTurnedOn'
+    | 'inserterUnderTemperature'
+    | 'inserterUnrecoverableFailure'
+    | 'inserterUnrecoverableStorageError'
+    | 'inserterWarmingUp'
+    | 'interlockClosed'
+    | 'interpreterCartridgeAdded'
+    | 'interpreterCartridgeDeleted'
+    | 'interpreterComplexPageEncountered'
+    | 'interpreterMemoryDecrease'
+    | 'interpreterMemoryIncrease'
+    | 'interpreterResourceAdded'
+    | 'interpreterResourceDeleted'
+    | 'lampAtEol'
+    | 'lampFailure'
+    | 'lampNearEol'
+    | 'laserAtEol'
+    | 'laserFailure'
+    | 'laserNearEol'
+    | 'makeEnvelopeAdded'
+    | 'makeEnvelopeAlmostEmpty'
+    | 'makeEnvelopeAlmostFull'
+    | 'makeEnvelopeAtLimit'
+    | 'makeEnvelopeClosed'
+    | 'makeEnvelopeConfigurationChange'
+    | 'makeEnvelopeCoverClosed'
+    | 'makeEnvelopeCoverOpen'
+    | 'makeEnvelopeEmpty'
+    | 'makeEnvelopeFull'
+    | 'makeEnvelopeInterlockClosed'
+    | 'makeEnvelopeInterlockOpen'
+    | 'makeEnvelopeJam'
+    | 'makeEnvelopeLifeAlmostOver'
+    | 'makeEnvelopeLifeOver'
+    | 'makeEnvelopeMemoryExhausted'
+    | 'makeEnvelopeMissing'
+    | 'makeEnvelopeMotorFailure'
+    | 'makeEnvelopeNearLimit'
+    | 'makeEnvelopeOffline'
+    | 'makeEnvelopeOpened'
+    | 'makeEnvelopeOverTemperature'
+    | 'makeEnvelopePowerSaver'
+    | 'makeEnvelopeRecoverableFailure'
+    | 'makeEnvelopeRecoverableStorage'
+    | 'makeEnvelopeRemoved'
+    | 'makeEnvelopeResourceAdded'
+    | 'makeEnvelopeResourceRemoved'
+    | 'makeEnvelopeThermistorFailure'
+    | 'makeEnvelopeTimingFailure'
+    | 'makeEnvelopeTurnedOff'
+    | 'makeEnvelopeTurnedOn'
+    | 'makeEnvelopeUnderTemperature'
+    | 'makeEnvelopeUnrecoverableFailure'
+    | 'makeEnvelopeUnrecoverableStorageError'
+    | 'makeEnvelopeWarmingUp'
+    | 'markerAdjustingPrintQuality'
+    | 'markerCleanerMissing'
+    | 'markerDeveloperAlmostEmpty'
+    | 'markerDeveloperEmpty'
+    | 'markerDeveloperMissing'
+    | 'markerFuserMissing'
+    | 'markerFuserThermistorFailure'
+    | 'markerFuserTimingFailure'
+    | 'markerInkAlmostEmpty'
+    | 'markerInkEmpty'
+    | 'markerInkMissing'
+    | 'markerOpcMissing'
+    | 'markerPrintRibbonAlmostEmpty'
+    | 'markerPrintRibbonEmpty'
+    | 'markerPrintRibbonMissing'
+    | 'markerSupplyAlmostEmpty'
+    | 'markerSupplyMissing'
+    | 'markerTonerCartridgeMissing'
+    | 'markerTonerMissing'
+    | 'markerWasteInkReceptacleAlmostFull'
+    | 'markerWasteInkReceptacleFull'
+    | 'markerWasteInkReceptacleMissing'
+    | 'markerWasteMissing'
+    | 'markerWasteTonerReceptacleAlmostFull'
+    | 'markerWasteTonerReceptacleFull'
+    | 'markerWasteTonerReceptacleMissing'
+    | 'materialEmpty'
+    | 'materialLow'
+    | 'materialNeeded'
+    | 'mediaDrying'
+    | 'mediaPathCannotDuplexMediaSelected'
+    | 'mediaPathFailure'
+    | 'mediaPathInputEmpty'
+    | 'mediaPathInputFeedError'
+    | 'mediaPathInputJam'
+    | 'mediaPathInputRequest'
+    | 'mediaPathJam'
+    | 'mediaPathMediaTrayAlmostFull'
+    | 'mediaPathMediaTrayFull'
+    | 'mediaPathMediaTrayMissing'
+    | 'mediaPathOutputFeedError'
+    | 'mediaPathOutputFull'
+    | 'mediaPathOutputJam'
+    | 'mediaPathPickRollerFailure'
+    | 'mediaPathPickRollerLifeOver'
+    | 'mediaPathPickRollerLifeWarn'
+    | 'mediaPathPickRollerMissing'
+    | 'motorFailure'
+    | 'outputMailboxSelectFailure'
+    | 'outputMediaTrayFailure'
+    | 'outputMediaTrayFeedError'
+    | 'outputMediaTrayJam'
+    | 'perforaterAdded'
+    | 'perforaterAlmostEmpty'
+    | 'perforaterAlmostFull'
+    | 'perforaterAtLimit'
+    | 'perforaterClosed'
+    | 'perforaterConfigurationChange'
+    | 'perforaterCoverClosed'
+    | 'perforaterCoverOpen'
+    | 'perforaterEmpty'
+    | 'perforaterFull'
+    | 'perforaterInterlockClosed'
+    | 'perforaterInterlockOpen'
+    | 'perforaterJam'
+    | 'perforaterLifeAlmostOver'
+    | 'perforaterLifeOver'
+    | 'perforaterMemoryExhausted'
+    | 'perforaterMissing'
+    | 'perforaterMotorFailure'
+    | 'perforaterNearLimit'
+    | 'perforaterOffline'
+    | 'perforaterOpened'
+    | 'perforaterOverTemperature'
+    | 'perforaterPowerSaver'
+    | 'perforaterRecoverableFailure'
+    | 'perforaterRecoverableStorage'
+    | 'perforaterRemoved'
+    | 'perforaterResourceAdded'
+    | 'perforaterResourceRemoved'
+    | 'perforaterThermistorFailure'
+    | 'perforaterTimingFailure'
+    | 'perforaterTurnedOff'
+    | 'perforaterTurnedOn'
+    | 'perforaterUnderTemperature'
+    | 'perforaterUnrecoverableFailure'
+    | 'perforaterUnrecoverableStorageError'
+    | 'perforaterWarmingUp'
+    | 'platformCooling'
+    | 'platformFailure'
+    | 'platformHeating'
+    | 'platformTemperatureHigh'
+    | 'platformTemperatureLow'
+    | 'powerDown'
+    | 'powerUp'
+    | 'printerManualReset'
+    | 'printerNmsReset'
+    | 'printerReadyToPrint'
+    | 'puncherAdded'
+    | 'puncherAlmostEmpty'
+    | 'puncherAlmostFull'
+    | 'puncherAtLimit'
+    | 'puncherClosed'
+    | 'puncherConfigurationChange'
+    | 'puncherCoverClosed'
+    | 'puncherCoverOpen'
+    | 'puncherEmpty'
+    | 'puncherFull'
+    | 'puncherInterlockClosed'
+    | 'puncherInterlockOpen'
+    | 'puncherJam'
+    | 'puncherLifeAlmostOver'
+    | 'puncherLifeOver'
+    | 'puncherMemoryExhausted'
+    | 'puncherMissing'
+    | 'puncherMotorFailure'
+    | 'puncherNearLimit'
+    | 'puncherOffline'
+    | 'puncherOpened'
+    | 'puncherOverTemperature'
+    | 'puncherPowerSaver'
+    | 'puncherRecoverableFailure'
+    | 'puncherRecoverableStorage'
+    | 'puncherRemoved'
+    | 'puncherResourceAdded'
+    | 'puncherResourceRemoved'
+    | 'puncherThermistorFailure'
+    | 'puncherTimingFailure'
+    | 'puncherTurnedOff'
+    | 'puncherTurnedOn'
+    | 'puncherUnderTemperature'
+    | 'puncherUnrecoverableFailure'
+    | 'puncherUnrecoverableStorageError'
+    | 'puncherWarmingUp'
+    | 'resuming'
+    | 'scanMediaPathFailure'
+    | 'scanMediaPathInputEmpty'
+    | 'scanMediaPathInputFeedError'
+    | 'scanMediaPathInputJam'
+    | 'scanMediaPathInputRequest'
+    | 'scanMediaPathJam'
+    | 'scanMediaPathOutputFeedError'
+    | 'scanMediaPathOutputFull'
+    | 'scanMediaPathOutputJam'
+    | 'scanMediaPathPickRollerFailure'
+    | 'scanMediaPathPickRollerLifeOver'
+    | 'scanMediaPathPickRollerLifeWarn'
+    | 'scanMediaPathPickRollerMissing'
+    | 'scanMediaPathTrayAlmostFull'
+    | 'scanMediaPathTrayFull'
+    | 'scanMediaPathTrayMissing'
+    | 'scannerLightFailure'
+    | 'scannerLightLifeAlmostOver'
+    | 'scannerLightLifeOver'
+    | 'scannerLightMissing'
+    | 'scannerSensorFailure'
+    | 'scannerSensorLifeAlmostOver'
+    | 'scannerSensorLifeOver'
+    | 'scannerSensorMissing'
+    | 'separationCutterAdded'
+    | 'separationCutterAlmostEmpty'
+    | 'separationCutterAlmostFull'
+    | 'separationCutterAtLimit'
+    | 'separationCutterClosed'
+    | 'separationCutterConfigurationChange'
+    | 'separationCutterCoverClosed'
+    | 'separationCutterCoverOpen'
+    | 'separationCutterEmpty'
+    | 'separationCutterFull'
+    | 'separationCutterInterlockClosed'
+    | 'separationCutterInterlockOpen'
+    | 'separationCutterJam'
+    | 'separationCutterLifeAlmostOver'
+    | 'separationCutterLifeOver'
+    | 'separationCutterMemoryExhausted'
+    | 'separationCutterMissing'
+    | 'separationCutterMotorFailure'
+    | 'separationCutterNearLimit'
+    | 'separationCutterOffline'
+    | 'separationCutterOpened'
+    | 'separationCutterOverTemperature'
+    | 'separationCutterPowerSaver'
+    | 'separationCutterRecoverableFailure'
+    | 'separationCutterRecoverableStorage'
+    | 'separationCutterRemoved'
+    | 'separationCutterResourceAdded'
+    | 'separationCutterResourceRemoved'
+    | 'separationCutterThermistorFailure'
+    | 'separationCutterTimingFailure'
+    | 'separationCutterTurnedOff'
+    | 'separationCutterTurnedOn'
+    | 'separationCutterUnderTemperature'
+    | 'separationCutterUnrecoverableFailure'
+    | 'separationCutterUnrecoverableStorageError'
+    | 'separationCutterWarmingUp'
+    | 'sheetRotatorAdded'
+    | 'sheetRotatorAlmostEmpty'
+    | 'sheetRotatorAlmostFull'
+    | 'sheetRotatorAtLimit'
+    | 'sheetRotatorClosed'
+    | 'sheetRotatorConfigurationChange'
+    | 'sheetRotatorCoverClosed'
+    | 'sheetRotatorCoverOpen'
+    | 'sheetRotatorEmpty'
+    | 'sheetRotatorFull'
+    | 'sheetRotatorInterlockClosed'
+    | 'sheetRotatorInterlockOpen'
+    | 'sheetRotatorJam'
+    | 'sheetRotatorLifeAlmostOver'
+    | 'sheetRotatorLifeOver'
+    | 'sheetRotatorMemoryExhausted'
+    | 'sheetRotatorMissing'
+    | 'sheetRotatorMotorFailure'
+    | 'sheetRotatorNearLimit'
+    | 'sheetRotatorOffline'
+    | 'sheetRotatorOpened'
+    | 'sheetRotatorOverTemperature'
+    | 'sheetRotatorPowerSaver'
+    | 'sheetRotatorRecoverableFailure'
+    | 'sheetRotatorRecoverableStorage'
+    | 'sheetRotatorRemoved'
+    | 'sheetRotatorResourceAdded'
+    | 'sheetRotatorResourceRemoved'
+    | 'sheetRotatorThermistorFailure'
+    | 'sheetRotatorTimingFailure'
+    | 'sheetRotatorTurnedOff'
+    | 'sheetRotatorTurnedOn'
+    | 'sheetRotatorUnderTemperature'
+    | 'sheetRotatorUnrecoverableFailure'
+    | 'sheetRotatorUnrecoverableStorageError'
+    | 'sheetRotatorWarmingUp'
+    | 'slitterAdded'
+    | 'slitterAlmostEmpty'
+    | 'slitterAlmostFull'
+    | 'slitterAtLimit'
+    | 'slitterClosed'
+    | 'slitterConfigurationChange'
+    | 'slitterCoverClosed'
+    | 'slitterCoverOpen'
+    | 'slitterEmpty'
+    | 'slitterFull'
+    | 'slitterInterlockClosed'
+    | 'slitterInterlockOpen'
+    | 'slitterJam'
+    | 'slitterLifeAlmostOver'
+    | 'slitterLifeOver'
+    | 'slitterMemoryExhausted'
+    | 'slitterMissing'
+    | 'slitterMotorFailure'
+    | 'slitterNearLimit'
+    | 'slitterOffline'
+    | 'slitterOpened'
+    | 'slitterOverTemperature'
+    | 'slitterPowerSaver'
+    | 'slitterRecoverableFailure'
+    | 'slitterRecoverableStorage'
+    | 'slitterRemoved'
+    | 'slitterResourceAdded'
+    | 'slitterResourceRemoved'
+    | 'slitterThermistorFailure'
+    | 'slitterTimingFailure'
+    | 'slitterTurnedOff'
+    | 'slitterTurnedOn'
+    | 'slitterUnderTemperature'
+    | 'slitterUnrecoverableFailure'
+    | 'slitterUnrecoverableStorageError'
+    | 'slitterWarmingUp'
+    | 'stackerAdded'
+    | 'stackerAlmostEmpty'
+    | 'stackerAlmostFull'
+    | 'stackerAtLimit'
+    | 'stackerClosed'
+    | 'stackerConfigurationChange'
+    | 'stackerCoverClosed'
+    | 'stackerCoverOpen'
+    | 'stackerEmpty'
+    | 'stackerFull'
+    | 'stackerInterlockClosed'
+    | 'stackerInterlockOpen'
+    | 'stackerJam'
+    | 'stackerLifeAlmostOver'
+    | 'stackerLifeOver'
+    | 'stackerMemoryExhausted'
+    | 'stackerMissing'
+    | 'stackerMotorFailure'
+    | 'stackerNearLimit'
+    | 'stackerOffline'
+    | 'stackerOpened'
+    | 'stackerOverTemperature'
+    | 'stackerPowerSaver'
+    | 'stackerRecoverableFailure'
+    | 'stackerRecoverableStorage'
+    | 'stackerRemoved'
+    | 'stackerResourceAdded'
+    | 'stackerResourceRemoved'
+    | 'stackerThermistorFailure'
+    | 'stackerTimingFailure'
+    | 'stackerTurnedOff'
+    | 'stackerTurnedOn'
+    | 'stackerUnderTemperature'
+    | 'stackerUnrecoverableFailure'
+    | 'stackerUnrecoverableStorageError'
+    | 'stackerWarmingUp'
+    | 'standby'
+    | 'staplerAdded'
+    | 'staplerAlmostEmpty'
+    | 'staplerAlmostFull'
+    | 'staplerAtLimit'
+    | 'staplerClosed'
+    | 'staplerConfigurationChange'
+    | 'staplerCoverClosed'
+    | 'staplerCoverOpen'
+    | 'staplerEmpty'
+    | 'staplerFull'
+    | 'staplerInterlockClosed'
+    | 'staplerInterlockOpen'
+    | 'staplerJam'
+    | 'staplerLifeAlmostOver'
+    | 'staplerLifeOver'
+    | 'staplerMemoryExhausted'
+    | 'staplerMissing'
+    | 'staplerMotorFailure'
+    | 'staplerNearLimit'
+    | 'staplerOffline'
+    | 'staplerOpened'
+    | 'staplerOverTemperature'
+    | 'staplerPowerSaver'
+    | 'staplerRecoverableFailure'
+    | 'staplerRecoverableStorage'
+    | 'staplerRemoved'
+    | 'staplerResourceAdded'
+    | 'staplerResourceRemoved'
+    | 'staplerThermistorFailure'
+    | 'staplerTimingFailure'
+    | 'staplerTurnedOff'
+    | 'staplerTurnedOn'
+    | 'staplerUnderTemperature'
+    | 'staplerUnrecoverableFailure'
+    | 'staplerUnrecoverableStorageError'
+    | 'staplerWarmingUp'
+    | 'stitcherAdded'
+    | 'stitcherAlmostEmpty'
+    | 'stitcherAlmostFull'
+    | 'stitcherAtLimit'
+    | 'stitcherClosed'
+    | 'stitcherConfigurationChange'
+    | 'stitcherCoverClosed'
+    | 'stitcherCoverOpen'
+    | 'stitcherEmpty'
+    | 'stitcherFull'
+    | 'stitcherInterlockClosed'
+    | 'stitcherInterlockOpen'
+    | 'stitcherJam'
+    | 'stitcherLifeAlmostOver'
+    | 'stitcherLifeOver'
+    | 'stitcherMemoryExhausted'
+    | 'stitcherMissing'
+    | 'stitcherMotorFailure'
+    | 'stitcherNearLimit'
+    | 'stitcherOffline'
+    | 'stitcherOpened'
+    | 'stitcherOverTemperature'
+    | 'stitcherPowerSaver'
+    | 'stitcherRecoverableFailure'
+    | 'stitcherRecoverableStorage'
+    | 'stitcherRemoved'
+    | 'stitcherResourceAdded'
+    | 'stitcherResourceRemoved'
+    | 'stitcherThermistorFailure'
+    | 'stitcherTimingFailure'
+    | 'stitcherTurnedOff'
+    | 'stitcherTurnedOn'
+    | 'stitcherUnderTemperature'
+    | 'stitcherUnrecoverableFailure'
+    | 'stitcherUnrecoverableStorageError'
+    | 'stitcherWarmingUp'
+    | 'subunitAdded'
+    | 'subunitAlmostEmpty'
+    | 'subunitAlmostFull'
+    | 'subunitAtLimit'
+    | 'subunitClosed'
+    | 'subunitCoolingDown'
+    | 'subunitEmpty'
+    | 'subunitFull'
+    | 'subunitLifeAlmostOver'
+    | 'subunitLifeOver'
+    | 'subunitMemoryExhausted'
+    | 'subunitMissing'
+    | 'subunitMotorFailure'
+    | 'subunitNearLimit'
+    | 'subunitOffline'
+    | 'subunitOpened'
+    | 'subunitOverTemperature'
+    | 'subunitPowerSaver'
+    | 'subunitRecoverableFailure'
+    | 'subunitRecoverableStorage'
+    | 'subunitRemoved'
+    | 'subunitResourceAdded'
+    | 'subunitResourceRemoved'
+    | 'subunitThermistorFailure'
+    | 'subunitTimingFailure'
+    | 'subunitTurnedOff'
+    | 'subunitTurnedOn'
+    | 'subunitUnderTemperature'
+    | 'subunitUnrecoverableFailure'
+    | 'subunitUnrecoverableStorage'
+    | 'subunitWarmingUp'
+    | 'suspend'
+    | 'testing'
+    | 'trimmerAdded'
+    | 'trimmerAlmostEmpty'
+    | 'trimmerAlmostFull'
+    | 'trimmerAtLimit'
+    | 'trimmerClosed'
+    | 'trimmerConfigurationChange'
+    | 'trimmerCoverClosed'
+    | 'trimmerCoverOpen'
+    | 'trimmerEmpty'
+    | 'trimmerFull'
+    | 'trimmerInterlockClosed'
+    | 'trimmerInterlockOpen'
+    | 'trimmerJam'
+    | 'trimmerLifeAlmostOver'
+    | 'trimmerLifeOver'
+    | 'trimmerMemoryExhausted'
+    | 'trimmerMissing'
+    | 'trimmerMotorFailure'
+    | 'trimmerNearLimit'
+    | 'trimmerOffline'
+    | 'trimmerOpened'
+    | 'trimmerOverTemperature'
+    | 'trimmerPowerSaver'
+    | 'trimmerRecoverableFailure'
+    | 'trimmerRecoverableStorage'
+    | 'trimmerRemoved'
+    | 'trimmerResourceAdded'
+    | 'trimmerResourceRemoved'
+    | 'trimmerThermistorFailure'
+    | 'trimmerTimingFailure'
+    | 'trimmerTurnedOff'
+    | 'trimmerTurnedOn'
+    | 'trimmerUnderTemperature'
+    | 'trimmerUnrecoverableFailure'
+    | 'trimmerUnrecoverableStorageError'
+    | 'trimmerWarmingUp'
+    | 'unknown'
+    | 'wrapperAdded'
+    | 'wrapperAlmostEmpty'
+    | 'wrapperAlmostFull'
+    | 'wrapperAtLimit'
+    | 'wrapperClosed'
+    | 'wrapperConfigurationChange'
+    | 'wrapperCoverClosed'
+    | 'wrapperCoverOpen'
+    | 'wrapperEmpty'
+    | 'wrapperFull'
+    | 'wrapperInterlockClosed'
+    | 'wrapperInterlockOpen'
+    | 'wrapperJam'
+    | 'wrapperLifeAlmostOver'
+    | 'wrapperLifeOver'
+    | 'wrapperMemoryExhausted'
+    | 'wrapperMissing'
+    | 'wrapperMotorFailure'
+    | 'wrapperNearLimit'
+    | 'wrapperOffline'
+    | 'wrapperOpened'
+    | 'wrapperOverTemperature'
+    | 'wrapperPowerSaver'
+    | 'wrapperRecoverableFailure'
+    | 'wrapperRecoverableStorage'
+    | 'wrapperRemoved'
+    | 'wrapperResourceAdded'
+    | 'wrapperResourceRemoved'
+    | 'wrapperThermistorFailure'
+    | 'wrapperTimingFailure'
+    | 'wrapperTurnedOff'
+    | 'wrapperTurnedOn'
+    | 'wrapperUnderTemperature'
+    | 'wrapperUnrecoverableFailure'
+    | 'wrapperUnrecoverableStorageError'
+    | 'wrapperWarmingUp';
+export type PrintEvent = 'jobStarted' | 'unknownFutureValue';
 export type PrintFinishing =
-    | "none"
-    | "staple"
-    | "punch"
-    | "cover"
-    | "bind"
-    | "saddleStitch"
-    | "stitchEdge"
-    | "stapleTopLeft"
-    | "stapleBottomLeft"
-    | "stapleTopRight"
-    | "stapleBottomRight"
-    | "stitchLeftEdge"
-    | "stitchTopEdge"
-    | "stitchRightEdge"
-    | "stitchBottomEdge"
-    | "stapleDualLeft"
-    | "stapleDualTop"
-    | "stapleDualRight"
-    | "stapleDualBottom"
-    | "unknownFutureValue";
+    | 'none'
+    | 'staple'
+    | 'punch'
+    | 'cover'
+    | 'bind'
+    | 'saddleStitch'
+    | 'stitchEdge'
+    | 'stapleTopLeft'
+    | 'stapleBottomLeft'
+    | 'stapleTopRight'
+    | 'stapleBottomRight'
+    | 'stitchLeftEdge'
+    | 'stitchTopEdge'
+    | 'stitchRightEdge'
+    | 'stitchBottomEdge'
+    | 'stapleDualLeft'
+    | 'stapleDualTop'
+    | 'stapleDualRight'
+    | 'stapleDualBottom'
+    | 'unknownFutureValue';
 export type PrintJobProcessingState =
-    | "unknown"
-    | "pending"
-    | "processing"
-    | "paused"
-    | "stopped"
-    | "completed"
-    | "canceled"
-    | "aborted"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'pending'
+    | 'processing'
+    | 'paused'
+    | 'stopped'
+    | 'completed'
+    | 'canceled'
+    | 'aborted'
+    | 'unknownFutureValue';
 export type PrintJobStateDetail =
-    | "uploadPending"
-    | "transforming"
-    | "completedSuccessfully"
-    | "completedWithWarnings"
-    | "completedWithErrors"
-    | "releaseWait"
-    | "interpreting"
-    | "unknownFutureValue";
+    | 'uploadPending'
+    | 'transforming'
+    | 'completedSuccessfully'
+    | 'completedWithWarnings'
+    | 'completedWithErrors'
+    | 'releaseWait'
+    | 'interpreting'
+    | 'unknownFutureValue';
 export type PrintMultipageLayout =
-    | "clockwiseFromTopLeft"
-    | "counterclockwiseFromTopLeft"
-    | "counterclockwiseFromTopRight"
-    | "clockwiseFromTopRight"
-    | "counterclockwiseFromBottomLeft"
-    | "clockwiseFromBottomLeft"
-    | "counterclockwiseFromBottomRight"
-    | "clockwiseFromBottomRight"
-    | "unknownFutureValue";
-export type PrintOperationProcessingState = "notStarted" | "running" | "succeeded" | "failed" | "unknownFutureValue";
-export type PrintOrientation = "portrait" | "landscape" | "reverseLandscape" | "reversePortrait" | "unknownFutureValue";
-export type PrintQuality = "low" | "medium" | "high" | "unknownFutureValue";
-export type PrintScaling = "auto" | "shrinkToFit" | "fill" | "fit" | "none" | "unknownFutureValue";
-export type PrintTaskProcessingState = "pending" | "processing" | "completed" | "aborted" | "unknownFutureValue";
-export type Status = "active" | "updated" | "deleted" | "ignored" | "unknownFutureValue";
-export type DataPolicyOperationStatus = "notStarted" | "running" | "complete" | "failed" | "unknownFutureValue";
-export type PayloadDeliveryPlatform = "unknown" | "sms" | "email" | "teams" | "unknownFutureValue";
+    | 'clockwiseFromTopLeft'
+    | 'counterclockwiseFromTopLeft'
+    | 'counterclockwiseFromTopRight'
+    | 'clockwiseFromTopRight'
+    | 'counterclockwiseFromBottomLeft'
+    | 'clockwiseFromBottomLeft'
+    | 'counterclockwiseFromBottomRight'
+    | 'clockwiseFromBottomRight'
+    | 'unknownFutureValue';
+export type PrintOperationProcessingState = 'notStarted' | 'running' | 'succeeded' | 'failed' | 'unknownFutureValue';
+export type PrintOrientation = 'portrait' | 'landscape' | 'reverseLandscape' | 'reversePortrait' | 'unknownFutureValue';
+export type PrintQuality = 'low' | 'medium' | 'high' | 'unknownFutureValue';
+export type PrintScaling = 'auto' | 'shrinkToFit' | 'fill' | 'fit' | 'none' | 'unknownFutureValue';
+export type PrintTaskProcessingState = 'pending' | 'processing' | 'completed' | 'aborted' | 'unknownFutureValue';
+export type Status = 'active' | 'updated' | 'deleted' | 'ignored' | 'unknownFutureValue';
+export type DataPolicyOperationStatus = 'notStarted' | 'running' | 'complete' | 'failed' | 'unknownFutureValue';
+export type PayloadDeliveryPlatform = 'unknown' | 'sms' | 'email' | 'teams' | 'unknownFutureValue';
 export type SimulationAttackTechnique =
-    | "unknown"
-    | "credentialHarvesting"
-    | "attachmentMalware"
-    | "driveByUrl"
-    | "linkInAttachment"
-    | "linkToMalwareFile"
-    | "unknownFutureValue";
-export type SimulationAttackType = "unknown" | "social" | "cloud" | "endpoint" | "unknownFutureValue";
+    | 'unknown'
+    | 'credentialHarvesting'
+    | 'attachmentMalware'
+    | 'driveByUrl'
+    | 'linkInAttachment'
+    | 'linkToMalwareFile'
+    | 'unknownFutureValue';
+export type SimulationAttackType = 'unknown' | 'social' | 'cloud' | 'endpoint' | 'unknownFutureValue';
 export type SimulationAutomationRunStatus =
-    | "unknown"
-    | "running"
-    | "succeeded"
-    | "failed"
-    | "skipped"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'running'
+    | 'succeeded'
+    | 'failed'
+    | 'skipped'
+    | 'unknownFutureValue';
 export type SimulationAutomationStatus =
-    | "unknown"
-    | "draft"
-    | "notRunning"
-    | "running"
-    | "completed"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'draft'
+    | 'notRunning'
+    | 'running'
+    | 'completed'
+    | 'unknownFutureValue';
 export type SimulationStatus =
-    | "unknown"
-    | "draft"
-    | "running"
-    | "scheduled"
-    | "succeeded"
-    | "failed"
-    | "cancelled"
-    | "excluded"
-    | "unknownFutureValue";
-export type TrainingStatus = "unknown" | "assigned" | "inProgress" | "completed" | "overdue" | "unknownFutureValue";
-export type AlertFeedback = "unknown" | "truePositive" | "falsePositive" | "benignPositive" | "unknownFutureValue";
-export type AlertSeverity = "unknown" | "informational" | "low" | "medium" | "high" | "unknownFutureValue";
-export type AlertStatus = "unknown" | "newAlert" | "inProgress" | "resolved" | "dismissed" | "unknownFutureValue";
-export type ConnectionDirection = "unknown" | "inbound" | "outbound" | "unknownFutureValue";
-export type ConnectionStatus = "unknown" | "attempted" | "succeeded" | "blocked" | "failed" | "unknownFutureValue";
-export type EmailRole = "unknown" | "sender" | "recipient" | "unknownFutureValue";
+    | 'unknown'
+    | 'draft'
+    | 'running'
+    | 'scheduled'
+    | 'succeeded'
+    | 'failed'
+    | 'cancelled'
+    | 'excluded'
+    | 'unknownFutureValue';
+export type TrainingStatus = 'unknown' | 'assigned' | 'inProgress' | 'completed' | 'overdue' | 'unknownFutureValue';
+export type AlertFeedback = 'unknown' | 'truePositive' | 'falsePositive' | 'benignPositive' | 'unknownFutureValue';
+export type AlertSeverity = 'unknown' | 'informational' | 'low' | 'medium' | 'high' | 'unknownFutureValue';
+export type AlertStatus = 'unknown' | 'newAlert' | 'inProgress' | 'resolved' | 'dismissed' | 'unknownFutureValue';
+export type ConnectionDirection = 'unknown' | 'inbound' | 'outbound' | 'unknownFutureValue';
+export type ConnectionStatus = 'unknown' | 'attempted' | 'succeeded' | 'blocked' | 'failed' | 'unknownFutureValue';
+export type EmailRole = 'unknown' | 'sender' | 'recipient' | 'unknownFutureValue';
 export type FileHashType =
-    | "unknown"
-    | "sha1"
-    | "sha256"
-    | "md5"
-    | "authenticodeHash256"
-    | "lsHash"
-    | "ctph"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'sha1'
+    | 'sha256'
+    | 'md5'
+    | 'authenticodeHash256'
+    | 'lsHash'
+    | 'ctph'
+    | 'unknownFutureValue';
 export type LogonType =
-    | "unknown"
-    | "interactive"
-    | "remoteInteractive"
-    | "network"
-    | "batch"
-    | "service"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'interactive'
+    | 'remoteInteractive'
+    | 'network'
+    | 'batch'
+    | 'service'
+    | 'unknownFutureValue';
 export type ProcessIntegrityLevel =
-    | "unknown"
-    | "untrusted"
-    | "low"
-    | "medium"
-    | "high"
-    | "system"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'untrusted'
+    | 'low'
+    | 'medium'
+    | 'high'
+    | 'system'
+    | 'unknownFutureValue';
 export type RegistryHive =
-    | "unknown"
-    | "currentConfig"
-    | "currentUser"
-    | "localMachineSam"
-    | "localMachineSecurity"
-    | "localMachineSoftware"
-    | "localMachineSystem"
-    | "usersDefault"
-    | "unknownFutureValue";
-export type RegistryOperation = "unknown" | "create" | "modify" | "delete" | "unknownFutureValue";
+    | 'unknown'
+    | 'currentConfig'
+    | 'currentUser'
+    | 'localMachineSam'
+    | 'localMachineSecurity'
+    | 'localMachineSoftware'
+    | 'localMachineSystem'
+    | 'usersDefault'
+    | 'unknownFutureValue';
+export type RegistryOperation = 'unknown' | 'create' | 'modify' | 'delete' | 'unknownFutureValue';
 export type RegistryValueType =
-    | "unknown"
-    | "binary"
-    | "dword"
-    | "dwordLittleEndian"
-    | "dwordBigEndian"
-    | "expandSz"
-    | "link"
-    | "multiSz"
-    | "none"
-    | "qword"
-    | "qwordlittleEndian"
-    | "sz"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'binary'
+    | 'dword'
+    | 'dwordLittleEndian'
+    | 'dwordBigEndian'
+    | 'expandSz'
+    | 'link'
+    | 'multiSz'
+    | 'none'
+    | 'qword'
+    | 'qwordlittleEndian'
+    | 'sz'
+    | 'unknownFutureValue';
 export type SecurityNetworkProtocol =
-    | "unknown"
-    | "ip"
-    | "icmp"
-    | "igmp"
-    | "ggp"
-    | "ipv4"
-    | "tcp"
-    | "pup"
-    | "udp"
-    | "idp"
-    | "ipv6"
-    | "ipv6RoutingHeader"
-    | "ipv6FragmentHeader"
-    | "ipSecEncapsulatingSecurityPayload"
-    | "ipSecAuthenticationHeader"
-    | "icmpV6"
-    | "ipv6NoNextHeader"
-    | "ipv6DestinationOptions"
-    | "nd"
-    | "raw"
-    | "ipx"
-    | "spx"
-    | "spxII"
-    | "unknownFutureValue";
-export type SecurityResourceType = "unknown" | "attacked" | "related" | "unknownFutureValue";
-export type UserAccountSecurityType = "unknown" | "standard" | "power" | "administrator" | "unknownFutureValue";
-export type BroadcastMeetingAudience = "roleIsAttendee" | "organization" | "everyone" | "unknownFutureValue";
-export type CallDirection = "incoming" | "outgoing";
+    | 'unknown'
+    | 'ip'
+    | 'icmp'
+    | 'igmp'
+    | 'ggp'
+    | 'ipv4'
+    | 'tcp'
+    | 'pup'
+    | 'udp'
+    | 'idp'
+    | 'ipv6'
+    | 'ipv6RoutingHeader'
+    | 'ipv6FragmentHeader'
+    | 'ipSecEncapsulatingSecurityPayload'
+    | 'ipSecAuthenticationHeader'
+    | 'icmpV6'
+    | 'ipv6NoNextHeader'
+    | 'ipv6DestinationOptions'
+    | 'nd'
+    | 'raw'
+    | 'ipx'
+    | 'spx'
+    | 'spxII'
+    | 'unknownFutureValue';
+export type SecurityResourceType = 'unknown' | 'attacked' | 'related' | 'unknownFutureValue';
+export type UserAccountSecurityType = 'unknown' | 'standard' | 'power' | 'administrator' | 'unknownFutureValue';
+export type BroadcastMeetingAudience = 'roleIsAttendee' | 'organization' | 'everyone' | 'unknownFutureValue';
+export type CallDirection = 'incoming' | 'outgoing';
 export type CallState =
-    | "incoming"
-    | "establishing"
-    | "established"
-    | "hold"
-    | "transferring"
-    | "transferAccepted"
-    | "redirecting"
-    | "terminating"
-    | "terminated"
-    | "unknownFutureValue";
-export type CallTranscriptionState = "notStarted" | "active" | "inactive" | "unknownFutureValue";
-export type ChangeType = "created" | "updated" | "deleted";
+    | 'incoming'
+    | 'establishing'
+    | 'established'
+    | 'hold'
+    | 'transferring'
+    | 'transferAccepted'
+    | 'redirecting'
+    | 'terminating'
+    | 'terminated'
+    | 'unknownFutureValue';
+export type CallTranscriptionState = 'notStarted' | 'active' | 'inactive' | 'unknownFutureValue';
+export type ChangeType = 'created' | 'updated' | 'deleted';
 export type EndpointType =
-    | "default"
-    | "voicemail"
-    | "skypeForBusiness"
-    | "skypeForBusinessVoipPhone"
-    | "unknownFutureValue";
-export type MediaDirection = "inactive" | "sendOnly" | "receiveOnly" | "sendReceive";
-export type MediaState = "active" | "inactive" | "unknownFutureValue";
-export type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "unknownFutureValue";
-export type OnlineMeetingContentSharingDisabledReason = "watermarkProtection" | "unknownFutureValue";
-export type OnlineMeetingRole = "attendee" | "presenter" | "unknownFutureValue" | "producer" | "coorganizer";
-export type OnlineMeetingVideoDisabledReason = "watermarkProtection" | "unknownFutureValue";
-export type RecordingStatus = "unknown" | "notRecording" | "recording" | "failed" | "unknownFutureValue";
-export type RejectReason = "none" | "busy" | "forbidden" | "unknownFutureValue";
-export type RoutingMode = "oneToOne" | "multicast" | "unknownFutureValue";
-export type RoutingType = "forwarded" | "lookup" | "selfFork" | "unknownFutureValue";
-export type ScreenSharingRole = "viewer" | "sharer";
+    | 'default'
+    | 'voicemail'
+    | 'skypeForBusiness'
+    | 'skypeForBusinessVoipPhone'
+    | 'unknownFutureValue';
+export type MediaDirection = 'inactive' | 'sendOnly' | 'receiveOnly' | 'sendReceive';
+export type MediaState = 'active' | 'inactive' | 'unknownFutureValue';
+export type Modality = 'audio' | 'video' | 'videoBasedScreenSharing' | 'data' | 'unknownFutureValue';
+export type OnlineMeetingContentSharingDisabledReason = 'watermarkProtection' | 'unknownFutureValue';
+export type OnlineMeetingRole = 'attendee' | 'presenter' | 'unknownFutureValue' | 'producer' | 'coorganizer';
+export type OnlineMeetingVideoDisabledReason = 'watermarkProtection' | 'unknownFutureValue';
+export type RecordingStatus = 'unknown' | 'notRecording' | 'recording' | 'failed' | 'unknownFutureValue';
+export type RejectReason = 'none' | 'busy' | 'forbidden' | 'unknownFutureValue';
+export type RoutingMode = 'oneToOne' | 'multicast' | 'unknownFutureValue';
+export type RoutingType = 'forwarded' | 'lookup' | 'selfFork' | 'unknownFutureValue';
+export type ScreenSharingRole = 'viewer' | 'sharer';
 export type Tone =
-    | "tone0"
-    | "tone1"
-    | "tone2"
-    | "tone3"
-    | "tone4"
-    | "tone5"
-    | "tone6"
-    | "tone7"
-    | "tone8"
-    | "tone9"
-    | "star"
-    | "pound"
-    | "a"
-    | "b"
-    | "c"
-    | "d"
-    | "flash";
-export type AttestationLevel = "attested" | "notAttested" | "unknownFutureValue";
-export type AuthenticationMethodKeyStrength = "normal" | "weak" | "unknown";
+    | 'tone0'
+    | 'tone1'
+    | 'tone2'
+    | 'tone3'
+    | 'tone4'
+    | 'tone5'
+    | 'tone6'
+    | 'tone7'
+    | 'tone8'
+    | 'tone9'
+    | 'star'
+    | 'pound'
+    | 'a'
+    | 'b'
+    | 'c'
+    | 'd'
+    | 'flash';
+export type AttestationLevel = 'attested' | 'notAttested' | 'unknownFutureValue';
+export type AuthenticationMethodKeyStrength = 'normal' | 'weak' | 'unknown';
 export type AuthenticationMethodSignInState =
-    | "notSupported"
-    | "notAllowedByPolicy"
-    | "notEnabled"
-    | "phoneNumberNotUnique"
-    | "ready"
-    | "notConfigured"
-    | "unknownFutureValue";
-export type AuthenticationPhoneType = "mobile" | "alternateMobile" | "office" | "unknownFutureValue";
-export type LifecycleEventType = "missed" | "subscriptionRemoved" | "reauthorizationRequired";
-export type BinaryOperator = "or" | "and";
-export type CallRecordingStatus = "success" | "failure" | "initial" | "chunkFinished" | "unknownFutureValue";
-export type ChannelMembershipType = "standard" | "private" | "unknownFutureValue" | "shared";
-export type ChatMessageActions = "reactionAdded" | "reactionRemoved" | "actionUndefined" | "unknownFutureValue";
-export type ChatMessageImportance = "normal" | "high" | "urgent" | "unknownFutureValue";
-export type ChatMessagePolicyViolationDlpActionTypes = "none" | "notifySender" | "blockAccess" | "blockAccessExternal";
-export type ChatMessagePolicyViolationUserActionTypes = "none" | "override" | "reportFalsePositive";
+    | 'notSupported'
+    | 'notAllowedByPolicy'
+    | 'notEnabled'
+    | 'phoneNumberNotUnique'
+    | 'ready'
+    | 'notConfigured'
+    | 'unknownFutureValue';
+export type AuthenticationPhoneType = 'mobile' | 'alternateMobile' | 'office' | 'unknownFutureValue';
+export type LifecycleEventType = 'missed' | 'subscriptionRemoved' | 'reauthorizationRequired';
+export type BinaryOperator = 'or' | 'and';
+export type CallRecordingStatus = 'success' | 'failure' | 'initial' | 'chunkFinished' | 'unknownFutureValue';
+export type ChannelMembershipType = 'standard' | 'private' | 'unknownFutureValue' | 'shared';
+export type ChatMessageActions = 'reactionAdded' | 'reactionRemoved' | 'actionUndefined' | 'unknownFutureValue';
+export type ChatMessageImportance = 'normal' | 'high' | 'urgent' | 'unknownFutureValue';
+export type ChatMessagePolicyViolationDlpActionTypes = 'none' | 'notifySender' | 'blockAccess' | 'blockAccessExternal';
+export type ChatMessagePolicyViolationUserActionTypes = 'none' | 'override' | 'reportFalsePositive';
 export type ChatMessagePolicyViolationVerdictDetailsTypes =
-    | "none"
-    | "allowFalsePositiveOverride"
-    | "allowOverrideWithoutJustification"
-    | "allowOverrideWithJustification";
-export type ChatMessageType = "message" | "chatEvent" | "typing" | "unknownFutureValue" | "systemEventMessage";
-export type ChatType = "oneOnOne" | "group" | "meeting" | "unknownFutureValue";
-export type ClonableTeamParts = "apps" | "tabs" | "settings" | "channels" | "members";
-export type GiphyRatingType = "strict" | "moderate" | "unknownFutureValue";
-export type TeamsAppDistributionMethod = "store" | "organization" | "sideloaded" | "unknownFutureValue";
-export type TeamsAppPublishingState = "submitted" | "rejected" | "published" | "unknownFutureValue";
-export type TeamsAppResourceSpecificPermissionType = "delegated" | "application" | "unknownFutureValue";
+    | 'none'
+    | 'allowFalsePositiveOverride'
+    | 'allowOverrideWithoutJustification'
+    | 'allowOverrideWithJustification';
+export type ChatMessageType = 'message' | 'chatEvent' | 'typing' | 'unknownFutureValue' | 'systemEventMessage';
+export type ChatType = 'oneOnOne' | 'group' | 'meeting' | 'unknownFutureValue';
+export type ClonableTeamParts = 'apps' | 'tabs' | 'settings' | 'channels' | 'members';
+export type GiphyRatingType = 'strict' | 'moderate' | 'unknownFutureValue';
+export type TeamsAppDistributionMethod = 'store' | 'organization' | 'sideloaded' | 'unknownFutureValue';
+export type TeamsAppPublishingState = 'submitted' | 'rejected' | 'published' | 'unknownFutureValue';
+export type TeamsAppResourceSpecificPermissionType = 'delegated' | 'application' | 'unknownFutureValue';
 export type TeamsAsyncOperationStatus =
-    | "invalid"
-    | "notStarted"
-    | "inProgress"
-    | "succeeded"
-    | "failed"
-    | "unknownFutureValue";
+    | 'invalid'
+    | 'notStarted'
+    | 'inProgress'
+    | 'succeeded'
+    | 'failed'
+    | 'unknownFutureValue';
 export type TeamsAsyncOperationType =
-    | "invalid"
-    | "cloneTeam"
-    | "archiveTeam"
-    | "unarchiveTeam"
-    | "createTeam"
-    | "unknownFutureValue"
-    | "teamifyGroup"
-    | "createChannel";
+    | 'invalid'
+    | 'cloneTeam'
+    | 'archiveTeam'
+    | 'unarchiveTeam'
+    | 'createTeam'
+    | 'unknownFutureValue'
+    | 'teamifyGroup'
+    | 'createChannel';
 export type TeamSpecialization =
-    | "none"
-    | "educationStandard"
-    | "educationClass"
-    | "educationProfessionalLearningCommunity"
-    | "educationStaff"
-    | "healthcareStandard"
-    | "healthcareCareCoordination"
-    | "unknownFutureValue";
-export type TeamVisibilityType = "private" | "public" | "hiddenMembership" | "unknownFutureValue";
-export type TeamworkActivityTopicSource = "entityUrl" | "text";
+    | 'none'
+    | 'educationStandard'
+    | 'educationClass'
+    | 'educationProfessionalLearningCommunity'
+    | 'educationStaff'
+    | 'healthcareStandard'
+    | 'healthcareCareCoordination'
+    | 'unknownFutureValue';
+export type TeamVisibilityType = 'private' | 'public' | 'hiddenMembership' | 'unknownFutureValue';
+export type TeamworkActivityTopicSource = 'entityUrl' | 'text';
 export type TeamworkApplicationIdentityType =
-    | "aadApplication"
-    | "bot"
-    | "tenantBot"
-    | "office365Connector"
-    | "outgoingWebhook"
-    | "unknownFutureValue";
-export type TeamworkCallEventType = "call" | "meeting" | "screenShare" | "unknownFutureValue";
-export type TeamworkConversationIdentityType = "team" | "channel" | "chat" | "unknownFutureValue";
-export type TeamworkTagType = "standard" | "unknownFutureValue";
+    | 'aadApplication'
+    | 'bot'
+    | 'tenantBot'
+    | 'office365Connector'
+    | 'outgoingWebhook'
+    | 'unknownFutureValue';
+export type TeamworkCallEventType = 'call' | 'meeting' | 'screenShare' | 'unknownFutureValue';
+export type TeamworkConversationIdentityType = 'team' | 'channel' | 'chat' | 'unknownFutureValue';
+export type TeamworkTagType = 'standard' | 'unknownFutureValue';
 export type TeamworkUserIdentityType =
-    | "aadUser"
-    | "onPremiseAadUser"
-    | "anonymousGuest"
-    | "federatedUser"
-    | "personalMicrosoftAccountUser"
-    | "skypeUser"
-    | "phoneUser"
-    | "unknownFutureValue"
-    | "emailUser";
-export type ScheduleChangeRequestActor = "sender" | "recipient" | "manager" | "system" | "unknownFutureValue";
-export type ScheduleChangeState = "pending" | "approved" | "declined" | "unknownFutureValue";
+    | 'aadUser'
+    | 'onPremiseAadUser'
+    | 'anonymousGuest'
+    | 'federatedUser'
+    | 'personalMicrosoftAccountUser'
+    | 'skypeUser'
+    | 'phoneUser'
+    | 'unknownFutureValue'
+    | 'emailUser';
+export type ScheduleChangeRequestActor = 'sender' | 'recipient' | 'manager' | 'system' | 'unknownFutureValue';
+export type ScheduleChangeState = 'pending' | 'approved' | 'declined' | 'unknownFutureValue';
 export type ScheduleEntityTheme =
-    | "white"
-    | "blue"
-    | "green"
-    | "purple"
-    | "pink"
-    | "yellow"
-    | "gray"
-    | "darkBlue"
-    | "darkGreen"
-    | "darkPurple"
-    | "darkPink"
-    | "darkYellow"
-    | "unknownFutureValue";
+    | 'white'
+    | 'blue'
+    | 'green'
+    | 'purple'
+    | 'pink'
+    | 'yellow'
+    | 'gray'
+    | 'darkBlue'
+    | 'darkGreen'
+    | 'darkPurple'
+    | 'darkPink'
+    | 'darkYellow'
+    | 'unknownFutureValue';
 export type TimeOffReasonIconType =
-    | "none"
-    | "car"
-    | "calendar"
-    | "running"
-    | "plane"
-    | "firstAid"
-    | "doctor"
-    | "notWorking"
-    | "clock"
-    | "juryDuty"
-    | "globe"
-    | "cup"
-    | "phone"
-    | "weather"
-    | "umbrella"
-    | "piggyBank"
-    | "dog"
-    | "cake"
-    | "trafficCone"
-    | "pin"
-    | "sunny"
-    | "unknownFutureValue";
-export type WorkforceIntegrationEncryptionProtocol = "sharedSecret" | "unknownFutureValue";
+    | 'none'
+    | 'car'
+    | 'calendar'
+    | 'running'
+    | 'plane'
+    | 'firstAid'
+    | 'doctor'
+    | 'notWorking'
+    | 'clock'
+    | 'juryDuty'
+    | 'globe'
+    | 'cup'
+    | 'phone'
+    | 'weather'
+    | 'umbrella'
+    | 'piggyBank'
+    | 'dog'
+    | 'cake'
+    | 'trafficCone'
+    | 'pin'
+    | 'sunny'
+    | 'unknownFutureValue';
+export type WorkforceIntegrationEncryptionProtocol = 'sharedSecret' | 'unknownFutureValue';
 export type WorkforceIntegrationSupportedEntities =
-    | "none"
-    | "shift"
-    | "swapRequest"
-    | "userShiftPreferences"
-    | "openShift"
-    | "openShiftRequest"
-    | "offerShiftRequest"
-    | "unknownFutureValue";
+    | 'none'
+    | 'shift'
+    | 'swapRequest'
+    | 'userShiftPreferences'
+    | 'openShift'
+    | 'openShiftRequest'
+    | 'offerShiftRequest'
+    | 'unknownFutureValue';
 export type MailDestinationRoutingReason =
-    | "none"
-    | "mailFlowRule"
-    | "safeSender"
-    | "blockedSender"
-    | "advancedSpamFiltering"
-    | "domainAllowList"
-    | "domainBlockList"
-    | "notInAddressBook"
-    | "firstTimeSender"
-    | "autoPurgeToInbox"
-    | "autoPurgeToJunk"
-    | "autoPurgeToDeleted"
-    | "outbound"
-    | "notJunk"
-    | "junk"
-    | "unknownFutureValue";
-export type ThreatAssessmentContentType = "mail" | "url" | "file";
-export type ThreatAssessmentRequestSource = "undefined" | "user" | "administrator";
-export type ThreatAssessmentResultType = "checkPolicy" | "rescan" | "unknownFutureValue";
-export type ThreatAssessmentStatus = "pending" | "completed";
-export type ThreatCategory = "undefined" | "spam" | "phishing" | "malware" | "unknownFutureValue";
-export type ThreatExpectedAssessment = "block" | "unblock";
-export type TaskStatus = "notStarted" | "inProgress" | "completed" | "waitingOnOthers" | "deferred";
-export type WellknownListName = "none" | "defaultList" | "flaggedEmails" | "unknownFutureValue";
-export type AssignmentType = "required" | "recommended" | "unknownFutureValue";
-export type CourseStatus = "notStarted" | "inProgress" | "completed" | "unknownFutureValue";
+    | 'none'
+    | 'mailFlowRule'
+    | 'safeSender'
+    | 'blockedSender'
+    | 'advancedSpamFiltering'
+    | 'domainAllowList'
+    | 'domainBlockList'
+    | 'notInAddressBook'
+    | 'firstTimeSender'
+    | 'autoPurgeToInbox'
+    | 'autoPurgeToJunk'
+    | 'autoPurgeToDeleted'
+    | 'outbound'
+    | 'notJunk'
+    | 'junk'
+    | 'unknownFutureValue';
+export type ThreatAssessmentContentType = 'mail' | 'url' | 'file';
+export type ThreatAssessmentRequestSource = 'undefined' | 'user' | 'administrator';
+export type ThreatAssessmentResultType = 'checkPolicy' | 'rescan' | 'unknownFutureValue';
+export type ThreatAssessmentStatus = 'pending' | 'completed';
+export type ThreatCategory = 'undefined' | 'spam' | 'phishing' | 'malware' | 'unknownFutureValue';
+export type ThreatExpectedAssessment = 'block' | 'unblock';
+export type TaskStatus = 'notStarted' | 'inProgress' | 'completed' | 'waitingOnOthers' | 'deferred';
+export type WellknownListName = 'none' | 'defaultList' | 'flaggedEmails' | 'unknownFutureValue';
+export type AssignmentType = 'required' | 'recommended' | 'unknownFutureValue';
+export type CourseStatus = 'notStarted' | 'inProgress' | 'completed' | 'unknownFutureValue';
 export interface Entity {
     // The unique idenfier for an entity. Read-only.
     id?: string;
@@ -12925,21 +12940,37 @@ export interface DeviceManagement extends Entity {
     // The collection property of MobileAppTroubleshootingEvent.
     mobileAppTroubleshootingEvents?: NullableOption<MobileAppTroubleshootingEvent[]>;
     // User experience analytics appHealth Application Performance
-    userExperienceAnalyticsAppHealthApplicationPerformance?: NullableOption<UserExperienceAnalyticsAppHealthApplicationPerformance[]>;
+    userExperienceAnalyticsAppHealthApplicationPerformance?: NullableOption<
+        UserExperienceAnalyticsAppHealthApplicationPerformance[]
+    >;
     // User experience analytics appHealth Application Performance by App Version details
-    userExperienceAnalyticsAppHealthApplicationPerformanceByAppVersionDetails?: NullableOption<UserExperienceAnalyticsAppHealthAppPerformanceByAppVersionDetails[]>;
+    userExperienceAnalyticsAppHealthApplicationPerformanceByAppVersionDetails?: NullableOption<
+        UserExperienceAnalyticsAppHealthAppPerformanceByAppVersionDetails[]
+    >;
     // User experience analytics appHealth Application Performance by App Version Device Id
-    userExperienceAnalyticsAppHealthApplicationPerformanceByAppVersionDeviceId?: NullableOption<UserExperienceAnalyticsAppHealthAppPerformanceByAppVersionDeviceId[]>;
+    userExperienceAnalyticsAppHealthApplicationPerformanceByAppVersionDeviceId?: NullableOption<
+        UserExperienceAnalyticsAppHealthAppPerformanceByAppVersionDeviceId[]
+    >;
     // User experience analytics appHealth Application Performance by OS Version
-    userExperienceAnalyticsAppHealthApplicationPerformanceByOSVersion?: NullableOption<UserExperienceAnalyticsAppHealthAppPerformanceByOSVersion[]>;
+    userExperienceAnalyticsAppHealthApplicationPerformanceByOSVersion?: NullableOption<
+        UserExperienceAnalyticsAppHealthAppPerformanceByOSVersion[]
+    >;
     // User experience analytics appHealth Model Performance
-    userExperienceAnalyticsAppHealthDeviceModelPerformance?: NullableOption<UserExperienceAnalyticsAppHealthDeviceModelPerformance[]>;
+    userExperienceAnalyticsAppHealthDeviceModelPerformance?: NullableOption<
+        UserExperienceAnalyticsAppHealthDeviceModelPerformance[]
+    >;
     // User experience analytics appHealth Device Performance
-    userExperienceAnalyticsAppHealthDevicePerformance?: NullableOption<UserExperienceAnalyticsAppHealthDevicePerformance[]>;
+    userExperienceAnalyticsAppHealthDevicePerformance?: NullableOption<
+        UserExperienceAnalyticsAppHealthDevicePerformance[]
+    >;
     // User experience analytics device performance details
-    userExperienceAnalyticsAppHealthDevicePerformanceDetails?: NullableOption<UserExperienceAnalyticsAppHealthDevicePerformanceDetails[]>;
+    userExperienceAnalyticsAppHealthDevicePerformanceDetails?: NullableOption<
+        UserExperienceAnalyticsAppHealthDevicePerformanceDetails[]
+    >;
     // User experience analytics appHealth OS version Performance
-    userExperienceAnalyticsAppHealthOSVersionPerformance?: NullableOption<UserExperienceAnalyticsAppHealthOSVersionPerformance[]>;
+    userExperienceAnalyticsAppHealthOSVersionPerformance?: NullableOption<
+        UserExperienceAnalyticsAppHealthOSVersionPerformance[]
+    >;
     // User experience analytics appHealth overview
     userExperienceAnalyticsAppHealthOverview?: NullableOption<UserExperienceAnalyticsCategory>;
     // User experience analytics baselines
@@ -12963,11 +12994,15 @@ export interface DeviceManagement extends Entity {
     // User experience analytics device Startup Score History
     userExperienceAnalyticsScoreHistory?: NullableOption<UserExperienceAnalyticsScoreHistory[]>;
     // User experience analytics work from anywhere hardware readiness metrics.
-    userExperienceAnalyticsWorkFromAnywhereHardwareReadinessMetric?: NullableOption<UserExperienceAnalyticsWorkFromAnywhereHardwareReadinessMetric>;
+    userExperienceAnalyticsWorkFromAnywhereHardwareReadinessMetric?: NullableOption<
+        UserExperienceAnalyticsWorkFromAnywhereHardwareReadinessMetric
+    >;
     // User experience analytics work from anywhere metrics.
     userExperienceAnalyticsWorkFromAnywhereMetrics?: NullableOption<UserExperienceAnalyticsWorkFromAnywhereMetric[]>;
     // The user experience analytics work from anywhere model performance
-    userExperienceAnalyticsWorkFromAnywhereModelPerformance?: NullableOption<UserExperienceAnalyticsWorkFromAnywhereModelPerformance[]>;
+    userExperienceAnalyticsWorkFromAnywhereModelPerformance?: NullableOption<
+        UserExperienceAnalyticsWorkFromAnywhereModelPerformance[]
+    >;
     // The list of affected malware in the tenant.
     windowsMalwareInformation?: NullableOption<WindowsMalwareInformation[]>;
     // Collection of imported Windows autopilot devices.
@@ -12993,7 +13028,9 @@ export interface DeviceManagement extends Entity {
     // The windows information protection app learning summaries.
     windowsInformationProtectionAppLearningSummaries?: NullableOption<WindowsInformationProtectionAppLearningSummary[]>;
     // The windows information protection network learning summaries.
-    windowsInformationProtectionNetworkLearningSummaries?: NullableOption<WindowsInformationProtectionNetworkLearningSummary[]>;
+    windowsInformationProtectionNetworkLearningSummaries?: NullableOption<
+        WindowsInformationProtectionNetworkLearningSummary[]
+    >;
 }
 export interface TermsAndConditions extends Entity {
     /**
@@ -22916,7 +22953,9 @@ export interface AccessReviewInstanceDecisionItemResource {
     // Type of resource. Types include: Group, ServicePrincipal, DirectoryRole, AzureRole, AccessPackageAssignmentPolicy.
     type?: NullableOption<string>;
 }
-export interface AccessReviewInstanceDecisionItemAccessPackageAssignmentPolicyResource extends AccessReviewInstanceDecisionItemResource {
+export interface AccessReviewInstanceDecisionItemAccessPackageAssignmentPolicyResource
+    extends AccessReviewInstanceDecisionItemResource
+{
     // Display name of the access package to which access has been granted.
     accessPackageDisplayName?: NullableOption<string>;
     // Identifier of the access package to which access has been granted.
@@ -22926,7 +22965,9 @@ export interface AccessReviewInstanceDecisionItemAzureRoleResource extends Acces
     // Details of the scope this role is associated with.
     scope?: NullableOption<AccessReviewInstanceDecisionItemResource>;
 }
-export interface AccessReviewInstanceDecisionItemServicePrincipalResource extends AccessReviewInstanceDecisionItemResource {
+export interface AccessReviewInstanceDecisionItemServicePrincipalResource
+    extends AccessReviewInstanceDecisionItemResource
+{
     // The globally unique identifier of the application to which access has been granted.
     appId?: NullableOption<string>;
 }
@@ -27620,102 +27661,102 @@ export interface AttachmentInfo {
 
 export namespace CallRecords {
     type AudioCodec =
-        | "unknown"
-        | "invalid"
-        | "cn"
-        | "pcma"
-        | "pcmu"
-        | "amrWide"
-        | "g722"
-        | "g7221"
-        | "g7221c"
-        | "g729"
-        | "multiChannelAudio"
-        | "muchv2"
-        | "opus"
-        | "satin"
-        | "satinFullband"
-        | "rtAudio8"
-        | "rtAudio16"
-        | "silk"
-        | "silkNarrow"
-        | "silkWide"
-        | "siren"
-        | "xmsRta"
-        | "unknownFutureValue";
-    type CallType = "unknown" | "groupCall" | "peerToPeer" | "unknownFutureValue";
+        | 'unknown'
+        | 'invalid'
+        | 'cn'
+        | 'pcma'
+        | 'pcmu'
+        | 'amrWide'
+        | 'g722'
+        | 'g7221'
+        | 'g7221c'
+        | 'g729'
+        | 'multiChannelAudio'
+        | 'muchv2'
+        | 'opus'
+        | 'satin'
+        | 'satinFullband'
+        | 'rtAudio8'
+        | 'rtAudio16'
+        | 'silk'
+        | 'silkNarrow'
+        | 'silkWide'
+        | 'siren'
+        | 'xmsRta'
+        | 'unknownFutureValue';
+    type CallType = 'unknown' | 'groupCall' | 'peerToPeer' | 'unknownFutureValue';
     type ClientPlatform =
-        | "unknown"
-        | "windows"
-        | "macOS"
-        | "iOS"
-        | "android"
-        | "web"
-        | "ipPhone"
-        | "roomSystem"
-        | "surfaceHub"
-        | "holoLens"
-        | "unknownFutureValue";
-    type FailureStage = "unknown" | "callSetup" | "midcall" | "unknownFutureValue";
-    type MediaStreamDirection = "callerToCallee" | "calleeToCaller";
-    type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "screenSharing" | "unknownFutureValue";
-    type NetworkConnectionType = "unknown" | "wired" | "wifi" | "mobile" | "tunnel" | "unknownFutureValue";
-    type NetworkTransportProtocol = "unknown" | "udp" | "tcp" | "unknownFutureValue";
+        | 'unknown'
+        | 'windows'
+        | 'macOS'
+        | 'iOS'
+        | 'android'
+        | 'web'
+        | 'ipPhone'
+        | 'roomSystem'
+        | 'surfaceHub'
+        | 'holoLens'
+        | 'unknownFutureValue';
+    type FailureStage = 'unknown' | 'callSetup' | 'midcall' | 'unknownFutureValue';
+    type MediaStreamDirection = 'callerToCallee' | 'calleeToCaller';
+    type Modality = 'audio' | 'video' | 'videoBasedScreenSharing' | 'data' | 'screenSharing' | 'unknownFutureValue';
+    type NetworkConnectionType = 'unknown' | 'wired' | 'wifi' | 'mobile' | 'tunnel' | 'unknownFutureValue';
+    type NetworkTransportProtocol = 'unknown' | 'udp' | 'tcp' | 'unknownFutureValue';
     type ProductFamily =
-        | "unknown"
-        | "teams"
-        | "skypeForBusiness"
-        | "lync"
-        | "unknownFutureValue"
-        | "azureCommunicationServices";
-    type PstnCallDurationSource = "microsoft" | "operator";
+        | 'unknown'
+        | 'teams'
+        | 'skypeForBusiness'
+        | 'lync'
+        | 'unknownFutureValue'
+        | 'azureCommunicationServices';
+    type PstnCallDurationSource = 'microsoft' | 'operator';
     type ServiceRole =
-        | "unknown"
-        | "customBot"
-        | "skypeForBusinessMicrosoftTeamsGateway"
-        | "skypeForBusinessAudioVideoMcu"
-        | "skypeForBusinessApplicationSharingMcu"
-        | "skypeForBusinessCallQueues"
-        | "skypeForBusinessAutoAttendant"
-        | "mediationServer"
-        | "mediationServerCloudConnectorEdition"
-        | "exchangeUnifiedMessagingService"
-        | "mediaController"
-        | "conferencingAnnouncementService"
-        | "conferencingAttendant"
-        | "audioTeleconferencerController"
-        | "skypeForBusinessUnifiedCommunicationApplicationPlatform"
-        | "responseGroupServiceAnnouncementService"
-        | "gateway"
-        | "skypeTranslator"
-        | "skypeForBusinessAttendant"
-        | "responseGroupService"
-        | "voicemail"
-        | "unknownFutureValue";
-    type UserFeedbackRating = "notRated" | "bad" | "poor" | "fair" | "good" | "excellent" | "unknownFutureValue";
+        | 'unknown'
+        | 'customBot'
+        | 'skypeForBusinessMicrosoftTeamsGateway'
+        | 'skypeForBusinessAudioVideoMcu'
+        | 'skypeForBusinessApplicationSharingMcu'
+        | 'skypeForBusinessCallQueues'
+        | 'skypeForBusinessAutoAttendant'
+        | 'mediationServer'
+        | 'mediationServerCloudConnectorEdition'
+        | 'exchangeUnifiedMessagingService'
+        | 'mediaController'
+        | 'conferencingAnnouncementService'
+        | 'conferencingAttendant'
+        | 'audioTeleconferencerController'
+        | 'skypeForBusinessUnifiedCommunicationApplicationPlatform'
+        | 'responseGroupServiceAnnouncementService'
+        | 'gateway'
+        | 'skypeTranslator'
+        | 'skypeForBusinessAttendant'
+        | 'responseGroupService'
+        | 'voicemail'
+        | 'unknownFutureValue';
+    type UserFeedbackRating = 'notRated' | 'bad' | 'poor' | 'fair' | 'good' | 'excellent' | 'unknownFutureValue';
     type VideoCodec =
-        | "unknown"
-        | "invalid"
-        | "av1"
-        | "h263"
-        | "h264"
-        | "h264s"
-        | "h264uc"
-        | "h265"
-        | "rtvc1"
-        | "rtVideo"
-        | "xrtvc1"
-        | "unknownFutureValue";
-    type WifiBand = "unknown" | "frequency24GHz" | "frequency50GHz" | "frequency60GHz" | "unknownFutureValue";
+        | 'unknown'
+        | 'invalid'
+        | 'av1'
+        | 'h263'
+        | 'h264'
+        | 'h264s'
+        | 'h264uc'
+        | 'h265'
+        | 'rtvc1'
+        | 'rtVideo'
+        | 'xrtvc1'
+        | 'unknownFutureValue';
+    type WifiBand = 'unknown' | 'frequency24GHz' | 'frequency50GHz' | 'frequency60GHz' | 'unknownFutureValue';
     type WifiRadioType =
-        | "unknown"
-        | "wifi80211a"
-        | "wifi80211b"
-        | "wifi80211g"
-        | "wifi80211n"
-        | "wifi80211ac"
-        | "wifi80211ax"
-        | "unknownFutureValue";
+        | 'unknown'
+        | 'wifi80211a'
+        | 'wifi80211b'
+        | 'wifi80211g'
+        | 'wifi80211n'
+        | 'wifi80211ac'
+        | 'wifi80211ax'
+        | 'unknownFutureValue';
     interface CallRecord extends microsoftgraph.Entity {
         /**
          * UTC time when the last user left the call. The DateTimeOffset type represents date and time information using ISO 8601
@@ -27958,7 +27999,7 @@ export namespace CallRecords {
         // The stage when the failure occurred. Possible values are: unknown, callSetup, midcall, unknownFutureValue.
         stage?: FailureStage;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface FeedbackTokenSet {}
     interface Media {
         // Device information associated with the callee endpoint of this media.
@@ -28264,7 +28305,7 @@ export namespace CallRecords {
          */
         userPrincipalName?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface ServiceEndpoint extends Endpoint {}
     interface ServiceUserAgent extends UserAgent {
         /**
@@ -28280,45 +28321,45 @@ export namespace CallRecords {
     }
 }
 export namespace ExternalConnectors {
-    type AccessType = "grant" | "deny" | "unknownFutureValue";
-    type AclType = "user" | "group" | "everyone" | "everyoneExceptGuests" | "externalGroup" | "unknownFutureValue";
-    type ConnectionOperationStatus = "unspecified" | "inprogress" | "completed" | "failed" | "unknownFutureValue";
-    type ConnectionState = "draft" | "ready" | "obsolete" | "limitExceeded" | "unknownFutureValue";
-    type ExternalActivityType = "viewed" | "modified" | "created" | "commented" | "unknownFutureValue";
-    type ExternalItemContentType = "text" | "html" | "unknownFutureValue";
-    type IdentityType = "user" | "group" | "externalGroup" | "unknownFutureValue";
+    type AccessType = 'grant' | 'deny' | 'unknownFutureValue';
+    type AclType = 'user' | 'group' | 'everyone' | 'everyoneExceptGuests' | 'externalGroup' | 'unknownFutureValue';
+    type ConnectionOperationStatus = 'unspecified' | 'inprogress' | 'completed' | 'failed' | 'unknownFutureValue';
+    type ConnectionState = 'draft' | 'ready' | 'obsolete' | 'limitExceeded' | 'unknownFutureValue';
+    type ExternalActivityType = 'viewed' | 'modified' | 'created' | 'commented' | 'unknownFutureValue';
+    type ExternalItemContentType = 'text' | 'html' | 'unknownFutureValue';
+    type IdentityType = 'user' | 'group' | 'externalGroup' | 'unknownFutureValue';
     type Label =
-        | "title"
-        | "url"
-        | "createdBy"
-        | "lastModifiedBy"
-        | "authors"
-        | "createdDateTime"
-        | "lastModifiedDateTime"
-        | "fileName"
-        | "fileExtension"
-        | "unknownFutureValue";
+        | 'title'
+        | 'url'
+        | 'createdBy'
+        | 'lastModifiedBy'
+        | 'authors'
+        | 'createdDateTime'
+        | 'lastModifiedDateTime'
+        | 'fileName'
+        | 'fileExtension'
+        | 'unknownFutureValue';
     type PropertyType =
-        | "string"
-        | "int64"
-        | "double"
-        | "dateTime"
-        | "boolean"
-        | "stringCollection"
-        | "int64Collection"
-        | "doubleCollection"
-        | "dateTimeCollection"
-        | "unknownFutureValue";
+        | 'string'
+        | 'int64'
+        | 'double'
+        | 'dateTime'
+        | 'boolean'
+        | 'stringCollection'
+        | 'int64Collection'
+        | 'doubleCollection'
+        | 'dateTimeCollection'
+        | 'unknownFutureValue';
     type RuleOperation =
-        | "null"
-        | "equals"
-        | "notEquals"
-        | "contains"
-        | "notContains"
-        | "lessThan"
-        | "greaterThan"
-        | "startsWith"
-        | "unknownFutureValue";
+        | 'null'
+        | 'equals'
+        | 'notEquals'
+        | 'contains'
+        | 'notContains'
+        | 'lessThan'
+        | 'greaterThan'
+        | 'startsWith'
+        | 'unknownFutureValue';
     interface ConnectionOperation extends microsoftgraph.Entity {
         // If status is failed, provides more information about the error that caused the failure.
         error?: NullableOption<microsoftgraph.PublicError>;
@@ -28372,7 +28413,7 @@ export namespace ExternalConnectors {
         // Represents an identity used to identify who is responsible for the activity.
         performedBy?: NullableOption<Identity>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface Identity extends microsoftgraph.Entity {
         /**
          * The type of identity. Possible values are: user or group for Azure AD identities and externalgroup for groups in an
@@ -28492,7 +28533,7 @@ export namespace ExternalConnectors {
         // The content for the externalItem. Required.
         value?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface ItemIdResolver extends UrlToItemResolverBase {
         /**
          * Pattern that specifies how to form the ID of the external item that the URL represents. The named groups from the
@@ -28513,7 +28554,7 @@ export namespace ExternalConnectors {
          */
         urlPattern?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface Properties {}
     interface Property {
         /**
@@ -28571,24 +28612,24 @@ export namespace ExternalConnectors {
     }
 }
 export namespace IdentityGovernanceNamespace {
-    type CustomTaskExtensionOperationStatus = "completed" | "failed" | "unknownFutureValue";
-    type LifecycleTaskCategory = "joiner" | "leaver" | "unknownFutureValue" | "mover";
-    type LifecycleWorkflowCategory = "joiner" | "leaver" | "unknownFutureValue" | "mover";
+    type CustomTaskExtensionOperationStatus = 'completed' | 'failed' | 'unknownFutureValue';
+    type LifecycleTaskCategory = 'joiner' | 'leaver' | 'unknownFutureValue' | 'mover';
+    type LifecycleWorkflowCategory = 'joiner' | 'leaver' | 'unknownFutureValue' | 'mover';
     type LifecycleWorkflowProcessingStatus =
-        | "queued"
-        | "inProgress"
-        | "completed"
-        | "completedWithErrors"
-        | "canceled"
-        | "failed"
-        | "unknownFutureValue";
-    type ValueType = "enum" | "string" | "int" | "bool" | "unknownFutureValue";
-    type WorkflowExecutionType = "scheduled" | "onDemand" | "unknownFutureValue";
+        | 'queued'
+        | 'inProgress'
+        | 'completed'
+        | 'completedWithErrors'
+        | 'canceled'
+        | 'failed'
+        | 'unknownFutureValue';
+    type ValueType = 'enum' | 'string' | 'int' | 'bool' | 'unknownFutureValue';
+    type WorkflowExecutionType = 'scheduled' | 'onDemand' | 'unknownFutureValue';
     type WorkflowTriggerTimeBasedAttribute =
-        | "employeeHireDate"
-        | "employeeLeaveDateTime"
-        | "unknownFutureValue"
-        | "createdDateTime";
+        | 'employeeHireDate'
+        | 'employeeLeaveDateTime'
+        | 'unknownFutureValue'
+        | 'createdDateTime';
     interface WorkflowBase {
         // The category of the workflow. The possible values are: joiner, leaver, unknownFutureValue.
         category?: LifecycleWorkflowCategory;
@@ -28927,9 +28968,9 @@ export namespace IdentityGovernanceNamespace {
         taskProcessingresult?: NullableOption<TaskProcessingResult>;
         workflow?: NullableOption<Workflow>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface WorkflowExecutionConditions {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface OnDemandExecutionOnly extends WorkflowExecutionConditions {}
     interface Parameter {
         // The name of the parameter.
@@ -28970,7 +29011,7 @@ export namespace IdentityGovernanceNamespace {
         // The number of unprocessed tasks in a report.
         unprocessedTasks?: number;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface WorkflowExecutionTrigger {}
     interface TimeBasedAttributeTrigger extends WorkflowExecutionTrigger {
         /**
@@ -29012,166 +29053,172 @@ export namespace IdentityGovernanceNamespace {
     }
 }
 export namespace SecurityNamespace {
-    type AdditionalDataOptions = "allVersions" | "linkedFiles" | "unknownFutureValue";
+    type AdditionalDataOptions = 'allVersions' | 'linkedFiles' | 'unknownFutureValue';
     type CaseAction =
-        | "contentExport"
-        | "applyTags"
-        | "convertToPdf"
-        | "index"
-        | "estimateStatistics"
-        | "addToReviewSet"
-        | "holdUpdate"
-        | "unknownFutureValue"
-        | "purgeData";
+        | 'contentExport'
+        | 'applyTags'
+        | 'convertToPdf'
+        | 'index'
+        | 'estimateStatistics'
+        | 'addToReviewSet'
+        | 'holdUpdate'
+        | 'unknownFutureValue'
+        | 'purgeData';
     type CaseOperationStatus =
-        | "notStarted"
-        | "submissionFailed"
-        | "running"
-        | "succeeded"
-        | "partiallySucceeded"
-        | "failed"
-        | "unknownFutureValue";
+        | 'notStarted'
+        | 'submissionFailed'
+        | 'running'
+        | 'succeeded'
+        | 'partiallySucceeded'
+        | 'failed'
+        | 'unknownFutureValue';
     type CaseStatus =
-        | "unknown"
-        | "active"
-        | "pendingDelete"
-        | "closing"
-        | "closed"
-        | "closedWithError"
-        | "unknownFutureValue";
-    type ChildSelectability = "One" | "Many" | "unknownFutureValue";
-    type DataSourceContainerStatus = "active" | "released" | "unknownFutureValue";
-    type DataSourceHoldStatus = "notApplied" | "applied" | "applying" | "removing" | "partial" | "unknownFutureValue";
+        | 'unknown'
+        | 'active'
+        | 'pendingDelete'
+        | 'closing'
+        | 'closed'
+        | 'closedWithError'
+        | 'unknownFutureValue';
+    type ChildSelectability = 'One' | 'Many' | 'unknownFutureValue';
+    type DataSourceContainerStatus = 'active' | 'released' | 'unknownFutureValue';
+    type DataSourceHoldStatus = 'notApplied' | 'applied' | 'applying' | 'removing' | 'partial' | 'unknownFutureValue';
     type DataSourceScopes =
-        | "none"
-        | "allTenantMailboxes"
-        | "allTenantSites"
-        | "allCaseCustodians"
-        | "allCaseNoncustodialDataSources"
-        | "unknownFutureValue";
-    type ExportFileStructure = "none" | "directory" | "pst" | "unknownFutureValue";
-    type ExportOptions = "originalFiles" | "text" | "pdfReplacement" | "tags" | "unknownFutureValue";
-    type PurgeAreas = "mailboxes" | "teamsMessages" | "unknownFutureValue";
-    type PurgeType = "recoverable" | "permanentlyDeleted" | "unknownFutureValue";
-    type SourceType = "mailbox" | "site" | "unknownFutureValue";
+        | 'none'
+        | 'allTenantMailboxes'
+        | 'allTenantSites'
+        | 'allCaseCustodians'
+        | 'allCaseNoncustodialDataSources'
+        | 'unknownFutureValue';
+    type ExportFileStructure = 'none' | 'directory' | 'pst' | 'unknownFutureValue';
+    type ExportOptions = 'originalFiles' | 'text' | 'pdfReplacement' | 'tags' | 'unknownFutureValue';
+    type PurgeAreas = 'mailboxes' | 'teamsMessages' | 'unknownFutureValue';
+    type PurgeType = 'recoverable' | 'permanentlyDeleted' | 'unknownFutureValue';
+    type SourceType = 'mailbox' | 'site' | 'unknownFutureValue';
     type AlertClassification =
-        | "unknown"
-        | "falsePositive"
-        | "truePositive"
-        | "informationalExpectedActivity"
-        | "unknownFutureValue";
+        | 'unknown'
+        | 'falsePositive'
+        | 'truePositive'
+        | 'informationalExpectedActivity'
+        | 'unknownFutureValue';
     type AlertDetermination =
-        | "unknown"
-        | "apt"
-        | "malware"
-        | "securityPersonnel"
-        | "securityTesting"
-        | "unwantedSoftware"
-        | "other"
-        | "multiStagedAttack"
-        | "compromisedAccount"
-        | "phishing"
-        | "maliciousUserActivity"
-        | "notMalicious"
-        | "notEnoughDataToValidate"
-        | "confirmedActivity"
-        | "lineOfBusinessApplication"
-        | "unknownFutureValue";
-    type AlertSeverity = "unknown" | "informational" | "low" | "medium" | "high" | "unknownFutureValue";
-    type AlertStatus = "unknown" | "new" | "inProgress" | "resolved" | "unknownFutureValue";
-    type ContainerPortProtocol = "udp" | "tcp" | "sctp" | "unknownFutureValue";
+        | 'unknown'
+        | 'apt'
+        | 'malware'
+        | 'securityPersonnel'
+        | 'securityTesting'
+        | 'unwantedSoftware'
+        | 'other'
+        | 'multiStagedAttack'
+        | 'compromisedAccount'
+        | 'phishing'
+        | 'maliciousUserActivity'
+        | 'notMalicious'
+        | 'notEnoughDataToValidate'
+        | 'confirmedActivity'
+        | 'lineOfBusinessApplication'
+        | 'unknownFutureValue';
+    type AlertSeverity = 'unknown' | 'informational' | 'low' | 'medium' | 'high' | 'unknownFutureValue';
+    type AlertStatus = 'unknown' | 'new' | 'inProgress' | 'resolved' | 'unknownFutureValue';
+    type ContainerPortProtocol = 'udp' | 'tcp' | 'sctp' | 'unknownFutureValue';
     type DefenderAvStatus =
-        | "notReporting"
-        | "disabled"
-        | "notUpdated"
-        | "updated"
-        | "unknown"
-        | "notSupported"
-        | "unknownFutureValue";
+        | 'notReporting'
+        | 'disabled'
+        | 'notUpdated'
+        | 'updated'
+        | 'unknown'
+        | 'notSupported'
+        | 'unknownFutureValue';
     type DetectionSource =
-        | "unknown"
-        | "microsoftDefenderForEndpoint"
-        | "antivirus"
-        | "smartScreen"
-        | "customTi"
-        | "microsoftDefenderForOffice365"
-        | "automatedInvestigation"
-        | "microsoftThreatExperts"
-        | "customDetection"
-        | "microsoftDefenderForIdentity"
-        | "cloudAppSecurity"
-        | "microsoft365Defender"
-        | "azureAdIdentityProtection"
-        | "manual"
-        | "microsoftDataLossPrevention"
-        | "appGovernancePolicy"
-        | "appGovernanceDetection"
-        | "unknownFutureValue"
-        | "microsoftDefenderForCloud";
-    type DetectionStatus = "detected" | "blocked" | "prevented" | "unknownFutureValue";
+        | 'unknown'
+        | 'microsoftDefenderForEndpoint'
+        | 'antivirus'
+        | 'smartScreen'
+        | 'customTi'
+        | 'microsoftDefenderForOffice365'
+        | 'automatedInvestigation'
+        | 'microsoftThreatExperts'
+        | 'customDetection'
+        | 'microsoftDefenderForIdentity'
+        | 'cloudAppSecurity'
+        | 'microsoft365Defender'
+        | 'azureAdIdentityProtection'
+        | 'manual'
+        | 'microsoftDataLossPrevention'
+        | 'appGovernancePolicy'
+        | 'appGovernanceDetection'
+        | 'unknownFutureValue'
+        | 'microsoftDefenderForCloud';
+    type DetectionStatus = 'detected' | 'blocked' | 'prevented' | 'unknownFutureValue';
     type DeviceHealthStatus =
-        | "active"
-        | "inactive"
-        | "impairedCommunication"
-        | "noSensorData"
-        | "noSensorDataImpairedCommunication"
-        | "unknown"
-        | "unknownFutureValue";
-    type DeviceRiskScore = "none" | "informational" | "low" | "medium" | "high" | "unknownFutureValue";
-    type EvidenceRemediationStatus = "none" | "remediated" | "prevented" | "blocked" | "notFound" | "unknownFutureValue";
+        | 'active'
+        | 'inactive'
+        | 'impairedCommunication'
+        | 'noSensorData'
+        | 'noSensorDataImpairedCommunication'
+        | 'unknown'
+        | 'unknownFutureValue';
+    type DeviceRiskScore = 'none' | 'informational' | 'low' | 'medium' | 'high' | 'unknownFutureValue';
+    type EvidenceRemediationStatus =
+        | 'none'
+        | 'remediated'
+        | 'prevented'
+        | 'blocked'
+        | 'notFound'
+        | 'unknownFutureValue';
     type EvidenceRole =
-        | "unknown"
-        | "contextual"
-        | "scanned"
-        | "source"
-        | "destination"
-        | "created"
-        | "added"
-        | "compromised"
-        | "edited"
-        | "attacked"
-        | "attacker"
-        | "commandAndControl"
-        | "loaded"
-        | "suspicious"
-        | "policyViolator"
-        | "unknownFutureValue";
-    type EvidenceVerdict = "unknown" | "suspicious" | "malicious" | "noThreatsFound" | "unknownFutureValue";
-    type FileHashAlgorithm = "unknown" | "md5" | "sha1" | "sha256" | "sha256ac" | "unknownFutureValue";
-    type GoogleCloudLocationType = "unknown" | "regional" | "zonal" | "global" | "unknownFutureValue";
-    type IncidentStatus = "active" | "resolved" | "inProgress" | "redirected" | "unknownFutureValue" | "awaitingAction";
-    type KubernetesPlatform = "unknown" | "aks" | "eks" | "gke" | "arc" | "unknownFutureValue";
+        | 'unknown'
+        | 'contextual'
+        | 'scanned'
+        | 'source'
+        | 'destination'
+        | 'created'
+        | 'added'
+        | 'compromised'
+        | 'edited'
+        | 'attacked'
+        | 'attacker'
+        | 'commandAndControl'
+        | 'loaded'
+        | 'suspicious'
+        | 'policyViolator'
+        | 'unknownFutureValue';
+    type EvidenceVerdict = 'unknown' | 'suspicious' | 'malicious' | 'noThreatsFound' | 'unknownFutureValue';
+    type FileHashAlgorithm = 'unknown' | 'md5' | 'sha1' | 'sha256' | 'sha256ac' | 'unknownFutureValue';
+    type GoogleCloudLocationType = 'unknown' | 'regional' | 'zonal' | 'global' | 'unknownFutureValue';
+    type IncidentStatus = 'active' | 'resolved' | 'inProgress' | 'redirected' | 'unknownFutureValue' | 'awaitingAction';
+    type KubernetesPlatform = 'unknown' | 'aks' | 'eks' | 'gke' | 'arc' | 'unknownFutureValue';
     type KubernetesServiceType =
-        | "unknown"
-        | "clusterIP"
-        | "externalName"
-        | "nodePort"
-        | "loadBalancer"
-        | "unknownFutureValue";
-    type OnboardingStatus = "insufficientInfo" | "onboarded" | "canBeOnboarded" | "unsupported" | "unknownFutureValue";
+        | 'unknown'
+        | 'clusterIP'
+        | 'externalName'
+        | 'nodePort'
+        | 'loadBalancer'
+        | 'unknownFutureValue';
+    type OnboardingStatus = 'insufficientInfo' | 'onboarded' | 'canBeOnboarded' | 'unsupported' | 'unknownFutureValue';
     type ServiceSource =
-        | "unknown"
-        | "microsoftDefenderForEndpoint"
-        | "microsoftDefenderForIdentity"
-        | "microsoftDefenderForCloudApps"
-        | "microsoftDefenderForOffice365"
-        | "microsoft365Defender"
-        | "azureAdIdentityProtection"
-        | "microsoftAppGovernance"
-        | "dataLossPrevention"
-        | "unknownFutureValue"
-        | "microsoftDefenderForCloud";
-    type VmCloudProvider = "unknown" | "azure" | "unknownFutureValue";
-    type EventPropagationStatus = "none" | "inProcessing" | "failed" | "success" | "unknownFutureValue";
-    type EventStatusType = "pending" | "error" | "success" | "notAvaliable" | "unknownFutureValue";
-    type QueryType = "files" | "messages" | "unknownFutureValue";
-    type RetentionTrigger = "dateLabeled" | "dateCreated" | "dateModified" | "dateOfEvent" | "unknownFutureValue";
-    type ContentFormat = "text" | "html" | "markdown" | "unknownFutureValue";
-    type HostReputationClassification = "unknown" | "neutral" | "suspicious" | "malicious" | "unknownFutureValue";
-    type HostReputationRuleSeverity = "unknown" | "low" | "medium" | "high" | "unknownFutureValue";
-    type IndicatorSource = "microsoft" | "osint" | "public" | "unknownFutureValue";
-    type IntelligenceProfileKind = "actor" | "tool" | "unknownFutureValue";
-    type VulnerabilitySeverity = "none" | "low" | "medium" | "high" | "critical" | "unknownFutureValue";
+        | 'unknown'
+        | 'microsoftDefenderForEndpoint'
+        | 'microsoftDefenderForIdentity'
+        | 'microsoftDefenderForCloudApps'
+        | 'microsoftDefenderForOffice365'
+        | 'microsoft365Defender'
+        | 'azureAdIdentityProtection'
+        | 'microsoftAppGovernance'
+        | 'dataLossPrevention'
+        | 'unknownFutureValue'
+        | 'microsoftDefenderForCloud';
+    type VmCloudProvider = 'unknown' | 'azure' | 'unknownFutureValue';
+    type EventPropagationStatus = 'none' | 'inProcessing' | 'failed' | 'success' | 'unknownFutureValue';
+    type EventStatusType = 'pending' | 'error' | 'success' | 'notAvaliable' | 'unknownFutureValue';
+    type QueryType = 'files' | 'messages' | 'unknownFutureValue';
+    type RetentionTrigger = 'dateLabeled' | 'dateCreated' | 'dateModified' | 'dateOfEvent' | 'unknownFutureValue';
+    type ContentFormat = 'text' | 'html' | 'markdown' | 'unknownFutureValue';
+    type HostReputationClassification = 'unknown' | 'neutral' | 'suspicious' | 'malicious' | 'unknownFutureValue';
+    type HostReputationRuleSeverity = 'unknown' | 'low' | 'medium' | 'high' | 'unknownFutureValue';
+    type IndicatorSource = 'microsoft' | 'osint' | 'public' | 'unknownFutureValue';
+    type IntelligenceProfileKind = 'actor' | 'tool' | 'unknownFutureValue';
+    type VulnerabilitySeverity = 'none' | 'low' | 'medium' | 'high' | 'critical' | 'unknownFutureValue';
     interface CasesRoot extends microsoftgraph.Entity {
         ediscoveryCases?: NullableOption<EdiscoveryCase[]>;
     }
@@ -29258,7 +29305,7 @@ export namespace SecurityNamespace {
         // Brief identifying string value describing the alert.
         title?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface Incident extends microsoftgraph.Entity {
         // Owner of the incident, or null if no owner is assigned. Free editable text.
         assignedTo?: NullableOption<string>;
@@ -29504,7 +29551,7 @@ export namespace SecurityNamespace {
         // Returns the parent tag of the specified tag.
         parent?: NullableOption<EdiscoveryReviewTag>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface EdiscoveryIndexOperation extends CaseOperation {}
     interface SiteSource extends DataSource {
         // The SharePoint site associated with the siteSource.
@@ -29561,13 +29608,13 @@ export namespace SecurityNamespace {
         // The review set query which is used to filter the documents for export.
         reviewSetQuery?: NullableOption<EdiscoveryReviewSetQuery>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface EdiscoveryReviewSetQuery extends Search {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface EdiscoveryHoldOperation extends CaseOperation {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface EdiscoveryPurgeDataOperation extends CaseOperation {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface EdiscoveryTagOperation extends CaseOperation {}
     interface RetentionEvent extends microsoftgraph.Entity {
         // The user who created the retentionEvent.
@@ -29636,7 +29683,7 @@ export namespace SecurityNamespace {
         // Indicators related to this article.
         indicators?: NullableOption<ArticleIndicator[]>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface Indicator extends microsoftgraph.Entity {
         /**
          * The source that provides this indicator. The possible values are: microsoftDefenderThreatIntelligence,
@@ -29646,9 +29693,9 @@ export namespace SecurityNamespace {
         // The artifact related to this indicator.
         artifact?: Artifact;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface ArticleIndicator extends Indicator {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface Artifact extends microsoftgraph.Entity {}
     interface Host extends Artifact {
         /**
@@ -29791,7 +29838,7 @@ export namespace SecurityNamespace {
         // The registrar for this hostname, from WHOIS data.
         registrar?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface IntelligenceProfile extends microsoftgraph.Entity {
         // A list of commonly-known aliases for the threat intelligence included in the intelligenceProfile.
         aliases?: NullableOption<string[]>;
@@ -29825,7 +29872,7 @@ export namespace SecurityNamespace {
         // Includes an assemblage of high-fidelity network indicators of compromise.
         indicators?: NullableOption<IntelligenceProfileIndicator[]>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface IntelligenceProfileIndicator extends Indicator {
         /**
          * Designate when an artifact was first used actively in an attack, when a particular sample was compiled, or if neither
@@ -29840,7 +29887,7 @@ export namespace SecurityNamespace {
          */
         lastSeenDateTime?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface IpAddress extends Host {
         // The details about the autonomous system to which this IP address belongs.
         autonomousSystem?: NullableOption<AutonomousSystem>;
@@ -29939,7 +29986,7 @@ export namespace SecurityNamespace {
          */
         similarityThreshold?: NullableOption<number>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface StringValueDictionary {}
     interface TopicModelingSettings {
         /**
@@ -30183,9 +30230,9 @@ export namespace SecurityNamespace {
         // Unique identifier of the virtual machine instance.
         vmId?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface Dictionary {}
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface DynamicColumnValue {}
     interface FileDetails {
         // The name of the file.
@@ -30233,7 +30280,7 @@ export namespace SecurityNamespace {
         // The schema for the response.
         schema?: NullableOption<SinglePropertySchema[]>;
     }
-// tslint:disable-next-line: no-empty-interface
+    // tslint:disable-next-line: no-empty-interface
     interface HuntingRowResult {}
     interface SinglePropertySchema {
         // The name of the property.
@@ -30241,7 +30288,7 @@ export namespace SecurityNamespace {
         // The type of the property.
         type?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface IpEvidence extends AlertEvidence {
         // The two-letter country code according to ISO 3166 format, for example: US, UK, CA, etc..).
         countryLetterCode?: NullableOption<string>;
@@ -30477,7 +30524,7 @@ export namespace SecurityNamespace {
         // The URL for this hyperlink.
         url?: string;
     }
-// tslint:disable-next-line: interface-name
+    // tslint:disable-next-line: interface-name
     interface IntelligenceProfileCountryOrRegionOfOrigin {
         // A codified representation for this country/region of origin.
         code?: string;
@@ -30486,8 +30533,8 @@ export namespace SecurityNamespace {
     }
 }
 export namespace TermStore {
-    type RelationType = "pin" | "reuse" | "unknownFutureValue";
-    type TermGroupScope = "global" | "system" | "siteCollection" | "unknownFutureValue";
+    type RelationType = 'pin' | 'reuse' | 'unknownFutureValue';
+    type TermGroupScope = 'global' | 'system' | 'siteCollection' | 'unknownFutureValue';
     interface Store extends microsoftgraph.Entity {
         // Default language of the term store.
         defaultLanguageTag?: string;
