@@ -917,7 +917,7 @@ braintree.client.create(
                 threeDSecure.verifyCard(
                     {
                         nonce: existingNonce,
-                        amount: 123.45, // $ExpectType number
+                        amount: '123.45', // $ExpectType string
                         bin: '1234',
                         collectDeviceData: true,
                         addFrame: (err, iframe) => {
@@ -956,7 +956,7 @@ braintree.client.create(
                 threeDSecure.verifyCard(
                     {
                         nonce: existingNonce,
-                        amount: 123.45, // $ExpectType number
+                        amount: '123.45', // $ExpectType string
                         bin: '1234',
                     },
                     (err: braintree.BraintreeError) => {
