@@ -709,6 +709,10 @@ export interface Axis {
      */
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
     /**
+     * Hide SI prefix for 10^n if |n| is below this number. This only has an effect when `tickformat` is "SI" or "B".
+     */
+    minexponent: number;
+    /**
      * 'If `true`, even 4-digit integers are separated
      */
     separatethousands: boolean;
@@ -1515,6 +1519,7 @@ export interface ColorBar {
     separatethousands: boolean;
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
     showexponent: 'all' | 'first' | 'last' | 'none';
+    minexponent: number;
     title: string;
     titlefont: Font;
     titleside: 'right' | 'top' | 'bottom';

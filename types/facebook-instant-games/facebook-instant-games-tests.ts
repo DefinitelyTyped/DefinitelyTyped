@@ -138,6 +138,7 @@ FBInstant.payments.getCatalogAsync().then((products: FBInstant.Product[]) => {
     const priceCurrencyCode: string = product.priceCurrencyCode;
     const productID: string = product.productID;
     const title: string = product.title;
+    const priceAmount: number = product.priceAmount;
 });
 
 /// Version 7.0

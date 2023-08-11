@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 6.0
+// Type definitions for hafas-client 6.1
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
  * Example: Even though S-Bahn and U-Bahn in Berlin are both trains, they have different operators, service patterns,
  * stations and look different. Therefore, they are two distinct products subway and suburban.
  */
- export interface ProductType {
+export interface ProductType {
     id: string;
     mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
     name: string;
@@ -248,7 +248,7 @@ export interface Geometry {
 }
 export interface Feature {
     type: 'Feature';
-    properties: Station | Stop | Location | {};
+    properties: Station | Stop | Location | object;
     geometry: Geometry;
 }
 export interface FeatureCollection {
@@ -469,12 +469,7 @@ export interface ServerInfo extends RealtimeDataUpdatedAt {
     timetableEnd?: string;
     serverTime?: string | number;
 }
-export interface LoyaltyCard {
-    type: string;
-    discount?: number;
-    class?: number;
-}
-export interface JourneysOptions {
+export interface JourneysOptionsCommon {
     /**
      * departure date, undefined corresponds to Date.Now
      * @default undefined
@@ -577,10 +572,31 @@ export interface JourneysOptions {
      */
     scheduledDays?: boolean;
     /**
+     * @deprecated
+     */
+    when?: Date;
+}
+export interface LoyaltyCard {
+    type: string;
+    discount?: number;
+    class?: number;
+}
+export type AgeGroup = 'B' | 'K' | 'Y' | 'E' | 'S';
+export type RoutingMode = 'OFF' | 'INFOS' | 'FULL' | 'REALTIME' | 'SERVER_DEFAULT' | 'HYBRID';
+/**
+ * JourneysOptions specific to Db Profile
+ */
+export interface JourneysOptionsDbProfile {
+    /**
      * firstClass
      * @default false
      */
     firstClass?: boolean;
+    /**
+     * ageGroup
+     * @default none
+     */
+    ageGroup?: AgeGroup;
     /**
      * age
      * @default none
@@ -592,10 +608,12 @@ export interface JourneysOptions {
      */
     loyaltyCard?: LoyaltyCard;
     /**
-     * @deprecated
+     *  RoutingMode
+     *  @default none
      */
-    when?: Date;
+    routingMode?: RoutingMode;
 }
+export type JourneysOptions = JourneysOptionsCommon & JourneysOptionsDbProfile;
 export interface JourneysFromTripOptions {
     /**
      * return stations on the way?

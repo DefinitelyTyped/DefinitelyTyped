@@ -47,6 +47,19 @@ declare function jsx(): TestElementType;
 // A JSX test implementation type
 declare global {
     namespace JSX {
+        // Note: The below code  and variations on it need to be tested manually.
+        // It is not possible to run this test with multiple TypeScript configurations in DefinitelyTyped.
+        //
+        // type ElementType =
+        //     | 'a'
+        //     | 'div'
+        //     | 'h1'
+        //     | 'img'
+        //     | 'span'
+        //     | 'video'
+        //     | ((props: Record<string, any>) => Element | null)
+        //     | (new (props: Record<string, any>) => ElementClass);
+
         type Element = TestElementType;
 
         interface IntrinsicElements {

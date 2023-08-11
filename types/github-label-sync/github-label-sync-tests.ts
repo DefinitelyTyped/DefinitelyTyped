@@ -12,6 +12,7 @@ githubLabelSync({
             name: 'other label',
             color: 'abcdef',
             description: 'A very inspiring description',
+            delete: true,
         },
     ],
     repo: 'owner/repo',

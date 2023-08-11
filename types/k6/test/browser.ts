@@ -7,11 +7,161 @@ import {
     Request,
     Response,
     ElementHandle,
+    Browser,
+    BrowserContext,
 } from 'k6/experimental/browser';
 
 const url = 'http://example.com';
 const selector = 'a[href="http://example.com"]';
 const elementHandle = new ElementHandle();
+
+//
+// Create a browser
+//
+const browser = new Browser();
+
+// $ExpectType BrowserContext
+browser.context();
+
+// $ExpectType boolean
+browser.isConnected();
+
+// $ExpectType BrowserContext
+browser.newContext();
+// $ExpectType BrowserContext
+browser.newContext({ bypassCSP: true });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: 'light' });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: 'dark' });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: 'no-preference' });
+// $ExpectType BrowserContext
+browser.newContext({ deviceScaleFactor: 2 });
+// $ExpectType BrowserContext
+browser.newContext({ extraHTTPHeaders: { Accept: 'text/html' } });
+// $ExpectType BrowserContext
+browser.newContext({ geolocation: { latitude: 0, longitude: 0, accuracy: 1 } });
+// $ExpectType BrowserContext
+browser.newContext({ hasTouch: true });
+// $ExpectType BrowserContext
+browser.newContext({ httpCredentials: { username: 'username', password: 'password' } });
+// $ExpectType BrowserContext
+browser.newContext({ ignoreHTTPSErrors: true });
+// $ExpectType BrowserContext
+browser.newContext({ isMobile: true });
+// $ExpectType BrowserContext
+browser.newContext({ javaScriptEnabled: true });
+// $ExpectType BrowserContext
+browser.newContext({ locale: 'en-US' });
+// $ExpectType BrowserContext
+browser.newContext({ offline: true });
+// $ExpectType BrowserContext
+browser.newContext({ permissions: ['geolocation'] });
+// $ExpectType BrowserContext
+browser.newContext({ permissions: ['geolocation', 'notifications'] });
+// $ExpectType BrowserContext
+browser.newContext({ reducedMotion: 'reduce' });
+// $ExpectType BrowserContext
+browser.newContext({ reducedMotion: 'no-preference' });
+// $ExpectType BrowserContext
+browser.newContext({ screen: { width: 1280, height: 720 } });
+// $ExpectType BrowserContext
+browser.newContext({ timezoneID: 'GMT' });
+// $ExpectType BrowserContext
+browser.newContext({ userAgent: 'foo' });
+// $ExpectType BrowserContext
+browser.newContext({ viewport: { width: 1280, height: 720 } });
+
+// $ExpectType Page
+browser.newPage();
+// $ExpectType Page
+browser.newPage({ bypassCSP: true });
+// $ExpectType Page
+browser.newPage({ colorScheme: 'light' });
+// $ExpectType Page
+browser.newPage({ colorScheme: 'dark' });
+// $ExpectType Page
+browser.newPage({ colorScheme: 'no-preference' });
+// $ExpectType Page
+browser.newPage({ deviceScaleFactor: 2 });
+// $ExpectType Page
+browser.newPage({ extraHTTPHeaders: { Accept: 'text/html' } });
+// $ExpectType Page
+browser.newPage({ geolocation: { latitude: 0, longitude: 0, accuracy: 1 } });
+// $ExpectType Page
+browser.newPage({ hasTouch: true });
+// $ExpectType Page
+browser.newPage({ httpCredentials: { username: 'username', password: 'password' } });
+// $ExpectType Page
+browser.newPage({ ignoreHTTPSErrors: true });
+// $ExpectType Page
+browser.newPage({ isMobile: true });
+// $ExpectType Page
+browser.newPage({ javaScriptEnabled: true });
+// $ExpectType Page
+browser.newPage({ locale: 'en-US' });
+// $ExpectType Page
+browser.newPage({ offline: true });
+// $ExpectType Page
+browser.newPage({ permissions: ['geolocation'] });
+// $ExpectType Page
+browser.newPage({ permissions: ['geolocation', 'notifications'] });
+// $ExpectType Page
+browser.newPage({ reducedMotion: 'reduce' });
+// $ExpectType Page
+browser.newPage({ reducedMotion: 'no-preference' });
+// $ExpectType Page
+browser.newPage({ screen: { width: 1280, height: 720 } });
+// $ExpectType Page
+browser.newPage({ timezoneID: 'GMT' });
+// $ExpectType Page
+browser.newPage({ userAgent: 'foo' });
+// $ExpectType Page
+browser.newPage({ viewport: { width: 1280, height: 720 } });
+
+// $ExpectType string
+browser.version();
+
+//
+// Create a browserContext
+//
+const browserContext = new BrowserContext();
+
+// $ExpectType Browser
+browserContext.browser();
+// @ts-expect-error
+browserContext.addCookies();
+// $ExpectType void
+browserContext.addCookies([ { name: 'foo', value: 'bar', url: 'https://test.k6.io', expires: 60, httpOnly: false, secure: true, sameSite: 'Strict' } ]);
+// $ExpectType void
+browserContext.addCookies([ { name: 'foo', value: 'bar', domain: 'test.k6.io', path: '/browser.php', expires: 60, httpOnly: false, secure: true, sameSite: 'Lax' } ]);
+// $ExpectType void
+browserContext.clearCookies();
+// $ExpectType void
+browserContext.clearPermissions();
+// $ExpectType void
+browserContext.close();
+// @ts-expect-error
+browserContext.grantPermissions();
+// $ExpectType void
+browserContext.grantPermissions(['geolocation', 'notifications']);
+// $ExpectType void
+browserContext.grantPermissions(['geolocation', 'notifications'], { origin: 'https://test.k6.io' });
+// $ExpectType Page
+browserContext.newPage();
+// $ExpectType Page[]
+browserContext.pages();
+// $ExpectType void
+browserContext.setDefaultNavigationTimeout(30000);
+// $ExpectType void
+browserContext.setDefaultTimeout(30000);
+// $ExpectType void
+browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
+// $ExpectType void
+browserContext.setOffline(true);
+// $ExpectType Page | null
+browserContext.waitForEvent('', { predicate: (page: Page | null) => true, timeout: 30000 });
 
 //
 // Create a page
