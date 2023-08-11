@@ -40,7 +40,7 @@ client.invoke('main.RouteGuide/UpdateFeature', req, params_with_string_timeout);
 
 const stream = new grpc.Stream(client, 'main.RouteGuide/GetFeature', params);
 
-stream.on(grpc.StreamEvent.Data, (data) => {
+stream.on('data', data => {
     data; // $ExpectType object | GrpcError | undefined
 });
 
