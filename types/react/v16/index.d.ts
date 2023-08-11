@@ -68,10 +68,10 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ElementType<P = any> =
-        {
-            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
-        }[keyof JSX.IntrinsicElements] |
-        ComponentType<P>;
+        | {
+            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
+        }[keyof JSX.IntrinsicElements]
+        | ComponentType<P>;
     /**
      * @deprecated Please use `ElementType`
      */
@@ -80,12 +80,12 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<any, any>);
+        | (new(props: P) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
     }
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = { bivarianceHack(instance: T | null): void }['bivarianceHack'];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
@@ -108,18 +108,16 @@ declare namespace React {
     type ElementRef<
         C extends
             | ForwardRefExoticComponent<any>
-            | { new (props: any): Component<any> }
+            | { new(props: any): Component<any> }
             | ((props: any, context?: any) => ReactElement | null)
-            | keyof JSX.IntrinsicElements
+            | keyof JSX.IntrinsicElements,
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
         // otherwise it will infer `{}` instead of `never`
-        "ref" extends keyof ComponentPropsWithRef<C>
-            ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
+        'ref' extends keyof ComponentPropsWithRef<C> ? NonNullable<ComponentPropsWithRef<C>['ref']> extends Ref<
                 infer Instance
-            >
-                ? Instance
-                : never
+            > ? Instance
+            : never
             : never;
 
     type ComponentState = any;
@@ -140,7 +138,10 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
-    interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
+    interface ReactElement<
+        P = any,
+        T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
+    > {
         type: T;
         props: P;
         key: Key | null;
@@ -148,8 +149,8 @@ declare namespace React {
 
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
-        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
-    > extends ReactElement<P, Exclude<T, number>> { }
+        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>,
+    > extends ReactElement<P, Exclude<T, number>> {}
 
     /**
      * @deprecated Please use `FunctionComponentElement`
@@ -168,13 +169,15 @@ declare namespace React {
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P, string> {
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element>
+        extends ReactElement<P, string>
+    {
         ref: LegacyRef<T>;
     }
 
     // ReactHTML for ReactHTMLElement
     // tslint:disable-next-line:no-empty-interface
-    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> {}
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
         type: keyof ReactHTML;
@@ -201,16 +204,23 @@ declare namespace React {
      */
     type SFCFactory<P> = FunctionComponentFactory<P>;
 
-    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => FunctionComponentElement<P>;
+    type FunctionComponentFactory<P> = (
+        props?: Attributes & P,
+        ...children: ReactNode[]
+    ) => FunctionComponentElement<P>;
 
-    type ComponentFactory<P, T extends Component<P, ComponentState>> =
-        (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
+    type ComponentFactory<P, T extends Component<P, ComponentState>> = (
+        props?: ClassAttributes<T> & P,
+        ...children: ReactNode[]
+    ) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
-    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+    type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]
+    ) => DOMElement<P, T>;
 
     // tslint:disable-next-line:no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
@@ -220,7 +230,10 @@ declare namespace React {
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+        (
+            props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null,
+            ...children: ReactNode[]
+        ): ReactSVGElement;
     }
 
     //
@@ -240,93 +253,113 @@ declare namespace React {
 
     // DOM Elements
     function createFactory<T extends HTMLElement>(
-        type: keyof ReactHTML): HTMLFactory<T>;
+        type: keyof ReactHTML,
+    ): HTMLFactory<T>;
     function createFactory(
-        type: keyof ReactSVG): SVGFactory;
+        type: keyof ReactSVG,
+    ): SVGFactory;
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string): DOMFactory<P, T>;
+        type: string,
+    ): DOMFactory<P, T>;
 
     // Custom components
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
     function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
+    ): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
-        type: ClassType<P, T, C>): CFactory<P, T>;
+        type: ClassType<P, T, C>,
+    ): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
-        type: "input",
+        type: 'input',
         props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNode[]
+    ): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]
+    ): DOMElement<P, T>;
 
     // Custom components
 
     function createElement<P extends {}>(
         type: FunctionComponent<P>,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: ReactNode[]
+    ): FunctionComponentElement<P>;
     function createElement<P extends {}>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+        ...children: ReactNode[]
+    ): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNode[]
+    ): CElement<P, T>;
     function createElement<P extends {}>(
         type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]
+    ): ReactElement<P>;
 
     // DOM Elements
     // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: DetailedReactHTMLElement<P, T>,
         props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<P, T>;
     // ReactHTMLElement, less specific
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: ReactHTMLElement<T>,
         props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
+        ...children: ReactNode[]
+    ): ReactHTMLElement<T>;
     // SVGElement
     function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
         element: ReactSVGElement,
         props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNode[]
+    ): ReactSVGElement;
     // DOM Element (has to be the last, because type checking stops at first overload that fits)
     function cloneElement<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
         props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]
+    ): DOMElement<P, T>;
 
     // Custom components
     function cloneElement<P>(
         element: FunctionComponentElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: ReactNode[]
+    ): FunctionComponentElement<P>;
     function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNode[]
+    ): CElement<P, T>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]
+    ): ReactElement<P>;
 
     // Context via RenderProps
     interface ProviderProps<T> {
@@ -352,7 +385,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement|null);
+        (props: P): ReactElement | null;
         readonly $$typeof: symbol;
     }
 
@@ -391,7 +424,7 @@ declare namespace React {
         children?: ReactNode | undefined;
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback: NonNullable<ReactNode>|null;
+        fallback: NonNullable<ReactNode> | null;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -405,7 +438,7 @@ declare namespace React {
      */
     type ProfilerOnRenderCallback = (
         id: string,
-        phase: "mount" | "update",
+        phase: 'mount' | 'update',
         actualDuration: number,
         baseDuration: number,
         startTime: number,
@@ -428,7 +461,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
@@ -482,8 +515,8 @@ declare namespace React {
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
-            callback?: () => void
+            state: ((prevState: Readonly<S>, props: Readonly<P>) => Pick<S, K> | S | null) | (Pick<S, K> | S | null),
+            callback?: () => void,
         ): void;
 
         forceUpdate(callback?: () => void): void;
@@ -501,11 +534,11 @@ declare namespace React {
          * https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
          */
         refs: {
-            [key: string]: ReactInstance
+            [key: string]: ReactInstance;
         };
     }
 
-    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
+    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -578,10 +611,10 @@ declare namespace React {
      * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
      *             "real" component.
      */
-    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
+    interface RefForwardingComponent<T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        new (props: P, context?: any): Component<P, S>;
+        new(props: P, context?: any): Component<P, S>;
         propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
@@ -591,7 +624,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -601,8 +634,8 @@ declare namespace React {
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
-        C &
-        (new (props: P, context?: any) => T);
+        & C
+        & (new(props: P, context?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -800,24 +833,24 @@ declare namespace React {
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
-    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(
+        render: ForwardRefRenderFunction<T, P>,
+    ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
         // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        'ref' extends keyof P
-            ? Pick<P, Exclude<keyof P, 'ref'>>
+        'ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>>
             : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
         'ref' extends keyof P
             ? P extends { ref?: infer R | undefined }
-                ? string extends R
-                    ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
-                    : P
+                ? string extends R ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
                 : P
+            : P
             : P;
 
     type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
@@ -826,26 +859,20 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> =
-        T extends JSXElementConstructor<infer P>
-            ? P
-            : T extends keyof JSX.IntrinsicElements
-                ? JSX.IntrinsicElements[T]
-                : {};
-    type ComponentPropsWithRef<T extends ElementType> =
-        T extends (new (props: infer P) => Component<any, any>)
-            ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
-            : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends ElementType> =
-        PropsWithoutRef<ComponentProps<T>>;
+    type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> = T extends
+        JSXElementConstructor<infer P> ? P
+        : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
+        : {};
+    type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
+        ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
+        : PropsWithRef<ComponentProps<T>>;
+    type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
     type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
         ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
-    >
-        ? Method
-        : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
-            ? Method
-            : never;
+    > ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
+        : never;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -855,11 +882,14 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: SFC<P>,
-        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
+        propsAreEqual?: (
+            prevProps: Readonly<PropsWithChildren<P>>,
+            nextProps: Readonly<PropsWithChildren<P>>,
+        ) => boolean,
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
-        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
     type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
@@ -867,7 +897,7 @@ declare namespace React {
     };
 
     function lazy<T extends ComponentType<any>>(
-        factory: () => Promise<{ default: T }>
+        factory: () => Promise<{ default: T }>,
     ): LazyExoticComponent<T>;
 
     //
@@ -892,13 +922,13 @@ declare namespace React {
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
-    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
-        R extends ReducerWithoutAction<infer S> ? S : never;
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
+        : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
-    type EffectCallback = () => (void | Destructor);
+    type EffectCallback = () => void | Destructor;
 
     interface MutableRefObject<T> {
         current: T;
@@ -912,7 +942,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useContext
      */
-    function useContext<T>(context: Context<T>/*, (not public API) observedBits?: number|boolean */): T;
+    function useContext<T>(context: Context<T> /*, (not public API) observedBits?: number|boolean */): T;
     /**
      * Returns a stateful value, and a function to update it.
      *
@@ -942,7 +972,7 @@ declare namespace React {
     function useReducer<R extends ReducerWithoutAction<any>, I>(
         reducer: R,
         initializerArg: I,
-        initializer: (arg: I) => ReducerStateWithoutAction<R>
+        initializer: (arg: I) => ReducerStateWithoutAction<R>,
     ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
@@ -958,7 +988,7 @@ declare namespace React {
     function useReducer<R extends ReducerWithoutAction<any>>(
         reducer: R,
         initializerArg: ReducerStateWithoutAction<R>,
-        initializer?: undefined
+        initializer?: undefined,
     ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
@@ -976,7 +1006,7 @@ declare namespace React {
     function useReducer<R extends Reducer<any, any>, I>(
         reducer: R,
         initializerArg: I & ReducerState<R>,
-        initializer: (arg: I & ReducerState<R>) => ReducerState<R>
+        initializer: (arg: I & ReducerState<R>) => ReducerState<R>,
     ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
     /**
      * An alternative to `useState`.
@@ -992,7 +1022,7 @@ declare namespace React {
     function useReducer<R extends Reducer<any, any>, I>(
         reducer: R,
         initializerArg: I,
-        initializer: (arg: I) => ReducerState<R>
+        initializer: (arg: I) => ReducerState<R>,
     ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
     /**
      * An alternative to `useState`.
@@ -1017,7 +1047,7 @@ declare namespace React {
     function useReducer<R extends Reducer<any, any>>(
         reducer: R,
         initialState: ReducerState<R>,
-        initializer?: undefined
+        initializer?: undefined,
     ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
@@ -1044,7 +1074,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useRef
      */
-    function useRef<T>(initialValue: T|null): RefObject<T>;
+    function useRef<T>(initialValue: T | null): RefObject<T>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
     /**
@@ -1092,7 +1122,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useImperativeHandle
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, deps?: DependencyList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: DependencyList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
@@ -1198,7 +1228,21 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+    export type ModifierKey =
+        | 'Alt'
+        | 'AltGraph'
+        | 'CapsLock'
+        | 'Control'
+        | 'Fn'
+        | 'FnLock'
+        | 'Hyper'
+        | 'Meta'
+        | 'NumLock'
+        | 'ScrollLock'
+        | 'Shift'
+        | 'Super'
+        | 'Symbol'
+        | 'SymbolLock';
 
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
@@ -1288,7 +1332,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }['bivarianceHack'];
 
     type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
@@ -1697,7 +1741,18 @@ declare namespace React {
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals' | undefined;
+        'aria-relevant'?:
+            | 'additions'
+            | 'additions removals'
+            | 'additions text'
+            | 'all'
+            | 'removals'
+            | 'removals additions'
+            | 'removals text'
+            | 'text'
+            | 'text additions'
+            | 'text removals'
+            | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
         'aria-required'?: boolean | 'false' | 'true' | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
@@ -1826,7 +1881,7 @@ declare namespace React {
         accessKey?: string | undefined;
         autoFocus?: boolean | undefined;
         className?: string | undefined;
-        contentEditable?: Booleanish | "inherit" | undefined;
+        contentEditable?: Booleanish | 'inherit' | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
@@ -2089,8 +2144,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
-        onCancel?: ReactEventHandler<T> |  undefined;
-        onClose?: ReactEventHandler<T> |  undefined;
+        onCancel?: ReactEventHandler<T> | undefined;
+        onClose?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
     }
 
@@ -2129,7 +2184,7 @@ declare namespace React {
         /** @deprecated */
         frameBorder?: number | string | undefined;
         height?: number | string | undefined;
-        loading?: "eager" | "lazy" | undefined;
+        loading?: 'eager' | 'lazy' | undefined;
         /** @deprecated */
         marginHeight?: number | undefined;
         /** @deprecated */
@@ -2148,9 +2203,9 @@ declare namespace React {
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
-        decoding?: "async" | "auto" | "sync" | undefined;
+        decoding?: 'async' | 'auto' | 'sync' | undefined;
         height?: number | string | undefined;
-        loading?: "eager" | "lazy" | undefined;
+        loading?: 'eager' | 'lazy' | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
@@ -2245,7 +2300,7 @@ declare namespace React {
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: 'high' | 'low' | 'auto';
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2417,7 +2472,7 @@ declare namespace React {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
+        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
         rowSpan?: number | undefined;
@@ -2425,11 +2480,11 @@ declare namespace React {
         abbr?: string | undefined;
         height?: number | string | undefined;
         width?: number | string | undefined;
-        valign?: "top" | "middle" | "bottom" | "baseline" | undefined;
+        valign?: 'top' | 'middle' | 'bottom' | 'baseline' | undefined;
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
+        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
         rowSpan?: number | undefined;
@@ -2490,14 +2545,27 @@ declare namespace React {
 
         // SVG Specific attributes
         accentHeight?: number | string | undefined;
-        accumulate?: "none" | "sum" | undefined;
-        additive?: "replace" | "sum" | undefined;
-        alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" |
-        "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit" | undefined;
-        allowReorder?: "no" | "yes" | undefined;
+        accumulate?: 'none' | 'sum' | undefined;
+        additive?: 'replace' | 'sum' | undefined;
+        alignmentBaseline?:
+            | 'auto'
+            | 'baseline'
+            | 'before-edge'
+            | 'text-before-edge'
+            | 'middle'
+            | 'central'
+            | 'after-edge'
+            | 'text-after-edge'
+            | 'ideographic'
+            | 'alphabetic'
+            | 'hanging'
+            | 'mathematical'
+            | 'inherit'
+            | undefined;
+        allowReorder?: 'no' | 'yes' | undefined;
         alphabetic?: number | string | undefined;
         amplitude?: number | string | undefined;
-        arabicForm?: "initial" | "medial" | "terminal" | "isolated" | undefined;
+        arabicForm?: 'initial' | 'medial' | 'terminal' | 'isolated' | undefined;
         ascent?: number | string | undefined;
         attributeName?: string | undefined;
         attributeType?: string | undefined;
@@ -2517,7 +2585,7 @@ declare namespace React {
         clipPathUnits?: number | string | undefined;
         clipRule?: number | string | undefined;
         colorInterpolation?: number | string | undefined;
-        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit" | undefined;
+        colorInterpolationFilters?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit' | undefined;
         colorProfile?: number | string | undefined;
         colorRendering?: number | string | undefined;
         contentScriptType?: number | string | undefined;
@@ -2544,13 +2612,13 @@ declare namespace React {
         externalResourcesRequired?: Booleanish | undefined;
         fill?: string | undefined;
         fillOpacity?: number | string | undefined;
-        fillRule?: "nonzero" | "evenodd" | "inherit" | undefined;
+        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
         filter?: string | undefined;
         filterRes?: number | string | undefined;
         filterUnits?: number | string | undefined;
         floodColor?: number | string | undefined;
         floodOpacity?: number | string | undefined;
-        focusable?: Booleanish | "auto" | undefined;
+        focusable?: Booleanish | 'auto' | undefined;
         fontFamily?: string | undefined;
         fontSize?: number | string | undefined;
         fontSizeAdjust?: number | string | undefined;
@@ -2669,8 +2737,8 @@ declare namespace React {
         stroke?: string | undefined;
         strokeDasharray?: string | number | undefined;
         strokeDashoffset?: string | number | undefined;
-        strokeLinecap?: "butt" | "round" | "square" | "inherit" | undefined;
-        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit" | undefined;
+        strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
+        strokeLinejoin?: 'miter' | 'round' | 'bevel' | 'inherit' | undefined;
         strokeMiterlimit?: number | string | undefined;
         strokeOpacity?: number | string | undefined;
         strokeWidth?: number | string | undefined;
@@ -2870,7 +2938,7 @@ declare namespace React {
         track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
         u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        'var': DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
         wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
@@ -2934,7 +3002,7 @@ declare namespace React {
         view: SVGFactory;
     }
 
-    interface ReactDOM extends ReactHTML, ReactSVG { }
+    interface ReactDOM extends ReactHTML, ReactSVG {}
 
     //
     // React.PropTypes
@@ -2947,11 +3015,9 @@ declare namespace React {
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
     type WeakValidationMap<T> = {
-        [K in keyof T]?: null extends T[K]
-            ? Validator<T[K] | null | undefined>
-            : undefined extends T[K]
-            ? Validator<T[K] | null | undefined>
-            : Validator<T[K]>
+        [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
+            : undefined extends T[K] ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>;
     };
 
     interface ReactPropTypes {
@@ -2978,8 +3044,10 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C>(children: C | C[], fn: (child: C, index: number) => T):
-            C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
+        map<T, C>(
+            children: C | C[],
+            fn: (child: C, index: number) => T,
+        ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
         forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
@@ -3050,15 +3118,16 @@ type MergePropTypes<P, T> =
     // Distribute over P in case it is a union type
     P extends any
         // If props is type any, use propTypes definitions
-        ? IsExactlyAny<P> extends true ? T :
+        ? IsExactlyAny<P> extends true ? T
             // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-            string extends keyof P ? P :
-                // Prefer declared types which are not exactly any
-                & Pick<P, NotExactlyAnyPropertyKeys<P>>
-                // For props which are exactly any, use the type inferred from propTypes if present
-                & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
-                // Keep leftover props not specified in propTypes
-                & Pick<P, Exclude<keyof P, keyof T>>
+        : string extends keyof P ? P
+            // Prefer declared types which are not exactly any
+        :
+            & Pick<P, NotExactlyAnyPropertyKeys<P>>
+            // For props which are exactly any, use the type inferred from propTypes if present
+            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+            // Keep leftover props not specified in propTypes
+            & Pick<P, Exclude<keyof P, keyof T>>
         : never;
 
 type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
@@ -3067,20 +3136,18 @@ type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize<P, D> = P extends any
-    ? string extends keyof P ? P :
+type Defaultize<P, D> = P extends any ? string extends keyof P ? P
+    :
         & Pick<P, Exclude<keyof P, keyof D>>
         & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
         & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
-type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
+type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
     ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-    : C extends { propTypes: infer T; }
-        ? MergePropTypes<P, PropTypes.InferProps<T>>
-        : C extends { defaultProps: infer D; }
-            ? Defaultize<P, D>
-            : P;
+    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
+    : C extends { defaultProps: infer D } ? Defaultize<P, D>
+    : P;
 
 declare global {
     /**
@@ -3088,25 +3155,30 @@ declare global {
      */
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any, any> { }
+        interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
-        interface ElementAttributesProperty { props: {}; }
-        interface ElementChildrenAttribute { children: {}; }
+        interface ElementAttributesProperty {
+            props: {};
+        }
+        interface ElementChildrenAttribute {
+            children: {};
+        }
 
         // We can't recurse forever because `type` can't be self-referential;
         // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
-        type LibraryManagedAttributes<C, P> = C extends React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
+        type LibraryManagedAttributes<C, P> = C extends
+            React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
             ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
                 ? ReactManagedAttributes<U, P>
-                : ReactManagedAttributes<T, P>
+            : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends React.Attributes { }
+        interface IntrinsicAttributes extends React.Attributes {}
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
 
         interface IntrinsicElements {
             // HTML
@@ -3223,7 +3295,7 @@ declare global {
             track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
             u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            'var': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;

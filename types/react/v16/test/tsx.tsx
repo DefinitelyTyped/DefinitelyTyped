@@ -1,5 +1,5 @@
-import PropTypes = require("prop-types");
-import React = require("react");
+import PropTypes = require('prop-types');
+import React = require('react');
 
 interface SCProps {
     foo?: number | undefined;
@@ -7,28 +7,28 @@ interface SCProps {
 const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-FunctionComponent.displayName = "FunctionComponent3";
+FunctionComponent.displayName = 'FunctionComponent3';
 FunctionComponent.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 <FunctionComponent />;
-<slot name="slot1"></slot>;
+<slot name='slot1'></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
-FunctionComponent2.displayName = "FunctionComponent4";
+FunctionComponent2.displayName = 'FunctionComponent4';
 FunctionComponent2.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
 const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-VoidFunctionComponent.displayName = "VoidFunctionComponent1";
+VoidFunctionComponent.displayName = 'VoidFunctionComponent1';
 VoidFunctionComponent.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 <VoidFunctionComponent />;
 
@@ -36,32 +36,32 @@ VoidFunctionComponent.defaultProps = {
 const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
-VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
+VoidFunctionComponent2.displayName = 'VoidFunctionComponent2';
 VoidFunctionComponent2.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 // @ts-expect-error
 <VoidFunctionComponent2>24</VoidFunctionComponent2>;
 
 // svg sanity check
-<svg viewBox="0 0 1000 1000">
+<svg viewBox='0 0 1000 1000'>
     <g>
-        <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
+        <text x='200' y='300' strokeWidth='5' stroke='black' alignmentBaseline='middle'>
             Hello, world!
             <animateMotion
-                path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
-                dur="5s"
-                repeatCount="indefinite"
+                path='M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z'
+                dur='5s'
+                repeatCount='indefinite'
             />
         </text>
-        <div slot="Some Div"> Hello again! </div>
+        <div slot='Some Div'>Hello again!</div>
     </g>
 </svg>;
 
 // React-specific Attributes
 <div
     defaultChecked
-    defaultValue="some value"
+    defaultValue='some value'
     contentEditable
     suppressContentEditableWarning
     suppressHydrationWarning
@@ -80,13 +80,13 @@ VoidFunctionComponent2.defaultProps = {
 </div>;
 
 // button type attribute
-<button type="submit">foo</button>;
-<button type="reset">foo</button>;
-<button type="button">foo</button>;
+<button type='submit'>foo</button>;
+<button type='reset'>foo</button>;
+<button type='button'>foo</button>;
 // @ts-expect-error
-<button type="botton">foo</button>;
+<button type='botton'>foo</button>;
 // @ts-expect-error
-<button type={"botton" as string}>foo</button>;
+<button type={'botton' as string}>foo</button>;
 
 interface Props {
     hello: string;
@@ -96,17 +96,17 @@ interface State {
 }
 class ComponentWithPropsAndState extends React.Component<Props, State> {
 }
-<ComponentWithPropsAndState hello="TypeScript" />;
+<ComponentWithPropsAndState hello='TypeScript' />;
 
 class ComponentWithoutState extends React.Component<Props> {
 }
-<ComponentWithoutState hello="TypeScript" />;
+<ComponentWithoutState hello='TypeScript' />;
 
 class ComponentWithoutPropsAndState extends React.Component {
 }
 <ComponentWithoutPropsAndState />;
 
-const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
+const FunctionComponentWithoutProps: React.FunctionComponent = props => {
     return <div />;
 };
 <FunctionComponentWithoutProps />;
@@ -125,11 +125,11 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 // Fragments
 <div>
     <React.Fragment>
-        <React.Fragment key="foo">
+        <React.Fragment key='foo'>
             <span>Child 1</span>
             <span>Child 2</span>
         </React.Fragment>
-        <React.Fragment key="bar">
+        <React.Fragment key='bar'>
             <span>Child 3</span>
             <span>Child 4</span>
         </React.Fragment>
@@ -144,29 +144,29 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 </div>;
 
 // Below tests that setState() works properly for both regular and callback modes
-class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+class SetStateTest extends React.Component<{}, { foo: boolean; bar: boolean }> {
     handleSomething = () => {
-      // @ts-expect-error
-      this.setState({ foo: '' });
-      this.setState({ foo: true });
-      this.setState({ foo: true, bar: true });
-      this.setState({});
-      this.setState(null);
-      // @ts-expect-error
-      this.setState({ foo: true, foo2: true });
-      // @ts-expect-error
-      this.setState(() => ({ foo: '' }));
-      this.setState(() => ({ foo: true }));
-      this.setState(() => ({ foo: true, bar: true }));
-      // @ts-expect-error
-      this.setState(() => ({ foo: true, foo2: true }));
-      // @ts-expect-error
-      this.setState(() => ({ foo: '', foo2: true }));
-      this.setState(() => ({ })); // ok!
-      // @ts-expect-error
-      this.setState({ foo: true, bar: undefined});
-      this.setState(prevState => (prevState.bar ? { bar: false } : null));
-    }
+        // @ts-expect-error
+        this.setState({ foo: '' });
+        this.setState({ foo: true });
+        this.setState({ foo: true, bar: true });
+        this.setState({});
+        this.setState(null);
+        // @ts-expect-error
+        this.setState({ foo: true, foo2: true });
+        // @ts-expect-error
+        this.setState(() => ({ foo: '' }));
+        this.setState(() => ({ foo: true }));
+        this.setState(() => ({ foo: true, bar: true }));
+        // @ts-expect-error
+        this.setState(() => ({ foo: true, foo2: true }));
+        // @ts-expect-error
+        this.setState(() => ({ foo: '', foo2: true }));
+        this.setState(() => ({})); // ok!
+        // @ts-expect-error
+        this.setState({ foo: true, bar: undefined });
+        this.setState(prevState => (prevState.bar ? { bar: false } : null));
+    };
 }
 
 // Below tests that extended types for state work
@@ -184,16 +184,20 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 //        }
 // }
 
-interface NewProps { foo: string; }
-interface NewState { bar: string; }
+interface NewProps {
+    foo: string;
+}
+interface NewState {
+    bar: string;
+}
 
 class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = nextProps => {
         return { bar: `${nextProps.foo}bar` };
-    }
+    };
 
     state = {
-        bar: 'foo'
+        bar: 'foo',
     };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
@@ -208,15 +212,15 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
         return this.state.bar;
     }
 }
-<ComponentWithNewLifecycles foo="bar" />;
+<ComponentWithNewLifecycles foo='bar' />;
 
 class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewState, { baz: string }> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = nextProps => {
         return { bar: `${nextProps.foo}bar` };
-    }
+    };
 
     state = {
-        bar: 'foo'
+        bar: 'foo',
     };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
@@ -231,12 +235,12 @@ class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewSt
         return this.state.bar;
     }
 }
-<PureComponentWithNewLifecycles foo="bar" />;
+<PureComponentWithNewLifecycles foo='bar' />;
 
-class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
+class ComponentWithLargeState extends React.Component<{}, Record<'a' | 'b' | 'c', string>> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a' | 'b' | 'c', string>> = () => {
         return { a: 'a' };
-    }
+    };
 }
 const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
@@ -250,33 +254,41 @@ componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, sn
     return;
 };
 
-const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
-<Memoized1 foo='string'/>;
+const Memoized1 = React.memo(function Foo(props: { foo: string }) {
+    return null;
+});
+<Memoized1 foo='string' />;
 
 const Memoized2 = React.memo(
-    function Bar(props: { bar: string }) { return null; },
-    (prevProps, nextProps) => prevProps.bar === nextProps.bar
+    function Bar(props: { bar: string }) {
+        return null;
+    },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar,
 );
-<Memoized2 bar='string'/>;
+<Memoized2 bar='string' />;
 
 const Memoized3 = React.memo(class Test extends React.Component<{ x?: string | undefined }> {});
-<Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
+<Memoized3
+    ref={ref => {
+        if (ref) ref.props.x;
+    }}
+/>;
 
 const memoized4Ref = React.createRef<HTMLDivElement>();
-const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
-<Memoized4 ref={memoized4Ref}/>;
+const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref} />));
+<Memoized4 ref={memoized4Ref} />;
 
 const Memoized5 = React.memo<{ test: boolean }>(
     prop => <>{prop.test && prop.children}</>,
-    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test,
 );
 
-<Memoized5 test/>;
+<Memoized5 test />;
 
 const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
-<Memoized6/>;
+<Memoized6 />;
 // @ts-expect-error
-<Memoized6 foo/>;
+<Memoized6 foo />;
 
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
@@ -295,15 +307,24 @@ const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
 const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 
 <React.Suspense fallback={<Memoized1 foo='string' />}>
-    <LazyClassComponent hello='test'/>
-    <LazyClassComponent ref={ref => { if (ref) { ref.props.hello; } }} hello='test'/>
-    <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>
-    <LazyRefForwarding ref={memoized4Ref}/>
+    <LazyClassComponent hello='test' />
+    <LazyClassComponent
+        ref={ref => {
+            if (ref) ref.props.hello;
+        }}
+        hello='test'
+    />
+    <LazyMemoized3
+        ref={ref => {
+            if (ref) ref.props.x;
+        }}
+    />
+    <LazyRefForwarding ref={memoized4Ref} />
 </React.Suspense>;
 
-<React.Suspense fallback={null}/>;
+<React.Suspense fallback={null} />;
 // @ts-expect-error
-<React.Suspense/>;
+<React.Suspense />;
 
 // unstable API should not be part of the typings
 // @ts-expect-error
@@ -332,7 +353,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context: React.ContextType<typeof ContextWithRenderProps> = "";
+    context: React.ContextType<typeof ContextWithRenderProps> = '';
 
     render() {
         // $ExpectType string
@@ -341,36 +362,45 @@ class NewContext extends React.Component {
     }
 }
 
-const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
-const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
-const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => (
+    <div {...props} ref={ref} />
+));
+const ForwardRef2 = React.forwardRef((
+    props: React.ComponentProps<typeof ForwardRef>,
+    ref?: React.Ref<HTMLDivElement>,
+) => <ForwardRef {...props} ref={ref} />);
+const divFnRef = (ref: HTMLDivElement | null) => {/* empty */};
 const divRef = React.createRef<HTMLDivElement>();
 
-<ForwardRef ref={divFnRef}/>;
-<ForwardRef ref={divRef}/>;
+<ForwardRef ref={divFnRef} />;
+<ForwardRef ref={divRef} />;
 // @ts-expect-error
-<ForwardRef ref='string'/>;
-<ForwardRef2 ref={divFnRef}/>;
-<ForwardRef2 ref={divRef}/>;
+<ForwardRef ref='string' />;
+<ForwardRef2 ref={divFnRef} />;
+<ForwardRef2 ref={divRef} />;
 // @ts-expect-error
-<ForwardRef2 ref='string'/>;
+<ForwardRef2 ref='string' />;
 
 const newContextRef = React.createRef<NewContext>();
-<NewContext ref={newContextRef}/>;
-<NewContext ref='string'/>;
+<NewContext ref={newContextRef} />;
+<NewContext ref='string' />;
 
-const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
-<ForwardNewContext ref={newContextRef}/>;
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
+<ForwardNewContext ref={newContextRef} />;
 // @ts-expect-error
-<ForwardNewContext ref='string'/>;
+<ForwardNewContext ref='string' />;
 
 const ForwardRef3 = React.forwardRef(
-    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
-        <div {...props} ref={ref}/>
+    (
+        props:
+            & JSX.IntrinsicElements['div']
+            & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref' | 'theme'>,
+        ref?: React.Ref<HTMLDivElement>,
+    ) => <div {...props} ref={ref} />,
 );
 
-<ForwardRef3 ref={divFnRef}/>;
-<ForwardRef3 ref={divRef}/>;
+<ForwardRef3 ref={divFnRef} />;
+<ForwardRef3 ref={divRef} />;
 
 const { Profiler } = React;
 
@@ -379,35 +409,35 @@ const { Profiler } = React;
 <Profiler />;
 // 'onRender' is missing
 // @ts-expect-error
-<Profiler id="test" />;
+<Profiler id='test' />;
 // 'number' is not assignable to 'string'
 // @ts-expect-error
 <Profiler id={2} />;
 
 <Profiler
-  id="test"
-  onRender={(
-    id,
-    phase,
-    actualDuration,
-    baseDuration,
-    startTime,
-    commitTime,
-    interactions
-  ) => {
-    const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
+    id='test'
+    onRender={(
+        id,
+        phase,
+        actualDuration,
+        baseDuration,
+        startTime,
+        commitTime,
+        interactions,
+    ) => {
+        const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
-    const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
+        const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
 
-    const interactionsSummary = Array.from(interactions)
-      .map(interaction => {
-        return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-      })
-      .join("\n");
-    const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
-  }}
+        const interactionsSummary = Array.from(interactions)
+            .map(interaction => {
+                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
+            })
+            .join('\n');
+        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
+    }}
 >
-  <div />
+    <div />
 </Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
@@ -483,7 +513,7 @@ interface TestPropTypesProps3 {
     foo?: string | null | undefined;
 }
 const testPropTypes = {
-    foo: PropTypes.string
+    foo: PropTypes.string,
 };
 type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
 // $ExpectType false
@@ -496,23 +526,23 @@ type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
 function CustomSelect(props: {
     children: Array<
-      React.ReactElement<
-        React.ComponentPropsWithoutRef<typeof CustomSelectOption>
-      >
+        React.ReactElement<
+            React.ComponentPropsWithoutRef<typeof CustomSelectOption>
+        >
     >;
-  }): JSX.Element {
+}): JSX.Element {
     return (
-      <div>
-        <ul>{props.children}</ul>
-        <select>
-          {React.Children.map(props.children, child => (
-            // key should be mappable from children.
-            <option key={child.key} value={child.props.value}>
-              {child.props.children}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div>
+            <ul>{props.children}</ul>
+            <select>
+                {React.Children.map(props.children, child => (
+                    // key should be mappable from children.
+                    <option key={child.key} value={child.props.value}>
+                        {child.props.children}
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 }
 function CustomSelectOption(props: {
@@ -524,28 +554,26 @@ function CustomSelectOption(props: {
 function Example() {
     return (
         <CustomSelect>
-        <CustomSelectOption value="one">One</CustomSelectOption>
-        <CustomSelectOption value="two">Two</CustomSelectOption>
+            <CustomSelectOption value='one'>One</CustomSelectOption>
+            <CustomSelectOption value='two'>Two</CustomSelectOption>
         </CustomSelect>
     );
 }
 
 function reactNodeTests() {
-    function *createChildren() {
-        yield <div key="one">one</div>;
-        yield <div key="two">two</div>;
+    function* createChildren() {
+        yield <div key='one'>one</div>;
+        yield <div key='two'>two</div>;
     }
 
-    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
-    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{Object.freeze([<div key='one'>one</div>, <div key='two'>two</div>])}</div>;
+    <div>{new Set([<div key='one'>one</div>, <div key='two'>two</div>])}</div>;
     // TODO: This warns at runtime so we should probably reject it as well.
     <div>
-        {
-            new Map([
-                ['one', <div key="one">one</div>],
-                ['two', <div key="two">two</div>],
-            ])
-        }
+        {new Map([
+            ['one', <div key='one'>one</div>],
+            ['two', <div key='two'>two</div>],
+        ])}
     </div>;
     // TODO: This warns at runtime so we should probably reject it as well.
     <div>{createChildren()}</div>;
@@ -566,28 +594,28 @@ function elementTypeTests() {
         // Though this behavior was changed in 18 for this specific reason: A single type for returning and taking children is better.
         // We'll probably break a lot of existing code if we would reject with little gain for runtime safety.
         render() {
-          return undefined;
+            return undefined;
         }
     }
 
     const ReturnNull = () => null;
     class RenderNull extends React.Component {
         render() {
-          return null;
+            return null;
         }
     }
 
     const ReturnNumber = () => 0xeac1;
     class RenderNumber extends React.Component {
         render() {
-          return 0xeac1;
+            return 0xeac1;
         }
     }
 
     const ReturnString = () => 'Hello, Dave!';
     class RenderString extends React.Component {
         render() {
-          return 'Hello, Dave!';
+            return 'Hello, Dave!';
         }
     }
 
@@ -596,28 +624,28 @@ function elementTypeTests() {
         // Undesired behavior that we can't change in 17 but was fixed in 18.
         // Accepted because `ReactNode` includes `{}`
         render() {
-          return Symbol.for('react');
+            return Symbol.for('react');
         }
     }
 
-    const ReturnArray = () => [<div key="one" />];
+    const ReturnArray = () => [<div key='one' />];
     class RenderArray extends React.Component {
         render() {
-          return [<div key="one" />];
+            return [<div key='one' />];
         }
     }
 
     const ReturnElement = () => <div />;
     class RenderElement extends React.Component {
         render() {
-          return <div />;
+            return <div />;
         }
     }
 
-    const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
-    class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
+    const ReturnReactNode = ({ children }: { children?: React.ReactNode }) => children;
+    class RenderReactNode extends React.Component<{ children?: React.ReactNode }> {
         render() {
-          return this.props.children;
+            return this.props.children;
         }
     }
 

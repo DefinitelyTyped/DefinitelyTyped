@@ -28,7 +28,7 @@ function serverContextTest() {
 
     function ServerContextProivder() {
         return (
-            <ServerContext.Provider value="provided">
+            <ServerContext.Provider value='provided'>
                 <ServerContextUser />
             </ServerContext.Provider>
         );

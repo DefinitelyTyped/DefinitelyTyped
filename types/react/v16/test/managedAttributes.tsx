@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 interface Props {
     bool?: boolean;
@@ -17,13 +17,13 @@ const propTypes = {
     num: PropTypes.number,
     str: PropTypes.string.isRequired,
     extraStr: PropTypes.string.isRequired,
-    extraNum: PropTypes.number
+    extraNum: PropTypes.number,
 };
 
 const defaultProps = {
     fnc: (() => 'abc') as () => any,
     extraBool: false,
-    reqNode: 'text_node' as NonNullable<React.ReactNode>
+    reqNode: 'text_node' as NonNullable<React.ReactNode>,
 };
 
 class AnnotatedPropTypesAndDefaultProps extends React.Component<Props> {
@@ -47,7 +47,7 @@ const annotatedPropTypesAndDefaultPropsTests = [
         num={0}
         reqNode={<span />}
         str='abc'
-    />
+    />,
 ];
 
 class UnannotatedPropTypesAndDefaultProps extends React.Component {
@@ -71,7 +71,7 @@ const unannotatedPropTypesAndDefaultPropsTests = [
         num={0}
         reqNode={<span />}
         str='abc'
-    />
+    />,
 ];
 
 class AnnotatedPropTypes extends React.Component<Props> {
@@ -95,7 +95,7 @@ const annotatedPropTypesTests = [
         num={0}
         reqNode={<React.Fragment />}
         str='abc'
-    />
+    />,
 ];
 
 class UnannotatedPropTypes extends React.Component {
@@ -118,7 +118,7 @@ const unannotatedPropTypesTests = [
         node={<React.Fragment />}
         num={0}
         str='abc'
-    />
+    />,
 ];
 
 class AnnotatedDefaultProps extends React.Component<Props> {
@@ -131,7 +131,7 @@ const annotatedDefaultPropsTests = [
     <AnnotatedDefaultProps str='abc' />,
     <AnnotatedDefaultProps str='abc' reqNode={<span />} />,
     // @ts-expect-error
-    <AnnotatedDefaultProps str={() => { }} />, // str type mismatch
+    <AnnotatedDefaultProps str={() => {}} />, // str type mismatch
     <AnnotatedDefaultProps
         bool={true}
         extraBool={false}
@@ -140,7 +140,7 @@ const annotatedDefaultPropsTests = [
         num={0}
         reqNode={undefined}
         str='abc'
-    />
+    />,
 ];
 
 class UnannotatedDefaultProps extends React.Component {
@@ -153,18 +153,20 @@ const unannotatedDefaultPropsTests = [
         extraBool={true}
         fnc={() => {}}
         reqNode={<span />}
-    />
+    />,
 ];
 
 class ComponentWithNoDefaultProps extends React.Component<Props> {}
 
-function FunctionalComponent(props: Props) { return <>{props.reqNode}</>; }
+function FunctionalComponent(props: Props) {
+    return <>{props.reqNode}</>;
+}
 FunctionalComponent.defaultProps = defaultProps;
 
 const functionalComponentTests = [
     // @ts-expect-error
     <FunctionalComponent />,
-    <FunctionalComponent str='' />
+    <FunctionalComponent str='' />,
 ];
 
 const MemoFunctionalComponent = React.memo(FunctionalComponent);
@@ -183,11 +185,11 @@ const memoTests = [
     <LazyMemoFunctionalComponent str='abc' />,
     // @ts-expect-error
     <LazyMemoAnnotatedDefaultProps />,
-    <LazyMemoAnnotatedDefaultProps str='abc' />
+    <LazyMemoAnnotatedDefaultProps str='abc' />,
 ];
 
 const ForwardRef = React.forwardRef((props: Props, ref: React.Ref<ComponentWithNoDefaultProps>) => (
-    <ComponentWithNoDefaultProps ref={ref} {...props}/>
+    <ComponentWithNoDefaultProps ref={ref} {...props} />
 ));
 ForwardRef.defaultProps = defaultProps;
 
@@ -201,12 +203,12 @@ const forwardRefTests = [
     />,
     // same bug as MemoFunctionalComponent and React.SFC-typed things
     // @ts-expect-error
-    <ForwardRef str='abc' />
+    <ForwardRef str='abc' />,
 ];
 
 const weakComponentPropTypes = {
     foo: PropTypes.string,
-    bar: PropTypes.bool.isRequired
+    bar: PropTypes.bool.isRequired,
 };
 interface WeakComponentProps1 {
     foo: any;
@@ -223,23 +225,34 @@ interface WeakComponentProps3 {
 
 // $ExpectType true
 type weakComponentTest1 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends {
-    foo?: string | null | undefined
-    bar: boolean
-} ? true : false;
+    foo?: string | null | undefined;
+    bar: boolean;
+} ? true
+    : false;
 // $ExpectType true
-type weakComponentTest2 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps1> extends {
-    foo?: string | null | undefined
-    bar: number
-} ? true : false;
+type weakComponentTest2 =
+    JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps1> extends {
+        foo?: string | null | undefined;
+        bar: number;
+    } ? true
+        : false;
 // $ExpectType true
-type weakComponentTest3 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps2> extends {
-    foo: string
-    bar: boolean
-} ? true : false;
+type weakComponentTest3 =
+    JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps2> extends {
+        foo: string;
+        bar: boolean;
+    } ? true
+        : false;
 
 // @ts-expect-error
-const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { foo: '' };
-const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { bar: true };
+const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    WeakComponentProps3
+> = { foo: '' };
+const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    WeakComponentProps3
+> = { bar: true };
 
 interface IndexedComponentProps {
     [K: string]: boolean;
@@ -248,10 +261,25 @@ interface WeakIndexedComponentProps {
     [K: string]: any;
 }
 
-const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { };
+const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    IndexedComponentProps
+> = {};
 // @ts-expect-error
-const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { foo: '' };
-const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: '' };
-const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: 4 };
+const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    IndexedComponentProps
+> = { foo: '' };
+const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    WeakIndexedComponentProps
+> = { foo: '' };
+const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<
+    { propTypes: typeof weakComponentPropTypes },
+    WeakIndexedComponentProps
+> = { foo: 4 };
 
-const optionalUnionPropTest: JSX.LibraryManagedAttributes<{ propTypes: {} }, { optional?: string } | { optional?: number }> = {};
+const optionalUnionPropTest: JSX.LibraryManagedAttributes<
+    { propTypes: {} },
+    { optional?: string } | { optional?: number }
+> = {};

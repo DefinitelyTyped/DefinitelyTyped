@@ -15,7 +15,7 @@ function suspenseTest() {
 
     function FlameChart() {
         return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+            <React.Suspense fallback='computing...' unstable_expectedLoadTime={2000}>
                 <DisplayData />
             </React.Suspense>
         );
@@ -24,23 +24,23 @@ function suspenseTest() {
 
 // Unsupported `revealOrder` triggers a runtime warning
 // @ts-expect-error
-<React.unstable_SuspenseList revealOrder="something">
-    <React.Suspense fallback="Loading">Content</React.Suspense>
+<React.unstable_SuspenseList revealOrder='something'>
+    <React.Suspense fallback='Loading'>Content</React.Suspense>
 </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="backwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
+<React.unstable_SuspenseList revealOrder='backwards'>
+    <React.Suspense fallback='Loading'>A</React.Suspense>
+    <React.Suspense fallback='Loading'>B</React.Suspense>
 </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="forwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
+<React.unstable_SuspenseList revealOrder='forwards'>
+    <React.Suspense fallback='Loading'>A</React.Suspense>
+    <React.Suspense fallback='Loading'>B</React.Suspense>
 </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="together">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
+<React.unstable_SuspenseList revealOrder='together'>
+    <React.Suspense fallback='Loading'>A</React.Suspense>
+    <React.Suspense fallback='Loading'>B</React.Suspense>
 </React.unstable_SuspenseList>;
 
 function useEvent() {
@@ -88,14 +88,14 @@ function formActionsTest() {
             formData;
         }}
     >
-        <input type="text" name="title" defaultValue="Hello" />
+        <input type='text' name='title' defaultValue='Hello' />
         <input
-            type="submit"
+            type='submit'
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
             }}
-            value="Save"
+            value='Save'
         />
         <button
             formAction={formData => {
@@ -165,7 +165,7 @@ function Optimistic() {
     // @ts-expect-error
     const render: React.ReactNode = () => React.createElement('div');
     // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
+    const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
     const promise: React.ReactNode = Promise.resolve('React');
@@ -179,7 +179,7 @@ function elementTypeTests() {
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
-          return Promise.resolve('React');
+            return Promise.resolve('React');
         }
     }
 
