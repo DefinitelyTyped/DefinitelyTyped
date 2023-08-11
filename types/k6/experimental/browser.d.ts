@@ -11,11 +11,11 @@ export {};
  * - [TouchEvent](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/TouchEvent)
  * - [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
  */
-export type EvaluationArgument = object;
+type EvaluationArgument = object;
 
-export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
+type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
 
-export type Unboxed<Arg> = Arg extends [infer A0, infer A1]
+type Unboxed<Arg> = Arg extends [infer A0, infer A1]
     ? [Unboxed<A0>, Unboxed<A1>]
     : Arg extends [infer A0, infer A1, infer A2]
     ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
@@ -27,7 +27,7 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1]
     ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
-export interface SelectOptionsObject {
+interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
      */
@@ -44,7 +44,7 @@ export interface SelectOptionsObject {
     index?: number;
 }
 
-export type ResourceType =
+type ResourceType =
     | 'document'
     | 'stylesheet'
     | 'image'
@@ -58,13 +58,13 @@ export type ResourceType =
     | 'websocket'
     | 'manifest'
     | 'other';
-export type MouseButton = 'left' | 'right' | 'middle';
-export type KeyboardModifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
-export type ElementState = 'attached' | 'detached' | 'visible' | 'hidden';
-export type InputElementState = ElementState | 'enabled' | 'disabled' | 'editable';
-export type LifecycleEvent = 'load' | 'domcontentloaded' | 'networkidle';
+type MouseButton = 'left' | 'right' | 'middle';
+type KeyboardModifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
+type ElementState = 'attached' | 'detached' | 'visible' | 'hidden';
+type InputElementState = ElementState | 'enabled' | 'disabled' | 'editable';
+type LifecycleEvent = 'load' | 'domcontentloaded' | 'networkidle';
 
-export interface TimeoutOptions {
+interface TimeoutOptions {
     /**
      * Maximum time in milliseconds. Pass 0 to disable the timeout. Default is overridden by the setDefaultTimeout option on `BrowserContext` or `Page`.
      * Defaults to 30000.
@@ -72,7 +72,7 @@ export interface TimeoutOptions {
     timeout?: number;
 }
 
-export interface StrictnessOptions {
+interface StrictnessOptions {
     /**
      * When `true`, the call requires selector to resolve to a single element.
      * If given selector resolves to more than one element, the call throws
@@ -81,14 +81,14 @@ export interface StrictnessOptions {
     strict?: boolean;
 }
 
-export interface EventSequenceOptions {
+interface EventSequenceOptions {
     /**
      * Delay between events in milliseconds. Defaults to 0.
      */
     delay?: number;
 }
 
-export type ElementHandleOptions = {
+type ElementHandleOptions = {
     /**
      * Setting this to `true` will bypass the actionability checks (visible,
      * stable, enabled). Defaults to `false`.
@@ -102,7 +102,7 @@ export type ElementHandleOptions = {
     noWaitAfter?: boolean;
 } & TimeoutOptions;
 
-export type ElementHandlePointerOptions = ElementHandleOptions & {
+type ElementHandlePointerOptions = ElementHandleOptions & {
     /**
      * Setting this to `true` will perform the actionability checks without
      * performing the action. Useful to wait until the element is ready for the
@@ -111,7 +111,7 @@ export type ElementHandlePointerOptions = ElementHandleOptions & {
     trial?: boolean;
 };
 
-export type ElementClickOptions = ElementHandlePointerOptions & {
+type ElementClickOptions = ElementHandlePointerOptions & {
     /**
      * A point to use relative to the top left corner of the element. If not supplied,
      * a visible point of the element is used.
@@ -119,7 +119,7 @@ export type ElementClickOptions = ElementHandlePointerOptions & {
     position?: { x: number; y: number };
 };
 
-export interface KeyboardModifierOptions {
+interface KeyboardModifierOptions {
     /**
      * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
      * If not specified, currently pressed modifiers are used.
@@ -127,7 +127,7 @@ export interface KeyboardModifierOptions {
     modifiers?: KeyboardModifier[];
 }
 
-export type KeyboardPressOptions = {
+type KeyboardPressOptions = {
     /**
      * If set to `true` and a navigation occurs from performing this action, it
      * will not wait for it to complete. Defaults to `false`.
@@ -136,9 +136,9 @@ export type KeyboardPressOptions = {
 } & EventSequenceOptions &
     TimeoutOptions;
 
-export type MouseMoveOptions = ElementClickOptions & KeyboardModifierOptions;
+type MouseMoveOptions = ElementClickOptions & KeyboardModifierOptions;
 
-export type MouseClickOptions = {
+type MouseClickOptions = {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
@@ -146,7 +146,7 @@ export type MouseClickOptions = {
     button?: MouseButton;
 } & EventSequenceOptions;
 
-export type MouseMultiClickOptions = MouseClickOptions & {
+type MouseMultiClickOptions = MouseClickOptions & {
     /**
      * The number of times the action is performed.
      * Defaults to 1.
@@ -154,7 +154,7 @@ export type MouseMultiClickOptions = MouseClickOptions & {
     clickCount?: number;
 };
 
-export interface MouseDownUpOptions {
+interface MouseDownUpOptions {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
@@ -167,7 +167,7 @@ export interface MouseDownUpOptions {
     clickCount?: number;
 }
 
-export type ContentLoadOptions = {
+type ContentLoadOptions = {
     /**
      * When to consider operation succeeded, defaults to `load`. Events can be
      * either:
@@ -183,14 +183,14 @@ export type ContentLoadOptions = {
     waitUntil?: LifecycleEvent;
 } & TimeoutOptions;
 
-export type NavigationOptions = {
+type NavigationOptions = {
     /**
      * Referer header value.
      */
     referer?: string;
 } & ContentLoadOptions;
 
-export interface ResourceTiming {
+interface ResourceTiming {
     /**
      * Request start time in milliseconds elapsed since January 1, 1970 00:00:00 UTC
      */
@@ -250,7 +250,7 @@ export interface ResourceTiming {
     responseEnd: number;
 }
 
-export interface SecurityDetailsObject {
+interface SecurityDetailsObject {
     /**
      * Common Name component of the Issuer field. The value is extracted from the
      * certificate. This should only be used for informational purposes.
@@ -287,7 +287,7 @@ export interface SecurityDetailsObject {
     sanList?: string[];
 }
 
-export interface Rect {
+interface Rect {
     /**
      * The x coordinate of the element in pixels.
      * (0, 0) is the top left corner of the viewport.
@@ -311,9 +311,9 @@ export interface Rect {
     height: number;
 }
 
-export type ImageFormat = 'jpeg' | 'png';
+type ImageFormat = 'jpeg' | 'png';
 
-export interface ScreenshotOptions {
+interface ScreenshotOptions {
     /**
      * The file path to save the image to. The screenshot type will be inferred from file extension.
      */
@@ -345,9 +345,9 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = 'raf' | 'mutation' | 'interval';
+type PollingMethod = 'raf' | 'mutation' | 'interval';
 
-export interface PollingOptions {
+interface PollingOptions {
     /**
      * Polling method to use.
      * @default 'raf'
@@ -360,7 +360,7 @@ export interface PollingOptions {
     interval?: number;
 }
 
-export interface ElementStateFilter {
+interface ElementStateFilter {
     /**
      * The element state to filter for.
      * @default 'visible'
@@ -372,15 +372,15 @@ export interface ElementStateFilter {
  * BrowserPermissions defines all the possible permissions that can be granted
  * to the browser application.
  */
-export type BrowserPermissions = 'geolocation' | 'midi' | 'midi-sysex' |
-                                  'notifications' | 'camera' |
-                                  'microphone' | 'background-sync' |
-                                  'ambient-light-sensor' | 'accelerometer' |
-                                  'gyroscope' | 'magnetometer' |
-                                  'accessibility-events' | 'clipboard-read' |
-                                  'clipboard-write' | 'payment-handler';
+type BrowserPermissions = 'geolocation' | 'midi' | 'midi-sysex' |
+                          'notifications' | 'camera' |
+                          'microphone' | 'background-sync' |
+                          'ambient-light-sensor' | 'accelerometer' |
+                          'gyroscope' | 'magnetometer' |
+                          'accessibility-events' | 'clipboard-read' |
+                          'clipboard-write' | 'payment-handler';
 
-export interface NewBrowserContextOptions {
+interface NewBrowserContextOptions {
     /**
      * Setting this to `true` will bypass a page's Content-Security-Policy.
      * Defaults to `false`.
@@ -592,7 +592,7 @@ interface Browser {
  * `BrowserContext` provides a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
-export class BrowserContext {
+interface BrowserContext {
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
@@ -770,7 +770,7 @@ export class BrowserContext {
 /**
  * ElementHandle represents an in-page DOM element.
  */
-export class ElementHandle extends JSHandle {
+interface ElementHandle extends JSHandle {
     /**
      * Finds an element matching the specified selector in the `ElementHandle`'s subtree.
      * @param selector A selector to query element for.
@@ -966,7 +966,7 @@ export class ElementHandle extends JSHandle {
 /**
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.
  */
-export class Frame {
+interface Frame {
     /**
      * Finds an element matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
@@ -1313,7 +1313,7 @@ export class Frame {
 /**
  * JSHandle represents an in-page JavaScript object.
  */
-export class JSHandle<T = any> {
+interface JSHandle<T = any> {
     /**
      * Returns either `null` or the object handle itself, if the object handle is
      * an instance of `ElementHandle`.
@@ -1362,7 +1362,7 @@ export class JSHandle<T = any> {
 /**
  * Keyboard provides an API for managing a virtual keyboard.
  */
-export class Keyboard {
+interface Keyboard {
     /**
      * Sends a key down message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
@@ -1413,7 +1413,7 @@ export class Keyboard {
  * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
  * React, Vue, etc.
  */
-export class Locator {
+interface Locator {
     /**
      * Mouse click on the chosen element.
      * @param options Options to use.
@@ -1587,7 +1587,7 @@ export class Locator {
 /**
  * Mouse provides an API for managing a virtual mouse.
  */
-export class Mouse {
+interface Mouse {
     /**
      * Shortcut for `mouse.move(x, y)`, `mouse.down()`, `mouse.up()`.
      * @param x The x position.
@@ -1630,7 +1630,7 @@ export class Mouse {
  * Page provides methods to interact with a single tab in a running web browser
  * instance. One instance of the browser can have many page instances.
  */
-export class Page {
+interface Page {
     /**
      * Activates the browser tab so that it comes into focus and actions can be
      * performed against it.
@@ -3132,9 +3132,9 @@ export class Page {
 }
 
 /**
- * Request class represents requests which are sent by a page.
+ * Request represents requests which are sent by a page.
  */
-export class Request {
+interface Request {
     /**
      * An object with HTTP headers associated with the request. All header names are
      * lower-case.
@@ -3230,9 +3230,9 @@ export class Request {
 }
 
 /**
- * Response class represents responses which are received by page.
+ * Response represents responses which are received by page.
  */
-export class Response {
+interface Response {
     /**
      * An object with HTTP headers associated with the response. All header names are
      * lower-case.
@@ -3346,7 +3346,7 @@ export class Response {
  * operates in main-frame CSS pixels relative to the top-left corner of the
  * viewport.
  */
-export class Touchscreen {
+interface Touchscreen {
     /**
      * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
      * @param x The x position.
@@ -3356,9 +3356,9 @@ export class Touchscreen {
 }
 
 /**
- * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+ * The Worker represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
  */
-export class Worker {
+interface Worker {
     /**
      * Get the URL of the web worker.
      * @return The URL of the web worker.
