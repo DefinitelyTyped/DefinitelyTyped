@@ -122,7 +122,7 @@ export interface ThreeDSecureAdditionalInformation {
 
 export interface ThreeDSecureVerifyOptions {
     nonce: string;
-    amount: number;
+    amount: string;
     bin: string;
     challengeRequested?: boolean | undefined;
     /**
@@ -204,7 +204,7 @@ export interface ThreeDSecure {
      *
      * threeDSecure.verifyCard({
      *   nonce: existingNonce,
-     *   amount: 123.45,
+     *   amount: '123.45',
      *   addFrame: function (err, iframe) {
      *     // Set up your UI and add the iframe.
      *     my3DSContainer = document.createElement('div');
