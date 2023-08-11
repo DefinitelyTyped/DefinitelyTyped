@@ -1,6 +1,6 @@
+import * as webdriver from 'selenium-webdriver';
 import * as edge from 'selenium-webdriver/edge';
 import * as remote from 'selenium-webdriver/remote';
-import * as webdriver from 'selenium-webdriver';
 
 function TestEdgeDriver() {
     let driver: edge.Driver = edge.Driver.createSession();
