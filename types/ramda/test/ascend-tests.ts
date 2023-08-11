@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface Book {
         id: number;
         name: string;
@@ -21,4 +21,4 @@ import * as R from 'ramda';
     comparatorBookPrice(book2, book1); // => GT
     // $ExpectType Ordering
     comparatorBookPrice(book1, book1); // => EQ
-};
+});

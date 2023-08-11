@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { Ord } from 'ramda/tools';
 
-() => {
+(() => {
     function cmp(obj: { x: Ord }) {
         return obj.x;
     }
@@ -18,4 +18,4 @@ import { Ord } from 'ramda/tools';
     R.minBy(cmp)(a)(c);
     R.minBy(cmp, d, e);
     R.minBy(cmp)(f)(g);
-};
+});

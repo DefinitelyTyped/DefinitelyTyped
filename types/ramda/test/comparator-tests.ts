@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface T {
         age: number;
     }
@@ -11,4 +11,4 @@ import * as R from 'ramda';
         { name: 'Cari', age: 16 },
     ];
     R.sort(cmp, people);
-};
+});

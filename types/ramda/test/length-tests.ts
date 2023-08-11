@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType number
     R.length([]); // => 0
     // $ExpectType number
@@ -14,4 +14,4 @@ import * as R from 'ramda';
 
     // @ts-expect-error
     R.length({});
-};
+});

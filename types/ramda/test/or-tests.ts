@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // We shouldn't handle this case
     // since if the first argument is guaranteed to be a literal
     // you should not be using `R.or` in the first place.
@@ -31,4 +31,4 @@ import * as R from 'ramda';
     R.or(Number(0), String(''));
     // $ExpectType number | string[]
     R.or(Number(0), Array(''));
-};
+});

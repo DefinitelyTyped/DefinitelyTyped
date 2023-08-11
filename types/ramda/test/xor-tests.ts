@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType boolean
     R.xor(true, true);
 
@@ -42,17 +42,17 @@ import * as R from 'ramda';
 
     // $ExpectType boolean
     R.xor(undefined, 0);
-};
+});
 
-() => {
+(() => {
     // $ExpectType (b: any) => boolean
     R.xor(true);
 
     // $ExpectType (b: any) => boolean
     R.xor('foo');
-};
+});
 
-() => {
+(() => {
     // $ExpectType boolean
     R.xor(true)(true);
 
@@ -94,4 +94,4 @@ import * as R from 'ramda';
 
     // $ExpectType boolean
     R.xor(undefined)(0);
-};
+});

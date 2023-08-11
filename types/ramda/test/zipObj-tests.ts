@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     /**
      * Typescript implementation of union order is not guaranteed and can
      * change. Therefor using `||` here, which is a feature of $ExpectType
@@ -16,4 +16,4 @@ import * as R from 'ramda';
 
     // $ExpectType { 2: string; 3: string; 1: string; } || { 2: string; 1: string; 3: string; } || { 1: string; 2: string; 3: string; }
     R.zipObj([1, 2, 3])(['a', 'b', 'c']); // => {1: 'a', 2: 'b', 3: 'c'}
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     R.hasPath(['a', 'b'], { a: { b: 2 } }); // true
     R.hasPath(['a', 'b'], { a: { b: undefined } }); // => true
     R.hasPath(['a', 'b'], { a: { c: 2 } }); // => false
@@ -8,4 +8,4 @@ import * as R from 'ramda';
 
     const hasPathCurried = R.hasPath(['a', 'b']);
     hasPathCurried({ a: { b: 2 } }); // true
-};
+});

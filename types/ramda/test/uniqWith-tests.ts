@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     function strEq(a: any, b: any) {
         return String(a) === String(b);
     }
@@ -10,4 +10,4 @@ import * as R from 'ramda';
     R.uniqWith(strEq)([{}, {}]); // => [{}]
     R.uniqWith(strEq)([1, '1', 1]); // => [1]
     R.uniqWith(strEq)(['1', 1, 1]); // => ['1']
-};
+});

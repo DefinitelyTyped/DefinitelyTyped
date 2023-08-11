@@ -5,7 +5,7 @@ interface Student {
     score: number;
 }
 
-() => {
+(() => {
     const reduceToNamesBy = R.reduceBy((acc: string[], student: Student) => acc.concat(student.name), []);
     const namesByGrade = reduceToNamesBy(student => {
         const score = student.score;
@@ -22,4 +22,4 @@ interface Student {
     //   'B': ['Drew']
     //   'F': ['Bart']
     // }
-};
+});

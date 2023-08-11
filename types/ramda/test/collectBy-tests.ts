@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType { type: string; item: string; }[][]
     R.collectBy(R.prop('type'), [
         { type: 'breakfast', item: '☕️' },
@@ -24,4 +24,4 @@ import * as R from 'ramda';
         { type: 'breakfast', item: '🥐' },
         { type: 'lunch', item: '🍕' },
     ]);
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     function isEven(n: number) {
         return n % 2 === 0;
     }
@@ -27,4 +27,4 @@ import * as R from 'ramda';
 
     // $ExpectType (value: string | number) => value is number
     const isNumberAndNotString = R.complement(isStringAndNotNumber);
-};
+});

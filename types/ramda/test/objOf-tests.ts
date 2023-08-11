@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const matchPhrases = (xs: string[]) =>
         R.objOf(
             'must',
@@ -8,4 +8,4 @@ import * as R from 'ramda';
         );
 
     const out: { must: Array<{ match_phrase: string }> } = matchPhrases(['foo', 'bar', 'baz']);
-};
+});

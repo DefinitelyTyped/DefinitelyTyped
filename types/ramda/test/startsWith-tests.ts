@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType (str: string) => boolean
     const startsWithStringC = R.startsWith('a');
     // $ExpectType boolean
@@ -17,4 +17,4 @@ import * as R from 'ramda';
     startsWithSubList([1, 2, 3]); // => true
 
     startsWithSubList([1, 2, 4]); // => false
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const testPath = ['x', 0, 'y'];
     const testObj = {
         x: [
@@ -13,4 +13,4 @@ import * as R from 'ramda';
     R.pathEq(2, testPath)(testObj); // => true
     R.pathEq(2)(testPath)(testObj); // => true
     R.pathEq(2)(testPath, testObj); // => true
-};
+});

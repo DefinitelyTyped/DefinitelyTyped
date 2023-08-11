@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
 
     R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
@@ -15,4 +15,4 @@ import * as R from 'ramda';
     const moveCurried3 = R.move(0);
     const moveCurried4 = moveCurried3(2);
     moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
-};
+});

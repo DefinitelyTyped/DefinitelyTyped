@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface ObjWithPhrase {
         phrase: string;
     }
@@ -10,4 +10,4 @@ import * as R from 'ramda';
 
     // @ts-expect-error
     R.lensProp<ObjWithPhrase>('phrae');
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface A {
         a: string;
         b: string;
@@ -29,4 +29,4 @@ import * as R from 'ramda';
         // $ExpectType (string | number)[]
         const v = R.values(item);
     });
-};
+});

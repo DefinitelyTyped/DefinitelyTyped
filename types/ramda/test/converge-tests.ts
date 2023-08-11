@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface FormatSpec {
         indent: number;
         value: string;
@@ -14,16 +14,19 @@ import * as R from 'ramda';
     format({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
 
     // $ExpectType Curry<(args_0: FormatSpec) => string>
-    const format2 = R.converge(R.call, [
-        ({ indent }: FormatSpec) => indentN(indent),
-        ({ value }: FormatSpec) => value,
-    ] as const);
+    const format2 = R.converge(
+        R.call,
+        [
+            ({ indent }: FormatSpec) => indentN(indent),
+            ({ value }: FormatSpec) => value,
+        ] as const,
+    );
 
     // $ExpectType string
     const indented = format2({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
-};
+});
 
-() => {
+(() => {
     function add(a: number, b: number) {
         return a + b;
     }
@@ -161,4 +164,4 @@ import * as R from 'ramda';
 
     // $ExpectType number
     const average = getAverage([1, 3, 0, 4]); // => 2
-};
+});

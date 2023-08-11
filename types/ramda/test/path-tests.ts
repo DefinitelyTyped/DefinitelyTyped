@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType number
     R.path(['a'], { a: 1 });
     // $ExpectType number
@@ -16,9 +16,9 @@ import * as R from 'ramda';
 
     // $ExpectType unknown
     R.path(['a', 'b', 'c', 'd', 'e', 'f', 'g'], { a: { b: { c: { d: { e: { f: { g: 1 } } } } } } });
-};
+});
 
-() => {
+(() => {
     const testPath = ['x', 0, 'y'];
     const testObj = {
         x: [
@@ -32,4 +32,4 @@ import * as R from 'ramda';
 
     R.path(['a', 'b'])({ c: { b: 2 } }); // => undefined
     R.path(['a', 'b'], { c: { b: 2 } }); // => undefined
-};
+});

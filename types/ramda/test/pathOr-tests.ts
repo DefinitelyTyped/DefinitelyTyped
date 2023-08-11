@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const orValue = 11;
     const orValueStr = 'str';
     const testPath = ['x', 0, 'y'];
@@ -18,4 +18,4 @@ import * as R from 'ramda';
     R.pathOr<number>(orValue)(testPath, testObj); // => 2
     R.pathOr<number>(orValue, testPath, testObjMiss); // => 11
     R.pathOr<number | string>(orValueStr, testPath, testObjMiss); // => "str"
-};
+});

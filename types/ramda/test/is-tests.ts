@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     R.is(Object, {}); // => true
     R.is(Object)({}); // => true
     R.is(Number, 1); // => true
@@ -17,9 +17,9 @@ import * as R from 'ramda';
     R.is(Object)('s'); // => false
     R.is(Number, {}); // => false
     R.is(Number)({}); // => false
-};
+});
 
-() => {
+(() => {
     const stringOrNumber = 'string' as string | number;
 
     if (R.is(Number, stringOrNumber)) {
@@ -29,9 +29,9 @@ import * as R from 'ramda';
     if (R.is(String)(stringOrNumber)) {
         const string: string = stringOrNumber;
     }
-};
+});
 
-() => {
+(() => {
     // test classes that take parameters
     // tslint:disable-next-line:no-unnecessary-class
     class Foo {
@@ -47,4 +47,4 @@ import * as R from 'ramda';
     if (R.is(Foo)(unknownObject)) {
         const foo: Foo = unknownObject;
     }
-};
+});

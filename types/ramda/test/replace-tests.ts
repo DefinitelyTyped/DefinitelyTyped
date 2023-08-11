@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     R.replace('foo', 'bar', 'foo foo foo'); // => 'bar foo foo'
     R.replace('foo', 'bar')('foo foo foo'); // => 'bar foo foo'
     R.replace('foo')('bar')('foo foo foo'); // => 'bar foo foo'
@@ -15,4 +15,4 @@ import * as R from 'ramda';
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, 'coo foo koo'); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)('coo foo koo'); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`)('coo foo koo'); // => 'c0oo f4oo k8oo'
-};
+});

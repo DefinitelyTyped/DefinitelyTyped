@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // tslint:disable:max-line-length
     // $ExpectType{ <T>(transform: (value: T) => unknown): { (a: T): (b: T) => boolean; (a: T, b: T): boolean; }; <T>(transform: (value: T) => unknown, a: T): (b: T) => boolean; <T>(transform: (value: T) => unknown, a: T, b: T): boolean; }
     const eqBy = R.on(<T>(a: T, b: T) => a === b);
@@ -66,4 +66,4 @@ import * as R from 'ramda';
     R.on<number, string>((a, b) => String(a + b))(Number)('1', '2');
     // $ExpectType string
     R.on<number, string>((a, b) => String(a + b))(Number)('1')('2');
-};
+});

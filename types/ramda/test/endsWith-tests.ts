@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType (str: string) => boolean
     const endsWithStringC = R.endsWith('c');
     // $ExpectType boolean
@@ -16,4 +16,4 @@ import * as R from 'ramda';
 
     endsWithSubList([1, 2, 3]); // => true
     endsWithSubList([1, 2, 4]); // => false
-};
+});

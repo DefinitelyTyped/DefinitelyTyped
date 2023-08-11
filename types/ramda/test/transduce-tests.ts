@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const numbers = [1, 2, 3, 4];
     // $ExpectType (xs: readonly number[]) => number[]
     const transducer = R.compose(R.map(R.add(1)), R.take(2)<number>);
@@ -31,4 +31,4 @@ import * as R from 'ramda';
     const firstOddTransducer = R.compose(R.filter(isOdd), R.take(1)<number>);
     // $ExpectType number[]
     R.transduce(firstOddTransducer, R.flip<number, readonly number[], number[]>(R.append), [], R.range(0, 100)); // => [1]
-};
+});

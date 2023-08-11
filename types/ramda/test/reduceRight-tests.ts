@@ -20,7 +20,7 @@ type Pair = KeyValuePair<string, number>;
     R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
 
-() => {
+(() => {
     const pairs: Pair[] = [
         ['a', 1],
         ['b', 2],
@@ -34,4 +34,4 @@ type Pair = KeyValuePair<string, number>;
     R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
     R.reduceRight(flattenPairs, [])(pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
     R.reduceRight(flattenPairs)([], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
-};
+});

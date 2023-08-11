@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface T {
         sum: number;
         nested: { mul: number };
@@ -14,4 +14,4 @@ import * as R from 'ramda';
         s: (s: string, n: number) => s,
         n: (s: string, n: number) => n,
     })('1', 2);
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const spec = { x: 2 };
     const x1: boolean = R.where(spec, { w: 10, x: 2, y: 300 }); // => true
     const x2: boolean = R.where(spec, { x: 1, y: 'moo', z: true }); // => false
@@ -16,4 +16,4 @@ import * as R from 'ramda';
     };
     R.where(spec2, { x: 2, y: 7 }); // => false
     R.where(spec2, { x: 3, y: 8 }); // => true
-};
+});

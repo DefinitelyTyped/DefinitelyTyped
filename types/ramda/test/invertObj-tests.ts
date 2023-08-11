@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const raceResults0 = {
         first: 'alice',
         second: 'jake',
@@ -12,4 +12,4 @@ import * as R from 'ramda';
     const raceResults1 = ['alice', 'jake'];
     R.invertObj(raceResults1);
     // => { 'alice': '0', 'jake':'1' }
-};
+});

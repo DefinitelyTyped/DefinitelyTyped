@@ -6,7 +6,7 @@ class F {
     y = 'Y';
 }
 
-() => {
+(() => {
     const f = new F();
     R.keysIn(f); // => ['x', 'y']
-};
+});

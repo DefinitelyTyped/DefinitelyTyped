@@ -8,7 +8,7 @@ function shout(x: number): string {
     return x >= 10 ? 'big' : 'small';
 }
 
-() => {
+(() => {
     const func: (x: number) => string = R.pipe(double, double, shout);
     const res: string = R.pipe(double, double, shout)(10);
 
@@ -21,7 +21,7 @@ function shout(x: number): string {
     const f10 = () => 'str';
     const f11 = (str: string) => str;
     const f12: () => string = R.pipe(f10, f11);
-};
+});
 
 (() => {
     function triple(x: number): number {
@@ -36,7 +36,7 @@ function shout(x: number): string {
     squareThenDoubleThenTriple(5); // => 150
 })();
 
-() => {
+(() => {
     function isEven(n: number) {
         return n % 2 === 0;
     }
@@ -54,7 +54,7 @@ function shout(x: number): string {
     }); // => { b: 1 }
 
     const d: number[] = R.pipe(R.reject(isEven))([0, 1]); // => [1]
-};
+});
 
 // groupBy being changed to return a Partial object broke this test, its not worth fixing
 // () => {
@@ -87,7 +87,7 @@ function shout(x: number): string {
 //     };
 // };
 
-() => {
+(() => {
     interface Book {
         id: string;
         title: string;
@@ -100,9 +100,9 @@ function shout(x: number): string {
         R.map((x: Book) => x.title),
         R.indexBy(x => x),
     )(list);
-};
+});
 
-() => {
+(() => {
     interface Person {
         id: number;
         firstName: string;
@@ -122,9 +122,9 @@ function shout(x: number): string {
     );
 
     const getMemberTitle: (email: string) => Promise<string> = R.pipe(makeQuery, fetchMember, R.andThen(getTitleAsync));
-};
+});
 
-() => {
+(() => {
     interface Person {
         firstName: string;
         lastName: string;
@@ -144,8 +144,8 @@ function shout(x: number): string {
         R.otherwise(useDefault),
         R.andThen(loadAlternative),
     );
-};
-() => {
+});
+(() => {
     // Expected at least 1 arguments, but got 0
     // @ts-expect-error
     const f0 = R.pipe();
@@ -179,4 +179,4 @@ function shout(x: number): string {
     const x8: number = f3(3, 4);
     const x9: number = f4(3, 4);
     const x10: number = f5(3, 4);
-};
+});

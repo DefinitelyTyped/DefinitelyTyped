@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     R.paths(
         [
             ['a', 'b'],
@@ -27,4 +27,4 @@ import * as R from 'ramda';
 
     R.paths([['thisKeyIsNotThere']], {}); // => [undefined]
     R.paths([['thisKeyIsNotThere']])({}); // => [undefined]
-};
+});

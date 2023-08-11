@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const list1 = [
         { id: 1, name: 'One' },
         { id: 2, name: 'Two' },
@@ -16,4 +16,4 @@ import * as R from 'ramda';
 
     const innerJoinCurried = R.innerJoin(matchId);
     innerJoinCurried(list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
-};
+});

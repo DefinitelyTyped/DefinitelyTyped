@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface ABCD {
         a: number;
         b: number;
@@ -18,4 +18,4 @@ import * as R from 'ramda';
     R.pickAll(['a', 'e', 'f'], obj); // => {a: 1, e: undefined, f: undefined}
     // $ExpectType unknown
     R.pickAll(['a', 'e', 'f'])(obj); // => {a: 1, e: undefined, f: undefined}
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const multiply2 = ({ a, b }: { a: number; b: number }) => a * b;
     // $ExpectType (value: Omit<{ a: number; b: number; }, "a">) => number
     const double = R.partialObject(multiply2, { a: 2 });
@@ -25,4 +25,4 @@ import * as R from 'ramda';
     const sayHelloToMs = R.partialObject(sayHello, { title: 'Ms.' });
     // $ExpectType string
     sayHelloToMs({ firstName: 'Jane', lastName: 'Jones' }); // => 'Hello, Ms. Jane Jones!'
-};
+});

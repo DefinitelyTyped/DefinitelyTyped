@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const xs = R.range(0, 10);
     R.slice(2, 5, xs); // => [2, 3, 4]
     R.slice(2, 5)(xs); // => [2, 3, 4]
@@ -10,9 +10,9 @@ import * as R from 'ramda';
     R.slice(2, 5, str); // => 'llo'
     R.slice(2, 5)(str); // => 'llo'
     R.slice(2)(5, str); // => 'llo'
-};
+});
 
-() => {
+(() => {
     // check generic type works
     interface A {
         text: string;
@@ -33,9 +33,9 @@ import * as R from 'ramda';
 
     // @ts-expect-error
     sliceFromSecondTo<string>(3, arr);
-};
+});
 
-() => {
+(() => {
     // make type inference work well
     const str = 'Hello World';
     const arr = ['one', 'two', 'three', 'four', 'five'];
@@ -53,4 +53,4 @@ import * as R from 'ramda';
 
     // $ExpectType string[]
     R.pipe((b: number, str: string[]) => R.slice(2)(b, str))(5, arr); // => ['three', 'four', 'five']
-};
+});

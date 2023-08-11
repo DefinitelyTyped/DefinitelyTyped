@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
 
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
@@ -12,4 +12,4 @@ import * as R from 'ramda';
     const isVowel = (a: string) => (R.includes(a, 'aeiou') ? a : '');
     R.groupWith(R.eqBy<string>(isVowel), 'aestiou');
     // ['ae', 'st', 'iou']
-};
+});

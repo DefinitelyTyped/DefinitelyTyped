@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const add = (a: number, b: number): number => a + b;
 
     // $ExpectType number
@@ -8,4 +8,4 @@ import * as R from 'ramda';
 
     // @ts-expect-error
     R.call(add, 'a', 2);
-};
+});

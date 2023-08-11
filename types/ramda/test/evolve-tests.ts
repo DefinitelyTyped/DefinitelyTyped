@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // No type transformation
 
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
@@ -76,4 +76,4 @@ import * as R from 'ramda';
 
     // @ts-expect-error
     const ev6: R.Evolver = { a: 1 };
-};
+});

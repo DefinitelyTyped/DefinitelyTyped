@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const values = { x: 1, y: 2, z: 3 };
 
     function prependKeyAndDouble(num: number, key: string, obj: any) {
@@ -8,9 +8,9 @@ import * as R from 'ramda';
     }
 
     R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
-};
+});
 
-() => {
+(() => {
     const testObject: {
         [k: string]: Error;
     } = {
@@ -22,9 +22,9 @@ import * as R from 'ramda';
         return value.message + String(key);
     }, testObject);
     console.log(errorMessages);
-};
+});
 
-() => {
+(() => {
     type TestKeys = 'hello' | 'test';
     const testObject: Record<TestKeys, string> = {
         hello: 'world',
@@ -54,9 +54,9 @@ import * as R from 'ramda';
     // keys of testObject should be detected, and their values should be `number`.
     const helloResult = mapped.hello.toFixed();
     console.log(mapped, helloResult);
-};
+});
 
-() => {
+(() => {
     type PartialRecord<K extends keyof any, T> = {
         [P in K]?: T;
     };
@@ -86,4 +86,4 @@ import * as R from 'ramda';
     // keys of testObject should be detected, and their values should be `number`.
     const helloResult = mapped.hello?.toFixed();
     console.log(mapped, helloResult);
-};
+});

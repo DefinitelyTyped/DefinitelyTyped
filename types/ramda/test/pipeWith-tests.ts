@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface User {
         followers: string[];
         name: string;
@@ -30,4 +30,4 @@ import * as R from 'ramda';
     // Should pipe at least on function.
     // @ts-expect-error
     R.pipeWith((f: (value: any) => any, res: Promise<unknown>) => res.then(f), []);
-};
+});

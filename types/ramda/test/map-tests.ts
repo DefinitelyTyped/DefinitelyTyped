@@ -1,14 +1,14 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // Flatten all arrays in the list but leave other values alone.
     const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     flattenArrays([[[10], 123], [8, [10]], 'hello']); // => [[10, 123], [8, 10], "hello"]
-};
+});
 
-() => {
+(() => {
     function double(x: number) {
         return x * 2;
     }
@@ -23,9 +23,9 @@ import * as R from 'ramda';
         },
     };
     R.map((x: number) => x - 1, numberFunctor); // => "Hello World"
-};
+});
 
-() => {
+(() => {
     interface A {
         a: number;
         b: number;
@@ -52,7 +52,9 @@ import * as R from 'ramda';
     // $ExpectType Record<"b", void>
     R.map(
         // $ExpectType (value: string | number) => void
-        value => { value; },
+        value => {
+            value;
+        },
         obj,
     );
-};
+});

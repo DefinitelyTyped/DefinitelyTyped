@@ -6,7 +6,7 @@ class F {
     y = 'Y';
 }
 
-() => {
+(() => {
     const f = new F();
     const a = R.valuesIn(f); // => ['X', 'Y']
-};
+});

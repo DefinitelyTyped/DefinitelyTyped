@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType Lens<number[], number>
     R.lensIndex<number>(0);
-};
+});
 
-() => {
+(() => {
     type First = string;
     type Second = number;
     type Third = boolean;
@@ -23,4 +23,4 @@ import * as R from 'ramda';
 
     // $ExpectType (obj: Line) => string
     const viewFirst = R.view(firstLens);
-};
+});

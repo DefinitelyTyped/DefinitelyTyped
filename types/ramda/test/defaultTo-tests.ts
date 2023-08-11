@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const defaultTo42 = R.defaultTo(42);
     defaultTo42(null); // => 42
     defaultTo42(undefined); // => 42
@@ -11,4 +11,4 @@ import * as R from 'ramda';
 
     const valueOrNull = 2 as number | null;
     defaultTo42(valueOrNull) - 2; // => 0
-};
+});

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType string[]
     R.append('tests', ['write', 'more']); // => ['write', 'more', 'tests']
     // $ExpectType string[]
@@ -15,4 +15,4 @@ import * as R from 'ramda';
     R.append<string | number>('tests');
     // $ExpectType (string | number)[]
     R.append<string | number>('tests')([1, 2]); // => [1, 2, 'tests']
-};
+});

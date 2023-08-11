@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     interface ObjWithCount {
         count?: number;
     }
@@ -48,4 +48,4 @@ import * as R from 'ramda';
         (a): [string, string] => [a.foo, a.bar],
         (a): [string | undefined, string | number] => [a.foo, a.bar],
     );
-};
+});

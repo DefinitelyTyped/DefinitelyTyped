@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     // $ExpectType (a: string) => string
     const truncate = R.when(
         (str: string) => str.length > 10,
@@ -22,4 +22,4 @@ import * as R from 'ramda';
     const nil = addOneIfNotNil(undefined);
     // $ExpectType number | undefined
     const two = addOneIfNotNil(1);
-};
+});

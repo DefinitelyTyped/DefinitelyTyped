@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { Ord } from 'ramda/tools';
 
-() => {
+(() => {
     function cmp(obj: { x: Ord }) {
         return obj.x;
     }
@@ -17,4 +17,4 @@ import { Ord } from 'ramda/tools';
     R.maxBy(cmp)(a, c); // => {x: 3}
     R.maxBy(cmp)(a)(b);
     R.maxBy(cmp)(f)(g);
-};
+});

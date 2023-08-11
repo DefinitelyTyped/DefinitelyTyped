@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-() => {
+(() => {
     const abcdObj: { a: 1; b: 2; c: 3; d: 4 } = { a: 1, b: 2, c: 3, d: 4 };
 
     const a10: { a: number; d: number } = R.pick(['a', 'd'], { a: 1, b: 2, c: 3, d: 4 }); // => {a: 1, d: 4}
@@ -29,4 +29,4 @@ import * as R from 'ramda';
     const sObj: { [s]: 'a' } = { [s]: 'a' };
     const a7: { [s]: string } = R.pick([s], { [s]: 'a' }); // => {Symbol(s): 'a'}
     const a7_const: { [s]: 'a' } = R.pick([s], sObj); // => {Symbol(s): 'a'}
-};
+});
