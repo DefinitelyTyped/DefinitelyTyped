@@ -1,4 +1,4 @@
-import {NativeEventSubscription} from '../EventEmitter/RCTNativeAppEventEmitter';
+import { NativeEventSubscription } from '../EventEmitter/RCTNativeAppEventEmitter';
 
 export type BackPressEventName = 'hardwareBackPress';
 
@@ -14,15 +14,15 @@ export type BackPressEventName = 'hardwareBackPress';
  * @see https://reactnative.dev/docs/backhandler
  */
 export interface BackHandlerStatic {
-  exitApp(): void;
-  addEventListener(
-    eventName: BackPressEventName,
-    handler: () => boolean | null | undefined,
-  ): NativeEventSubscription;
-  removeEventListener(
-    eventName: BackPressEventName,
-    handler: () => boolean | null | undefined,
-  ): void;
+    exitApp(): void;
+    addEventListener(
+        eventName: BackPressEventName,
+        handler: () => boolean | null | undefined,
+    ): NativeEventSubscription;
+    removeEventListener(
+        eventName: BackPressEventName,
+        handler: () => boolean | null | undefined,
+    ): void;
 }
 
 export const BackHandler: BackHandlerStatic;

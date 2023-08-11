@@ -6,5 +6,5 @@ import type * as React from 'react';
  * @deprecated
  */
 export const YellowBox: React.ComponentClass<any, any> & {
-  ignoreWarnings: (warnings: string[]) => void;
+    ignoreWarnings: (warnings: string[]) => void;
 };

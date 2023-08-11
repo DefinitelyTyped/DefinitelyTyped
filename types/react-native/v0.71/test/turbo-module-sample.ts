@@ -8,7 +8,7 @@ export interface SomeConstants {
 }
 
 export interface SampleSpec extends TurboModule {
-    getConstants(): SomeConstants
+    getConstants(): SomeConstants;
     doSomething(): void;
 }
 

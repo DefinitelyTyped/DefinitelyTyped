@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp, SectionListData } from 'react-native';
+import { Animated, NativeScrollEvent, NativeSyntheticEvent, SectionListData, StyleProp, View } from 'react-native';
 
 interface CompProps {
     width: number;
@@ -39,8 +39,8 @@ function TestAnimatedAPI() {
     // Ref
     const AnimatedViewRef = React.useRef<View>(null);
 
-    AnimatedViewRef.current &&
-        AnimatedViewRef.current.measure(() => {
+    AnimatedViewRef.current
+        && AnimatedViewRef.current.measure(() => {
             return;
         });
 
@@ -55,8 +55,8 @@ function TestAnimatedAPI() {
     const AnimatedForwardCompRef = React.useRef<React.ElementRef<typeof ForwardComp>>(null);
     const ForwardCompRef = React.useRef<View>(null);
 
-    AnimatedForwardCompRef.current &&
-        AnimatedForwardCompRef.current.measure(() => {
+    AnimatedForwardCompRef.current
+        && AnimatedForwardCompRef.current.measure(() => {
             return;
         });
 
@@ -170,7 +170,7 @@ function TestAnimatedAPI() {
                 source={{ uri: 'https://picsum.photos/200' }}
             />
             <Animated.View
-                testID="expect-type-animated-view"
+                testID='expect-type-animated-view'
                 style={{ opacity: v1 }}
                 onLayout={event => {
                     const x = event.nativeEvent.layout.x; // $ExpectType number
@@ -181,7 +181,7 @@ function TestAnimatedAPI() {
             />
             ;
             <Animated.FlatList
-                testID="expect-type-animated-flatlist"
+                testID='expect-type-animated-flatlist'
                 style={{ opacity: v1 }}
                 data={[1] as ReadonlyArray<number>}
                 renderItem={info => {
@@ -191,7 +191,7 @@ function TestAnimatedAPI() {
             />
             ;
             <Animated.SectionList
-                testID="expect-type-animated-sectionlist"
+                testID='expect-type-animated-sectionlist'
                 style={{ opacity: v1 }}
                 sections={[{ title: 'test', data: [1] }] as SectionListData<number, { title: string }>[]}
                 renderItem={info => {

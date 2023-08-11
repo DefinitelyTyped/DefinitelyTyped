@@ -10,7 +10,7 @@ class Test extends React.Component {
         return (
             <Surface width={200} height={200}>
                 <ClippingRectangle width={20} height={20} x={100} y={100}>
-                    <Shape d={/*new Path().moveTo(0,0).lineTo(200,200)*/ 'fixme'} stroke="black" strokeWidth={10} />
+                    <Shape d={/*new Path().moveTo(0,0).lineTo(200,200)*/ 'fixme'} stroke='black' strokeWidth={10} />
                 </ClippingRectangle>
             </Surface>
         );

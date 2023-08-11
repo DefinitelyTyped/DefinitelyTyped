@@ -1,15 +1,15 @@
-import codegenNativeComponent, { NativeComponentType } from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import type { ViewProps } from 'react-native';
 import {
-    WithDefault,
+    BubblingEventHandler,
+    DirectEventHandler,
     Double,
     Float,
     Int32,
     UnsafeObject,
-    BubblingEventHandler,
-    DirectEventHandler,
+    WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
-import type { ViewProps } from 'react-native';
+import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import codegenNativeComponent, { NativeComponentType } from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 type Event = Readonly<{
     value: Double;

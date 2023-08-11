@@ -57,22 +57,22 @@ interface BlobOptions {
 
 declare var Blob: {
     prototype: Blob;
-    new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
+    new(blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
 };
 
 type FormDataValue = string | { name?: string; type?: string; uri: string };
 
 type FormDataPart =
     | {
-          string: string;
-          headers: { [name: string]: string };
-      }
+        string: string;
+        headers: { [name: string]: string };
+    }
     | {
-          uri: string;
-          headers: { [name: string]: string };
-          name?: string;
-          type?: string;
-      };
+        uri: string;
+        headers: { [name: string]: string };
+        name?: string;
+        type?: string;
+    };
 
 declare class FormData {
     append(name: string, value: any): void;
@@ -100,7 +100,7 @@ declare interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new (init?: HeadersInit_): Headers;
+    new(init?: HeadersInit_): Headers;
 };
 
 /**
@@ -156,7 +156,7 @@ declare interface Request extends Object, Body {
 
 declare var Request: {
     prototype: Request;
-    new (input: Request | string, init?: RequestInit): Request;
+    new(input: Request | string, init?: RequestInit): Request;
 };
 
 declare type RequestInfo = Request | string;
@@ -180,7 +180,7 @@ declare interface Response extends Object, Body {
 
 declare var Response: {
     prototype: Response;
-    new (body?: BodyInit_, init?: ResponseInit): Response;
+    new(body?: BodyInit_, init?: ResponseInit): Response;
     error: () => Response;
     redirect: (url: string, status?: number) => Response;
 };
@@ -246,7 +246,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
 
 declare var XMLHttpRequest: {
     prototype: XMLHttpRequest;
-    new (): XMLHttpRequest;
+    new(): XMLHttpRequest;
     readonly DONE: 4;
     readonly HEADERS_RECEIVED: 2;
     readonly LOADING: 3;
@@ -299,7 +299,7 @@ interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
 
 declare var XMLHttpRequestUpload: {
     prototype: XMLHttpRequestUpload;
-    new (): XMLHttpRequestUpload;
+    new(): XMLHttpRequestUpload;
 };
 
 declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
@@ -369,10 +369,11 @@ type WebsocketErrorEventListener = (event: 'error', handler: (e: WebSocketErrorE
 type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
 type WebsocketCloseEventListener = (event: 'close', handler: (e: WebSocketCloseEvent) => void) => void;
 
-type WebsocketEventListener = WebsocketMessageEventListener &
-    WebsocketErrorEventListener &
-    WebsocketOpenEventListener &
-    WebsocketCloseEventListener;
+type WebsocketEventListener =
+    & WebsocketMessageEventListener
+    & WebsocketErrorEventListener
+    & WebsocketOpenEventListener
+    & WebsocketCloseEventListener;
 
 interface WebSocket extends EventTarget {
     readonly readyState: number;
@@ -388,7 +389,7 @@ interface WebSocket extends EventTarget {
 
 declare var WebSocket: {
     prototype: WebSocket;
-    new (
+    new(
         uri: string,
         protocols?: string | string[] | null,
         options?: {
@@ -428,10 +429,10 @@ declare class AbortSignal implements EventTarget {
         options?:
             | boolean
             | {
-                  capture?: boolean;
-                  once?: boolean;
-                  passive?: boolean;
-              },
+                capture?: boolean;
+                once?: boolean;
+                passive?: boolean;
+            },
     ) => void;
 
     removeEventListener: (
@@ -440,8 +441,8 @@ declare class AbortSignal implements EventTarget {
         options?:
             | boolean
             | {
-                  capture?: boolean;
-              },
+                capture?: boolean;
+            },
     ) => void;
 }
 
@@ -503,7 +504,7 @@ interface FileReader extends EventTarget {
 
 declare var FileReader: {
     prototype: FileReader;
-    new (): FileReader;
+    new(): FileReader;
     readonly DONE: 2;
     readonly EMPTY: 0;
     readonly LOADING: 1;

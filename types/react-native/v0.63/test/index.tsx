@@ -14,14 +14,14 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-    ART,
     AccessibilityInfo,
     ActionSheetIOS,
-    AsyncStorage,
     Alert,
+    Appearance,
     AppState,
     AppStateStatus,
-    Appearance,
+    ART,
+    AsyncStorage,
     BackHandler,
     Button,
     CheckBox,
@@ -29,13 +29,14 @@ import {
     ColorValue,
     DataSourceAssetCallback,
     DatePickerAndroid,
-    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
+    DevSettings,
     Dimensions,
     DrawerLayoutAndroid,
     DrawerSlideEvent,
     DynamicColorIOS,
+    findNodeHandle,
     FlatList,
     FlatListProps,
     GestureResponderEvent,
@@ -76,10 +77,12 @@ import {
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
+    requireNativeComponent,
     ScaledSize,
     ScrollView,
     ScrollViewProps,
     SectionList,
+    SectionListData,
     SectionListProps,
     SectionListRenderItemInfo,
     Share,
@@ -89,8 +92,8 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
-    SwitchIOS,
     SwitchChangeEvent,
+    SwitchIOS,
     Systrace,
     TabBarIOS,
     Text,
@@ -107,21 +110,18 @@ import {
     TextProps,
     TextStyle,
     TimePickerAndroid,
+    ToastAndroid,
+    Touchable,
     TouchableNativeFeedback,
     UIManager,
+    useColorScheme,
+    useWindowDimensions,
     View,
     ViewPagerAndroid,
     ViewPropTypes,
     ViewStyle,
     VirtualizedList,
     YellowBox,
-    findNodeHandle,
-    requireNativeComponent,
-    useColorScheme,
-    useWindowDimensions,
-    SectionListData,
-    ToastAndroid,
-    Touchable,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create<LocalStyles>({
     },
 });
 
-//alternative declaration of styles (inline typings)
+// alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create({
     container: {
         flex: 1,
@@ -354,14 +354,14 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     render() {
         const { color, ...props } = this.props;
         return (
-            <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
+            <View {...props} ref='rootView' style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
                     Press Cmd+R to reload,{'\n'}
                     Cmd+D or shake for dev menu
                 </Text>
-                <CustomView ref="customView" />
+                <CustomView ref='customView' />
             </View>
         );
     }
@@ -475,16 +475,17 @@ export class PressableTest extends React.Component<{}> {
                     })}
                 >
                     {state =>
-                        state.pressed ? (
-                            <View>
-                                <Text>Pressed</Text>
-                            </View>
-                        ) : (
-                            <View>
-                                <Text>Not Pressed</Text>
-                            </View>
-                        )
-                    }
+                        state.pressed
+                            ? (
+                                <View>
+                                    <Text>Pressed</Text>
+                                </View>
+                            )
+                            : (
+                                <View>
+                                    <Text>Not Pressed</Text>
+                                </View>
+                            )}
                 </Pressable>
                 {/* Android Ripple */}
                 <Pressable
@@ -562,7 +563,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     _renderItem = (rowData: any) => {
         return (
             <View>
-                <Text> {rowData.item} </Text>
+                <Text>{rowData.item}</Text>
             </View>
         );
     };
@@ -625,7 +626,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
 
         return (
             <React.Fragment>
-                <Button title="Press" onPress={this.scrollMe} />
+                <Button title='Press' onPress={this.scrollMe} />
 
                 <SectionList
                     ref={this.myList}
@@ -686,7 +687,7 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
 
         return (
             <React.Fragment>
-                <Button title="Press" onPress={this.scrollMe} />
+                <Button title='Press' onPress={this.scrollMe} />
 
                 <SectionList
                     ref={this.myList}
@@ -694,11 +695,13 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     renderSectionHeader={({ section }) => {
                         section; // $ExpectType SectionListData<string, SectionT>
 
-                        return section.displayTitle ? (
-                            <View>
-                                <Text>{section.title}</Text>
-                            </View>
-                        ) : null;
+                        return section.displayTitle
+                            ? (
+                                <View>
+                                    <Text>{section.title}</Text>
+                                </View>
+                            )
+                            : null;
                     }}
                     renderItem={info => {
                         info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
@@ -814,23 +817,23 @@ class TabBarTest extends React.Component {
     render() {
         return (
             <TabBarIOS
-                barTintColor="darkslateblue"
-                itemPositioning="center"
-                tintColor="white"
+                barTintColor='darkslateblue'
+                itemPositioning='center'
+                tintColor='white'
                 translucent={true}
-                unselectedTintColor="black"
-                unselectedItemTintColor="red"
+                unselectedTintColor='black'
+                unselectedItemTintColor='red'
             >
                 <TabBarIOS.Item
                     badge={0}
-                    badgeColor="red"
+                    badgeColor='red'
                     icon={{ uri: undefined }}
                     selected={true}
                     onPress={() => {}}
                     renderAsOriginal={true}
                     selectedIcon={undefined}
-                    systemIcon="history"
-                    title="Item 1"
+                    systemIcon='history'
+                    title='Item 1'
                 />
             </TabBarIOS>
         );
@@ -855,7 +858,7 @@ class AlertTest extends React.Component {
     }
 
     render() {
-        return <Button title="Press me" onPress={this.showAlert} />;
+        return <Button title='Press me' onPress={this.showAlert} />;
     }
 }
 
@@ -897,7 +900,7 @@ class MaskedViewTest extends React.Component {
 
 const CheckboxTest = () => (
     <CheckBox
-        testID="testId"
+        testID='testId'
         disabled={false}
         onChange={value => {
             console.log(value);
@@ -1023,8 +1026,8 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput
                     ref={input => (this.username = input)}
-                    textContentType="username"
-                    autoCompleteType="username"
+                    textContentType='username'
+                    autoCompleteType='username'
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -1047,9 +1050,9 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput contextMenuHidden={true} textAlignVertical="top" />
+                <TextInput contextMenuHidden={true} textAlignVertical='top' />
 
-                <TextInput textAlign="center" />
+                <TextInput textAlign='center' />
             </View>
         );
     }
@@ -1085,8 +1088,8 @@ class TextTest extends React.Component {
         return (
             <Text
                 allowFontScaling={false}
-                ellipsizeMode="head"
-                lineBreakMode="clip"
+                ellipsizeMode='head'
+                lineBreakMode='clip'
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
@@ -1104,7 +1107,7 @@ class StatusBarTest extends React.Component {
 
         console.log('height:', StatusBar.currentHeight);
 
-        return <StatusBar backgroundColor="blue" barStyle="light-content" translucent />;
+        return <StatusBar backgroundColor='blue' barStyle='light-content' translucent />;
     }
 }
 
@@ -1115,8 +1118,8 @@ export class ImageTest extends React.Component {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
-        Image.queryCache &&
-            Image.queryCache([uri]).then(({ [uri]: status }) => {
+        Image.queryCache
+            && Image.queryCache([uri]).then(({ [uri]: status }) => {
                 if (status === undefined) {
                     console.log('Image is not in cache');
                 } else {
@@ -1200,9 +1203,9 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
                 onAccessibilityTap={() => {}}
-                accessibilityRole="header"
+                accessibilityRole='header'
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very important header"
+                accessibilityHint='Very important header'
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
@@ -1219,50 +1222,57 @@ const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
 });
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isGrayscaleEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isInvertColorsEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isReduceMotionEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`)
 );
 
-AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
-    console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
+AccessibilityInfo.addEventListener(
+    'announcementFinished',
+    ({ announcement, success }) => console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
 );
-AccessibilityInfo.addEventListener('boldTextChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'boldTextChanged',
+    isEnabled => console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('grayscaleChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'grayscaleChanged',
+    isEnabled => console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('invertColorsChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'invertColorsChanged',
+    isEnabled => console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'reduceMotionChanged',
+    isEnabled => console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'reduceTransparencyChanged',
+    isEnabled => console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    'screenReaderChanged',
+    isEnabled => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
 );
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
-const ModalTest2 = () => <Modal hardwareAccelerated testID="modal-test-2" />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID='modal-test-2' />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
@@ -1289,9 +1299,9 @@ const DatePickerAndroidTest = () => {
 };
 
 const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
-        <Picker.Item label="Item1" value="v1" />
-        <Picker.Item label="Item2" value="v2" />
+    <Picker mode='dropdown' selectedValue='v1' onValueChange={(val: string) => {}}>
+        <Picker.Item label='Item1' value='v1' />
+        <Picker.Item label='Item2' value='v2' />
     </Picker>
 );
 
@@ -1319,7 +1329,11 @@ class BridgedComponentTest extends React.Component {
 
     render() {
         return (
-            <NativeBridgedComponent {...this.props} nativeProp="test" ref={ref => (this.nativeComponentRef = ref)} />
+            <NativeBridgedComponent
+                {...this.props}
+                nativeProp='test'
+                ref={ref => (this.nativeComponentRef = ref)}
+            />
         );
     }
 }
@@ -1334,18 +1348,26 @@ const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-    const e: SwitchChangeEvent = event;
-    return new Promise(() => e.nativeEvent.value);
-}} />;
+const SwitchOnChangePromiseTest = () => (
+    <Switch
+        onChange={event => {
+            const e: SwitchChangeEvent = event;
+            return new Promise(() => e.nativeEvent.value);
+        }}
+    />
+);
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-    const v: boolean = value;
-    return new Promise(() => v)
-}} />;
+const SwitchOnValueChangePromiseTest = () => (
+    <Switch
+        onValueChange={value => {
+            const v: boolean = value;
+            return new Promise(() => v);
+        }}
+    />
+);
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
@@ -1581,7 +1603,7 @@ const OpaqueTest3 = () => (
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
-    <ProgressBarAndroid animating color="white" styleAttr="Horizontal" progress={0.42} />;
+    <ProgressBarAndroid animating color='white' styleAttr='Horizontal' progress={0.42} />;
 };
 
 // Push notification
@@ -1737,17 +1759,17 @@ export class DrawerLayoutAndroidTest extends React.Component {
         return (
             <DrawerLayoutAndroid
                 ref={this.drawerRef}
-                drawerBackgroundColor="rgba(0,0,0,0.5)"
-                drawerLockMode="locked-closed"
-                drawerPosition="right"
+                drawerBackgroundColor='rgba(0,0,0,0.5)'
+                drawerLockMode='locked-closed'
+                drawerPosition='right'
                 drawerWidth={300}
-                keyboardDismissMode="on-drag"
+                keyboardDismissMode='on-drag'
                 onDrawerClose={this.handleDrawerClose}
                 onDrawerOpen={this.handleDrawerOpen}
                 onDrawerSlide={this.handleDrawerSlide}
                 onDrawerStateChanged={this.handleDrawerStateChanged}
                 renderNavigationView={() => this.navigationView}
-                statusBarBackgroundColor="yellow"
+                statusBarBackgroundColor='yellow'
             >
                 <View style={this.styles.container}>
                     <Text style={{ margin: 10, fontSize: 15 }}>DrawerLayoutAndroid example</Text>
@@ -1811,4 +1833,4 @@ const ActionSheetIOSTest = () => {
         options: ['foo', 'bar'],
         destructiveButtonIndex: [0, 1],
     }, () => undefined);
-}
+};
