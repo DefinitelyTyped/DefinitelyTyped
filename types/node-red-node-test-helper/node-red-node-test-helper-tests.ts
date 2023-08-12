@@ -33,7 +33,7 @@ function helperTests(testHelper: typeof anotherHelper) {
     }
 
     // $ExpectType Promise<void>
-    testHelper.setFlows(flows, "full", {}, () => {});
+    testHelper.setFlows(flows, 'full', {}, () => {});
 
     // $ExpectType Promise<void>
     testHelper.unload();
