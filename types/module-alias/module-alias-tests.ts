@@ -1,4 +1,5 @@
 import moduleAlias = require('module-alias');
+import 'module-alias/register';
 
 moduleAlias('path'); // $ExpectType void
 moduleAlias({ base : 'path' }); // $ExpectType void
