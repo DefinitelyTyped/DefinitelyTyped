@@ -56,9 +56,9 @@ declare class NodeTestHelper extends EventEmitter {
      */
     setFlows(
         testFlows: nodeRedNodeTestHelper.TestFlows,
-        type: "full" | "flows" | "nodes",
+        type: 'full' | 'flows' | 'nodes',
         testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
-        cb?: () => void
+        cb?: () => void,
     ): Promise<void>;
 
     /**
