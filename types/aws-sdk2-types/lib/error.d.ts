@@ -49,5 +49,5 @@ export type AWSError = Error & {
     /**
      * The original error which caused this Error
      */
-    originalError?: Error
-}
+    originalError?: Error;
+};

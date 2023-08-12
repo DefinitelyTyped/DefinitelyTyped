@@ -1,4 +1,4 @@
-import {AWSError} from '../error';
+import { AWSError } from '../error';
 import S3 = require('../../clients/s3');
 export class ManagedUpload {
     /**
@@ -23,17 +23,17 @@ export class ManagedUpload {
      * @param {string} event - httpUploadProgress: triggered when the uploader has uploaded more data.
      * @param {function} listener - Callback to run when the uploader has uploaded more data.
      */
-    on(event: "httpUploadProgress", listener: (progress: ManagedUpload.Progress) => void): any;
+    on(event: 'httpUploadProgress', listener: (progress: ManagedUpload.Progress) => void): any;
     /**
      * Default value: 10000
      */
-    static maxTotalParts: number
+    static maxTotalParts: number;
     /**
      * Returns the minimum number of bytes for an individual part upload.
      * Note: Minimum allowed size is 5 MB.
      * 1024 * 5
      */
-    static minPartSize: number
+    static minPartSize: number;
 }
 export namespace ManagedUpload {
     export interface Progress {
