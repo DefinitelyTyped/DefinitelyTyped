@@ -1,4 +1,4 @@
-// Type definitions for node-red-node-test-helper 0.2
+// Type definitions for node-red-node-test-helper 0.3
 // Project: https://github.com/node-red/node-red-node-test-helper#readme
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
