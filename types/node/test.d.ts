@@ -259,6 +259,16 @@ declare module 'node:test' {
      * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
+    interface TestShard {
+        /**
+         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         */
+        index: number;
+        /**
+         * A positive integer that specifies the total number of shards to split the test files to.
+         */
+        total: number;
+    }
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -301,9 +311,15 @@ declare module 'node:test' {
          */
         setup?: (root: Test) => void | Promise<void>;
         /**
-         * Whether to run in watch mode or not. Default: false.
+         * Whether to run in watch mode or not.
+         * @default false
          */
-        watch?: boolean;
+        watch?: boolean | undefined;
+        /**
+         * Running tests in a specific shard.
+         * @default undefined
+         */
+        shard?: TestShard | undefined;
     }
     class Test extends AsyncResource {
         concurrency: number;
@@ -1210,6 +1226,10 @@ declare module 'node:test' {
          * @since v20.4.0
          */
         runAll(): void;
+        /**
+         * Calls {@link MockTimers.reset()}.
+         */
+        [Symbol.dispose](): void;
     }
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }

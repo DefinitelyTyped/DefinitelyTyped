@@ -22,7 +22,11 @@ run({
     inspectPort: () => 8081,
     testNamePatterns: ['executed'],
     setup: (root) => {},
-    watch: true
+    watch: true,
+    shard: {
+        index: 1,
+        total: 3,
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
