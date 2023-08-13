@@ -303,6 +303,11 @@ declare module 'child_process' {
          */
         kill(signal?: NodeJS.Signals | number): boolean;
         /**
+         * Calls {@link ChildProcess.kill} with `'SIGTERM'`.
+         * @since v20.5.0
+         */
+        [Symbol.dispose](): void;
+        /**
          * When an IPC channel has been established between the parent and child (
          * i.e. when using {@link fork}), the `subprocess.send()` method can
          * be used to send messages to the child process. When the child process is a

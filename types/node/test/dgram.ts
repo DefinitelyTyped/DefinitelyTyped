@@ -18,6 +18,7 @@ import * as dns from 'node:dns';
     ds = ds.close();
     ds.setMulticastInterface("127.0.0.1");
     ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
+    ds[Symbol.asyncDispose]();
 }
 
 {

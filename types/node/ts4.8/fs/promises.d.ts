@@ -456,6 +456,11 @@ declare module 'fs/promises' {
          * @return Fulfills with `undefined` upon success.
          */
         close(): Promise<void>;
+        /**
+         * An alias for {@link FileHandle.close()}.
+         * @since v20.4.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
     const constants: typeof fsConstants;
     /**

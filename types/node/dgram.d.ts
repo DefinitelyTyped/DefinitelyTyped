@@ -538,6 +538,11 @@ declare module 'dgram' {
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
         prependOnceListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        /**
+         * Calls `socket.close()` and returns a promise that fulfills when the socket has closed.
+         * @since v20.5.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
 }
 declare module 'node:dgram' {

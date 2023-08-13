@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 20.4
+// Type definitions for non-npm package Node.js 20.5
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>

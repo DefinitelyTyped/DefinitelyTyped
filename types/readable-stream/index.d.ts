@@ -143,6 +143,7 @@ declare class _Readable implements _IReadable {
     eventNames(): Array<string | symbol>;
 
     [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+    [Symbol.asyncDispose](): never;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -237,6 +238,7 @@ declare namespace _Readable {
 
         _undestroy(): void;
         [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+        [Symbol.asyncDispose](): never;
         // end-Readable
 
         constructor(options?: DuplexOptions);
