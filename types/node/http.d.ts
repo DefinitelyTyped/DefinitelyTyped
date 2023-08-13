@@ -15,6 +15,14 @@
  *   'connection': 'keep-alive',
  *   'host': 'example.com',
  *   'accept': '*' }
+
+ *js
+ * { 'content-length': '123',
+ *   'content-type': 'text/plain',
+ *   'connection': 'keep-alive',
+ *   'host': 'vercel.com',
+ *   'accept': '*' }
+ 
  * ```
  *
  * Keys are lowercased. Values are not modified.
