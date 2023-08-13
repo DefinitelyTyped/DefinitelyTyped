@@ -668,7 +668,7 @@ declare namespace Matter {
          */
         static getAngularVelocity(body: Body): number
         /**
-         * Sets the current rotational speed of the body.  
+         * Sets the current rotational speed of the body.
          * Direction is maintained. Affects body angular velocity.
          * @method setAngularSpeed
          * @param {body} body
@@ -676,7 +676,7 @@ declare namespace Matter {
          */
         static setAngularSpeed(body: Body, speed: number): void;
         /**
-         * Gets the current rotational speed of the body.  
+         * Gets the current rotational speed of the body.
          * Equivalent to the magnitude of its angular velocity.
          * @method getAngularSpeed
          * @param {body} body
@@ -690,7 +690,7 @@ declare namespace Matter {
          */
         static updateVelocities(body: Body): void;
         /**
-         * Gets the current linear speed of the body.  
+         * Gets the current linear speed of the body.
          * Equivalent to the magnitude of its velocity.
          * @method getSpeed
          * @param {body} body
@@ -698,7 +698,7 @@ declare namespace Matter {
          */
         static getSpeed(body: Body): number;
         /**
-         * Sets the current linear speed of the body.  
+         * Sets the current linear speed of the body.
          * Direction is maintained. Affects body velocity.
          * @method setSpeed
          * @param {body} body
