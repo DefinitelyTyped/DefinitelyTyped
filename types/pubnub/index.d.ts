@@ -1,4 +1,4 @@
-// Type definitions for pubnub 7.3
+// Type definitions for pubnub 7.4
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -138,6 +138,8 @@ declare class Pubnub {
     grantToken(params: Pubnub.GrantTokenParameters): Promise<string>;
 
     setToken(params: string): void;
+
+    getToken(): string | undefined;
 
     parseToken(params: string): Pubnub.ParsedGrantToken;
 
@@ -399,6 +401,7 @@ declare namespace Pubnub {
         affectedChannelGroups: string[];
         lastTimetoken: number | string;
         currentTimetoken: number | string;
+        statusCode: number | undefined;
     }
 
     interface PresenceEvent {
@@ -622,6 +625,11 @@ declare namespace Pubnub {
                     };
                 };
             }>;
+        };
+        more?: {
+            url: string;
+            start: string;
+            max: number;
         };
     }
 
