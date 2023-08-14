@@ -34,6 +34,10 @@ interface NormalizeOptions {
 }
 
 declare class NPMCliPackageJson {
+    static normalizeSteps: readonly string[];
+    static fixSteps: readonly string[];
+    static prepareSteps: readonly string[];
+
     constructor();
 
     /**
