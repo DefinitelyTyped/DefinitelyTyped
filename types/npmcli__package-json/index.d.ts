@@ -19,13 +19,13 @@ interface NormalizeOptions {
     /**
      * Optional git root to provide when applying the gitHead step.
      */
-    root: string;
+    root?: string;
 
     /**
      * If provided, a message about each change that was made to the packument
      * will be added to this array.
      */
-    changes: any[];
+    changes?: any[];
 
     /**
      * Allow package names to not be lowercase.
