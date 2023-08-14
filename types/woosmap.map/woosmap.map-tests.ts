@@ -319,10 +319,31 @@ infoWindow.open(map, marker);
 infoWindow.close();
 
 /**
+ * FlyTo
+ */
+const flyToOptions = expectType({
+    around: new woosmap.map.LatLng(43.3, 3.883),
+    center: new woosmap.map.LatLng(43.3, 3.883),
+    animate: true,
+    offset: { x: 30, y: 0 },
+    essential: false,
+    easing(t: number) {
+        return t;
+    },
+    duration: 200,
+    padding: { bottom: 20, top: 20, left: 20, right: 20 },
+    pitch: 45,
+    zoom: 13,
+}) as woosmap.map.FlyToOptions;
+map.flyTo(flyToOptions);
+
+/**
  * woosmap.map.event
  */
-const listener = woosmap.map.event.addListener(map, 'click', () => {}); // $ExpectType MapEventListener
-woosmap.map.event.addListenerOnce(map, 'click', () => {}); // $ExpectType MapEventListener
+// $ExpectType MapEventListener
+const listener = woosmap.map.event.addListener(map, 'click', () => {});
+// $ExpectType MapEventListener
+woosmap.map.event.addListenerOnce(map, 'click', () => {});
 woosmap.map.event.removeListener(listener); // $ExpectType void
 listener.remove(); // $ExpectType void
 
@@ -330,6 +351,53 @@ listener.remove(); // $ExpectType void
  * woosmap.map.geometry
  */
 const isContained = woosmap.map.geometry.containsLocation({ lat: 43.3, lng: 3.3 }, polygon); // $ExpectType boolean
+
+/**
+ * Drawing tool
+ */
+// $ExpectType Drawing
+const draw = new woosmap.map.Drawing({});
+// $ExpectType void
+draw.addControl(map);
+// $ExpectType string[]
+draw.add({
+    type: 'FeatureCollection',
+    features: [],
+});
+// $ExpectType void
+draw.addListener('draw.create', e => {});
+// $ExpectType void
+draw.addListener('draw.create', e => {});
+// $ExpectType void
+draw.addListener('draw.delete', e => {});
+// $ExpectType void
+draw.addListener('draw.modechange', e => {});
+// $ExpectType void
+draw.addListener('draw.selectionchange', e => {});
+// $ExpectType void
+draw.addListener('draw.update', e => {});
+// @ts-expect-error
+draw.addListener('draw.unknown_event', e => {});
+// $ExpectType Drawing
+draw.delete('1');
+// $ExpectType Drawing
+draw.delete(['1', '2']);
+// $ExpectType string[]
+draw.getSelectedIds();
+// $ExpectType Drawing
+draw.changeMode('direct_select', { featureId: '1' });
+// @ts-expect-error
+draw.changeMode('direct_select');
+// $ExpectType Drawing
+draw.changeMode('simple_select');
+// $ExpectType Drawing
+draw.changeMode('draw_point');
+// @ts-expect-error
+draw.changeMode('draw_point', {});
+// $ExpectType Drawing
+draw.changeMode('custom_mode');
+// $ExpectType void
+draw.removeControl();
 
 /**
  * helper functions for testing purpose

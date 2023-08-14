@@ -128,7 +128,7 @@ declare module 'http2' {
          * value will be `undefined` after the `Http2Stream` instance is destroyed.
          * @since v8.4.0
          */
-        readonly session: Http2Session;
+        readonly session: Http2Session | undefined;
         /**
          * Provides miscellaneous information about the current state of the`Http2Stream`.
          *

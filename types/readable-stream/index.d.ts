@@ -1,4 +1,4 @@
-// Type definitions for readable-stream 2.3
+// Type definitions for readable-stream 4.0
 // Project: https://github.com/nodejs/readable-stream
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                   markdreyer <https://github.com/markdreyer>
@@ -14,6 +14,8 @@ declare class StringDecoder {
     write(buffer: Buffer): string;
     end(buffer?: Buffer): string;
 }
+
+type ComposeFnParam = (source: any) => void;
 
 interface _IEventEmitter {
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -141,6 +143,7 @@ declare class _Readable implements _IReadable {
     eventNames(): Array<string | symbol>;
 
     [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+    [Symbol.asyncDispose](): never;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -235,6 +238,7 @@ declare namespace _Readable {
 
         _undestroy(): void;
         [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+        [Symbol.asyncDispose](): never;
         // end-Readable
 
         constructor(options?: DuplexOptions);
@@ -297,6 +301,7 @@ declare namespace _Readable {
 
         constructor(options?: ReadableOptions);
         pipe<T extends _IWritable>(destination: T, options?: { end?: boolean | undefined; }): T;
+        compose<T extends NodeJS.ReadableStream>(stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>, options?: { signal: AbortSignal }): T;
     }
 
     // ==== _stream_transform ====
@@ -512,6 +517,7 @@ declare namespace _Readable {
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
         pipe<T extends _IWritable>(destination: T, options?: { end?: boolean | undefined; }): T;
+        compose<T extends NodeJS.ReadableStream>(stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>, options?: { signal: AbortSignal }): T;
     }
 }
 

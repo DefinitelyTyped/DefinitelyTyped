@@ -82,6 +82,13 @@ declare module 'fs/promises' {
         emitClose?: boolean | undefined;
         start?: number | undefined;
     }
+    interface ReadableWebStreamOptions {
+        /**
+         * Whether to open a normal or a `'bytes'` stream.
+         * @since v20.0.0
+         */
+        type?: 'bytes' | undefined;
+    }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
@@ -240,7 +247,7 @@ declare module 'fs/promises' {
          * @since v17.0.0
          * @experimental
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -449,6 +456,11 @@ declare module 'fs/promises' {
          * @return Fulfills with `undefined` upon success.
          */
         close(): Promise<void>;
+        /**
+         * An alias for {@link FileHandle.close()}.
+         * @since v20.4.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
     const constants: typeof fsConstants;
     /**
@@ -720,7 +732,8 @@ declare module 'fs/promises' {
      * autodetect `target` type and use `'file'` or `'dir'`. If the `target` does not
      * exist, `'file'` will be used. Windows junction points require the destination
      * path to be absolute. When using `'junction'`, the `target` argument will
-     * automatically be normalized to absolute path.
+     * automatically be normalized to absolute path. Junction points on NTFS volumes
+     * can only point to directories.
      * @since v10.0.0
      * @param [type='null']
      * @return Fulfills with `undefined` upon success.

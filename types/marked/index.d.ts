@@ -21,7 +21,7 @@
  * @param options Hash of options, having async: true
  * @return Promise of string of compiled HTML
  */
-export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+export function marked(src: string, options: marked.MarkedOptions & { async: true }): Promise<string>;
 
 /**
  * Compiles markdown to HTML synchronously.
@@ -60,6 +60,75 @@ export class Renderer<T = never> extends marked.Renderer<T> {}
 export class TextRenderer extends marked.TextRenderer {}
 export class Slugger extends marked.Slugger {}
 
+export class Marked {
+    constructor(...extensions: marked.MarkedExtension[]);
+    /**
+     * Compiles markdown to HTML.
+     *
+     * @param src String of markdown source to be compiled
+     * @param callback Function called when the markdownString has been fully parsed when using async highlighting
+     * @return String of compiled HTML
+     */
+    parse(src: string, callback: (error: any, parseResult: string) => void): void;
+
+    /**
+     * Compiles markdown to HTML asynchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Hash of options having async: true
+     * @return Promise of string of compiled HTML
+     */
+    parse(src: string, options: marked.MarkedOptions & { async: true }): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    parse(src: string, options?: marked.MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @param callback Function called when the markdownString has been fully parsed when using async highlighting
+     * @return String of compiled HTML
+     */
+    parse(src: string, options: marked.MarkedOptions, callback: (error: any, parseResult: string) => void): void;
+
+    /**
+     * Compiles markdown to HTML without enclosing `p` tag.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+    parseInline(src: string, options?: marked.MarkedOptions): string;
+
+    /**
+     * Gets the original marked default options.
+     */
+    getDefaults(): marked.MarkedOptions;
+
+    /**
+     * Sets the default options.
+     *
+     * @param options Hash of options
+     */
+    setOptions(options: marked.MarkedOptions): Marked;
+
+    /**
+     * Use Extension
+     * @param MarkedExtension
+     */
+    use(...extensions: marked.MarkedExtension[]): void;
+
+    walkTokens(tokens: marked.Token[] | marked.TokensList, callback: (token: marked.Token) => void): Marked;
+}
+
 export namespace marked {
     const defaults: MarkedOptions;
 
@@ -85,7 +154,7 @@ export namespace marked {
      * @param options Hash of options having async: true
      * @return Promise of string of compiled HTML
      */
-    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+    function parse(src: string, options: MarkedOptions & { async: true }): Promise<string>;
 
     /**
      * Compiles markdown to HTML synchronously.
@@ -507,7 +576,10 @@ export namespace marked {
         renderer: (this: RendererThis, token: Tokens.Generic) => string | false;
     }
 
-    type TokenizerAndRendererExtension = TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension);
+    type TokenizerAndRendererExtension =
+        | TokenizerExtension
+        | RendererExtension
+        | (TokenizerExtension & RendererExtension);
 
     interface MarkedExtension {
         /**
@@ -530,9 +602,7 @@ export namespace marked {
         /**
          * Add tokenizers and renderers to marked
          */
-        extensions?:
-            | TokenizerAndRendererExtension[]
-            | undefined;
+        extensions?: TokenizerAndRendererExtension[] | undefined;
 
         /**
          * Enable GitHub flavored markdown.
@@ -569,8 +639,8 @@ export namespace marked {
          * postprocess is called to process html after marked has finished parsing.
          */
         hooks?: {
-            preprocess?: (markdown: string) => string,
-            postprocess?: (html: string) => string,
+            preprocess?: (markdown: string) => string;
+            postprocess?: (html: string) => string;
         };
 
         /**

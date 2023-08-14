@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/prettier": "^2.0.0"
+    }
+}

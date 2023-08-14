@@ -3,7 +3,7 @@ import {
     PaymentMethodRequestablePayload,
     PaymentOptionSelectedPayload,
 } from 'braintree-web-drop-in';
-import { HostedFieldsEvent, HostedFieldsState } from 'braintree-web/modules/hosted-fields';
+import { HostedFieldsEvent } from 'braintree-web/hosted-fields';
 
 braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
     if (error) {

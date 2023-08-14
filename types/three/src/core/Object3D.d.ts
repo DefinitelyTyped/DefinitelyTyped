@@ -1,18 +1,18 @@
-import { Vector3 } from './../math/Vector3';
-import { Euler } from './../math/Euler';
-import { Quaternion } from './../math/Quaternion';
-import { Matrix4 } from './../math/Matrix4';
-import { Matrix3 } from './../math/Matrix3';
-import { Layers } from './Layers';
-import { WebGLRenderer } from './../renderers/WebGLRenderer';
-import { Scene } from './../scenes/Scene';
-import { Camera } from './../cameras/Camera';
-import { Material } from './../materials/Material';
-import { Group } from './../objects/Group';
-import { Intersection, Raycaster } from './Raycaster';
-import { EventDispatcher, BaseEvent, Event } from './EventDispatcher';
-import { BufferGeometry } from './BufferGeometry';
-import { AnimationClip } from '../animation/AnimationClip';
+import { Vector3 } from './../math/Vector3.js';
+import { Euler } from './../math/Euler.js';
+import { Quaternion } from './../math/Quaternion.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Matrix3 } from './../math/Matrix3.js';
+import { Layers } from './Layers.js';
+import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
+import { Scene } from './../scenes/Scene.js';
+import { Camera } from './../cameras/Camera.js';
+import { Material } from './../materials/Material.js';
+import { Group } from './../objects/Group.js';
+import { Intersection, Raycaster } from './Raycaster.js';
+import { EventDispatcher, BaseEvent, Event } from './EventDispatcher.js';
+import { BufferGeometry } from './BufferGeometry.js';
+import { AnimationClip } from '../animation/AnimationClip.js';
 
 /**
  * This is the base class for most objects in three.js and provides a set of properties and methods for manipulating objects in 3D space.

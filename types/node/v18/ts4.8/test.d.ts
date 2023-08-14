@@ -10,7 +10,6 @@ declare module 'node:test' {
      * @returns A {@link TestsStream} that emits events about the test execution.
      */
     function run(options?: RunOptions): TestsStream;
-
     /**
      * The `test()` function is the value imported from the test module. Each invocation of this
      * function results in reporting the test to the {@link TestsStream}.
@@ -59,7 +58,10 @@ declare module 'node:test' {
             it,
             run,
             mock,
-            test
+            test,
+            skip,
+            todo,
+            only
         };
     }
     /**
@@ -130,6 +132,30 @@ declare module 'node:test' {
         function only(options?: TestOptions, fn?: TestFn): void;
         function only(fn?: TestFn): void;
     }
+    /**
+     * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
+     * @since v18.17.0
+     */
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function skip(name?: string, fn?: TestFn): Promise<void>;
+    function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function skip(fn?: TestFn): Promise<void>;
+    /**
+     * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
+     * @since v18.17.0
+     */
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function todo(name?: string, fn?: TestFn): Promise<void>;
+    function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function todo(fn?: TestFn): Promise<void>;
+    /**
+     * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
+     * @since v18.17.0
+     */
+    function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function only(name?: string, fn?: TestFn): Promise<void>;
+    function only(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function only(fn?: TestFn): Promise<void>;
 
     /**
      * The type of a function under test. The first argument to this function is a
@@ -193,152 +219,49 @@ declare module 'node:test' {
         addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         addListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
         addListener(event: 'test:start', listener: (data: TestStart) => void): this;
+        addListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
+        addListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
         emit(event: 'test:diagnostic', data: DiagnosticData): boolean;
         emit(event: 'test:fail', data: TestFail): boolean;
         emit(event: 'test:pass', data: TestPass): boolean;
         emit(event: 'test:plan', data: TestPlan): boolean;
         emit(event: 'test:start', data: TestStart): boolean;
+        emit(event: 'test:stderr', data: TestStderr): boolean;
+        emit(event: 'test:stdout', data: TestStdout): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         on(event: 'test:fail', listener: (data: TestFail) => void): this;
         on(event: 'test:pass', listener: (data: TestPass) => void): this;
         on(event: 'test:plan', listener: (data: TestPlan) => void): this;
         on(event: 'test:start', listener: (data: TestStart) => void): this;
+        on(event: 'test:stderr', listener: (data: TestStderr) => void): this;
+        on(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         once(event: 'test:fail', listener: (data: TestFail) => void): this;
         once(event: 'test:pass', listener: (data: TestPass) => void): this;
         once(event: 'test:plan', listener: (data: TestPlan) => void): this;
         once(event: 'test:start', listener: (data: TestStart) => void): this;
+        once(event: 'test:stderr', listener: (data: TestStderr) => void): this;
+        once(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         prependListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
         prependListener(event: 'test:start', listener: (data: TestStart) => void): this;
+        prependListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
+        prependListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
         prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
         prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
         prependOnceListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
         prependOnceListener(event: 'test:start', listener: (data: TestStart) => void): this;
+        prependOnceListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
+        prependOnceListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-    }
-
-    interface DiagnosticData {
-        /**
-         * The diagnostic message.
-         */
-        message: string;
-
-        /**
-         * The nesting level of the test.
-         */
-        nesting: number;
-    }
-
-    interface TestFail {
-        /**
-         * Additional execution metadata.
-         */
-        details: {
-            /**
-             * The duration of the test in milliseconds.
-             */
-            duration: number;
-
-            /**
-             * The error thrown by the test.
-             */
-            error: Error;
-        };
-
-        /**
-         * The test name.
-         */
-        name: string;
-
-        /**
-         * The nesting level of the test.
-         */
-        nesting: number;
-
-        /**
-         * The ordinal number of the test.
-         */
-        testNumber: number;
-
-        /**
-         * Present if `context.todo` is called.
-         */
-        todo?: string | boolean;
-
-        /**
-         * Present if `context.skip` is called.
-         */
-        skip?: string | boolean;
-    }
-
-    interface TestPass {
-        /**
-         * Additional execution metadata.
-         */
-        details: {
-            /**
-             * The duration of the test in milliseconds.
-             */
-            duration: number;
-        };
-
-        /**
-         * The test name.
-         */
-        name: string;
-
-        /**
-         * The nesting level of the test.
-         */
-        nesting: number;
-
-        /**
-         * The ordinal number of the test.
-         */
-        testNumber: number;
-
-        /**
-         * Present if `context.todo` is called.
-         */
-        todo?: string | boolean;
-
-        /**
-         * Present if `context.skip` is called.
-         */
-        skip?: string | boolean;
-    }
-
-    interface TestPlan {
-        /**
-         * The nesting level of the test.
-         */
-        nesting: number;
-
-        /**
-         * The number of subtests that have ran.
-         */
-        count: number;
-    }
-
-    interface TestStart {
-        /**
-         * The test name.
-         */
-        name: string;
-
-        /**
-         * The nesting level of the test.
-         */
-        nesting: number;
     }
 
     /**
@@ -347,6 +270,15 @@ declare module 'node:test' {
      * @since v18.0.0
      */
     interface TestContext {
+        /**
+         * This function is used to create a hook running before subtest of the current test.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         *    the second argument. Default: A no-op function.
+         * @param options Configuration options for the hook.
+         * @since v18.17.0
+         */
+        before: typeof before;
+
         /**
          * This function is used to create a hook running before each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -781,4 +713,231 @@ declare module 'node:test' {
     }
 
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock };
+}
+
+interface DiagnosticData {
+    /**
+     * The diagnostic message.
+     */
+    message: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+}
+interface TestFail {
+    /**
+     * Additional execution metadata.
+     */
+    details: {
+        /**
+         * The duration of the test in milliseconds.
+         */
+        duration_ms: number;
+        /**
+         * The error thrown by the test.
+         */
+        error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
+    };
+    /**
+     * The test name.
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The ordinal number of the test.
+     */
+    testNumber: number;
+    /**
+     * Present if `context.todo` is called.
+     */
+    todo?: string | boolean;
+    /**
+     * Present if `context.skip` is called.
+     */
+    skip?: string | boolean;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+}
+interface TestPass {
+    /**
+     * Additional execution metadata.
+     */
+    details: {
+        /**
+         * The duration of the test in milliseconds.
+         */
+        duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
+    };
+    /**
+     * The test name.
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The ordinal number of the test.
+     */
+    testNumber: number;
+    /**
+     * Present if `context.todo` is called.
+     */
+    todo?: string | boolean;
+    /**
+     * Present if `context.skip` is called.
+     */
+    skip?: string | boolean;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+}
+interface TestPlan {
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The number of subtests that have ran.
+     */
+    count: number;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+}
+interface TestStart {
+    /**
+     * The test name.
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+}
+interface TestStderr {
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The message written to `stderr`
+     */
+    message: string;
+}
+interface TestStdout {
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The message written to `stdout`
+     */
+    message: string;
+}
+interface TestEnqueue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestDequeue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+
+/**
+ * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
+ * To access it:
+ *
+ * ```js
+ * import test from 'node:test/reporters';
+ * ```
+ *
+ * This module is only available under the `node:` scheme. The following will not
+ * work:
+ *
+ * ```js
+ * import test from 'test/reporters';
+ * ```
+ * @since v18.17.0
+ * @see [source](https://github.com/nodejs/node/blob/v18.17.0/lib/test/reporters.js)
+ */
+declare module 'node:test/reporters' {
+    import { Transform } from 'node:stream';
+
+    type TestEvent =
+        | { type: 'test:diagnostic', data: DiagnosticData }
+        | { type: 'test:fail', data: TestFail }
+        | { type: 'test:pass', data: TestPass }
+        | { type: 'test:plan', data: TestPlan }
+        | { type: 'test:start', data: TestStart }
+        | { type: 'test:stderr', data: TestStderr }
+        | { type: 'test:stdout', data: TestStdout }
+        | { type: 'test:enqueue'; data: TestEnqueue }
+        | { type: 'test:dequeue'; data: TestDequeue }
+        | { type: 'test:watch:drained' };
+    type TestEventGenerator = AsyncGenerator<TestEvent, void>;
+
+    /**
+     * The `dot` reporter outputs the test results in a compact format,
+     * where each passing test is represented by a `.`,
+     * and each failing test is represented by a `X`.
+     */
+    function dot(source: TestEventGenerator): AsyncGenerator<'\n' | '.' | 'X', void>;
+    /**
+     * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
+     */
+    function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
+    /**
+     * The `spec` reporter outputs the test results in a human-readable format.
+     */
+    class Spec extends Transform {
+        constructor();
+    }
+    export { dot, tap, Spec as spec, TestEvent };
 }

@@ -1,11 +1,11 @@
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Material } from './../materials/Material';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute';
-import { Mesh } from './Mesh';
-import { Matrix4 } from './../math/Matrix4';
-import { Color } from './../math/Color';
-import { Box3, Sphere } from '../Three';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Material } from './../materials/Material.js';
+import { BufferAttribute } from './../core/BufferAttribute.js';
+import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute.js';
+import { Mesh } from './Mesh.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Color } from './../math/Color.js';
+import { Box3, Sphere } from '../Three.js';
 
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support

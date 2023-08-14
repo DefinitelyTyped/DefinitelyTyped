@@ -1,8 +1,8 @@
 // https://threejs.org/docs/#api/en/math/Matrix3
 
-import { Matrix4 } from './Matrix4';
-import { Vector2 } from './Vector2';
-import { Vector3 } from './Vector3';
+import { Matrix4 } from './Matrix4.js';
+import { Vector2 } from './Vector2.js';
+import { Vector3 } from './Vector3.js';
 
 export type Matrix3Tuple = [number, number, number, number, number, number, number, number, number];
 

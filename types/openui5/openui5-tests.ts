@@ -17,7 +17,7 @@ import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
 import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
-import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
@@ -30,6 +30,7 @@ import QUnit from "sap/ui/thirdparty/qunit-2";
 import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
 import Mobile from "sap/ui/util/Mobile";
+import Input from "sap/m/Input";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -198,3 +199,16 @@ const scs: SingleControlSelector = {
 
 // 1.114: more details in the APIs
 Mobile.setIcons({precomposed: false});
+
+// 1.116: sap.ui.require (for use in plain JS) callback function parameters fixed
+sap.ui.require(["sap/m/Button", "sap/m/Input"], (B: typeof Button, I: typeof Input) => {
+    const b = new B({text: "Hello"});
+    const i = new I();
+});
+
+// 1.116.1: more event parameters defined
+odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedEvent) => {
+    const contect = evt.getParameter("context");
+});
+
+// 1.117.0: it's just an update of the types!

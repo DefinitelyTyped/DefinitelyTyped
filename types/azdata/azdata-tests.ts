@@ -141,3 +141,7 @@ const connectionProfile: azdata.connection.ConnectionProfile = {
     saveProfile: false,
     options: {}
 };
+
+azdata.nb.showNotebookDocument(<any> {}, {
+    defaultKernel: { name: 'MSSQL' }
+});

@@ -2883,7 +2883,7 @@ declare class Tabulator {
     setGroupValues: (data: GroupValuesArg) => void;
 
     /** You can now trigger a refresh of the current filters using the refreshFilter function. This function will cause the current filters to be run again and applied to the table data. */
-    refreshFilters: () => void;
+    refreshFilter: () => void;
 
     /** The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;

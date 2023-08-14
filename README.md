@@ -2,8 +2,7 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -462,6 +461,16 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 #### What about type definitions for the DOM?
 
 If types are part of a web standard, they should be contributed to [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+
+#### What about type definitions with no matching package?
+
+If there's no source Javascript code at all, for example if you're writing helper types or types for a spec, you should publish the types yourself, not on Definitely Typed.
+Because they're meant to provide types for existing Javascript code, `@types` packages are not meant to be imported directly.
+That is, you shouldn't create a Definitely Typed package that's meant to used like `import type { ... } from "@types/foo"`.
+Nor should you expect to write `import type { ... } from "foo"` when there's no `foo` installed.
+
+This is different from providing types for a browser-only Javascript library or types for an entire environment like node, bun, et al.
+There, the types are either resolved implicitly or using `/// <references types="foo" />`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 

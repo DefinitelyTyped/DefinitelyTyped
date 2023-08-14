@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, Group, Material } from '../../../src/Three';
+import { Loader, LoadingManager, Group, Material } from '../../../src/Three.js';
 
 export class LDrawLoader extends Loader {
     materials: Material[];

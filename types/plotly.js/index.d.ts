@@ -232,6 +232,7 @@ export interface Mapbox {
     pitch: number;
     layers: Array<Partial<MapboxLayers>>;
     uirevision: number | string;
+    uid: string;
 }
 
 export interface SliderChangeEvent {
@@ -313,6 +314,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
     ): void;
     removeAllListeners: (handler: string) => void;
     data: Data[];
+    layout: Layout;
 }
 
 export interface ToImgopts {
@@ -338,6 +340,7 @@ export interface PolarLayout {
     angularaxis: Partial<LayoutAxis>;
     gridshape: 'circular' | 'linear';
     uirevision: string | number;
+    uid: string;
 }
 
 export interface PlotlyDataLayoutConfig {
@@ -513,6 +516,7 @@ export interface Layout {
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
     uirevision: number | string;
+    uid: string;
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
@@ -532,6 +536,7 @@ export interface Legend extends Label {
     tracegroupgap: number;
     traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
     uirevision: number | string;
+    uid: string;
     valign: 'top' | 'middle' | 'bottom';
     x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
@@ -704,6 +709,10 @@ export interface Axis {
      */
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
     /**
+     * Hide SI prefix for 10^n if |n| is below this number. This only has an effect when `tickformat` is "SI" or "B".
+     */
+    minexponent: number;
+    /**
      * 'If `true`, even 4-digit integers are separated
      */
     separatethousands: boolean;
@@ -872,6 +881,29 @@ export interface ShapeLine {
     dash: Dash;
 }
 
+export interface ShapeLabel {
+  font: Partial<Font>;
+  padding: number;
+  text: string;
+  textangle: 'auto' | number;
+  textposition:
+    | 'top left'
+    | 'top center'
+    | 'top right'
+    | 'middle left'
+    | 'middle center'
+    | 'middle right'
+    | 'bottom left'
+    | 'bottom center'
+    | 'bottom right'
+    | 'start'
+    | 'middle'
+    | 'end';
+  texttemplate: string;
+  xanchor: 'auto' | 'left' | 'center' | 'right';
+  yanchor: 'top' | 'middle' | 'bottom';
+}
+
 export interface Shape {
     visible: boolean;
     layer: 'below' | 'above';
@@ -892,6 +924,7 @@ export interface Shape {
     templateitemname: string;
     opacity: number;
     line: Partial<ShapeLine>;
+    label: Partial<ShapeLabel>;
 }
 
 export interface Margin {
@@ -910,6 +943,7 @@ export interface ModeBar {
     orientation: 'v' | 'h';
     remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     uirevision: number | string;
+    uid: string;
 }
 
 export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
@@ -1401,6 +1435,8 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    uirevision: string | number;
+    uid: string;
 }
 
 /**
@@ -1483,6 +1519,7 @@ export interface ColorBar {
     separatethousands: boolean;
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
     showexponent: 'all' | 'first' | 'last' | 'none';
+    minexponent: number;
     title: string;
     titlefont: Font;
     titleside: 'right' | 'top' | 'bottom';

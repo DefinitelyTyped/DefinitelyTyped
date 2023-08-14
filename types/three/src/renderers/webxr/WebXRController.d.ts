@@ -1,5 +1,5 @@
-import { Group } from '../../objects/Group';
-import { Vector3 } from '../../math/Vector3';
+import { Group } from '../../objects/Group.js';
+import { Vector3 } from '../../math/Vector3.js';
 
 export type XRControllerEventType = XRSessionEventType | XRInputSourceEventType | 'disconnected' | 'connected';
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.117.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -615,7 +615,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:cancel cancel} to attached listeners.
      *
@@ -628,7 +628,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:initialized initialized} to attached listeners.
      *
@@ -641,7 +641,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:manage manage} to attached listeners.
      *
@@ -654,7 +654,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: VariantManagement$ManageEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:save save} to attached listeners.
      *
@@ -667,7 +667,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: VariantManagement$SaveEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -745,17 +745,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getInErrorState(): boolean;
     /**
-     * Gets current value of property {@link #getManualVariantKey manualVariantKey}.
-     *
-     * If set to `true`, the key for a vendor variant will be added manually.
-     *   **Note:** This flag is only used internally.
-     *
-     * Default value is `false`.
-     *
-     * @returns Value of property `manualVariantKey`
-     */
-    getManualVariantKey(): boolean;
-    /**
      * @since 1.109
      *
      * Gets current value of property {@link #getMaxWidth maxWidth}.
@@ -784,7 +773,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getModified(): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
@@ -965,24 +954,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bInErrorState?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getManualVariantKey manualVariantKey}.
-     *
-     * If set to `true`, the key for a vendor variant will be added manually.
-     *   **Note:** This flag is only used internally.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setManualVariantKey(
-      /**
-       * New value for property `manualVariantKey`
-       */
-      bManualVariantKey?: boolean
-    ): this;
-    /**
      * @since 1.109
      *
      * Sets a new value for property {@link #getMaxWidth maxWidth}.
@@ -1125,12 +1096,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     showSetAsDefault?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set to `true`, the key for a vendor variant will be added manually.
-     *   **Note:** This flag is only used internally.
-     */
-    manualVariantKey?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
      * Indicates that the control is in error state. If set to `true`, an error message will be displayed whenever
      * the variant is opened.
      */
@@ -1194,7 +1159,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: (oEvent: Event<VariantManagement$SaveEventParameters>) => void;
+    save?: (oEvent: VariantManagement$SaveEvent) => void;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
@@ -1204,33 +1169,27 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: (oEvent: Event<VariantManagement$ManageEventParameters>) => void;
+    manage?: (oEvent: VariantManagement$ManageEvent) => void;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: (oEvent: Event<VariantManagement$SelectEventParameters>) => void;
+    select?: (oEvent: VariantManagement$SelectEvent) => void;
   }
 
   export interface VariantManagement$CancelEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VariantManagement$CancelEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VariantManagementCancelEventParameters = VariantManagement$CancelEventParameters;
-
-  export type VariantManagement$CancelEvent = Event<VariantManagement$CancelEventParameters>;
+  export type VariantManagement$CancelEvent = Event<
+    VariantManagement$CancelEventParameters,
+    VariantManagement
+  >;
 
   export interface VariantManagement$InitializedEventParameters {}
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VariantManagement$InitializedEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VariantManagementInitializedEventParameters = VariantManagement$InitializedEventParameters;
-
-  export type VariantManagement$InitializedEvent = Event<VariantManagement$InitializedEventParameters>;
+  export type VariantManagement$InitializedEvent = Event<
+    VariantManagement$InitializedEventParameters,
+    VariantManagement
+  >;
 
   export interface VariantManagement$ManageEventParameters {
     /**
@@ -1255,13 +1214,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     def?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VariantManagement$ManageEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VariantManagementManageEventParameters = VariantManagement$ManageEventParameters;
-
-  export type VariantManagement$ManageEvent = Event<VariantManagement$ManageEventParameters>;
+  export type VariantManagement$ManageEvent = Event<
+    VariantManagement$ManageEventParameters,
+    VariantManagement
+  >;
 
   export interface VariantManagement$SaveEventParameters {
     /**
@@ -1302,13 +1258,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     tile?: boolean;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VariantManagement$SaveEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VariantManagementSaveEventParameters = VariantManagement$SaveEventParameters;
-
-  export type VariantManagement$SaveEvent = Event<VariantManagement$SaveEventParameters>;
+  export type VariantManagement$SaveEvent = Event<
+    VariantManagement$SaveEventParameters,
+    VariantManagement
+  >;
 
   export interface VariantManagement$SelectEventParameters {
     /**
@@ -1317,13 +1270,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     key?: string;
   }
 
-  /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'VariantManagement$SelectEventParameters'
-   * in 1.115.1 and any later releases.
-   */
-  export type $VariantManagementSelectEventParameters = VariantManagement$SelectEventParameters;
-
-  export type VariantManagement$SelectEvent = Event<VariantManagement$SelectEventParameters>;
+  export type VariantManagement$SelectEvent = Event<
+    VariantManagement$SelectEventParameters,
+    VariantManagement
+  >;
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant" {

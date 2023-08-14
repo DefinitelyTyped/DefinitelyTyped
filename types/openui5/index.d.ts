@@ -1,4 +1,4 @@
-// Type definitions for OpenUI5 1.115
+// Type definitions for OpenUI5 1.117
 // Project: https://github.com/SAP/openui5
 // Definitions by: OpenUI5 Bot <https://github.com/openui5bot>
 //                 Peter Muessig <https://github.com/petermuessig>
@@ -12,13 +12,7 @@
  */
 
 /**
- * This is a Beta version of the OpenUI5 TypeScript signatures.
- * Significant changes may occur in future versions,
- * including potential breaking changes.
- */
-
-/**
- * For further important notes, please read README.md!
+ * For important notes, please read README.md!
  *
  * These *.d.ts files are generated. In case of issues, either the generator or the JSDoc in the original
  * OpenUI5 repository must be fixed. While the latest version of the generator is not yet available at

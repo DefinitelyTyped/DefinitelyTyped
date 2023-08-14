@@ -1,7 +1,7 @@
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStandardMaterial';
-import { Color } from './../math/Color';
+import { Texture } from './../textures/Texture.js';
+import { Vector2 } from './../math/Vector2.js';
+import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStandardMaterial.js';
+import { Color } from './../math/Color.js';
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
     clearcoat?: number | undefined;
