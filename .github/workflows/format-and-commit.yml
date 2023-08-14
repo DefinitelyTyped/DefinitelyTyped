@@ -31,8 +31,7 @@ jobs:
     - run: npx dprint fmt
     - uses: stefanzweifel/git-auto-commit-action@v4.16.0
       with:
-        # TODO: What to use for these?
-        commit_author: TypeScript Bot <actions@github.com>
+        commit_author: "TypeScript Bot <actions@github.com>"
         commit_message: "chore: npx dprint fmt"
-        commit_user_email: typescript-bot@microsoft.com
-        commit_user_name: "typescript-bot"
+        commit_user_email: "typescriptbot@microsoft.com"
+        commit_user_name: "TypeScript Bot"
