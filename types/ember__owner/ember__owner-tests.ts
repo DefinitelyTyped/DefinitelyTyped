@@ -1,4 +1,6 @@
-import Owner, { Factory, FactoryManager, FullName, RegisterOptions, KnownForTypeResult, Resolver } from '@ember/owner';
+import ApplicationInstance from '@ember/application/instance';
+import EngineInstance from '@ember/engine/instance';
+import Owner, { Factory, FactoryManager, FullName, RegisterOptions, KnownForTypeResult, Resolver, getOwner, setOwner } from '@ember/owner';
 
 // Just a class we can construct in the Factory and FactoryManager tests
 declare class ConstructThis {
@@ -152,3 +154,28 @@ const pojoFactory: Factory<typeof Creatable> = {
 };
 
 pojoFactory.create(); // $ExpectType { hasProps: boolean; }
+
+// ----- getOwner ----- //
+
+// @ts-expect-error
+getOwner();
+
+// $ExpectType Owner | undefined
+getOwner({});
+
+// ----- setOwner ----- //
+
+// @ts-expect-error
+setOwner();
+
+// @ts-expect-error
+setOwner({});
+
+declare let baseOwner: Owner;
+setOwner({}, baseOwner); // $ExpectType void
+
+declare let engine: EngineInstance;
+setOwner({}, engine); // $ExpectType void
+
+declare let application: ApplicationInstance;
+setOwner({}, application); // $ExpectType void
