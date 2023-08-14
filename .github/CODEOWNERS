@@ -538,6 +538,7 @@
 /types/bezier-js/                                         @danmarshall @Epskampie
 /types/bgiframe/                                          @sumegizoltan
 /types/bible-reference-formatter/                         @MauricioRobayo
+/types/bicubic-interpolate/                               @BrUSomania
 /types/bidi-css-js/                                       @juhg
 /types/bidirectional-map/                                 @helenanderson
 /types/big-json/                                          @PCOffline
@@ -653,7 +654,7 @@
 /types/braces/                                            @vemoo @mrmlnc @rejunp
 /types/brainhubeu__react-carousel/                        @jackall3n @sinchang @roberthebel
 /types/braintree/                                         @smrubin @acdr @sedenardi
-/types/braintree-web/                                     @jbuckner
+/types/braintree-web/                                     @jbuckner @daelmaak
 /types/braintree-web-drop-in/                             @saoudrizwan @elmikosch
 /types/bramus__pagination-sequence/                       @kristjanjokull
 /types/branca/                                            @BrettIRL
@@ -1911,7 +1912,8 @@
 /types/espruino/                                          @stasberkov @createdbyjurand
 /types/esquery/                                           @cherryblossom000 @bradzacher @brettz9
 /types/esrever/                                           @DefinitelyTyped
-/types/esri-leaflet/                                      @strajuser
+/types/esri-leaflet/                                      @strajuser @murphyryan1
+/types/esri-leaflet/v2/                                   @strajuser
 /types/esri-leaflet-geocoder/                             @BendingBender
 /types/estimate/                                          @goblindegook
 /types/estimated-read-time/                               @stepanzin
@@ -2211,7 +2213,7 @@
 /types/flexmonster/                                       @Uaman @iansadovy @flexmonsterowner @flexmonsterteam @irakulchytska
 /types/flexsearch/                                        @Losses
 /types/flexslider/                                        @diullei @martin-badin
-/types/flickity/                                          @clmcgrath @wagich @aheber @PabloDiablo @Dashiing
+/types/flickity/                                          @clmcgrath @wagich @aheber @PabloDiablo @Dashiing @rdennis
 /types/flight/                                            @DefinitelyTyped
 /types/flightplan/                                        @borislavjivkov
 /types/flipsnap/                                          @kubosho @gsino @mayuki
@@ -3386,6 +3388,7 @@
 /types/icss-utils/                                        @bmatcuk
 /types/identicon.js/                                      @D0miH
 /types/identifiers-arxiv/                                 @thewilkybarkid
+/types/identity-obj-proxy/                                @remcohaszing
 /types/idle-js/                                           @jpeirson
 /types/idyll/                                             @iocat
 /types/idyll-ast/                                         @iocat
@@ -3897,6 +3900,7 @@
 /types/json-form-data/                                    @superhawk610 @ksocha @Borzik
 /types/json-js/                                           @NN---
 /types/json-logic-js/                                     @Trevan @jakeboone02
+/types/json-mask/                                         @simondean
 /types/json-merge-patch/                                  @jimmy-leung-coherent
 /types/json-parse-better-errors/                          @DanielRosenwasser
 /types/json-parse-helpfulerror/                           @peterblazejewicz
@@ -4225,6 +4229,7 @@
 /types/lambda-tester/                                     @ivank @HajoAhoMantila @msuntharesan
 /types/lambda-wrapper/                                    @Gaelan
 /types/lang.js/                                           @LiquidPL
+/types/langdetect/                                        @SaidTorres3
 /types/langmap/                                           @grabofus @remcohaszing
 /types/langs/                                             @orgads
 /types/language-name-map/                                 @CreatorX64
@@ -6367,6 +6372,7 @@
 /types/react-csv/                                         @vincentjames501
 /types/react-currency-format/                             @guilhermefront
 /types/react-currency-formatter/                          @pastushenkoy @Jeka-Vasiliev
+/types/react-curved-text/                                 @gausie
 /types/react-custom-scroll/                               @rommguy @rvdende
 /types/react-custom-scrollbars/                           @kittimiyo
 /types/react-custom-scrollbars/v3/                        @DefinitelyTyped
@@ -7614,6 +7620,7 @@
 /types/snowpack-env/                                      @FredKSchott @stramel @drwpow @Jack-Works
 /types/sns-validator/                                     @kevin68
 /types/sntp/                                              @DefinitelyTyped
+/types/snuownd/                                           @eritbh
 /types/social-logos/                                      @tdukart
 /types/socket.io-file/                                    @DefinitelyTyped
 /types/socket.io-p2p/                                     @saenglert
