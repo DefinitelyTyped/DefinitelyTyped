@@ -1,4 +1,4 @@
-// Type definitions for dygraphs 2.1
+// Type definitions for dygraphs 2.2.1
 // Project: http://dygraphs.com
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 //                 Martin Badin <https://github.com/martin-badin>
@@ -422,6 +422,10 @@ export namespace dygraphs {
          * Dygraph object for this graph
          */
         dygraph: Dygraph;
+        /**
+         * Selected row index
+         */
+        i: number
     }
 
     interface Options extends PerSeriesOptions, PerAxisOptions {
