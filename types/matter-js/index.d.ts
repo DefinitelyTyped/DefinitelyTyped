@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.18
+// Type definitions for Matter.js - 0.19
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
 //                 David Asmuth <https://github.com/piranha771>
@@ -647,12 +647,64 @@ declare namespace Matter {
          */
         static setVelocity(body: Body, velocity: Vector): void;
         /**
+         * Gets the current linear velocity of the body.
+         * @method getVelocity
+         * @param {body} body
+         * @return {vector} velocity
+         */
+        static getVelocity(body: Body): Vector;
+        /**
          * Sets the angular velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setAngularVelocity
          * @param {Body} body
          * @param {number} velocity
          */
         static setAngularVelocity(body: Body, velocity: number): void;
+        /**
+         * Gets the current rotational velocity of the body.
+         * @method getAngularVelocity
+         * @param {body} body
+         * @return {number} angular velocity
+         */
+        static getAngularVelocity(body: Body): number
+        /**
+         * Sets the current rotational speed of the body.
+         * Direction is maintained. Affects body angular velocity.
+         * @method setAngularSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setAngularSpeed(body: Body, speed: number): void;
+        /**
+         * Gets the current rotational speed of the body.
+         * Equivalent to the magnitude of its angular velocity.
+         * @method getAngularSpeed
+         * @param {body} body
+         * @return {number} angular speed
+         */
+        static getAngularSpeed(body: Body): number;
+        /**
+         * Updates properties `body.velocity`, `body.speed`, `body.angularVelocity` and `body.angularSpeed` which are normalised in relation to `Body._baseDelta`.
+         * @method updateVelocities
+         * @param {body} body
+         */
+        static updateVelocities(body: Body): void;
+        /**
+         * Gets the current linear speed of the body.
+         * Equivalent to the magnitude of its velocity.
+         * @method getSpeed
+         * @param {body} body
+         * @return {number} speed
+         */
+        static getSpeed(body: Body): number;
+        /**
+         * Sets the current linear speed of the body.
+         * Direction is maintained. Affects body velocity.
+         * @method setSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setSpeed(body: Body, speed: number): void;
 
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.

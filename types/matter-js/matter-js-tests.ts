@@ -66,6 +66,15 @@ const vertex: Matter.Vertex = {
     body: body,
     isInternal: false,
 };
+
+Body.setSpeed(box1, 1);
+// $ExpectType number
+Body.getSpeed(box1);
+
+Body.setAngularSpeed(box1, 1);
+// $ExpectType number
+Body.getAngularSpeed(box1);
+
 // $ExpectType Body
 Bodies.fromVertices(1, 2, [[vertex, { x: 3, y: 4 }]]);
 
