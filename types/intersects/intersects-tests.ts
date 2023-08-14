@@ -1,6 +1,6 @@
 import { polygonBox, pointLine, circleEllipse } from 'intersects';
 import * as box from 'intersects/box';
-import lineToPolygon from 'intersects/lineToPolygon';
+import circleOutlineCircle from 'intersects/circleOutline-circle';
 
 const res = polygonBox([2, 0, 4, 2, 0, 2], 1, 1, 2, 2);
 if (res) {
@@ -15,6 +15,8 @@ if (box.point(1, 2, 3, 4, 5, 6)) {
     // do something else
 }
 
-const isGood = circleEllipse(0, 6, 9, 2, 4, 5, 1) ? 'yes' : 'no';
+if (circleOutlineCircle(1, 2, 3, 4, 5, 6, 7)) {
+    // do something
+}
 
-const polygon = lineToPolygon(1, 2, 3, 4, 5);
+const isGood = circleEllipse(0, 6, 9, 2, 4, 5, 1) ? 'yes' : 'no';
