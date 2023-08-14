@@ -26,6 +26,11 @@ interface NormalizeOptions {
      * will be added to this array.
      */
     changes: any[];
+
+    /**
+     * Allow package names to not be lowercase.
+     */
+    allowLegacyCase?: boolean;
 }
 
 declare class NPMCliPackageJson {
@@ -50,7 +55,7 @@ declare class NPMCliPackageJson {
      * @async
      */
     static load: (
-        path?: string,
+        path: string,
         opts?: {
             /**
              * If true, a new package.json will be created if one does not already
@@ -66,7 +71,7 @@ declare class NPMCliPackageJson {
      *
      * @async
      */
-    static fix: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
+    static fix: (path: string, opts?: Omit<NormalizeOptions, 'steps'>) => Promise<NPMCliPackageJson>;
 
     /**
      * read-package-json compatible behavior
@@ -117,7 +122,7 @@ declare class NPMCliPackageJson {
     prepare: (opts?: NormalizeOptions) => Promise<this>;
 
     /** @async */
-    fix: (opts?: NormalizeOptions) => Promise<this>;
+    fix: (opts?: Omit<NormalizeOptions, 'steps'>) => Promise<this>;
 }
 
 declare namespace NPMCliPackageJson {
