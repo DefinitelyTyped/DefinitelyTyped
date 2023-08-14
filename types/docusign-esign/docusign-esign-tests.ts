@@ -104,25 +104,32 @@ const getDocument = async (envelopeId: string, documentId: string, options: docu
 };
 
 const callback = (error: any, data: any, response: any) => {
-    let docusignHeaderData: { docusign_esign_url?: string, hourly_rate_limit?: string, hourly_rate_limit_remaining?: string, date?: string, burst_limit?: string, burst_limit_remaining?: string };
+    let docusignHeaderData: {
+        docusign_esign_url?: string;
+        hourly_rate_limit?: string;
+        hourly_rate_limit_remaining?: string;
+        date?: string;
+        burst_limit?: string;
+        burst_limit_remaining?: string;
+    };
     if (error !== null) {
         docusignHeaderData = {
-            hourly_rate_limit: error.response?.header["x-ratelimit-limit"],
-            hourly_rate_limit_remaining: error.response?.header["x-ratelimit-remaining"],
+            hourly_rate_limit: error.response?.header['x-ratelimit-limit'],
+            hourly_rate_limit_remaining: error.response?.header['x-ratelimit-remaining'],
             date: error.response?.header.date,
-            burst_limit: error.response?.header["x-burstlimit-limit"],
-            burst_limit_remaining: error.response?.header["x-burstlimit-remaining"]
+            burst_limit: error.response?.header['x-burstlimit-limit'],
+            burst_limit_remaining: error.response?.header['x-burstlimit-remaining'],
         };
         console.log(docusignHeaderData);
         rejects(error);
     } else {
         docusignHeaderData = {
             docusign_esign_url: response.request.url,
-            hourly_rate_limit: response.header["x-ratelimit-limit"],
-            hourly_rate_limit_remaining: response.header["x-ratelimit-remaining"],
+            hourly_rate_limit: response.header['x-ratelimit-limit'],
+            hourly_rate_limit_remaining: response.header['x-ratelimit-remaining'],
             date: response.header.date,
-            burst_limit: response.header["x-burstlimit-limit"],
-            burst_limit_remaining: response.header["x-burstlimit-remaining"]
+            burst_limit: response.header['x-burstlimit-limit'],
+            burst_limit_remaining: response.header['x-burstlimit-remaining'],
         };
         console.log(docusignHeaderData);
         resolve(data);
