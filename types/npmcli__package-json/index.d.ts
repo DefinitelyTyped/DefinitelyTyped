@@ -1,17 +1,132 @@
-// Type definitions for @npmcli/package-json 2.0
+// Type definitions for @npmcli/package-json 4.0
 // Project: https://github.com/npm/package-json
 // Definitions by: Michaël De Boey <https://github.com/MichaelDeBoey>
+//                 Stephen Wade <https://github.com/stephenwade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class NPMCliPackageJson {
-    constructor(path: string);
+interface NormalizeOptions {
+    /**
+     * Enables optional strict mode when applying the normalizeData step.
+     */
+    strict?: boolean;
 
-    /** @async */
-    static load: (path?: string) => Promise<NPMCliPackageJson>;
-    save: () => Promise<void>;
-    update: (content: NPMCliPackageJson.Content) => void;
+    /**
+     * Optional normalization steps that will be applied to the package.json
+     * file, replacing the default steps.
+     */
+    steps?: string[];
+
+    /**
+     * Optional git root to provide when applying the gitHead step.
+     */
+    root?: string;
+
+    /**
+     * If provided, a message about each change that was made to the packument
+     * will be added to this array.
+     */
+    changes?: string[];
+
+    /**
+     * Allow package names to not be lowercase.
+     */
+    allowLegacyCase?: boolean;
+}
+
+declare class NPMCliPackageJson {
+    static normalizeSteps: readonly string[];
+    static fixSteps: readonly string[];
+    static prepareSteps: readonly string[];
+
+    constructor();
+
+    /**
+     * Create a new empty package.json, so we can save at the given path even
+     * though we didn't start from a parsed file.
+     *
+     * @async
+     */
+    static create: (
+        path: string,
+        opts?: {
+            data?: NPMCliPackageJson.Content;
+        },
+    ) => Promise<NPMCliPackageJson>;
+
+    /**
+     * Load a package.json at given path and JSON parses.
+     *
+     * @async
+     */
+    static load: (
+        path: string,
+        opts?: {
+            /**
+             * If true, a new package.json will be created if one does not already
+             * exist. Will not clobber an existing package.json that cannot be
+             * parsed.
+             */
+            create?: boolean;
+        },
+    ) => Promise<NPMCliPackageJson>;
+
+    /**
+     * npm pkg fix
+     *
+     * @async
+     */
+    static fix: (path: string, opts?: Omit<NormalizeOptions, 'steps'>) => Promise<NPMCliPackageJson>;
+
+    /**
+     * read-package-json compatible behavior
+     *
+     * @async
+     */
+    static prepare: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
+
+    /**
+     * read-package-json-fast compatible behavior
+     *
+     * @async
+     */
+    static normalize: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
+
+    /**
+     * Load content from given path
+     *
+     * @async
+     */
+    load: (path: string, parseIndex?: boolean) => Promise<this>;
+
+    /**
+     * Load data from a JSON string
+     */
+    fromJSON: (data: string) => this;
+
+    /**
+     * Load data from a comment
+     */
+    fromComment: (data: string) => this;
 
     content: NPMCliPackageJson.Content;
+    path: string;
+    filename: string | undefined;
+
+    create: (path: string) => this;
+
+    update: (content: NPMCliPackageJson.Content) => this;
+
+    /** @async */
+    save: () => Promise<void>;
+
+    /** @async */
+    normalize: (opts?: NormalizeOptions) => Promise<this>;
+
+    /** @async */
+    prepare: (opts?: NormalizeOptions) => Promise<this>;
+
+    /** @async */
+    fix: (opts?: Omit<NormalizeOptions, 'steps'>) => Promise<this>;
 }
 
 declare namespace NPMCliPackageJson {
