@@ -177,6 +177,8 @@ export interface FreeDrawOptions {
 export interface MarkerEvent extends LeafletEvent {
     type: 'markers';
 
+    eventType: 'create' | 'remove' | 'clear';
+
     /**
      * Polygons currently stored in the FreeDraw Instance being listened to
      */
