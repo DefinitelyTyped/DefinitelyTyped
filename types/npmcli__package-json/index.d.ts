@@ -14,7 +14,7 @@ interface NormalizeOptions {
      * Optional normalization steps that will be applied to the package.json
      * file, replacing the default steps.
      */
-    steps?: any[];
+    steps?: string[];
 
     /**
      * Optional git root to provide when applying the gitHead step.
@@ -25,7 +25,7 @@ interface NormalizeOptions {
      * If provided, a message about each change that was made to the packument
      * will be added to this array.
      */
-    changes?: any[];
+    changes?: string[];
 
     /**
      * Allow package names to not be lowercase.
