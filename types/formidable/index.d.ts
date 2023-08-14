@@ -185,6 +185,13 @@ declare namespace formidable {
         multiples?: boolean | undefined;
 
         /**
+         * If true, makes direct folder uploads possible.
+         *
+         * @default false
+         */
+        createDirsFromUploads?: boolean | undefined;
+
+        /**
          * Use it to control newFilename. Must return a string. Will be joined with
          * options.uploadDir.
          *
@@ -198,10 +205,10 @@ declare namespace formidable {
     }
 
     interface Fields {
-        [field: string]: string | string[];
+        [field: string]: string[];
     }
     interface Files {
-        [file: string]: File | File[];
+        [file: string]: File[];
     }
 
     interface Part extends Stream {

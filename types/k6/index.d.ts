@@ -95,6 +95,15 @@ export function fail(err?: string): never;
 export function group<RT>(name: string, fn: () => RT): RT;
 
 /**
+ * Set seed to get a reproducible pseudo-random number using Math.random.
+ * https://k6.io/docs/javascript-api/k6/randomseed/
+ * @param int - The seed value.
+ * @example
+ * randomSeed(123456789);
+ */
+export function randomseed(int: number): void;
+
+/**
  * Suspend VU execution for the specified duration.
  * https://k6.io/docs/javascript-api/k6/sleep-t/
  * @param t - Duration, in seconds.

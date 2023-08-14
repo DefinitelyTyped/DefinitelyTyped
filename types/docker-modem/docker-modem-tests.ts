@@ -61,10 +61,10 @@ modem.dial({ path: '/path', abortSignal: abortController.signal }, (err, result)
     // NOOP;
 });
 
-modem.demuxStream(new Stream(), process.stdout, process.stderr);
+modem.demuxStream(new Stream.Readable(), process.stdout, process.stderr);
 
 modem.followProgress(
-    new Stream(),
+    new Stream.Readable(),
     (error, result) => {
         // NOOP;
     },

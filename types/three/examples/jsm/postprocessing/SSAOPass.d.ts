@@ -49,7 +49,7 @@ export class SSAOPass extends Pass {
     fsQuad: FullScreenQuad;
     originalClearColor: Color;
 
-    static OUTPUT: SSAOPassOUTPUT;
+    static OUTPUT: typeof SSAOPassOUTPUT;
 
     dipose(): void;
     generateSampleKernel(): Vector3[];

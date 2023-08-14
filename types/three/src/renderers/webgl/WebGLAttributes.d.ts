@@ -6,12 +6,14 @@ import { GLBufferAttribute } from '../../core/GLBufferAttribute.js';
 export class WebGLAttributes {
     constructor(gl: WebGLRenderingContext | WebGL2RenderingContext, capabilities: WebGLCapabilities);
 
-    get(attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute): {
-        buffer: WebGLBuffer;
-        type: number;
-        bytesPerElement: number;
-        version: number;
-    };
+    get(attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute):
+        | {
+              buffer: WebGLBuffer;
+              type: number;
+              bytesPerElement: number;
+              version: number;
+          }
+        | undefined;
 
     remove(attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute): void;
 

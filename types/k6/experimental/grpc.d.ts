@@ -81,22 +81,21 @@ declare namespace grpc {
      * StreamEvent describes the possible events that can be emitted
      * by a gRPC stream.
      */
-    enum StreamEvent {
+    type StreamEvent =
         /**
          * Event fired when data has been received from the server.
          */
-        Data = 'data',
+        | 'data'
 
         /**
          * Event fired when a stream has been closed due to an error.
          */
-        Error = 'error',
+        | 'error'
 
         /**
          * Event fired when the stream closes.
          */
-        End = 'end',
-    }
+        | 'end';
 
     /**
      * Stream allows you to use streaming RPCs.
