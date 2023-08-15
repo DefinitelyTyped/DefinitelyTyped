@@ -679,11 +679,11 @@ declare module 'node-forge' {
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 
-        function privateKeyFromAsn1(privateKey: asn1.Asn1): PrivateKey;
+        function privateKeyFromAsn1(privateKey: asn1.Asn1): rsa.PrivateKey;
 
         function privateKeyToAsn1(privateKey: PrivateKey): asn1.Asn1;
 
-        function publicKeyFromAsn1(publicKey: asn1.Asn1): PublicKey;
+        function publicKeyFromAsn1(publicKey: asn1.Asn1): rsa.PublicKey;
 
         function publicKeyToAsn1(publicKey: PublicKey): asn1.Asn1;
 

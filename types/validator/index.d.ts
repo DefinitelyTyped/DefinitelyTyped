@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.7
+// Type definitions for validator.js 13.11
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -22,6 +22,7 @@ import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
 import * as _isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import * as _isISO4217 from './lib/isISO4217';
+import * as _isISO6391 from './lib/isISO6391';
 import * as _isURL from './lib/isURL';
 import * as _isTaxID from './lib/isTaxID';
 
@@ -437,6 +438,13 @@ declare namespace validator {
     type IsEmailOptions = _isEmail.IsEmailOptions;
     const isEmail: typeof _isEmail.default;
 
+    /**
+     *  check if the string is a [Magnet URI format][Mailto URI Format].<br/><br/>`options` is an object of validating emails inside the URI (check `isEmail`s options for details).
+     * @param str
+     * @param [options]
+     */
+    function isMailtoURI(str: string, options?: IsEmailOptions): boolean;
+
     interface IsEmptyOptions {
         /**
          * @default false
@@ -695,6 +703,22 @@ declare namespace validator {
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
      */
     function isISO31661Alpha3(str: string): boolean;
+
+    /**
+     * check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
+     * @param str
+     */
+    function isISO6346(str: string): boolean;
+
+    /**
+     * alias for `isISO6346`, check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
+     */
+    const isFreightContainerID: typeof isISO6346;
+
+    /**
+     * Check if the string is a valid [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) officially assigned language code.
+     */
+    const isISO6391: typeof _isISO6391.default;
 
     interface IsISO8601Options {
         /**
