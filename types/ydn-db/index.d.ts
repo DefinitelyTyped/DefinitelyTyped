@@ -67,11 +67,11 @@ interface FullTextSource {
     }
 
     export class KeyRange {
-      constructor(lower?: any | undefined, upper?: any | undefined, lowerOpen?: boolean | undefined, upperOpen?: boolean | undefined)
+      constructor(lower?: any, upper?: any, lowerOpen?: boolean, upperOpen?: boolean)
 
-      static bound(lower?: any | undefined, upper?: any | undefined, lowerOpen?: boolean | undefined, upperOpen?: boolean | undefined): KeyRange;
-      static lowerBound(lower: any, lowerOpen?: boolean | undefined): KeyRange;
-      static upperBound(upper: any, upperOpen?: boolean | undefined): KeyRange;
+      static bound(lower?: any, upper?: any, lowerOpen?: boolean, upperOpen?: boolean): KeyRange;
+      static lowerBound(lower: any, lowerOpen?: boolean): KeyRange;
+      static upperBound(upper: any, upperOpen?: boolean): KeyRange;
       static only(value: any): KeyRange;
       static starts(value: any): KeyRange;
 
