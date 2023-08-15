@@ -5887,6 +5887,10 @@
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
         },
+        "testing-library__jest-dom": {
+            "libraryName": "@testing-library/jest-dom",
+            "asOfVersion": "6.0.0"
+        },
         "testing-library__react": {
             "libraryName": "@testing-library/react",
             "asOfVersion": "10.2.0"
