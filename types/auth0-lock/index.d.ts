@@ -166,6 +166,7 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small" | undefined;
     theme?: Auth0LockThemeOptions | undefined;
     usernameStyle?: string | undefined;
+    signUpFieldsStrictValidation?: boolean | undefined;
     _enableImpersonation?: boolean | undefined;
     _enableIdPInitiatedLogin?: boolean | undefined;
 }
