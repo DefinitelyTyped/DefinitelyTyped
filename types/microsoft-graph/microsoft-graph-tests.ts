@@ -474,3 +474,5 @@ const kubernetesServiceAccountEvidence: MicrosoftGraph.SecurityNamespace.Kuberne
 const kubernetesSecretEvidence: MicrosoftGraph.SecurityNamespace.KubernetesSecretEvidence = {};
 const kubernetesServiceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceEvidence = {};
 const kubernetesServicePort: MicrosoftGraph.SecurityNamespace.KubernetesServicePort = {};
+
+const customSecurityAttributeValue: MicrosoftGraph.CustomSecurityAttributeValue = {};
