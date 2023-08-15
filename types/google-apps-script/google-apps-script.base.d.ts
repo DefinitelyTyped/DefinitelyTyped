@@ -22,13 +22,13 @@ declare namespace GoogleAppsScript {
       copyBlob(): Blob;
       getAs(contentType: string): Blob;
       getBytes(): Byte[];
-      getContentType(): string;
+      getContentType(): string | null;
       getDataAsString(): string;
       getDataAsString(charset: string): string;
       getName(): string | null;
       isGoogleType(): boolean;
       setBytes(data: Byte[]): Blob;
-      setContentType(contentType: string): Blob;
+      setContentType(contentType: string | null): Blob;
       setContentTypeFromExtension(): Blob;
       setDataFromString(string: string): Blob;
       setDataFromString(string: string, charset: string): Blob;
