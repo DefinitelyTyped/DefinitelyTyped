@@ -1130,9 +1130,9 @@ async () => {
 
 async function signupTest(): Promise<void> {
     const signupResult = await authentication.database.signUp({ email: 'email', password: 'password' });
-    signupResult._id; // $ExpectType string
-    signupResult.email; // $ExpectType string
-    signupResult.email_verified; // $ExpectType boolean
+    signupResult._id; // $ExpectType string | undefined
+    signupResult.email; // $ExpectType string | undefined
+    signupResult.email_verified; // $ExpectType boolean | undefined
 
     authentication.database.signUp({ email: 'email', password: 'password' }, (err, data) => {
         err; // $ExpectType Error
@@ -1284,14 +1284,21 @@ management.organizations.getByName({ name: '' }).then((organization: auth0.Organ
 /**
  * Create an Organization using a callback
  */
-management.organizations.create({
-    name: 'test_organization', display_name: 'Test Organization', enabled_connections: [{
-        connection_id: 'connection-id',
-        assign_membership_on_login: true,
-    }]
-}, (err, organization: auth0.Organization) => {
-    console.log({ organization });
-});
+management.organizations.create(
+    {
+        name: 'test_organization',
+        display_name: 'Test Organization',
+        enabled_connections: [
+            {
+                connection_id: 'connection-id',
+                assign_membership_on_login: true,
+            },
+        ],
+    },
+    (err, organization: auth0.Organization) => {
+        console.log({ organization });
+    },
+);
 
 /**
  * Create an Organization returning a Promise
