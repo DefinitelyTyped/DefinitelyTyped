@@ -15,7 +15,7 @@ declare namespace TurnTo {
 
     interface EventHandlerConfig {
         onInstantAnswerClick?: () => void;
-        onQuestionSubmit?: (evt: any) => void; // You can replace 'any' with a more specific type if you know the structure of evt
+        onQuestionSubmit?: (evt: any) => void;
         onAnswerSubmit?: (evt: any) => void;
         onReviewSubmit?: (evt: any) => void;
         onCommentSubmit?: (evt: any) => void;
