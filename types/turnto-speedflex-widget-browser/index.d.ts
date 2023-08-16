@@ -1,10 +1,10 @@
-// Type definitions for TurnTo SpeedFlex Widget
+// Type definitions for turnto-speedflex-widget-browser 5.0
 // Project: https://docs.turnto.com/en/speedflex-widget-implementation.html
 // Definitions by: Obie Munoz <https://github.com/obiemunoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TurnTo {
-    type InitializeCommand = ['initialize'];
+    type InitializeCommand = Array<'initialize'>;
     type SetCommand = ['set', { sku: string }];
     type Commands = InitializeCommand | SetCommand;
 
