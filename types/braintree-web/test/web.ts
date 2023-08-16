@@ -349,6 +349,11 @@ braintree.client.create(
                         }
                     },
                 );
+
+                hostedFieldsInstance.setMessage({
+                    field: 'number',
+                    message: 'The message'
+                });
             },
         );
 

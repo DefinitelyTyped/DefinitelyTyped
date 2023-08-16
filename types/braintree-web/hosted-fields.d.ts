@@ -196,6 +196,14 @@ export interface HostedFieldAttributeOptions {
     value?: string | boolean;
 }
 
+/**
+ * @description Fields used in setMessage() for modifying a HostedFields instance's visually hidden message.
+ */
+export interface HostedFieldMessageOptions {
+    field: HostedFieldsHostedFieldsFieldName;
+    message: string;
+}
+
 export interface HostedFields {
     /**
      * An object that represents CSS that will be applied in each hosted field. This object looks similar to CSS.
@@ -437,6 +445,28 @@ export interface HostedFields {
      * @returns Returns a promise if no callback is provided.
      */
     removeAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+
+    /**
+     * Sets a visually hidden message (for screen readers) on a {@link module:braintree-web/hosted-fields~field field}.
+     *
+     * @param options The options for the attribute you wish to set.
+     * @param options.field The field to which you wish to add an attribute. Must be a valid {@link module:braintree-web/hosted-fields~fieldOptions fieldOption}.
+     * @param options.message The value for the attributeThe message to set.
+     *
+     * @example <caption>Set an error message on a field</caption>
+     * hostedFieldsInstance.setMessage({
+     *   field: 'number',
+     *   message: 'Invalid card number'
+     * });
+     *
+     * @example <caption>Remove the message on a field</caption>
+     * hostedFieldsInstance.setMessage({
+     *   field: 'number',
+     *   message: ''
+     * });
+     *
+     */
+    setMessage(options: HostedFieldMessageOptions): void;
 }
 
 /**
