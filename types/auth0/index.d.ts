@@ -1161,7 +1161,7 @@ export class AuthenticationClient {
     oauth: OAuthAuthenticator;
     passwordless: PasswordlessAuthenticator;
     tokens: TokensManager;
-    users: UsersManager ;
+    users: UsersManager;
 
     constructor(options: AuthenticationClientOptions);
     getClientInfo(): ClientInfo;
