@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "turnto-tests.ts"
+        "turnto-speedflex-widget-browser-tests.ts"
     ]
 }
