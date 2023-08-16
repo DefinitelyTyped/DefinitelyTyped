@@ -1157,11 +1157,11 @@ export interface GrantResponse {
 
 export class AuthenticationClient {
     // Members
-    database?: DatabaseAuthenticator | undefined;
-    oauth?: OAuthAuthenticator | undefined;
-    passwordless?: PasswordlessAuthenticator | undefined;
-    tokens?: TokensManager | undefined;
-    users?: UsersManager | undefined;
+    database: DatabaseAuthenticator;
+    oauth: OAuthAuthenticator;
+    passwordless: PasswordlessAuthenticator;
+    tokens: TokensManager;
+    users: UsersManager ;
 
     constructor(options: AuthenticationClientOptions);
     getClientInfo(): ClientInfo;
