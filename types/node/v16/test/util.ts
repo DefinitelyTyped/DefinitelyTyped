@@ -150,6 +150,10 @@ const td = new util.TextDecoder();
 new util.TextDecoder("utf-8");
 new util.TextDecoder("utf-8", { fatal: true });
 new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+
+// Test global alias
+const td2 = new TextDecoder();
+
 const ignoreBom: boolean = td.ignoreBOM;
 const fatal: boolean = td.fatal;
 const encoding: string = td.encoding;
@@ -173,6 +177,9 @@ const decode: string = td.decode(new Int8Array(1));
 const te = new util.TextEncoder();
 const teEncoding: string = te.encoding;
 const teEncodeRes: Uint8Array = te.encode("TextEncoder");
+
+// Test global alias
+const te2 = new TextEncoder();
 
 const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 
