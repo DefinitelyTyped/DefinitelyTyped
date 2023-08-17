@@ -317,6 +317,10 @@ export interface Client {
     initiate_login_uri?: string | undefined;
 }
 
+export interface ClientsPaged extends Omit<Page, 'length'> {
+    clients: Client[];
+}
+
 export interface ResourceServer {
     /**
      * The identifier of the resource server.
@@ -1569,11 +1573,11 @@ export interface UsersLogsQuery {
 interface LogStreamBase {
     id: string;
     name: string;
-    status: "active" | "paused" | "suspended";
+    status: 'active' | 'paused' | 'suspended';
 }
 
 interface DatadogLogStream extends LogStreamBase {
-    type: "datadog";
+    type: 'datadog';
     sink: {
         datadogRegion: string;
         datadogApiKey: string;
@@ -1581,7 +1585,7 @@ interface DatadogLogStream extends LogStreamBase {
 }
 
 interface EventBridgeLogStream extends LogStreamBase {
-    type: "eventbridge";
+    type: 'eventbridge';
     sink: {
         awsAccountId: string;
         awsRegion: string;
@@ -1590,7 +1594,7 @@ interface EventBridgeLogStream extends LogStreamBase {
 }
 
 interface EventGridLogStream extends LogStreamBase {
-    type: "eventgrid";
+    type: 'eventgrid';
     sink: {
         azureSubscriptionId: string;
         azureResourceGroup: string;
@@ -1600,9 +1604,9 @@ interface EventGridLogStream extends LogStreamBase {
 }
 
 interface HttpLogStream extends LogStreamBase {
-    type: "http";
+    type: 'http';
     sink: {
-        httpContentFormat: "JSONLINES" | "JSONARRAY";
+        httpContentFormat: 'JSONLINES' | 'JSONARRAY';
         httpContentType: string;
         httpEndpoint: string;
         httpAuthorization: string;
@@ -1610,7 +1614,7 @@ interface HttpLogStream extends LogStreamBase {
 }
 
 interface SplunkLogStream extends LogStreamBase {
-    type: "splunk";
+    type: 'splunk';
     sink: {
         splunkDomain: string;
         splunkToken: string;
@@ -1620,7 +1624,7 @@ interface SplunkLogStream extends LogStreamBase {
 }
 
 interface SumoLogStream extends LogStreamBase {
-    type: "sumo";
+    type: 'sumo';
     sink: {
         sumoSourceAddress: string;
     };
@@ -1868,9 +1872,18 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     updateConnection(params: ObjectWithId, data: UpdateConnection): Promise<Connection>;
 
     // Clients
-    getClients(params?: GetClientsOptions): Promise<Client[]>;
+    getClients(): Promise<Client[]>;
     getClients(cb: (err: Error, clients: Client[]) => void): void;
-    getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void): void;
+    getClients(params: GetClientsOptions & { include_totals?: false }): Promise<Client[]>;
+    getClients(params: GetClientsOptions & { include_totals: true }): Promise<ClientsPaged>;
+    getClients(
+        params: GetClientsOptions & { include_totals?: false },
+        cb: (err: Error, clients: Client[]) => void,
+    ): void;
+    getClients(
+        params: GetClientsOptions & { include_totals: true },
+        cb: (err: Error, pagedClients: ClientsPaged) => void,
+    ): void;
 
     getClient(params: ClientParams): Promise<Client>;
     getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
