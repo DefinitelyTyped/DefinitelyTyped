@@ -1,5 +1,5 @@
 import {
-    performance,
+    performance as NodePerf,
     monitorEventLoopDelay,
     PerformanceObserverCallback,
     PerformanceObserver,
@@ -13,7 +13,8 @@ import {
     NodeGCPerformanceDetail,
 } from 'node:perf_hooks';
 
-performance.mark('start');
+// Test module import once, the rest use global
+NodePerf.mark('start');
 (() => {})();
 performance.mark('end');
 
@@ -85,9 +86,10 @@ const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
 
-const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
-const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+// eventLoopUtilization isn't available in DOM environment, so use the import rather than the global
+const eventLoopUtilization1: EventLoopUtilization = NodePerf.eventLoopUtilization();
+const eventLoopUtilization2: EventLoopUtilization = NodePerf.eventLoopUtilization(eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = NodePerf.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
@@ -106,9 +108,9 @@ performance.clearMarks("test");
 performance.clearMeasures();
 performance.clearMeasures("test");
 
-performance.getEntries(); // $ExpectType PerformanceEntry[]
+performance.getEntries()[0]; // $ExpectType PerformanceEntry
 
-performance.getEntriesByName("test"); // $ExpectType PerformanceEntry[]
-performance.getEntriesByName("test", "mark"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByName("test")[0]; // $ExpectType PerformanceEntry
+performance.getEntriesByName("test", "mark")[0]; // $ExpectType PerformanceEntry
 
-performance.getEntriesByType("mark"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByType("mark")[0]; // $ExpectType PerformanceEntry
