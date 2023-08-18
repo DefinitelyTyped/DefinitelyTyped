@@ -494,6 +494,7 @@ declare namespace jasmine {
 
     interface MatchersUtil {
         equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
+        equals(a: any, b: any, diffBuilder?: DiffBuilder): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
             needle: any,
