@@ -6,15 +6,15 @@
 type ProfilerResource = string;
 
 interface ProfilerEventMap {
-    "samplebufferfull": Event;
+    samplebufferfull: Event;
 }
 
 declare global {
     interface ProfilerTrace {
-        resources: ProfilerResource[]
-        frames: ProfilerFrame[]
-        stacks: ProfilerStack[]
-        samples: ProfilerSample[]
+        resources: ProfilerResource[];
+        frames: ProfilerFrame[];
+        stacks: ProfilerStack[];
+        samples: ProfilerSample[];
     }
 
     interface ProfilerSample {
@@ -54,9 +54,17 @@ declare global {
         stop(): Promise<ProfilerTrace>;
 
         onsamplebufferfull: ((this: Profiler, ev: Event) => any) | null;
-        addEventListener<K extends keyof ProfilerEventMap>(type: K, listener: (this: Profiler, ev: ProfilerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof ProfilerEventMap>(
+            type: K,
+            listener: (this: Profiler, ev: ProfilerEventMap[K]) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
     }
 }
 
-export { };
+export {};
