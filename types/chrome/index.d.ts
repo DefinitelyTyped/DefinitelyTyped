@@ -3807,7 +3807,7 @@ declare namespace chrome.fileSystemProvider {
         mimeType: boolean;
         /** Set to true if `thumbnail` is requested. */
         thumbnail: boolean;
-        /** Set to true if `cloudIdentigfier` is requested. */
+        /** Set to true if `cloudIdentifier` is requested. */
         cloudIdentifier: boolean;
     }
 
