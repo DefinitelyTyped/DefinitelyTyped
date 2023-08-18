@@ -3900,6 +3900,31 @@ declare module 'fs' {
      * @return The number of bytes read.
      */
     export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+
+    export interface OpenAsBlobOptions {
+        /**
+         * An optional mime type for the blob.
+         *
+         * @default 'undefined'
+         */
+        type?: string | undefined;
+    }
+
+    /**
+     * Returns a Blob whose data is backed by the given file.
+     *
+     * The file must not be modified after the `Blob` is created.
+     * Any modifications will cause reading the `Blob` data to fail with a `DOMException` error.
+     * Synchronous stat operations on the file when the `Blob` is created, and before each read in order to detect whether the file data has been modified on disk.
+     *
+     * @param path
+     * @param [options]
+     *
+     * @experimental
+     * @since v19.8.0
+     */
+    export function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
+
     export interface OpenDirOptions {
         /**
          * @default 'utf8'

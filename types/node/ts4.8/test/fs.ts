@@ -432,6 +432,23 @@ async function testPromisify() {
 }
 
 {
+    (async () => {
+        // $ExpectType Blob
+        const blob = await fs.openAsBlob('the.file.txt');
+    });
+    (async () => {
+        // $ExpectType Blob
+        const blob = await fs.openAsBlob('the.file.txt', {});
+    });
+    (async () => {
+        // $ExpectType Blob
+        const blob = await fs.openAsBlob('the.file.txt', {
+            type: 'text/ecmascript',
+        });
+    });
+}
+
+{
     fs.opendir('test', async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
