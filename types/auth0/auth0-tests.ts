@@ -466,6 +466,18 @@ management
         // Handle the error
     });
 
+// Get all clients with pagination and totals using a callback
+management.getClients({ page: 0, per_page: 5, include_totals: true }, (err, pagedClients) => {
+    // $ExpectType ClientsPaged
+    pagedClients;
+});
+
+// Get all clients with pagination and totals returning a Promise
+management.getClients({ page: 0, per_page: 5, include_totals: true }).then(pagedClients => {
+    // $ExpectType ClientsPaged
+    pagedClients;
+});
+
 // Connections
 // Get all Connections with promise
 management
@@ -1284,14 +1296,21 @@ management.organizations.getByName({ name: '' }).then((organization: auth0.Organ
 /**
  * Create an Organization using a callback
  */
-management.organizations.create({
-    name: 'test_organization', display_name: 'Test Organization', enabled_connections: [{
-        connection_id: 'connection-id',
-        assign_membership_on_login: true,
-    }]
-}, (err, organization: auth0.Organization) => {
-    console.log({ organization });
-});
+management.organizations.create(
+    {
+        name: 'test_organization',
+        display_name: 'Test Organization',
+        enabled_connections: [
+            {
+                connection_id: 'connection-id',
+                assign_membership_on_login: true,
+            },
+        ],
+    },
+    (err, organization: auth0.Organization) => {
+        console.log({ organization });
+    },
+);
 
 /**
  * Create an Organization returning a Promise
