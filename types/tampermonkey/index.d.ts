@@ -432,6 +432,50 @@ interface Window {
     addEventListener(type: "urlchange", listener: (urlObject: { url: string }) => void): void;
 }
 
+/**
+ * `GM_addElement` allows Tampermonkey scripts to add new elements to the page
+ * that Tampermonkey is running on. This can be useful for a variety of purposes,
+ * such as adding `script` and `img` tags if the page limits these elements
+ * with a content security policy (CSP).
+ *
+ * The resulting HTML element will be attached to document head or body.
+ *
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_addElement
+ * @param tagName Specifies the HTML element tag name.
+ * @param attributes Attributes that applied to the HTML element.
+ * For suitable `attributes`, please consult the appropriate documentation. For example:
+ *
+ * - [`script` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script)
+ * - [`img` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+ * - [`style` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style)
+ * @returns The injected HTML element
+ */
+declare function GM_addElement(tagName: string, attributes: object): HTMLElement;
+
+/**
+ * `GM_addElement` allows Tampermonkey scripts to add new elements to the page
+ * that Tampermonkey is running on. This can be useful for a variety of purposes,
+ * such as adding `script` and `img` tags if the page limits these elements
+ * with a content security policy (CSP).
+ *
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_addElement
+ * @param parentNode The node the resulting HTML element will be attached to.
+ * @param tagName Specifies the HTML element tag name.
+ * @param attributes Attributes that applied to the HTML element.
+ * For suitable `attributes`, please consult the appropriate documentation. For example:
+ *
+ * - [`script` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script)
+ * - [`img` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+ * - [`style` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style)
+ *
+ * @returns The injected HTML element
+ */
+declare function GM_addElement(
+    parentNode: Element,
+    tagName: string,
+    attributes: object
+): HTMLElement;
+
 // Styles
 
 /**

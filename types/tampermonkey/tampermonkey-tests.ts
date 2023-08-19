@@ -16,6 +16,25 @@ if (window.onurlchange === null) {
 // General Listening
 window.addEventListener('click', event => console.log(event));
 
+// GM_addElement
+
+GM_addElement('script', {
+    textContent: 'window.foo = "bar";'
+});
+
+GM_addElement('script', {
+    src: 'https://example.com/script.js',
+    type: 'text/javascript'
+});
+
+GM_addElement(document.getElementsByTagName('div')[0], 'img', {
+    src: 'https://example.com/image.png'
+});
+
+GM_addElement(document.body, 'style', {
+    textContent: 'div { color: black; };'
+});
+
 // GM_addStyle
 
 const scriptTag: HTMLStyleElement = GM_addStyle('a { font-wight: bold }');
