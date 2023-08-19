@@ -152,23 +152,35 @@ declare namespace Tampermonkey {
          */
         error: 'not_enabled' | 'not_whitelisted' | 'not_permitted' | 'not_supported' | 'not_succeeded';
         /** Detail about that error */
-        details?: string | undefined;
+        details?: string;
     }
 
     // Download Request
 
     interface DownloadRequest {
-        /** URL from where the data should be downloaded */
+        /**
+         * The URL of the file to download. This must be a valid URL and
+         * must point to a file that is accessible to the user.
+         */
         url: string;
         /**
-         * Filename - for security reasons the file extension needs to be
-         * whitelisted at Tampermonkey options page
+         * The name to use for the downloaded file. This should include the file's extension,
+         * such as `.txt` or `.pdf`. For security reasons the file extension needs to be
+         * whitelisted at Tampermonkey's options page.
          */
         name: string;
-        headers?: RequestHeaders | undefined;
-        /** Show 'Save As' dialog */
-        saveAs?: boolean | undefined;
-        timeout?: number | undefined;
+        /**
+         * An object containing HTTP headers to include in the download request.
+         * See `GM_xmlhttpRequest` for more details.
+         */
+        headers?: RequestHeaders;
+        /**
+         * A boolean value indicating whether to use the user's default download location,
+         * or to prompt the user to choose a different location.
+         * This option works in browser API mode only.
+         */
+        saveAs?: boolean;
+        timeout?: number;
         /**
          * A string that control what happens when a file with this name already exists.
          * This option works in browser API mode only. Please check
@@ -176,14 +188,14 @@ declare namespace Tampermonkey {
          * for more details.
          */
         conflictAction?: 'uniquify' | 'overwrite' | 'prompt';
-        /** Callback to be executed if this download ended up with an error */
-        onerror?: RequestEventListener<DownloadErrorResponse> | undefined;
-        /** Callback to be executed if this download finished */
+        /** A function to call if the download fails or is cancelled. */
+        onerror?: RequestEventListener<DownloadErrorResponse>;
+        /** A callback to be executed if this download failed due to a timeout. */
         ontimeout?(): void;
-        /** Callback to be executed if this download finished */
+        /** A function to call when the download has completed successfully. */
         onload?(): void;
         /** Callback to be executed if this download failed due to a timeout */
-        onprogress?: RequestEventListener<DownloadProgressResponse> | undefined;
+        onprogress?: RequestEventListener<DownloadProgressResponse>;
     }
 
     interface AbortHandle<TReturn> {
