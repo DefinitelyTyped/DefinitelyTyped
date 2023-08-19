@@ -1,6 +1,6 @@
 // Type definitions for yt-search 2.3
 // Project: https://github.com/talmobi/yt-search#readme
-// Definitions by: cherryblossom <https://github.com/cherryblossom000>
+// Definitions by: Lauren Yim <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = yts;
