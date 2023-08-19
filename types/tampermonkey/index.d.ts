@@ -430,6 +430,7 @@ declare namespace Tampermonkey {
 declare var unsafeWindow: Window &
     Omit<
         typeof globalThis,
+        | 'GM_addElement'
         | 'GM_addStyle'
         | 'GM_addValueChangeListener'
         | 'GM_deleteValue'
