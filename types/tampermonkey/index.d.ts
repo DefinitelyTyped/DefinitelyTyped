@@ -209,6 +209,8 @@ declare namespace Tampermonkey {
         insert?: boolean | undefined;
         /** Makes the browser re-focus the current tab on close */
         setParent?: boolean | undefined;
+        /** A boolean value that makes the tab being opened inside a incognito mode/private mode window. */
+        incognito?: boolean;
     }
 
     interface OpenTabObject {
