@@ -148,7 +148,7 @@ declare namespace yts {
         thumbnail: string | undefined;
         videoCount: number;
         videoCountLabel: string;
-        subCount: number;
+        subCount: number | undefined;
         subCountLabel: string;
     }
 
