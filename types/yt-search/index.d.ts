@@ -1,6 +1,6 @@
-// Type definitions for yt-search 2.3
+// Type definitions for yt-search 2.10
 // Project: https://github.com/talmobi/yt-search#readme
-// Definitions by: cherryblossom <https://github.com/cherryblossom000>
+// Definitions by: Lauren Yim <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = yts;
@@ -95,7 +95,7 @@ declare namespace yts {
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         seconds: number;
         timestamp: string;
         duration: Duration;
@@ -111,7 +111,7 @@ declare namespace yts {
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         watching: number;
         author: Author;
     }
@@ -134,7 +134,7 @@ declare namespace yts {
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         author: Author;
     }
@@ -145,10 +145,10 @@ declare namespace yts {
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         videoCountLabel: string;
-        subCount: number;
+        subCount: number | undefined;
         subCountLabel: string;
     }
 
@@ -183,7 +183,8 @@ declare namespace yts {
         title: string;
         videoId: string;
         listId: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
+        duration: Duration;
         author: Author;
     }
 
@@ -191,6 +192,7 @@ declare namespace yts {
         title: string;
         listId: string;
         url: string;
+        size: number;
         views: number;
         date: string;
         image: string;
