@@ -1,6 +1,7 @@
 import * as MarkdownIt from 'markdown-it';
 
 import * as helpers from 'markdownlint-rule-helpers';
+import * as markdownlint from 'markdownlint';
 
 // $ExpectType RegExp
 helpers.newLineRe;
@@ -127,8 +128,8 @@ helpers.ellipsify('');
 // $ExpectType string
 helpers.ellipsify('', true, true);
 
-declare const onError: (info: helpers.RuleOnErrorInfo) => void;
-declare const fixInfo: helpers.RuleOnErrorFixInfo;
+declare const onError: (info: markdownlint.RuleOnErrorInfo) => void;
+declare const fixInfo: markdownlint.RuleOnErrorFixInfo;
 
 // $ExpectType void
 helpers.addError(onError, 0);
@@ -173,7 +174,7 @@ helpers.normalizeFixInfo(fixInfo, 0);
 // $ExpectType string | null
 helpers.applyFix('', fixInfo, '');
 
-declare const onErrorInfo: helpers.RuleOnErrorInfo;
+declare const onErrorInfo: markdownlint.RuleOnErrorInfo;
 
 // $ExpectType string
 helpers.applyFixes('', [onErrorInfo]);

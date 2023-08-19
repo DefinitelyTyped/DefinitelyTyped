@@ -6,8 +6,7 @@
 /// <reference types="node" />
 
 import * as MarkdownIt from 'markdown-it';
-
-export type RuleParams = any;
+import * as markdownlint from 'markdownlint';
 
 export const newLineRe: RegExp;
 
@@ -161,7 +160,7 @@ export type FilterTokensHandler = (token: MarkdownIt.Token) => void;
 /**
  * Calls the provided function for each matching token.
  */
-export function filterTokens(params: RuleParams, type: string, handler: FilterTokensHandler): void;
+export function filterTokens(params: markdownlint.RuleParams, type: string, handler: FilterTokensHandler): void;
 
 export type LineMetadata = [
     line: number,
@@ -173,7 +172,7 @@ export type LineMetadata = [
     inBreak: boolean,
 ];
 
-export function getLineMetadata(params: RuleParams): LineMetadata[];
+export function getLineMetadata(params: markdownlint.RuleParams): LineMetadata[];
 
 export type ForEachLineHandler = (metadata: LineMetadata) => void;
 
@@ -204,7 +203,7 @@ export type ForEachHeadingHandler = (heading: MarkdownIt.Token, content: string,
 /**
  * Calls the provided function for each heading's content
  */
-export function forEachHeading(params: RuleParams, handler: ForEachHeadingHandler): void;
+export function forEachHeading(params: markdownlint.RuleParams, handler: ForEachHeadingHandler): void;
 
 export type InlineCodeSpanHandler = (code: string, lineIndex: number, columnIndex: number, ticks: number) => void;
 
@@ -227,23 +226,6 @@ export function forEachInlineCodeSpan(input: string, handler: InlineCodeSpanHand
  */
 export function ellipsify(text: string, start?: boolean, end?: boolean): string;
 
-export interface RuleOnErrorFixInfo {
-    deleteCount: number;
-    editColumn: number;
-    insertText: string;
-    lineNumber: number;
-}
-
-export interface RuleOnErrorInfo {
-    context?: string;
-    detail?: string;
-    fixInfo?: RuleOnErrorFixInfo;
-    range: [number, number];
-    lineNumber: number;
-}
-
-export type RuleOnError = (info: RuleOnErrorInfo) => void;
-
 /**
  * Adds a generic error object via the onError callback.
  *
@@ -255,39 +237,39 @@ export type RuleOnError = (info: RuleOnErrorInfo) => void;
  * @param fixInfo RuleOnErrorFixInfo instance.
  */
 export function addError(
-    onError: RuleOnError,
+    onError: markdownlint.RuleOnError,
     lineNumber: number,
     detail?: string,
     context?: string,
     range?: number[],
-    fixInfo?: RuleOnErrorFixInfo,
+    fixInfo?: markdownlint.RuleOnErrorFixInfo,
 ): void;
 
 /**
  * Adds an error object with details conditionally via the onError callback
  */
 export function addErrorDetailIf(
-    onError: RuleOnError,
+    onError: markdownlint.RuleOnError,
     lineNumber: number,
     expected: string,
     actual: string,
     detail: string,
     context: string,
     range: number[],
-    fixInfo: RuleOnErrorFixInfo,
+    fixInfo: markdownlint.RuleOnErrorFixInfo,
 ): void;
 
 /**
  * Adds an error object with context via the onError callback
  */
 export function addErrorContext(
-    onError: RuleOnError,
+    onError: markdownlint.RuleOnError,
     lineNumber: number,
     context: string,
     left: number,
     right: number,
     range: number[],
-    fixInfo: RuleOnErrorFixInfo,
+    fixInfo: markdownlint.RuleOnErrorFixInfo,
 ): void;
 
 /**
@@ -297,7 +279,7 @@ export function addErrorContext(
  * @param lineMetadata Line metadata object.
  * @returns Array of ranges (lineIndex, columnIndex, length).
  */
-export function codeBlockAndSpanRanges(params: RuleParams, lineMetadata: LineMetadata): number[][];
+export function codeBlockAndSpanRanges(params: markdownlint.RuleParams, lineMetadata: LineMetadata): number[][];
 
 /**
  * Determines whether the specified range is within another range.
@@ -331,7 +313,7 @@ export interface ReferenceLinkImageData {
 /**
  * Returns an object with information about reference links and images.
  */
-export function getReferenceLinkImageData(params: RuleParams): ReferenceLinkImageData;
+export function getReferenceLinkImageData(params: markdownlint.RuleParams): ReferenceLinkImageData;
 
 /**
  * Gets the most common line ending, falling back to the platform default.
@@ -349,7 +331,10 @@ export function getPreferredLineEnding(input: string, os?: typeof import('node:o
  * @param lineNumber Line number.
  * @returns Normalized RuleOnErrorFixInfo instance.
  */
-export function normalizeFixInfo(fixInfo: RuleOnErrorFixInfo, lineNumber?: number): RuleOnErrorFixInfo;
+export function normalizeFixInfo(
+    fixInfo: markdownlint.RuleOnErrorFixInfo,
+    lineNumber?: number,
+): markdownlint.RuleOnErrorFixInfo;
 
 /**
  * Fixes the specified error on a line of Markdown content.
@@ -359,7 +344,7 @@ export function normalizeFixInfo(fixInfo: RuleOnErrorFixInfo, lineNumber?: numbe
  * @param lineEnding Line ending to use.
  * @returns Fixed content.
  */
-export function applyFix(line: string, fixInfo: RuleOnErrorFixInfo, lineEnding: string): string | null;
+export function applyFix(line: string, fixInfo: markdownlint.RuleOnErrorFixInfo, lineEnding: string): string | null;
 
 /**
  * Applies as many fixes as possible to Markdown content.
@@ -368,7 +353,7 @@ export function applyFix(line: string, fixInfo: RuleOnErrorFixInfo, lineEnding: 
  * @param errors RuleOnErrorInfo instances.
  * @returns Corrected content.
  */
-export function applyFixes(input: string, errors: RuleOnErrorInfo[]): string;
+export function applyFixes(input: string, errors: markdownlint.RuleOnErrorInfo[]): string;
 
 /**
  * Expands a path with a tilde to an absolute path.
