@@ -169,6 +169,13 @@ declare namespace Tampermonkey {
         /** Show 'Save As' dialog */
         saveAs?: boolean | undefined;
         timeout?: number | undefined;
+        /**
+         * A string that control what happens when a file with this name already exists.
+         * This option works in browser API mode only. Please check
+         * [this link](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/downloads/FilenameConflictAction)
+         * for more details.
+         */
+        conflictAction?: 'uniquify' | 'overwrite' | 'prompt';
         /** Callback to be executed if this download ended up with an error */
         onerror?: RequestEventListener<DownloadErrorResponse> | undefined;
         /** Callback to be executed if this download finished */
