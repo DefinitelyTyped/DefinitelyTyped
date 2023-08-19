@@ -31,9 +31,13 @@ declare namespace Tampermonkey {
 
     interface ResponseBase {
         readonly responseHeaders: string;
+        /** The request's `readyState`. */
         readonly readyState: ReadyState;
+        /** The response data as object if `details.responseType` was set. */
         readonly response: any;
+        /** The response data as plain string. */
         readonly responseText: string;
+        /** The response data as an XML document. */
         readonly responseXML: Document | null;
         readonly status: number;
         readonly statusText: string;
@@ -53,6 +57,7 @@ declare namespace Tampermonkey {
     }
 
     interface Response<TContext> extends ResponseBase {
+        /** The final URL after all redirects from where the data was loaded. */
         readonly finalUrl: string;
         readonly context: TContext;
     }
@@ -68,61 +73,62 @@ declare namespace Tampermonkey {
     type RequestEventListener<TResponse> = (this: TResponse, response: TResponse) => void;
 
     interface Request<TContext = object> {
-        method?: 'GET' | 'HEAD' | 'POST' | undefined;
-        /** Destination URL */
+        method?: 'GET' | 'HEAD' | 'POST';
+        /** The destination URL */
         url: string;
         /**
          * i.e. user-agent, referer... (some special headers are not supported
          * by Safari and Android browsers)
          */
-        headers?: RequestHeaders | undefined;
+        headers?: RequestHeaders;
         /** String to send via a POST request */
-        data?: string | undefined;
+        data?: string;
         /** Controls what to happen when a redirect is detected (build 6180+, enforces fetch mode). */
         redirect?: 'follow' | 'error' | 'manual';
         /** A cookie to be patched into the sent cookie set */
-        cookie?: string | undefined;
+        cookie?: string;
         /** Send the data string in binary mode */
-        binary?: boolean | undefined;
+        binary?: boolean;
         /** Don't cache the resource */
-        nocache?: boolean | undefined;
+        nocache?: boolean;
         /** Revalidate maybe cached content */
-        revalidate?: boolean | undefined;
+        revalidate?: boolean;
         /** Timeout in ms */
-        timeout?: number | undefined;
+        timeout?: number;
         /** Property which will be added to the response object */
-        context?: TContext | undefined;
+        context?: TContext;
         responseType?: 'arraybuffer' | 'blob' | 'json' | 'stream';
         /** MIME type for the request */
-        overrideMimeType?: string | undefined;
-        /** Don't send cookies with the requests (please see the fetch notes) */
-        anonymous?: boolean | undefined;
+        overrideMimeType?: string;
+        /** Don't send cookies with the requests (enforces `fetch` mode) */
+        anonymous?: boolean;
         /**
-         * (Beta) Use a fetch instead of a xhr request(at Chrome this causes
+         * (Beta) Use a fetch instead of a xhr request (at Chrome this causes
          * `xhr.abort`, `details.timeout` and `xhr.onprogress` to not work and
          * makes `xhr.onreadystatechange` receive only readyState 4 events)
          */
-        fetch?: boolean | undefined;
+        fetch?: boolean;
         /** Username for authentication */
-        user?: string | undefined;
-        password?: string | undefined;
+        user?: string;
+        /** Password for authentication */
+        password?: string;
 
         // Events
 
         /** Callback to be executed if the request was aborted */
         onabort?(): void;
         /** Callback to be executed if the request ended up with an error */
-        onerror?: RequestEventListener<ErrorResponse> | undefined;
+        onerror?: RequestEventListener<ErrorResponse>;
         /** Callback to be executed if the request started to load */
-        onloadstart?: RequestEventListener<Response<TContext>> | undefined;
+        onloadstart?: RequestEventListener<Response<TContext>>;
         /** Callback to be executed if the request made some progress */
-        onprogress?: RequestEventListener<ProgressResponse<TContext>> | undefined;
+        onprogress?: RequestEventListener<ProgressResponse<TContext>>;
         /** Callback to be executed if the request's ready state changed */
-        onreadystatechange?: RequestEventListener<Response<TContext>> | undefined;
+        onreadystatechange?: RequestEventListener<Response<TContext>>;
         /** Callback to be executed if the request failed due to a timeout */
         ontimeout?(): void;
         /** Callback to be executed if the request was loaded */
-        onload?: RequestEventListener<Response<TContext>> | undefined;
+        onload?: RequestEventListener<Response<TContext>>;
     }
 
     // Download Response
