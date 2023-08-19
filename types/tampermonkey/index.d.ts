@@ -203,12 +203,15 @@ declare namespace Tampermonkey {
     }
 
     interface OpenTabOptions {
-        /** Decides whether the new tab should be focused */
-        active?: boolean | undefined;
-        /** Inserts the new tab after the current one */
-        insert?: boolean | undefined;
-        /** Makes the browser re-focus the current tab on close */
-        setParent?: boolean | undefined;
+        /** A boolean value indicating whether the new tab should be active (selected) or not (default is `false`). */
+        active?: boolean;
+        /**
+         * An integer indicating the position at which the new tab should be inserted in the tab strip.
+         * The default is `false`, which means the new tab will be added to the end of the tab strip.
+         */
+        insert?: number | boolean;
+        /** A boolean value indicating whether the new tab should be considered a child of the current tab (default is `false`). */
+        setParent?: boolean;
         /** A boolean value that makes the tab being opened inside a incognito mode/private mode window. */
         incognito?: boolean;
     }
@@ -230,24 +233,28 @@ declare namespace Tampermonkey {
     type NotificationOnDone = (this: NotificationThis, clicked: boolean) => void;
 
     interface Notification {
-        /** Text of the notification (optional if highlight is set) */
-        text?: string | undefined;
-        /** Notification title. If not specified the script name is used */
-        title?: string | undefined;
-        image?: string | undefined;
-        /** Flag whether to highlight the tab that sends the notification */
-        highlight?: boolean | undefined;
-        /** Whether to play or not play a sound */
-        silent?: boolean | undefined;
-        /** Time after that the notification will be hidden. `0` = disabled */
-        timeout?: number | undefined;
+        /** A string containing the message to display in the notification (optional if highlight is set). */
+        text?: string;
+        /** The title of the notification. If not specified the script name is used. */
+        title?: string;
+        /** The URL of an image to display in the notification. */
+        image?: string;
+        /** Flag whether to highlight the tab that sends the notification. */
+        highlight?: boolean;
+        /** Whether to play or not play a sound. */
+        silent?: boolean;
+        /**
+         * The time, in milliseconds, after which the notification
+         * should automatically close. `0` = disabled.
+         */
+        timeout?: number;
         /**
          * Called when the notification is closed (no matter if this was
-         * triggered by a timeout or a click) or the tab was highlighted
+         * triggered by a timeout or a click) or the tab was highlighted.
          */
-        onclick?: NotificationOnClick | undefined;
-        /** Called in case the user clicks the notification */
-        ondone?: NotificationOnDone | undefined;
+        onclick?: NotificationOnClick;
+        /** Called in case the user clicks the notification. */
+        ondone?: NotificationOnDone;
     }
 
     interface TextNotification extends Notification {
@@ -256,7 +263,9 @@ declare namespace Tampermonkey {
     }
 
     interface HighlightNotification extends Notification {
+        /** A string containing the message to display in the notification. */
         text?: undefined;
+        /** Whether to highlight the tab that sends the notification (required unless text is set) */
         highlight: true;
     }
 
@@ -347,7 +356,7 @@ declare namespace Tampermonkey {
         blockers: string[];
 
         copyright: string | null;
-        deleted?: number | undefined;
+        deleted?: number;
         description: string | null;
         description_i18n: Record<string, string> | null;
         downloadURL: string | null;
@@ -378,9 +387,9 @@ declare namespace Tampermonkey {
 
         supportURL: string | null;
         sync?: {
-            imported?: number | undefined;
+            imported?: number;
         };
-        system?: boolean | undefined;
+        system?: boolean;
         unwrap: boolean;
         updateURL: string | null;
         uuid: string;
@@ -411,11 +420,11 @@ declare namespace Tampermonkey {
         version?: string;
     }
 
-    type ContentType = string | { type?: string | undefined; mimetype?: string | undefined };
+    type ContentType = string | { type?: string; mimetype?: string };
 }
 
 /**
- * The unsafeWindow object provides full access to the pages javascript
+ * The unsafeWindow object provides full access to the pages JavaScript
  * functions and variables
  */
 declare var unsafeWindow: Window &
