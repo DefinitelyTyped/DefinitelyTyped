@@ -1,4 +1,4 @@
-// Type definitions for yt-search 2.5
+// Type definitions for yt-search 2.7
 // Project: https://github.com/talmobi/yt-search#readme
 // Definitions by: Lauren Yim <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -192,6 +192,7 @@ declare namespace yts {
         title: string;
         listId: string;
         url: string;
+        size: number;
         views: number;
         date: string;
         image: string;
