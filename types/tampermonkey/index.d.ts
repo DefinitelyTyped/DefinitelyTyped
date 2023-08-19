@@ -78,6 +78,8 @@ declare namespace Tampermonkey {
         headers?: RequestHeaders | undefined;
         /** String to send via a POST request */
         data?: string | undefined;
+        /** Controls what to happen when a redirect is detected (build 6180+, enforces fetch mode). */
+        redirect?: 'follow' | 'error' | 'manual';
         /** A cookie to be patched into the sent cookie set */
         cookie?: string | undefined;
         /** Send the data string in binary mode */
@@ -90,7 +92,7 @@ declare namespace Tampermonkey {
         timeout?: number | undefined;
         /** Property which will be added to the response object */
         context?: TContext | undefined;
-        responseType?: 'arraybuffer' | 'blob' | 'json' | undefined;
+        responseType?: 'arraybuffer' | 'blob' | 'json' | 'stream';
         /** MIME type for the request */
         overrideMimeType?: string | undefined;
         /** Don't send cookies with the requests (please see the fetch notes) */
