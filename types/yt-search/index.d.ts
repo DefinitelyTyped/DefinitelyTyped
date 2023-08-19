@@ -95,7 +95,7 @@ declare namespace yts {
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         seconds: number;
         timestamp: string;
         duration: Duration;
@@ -111,7 +111,7 @@ declare namespace yts {
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         watching: number;
         author: Author;
     }
@@ -134,7 +134,7 @@ declare namespace yts {
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         author: Author;
     }
@@ -145,7 +145,7 @@ declare namespace yts {
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         videoCountLabel: string;
         subCount: number;
@@ -183,7 +183,7 @@ declare namespace yts {
         title: string;
         videoId: string;
         listId: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         author: Author;
     }
 
