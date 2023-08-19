@@ -479,96 +479,190 @@ declare function GM_addElement(
 // Styles
 
 /**
- * Adds the given style to the document and returns the injected style element.
+ * Applies the given style to the document.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_addStyle
+ * @param css The styles to apply.
+ * @returns The injected style element.
  */
 declare function GM_addStyle(css: string): HTMLStyleElement;
 
 // Storage
 
-/** Sets the value of `name` to the storage */
+/**
+ * Sets the value of a specific key in the userscript's storage.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_setValue
+ * @param name A string specifying the key for which the value should be set.
+ * @param value The value to be set for the key.
+ */
 declare function GM_setValue(name: string, value: any): void;
 
 /**
- * Adds a change listener to the storage and returns the listener ID.
- * The `remote` argument of the callback function shows whether this value was
- * modified from the instance of another tab (`true`) or within this script
- * instance (`false`). Therefore this functionality can be used by scripts of
- * different browser tabs to communicate with each other.
- * @param name Name of the observed variable
+ * Adds a listener for changes to the value of a specific key in the userscript's storage.
+ * This functionality can be used by scripts of different browser tabs to communicate with each other.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_addValueChangeListener
+ * @param name A string specifying the key for which changes should be monitored.
+ * @param listener A callback function that will be called when the value of the key changes.
+ * @returns A `listenerId` value that can be used to remove the listener later using `GM_removeValueChangeListener`.
  */
 declare function GM_addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): number;
 
-/** Removes a change listener by its ID */
+/**
+ * Removes a change listener by its ID.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_removeValueChangeListener
+ */
 declare function GM_removeValueChangeListener(listenerId: number): void;
 
-/** Gets the value of 'name' from storage */
+/**
+ * Retrieves the value of a specific key in the extension's storage.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_getValue
+ * @param name A string specifying the key for which the value should be retrieved.
+ * @param defaultValue A default value to be returned if the key does not exist in the extension's storage.
+ * @returns The value of the specified key from the extension's storage, or the default value if the key does not exist.
+ */
 declare function GM_getValue<TValue>(name: string, defaultValue?: TValue): TValue;
 
-/** Deletes 'name' from storage */
+/**
+ * Deletes `name` from the userscript's storage.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_deleteValue
+ */
 declare function GM_deleteValue(name: string): void;
 
-/** Lists all names of the storage */
+/**
+ * Returns a list of keys of all stored data.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_listValues
+ */
 declare function GM_listValues(): string[];
 
 // Resources
 
-/** Get the content of a predefined `@resource` tag at the script header */
+/**
+ * Retrieves the text of a resource (such as a JavaScript or CSS file)
+ * that has been included in a userscript via @resource.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_getResourceText
+ * @param name The name of the resource to retrieve.
+ * @returns The text of the resource as a string.
+ */
 declare function GM_getResourceText(name: string): string;
 
 /**
  * Get the base64 encoded URI of a predefined `@resource` tag at the script
  * header
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_getResourceURL
+ * @param name The name of the resource to retrieve.
+ * @returns The URL of the resource as a string.
  */
 declare function GM_getResourceURL(name: string): string;
 
 // Menu commands
 
 /**
- * Register a menu to be displayed at the Tampermonkey menu at pages where this
- * script runs and returns a menu command ID.
+ * Adds a new entry to the userscript's menu in the browser,
+ * and specifies a function to be called when the menu item is selected.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_registerMenuCommand
+ * @param name A string containing the text to display for the menu item.
+ * @param onclick A function to be called when the menu item is selected.
+ *                The function will be passed a single parameter,
+ *                which is the currently active tab. As of Tampermonkey 4.14,
+ *                a `MouseEvent` or `KeyboardEvent` is passed as function argument.
+ * @param optionsOrAccessKey An access key or options to customize the menu item.
+ * @returns A menu entry ID that can be used to unregister the command.
  */
 declare function GM_registerMenuCommand(
     name: string,
-    onClick: () => void,
+    onClick: (
+        event: MouseEvent | KeyboardEvent
+    ) => void,
     optionsOrAccessKey?: string | {
+        /**
+         * An optional access key for the menu item. This can be used to create a shortcut for the menu item.
+         * For example, if the access key is "s", the user can select the menu item by pressing "s"
+         * when Tampermonkey's popup-menu is open. Please note that there are browser-wide shortcuts
+         * configurable to open Tampermonkey's popup-menu.
+         */
         accessKey?: string;
+        /**
+         * An optional boolean parameter that specifies whether the popup menu should be closed
+         * after the menu item is clicked. The default value is `true`. Please note that this setting
+         * has no effect on the menu command section that is added to the page's context menu.
+         */
         autoClose?: boolean;
     }
 ): number;
 
 /**
- *  Unregister a menu command that was previously registered by
- * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
+ * Removes an existing entry from the userscript's menu in the browser
+ * that was previously registered by `GM_registerMenuCommand` or `GM.registerMenuCommand`
+ * with the given menu command ID.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_unregisterMenuCommand
+ * @param menuCommandId The id of the menu item to remove.
  */
 declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
 // Requests
 
-/** Makes an xmlHttpRequest */
+/**
+ * Sends an HTTP request and handles the response.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_xmlhttpRequest
+ * @param details An object containing the details of the request to be sent
+ *                and the callback functions to be called when the response is received.
+ */
 declare function GM_xmlhttpRequest<TContext = any>(
     details: Tampermonkey.Request<TContext>, // eslint-disable-line no-unnecessary-generics
 ): Tampermonkey.AbortHandle<void>;
 
-/** Downloads a given URL to the local disk */
+/**
+ * Downloads a file from a specified URL and save it to the user's local machine.
+ * Note: The browser might modify the desired filename. Especially a file extension might
+ * be added if the browser finds this to be safe to download at the current OS.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_download
+ * @param details Details about the download.
+ */
 declare function GM_download(details: Tampermonkey.DownloadRequest): Tampermonkey.AbortHandle<boolean>;
+/**
+ * Downloads a file from a specified URL and save it to the user's local machine.
+ * Note: The browser might modify the desired filename. Especially a file extension might
+ * be added if the browser finds this to be safe to download at the current OS.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_download
+ * @param url The URL of the file to download. This must be a valid URL and must point to a file that is accessible to the user.
+ * @param name The name to use for the downloaded file. This should include the file's extension,
+ *             such as `.txt` or `.pdf`. For security reasons the file extension needs to be whitelisted
+ *             at Tampermonkey's options page
+ */
 declare function GM_download(url: string, name: string): Tampermonkey.AbortHandle<boolean>;
 
 // Tabs
 
-/** Saves the tab object to reopen it after a page unload */
-declare function GM_saveTab(obj: object): void;
+/**
+ * Saves information about a tab for later use.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_saveTab
+ * @param tab An object containing the information to be saved about the tab.
+ */
+declare function GM_saveTab(tab: object): void;
 
-/** Gets a object that is persistent as long as this tab is open */
+/**
+ * Gets a object that is persistent as long as this tab is open
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_getTab
+ */
 declare function GM_getTab(callback: (obj: any) => void): void;
 
-/** Gets all tab objects as a hash to communicate with other script instances */
+/**
+ * Gets all tab objects as a hash to communicate with other script instances
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_getTabs
+ */
 declare function GM_getTabs(callback: (tabsMap: { [tabId: number]: any }) => void): void;
 
 // Utils
 
+/**
+ * Returns information about the script and Tampermonkey.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_info
+ */
 declare var GM_info: Tampermonkey.ScriptInfo;
 
-/** Log a message to the console */
+/**
+ * Logs a message to the console
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_log
+ */
 declare function GM_log(...message: any[]): void;
 
 /**
@@ -579,19 +673,30 @@ declare function GM_log(...message: any[]): void;
  * - `setParent` makes the browser re-focus the current tab on close.
  *
  * Otherwise the new tab is just appended.
- * If `options` is boolean (loadInBackground) it has the opposite meaning of
+ * If `options` is boolean (`loadInBackground`) it has the opposite meaning of
  * active and was added to achieve Greasemonkey 3.x compatibility.
  *
- * If neither active nor loadInBackground is given, then the tab will not be
+ * If neither `active` nor `loadInBackground` is given, then the tab will not be
  * focused.
- * @returns Object with the function `close`, the listener `onclose` and a flag
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_openInTab
+ * @param url The URL of the page to open in the new tab.
+ * @param options An object that can be used to customize the behavior of the new tab.
+ * @returns An object with the function `close`, the listener `onclose` and a flag
  * called `closed`.
  */
-declare function GM_openInTab(url: string, options?: Tampermonkey.OpenTabOptions | boolean): Tampermonkey.OpenTabObject;
+declare function GM_openInTab(
+    url: string,
+    options?: Tampermonkey.OpenTabOptions | boolean
+): Tampermonkey.OpenTabObject;
 
 /**
- * Shows a HTML5 Desktop notification and/or highlight the current tab.
- * @param ondone If specified used instead of `details.ondone`
+ * Shows an HTML5 Desktop notification and/or highlight the current tab
+ * using a provided message and other optional parameters.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
+ * @param details Notification parameters.
+ * @param ondone A callback function that will be called when the notification is closed
+ *              (no matter if this was triggered by a timeout or a click) or the tab was highlighted.
+ *              If specified, used instead of `details.ondone`.
  */
 declare function GM_notification(
     details: Tampermonkey.NotificationDetails,
@@ -599,10 +704,13 @@ declare function GM_notification(
 ): void;
 
 /**
- * Shows a HTML5 Desktop notification and/or highlight the current tab.
- * @param text Text of the notification
- * @param title Notification title. If not specified the script name is used
- * @param onclick Called in case the user clicks the notification
+ * Shows an HTML5 Desktop notification and/or highlight the current tab
+ * using a provided message and other optional parameters.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
+ * @param text A string containing the message to display in the notification.
+ * @param title The title of the notification. If not specified, the script name is used.
+ * @param image The URL of an image to display in the notification.
+ * @param onclick A callback function that will be called when the user clicks on the notification.
  */
 declare function GM_notification(
     text: string,
@@ -612,17 +720,20 @@ declare function GM_notification(
 ): void;
 
 /**
- * Copies data into the clipboard.
+ * Sets the text of the clipboard to a specified value.
  * The parameter 'info' can be an object like
  * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
  * type ("text" or "html").
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_setClipboard
+ * @param data The string to set as the clipboard text.
+ * @param info A string expressing the type `text` or `html` or an object.
  */
 declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType): void;
 
 // GM.*
 
 /**
- * `GM` has all the `GM_*` apis in promisified form
+ * `GM` has all the `GM_*` APIs in promisified form
  */
 declare var GM: Readonly<{
     // Styles
