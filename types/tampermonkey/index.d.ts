@@ -11,6 +11,12 @@
 // TypeScript Version: 3.3
 
 declare namespace Tampermonkey {
+    /**
+     * @param key The key whose value has changed.
+     * @param oldValue The previous value of the key.
+     * @param newValue The new value of the key
+     * @param remote A boolean indicating whether the change originated from a different userscript instance.
+     */
     type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => void;
 
     // Response
