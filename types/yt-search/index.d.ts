@@ -1,4 +1,4 @@
-// Type definitions for yt-search 2.3
+// Type definitions for yt-search 2.5
 // Project: https://github.com/talmobi/yt-search#readme
 // Definitions by: Lauren Yim <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -184,6 +184,7 @@ declare namespace yts {
         videoId: string;
         listId: string;
         thumbnail: string | undefined;
+        duration: Duration;
         author: Author;
     }
 
