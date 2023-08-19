@@ -27,6 +27,8 @@ export const inlineCommentStartRe: RegExp;
  */
 export const listItemMarkerRe: RegExp;
 
+export const orderedListItemMarkerRe: RegExp;
+
 /**
  * Regular expression for blockquote prefixes
  */

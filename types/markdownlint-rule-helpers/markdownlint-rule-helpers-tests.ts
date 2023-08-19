@@ -16,6 +16,9 @@ helpers.inlineCommentStartRe;
 helpers.listItemMarkerRe;
 
 // $ExpectType RegExp
+helpers.orderedListItemMarkerRe;
+
+// $ExpectType RegExp
 helpers.blockquotePrefixRe;
 
 // $ExpectType RegExp
