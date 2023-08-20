@@ -327,7 +327,7 @@ GM_getTabs(tabsMap => {
 
 GM_log('Hello, World!');
 GM_log('Hello, World!', 'Again');
-GM_log('Different types', 0, true, { key: 'value' }, [1, 2, 3])
+GM_log('Different types', 0, true, { key: 'value' }, [1, 2, 3]);
 
 // GM_openInTab
 
@@ -390,6 +390,16 @@ GM_setClipboard('<b>Some text in clipboard</b>', 'text');
 GM_setClipboard('<b>Some text in clipboard</b>', {
     type: 'text',
     mimetype: 'text/plain',
+});
+
+// GM_webRequest
+
+GM_webRequest([
+    { selector: '*cancel.me/*', action: 'cancel' },
+    { selector: { include: '*', exclude: 'http://exclude.me/*' }, action: { redirect: 'http://new_static.url' } },
+    { selector: { match: '*://match.me/*' }, action: { redirect: { from: '([^:]+)://match.me/(.*)',  to: '$1://redirected.to/$2' } } }
+], (info, message, details) => {
+    console.log(info, message, details);
 });
 
 // GM_info

@@ -421,6 +421,57 @@ declare namespace Tampermonkey {
     }
 
     type ContentType = string | { type?: string; mimetype?: string };
+
+    // GM_webRequest
+    interface WebRequestRuleParam {
+        /**
+         * Specifies the URLs for which the rule should be triggered.
+         * String value is shortening for `{ include: [selector] }`.
+         */
+        selector: string | {
+            /** URLs, patterns, and regexpes for rule triggering. */
+            include?: string | string[];
+            /** URLs and patterns for rule triggering. */
+            match?: string | string[];
+            /** URLs, patterns, and regexpes for not triggering the rule. */
+            exclude?: string | string[];
+        };
+        /**
+         * Specifies to do with the request.
+         * String value `cancel` is shortening for `{ cancel: true }`.
+         */
+        action: 'cancel' | {
+            /** Whether to cancel the request. */
+            cancel?: boolean;
+            /**
+             * Redirect to some URL which must be included in any
+             * `@match` or `@include` header.
+             * When a string, redirects to a given static URL.
+             */
+            redirect?: string | {
+                /** A RegExp to extract some parts of the URL (for example `"([^:]+)://match.me/(.*)"`). */
+                from: string;
+                /** Pattern for substitution (for example `"$1://redirected.to/$2"`). */
+                to: string;
+            };
+        };
+    }
+    type WebRequestListener = (
+        /** The type of the action. */
+        info: 'cancel' | 'redirect',
+        message: 'ok' | 'error',
+        /** Info about the request and rule. */
+        details: {
+            /** The triggered rule */
+            rule: WebRequestRuleParam;
+            /** The URL of the request. */
+            url?: string;
+            /** Where the request was redirected. */
+            redirect_url?: string;
+            /** Error description. */
+            description?: string;
+        }
+    ) => void;
 }
 
 /**
@@ -772,6 +823,22 @@ declare function GM_notification(
  * @param info A string expressing the type `text` or `html` or an object.
  */
 declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType): void;
+
+/**
+ * `GM_webRequest` (re-)registers rules for web request manipulations
+ * and the listener of triggered rules. If you need to just register rules
+ * it's better to use `@webRequest` header. Note, `webRequest` proceeds only requests
+ * with types `sub_frame`, `script`, `xhr` and `websocket`.
+ * **Note: this API is experimental and might change at any time.**
+ * It might also disappear or change during manifest v3 migration.
+ * @param rules An array of rules.
+ * @param listener A function called when the rule is triggered. It cannot impact on the rule action.
+ * @returns An object with an `.abort()` method.
+ */
+declare function GM_webRequest(
+    rules: Tampermonkey.WebRequestRuleParam[],
+    listener?: Tampermonkey.WebRequestListener
+): Tampermonkey.AbortHandle<void>;
 
 // GM.*
 
