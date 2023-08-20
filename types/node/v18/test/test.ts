@@ -20,6 +20,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    setup: (root) => {},
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -548,14 +549,15 @@ class TestReporter extends Transform {
             case 'test:fail':
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
                     ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
                 );
                 break;
             case 'test:pass':
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
+                    ${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
                 );
                 break;
             case 'test:plan':

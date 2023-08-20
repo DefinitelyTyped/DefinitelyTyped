@@ -3,6 +3,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module 'node:test' {
+    import { AsyncResource } from 'node:async_hooks';
     /**
      * Programmatically start the test runner.
      * @since v18.9.0
@@ -205,6 +206,19 @@ declare module 'node:test' {
          * incremented from the primary's `process.debugPort`.
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
 
     /**
@@ -742,6 +756,11 @@ interface TestFail {
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -777,6 +796,11 @@ interface TestPass {
          * The duration of the test in milliseconds.
          */
         duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.

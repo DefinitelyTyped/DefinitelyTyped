@@ -64,15 +64,16 @@ interface Node {
     // $ExpectType number
     depth({
         tree: nodeA,
-        leave: (node, children) => node.id + children.length,
+        leave: (node: number, children) => node + children.length,
         getChildren: (node, value) => node.nodes.slice(value),
+        visit: node => node.id,
     });
 
     // Promised traversal with `leave`
     // $ExpectType Promise<number>
     depth({
         tree: nodeA,
-        leave: async (node, children) => node.id + children.length,
+        leave: async (node: number, children) => node + children.length,
         getChildren: async (node, value) => node.nodes.slice(value),
     });
 
@@ -120,5 +121,13 @@ interface Node {
         getChildren: node => node.nodes,
         // @ts-expect-error -- `getChildren` is not a Promise
         leave: async node => node.id.toString(),
+    });
+
+    depth({
+        tree: nodeA,
+        leave: (node: number, children) => node + children.length,
+        getChildren: (node, value) => node.nodes.slice(value),
+        // @ts-expect-error -- Should be a number
+        visit: node => node.id.toString(),
     });
 })();

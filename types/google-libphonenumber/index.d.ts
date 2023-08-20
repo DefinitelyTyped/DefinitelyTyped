@@ -148,7 +148,7 @@ declare namespace libphonenumber {
         getCountryCodeForRegion(supportedRegion: string): number;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
-        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode;
+        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode | RegionCodeUnknown;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): RegionCode | undefined;
         getSupportedRegions(): RegionCode[];
         isAlphaNumber(number: string): boolean;
@@ -359,6 +359,7 @@ declare namespace libphonenumber {
         isSmsServiceForRegion(number: PhoneNumber, regionDialingFrom: string): boolean;
     }
 
+    export type RegionCodeUnknown = 'ZZ';
     export type RegionCode =
         | 'AC'
         | 'AD'

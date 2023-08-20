@@ -55,14 +55,11 @@ export interface DepthOptions<Node, Value, Children extends Node[] | Promise<Nod
      * If the tree is acyclic, then leave() will have been called on all of them.
      * If it has cycles, then the children may not have been left yet.
      *
-     * @param node The original node
-     * @param children A list of the child nodes that have been visited (and potentially left) already.
+     * @param node The value of the original node
+     * @param children is an array of child node visit results. If the graph is cyclic, then some children may have been visited but not left.
      * @returns A reduced value, or nothing to leave it as is
      */
-    leave?: (
-        node: Node,
-        children: Node[],
-    ) => Children extends Promise<any> ? Promise<Value | undefined> | Value | undefined : Value | undefined;
+    leave?: (node: Value, children: Value[]) => Children extends Promise<any> ? Promise<Value> | Value : Value;
 }
 
 /**

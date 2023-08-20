@@ -14,4 +14,5 @@ export default interface Features extends Service {
     enable(feature: string): void;
     disable(feature: string): void;
     isEnabled(feature: string): boolean;
+    readonly flags: string[];
 }

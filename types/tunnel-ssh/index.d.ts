@@ -1,6 +1,6 @@
 // Type definitions for tunnel-ssh 5.0
 // Project: https://github.com/agebrock/tunnel-ssh
-// Definitions by:  Noah Blumenthal <https://github.com/hackerhasid>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as net from 'net';

@@ -139,6 +139,8 @@ declare class Pubnub {
 
     setToken(params: string): void;
 
+    getToken(): string | undefined;
+
     parseToken(params: string): Pubnub.ParsedGrantToken;
 
     revokeToken(params: string, callback: Callback<Pubnub.RevokeTokenResponse>): void;
@@ -399,6 +401,7 @@ declare namespace Pubnub {
         affectedChannelGroups: string[];
         lastTimetoken: number | string;
         currentTimetoken: number | string;
+        statusCode: number | undefined;
     }
 
     interface PresenceEvent {
@@ -622,6 +625,11 @@ declare namespace Pubnub {
                     };
                 };
             }>;
+        };
+        more?: {
+            url: string;
+            start: string;
+            max: number;
         };
     }
 

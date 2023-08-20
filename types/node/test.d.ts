@@ -76,10 +76,11 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.4.0/lib/test.js)
  */
 declare module 'node:test' {
     import { Readable } from 'node:stream';
+    import { AsyncResource } from 'node:async_hooks';
     /**
      * ```js
      * import { tap } from 'node:test/reporters';
@@ -258,6 +259,16 @@ declare module 'node:test' {
      * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
+    interface TestShard {
+        /**
+         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         */
+        index: number;
+        /**
+         * A positive integer that specifies the total number of shards to split the test files to.
+         */
+        total: number;
+    }
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -295,6 +306,29 @@ declare module 'node:test' {
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Whether to run in watch mode or not.
+         * @default false
+         */
+        watch?: boolean | undefined;
+        /**
+         * Running tests in a specific shard.
+         * @default undefined
+         */
+        shard?: TestShard | undefined;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
     /**
      * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.`TestsStream` will emit events, in the
@@ -1192,6 +1226,10 @@ declare module 'node:test' {
          * @since v20.4.0
          */
         runAll(): void;
+        /**
+         * Calls {@link MockTimers.reset()}.
+         */
+        [Symbol.dispose](): void;
     }
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }
@@ -1223,6 +1261,11 @@ interface TestFail {
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -1258,6 +1301,11 @@ interface TestPass {
          * The duration of the test in milliseconds.
          */
         duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.

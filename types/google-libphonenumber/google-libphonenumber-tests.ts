@@ -5,6 +5,7 @@ import {
     AsYouTypeFormatter,
     ShortNumberInfo,
     RegionCode,
+    RegionCodeUnknown,
 } from 'google-libphonenumber';
 
 () => {
@@ -55,6 +56,8 @@ phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number
 
 const aNumber = phoneNumberUtil.parse('+39 02-12345678', 'IT');
 phoneNumberUtil.getNationalSignificantNumber(aNumber); // $ExpectType string
+
+phoneNumberUtil.getRegionCodeForCountryCode(0); // $ExpectType RegionCode | "ZZ"
 
 // Get instance of `ShortNumberInfo`
 const shortInfo = ShortNumberInfo.getInstance();

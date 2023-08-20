@@ -1777,6 +1777,10 @@
             "libraryName": "filter-invalid-dom-props",
             "asOfVersion": "3.0.0"
         },
+        "find-cache-dir": {
+            "libraryName": "find-cache-dir",
+            "asOfVersion": "5.0.0"
+        },
         "find-java-home": {
             "libraryName": "find-java-home",
             "asOfVersion": "1.0.0"
@@ -5886,6 +5890,10 @@
         "testing-library__dom": {
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
+        },
+        "testing-library__jest-dom": {
+            "libraryName": "@testing-library/jest-dom",
+            "asOfVersion": "6.0.0"
         },
         "testing-library__react": {
             "libraryName": "@testing-library/react",
