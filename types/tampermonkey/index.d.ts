@@ -265,7 +265,7 @@ declare namespace Tampermonkey {
     interface HighlightNotification extends Notification {
         /** A string containing the message to display in the notification. */
         text?: undefined;
-        /** Whether to highlight the tab that sends the notification (required unless text is set) */
+        /** Whether to highlight the tab that sends the notfication (required unless text is set) */
         highlight: true;
     }
 
@@ -435,7 +435,6 @@ declare var unsafeWindow: Window &
         | 'GM_addValueChangeListener'
         | 'GM_deleteValue'
         | 'GM_download'
-        | 'GM_download'
         | 'GM_getResourceText'
         | 'GM_getResourceURL'
         | 'GM_getTab'
@@ -444,7 +443,6 @@ declare var unsafeWindow: Window &
         | 'GM_info'
         | 'GM_listValues'
         | 'GM_log'
-        | 'GM_notification'
         | 'GM_notification'
         | 'GM_openInTab'
         | 'GM_registerMenuCommand'
