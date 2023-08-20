@@ -1,4 +1,4 @@
-// Type definitions for dns-packet 5.2
+// Type definitions for dns-packet 5.6
 // Project: https://github.com/mafintosh/dns-packet
 // Definitions by: John Hurliman <https://github.com/jhurliman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,16 +61,80 @@ export interface Question {
     class?: RecordClass | undefined;
 }
 
-export interface SrvData {
-    port: number;
-    target: string;
-    priority?: number | undefined;
-    weight?: number | undefined;
+export interface CaaData {
+    issuerCritical?: boolean | undefined;
+    flags?: number | undefined;
+    tag: 'issue' | 'issuewild' | 'iodef';
+    value: string;
+}
+
+export interface DnskeyData {
+    flags: number;
+    algorithm: number;
+    key: Buffer;
+}
+
+export interface DsData {
+    keyTag: number;
+    algorithm: number;
+    digestType: number;
+    digest: Buffer;
 }
 
 export interface HInfoData {
     cpu: string;
     os: string;
+}
+
+export interface MxData {
+    preference?: number | undefined;
+    exchange: string;
+}
+
+export interface NaptrData {
+    order: number;
+    preference: number;
+    flags: string;
+    services: string;
+    regexp: string;
+    replacement: string;
+}
+export interface NsecData {
+    nextDomain: string;
+    rrtypes: string[];
+}
+
+export interface Nsec3Data {
+    algorithm: number;
+    flags: number;
+    iterations: number;
+    salt: Buffer;
+    nextDomain: Buffer;
+    rrtypes: string[];
+}
+
+export interface RpData {
+    mbox: string;
+    txt: string;
+}
+
+export interface RrsigData {
+    typeCovered: string;
+    algorithm: number;
+    labels: number;
+    originalTTL: number;
+    expiration: number;
+    inception: number;
+    keyTag: number;
+    signersName: string;
+    signature: Buffer;
+}
+
+export interface SrvData {
+    port: number;
+    target: string;
+    priority?: number | undefined;
+    weight?: number | undefined;
 }
 
 export interface SoaData {
@@ -83,19 +147,20 @@ export interface SoaData {
     minimum?: number | undefined;
 }
 
+export interface SshfpData {
+    algorithm: number;
+    hash: number;
+    fingerprint: string;
+}
+
+export interface TlsaData {
+    usage: number;
+    selector: number;
+    matchingType: number;
+    certificate: Buffer;
+}
+
 export type TxtData = string | Buffer | Array<string | Buffer>;
-
-export interface CaaData {
-    issuerCritical?: boolean | undefined;
-    flags?: number | undefined;
-    tag: string;
-    value: string;
-}
-
-export interface MxData {
-    preference?: number | undefined;
-    exchange: string;
-}
 
 export interface GenericAnswer<T> {
     type: T;
@@ -127,37 +192,37 @@ export type OtherRecordType =
     | "CERT"
     | "DHCID"
     | "DLV"
-    | "DNSKEY"
-    | "DS"
     | "HIP"
-    | "IXFR"
     | "IPSECKEY"
+    | "IXFR"
     | "KEY"
     | "KX"
     | "LOC"
-    | "NAPTR"
-    | "NSEC"
-    | "NSEC3"
     | "NSEC3PARAM"
     | "NULL"
-    | "RRSIG"
-    | "RP"
     | "SIG"
-    | "SSHFP"
     | "TA"
     | "TKEY"
-    | "TLSA"
     | "TSIG"
     | "URI";
 
 export type StringAnswer = BaseAnswer<StringRecordType, string>;
-export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
-export type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
-export type SoaAnswer = BaseAnswer<"SOA", SoaData>;
-export type TxtAnswer = BaseAnswer<"TXT", TxtData>;
-export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
-export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
+export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
+export type DnskeyAnswer = BaseAnswer<"DNSKEY", DnskeyData>;
+export type DSAnswer = BaseAnswer<"DS", DsData>;
+export type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
+export type MxAnswer = BaseAnswer<"MX", MxData>;
+export type NaptrAnswer = BaseAnswer<"NAPTR", NaptrData>;
+export type Nsec3Answer = BaseAnswer<"NSEC3", Nsec3Data>;
+export type NsecAnswer = BaseAnswer<"NSEC", NsecData>;
+export type RpAnswer = BaseAnswer<"RP", RpData>;
+export type RrsigAnswer = BaseAnswer<"RRSIG", RrsigData>;
+export type SoaAnswer = BaseAnswer<"SOA", SoaData>;
+export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
+export type SshfpAnswer = BaseAnswer<"SSHFP", SshfpData>;
+export type TlsaAnswer = BaseAnswer<"TLSA", TlsaData>;
+export type TxtAnswer = BaseAnswer<"TXT", TxtData>;
 
 interface OptCodes {
     "OPTION_0": 0;
@@ -225,14 +290,23 @@ export interface OptAnswer extends GenericAnswer<"OPT"> {
 
 export type Answer =
     | StringAnswer
-    | SrvAnswer
-    | HInfoAnswer
-    | SoaAnswer
-    | TxtAnswer
-    | CaaAnswer
-    | MxAnswer
     | BufferAnswer
-    | OptAnswer;
+    | CaaAnswer
+    | DnskeyAnswer
+    | DSAnswer
+    | HInfoAnswer
+    | MxAnswer
+    | NaptrAnswer
+    | Nsec3Answer
+    | NsecAnswer
+    | OptAnswer
+    | RpAnswer
+    | RrsigAnswer
+    | SoaAnswer
+    | SrvAnswer
+    | SshfpAnswer
+    | TlsaAnswer
+    | TxtAnswer;
 
 export interface Packet {
     /**
@@ -285,4 +359,4 @@ export namespace streamDecode {
     let bytes: number;
 }
 
-export {};
+export { };
