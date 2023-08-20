@@ -9,7 +9,8 @@ const player = new window.Spotify.Player({
         // Run code to get a fresh access token
         callback("access token here");
     },
-    volume: 0.5
+    volume: 0.5,
+    enableMediaSession: true
 });
 // https://developer.spotify.com/documentation/web-playback-sdk/reference/#playing-a-spotify-uri
 const {id: device_id} = player._options;

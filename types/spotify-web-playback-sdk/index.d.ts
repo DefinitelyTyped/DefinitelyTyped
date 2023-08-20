@@ -137,6 +137,7 @@ declare namespace Spotify {
         name: string;
         getOAuthToken(cb: (token: string) => void): void;
         volume?: number | undefined;
+        enableMediaSession?: boolean | undefined;
     }
 
     type ErrorListener = (err: Error) => void;
