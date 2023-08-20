@@ -55,9 +55,11 @@ GM_setValue('d', { form: { name: 'Bob' } });
 GM_addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
 GM_addValueChangeListener('b', (name, oldValue: number, newValue: number, remote) => {});
 GM_addValueChangeListener('c', (name, oldValue: boolean, newValue: boolean, remote) => {});
-const dValueChangeListenerId = GM_addValueChangeListener(
+const dValueChangeListenerId: number = GM_addValueChangeListener(
     'd',
-    (name, oldValue: AppState, newValue: AppState, remote) => {},
+    (name, oldValue: AppState, newValue: AppState, remote) => {
+        GM_log(name, oldValue.form.name, newValue.form.name);
+    },
 );
 
 // GM_removeValueChangeListener
@@ -127,6 +129,9 @@ GM_unregisterMenuCommand(commandId);
 const abortHandle = GM_xmlhttpRequest({
     method: 'GET',
     url: 'http://www.example.com/',
+    headers: {
+        "Content-Type": "application/json"
+    },
     onload(response) {
         alert(response.responseText);
     },
@@ -254,6 +259,21 @@ GM_xmlhttpRequest({
     },
 });
 
+// Fetch
+GM_xmlhttpRequest({
+    method: 'GET',
+    url: 'https://example.com/',
+    headers: {
+        "Content-Type": "application/json"
+    },
+    onload: (response) => {
+        console.log(response.responseText);
+    },
+    redirect: 'error',
+    fetch: true,
+    anonymous: true
+});
+
 // GM_download
 
 const downloadHandle = GM_download({
@@ -262,6 +282,7 @@ const downloadHandle = GM_download({
     headers: { 'User-Agent': 'greasemonkey' },
     saveAs: true,
     timeout: 3000,
+    conflictAction: 'prompt',
     onerror(response) {
         GM_log(response.error, response.details);
     },
@@ -306,6 +327,7 @@ GM_getTabs(tabsMap => {
 
 GM_log('Hello, World!');
 GM_log('Hello, World!', 'Again');
+GM_log('Different types', 0, true, { key: 'value' }, [1, 2, 3])
 
 // GM_openInTab
 
@@ -313,11 +335,15 @@ GM_openInTab('http://www.example.com/');
 
 GM_openInTab('http://www.example.com/', true);
 
-const openTabObject = GM_openInTab('http://www.example.com/', {
-    active: true,
-    insert: true,
-    setParent: true,
-});
+const openTabObject = GM_openInTab(
+    'http://www.example.com/',
+    {
+        active: true,
+        insert: 2,
+        setParent: true,
+        incognito: true
+    }
+);
 
 openTabObject.onclose = () => {
     GM_log('Tab closed', openTabObject.closed);
@@ -354,6 +380,8 @@ GM_notification(textNotification, textNotification.ondone);
 GM_notification('Notification text', 'Notification title', 'https://tampermonkey.net/favicon.ico', function() {
     GM_log(`Notification with id ${this.id} is clicked`);
 });
+
+GM_notification('Notification text');
 
 // GM_setClipboard
 
