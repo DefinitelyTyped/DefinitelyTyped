@@ -879,7 +879,7 @@ declare namespace AP {
          * You should use this to update your UI to show the state.
          * NB: The function is only documented in the example code provided.
          *
-         * @param callback Functino running when the state is changed.
+         * @param callback Function to run when the state is changed.
          * @example
          * AP.history.popState(function(e){
          *     alert("The URL has changed from: " + e.oldURL + "to: " + e.newURL);
