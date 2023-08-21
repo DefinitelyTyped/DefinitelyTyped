@@ -456,6 +456,7 @@ declare namespace Tampermonkey {
             };
         };
     }
+
     type WebRequestListener = (
         /** The type of the action. */
         info: 'cancel' | 'redirect',
@@ -695,6 +696,7 @@ declare function GM_getValue<TValue>(name: string, defaultValue?: TValue): TValu
 /**
  * Deletes `name` from the userscript's storage.
  * @url https://www.tampermonkey.net/documentation.php#api:GM_deleteValue
+ * @param name A string specifying the key that should be deleted from storage.
  */
 declare function GM_deleteValue(name: string): void;
 
@@ -813,14 +815,24 @@ declare function GM_saveTab(tab: object): void;
 /**
  * Gets a object that is persistent as long as this tab is open
  * @url https://www.tampermonkey.net/documentation.php#api:GM_getTab
+ * @param callback Function that will be called with an object that is persistent as long as this tab is open.
  */
 declare function GM_getTab(callback: (obj: any) => void): void;
 
 /**
  * Gets all tab objects as a hash to communicate with other script instances
  * @url https://www.tampermonkey.net/documentation.php#api:GM_getTabs
+ * @param callback A callback function that will be called with the information about the tabs..
  */
-declare function GM_getTabs(callback: (tabsMap: { [tabId: number]: any }) => void): void;
+declare function GM_getTabs(
+    callback: (
+        /**
+         * The `tabsMap` object that is passed to the callback function contains objects,
+         * with each object representing the saved tab information stored by `GM_saveTab`.
+         */
+        tabsMap: { [tabId: number]: any }
+    ) => void
+): void;
 
 // Utils
 
