@@ -8,13 +8,17 @@ import {
     SavingsTrade,
 } from 'invity-api';
 
-const bt: BuyTrade = {};
+const bt: BuyTrade = {
+    paymentMethodName: 'Test',
+};
 
 const et: ExchangeTrade = {};
 
-const sft: SellFiatTrade = {};
+const sft: SellFiatTrade = {
+    paymentMethodName: 'Test',
+};
 
-const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '' };
+const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '', paymentMethodName: 'Test' };
 
 const p2pQuote: P2pQuote = {
     provider: '',
