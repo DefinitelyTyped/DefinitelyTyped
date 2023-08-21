@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Tampermonkey 4.x
+// Type definitions for non-npm package Tampermonkey 4.20
 // Project: https://tampermonkey.net
 // Definitions by: Steven Wang <https://github.com/silverwzw>
 //                 Nikolay Borzov <https://github.com/nikolay-borzov>
