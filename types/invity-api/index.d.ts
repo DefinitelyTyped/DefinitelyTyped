@@ -807,7 +807,6 @@ export interface SavingsTrade {
     paymentFrequency?: PaymentFrequency | undefined;
 
     paymentMethod?: SavingsPaymentMethod | undefined;
-    paymentMethodName?: string | undefined;
 
     /** Name of savings provider. */
     exchange: string;
@@ -925,6 +924,7 @@ export interface SavingsTradeItem {
     receiveStringAmount: string;
     receiveCurrency: string;
     paymentMethod: SavingsPaymentMethod;
+    paymentMethodName?: string | undefined;
     created: string;
 }
 
