@@ -46,24 +46,69 @@ declare namespace google.accounts {
 
         interface OverridableTokenClientConfig {
             /**
+             * Optional. A space-delimited list of scopes that identify the
+             * resources that your application could access on the user's
+             * behalf. These values inform the consent screen that Google
+             * displays to the user.
+             */
+            scope?: string;
+
+            /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this OverridableTokenClientConfig.
+             */
+            include_granted_scopes?: boolean;
+
+            /**
              * Optional. A space-delimited, case-sensitive list of prompts to
              * present the user.
              */
             prompt?: string;
 
             /**
-             * Optional. If set to false, more granular Google Account
-             * permissions will be disabled for clients created before 2019. No
-             * effect for newer clients, since more granular permissions is
-             * always enabled for them.
+             * Optional, defaults to true. If set to false, more granular Google
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
+             * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
              * Optional. If your application knows which user should authorize
-             * the request, it can use this property to provide a hint to
-             * Google. The email address for the target user. For more
-             * information, see the login_hint field in the OpenID Connect docs.
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
+             * Optional.
+             * If your application knows which user should authorize the
+             * request, it can use this property to provide a hint to Google.
+             * The email address for the target user. For more information, see
+             * the login_hint field in the OpenID Connect docs.
              */
             hint?: string;
 
@@ -215,6 +260,17 @@ declare namespace google.accounts {
             scope: string;
 
             /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this TokenClientConfig.
+             */
+            include_granted_scopes?: boolean;
+
+            /**
              * Optional, defaults to 'select_account'.
              * A space-delimited, case-sensitive list of prompts to present the
              * user.
@@ -229,15 +285,39 @@ declare namespace google.accounts {
             prompt?: '' | 'none' | 'consent' | 'select_account';
 
             /**
-             * Optional, defaults to true.
-             * If set to false, more granular Google Account permissions will be
-             * disabled for clients created before 2019. No effect for newer
-             * clients, since more granular permissions is always enabled for
-             * them.
+             * Optional, defaults to true. If set to false, more granular Google
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
+             * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
+             * Optional. If your application knows which user should authorize
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
              * Optional.
              * If your application knows which user should authorize the
              * request, it can use this property to provide a hint to Google.
@@ -247,6 +327,15 @@ declare namespace google.accounts {
             hint?: string;
 
             /**
+             * Optional.
+             * If your application knows the Workspace domain the user belongs
+             * to, use this to provide a hint to Google. For more information,
+             * see the hd field in the OpenID Connect docs.
+             */
+            hd?: string;
+
+            /**
+             * Deprecated, you should use hd instead.
              * Optional.
              * If your application knows the Workspace domain the user belongs
              * to, use this to provide a hint to Google. For more information,
@@ -286,6 +375,17 @@ declare namespace google.accounts {
             scope: string;
 
             /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this CodeClientConfig.
+             */
+            include_granted_scopes?: boolean;
+
+            /**
              * Required for redirect UX. Determines where the API server
              * redirects the user after the user completes the authorization
              * flow. The value must exactly match one of the authorized redirect
@@ -311,13 +411,38 @@ declare namespace google.accounts {
 
             /**
              * Optional, defaults to true. If set to false, more granular Google
-             * Account permissions will be disabled for clients created before
-             * 2019. No effect for newer clients, since more granular
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
              * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
+             * Optional. If your application knows which user should authorize
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
              * Optional. If your application knows which user should authorize
              * the request, it can use this property to provide a hint to
              * Google. The email address for the target user. For more
@@ -326,6 +451,15 @@ declare namespace google.accounts {
             hint?: string;
 
             /**
+             * Optional.
+             * If your application knows the Workspace domain the user belongs
+             * to, use this to provide a hint to Google. For more information,
+             * see the hd field in the OpenID Connect docs.
+             */
+            hd?: string;
+
+            /**
+             * Deprecated, you should use hd instead.
              * Optional. If your application knows the Workspace domain the user
              * belongs to, use this to provide a hint to Google. For more
              * information, see the hd field in the OpenID Connect docs.

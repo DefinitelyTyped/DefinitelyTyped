@@ -6,15 +6,35 @@ import {
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
     SavingsTrade,
+    SavingsTradeItem,
 } from 'invity-api';
 
-const bt: BuyTrade = {};
+const bt: BuyTrade = {
+    paymentMethodName: 'Test',
+};
 
 const et: ExchangeTrade = {};
 
-const sft: SellFiatTrade = {};
+const sft: SellFiatTrade = {
+    paymentMethodName: 'Test',
+};
 
 const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '' };
+
+const savingsTradeItem: SavingsTradeItem = {
+    paymentMethodName: 'Bank transfer',
+    id: '',
+    savingsTradeId: '',
+    exchange: '',
+    status: 'InProgress',
+    receiveAddress: '',
+    fiatStringAmount: '',
+    fiatCurrency: '',
+    receiveStringAmount: '',
+    receiveCurrency: '',
+    paymentMethod: 'bankTransfer',
+    created: '',
+};
 
 const p2pQuote: P2pQuote = {
     provider: '',
