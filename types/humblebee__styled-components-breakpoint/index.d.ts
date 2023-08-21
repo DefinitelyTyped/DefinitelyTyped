@@ -30,7 +30,7 @@ declare module "@humblebee/styled-components-breakpoint" {
     // export const getMediaShorthands: (breakpoints: Breakpoints, rule: Rule)
     //     => {};
 
-    // eslint-disable-next-line prefer-declare-function
+    // eslint-disable-next-line @definitelytyped/prefer-declare-function
     export const getMedia: (breakpoints: Breakpoints) => {
         /**
          * Will return a media query with a min-width of the defined breakpoint

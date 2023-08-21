@@ -203,7 +203,7 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         function getMacroData<T extends object>(callback: (data: T) => void): void;
 
         /**

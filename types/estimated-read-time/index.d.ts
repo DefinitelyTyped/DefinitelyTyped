@@ -13,7 +13,7 @@ export interface TextOptions {
 }
 
 export interface TextResult {
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @definitelytyped/camelcase
     word_count: number;
     seconds: number;
 }

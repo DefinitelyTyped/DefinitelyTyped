@@ -163,6 +163,6 @@ declare namespace flowjs {
     type CatchAllCallbackArguments = [Event];
 }
 // use namespace export like in flowjs/index.d.ts. Fix TS2306 "flowjs/index.d.ts not a module"
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = flowjs;
 export as namespace flowjs;

@@ -20,7 +20,7 @@ declare global {
      * @deprecated The Patcher used in this call contains deprecated option types
      * @see LegacyPatcher
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: LegacyPatcher<S, L>): void;
     /**
      * Function for registering a patcher with UPF

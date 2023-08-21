@@ -256,7 +256,7 @@ export namespace PSD {
      * channel. The dimensions can also differ per channel if we're parsing mask
      * data (channel ID < -1).
      */
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    // eslint-disable-next-line @definitelytyped/@typescript-eslint/no-empty-interface
     interface ChannelImage extends Image {
         /** The width of the image. */
         width(): number;

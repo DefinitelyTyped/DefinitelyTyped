@@ -1,6 +1,6 @@
 {
     "rules": {
-        "prefer-declare-function": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

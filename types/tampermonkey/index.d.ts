@@ -495,7 +495,7 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
 /** Makes an xmlHttpRequest */
 declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext>, // eslint-disable-line no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
 ): Tampermonkey.AbortHandle<void>;
 
 /** Downloads a given URL to the local disk */
@@ -642,7 +642,7 @@ declare var GM: Readonly<{
      */
     xmlHttpRequest<TContext = any>(
         // onload and the like still work
-        details: Tampermonkey.Request<TContext>, // eslint-disable-line no-unnecessary-generics
+        details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
     ): Promise<Tampermonkey.Response<TContext>>;
 
     // GM_download has two signatures, GM.download has one

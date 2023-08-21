@@ -5,10 +5,9 @@ module.exports = {
         project: true,
         warnOnUnsupportedTypeScriptVersion: false,
     },
-    plugins: ['@typescript-eslint', 'jsdoc'],
+    plugins: ['@typescript-eslint', 'jsdoc', '@definitelytyped'],
+    extends: ["plugin:@definitelytyped/all"],
     rules: {
-        'dt-header': 'error',
-        'export-just-namespace': 'error',
         'jsdoc/check-tag-names': [
             'error',
             {
@@ -116,20 +115,6 @@ module.exports = {
                 typed: true,
             },
         ],
-        'no-any-union': 'error',
-        'no-bad-reference': 'error',
-        'no-const-enum': 'error',
-        'no-dead-reference': 'error',
-        'no-declare-current-package': 'error',
-        'no-import-default-of-export-equals': 'error',
-        'no-outside-dependencies': 'error',
-        'no-self-import': 'error',
-        'no-single-element-tuple-type': 'error',
-        'no-unnecessary-generics': 'error',
-        'no-useless-files': 'error',
-        'prefer-declare-function': 'error',
-        'redundant-undefined': 'error',
-        'trim-file': 'error',
         '@typescript-eslint/ban-ts-comment': [
             'error',
             {
