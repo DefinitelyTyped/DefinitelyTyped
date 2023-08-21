@@ -16,6 +16,25 @@ if (window.onurlchange === null) {
 // General Listening
 window.addEventListener('click', event => console.log(event));
 
+// GM_addElement
+
+GM_addElement('script', {
+    textContent: 'window.foo = "bar";'
+});
+
+GM_addElement('script', {
+    src: 'https://example.com/script.js',
+    type: 'text/javascript'
+});
+
+GM_addElement(document.getElementsByTagName('div')[0], 'img', {
+    src: 'https://example.com/image.png'
+});
+
+GM_addElement(document.body, 'style', {
+    textContent: 'div { color: black; };'
+});
+
 // GM_addStyle
 
 const scriptTag: HTMLStyleElement = GM_addStyle('a { font-wight: bold }');
@@ -36,9 +55,11 @@ GM_setValue('d', { form: { name: 'Bob' } });
 GM_addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
 GM_addValueChangeListener('b', (name, oldValue: number, newValue: number, remote) => {});
 GM_addValueChangeListener('c', (name, oldValue: boolean, newValue: boolean, remote) => {});
-const dValueChangeListenerId = GM_addValueChangeListener(
+const dValueChangeListenerId: number = GM_addValueChangeListener(
     'd',
-    (name, oldValue: AppState, newValue: AppState, remote) => {},
+    (name, oldValue: AppState, newValue: AppState, remote) => {
+        GM_log(name, oldValue.form.name, newValue.form.name);
+    },
 );
 
 // GM_removeValueChangeListener
@@ -108,6 +129,9 @@ GM_unregisterMenuCommand(commandId);
 const abortHandle = GM_xmlhttpRequest({
     method: 'GET',
     url: 'http://www.example.com/',
+    headers: {
+        "Content-Type": "application/json"
+    },
     onload(response) {
         alert(response.responseText);
     },
@@ -235,6 +259,21 @@ GM_xmlhttpRequest({
     },
 });
 
+// Fetch
+GM_xmlhttpRequest({
+    method: 'GET',
+    url: 'https://example.com/',
+    headers: {
+        "Content-Type": "application/json"
+    },
+    onload: (response) => {
+        console.log(response.responseText);
+    },
+    redirect: 'error',
+    fetch: true,
+    anonymous: true
+});
+
 // GM_download
 
 const downloadHandle = GM_download({
@@ -243,6 +282,7 @@ const downloadHandle = GM_download({
     headers: { 'User-Agent': 'greasemonkey' },
     saveAs: true,
     timeout: 3000,
+    conflictAction: 'prompt',
     onerror(response) {
         GM_log(response.error, response.details);
     },
@@ -287,6 +327,7 @@ GM_getTabs(tabsMap => {
 
 GM_log('Hello, World!');
 GM_log('Hello, World!', 'Again');
+GM_log('Different types', 0, true, { key: 'value' }, [1, 2, 3]);
 
 // GM_openInTab
 
@@ -294,11 +335,15 @@ GM_openInTab('http://www.example.com/');
 
 GM_openInTab('http://www.example.com/', true);
 
-const openTabObject = GM_openInTab('http://www.example.com/', {
-    active: true,
-    insert: true,
-    setParent: true,
-});
+const openTabObject = GM_openInTab(
+    'http://www.example.com/',
+    {
+        active: true,
+        insert: 2,
+        setParent: true,
+        incognito: true
+    }
+);
 
 openTabObject.onclose = () => {
     GM_log('Tab closed', openTabObject.closed);
@@ -336,6 +381,8 @@ GM_notification('Notification text', 'Notification title', 'https://tampermonkey
     GM_log(`Notification with id ${this.id} is clicked`);
 });
 
+GM_notification('Notification text');
+
 // GM_setClipboard
 
 GM_setClipboard('Some text in clipboard');
@@ -344,6 +391,58 @@ GM_setClipboard('<b>Some text in clipboard</b>', {
     type: 'text',
     mimetype: 'text/plain',
 });
+
+// GM_webRequest
+
+GM_webRequest([
+    { selector: '*cancel.me/*', action: 'cancel' },
+    { selector: { include: '*', exclude: 'http://exclude.me/*' }, action: { redirect: 'http://new_static.url' } },
+    { selector: { match: '*://match.me/*' }, action: { redirect: { from: '([^:]+)://match.me/(.*)',  to: '$1://redirected.to/$2' } } }
+], (info, message, details) => {
+    console.log(info, message, details);
+});
+
+// GM_cookie.*
+
+// $ExpectType void
+GM_cookie.list({ name: "mycookie" }, (cookies, error) => {
+    if (!error) {
+        console.log(cookies);
+    } else {
+        console.error(error);
+    }
+});
+
+GM_cookie.list({}, console.log);
+
+// $ExpectType void
+GM_cookie.set({
+    url: 'https://example.com',
+    name: 'name',
+    value: 'value',
+    domain: '.example.com',
+    path: '/',
+    secure: true,
+    httpOnly: true,
+    expirationDate: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30) // Expires in 30 days
+}, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('Cookie set successfully.');
+    }
+});
+
+GM_cookie.delete({ name: 'cookie_name' }, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('Cookie deleted successfully');
+    }
+});
+
+// @ts-expect-error
+GM_cookie.delete({}, () => {});
 
 // GM_info
 
