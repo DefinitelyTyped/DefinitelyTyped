@@ -1801,10 +1801,10 @@ export interface Resource {
     removeListener(event: AnyEventType, handler: (...args: any[]) => void): void;
 
     /**
-     *  Removes all listeners, or those of the specified event type.
+     *  Removes all listeners of the specified event type.
      *  @param [event] - The event type.
      */
-    removeAllListeners(event?: AnyEventType): void;
+    removeAllListeners(event: AnyEventType): void;
 }
 export interface Applications {
     /**
