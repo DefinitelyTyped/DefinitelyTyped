@@ -2166,8 +2166,6 @@
 /types/finalhandler/                                      @chrootsu @hbomark
 /types/finch/                                             @DavidSichau
 /types/find/                                              @andypyrope
-/types/find-cache-dir/                                    @BendingBender @peterblazejewicz
-/types/find-cache-dir/v2/                                 @BendingBender
 /types/find-config/                                       @itslukej
 /types/find-down/                                         @ffflorian
 /types/find-duplicated-property-keys/                     @peterblazejewicz
@@ -3173,7 +3171,6 @@
 /types/hapi__inert/                                       @nycdotnet @AJamesPhillips @lenovouser
 /types/hapi__joi/                                         @Bartvds @laurence-myers @cglantschnig @DavidBR-SW @GaelMagnan @ralekna @schfkt @rokoroku @dankraus @wanganjun @rafaelkallis @aconanlai @zaphoyd @thewillg @SimonSchick @afharo @lenovouser @AnandChowdhary @myovchev @RecuencoJones @freisenhauer @legraphista @stevendesu
 /types/hapi__jwt/                                         @ssanchezmarc
-/types/hapi__nes/                                         @NoHomey @saboya @lenovouser
 /types/hapi__pez/                                         @grant
 /types/hapi__shot/                                        @AJamesPhillips @SimonSchick @lenovouser
 /types/hapi__sntp/                                        @lenovouser
@@ -4025,7 +4022,7 @@
 /types/jwt-then/                                          @phenomax
 /types/jxon/                                              @maxbogus
 /types/k-bucket/                                          @tomonari-t
-/types/k6/                                                @na-- @MStoykov @codebien @imiric @oleiade @olegbespalov @ppcano @nicolevanderhoeven @ankur22
+/types/k6/                                                @MStoykov @codebien @oleiade @olegbespalov @ppcano @nicolevanderhoeven @ankur22 @inancgumus @ka3de
 /types/kafka-node-avro/                                   @alfamegaxq
 /types/kahoot.js-updated/                                 @MysteryBlokHed
 /types/kakao-js-sdk/                                      @wooogi123
@@ -5485,7 +5482,7 @@
 /types/npmcli__ci-detect/                                 @aminya
 /types/npmcli__config/                                    @forivall
 /types/npmcli__map-workspaces/                            @forivall
-/types/npmcli__package-json/                              @MichaelDeBoey
+/types/npmcli__package-json/                              @MichaelDeBoey @stephenwade
 /types/npmcli__promise-spawn/                             @antongolub
 /types/npmlog/                                            @DanielMSchmidt @wildlyinaccurate
 /types/nprogress/                                         @JudahGabriel @Ovyerus
@@ -7171,7 +7168,7 @@
 /types/round/                                             @ChocolateLoverRaj
 /types/route-parser/                                      @ianks @bobbuehler
 /types/routie/                                            @Adilson
-/types/rox-browser/                                       @dn-l @asafRollout
+/types/rox-browser/                                       @asafRollout
 /types/rox-browser/v4/                                    @g-guirado
 /types/rox-node/                                          @g-guirado @asafRollout
 /types/rox-node/v4/                                       @g-guirado
@@ -8036,7 +8033,6 @@
 /types/test-listen/                                       @stephenmathieson
 /types/testing-library__cypress/                          @aaronmcadam @bastibuck @NoriSte @wKovacs64 @existentialism @airato @simjes
 /types/testing-library__jasmine-dom/                      @brrianalexis
-/types/testing-library__jest-dom/                         @gnapse @jgoz @smacpherson64 @AndrewLeedham
 /types/testingbot-api/                                    @timbru31
 /types/tether/                                            @adidahiya
 /types/tether-drop/                                       @adidahiya
@@ -8219,7 +8215,7 @@
 /types/tti-polyfill/                                      @derduher
 /types/tunajs/                                            @pastelmind
 /types/tunnel/                                            @BendingBender
-/types/tunnel-ssh/                                        @hackerhasid
+/types/tunnel-ssh/                                        @DefinitelyTyped
 /types/turbolinks/                                        @evankim390
 /types/turbostatus/                                       @ffflorian
 /types/turndown/                                          @sergey-zhidkov
