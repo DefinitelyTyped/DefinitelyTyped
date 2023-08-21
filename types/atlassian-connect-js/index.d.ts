@@ -873,6 +873,53 @@ declare namespace AP {
          * @param url URL to update current history value with
          */
         function replaceState(url: string): void;
+
+        /**
+         * Register a function to run when state is changed.
+         * You should use this to update your UI to show the state.
+         * NB: The function is only documented in the example code provided.
+         *
+         * @param callback Function to run when the state is changed.
+         * @example
+         * AP.history.popState(function(e){
+         *     alert("The URL has changed from: " + e.oldURL + "to: " + e.newURL);
+         * });
+         * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
+         */
+        function popState(callback: (event: {
+            /**
+             * Add-on key
+             */
+            key: string;
+            /**
+             * URL hash
+             */
+            hash: null | string;
+            /**
+             * URL query parameters
+             */
+            query: null | string;
+            /**
+             * Title of the destination page.
+             */
+            title: string;
+            /**
+             * Complete url
+             */
+            href: string;
+            /**
+             * State defined in the pushState function
+             */
+            state: unknown;
+            /**
+             * URL added to history
+             */
+            newURL: string;
+            /**
+             * URL previously in the history, or undefined if no URLs were already in the history.
+             */
+            oldURL?: string;
+        }) => void): void;
     }
 
     /**
