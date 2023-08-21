@@ -402,6 +402,48 @@ GM_webRequest([
     console.log(info, message, details);
 });
 
+// GM_cookie.*
+
+// $ExpectType void
+GM_cookie.list({ name: "mycookie" }, (cookies, error) => {
+    if (!error) {
+        console.log(cookies);
+    } else {
+        console.error(error);
+    }
+});
+
+GM_cookie.list({}, console.log);
+
+// $ExpectType void
+GM_cookie.set({
+    url: 'https://example.com',
+    name: 'name',
+    value: 'value',
+    domain: '.example.com',
+    path: '/',
+    secure: true,
+    httpOnly: true,
+    expirationDate: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30) // Expires in 30 days
+}, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('Cookie set successfully.');
+    }
+});
+
+GM_cookie.delete({ name: 'cookie_name' }, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('Cookie deleted successfully');
+    }
+});
+
+// @ts-expect-error
+GM_cookie.delete({}, () => {});
+
 // GM_info
 
 // $ExpectType ScriptInfo

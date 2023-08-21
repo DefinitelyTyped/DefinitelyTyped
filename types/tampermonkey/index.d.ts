@@ -472,6 +472,83 @@ declare namespace Tampermonkey {
             description?: string;
         }
     ) => void;
+
+    // GM_cookie.*
+    interface Cookie {
+        /** The domain of the cookie. */
+        domain: string;
+        /** The first-party domain of the cookie. */
+        firstPartyDomain?: string;
+        /** Indicates whether the cookie is a host-only cookie. */
+        hostOnly: boolean;
+        /** Indicates whether the cookie is an HTTP-only cookie. */
+        httpOnly: boolean;
+        /** The name of the cookie. */
+        name: string;
+        /** The path of the cookie. */
+        path: string;
+        /** The `SameSite` attribute of the cookie */
+        sameSite: string;
+        /** Whether the cookie requires a secure connection. */
+        secure: boolean;
+        /** Whether the cookie is a session cookie. */
+        session: boolean;
+        /** The value of the cookie. */
+        value: string;
+        /** The date the cookie expires in seconds since the Unix epoch. */
+        expirationDate?: number;
+    }
+
+    interface ListCookiesDetails {
+        /** The URL to retrieve cookies from (defaults to current document URL). */
+        url?: string;
+        /** The domain of the cookies to retrieve. */
+        domain?: string;
+        /** The name of the cookies to retrieve. */
+        name?: string;
+        /** The path of the cookies to retrieve. */
+        path?: string;
+    }
+
+    type ListCookiesCallback = (
+        /** An array containing the retrieved cookies. */
+        cookies: Cookie[],
+        /** An error message if an error occurred, `null` otherwise. */
+        error: string | null,
+    ) => void;
+
+    interface SetCookiesDetails {
+        /**
+         * The URL to associate the cookie with. If not specified,
+         * the cookie is associated with the current document's URL.
+         */
+        url?: string;
+        /** The name of the cookie. */
+        name: string;
+        /** The value of the cookie. */
+        value: string;
+        /** The domain of the cookie. */
+        domain?: string;
+        /** The first-party domain of the cookie. */
+        firstPartyDomain?: string;
+        /** The path of the cookie. */
+        path?: string;
+        /** Whether the cookie should only be sent over HTTPS. */
+        secure?: boolean;
+        /** Whether the cookie should be marked as `HttpOnly`. */
+        httpOnly?: boolean;
+        /**
+         * The expiration date of the cookie in seconds since the Unix epoch.
+         * If not specified, the cookie never expires.
+         */
+        expirationDate?: number;
+    }
+
+    interface DeleteCookiesDetails {
+        url: string;
+        name: string;
+        firstPartyDomain: string;
+    }
 }
 
 /**
@@ -831,6 +908,7 @@ declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType):
  * with types `sub_frame`, `script`, `xhr` and `websocket`.
  * **Note: this API is experimental and might change at any time.**
  * It might also disappear or change during manifest v3 migration.
+ * @url https://www.tampermonkey.net/documentation.php#api:GM_webRequest
  * @param rules An array of rules.
  * @param listener A function called when the rule is triggered. It cannot impact on the rule action.
  * @returns An object with an `.abort()` method.
@@ -839,6 +917,68 @@ declare function GM_webRequest(
     rules: Tampermonkey.WebRequestRuleParam[],
     listener?: Tampermonkey.WebRequestListener
 ): Tampermonkey.AbortHandle<void>;
+
+// GM_cookie.*
+
+// https://stackoverflow.com/a/59987826
+// for GM_cookie.delete()
+type AtLeastOneOf<T> = { [K in keyof T]: Pick<T, K> }[keyof T];
+
+declare var GM_cookie: {
+    /**
+     * Retrieves all cookies whose properties match those given.
+     * Tampermonkey checks if the script has `@include` or `@match`
+     * access to given `details.url` arguments!
+     *
+     * **Note: the `GM_cookie` API is experimental and might
+     * return a `not supported` error at some Tampermonkey versions.**
+     * @url https://www.tampermonkey.net/documentation.php#api:GM_cookie.list
+     * @param details Object containing properties of the cookies to retrieve.
+     * @param callback Function to be called when the cookies have been retrieved.
+     */
+    list(
+        details?: Tampermonkey.ListCookiesDetails,
+        callback?: Tampermonkey.ListCookiesCallback
+    ): void;
+
+    /**
+     * Sets a cookie with the given details. Supported properties
+     * [are defined here](https://developer.chrome.com/extensions/cookies#method-set).
+     *
+     * **Note: the `GM_cookie` API is experimental and might
+     * return a `not supported` error at some Tampermonkey versions.**
+     * @url https://www.tampermonkey.net/documentation.php##api:GM_cookie.set
+     * @param details An object containing the details of the cookie to be set.
+     * @param callback A function to be called when the operation is complete.
+     */
+    set(
+        details: Tampermonkey.SetCookiesDetails,
+        callback?: (
+            /**
+             * If there was an error setting the cookie, this contains
+             * an error message. Otherwise, it is `undefined`.
+             */
+            error?: string
+        ) => void
+    ): void;
+
+    /**
+     * Deletes a cookie whose properties match those given.
+     *
+     * **Note: the `GM_cookie` API is experimental and might
+     * return a `not supported` error at some Tampermonkey versions.**
+     * @url https://www.tampermonkey.net/documentation.php##api:GM_cookie.delete
+     * @param details An object containing the details of the cookie to be deleted.
+     * @param callback Function called when the cookie has been deleted or when an error has occurred.
+     */
+    delete(
+        details: AtLeastOneOf<Tampermonkey.DeleteCookiesDetails>,
+        callback?: (
+            /** An error message, or `undefined` if the cookie was deleted successfully. */
+            error?: string
+        ) => void
+    ): void;
+};
 
 // GM.*
 
