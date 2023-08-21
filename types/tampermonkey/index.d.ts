@@ -893,13 +893,13 @@ declare function GM_notification(
  * @param text A string containing the message to display in the notification.
  * @param title The title of the notification. If not specified, the script name is used.
  * @param image The URL of an image to display in the notification.
- * @param onclick A callback function that will be called when the user clicks on the notification.
+ * @param onClick A callback function that will be called when the user clicks on the notification.
  */
 declare function GM_notification(
     text: string,
     title?: string,
     image?: string,
-    onclick?: Tampermonkey.NotificationOnClick,
+    onClick?: Tampermonkey.NotificationOnClick,
 ): void;
 
 /**
