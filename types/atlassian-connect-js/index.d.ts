@@ -886,9 +886,7 @@ declare namespace AP {
          * });
          * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
          */
-        function popState(callback: (event: PopStateEvent) => void): void;
-
-        interface PopStateEvent {
+        function popState(callback: (event: {
             /**
              * Add-on key
              */
@@ -921,7 +919,7 @@ declare namespace AP {
              * URL previously in the history, or undefined if no URLs were already in the history.
              */
             oldURL?: string;
-        }
+        }) => void): void;
     }
 
     /**
