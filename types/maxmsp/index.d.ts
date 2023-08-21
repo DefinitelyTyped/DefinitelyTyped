@@ -1,6 +1,7 @@
 // Type definitions for non-npm package maxmsp 1.0
 // Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
 // Definitions by: TomW <https://github.com/twhiston>
+//                 FrancescElies <https://github.com/FrancescElies>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
 // Documentation is property of Cycling '74 and published with permission.
