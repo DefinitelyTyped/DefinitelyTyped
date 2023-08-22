@@ -39,6 +39,7 @@
 /// <reference path = "components/Toggle.d.ts" />
 /// <reference path = "components/Trigger.d.ts" />
 /// <reference path = "components/Waveform.d.ts" />
+/// <reference path = "components/Window.d.ts" />
 
 declare namespace GorillaEngine {
   /**
