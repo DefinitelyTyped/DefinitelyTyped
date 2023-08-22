@@ -198,6 +198,21 @@ const boxattrnames = myMaxobj.getboxattrnames();
 [r1, r2, r3, r4] = myMaxobj.getboxattr("presentation_rect") as Rect;
 myMaxobj.setboxattr("presentation_rect", [0, 0, 0, 0]);
 
+// MaxobjListener
+function onWorkspaceDisabled(rectData: MaxobjListenerData<number>) {
+    const workspacedisabled = rectData.value;
+    if (workspacedisabled === 0) {
+        post("workspace disabled");
+    } else {
+        post("workspace enabled");
+    }
+}
+
+const maxobjListener = new MaxobjListener(myMaxobj, "workspacedisabled", onWorkspaceDisabled);
+post(maxobjListener.maxobject);
+post(maxobjListener.attrname);
+post(maxobjListener.silent);
+
 // ------------- Patcher usage examples -------------
 
 // Create a new Patcher
