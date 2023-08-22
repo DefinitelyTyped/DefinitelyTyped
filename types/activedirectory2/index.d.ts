@@ -1,4 +1,4 @@
-// Type definitions for activedirectory2 2.2.0
+// Type definitions for activedirectory2 2.2
 // Project: https://github.com/jsumners/node-activedirectory#readme
 // Definitions by: pas <https://github.com/pasthelod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
