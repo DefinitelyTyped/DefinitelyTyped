@@ -331,8 +331,12 @@ myMGraphics.autosketch = 1;
 myMGraphics.relative_coords = 1;
 myMGraphics.autofill = 1;
 
+let width = 0;
+let height = 0;
+
 myMGraphics.init();
 myMGraphics.redraw();
+[width, height] = myMGraphics.size;
 myMGraphics.copy_path();
 myMGraphics.append_path('pathToAppend');
 myMGraphics.close_path();
@@ -360,7 +364,7 @@ myMGraphics.text_path('Hello');
 const fontExtents = myMGraphics.font_extents();
 post(fontExtents);
 const textMeasure = myMGraphics.text_measure("my-string");
-const [width, height] = textMeasure;
+[width, height] = textMeasure;
 post(textMeasure);
 const fontlist = myMGraphics.getfontlist();
 post(fontlist);
