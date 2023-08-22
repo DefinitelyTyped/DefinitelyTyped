@@ -432,7 +432,7 @@ export function ribbon(): RibbonGenerator<any, Ribbon, RibbonSubgroup>;
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new ribbon generator with the default settings.
@@ -445,7 +445,7 @@ export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, Subg
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbon<This, Datum, SubgroupDatum>(): RibbonGenerator<This, Datum, SubgroupDatum>;
 
 /**
@@ -461,7 +461,7 @@ export function ribbonArrow(): RibbonArrowGenerator<any, Ribbon, RibbonSubgroup>
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new arrow ribbon generator with the default settings.
@@ -474,5 +474,5 @@ export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, D
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbonArrow<This, Datum, SubgroupDatum>(): RibbonArrowGenerator<This, Datum, SubgroupDatum>;

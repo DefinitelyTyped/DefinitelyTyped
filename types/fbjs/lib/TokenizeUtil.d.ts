@@ -16,5 +16,5 @@ declare namespace TokenizeUtil {
     function getPunctuation(): string;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = TokenizeUtil;

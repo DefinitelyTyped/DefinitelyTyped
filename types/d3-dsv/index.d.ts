@@ -80,7 +80,7 @@ export interface DSVParsedArray<T> extends Array<T> {
  *
  * @param csvString A string, which must be in the comma-separated values format.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function csvParse<Columns extends string>(csvString: string): DSVRowArray<Columns>;
 /**
  * Parses the specified string, which must be in the comma-separated values format, returning an array of objects representing the parsed rows.
@@ -221,7 +221,7 @@ export function csvFormatValue(value: string): string;
  *
  * @param tsvString A string, which must be in the tab-separated values format.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function tsvParse<Columns extends string>(tsvString: string): DSVRowArray<Columns>;
 /**
  * Parses the specified string, which must be in the tab-separated values format, returning an array of objects representing the parsed rows.
@@ -365,7 +365,7 @@ export interface DSV {
      *
      * @param dsvString A string, which must be in the delimiter-separated values format with the appropriate delimiter.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     parse<Columns extends string>(dsvString: string): DSVRowArray<Columns>;
     /**
      * Parses the specified string, which must be in the delimiter-separated values format with the appropriate delimiter, returning an array of objects representing the parsed rows.
@@ -488,7 +488,7 @@ export function dsvFormat(delimiter: string): DSV;
  * @param object An object (or array) representing a parsed row
  */
 export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     object: DSVRowString<Columns> | readonly string[]
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ParsedRow;
