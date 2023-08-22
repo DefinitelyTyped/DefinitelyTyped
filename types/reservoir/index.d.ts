@@ -17,7 +17,7 @@ export = Reservoir;
 declare function Reservoir<T>(
     reservoirSize?: number,
     randomNumberGenerator?: () => number
-): Reservoir.ReservoirArray<T>;  // eslint-disable-line no-unnecessary-generics
+): Reservoir.ReservoirArray<T>;  // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /*~ If you want to expose types from your module as well, you can
  *~ place them in this block. Often you will want to describe the

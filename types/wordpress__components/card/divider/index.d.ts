@@ -16,10 +16,10 @@ declare namespace CardDivider {
     } & JSX.IntrinsicElements[T];
 }
 
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function CardDivider<T extends keyof JSX.IntrinsicElements = typeof HorizontalRule>(
     props: CardDivider.Props<T>,
 ): JSX.Element;
-/* eslint-enable no-unnecessary-generics */
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 export default CardDivider;

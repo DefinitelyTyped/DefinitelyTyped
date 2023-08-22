@@ -1,9 +1,9 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off"
     }
 }

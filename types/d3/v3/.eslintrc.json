@@ -1,8 +1,8 @@
 {
     "rules": {
-        "export-just-namespace": "off",
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

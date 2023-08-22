@@ -3526,9 +3526,9 @@ declare namespace Access {
     interface Children {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Item<T = Control>(Index: number | string): T;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T = Control>(Index: number | string): T;
     }
 
@@ -4021,10 +4021,10 @@ declare namespace Access {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Item<T = Control>(Index: number | string): T;
         readonly Parent: any;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T = Control>(Index: number | string): T;
     }
 

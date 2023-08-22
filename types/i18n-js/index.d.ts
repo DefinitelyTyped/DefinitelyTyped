@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = I18n;
 export as namespace I18n;
 
@@ -19,13 +19,13 @@ declare namespace I18n {
     let missingBehaviour: "message" | "guess";
     let missingTranslationPrefix: string;
 
-    // eslint-disable-next-line prefer-declare-function
+    // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let getFullScope: (scope: string | ReadonlyArray<string>, options?: TranslateOptions) => string;
-    // eslint-disable-next-line prefer-declare-function
+    // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let missingTranslation: (scope: string, options?: TranslateOptions) => string | null | undefined;
-    // eslint-disable-next-line prefer-declare-function
+    // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let missingPlaceholder: (placeholder: string, message: string, options?: InterpolateOptions) => string | null | undefined;
-    // eslint-disable-next-line prefer-declare-function
+    // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let nullPlaceholder: (placeholder: string, message: string, options?: InterpolateOptions) => string | null | undefined;
 
     let translations: { [locale: string]: object };

@@ -1,9 +1,9 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

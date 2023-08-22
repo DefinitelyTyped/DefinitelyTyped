@@ -72,7 +72,7 @@ export interface Axis<Domain> {
     /**
      * Gets the current scale underlying the axis.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     scale<A extends AxisScale<Domain>>(): A;
 
     /**

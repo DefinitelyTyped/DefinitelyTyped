@@ -245,7 +245,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      *
      * @param name Name of the registered force.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     force<F extends Force<NodeDatum, LinkDatum>>(name: string): F | undefined;
     /**
      * If force is specified, assigns the force for the specified name and returns this simulation.
@@ -320,7 +320,7 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum>(nodesData
  *
  * @param nodesData Optional array of nodes data, defaults to empty array.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>>(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
 
 // ----------------------------------------------------------------------
@@ -426,7 +426,7 @@ export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Forc
  * @param x An optional x-coordinate for the centering position, defaults to 0.
  * @param y An optional y-coordinate for the centering position, defaults to 0.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forceCenter<NodeDatum extends SimulationNodeDatum>(x?: number, y?: number): ForceCenter<NodeDatum>;
 
 // Collision ------------------------------------------------------------
@@ -703,7 +703,7 @@ export interface ForceManyBody<NodeDatum extends SimulationNodeDatum> extends Fo
  *
  * The generic refers to the type of data for a node.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forceManyBody<NodeDatum extends SimulationNodeDatum>(): ForceManyBody<NodeDatum>;
 
 // Positioning ----------------------------------------------------------------

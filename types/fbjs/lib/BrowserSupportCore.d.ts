@@ -19,5 +19,5 @@ declare namespace BrowserSupportCore {
      */
     function hasCSSTransitions(): boolean;
 }
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = BrowserSupportCore;

@@ -22,7 +22,7 @@ declare module 'meteor/mongo' {
              * when creating new items.
              */
             helpers<allowPartial extends (false | AllowPartial) = false>(
-                // eslint-disable-next-line no-unnecessary-generics
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 helpers: (allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>)
             ): void;
 

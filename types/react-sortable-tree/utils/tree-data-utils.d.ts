@@ -3,16 +3,16 @@ import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode
 export type GetNodeKeyFunction<T = {}> = (data: TreeIndex & TreeNode<T>) => string | number;
 export type WalkAndMapFunctionParameters<T = {}> = FullTree<T> & {getNodeKey: GetNodeKeyFunction<T>, callback: Function, ignoreCollapsed?: boolean | undefined};
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function getDescendantCount<T = {}>(data: TreeNode<T> & {ignoreCollapsed?: boolean | undefined}): number;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function getVisibleNodeCount<T = {}>(data: FullTree<T>): number;
 export function getVisibleNodeInfoAtIndex<T = {}>(
     data: FullTree<T> & {
         index: number,
         getNodeKey: GetNodeKeyFunction<T>,
     }): TreeNode<T> & TreePath & {lowerSiblingsCounts: number[]} | null;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function walk<T = {}>(data: WalkAndMapFunctionParameters<T>): void;
 export function map<T = {}>(data: WalkAndMapFunctionParameters<T>): Array<TreeItem<T>>;
 export function toggleExpandedForAll<T = {}>(
@@ -80,7 +80,7 @@ export function getTreeFromFlatData<T = {}>(
     },
 ): Array<TreeItem<T>>;
 export function isDescendant<T = {}>(older: TreeItem<T>, younger: TreeItem<T>): boolean;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function getDepth<T = {}>(node: TreeItem<T>, depth?: number): number;
 export function find<T = {}>(
     data: FullTree<T> & {

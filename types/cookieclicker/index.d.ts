@@ -2722,7 +2722,7 @@ declare namespace Game {
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
         // The ESLint disable is for the generic, which is a hack required for a multitude of real use-cases
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         power: number | (<T extends this = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented

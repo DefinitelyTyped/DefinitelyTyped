@@ -37,7 +37,7 @@ declare namespace SelectControl {
         } & (T extends readonly string[] ? { multiple: true } : { multiple?: false | undefined });
 }
 declare function SelectControl<T extends string | readonly string[]>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     props: SelectControl.Props<T>
 ): JSX.Element;
 

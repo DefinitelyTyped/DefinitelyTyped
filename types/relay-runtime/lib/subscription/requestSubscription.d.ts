@@ -16,6 +16,6 @@ export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> 
 
 export function requestSubscription<TSubscription extends OperationType = OperationType>(
     environment: Environment,
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     config: GraphQLSubscriptionConfig<TSubscription>,
 ): Disposable;

@@ -1148,19 +1148,19 @@ export function histogram(): HistogramGeneratorNumber<number, number>;
 /**
  * @deprecated Use bin instead.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
 
 /**
  * @deprecated Use bin instead.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 export function bin(): HistogramGeneratorNumber<number, number>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function bin<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function bin<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 // --------------------------------------------------------------------------------------

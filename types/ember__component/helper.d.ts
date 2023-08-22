@@ -130,7 +130,7 @@ export default class Helper<S = unknown> extends EmberObject {
 // information supplied via this generic. While it may appear useless on this
 // class definition and extension, it is used by external tools and should not
 // be removed.
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default interface Helper<S> extends Opaque<S> {}
 
 // This type exists to provide a non-user-constructible, non-subclassable

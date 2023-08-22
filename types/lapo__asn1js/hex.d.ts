@@ -4,7 +4,7 @@ declare namespace Hex {
     function decode(a: ASN1.Binary): Uint8Array;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Hex;
 
 export as namespace hex;

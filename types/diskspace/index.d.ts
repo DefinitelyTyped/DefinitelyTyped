@@ -69,5 +69,5 @@ export interface Result {
  * @param drive RU: Наименование диска  EN: Name disk
  * @param callback RU: Callback-функция EN: Callback-function
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function check<T extends string = "C" | "/">(drive: T, callback: Callback): void;

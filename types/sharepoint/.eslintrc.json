@@ -1,7 +1,7 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

@@ -153,7 +153,7 @@ export type ResolveThunks<TDispatchProps> =
  * @param options
  */
 export interface Connect {
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
@@ -251,7 +251,7 @@ export interface Connect {
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
 }
 
 /**
@@ -329,7 +329,7 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
 ): AdvancedComponentDecorator<TProps, TOwnProps>;

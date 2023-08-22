@@ -20,6 +20,6 @@ export class Pipeline<TInput, TOutput> extends EventEmitter {
     wireupEvents(done: NextFunction<TOutput>): void;
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function create<TInput, TOutput>(name: string): Pipeline<TInput, TOutput>;
 export function breakIf(predicate: Predicate): Filter;

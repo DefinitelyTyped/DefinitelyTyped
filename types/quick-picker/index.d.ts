@@ -7,7 +7,7 @@ import * as React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
 export default class QuickPicker extends React.Component {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static open: <T = ItemType>(options: QuickPickerOpenOptions<T>) => void;
     static close: () => void;
 }

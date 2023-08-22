@@ -24,7 +24,7 @@ export namespace NamespaceJs {
         define(
             callback: (
                 ns: T & {
-                    // eslint-disable-next-line no-unnecessary-generics
+                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                     provide: <U extends UserObject>(obj: U) => void;
                 },
             ) => void,
@@ -44,7 +44,7 @@ export namespace NamespaceJs {
 }
 
 declare global {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function Namespace<T extends NamespaceJs.UserObject>(fqn: NamespaceJs.Fqn): NamespaceJs.Definition<T>;
 }
 

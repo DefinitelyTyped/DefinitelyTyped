@@ -225,7 +225,7 @@ export interface AutocompleteExposed {
 }
 
 export function connectAutoComplete<TDoc = BasicDoc>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>,
 ): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
@@ -380,7 +380,7 @@ export interface HitsProvided<THit> {
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
 export function connectHits<THit = BasicDoc>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     stateless: React.FunctionComponent<HitsProvided<THit>>,
 ): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(

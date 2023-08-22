@@ -204,7 +204,7 @@ interface QuickSettings {
         y?: number,
         panelTitle?: string,
         parent?: HTMLElement,
-    ): QuickSettingsPanel<M, S>; // eslint-disable-line no-unnecessary-generics
+    ): QuickSettingsPanel<M, S>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
     useExtStyleSheet(): void;
 }
 

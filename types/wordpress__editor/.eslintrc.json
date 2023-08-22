@@ -1,5 +1,5 @@
 {
     "rules": {
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/no-single-element-tuple-type": "off"
     }
 }

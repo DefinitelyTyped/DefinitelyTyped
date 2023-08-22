@@ -1,7 +1,7 @@
 import '../index';
 
 // NOTE: intentional; needed for config extensibility
-// eslint-disable-next-line no-declare-current-package
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'atom' {
     interface ConfigValues {
         /**

@@ -17,7 +17,7 @@ import { Commit } from "conventional-commits-parser";
  *                object contains, but not limits to the following fields.
  * @param options
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(context?: Partial<TContext>, options?: Options<TCommit, TContext>): Stream.Transform;
 
 declare namespace conventionalChangelogWriter {

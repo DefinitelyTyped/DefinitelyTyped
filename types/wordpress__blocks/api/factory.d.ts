@@ -42,7 +42,7 @@ export function createBlock<T extends Record<string, any>>(
 export function findTransform<T extends Transform, U extends Record<string, any> = Record<string, any>>(
     transforms: T[],
     predicate: (transform: T) => boolean
-): Transform<U> | null; // eslint-disable-line no-unnecessary-generics
+): Transform<U> | null; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /**
  * Returns normal block transforms for a given transform direction, optionally
@@ -56,7 +56,7 @@ export function findTransform<T extends Transform, U extends Record<string, any>
 export function getBlockTransforms<T extends Record<string, any> = Record<string, any>>(
     direction: 'to' | 'from',
     blockTypeOrName?: string | Block
-): Array<Transform<T> & { blockName: string }>; // eslint-disable-line no-unnecessary-generics
+): Array<Transform<T> & { blockName: string }>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /**
  * Returns an array of block types that the set of blocks received as argument

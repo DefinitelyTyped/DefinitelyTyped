@@ -7,7 +7,7 @@ declare namespace Base64 {
     function unarmor(a: string): ReturnType<typeof decode>;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Base64;
 
 export as namespace base64;

@@ -389,7 +389,7 @@ declare namespace editorClient {
          */
         registerNodeType<TProps extends NodeProperties, TCreds = undefined, TInstProps extends TProps = TProps>(
             nt: string,
-            def: NodeDef<TProps, TCreds, TInstProps>, // eslint-disable-line no-unnecessary-generics
+            def: NodeDef<TProps, TCreds, TInstProps>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
         ): void;
         removeNodeType(nt: string): void;
         getNodeType(nt: string): NodeDef<NodeProperties>;
@@ -1575,7 +1575,7 @@ declare namespace editorClient {
          *
          * More info: https://nodered.org/docs/api/ui/editableList/
          */
-        <T>(opts: WidgetEditableListOptions<T>): this; // eslint-disable-line no-unnecessary-generics
+        <T>(opts: WidgetEditableListOptions<T>): this; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         /**
          * Adds an item to the end of the list.         *
          * @param value - An object that will be associated with the item in the list.

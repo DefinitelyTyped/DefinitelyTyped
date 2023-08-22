@@ -17,7 +17,7 @@ declare const feathers: Feathers;
 export = feathers;
 
 interface Feathers {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <T = any>(): feathers.Application<T>;
     version: string;
     SKIP: feathers.SkipSymbol;

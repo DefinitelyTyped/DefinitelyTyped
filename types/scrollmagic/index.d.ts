@@ -149,9 +149,9 @@ export class Scene {
     // In the case of the on and off methods, the recommended approach
     // leads to errors (the compiler tries to match the event interfaces rather than
     // treating the generic Event interface as an abstract base interface
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     off<T extends Event<EventType>>(events: string, callback: (event: T) => any): Scene;
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     on<T extends Event<EventType>>(events: string, callback: (event: T) => any): Scene;
     trigger(name: string, vars?: object): Scene;
 

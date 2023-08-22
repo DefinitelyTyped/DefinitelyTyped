@@ -150,7 +150,7 @@ export interface SettingsAPI {
      *     onChange : settingThemeHandler
      * }); // default value not defined, so the first array member "(none)" is used
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     addList<T>(name: string, definition: ListDefinition<T>): void;
 
     /**

@@ -1,7 +1,7 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off"
     }
 }

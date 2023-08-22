@@ -9,7 +9,7 @@ declare namespace DBus {
     function getBus(type: busType): DBusConnection;
     function registerService(busName: busType, serviceName?: string): DBusService;
     interface DBusConnection {
-        /* eslint-disable-next-line no-unnecessary-generics */
+        /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
         getInterface<T = AnyInterfaceMethod>(serviceName: string, objectPath: string, interfaceName: string, callback: (err: Error | null, iface: DBusInterface<T>) => void): void;
         disconnect(): void;
         reconnect(callback: () => void): void;

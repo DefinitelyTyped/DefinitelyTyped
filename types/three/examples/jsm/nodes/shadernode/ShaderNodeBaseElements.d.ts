@@ -117,13 +117,13 @@ export type Fn<P extends FunctionNodeArguments> = P extends readonly [...unknown
 export function func<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): { call: (...params: Fn<P>) => Swizzable };
 
 export function fn<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): (...params: Fn<P>) => Swizzable;
 
 export function label(node: NodeRepresentation, name?: string): Swizzable<VarNode>;

@@ -9,7 +9,7 @@ import * as tough from "tough-cookie";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
 // in newer TypeScript versions:
-// eslint-disable-next-line no-declare-current-package
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "jsdom" {
     const toughCookie: typeof tough;
     class CookieJar extends tough.CookieJar {}

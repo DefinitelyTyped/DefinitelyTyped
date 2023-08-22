@@ -44,13 +44,13 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line no-unnecessary-generics
-                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
             },
         ): void;
 
@@ -123,10 +123,10 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @param definition - the definition object of the plugin
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerPlugin<TPluginDef extends PluginDef = PluginDef>(
             id: string,
-            definition: PluginDefinition<TPluginDef>, // eslint-disable-line no-unnecessary-generics
+            definition: PluginDefinition<TPluginDef>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
         ): void;
 
         /**
@@ -134,7 +134,7 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @returns the plugin definition
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         get<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef>;
 
         /**
@@ -142,7 +142,7 @@ declare namespace registry {
          * @param type - the string type of the plugin
          * @returns the plugin definitions
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
     }
     interface PluginDefinition<TPluginDef> {

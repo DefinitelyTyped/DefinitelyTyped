@@ -1294,20 +1294,20 @@ declare namespace Foxx {
         queryParam(name: string, schema: Schema, description?: string): this;
         queryParam(name: string, description: string): this;
         body(
-            // eslint-disable-next-line no-single-element-tuple-type
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             schema: Schema | Model | [Model],
             mimes?: string[],
             description?: string
         ): this;
         body(
-            // eslint-disable-next-line no-single-element-tuple-type
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             schemaOrMimes: Schema | Model | [Model] | string[],
             description?: string
         ): this;
         body(description: string): this;
         response(
             status: number | ArangoDB.HttpStatus,
-            // eslint-disable-next-line no-single-element-tuple-type
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             schema: Schema | Model | [Model],
             mimes?: string[],
             description?: string

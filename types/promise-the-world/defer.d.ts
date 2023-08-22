@@ -6,7 +6,7 @@ declare namespace defer {
     }
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function defer<T = any>(): defer.Deferred<T>;
 
 export = defer;

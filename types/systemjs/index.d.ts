@@ -43,7 +43,7 @@ declare const System: {
    * the registry, null is returned.
    */
   get(moduleId: string): System.Module | null;
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   get<T>(moduleId: string): T | null;
 
   /**
@@ -71,7 +71,7 @@ declare const System: {
 };
 
 declare namespace System {
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   type ImportFn = <T extends Module>(moduleId: string, parentUrl?: string) => Promise<T>;
 
   type DeclareFn = (_export: ExportFn, _context: Context) => Declare;
@@ -91,7 +91,7 @@ declare namespace System {
 
   type GetFn = GetFnModule | GetFnGeneric;
   type GetFnModule = (moduleId: string) => Module;
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   type GetFnGeneric = <T>(moduleId: string) => T;
 
   interface Context {

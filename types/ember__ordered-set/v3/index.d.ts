@@ -20,7 +20,7 @@ export default class OrderedSet<T = unknown> {
     // `let set: OrderedSet<string> = OrderedSet.create();`. If TS could infer
     // from usage what the type would be, this wouldn't be required, but until
     // it does, this is better than *not* allowing it.
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static create<T = unknown>(): OrderedSet<T>;
 
     add(value: T): this;

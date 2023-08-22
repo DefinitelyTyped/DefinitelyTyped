@@ -185,6 +185,6 @@ declare namespace createRBTree {
  * @param compare Optional comparison function, same semantics as array.sort().
  * @returns An empty tree ordered by `compare`.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function createRBTree<K, V>(compare?: (key1: K, key2: K) => number): createRBTree.Tree<K, V>;
 export = createRBTree;

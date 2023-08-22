@@ -863,7 +863,7 @@ declare module _ {
         zip(): [];
         zip<T, U, V>(...lists: [List<T>, List<U>, List<V>]): [T, U, V][];
         zip<T, U>(...lists: [List<T>, List<U>]): [T, U][];
-        zip<T>(...lists: [List<T>]): [T][]; // eslint-disable-line no-single-element-tuple-type
+        zip<T>(...lists: [List<T>]): [T][]; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         zip<T>(...lists: List<T>[]): T[][];
         zip(...lists: List<any>[]): any[][];
 
@@ -877,13 +877,13 @@ declare module _ {
          **/
         unzip<T, U, V>(lists: List<[T, U, V]>): [T[], U[], V[]];
         unzip<T, U>(lists: List<[T, U]>): [T[], U[]];
-        unzip<T>(lists: List<[T]>): [T[]]; // eslint-disable-line no-single-element-tuple-type
+        unzip<T>(lists: List<[T]>): [T[]]; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         unzip<T>(lists: List<List<T>>): T[][];
         unzip(lists: List<List<any>>): any[][];
         unzip(): [];
         transpose<T, U, V>(lists: List<[T, U, V]>): [T[], U[], V[]];
         transpose<T, U>(lists: List<[T, U]>): [T[], U[]];
-        transpose<T>(lists: List<[T]>): [T[]]; // eslint-disable-line no-single-element-tuple-type
+        transpose<T>(lists: List<[T]>): [T[]]; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         transpose<T>(lists: List<List<T>>): T[][];
         transpose(lists: List<List<any>>): any[][];
         transpose(): [];
@@ -4628,7 +4628,7 @@ declare module _ {
          * matching list indexes.
          * @returns The zipped version of the wrapped list and `lists`.
          **/
-        zip(): V extends List<infer A> ? [A][] : []; // eslint-disable-line no-single-element-tuple-type
+        zip(): V extends List<infer A> ? [A][] : []; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         zip<A, B>(...lists: [List<A>, List<B>]): [T, A, B][];
         zip<A>(list: List<A>): [T, A][];
         zip(...lists: List<T>[]): T[][];
@@ -4645,8 +4645,8 @@ declare module _ {
             ? [A[], B[], C[]]
             : T extends [infer A, infer B]
             ? [A[], B[]]
-            : T extends [infer A] // eslint-disable-line no-single-element-tuple-type
-            ? [A[]] // eslint-disable-line no-single-element-tuple-type
+            : T extends [infer A] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+            ? [A[]] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
             : T extends List<infer A>
             ? A[][]
             : [];
@@ -4654,8 +4654,8 @@ declare module _ {
             ? [A[], B[], C[]]
             : T extends [infer A, infer B]
             ? [A[], B[]]
-            : T extends [infer A] // eslint-disable-line no-single-element-tuple-type
-            ? [A[]] // eslint-disable-line no-single-element-tuple-type
+            : T extends [infer A] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+            ? [A[]] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
             : T extends List<infer A>
             ? A[][]
             : [];
@@ -5888,7 +5888,7 @@ declare module _ {
          * @returns A chain wrapper around the zipped version of the wrapped
          * list and `lists`.
          **/
-        zip(): V extends List<infer A> ? _Chain<[A]> : _Chain<never, []>; // eslint-disable-line no-single-element-tuple-type
+        zip(): V extends List<infer A> ? _Chain<[A]> : _Chain<never, []>; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         zip<A, B>(...arrays: [List<A>, List<B>]): _Chain<[T, A, B]>;
         zip<A>(array: List<A>): _Chain<[T, A]>;
         zip(...arrays: List<T>[]): _Chain<T[]>;
@@ -5906,8 +5906,8 @@ declare module _ {
             ? _Chain<A[] | B[] | C[], [A[], B[], C[]]>
             : T extends [infer A, infer B]
             ? _Chain<A[] | B[], [A[], B[]]>
-            : T extends [infer A] // eslint-disable-line no-single-element-tuple-type
-            ? _Chain<A[], [A[]]> // eslint-disable-line no-single-element-tuple-type
+            : T extends [infer A] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+            ? _Chain<A[], [A[]]> // eslint-disable-line @definitelytyped/no-single-element-tuple-type
             : T extends List<infer A>
             ? _Chain<A[]>
             : _Chain<never, []>;
@@ -5915,8 +5915,8 @@ declare module _ {
             ? _Chain<A[] | B[] | C[], [A[], B[], C[]]>
             : T extends [infer A, infer B]
             ? _Chain<A[] | B[], [A[], B[]]>
-            : T extends [infer A] // eslint-disable-line no-single-element-tuple-type
-            ? _Chain<A[], [A[]]> // eslint-disable-line no-single-element-tuple-type
+            : T extends [infer A] // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+            ? _Chain<A[], [A[]]> // eslint-disable-line @definitelytyped/no-single-element-tuple-type
             : T extends List<infer A>
             ? _Chain<A[]>
             : _Chain<never, []>;

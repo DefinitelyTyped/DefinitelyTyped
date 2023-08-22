@@ -1,6 +1,6 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

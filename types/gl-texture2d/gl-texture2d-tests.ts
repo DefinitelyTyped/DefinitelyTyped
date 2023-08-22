@@ -7,7 +7,7 @@ const video = new HTMLVideoElement();
 const image = new HTMLImageElement();
 const imageData = new ImageData(1, 1);
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function rawType<T>(): {width: number, height: number, raw: T};
 
 texture2d(gl, canvas);

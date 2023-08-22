@@ -1,8 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-unnecessary-generics": "off",
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off"
     }
 }

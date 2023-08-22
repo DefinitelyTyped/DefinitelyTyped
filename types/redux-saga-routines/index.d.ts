@@ -176,10 +176,10 @@ export function promisifyRoutine<
 >(
     routine: Routine<
         TTriggerActionCreator,
-        TRequestActionCreator, // eslint-disable-line no-unnecessary-generics
-        TSuccessActionCreator, // eslint-disable-line no-unnecessary-generics
-        TFailureActionCreator, // eslint-disable-line no-unnecessary-generics
-        TFulfillActionCreator // eslint-disable-line no-unnecessary-generics
+        TRequestActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        TSuccessActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        TFailureActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        TFulfillActionCreator // eslint-disable-line @definitelytyped/no-unnecessary-generics
     >,
 ): PromiseCreator<ResolvePayloadByActionCreator<TTriggerActionCreator>>;
 

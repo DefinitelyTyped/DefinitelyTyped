@@ -93,7 +93,7 @@ const envOneFactoryInitOnly = new Environment([
 
 envOneFactoryInitOnly.formats.import(envOneFactoryInitOnly.formats);
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 function customFactory<F extends FactoryConstructor>(...additionalFactories: F[]) {
     return new Environment([
         DataFactory,

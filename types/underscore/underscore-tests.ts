@@ -165,7 +165,7 @@ declare const mixedIterabilityValue: number | number[];
 declare const stringy: StringRecord | string;
 declare const level2UnionList: _.List<_.List<string | number>>;
 declare const tupleList: _.List<[string, number]>;
-declare const unaryTupleList: _.List<[string]>; // eslint-disable-line no-single-element-tuple-type
+declare const unaryTupleList: _.List<[string]>; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
 declare const homogeneousTupleList: _.List<[string, string, string, string]>;
 declare const maybeFunction: (() => void) | undefined;
 

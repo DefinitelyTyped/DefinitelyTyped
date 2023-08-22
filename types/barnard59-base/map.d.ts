@@ -6,6 +6,6 @@ export interface Callback<From, To> {
 }
 
 export default function map<From, To>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     cb: Callback<From, To>,
 ): stream.Transform;

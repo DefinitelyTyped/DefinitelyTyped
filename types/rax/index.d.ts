@@ -36,7 +36,7 @@ interface SchedulerInteraction {
   timestamp: number;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Rax;
 export as namespace Rax;
 

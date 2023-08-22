@@ -56,9 +56,9 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
 }
 
 export interface AbstractLevelDOWNConstructor {
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   new <K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   <K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
 }
 
@@ -97,9 +97,9 @@ export interface AbstractChainedBatch<K = any, V = any> extends AbstractOptions 
 }
 
 export interface AbstractChainedBatchConstructor {
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   new <K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   <K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
 }
 
@@ -110,9 +110,9 @@ export interface AbstractIterator<K, V> extends AbstractOptions {
 }
 
 export interface AbstractIteratorConstructor {
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   new <K = any, V = any>(db: any): AbstractIterator<K, V>;
-  // eslint-disable-next-line no-unnecessary-generics
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   <K = any, V = any>(db: any): AbstractIterator<K, V>;
 }
 

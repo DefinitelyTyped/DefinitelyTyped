@@ -4,6 +4,6 @@ import { ComponentType } from 'react';
 declare function withFilters(hookName: string): <T>(wrapped: T) =>
     T extends ComponentType<infer U> ? ComponentType<U> : never;
 
-declare function withFilters<P>(hookName: string): (wrapped: ComponentType<any>) => ComponentType<P>; // eslint-disable-line no-unnecessary-generics
+declare function withFilters<P>(hookName: string): (wrapped: ComponentType<any>) => ComponentType<P>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 export default withFilters;

@@ -122,7 +122,7 @@ declare namespace kurento {
         create(type: 'RtpEndpoint', options?: RtpEndpointOptions): Promise<RtpEndpoint>;
         create(type: 'Composite'): Promise<Composite>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getMediaobjectById<T extends MediaObject = MediaObject>(objectId: string): Promise<T>;
         getServerManager: (callback?: Callback<ServerManager>) => Promise<ServerManager>;
         close(): void;

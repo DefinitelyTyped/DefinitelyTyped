@@ -53,5 +53,5 @@ declare namespace UnicodeBidiDirection {
     function getGlobalDir(): BidiDirection;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeBidiDirection;

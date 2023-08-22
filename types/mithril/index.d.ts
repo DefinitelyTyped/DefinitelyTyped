@@ -19,9 +19,9 @@ declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }
 declare function request<T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // eslint-disable-line no-unnecessary-generics
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // eslint-disable-line no-unnecessary-generics
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 declare namespace Mithril {
     interface CommonAttributes<Attrs, State> {

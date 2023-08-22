@@ -29,7 +29,7 @@ export function wordWrap(str: string, width: number): string {
     return out.join('');
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function contextDeduper<C, I>(): ((context: C, item: I) => boolean) {
     const dedupe = new Map<C, Set<I>>();
     return (context: C, item: I): boolean => {

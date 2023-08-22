@@ -1,9 +1,9 @@
 {
     "rules": {
-        "no-declare-current-package": "off",
-        "no-import-default-of-export-equals": "off",
-        "no-outside-dependencies": "off",
-        "no-self-import": "off",
-        "redundant-undefined": "off"
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-import-default-of-export-equals": "off",
+        "@definitelytyped/no-outside-dependencies": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/redundant-undefined": "off"
     }
 }

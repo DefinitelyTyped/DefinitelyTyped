@@ -1,8 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "prefer-declare-function": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-declare-current-package": "off"
     }
 }

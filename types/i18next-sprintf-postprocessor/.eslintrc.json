@@ -1,6 +1,6 @@
 {
     "rules": {
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off"
     }
 }

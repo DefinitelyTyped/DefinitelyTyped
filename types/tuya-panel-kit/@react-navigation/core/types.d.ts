@@ -169,7 +169,7 @@ declare type NavigationHelpersCommon<ParamList extends ParamListBase, State exte
      * dangerouslyGetParent is to warn developers against overusing it to eg. get parent
      * of parent and other hard-to-follow patterns.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     dangerouslyGetParent<T = NavigationProp<ParamListBase> | undefined>(): T;
     /**
      * Returns the navigator's state. Reason why the function is called
@@ -186,7 +186,7 @@ export declare type NavigationHelpers<ParamList extends ParamListBase, EventMap 
      *
      * @param params Params object for the current route.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     setParams<RouteName extends keyof ParamList>(params: Partial<ParamList[RouteName]>): void;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
@@ -396,7 +396,7 @@ export declare type TypedNavigator<ParamList extends ParamListBase, State extend
     /**
      * Component used for specifying route configuration.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     Screen: <RouteName extends keyof ParamList>(_: RouteConfig<ParamList, RouteName, State, ScreenOptions, EventMap>) => null;
 };
 // tslint:disable-next-line strict-export-declare-modifiers

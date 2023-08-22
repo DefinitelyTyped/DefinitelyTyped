@@ -64,7 +64,7 @@ type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
 export as namespace React;
 

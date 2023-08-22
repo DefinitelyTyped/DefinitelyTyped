@@ -8,11 +8,11 @@
 declare global {
     namespace Chai {
         interface Assertion {
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             containAll<T = unknown>(cb: (item: T) => boolean): void;
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             containOne<T = unknown>(cb: (item: T) => boolean): void;
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             containExactlyOne<T = unknown>(cb: (item: T) => boolean): void;
         }
     }

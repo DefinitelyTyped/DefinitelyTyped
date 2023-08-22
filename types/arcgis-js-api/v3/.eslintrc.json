@@ -1,6 +1,6 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-any-union": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-any-union": "off"
     }
 }

@@ -15,5 +15,5 @@ declare namespace EventListener {
     function registerDefault(): void;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = EventListener;

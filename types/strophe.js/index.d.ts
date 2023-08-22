@@ -110,25 +110,25 @@ declare global {
         const XHTML: {
             tags: ['a', 'blockquote', 'br', 'cite', 'em', 'img', 'li', 'ol', 'p', 'span', 'strong', 'ul', 'body'],
             attributes: {
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'a': ['href'],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'blockquote': ['style'],
                 'br': [],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'cite': ['style'],
                 'em': [],
                 'img': ['src', 'alt', 'style', 'height', 'width'],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'li': ['style'],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'ol': ['style'],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'p': ['style'],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'span': ['style'],
                 'strong': [],
-                // eslint-disable-next-line no-single-element-tuple-type
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
                 'ul': ['style'],
                 'body': []
             },
