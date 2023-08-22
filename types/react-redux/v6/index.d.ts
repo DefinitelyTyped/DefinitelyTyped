@@ -153,7 +153,7 @@ export type ResolveThunks<TDispatchProps> =
  * @param options
  */
 export interface Connect {
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
@@ -251,7 +251,7 @@ export interface Connect {
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
 }
 
 /**

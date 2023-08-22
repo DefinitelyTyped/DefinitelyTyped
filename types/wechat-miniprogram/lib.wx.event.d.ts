@@ -464,7 +464,7 @@ declare namespace WechatMiniprogram {
         {
             html: string
             text: string
-            // eslint-disable-next-line @definitelytyped/@typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             delta: any[]
         },
         Mark,

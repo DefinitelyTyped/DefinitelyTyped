@@ -27,10 +27,10 @@ declare global {
      *
      * Generics are needed for inference within Patcher interface to work
      */
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     // tslint:disable-next-line:unified-signatures
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: Patcher<S, L>): void;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
 
     /**
      * @see FileHelpers

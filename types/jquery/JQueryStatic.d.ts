@@ -193,10 +193,10 @@ jQuery(function( $ ) {
 });
 ```
      */
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     // tslint:disable-next-line:unified-signatures
     <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param object A plain object to wrap in a jQuery object.

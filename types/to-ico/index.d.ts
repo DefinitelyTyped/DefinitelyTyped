@@ -19,7 +19,7 @@
  */
 declare function toIco(input: string | Buffer | Array<string | Buffer>, options?: toIco.ToIcoOptions): Promise<Buffer>;
 
-// eslint-disable-next-line @definitelytyped/no-redeclare
+// eslint-disable-next-line no-redeclare
 declare namespace toIco {
     interface ToIcoOptions {
         /**

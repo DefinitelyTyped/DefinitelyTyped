@@ -7,6 +7,6 @@ import { Request, Response } from 'express';
   native: (err: Error, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => void;
 } */
 errorHandler(
-    // eslint-disable-next-line @definitelytyped/@typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err: Error, _responsePayload, req: Request, _res: Response) => {},
 );

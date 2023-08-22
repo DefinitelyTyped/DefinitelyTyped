@@ -10,6 +10,6 @@ export class AxiosErrorGroomer {
   includeResponseData(flag: boolean): void;
   includeQueryData(flag: boolean): void;
 
-  // eslint-disable-next-line @definitelytyped/@typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getGroomedAxiosError(err: any): any;
 }

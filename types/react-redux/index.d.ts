@@ -197,7 +197,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> =
  * @param options
  */
 export interface Connect<DefaultState = DefaultRootState> {
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
@@ -295,7 +295,7 @@ export interface Connect<DefaultState = DefaultRootState> {
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
         options?: Options<State, TStateProps, TOwnProps, TMergedProps>
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
 }
 
 /**
@@ -500,7 +500,7 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  */
 export function batch(cb: () => void): void;
 
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 /**
  * Compares two arbitrary values for shallow equality. Object values are compared based on their keys, i.e. they must
@@ -642,4 +642,4 @@ export function createDispatchHook<S = RootStateOrAny, A extends Action = AnyAct
     context?: Context<ReactReduxContextValue<S, A>>,
 ): () => Dispatch<A>;
 
-/* eslint-enable no-unnecessary-generics */
+/* eslint-enable @definitelytyped/no-unnecessary-generics */

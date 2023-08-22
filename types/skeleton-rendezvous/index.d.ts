@@ -13,7 +13,7 @@ declare namespace SkeletonRendezvousHasher {
     }
 }
 
-// eslint-disable-next-line @definitelytyped/no-redeclare
+// eslint-disable-next-line no-redeclare
 declare class SkeletonRendezvousHasher {
     constructor(options?: SkeletonRendezvousHasher.Options);
     getSites(): string[];

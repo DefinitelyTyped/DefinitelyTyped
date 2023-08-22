@@ -10,7 +10,7 @@ interface EditorMap {
     ATOM: 'Atom';
 }
 
-// eslint-disable-next-line @definitelytyped/@typescript-eslint/no-redundant-type-constituents -- This is intentional
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- This is intentional
 type EditorData<Constant extends keyof EditorMap> = Simplify<
     {
         [key in keyof EditorMap]: key extends Constant ? true : false;

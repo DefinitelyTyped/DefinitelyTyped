@@ -955,7 +955,7 @@ describe('resolve cases', () => {
         let caughtErr;
 
         try {
-            new ZalgoPromise(resolve => resolve(ZalgoPromise.resolve(value))); // eslint-disable-line @definitelytyped/no-new
+            new ZalgoPromise(resolve => resolve(ZalgoPromise.resolve(value))); // eslint-disable-line no-new
         } catch (err) {
             caughtErr = err;
         }
