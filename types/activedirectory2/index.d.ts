@@ -20,19 +20,11 @@ interface ADProperties {
             'ldaps?://DomainDnsZones\\..*/.*',
             'ldaps?://.*/CN=Configuration,.*'
         ]
-    } | undefined;
+    };
     attributes?: {
-        user: [
-            'dn', 'distinguishedName',
-            'userPrincipalName', 'sAMAccountName', 'mail',
-            'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',
-            'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',
-            'comment', 'description'
-        ],
-        group: [
-            'dn', 'cn', 'description', 'distinguishedName', 'objectCategory'
-        ]
-    } | undefined;
+        user?: UserAttributes[],
+        group?: GroupAttributes[],
+    };
 }
 
 interface LDAPjsReqProps {
@@ -75,7 +67,8 @@ type GroupAttributes =
     | 'distinguishedName'
     | 'objectCategory'
     | 'cn'
-    | 'description';
+    | 'description'
+    | string
 
 type UserAttributes =
     | 'distinguishedName'
@@ -93,7 +86,8 @@ type UserAttributes =
     | 'cn'
     | 'displayName'
     | 'comment'
-    | 'description';
+    | 'description'
+    | string
 
 interface FindResult {
     groups: object[];
