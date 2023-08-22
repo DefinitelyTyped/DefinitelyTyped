@@ -99,7 +99,7 @@ class Progress extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        const interval: NodeJS.Timer = setInterval(() => {
+        const interval = setInterval(() => {
             const { progress } = this.state;
             if (this.state.progress >= 100) {
                 clearInterval(interval);

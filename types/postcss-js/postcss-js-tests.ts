@@ -12,7 +12,7 @@ const style = {
 postcss()
     .process(style, { parser: postcssJs.parse })
     .then(result => {
-        result; // $ExpectType Result_
+        result; // $ExpectType Result_<Document_ | Root_> | Result_<Root_>
     });
 
 // Try to parse random object with postcss-js parser (errors)
