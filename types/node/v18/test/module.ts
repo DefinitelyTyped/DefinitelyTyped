@@ -56,3 +56,54 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     importmeta.resolve!('local', '/parent'); // $ExpectType Promise<string>
     importmeta.resolve!('local', new URL('https://parent.module')); // $ExpectType Promise<string>
 }
+
+{
+    const resolve: Module.ResolveHook = async (specifier, context, nextResolve) => {
+        const { parentURL = null } = context;
+
+        if (Math.random() > 0.5) {
+            return {
+                shortCircuit: true,
+                url: parentURL ?
+                    new URL(specifier, parentURL).href :
+                    new URL(specifier).href,
+            };
+        }
+
+        if (Math.random() < 0.5) {
+            return nextResolve(specifier, {
+                ...context,
+                conditions: [...context.conditions, 'another-condition'],
+            });
+        }
+
+        return nextResolve(specifier);
+    };
+
+    const load: Module.LoadHook = async (url, context, nextLoad) => {
+        const { format } = context;
+
+        if (Math.random() > 0.5) {
+            return {
+                format,
+                shortCircuit: true,
+                source: '...',
+            };
+        }
+
+        return nextLoad(url);
+    };
+
+    const globalPreload: Module.GlobalPreloadHook = (context) => {
+        return `\
+            globalThis.someInjectedProperty = 42;
+            console.log('I just set some globals!');
+
+            const { createRequire } = getBuiltin('module');
+            const { cwd } = getBuiltin('process');
+
+            const require = createRequire(cwd() + '/<preload>');
+            // [...]
+        `;
+    };
+}
