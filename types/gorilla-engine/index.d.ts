@@ -1,4 +1,4 @@
-// Type definitions for Gorilla Engine 1.2
+// Type definitions for Gorilla Engine 1.1
 // Project: https://gorilla-engine.com
 // Definitions by: Julian Woodward <https://github.com/jhwoodward>
 //                 UJAM-JH <https://github.com/UJAM-JH>
@@ -39,7 +39,6 @@
 /// <reference path = "components/Toggle.d.ts" />
 /// <reference path = "components/Trigger.d.ts" />
 /// <reference path = "components/Waveform.d.ts" />
-/// <reference path = "components/Window.d.ts" />
 
 declare namespace GorillaEngine {
   /**
