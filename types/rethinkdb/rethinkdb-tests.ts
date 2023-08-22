@@ -28,7 +28,7 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
       }
     })
     .run(conn, errorAndCursorCallback);
-  
+
     const center = r.point(123, 456);
     r.table("geo")
       .getIntersecting(r.circle(center, 1000, { unit: "m" }), { index: "location" })
@@ -46,7 +46,7 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
         users.hasFields("foo_bar").run(conn, () => {});
 
         users.filter(function(doc?) {
-            return doc("henry").eq("bob");
+            return doc?.("henry").eq("bob");
         })
         .filter(r.row("updatedAt").default(0).lt(r.now().sub(1000)))
         .between("james", "beth")
@@ -92,7 +92,7 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
         });
 
         users.filter(function(doc?) {
-            return doc("henry").eq("bob");
+            return doc?.("henry").eq("bob");
         })
         .between("james", "beth")
         .limit(4)
