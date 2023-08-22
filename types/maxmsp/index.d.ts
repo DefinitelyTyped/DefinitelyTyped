@@ -43,6 +43,12 @@ declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
 
+type Range = [number, number];
+type Color = [number, number, number, number];
+type Rect = [number, number, number, number];
+type Position = [number, number];
+type Size = [number, number];
+
 type MaxMessage =
     | 'buildcollective'
     | 'checkpreempt'
@@ -1220,6 +1226,38 @@ declare class Maxobj {
      * others.
      */
     understands(message: string): boolean;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object.
+     */
+    getattrnames(): string[];
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     *
+     * enabletransparentbgwithtitlebar was introduced in 8.1.4 https://cycling74.com/forums/max-8-1-4-released
+     */
+    setattr(attribute_name: string, anything: unknown): void;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object's box.
+     */
+    getboxattrnames(): string[];
+
+    /**
+     * Returns the value of the object's box attribute specified by box_attribute_name. Lists are returned as JS Array objects.
+     */
+    getboxattr(box_attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the object's box attribute specified by box_attribute_name.
+     */
+    setboxattr(box_attribute_name: string, anything: unknown): void;
 }
 
 /**

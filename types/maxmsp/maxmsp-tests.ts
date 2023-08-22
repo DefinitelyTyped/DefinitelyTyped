@@ -189,6 +189,14 @@ const mySubpatcher = myMaxobj.subpatcher(0);
 post(mySubpatcher);
 const understandsResult = myMaxobj.understands('testMessage');
 post(understandsResult);
+let [r1, r2, r3, r4] = [0, 0, 0, 0];
+const attrnames = myMaxobj.getattrnames();
+[r1, r2, r3, r4] = myMaxobj.getattr("openrect") as Rect;
+myMaxobj.setattr("openrect", [0, 0, 0, 0]);
+
+const boxattrnames = myMaxobj.getboxattrnames();
+[r1, r2, r3, r4] = myMaxobj.getboxattr("presentation_rect") as Rect;
+myMaxobj.setboxattr("presentation_rect", [0, 0, 0, 0]);
 
 // ------------- Patcher usage examples -------------
 
