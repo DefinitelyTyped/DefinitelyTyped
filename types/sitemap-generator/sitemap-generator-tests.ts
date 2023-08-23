@@ -25,10 +25,12 @@ const generator = SitemapGenerator('https://example.com/', {
 generator.on('add', (url: string) => {
     url.trim();
 });
+generator.on('add', () => {});
 generator.on('done', () => {});
 generator.on('ignore', (url: string) => {
     url.trim();
 });
+generator.on('ignore', () => {});
 generator.on('error', error => {
     error.message;
 });
