@@ -532,7 +532,8 @@ declare module 'stream' {
          * @param initial the initial value to use in the reduction.
          * @returns a promise for the final value of the reduction.
          */
-        reduce<T = any>(fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => any, initial?: T, options?: Pick<ArrayOptions, "signal">): Promise<T>;
+        reduce<T = any>(fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial?: undefined, options?: Pick<ArrayOptions, "signal">): Promise<T>;
+        reduce<T = any>(fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial: T, options?: Pick<ArrayOptions, "signal">): Promise<T>;
         _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
         /**
          * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the readable
