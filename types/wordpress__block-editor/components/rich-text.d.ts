@@ -1,4 +1,4 @@
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { BlockInstance } from '@wordpress/blocks';
 import { Autocomplete, ToolbarButton } from '@wordpress/components';
 import { ComponentType, HTMLProps, ReactNode } from 'react';

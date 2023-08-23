@@ -1,4 +1,4 @@
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { ComponentType } from 'react';
 
 import { default as MediaPlaceholder } from '../media-placeholder';
