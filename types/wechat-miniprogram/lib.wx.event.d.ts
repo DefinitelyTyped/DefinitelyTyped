@@ -1389,7 +1389,7 @@ declare namespace WechatMiniprogram {
      */
     type WebviewMessage = CustomEvent<{
         /** 多次 postMessage 的参数组成的数组 */
-        // eslint-disable-next-line @definitelytyped/@typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data: any[]
     }>
 
