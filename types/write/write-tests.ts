@@ -44,4 +44,4 @@ data;
 // $ExpectType WriteStream
 write.stream("1.txt");
 
-write.stream("1.txt", { highWaterMark: 8, overwrite: true });
+write.stream("1.txt", { overwrite: true });
