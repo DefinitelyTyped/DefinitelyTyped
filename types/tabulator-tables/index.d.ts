@@ -7,6 +7,8 @@
 // tslint:disable:no-unnecessary-class
 // tslint:disable:no-empty-interface
 
+import type { WritingOptions } from 'xlsx';
+
 export interface Options
     extends OptionsGeneral,
         OptionsMenu,
@@ -208,6 +210,7 @@ export interface PersistenceOptions {
     group?: boolean | PersistenceGroupOptions | undefined;
     page?: boolean | PersistencePageOptions | undefined;
     columns?: boolean | string[] | undefined;
+    headerFilter?: boolean | undefined;
 }
 
 export interface PersistenceGroupOptions {
@@ -910,6 +913,7 @@ export interface OptionsGeneral {
 
     /** placeholder element to display on empty table. */
     placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
+    placeholderHeaderFilter?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
 
     /** Footer  element to display for the table. */
     footerElement?: string | HTMLElement | undefined;
@@ -1053,6 +1057,7 @@ export interface DownloadXLXS {
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
     compress?: boolean;
+    writeOptions?: Partial<WritingOptions>;
 }
 
 export interface DownloadPDF {
@@ -1624,6 +1629,7 @@ export type ColumnCalc =
     | 'sum'
     | 'concat'
     | 'count'
+    | 'unique'
     | ((values: any[], data: any[], calcParams: {}) => any);
 
 export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
@@ -1712,6 +1718,7 @@ export interface MoneyParams {
     symbol?: string | undefined;
     symbolAfter?: boolean | undefined;
     precision?: boolean | number | undefined;
+    negativeSign?: string | true;
 }
 
 export interface ImageParams {
@@ -1833,6 +1840,8 @@ export interface TextAreaParams extends SharedEditorParams {
     selectContents?: boolean | undefined;
 }
 
+type VerticalNavigationOptions = 'editor' | 'table';
+
 export interface CheckboxParams extends SharedEditorParams {
     // tick
     tristate?: boolean | undefined;
@@ -1848,14 +1857,17 @@ export interface DateParams extends SharedEditorParams {
     min?: string;
     max?: string;
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface TimeParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface DateTimeEditorParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface LabelValue {
@@ -1994,7 +2006,7 @@ export interface RowComponent extends CalculationComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the row if it passes the current filters. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: 'top' | 'center' | 'bottom' | 'nearest', scrollIfVisible?: boolean) => Promise<void>;
 
     /** The pageTo function will load the page for the row if it passes the current filters. */
     pageTo: () => Promise<void>;
@@ -2109,6 +2121,9 @@ export interface GroupComponent {
     /** The toggle function toggles the visibility of the group, switching between hidden and visible. */
     toggle: () => void;
     popup: (contents: string, position: PopupPosition) => void;
+
+    /** The scrollTo function will scroll the table to the group header if it passes the current filters. */
+    scrollTo: (position?: 'top' | 'center' | 'bottom' | 'nearest', scrollIfVisible?: boolean) => Promise<void>;
 }
 
 export interface ColumnComponent {
@@ -2152,7 +2167,7 @@ export interface ColumnComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the column if it is visible. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: 'left' | 'middle' | 'right', scrollIfVisible?: boolean) => Promise<void>;
 
     /** The getSubColumns function returns an array of ColumnComponent objects, one for each sub column of this column. */
     getSubColumns: () => ColumnComponent[];
@@ -2217,10 +2232,13 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: () => {};
+    getData: (transformType?: 'data' | 'download' | 'clipboard') => {};
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
+
+    /** The getType function can be used to determine if the cell is being used as a cell or a header element. */
+    getType: () => 'cell' | 'header';
 
     /** You can change the value of the cell using the setValue function. The first parameter should be the new value for the cell, the second optional parameter will apply the column mutators to the value when set to true (default = true). */
     setValue: (value: any, mutate?: boolean) => void;
@@ -2281,7 +2299,12 @@ export interface EventCallBackMethods {
     rowMoved: (row: RowComponent) => void;
     rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
+    rowSelectionChanged: (
+        data: any[],
+        rows: RowComponent[],
+        selectedRows: RowComponent[],
+        deselectedRows: RowComponent[],
+    ) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;
