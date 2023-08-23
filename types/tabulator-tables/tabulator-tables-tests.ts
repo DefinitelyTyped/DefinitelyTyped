@@ -22,7 +22,7 @@ import {
     ListEditorParams,
     NumberParams,
     InputParams,
-    TextAreaParams
+    TextAreaParams,
 } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
@@ -1292,7 +1292,7 @@ table = new Tabulator('#testDataLoader', {
 
 const numberEditorParams: NumberParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxlength: '10',
     },
     min: 0,
     max: 100,
@@ -1308,9 +1308,9 @@ const numberEditorParams: NumberParams = {
 
 const inputEditorParams: InputParams = {
     elementAttributes: {
-        maxlength: "10"
+        maxlength: '10',
     },
-    mask: "AAA-999",
+    mask: 'AAA-999',
     maskAutoFill: false,
     maskLetterChar: 'A',
     maskNumberChar: '9',
@@ -1321,9 +1321,9 @@ const inputEditorParams: InputParams = {
 
 const textAreaEditorParams: TextAreaParams = {
     elementAttributes: {
-        maxlength: "10"
+        maxlength: '10',
     },
-    mask: "AAA-999",
+    mask: 'AAA-999',
     maskAutoFill: false,
     maskLetterChar: 'A',
     maskNumberChar: '9',
@@ -1340,19 +1340,100 @@ table = new Tabulator('#test', {
             field: 'number_field',
             title: 'Number',
             editor: 'number',
-            editorParams: numberEditorParams
+            editorParams: numberEditorParams,
         },
         {
             field: 'input_field',
             title: 'Input',
             editor: 'input',
-            editorParams: inputEditorParams
+            editorParams: inputEditorParams,
         },
         {
             field: 'textarea_field',
             title: 'TextArea',
             editor: 'textarea',
-            editorParams: textAreaEditorParams
-        }
-    ]
+            editorParams: textAreaEditorParams,
+        },
+    ],
+});
+
+// Tests for types added in 5.5
+table = new Tabulator('#test', {
+    data: [],
+    columns: [
+        {
+            title: 'Example Date',
+            field: 'date',
+            editor: 'date',
+            editorParams: {
+                verticalNavigation: 'table',
+            },
+        },
+        {
+            title: 'Example Date/Time',
+            field: 'datetime',
+            editor: 'datetime',
+            editorParams: {
+                verticalNavigation: 'table',
+            },
+        },
+        {
+            title: 'Example Time',
+            field: 'time',
+            editor: 'time',
+            editorParams: {
+                verticalNavigation: 'table',
+            },
+        },
+        {
+            title: 'Example Money',
+            field: 'money',
+            formatter: 'money',
+            formatterParams: {
+                negativeSign: '!',
+            },
+        },
+        {
+            title: 'Example Accountant',
+            field: 'accountancy',
+            formatter: 'money',
+            formatterParams: {
+                negativeSign: true,
+            },
+            topCalc: 'unique',
+        },
+    ],
+    dataTreeChildColumnCalcs: true,
+    placeholder() {
+        return this.getHeaderFilters().length ? 'No Matching Data' : 'No Data';
+    },
+    placeholderHeaderFilter: 'No Matching Data',
+    persistence: {
+        headerFilter: true,
+    },
+});
+table.download('xlsx', 'data.wk3', { writeOptions: { bookType: 'csv' } });
+table.on('rowSelectionChanged', (_data, rows, selected, deselected) => {
+    const selectedCount = selected.length;
+    const deselectedCount = deselected.length;
+    const totalSelectedCount = rows.length;
+    alert(`Selected Rows Changed:
+        Currently Selected: ${totalSelectedCount}
+        Added to selection: ${selectedCount}
+        Removed from selection: ${deselectedCount}
+    `);
+
+    const cell = rows[0]?.getCell('accountancy');
+    const cellType = cell?.getType();
+    const cellData = cell?.getData('data');
+
+    rows[0]?.scrollTo('bottom', false);
+    rows[1]?.scrollTo();
+    cell?.getColumn().scrollTo('left', true);
+    cell?.getColumn().scrollTo();
+    rows[0]?.getGroup().scrollTo();
+    rows[0]
+        ?.getGroup()
+        ?.scrollTo('bottom', false)
+        .then(() => console.log(cellType, cellData));
 });
