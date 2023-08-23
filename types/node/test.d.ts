@@ -648,7 +648,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
     /**
      * Configuration options for hooks.
      * @since v18.8.0

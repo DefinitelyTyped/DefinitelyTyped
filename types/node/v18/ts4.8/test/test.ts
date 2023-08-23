@@ -216,31 +216,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before(cb => {
+before((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-beforeEach(cb => {
+beforeEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-after(cb => {
+after((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-afterEach(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
-});
-beforeEach(cb => {
+afterEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
