@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.53
+// Type definitions for non-npm package Google Maps JavaScript API 3.54
 // Project: https://developers.google.com/maps/
 // Definitions by: Alex Muramoto <https://github.com/amuramoto>
 //                 Angela Yu <https://github.com/wangela>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.53
+// Google Maps JS API Version: 3.54
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
