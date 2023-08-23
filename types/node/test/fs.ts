@@ -543,6 +543,7 @@ async () => {
     fs.createWriteStream('./index.d.ts', { encoding: 'utf8' });
     // @ts-expect-error
     fs.createWriteStream('./index.d.ts', { encoding: 'invalid encoding' });
+    fs.createWriteStream('./index.d.ts', { fs: { write: fs.write }, signal: new AbortSignal() });
 
     fs.createReadStream('./index.d.ts');
     fs.createReadStream('./index.d.ts', 'utf8');
@@ -551,6 +552,7 @@ async () => {
     fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
     // @ts-expect-error
     fs.createReadStream('./index.d.ts', { encoding: 'invalid encoding' });
+    fs.createReadStream('./index.d.ts', { fs: { read: fs.read }, signal: new AbortSignal() });
 }
 
 async () => {
