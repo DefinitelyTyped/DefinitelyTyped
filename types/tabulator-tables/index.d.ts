@@ -89,6 +89,11 @@ export interface OptionsDataTree {
     dataTreeSelectPropagate?: boolean | undefined;
     dataTreeFilter?: boolean | undefined;
     dataTreeSort?: boolean | undefined;
+    /**
+     * When you are using the dataTree option with your table, the column calculations will by default only use the data for the top level rows and will ignore any children.
+     * To include child rows in the column calculations set the dataTreeChildColumnCalcs option to true in the table constructor.
+     */
+    dataTreeChildColumnCalcs?: boolean | undefined;
 }
 
 export interface OptionsClipboard {
@@ -443,7 +448,9 @@ export interface OptionsData {
 
     /** Array to hold data that should be loaded on table creation. */
     data?: any[] | undefined;
-    importFormat?: 'array';
+    importFormat?: 'array' | 'csv' | 'json' | ((fileContents: string) => unknown[]);
+    /** By default Tabulator will read in the file as plain text, which is the format used by all the built in importers. If you need to read the file data in a different format then you can use the importReader option to instruct the file reader to read in the file in a different format. */
+    importReader?: 'binary' | 'buffer' | 'text' | 'url' | undefined;
     autoTables?: boolean;
 
     /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
@@ -862,7 +869,9 @@ export interface OptionsColumns {
     /** The headerSort option can now be set in the table options to affect all columns as well as in column definitions. */
     headerSort?: boolean | undefined;
     headerSortElement?: string | undefined | ((column: ColumnComponent, dir: 'asc' | 'desc' | 'none') => any);
-    columnDefaults?: ColumnDefinition;
+    columnDefaults?: Partial<ColumnDefinition>;
+    /** If the resizableColumnFit table definition option is set to true, then when you resize a column its neighbouring column has the opposite resize applied to keep to total width of columns the same. */
+    resizableColumnFit?: boolean | undefined;
 }
 
 export interface OptionsCell {
@@ -900,7 +909,7 @@ export interface OptionsGeneral {
     renderVerticalBuffer?: boolean | number | undefined;
 
     /** placeholder element to display on empty table. */
-    placeholder?: string | HTMLElement | undefined;
+    placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
 
     /** Footer  element to display for the table. */
     footerElement?: string | HTMLElement | undefined;
@@ -994,8 +1003,13 @@ export interface OptionsMenu {
     groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
     popupContainer?: boolean | string | HTMLElement;
-    rowDblClickPopup?: string;
+    groupClickPopup?: string;
+    groupContextPopup?: string;
+    groupDblPopup?: string;
     groupDblClickPopup?: string;
+    rowClickPopup?: string;
+    rowContextPopup?: string;
+    rowDblClickPopup?: string;
 }
 
 export type RowContextMenuSignature =
