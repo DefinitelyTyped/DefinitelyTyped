@@ -271,7 +271,7 @@ declare namespace PackageJson {
      * Import map entries of a module, optionally with conditions.
      */
     interface Imports {
-        // eslint-disable-line @definitelytyped/@typescript-eslint/consistent-indexed-object-style
+        // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
         [key: string]: string | { [key in ExportCondition]: Exports };
     }
 
