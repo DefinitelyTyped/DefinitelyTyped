@@ -260,5 +260,4 @@ render(
     />,
     node
 );
-
-toCsv(data,headers,",",`"`)
+render(toCsv(data,headers,",",`"`))
