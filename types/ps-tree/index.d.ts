@@ -6,7 +6,7 @@
 
 declare namespace ps_tree {
     interface PS {
-        COMMAND: string;
+        COMM: string;
         PPID: string;
         PID: string;
         STAT: string;
