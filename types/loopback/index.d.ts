@@ -2955,7 +2955,7 @@ declare namespace l {
              *
              * - `Change.UPDATE`: Source and target models were updated
              * - `Change.DELETE`: Source and or target model was deleted.
-             * - `Change.UNKNOWN`: the conflict type is uknown or due to an erro
+             * - `Change.UNKNOWN`: the conflict type is unknown or due to an erro
              *
              * @param {Error} err
              * @param {string} type The conflict type

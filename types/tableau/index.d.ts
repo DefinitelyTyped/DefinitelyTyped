@@ -62,7 +62,7 @@ declare namespace tableau {
     }
 
     enum FieldRoleType {
-        DIMENSION, MEASURE, UKNOWN
+        DIMENSION, MEASURE, UNKNOWN
     }
 
     enum SheetType {
@@ -763,7 +763,7 @@ declare namespace tableau {
         getAggregation(): FieldAggregationType;
         /** Gets the data source to which this field belongs. */
         getDataSource(): DataSource;
-        /** One of the following values: DIMENSION, MEASURE, UKNOWN */
+        /** One of the following values: DIMENSION, MEASURE, UNKNOWN */
         getRole(): FieldRoleType;
     }
 
