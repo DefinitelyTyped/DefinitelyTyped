@@ -7,8 +7,6 @@
 // tslint:disable:no-unnecessary-class
 // tslint:disable:no-empty-interface
 
-import type { WritingOptions } from 'xlsx';
-
 export interface Options
     extends OptionsGeneral,
         OptionsMenu,
@@ -1057,7 +1055,8 @@ export interface DownloadXLXS {
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
     compress?: boolean;
-    writeOptions?: Partial<WritingOptions>;
+    writeOptions?: Record<string, unknown>;
+    test?: {};
 }
 
 export interface DownloadPDF {
