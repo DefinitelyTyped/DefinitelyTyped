@@ -1,6 +1,7 @@
 // Type definitions for speedometer 1.1
 // Project: https://github.com/mafintosh/speedometer#readme
-// Definitions by: dylan <https://github.com/Dylan-G>
+// Definitions by: Dylan Grandjean <https://github.com/Dylan-G>
+//                 François Arki <https://github.com/f-arki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace speedometer {
