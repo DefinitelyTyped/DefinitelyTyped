@@ -186,12 +186,12 @@ it.only('only shorthand', {
     timeout: Infinity,
 });
 
-// Test callback mode
-describe(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
+// Test with suite context
+describe(s => {
+    // $ExpectType SuiteContext
+    s;
+    // $ExpectType string
+    s.name;
 });
 
 // Test callback mode

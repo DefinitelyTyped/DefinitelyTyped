@@ -289,7 +289,7 @@ it.only('only shorthand', {
     timeout: Infinity,
 });
 
-// Test callback mode
+// Test with suite context
 describe(s => {
     // $ExpectType SuiteContext
     s;

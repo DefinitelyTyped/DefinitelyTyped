@@ -256,7 +256,6 @@ declare module 'node:test' {
     type TestFn = (t: TestContext, done: (result?: any) => void) => void | Promise<void>;
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
     interface TestShard {
