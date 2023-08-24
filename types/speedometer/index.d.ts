@@ -3,6 +3,9 @@
 // Definitions by: dylan <https://github.com/Dylan-G>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Speedometer = (delta: number) => number;
+declare namespace speedometer {
+    type Speedometer = (delta: number) => number;
+}
+declare function speedometer(bufferTime: number): speedometer.Speedometer;
 
-export default function (bufferTime?: number): Speedometer;
+export = speedometer;
