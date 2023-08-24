@@ -115,7 +115,7 @@ export interface TediousTypes {
     Numeric: TediousType;
     Real: TediousType;
     SmallDateTime: TediousType;
-    SmallInt        : TediousType;
+    SmallInt: TediousType;
     SmallMoney: TediousType;
     TVP: TediousType;
     Text: TediousType;
@@ -125,6 +125,7 @@ export interface TediousTypes {
     UniqueIdentifier: TediousType;
     VarBinary: TediousType;
     VarChar: TediousType;
+    Variant: TediousType;
     Xml: TediousType;
 }
 
