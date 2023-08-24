@@ -170,6 +170,7 @@ function serverAcceptNullParameterTest() {
     });
 
     wsServer.on("request", (request) => {
+        console.log("token parameter:", request.resourceURL.query.token);
         request.accept(null, request.origin);
     });
 }
