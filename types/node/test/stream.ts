@@ -633,6 +633,26 @@ addAbortSignal(new AbortSignal(), new Readable());
     Duplex.from(writable);
 }
 
+function testReadableReduce() {
+    const readable = Readable.from([]);
+    // $ExpectType Promise<number>
+    readable.reduce((prev, data) => prev * data);
+    // $ExpectType Promise<number>
+    readable.reduce((prev, data) => prev * data, 1);
+    // @ts-expect-error when specifying an initial value, its type must be consistent with the reducer's return type
+    readable.reduce((prev, data) => prev * data, "1");
+    // @ts-expect-error when specifying an initial value, its type must be consistent with the reducer's first argument
+    readable.reduce((prev: string, data) => +prev * data, 1);
+}
+
+function testReadableFind() {
+    const readable = Readable.from([]);
+    // $ExpectType Promise<any>
+    readable.find(Boolean);
+    // $ExpectType Promise<any[] | undefined>
+    readable.find(Array.isArray);
+}
+
 async function testReadableStream() {
     const SECOND = 1000;
 

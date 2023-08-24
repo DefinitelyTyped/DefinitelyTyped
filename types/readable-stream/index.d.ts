@@ -38,6 +38,13 @@ interface _IEventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
+interface SignalOption {
+    signal?: AbortSignal;
+}
+interface ArrayOptions extends SignalOption {
+    concurrency?: number;
+}
+
 interface _IReadable extends _IEventEmitter {
     _read(size: number): void;
     read(size?: number): any;
@@ -49,6 +56,21 @@ interface _IReadable extends _IEventEmitter {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
+    iterator(options?: {destroyOnReturn?: boolean}): AsyncIterableIterator<any>;
+    map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
+    filter(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): _Readable.Readable;
+    forEach(fn: (data: any, options?: SignalOption) => void | Promise<void>, options?: ArrayOptions): Promise<void>;
+    toArray(options?: SignalOption): Promise<any[]>;
+    some(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+    find<T>(fn: (data: any, options?: SignalOption) => data is T, options?: ArrayOptions): Promise<T | undefined>;
+    find(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<any>;
+    every(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+    flatMap(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
+    drop(limit: number, options?: SignalOption): _Readable.Readable;
+    take(limit: number, options?: SignalOption): _Readable.Readable;
+    asIndexedPairs(options?: SignalOption): _Readable.Readable;
+    reduce<T = any>(fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial?: undefined, options?: Pick<ArrayOptions, "signal">): Promise<T>;
+    reduce<T = any>(fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial: T, options?: Pick<ArrayOptions, "signal">): Promise<T>;
     _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
     destroy(error?: Error): this;
 }
@@ -70,6 +92,20 @@ declare class _Readable implements _IReadable {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
+    map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
+    filter(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): _Readable.Readable;
+    forEach(fn: (data: any, options?: SignalOption) => void | Promise<void>, options?: ArrayOptions): Promise<void>;
+    toArray(options?: SignalOption): Promise<any[]>;
+    some(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+    find<T>(fn: (data: any, options?: SignalOption) => data is T, options?: ArrayOptions): Promise<T | undefined>;
+    find(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<any>;
+    every(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+    flatMap(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
+    drop(limit: number, options?: SignalOption): _Readable.Readable;
+    take(limit: number, options?: SignalOption): _Readable.Readable;
+    asIndexedPairs(options?: SignalOption): _Readable.Readable;
+    reduce<T = any>(fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial?: undefined, options?: Pick<ArrayOptions, "signal">): Promise<T>;
+    reduce<T = any>(fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial: T, options?: Pick<ArrayOptions, "signal">): Promise<T>;
     _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
     destroy(error?: Error): this;
 
@@ -142,6 +178,7 @@ declare class _Readable implements _IReadable {
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
 
+    iterator(options?: {destroyOnReturn?: boolean}): AsyncIterableIterator<any>;
     [Symbol.asyncIterator](): AsyncIterableIterator<any>;
     [Symbol.asyncDispose](): never;
 
@@ -230,6 +267,20 @@ declare namespace _Readable {
         unshift(chunk: any): boolean;
         wrap(oldStream: Readable): this;
         push(chunk: any, encoding?: BufferEncoding): boolean;
+        map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): Readable;
+        filter(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Readable;
+        forEach(fn: (data: any, options?: SignalOption) => void | Promise<void>, options?: ArrayOptions): Promise<void>;
+        toArray(options?: SignalOption): Promise<any[]>;
+        some(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+        find<T>(fn: (data: any, options?: SignalOption) => data is T, options?: ArrayOptions): Promise<T | undefined>;
+        find(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<any>;
+        every(fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>, options?: ArrayOptions): Promise<boolean>;
+        flatMap(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): Readable;
+        drop(limit: number, options?: SignalOption): Readable;
+        take(limit: number, options?: SignalOption): Readable;
+        asIndexedPairs(options?: SignalOption): Readable;
+        reduce<T = any>(fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial?: undefined, options?: Pick<ArrayOptions, "signal">): Promise<T>;
+        reduce<T = any>(fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T, initial: T, options?: Pick<ArrayOptions, "signal">): Promise<T>;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
         pipe<S extends _IWritable>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
@@ -237,6 +288,7 @@ declare namespace _Readable {
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
         _undestroy(): void;
+        iterator(options?: {destroyOnReturn?: boolean}): AsyncIterableIterator<any>;
         [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         [Symbol.asyncDispose](): never;
         // end-Readable

@@ -4,10 +4,10 @@ import { dot, spec, tap } from "node:test/reporters";
 
 function testTypes() {
     const ANY: any = undefined;
-    const _readableOpts: stream.ReadableOptions = ANY as RStream.ReadableOptions;
+    const _readableOpts = ANY as RStream.ReadableOptions;
     const _writableOpts: stream.WritableOptions = ANY as RStream.WritableOptions;
-    const _transformOpts: stream.TransformOptions = ANY as RStream.TransformOptions;
-    const _duplexOpts: stream.DuplexOptions = ANY as RStream.DuplexOptions;
+    const _transformOpts = ANY as RStream.TransformOptions;
+    const _duplexOpts = ANY as RStream.DuplexOptions;
 
     const _readable: stream.Readable = new RStream.Readable(_readableOpts);
     const _writable: stream.Writable = new RStream.Writable(_writableOpts);
