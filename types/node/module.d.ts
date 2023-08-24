@@ -93,6 +93,9 @@ declare module 'module' {
              */
             findEntry(lineOffset: number, columnOffset: number): SourceMapping;
         }
+        interface ImportAssertions extends NodeJS.Dict<string> {
+            type?: string | undefined;
+        }
         type ModuleFormat = 'builtin' | 'commonjs' | 'json' | 'module' | 'wasm';
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
@@ -114,7 +117,7 @@ declare module 'module' {
             /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: Object;
+            importAssertions: ImportAssertions;
             /**
              * The module importing this one, or undefined if this is the Node.js entry point
              */
@@ -128,7 +131,7 @@ declare module 'module' {
             /**
              * The import assertions to use when caching the module (optional; if excluded the input will be used)
              */
-            importAssertions?: Object | undefined;
+            importAssertions?: ImportAssertions | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -151,7 +154,7 @@ declare module 'module' {
         type ResolveHook = (
             specifier: string,
             context: ResolveHookContext,
-            nextResolve: (specifier: string, context?: ResolveHookContext) => ResolveFnOutput
+            nextResolve: (specifier: string, context?: ResolveHookContext) => ResolveFnOutput | Promise<ResolveFnOutput>
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
             /**
@@ -165,7 +168,7 @@ declare module 'module' {
             /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: Object;
+            importAssertions: ImportAssertions;
         }
         interface LoadFnOutput {
             format: ModuleFormat;
@@ -187,7 +190,11 @@ declare module 'module' {
          * @param context Metadata about the module
          * @param nextLoad The subsequent `load` hook in the chain, or the Node.js default `load` hook after the last user-supplied `load` hook
          */
-        type LoadHook = (url: string, context: LoadHookContext, nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput) => LoadFnOutput | Promise<LoadFnOutput>;
+        type LoadHook = (
+            url: string,
+            context: LoadHookContext,
+            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>
+        ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
     interface Module extends NodeModule {}
     class Module {
