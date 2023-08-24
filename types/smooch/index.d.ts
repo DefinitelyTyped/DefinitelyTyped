@@ -2,6 +2,7 @@
 // Project: https://github.com/zendesk/sunshine-conversations-web
 // Definitions by: Jordan Sorensen <https://github.com/jpsorensen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference path="./global.d.ts" />
 
@@ -182,6 +183,21 @@ declare namespace Smooch {
      */
     function setDelegate(delegate: Delegate): void;
 
+    /**
+     * Manually render the widget when running in embedded mode.
+     *
+     * This method accepts a DOM element which will be used as the container where the widget will be rendered.
+     * To activate the embedded mode, you need to pass embedded: true when calling Smooch.init. By doing so, you
+     * are disabling the auto-rendering mechanism and you will need to call Smooch.render manually.
+     *
+     * Be sure to place .render() outside of the .init().then() function. If you place it inside the function, a
+     * race condition happens and unexpected results can occur.
+     *
+     * The embedded widget will take full width and height of the container. You must give it a height, otherwise,
+     * the widget will collapse.
+     */
+    function render(element: HTMLElement): void;
+
     // tslint:disable:unified-signatures
     /**
      * This event triggers when init completes successfully... Be sure to bind before calling init!
@@ -194,19 +210,31 @@ declare namespace Smooch {
     /**
      * This event triggers when a participant is added to a conversation
      */
-    function on(event: 'participant:added', callback: (participant: ConversationParticipant, data: ConversationData) => void): void;
+    function on(
+        event: 'participant:added',
+        callback: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
     /**
      * This event triggers when a participant is removed from a conversation
      */
-    function on(event: 'participant:removed', callback: (participant: ConversationParticipant, data: ConversationData) => void): void;
+    function on(
+        event: 'participant:removed',
+        callback: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
     /**
      * This event triggers when a conversation is added
      */
-    function on(event: 'conversation:added', callback: (participants: ConversationParticipant[], data: ConversationData) => void): void;
+    function on(
+        event: 'conversation:added',
+        callback: (participants: ConversationParticipant[], data: ConversationData) => void,
+    ): void;
     /**
      * This event triggers when a participant in a sdkGroup chat reads a message
      */
-    function on(event: 'conversation:read', callback: (payload: ConversationReadEventPayload, data: ConversationData) => void): void;
+    function on(
+        event: 'conversation:read',
+        callback: (payload: ConversationReadEventPayload, data: ConversationData) => void,
+    ): void;
     /**
      * This event triggers when a conversation is removed
      */
@@ -257,7 +285,10 @@ declare namespace Smooch {
     /**
      * This event triggers when the business starts typing. The associated conversation is passed in the argument.
      */
-    function on(event: 'typing:start', callback: (data: ConversationData & {avatarUrl: string, name: string}) => void): void;
+    function on(
+        event: 'typing:start',
+        callback: (data: ConversationData & { avatarUrl: string; name: string }) => void,
+    ): void;
     /**
      * This event triggers when the business stops typing. The associated conversation is passed in the argument.
      */
