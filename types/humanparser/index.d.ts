@@ -25,8 +25,18 @@ declare namespace humanparser {
         city: string;
     }
 
+    interface ParseNameOptions {
+        extraCompound?: string[];
+        extraSalutations?: string[];
+        extraSuffixes?: string[];
+        ignoreCompound?: string[];
+        ignoreSalutation?: string[];
+        ignoreSuffix?: string[];
+    }
+
     interface HumanparserStatic {
         parseName (name: string, ignoreSuffix?: string[]): NameOutput;
+        parseName (name: string, options?: ParseNameOptions): NameOutput;
         getFullestName (name: string): FullerNameOutput;
         parseAddress (address: string): AddressOutput;
     }
