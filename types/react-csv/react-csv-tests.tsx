@@ -1,7 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { CSVLink, CSVDownload } from "react-csv";
-import { toCsv } from "react-csv/lib/core";
 
 const headers = [
     { label: "First Name", key: "details.firstName" },
@@ -260,4 +259,3 @@ render(
     />,
     node
 );
-render(toCsv(data,headers,",",`"`))
