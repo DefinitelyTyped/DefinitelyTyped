@@ -81,7 +81,7 @@ declare module '../../index' {
          *   @param tex image to use as texture
          *   @chainable
          */
-        texture(tex: Image | MediaElement | Graphics): p5;
+        texture(tex: Image | MediaElement | Graphics | Framebuffer): p5;
 
         /**
          *   Sets the coordinate space for texture mapping. The
@@ -140,19 +140,21 @@ declare module '../../index' {
 
         /**
          *   Sets the ambient color of the material. The
-         *   ambientMaterial() color is the color the object
-         *   will reflect under any lighting.
+         *   ambientMaterial() color represents the components
+         *   of the ambientLight() color that the object
+         *   reflects.
          *
          *   Consider an ambientMaterial() with the color
-         *   yellow (255, 255, 0). If the light emits the color
-         *   white (255, 255, 255), then the object will appear
-         *   yellow as it will reflect the red and green
-         *   components of the light. If the light emits the
-         *   color red (255, 0, 0), then the object will appear
-         *   red as it will reflect the red component of the
-         *   light. If the light emits the color blue (0, 0,
-         *   255), then the object will appear black, as there
-         *   is no component of the light that it can reflect.
+         *   yellow (255, 255, 0). If the ambientLight() emits
+         *   the color white (255, 255, 255), then the object
+         *   will appear yellow as it will reflect the red and
+         *   green components of the light. If the
+         *   ambientLight() emits the color red (255, 0, 0),
+         *   then the object will appear red as it will reflect
+         *   the red component of the light. If the
+         *   ambientLight() emits the color blue (0, 0, 255),
+         *   then the object will appear black, as there is no
+         *   component of the light that it can reflect.
          *
          *   You can view more materials in this example.
          *   @param v1 red or hue value relative to the current
@@ -167,19 +169,21 @@ declare module '../../index' {
 
         /**
          *   Sets the ambient color of the material. The
-         *   ambientMaterial() color is the color the object
-         *   will reflect under any lighting.
+         *   ambientMaterial() color represents the components
+         *   of the ambientLight() color that the object
+         *   reflects.
          *
          *   Consider an ambientMaterial() with the color
-         *   yellow (255, 255, 0). If the light emits the color
-         *   white (255, 255, 255), then the object will appear
-         *   yellow as it will reflect the red and green
-         *   components of the light. If the light emits the
-         *   color red (255, 0, 0), then the object will appear
-         *   red as it will reflect the red component of the
-         *   light. If the light emits the color blue (0, 0,
-         *   255), then the object will appear black, as there
-         *   is no component of the light that it can reflect.
+         *   yellow (255, 255, 0). If the ambientLight() emits
+         *   the color white (255, 255, 255), then the object
+         *   will appear yellow as it will reflect the red and
+         *   green components of the light. If the
+         *   ambientLight() emits the color red (255, 0, 0),
+         *   then the object will appear red as it will reflect
+         *   the red component of the light. If the
+         *   ambientLight() emits the color blue (0, 0, 255),
+         *   then the object will appear black, as there is no
+         *   component of the light that it can reflect.
          *
          *   You can view more materials in this example.
          *   @param gray number specifying value between white
@@ -190,19 +194,21 @@ declare module '../../index' {
 
         /**
          *   Sets the ambient color of the material. The
-         *   ambientMaterial() color is the color the object
-         *   will reflect under any lighting.
+         *   ambientMaterial() color represents the components
+         *   of the ambientLight() color that the object
+         *   reflects.
          *
          *   Consider an ambientMaterial() with the color
-         *   yellow (255, 255, 0). If the light emits the color
-         *   white (255, 255, 255), then the object will appear
-         *   yellow as it will reflect the red and green
-         *   components of the light. If the light emits the
-         *   color red (255, 0, 0), then the object will appear
-         *   red as it will reflect the red component of the
-         *   light. If the light emits the color blue (0, 0,
-         *   255), then the object will appear black, as there
-         *   is no component of the light that it can reflect.
+         *   yellow (255, 255, 0). If the ambientLight() emits
+         *   the color white (255, 255, 255), then the object
+         *   will appear yellow as it will reflect the red and
+         *   green components of the light. If the
+         *   ambientLight() emits the color red (255, 0, 0),
+         *   then the object will appear red as it will reflect
+         *   the red component of the light. If the
+         *   ambientLight() emits the color blue (0, 0, 255),
+         *   then the object will appear black, as there is no
+         *   component of the light that it can reflect.
          *
          *   You can view more materials in this example.
          *   @param color color as a p5.Color, as an array, or

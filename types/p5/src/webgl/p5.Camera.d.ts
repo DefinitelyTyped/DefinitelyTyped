@@ -81,6 +81,41 @@ declare module '../../index' {
         setPosition(x: number, y: number, z: number): void;
 
         /**
+         *   Copies information about the argument camera's
+         *   view and projection to the target camera. If the
+         *   target camera is active, it will be reflected on
+         *   the screen.
+         *   @param cam source camera
+         */
+        set(cam: Camera): void;
+
+        /**
+         *   For the cameras cam0 and cam1 with the given
+         *   arguments, their view are combined with the
+         *   parameter amt that represents the quantity, and
+         *   the obtained view is applied. For example, if cam0
+         *   is looking straight ahead and cam1 is looking
+         *   straight to the right and amt is 0.5, the applied
+         *   camera will look to the halfway between front and
+         *   right. If the applied camera is active, the
+         *   applied result will be reflected on the screen.
+         *   When applying this function, all cameras involved
+         *   must have exactly the same projection settings.
+         *   For example, if one is perspective, ortho,
+         *   frustum, the other two must also be perspective,
+         *   ortho, frustum respectively. However, if all
+         *   cameras have ortho settings, interpolation is
+         *   possible if the ratios of left, right, top and
+         *   bottom are equal to each other. For example, when
+         *   it is changed by orbitControl().
+         *   @param cam0 first p5.Camera
+         *   @param cam1 second p5.Camera
+         *   @param amt amount to use for interpolation during
+         *   slerp
+         */
+        slerp(cam0: Camera, cam1: Camera, amt: number): void;
+
+        /**
          *   camera position value on x axis
          */
         eyeX: number;
@@ -242,8 +277,9 @@ declare module '../../index' {
          *   simply in many cases by using perspective().
          *
          *   If no parameters are given, the following default
-         *   is used: frustum(-width/2, width/2, -height/2,
-         *   height/2, 0, max(width, height)).
+         *   is used: frustum(-width/20, width/20, height/20,
+         *   -height/20, eyeZ/10, eyeZ*10), where eyeZ is equal
+         *   to ((height/2) / tan(PI/6)).
          *   @param [left] camera frustum left plane
          *   @param [right] camera frustum right plane
          *   @param [bottom] camera frustum bottom plane

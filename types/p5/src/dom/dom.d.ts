@@ -3,7 +3,7 @@
 import * as p5 from '../../index';
 
 declare module '../../index' {
-    class MediaElement {
+    class MediaElement extends Element {
         /**
          *   Extends p5.Element to handle audio and video. In
          *   addition to the methods of p5.Element, it also
@@ -447,6 +447,11 @@ declare module '../../index' {
          *   disabled.
          *   - .disable(value) marks a given option as
          *   disabled.
+         *   - .enable() marks the whole dropdown element as
+         *   enabled if whole dropdown element is disabled
+         *   intially.
+         *   - .enable(value) marks a given option as enable if
+         *   the initial option is disabled.
          *   @param [multiple] true if dropdown should support
          *   multiple selections
          *   @return pointer to p5.Element holding created node
@@ -474,6 +479,11 @@ declare module '../../index' {
          *   disabled.
          *   - .disable(value) marks a given option as
          *   disabled.
+         *   - .enable() marks the whole dropdown element as
+         *   enabled if whole dropdown element is disabled
+         *   intially.
+         *   - .enable(value) marks a given option as enable if
+         *   the initial option is disabled.
          *   @param existing DOM select element
          */
         createSelect(existing: object): Element;

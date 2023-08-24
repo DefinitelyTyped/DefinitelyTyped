@@ -210,8 +210,8 @@ declare module '../../index' {
          *   p5.Image.get()
          *   @param x x-coordinate of the pixel
          *   @param y y-coordinate of the pixel
-         *   @param w width
-         *   @param h height
+         *   @param w width of the section to be returned
+         *   @param h height of the section to be returned
          *   @return the rectangle p5.Image
          */
         get(x: number, y: number, w: number, h: number): Image;
