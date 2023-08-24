@@ -5,5 +5,5 @@ export interface LabelKeyObject {
 
 export type Data = object[];
 export type Headers = LabelKeyObject[] | string[];
-declare function toCsv(data: object[], headers: Headers, separator?: string | undefined, enclosingCharacter?: string | undefined): string;
+declare function toCsv(data: object[], headers: Headers, separator?: string, enclosingCharacter?: string): string;
 export { toCsv };
