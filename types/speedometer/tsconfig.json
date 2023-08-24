@@ -12,7 +12,6 @@
         "typeRoots": [
             "../"
         ],
-        "esModuleInterop": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
