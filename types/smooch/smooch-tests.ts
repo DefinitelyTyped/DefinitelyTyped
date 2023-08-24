@@ -1,25 +1,25 @@
 import Smooch = require('smooch');
 
 // Events
-Smooch.on('ready', () => { });
-Smooch.on('destroy', () => { });
-Smooch.on('participant:added', (participant: ConversationParticipant, data: ConversationData) => { });
-Smooch.on('participant:removed', (participant: ConversationParticipant, data: ConversationData) => { });
-Smooch.on('conversation:added', (participants: ConversationParticipant[], data: ConversationData) => { });
-Smooch.on('conversation:read', (payload: ConversationReadEventPayload, data: ConversationData) => { });
-Smooch.on('conversation:removed', (data: ConversationData) => { });
-Smooch.on('message:received', (message: Message, data: ConversationData) => { });
-Smooch.on('message:sent', (message: Message, data: ConversationData) => { });
-Smooch.on('message', (message: Message, data: ConversationData) => { });
-Smooch.on('unreadCount', (unreadCount: number, data: ConversationData) => { });
-Smooch.on('widget:opened', () => { });
-Smooch.on('widget:closed', () => { });
-Smooch.on('log:debug', (e: DebugLog) => { });
-Smooch.on('connected', (data: ConversationData) => { });
-Smooch.on('disconnected', (data: ConversationData) => { });
-Smooch.on('reconnecting', (data: ConversationData) => { });
-Smooch.on('typing:start', (data: ConversationData) => { });
-Smooch.on('typing:stop', (data: ConversationData) => { });
+Smooch.on('ready', () => {});
+Smooch.on('destroy', () => {});
+Smooch.on('participant:added', (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.on('participant:removed', (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.on('conversation:added', (participants: ConversationParticipant[], data: ConversationData) => {});
+Smooch.on('conversation:read', (payload: ConversationReadEventPayload, data: ConversationData) => {});
+Smooch.on('conversation:removed', (data: ConversationData) => {});
+Smooch.on('message:received', (message: Message, data: ConversationData) => {});
+Smooch.on('message:sent', (message: Message, data: ConversationData) => {});
+Smooch.on('message', (message: Message, data: ConversationData) => {});
+Smooch.on('unreadCount', (unreadCount: number, data: ConversationData) => {});
+Smooch.on('widget:opened', () => {});
+Smooch.on('widget:closed', () => {});
+Smooch.on('log:debug', (e: DebugLog) => {});
+Smooch.on('connected', (data: ConversationData) => {});
+Smooch.on('disconnected', (data: ConversationData) => {});
+Smooch.on('reconnecting', (data: ConversationData) => {});
+Smooch.on('typing:start', (data: ConversationData) => {});
+Smooch.on('typing:stop', (data: ConversationData) => {});
 
 // InitOptions must always have integrationId
 // @ts-expect-error
@@ -94,3 +94,11 @@ if (message) {
     message.type === 'location';
     message.type === 'template';
 }
+
+// @ts-expect-error
+Smooch.render();
+// @ts-expect-error
+Smooch.render('Not an HTML element');
+
+const el = document.createElement('div');
+Smooch.render(el);
