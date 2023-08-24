@@ -429,6 +429,7 @@ interface XRSession extends EventTarget {
     readonly frameRate?: number | undefined;
     readonly supportedFrameRates?: Float32Array | undefined;
     readonly enabledFeatures?: string[] | undefined;
+    readonly isSystemKeyboardSupported: boolean;
 
     /**
      * Removes a callback from the animation frame painting callback from
