@@ -1,5 +1,5 @@
-import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
+import * as remote from 'selenium-webdriver/remote';
 
 function TestRemoteFileDetector() {
     const driver: webdriver.WebDriver = new webdriver.Builder()

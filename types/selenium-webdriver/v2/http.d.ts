@@ -93,7 +93,6 @@ export function sendRequest(options: Object, onOk: any, onError: any, opt_data?:
  *
  * [json]: https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
  * [w3c]: https://w3c.github.io/webdriver/webdriver-spec.html
- *
  */
 export class Executor {
     /**

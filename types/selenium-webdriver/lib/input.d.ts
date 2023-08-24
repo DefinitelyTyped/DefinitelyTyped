@@ -105,7 +105,6 @@ export interface IKey {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
  */
 export const Key: IKey;
 
@@ -138,7 +137,6 @@ export class Keyboard extends Device {}
  *         dragAndDrop(element3, element4).
  *         keyUp(Key.SHIFT).
  *         perform();
- *
  */
 export class Actions {
     // region Constructors

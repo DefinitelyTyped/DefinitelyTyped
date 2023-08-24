@@ -1,7 +1,7 @@
-import * as firefox from 'selenium-webdriver/firefox';
-import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
+import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
+import * as remote from 'selenium-webdriver/remote';
 
 function TestFirefoxDriver() {
     let driver: firefox.Driver = firefox.Driver.createSession();

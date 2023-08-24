@@ -1,6 +1,6 @@
+import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
-import * as webdriver from 'selenium-webdriver';
 
 async function TestChromeDriver() {
     let driver: chrome.Driver = chrome.Driver.createSession();
@@ -30,7 +30,7 @@ function TestChromeOptions() {
     options = chrome.Options.fromCapabilities(webdriver.Capabilities.chrome());
 
     options = options.addArguments('a', 'b', 'c');
-    options = options.debuggerAddress('127.0.0.1:9223')
+    options = options.debuggerAddress('127.0.0.1:9223');
     options = options.addExtensions('a', 'b', 'c');
     options = options.excludeSwitches('a', 'b', 'c');
     options = options.detachDriver(true);

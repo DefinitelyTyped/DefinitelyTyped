@@ -1,10 +1,9 @@
+import * as http from './http';
 import * as webdriver from './index';
 import * as remote from './remote';
-import * as http from './http';
 
 /**
  * Creates a new WebDriver client for Chrome.
- *
  */
 export class Driver extends webdriver.WebDriver {
     /**
@@ -49,8 +48,7 @@ export interface IPerfLoggingPrefs {
  * Class for managing ChromeDriver specific options.
  */
 export class Options {
-    /**
-     */
+    /** */
     constructor();
 
     /**
@@ -272,7 +270,6 @@ export class Options {
      *     });
      *
      *     let driver = new chrome.Driver(options);
-     *
      *
      * [em]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
      * [devem]: https://developer.chrome.com/devtools/docs/device-mode
