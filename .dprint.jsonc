@@ -37,7 +37,6 @@
   "lineWidth": 120,
   "typescript": {
     "arrowFunction.useParentheses": "preferNone",
-    "quoteStyle": "alwaysSingle",
     "trailingCommas": "onlyMultiLine"
   }
 }
