@@ -3,6 +3,19 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare namespace diff_match_patch
+{
+    type Diff = [number, string];
+
+    interface patch_obj {
+        diffs: diff_match_patch.Diff[];
+        start1: number | null;
+        start2: number | null;
+        length1: number;
+        length2: number;
+    }
+}
+
 declare class diff_match_patch {
     Diff_Timeout: number;
     Diff_EditCost: number;
@@ -82,19 +95,6 @@ declare class diff_match_patch {
     static DIFF_DELETE: -1;
     static DIFF_INSERT: 1;
     static DIFF_EQUAL: 0;
-}
-
-declare namespace diff_match_patch
-{
-    type Diff = [number, string];
-
-    interface patch_obj {
-        diffs: diff_match_patch.Diff[];
-        start1: number | null;
-        start2: number | null;
-        length1: number;
-        length2: number;
-    }
 }
 
 export = diff_match_patch;
