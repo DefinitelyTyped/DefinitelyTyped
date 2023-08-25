@@ -562,7 +562,7 @@ declare namespace jwplayer {
         minDvrWindow?: number;
         preload?: Preload;
         recommendations?: string;
-        sources: [Source];
+        sources: Source[]; // This is a "shortened" version of allSources that only contains one item
         starttime?: number;
         tags?: string;
         title: string;
