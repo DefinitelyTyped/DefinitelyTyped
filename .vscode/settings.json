@@ -1,7 +1,6 @@
 {
-    "[typescript]": {
-      "editor.defaultFormatter": "dprint.dprint",
-      "editor.formatOnSave": true
-    }
+  "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint",
+    "editor.formatOnSave": true
   }
-  
+}

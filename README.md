@@ -651,11 +651,11 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 #### Are Files Formatted Automatically?
 
-Yes, using [dprint](https://dprint.dev).
+They will be _soon_, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
 
 Pull requests do not require correct formatting to be merged.
-Our tooling will automatically apply any needed formatting changes for you as part of the pull request merge process.
+Soon, we will automatically apply any needed formatting changes as an automatic quick followup commit on the `master` branch.
 
 ## License
 
